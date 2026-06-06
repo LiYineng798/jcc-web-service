@@ -1,0 +1,16 @@
+[Unit]
+Description=JCC Lineup Manager
+After=network.target
+
+[Service]
+WorkingDirectory=/opt/jcc/jcc_git
+Environment="JCC_SECRET_KEY=replace-with-random-secret"
+Environment="JCC_ADMIN_USERNAME=replace-admin-user"
+Environment="JCC_ADMIN_PASSWORD=replace-admin-password"
+Environment="JCC_LIVE_COMPS_UPLOAD_TOKEN=replace-upload-token"
+ExecStart=/opt/jcc/jcc_git/.venv/bin/gunicorn -w 2 -b 127.0.0.1:5000 app:app
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target

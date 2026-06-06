@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>阵容模拟器</title>
+    <base href="{{ url_for('static', filename='tools/lineup-simulator/') }}" />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <a class="simulator-back-link" href="/" aria-label="返回阵容库">← 返回阵容库</a>
+    <main id="simulator-root" class="simulator-shell simulator-shell--three-column">
+      <header class="simulator-topbar">
+        <div>
+          <p class="simulator-kicker">JCC TOOL</p>
+          <h1>阵容模拟器</h1>
+        </div>
+        <p class="simulator-quick-guide">电脑端可拖拽，手机端可点击弈子上阵；选择装备后点棋盘英雄即可装备。</p>
+      </header>
+      <aside class="simulator-side simulator-hero-panel simulator-tool-panel">
+        <section class="panel-shell panel-shell--heroes">
+          <div class="simulator-side-heading">
+            <p class="simulator-side-kicker">HEROES</p>
+            <h2 class="simulator-side-title">弈子库</h2>
+          </div>
+          <section id="heroes-panel" class="panel-body">
+            <div class="panel-search">
+              <input id="hero-search" class="search-input" type="text" placeholder="搜索弈子或羁绊" />
+            </div>
+            <div id="hero-cost-filters" class="filter-row" aria-label="弈子费用筛选"></div>
+            <div id="hero-list" class="pool-grid hero-grid" aria-live="polite"></div>
+          </section>
+
+        </section>
+      </aside>
+
+      <section class="simulator-center simulator-board-panel">
+        <div class="battle-card-shell">
+          <section class="battle-card" aria-label="战场卡片">
+            <div id="battle-card-background" class="battle-card-background" aria-hidden="true">
+              <div class="battle-card-background-gradient"></div>
+              <div class="battle-card-background-image"></div>
+              <div class="battle-card-background-glow"></div>
+              <div class="battle-card-background-glass"></div>
+            </div>
+
+            <div class="battle-card-content">
+              <div id="battle-card-board-area" class="battle-card-board-area">
+                <div id="battle-card-board-scale" class="battle-card-board-scale">
+                  <div class="board-panel battle-card-board-panel">
+                    <div id="board-grid" class="lineup-list" role="grid" aria-label="棋盘 28 格">
+                      <div class="lineup-item" role="gridcell" aria-label="Slot 1"><div class="lineup"></div></div>
+                      <div class="lineup-item" role="gridcell" aria-label="Slot 2"><div class="lineup"></div></div>
+                      <div class="lineup-item" role="gridcell" aria-label="Slot 3"><div class="lineup"></div></div>
+                      <div class="lineup-item" role="gridcell" aria-label="Slot 4"><div class="lineup"></div></div>
+                      <div class="lineup-item" role="gridcell" aria-label="Slot 5"><div class="lineup"></div></div>
+                      <div class="lineup-item" role="gridcell" aria-label="Slot 6"><div class="lineup"></div></div>
+                      <div class="lineup-item" role="gridcell" aria-label="Slot 7"><div class="lineup"></div></div>
+
+                      <div class="lineup-item" role="gridcell" aria-label="Slot 8"><div class="lineup"></div></div>
+                      <div class="lineup-item" role="gridcell" aria-label="Slot 9"><div class="lineup"></div></div>
+                      <div class="lineup-item" role="gridcell" aria-label="Slot 10"><div class="lineup"></div></div>
+                      <div class="lineup-item" role="gridcell" aria-label="Slot 11"><div class="lineup"></div></div>
+                      <div class="lineup-item" role="gridcell" aria-label="Slot 12"><div class="lineup"></div></div>
+                      <div class="lineup-item" role="gridcell" aria-label="Slot 13"><div class="lineup"></div></div>
+                      <div class="lineup-item" role="gridcell" aria-label="Slot 14"><div class="lineup"></div></div>
+
+                      <div class="lineup-item" role="gridcell" aria-label="Slot 15"><div class="lineup"></div></div>
+                      <div class="lineup-item" role="gridcell" aria-label="Slot 16"><div class="lineup"></div></div>
+                      <div class="lineup-item" role="gridcell" aria-label="Slot 17"><div class="lineup"></div></div>
+                      <div class="lineup-item" role="gridcell" aria-label="Slot 18"><div class="lineup"></div></div>
+                      <div class="lineup-item" role="gridcell" aria-label="Slot 19"><div class="lineup"></div></div>
+                      <div class="lineup-item" role="gridcell" aria-label="Slot 20"><div class="lineup"></div></div>
+                      <div class="lineup-item" role="gridcell" aria-label="Slot 21"><div class="lineup"></div></div>
+
+                      <div class="lineup-item" role="gridcell" aria-label="Slot 22"><div class="lineup"></div></div>
+                      <div class="lineup-item" role="gridcell" aria-label="Slot 23"><div class="lineup"></div></div>
+                      <div class="lineup-item" role="gridcell" aria-label="Slot 24"><div class="lineup"></div></div>
+                      <div class="lineup-item" role="gridcell" aria-label="Slot 25"><div class="lineup"></div></div>
+                      <div class="lineup-item" role="gridcell" aria-label="Slot 26"><div class="lineup"></div></div>
+                      <div class="lineup-item" role="gridcell" aria-label="Slot 27"><div class="lineup"></div></div>
+                      <div class="lineup-item" role="gridcell" aria-label="Slot 28"><div class="lineup"></div></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <section id="trait-panel" class="trait-panel battle-card-trait-panel">
+                <h2 class="trait-panel-title">羁绊</h2>
+                <div id="trait-list" class="trait-list" aria-live="polite"></div>
+              </section>
+            </div>
+          </section>
+        </div>
+
+        <div class="board-actions">
+          <div id="trash-dropzone" class="trash-dropzone" aria-label="垃圾桶拖拽区域">
+            <span class="trash-icon">🗑</span>
+            <span class="trash-text">把棋盘里的弈子拖到这里删除</span>
+          </div>
+        </div>
+      </section>
+
+
+      <aside class="simulator-side simulator-equip-panel">
+        <section class="panel-shell panel-shell--equips">
+          <div class="simulator-side-heading">
+            <p class="simulator-side-kicker">EQUIPS</p>
+            <h2 class="simulator-side-title">装备库</h2>
+          </div>
+          <section id="equips-panel" class="panel-body">
+            <div class="panel-search">
+              <input id="equip-search" class="search-input" type="text" placeholder="搜索装备名称" />
+            </div>
+            <div id="equip-type-tabs" class="filter-row" aria-label="装备分类筛选"></div>
+            <div id="equip-list" class="pool-grid equip-grid" aria-live="polite"></div>
+          </section>
+
+          <div class="panel-footer-actions board-action-buttons simulator-board-actions">
+            <button id="toggle-name-button" class="board-action-button is-active" type="button" aria-pressed="true">隐藏名字</button>
+            <button id="reset-board-button" class="reset-button" type="button">一键重置棋盘</button>
+          </div>
+          <p class="equip-removal-hint">提示：点击英雄身上的装备可移除；点击英雄右上角 × 可删除弈子。</p>
+        </section>
+      </aside>
+    </main>
+
+    <script src="./app.js"></script>
+  </body>
+</html>

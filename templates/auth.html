@@ -1,0 +1,64 @@
+﻿<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>登录 / 注册 - 金铲铲阵容库</title>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+  </head>
+  <body>
+    <div class="page-shell auth-page-shell">
+      <nav class="nav-bar" aria-label="页面工具">
+        <a class="ghost-link" href="/">返回阵容库</a>
+        <button class="theme-toggle" id="themeToggle" type="button" aria-label="切换深浅色模式">
+          <span id="themeIcon">☾</span>
+          <span id="themeText">夜间模式</span>
+        </button>
+      </nav>
+
+      <header class="auth-hero">
+        <p class="eyebrow">Account</p>
+        <h1>登录 / 注册</h1>
+        <p class="hero-description auth-benefits">登录后可收藏阵容并跨设备同步，登录后可发布和管理自己的阵容，登录后可查看我的收藏、我的阵容和个人记录。</p>
+      </header>
+
+      <section class="panel auth-panel standalone-auth-panel" aria-label="登录注册区域">
+        <div class="auth-page-status" id="authStatus">正在检查登录状态...</div>
+        <div class="auth-grid" id="authForms">
+          <form id="loginForm" class="mini-form">
+            <h2>登录</h2>
+            <input id="loginAccount" placeholder="用户名或邮箱" />
+            <input id="loginPassword" type="password" placeholder="密码" />
+            <button class="primary-button" type="submit">登录</button>
+          </form>
+
+          <form id="registerForm" class="mini-form">
+            <h2>注册</h2>
+            <input id="registerUsername" placeholder="用户名" />
+            <input id="registerEmail" type="email" placeholder="邮箱" />
+            <input id="registerNickname" placeholder="昵称（公开展示）" />
+            <input id="registerPassword" type="password" placeholder="密码：大于5位，含字母和数字" />
+            <div class="captcha-row">
+              <img id="captchaImage" alt="验证码" />
+              <button class="small-button" id="refreshCaptcha" type="button">换一张</button>
+            </div>
+            <input id="captchaAnswer" placeholder="输入验证码" />
+            <button class="primary-button" type="submit">注册</button>
+          </form>
+        </div>
+        <div class="auth-actions">
+          <a class="primary-link hidden" id="adminLink" href="/admin">进入管理员后台</a>
+          <button class="ghost-button hidden" id="logoutButton" type="button">退出登录</button>
+        </div>
+        <div class="message" id="message" role="status" aria-live="polite"></div>
+      </section>
+    </div>
+    <script src="{{ url_for('static', filename='history-store.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='auth-intent.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='auth.js') }}" defer></script>
+  </body>
+</html>

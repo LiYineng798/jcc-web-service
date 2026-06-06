@@ -1,0 +1,26 @@
+[
+  {
+    "id": "18406",
+    "name": "圣物",
+    "image": "webp/assets/pets/18406.webp",
+    "entityType": "pet"
+  },
+  {
+    "id": "18407",
+    "name": "羊咩咩 & 咩咩羊",
+    "image": "webp/assets/pets/18407.webp",
+    "entityType": "pet"
+  },
+  {
+    "id": "18408",
+    "name": "羊咩咩 & 咩咩羊",
+    "image": "webp/assets/pets/18408.webp",
+    "entityType": "pet"
+  },
+  {
+    "id": "18428",
+    "name": "暗星召唤物",
+    "image": "webp/assets/pets/18428.webp",
+    "entityType": "pet"
+  }
+]

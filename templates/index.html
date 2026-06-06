@@ -1,0 +1,122 @@
+﻿<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>金铲铲阵容库</title>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="hero">
+        <nav class="nav-bar" aria-label="页面工具">
+          <div class="brand-mark" aria-hidden="true">阵</div>
+          <div class="nav-actions">
+{% if simulator_enabled %}
+            <a class="ghost-link nav-tool-link" href="/tools/lineup-simulator">阵容模拟器</a>
+{% endif %}
+            <a class="ghost-link nav-tool-link" href="/patch-notes">更新公告</a>
+            <button class="theme-toggle nav-icon-button image-mode-toggle" id="imageModeToggle" type="button" aria-pressed="false" aria-label="切换为首页有图片模式">
+              <span class="image-mode-icon" id="imageModeIcon" aria-hidden="true">无</span>
+              <span id="imageModeText">无图</span>
+            </button>
+            <button class="theme-toggle nav-icon-button" id="themeToggle" type="button" aria-label="切换深浅色模式">
+              <span id="themeIcon">☾</span>
+              <span id="themeText">夜间模式</span>
+            </button>
+            <div class="account-menu-wrap" id="accountMenuWrap">
+              <button class="account-toggle" id="accountToggle" type="button" aria-haspopup="menu" aria-expanded="false">
+                <span id="accountToggleText">登录 / 注册</span>
+                <span class="account-chevron" aria-hidden="true">⌄</span>
+              </button>
+              <div class="account-menu hidden" id="accountMenu" role="menu">
+                <a class="account-menu-item" id="menuAuthLink" href="/auth" role="menuitem">登录 / 注册</a>
+                <a class="account-menu-item hidden" id="menuAccountLink" href="/me" role="menuitem">个人中心</a>
+                <a class="account-menu-item hidden" id="menuCreateLineupLink" href="/lineup/new" role="menuitem">新增阵容</a>
+                <a class="account-menu-item hidden" id="menuAdminLink" href="/admin" role="menuitem">后台管理</a>
+                <button class="account-menu-item account-menu-danger hidden" id="menuLogoutButton" type="button" role="menuitem">退出登录</button>
+              </div>
+            </div>
+          </div>
+        </nav>
+        <div class="hero-grid">
+          <section class="hero-copy">
+            <p class="eyebrow">JCC Lineup Manager</p>
+            <h1>金铲铲阵容库</h1>
+            <p class="hero-description hero-benefits" id="heroDescription">保存、搜索、点赞和复制阵容码。登录后可收藏阵容并跨设备同步，登录后可查看我的收藏和我的阵容。</p>
+          </section>
+          <section class="stat-card" aria-label="阵容统计">
+            <span class="stat-label">已展示</span>
+            <strong id="lineupCount">0</strong>
+            <span class="stat-caption">套阵容</span>
+            <a class="primary-link stat-action-link" id="createLineupLink" href="/auth">登录后新增阵容</a>
+          </section>
+        </div>
+      </header>
+
+{% if notice %}
+      <div class="site-notice" id="siteNotice">
+        <div class="site-notice-body">
+          <strong class="site-notice-title">{{ notice.title }}</strong>
+          <div class="site-notice-marquee" aria-label="通知内容">
+            <div class="site-notice-marquee-track">
+          <p class="site-notice-text">{{ notice.message }}</p>
+{% if notice.link_url and notice.link_text %}
+          <a class="site-notice-link" href="{{ notice.link_url }}" target="_blank" rel="noopener">{{ notice.link_text }} &rarr;</a>
+{% endif %}
+            </div>
+          </div>
+        </div>
+        <button class="site-notice-close" id="siteNoticeClose" aria-label="关闭通知">&times;</button>
+      </div>
+{% endif %}
+
+      <main class="content-grid">
+        <section class="panel list-panel list-panel-full" aria-labelledby="listTitle">
+          <div class="panel-heading list-heading">
+            <div class="list-heading-left">
+              <p class="section-kicker">Library</p>
+              <div class="list-heading-main">
+                <h2 id="listTitle">阵容列表</h2>
+                <div class="season-menu-wrap" id="seasonMenuWrap">
+                  <button class="account-toggle season-toggle" id="seasonFilterToggle" type="button" aria-haspopup="menu" aria-expanded="false">
+                    <span id="seasonFilterText">S17 · 星神</span>
+                    <span class="account-chevron" aria-hidden="true">⌄</span>
+                  </button>
+                  <div class="account-menu hidden season-menu" id="seasonFilterMenu" role="menu"></div>
+                </div>
+              </div>
+            </div>
+            <label class="search-field"><span class="sr-only">搜索阵容名称</span><input id="searchInput" type="search" placeholder="搜索阵容名称，例如：九五、卡莎、斗士" /></label>
+          </div>
+          <div class="tabs" id="tabs">
+            <button class="tab active" data-sort="live" data-view="live-comps">实时阵容排行</button>
+            <button class="tab" data-sort="latest" data-view="all">最新</button>
+            <button class="tab" data-sort="hot" data-view="all">最热</button>
+            <button class="tab" data-sort="rising" data-view="all">上升</button>
+            <button class="tab" data-sort="recommended" data-view="all">推荐</button>
+            <button class="tab" data-sort="ss" data-view="all">SS</button>
+            <button class="tab" id="favoritesTab" data-sort="latest" data-view="favorites">我的收藏</button>
+            <button class="tab hidden" id="mineTab" data-sort="latest" data-view="mine">我的</button>
+          </div>
+          <div class="message" id="message" role="status" aria-live="polite"></div>
+          <div class="lineup-list" id="lineupList" data-author-link-class="author-link"></div>
+          <div class="pagination" id="pagination"></div>
+          <div class="empty-state hidden" id="emptyState"><div class="empty-icon">⌘</div><h3>还没有阵容</h3><p>登录后可收藏阵容并随时找回，也可以上传第一套阵容或切换到全部阵容查看公开内容。</p></div>
+        </section>
+      </main>
+      <div class="guestbook-trigger" id="guestbookTrigger">
+        <button type="button">给站长留言</button>
+      </div>
+    </div>
+    <div id="authPromptRoot"></div>
+    <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
+    <script src="{{ url_for('static', filename='history-store.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='auth-intent.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='app.js') }}" defer></script>
+  </body>
+</html>

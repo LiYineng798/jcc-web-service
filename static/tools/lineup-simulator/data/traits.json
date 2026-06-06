@@ -1,0 +1,689 @@
+[
+  {
+    "id": "403",
+    "name": "暗星",
+    "type": "race",
+    "image": "webp/mode17s18_trait_icons/s17_trait_icon_darkstar.webp",
+    "levels": [
+      {
+        "level": 1,
+        "count": 2,
+        "color": 1
+      },
+      {
+        "level": 2,
+        "count": 4,
+        "color": 2
+      },
+      {
+        "level": 3,
+        "count": 6,
+        "color": 3
+      },
+      {
+        "level": 4,
+        "count": 9,
+        "color": 4
+      }
+    ]
+  },
+  {
+    "id": "404",
+    "name": "霸天机甲",
+    "type": "race",
+    "image": "webp/mode17s18_trait_icons/s17_trait_icon_mecha.webp",
+    "levels": [
+      {
+        "level": 1,
+        "count": 3,
+        "color": 1
+      },
+      {
+        "level": 2,
+        "count": 4,
+        "color": 2
+      },
+      {
+        "level": 3,
+        "count": 6,
+        "color": 3
+      }
+    ]
+  },
+  {
+    "id": "310",
+    "name": "堡垒卫士",
+    "type": "job",
+    "image": "webp/mode17s18_trait_icons/s17_trait_icon_bastion.webp",
+    "levels": [
+      {
+        "level": 1,
+        "count": 2,
+        "color": 1
+      },
+      {
+        "level": 2,
+        "count": 4,
+        "color": 2
+      },
+      {
+        "level": 3,
+        "count": 6,
+        "color": 3
+      }
+    ]
+  },
+  {
+    "id": "421",
+    "name": "斗神",
+    "type": "race",
+    "image": "webp/mode17s18_trait_icons/s17_trait_icon_divineduelist.webp",
+    "levels": [
+      {
+        "level": 1,
+        "count": 1,
+        "color": 5
+      }
+    ]
+  },
+  {
+    "id": "311",
+    "name": "斗士",
+    "type": "job",
+    "image": "webp/mode17s18_trait_icons/s17_trait_icon_brawler.webp",
+    "levels": [
+      {
+        "level": 1,
+        "count": 2,
+        "color": 1
+      },
+      {
+        "level": 2,
+        "count": 4,
+        "color": 2
+      },
+      {
+        "level": 3,
+        "count": 6,
+        "color": 3
+      }
+    ]
+  },
+  {
+    "id": "401",
+    "name": "法官",
+    "type": "race",
+    "image": "webp/mode17s18_trait_icons/s17_trait_icon_arbiter.webp",
+    "levels": [
+      {
+        "level": 1,
+        "count": 2,
+        "color": 1
+      },
+      {
+        "level": 2,
+        "count": 3,
+        "color": 3
+      }
+    ]
+  },
+  {
+    "id": "422",
+    "name": "根除者",
+    "type": "race",
+    "image": "webp/mode17s18_trait_icons/s17_trait_icon_destroyer.webp",
+    "levels": [
+      {
+        "level": 1,
+        "count": 1,
+        "color": 5
+      }
+    ]
+  },
+  {
+    "id": "419",
+    "name": "狗狗机器人",
+    "type": "race",
+    "image": "webp/mode17s18_trait_icons/s17_trait_icon_partyanimal.webp",
+    "levels": [
+      {
+        "level": 1,
+        "count": 1,
+        "color": 5
+      }
+    ]
+  },
+  {
+    "id": "409",
+    "name": "观星者",
+    "type": "race",
+    "image": "webp/mode17s18_trait_icons/s17_trait_icon_stargazer.webp",
+    "levels": [
+      {
+        "level": 1,
+        "count": 3,
+        "color": 1
+      },
+      {
+        "level": 2,
+        "count": 4,
+        "color": 2
+      },
+      {
+        "level": 3,
+        "count": 5,
+        "color": 2
+      },
+      {
+        "level": 4,
+        "count": 6,
+        "color": 3
+      }
+    ]
+  },
+  {
+    "id": "406",
+    "name": "海魔人",
+    "type": "race",
+    "image": "webp/mode17s18_trait_icons/s17_trait_icon_primordian.webp",
+    "levels": [
+      {
+        "level": 1,
+        "count": 2,
+        "color": 1
+      },
+      {
+        "level": 2,
+        "count": 3,
+        "color": 3
+      }
+    ]
+  },
+  {
+    "id": "420",
+    "name": "黑暗魔女",
+    "type": "race",
+    "image": "webp/mode17s18_trait_icons/s17_trait_icon_darklady.webp",
+    "levels": [
+      {
+        "level": 1,
+        "count": 1,
+        "color": 5
+      }
+    ]
+  },
+  {
+    "id": "400",
+    "name": "幻灵战队",
+    "type": "race",
+    "image": "webp/mode17s18_trait_icons/s17_trait_icon_animatech.webp",
+    "levels": [
+      {
+        "level": 1,
+        "count": 3,
+        "color": 1
+      },
+      {
+        "level": 2,
+        "count": 6,
+        "color": 3
+      }
+    ]
+  },
+  {
+    "id": "418",
+    "name": "救世主",
+    "type": "race",
+    "image": "webp/mode17s18_trait_icons/s17_trait_icon_redeemer.webp",
+    "levels": [
+      {
+        "level": 1,
+        "count": 1,
+        "color": 5
+      }
+    ]
+  },
+  {
+    "id": "318",
+    "name": "狙神",
+    "type": "job",
+    "image": "webp/mode17s18_trait_icons/s17_trait_icon_sniper.webp",
+    "levels": [
+      {
+        "level": 1,
+        "count": 2,
+        "color": 1
+      },
+      {
+        "level": 2,
+        "count": 3,
+        "color": 2
+      },
+      {
+        "level": 3,
+        "count": 4,
+        "color": 3
+      }
+    ]
+  },
+  {
+    "id": "412",
+    "name": "军工1号",
+    "type": "race",
+    "image": "webp/mode17s18_trait_icons/s17_trait_icon_factorynew.webp",
+    "levels": [
+      {
+        "level": 1,
+        "count": 1,
+        "color": 5
+      }
+    ]
+  },
+  {
+    "id": "315",
+    "name": "狂战士",
+    "type": "job",
+    "image": "webp/mode17s18_trait_icons/s17_trait_icon_marauder.webp",
+    "levels": [
+      {
+        "level": 1,
+        "count": 2,
+        "color": 1
+      },
+      {
+        "level": 2,
+        "count": 4,
+        "color": 2
+      },
+      {
+        "level": 3,
+        "count": 6,
+        "color": 3
+      }
+    ]
+  },
+  {
+    "id": "407",
+    "name": "灵能特工",
+    "type": "race",
+    "image": "webp/mode17s18_trait_icons/s17_trait_icon_psionic.webp",
+    "levels": [
+      {
+        "level": 1,
+        "count": 2,
+        "color": 1
+      },
+      {
+        "level": 2,
+        "count": 4,
+        "color": 3
+      }
+    ]
+  },
+  {
+    "id": "321",
+    "name": "旅人",
+    "type": "job",
+    "image": "webp/mode17s18_trait_icons/s17_trait_icon_voyager.webp",
+    "levels": [
+      {
+        "level": 1,
+        "count": 2,
+        "color": 1
+      },
+      {
+        "level": 2,
+        "count": 3,
+        "color": 2
+      },
+      {
+        "level": 3,
+        "count": 4,
+        "color": 3
+      },
+      {
+        "level": 4,
+        "count": 5,
+        "color": 3
+      },
+      {
+        "level": 5,
+        "count": 6,
+        "color": 3
+      }
+    ]
+  },
+  {
+    "id": "316",
+    "name": "魔术师",
+    "type": "job",
+    "image": "webp/mode17s18_trait_icons/s17_trait_icon_replicator.webp",
+    "levels": [
+      {
+        "level": 1,
+        "count": 2,
+        "color": 1
+      },
+      {
+        "level": 2,
+        "count": 4,
+        "color": 3
+      }
+    ]
+  },
+  {
+    "id": "417",
+    "name": "末日使者",
+    "type": "race",
+    "image": "webp/mode17s18_trait_icons/s17_trait_icon_doomer.webp",
+    "levels": [
+      {
+        "level": 1,
+        "count": 1,
+        "color": 5
+      }
+    ]
+  },
+  {
+    "id": "402",
+    "name": "木灵族",
+    "type": "race",
+    "image": "webp/mode17s18_trait_icons/s17_trait_icon_astronaut.webp",
+    "levels": [
+      {
+        "level": 1,
+        "count": 3,
+        "color": 1
+      },
+      {
+        "level": 2,
+        "count": 5,
+        "color": 2
+      },
+      {
+        "level": 3,
+        "count": 7,
+        "color": 3
+      },
+      {
+        "level": 4,
+        "count": 10,
+        "color": 4
+      }
+    ]
+  },
+  {
+    "id": "319",
+    "name": "牧羊人",
+    "type": "job",
+    "image": "webp/mode17s18_trait_icons/s17_trait_icon_shepherd.webp",
+    "levels": [
+      {
+        "level": 1,
+        "count": 3,
+        "color": 1
+      },
+      {
+        "level": 2,
+        "count": 5,
+        "color": 2
+      },
+      {
+        "level": 3,
+        "count": 7,
+        "color": 3
+      }
+    ]
+  },
+  {
+    "id": "416",
+    "name": "暮光铁壁",
+    "type": "race",
+    "image": "webp/mode17s18_trait_icons/s17_trait_icon_bulwark.webp",
+    "levels": [
+      {
+        "level": 1,
+        "count": 1,
+        "color": 5
+      }
+    ]
+  },
+  {
+    "id": "313",
+    "name": "神谕",
+    "type": "job",
+    "image": "webp/mode17s18_trait_icons/s17_trait_icon_channeler.webp",
+    "levels": [
+      {
+        "level": 1,
+        "count": 2,
+        "color": 1
+      },
+      {
+        "level": 2,
+        "count": 3,
+        "color": 2
+      },
+      {
+        "level": 3,
+        "count": 4,
+        "color": 2
+      },
+      {
+        "level": 4,
+        "count": 5,
+        "color": 3
+      }
+    ]
+  },
+  {
+    "id": "408",
+    "name": "太空律动",
+    "type": "race",
+    "image": "webp/mode17s18_trait_icons/s17_trait_icon_spacegroove.webp",
+    "levels": [
+      {
+        "level": 1,
+        "count": 1,
+        "color": 1
+      },
+      {
+        "level": 2,
+        "count": 3,
+        "color": 2
+      },
+      {
+        "level": 3,
+        "count": 5,
+        "color": 2
+      },
+      {
+        "level": 4,
+        "count": 7,
+        "color": 3
+      },
+      {
+        "level": 5,
+        "count": 10,
+        "color": 4
+      }
+    ]
+  },
+  {
+    "id": "413",
+    "name": "天煞",
+    "type": "race",
+    "image": "webp/mode17s18_trait_icons/s17_trait_icon_galaxyhunter.webp",
+    "levels": [
+      {
+        "level": 1,
+        "count": 1,
+        "color": 5
+      }
+    ]
+  },
+  {
+    "id": "312",
+    "name": "挑战者",
+    "type": "job",
+    "image": "webp/mode17s18_trait_icons/s17_trait_icon_challenger.webp",
+    "levels": [
+      {
+        "level": 1,
+        "count": 2,
+        "color": 1
+      },
+      {
+        "level": 2,
+        "count": 3,
+        "color": 2
+      },
+      {
+        "level": 3,
+        "count": 4,
+        "color": 2
+      },
+      {
+        "level": 4,
+        "count": 5,
+        "color": 3
+      }
+    ]
+  },
+  {
+    "id": "410",
+    "name": "未来战士",
+    "type": "race",
+    "image": "webp/mode17s18_trait_icons/s17_trait_icon_timebreaker.webp",
+    "levels": [
+      {
+        "level": 1,
+        "count": 2,
+        "color": 1
+      },
+      {
+        "level": 2,
+        "count": 3,
+        "color": 2
+      },
+      {
+        "level": 3,
+        "count": 4,
+        "color": 3
+      }
+    ]
+  },
+  {
+    "id": "415",
+    "name": "武装战姬",
+    "type": "race",
+    "image": "webp/mode17s18_trait_icons/s17_trait_icon_gungoddess.webp",
+    "levels": [
+      {
+        "level": 1,
+        "count": 1,
+        "color": 5
+      }
+    ]
+  },
+  {
+    "id": "405",
+    "name": "新星特攻队",
+    "type": "race",
+    "image": "webp/mode17s18_trait_icons/s17_trait_icon_nova.webp",
+    "levels": [
+      {
+        "level": 1,
+        "count": 2,
+        "color": 1
+      },
+      {
+        "level": 2,
+        "count": 5,
+        "color": 3
+      }
+    ]
+  },
+  {
+    "id": "317",
+    "name": "游侠",
+    "type": "job",
+    "image": "webp/mode17s18_trait_icons/s17_trait_icon_rogue.webp",
+    "levels": [
+      {
+        "level": 1,
+        "count": 2,
+        "color": 1
+      },
+      {
+        "level": 2,
+        "count": 3,
+        "color": 2
+      },
+      {
+        "level": 3,
+        "count": 4,
+        "color": 3
+      },
+      {
+        "level": 4,
+        "count": 5,
+        "color": 3
+      }
+    ]
+  },
+  {
+    "id": "314",
+    "name": "织命人",
+    "type": "job",
+    "image": "webp/mode17s18_trait_icons/s17_trait_icon_fateweaver.webp",
+    "levels": [
+      {
+        "level": 1,
+        "count": 2,
+        "color": 1
+      },
+      {
+        "level": 2,
+        "count": 4,
+        "color": 3
+      }
+    ]
+  },
+  {
+    "id": "320",
+    "name": "重装战士",
+    "type": "job",
+    "image": "webp/mode17s18_trait_icons/s17_trait_icon_vanguard.webp",
+    "levels": [
+      {
+        "level": 1,
+        "count": 2,
+        "color": 1
+      },
+      {
+        "level": 2,
+        "count": 4,
+        "color": 2
+      },
+      {
+        "level": 3,
+        "count": 6,
+        "color": 3
+      }
+    ]
+  },
+  {
+    "id": "411",
+    "name": "最高指挥官",
+    "type": "race",
+    "image": "webp/mode17s18_trait_icons/s17_trait_icon_commander.webp",
+    "levels": [
+      {
+        "level": 1,
+        "count": 1,
+        "color": 5
+      }
+    ]
+  }
+]

@@ -1,0 +1,60 @@
+﻿<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>金铲铲阵容库后台</title>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+  </head>
+  <body>
+    <main class="page-shell admin-shell">
+      <header class="hero">
+        <nav class="nav-bar" aria-label="后台工具">
+          <div class="brand-mark" aria-hidden="true">阵</div>
+          <div class="nav-actions">
+            <a class="ghost-link" href="/">返回前台</a>
+            <span class="auth-status nav-user" id="adminIdentity">后台账号</span>
+            <button class="theme-toggle" id="themeToggle" type="button" aria-label="切换深浅色模式">
+              <span id="themeIcon">☾</span>
+              <span id="themeText">夜间模式</span>
+            </button>
+          </div>
+        </nav>
+        <div class="hero-grid admin-hero-grid">
+          <section class="hero-copy">
+            <p class="eyebrow">Admin Console</p>
+            <h1>后台管理</h1>
+            <p class="hero-description">查看访问数据，处理用户举报，管理阵容与账号，并保留关键审计记录。</p>
+          </section>
+          <section class="stat-card admin-hero-card" aria-label="今日访问概览">
+            <span class="stat-label">今日重点</span>
+            <strong id="heroTodayUv">0</strong>
+            <span class="stat-caption">站点 UV</span>
+            <p class="admin-summary">按自然日去重，包含游客和登录用户。</p>
+          </section>
+        </div>
+      </header>
+      <section class="panel admin-panel-shell">
+        <div class="admin-tab-bar" id="adminTabBar" role="tablist" aria-label="后台模块">
+          <button class="admin-tab is-active" data-admin-tab="overview" type="button">概览</button>
+          <button class="admin-tab" data-admin-tab="reports" type="button">举报</button>
+          <button class="admin-tab" data-admin-tab="lineups" type="button">阵容</button>
+          <button class="admin-tab" data-admin-tab="live-comps" type="button">实时阵容</button>
+          <button class="admin-tab" data-admin-tab="patch-notes" type="button">更新公告</button>
+          <button class="admin-tab" data-admin-tab="users" type="button">用户</button>
+          <button class="admin-tab" data-admin-tab="analytics" type="button">增长分析</button>
+          <button class="admin-tab" data-admin-tab="audit" type="button">审计日志</button>
+          <button class="admin-tab" data-admin-tab="guestbook" type="button">留言管理</button>
+          <button class="admin-tab" data-admin-tab="settings" type="button">设置</button>
+        </div>
+        <div id="adminApp">后台数据加载中...</div>
+      </section>
+    </main>
+    <div id="adminDialogRoot"></div>
+    <script src="{{ url_for('static', filename='admin.js', v='20260510-uv-admin-1') }}" defer></script>
+  </body>
+</html>
