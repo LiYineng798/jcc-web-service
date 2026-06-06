@@ -1,6 +1,8 @@
 import sqlite3
 from datetime import datetime
 
+import psycopg
+from psycopg.rows import dict_row
 from flask import current_app, g
 from werkzeug.security import generate_password_hash
 
@@ -21,13 +23,14 @@ def now_text():
 def get_db():
     if 'db' not in g:
         kind = database_kind(current_app.config['DATABASE_URL'])
-        if kind != 'sqlite':
-            raise RuntimeError('PostgreSQL runtime queries are not enabled yet')
-        db = sqlite3.connect(current_app.config['DATABASE'])
-        db.row_factory = sqlite3.Row
-        db.execute('PRAGMA foreign_keys = ON')
-        db.execute('PRAGMA journal_mode = WAL')
-        db.execute('PRAGMA busy_timeout = 5000')
+        if kind == 'postgres':
+            db = psycopg.connect(current_app.config['DATABASE_URL'], row_factory=dict_row)
+        else:
+            db = sqlite3.connect(current_app.config['DATABASE'])
+            db.row_factory = sqlite3.Row
+            db.execute('PRAGMA foreign_keys = ON')
+            db.execute('PRAGMA journal_mode = WAL')
+            db.execute('PRAGMA busy_timeout = 5000')
         g.db_kind = kind
         g.db = db
     return g.db
@@ -56,7 +59,22 @@ def init_db():
 
 
 def postgres_schema_ready():
-    return False
+    connection = psycopg.connect(current_app.config['DATABASE_URL'], row_factory=dict_row)
+    try:
+        with connection.cursor() as cursor:
+            cursor.execute(
+                '''
+                SELECT EXISTS (
+                    SELECT 1
+                    FROM information_schema.tables
+                    WHERE table_schema = 'public'
+                      AND table_name = 'schema_migrations'
+                ) AS exists
+                '''
+            )
+            return bool(cursor.fetchone()['exists'])
+    finally:
+        connection.close()
 
 
 def bootstrap_admin(db):
