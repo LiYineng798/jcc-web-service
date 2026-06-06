@@ -4,6 +4,7 @@ from datetime import datetime
 from flask import current_app, g
 from werkzeug.security import generate_password_hash
 
+from db_adapter import database_kind
 from lineup_cache import clear_lineup_query_caches
 from db_migrations import ensure_indexes, migrate_schema
 from db_schema import (
@@ -19,11 +20,15 @@ def now_text():
 
 def get_db():
     if 'db' not in g:
+        kind = database_kind(current_app.config['DATABASE_URL'])
+        if kind != 'sqlite':
+            raise RuntimeError('PostgreSQL runtime queries are not enabled yet')
         db = sqlite3.connect(current_app.config['DATABASE'])
         db.row_factory = sqlite3.Row
         db.execute('PRAGMA foreign_keys = ON')
         db.execute('PRAGMA journal_mode = WAL')
         db.execute('PRAGMA busy_timeout = 5000')
+        g.db_kind = kind
         g.db = db
     return g.db
 
@@ -35,6 +40,12 @@ def close_db(error=None):
 
 
 def init_db():
+    kind = database_kind(current_app.config['DATABASE_URL'])
+    if kind == 'postgres':
+        if not postgres_schema_ready():
+            raise RuntimeError('PostgreSQL schema is not initialized. Run jcc-db-service migrations before starting the web service.')
+        clear_lineup_query_caches()
+        return
     db = get_db()
     db.executescript(SCHEMA)
     admin_id = bootstrap_admin(db)
@@ -42,6 +53,10 @@ def init_db():
     ensure_indexes(db)
     clear_lineup_query_caches()
     db.commit()
+
+
+def postgres_schema_ready():
+    return False
 
 
 def bootstrap_admin(db):
