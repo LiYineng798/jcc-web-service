@@ -4,7 +4,8 @@ from datetime import datetime, timedelta
 from flask import current_app, make_response, render_template, request
 
 from auth import current_user, get_client_ip
-from db import get_db, now_text
+from db import db_kind, get_db, now_text
+from db_adapter import insert_ignore_sql
 
 VISITOR_COOKIE_NAME = 'visitor_token'
 VISITOR_COOKIE_MAX_AGE = 180 * 24 * 60 * 60
@@ -46,9 +47,12 @@ def record_page_visit(page_key, user=None, visitor_token=None, ip_address=None):
     visitor_kind, visitor_key = resolve_visitor_identity(user, visitor_token, ip_address)
     visit_date = datetime.now().strftime('%Y-%m-%d')
     get_db().execute(
-        '''INSERT OR IGNORE INTO visit_events (
-               visit_date, visitor_key, visitor_kind, user_id, visitor_token, ip_address, page_key, created_at
-           ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)''',
+        insert_ignore_sql(
+            'visit_events',
+            ['visit_date', 'visitor_key', 'visitor_kind', 'user_id', 'visitor_token', 'ip_address', 'page_key', 'created_at'],
+            ['visit_date', 'visitor_key', 'page_key'],
+            db_kind(),
+        ),
         (
             visit_date,
             visitor_key,

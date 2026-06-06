@@ -25,6 +25,35 @@ def test_create_lineup_record_creates_owned_lineup(client):
     assert payload['can_hide'] is True
 
 
+def test_create_lineup_record_uses_returning_id_for_insert(client, monkeypatch):
+    register_user(client, username='pglineup', email='pglineup@example.com')
+    user = client.get('/api/me').get_json()['user']
+    captured = {}
+
+    def capture_insert_sql(sql, kind):
+        captured['insert_kind'] = kind
+        return sql
+
+    def capture_last_insert_id(cursor, kind):
+        captured['last_insert_kind'] = kind
+        return cursor.lastrowid
+
+    monkeypatch.setattr('lineup_write_service.db_kind', lambda: 'postgres')
+    monkeypatch.setattr('lineup_write_service.insert_returning_id_sql', capture_insert_sql)
+    monkeypatch.setattr('lineup_write_service.last_insert_id', capture_last_insert_id)
+
+    with client.application.app_context():
+        payload, error, status_code = create_lineup_record(
+            user=user,
+            data={'name': 'PG阵容', 'code': '#PGCODE1', 'status': 'normal', 'season_id': 's17-star-god'},
+        )
+
+    assert error is None
+    assert status_code == 201
+    assert payload['name'] == 'PG阵容'
+    assert captured == {'insert_kind': 'postgres', 'last_insert_kind': 'postgres'}
+
+
 def test_update_lineup_record_rejects_stale_version(client):
     register_user(client)
     user = client.get('/api/me').get_json()['user']

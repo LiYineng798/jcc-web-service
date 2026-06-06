@@ -75,6 +75,35 @@ def test_favorite_does_not_change_score(client):
     assert after_payload['copy_count'] + after_payload['like_count'] == before
 
 
+def test_favorite_uses_driver_specific_insert_ignore(client, monkeypatch):
+    import lineup_interaction_service
+
+    captured = {}
+    register_user(client, username='pgfav', email='pgfav@example.com')
+    lineup = create_lineup(client, name='PG收藏', code='#PGFAV1').get_json()
+    user = client.get('/api/me').get_json()['user']
+
+    def capture_insert_ignore(table, columns, conflict_columns, kind):
+        captured['args'] = (table, columns, conflict_columns, kind)
+        return 'INSERT OR IGNORE INTO favorites (user_id, lineup_id, created_at) VALUES (?, ?, ?)'
+
+    monkeypatch.setattr(lineup_interaction_service, 'db_kind', lambda: 'postgres')
+    monkeypatch.setattr(lineup_interaction_service, 'insert_ignore_sql', capture_insert_ignore)
+
+    with client.application.app_context():
+        payload, error, status_code = lineup_interaction_service.favorite_lineup_record(user, lineup['id'])
+
+    assert error is None
+    assert status_code == 200
+    assert payload['ok'] is True
+    assert captured['args'] == (
+        'favorites',
+        ['user_id', 'lineup_id', 'created_at'],
+        ['user_id', 'lineup_id'],
+        'postgres',
+    )
+
+
 def test_favorites_view_returns_only_current_users_favorites(client):
     register_user(client, username='owner', email='owner@example.com')
     favorite_target = create_lineup(client, name='收藏目标', code='#FAVORITE1').get_json()
@@ -105,3 +134,32 @@ def test_report_creates_pending_admin_item(client):
     client.post('/api/login', json={'account': 'adminxlx', 'password': 'Admin1234'})
     reports = client.get('/api/admin/reports').get_json()
     assert reports['items'][0]['status'] == 'pending'
+
+
+def test_report_uses_returning_id_for_insert(client, monkeypatch):
+    import lineup_interaction_service
+
+    captured = {}
+    register_user(client, username='pgreport', email='pgreport@example.com')
+    lineup = create_lineup(client, name='PG举报', code='#PGREPORT1').get_json()
+    user = client.get('/api/me').get_json()['user']
+
+    def capture_insert_sql(sql, kind):
+        captured['insert_kind'] = kind
+        return sql
+
+    def capture_last_insert_id(cursor, kind):
+        captured['last_insert_kind'] = kind
+        return cursor.lastrowid
+
+    monkeypatch.setattr(lineup_interaction_service, 'db_kind', lambda: 'postgres')
+    monkeypatch.setattr(lineup_interaction_service, 'insert_returning_id_sql', capture_insert_sql)
+    monkeypatch.setattr(lineup_interaction_service, 'last_insert_id', capture_last_insert_id)
+
+    with client.application.app_context():
+        payload, error, status_code = lineup_interaction_service.report_lineup_record(user, lineup['id'], '测试举报')
+
+    assert error is None
+    assert status_code == 201
+    assert payload['status'] == 'pending'
+    assert captured == {'insert_kind': 'postgres', 'last_insert_kind': 'postgres'}

@@ -1,5 +1,6 @@
 from audit import write_audit
-from db import get_db, now_text
+from db import db_kind, get_db, now_text
+from db_adapter import insert_returning_id_sql, last_insert_id
 from lineup_code import LINEUP_CODE_MESSAGE, extract_lineup_code
 from lineups_serialization import serialize_lineup_row
 from lineups_utils import (
@@ -47,13 +48,17 @@ def create_lineup_record(user, data):
     now = now_text()
     db = get_db()
     cursor = db.execute(
-        '''INSERT INTO lineups (user_id, name, code, season_id, status, created_at, updated_at)
-           VALUES (?, ?, ?, ?, ?, ?, ?)''',
+        insert_returning_id_sql(
+            '''INSERT INTO lineups (user_id, name, code, season_id, status, created_at, updated_at)
+               VALUES (?, ?, ?, ?, ?, ?, ?)''',
+            db_kind(),
+        ),
         (user['id'], payload['name'], payload['code'], payload['season_id'], payload['status'], now, now),
     )
-    write_audit(user['id'], 'create_lineup', 'lineup', cursor.lastrowid, after=payload)
+    lineup_id = last_insert_id(cursor, db_kind())
+    write_audit(user['id'], 'create_lineup', 'lineup', lineup_id, after=payload)
     db.commit()
-    row = lineup_row(cursor.lastrowid)
+    row = lineup_row(lineup_id)
     return serialize_lineup_row(row, score_map(), user=user), None, 201
 
 

@@ -6,7 +6,8 @@ from werkzeug.security import check_password_hash, generate_password_hash
 
 from analytics import record_growth_event
 from captcha import is_captcha_verified, lookup_answer_for_tests, verify_captcha_answer
-from db import get_db, now_text
+from db import db_kind, get_db, now_text
+from db_adapter import insert_returning_id_sql, last_insert_id
 from rate_limit import hit_limit
 
 auth_bp = Blueprint('auth', __name__)
@@ -150,12 +151,16 @@ def register():
         return jsonify({'error': '邮箱已存在'}), 400
     now = now_text()
     cursor = db.execute(
-        '''INSERT INTO users (username, email, nickname, password_hash, role, status, created_at, updated_at)
-           VALUES (?, ?, ?, ?, 'user', 'active', ?, ?)''',
+        insert_returning_id_sql(
+            '''INSERT INTO users (username, email, nickname, password_hash, role, status, created_at, updated_at)
+               VALUES (?, ?, ?, ?, 'user', 'active', ?, ?)''',
+            db_kind(),
+        ),
         (payload['username'], payload['email'], payload['nickname'], generate_password_hash(payload['password']), now, now),
     )
+    user_id = last_insert_id(cursor, db_kind())
     db.commit()
-    session['user_id'] = cursor.lastrowid
+    session['user_id'] = user_id
     csrf_token()
     user = current_user()
     visitor_token, created = ensure_visitor_token()

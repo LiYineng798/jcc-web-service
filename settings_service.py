@@ -1,5 +1,6 @@
 from audit import write_audit
-from db import now_text
+from db import db_kind, now_text
+from db_adapter import upsert_setting_sql
 
 
 def get_settings(db):
@@ -29,8 +30,7 @@ def save_settings(db, actor_user_id, data):
         ).fetchone()
 
         db.execute(
-            '''INSERT OR REPLACE INTO app_settings (setting_key, setting_value, updated_at)
-               VALUES (?, ?, ?)''',
+            upsert_setting_sql(db_kind()),
             (key, value_str, now),
         )
 

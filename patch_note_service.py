@@ -1,7 +1,8 @@
 import re
 
 from audit import write_audit
-from db import get_db, now_text
+from db import db_kind, get_db, now_text
+from db_adapter import insert_returning_id_sql, last_insert_id
 
 PATCH_NOTE_STATUSES = {'draft', 'published', 'hidden'}
 CHANGE_LABELS = {
@@ -134,11 +135,14 @@ def create_patch_note(actor_user_id, data):
     now = now_text()
     db = get_db()
     cursor = db.execute(
-        '''
-        INSERT INTO patch_notes
-        (title, version, source_url, summary_markdown, original_text, status, published_at, created_at, updated_at)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-        ''',
+        insert_returning_id_sql(
+            '''
+            INSERT INTO patch_notes
+            (title, version, source_url, summary_markdown, original_text, status, published_at, created_at, updated_at)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+            ''',
+            db_kind(),
+        ),
         (
             payload['title'],
             payload['version'],
@@ -151,9 +155,10 @@ def create_patch_note(actor_user_id, data):
             now,
         ),
     )
-    write_audit(actor_user_id, 'create_patch_note', 'patch_note', target_id=cursor.lastrowid, after=payload)
+    patch_note_id = last_insert_id(cursor, db_kind())
+    write_audit(actor_user_id, 'create_patch_note', 'patch_note', target_id=patch_note_id, after=payload)
     db.commit()
-    row = db.execute('SELECT * FROM patch_notes WHERE id = ?', (cursor.lastrowid,)).fetchone()
+    row = db.execute('SELECT * FROM patch_notes WHERE id = ?', (patch_note_id,)).fetchone()
     return serialize_patch_note(row, include_body=True), None, 201
 
 

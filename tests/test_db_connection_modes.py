@@ -1,7 +1,7 @@
 import pytest
 
 from app import create_app
-from db import get_db
+from db import DriverSqlConnection, get_db
 
 
 def test_postgres_database_url_requires_existing_schema(monkeypatch):
@@ -48,10 +48,82 @@ def test_postgres_get_db_uses_psycopg_connection(monkeypatch):
     })
 
     with app.app_context():
-        assert get_db().__class__ is FakeConnection
+        db = get_db()
+        assert isinstance(db, DriverSqlConnection)
+        assert db.connection.__class__ is FakeConnection
 
     assert created['database_url'] == 'postgresql://user:pass@database.np5.top:5432/jcc'
     assert created['row_factory'] is not None
+
+
+def test_postgres_get_db_converts_sqlite_placeholders(monkeypatch):
+    executed = {}
+
+    class FakeCursor:
+        def fetchone(self):
+            return {'id': 7}
+
+    class FakeConnection:
+        def execute(self, sql, params=()):
+            executed['sql'] = sql
+            executed['params'] = params
+            return FakeCursor()
+
+        def close(self):
+            pass
+
+    monkeypatch.setattr('db.postgres_schema_ready', lambda: True)
+    monkeypatch.setattr('db.psycopg.connect', lambda *args, **kwargs: FakeConnection())
+    app = create_app({
+        'TESTING': True,
+        'DATABASE_URL': 'postgresql://user:pass@database.np5.top:5432/jcc',
+    })
+
+    with app.app_context():
+        cursor = get_db().execute(
+            'INSERT INTO users (username, note) VALUES (?, ?) RETURNING id',
+            ('alice', '? literal'),
+        )
+
+    assert cursor.fetchone()['id'] == 7
+    assert executed['sql'] == 'INSERT INTO users (username, note) VALUES (%s, %s) RETURNING id'
+    assert executed['params'] == ('alice', '? literal')
+
+
+def test_postgres_cursor_converts_sqlite_placeholders(monkeypatch):
+    executed = {}
+
+    class FakeCursor:
+        def execute(self, sql, params=()):
+            executed['sql'] = sql
+            executed['params'] = params
+            return self
+
+        def __enter__(self):
+            return self
+
+        def __exit__(self, exc_type, exc, traceback):
+            return False
+
+    class FakeConnection:
+        def cursor(self, *args, **kwargs):
+            return FakeCursor()
+
+        def close(self):
+            pass
+
+    monkeypatch.setattr('db.postgres_schema_ready', lambda: True)
+    monkeypatch.setattr('db.psycopg.connect', lambda *args, **kwargs: FakeConnection())
+    app = create_app({
+        'TESTING': True,
+        'DATABASE_URL': 'postgresql://user:pass@database.np5.top:5432/jcc',
+    })
+
+    with app.app_context():
+        with get_db().cursor() as cursor:
+            cursor.execute('SELECT * FROM users WHERE id = ?', (3,))
+
+    assert executed == {'sql': 'SELECT * FROM users WHERE id = %s', 'params': (3,)}
 
 
 def test_postgres_schema_ready_checks_schema_migrations(monkeypatch):

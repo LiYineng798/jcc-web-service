@@ -6,7 +6,7 @@ from psycopg.rows import dict_row
 from flask import current_app, g
 from werkzeug.security import generate_password_hash
 
-from db_adapter import database_kind
+from db_adapter import database_kind, to_driver_sql
 from lineup_cache import clear_lineup_query_caches
 from db_migrations import ensure_indexes, migrate_schema
 from db_schema import (
@@ -20,14 +20,82 @@ def now_text():
     return datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
 
+def db_kind():
+    if 'db_kind' in g:
+        return g.db_kind
+    return database_kind(current_app.config['DATABASE_URL'])
+
+
+class DriverSqlConnection:
+    def __init__(self, connection, kind):
+        self.connection = connection
+        self.kind = kind
+
+    def execute(self, sql, params=()):
+        return self.connection.execute(to_driver_sql(sql, self.kind), params)
+
+    def executemany(self, sql, params_seq):
+        return self.connection.executemany(to_driver_sql(sql, self.kind), params_seq)
+
+    def executescript(self, sql):
+        return self.connection.executescript(sql)
+
+    def commit(self):
+        return self.connection.commit()
+
+    def rollback(self):
+        return self.connection.rollback()
+
+    def close(self):
+        return self.connection.close()
+
+    def cursor(self, *args, **kwargs):
+        return DriverSqlCursor(self.connection.cursor(*args, **kwargs), self.kind)
+
+
+class DriverSqlCursor:
+    def __init__(self, cursor, kind):
+        self.cursor = cursor
+        self.kind = kind
+
+    def execute(self, sql, params=()):
+        return self.cursor.execute(to_driver_sql(sql, self.kind), params)
+
+    def executemany(self, sql, params_seq):
+        return self.cursor.executemany(to_driver_sql(sql, self.kind), params_seq)
+
+    def fetchone(self):
+        return self.cursor.fetchone()
+
+    def fetchall(self):
+        return self.cursor.fetchall()
+
+    def __iter__(self):
+        return iter(self.cursor)
+
+    def __enter__(self):
+        self.cursor.__enter__()
+        return self
+
+    def __exit__(self, exc_type, exc, traceback):
+        return self.cursor.__exit__(exc_type, exc, traceback)
+
+    def __getattr__(self, name):
+        return getattr(self.cursor, name)
+
+
 def get_db():
     if 'db' not in g:
         kind = database_kind(current_app.config['DATABASE_URL'])
         if kind == 'postgres':
-            db = psycopg.connect(current_app.config['DATABASE_URL'], row_factory=dict_row)
+            db = DriverSqlConnection(
+                psycopg.connect(current_app.config['DATABASE_URL'], row_factory=dict_row),
+                kind,
+            )
         else:
-            db = sqlite3.connect(current_app.config['DATABASE'])
-            db.row_factory = sqlite3.Row
+            raw_db = sqlite3.connect(current_app.config['DATABASE'])
+            raw_db.row_factory = sqlite3.Row
+            db = DriverSqlConnection(raw_db, kind)
             db.execute('PRAGMA foreign_keys = ON')
             db.execute('PRAGMA journal_mode = WAL')
             db.execute('PRAGMA busy_timeout = 5000')

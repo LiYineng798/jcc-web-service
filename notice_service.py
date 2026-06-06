@@ -1,7 +1,8 @@
 import json
 
 from audit import write_audit
-from db import now_text
+from db import db_kind, now_text
+from db_adapter import upsert_setting_sql
 
 
 def _load_notice_data(db):
@@ -72,7 +73,7 @@ def save_notice(db, actor_user_id, data):
     if has_enabled:
         enabled = str(data.get('enabled', False)).strip().lower() == 'true'
         db.execute(
-            "INSERT OR REPLACE INTO app_settings (setting_key, setting_value, updated_at) VALUES (?, ?, ?)",
+            upsert_setting_sql(db_kind()),
             ('notice_enabled', 'true' if enabled else 'false', now),
         )
 
@@ -96,7 +97,7 @@ def save_notice(db, actor_user_id, data):
         }, ensure_ascii=False)
 
         db.execute(
-            "INSERT OR REPLACE INTO app_settings (setting_key, setting_value, updated_at) VALUES (?, ?, ?)",
+            upsert_setting_sql(db_kind()),
             ('notice_data', notice_data, now),
         )
 

@@ -386,10 +386,31 @@ EXTRA_INDEX_STATEMENTS = (
 
 
 def table_columns(db, table_name):
+    if getattr(db, 'kind', 'sqlite') == 'postgres':
+        rows = db.execute(
+            '''
+            SELECT column_name
+            FROM information_schema.columns
+            WHERE table_schema = 'public'
+              AND table_name = ?
+            ''',
+            (table_name,),
+        ).fetchall()
+        return {row['column_name'] for row in rows}
     rows = db.execute(f'PRAGMA table_info({table_name})').fetchall()
     return {row['name'] for row in rows}
 
 
 def table_names(db):
+    if getattr(db, 'kind', 'sqlite') == 'postgres':
+        rows = db.execute(
+            '''
+            SELECT table_name
+            FROM information_schema.tables
+            WHERE table_schema = 'public'
+              AND table_type = 'BASE TABLE'
+            '''
+        ).fetchall()
+        return {row['table_name'] for row in rows}
     rows = db.execute("SELECT name FROM sqlite_master WHERE type='table'").fetchall()
     return {row['name'] for row in rows}

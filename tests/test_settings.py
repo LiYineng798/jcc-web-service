@@ -26,6 +26,28 @@ def test_admin_can_toggle_simulator(client):
     assert data['simulator_enabled'] == 'true'
 
 
+def test_save_settings_uses_driver_specific_upsert(client, monkeypatch):
+    from db import get_db
+    from settings_service import save_settings
+
+    captured = {}
+
+    def capture_upsert(kind):
+        captured['kind'] = kind
+        return 'INSERT OR REPLACE INTO app_settings (setting_key, setting_value, updated_at) VALUES (?, ?, ?)'
+
+    monkeypatch.setattr('settings_service.db_kind', lambda: 'postgres')
+    monkeypatch.setattr('settings_service.upsert_setting_sql', capture_upsert)
+
+    with client.application.app_context():
+        payload, error, status_code = save_settings(get_db(), 1, {'simulator_enabled': 'false'})
+
+    assert error is None
+    assert status_code == 200
+    assert payload == {'ok': True}
+    assert captured == {'kind': 'postgres'}
+
+
 def test_non_admin_cannot_access_settings(client):
     from test_auth import register_user
 

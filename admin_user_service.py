@@ -4,7 +4,8 @@ from werkzeug.security import generate_password_hash
 
 from audit import write_audit
 from auth import validate_password
-from db import now_text
+from db import db_kind, now_text
+from db_adapter import insert_returning_id_sql, last_insert_id
 
 
 def build_user_list_query(query):
@@ -45,8 +46,11 @@ def create_user(db, admin_id, data):
         return None, error, 400
     try:
         cursor = db.execute(
-            '''INSERT INTO users (username, email, nickname, password_hash, role, status, created_at, updated_at)
-               VALUES (?, ?, ?, ?, ?, 'active', ?, ?)''',
+            insert_returning_id_sql(
+                '''INSERT INTO users (username, email, nickname, password_hash, role, status, created_at, updated_at)
+                   VALUES (?, ?, ?, ?, ?, 'active', ?, ?)''',
+                db_kind(),
+            ),
             (
                 payload['username'],
                 payload['email'],
@@ -57,18 +61,19 @@ def create_user(db, admin_id, data):
                 payload['updated_at'],
             ),
         )
+        user_id = last_insert_id(cursor, db_kind())
         write_audit(
             admin_id,
             'create_user',
             'user',
-            cursor.lastrowid,
+            user_id,
             after={'username': payload['username'], 'email': payload['email'], 'role': payload['role']},
         )
         db.commit()
     except Exception:
         db.rollback()
         return None, '用户名或邮箱已存在', 400
-    return {'id': cursor.lastrowid}, None, 201
+    return {'id': user_id}, None, 201
 
 
 def prepare_user_update_fields(data):

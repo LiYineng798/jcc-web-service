@@ -55,6 +55,29 @@ def test_register_hashes_password_and_enforces_unique_username_email(client):
     assert register_user(client, username='alice2').get_json()['error'] == '邮箱已存在'
 
 
+def test_register_uses_returning_id_in_postgres_mode(client, monkeypatch):
+    captured = {}
+
+    def capture_insert_sql(sql, kind):
+        captured['insert_sql'] = sql
+        captured['insert_kind'] = kind
+        return sql
+
+    def capture_last_insert_id(cursor, kind):
+        captured['last_insert_kind'] = kind
+        return cursor.lastrowid
+
+    monkeypatch.setattr('auth.db_kind', lambda: 'postgres')
+    monkeypatch.setattr('auth.insert_returning_id_sql', capture_insert_sql)
+    monkeypatch.setattr('auth.last_insert_id', capture_last_insert_id)
+    response = register_user(client, username='pguser', email='pguser@example.com')
+
+    assert response.status_code == 201
+    assert 'INSERT INTO users' in captured['insert_sql']
+    assert captured['insert_kind'] == 'postgres'
+    assert captured['last_insert_kind'] == 'postgres'
+
+
 def test_password_requires_min_length_letter_and_number(client):
     assert register_user(client, password='a1').status_code == 400
     assert register_user(client, password='abcdef').status_code == 400

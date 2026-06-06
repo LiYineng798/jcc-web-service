@@ -1,7 +1,8 @@
 from datetime import datetime
 
 from copy_action_service import record_copy_action
-from db import get_db, now_text
+from db import db_kind, get_db, now_text
+from db_adapter import insert_ignore_sql, insert_returning_id_sql, last_insert_id
 from lineups_serialization import serialize_lineup_row
 from lineups_utils import bucket_start, lineup_is_visible_to_user, lineup_row
 from scoring import score_map
@@ -66,7 +67,12 @@ def favorite_lineup_record(user, lineup_id):
         return None, '阵容不存在', 404
     db = get_db()
     cursor = db.execute(
-        'INSERT OR IGNORE INTO favorites (user_id, lineup_id, created_at) VALUES (?, ?, ?)',
+        insert_ignore_sql(
+            'favorites',
+            ['user_id', 'lineup_id', 'created_at'],
+            ['user_id', 'lineup_id'],
+            db_kind(),
+        ),
         (user['id'], lineup_id, now_text()),
     )
     db.commit()
@@ -87,8 +93,12 @@ def report_lineup_record(user, lineup_id, reason):
     if not lineup_is_visible_to_user(row, user):
         return None, '阵容不存在', 404
     cursor = get_db().execute(
-        'INSERT INTO reports (reporter_user_id, lineup_id, reason, status, created_at) VALUES (?, ?, ?, ?, ?)',
+        insert_returning_id_sql(
+            'INSERT INTO reports (reporter_user_id, lineup_id, reason, status, created_at) VALUES (?, ?, ?, ?, ?)',
+            db_kind(),
+        ),
         (user['id'], lineup_id, clean_reason, 'pending', now_text()),
     )
+    report_id = last_insert_id(cursor, db_kind())
     get_db().commit()
-    return {'id': cursor.lastrowid, 'status': 'pending'}, None, 201
+    return {'id': report_id, 'status': 'pending'}, None, 201
