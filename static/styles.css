@@ -382,7 +382,7 @@ h1 {
 
 .border-glow-card > .edge-light {
   inset: calc(var(--border-glow-padding) * -1);
-  z-index: 1;
+  z-index: -1;
   opacity: max(0, calc((var(--edge-proximity) - var(--edge-sensitivity)) / (100 - var(--edge-sensitivity))));
   mix-blend-mode: plus-lighter;
   mask-image:
