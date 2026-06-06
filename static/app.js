@@ -66,6 +66,7 @@ const elements = {
 
 setTheme(localStorage.getItem('theme') || 'light');
 renderHomeImageModeToggle();
+applyBorderGlowToStaticCards();
 boot();
 
 elements.imageModeToggle?.addEventListener('click', toggleHomeImageMode);
@@ -129,6 +130,88 @@ function renderHomeImageModeToggle() {
   elements.imageModeText.textContent = isImageMode ? '有图' : '无图';
   elements.imageModeToggle.setAttribute('aria-pressed', String(isImageMode));
   elements.imageModeToggle.setAttribute('aria-label', isImageMode ? '切换为首页无图片模式' : '切换为首页有图片模式');
+}
+
+function initBorderGlowCard(card, options = {}) {
+  if (!card || card.dataset.borderGlowReady === 'true') return;
+  if (window.matchMedia?.('(hover: none), (pointer: coarse)').matches) return;
+  card.dataset.borderGlowReady = 'true';
+  card.classList.add('border-glow-card');
+
+  const {
+    glowColor = 'rgba(245, 185, 92, 0.92)',
+    glowColorSoft = 'rgba(201, 100, 66, 0.28)',
+    glowColorFaint = 'rgba(245, 185, 92, 0.16)',
+    fillOpacity = '0.18',
+    edgeSensitivity = '34',
+    coneSpread = '22',
+    initialSweep = false,
+  } = options;
+
+  card.style.setProperty('--glow-color', glowColor);
+  card.style.setProperty('--glow-color-soft', glowColorSoft);
+  card.style.setProperty('--glow-color-faint', glowColorFaint);
+  card.style.setProperty('--fill-opacity', fillOpacity);
+  card.style.setProperty('--edge-sensitivity', edgeSensitivity);
+  card.style.setProperty('--cone-spread', coneSpread);
+
+  if (!card.querySelector(':scope > .edge-light')) {
+    const edgeLight = document.createElement('span');
+    edgeLight.className = 'edge-light';
+    edgeLight.setAttribute('aria-hidden', 'true');
+    card.prepend(edgeLight);
+  }
+
+  card.addEventListener('pointermove', handleBorderGlowPointerMove);
+  card.addEventListener('pointerleave', handleBorderGlowPointerLeave);
+
+  if (initialSweep && !window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) {
+    runBorderGlowSweep(card);
+  }
+}
+
+function handleBorderGlowPointerMove(event) {
+  const card = event.currentTarget;
+  const rect = card.getBoundingClientRect();
+  const x = event.clientX - rect.left;
+  const y = event.clientY - rect.top;
+  const cx = rect.width / 2;
+  const cy = rect.height / 2;
+  const dx = x - cx;
+  const dy = y - cy;
+  const kx = dx === 0 ? Infinity : cx / Math.abs(dx);
+  const ky = dy === 0 ? Infinity : cy / Math.abs(dy);
+  const edge = Math.min(Math.max(1 / Math.min(kx, ky), 0), 1);
+  let angle = Math.atan2(dy, dx) * (180 / Math.PI) + 90;
+  if (angle < 0) angle += 360;
+  card.style.setProperty('--edge-proximity', `${(edge * 100).toFixed(3)}`);
+  card.style.setProperty('--cursor-angle', `${angle.toFixed(3)}deg`);
+}
+
+function handleBorderGlowPointerLeave(event) {
+  event.currentTarget.style.setProperty('--edge-proximity', '0');
+}
+
+function runBorderGlowSweep(card) {
+  card.classList.add('border-glow-sweep');
+  card.style.setProperty('--cursor-angle', '115deg');
+  window.setTimeout(() => {
+    card.style.setProperty('--cursor-angle', '430deg');
+  }, 80);
+  window.setTimeout(() => {
+    card.classList.remove('border-glow-sweep');
+    card.style.setProperty('--edge-proximity', '0');
+  }, 1200);
+}
+
+function applyBorderGlowToStaticCards() {
+  const statCard = document.querySelector('[data-border-glow="stat"]');
+  initBorderGlowCard(statCard, {
+    fillOpacity: '0.14',
+    edgeSensitivity: '38',
+    coneSpread: '20',
+    initialSweep: true,
+  });
 }
 
 function toggleHomeImageMode() {
@@ -571,6 +654,12 @@ function renderLiveCompCard(item) {
   card.className = state.imageMode === 'image'
     ? `live-comp-card tier-${String(item.tier || '').toLowerCase()}`
     : `live-comp-card live-comp-card-text-only tier-${String(item.tier || '').toLowerCase()}`;
+  card.dataset.borderGlow = 'live-comp';
+  initBorderGlowCard(card, {
+    fillOpacity: state.imageMode === 'image' ? '0.16' : '0.1',
+    edgeSensitivity: '36',
+    coneSpread: '21',
+  });
 
   const actions = document.createElement('div');
   actions.className = 'live-comp-actions';
