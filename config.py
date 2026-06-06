@@ -4,8 +4,12 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
 def apply_config(app, test_config=None):
+    default_sqlite_path = os.path.join(app.instance_path, 'lineups.sqlite3')
+    default_database_url = 'sqlite:///' + default_sqlite_path.replace('\\', '/')
+    database_url = os.environ.get('JCC_DATABASE_URL', default_database_url)
     app.config.from_mapping(
-        DATABASE=os.path.join(app.instance_path, 'lineups.sqlite3'),
+        DATABASE=default_sqlite_path,
+        DATABASE_URL=database_url,
         LIVE_COMPS_DATA_PATH=os.path.join(app.instance_path, 'live-comps.json'),
         LIVE_COMPS_BACKUP_PATH=os.path.join(app.instance_path, 'live-comps.previous.json'),
         LIVE_COMPS_ASSET_DIR=os.path.join(app.instance_path, 'live-comps-assets'),
