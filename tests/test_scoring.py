@@ -66,6 +66,24 @@ def test_score_uses_recent_seven_days_only(client):
     assert admin['score'] == 0
 
 
+def test_copy_count_displays_all_time_but_score_uses_recent_seven_days(client):
+    register_user(client)
+    lineup = create_lineup(client).get_json()
+    client.post(f"/api/lineups/{lineup['id']}/copy", headers=auth_headers(client))
+    with client.application.app_context():
+        from db import get_db
+        old = (datetime.now() - timedelta(days=8)).strftime('%Y-%m-%d %H:%M:%S')
+        get_db().execute("UPDATE copy_events SET created_at = ?", (old,))
+        get_db().commit()
+
+    client.post('/api/logout')
+    client.post('/api/login', json={'account': 'adminxlx', 'password': 'Admin1234'})
+    admin = client.get('/api/admin/lineups', headers=auth_headers(client)).get_json()['items'][0]
+
+    assert admin['copy_count'] == 1
+    assert admin['score'] == 0
+
+
 def test_score_map_cache_refreshes_after_copy_event(client):
     register_user(client)
     lineup = create_lineup(client).get_json()

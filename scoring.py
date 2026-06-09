@@ -26,7 +26,8 @@ def compute_lineup_scores(db=None, now=None):
                COALESCE(l.admin_like_adjustment, 0) AS admin_like_adjustment,
                COALESCE(l.admin_copy_adjustment, 0) AS admin_copy_adjustment,
                COALESCE(like_totals.like_count, 0) AS like_count,
-               COALESCE(copy_totals.copy_count, 0) AS copy_count
+               COALESCE(recent_copy_totals.copy_count, 0) AS recent_copy_count,
+               COALESCE(all_copy_totals.copy_count, 0) AS all_copy_count
         FROM lineups l
         LEFT JOIN (
             SELECT lineup_id, COUNT(*) AS like_count
@@ -39,7 +40,13 @@ def compute_lineup_scores(db=None, now=None):
             FROM copy_events
             WHERE counted = 1 AND created_at >= ?
             GROUP BY lineup_id
-        ) AS copy_totals ON copy_totals.lineup_id = l.id
+        ) AS recent_copy_totals ON recent_copy_totals.lineup_id = l.id
+        LEFT JOIN (
+            SELECT lineup_id, COUNT(*) AS copy_count
+            FROM copy_events
+            WHERE counted = 1
+            GROUP BY lineup_id
+        ) AS all_copy_totals ON all_copy_totals.lineup_id = l.id
         WHERE l.status != 'deleted'
         ''',
         (cutoff, cutoff),
@@ -47,13 +54,15 @@ def compute_lineup_scores(db=None, now=None):
     result = []
     for row in rows:
         likes = row['like_count'] + row['admin_like_adjustment']
-        copies = row['copy_count'] + row['admin_copy_adjustment']
-        score = max(0, likes) * 5 + max(0, copies)
+        recent_copies = row['recent_copy_count'] + row['admin_copy_adjustment']
+        all_copies = row['all_copy_count'] + row['admin_copy_adjustment']
+        score = max(0, likes) * 5 + max(0, recent_copies)
         result.append({
             'lineup_id': row['lineup_id'],
             'score': score,
             'like_count': max(0, likes),
-            'copy_count': max(0, copies),
+            'copy_count': max(0, all_copies),
+            'score_copy_count': max(0, recent_copies),
         })
     return result
 
