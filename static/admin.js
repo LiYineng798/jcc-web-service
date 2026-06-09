@@ -36,6 +36,7 @@
     liveCompManualCodeTarget: null,
     liveCompManualCodeError: '',
     patchNoteEditing: null,
+    noticeEditing: null,
   };
   const statusText = {
     pending: '待处理',
@@ -85,6 +86,19 @@
     if (className) node.className = className;
     if (text) node.textContent = text;
     return node;
+  }
+
+  function escapeHtml(value) {
+    return String(value)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;');
+  }
+
+  function escapeAttribute(value) {
+    return escapeHtml(value)
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
   }
 
   function button(label, handler, className = 'small-button', disabled = false) {
@@ -1063,21 +1077,32 @@
   }
 
   async function saveNoticeContent() {
-    const title = document.querySelector('#noticeTitle')?.value?.trim() || '';
-    const message = document.querySelector('#noticeMessage')?.value?.trim() || '';
-    const linkUrl = document.querySelector('#noticeLinkUrl')?.value?.trim() || '';
-    const linkText = document.querySelector('#noticeLinkText')?.value?.trim() || '';
+    openNoticeDialog(null);
+  }
 
-    if (!title) { alert('标题不能为空'); return; }
-    if (!message) { alert('内容不能为空'); return; }
-
-    await api('/api/admin/notice', {
-      method: 'PUT',
-      body: JSON.stringify({ title, message, link_url: linkUrl, link_text: linkText }),
-    });
+  async function activateNotice(noticeId) {
+    await api(`/api/admin/notices/${noticeId}/activate`, { method: 'POST' });
     await loadNotice({ force: true });
-    setNotice('通知内容已保存');
+    setNotice('已切换展示公告');
     render();
+  }
+
+  async function deleteNotice(noticeId) {
+    if (!confirm('确定删除这条通知吗？')) return;
+    await api(`/api/admin/notices/${noticeId}`, { method: 'DELETE' });
+    await loadNotice({ force: true });
+    setNotice('通知已删除');
+    render();
+  }
+
+  function openNoticeDialog(notice) {
+    state.noticeEditing = notice || { title: '', message: '', link_url: '', link_text: '' };
+    renderDialogs();
+  }
+
+  function closeNoticeDialog() {
+    state.noticeEditing = null;
+    renderDialogs();
   }
 
   function renderSettingsWorkspace() {
@@ -1104,6 +1129,7 @@
 
     const noticeData = state.noticeData.data || {};
     const noticeEnabled = noticeData.enabled ?? false;
+    const notices = noticeData.items || [];
 
     const noticePanel = workbenchPanel('全站通知', '编辑首页通知横幅的内容和状态');
     const noticeBody = noticePanel.querySelector('.admin-workspace-body');
@@ -1122,49 +1148,44 @@
     toggleRow.append(toggleInfo, toggleActions);
     noticeBody.append(toggleRow);
 
-    const form = el('div', 'admin-row-card');
-    const fields = el('div');
-    fields.style.cssText = 'display:flex;flex-direction:column;gap:12px;width:100%';
+    const listHead = el('div', 'admin-section-head');
+    listHead.append(
+      el('div', '', ''),
+      button('新增通知', saveNoticeContent, 'small-button is-active'),
+    );
+    noticeBody.append(listHead);
 
-    const titleInput = el('input');
-    titleInput.id = 'noticeTitle';
-    titleInput.type = 'text';
-    titleInput.placeholder = '通知标题';
-    titleInput.value = noticeData.title || '';
-    titleInput.style.cssText = 'padding:10px 14px;border:1px solid var(--line);border-radius:var(--radius-lg);background:var(--bg);color:var(--text);font-size:14px;width:100%;box-sizing:border-box';
-
-    const messageInput = el('textarea');
-    messageInput.id = 'noticeMessage';
-    messageInput.placeholder = '通知内容';
-    messageInput.value = noticeData.message || '';
-    messageInput.rows = 3;
-    messageInput.style.cssText = 'padding:10px 14px;border:1px solid var(--line);border-radius:var(--radius-lg);background:var(--bg);color:var(--text);font-size:14px;width:100%;box-sizing:border-box;resize:vertical;font-family:inherit';
-
-    const linkRow = el('div');
-    linkRow.style.cssText = 'display:flex;gap:8px';
-
-    const linkUrlInput = el('input');
-    linkUrlInput.id = 'noticeLinkUrl';
-    linkUrlInput.type = 'text';
-    linkUrlInput.placeholder = '链接地址（可选）';
-    linkUrlInput.value = noticeData.link_url || '';
-    linkUrlInput.style.cssText = 'padding:10px 14px;border:1px solid var(--line);border-radius:var(--radius-lg);background:var(--bg);color:var(--text);font-size:14px;flex:1;box-sizing:border-box';
-
-    const linkTextInput = el('input');
-    linkTextInput.id = 'noticeLinkText';
-    linkTextInput.type = 'text';
-    linkTextInput.placeholder = '链接文字';
-    linkTextInput.value = noticeData.link_text || '';
-    linkTextInput.style.cssText = 'padding:10px 14px;border:1px solid var(--line);border-radius:var(--radius-lg);background:var(--bg);color:var(--text);font-size:14px;width:140px;box-sizing:border-box';
-
-    linkRow.append(linkUrlInput, linkTextInput);
-    fields.append(titleInput, messageInput, linkRow);
-
-    const saveActions = el('div', 'card-actions');
-    saveActions.append(button('保存内容', saveNoticeContent, 'small-button'));
-
-    form.append(fields, saveActions);
-    noticeBody.append(form);
+    const list = el('div', 'admin-list');
+    if (!notices.length) {
+      list.append(empty('暂无全站通知'));
+    } else {
+      notices.forEach((item) => {
+        const card = el('article', 'admin-row-card');
+        const info = el('div');
+        const title = el('strong', '', item.title);
+        const metaParts = [
+          item.is_active ? '当前展示' : '未展示',
+          item.updated_at ? `更新 ${item.updated_at}` : '',
+        ].filter(Boolean);
+        info.append(
+          title,
+          el('p', 'admin-meta', metaParts.join(' · ')),
+          el('p', 'admin-reason', item.message),
+        );
+        if (item.link_url && item.link_text) {
+          info.append(el('p', 'admin-meta', `${item.link_text} · ${item.link_url}`));
+        }
+        const actions = el('div', 'card-actions');
+        actions.append(
+          button('设为展示', () => activateNotice(item.id), `small-button${item.is_active && noticeEnabled ? ' is-active' : ''}`, item.is_active && noticeEnabled),
+          button('编辑', () => openNoticeDialog(item), 'small-button'),
+          button('删除', () => deleteNotice(item.id), 'small-button danger-button'),
+        );
+        card.append(info, actions);
+        list.append(card);
+      });
+    }
+    noticeBody.append(list);
     body.append(noticePanel);
     return panel;
   }
@@ -1297,7 +1318,85 @@
     }
     if (state.liveCompManualCodeTarget) {
       renderLiveCompManualCodeDialog();
+      return;
     }
+    if (state.noticeEditing) {
+      renderNoticeDialog();
+    }
+  }
+
+  function renderNoticeDialog() {
+    if (!dialogRoot || !state.noticeEditing) return;
+    const item = state.noticeEditing;
+    const isEdit = Boolean(item.id);
+
+    const overlay = el('div', 'modal-backdrop');
+    const card = el('section', 'modal-card admin-password-dialog');
+    card.setAttribute('role', 'dialog');
+    card.setAttribute('aria-modal', 'true');
+    card.setAttribute('aria-labelledby', 'noticeDialogTitle');
+
+    const header = el('div', 'modal-header');
+    const titleWrap = el('div');
+    const title = el('h2', '', isEdit ? '编辑全站通知' : '新增全站通知');
+    title.id = 'noticeDialogTitle';
+    titleWrap.append(title, el('p', 'admin-meta', '保存后可在列表中选择哪一条展示到首页'));
+    header.append(titleWrap, button('取消', async () => closeNoticeDialog()));
+
+    const form = el('form', 'modal-form');
+    form.innerHTML = `
+      <label class="field">
+        <span>通知标题</span>
+        <input id="noticeTitleInput" name="title" type="text" placeholder="通知标题" value="${escapeAttribute(item.title || '')}" />
+      </label>
+      <label class="field">
+        <span>通知内容</span>
+        <textarea id="noticeMessageInput" name="message" rows="4" placeholder="通知内容">${escapeHtml(item.message || '')}</textarea>
+      </label>
+      <label class="field">
+        <span>链接地址</span>
+        <input id="noticeLinkUrlInput" name="link_url" type="text" placeholder="可选，例如 /patch-notes" value="${escapeAttribute(item.link_url || '')}" />
+      </label>
+      <label class="field">
+        <span>链接文字</span>
+        <input id="noticeLinkTextInput" name="link_text" type="text" placeholder="可选，例如 查看公告" value="${escapeAttribute(item.link_text || '')}" />
+      </label>
+      <div class="editor-actions">
+        <button class="primary-button" type="submit">${isEdit ? '保存通知' : '创建通知'}</button>
+        <button class="ghost-button" type="button" id="cancelNoticeButton">取消</button>
+      </div>
+    `;
+    form.addEventListener('submit', submitNoticeDialog);
+    form.querySelector('#cancelNoticeButton').addEventListener('click', closeNoticeDialog);
+    overlay.addEventListener('click', (event) => {
+      if (event.target === overlay) closeNoticeDialog();
+    });
+
+    card.append(header, form);
+    overlay.append(card);
+    dialogRoot.append(overlay);
+  }
+
+  async function submitNoticeDialog(event) {
+    event.preventDefault();
+    const form = event.currentTarget;
+    const item = state.noticeEditing;
+    const payload = {
+      title: form.querySelector('#noticeTitleInput').value.trim(),
+      message: form.querySelector('#noticeMessageInput').value.trim(),
+      link_url: form.querySelector('#noticeLinkUrlInput').value.trim(),
+      link_text: form.querySelector('#noticeLinkTextInput').value.trim(),
+    };
+    if (!payload.title) { alert('标题不能为空'); return; }
+    if (!payload.message) { alert('内容不能为空'); return; }
+    await api(item.id ? `/api/admin/notices/${item.id}` : '/api/admin/notices', {
+      method: item.id ? 'PUT' : 'POST',
+      body: JSON.stringify(payload),
+    });
+    closeNoticeDialog();
+    await loadNotice({ force: true });
+    setNotice(item.id ? '通知已保存' : '通知已创建');
+    render();
   }
 
   function renderPasswordDialog() {

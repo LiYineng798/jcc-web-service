@@ -7,6 +7,7 @@ def migrate_schema(db, admin_id, now_text_func):
     migrate_lineups_table(db, admin_id)
     migrate_legacy_live_comp_stats(db, now_text_func)
     migrate_patch_notes_table(db)
+    migrate_site_notices_table(db, now_text_func)
 
 
 def migrate_legacy_live_comp_stats(db, now_text_func):
@@ -66,6 +67,77 @@ def migrate_patch_notes_table(db):
         CREATE INDEX IF NOT EXISTS idx_patch_notes_status_published_at
         ON patch_notes (status, published_at DESC, id DESC)
         '''
+    )
+
+
+def migrate_site_notices_table(db, now_text_func):
+    tables = table_names(db)
+    if 'site_notices' not in tables:
+        db.execute(
+            '''
+            CREATE TABLE IF NOT EXISTS site_notices (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                title TEXT NOT NULL,
+                message TEXT NOT NULL,
+                link_url TEXT NOT NULL DEFAULT '',
+                link_text TEXT NOT NULL DEFAULT '',
+                is_active INTEGER NOT NULL DEFAULT 0,
+                created_at TEXT NOT NULL,
+                updated_at TEXT NOT NULL
+            )
+            '''
+        )
+    db.execute(
+        '''
+        CREATE UNIQUE INDEX IF NOT EXISTS idx_site_notices_single_active
+        ON site_notices (is_active)
+        WHERE is_active = 1
+        '''
+    )
+
+    existing = db.execute('SELECT id FROM site_notices LIMIT 1').fetchone()
+    if existing:
+        return
+    if 'app_settings' not in tables:
+        return
+
+    row = db.execute(
+        "SELECT setting_value FROM app_settings WHERE setting_key = 'notice_data'"
+    ).fetchone()
+    if not row:
+        return
+
+    import json
+    try:
+        data = json.loads(row['setting_value'])
+    except (json.JSONDecodeError, TypeError):
+        return
+    if not isinstance(data, dict):
+        return
+
+    title = str(data.get('title', '')).strip()
+    message = str(data.get('message', '')).strip()
+    if not title or not message:
+        return
+
+    enabled_row = db.execute(
+        "SELECT setting_value FROM app_settings WHERE setting_key = 'notice_enabled'"
+    ).fetchone()
+    now = now_text_func()
+    db.execute(
+        '''
+        INSERT INTO site_notices (title, message, link_url, link_text, is_active, created_at, updated_at)
+        VALUES (?, ?, ?, ?, ?, ?, ?)
+        ''',
+        (
+            title,
+            message,
+            str(data.get('link_url', '')).strip(),
+            str(data.get('link_text', '')).strip(),
+            1 if enabled_row and enabled_row['setting_value'] == 'true' else 0,
+            now,
+            now,
+        ),
     )
 
 

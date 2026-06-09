@@ -16,7 +16,16 @@ from auth import admin_required
 from db import get_db
 from lineups_serialization import serialize_lineup_row
 from route_response import respond_service_result
-from notice_service import _is_notice_enabled, get_notice, save_notice
+from notice_service import (
+    _is_notice_enabled,
+    activate_notice,
+    create_notice,
+    delete_saved_notice,
+    get_notice,
+    list_notices,
+    save_notice,
+    update_saved_notice,
+)
 from patch_note_service import create_patch_note, hide_patch_note, list_admin_patch_notes, update_patch_note
 from scoring import score_map
 from settings_service import get_settings, save_settings
@@ -273,10 +282,12 @@ def admin_get_notice():
     notice = get_notice(db)
     return jsonify({
         'enabled': _is_notice_enabled(db),
+        'active_id': notice.get('id'),
         'title': notice['title'],
         'message': notice['message'],
         'link_url': notice['link_url'],
         'link_text': notice['link_text'],
+        'items': list_notices(db),
     })
 
 
@@ -286,4 +297,40 @@ def admin_update_notice():
     if error:
         return error
     result, service_error, status_code = save_notice(get_db(), admin['id'], request.get_json(silent=True) or {})
+    return respond_service_result(result, service_error, status_code)
+
+
+@admin_bp.post('/api/admin/notices')
+def admin_create_notice():
+    admin, error = admin_required()
+    if error:
+        return error
+    result, service_error, status_code = create_notice(get_db(), admin['id'], request.get_json(silent=True) or {})
+    return respond_service_result(result, service_error, status_code)
+
+
+@admin_bp.put('/api/admin/notices/<int:notice_id>')
+def admin_update_saved_notice(notice_id):
+    admin, error = admin_required()
+    if error:
+        return error
+    result, service_error, status_code = update_saved_notice(get_db(), admin['id'], notice_id, request.get_json(silent=True) or {})
+    return respond_service_result(result, service_error, status_code)
+
+
+@admin_bp.delete('/api/admin/notices/<int:notice_id>')
+def admin_delete_saved_notice(notice_id):
+    admin, error = admin_required()
+    if error:
+        return error
+    result, service_error, status_code = delete_saved_notice(get_db(), admin['id'], notice_id)
+    return respond_service_result(result, service_error, status_code)
+
+
+@admin_bp.post('/api/admin/notices/<int:notice_id>/activate')
+def admin_activate_notice(notice_id):
+    admin, error = admin_required()
+    if error:
+        return error
+    result, service_error, status_code = activate_notice(get_db(), admin['id'], notice_id)
     return respond_service_result(result, service_error, status_code)

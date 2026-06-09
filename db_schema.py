@@ -106,6 +106,21 @@ INSERT OR IGNORE INTO app_settings (setting_key, setting_value, updated_at) VALU
 ('notice_enabled', 'false', strftime('%Y-%m-%d %H:%M:%S', 'now', 'localtime')),
 ('notice_data', '{}', strftime('%Y-%m-%d %H:%M:%S', 'now', 'localtime'));
 
+CREATE TABLE IF NOT EXISTS site_notices (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    title TEXT NOT NULL,
+    message TEXT NOT NULL,
+    link_url TEXT NOT NULL DEFAULT '',
+    link_text TEXT NOT NULL DEFAULT '',
+    is_active INTEGER NOT NULL DEFAULT 0,
+    created_at TEXT NOT NULL,
+    updated_at TEXT NOT NULL
+);
+
+CREATE UNIQUE INDEX IF NOT EXISTS idx_site_notices_single_active
+ON site_notices (is_active)
+WHERE is_active = 1;
+
 CREATE TABLE IF NOT EXISTS favorites (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     user_id INTEGER NOT NULL,
