@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>手工实时阵容上传工具</title>
+    <link rel="stylesheet" href="/static/style.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <header class="topbar">
+        <div>
+          <p class="kicker">LOCAL TOOL</p>
+          <h1>手工实时阵容上传工具</h1>
+        </div>
+        <p class="hint">本工具只在本地运行，不进入 Git。图片先上传为本站缓存，再上传阵容 JSON。</p>
+      </header>
+
+      <section class="workspace">
+        <aside class="panel config-panel">
+          <h2>连接</h2>
+          <label class="field">
+            <span>服务器</span>
+            <input id="serverInput" value="https://jcc.np5.top" />
+          </label>
+          <label class="field">
+            <span>上传 Token</span>
+            <input id="tokenInput" type="password" placeholder="JCC_LIVE_COMPS_UPLOAD_TOKEN" />
+          </label>
+          <div class="row">
+            <button id="loadSeasonsButton" type="button">拉取赛季</button>
+            <select id="seasonSelect"></select>
+          </div>
+          <div class="message" id="message"></div>
+
+          <h2>图片素材</h2>
+          <label class="file-picker">
+            <input id="imageInput" type="file" accept="image/*" multiple />
+            <span>选择图片</span>
+          </label>
+          <label class="file-picker">
+            <input id="folderInput" type="file" accept="image/*" multiple webkitdirectory directory />
+            <span>选择图片文件夹</span>
+          </label>
+          <label class="field">
+            <span>查找棋子</span>
+            <input id="assetSearchInput" type="search" placeholder="输入名称，例如：贝蕾亚" />
+          </label>
+          <div class="cost-tabs" id="costTabs"></div>
+          <div class="asset-grid" id="assetGrid"></div>
+        </aside>
+
+        <section class="panel editor-panel">
+          <div class="panel-head">
+            <h2>阵容编辑</h2>
+            <button id="addCompButton" type="button">新增阵容</button>
+          </div>
+          <div class="comp-list" id="compList"></div>
+        </section>
+
+        <aside class="panel preview-panel">
+          <h2>预览与上传</h2>
+          <div class="preview-grid" id="previewGrid"></div>
+          <div class="upload-actions">
+            <label class="file-picker compact">
+              <input id="jsonImportInput" type="file" accept="application/json,.json" />
+              <span>导入 JSON</span>
+            </label>
+            <button id="fetchCurrentButton" type="button">获取服务器当前阵容</button>
+            <button id="exportButton" type="button">导出 JSON</button>
+            <button id="uploadButton" class="primary" type="button">上传到服务器</button>
+          </div>
+          <textarea id="jsonOutput" readonly placeholder="最终 JSON 会显示在这里"></textarea>
+        </aside>
+      </section>
+    </main>
+    <script src="/static/app.js"></script>
+  </body>
+</html>

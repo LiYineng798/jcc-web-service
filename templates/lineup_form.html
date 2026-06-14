@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{% if page_mode == 'edit' %}编辑阵容{% else %}新增阵容{% endif %} - 金铲铲阵容库</title>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+  </head>
+  <body>
+    <div class="page-shell editor-page-shell" data-page-mode="{{ page_mode }}" data-lineup-id="{{ lineup_id }}">
+      <nav class="nav-bar" aria-label="页面工具">
+        <a class="ghost-link" href="/">返回阵容库</a>
+        <button class="theme-toggle" id="themeToggle" type="button" aria-label="切换深浅色模式">
+          <span id="themeIcon">☾</span>
+          <span id="themeText">夜间模式</span>
+        </button>
+      </nav>
+
+      <header class="auth-hero">
+        <p class="eyebrow">Lineup</p>
+        <h1 id="editorTitle">{% if page_mode == 'edit' %}编辑阵容{% else %}新增阵容{% endif %}</h1>
+        <p class="hero-description" id="editorDescription">在独立页面中完成阵容的新增或修改，保存后返回阵容列表。</p>
+      </header>
+
+      <section class="panel editor-panel" aria-label="阵容编辑区域">
+        <div class="message" id="editorMessage" role="status" aria-live="polite"></div>
+        <form id="editorForm" autocomplete="off">
+          <input type="hidden" id="lineupId" value="{{ lineup_id }}" />
+          <input type="hidden" id="lineupVersion" />
+          <label class="field">
+            <span>阵容名称</span>
+            <input id="nameInput" name="name" type="text" placeholder="例如：梅尔九五" maxlength="80" />
+          </label>
+          <label class="field">
+            <span>阵容码</span>
+            <textarea id="codeInput" name="code" rows="12" placeholder="粘贴完整阵容码，支持长文本和换行"></textarea>
+            <span class="field-hint">支持从分享文案中自动提取，保存时只保留以 `#` 开头的有效阵容码。</span>
+          </label>
+          <label class="field">
+            <span>所属赛季</span>
+            <input type="hidden" id="seasonSelect" name="season_id" />
+            <div class="season-menu-wrap editor-season-wrap" id="editorSeasonMenuWrap">
+              <button class="account-toggle season-toggle editor-season-toggle" id="editorSeasonToggle" type="button" aria-haspopup="menu" aria-expanded="false">
+                <span id="editorSeasonText">请选择赛季</span>
+                <span class="account-chevron" aria-hidden="true">⌄</span>
+              </button>
+              <div class="account-menu hidden season-menu editor-season-menu" id="editorSeasonMenu" role="menu"></div>
+            </div>
+          </label>
+          <div class="field visibility-toggle">
+            <div class="visibility-copy">
+              <span>发布状态</span>
+              <strong id="statusSummary">直接展示</strong>
+              <span class="field-hint">默认直接展示；开启后会直接隐藏，仅你自己可见。</span>
+            </div>
+            <label class="visibility-switch" for="statusToggle">
+              <span class="visibility-switch-label">直接展示</span>
+              <input id="statusToggle" name="status" type="checkbox" />
+              <span class="visibility-slider" aria-hidden="true"></span>
+              <span class="visibility-switch-label">直接隐藏</span>
+            </label>
+          </div>
+          <div class="editor-actions">
+            <button class="primary-button" id="submitButton" type="submit">{% if page_mode == 'edit' %}保存修改{% else %}保存阵容{% endif %}</button>
+            <a class="ghost-link" href="/">返回阵容库</a>
+          </div>
+        </form>
+      </section>
+    </div>
+    <script src="{{ url_for('static', filename='lineup-editor.js') }}" defer></script>
+  </body>
+</html>

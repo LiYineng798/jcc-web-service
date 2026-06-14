@@ -1,0 +1,7 @@
+{
+  "set": "manual",
+  "version": "manual",
+  "updatedAt": "manual",
+  "source": "D:\\1\\codex\\jcc\\claude_project\\static\\tools\\lineup-simulator\\local-data.js",
+  "note": "由 scripts/build_simulator_data.py 自动生成"
+}

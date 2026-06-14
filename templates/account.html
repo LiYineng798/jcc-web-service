@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>个人中心 - 金铲铲阵容库</title>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+  </head>
+  <body>
+    <main class="page-shell account-page-shell">
+      <nav class="nav-bar" aria-label="页面工具">
+        <a class="ghost-link" href="/">返回阵容库</a>
+        <button class="theme-toggle" id="themeToggle" type="button" aria-label="切换深浅色模式">
+          <span id="themeIcon">☾</span>
+          <span id="themeText">夜间模式</span>
+        </button>
+      </nav>
+
+      <header class="hero">
+        <p class="eyebrow">Account Center</p>
+        <h1>个人中心</h1>
+        <p class="hero-description">查看我的数据、最近浏览、最近复制和举报处理结果。</p>
+      </header>
+
+      <section class="panel">
+        <h2>我的数据</h2>
+        <div id="accountApp">个人中心加载中...</div>
+      </section>
+    </main>
+    <script src="{{ url_for('static', filename='history-store.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='account.js') }}" defer></script>
+  </body>
+</html>

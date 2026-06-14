@@ -1,0 +1,53 @@
+# Runtime data
+instance/
+*.sqlite3
+*.sqlite3-wal
+*.sqlite3-shm
+*.db
+
+# Logs
+*.log
+server.out.log
+server.err.log
+live-comps-server.out.log
+live-comps-server.err.log
+
+# Python cache/test cache
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Local environments
+.venv/
+venv/
+.env
+
+# Secrets/certificates
+ssl-export/
+*.pem
+*.key
+*.crt
+
+# Generated handoff package
+webApplication/
+
+# Test scratch files
+test-tmp/
+test-lineups.sqlite3
+smoke.sqlite3
+
+.worktrees/
+
+# Local game data/source bundles not uploaded to GitHub
+scripts/local/S16/
+scripts/local/S6双城之战/
+scripts/local/天选福星/
+scripts/local/怪兽入侵/
+scripts/local/app.*.js
+scripts/local/basicConfig.js
+scripts/local/chunk-vendors.*.js
+scripts/local/jkgamedata.umd.js
+更新公告功能.md
