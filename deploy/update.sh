@@ -7,8 +7,7 @@ HEALTH_URL="http://127.0.0.1:5000/api/health"
 
 cd "$PROJECT_DIR"
 
-git fetch origin main
-git reset --hard origin/main
+git pull origin main
 
 source .venv/bin/activate
 pip install -r requirements.txt
