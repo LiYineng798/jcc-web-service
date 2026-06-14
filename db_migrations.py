@@ -81,12 +81,24 @@ def migrate_site_notices_table(db, now_text_func):
                 message TEXT NOT NULL,
                 link_url TEXT NOT NULL DEFAULT '',
                 link_text TEXT NOT NULL DEFAULT '',
+                jump_season_id TEXT NOT NULL DEFAULT '',
+                jump_tab TEXT NOT NULL DEFAULT '',
+                marquee_enabled INTEGER NOT NULL DEFAULT 1,
                 is_active INTEGER NOT NULL DEFAULT 0,
                 created_at TEXT NOT NULL,
                 updated_at TEXT NOT NULL
             )
             '''
         )
+    else:
+        columns = table_columns(db, 'site_notices')
+        if 'jump_season_id' not in columns:
+            db.execute("ALTER TABLE site_notices ADD COLUMN jump_season_id TEXT NOT NULL DEFAULT ''")
+        if 'jump_tab' not in columns:
+            db.execute("ALTER TABLE site_notices ADD COLUMN jump_tab TEXT NOT NULL DEFAULT ''")
+        if 'marquee_enabled' not in columns:
+            db.execute("ALTER TABLE site_notices ADD COLUMN marquee_enabled INTEGER NOT NULL DEFAULT 1")
+
     db.execute(
         '''
         CREATE UNIQUE INDEX IF NOT EXISTS idx_site_notices_single_active

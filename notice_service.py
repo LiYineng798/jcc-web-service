@@ -5,7 +5,9 @@ from db import db_kind, now_text
 from db_adapter import insert_returning_id_sql, last_insert_id, upsert_setting_sql
 
 
-NOTICE_FIELDS = ['title', 'message', 'link_url', 'link_text']
+NOTICE_FIELDS = ['title', 'message', 'link_url', 'link_text', 'jump_season_id', 'jump_tab', 'marquee_enabled']
+
+VALID_JUMP_TABS = {'', 'live', 'latest', 'hot', 'rising', 'recommended', 'ss'}
 
 
 def _load_notice_data(db):
@@ -35,6 +37,9 @@ def _serialize_notice(row):
         'message': row['message'],
         'link_url': row['link_url'],
         'link_text': row['link_text'],
+        'jump_season_id': row['jump_season_id'] if 'jump_season_id' in row.keys() else '',
+        'jump_tab': row['jump_tab'] if 'jump_tab' in row.keys() else '',
+        'marquee_enabled': bool(row['marquee_enabled']) if 'marquee_enabled' in row.keys() else True,
         'is_active': bool(row['is_active']),
         'created_at': row['created_at'],
         'updated_at': row['updated_at'],
@@ -44,7 +49,7 @@ def _serialize_notice(row):
 def _active_notice_row(db):
     return db.execute(
         '''
-        SELECT id, title, message, link_url, link_text, is_active, created_at, updated_at
+        SELECT id, title, message, link_url, link_text, jump_season_id, jump_tab, marquee_enabled, is_active, created_at, updated_at
         FROM site_notices
         WHERE is_active = 1
         ORDER BY updated_at DESC, id DESC
@@ -73,6 +78,8 @@ def _validate_notice_payload(data, existing=None):
         return None, '标题不能为空'
     if not values['message']:
         return None, '内容不能为空'
+    if values['jump_tab'] not in VALID_JUMP_TABS:
+        return None, '无效的跳转目标'
     return values, None
 
 
@@ -82,6 +89,9 @@ def _write_notice_data_setting(db, notice, now):
         'message': notice['message'],
         'link_url': notice.get('link_url', ''),
         'link_text': notice.get('link_text', ''),
+        'jump_season_id': notice.get('jump_season_id', ''),
+        'jump_tab': notice.get('jump_tab', ''),
+        'marquee_enabled': notice.get('marquee_enabled', True),
     }, ensure_ascii=False)
     db.execute(upsert_setting_sql(db_kind()), ('notice_data', notice_data, now))
 
@@ -98,6 +108,9 @@ def get_notice(db):
         'message': str(data.get('message', '')),
         'link_url': str(data.get('link_url', '')),
         'link_text': str(data.get('link_text', '')),
+        'jump_season_id': '',
+        'jump_tab': '',
+        'marquee_enabled': True,
         'is_active': False,
         'created_at': '',
         'updated_at': '',
@@ -107,7 +120,7 @@ def get_notice(db):
 def list_notices(db):
     rows = db.execute(
         '''
-        SELECT id, title, message, link_url, link_text, is_active, created_at, updated_at
+        SELECT id, title, message, link_url, link_text, jump_season_id, jump_tab, marquee_enabled, is_active, created_at, updated_at
         FROM site_notices
         ORDER BY updated_at DESC, id DESC
         '''
@@ -130,6 +143,9 @@ def get_active_notice(db):
         'message': notice['message'],
         'link_url': notice['link_url'],
         'link_text': notice['link_text'],
+        'jump_season_id': notice['jump_season_id'],
+        'jump_tab': notice['jump_tab'],
+        'marquee_enabled': notice['marquee_enabled'],
     }
 
 
@@ -139,20 +155,22 @@ def create_notice(db, actor_user_id, data):
         return None, error, 400
 
     now = now_text()
+    marquee = 1 if values.get('marquee_enabled', 'true') not in ('false', '0', '') else 0
     cursor = db.execute(
         insert_returning_id_sql(
             '''
-            INSERT INTO site_notices (title, message, link_url, link_text, is_active, created_at, updated_at)
-            VALUES (?, ?, ?, ?, 0, ?, ?)
+            INSERT INTO site_notices (title, message, link_url, link_text, jump_season_id, jump_tab, marquee_enabled, is_active, created_at, updated_at)
+            VALUES (?, ?, ?, ?, ?, ?, ?, 0, ?, ?)
             ''',
             db_kind(),
         ),
-        (values['title'], values['message'], values['link_url'], values['link_text'], now, now),
+        (values['title'], values['message'], values['link_url'], values['link_text'],
+         values['jump_season_id'], values['jump_tab'], marquee, now, now),
     )
     notice_id = last_insert_id(cursor, db_kind())
     row = db.execute(
         '''
-        SELECT id, title, message, link_url, link_text, is_active, created_at, updated_at
+        SELECT id, title, message, link_url, link_text, jump_season_id, jump_tab, marquee_enabled, is_active, created_at, updated_at
         FROM site_notices
         WHERE id = ?
         ''',
@@ -166,7 +184,7 @@ def create_notice(db, actor_user_id, data):
 
 def update_saved_notice(db, actor_user_id, notice_id, data):
     row = db.execute(
-        'SELECT id, title, message, link_url, link_text, is_active, created_at, updated_at FROM site_notices WHERE id = ?',
+        'SELECT id, title, message, link_url, link_text, jump_season_id, jump_tab, marquee_enabled, is_active, created_at, updated_at FROM site_notices WHERE id = ?',
         (notice_id,),
     ).fetchone()
     if not row:
@@ -177,16 +195,18 @@ def update_saved_notice(db, actor_user_id, notice_id, data):
         return None, error, 400
 
     now = now_text()
+    marquee = 1 if values.get('marquee_enabled', 'true') not in ('false', '0', '') else 0
     db.execute(
         '''
         UPDATE site_notices
-        SET title = ?, message = ?, link_url = ?, link_text = ?, updated_at = ?
+        SET title = ?, message = ?, link_url = ?, link_text = ?, jump_season_id = ?, jump_tab = ?, marquee_enabled = ?, updated_at = ?
         WHERE id = ?
         ''',
-        (values['title'], values['message'], values['link_url'], values['link_text'], now, notice_id),
+        (values['title'], values['message'], values['link_url'], values['link_text'],
+         values['jump_season_id'], values['jump_tab'], marquee, now, notice_id),
     )
     row = db.execute(
-        'SELECT id, title, message, link_url, link_text, is_active, created_at, updated_at FROM site_notices WHERE id = ?',
+        'SELECT id, title, message, link_url, link_text, jump_season_id, jump_tab, marquee_enabled, is_active, created_at, updated_at FROM site_notices WHERE id = ?',
         (notice_id,),
     ).fetchone()
     after = _serialize_notice(row)
@@ -199,7 +219,7 @@ def update_saved_notice(db, actor_user_id, notice_id, data):
 
 def delete_saved_notice(db, actor_user_id, notice_id):
     row = db.execute(
-        'SELECT id, title, message, link_url, link_text, is_active, created_at, updated_at FROM site_notices WHERE id = ?',
+        'SELECT id, title, message, link_url, link_text, jump_season_id, jump_tab, marquee_enabled, is_active, created_at, updated_at FROM site_notices WHERE id = ?',
         (notice_id,),
     ).fetchone()
     if not row:
@@ -216,7 +236,7 @@ def delete_saved_notice(db, actor_user_id, notice_id):
 
 def activate_notice(db, actor_user_id, notice_id):
     row = db.execute(
-        'SELECT id, title, message, link_url, link_text, is_active, created_at, updated_at FROM site_notices WHERE id = ?',
+        'SELECT id, title, message, link_url, link_text, jump_season_id, jump_tab, marquee_enabled, is_active, created_at, updated_at FROM site_notices WHERE id = ?',
         (notice_id,),
     ).fetchone()
     if not row:
@@ -228,7 +248,7 @@ def activate_notice(db, actor_user_id, notice_id):
     db.execute('UPDATE site_notices SET is_active = 1, updated_at = ? WHERE id = ?', (now, notice_id))
     _set_notice_enabled(db, True, now)
     after_row = db.execute(
-        'SELECT id, title, message, link_url, link_text, is_active, created_at, updated_at FROM site_notices WHERE id = ?',
+        'SELECT id, title, message, link_url, link_text, jump_season_id, jump_tab, marquee_enabled, is_active, created_at, updated_at FROM site_notices WHERE id = ?',
         (notice_id,),
     ).fetchone()
     after = _serialize_notice(after_row)

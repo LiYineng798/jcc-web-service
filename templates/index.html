@@ -63,9 +63,11 @@
         <div class="site-notice-body">
           <strong class="site-notice-title">{{ notice.title }}</strong>
           <div class="site-notice-marquee" aria-label="通知内容">
-            <div class="site-notice-marquee-track">
+            <div class="site-notice-marquee-track{% if not notice.marquee_enabled %} static{% endif %}">
           <p class="site-notice-text">{{ notice.message }}</p>
-{% if notice.link_url and notice.link_text %}
+{% if notice.jump_season_id and notice.jump_tab %}
+          <a class="site-notice-link site-notice-jump" href="#" data-jump-season="{{ notice.jump_season_id }}" data-jump-tab="{{ notice.jump_tab }}">{{ notice.link_text or '查看阵容' }} &rarr;</a>
+{% elif notice.link_url and notice.link_text %}
           <a class="site-notice-link" href="{{ notice.link_url }}" target="_blank" rel="noopener">{{ notice.link_text }} &rarr;</a>
 {% endif %}
             </div>

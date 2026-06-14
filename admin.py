@@ -287,6 +287,9 @@ def admin_get_notice():
         'message': notice['message'],
         'link_url': notice['link_url'],
         'link_text': notice['link_text'],
+        'jump_season_id': notice.get('jump_season_id', ''),
+        'jump_tab': notice.get('jump_tab', ''),
+        'marquee_enabled': notice.get('marquee_enabled', True),
         'items': list_notices(db),
     })
 

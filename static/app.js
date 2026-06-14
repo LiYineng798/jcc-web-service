@@ -1135,6 +1135,46 @@ function debounce(callback, delay) {
     document.cookie = 'notice_dismissed=1; expires=' + expires + '; path=/; SameSite=Lax';
     banner.remove();
   });
+
+  var jumpLink = banner.querySelector('.site-notice-jump');
+  if (jumpLink) {
+    jumpLink.addEventListener('click', function (event) {
+      event.preventDefault();
+      var seasonId = jumpLink.getAttribute('data-jump-season');
+      var tabValue = jumpLink.getAttribute('data-jump-tab');
+      if (!seasonId || !tabValue) return;
+
+      var tabMap = {
+        'live':        { sort: 'live',        view: 'live-comps' },
+        'latest':      { sort: 'latest',      view: 'all' },
+        'hot':         { sort: 'hot',         view: 'all' },
+        'rising':      { sort: 'rising',      view: 'all' },
+        'recommended': { sort: 'recommended', view: 'all' },
+        'ss':          { sort: 'ss',          view: 'all' },
+      };
+      var target = tabMap[tabValue];
+      if (!target) return;
+
+      state.selectedLineupSeasonId = seasonId;
+      state.sort = target.sort;
+      state.view = target.view;
+      state.page = 1;
+
+      renderLineupSeasonFilter();
+
+      document.querySelectorAll('#tabs .tab').forEach(function (t) {
+        var isActive = t.getAttribute('data-sort') === target.sort && t.getAttribute('data-view') === target.view;
+        t.classList.toggle('active', isActive);
+      });
+
+      loadCurrentView().then(function () {
+        var lineupList = document.getElementById('lineupList');
+        if (lineupList) {
+          lineupList.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  }
 })();
 
 function el(tag, className = '', text = '') {

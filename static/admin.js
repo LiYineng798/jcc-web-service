@@ -1096,13 +1096,103 @@
   }
 
   function openNoticeDialog(notice) {
-    state.noticeEditing = notice || { title: '', message: '', link_url: '', link_text: '' };
+    state.noticeEditing = notice || { title: '', message: '', link_url: '', link_text: '', jump_season_id: '', jump_tab: '', marquee_enabled: true };
     renderDialogs();
   }
 
   function closeNoticeDialog() {
     state.noticeEditing = null;
     renderDialogs();
+  }
+
+  function setupJumpDropdown(wrapId, toggleId, menuId, inputId, items, selectedValue, placeholder) {
+    var wrap = document.getElementById(wrapId);
+    var toggle = document.getElementById(toggleId);
+    var menu = document.getElementById(menuId);
+    var input = document.getElementById(inputId);
+    if (!wrap || !toggle || !menu || !input) return;
+
+    var textEl = toggle.querySelector('span:first-child');
+
+    function closeMenu() {
+      menu.classList.add('hidden');
+      toggle.classList.remove('is-open');
+      toggle.setAttribute('aria-expanded', 'false');
+    }
+
+    function openMenu() {
+      menu.classList.remove('hidden');
+      toggle.classList.add('is-open');
+      toggle.setAttribute('aria-expanded', 'true');
+    }
+
+    function selectItem(value, label) {
+      input.value = value;
+      if (textEl) textEl.textContent = label || placeholder;
+      closeMenu();
+    }
+
+    toggle.addEventListener('click', function (event) {
+      event.stopPropagation();
+      if (menu.classList.contains('hidden')) { openMenu(); } else { closeMenu(); }
+    });
+
+    document.addEventListener('click', function (event) {
+      if (!wrap.contains(event.target)) closeMenu();
+    });
+
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape') closeMenu();
+    });
+
+    menu.replaceChildren();
+    // "不跳转" option
+    var noneBtn = document.createElement('button');
+    noneBtn.type = 'button';
+    noneBtn.className = 'account-menu-item' + (!selectedValue ? ' is-active' : '');
+    noneBtn.textContent = placeholder;
+    noneBtn.addEventListener('click', function () { selectItem('', placeholder); });
+    menu.append(noneBtn);
+
+    // item options
+    items.forEach(function (opt) {
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'account-menu-item' + (opt.value === selectedValue ? ' is-active' : '');
+      btn.textContent = opt.label;
+      btn.addEventListener('click', function () { selectItem(opt.value, opt.label); });
+      menu.append(btn);
+    });
+
+    // set initial display text
+    if (selectedValue) {
+      var found = items.find(function (it) { return it.value === selectedValue; });
+      if (found && textEl) textEl.textContent = found.label;
+    }
+  }
+
+  function setupJumpSeasonDropdown(form, item) {
+    var selected = item.jump_season_id || '';
+    fetch('/api/lineup-seasons')
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        var items = (data.seasons || []).map(function (s) { return { value: s.id, label: s.name || s.id }; });
+        setupJumpDropdown('noticeJumpSeasonWrap', 'noticeJumpSeasonToggle', 'noticeJumpSeasonMenu', 'noticeJumpSeasonInput', items, selected, '不跳转');
+      })
+      .catch(function () {});
+  }
+
+  function setupJumpTabDropdown(form, item) {
+    var selected = item.jump_tab || '';
+    var items = [
+      { value: 'live', label: '实时阵容排行' },
+      { value: 'latest', label: '最新' },
+      { value: 'hot', label: '最热' },
+      { value: 'rising', label: '上升' },
+      { value: 'recommended', label: '推荐' },
+      { value: 'ss', label: 'SS' },
+    ];
+    setupJumpDropdown('noticeJumpTabWrap', 'noticeJumpTabToggle', 'noticeJumpTabMenu', 'noticeJumpTabInput', items, selected, '不跳转');
   }
 
   function renderSettingsWorkspace() {
@@ -1165,6 +1255,7 @@
         const title = el('strong', '', item.title);
         const metaParts = [
           item.is_active ? '当前展示' : '未展示',
+          item.marquee_enabled === false ? '静止' : '',
           item.updated_at ? `更新 ${item.updated_at}` : '',
         ].filter(Boolean);
         info.append(
@@ -1172,7 +1263,11 @@
           el('p', 'admin-meta', metaParts.join(' · ')),
           el('p', 'admin-reason', item.message),
         );
-        if (item.link_url && item.link_text) {
+        if (item.jump_season_id && item.jump_tab) {
+          var tabNames = { live: '实时阵容排行', latest: '最新', hot: '最热', rising: '上升', recommended: '推荐', ss: 'SS' };
+          var tabName = tabNames[item.jump_tab] || item.jump_tab;
+          info.append(el('p', 'admin-meta', '页内跳转: ' + item.jump_season_id + ' · ' + tabName));
+        } else if (item.link_url && item.link_text) {
           info.append(el('p', 'admin-meta', `${item.link_text} · ${item.link_url}`));
         }
         const actions = el('div', 'card-actions');
@@ -1353,6 +1448,34 @@
         <span>通知内容</span>
         <textarea id="noticeMessageInput" name="message" rows="4" placeholder="通知内容">${escapeHtml(item.message || '')}</textarea>
       </label>
+      <div class="field">
+        <span>页内跳转（设置后将忽略下方的外部链接）</span>
+      </div>
+      <label class="field">
+        <span>跳转赛季</span>
+        <div class="season-menu-wrap" id="noticeJumpSeasonWrap">
+          <button class="account-toggle season-toggle" id="noticeJumpSeasonToggle" type="button" aria-haspopup="menu" aria-expanded="false">
+            <span id="noticeJumpSeasonText">不跳转</span>
+            <span class="account-chevron" aria-hidden="true">⌄</span>
+          </button>
+          <div class="account-menu hidden season-menu" id="noticeJumpSeasonMenu" role="menu"></div>
+        </div>
+        <input type="hidden" id="noticeJumpSeasonInput" name="jump_season_id" value="${escapeAttribute(item.jump_season_id || '')}" />
+      </label>
+      <label class="field">
+        <span>跳转Tab</span>
+        <div class="season-menu-wrap" id="noticeJumpTabWrap">
+          <button class="account-toggle season-toggle" id="noticeJumpTabToggle" type="button" aria-haspopup="menu" aria-expanded="false">
+            <span id="noticeJumpTabText">不跳转</span>
+            <span class="account-chevron" aria-hidden="true">⌄</span>
+          </button>
+          <div class="account-menu hidden season-menu" id="noticeJumpTabMenu" role="menu"></div>
+        </div>
+        <input type="hidden" id="noticeJumpTabInput" name="jump_tab" value="${escapeAttribute(item.jump_tab || '')}" />
+      </label>
+      <div class="field" style="border-top: 1px solid var(--line); padding-top: 12px;">
+        <span>外部链接（页内跳转未设置时生效）</span>
+      </div>
       <label class="field">
         <span>链接地址</span>
         <input id="noticeLinkUrlInput" name="link_url" type="text" placeholder="可选，例如 /patch-notes" value="${escapeAttribute(item.link_url || '')}" />
@@ -1361,11 +1484,25 @@
         <span>链接文字</span>
         <input id="noticeLinkTextInput" name="link_text" type="text" placeholder="可选，例如 查看公告" value="${escapeAttribute(item.link_text || '')}" />
       </label>
+      <div class="field visibility-toggle">
+        <div class="visibility-copy">
+          <span>滚动播放</span>
+          <strong id="marqueeStatusSummary">${item.marquee_enabled !== false ? '滚动' : '静止'}</strong>
+          <span class="field-hint">关闭后通知将静止显示，方便用户点击跳转链接</span>
+        </div>
+        <label class="visibility-switch" for="noticeMarqueeCheckbox">
+          <span class="visibility-switch-label">滚动</span>
+          <input id="noticeMarqueeCheckbox" name="marquee_enabled" type="checkbox"${item.marquee_enabled !== false ? ' checked' : ''} />
+          <span class="visibility-slider" aria-hidden="true"></span>
+          <span class="visibility-switch-label">静止</span>
+        </label>
+      </div>
       <div class="editor-actions">
         <button class="primary-button" type="submit">${isEdit ? '保存通知' : '创建通知'}</button>
         <button class="ghost-button" type="button" id="cancelNoticeButton">取消</button>
       </div>
     `;
+
     form.addEventListener('submit', submitNoticeDialog);
     form.querySelector('#cancelNoticeButton').addEventListener('click', closeNoticeDialog);
     overlay.addEventListener('click', (event) => {
@@ -1375,6 +1512,19 @@
     card.append(header, form);
     overlay.append(card);
     dialogRoot.append(overlay);
+
+    // 设置自定义下拉框（必须在 form 挂载到 DOM 后再初始化，因为使用 document.getElementById）
+    setupJumpSeasonDropdown(form, item);
+    setupJumpTabDropdown(form, item);
+
+    // 滚动开关状态同步
+    var marqueeCheckbox = document.getElementById('noticeMarqueeCheckbox');
+    if (marqueeCheckbox) {
+      marqueeCheckbox.addEventListener('change', function () {
+        var summary = document.getElementById('marqueeStatusSummary');
+        if (summary) summary.textContent = this.checked ? '滚动' : '静止';
+      });
+    }
   }
 
   async function submitNoticeDialog(event) {
@@ -1386,6 +1536,9 @@
       message: form.querySelector('#noticeMessageInput').value.trim(),
       link_url: form.querySelector('#noticeLinkUrlInput').value.trim(),
       link_text: form.querySelector('#noticeLinkTextInput').value.trim(),
+      jump_season_id: form.querySelector('#noticeJumpSeasonInput').value.trim(),
+      jump_tab: form.querySelector('#noticeJumpTabInput').value.trim(),
+      marquee_enabled: form.querySelector('#noticeMarqueeCheckbox').checked ? '1' : '0',
     };
     if (!payload.title) { alert('标题不能为空'); return; }
     if (!payload.message) { alert('内容不能为空'); return; }

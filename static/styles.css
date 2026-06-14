@@ -1004,6 +1004,9 @@ textarea:focus {
   padding-inline: 8px;
   animation: site-notice-marquee-bounce 8s ease-in-out infinite alternate;
 }
+.site-notice-marquee-track.static {
+  animation: none;
+}
 @keyframes site-notice-marquee-bounce {
   from { transform: translateX(0); }
   to { transform: translateX(max(0px, calc(100cqw - 100%))); }
@@ -2030,11 +2033,22 @@ textarea:focus {
 
 .modal-card {
   width: min(100%, 520px);
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
   border: 1px solid var(--line);
   border-radius: var(--radius-xl);
   background: var(--surface-solid);
   box-shadow: var(--shadow);
   padding: 20px;
+}
+.modal-card .modal-header {
+  flex-shrink: 0;
+}
+.modal-card .modal-form {
+  overflow-y: auto;
+  flex: 1 1 auto;
+  min-height: 0;
 }
 
 .modal-header {
