@@ -121,6 +121,31 @@ def test_index_page_contains_home_image_mode_toggle(client):
     assert 'id="imageModeText"' in html
 
 
+def test_index_page_uses_animated_theme_toggler_shell(client):
+    html = client.get('/').get_data(as_text=True)
+
+    assert 'class="theme-toggle nav-icon-button animated-theme-toggle"' in html
+    assert 'class="theme-toggle-svg"' in html
+    assert 'id="themeMoonMaskCircle"' in html
+    assert 'class="theme-toggle-rays"' in html
+    assert 'aria-hidden="true"' in html
+
+
+def test_homepage_theme_toggler_styles_and_state_are_present():
+    with open('static/styles.css', 'r', encoding='utf-8') as file:
+        css = file.read()
+    with open('static/app.js', 'r', encoding='utf-8') as file:
+        js = file.read()
+
+    assert '.animated-theme-toggle' in css
+    assert '.theme-toggle-svg' in css
+    assert '.theme-toggle-rays' in css
+    assert '.animated-theme-toggle.is-dark' in css
+    assert '.theme-toggle-svg,\n  .theme-toggle-body,\n  .theme-toggle-mask-circle,\n  .theme-toggle-rays,' in css
+    assert "elements.themeToggle.classList.toggle('is-dark', theme === 'dark');" in js
+    assert "elements.themeToggle.setAttribute('aria-label', theme === 'dark' ? '切换为白天模式' : '切换为夜间模式');" in js
+
+
 def test_homepage_stat_card_has_border_glow_hook():
     with open('templates/index.html', 'r', encoding='utf-8') as file:
         html = file.read()
