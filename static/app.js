@@ -584,24 +584,45 @@ function renderPagination() {
   elements.pagination.classList.toggle('hidden', state.total <= state.pageSize);
   if (state.total <= state.pageSize) return;
   const fragment = document.createDocumentFragment();
-  fragment.append(button('上一页', () => {}, 'small-button', state.page <= 1));
-  fragment.lastChild.dataset.page = String(state.page - 1);
-  buildPageList(state.page, state.totalPages).forEach((token) => {
-    if (token === '...') {
-      const ellipsis = document.createElement('span');
-      ellipsis.className = 'pagination-ellipsis';
-      ellipsis.textContent = '...';
-      fragment.append(ellipsis);
-      return;
+
+  const prevButton = button('‹', () => {}, 'pagination-arrow', state.page <= 1);
+  prevButton.dataset.page = String(state.page - 1);
+  prevButton.setAttribute('aria-label', '上一页');
+  fragment.append(prevButton);
+
+  const dots = document.createElement('div');
+  dots.className = 'pagination-dots';
+  buildPaginationDots(state.page, state.totalPages).forEach((pageNumber) => {
+    const dot = button('', () => {}, `pagination-dot ${pageNumber === state.page ? 'is-active' : ''}`.trim(), pageNumber === state.page);
+    dot.dataset.page = String(pageNumber);
+    dot.setAttribute('aria-label', `跳转到第 ${pageNumber} 页`);
+    dot.setAttribute('aria-current', pageNumber === state.page ? 'page' : 'false');
+    if (pageNumber === state.page) {
+      const ripple = document.createElement('span');
+      ripple.className = 'pagination-ripple';
+      dot.append(ripple);
     }
-    const pageButton = button(String(token), () => {}, `small-button ${token === state.page ? 'is-active' : ''}`.trim(), token === state.page);
-    pageButton.dataset.page = String(token);
-    fragment.append(pageButton);
+    dots.append(dot);
   });
-  const nextButton = button('下一页', () => {}, 'small-button', state.page >= state.totalPages);
+  fragment.append(dots);
+
+  const nextButton = button('›', () => {}, 'pagination-arrow', state.page >= state.totalPages);
   nextButton.dataset.page = String(state.page + 1);
+  nextButton.setAttribute('aria-label', '下一页');
   fragment.append(nextButton);
   elements.pagination.append(fragment);
+}
+
+function buildPaginationDots(currentPage, totalPages) {
+  const visibleCount = Math.min(totalPages, 7);
+  if (totalPages <= visibleCount) return Array.from({ length: totalPages }, (_, index) => index + 1);
+  let start = Math.max(1, currentPage - Math.floor(visibleCount / 2));
+  let end = start + visibleCount - 1;
+  if (end > totalPages) {
+    end = totalPages;
+    start = totalPages - visibleCount + 1;
+  }
+  return Array.from({ length: end - start + 1 }, (_, index) => start + index);
 }
 
 function renderLiveComps() {
@@ -748,18 +769,6 @@ async function copyLiveCompCode(item) {
     return;
   }
   showToast('阵容码已复制');
-}
-
-function buildPageList(current, total) {
-  if (total <= 7) return Array.from({ length: total }, (_, index) => index + 1);
-  const pages = new Set([1, total, current, current - 1, current + 1]);
-  return Array.from(pages)
-    .filter((value) => value >= 1 && value <= total)
-    .sort((left, right) => left - right)
-    .flatMap((value, index, array) => {
-      if (index === 0) return [value];
-      return value - array[index - 1] > 1 ? ['...', value] : [value];
-    });
 }
 
 function button(label, handler, extraClass = '', disabled = false) {

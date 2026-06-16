@@ -330,6 +330,22 @@ def test_index_page_contains_guest_action_prompt_shell(client):
     assert 'id="authPromptRoot"' in html
 
 
+def test_home_pagination_uses_morphing_dots():
+    with open('static/app.js', 'r', encoding='utf-8') as file:
+        js = file.read()
+    with open('static/styles.css', 'r', encoding='utf-8') as file:
+        css = file.read()
+
+    assert 'pagination-arrow' in js
+    assert 'pagination-dot' in js
+    assert 'pagination-ripple' in js
+    assert '跳转到第' in js
+    assert 'pagination-ellipsis' not in js
+    assert '.pagination-dot.is-active' in css
+    assert '.pagination-ripple' in css
+    assert '@keyframes pagination-ripple' in css
+
+
 def test_index_page_contains_favorites_empty_state_copy(client):
     html = client.get('/').get_data(as_text=True)
     assert '登录后可收藏阵容并随时找回' in html
