@@ -1,4 +1,5 @@
-﻿<!doctype html>
+<!doctype html>
+{% from "theme_toggle.html" import theme_toggle %}
 <html lang="zh-CN">
   <head>
     <meta charset="utf-8" />
@@ -11,54 +12,127 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
   </head>
   <body>
-    <div class="page-shell auth-page-shell">
-      <nav class="nav-bar" aria-label="页面工具">
+    <div class="auth-redesign-shell">
+      <nav class="auth-topbar" aria-label="页面工具">
         <a class="ghost-link" href="/">返回阵容库</a>
-        <button class="theme-toggle" id="themeToggle" type="button" aria-label="切换深浅色模式">
-          <span id="themeIcon">☾</span>
-          <span id="themeText">夜间模式</span>
-        </button>
+        {{ theme_toggle() }}
       </nav>
 
-      <header class="auth-hero">
-        <p class="eyebrow">Account</p>
-        <h1>登录 / 注册</h1>
-        <p class="hero-description auth-benefits">登录后可收藏阵容并跨设备同步，登录后可发布和管理自己的阵容，登录后可查看我的收藏、我的阵容和个人记录。</p>
-      </header>
+      <main class="auth-redesign-main auth-centered-main">
+        <section class="auth-card-stack auth-card-stack-single" id="authForms" aria-label="登录注册区域">
+{% if page_mode == 'register' %}
+          <form id="registerForm" class="auth-card auth-register-card">
+            <header class="auth-card-header">
+              <div class="auth-card-logo" aria-hidden="true">阵</div>
+              <div>
+                <h2>创建账号</h2>
+                <p>注册后可收藏阵容、发布阵容并同步记录。</p>
+              </div>
+            </header>
 
-      <section class="panel auth-panel standalone-auth-panel" aria-label="登录注册区域">
-        <div class="auth-page-status" id="authStatus">正在检查登录状态...</div>
-        <div class="auth-grid" id="authForms">
-          <form id="loginForm" class="mini-form">
-            <h2>登录</h2>
-            <input id="loginAccount" placeholder="用户名或邮箱" />
-            <input id="loginPassword" type="password" placeholder="密码" />
-            <button class="primary-button" type="submit">登录</button>
-          </form>
+            <div class="auth-register-grid">
+              <div class="auth-field">
+                <label for="registerUsername">用户名</label>
+                <input id="registerUsername" autocomplete="username" placeholder="用于登录" />
+              </div>
+              <div class="auth-field">
+                <label for="registerNickname">昵称</label>
+                <input id="registerNickname" placeholder="公开展示" />
+              </div>
+            </div>
 
-          <form id="registerForm" class="mini-form">
-            <h2>注册</h2>
-            <input id="registerUsername" placeholder="用户名" />
-            <input id="registerEmail" type="email" placeholder="邮箱" />
-            <input id="registerNickname" placeholder="昵称（公开展示）" />
-            <input id="registerPassword" type="password" placeholder="密码：大于5位，含字母和数字" />
-            <div class="captcha-row">
+            <div class="auth-field">
+              <label for="registerEmail">邮箱</label>
+              <div class="auth-input-wrap">
+                <span class="auth-input-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" focusable="false"><path d="M4 6.5h16v11H4z"></path><path d="m4 7 8 6 8-6"></path></svg>
+                </span>
+                <input id="registerEmail" type="email" autocomplete="email" placeholder="用于找回和登录" />
+              </div>
+            </div>
+
+            <div class="auth-field">
+              <label for="registerPassword">密码</label>
+              <div class="auth-input-wrap">
+                <span class="auth-input-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" focusable="false"><rect x="5" y="10" width="14" height="10" rx="2"></rect><path d="M8 10V7a4 4 0 0 1 8 0v3"></path></svg>
+                </span>
+                <input id="registerPassword" class="auth-password-input" type="password" autocomplete="new-password" placeholder="大于5位，含字母和数字" />
+                <button class="auth-password-toggle" id="toggleRegisterPassword" data-password-toggle type="button" aria-label="显示密码" aria-pressed="false" aria-controls="registerPassword">
+                  <svg class="auth-eye-icon" viewBox="0 0 24 24" focusable="false" aria-hidden="true"><path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6z"></path><circle cx="12" cy="12" r="2.5"></circle></svg>
+                </button>
+              </div>
+            </div>
+
+            <div class="captcha-row auth-captcha-row">
               <img id="captchaImage" alt="验证码" />
               <button class="small-button" id="refreshCaptcha" type="button">换一张</button>
             </div>
-            <input id="captchaAnswer" placeholder="输入验证码" />
-            <button class="primary-button" type="submit">注册</button>
+
+            <div class="auth-field">
+              <label for="captchaAnswer">验证码</label>
+              <input id="captchaAnswer" inputmode="text" placeholder="输入图片中的字符" />
+            </div>
+
+            <button class="primary-button auth-submit-button" type="submit">注册</button>
+
+            <div class="auth-card-footer">
+              已有账号？
+              <a class="auth-inline-link" href="/auth">去登录</a>
+            </div>
           </form>
-        </div>
+{% else %}
+          <form id="loginForm" class="auth-card auth-login-card">
+            <header class="auth-card-header">
+              <div class="auth-card-logo" aria-hidden="true">阵</div>
+              <div>
+                <h2>欢迎回来</h2>
+                <p>登录后继续管理和复制你的金铲铲阵容码。</p>
+              </div>
+            </header>
+
+            <div class="auth-field">
+              <label for="loginAccount">账号</label>
+              <div class="auth-input-wrap">
+                <span class="auth-input-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" focusable="false"><path d="M4 6.5h16v11H4z"></path><path d="m4 7 8 6 8-6"></path></svg>
+                </span>
+                <input id="loginAccount" autocomplete="username" placeholder="用户名或邮箱" />
+              </div>
+            </div>
+
+            <div class="auth-field">
+              <label for="loginPassword">密码</label>
+              <div class="auth-input-wrap">
+                <span class="auth-input-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" focusable="false"><rect x="5" y="10" width="14" height="10" rx="2"></rect><path d="M8 10V7a4 4 0 0 1 8 0v3"></path></svg>
+                </span>
+                <input id="loginPassword" class="auth-password-input" type="password" autocomplete="current-password" placeholder="输入密码" />
+                <button class="auth-password-toggle" id="toggleLoginPassword" data-password-toggle type="button" aria-label="显示密码" aria-pressed="false" aria-controls="loginPassword">
+                  <svg class="auth-eye-icon" viewBox="0 0 24 24" focusable="false" aria-hidden="true"><path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6z"></path><circle cx="12" cy="12" r="2.5"></circle></svg>
+                </button>
+              </div>
+            </div>
+
+            <button class="primary-button auth-submit-button" type="submit">登录</button>
+
+            <div class="auth-separator"><span>还没有账号？</span></div>
+            <a class="auth-card-link" href="/auth/register">创建新账号</a>
+          </form>
+{% endif %}
+        </section>
+
+        <div class="auth-page-status" id="authStatus">正在检查登录状态...</div>
         <div class="auth-actions">
           <a class="primary-link hidden" id="adminLink" href="/admin">进入管理员后台</a>
           <button class="ghost-button hidden" id="logoutButton" type="button">退出登录</button>
         </div>
-        <div class="message" id="message" role="status" aria-live="polite"></div>
-      </section>
+        <div class="message auth-message" id="message" role="status" aria-live="polite"></div>
+      </main>
     </div>
     <script src="{{ url_for('static', filename='history-store.js') }}" defer></script>
     <script src="{{ url_for('static', filename='auth-intent.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='theme-toggle.js') }}" defer></script>
     <script src="{{ url_for('static', filename='auth.js') }}" defer></script>
   </body>
 </html>

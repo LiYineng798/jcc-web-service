@@ -1,4 +1,4 @@
-﻿const root = document.querySelector('.editor-page-shell');
+const root = document.querySelector('.editor-page-shell');
 const mode = root?.dataset.pageMode || 'create';
 const lineupId = root?.dataset.lineupId || '';
 const $ = (selector) => document.querySelector(selector);
@@ -192,8 +192,8 @@ function extractLineupCode(rawCode) {
 function setTheme(theme) {
   document.documentElement.dataset.theme = theme;
   localStorage.setItem('theme', theme);
-  elements.themeIcon.textContent = theme === 'dark' ? '☀' : '☾';
-  elements.themeText.textContent = theme === 'dark' ? '白天模式' : '夜间模式';
+  window.jccApplyThemeToggleState?.(theme, elements.themeToggle, elements.themeIcon, elements.themeText);
+  if (!window.jccApplyThemeToggleState && elements.themeText) elements.themeText.textContent = theme === 'dark' ? '白天模式' : '夜间模式';
 }
 
 syncStatusSummary();

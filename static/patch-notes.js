@@ -107,8 +107,8 @@ function renderOriginal(text) {
 function setPatchTheme(theme) {
   document.documentElement.dataset.theme = theme;
   localStorage.setItem('theme', theme);
-  if (patchThemeIcon) patchThemeIcon.textContent = theme === 'dark' ? '☼' : '☾';
-  if (patchThemeText) patchThemeText.textContent = theme === 'dark' ? '白天模式' : '夜间模式';
+  window.jccApplyThemeToggleState?.(theme, patchThemeToggle, patchThemeIcon, patchThemeText);
+  if (!window.jccApplyThemeToggleState && patchThemeText) patchThemeText.textContent = theme === 'dark' ? '白天模式' : '夜间模式';
 }
 
 function el(tag, className = '', text = '') {

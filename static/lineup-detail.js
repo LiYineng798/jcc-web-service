@@ -41,8 +41,8 @@ function renderDetail(lineup) {
 function setDetailTheme(theme) {
   document.documentElement.dataset.theme = theme;
   localStorage.setItem('theme', theme);
-  if (detailThemeIcon) detailThemeIcon.textContent = theme === 'dark' ? '☼' : '☾';
-  if (detailThemeText) detailThemeText.textContent = theme === 'dark' ? '白天模式' : '夜间模式';
+  window.jccApplyThemeToggleState?.(theme, detailThemeToggle, detailThemeIcon, detailThemeText);
+  if (!window.jccApplyThemeToggleState && detailThemeText) detailThemeText.textContent = theme === 'dark' ? '白天模式' : '夜间模式';
 }
 
 function escapeHtml(text) {

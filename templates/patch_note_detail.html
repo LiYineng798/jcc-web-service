@@ -1,4 +1,5 @@
 <!doctype html>
+{% from "theme_toggle.html" import theme_toggle %}
 <html lang="zh-CN">
   <head>
     <meta charset="utf-8" />
@@ -15,15 +16,13 @@
       <nav class="nav-bar" aria-label="页面工具">
         <a class="ghost-link" href="/patch-notes">返回更新公告</a>
         <a class="ghost-link" href="/">返回阵容库</a>
-        <button class="theme-toggle" id="themeToggle" type="button" aria-label="切换深浅色模式">
-          <span id="themeIcon">☾</span>
-          <span id="themeText">夜间模式</span>
-        </button>
+        {{ theme_toggle() }}
       </nav>
       <section class="panel">
         <div id="patchNoteDetailApp" data-patch-note-id="{{ patch_note_id }}">公告加载中...</div>
       </section>
     </div>
+    <script src="{{ url_for('static', filename='theme-toggle.js') }}" defer></script>
     <script src="{{ url_for('static', filename='patch-notes.js') }}" defer></script>
   </body>
 </html>

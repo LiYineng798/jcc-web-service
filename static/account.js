@@ -47,8 +47,8 @@ let accountCsrfToken = '';
 function setAccountTheme(theme, themeIcon, themeText) {
   document.documentElement.dataset.theme = theme;
   localStorage.setItem('theme', theme);
-  if (themeIcon) themeIcon.textContent = theme === 'dark' ? '☼' : '☾';
-  if (themeText) themeText.textContent = theme === 'dark' ? '白天模式' : '夜间模式';
+  window.jccApplyThemeToggleState?.(theme, themeToggle, themeIcon, themeText);
+  if (!window.jccApplyThemeToggleState && themeText) themeText.textContent = theme === 'dark' ? '白天模式' : '夜间模式';
 }
 
 function renderSummaryCards(user, dashboard) {

@@ -1,4 +1,4 @@
-﻿(async function () {
+(async function () {
   const root = document.querySelector('#adminApp');
   const dialogRoot = document.querySelector('#adminDialogRoot');
   const elements = {
@@ -1733,8 +1733,8 @@
   function setTheme(theme) {
     document.documentElement.dataset.theme = theme;
     localStorage.setItem('theme', theme);
-    if (elements.themeIcon) elements.themeIcon.textContent = theme === 'dark' ? '☼' : '☾';
-    if (elements.themeText) elements.themeText.textContent = theme === 'dark' ? '白天模式' : '夜间模式';
+    window.jccApplyThemeToggleState?.(theme, elements.themeToggle, elements.themeIcon, elements.themeText);
+    if (!window.jccApplyThemeToggleState && elements.themeText) elements.themeText.textContent = theme === 'dark' ? '白天模式' : '夜间模式';
   }
 
   function debounce(callback, delay) {

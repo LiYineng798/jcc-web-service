@@ -1,0 +1,24 @@
+{% macro theme_toggle(extra_classes='') -%}
+<button class="theme-toggle animated-theme-toggle{{ ' ' ~ extra_classes if extra_classes else '' }}" id="themeToggle" type="button" aria-label="切换为夜间模式">
+  <span id="themeIcon" class="theme-toggle-icon" aria-hidden="true">
+    <svg class="theme-toggle-svg" viewBox="0 0 24 24" focusable="false">
+      <mask id="themeMoonMask">
+        <rect x="0" y="0" width="24" height="24" fill="white"></rect>
+        <circle id="themeMoonMaskCircle" class="theme-toggle-mask-circle" cx="var(--theme-mask-x, 33)" cy="var(--theme-mask-y, 0)" r="9" fill="black"></circle>
+      </mask>
+      <circle class="theme-toggle-body" cx="12" cy="12" r="var(--theme-body-radius, 5)" mask="url(#themeMoonMask)"></circle>
+      <g class="theme-toggle-rays">
+        <line x1="12" y1="1" x2="12" y2="3"></line>
+        <line x1="12" y1="21" x2="12" y2="23"></line>
+        <line x1="1" y1="12" x2="3" y2="12"></line>
+        <line x1="21" y1="12" x2="23" y2="12"></line>
+        <line x1="5.64" y1="5.64" x2="4.22" y2="4.22"></line>
+        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        <line x1="5.64" y1="18.36" x2="4.22" y2="19.78"></line>
+        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      </g>
+    </svg>
+  </span>
+  <span id="themeText">夜间模式</span>
+</button>
+{%- endmacro %}

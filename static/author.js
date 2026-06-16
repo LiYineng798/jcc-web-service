@@ -404,8 +404,8 @@ function stripResumeIntentFlag() {
 function setAuthorTheme(theme) {
   document.documentElement.dataset.theme = theme;
   localStorage.setItem('theme', theme);
-  if (authorElements.themeIcon) authorElements.themeIcon.textContent = theme === 'dark' ? '☼' : '☾';
-  if (authorElements.themeText) authorElements.themeText.textContent = theme === 'dark' ? '白天模式' : '夜间模式';
+  window.jccApplyThemeToggleState?.(theme, authorElements.themeToggle, authorElements.themeIcon, authorElements.themeText);
+  if (!window.jccApplyThemeToggleState && authorElements.themeText) authorElements.themeText.textContent = theme === 'dark' ? '白天模式' : '夜间模式';
 }
 
 function escapeAuthorHtml(text) {
