@@ -93,15 +93,18 @@
             </div>
             <label class="search-field"><span class="sr-only">搜索阵容名称</span><input id="searchInput" type="search" placeholder="搜索阵容名称，例如：九五、卡莎、斗士" /></label>
           </div>
-          <div class="tabs" id="tabs">
-            <button class="tab active" data-sort="live" data-view="live-comps">实时阵容排行</button>
-            <button class="tab" data-sort="latest" data-view="all">最新</button>
-            <button class="tab" data-sort="hot" data-view="all">最热</button>
-            <button class="tab" data-sort="rising" data-view="all">上升</button>
-            <button class="tab" data-sort="recommended" data-view="all">推荐</button>
-            <button class="tab" data-sort="ss" data-view="all">SS</button>
-            <button class="tab" id="favoritesTab" data-sort="latest" data-view="favorites">我的收藏</button>
-            <button class="tab hidden" id="mineTab" data-sort="latest" data-view="mine">我的</button>
+          <div class="tabs-shell">
+            <div class="tabs" id="tabs" role="tablist">
+              <button class="tab active" data-sort="live" data-view="live-comps" role="tab" aria-selected="true">实时阵容排行</button>
+              <button class="tab" data-sort="latest" data-view="all" role="tab" aria-selected="false">最新</button>
+              <button class="tab" data-sort="hot" data-view="all" role="tab" aria-selected="false">最热</button>
+              <button class="tab" data-sort="rising" data-view="all" role="tab" aria-selected="false">上升</button>
+              <button class="tab" data-sort="recommended" data-view="all" role="tab" aria-selected="false">推荐</button>
+              <button class="tab" data-sort="ss" data-view="all" role="tab" aria-selected="false">SS</button>
+              <button class="tab" id="favoritesTab" data-sort="latest" data-view="favorites" role="tab" aria-selected="false">我的收藏</button>
+              <button class="tab hidden" id="mineTab" data-sort="latest" data-view="mine" role="tab" aria-selected="false">我的</button>
+              <span class="tab-indicator" id="tabIndicator" aria-hidden="true"></span>
+            </div>
           </div>
           <div class="message" id="message" role="status" aria-live="polite"></div>
           <div class="lineup-list" id="lineupList" data-author-link-class="author-link"></div>

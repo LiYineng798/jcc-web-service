@@ -519,6 +519,24 @@ def test_index_contains_live_comps_tab_before_latest(client):
     assert 'class="tab active" data-sort="live" data-view="live-comps"' in html
 
 
+def test_index_tabs_use_underline_indicator_shell(client):
+    html = client.get('/').get_data(as_text=True)
+
+    assert 'class="tabs-shell"' in html
+    assert 'class="tabs" id="tabs" role="tablist"' in html
+    assert 'class="tab-indicator" id="tabIndicator" aria-hidden="true"' in html
+
+
+def test_app_js_updates_home_tab_indicator():
+    with open('static/app.js', 'r', encoding='utf-8') as file:
+        js = file.read()
+
+    assert 'tabIndicator: $(\'#tabIndicator\')' in js
+    assert 'function updateTabIndicator()' in js
+    assert "elements.tabs.style.setProperty('--active-tab-width'" in js
+    assert "window.addEventListener('resize', updateTabIndicator)" in js
+
+
 def test_index_contains_live_comps_mount_points(client):
     html = client.get('/').get_data(as_text=True)
     assert 'id="lineupList"' in html

@@ -54,6 +54,7 @@ const elements = {
   favoritesTab: $('#favoritesTab'),
   mineTab: $('#mineTab'),
   tabs: $('#tabs'),
+  tabIndicator: $('#tabIndicator'),
   pagination: $('#pagination'),
   themeToggle: $('#themeToggle'),
   themeIcon: $('#themeIcon'),
@@ -101,6 +102,7 @@ elements.tabs.addEventListener('click', (event) => {
   setActiveTab(tab.dataset.sort, tab.dataset.view);
   loadCurrentView();
 });
+window.addEventListener('resize', updateTabIndicator);
 elements.pagination.addEventListener('click', (event) => {
   const button = event.target.closest('[data-page]');
   if (!button) return;
@@ -790,8 +792,21 @@ function setActiveTab(sort, view) {
 
 function syncActiveTab() {
   document.querySelectorAll('.tab').forEach((item) => {
-    item.classList.toggle('active', item.dataset.sort === state.sort && item.dataset.view === state.view);
+    const isActive = item.dataset.sort === state.sort && item.dataset.view === state.view;
+    item.classList.toggle('active', isActive);
+    item.setAttribute('aria-selected', String(isActive));
   });
+  updateTabIndicator();
+}
+
+function updateTabIndicator() {
+  if (!elements.tabs || !elements.tabIndicator) return;
+  const activeTab = elements.tabs.querySelector('.tab.active:not(.hidden)');
+  if (!activeTab) return;
+  const tabRect = activeTab.getBoundingClientRect();
+  const listRect = elements.tabs.getBoundingClientRect();
+  elements.tabs.style.setProperty('--active-tab-width', `${tabRect.width}px`);
+  elements.tabs.style.setProperty('--active-tab-left', `${tabRect.left - listRect.left + elements.tabs.scrollLeft}px`);
 }
 
 function openEditor(lineupId) {
@@ -1171,10 +1186,7 @@ function debounce(callback, delay) {
 
       renderLineupSeasonFilter();
 
-      document.querySelectorAll('#tabs .tab').forEach(function (t) {
-        var isActive = t.getAttribute('data-sort') === target.sort && t.getAttribute('data-view') === target.view;
-        t.classList.toggle('active', isActive);
-      });
+      syncActiveTab();
 
       loadCurrentView().then(function () {
         var lineupList = document.getElementById('lineupList');
