@@ -875,3 +875,20 @@ def test_admin_dashboard_clarifies_uv_labels_and_new_returning_visitors():
     assert '\u4eca\u65e5\u8001\u8bbf\u5ba2' in js
     assert '\u9996\u6b21\u8bbf\u95ee\u65e5\u671f\u4e3a\u4eca\u5929' in js
     assert '\u4eca\u5929\u4e4b\u524d\u5df2\u8bbf\u95ee\u8fc7' in js
+
+
+def test_admin_dashboard_renders_uv_trend_as_line_chart():
+    with open('static/admin.js', 'r', encoding='utf-8') as file:
+        js = file.read()
+    with open('static/styles.css', 'r', encoding='utf-8') as file:
+        css = file.read()
+
+    assert 'function renderTrafficLineChart(' in js
+    assert 'traffic-line-chart' in js
+    assert 'traffic-line-path' in js
+    assert 'traffic-line-point' in js
+    assert 'traffic-trend-row' not in js
+    assert 'traffic-trend-fill' not in js
+    assert '.traffic-line-chart' in css
+    assert '.traffic-line-path' in css
+    assert '.traffic-line-point' in css

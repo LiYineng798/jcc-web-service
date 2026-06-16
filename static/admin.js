@@ -346,7 +346,6 @@
     const stats = state.overview?.stats || {};
     const trend = state.overview?.traffic_7d || [];
     const totalUv = trend.reduce((sum, item) => sum + Number(item.uv || 0), 0);
-    const highestUv = Math.max(1, ...trend.map((item) => Number(item.uv || 0)));
 
     const overview = el('div', 'traffic-overview');
     overview.append(
@@ -357,26 +356,104 @@
       trafficMetric('今日老访客', stats.today_returning_visitors || 0, '今天之前已访问过'),
     );
 
-    const trendList = el('div', 'traffic-trend-list');
+    body.append(overview, renderTrafficLineChart(trend));
+    return panel;
+  }
+
+  function renderTrafficLineChart(trend) {
+    const wrap = el('div', 'traffic-line-chart');
     if (!trend.length) {
-      trendList.append(empty('暂无访问数据'));
-    } else {
-      trend.forEach((item) => {
-        const uv = Number(item.uv || 0);
-        const row = el('article', 'traffic-trend-row');
-        const head = el('div', 'traffic-trend-head');
-        head.append(el('strong', '', formatDay(item.date)), el('span', '', `${uv} UV`));
-        const track = el('div', 'traffic-trend-track');
-        const fill = el('span', 'traffic-trend-fill');
-        fill.style.width = uv ? `${Math.max((uv / highestUv) * 100, 8)}%` : '0%';
-        track.append(fill);
-        row.append(head, track);
-        trendList.append(row);
-      });
+      wrap.append(empty('暂无访问数据'));
+      return wrap;
     }
 
-    body.append(overview, trendList);
-    return panel;
+    const values = trend.map((item) => Number(item.uv || 0));
+    const maxUv = Math.max(1, ...values);
+    const minUv = Math.min(...values);
+    const width = 640;
+    const height = 220;
+    const padding = { top: 24, right: 24, bottom: 42, left: 44 };
+    const plotWidth = width - padding.left - padding.right;
+    const plotHeight = height - padding.top - padding.bottom;
+    const pointX = (index) => padding.left + (trend.length === 1 ? plotWidth / 2 : (plotWidth / (trend.length - 1)) * index);
+    const pointY = (uv) => padding.top + plotHeight - (uv / maxUv) * plotHeight;
+    const points = trend.map((item, index) => ({
+      date: item.date,
+      label: formatDay(item.date),
+      uv: Number(item.uv || 0),
+      x: pointX(index),
+      y: pointY(Number(item.uv || 0)),
+    }));
+    const pathData = points.map((point, index) => `${index ? 'L' : 'M'} ${point.x.toFixed(1)} ${point.y.toFixed(1)}`).join(' ');
+
+    const summary = el('div', 'traffic-line-summary');
+    const latest = points[points.length - 1];
+    const previous = points[points.length - 2] || latest;
+    const delta = latest.uv - previous.uv;
+    summary.append(
+      el('strong', '', '每日 UV 折线'),
+      el('span', '', `最新 ${latest.uv} UV · ${delta >= 0 ? '+' : ''}${delta} 较前日`),
+    );
+
+    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.setAttribute('viewBox', `0 0 ${width} ${height}`);
+    svg.setAttribute('role', 'img');
+    svg.setAttribute('aria-label', '最近 7 天每日 UV 折线图');
+
+    const gridGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+    gridGroup.setAttribute('class', 'traffic-line-grid');
+    [0, 0.5, 1].forEach((ratio) => {
+      const y = padding.top + plotHeight * ratio;
+      const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      line.setAttribute('x1', String(padding.left));
+      line.setAttribute('x2', String(width - padding.right));
+      line.setAttribute('y1', y.toFixed(1));
+      line.setAttribute('y2', y.toFixed(1));
+      gridGroup.append(line);
+    });
+
+    const area = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    area.setAttribute('class', 'traffic-line-area');
+    area.setAttribute('d', `${pathData} L ${points[points.length - 1].x.toFixed(1)} ${height - padding.bottom} L ${points[0].x.toFixed(1)} ${height - padding.bottom} Z`);
+
+    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    path.setAttribute('class', 'traffic-line-path');
+    path.setAttribute('d', pathData);
+
+    const pointGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+    points.forEach((point) => {
+      const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      circle.setAttribute('class', 'traffic-line-point');
+      circle.setAttribute('cx', point.x.toFixed(1));
+      circle.setAttribute('cy', point.y.toFixed(1));
+      circle.setAttribute('r', point.uv === maxUv ? '5' : '4');
+      const title = document.createElementNS('http://www.w3.org/2000/svg', 'title');
+      title.textContent = `${point.label}：${point.uv} UV`;
+      circle.append(title);
+      pointGroup.append(circle);
+    });
+
+    const labelGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+    labelGroup.setAttribute('class', 'traffic-line-labels');
+    points.forEach((point) => {
+      const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+      text.setAttribute('x', point.x.toFixed(1));
+      text.setAttribute('y', String(height - 14));
+      text.setAttribute('text-anchor', 'middle');
+      text.textContent = point.label;
+      labelGroup.append(text);
+    });
+    [maxUv, minUv].forEach((uv, index) => {
+      const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+      text.setAttribute('x', '8');
+      text.setAttribute('y', (index === 0 ? padding.top + 4 : height - padding.bottom).toFixed(1));
+      text.textContent = String(uv);
+      labelGroup.append(text);
+    });
+
+    svg.append(gridGroup, area, path, pointGroup, labelGroup);
+    wrap.append(summary, svg);
+    return wrap;
   }
 
   function renderTodoPanel() {

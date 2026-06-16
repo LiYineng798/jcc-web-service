@@ -2325,44 +2325,64 @@ textarea:focus {
 }
 
 .traffic-metric small,
-.traffic-trend-head span {
+.traffic-line-summary span {
   color: var(--muted);
 }
 
-.traffic-trend-list {
+.traffic-line-chart {
   display: grid;
-  gap: 12px;
-}
-
-.traffic-trend-row {
-  display: grid;
-  grid-template-columns: 92px minmax(0, 1fr);
-  gap: 12px;
-  align-items: center;
-}
-
-.traffic-trend-head {
-  display: grid;
-  gap: 3px;
-}
-
-.traffic-trend-head strong {
-  font-size: 0.96rem;
-}
-
-.traffic-trend-track {
   overflow: hidden;
-  height: 12px;
   border: 1px solid var(--line);
-  border-radius: 999px;
-  background: var(--accent-soft);
+  border-radius: var(--radius-lg);
+  background: var(--surface-solid);
+  padding: 16px 18px 12px;
 }
 
-.traffic-trend-fill {
+.traffic-line-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.traffic-line-summary strong {
+  font-size: 0.98rem;
+}
+
+.traffic-line-chart svg {
   display: block;
-  height: 100%;
-  border-radius: inherit;
-  background: linear-gradient(90deg, var(--accent) 0%, var(--accent-strong) 100%);
+  width: 100%;
+  min-height: 180px;
+}
+
+.traffic-line-grid line {
+  stroke: color-mix(in srgb, var(--line) 82%, transparent);
+}
+
+.traffic-line-area {
+  fill: color-mix(in srgb, var(--accent) 16%, transparent);
+}
+
+.traffic-line-path {
+  fill: none;
+  stroke: var(--accent-strong);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 5 5;
+}
+
+.traffic-line-point {
+  fill: var(--surface-solid);
+  stroke: var(--accent-strong);
+  stroke-width: 3;
+}
+
+.traffic-line-labels text {
+  fill: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 650;
 }
 
 .modal-backdrop {
@@ -2523,9 +2543,13 @@ textarea:focus {
     align-items: stretch;
   }
 
-  .traffic-overview,
-  .traffic-trend-row {
+  .traffic-overview {
     grid-template-columns: 1fr;
+  }
+
+  .traffic-line-summary {
+    align-items: flex-start;
+    flex-direction: column;
   }
 
   .live-comp-header {
