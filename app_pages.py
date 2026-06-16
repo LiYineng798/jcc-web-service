@@ -19,7 +19,11 @@ def register_page_routes(app):
 
     @app.get('/auth')
     def auth_page():
-        return tracked_template_response('auth.html', 'auth')
+        return tracked_template_response('auth.html', 'auth', page_mode='login')
+
+    @app.get('/auth/register')
+    def register_page():
+        return tracked_template_response('auth.html', 'auth', page_mode='register')
 
     @app.get('/favicon.ico')
     def favicon():

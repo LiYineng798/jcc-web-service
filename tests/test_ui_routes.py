@@ -13,8 +13,54 @@ def test_auth_page_contains_login_and_register_forms(client):
     html = response.get_data(as_text=True)
     assert response.status_code == 200
     assert 'id="loginForm"' in html
-    assert 'id="registerForm"' in html
-    assert 'id="captchaImage"' in html
+    assert 'id="registerForm"' not in html
+    assert 'href="/auth/register"' in html
+
+    register_response = client.get('/auth/register')
+    register_html = register_response.get_data(as_text=True)
+    assert register_response.status_code == 200
+    assert 'id="loginForm"' not in register_html
+    assert 'id="registerForm"' in register_html
+    assert 'id="captchaImage"' in register_html
+
+
+def test_auth_page_uses_card_redesign_shell(client):
+    html = client.get('/auth').get_data(as_text=True)
+    register_html = client.get('/auth/register').get_data(as_text=True)
+
+    assert 'class="auth-redesign-shell"' in html
+    assert 'class="auth-brand-panel"' not in html
+    assert 'class="auth-redesign-main auth-centered-main"' in html
+    assert 'class="auth-card auth-login-card"' in html
+    assert 'class="auth-card auth-register-card"' in register_html
+    assert 'class="auth-separator"' in html
+    assert 'href="/auth/register"' in html
+    assert 'href="/auth"' in register_html
+
+
+def test_auth_page_password_visibility_controls_are_present(client):
+    html = client.get('/auth').get_data(as_text=True)
+    register_html = client.get('/auth/register').get_data(as_text=True)
+
+    assert 'id="toggleLoginPassword"' in html
+    assert 'aria-controls="loginPassword"' in html
+    assert 'id="toggleRegisterPassword"' in register_html
+    assert 'aria-controls="registerPassword"' in register_html
+    assert 'data-password-toggle' in html
+    assert 'class="auth-input-icon"' in html
+    assert 'class="auth-eye-icon"' in html
+
+
+def test_auth_js_wires_password_visibility_and_card_links():
+    with open('static/auth.js', 'r', encoding='utf-8') as file:
+        js = file.read()
+
+    assert 'passwordToggles' in js
+    assert 'setupPasswordVisibilityToggles' in js
+    assert 'aria-pressed' in js
+    assert "input.type = input.type === 'password' ? 'text' : 'password';" in js
+    assert 'setupAuthJumpLinks' not in js
+    assert 'scrollIntoView' not in js
 
 
 def test_lineup_editor_pages_exist(client):
@@ -134,7 +180,7 @@ def test_index_page_uses_animated_theme_toggler_shell(client):
 def test_homepage_theme_toggler_styles_and_state_are_present():
     with open('static/styles.css', 'r', encoding='utf-8') as file:
         css = file.read()
-    with open('static/app.js', 'r', encoding='utf-8') as file:
+    with open('static/theme-toggle.js', 'r', encoding='utf-8') as file:
         js = file.read()
 
     assert '.animated-theme-toggle' in css
@@ -142,8 +188,54 @@ def test_homepage_theme_toggler_styles_and_state_are_present():
     assert '.theme-toggle-rays' in css
     assert '.animated-theme-toggle.is-dark' in css
     assert '.theme-toggle-svg,\n  .theme-toggle-body,\n  .theme-toggle-mask-circle,\n  .theme-toggle-rays,' in css
-    assert "elements.themeToggle.classList.toggle('is-dark', theme === 'dark');" in js
-    assert "elements.themeToggle.setAttribute('aria-label', theme === 'dark' ? '切换为白天模式' : '切换为夜间模式');" in js
+    assert "themeToggle.classList.toggle('is-dark', theme === 'dark');" in js
+    assert "themeToggle.setAttribute('aria-label', theme === 'dark' ? '切换为白天模式' : '切换为夜间模式');" in js
+
+
+def test_all_theme_toggles_use_animated_svg_shell():
+    template_names = [
+        'account.html',
+        'admin.html',
+        'auth.html',
+        'author.html',
+        'index.html',
+        'lineup_detail.html',
+        'lineup_form.html',
+        'patch_note_detail.html',
+        'patch_notes.html',
+    ]
+
+    for template_name in template_names:
+        with open(f'templates/{template_name}', 'r', encoding='utf-8') as file:
+            html = file.read()
+        assert 'theme_toggle.html' in html or 'theme_toggle(' in html, template_name
+        assert 'theme-toggle.js' in html, template_name
+
+    with open('templates/theme_toggle.html', 'r', encoding='utf-8') as file:
+        macro = file.read()
+    assert 'animated-theme-toggle' in macro
+    assert 'class="theme-toggle-svg"' in macro
+    assert 'class="theme-toggle-rays"' in macro
+    assert 'id="themeIcon" class="theme-toggle-icon" aria-hidden="true"' in macro
+
+
+def test_all_theme_scripts_preserve_animated_svg_icon():
+    script_names = [
+        'account.js',
+        'admin.js',
+        'auth.js',
+        'author.js',
+        'lineup-detail.js',
+        'lineup-editor.js',
+        'patch-notes.js',
+    ]
+
+    for script_name in script_names:
+        with open(f'static/{script_name}', 'r', encoding='utf-8') as file:
+            js = file.read()
+        assert 'jccApplyThemeToggleState' in js, script_name
+        assert ".textContent = theme === 'dark' ? '☼' : '☾'" not in js, script_name
+        assert ".textContent = theme === 'dark' ? '☀' : '☾'" not in js, script_name
 
 
 def test_homepage_stat_card_has_border_glow_hook():
@@ -199,9 +291,9 @@ def test_app_js_uses_home_view_cache_and_abortable_fetches():
 
 def test_auth_page_contains_account_benefits_copy(client):
     html = client.get('/auth').get_data(as_text=True)
-    assert '登录后可收藏阵容并跨设备同步' in html
-    assert '登录后可发布和管理自己的阵容' in html
-    assert '登录后可查看我的收藏、我的阵容和个人记录' in html
+    assert '登录后可收藏阵容并跨设备同步' not in html
+    assert '登录后可发布和管理自己的阵容' not in html
+    assert '登录后可查看我的收藏、我的阵容和个人记录' not in html
 
 
 def test_index_and_auth_pages_include_auth_intent_script(client):

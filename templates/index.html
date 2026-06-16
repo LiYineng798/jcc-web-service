@@ -1,4 +1,5 @@
-﻿<!doctype html>
+<!doctype html>
+{% from "theme_toggle.html" import theme_toggle %}
 <html lang="zh-CN">
   <head>
     <meta charset="utf-8" />
@@ -24,28 +25,7 @@
               <span class="image-mode-icon" id="imageModeIcon" aria-hidden="true">无</span>
               <span id="imageModeText">无图</span>
             </button>
-            <button class="theme-toggle nav-icon-button animated-theme-toggle" id="themeToggle" type="button" aria-label="切换为夜间模式">
-              <span id="themeIcon" class="theme-toggle-icon" aria-hidden="true">
-                <svg class="theme-toggle-svg" viewBox="0 0 24 24" focusable="false">
-                  <mask id="themeMoonMask">
-                    <rect x="0" y="0" width="24" height="24" fill="white"></rect>
-                    <circle id="themeMoonMaskCircle" class="theme-toggle-mask-circle" cx="var(--theme-mask-x, 33)" cy="var(--theme-mask-y, 0)" r="9" fill="black"></circle>
-                  </mask>
-                  <circle class="theme-toggle-body" cx="12" cy="12" r="var(--theme-body-radius, 5)" mask="url(#themeMoonMask)"></circle>
-                  <g class="theme-toggle-rays">
-                    <line x1="12" y1="1" x2="12" y2="3"></line>
-                    <line x1="12" y1="21" x2="12" y2="23"></line>
-                    <line x1="1" y1="12" x2="3" y2="12"></line>
-                    <line x1="21" y1="12" x2="23" y2="12"></line>
-                    <line x1="5.64" y1="5.64" x2="4.22" y2="4.22"></line>
-                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-                    <line x1="5.64" y1="18.36" x2="4.22" y2="19.78"></line>
-                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                  </g>
-                </svg>
-              </span>
-              <span id="themeText">夜间模式</span>
-            </button>
+            {{ theme_toggle("nav-icon-button") }}
             <div class="account-menu-wrap" id="accountMenuWrap">
               <button class="account-toggle" id="accountToggle" type="button" aria-haspopup="menu" aria-expanded="false">
                 <span id="accountToggleText">登录 / 注册</span>
@@ -137,6 +117,7 @@
     <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
     <script src="{{ url_for('static', filename='history-store.js') }}" defer></script>
     <script src="{{ url_for('static', filename='auth-intent.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='theme-toggle.js') }}" defer></script>
     <script src="{{ url_for('static', filename='app.js') }}" defer></script>
   </body>
 </html>

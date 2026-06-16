@@ -1,24 +1,26 @@
-﻿const state = { user: null, csrfToken: '', captchaToken: '' };
+const state = { user: null, csrfToken: '', captchaToken: '' };
 const $ = (selector) => document.querySelector(selector);
 const elements = {
   authStatus: $('#authStatus'), authForms: $('#authForms'), loginForm: $('#loginForm'), registerForm: $('#registerForm'), logoutButton: $('#logoutButton'), adminLink: $('#adminLink'),
   loginAccount: $('#loginAccount'), loginPassword: $('#loginPassword'), registerUsername: $('#registerUsername'), registerEmail: $('#registerEmail'), registerNickname: $('#registerNickname'), registerPassword: $('#registerPassword'), captchaImage: $('#captchaImage'), captchaAnswer: $('#captchaAnswer'), refreshCaptcha: $('#refreshCaptcha'), message: $('#message'),
   themeToggle: $('#themeToggle'), themeIcon: $('#themeIcon'), themeText: $('#themeText'),
+  passwordToggles: document.querySelectorAll('[data-password-toggle]'),
 };
 
 setTheme(localStorage.getItem('theme') || 'light');
+setupPasswordVisibilityToggles();
 boot();
 
 elements.themeToggle.addEventListener('click', () => setTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'));
-elements.refreshCaptcha.addEventListener('click', loadCaptcha);
-elements.loginForm.addEventListener('submit', login);
-elements.registerForm.addEventListener('submit', register);
+elements.refreshCaptcha?.addEventListener('click', loadCaptcha);
+elements.loginForm?.addEventListener('submit', login);
+elements.registerForm?.addEventListener('submit', register);
 elements.logoutButton.addEventListener('click', logout);
 
 async function boot() {
   await loadMe();
   trackGrowth('open_auth_page', { source: document.referrer ? 'redirect' : 'direct' });
-  if (!state.user) await loadCaptcha();
+  if (!state.user && elements.captchaImage) await loadCaptcha();
 }
 
 async function api(url, options = {}) {
@@ -53,6 +55,7 @@ async function loadMe() {
 }
 
 async function loadCaptcha() {
+  if (!elements.captchaImage || !elements.captchaAnswer) return;
   const data = await fetch('/api/captcha').then((response) => response.json());
   state.captchaToken = data.captcha_token;
   elements.captchaImage.src = data.image_url;
@@ -67,6 +70,19 @@ function renderAuth() {
   elements.authStatus.textContent = loggedIn
     ? `已登录：${state.user.nickname}（${state.user.role === 'admin' ? '管理员' : '用户'}）`
     : '未登录：请选择登录或注册';
+}
+
+function setupPasswordVisibilityToggles() {
+  elements.passwordToggles.forEach((button) => {
+    const input = document.getElementById(button.getAttribute('aria-controls'));
+    if (!input) return;
+    button.addEventListener('click', () => {
+      input.type = input.type === 'password' ? 'text' : 'password';
+      const visible = input.type === 'text';
+      button.setAttribute('aria-pressed', String(visible));
+      button.setAttribute('aria-label', visible ? '隐藏密码' : '显示密码');
+    });
+  });
 }
 
 async function login(event) {
@@ -94,7 +110,7 @@ async function register(event) {
     window.setTimeout(() => { window.location.href = resolvePostLoginRedirect(); }, 500);
   } catch (error) {
     showMessage(error.message);
-    loadCaptcha();
+    if (elements.captchaImage) loadCaptcha();
   }
 }
 
@@ -103,7 +119,7 @@ async function logout() {
   state.user = null;
   showMessage('已退出登录');
   renderAuth();
-  loadCaptcha();
+  if (elements.captchaImage) loadCaptcha();
 }
 
 function showMessage(text) {
@@ -139,6 +155,6 @@ function sanitizeNextPath(value) {
 function setTheme(theme) {
   document.documentElement.dataset.theme = theme;
   localStorage.setItem('theme', theme);
-  elements.themeIcon.textContent = theme === 'dark' ? '☼' : '☾';
-  elements.themeText.textContent = theme === 'dark' ? '白天模式' : '夜间模式';
+  window.jccApplyThemeToggleState?.(theme, elements.themeToggle, elements.themeIcon, elements.themeText);
+  if (!window.jccApplyThemeToggleState && elements.themeText) elements.themeText.textContent = theme === 'dark' ? '白天模式' : '夜间模式';
 }
