@@ -1108,7 +1108,11 @@ function showToast(text) {
 function setTheme(theme) {
   document.documentElement.dataset.theme = theme;
   localStorage.setItem('theme', theme);
-  elements.themeIcon.textContent = theme === 'dark' ? '☼' : '☾';
+  elements.themeToggle.classList.toggle('is-dark', theme === 'dark');
+  elements.themeToggle.setAttribute('aria-label', theme === 'dark' ? '切换为白天模式' : '切换为夜间模式');
+  if (!elements.themeIcon.querySelector('svg')) {
+    elements.themeIcon.textContent = theme === 'dark' ? '☼' : '☾';
+  }
   elements.themeText.textContent = theme === 'dark' ? '白天模式' : '夜间模式';
 }
 

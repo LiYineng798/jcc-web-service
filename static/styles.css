@@ -118,6 +118,81 @@ button {
   display: none;
 }
 
+.animated-theme-toggle {
+  --theme-body-radius: 5;
+  --theme-mask-x: 33;
+  --theme-mask-y: 0;
+  color: color-mix(in srgb, var(--text) 82%, transparent);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.animated-theme-toggle:hover {
+  transform: translateY(-1px) scale(1.06);
+}
+
+.animated-theme-toggle:active {
+  transform: translateY(0) scale(0.9);
+}
+
+.theme-toggle-icon {
+  display: inline-grid;
+  width: 24px;
+  height: 24px;
+  place-items: center;
+}
+
+.theme-toggle-svg {
+  display: block;
+  width: 22px;
+  height: 22px;
+  overflow: visible;
+  color: currentColor;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  transform-origin: 12px 12px;
+  transition: transform 520ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.theme-toggle-body {
+  fill: currentColor;
+  stroke: none;
+  r: var(--theme-body-radius);
+  transition: r 520ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.theme-toggle-mask-circle {
+  cx: var(--theme-mask-x);
+  cy: var(--theme-mask-y);
+  transition: cx 520ms cubic-bezier(0.34, 1.56, 0.64, 1),
+    cy 520ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.theme-toggle-rays {
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: opacity 360ms ease, transform 520ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.animated-theme-toggle.is-dark .theme-toggle-svg {
+  transform: rotate(270deg);
+}
+
+.animated-theme-toggle.is-dark .theme-toggle-body {
+  --theme-body-radius: 9;
+}
+
+.animated-theme-toggle.is-dark .theme-toggle-mask-circle {
+  --theme-mask-x: 17;
+  --theme-mask-y: 8;
+}
+
+.animated-theme-toggle.is-dark .theme-toggle-rays {
+  opacity: 0;
+  transform: rotate(-30deg) scale(0);
+}
+
 .image-mode-toggle {
   width: auto;
   min-width: 76px;
@@ -1121,6 +1196,10 @@ textarea:focus {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .theme-toggle-svg,
+  .theme-toggle-body,
+  .theme-toggle-mask-circle,
+  .theme-toggle-rays,
   .border-glow-card::before,
   .border-glow-card::after,
   .border-glow-card > .edge-light {
