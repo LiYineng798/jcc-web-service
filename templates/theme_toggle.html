@@ -1,5 +1,5 @@
 {% macro theme_toggle(extra_classes='') -%}
-<button class="theme-toggle animated-theme-toggle{{ ' ' ~ extra_classes if extra_classes else '' }}" id="themeToggle" type="button" aria-label="切换为夜间模式">
+<button class="theme-toggle{{ ' ' ~ extra_classes if extra_classes else '' }} animated-theme-toggle" id="themeToggle" type="button" aria-label="切换为夜间模式">
   <span id="themeIcon" class="theme-toggle-icon" aria-hidden="true">
     <svg class="theme-toggle-svg" viewBox="0 0 24 24" focusable="false">
       <mask id="themeMoonMask">

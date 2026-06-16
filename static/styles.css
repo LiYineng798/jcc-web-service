@@ -1685,24 +1685,91 @@ textarea:focus {
 
 .pagination {
   display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  justify-content: center;
-  margin-top: 20px;
-}
-
-.pagination .small-button.is-active {
-  background: var(--accent);
-  border-color: transparent;
-  color: #fffaf5;
-  opacity: 1;
-}
-
-.pagination-ellipsis {
-  display: inline-flex;
   align-items: center;
+  gap: 22px;
+  justify-content: center;
+  margin-top: 24px;
+  padding: 8px 0;
+}
+
+.pagination-dots {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.pagination-arrow,
+.pagination-dot {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  transition: transform 220ms ease, background 220ms ease, color 220ms ease, opacity 220ms ease;
+}
+
+.pagination-arrow {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
   color: var(--muted);
-  padding: 0 4px;
+  font-size: 1.85rem;
+  line-height: 1;
+}
+
+.pagination-arrow:hover {
+  background: var(--accent-soft);
+  color: var(--accent-strong);
+  transform: translateY(-1px);
+}
+
+.pagination-arrow:disabled {
+  cursor: default;
+  opacity: 0.3;
+  transform: none;
+}
+
+.pagination-dot {
+  overflow: visible;
+  width: 10px;
+  height: 10px;
+  align-items: center;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--muted) 42%, transparent);
+  padding: 0;
+}
+
+.pagination-dot:hover {
+  background: color-mix(in srgb, var(--accent-strong) 54%, transparent);
+  transform: scale(1.18);
+}
+
+.pagination-dot.is-active {
+  width: 28px;
+  background: var(--accent);
+  box-shadow: 0 8px 22px rgba(201, 100, 66, 0.24);
+}
+
+.pagination-ripple {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: color-mix(in srgb, var(--accent) 32%, transparent);
+  animation: pagination-ripple 680ms ease-out;
+  pointer-events: none;
+}
+
+@keyframes pagination-ripple {
+  from {
+    opacity: 0.65;
+    transform: scale(0.78);
+  }
+
+  to {
+    opacity: 0;
+    transform: scale(1.7);
+  }
 }
 
 .editor-page-shell {
