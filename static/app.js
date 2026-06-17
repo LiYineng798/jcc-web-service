@@ -801,11 +801,22 @@ function button(label, handler, extraClass = '', disabled = false) {
 }
 
 function setActiveTab(sort, view) {
+  const previousView = state.view;
+  syncSeasonSelectionForViewChange(previousView, view);
   state.sort = sort;
   state.view = view;
   state.page = 1;
   syncActiveTab();
   renderLineupSeasonFilter();
+}
+
+function syncSeasonSelectionForViewChange(previousView, nextView) {
+  if (previousView === 'live-comps' && nextView !== 'live-comps' && state.selectedLiveCompSeasonId) {
+    state.selectedLineupSeasonId = state.selectedLiveCompSeasonId;
+  }
+  if (previousView !== 'live-comps' && nextView === 'live-comps' && state.selectedLineupSeasonId) {
+    state.selectedLiveCompSeasonId = state.selectedLineupSeasonId;
+  }
 }
 
 function syncActiveTab() {

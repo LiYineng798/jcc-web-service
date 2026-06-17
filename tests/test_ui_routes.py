@@ -696,7 +696,19 @@ def test_home_tab_switch_refreshes_season_filter_for_current_view():
     end = js.index('function syncActiveTab()', start)
     body = js[start:end]
 
+    assert 'syncSeasonSelectionForViewChange(previousView, view);' in body
     assert 'renderLineupSeasonFilter();' in body
+
+
+def test_home_tab_switch_keeps_selected_season_across_live_and_lineup_views():
+    with open('static/app.js', 'r', encoding='utf-8') as file:
+        js = file.read()
+
+    assert 'function syncSeasonSelectionForViewChange(previousView, nextView)' in js
+    assert "previousView === 'live-comps' && nextView !== 'live-comps'" in js
+    assert 'state.selectedLineupSeasonId = state.selectedLiveCompSeasonId;' in js
+    assert "previousView !== 'live-comps' && nextView === 'live-comps'" in js
+    assert 'state.selectedLiveCompSeasonId = state.selectedLineupSeasonId;' in js
 
 
 def test_lineup_simulator_uses_jcc_light_theme_and_no_upload_script():
