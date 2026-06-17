@@ -5,8 +5,10 @@ const state = {
   liveCompsSummary: null,
   liveCompsPage: null,
   lineupSeasons: [],
+  liveCompSeasons: [],
   selectedLineupSeasonId: null,
-  imageMode: localStorage.getItem('homeImageMode') || 'image',
+  selectedLiveCompSeasonId: null,
+  imageMode: localStorage.getItem('homeImageMode') || 'text',
   requestControllers: {
     lineups: null,
     liveComps: null,
@@ -54,6 +56,7 @@ const elements = {
   favoritesTab: $('#favoritesTab'),
   mineTab: $('#mineTab'),
   tabs: $('#tabs'),
+  tabIndicator: $('#tabIndicator'),
   pagination: $('#pagination'),
   themeToggle: $('#themeToggle'),
   themeIcon: $('#themeIcon'),
@@ -101,6 +104,7 @@ elements.tabs.addEventListener('click', (event) => {
   setActiveTab(tab.dataset.sort, tab.dataset.view);
   loadCurrentView();
 });
+window.addEventListener('resize', updateTabIndicator);
 elements.pagination.addEventListener('click', (event) => {
   const button = event.target.closest('[data-page]');
   if (!button) return;
@@ -308,6 +312,14 @@ async function loadLineupSeasons() {
   renderLineupSeasonFilter();
 }
 
+async function loadLiveCompSeasons() {
+  if (state.liveCompSeasons.length) return;
+  const payload = await fetch('/api/live-comps/seasons').then((response) => response.json());
+  state.liveCompSeasons = payload.seasons || [];
+  state.selectedLiveCompSeasonId = state.selectedLiveCompSeasonId || payload.default_season_id || state.liveCompSeasons[0]?.id || '';
+  renderLineupSeasonFilter();
+}
+
 function toggleSeasonMenu(event) {
   event.stopPropagation();
   const willOpen = elements.seasonFilterMenu.classList.contains('hidden');
@@ -464,10 +476,10 @@ async function loadCurrentView() {
 }
 
 async function loadLiveComps() {
-  await loadLineupSeasons();
-  const seasonQuery = state.selectedLineupSeasonId ? `&season=${encodeURIComponent(state.selectedLineupSeasonId)}` : '';
-  const summarySeasonQuery = state.selectedLineupSeasonId ? `?season=${encodeURIComponent(state.selectedLineupSeasonId)}` : '';
-  const seasonKey = state.selectedLineupSeasonId || 'default';
+  await loadLiveCompSeasons();
+  const seasonQuery = state.selectedLiveCompSeasonId ? `&season=${encodeURIComponent(state.selectedLiveCompSeasonId)}` : '';
+  const summarySeasonQuery = state.selectedLiveCompSeasonId ? `?season=${encodeURIComponent(state.selectedLiveCompSeasonId)}` : '';
+  const seasonKey = state.selectedLiveCompSeasonId || 'default';
   abortHomeRequest('liveComps');
   const controller = new AbortController();
   state.requestControllers.liveComps = controller;
@@ -495,19 +507,26 @@ async function loadLiveComps() {
 function renderLineupSeasonFilter() {
   if (!elements.seasonFilterMenu || !elements.seasonFilterText) return;
   elements.seasonFilterMenu.replaceChildren();
-  const selectedSeason = state.lineupSeasons.find((season) => season.id === state.selectedLineupSeasonId) || state.lineupSeasons[0] || {};
+  const isLiveComps = state.view === 'live-comps';
+  const seasons = isLiveComps ? state.liveCompSeasons : state.lineupSeasons;
+  const selectedSeasonId = isLiveComps ? state.selectedLiveCompSeasonId : state.selectedLineupSeasonId;
+  const selectedSeason = seasons.find((season) => season.id === selectedSeasonId) || seasons[0] || {};
   elements.seasonFilterText.textContent = selectedSeason.name || selectedSeason.id || '赛季';
-  state.lineupSeasons.forEach((season) => {
+  seasons.forEach((season) => {
     const item = document.createElement('button');
     item.type = 'button';
-    item.className = `account-menu-item${season.id === state.selectedLineupSeasonId ? ' is-active' : ''}`;
+    item.className = `account-menu-item${season.id === selectedSeasonId ? ' is-active' : ''}`;
     item.textContent = season.name || season.id;
     item.addEventListener('click', async () => {
-      if (state.selectedLineupSeasonId === season.id) {
+      if (selectedSeasonId === season.id) {
         closeSeasonMenu();
         return;
       }
-      state.selectedLineupSeasonId = season.id;
+      if (isLiveComps) {
+        state.selectedLiveCompSeasonId = season.id;
+      } else {
+        state.selectedLineupSeasonId = season.id;
+      }
       state.page = 1;
       closeSeasonMenu();
       renderLineupSeasonFilter();
@@ -761,7 +780,7 @@ async function copyLiveCompCode(item) {
     return;
   }
   try {
-    const seasonQuery = state.selectedLineupSeasonId ? `?season=${encodeURIComponent(state.selectedLineupSeasonId)}` : '';
+    const seasonQuery = state.selectedLiveCompSeasonId ? `?season=${encodeURIComponent(state.selectedLiveCompSeasonId)}` : '';
     const separator = seasonQuery ? '&' : '?';
     await api(`/api/live-comps/${encodeURIComponent(item.id)}/copy${seasonQuery}${separator}source=home`, { method: 'POST' });
   } catch (_) {
@@ -786,12 +805,26 @@ function setActiveTab(sort, view) {
   state.view = view;
   state.page = 1;
   syncActiveTab();
+  renderLineupSeasonFilter();
 }
 
 function syncActiveTab() {
   document.querySelectorAll('.tab').forEach((item) => {
-    item.classList.toggle('active', item.dataset.sort === state.sort && item.dataset.view === state.view);
+    const isActive = item.dataset.sort === state.sort && item.dataset.view === state.view;
+    item.classList.toggle('active', isActive);
+    item.setAttribute('aria-selected', String(isActive));
   });
+  updateTabIndicator();
+}
+
+function updateTabIndicator() {
+  if (!elements.tabs || !elements.tabIndicator) return;
+  const activeTab = elements.tabs.querySelector('.tab.active:not(.hidden)');
+  if (!activeTab) return;
+  const tabRect = activeTab.getBoundingClientRect();
+  const listRect = elements.tabs.getBoundingClientRect();
+  elements.tabs.style.setProperty('--active-tab-width', `${tabRect.width}px`);
+  elements.tabs.style.setProperty('--active-tab-left', `${tabRect.left - listRect.left + elements.tabs.scrollLeft}px`);
 }
 
 function openEditor(lineupId) {
@@ -1164,17 +1197,18 @@ function debounce(callback, delay) {
       var target = tabMap[tabValue];
       if (!target) return;
 
-      state.selectedLineupSeasonId = seasonId;
       state.sort = target.sort;
       state.view = target.view;
       state.page = 1;
+      if (target.view === 'live-comps') {
+        state.selectedLiveCompSeasonId = seasonId;
+      } else {
+        state.selectedLineupSeasonId = seasonId;
+      }
 
       renderLineupSeasonFilter();
 
-      document.querySelectorAll('#tabs .tab').forEach(function (t) {
-        var isActive = t.getAttribute('data-sort') === target.sort && t.getAttribute('data-view') === target.view;
-        t.classList.toggle('active', isActive);
-      });
+      syncActiveTab();
 
       loadCurrentView().then(function () {
         var lineupList = document.getElementById('lineupList');

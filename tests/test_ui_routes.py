@@ -519,6 +519,24 @@ def test_index_contains_live_comps_tab_before_latest(client):
     assert 'class="tab active" data-sort="live" data-view="live-comps"' in html
 
 
+def test_index_tabs_use_underline_indicator_shell(client):
+    html = client.get('/').get_data(as_text=True)
+
+    assert 'class="tabs-shell"' in html
+    assert 'class="tabs" id="tabs" role="tablist"' in html
+    assert 'class="tab-indicator" id="tabIndicator" aria-hidden="true"' in html
+
+
+def test_app_js_updates_home_tab_indicator():
+    with open('static/app.js', 'r', encoding='utf-8') as file:
+        js = file.read()
+
+    assert 'tabIndicator: $(\'#tabIndicator\')' in js
+    assert 'function updateTabIndicator()' in js
+    assert "elements.tabs.style.setProperty('--active-tab-width'" in js
+    assert "window.addEventListener('resize', updateTabIndicator)" in js
+
+
 def test_index_contains_live_comps_mount_points(client):
     html = client.get('/').get_data(as_text=True)
     assert 'id="lineupList"' in html
@@ -608,6 +626,27 @@ def test_lineup_simulator_hidden_when_disabled(client):
     assert config['simulator_enabled'] is False
 
     client.put('/api/admin/settings', json={'simulator_enabled': 'true'}, headers=headers)
+
+
+def test_home_live_comps_uses_live_comps_seasons_without_changing_lineup_editor():
+    with open('static/app.js', 'r', encoding='utf-8') as file:
+        home_js = file.read()
+    with open('static/lineup-editor.js', 'r', encoding='utf-8') as file:
+        editor_js = file.read()
+
+    assert "fetch('/api/live-comps/seasons')" in home_js
+    assert "fetch('/api/lineup-seasons')" in editor_js
+
+
+def test_home_tab_switch_refreshes_season_filter_for_current_view():
+    with open('static/app.js', 'r', encoding='utf-8') as file:
+        js = file.read()
+
+    start = js.index('function setActiveTab(sort, view)')
+    end = js.index('function syncActiveTab()', start)
+    body = js[start:end]
+
+    assert 'renderLineupSeasonFilter();' in body
 
 
 def test_lineup_simulator_uses_jcc_light_theme_and_no_upload_script():

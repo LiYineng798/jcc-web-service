@@ -1307,12 +1307,6 @@ textarea:focus {
   }
 }
 
-.tabs {
-  display: flex;
-  gap: 12px;
-  align-items: center;
-}
-
 .ghost-link {
   border: 1px solid var(--line);
   border-radius: 999px;
@@ -1658,23 +1652,73 @@ textarea:focus {
   max-width: min(360px, calc(100vw - 48px));
 }
 
+.tabs-shell {
+  width: 100%;
+  margin: -8px 0 18px;
+  border-bottom: 1px solid var(--line);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.tabs-shell::-webkit-scrollbar {
+  display: none;
+}
+
 .tabs {
-  flex-wrap: wrap;
-  margin: -8px 0 16px;
+  position: relative;
+  display: flex;
+  width: max-content;
+  min-width: 100%;
+  align-items: center;
+  gap: 2px;
+  color: var(--muted);
 }
 
 .tab {
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  background: var(--surface-solid);
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  height: 38px;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 8px 8px 0 0;
+  background: transparent;
   color: var(--muted);
-  padding: 8px 14px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 750;
+  line-height: 1;
+  padding: 0 13px;
+  transition: color 180ms ease, background 180ms ease;
+}
+
+.tab:hover {
+  background: var(--accent-soft);
+  color: var(--text);
+}
+
+.tab:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: -2px;
 }
 
 .tab.active {
+  color: var(--text);
+}
+
+.tab-indicator {
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  z-index: 2;
+  width: var(--active-tab-width, 0);
+  height: 2px;
+  border-radius: 999px;
   background: var(--accent);
-  color: #fffaf5;
-  border-color: transparent;
+  transform: translateX(var(--active-tab-left, 0));
+  transition: width 220ms ease, transform 220ms ease;
 }
 
 #favoritesTab::before {

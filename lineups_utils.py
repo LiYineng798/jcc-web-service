@@ -3,9 +3,11 @@ from __future__ import annotations
 from datetime import datetime
 
 from db import get_db
+from live_comps_helpers import public_live_comps_manifest, load_live_comps_manifest
 from seasons import DEFAULT_SEASON_ID, canonical_season_id, season_manifest
 
 LINEUP_VISIBLE_STATUSES = {'normal', 'hidden'}
+LINEUP_SEASON_PUBLIC_STATUSES = {'active', 'archived'}
 DEFAULT_LINEUP_SEASON_ID = DEFAULT_SEASON_ID
 
 
@@ -14,7 +16,27 @@ def canonical_lineup_season_id(season_id):
 
 
 def lineup_season_manifest():
-    return season_manifest(DEFAULT_LINEUP_SEASON_ID)
+    base_manifest = season_manifest(DEFAULT_LINEUP_SEASON_ID)
+    live_manifest = public_live_comps_manifest(load_live_comps_manifest())
+    live_statuses = {
+        season['id']: season.get('status')
+        for season in live_manifest.get('seasons', [])
+    }
+    seasons = []
+    for season in base_manifest['seasons']:
+        live_status = live_statuses.get(season['id'])
+        if live_status not in LINEUP_SEASON_PUBLIC_STATUSES:
+            continue
+        item = dict(season)
+        item['status'] = live_status
+        seasons.append(item)
+    default_season_id = DEFAULT_LINEUP_SEASON_ID
+    if not any(season['id'] == default_season_id for season in seasons) and seasons:
+        default_season_id = seasons[0]['id']
+    return {
+        'default_season_id': default_season_id,
+        'seasons': seasons,
+    }
 
 
 def bucket_start():

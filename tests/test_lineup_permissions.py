@@ -77,18 +77,32 @@ def test_lineup_seasons_endpoint_exposes_only_public_choices(client):
     assert all(season['status'] in {'active'} for season in payload['seasons'])
 
 
-def test_lineup_seasons_ignore_live_comps_default_season(client):
+def test_lineup_seasons_use_live_comp_visibility_but_keep_lineup_default(client):
     manifest_path = Path(client.application.config['LIVE_COMPS_SEASON_MANIFEST_PATH'])
     manifest_path.write_text(
-        '{"default_season_id":"default","seasons":[{"id":"default","name":"S17 · 星神","status":"active","order":1,"description":"当前赛季","data_file":"live-comps.json"},{"id":"s16-legends","name":"S16 · 英雄联盟传奇","status":"active","order":2,"description":"经典赛季","data_file":"s16-legends.json"},{"id":"lucky-lantern","name":"天选福星","status":"active","order":3,"description":"返场赛季","data_file":"lucky-lantern.json"}]}',
+        '{"default_season_id":"default","seasons":[{"id":"default","name":"S17 · 星神","status":"active","order":1,"description":"当前赛季","data_file":"live-comps.json"},{"id":"s16-legends","name":"S16 · 英雄联盟传奇","status":"archived","order":2,"description":"经典赛季","data_file":"s16-legends.json"},{"id":"lucky-lantern","name":"天选福星","status":"disabled","order":3,"description":"返场赛季","data_file":"lucky-lantern.json"},{"id":"s8-monsters-attack","name":"S8·怪兽入侵","status":"hidden","order":4,"description":"返场赛季","data_file":"s8-monsters-attack.json"}]}',
         encoding='utf-8',
     )
 
     payload = client.get('/api/lineup-seasons').get_json()
 
     assert payload['default_season_id'] == 's17-star-god'
-    assert [season['id'] for season in payload['seasons']] == ['s17-star-god', 's16-legends', 'lucky-lantern', 's8-monsters-attack']
+    assert [season['id'] for season in payload['seasons']] == ['s17-star-god', 's16-legends']
     assert payload['seasons'][0]['name'] == 'S17 · 星神'
+    assert payload['seasons'][1]['status'] == 'archived'
+
+
+def test_lineup_seasons_default_falls_back_when_lineup_default_is_disabled(client):
+    manifest_path = Path(client.application.config['LIVE_COMPS_SEASON_MANIFEST_PATH'])
+    manifest_path.write_text(
+        '{"default_season_id":"s16-legends","seasons":[{"id":"s17-star-god","name":"S17 · 星神","status":"disabled","order":1,"description":"当前赛季","data_file":"s17-star-god.json"},{"id":"s16-legends","name":"S16 · 英雄联盟传奇","status":"active","order":2,"description":"经典赛季","data_file":"s16-legends.json"},{"id":"lucky-lantern","name":"天选福星","status":"hidden","order":3,"description":"返场赛季","data_file":"lucky-lantern.json"},{"id":"s8-monsters-attack","name":"S8·怪兽入侵","status":"disabled","order":4,"description":"返场赛季","data_file":"s8-monsters-attack.json"}]}',
+        encoding='utf-8',
+    )
+
+    payload = client.get('/api/lineup-seasons').get_json()
+
+    assert payload['default_season_id'] == 's16-legends'
+    assert [season['id'] for season in payload['seasons']] == ['s16-legends']
 
 
 def test_anonymous_can_list_search_and_copy_but_cannot_create_update_delete(client):

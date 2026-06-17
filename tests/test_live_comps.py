@@ -111,6 +111,23 @@ def test_live_comps_seasons_hides_private_entries_from_public(client):
     assert [season['id'] for season in data['seasons']] == ['s17-star-god', 's16-legends', 'lucky-lantern', 's8-monsters-attack']
 
 
+def test_live_comps_seasons_falls_back_when_default_is_private(client):
+    manifest_path = Path(client.application.config['LIVE_COMPS_SEASON_MANIFEST_PATH'])
+    manifest_path.write_text(json.dumps({
+        'default_season_id': 's17-star-god',
+        'seasons': [
+            {'id': 's17-star-god', 'name': 'S17 · 星神', 'status': 'hidden', 'order': 1},
+            {'id': 's16-legends', 'name': 'S16 · 英雄联盟传奇', 'status': 'archived', 'order': 2},
+            {'id': 'lucky-lantern', 'name': '天选福星', 'status': 'disabled', 'order': 3},
+        ],
+    }, ensure_ascii=False), encoding='utf-8')
+
+    data = client.get('/api/live-comps/seasons').get_json()
+
+    assert data['default_season_id'] == 's16-legends'
+    assert [season['id'] for season in data['seasons']] == ['s16-legends', 's8-monsters-attack']
+
+
 def test_live_comps_summary_returns_empty_for_public_season_without_payload(client):
     summary = client.get('/api/live-comps/summary?season=s16-legends').get_json()
     listing = client.get('/api/live-comps?season=s16-legends').get_json()
