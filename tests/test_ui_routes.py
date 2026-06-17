@@ -609,6 +609,56 @@ def test_lineup_simulator_page_exists_and_index_links_to_it(client):
     assert client.get('/static/tools/lineup-simulator/app.js').status_code == 200
 
 
+def test_special_mechanics_page_exists_and_index_links_to_it(client):
+    index_html = client.get('/').get_data(as_text=True)
+    assert 'href="/tools/special-mechanics"' in index_html
+    assert '<img class="nav-tool-icon special-mechanics-nav-icon"' in index_html
+    assert 'src="/static/special-mechanics/s8-icon.png"' in index_html
+    assert '>特殊机制</span>' in index_html
+
+    response = client.get('/tools/special-mechanics')
+    assert response.status_code == 200
+    html = response.get_data(as_text=True)
+    assert 'S8·怪兽入侵 特殊机制' in html
+    assert '查看返场赛季的战力形态与经济形态' not in html
+    assert 'href="/tools/lineup-simulator"' not in html
+    assert 'data-filter="all"' in html
+    assert 'data-filter="power"' in html
+    assert 'data-filter="economy"' in html
+    assert 'special-mechanics.js' in html
+    assert 'special-mechanics.css' in html
+    assert client.get('/static/special-mechanics/s8-icon.png').status_code == 200
+    assert client.get('/static/special-mechanics/avatars/8357.png').status_code == 200
+
+
+def test_special_mechanics_assets_define_filter_groups():
+    with open('static/special-mechanics.js', 'r', encoding='utf-8') as file:
+        js = file.read()
+    with open('static/special-mechanics.css', 'r', encoding='utf-8') as file:
+        css = file.read()
+    with open('static/styles.css', 'r', encoding='utf-8') as file:
+        global_css = file.read()
+
+    assert "filter: 'power'" in js
+    assert "filter: 'economy'" in js
+    assert '卑鄙茧房' in js
+    assert 'skillDesc' in js
+    assert 'summary:' not in js
+    assert '受到攻击后会逃跑的胆小单位，每生存1秒获得1成长层数' in js
+    assert "image: '/static/special-mechanics/avatars/8357.png'" in js
+    assert 'setSpecialMechanicsTheme' in js
+    assert "themeToggle?.addEventListener('click'" in js
+    assert '.nav-tool-icon {' in global_css
+    assert 'object-fit: contain;' in global_css
+    assert 'grid-template-columns: 72px minmax(0, 1fr);' in css
+    assert '.special-mechanic-image-wrap {' in css
+    assert 'border-radius: 0;' in css
+    assert 'overflow-wrap: anywhere;' in css
+    assert 'word-break: break-word;' in css
+    assert 'special-mechanic-list' in css
+    assert 'mechanic-filter-button' in css
+
+
 def test_lineup_simulator_hidden_when_disabled(client):
     from test_admin import login_admin
 

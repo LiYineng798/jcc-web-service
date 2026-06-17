@@ -104,7 +104,23 @@ button {
 }
 
 .nav-tool-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   white-space: nowrap;
+}
+
+.nav-tool-icon {
+  display: inline-grid;
+  width: 18px;
+  height: 18px;
+  place-items: center;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  color: var(--accent-strong);
+  font-size: 12px;
+  line-height: 1;
+  object-fit: contain;
 }
 
 .nav-icon-button {
