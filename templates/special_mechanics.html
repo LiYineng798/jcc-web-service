@@ -1,0 +1,42 @@
+<!doctype html>
+{% from "theme_toggle.html" import theme_toggle %}
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>S8·怪兽入侵 特殊机制</title>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='special-mechanics.css') }}" />
+  </head>
+  <body>
+    <div class="page-shell special-mechanics-page">
+      <nav class="nav-bar" aria-label="页面工具">
+        <a class="brand-mark brand-link" href="/" aria-label="返回首页">阵</a>
+        <div class="nav-actions">
+          <a class="ghost-link nav-tool-link" href="/">返回首页</a>
+          {{ theme_toggle("nav-icon-button") }}
+        </div>
+      </nav>
+
+      <header class="special-mechanics-hero">
+        <div>
+          <p class="eyebrow">S8 Monster Invasion</p>
+          <h1>S8·怪兽入侵 特殊机制</h1>
+        </div>
+        <div class="special-mechanics-filter" role="tablist" aria-label="特殊机制筛选">
+          <button class="mechanic-filter-button active" type="button" data-filter="all" role="tab" aria-selected="true">全部</button>
+          <button class="mechanic-filter-button" type="button" data-filter="power" role="tab" aria-selected="false">战力形态</button>
+          <button class="mechanic-filter-button" type="button" data-filter="economy" role="tab" aria-selected="false">经济形态</button>
+        </div>
+      </header>
+
+      <main class="special-mechanic-list" id="specialMechanicList" aria-live="polite"></main>
+    </div>
+    <script src="{{ url_for('static', filename='theme-toggle.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='special-mechanics.js') }}" defer></script>
+  </body>
+</html>

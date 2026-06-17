@@ -55,6 +55,10 @@ def register_page_routes(app):
             abort(404)
         return tracked_template_response('lineup_simulator.html', 'lineup_simulator')
 
+    @app.get('/tools/special-mechanics')
+    def special_mechanics_page():
+        return tracked_template_response('special_mechanics.html', 'special_mechanics')
+
     @app.get('/me')
     def account_page():
         user, error = login_required()
