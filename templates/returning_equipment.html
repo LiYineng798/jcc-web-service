@@ -1,0 +1,188 @@
+<!doctype html>
+{% from "theme_toggle.html" import theme_toggle %}
+{% set returning_equipment = [
+  {
+    'name': '鬼索的狂暴之刃',
+    'image': 'guinsoos-rageblade.png',
+    'stats': '+10%攻击速度 +10法术加成',
+    'desc': '每次攻击提供5%额外攻击速度。这个效果可叠加！  [怪兽入侵专属]',
+    'components': [
+      {'name': '反曲之弓', 'image': 'component-recurve-bow.jpg'},
+      {'name': '无用大棒', 'image': 'component-needlessly-large-rod.jpg'}
+    ]
+  },
+  {
+    'name': '卢安娜的飓风',
+    'image': 'runaans-hurricane.png',
+    'stats': '+20%攻击速度 +20魔法抗性',
+    'desc': '携带者的攻击会对附近的另一名敌人发射一个弹体，造成携带者50%攻击力【攻击力】的物理伤害。  [怪兽入侵专属]',
+    'components': [
+      {'name': '反曲之弓', 'image': 'component-recurve-bow.jpg'},
+      {'name': '负极斗篷', 'image': 'component-negatron-cloak.jpg'}
+    ]
+  },
+  {
+    'name': '灵风',
+    'image': 'zephyr.png',
+    'stats': '+150生命上限 +20魔法抗性',
+    'desc': '战斗开始时：在棋盘对面召唤一道飓风，来将与飓风相距最近的那个敌人移出战斗5秒。  [无视控制免疫效果。] [怪兽入侵专属] [唯一-每位英雄仅限1件]',
+    'components': [
+      {'name': '负极斗篷', 'image': 'component-negatron-cloak.jpg'},
+      {'name': '巨人腰带', 'image': 'component-giants-belt.jpg'}
+    ]
+  },
+  {
+    'name': '基克的先驱',
+    'image': 'zekes-herald.png',
+    'stats': '+150生命上限 +20物理加成',
+    'desc': '战斗开始时：提供【攻击速度】20%攻击速度给携带者和同一排1格内的友军们。  [怪兽入侵专属]',
+    'components': [
+      {'name': '暴风之剑', 'image': 'component-bf-sword.jpg'},
+      {'name': '巨人腰带', 'image': 'component-giants-belt.jpg'}
+    ]
+  },
+  {
+    'name': '静止法衣',
+    'image': 'shroud-of-stillness.png',
+    'stats': '+20护甲 +20%暴击率',
+    'desc': '战斗开始时：射出一道光束，对敌人们施加35%破法。  [怪兽入侵专属] 破法：最大法力值提升，持续到施放技能为止。 [唯一-每位英雄仅限1件]',
+    'components': [
+      {'name': '锁子甲', 'image': 'component-chain-vest.jpg'},
+      {'name': '拳套', 'image': 'component-sparring-gloves.jpg'}
+    ]
+  },
+  {
+    'name': '兹若特传送门',
+    'image': 'zzrot-portal.png',
+    'stats': '+150生命上限 +20%攻击速度',
+    'desc': '召唤一个大型虚空生物。它的强度会在每个阶段提升。  [怪兽入侵专属] [唯一-每位英雄仅限1件]',
+    'components': [
+      {'name': '反曲之弓', 'image': 'component-recurve-bow.jpg'},
+      {'name': '巨人腰带', 'image': 'component-giants-belt.jpg'}
+    ]
+  },
+  {
+    'name': '疾射火炮',
+    'image': 'rapid-firecannon.png',
+    'stats': '+50%攻击速度',
+    'desc': '攻击距离+1。',
+    'components': [
+      {'name': '反曲之弓', 'image': 'component-recurve-bow.jpg'},
+      {'name': '反曲之弓', 'image': 'component-recurve-bow.jpg'}
+    ]
+  },
+  {
+    'name': '钢铁烈阳之匣',
+    'image': 'locket-of-the-iron-solari.png',
+    'stats': '+20护甲 +20法术加成',
+    'desc': '战斗开始时：携带者和同一排2格内的友军们获得持续15秒的300/350/400护盾值（随携带者星级增加）。  [怪兽入侵专属]',
+    'components': [
+      {'name': '无用大棒', 'image': 'component-needlessly-large-rod.jpg'},
+      {'name': '锁子甲', 'image': 'component-chain-vest.jpg'}
+    ]
+  },
+  {
+    'name': '能量圣杯',
+    'image': 'chalice-of-power.png',
+    'stats': '+20魔法抗性 +10法力值',
+    'desc': '战斗开始时：提供25%法术加成给携带者和同一排1格内的友军们。  [怪兽入侵专属]',
+    'components': [
+      {'name': '女神之泪', 'image': 'component-tear-of-the-goddess.jpg'},
+      {'name': '负极斗篷', 'image': 'component-negatron-cloak.jpg'}
+    ]
+  },
+  {
+    'name': '狂徒铠甲',
+    'image': 'warmogs-armor.png',
+    'stats': '+500生命上限',
+    'desc': '每秒回复 5% 最大生命。  [怪兽入侵专属]',
+    'components': [
+      {'name': '巨人腰带', 'image': 'component-giants-belt.jpg'},
+      {'name': '巨人腰带', 'image': 'component-giants-belt.jpg'}
+    ]
+  },
+  {
+    'name': '斯塔缇克电刃',
+    'image': 'statikk-shiv.png',
+    'stats': '+20%攻击速度 +10法力值',
+    'desc': '每第3次攻击对4名敌人造成30魔法伤害和持续5秒的30%魔抗击碎。  [怪兽入侵专属] 魔抗击碎：降低魔抗值',
+    'components': [
+      {'name': '反曲之弓', 'image': 'component-recurve-bow.jpg'},
+      {'name': '女神之泪', 'image': 'component-tear-of-the-goddess.jpg'}
+    ]
+  },
+  {
+    'name': '蓝霸符',
+    'image': 'blue-buff.png',
+    'stats': '+10法力值 +10物理加成 +10法术加成',
+    'desc': '施放技能的法力值消耗降低10。如果携带者在施放技能后的3秒内至少参与了一次击败，就会获得10法力值。  [怪兽入侵专属] [唯一-每位英雄仅限1件]',
+    'components': [
+      {'name': '女神之泪', 'image': 'component-tear-of-the-goddess.jpg'},
+      {'name': '女神之泪', 'image': 'component-tear-of-the-goddess.jpg'}
+    ]
+  }
+] %}
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>S8·怪兽入侵 回归装备</title>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='returning-equipment.css') }}" />
+  </head>
+  <body>
+    <div class="page-shell returning-equipment-page">
+      <nav class="nav-bar returning-equipment-nav" aria-label="页面工具">
+        <a class="brand-mark brand-link" href="/" aria-label="返回首页">阵</a>
+        <div class="nav-actions">
+          <a class="ghost-link nav-tool-link" href="/">返回首页</a>
+          <a class="ghost-link nav-tool-link" href="/tools/special-mechanics">特殊机制</a>
+          {{ theme_toggle("nav-icon-button") }}
+        </div>
+      </nav>
+
+      <header class="returning-equipment-hero">
+        <div class="returning-equipment-hero-panel">
+          <p class="eyebrow">S8 Returning Equipment</p>
+          <h1>S8·怪兽入侵 回归装备</h1>
+        </div>
+      </header>
+
+      <main class="returning-equipment-grid" id="returningEquipmentGrid" aria-live="polite">
+        {% for item in returning_equipment %}
+          <article class="returning-equipment-card">
+            <div class="returning-equipment-image-wrap">
+              <img class="returning-equipment-image" src="{{ url_for('static', filename='returning-equipment/' ~ item.image) }}" alt="{{ item.name }}" loading="lazy" decoding="async" />
+            </div>
+            <div class="returning-equipment-body">
+              <p class="returning-equipment-label">回归装备</p>
+              <h2>{{ item.name }}</h2>
+              <p class="returning-equipment-stats">{{ item.stats }}</p>
+              <p class="returning-equipment-desc">{{ item.desc }}</p>
+              <div class="returning-equipment-synthesis">
+                <span class="returning-equipment-synthesis-label">合成</span>
+                <div class="returning-equipment-components">
+                  {% for component in item.components %}
+                    {% if not loop.first %}
+                      <span class="returning-equipment-component-plus">+</span>
+                    {% endif %}
+                    <span class="returning-equipment-component">
+                      <img class="returning-equipment-component-image" src="{{ url_for('static', filename='returning-equipment/' ~ component.image) }}" alt="{{ component.name }}" loading="lazy" decoding="async" />
+                      <span>{{ component.name }}</span>
+                    </span>
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+          </article>
+        {% endfor %}
+      </main>
+    </div>
+    <script src="{{ url_for('static', filename='theme-toggle.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='returning-equipment.js') }}" defer></script>
+  </body>
+</html>

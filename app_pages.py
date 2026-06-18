@@ -59,6 +59,10 @@ def register_page_routes(app):
     def special_mechanics_page():
         return tracked_template_response('special_mechanics.html', 'special_mechanics')
 
+    @app.get('/tools/returning-equipment')
+    def returning_equipment_page():
+        return tracked_template_response('returning_equipment.html', 'returning_equipment')
+
     @app.get('/me')
     def account_page():
         user, error = login_required()

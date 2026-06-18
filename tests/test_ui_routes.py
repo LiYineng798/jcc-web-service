@@ -614,7 +614,11 @@ def test_special_mechanics_page_exists_and_index_links_to_it(client):
     assert 'href="/tools/special-mechanics"' in index_html
     assert '<img class="nav-tool-icon special-mechanics-nav-icon"' in index_html
     assert 'src="/static/special-mechanics/s8-icon.png"' in index_html
-    assert '>特殊机制</span>' in index_html
+    assert 'S8回归信息差' in index_html
+    assert 'class="returning-info-menu"' in index_html
+    assert 'href="/tools/returning-equipment"' in index_html
+    assert '回归装备' in index_html
+    assert '特殊机制' in index_html
 
     response = client.get('/tools/special-mechanics')
     assert response.status_code == 200
@@ -632,6 +636,59 @@ def test_special_mechanics_page_exists_and_index_links_to_it(client):
     assert 'special-mechanics.css' in html
     assert client.get('/static/special-mechanics/s8-icon.png').status_code == 200
     assert client.get('/static/special-mechanics/avatars/8357.png').status_code == 200
+
+
+def test_returning_equipment_page_exists_and_index_links_to_it(client):
+    index_html = client.get('/').get_data(as_text=True)
+    assert 'S8回归信息差' in index_html
+    assert 'href="/tools/returning-equipment"' in index_html
+
+    response = client.get('/tools/returning-equipment')
+    assert response.status_code == 200
+    html = response.get_data(as_text=True)
+    assert 'S8·怪兽入侵 回归装备' in html
+    assert '鬼索的狂暴之刃' in html
+    assert '卢安娜的飓风' in html
+    assert '灵风' in html
+    assert '基克的先驱' in html
+    assert '静止法衣' in html
+    assert '兹若特传送门' in html
+    assert '疾射火炮' in html
+    assert '钢铁烈阳之匣' in html
+    assert '能量圣杯' in html
+    assert '狂徒铠甲' in html
+    assert '斯塔缇克电刃' in html
+    assert '蓝霸符' in html
+    assert '基克的聚合' not in html
+    assert '每次攻击提供5%额外攻击速度' in html
+    assert '攻击距离+1' in html
+    assert 'returning-equipment-component-image' in html
+    assert 'returning-equipment.css' in html
+    assert 'returning-equipment.js' in html
+
+    for filename in (
+        'guinsoos-rageblade.png',
+        'runaans-hurricane.png',
+        'zephyr.png',
+        'zekes-herald.png',
+        'shroud-of-stillness.png',
+        'zzrot-portal.png',
+        'rapid-firecannon.png',
+        'locket-of-the-iron-solari.png',
+        'chalice-of-power.png',
+        'warmogs-armor.png',
+        'statikk-shiv.png',
+        'blue-buff.png',
+        'component-recurve-bow.jpg',
+        'component-needlessly-large-rod.jpg',
+        'component-negatron-cloak.jpg',
+        'component-giants-belt.jpg',
+        'component-bf-sword.jpg',
+        'component-chain-vest.jpg',
+        'component-sparring-gloves.jpg',
+        'component-tear-of-the-goddess.jpg',
+    ):
+        assert client.get(f'/static/returning-equipment/{filename}').status_code == 200
 
 
 def test_special_mechanics_assets_define_filter_groups():
@@ -671,6 +728,42 @@ def test_special_mechanics_assets_define_filter_groups():
     assert 'special-mechanics-hero-mark' not in css
     assert 'SPECIAL_MECHANIC_FILTER_LABELS' in js
     assert "summary.textContent = item.skillDesc;" in js
+
+
+def test_returning_equipment_assets_define_cards_and_mobile_layout():
+    with open('static/returning-equipment.js', 'r', encoding='utf-8') as file:
+        js = file.read()
+    with open('static/returning-equipment.css', 'r', encoding='utf-8') as file:
+        css = file.read()
+    with open('static/styles.css', 'r', encoding='utf-8') as file:
+        global_css = file.read()
+
+    assert 'RETURNING_EQUIPMENT' in js
+    assert "image: '/static/returning-equipment/guinsoos-rageblade.png'" in js
+    assert '鬼索的狂暴之刃' in js
+    assert '卢安娜的飓风' in js
+    assert '灵风' in js
+    assert '基克的先驱' in js
+    assert '静止法衣' in js
+    assert '兹若特传送门' in js
+    assert '疾射火炮' in js
+    assert '钢铁烈阳之匣' in js
+    assert '能量圣杯' in js
+    assert '狂徒铠甲' in js
+    assert '斯塔缇克电刃' in js
+    assert '蓝霸符' in js
+    assert '基克的聚合' not in js
+    assert 'basicDesc' in js
+    assert 'components' in js
+    assert 'component-recurve-bow.jpg' in js
+    assert 'returning-equipment-grid' in css
+    assert 'returning-equipment-card' in css
+    assert 'returning-equipment-components' in css
+    assert 'returning-equipment-component-image' in css
+    assert '@media (max-width: 640px)' in css
+    assert 'grid-template-columns: 1fr;' in css
+    assert '.returning-info-menu' in global_css
+    assert '.returning-info-menu-panel' in global_css
 
 
 def test_lineup_simulator_hidden_when_disabled(client):

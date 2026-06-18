@@ -20,7 +20,23 @@
 {% if simulator_enabled %}
             <a class="ghost-link nav-tool-link" href="/tools/lineup-simulator">阵容模拟器</a>
 {% endif %}
-            <a class="ghost-link nav-tool-link special-mechanics-nav-link" href="/tools/special-mechanics"><img class="nav-tool-icon special-mechanics-nav-icon" src="{{ url_for('static', filename='special-mechanics/s8-icon.png') }}" alt="" aria-hidden="true" /><span>特殊机制</span></a>
+            <div class="returning-info-menu">
+              <button class="ghost-link nav-tool-link returning-info-trigger" type="button" aria-haspopup="true">
+                <img class="nav-tool-icon special-mechanics-nav-icon" src="{{ url_for('static', filename='special-mechanics/s8-icon.png') }}" alt="" aria-hidden="true" />
+                <span>S8回归信息差</span>
+                <span class="returning-info-chevron" aria-hidden="true">⌄</span>
+              </button>
+              <div class="returning-info-menu-panel" role="menu">
+                <a class="returning-info-menu-item" href="/tools/special-mechanics" role="menuitem">
+                  <span>特殊机制</span>
+                  <small>战力形态与经济形态</small>
+                </a>
+                <a class="returning-info-menu-item" href="/tools/returning-equipment" role="menuitem">
+                  <span>回归装备</span>
+                  <small>5 件返场装备说明</small>
+                </a>
+              </div>
+            </div>
             <a class="ghost-link nav-tool-link" href="/patch-notes">更新公告</a>
             <button class="theme-toggle nav-icon-button image-mode-toggle" id="imageModeToggle" type="button" aria-pressed="false" aria-label="切换为首页有图片模式">
               <span class="image-mode-icon" id="imageModeIcon" aria-hidden="true">无</span>
