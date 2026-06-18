@@ -123,6 +123,11 @@ button {
   object-fit: contain;
 }
 
+.special-mechanics-nav-icon {
+  background: rgb(201, 100, 66);
+  padding: 2px;
+}
+
 .nav-icon-button {
   width: 44px;
   height: 44px;

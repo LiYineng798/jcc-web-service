@@ -3,21 +3,49 @@
 }
 
 .special-mechanics-page {
-  max-width: 1080px;
+  max-width: 1120px;
+}
+
+.special-mechanics-nav {
+  margin-bottom: 26px;
+}
+
+.special-mechanics-nav .nav-actions {
+  flex: 0 1 auto;
 }
 
 .special-mechanics-hero {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
+  margin: 0 0 14px;
+}
+
+.special-mechanics-hero-panel {
+  position: relative;
+  display: flex;
+  min-height: 174px;
+  align-items: center;
+  justify-content: space-between;
   gap: 24px;
-  align-items: end;
-  margin: 34px 0 18px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-xl);
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--accent-soft) 78%, transparent), transparent 58%),
+    var(--surface);
+  box-shadow: var(--shadow);
+  padding: 28px;
+}
+
+.special-mechanics-title-block {
+  position: relative;
+  z-index: 1;
+  max-width: 720px;
 }
 
 .special-mechanics-hero h1 {
-  margin: 8px 0 12px;
-  font-size: clamp(36px, 5vw, 64px);
-  line-height: 1;
+  max-width: 680px;
+  margin: 8px 0 0;
+  font-size: clamp(34px, 5vw, 58px);
+  line-height: 1.02;
   letter-spacing: 0;
 }
 
@@ -30,47 +58,73 @@
 }
 
 .special-mechanics-filter {
-  display: inline-flex;
+  display: flex;
   gap: 8px;
+  width: fit-content;
+  max-width: 100%;
   padding: 6px;
   border: 1px solid var(--line);
   border-radius: 999px;
-  background: var(--surface);
-  box-shadow: var(--shadow);
+  background: color-mix(in srgb, var(--surface-solid) 90%, transparent);
+  box-shadow: 0 14px 38px rgba(55, 45, 31, 0.08);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.special-mechanics-filter::-webkit-scrollbar {
+  display: none;
+}
+
+.special-mechanics-filter-sticky {
+  position: sticky;
+  top: 10px;
+  z-index: 20;
+  margin: 0 0 18px;
+  backdrop-filter: blur(16px);
 }
 
 .mechanic-filter-button {
+  flex: 0 0 auto;
   min-height: 38px;
   border: 0;
   border-radius: 999px;
   padding: 0 16px;
   background: transparent;
   color: var(--muted);
-  font-weight: 700;
+  font-weight: 800;
+  white-space: nowrap;
+  transition: background-color 160ms ease, color 160ms ease, transform 160ms ease;
+}
+
+.mechanic-filter-button:hover {
+  color: var(--accent-strong);
 }
 
 .mechanic-filter-button.active {
   background: var(--accent);
   color: #fffaf3;
+  box-shadow: 0 8px 20px rgba(201, 100, 66, 0.22);
 }
 
 .special-mechanic-list {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 12px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  align-items: start;
 }
 
 .special-mechanic-card {
+  position: relative;
   display: grid;
-  grid-template-columns: 72px minmax(0, 1fr);
   gap: 12px;
-  align-items: center;
-  min-height: 104px;
-  padding: 14px;
+  min-width: 0;
+  min-height: 100%;
+  overflow: hidden;
   border: 1px solid var(--line);
-  border-radius: 18px;
+  border-radius: 20px;
   background: var(--surface);
   box-shadow: 0 16px 44px rgba(55, 45, 31, 0.08);
+  padding: 14px 14px 15px 18px;
 }
 
 :root[data-theme="dark"] .special-mechanic-card {
@@ -78,11 +132,31 @@
 }
 
 .special-mechanic-card.power {
-  border-color: color-mix(in srgb, #e18a66 34%, var(--line));
+  border-color: color-mix(in srgb, #e18a66 36%, var(--line));
 }
 
 .special-mechanic-card.economy {
-  border-color: color-mix(in srgb, #7ba66a 34%, var(--line));
+  border-color: color-mix(in srgb, #6fa66b 36%, var(--line));
+}
+
+.special-mechanic-accent {
+  position: absolute;
+  inset: 14px auto 14px 0;
+  width: 4px;
+  border-radius: 999px;
+  background: #e18a66;
+}
+
+.special-mechanic-card.economy .special-mechanic-accent {
+  background: #6fa66b;
+}
+
+.special-mechanic-card-header {
+  display: grid;
+  grid-template-columns: 72px minmax(0, 1fr);
+  gap: 12px;
+  align-items: center;
+  min-width: 0;
 }
 
 .special-mechanic-image-wrap {
@@ -96,74 +170,213 @@
 }
 
 .special-mechanic-image {
+  display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
+.special-mechanic-body {
+  min-width: 0;
+}
+
 .special-mechanic-body h2 {
-  margin: 3px 0 3px;
-  font-size: 17px;
-  line-height: 1.2;
+  margin: 5px 0 4px;
+  font-size: 18px;
+  line-height: 1.22;
   overflow-wrap: anywhere;
   word-break: break-word;
 }
 
-.special-mechanic-meta {
+.special-mechanic-type-badge {
+  display: inline-flex;
+  width: fit-content;
+  align-items: center;
+  min-height: 24px;
+  border-radius: 999px;
+  background: rgba(225, 138, 102, 0.13);
   color: var(--accent-strong);
+  padding: 0 9px;
   font-size: 12px;
-  font-weight: 800;
-  letter-spacing: 0.08em;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+}
+
+.special-mechanic-card.economy .special-mechanic-type-badge {
+  background: rgba(111, 166, 107, 0.15);
+  color: #4f874c;
+}
+
+:root[data-theme="dark"] .special-mechanic-card.economy .special-mechanic-type-badge {
+  color: #9bcc8f;
 }
 
 .special-mechanic-skill {
   margin: 0;
   color: var(--muted);
   font-size: 13px;
-  font-weight: 700;
+  font-weight: 800;
   overflow-wrap: anywhere;
   word-break: break-word;
+}
+
+.special-mechanic-description {
+  min-width: 0;
+  padding-top: 10px;
+  border-top: 1px solid var(--line);
+}
+
+.special-mechanic-description-label {
+  margin: 0 0 5px;
+  color: var(--accent-strong);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
 }
 
 .special-mechanic-summary {
-  margin: 6px 0 0;
+  margin: 0;
   color: var(--muted);
-  font-size: 13px;
-  line-height: 1.45;
+  font-size: 14px;
+  line-height: 1.62;
   overflow-wrap: anywhere;
   word-break: break-word;
 }
 
-@media (max-width: 760px) {
-  .special-mechanics-hero {
-    grid-template-columns: 1fr;
-    align-items: stretch;
+@media (max-width: 860px) {
+  .special-mechanics-nav {
+    margin-bottom: 18px;
   }
 
-  .special-mechanics-filter {
-    justify-content: center;
-    overflow-x: auto;
+  .special-mechanics-hero-panel {
+    min-height: 148px;
+    padding: 22px;
+    border-radius: 24px;
+  }
+
+  .special-mechanics-hero h1 {
+    max-width: 560px;
+    font-size: clamp(32px, 8vw, 46px);
   }
 
   .special-mechanic-list {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: 1fr;
   }
 }
 
-@media (max-width: 460px) {
+@media (max-width: 640px) {
+  .special-mechanics-page {
+    width: min(100% - 18px, 460px);
+    padding-top: 14px;
+  }
+
+  .special-mechanics-nav {
+    align-items: center;
+    margin-bottom: 14px;
+  }
+
+  .special-mechanics-nav .nav-actions {
+    gap: 8px;
+  }
+
+  .special-mechanics-nav .nav-tool-link {
+    min-height: 40px;
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+
+  .special-mechanics-nav .nav-icon-button {
+    width: 40px;
+    height: 40px;
+  }
+
+  .special-mechanics-hero {
+    margin-bottom: 10px;
+  }
+
+  .special-mechanics-hero-panel {
+    min-height: 118px;
+    padding: 18px;
+    border-radius: 20px;
+  }
+
+  .special-mechanics-hero h1 {
+    margin-top: 6px;
+    font-size: clamp(28px, 9.6vw, 38px);
+    line-height: 1.08;
+  }
+
+  .special-mechanics-hero .eyebrow {
+    margin-bottom: 6px;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+  }
+
+  .special-mechanics-filter {
+    width: 100%;
+    gap: 6px;
+    padding: 5px;
+  }
+
+  .special-mechanics-filter-sticky {
+    top: 6px;
+    margin-bottom: 12px;
+  }
+
+  .mechanic-filter-button {
+    flex: 1 0 auto;
+    min-height: 36px;
+    padding: 0 12px;
+    font-size: 13px;
+  }
+
   .special-mechanic-list {
-    grid-template-columns: 1fr;
+    gap: 10px;
   }
 
   .special-mechanic-card {
-    grid-template-columns: 76px minmax(0, 1fr);
-    gap: 12px;
-    padding: 14px;
+    border-radius: 18px;
+    padding: 12px 12px 13px 16px;
+  }
+
+  .special-mechanic-card-header {
+    grid-template-columns: 64px minmax(0, 1fr);
+    gap: 10px;
   }
 
   .special-mechanic-image-wrap {
-    width: 76px;
-    height: 76px;
+    width: 64px;
+    height: 64px;
     border-radius: 0;
+  }
+
+  .special-mechanic-body h2 {
+    margin: 4px 0 3px;
+    font-size: 16px;
+  }
+
+  .special-mechanic-type-badge {
+    min-height: 22px;
+    padding: 0 8px;
+    font-size: 11px;
+  }
+
+  .special-mechanic-skill {
+    font-size: 12px;
+  }
+
+  .special-mechanic-description {
+    padding-top: 9px;
+  }
+
+  .special-mechanic-summary {
+    font-size: 13px;
+    line-height: 1.58;
+  }
+}
+
+@media (max-width: 380px) {
+  .mechanic-filter-button {
+    padding: 0 10px;
   }
 }

@@ -125,6 +125,10 @@ const filterButtons = Array.from(document.querySelectorAll('.mechanic-filter-but
 const themeToggle = document.querySelector('#themeToggle');
 const themeIcon = document.querySelector('#themeIcon');
 const themeText = document.querySelector('#themeText');
+const SPECIAL_MECHANIC_FILTER_LABELS = {
+  power: '战力形态',
+  economy: '经济形态',
+};
 let activeFilter = 'all';
 
 setSpecialMechanicsTheme(localStorage.getItem('theme') || 'light');
@@ -159,6 +163,10 @@ function createMechanicCard(item) {
   const card = document.createElement('article');
   card.className = `special-mechanic-card ${item.filter}`;
 
+  const accent = document.createElement('span');
+  accent.className = 'special-mechanic-accent';
+  accent.setAttribute('aria-hidden', 'true');
+
   const imageWrap = document.createElement('div');
   imageWrap.className = 'special-mechanic-image-wrap';
 
@@ -170,12 +178,15 @@ function createMechanicCard(item) {
   image.decoding = 'async';
   imageWrap.append(image);
 
+  const header = document.createElement('div');
+  header.className = 'special-mechanic-card-header';
+
   const body = document.createElement('div');
   body.className = 'special-mechanic-body';
 
   const meta = document.createElement('div');
-  meta.className = 'special-mechanic-meta';
-  meta.textContent = item.filter === 'power' ? '战力形态' : '经济形态';
+  meta.className = 'special-mechanic-type-badge';
+  meta.textContent = SPECIAL_MECHANIC_FILTER_LABELS[item.filter];
 
   const title = document.createElement('h2');
   title.textContent = item.name;
@@ -184,12 +195,22 @@ function createMechanicCard(item) {
   skill.className = 'special-mechanic-skill';
   skill.textContent = item.skill;
 
+  body.append(meta, title, skill);
+  header.append(imageWrap, body);
+
+  const description = document.createElement('div');
+  description.className = 'special-mechanic-description';
+
+  const label = document.createElement('p');
+  label.className = 'special-mechanic-description-label';
+  label.textContent = '机制原文';
+
   const summary = document.createElement('p');
   summary.className = 'special-mechanic-summary';
   summary.textContent = item.skillDesc;
 
-  body.append(meta, title, skill, summary);
-  card.append(imageWrap, body);
+  description.append(label, summary);
+  card.append(accent, header, description);
   return card;
 }
 

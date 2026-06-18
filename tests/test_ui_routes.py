@@ -625,6 +625,9 @@ def test_special_mechanics_page_exists_and_index_links_to_it(client):
     assert 'data-filter="all"' in html
     assert 'data-filter="power"' in html
     assert 'data-filter="economy"' in html
+    assert 'class="special-mechanics-hero-panel"' in html
+    assert 'special-mechanics-hero-mark' not in html
+    assert 'class="special-mechanics-filter special-mechanics-filter-sticky"' in html
     assert 'special-mechanics.js' in html
     assert 'special-mechanics.css' in html
     assert client.get('/static/special-mechanics/s8-icon.png').status_code == 200
@@ -650,6 +653,8 @@ def test_special_mechanics_assets_define_filter_groups():
     assert "themeToggle?.addEventListener('click'" in js
     assert '.nav-tool-icon {' in global_css
     assert 'object-fit: contain;' in global_css
+    assert '.special-mechanics-nav-icon {' in global_css
+    assert 'background: rgb(201, 100, 66);' in global_css
     assert 'grid-template-columns: 72px minmax(0, 1fr);' in css
     assert '.special-mechanic-image-wrap {' in css
     assert 'border-radius: 0;' in css
@@ -657,6 +662,15 @@ def test_special_mechanics_assets_define_filter_groups():
     assert 'word-break: break-word;' in css
     assert 'special-mechanic-list' in css
     assert 'mechanic-filter-button' in css
+    assert '.special-mechanics-filter-sticky' in css
+    assert 'position: sticky;' in css
+    assert '.special-mechanic-type-badge' in css
+    assert '.special-mechanic-description-label' in css
+    assert '@media (max-width: 640px)' in css
+    assert 'grid-template-columns: 1fr;' in css
+    assert 'special-mechanics-hero-mark' not in css
+    assert 'SPECIAL_MECHANIC_FILTER_LABELS' in js
+    assert "summary.textContent = item.skillDesc;" in js
 
 
 def test_lineup_simulator_hidden_when_disabled(client):

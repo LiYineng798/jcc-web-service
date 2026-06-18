@@ -14,7 +14,7 @@
   </head>
   <body>
     <div class="page-shell special-mechanics-page">
-      <nav class="nav-bar" aria-label="页面工具">
+      <nav class="nav-bar special-mechanics-nav" aria-label="页面工具">
         <a class="brand-mark brand-link" href="/" aria-label="返回首页">阵</a>
         <div class="nav-actions">
           <a class="ghost-link nav-tool-link" href="/">返回首页</a>
@@ -23,16 +23,19 @@
       </nav>
 
       <header class="special-mechanics-hero">
-        <div>
-          <p class="eyebrow">S8 Monster Invasion</p>
-          <h1>S8·怪兽入侵 特殊机制</h1>
-        </div>
-        <div class="special-mechanics-filter" role="tablist" aria-label="特殊机制筛选">
-          <button class="mechanic-filter-button active" type="button" data-filter="all" role="tab" aria-selected="true">全部</button>
-          <button class="mechanic-filter-button" type="button" data-filter="power" role="tab" aria-selected="false">战力形态</button>
-          <button class="mechanic-filter-button" type="button" data-filter="economy" role="tab" aria-selected="false">经济形态</button>
+        <div class="special-mechanics-hero-panel">
+          <div class="special-mechanics-title-block">
+            <p class="eyebrow">S8 Monster Invasion</p>
+            <h1>S8·怪兽入侵 特殊机制</h1>
+          </div>
         </div>
       </header>
+
+      <div class="special-mechanics-filter special-mechanics-filter-sticky" role="tablist" aria-label="特殊机制筛选">
+        <button class="mechanic-filter-button active" type="button" data-filter="all" role="tab" aria-selected="true">全部</button>
+        <button class="mechanic-filter-button" type="button" data-filter="power" role="tab" aria-selected="false">战力形态</button>
+        <button class="mechanic-filter-button" type="button" data-filter="economy" role="tab" aria-selected="false">经济形态</button>
+      </div>
 
       <main class="special-mechanic-list" id="specialMechanicList" aria-live="polite"></main>
     </div>
