@@ -18,21 +18,22 @@ def canonical_lineup_season_id(season_id):
 def lineup_season_manifest():
     base_manifest = season_manifest(DEFAULT_LINEUP_SEASON_ID)
     live_manifest = public_live_comps_manifest(load_live_comps_manifest())
-    live_statuses = {
-        season['id']: season.get('status')
-        for season in live_manifest.get('seasons', [])
-    }
+    base_seasons = {season['id']: season for season in base_manifest['seasons']}
     seasons = []
-    for season in base_manifest['seasons']:
-        live_status = live_statuses.get(season['id'])
+    for live_season in live_manifest.get('seasons', []):
+        season_id = live_season['id']
+        base_season = base_seasons.get(season_id)
+        if not base_season:
+            continue
+        live_status = live_season.get('status')
         if live_status not in LINEUP_SEASON_PUBLIC_STATUSES:
             continue
-        item = dict(season)
+        item = dict(base_season)
+        item['id'] = season_id
         item['status'] = live_status
+        item['order'] = live_season.get('order', item.get('order'))
         seasons.append(item)
-    default_season_id = DEFAULT_LINEUP_SEASON_ID
-    if not any(season['id'] == default_season_id for season in seasons) and seasons:
-        default_season_id = seasons[0]['id']
+    default_season_id = seasons[0]['id'] if seasons else DEFAULT_LINEUP_SEASON_ID
     return {
         'default_season_id': default_season_id,
         'seasons': seasons,

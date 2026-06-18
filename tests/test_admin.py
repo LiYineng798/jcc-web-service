@@ -102,6 +102,36 @@ def test_admin_can_list_and_update_live_comps_seasons(client):
     assert payload['seasons'][0]['description'] == '已归档'
 
 
+def test_admin_live_comps_season_order_controls_public_and_lineup_season_order(client):
+    headers = login_admin(client)
+    manifest_path = client.application.config['LIVE_COMPS_SEASON_MANIFEST_PATH']
+    Path = __import__('pathlib').Path
+    json_module = __import__('json')
+    Path(manifest_path).write_text(json_module.dumps({
+        'default_season_id': 's17-star-god',
+        'seasons': [
+            {'id': 's17-star-god', 'name': 'S17 · 星神', 'status': 'active', 'order': 1, 'description': ''},
+            {'id': 's16-legends', 'name': 'S16 · 英雄联盟传奇', 'status': 'active', 'order': 2, 'description': ''},
+            {'id': 'lucky-lantern', 'name': '天选福星', 'status': 'active', 'order': 3, 'description': ''},
+            {'id': 's8-monsters-attack', 'name': 'S8·怪兽入侵', 'status': 'active', 'order': 4, 'description': ''},
+        ],
+    }, ensure_ascii=False), encoding='utf-8')
+
+    updated = client.put(
+        '/api/admin/live-comps/seasons/s8-monsters-attack',
+        json={'order': 1},
+        headers=headers,
+    )
+
+    assert updated.status_code == 200
+    expected_order = ['s8-monsters-attack', 's17-star-god', 's16-legends', 'lucky-lantern']
+    assert [season['id'] for season in updated.get_json()['seasons']] == expected_order
+    assert [season['id'] for season in client.get('/api/live-comps/seasons').get_json()['seasons']] == expected_order
+    lineup_seasons = client.get('/api/lineup-seasons').get_json()
+    assert [season['id'] for season in lineup_seasons['seasons']] == expected_order
+    assert lineup_seasons['default_season_id'] == 's8-monsters-attack'
+
+
 def test_admin_can_adjust_like_and_copy_counts_and_recalculate_score(client):
     register_user(client)
     lineup = create_lineup(client).get_json()

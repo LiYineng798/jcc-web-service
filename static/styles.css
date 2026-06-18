@@ -133,6 +133,15 @@ button {
   display: inline-flex;
 }
 
+.returning-info-menu::after {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  width: max(100%, 218px);
+  height: 12px;
+  content: "";
+}
+
 .returning-info-trigger {
   border: 1px solid var(--line);
   color: var(--text);
@@ -2578,6 +2587,51 @@ textarea:focus {
   fill: var(--surface-solid);
   stroke: var(--accent-strong);
   stroke-width: 3;
+}
+
+.traffic-line-point-wrap {
+  cursor: pointer;
+  outline: none;
+}
+
+.traffic-line-point-wrap:hover .traffic-line-point,
+.traffic-line-point-wrap:focus-visible .traffic-line-point {
+  fill: var(--accent-strong);
+  stroke: var(--surface-solid);
+}
+
+.traffic-line-tooltip {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 140ms ease;
+}
+
+.traffic-line-point-wrap:hover + .traffic-line-tooltip,
+.traffic-line-point-wrap:focus-visible + .traffic-line-tooltip {
+  opacity: 1;
+}
+
+.traffic-line-tooltip rect {
+  fill: var(--surface-solid);
+  stroke: var(--line);
+  filter: drop-shadow(0 10px 18px rgba(55, 45, 31, 0.18));
+}
+
+:root[data-theme="dark"] .traffic-line-tooltip rect {
+  filter: drop-shadow(0 12px 18px rgba(0, 0, 0, 0.38));
+}
+
+.traffic-line-tooltip-date,
+.traffic-line-tooltip-value {
+  fill: var(--text);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.traffic-line-tooltip-value {
+  fill: var(--accent-strong);
+  font-size: 13px;
+  font-weight: 900;
 }
 
 .traffic-line-labels text {

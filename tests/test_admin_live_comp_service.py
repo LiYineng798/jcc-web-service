@@ -86,3 +86,35 @@ def test_update_admin_live_comps_season_updates_manifest(client):
     assert status_code == 200
     assert payload['seasons'][0]['status'] == 'archived'
     assert payload['seasons'][0]['description'] == '已归档'
+
+
+def test_update_admin_live_comps_season_moves_target_and_compacts_order(client):
+    manifest_path = client.application.config['LIVE_COMPS_SEASON_MANIFEST_PATH']
+    path_cls = __import__('pathlib').Path
+    json_module = __import__('json')
+    path_cls(manifest_path).write_text(json_module.dumps({
+        'default_season_id': 's17-star-god',
+        'seasons': [
+            {'id': 's17-star-god', 'name': 'S17 · 星神', 'status': 'active', 'order': 1, 'description': ''},
+            {'id': 's16-legends', 'name': 'S16 · 英雄联盟传奇', 'status': 'active', 'order': 2, 'description': ''},
+            {'id': 'lucky-lantern', 'name': '天选福星', 'status': 'active', 'order': 3, 'description': ''},
+            {'id': 's8-monsters-attack', 'name': 'S8·怪兽入侵', 'status': 'active', 'order': 4, 'description': ''},
+        ],
+    }, ensure_ascii=False), encoding='utf-8')
+
+    with client.application.app_context():
+        payload, error, status_code = update_admin_live_comps_season(
+            admin_id=1,
+            season_id='s8-monsters-attack',
+            data={'order': 1},
+        )
+
+    assert error is None
+    assert status_code == 200
+    assert [season['id'] for season in payload['seasons']] == [
+        's8-monsters-attack',
+        's17-star-god',
+        's16-legends',
+        'lucky-lantern',
+    ]
+    assert [season['order'] for season in payload['seasons']] == [1, 2, 3, 4]

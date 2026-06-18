@@ -11,3 +11,5 @@ For Web behavior changes, add or update focused tests under `tests/` and run at 
 Homepage S8 return-season information is grouped under the `S8回归信息差` navigation menu in `templates/index.html`. The menu keeps the existing S8 icon and links to `/tools/special-mechanics` and `/tools/returning-equipment`.
 
 The `/tools/returning-equipment` page uses `templates/returning_equipment.html`, `static/returning-equipment.js`, `static/returning-equipment.css`, and local images under `static/returning-equipment/`. Keep these assets inside the Web repository so production deployments do not depend on files from the parent `图片/` workspace.
+
+Live comp season configuration is stored in the live comp season manifest and normalized by `live_comps_helpers.py`. Admin season order changes update each season's `order` and compact the list to `1..N`. The public homepage season menu (`/api/live-comps/seasons`) and lineup create/edit season selector (`/api/lineup-seasons`) both follow this same order, while hidden or disabled seasons stay out of public/user-facing selectors.

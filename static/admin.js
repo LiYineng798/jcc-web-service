@@ -421,7 +421,14 @@
     path.setAttribute('d', pathData);
 
     const pointGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+    pointGroup.setAttribute('role', 'list');
     points.forEach((point) => {
+      const pointWrap = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+      pointWrap.setAttribute('class', 'traffic-line-point-wrap');
+      pointWrap.setAttribute('role', 'listitem');
+      pointWrap.setAttribute('tabindex', '0');
+      pointWrap.setAttribute('aria-label', `${point.date}，${point.uv} UV`);
+
       const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
       circle.setAttribute('class', 'traffic-line-point');
       circle.setAttribute('cx', point.x.toFixed(1));
@@ -430,7 +437,36 @@
       const title = document.createElementNS('http://www.w3.org/2000/svg', 'title');
       title.textContent = `${point.label}：${point.uv} UV`;
       circle.append(title);
-      pointGroup.append(circle);
+
+      const tooltipWidth = 104;
+      const tooltipHeight = 46;
+      const tooltipX = Math.max(6, Math.min(width - tooltipWidth - 6, point.x - tooltipWidth / 2));
+      const tooltipY = Math.max(6, point.y - tooltipHeight - 14);
+      const tooltip = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+      tooltip.setAttribute('class', 'traffic-line-tooltip');
+      tooltip.setAttribute('aria-hidden', 'true');
+      tooltip.setAttribute('transform', `translate(${tooltipX.toFixed(1)} ${tooltipY.toFixed(1)})`);
+
+      const tooltipBox = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+      tooltipBox.setAttribute('width', String(tooltipWidth));
+      tooltipBox.setAttribute('height', String(tooltipHeight));
+      tooltipBox.setAttribute('rx', '10');
+
+      const tooltipDate = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+      tooltipDate.setAttribute('class', 'traffic-line-tooltip-date');
+      tooltipDate.setAttribute('x', '12');
+      tooltipDate.setAttribute('y', '18');
+      tooltipDate.textContent = point.date;
+
+      const tooltipValue = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+      tooltipValue.setAttribute('class', 'traffic-line-tooltip-value');
+      tooltipValue.setAttribute('x', '12');
+      tooltipValue.setAttribute('y', '35');
+      tooltipValue.textContent = `${point.uv} UV`;
+
+      tooltip.append(tooltipBox, tooltipDate, tooltipValue);
+      pointWrap.append(circle);
+      pointGroup.append(pointWrap, tooltip);
     });
 
     const labelGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
@@ -670,14 +706,23 @@
     seasonPanel.append(seasonHeader);
 
     const seasonList = el('div', 'admin-season-list');
-    (state.liveCompsSeasons.seasons || []).forEach((season) => {
+    const seasons = state.liveCompsSeasons.seasons || [];
+    seasons.forEach((season, index) => {
       const card = el('article', 'admin-season-card');
       const info = el('div', 'admin-season-info');
       info.append(
         el('strong', '', season.name || season.id),
-        el('p', 'admin-meta', `${season.id} · ${statusText[season.status] || season.status || '正常'} · ${season.description || '无说明'}`),
+        el('p', 'admin-meta', `顺序 ${Number(season.order || index + 1)} · ${season.id} · ${statusText[season.status] || season.status || '正常'} · ${season.description || '无说明'}`),
       );
       const controls = el('div', 'admin-season-controls');
+      controls.append(
+        button('上移', async () => {
+          await moveLiveCompSeason(season, -1);
+        }, 'small-button', index === 0),
+        button('下移', async () => {
+          await moveLiveCompSeason(season, 1);
+        }, 'small-button', index === seasons.length - 1),
+      );
       liveSeasonStatusOptions.forEach(([status, label]) => {
         controls.append(button(label, async () => {
           await api(`/api/admin/live-comps/seasons/${encodeURIComponent(season.id)}`, {
@@ -703,6 +748,21 @@
     });
     seasonPanel.append(seasonList);
     return seasonPanel;
+  }
+
+  async function moveLiveCompSeason(season, direction) {
+    const seasons = state.liveCompsSeasons.seasons || [];
+    const currentIndex = seasons.findIndex((item) => item.id === season.id);
+    if (currentIndex < 0) return;
+    const nextIndex = Math.max(0, Math.min(seasons.length - 1, currentIndex + direction));
+    if (nextIndex === currentIndex) return;
+    const nextOrder = nextIndex + 1;
+    await api(`/api/admin/live-comps/seasons/${encodeURIComponent(season.id)}`, {
+      method: 'PUT',
+      body: JSON.stringify({ order: nextOrder }),
+    });
+    await loadAdminLiveCompsSeasons({ force: true });
+    render();
   }
 
   function lineupSearchControls() {

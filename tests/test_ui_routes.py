@@ -618,6 +618,8 @@ def test_special_mechanics_page_exists_and_index_links_to_it(client):
     assert 'class="returning-info-menu"' in index_html
     assert 'href="/tools/returning-equipment"' in index_html
     assert '回归装备' in index_html
+    assert '12 件返场装备说明' in index_html
+    assert '5 件返场装备说明' not in index_html
     assert '特殊机制' in index_html
 
     response = client.get('/tools/special-mechanics')
@@ -665,6 +667,7 @@ def test_returning_equipment_page_exists_and_index_links_to_it(client):
     assert 'returning-equipment-component-image' in html
     assert 'returning-equipment.css' in html
     assert 'returning-equipment.js' in html
+    assert 'href="/tools/special-mechanics"' not in html
 
     for filename in (
         'guinsoos-rageblade.png',
@@ -763,6 +766,7 @@ def test_returning_equipment_assets_define_cards_and_mobile_layout():
     assert '@media (max-width: 640px)' in css
     assert 'grid-template-columns: 1fr;' in css
     assert '.returning-info-menu' in global_css
+    assert '.returning-info-menu::after' in global_css
     assert '.returning-info-menu-panel' in global_css
 
 
@@ -1111,8 +1115,27 @@ def test_admin_dashboard_renders_uv_trend_as_line_chart():
     assert 'traffic-line-chart' in js
     assert 'traffic-line-path' in js
     assert 'traffic-line-point' in js
+    assert 'traffic-line-point-wrap' in js
+    assert 'traffic-line-tooltip' in js
+    assert 'traffic-line-tooltip-date' in js
+    assert 'traffic-line-tooltip-value' in js
+    assert "pointGroup.setAttribute('role', 'list')" in js
+    assert "pointWrap.setAttribute('tabindex', '0')" in js
     assert 'traffic-trend-row' not in js
     assert 'traffic-trend-fill' not in js
     assert '.traffic-line-chart' in css
     assert '.traffic-line-path' in css
     assert '.traffic-line-point' in css
+    assert '.traffic-line-point-wrap:hover + .traffic-line-tooltip' in css
+    assert '.traffic-line-point-wrap:focus-visible + .traffic-line-tooltip' in css
+
+
+def test_admin_live_comps_season_manager_supports_order_controls():
+    with open('static/admin.js', 'r', encoding='utf-8') as file:
+        js = file.read()
+
+    assert "button('上移'" in js
+    assert "button('下移'" in js
+    assert 'moveLiveCompSeason(season, -1)' in js
+    assert 'moveLiveCompSeason(season, 1)' in js
+    assert 'body: JSON.stringify({ order: nextOrder })' in js

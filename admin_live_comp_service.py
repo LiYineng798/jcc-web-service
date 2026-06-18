@@ -61,10 +61,28 @@ def list_admin_live_comps_seasons():
     return load_live_comps_manifest()
 
 
+def _reorder_live_comps_seasons(seasons, target_season_id, target_order):
+    ordered = sorted(seasons, key=lambda season: (int(season.get('order') or 0), str(season.get('id') or '')))
+    target = next((season for season in ordered if str(season.get('id')) == str(target_season_id)), None)
+    if target is None:
+        return ordered
+    ordered = [season for season in ordered if str(season.get('id')) != str(target_season_id)]
+    try:
+        next_index = int(target_order) - 1
+    except (TypeError, ValueError):
+        next_index = int(target.get('order') or len(ordered) + 1) - 1
+    next_index = max(0, min(next_index, len(ordered)))
+    ordered.insert(next_index, target)
+    for index, season in enumerate(ordered, start=1):
+        season['order'] = index
+    return ordered
+
+
 def update_admin_live_comps_season(admin_id, season_id, data):
     manifest = load_live_comps_manifest()
     seasons = []
     found = False
+    should_reorder = 'order' in (data or {})
     for season in manifest['seasons']:
         updated = dict(season)
         if str(updated.get('id')) == str(season_id):
@@ -75,6 +93,8 @@ def update_admin_live_comps_season(admin_id, season_id, data):
         seasons.append(updated)
     if not found:
         return None, '赛季不存在', 404
+    if should_reorder:
+        seasons = _reorder_live_comps_seasons(seasons, season_id, (data or {}).get('order'))
     default_season_id = str((data or {}).get('default_season_id') or manifest.get('default_season_id') or season_id)
     if not any(str(season.get('id')) == default_season_id for season in seasons):
         default_season_id = season_id
