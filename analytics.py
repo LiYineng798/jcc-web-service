@@ -1,7 +1,7 @@
 import json
 from datetime import datetime
 
-from db import get_db, now_text
+from db import db_kind, get_db, now_text
 
 ALLOWED_GROWTH_EVENTS = {
     'click_login_entry',
@@ -104,8 +104,16 @@ def _count_auth_success_users(target_date):
 
 
 def _count_post_login_action_users(target_date, action_event_name):
+    if db_kind() == 'postgres':
+        auth_created_at = 'auth.created_at::timestamp'
+        action_created_at = 'action.created_at::timestamp'
+        action_window_end = "auth.created_at::timestamp + INTERVAL '10 minutes'"
+    else:
+        auth_created_at = 'auth.created_at'
+        action_created_at = 'action.created_at'
+        action_window_end = "datetime(auth.created_at, '+10 minutes')"
     row = get_db().execute(
-        '''
+        f'''
         SELECT COUNT(DISTINCT auth.user_id) AS c
         FROM growth_events auth
         JOIN users u ON u.id = auth.user_id
@@ -117,8 +125,8 @@ def _count_post_login_action_users(target_date, action_event_name):
               FROM growth_events action
               WHERE action.user_id = auth.user_id
                 AND action.event_name = ?
-                AND action.created_at >= auth.created_at
-                AND action.created_at <= datetime(auth.created_at, '+10 minutes')
+                AND {action_created_at} >= {auth_created_at}
+                AND {action_created_at} <= {action_window_end}
           )
         ''',
         (target_date, action_event_name),

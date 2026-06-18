@@ -174,3 +174,33 @@ def test_admin_login_does_not_leave_guest_funnel_traces_for_same_session(client)
         summary = growth_summary(target_date=today)
         assert summary['home_uv'] == 0
         assert summary['login_entry_visitors'] == 0
+
+
+def test_growth_summary_uses_postgres_interval_for_post_login_window(monkeypatch):
+    executed_sql = []
+
+    class Result:
+        def fetchall(self):
+            return []
+
+        def fetchone(self):
+            return {'c': 0}
+
+    class FakeDb:
+        def execute(self, sql, params=()):
+            executed_sql.append(sql)
+            if 'FROM growth_events auth' in sql:
+                assert "datetime(auth.created_at" not in sql
+                assert 'action.created_at::timestamp >= auth.created_at::timestamp' in sql
+                assert "auth.created_at::timestamp + INTERVAL '10 minutes'" in sql
+            return Result()
+
+    monkeypatch.setattr('analytics.get_db', lambda: FakeDb())
+    monkeypatch.setattr('analytics.db_kind', lambda: 'postgres', raising=False)
+
+    from analytics import growth_summary
+
+    summary = growth_summary(target_date='2026-06-18')
+
+    assert summary['date'] == '2026-06-18'
+    assert any('FROM growth_events auth' in sql for sql in executed_sql)
