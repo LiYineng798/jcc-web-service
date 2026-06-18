@@ -18,7 +18,7 @@ from lineup_interaction_service import (
     report_lineup_record,
     unfavorite_lineup_record,
 )
-from lineup_read_service import build_lineup_detail_payload, build_lineups_list_payload
+from lineup_read_service import build_home_stats_payload, build_lineup_detail_payload, build_lineups_list_payload
 from lineup_write_service import create_lineup_record, delete_lineup_record, hide_lineup_record, update_lineup_record
 from lineups_utils import lineup_season_manifest, parse_positive_int
 from route_response import respond_service_result
@@ -31,6 +31,11 @@ lineups_bp = Blueprint('lineups', __name__)
 @lineups_bp.get('/api/lineup-seasons')
 def lineup_seasons():
     return jsonify(lineup_season_manifest())
+
+
+@lineups_bp.get('/api/home-stats')
+def home_stats():
+    return jsonify(build_home_stats_payload())
 
 
 @lineups_bp.get('/api/lineups')

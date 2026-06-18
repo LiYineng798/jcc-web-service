@@ -56,6 +56,18 @@ def test_lineup_list_filters_by_selected_season(client):
     assert payload['items'][0]['name'] == 'S17 阵容'
 
 
+def test_home_stats_counts_public_lineups_across_seasons(client):
+    register_user(client)
+    client.post('/api/lineups', json={'name': 'S17 阵容', 'code': '#S17001', 'season_id': 's17-star-god'}, headers=auth_headers(client))
+    client.post('/api/lineups', json={'name': 'S16 阵容', 'code': '#S16001', 'season_id': 's16-legends'}, headers=auth_headers(client))
+    client.post('/api/lineups', json={'name': '福星 阵容', 'code': '#FUXING01', 'season_id': 'lucky-lantern'}, headers=auth_headers(client))
+    client.post('/api/lineups', json={'name': '隐藏阵容', 'code': '#HIDDEN01', 'status': 'hidden'}, headers=auth_headers(client))
+
+    payload = client.get('/api/home-stats').get_json()
+
+    assert payload == {'total_public_lineups': 3}
+
+
 def test_create_lineup_defaults_to_public_default_season_and_rejects_invalid_season(client):
     register_user(client)
     missing = client.post('/api/lineups', json={'name': '无赛季', 'code': '#NOSEASON'}, headers=auth_headers(client))

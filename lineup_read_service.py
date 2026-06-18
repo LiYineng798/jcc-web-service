@@ -23,6 +23,14 @@ from recommendation import recommended_scores
 from scoring import rising_map, score_map
 
 
+def build_home_stats_payload():
+    db = get_db()
+    row = db.execute(
+        "SELECT COUNT(*) AS total FROM lineups WHERE status = 'normal'"
+    ).fetchone()
+    return {'total_public_lineups': int(row['total'] or 0)}
+
+
 def build_lineups_list_payload(user, view, sort, query, season_id, wants_page, page=None, page_size=None):
     if view in {'mine', 'favorites'} and not user:
         if wants_page:

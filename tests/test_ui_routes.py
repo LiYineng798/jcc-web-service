@@ -246,6 +246,28 @@ def test_homepage_stat_card_has_border_glow_hook():
     assert 'data-border-glow="stat"' in html
 
 
+def test_homepage_separates_site_total_from_current_display_count(client):
+    html = client.get('/').get_data(as_text=True)
+
+    assert '<span class="stat-label">全站收录</span>' in html
+    assert '<span class="stat-caption">套阵容</span>' in html
+    assert 'id="currentDisplayCount"' in html
+    assert '当前展示' in html
+    assert '<span class="stat-label">已展示</span>' not in html
+
+
+def test_app_js_loads_home_stats_and_updates_current_display_count():
+    with open('static/app.js', 'r', encoding='utf-8') as file:
+        js = file.read()
+
+    assert "fetch('/api/home-stats')" in js
+    assert 'homeStats' in js
+    assert 'currentDisplayCount' in js
+    assert 'renderCurrentDisplayCount(' in js
+    assert 'elements.lineupCount.textContent = state.homeStats.total_public_lineups' in js
+    assert 'elements.lineupCount.textContent = state.total' not in js
+
+
 def test_border_glow_is_scoped_to_homepage_realtime_cards():
     with open('static/app.js', 'r', encoding='utf-8') as file:
         js = file.read()

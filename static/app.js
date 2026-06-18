@@ -4,6 +4,7 @@ const state = {
   lineups: [],
   liveCompsSummary: null,
   liveCompsPage: null,
+  homeStats: { total_public_lineups: 0 },
   lineupSeasons: [],
   liveCompSeasons: [],
   selectedLineupSeasonId: null,
@@ -49,6 +50,7 @@ const elements = {
   emptyState: $('#emptyState'),
   message: $('#message'),
   lineupCount: $('#lineupCount'),
+  currentDisplayCount: $('#currentDisplayCount'),
   seasonFilterToggle: $('#seasonFilterToggle'),
   seasonFilterText: $('#seasonFilterText'),
   seasonFilterMenu: $('#seasonFilterMenu'),
@@ -123,6 +125,7 @@ async function boot() {
   await loadMe();
   applySavedMessage();
   await consumePendingIntent();
+  loadHomeStats();
   await loadCurrentView();
   renderGuestbookTrigger();
 }
@@ -302,6 +305,23 @@ async function loadMe() {
   state.user = data.user;
   state.csrfToken = data.csrf_token;
   renderAuth();
+}
+
+async function loadHomeStats() {
+  try {
+    const payload = await fetch('/api/home-stats').then((response) => response.json());
+    state.homeStats = {
+      total_public_lineups: Number(payload.total_public_lineups || 0),
+    };
+    renderHomeStats();
+  } catch (_) {
+    renderHomeStats();
+  }
+}
+
+function renderHomeStats() {
+  if (!elements.lineupCount) return;
+  elements.lineupCount.textContent = state.homeStats.total_public_lineups;
 }
 
 async function loadLineupSeasons() {
@@ -538,7 +558,7 @@ function renderLineupSeasonFilter() {
 
 function renderLineups() {
   elements.lineupList.replaceChildren();
-  elements.lineupCount.textContent = state.total;
+  renderCurrentDisplayCount();
   elements.emptyState.classList.toggle('hidden', state.total > 0);
   renderEmptyState();
   state.lineups.forEach((lineup) => {
@@ -646,7 +666,7 @@ function buildPaginationDots(currentPage, totalPages) {
 
 function renderLiveComps() {
   elements.lineupList.replaceChildren();
-  elements.lineupCount.textContent = state.total;
+  renderCurrentDisplayCount();
   elements.emptyState.classList.toggle('hidden', state.total > 0);
   renderEmptyState();
   if (!state.total) return;
@@ -656,6 +676,12 @@ function renderLiveComps() {
   shell.append(renderLiveCompsSummaryHeader());
   shell.append(renderLiveCompsGrid());
   elements.lineupList.append(shell);
+}
+
+function renderCurrentDisplayCount() {
+  if (!elements.currentDisplayCount) return;
+  const unit = state.view === 'live-comps' ? '套实时阵容' : '套阵容';
+  elements.currentDisplayCount.textContent = `当前展示 ${state.total} ${unit}`;
 }
 
 function renderLiveCompsSummaryHeader() {
