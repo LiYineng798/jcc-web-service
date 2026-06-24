@@ -716,6 +716,50 @@ def test_returning_equipment_page_exists_and_index_links_to_it(client):
         assert client.get(f'/static/returning-equipment/{filename}').status_code == 200
 
 
+def test_artifact_guide_page_exists_and_index_links_to_it(client):
+    index_html = client.get('/').get_data(as_text=True)
+    assert 'href="/tools/artifact-guide"' in index_html
+    assert '神器搭配指南' in index_html
+
+    response = client.get('/tools/artifact-guide')
+    assert response.status_code == 200
+    html = response.get_data(as_text=True)
+    assert 'S8·怪兽入侵 神器搭配指南' in html
+    assert 'artifact-guide-grid' in html
+    assert 'artifacts-guide.js' in html
+    assert 'artifacts-guide.css' in html
+    assert '查看返场赛季的英雄与神器搭配' not in html
+    assert client.get('/static/artifacts-guide/heroes/5127_厄加特_s8_urgot.png').status_code == 200
+    assert client.get('/static/artifacts-guide/artifacts/6072_密银黎明_silvermere_dawn.jpg').status_code == 200
+
+
+def test_artifact_guide_assets_define_cards_and_images():
+    with open('static/artifacts-guide.js', 'r', encoding='utf-8') as file:
+        js = file.read()
+    with open('static/artifacts-guide.css', 'r', encoding='utf-8') as file:
+        css = file.read()
+
+    assert 'const ARTIFACT_GUIDE_CARDS = [' in js
+    assert 'artifact-guide-card' in js
+    assert 'artifact-guide-hero-image' in js
+    assert 'artifact-guide-artifact-image' in js
+    assert 'artifact-guide-evaluation' in js
+    assert '厄加特' in js
+    assert '秘银' in js
+    assert '努努' in js
+    assert '探索者护臂' in js
+    assert '薇恩' in js
+    assert '斯塔缇克电刃' in js
+    assert '.artifact-guide-card {' in css
+    assert '.artifact-guide-image-grid {' in css
+    assert '.artifact-guide-hero-image {' in css
+    assert '.artifact-guide-artifact-image {' in css
+    assert '.artifact-guide-image-wrap {' in css
+    assert 'width: 80px;' in css
+    assert 'height: 80px;' in css
+    assert 'object-fit: contain;' in css
+
+
 def test_special_mechanics_assets_define_filter_groups():
     with open('static/special-mechanics.js', 'r', encoding='utf-8') as file:
         js = file.read()

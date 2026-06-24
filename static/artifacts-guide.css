@@ -1,0 +1,233 @@
+.brand-link {
+  text-decoration: none;
+}
+
+.artifacts-guide-page {
+  max-width: 1120px;
+}
+
+.artifacts-guide-nav {
+  margin-bottom: 26px;
+}
+
+.artifacts-guide-nav .nav-actions {
+  flex: 0 1 auto;
+}
+
+.artifacts-guide-hero {
+  margin: 0 0 18px;
+}
+
+.artifacts-guide-hero-panel {
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-xl);
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--accent-soft) 78%, transparent), transparent 58%),
+    var(--surface);
+  box-shadow: var(--shadow);
+  padding: 28px;
+}
+
+.artifacts-guide-hero h1 {
+  max-width: 720px;
+  margin: 8px 0 0;
+  font-size: clamp(34px, 5vw, 58px);
+  line-height: 1.02;
+  letter-spacing: 0;
+}
+
+.artifact-guide-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  align-items: start;
+}
+
+.artifact-guide-card {
+  display: grid;
+  gap: 14px;
+  min-width: 0;
+  min-height: 100%;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: var(--surface);
+  box-shadow: 0 16px 44px rgba(55, 45, 31, 0.08);
+  padding: 16px;
+}
+
+:root[data-theme="dark"] .artifact-guide-card {
+  box-shadow: 0 18px 46px rgba(0, 0, 0, 0.22);
+}
+
+.artifact-guide-image-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+
+.artifact-guide-image-wrap {
+  display: grid;
+  width: 80px;
+  height: 80px;
+  box-sizing: border-box;
+  padding: 4px;
+  place-items: center;
+  border-radius: 16px;
+  background: color-mix(in srgb, var(--accent-soft) 54%, transparent);
+  overflow: hidden;
+  flex: 0 0 auto;
+}
+
+.artifact-guide-hero-image {
+  display: block;
+  width: 72px;
+  height: 72px;
+  object-fit: contain;
+}
+
+.artifact-guide-artifact-image {
+  display: block;
+  width: 72px;
+  height: 72px;
+  object-fit: contain;
+}
+
+.artifact-guide-body {
+  min-width: 0;
+}
+
+.artifact-guide-label {
+  display: inline-flex;
+  width: fit-content;
+  min-height: 24px;
+  align-items: center;
+  margin: 0 0 7px;
+  border-radius: 999px;
+  background: rgba(201, 100, 66, 0.14);
+  color: var(--accent-strong);
+  padding: 0 9px;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+}
+
+.artifact-guide-body h2 {
+  margin: 0 0 6px;
+  font-size: 19px;
+  line-height: 1.22;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.artifact-guide-evaluation {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.62;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+@media (max-width: 860px) {
+  .artifacts-guide-nav {
+    margin-bottom: 18px;
+  }
+
+  .artifacts-guide-hero-panel {
+    padding: 22px;
+    border-radius: 24px;
+  }
+
+  .artifacts-guide-hero h1 {
+    max-width: 560px;
+    font-size: clamp(32px, 8vw, 46px);
+  }
+
+  .artifact-guide-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .artifacts-guide-page {
+    width: min(100% - 18px, 460px);
+    padding-top: 14px;
+  }
+
+  .artifacts-guide-nav {
+    align-items: center;
+    margin-bottom: 14px;
+  }
+
+  .artifacts-guide-nav .nav-actions {
+    gap: 8px;
+  }
+
+  .artifacts-guide-nav .nav-tool-link {
+    min-height: 40px;
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+
+  .artifacts-guide-nav .nav-icon-button {
+    width: 40px;
+    height: 40px;
+  }
+
+  .artifacts-guide-hero {
+    margin-bottom: 12px;
+  }
+
+  .artifacts-guide-hero-panel {
+    padding: 18px;
+    border-radius: 20px;
+  }
+
+  .artifacts-guide-hero h1 {
+    margin-top: 6px;
+    font-size: clamp(28px, 9.6vw, 38px);
+    line-height: 1.08;
+  }
+
+  .artifacts-guide-hero .eyebrow {
+    margin-bottom: 6px;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+  }
+
+  .artifact-guide-grid {
+    gap: 10px;
+  }
+
+  .artifact-guide-card {
+    padding: 12px;
+  }
+
+  .artifact-guide-image-grid {
+    gap: 8px;
+  }
+
+  .artifact-guide-image-wrap {
+    width: 76px;
+    height: 76px;
+    border-radius: 14px;
+    padding: 3px;
+  }
+
+  .artifact-guide-hero-image,
+  .artifact-guide-artifact-image {
+    width: 68px;
+    height: 68px;
+  }
+
+  .artifact-guide-body h2 {
+    font-size: 16px;
+  }
+
+  .artifact-guide-evaluation {
+    font-size: 13px;
+    line-height: 1.58;
+  }
+}

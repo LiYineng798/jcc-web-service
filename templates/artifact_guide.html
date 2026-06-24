@@ -1,0 +1,37 @@
+<!doctype html>
+{% from "theme_toggle.html" import theme_toggle %}
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>S8·怪兽入侵 神器搭配指南</title>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='artifacts-guide.css') }}" />
+  </head>
+  <body>
+    <div class="page-shell artifacts-guide-page">
+      <nav class="nav-bar artifacts-guide-nav" aria-label="页面工具">
+        <a class="brand-mark brand-link" href="/" aria-label="返回首页">阵</a>
+        <div class="nav-actions">
+          <a class="ghost-link nav-tool-link" href="/">返回首页</a>
+          {{ theme_toggle("nav-icon-button") }}
+        </div>
+      </nav>
+
+      <header class="artifacts-guide-hero">
+        <div class="artifacts-guide-hero-panel">
+          <p class="eyebrow">S8 Artifact Guide</p>
+          <h1>S8·怪兽入侵 神器搭配指南</h1>
+        </div>
+      </header>
+
+      <main class="artifact-guide-grid" id="artifactGuideGrid" aria-live="polite"></main>
+    </div>
+    <script src="{{ url_for('static', filename='theme-toggle.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='artifacts-guide.js') }}" defer></script>
+  </body>
+</html>
