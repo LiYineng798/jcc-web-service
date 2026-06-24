@@ -120,6 +120,30 @@ const SPECIAL_MECHANICS = [
   },
 ];
 
+const SPECIAL_MECHANIC_RANKS = {
+  power: {
+    '迅捷蟹（战力）': 'A',
+    '胖胖龙（战力）': 'S',
+    '装备商人（战力）': 'C',
+    '魄罗粉丝（战力）': 'S',
+    '卡牌大师（战力）': 'B',
+    '阿木木（战力）': 'A',
+    '防御塔（战力）': 'C',
+    '奶酪首领（战力）': 'B',
+    '卑鄙茧房': 'S',
+  },
+  economy: {
+    '迅捷蟹（经济）': 'C',
+    '胖胖龙（经济）': 'S',
+    '装备商人（经济）': 'A',
+    '魄罗粉丝（经济）': 'A',
+    '卡牌大师（经济）': 'B',
+    '爆裂球果（经济）': 'C',
+    '阿木木（经济）': 'S',
+    '防御塔（经济）': 'C',
+  },
+};
+
 const list = document.querySelector('#specialMechanicList');
 const filterButtons = Array.from(document.querySelectorAll('.mechanic-filter-button'));
 const themeToggle = document.querySelector('#themeToggle');
@@ -188,6 +212,15 @@ function createMechanicCard(item) {
   meta.className = 'special-mechanic-type-badge';
   meta.textContent = SPECIAL_MECHANIC_FILTER_LABELS[item.filter];
 
+  const metaRow = document.createElement('div');
+  metaRow.className = 'special-mechanic-meta-row';
+
+  const rank = getSpecialMechanicRank(item);
+  const rankBadge = document.createElement('span');
+  rankBadge.className = 'special-mechanic-rank-badge';
+  rankBadge.dataset.rank = rank;
+  rankBadge.textContent = rank;
+
   const title = document.createElement('h2');
   title.textContent = item.name;
 
@@ -195,7 +228,8 @@ function createMechanicCard(item) {
   skill.className = 'special-mechanic-skill';
   skill.textContent = item.skill;
 
-  body.append(meta, title, skill);
+  metaRow.append(meta, rankBadge);
+  body.append(metaRow, title, skill);
   header.append(imageWrap, body);
 
   const description = document.createElement('div');
@@ -212,6 +246,11 @@ function createMechanicCard(item) {
   description.append(label, summary);
   card.append(accent, header, description);
   return card;
+}
+
+function getSpecialMechanicRank(item) {
+  const rankMap = SPECIAL_MECHANIC_RANKS[item.filter] || {};
+  return rankMap[item.name] || 'C';
 }
 
 renderMechanics();

@@ -10,6 +10,8 @@ For Web behavior changes, add or update focused tests under `tests/` and run at 
 
 Homepage S8 return-season information is grouped under the `S8回归信息差` navigation menu in `templates/index.html`. The menu keeps the existing S8 icon and links to `/tools/special-mechanics` and `/tools/returning-equipment`.
 
+The `/tools/special-mechanics` page is a static S8 reference page. Each card shows one rank badge for the currently visible category only, and the rank mapping is maintained in `static/special-mechanics.js` alongside the card data.
+
 The `/tools/returning-equipment` page uses `templates/returning_equipment.html`, `static/returning-equipment.js`, `static/returning-equipment.css`, and local images under `static/returning-equipment/`. Keep these assets inside the Web repository so production deployments do not depend on files from the parent `图片/` workspace.
 
 The homepage hero stat card shows all-site public regular lineup collection size from `/api/home-stats`. Current displayed result count is list context, not site context, and belongs near the list heading through `#currentDisplayCount`.

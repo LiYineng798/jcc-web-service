@@ -180,6 +180,14 @@
   min-width: 0;
 }
 
+.special-mechanic-meta-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  min-width: 0;
+}
+
 .special-mechanic-body h2 {
   margin: 5px 0 4px;
   font-size: 18px;
@@ -200,6 +208,38 @@
   font-size: 12px;
   font-weight: 900;
   letter-spacing: 0.04em;
+}
+
+.special-mechanic-rank-badge {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  min-width: 38px;
+  min-height: 28px;
+  border-radius: 999px;
+  padding: 0 11px;
+  color: #fffaf3;
+  font-size: 14px;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  box-shadow: 0 10px 18px rgba(55, 45, 31, 0.12);
+}
+
+.special-mechanic-rank-badge[data-rank="S"] {
+  background: linear-gradient(135deg, #b75c3f, #e18a66);
+}
+
+.special-mechanic-rank-badge[data-rank="A"] {
+  background: linear-gradient(135deg, #c07a28, #e0aa53);
+}
+
+.special-mechanic-rank-badge[data-rank="B"] {
+  background: linear-gradient(135deg, #667086, #8a93a8);
+}
+
+.special-mechanic-rank-badge[data-rank="C"] {
+  background: linear-gradient(135deg, #6f7b82, #95a0a7);
 }
 
 .special-mechanic-card.economy .special-mechanic-type-badge {
@@ -261,6 +301,10 @@
 
   .special-mechanic-list {
     grid-template-columns: 1fr;
+  }
+
+  .special-mechanic-meta-row {
+    flex-wrap: wrap;
   }
 }
 
@@ -359,6 +403,13 @@
     min-height: 22px;
     padding: 0 8px;
     font-size: 11px;
+  }
+
+  .special-mechanic-rank-badge {
+    min-width: 34px;
+    min-height: 26px;
+    padding: 0 10px;
+    font-size: 13px;
   }
 
   .special-mechanic-skill {

@@ -753,6 +753,34 @@ def test_special_mechanics_assets_define_filter_groups():
     assert 'special-mechanics-hero-mark' not in css
     assert 'SPECIAL_MECHANIC_FILTER_LABELS' in js
     assert "summary.textContent = item.skillDesc;" in js
+    assert 'special-mechanic-meta-row' in js
+    assert 'special-mechanic-rank-badge' in js
+
+
+def test_special_mechanics_assets_define_rank_badges():
+    with open('static/special-mechanics.js', 'r', encoding='utf-8') as file:
+        js = file.read()
+    with open('static/special-mechanics.css', 'r', encoding='utf-8') as file:
+        css = file.read()
+
+    assert 'const SPECIAL_MECHANIC_RANKS = {' in js
+    assert 'power: {' in js
+    assert 'economy: {' in js
+    assert "'迅捷蟹（战力）': 'A'" in js
+    assert "'迅捷蟹（经济）': 'C'" in js
+    assert "'胖胖龙（战力）': 'S'" in js
+    assert "'阿木木（经济）': 'S'" in js
+    assert "'防御塔（战力）': 'C'" in js
+    assert "'卑鄙茧房': 'S'" in js
+    assert 'special-mechanic-meta-row' in js
+    assert 'special-mechanic-rank-badge' in js
+    assert "rankBadge.textContent = rank;" in js
+    assert '.special-mechanic-meta-row {' in css
+    assert '.special-mechanic-rank-badge {' in css
+    assert '[data-rank="S"]' in css
+    assert '[data-rank="A"]' in css
+    assert '[data-rank="B"]' in css
+    assert '[data-rank="C"]' in css
 
 
 def test_returning_equipment_assets_define_cards_and_mobile_layout():
