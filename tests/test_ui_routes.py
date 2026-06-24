@@ -755,8 +755,10 @@ def test_artifact_guide_assets_define_cards_and_images():
     assert '.artifact-guide-hero-image {' in css
     assert '.artifact-guide-artifact-image {' in css
     assert '.artifact-guide-image-wrap {' in css
-    assert 'width: 80px;' in css
-    assert 'height: 80px;' in css
+    assert 'width: 68px;' in css
+    assert 'height: 68px;' in css
+    assert 'width: 60px;' in css
+    assert 'height: 60px;' in css
     assert 'object-fit: contain;' in css
 
 

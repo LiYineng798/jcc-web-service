@@ -63,16 +63,16 @@
 .artifact-guide-image-grid {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 8px;
   align-items: center;
 }
 
 .artifact-guide-image-wrap {
   display: grid;
-  width: 80px;
-  height: 80px;
+  width: 68px;
+  height: 68px;
   box-sizing: border-box;
-  padding: 4px;
+  padding: 3px;
   place-items: center;
   border-radius: 16px;
   background: color-mix(in srgb, var(--accent-soft) 54%, transparent);
@@ -82,15 +82,15 @@
 
 .artifact-guide-hero-image {
   display: block;
-  width: 72px;
-  height: 72px;
+  width: 60px;
+  height: 60px;
   object-fit: contain;
 }
 
 .artifact-guide-artifact-image {
   display: block;
-  width: 72px;
-  height: 72px;
+  width: 60px;
+  height: 60px;
   object-fit: contain;
 }
 
@@ -210,16 +210,16 @@
   }
 
   .artifact-guide-image-wrap {
-    width: 76px;
-    height: 76px;
-    border-radius: 14px;
-    padding: 3px;
+    width: 64px;
+    height: 64px;
+    border-radius: 12px;
+    padding: 2px;
   }
 
   .artifact-guide-hero-image,
   .artifact-guide-artifact-image {
-    width: 68px;
-    height: 68px;
+    width: 56px;
+    height: 56px;
   }
 
   .artifact-guide-body h2 {
