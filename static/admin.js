@@ -21,7 +21,7 @@
     reports: { items: [], total: 0, page: 1, page_size: 20, total_pages: 1, status: 'pending', loadedAt: 0 },
     lineups: { items: [], total: 0, page: 1, page_size: 20, total_pages: 1, query: '', searched: false, loadedAt: 0 },
     lineupSeasons: { seasons: [], default_season_id: '', loadedAt: 0 },
-    lineupBulkImport: { season_id: '', raw_text: '', result: null },
+    lineupBulkImport: { season_id: '', raw_text: '', result: null, preview_raw_text: '', preview_season_id: '' },
     liveComps: { items: [], total: 0, page: 1, page_size: 20, total_pages: 1, query: '', updated_at: null, source_meta: null, selectedSeasonId: '', loadedAt: 0 },
     liveCompsSeasons: { seasons: [], default_season_id: '', loadedAt: 0 },
     patchNotes: { items: [], loadedAt: 0 },
@@ -652,24 +652,13 @@
     const panel = el('div', 'admin-subpanel lineup-bulk-import');
     const head = el('div', 'admin-subpanel-head');
     const title = el('div');
-    title.append(el('h3', '', '批量导入阵容码'), el('p', 'admin-meta', '按所选赛季写入普通阵容库，已存在的阵容码会跳过'));
+    title.append(el('h3', '', '批量导入阵容码'), el('p', 'admin-meta', '先解析预览，确认名称、赛季和重复项后再写入普通阵容库'));
     head.append(title);
 
     const form = el('form', 'lineup-bulk-import-form');
     const seasonField = el('label', 'lineup-bulk-import-field');
     seasonField.append(el('span', '', '导入赛季'));
-    const select = el('select');
-    select.id = 'lineupBulkImportSeason';
-    (state.lineupSeasons.seasons || []).forEach((season) => {
-      const option = el('option', '', season.name || season.id);
-      option.value = season.id;
-      option.selected = season.id === state.lineupBulkImport.season_id;
-      select.append(option);
-    });
-    select.addEventListener('change', () => {
-      state.lineupBulkImport.season_id = select.value;
-    });
-    seasonField.append(select);
+    seasonField.append(renderLineupBulkImportSeasonPicker());
 
     const codeField = el('label', 'lineup-bulk-import-field');
     codeField.append(el('span', '', '阵容码文本'));
@@ -679,47 +668,75 @@
       state.lineupBulkImport.raw_text,
       6,
     );
+    textarea.addEventListener('input', () => {
+      state.lineupBulkImport.raw_text = textarea.value;
+    });
     codeField.append(textarea);
 
     const actions = el('div', 'card-actions');
-    const submit = el('button', 'small-button is-active', '开始导入');
+    const submit = el('button', 'small-button is-active', '解析阵容码');
     submit.type = 'submit';
     submit.disabled = !(state.lineupSeasons.seasons || []).length;
     actions.append(submit);
+    if ((state.lineupBulkImport.result?.importable_count || 0) > 0) {
+      actions.append(button('确认导入', async (event, buttonNode) => {
+        await confirmLineupBulkImport(buttonNode);
+      }, 'small-button'));
+    }
     form.append(seasonField, codeField, actions);
     form.addEventListener('submit', async (event) => {
       event.preventDefault();
       state.lineupBulkImport.raw_text = textarea.value;
-      state.lineupBulkImport.season_id = select.value;
-      await submitLineupBulkImport(submit);
+      state.lineupBulkImport.season_id = document.querySelector('#lineupBulkImportSeasonInput')?.value || '';
+      await previewLineupBulkImport(submit);
     });
 
+    setTimeout(setupLineupBulkImportSeasonDropdown, 0);
     panel.append(head, form, renderLineupBulkImportResult());
     return panel;
+  }
+
+  function renderLineupBulkImportSeasonPicker() {
+    const selected = state.lineupBulkImport.season_id || state.lineupSeasons.default_season_id || '';
+    const selectedSeason = (state.lineupSeasons.seasons || []).find((season) => season.id === selected);
+    const wrap = el('div', 'season-menu-wrap lineup-bulk-import-season-wrap');
+    wrap.id = 'lineupBulkImportSeasonWrap';
+    wrap.innerHTML = `
+      <button class="account-toggle season-toggle" id="lineupBulkImportSeasonToggle" type="button" aria-haspopup="menu" aria-expanded="false">
+        <span id="lineupBulkImportSeasonText">${escapeHtml(selectedSeason?.name || selectedSeason?.id || '请选择赛季')}</span>
+        <span class="account-chevron" aria-hidden="true">⌄</span>
+      </button>
+      <div class="account-menu hidden season-menu" id="lineupBulkImportSeasonMenu" role="menu"></div>
+      <input type="hidden" id="lineupBulkImportSeasonInput" value="${escapeAttribute(selected)}" />
+    `;
+    return wrap;
   }
 
   function renderLineupBulkImportResult() {
     const result = state.lineupBulkImport.result;
     const wrap = el('div', 'lineup-bulk-import-result');
     if (!result) return wrap;
+    const primaryCount = result.created_count ? result.created_count : result.importable_count || 0;
+    const primaryLabel = result.created_count ? '已导入' : '可导入';
+    const primaryCaption = result.created_count ? '已写入普通阵容库' : '解析成功，待确认写入';
     const metrics = el('div', 'traffic-grid');
     metrics.append(
-      trafficMetric('新增', result.created_count || 0, '已写入普通阵容库'),
+      trafficMetric(primaryLabel, primaryCount, primaryCaption),
       trafficMetric('库内重复', result.duplicate_existing_count || 0, '已存在，未重复写入'),
       trafficMetric('上传重复', result.duplicate_in_upload_count || 0, '同次粘贴重复，已跳过'),
-      trafficMetric('无效', result.invalid_count || 0, '未识别为有效阵容码'),
+      trafficMetric('错误', result.invalid_count || 0, '未识别为有效阵容码'),
     );
     wrap.append(metrics);
 
-    const skipped = (result.items || []).filter((item) => item.status !== 'created').slice(0, 12);
-    if (skipped.length) {
-      const list = el('div', 'admin-list compact');
-      skipped.forEach((item) => {
+    const items = result.items || [];
+    if (items.length) {
+      const list = el('div', 'admin-list compact lineup-bulk-import-result-list');
+      items.forEach((item) => {
         const row = el('article', 'admin-row-card');
         const info = el('div');
         info.append(
-          el('strong', '', `第 ${item.line} 行 · ${item.reason || statusText[item.status] || item.status}`),
-          el('p', 'admin-meta', item.code || item.raw || ''),
+          el('strong', '', `第 ${item.line} 行 · ${bulkImportStatusLabel(item.status)}${item.name ? ` · ${item.name}` : ''}`),
+          el('p', 'admin-meta', item.reason || item.code || item.raw || ''),
         );
         row.append(info);
         list.append(row);
@@ -727,6 +744,16 @@
       wrap.append(list);
     }
     return wrap;
+  }
+
+  function bulkImportStatusLabel(status) {
+    return {
+      importable: '可导入',
+      created: '已导入',
+      duplicate_existing: '库内重复',
+      duplicate_in_upload: '上传重复',
+      invalid: '无效',
+    }[status] || status || '未知';
   }
 
   function renderLiveCompsWorkspace() {
@@ -942,7 +969,7 @@
     return wrap;
   }
 
-  async function submitLineupBulkImport(buttonNode) {
+  async function previewLineupBulkImport(buttonNode) {
     const rawText = state.lineupBulkImport.raw_text.trim();
     if (!rawText) {
       setNotice('请粘贴阵容码');
@@ -950,7 +977,7 @@
     }
     if (buttonNode) buttonNode.disabled = true;
     try {
-      const result = await api('/api/admin/lineups/bulk-import', {
+      const result = await api('/api/admin/lineups/bulk-import/preview', {
         method: 'POST',
         body: JSON.stringify({
           season_id: state.lineupBulkImport.season_id,
@@ -958,6 +985,40 @@
         }),
       });
       state.lineupBulkImport.result = result;
+      state.lineupBulkImport.preview_raw_text = rawText;
+      state.lineupBulkImport.preview_season_id = state.lineupBulkImport.season_id;
+      setNotice(`解析完成：可导入 ${result.importable_count || 0} 条，错误 ${result.invalid_count || 0} 条`);
+      render();
+    } catch (error) {
+      alert(error.message || '解析失败，请检查内容后重试');
+      if (buttonNode) buttonNode.disabled = false;
+    }
+  }
+
+  async function confirmLineupBulkImport(buttonNode) {
+    const rawText = document.querySelector('#lineupBulkImportRawText')?.value?.trim() || '';
+    const seasonId = document.querySelector('#lineupBulkImportSeasonInput')?.value || '';
+    if (!state.lineupBulkImport.result || !state.lineupBulkImport.preview_raw_text) {
+      setNotice('请先解析阵容码');
+      return;
+    }
+    if (rawText !== state.lineupBulkImport.preview_raw_text || seasonId !== state.lineupBulkImport.preview_season_id) {
+      setNotice('阵容码文本或赛季已变化，请重新解析');
+      return;
+    }
+    if (!confirm(`确认导入 ${state.lineupBulkImport.result.importable_count || 0} 条阵容吗？`)) return;
+    if (buttonNode) buttonNode.disabled = true;
+    try {
+      const result = await api('/api/admin/lineups/bulk-import', {
+        method: 'POST',
+        body: JSON.stringify({
+          season_id: seasonId,
+          raw_text: rawText,
+        }),
+      });
+      state.lineupBulkImport.result = result;
+      state.lineupBulkImport.preview_raw_text = rawText;
+      state.lineupBulkImport.preview_season_id = seasonId;
       if (state.lineups.searched) {
         await loadLineups({ force: true });
       }
@@ -1363,7 +1424,7 @@
     renderDialogs();
   }
 
-  function setupJumpDropdown(wrapId, toggleId, menuId, inputId, items, selectedValue, placeholder) {
+  function setupJumpDropdown(wrapId, toggleId, menuId, inputId, items, selectedValue, placeholder, onSelect) {
     var wrap = document.getElementById(wrapId);
     var toggle = document.getElementById(toggleId);
     var menu = document.getElementById(menuId);
@@ -1387,6 +1448,7 @@
     function selectItem(value, label) {
       input.value = value;
       if (textEl) textEl.textContent = label || placeholder;
+      if (onSelect) onSelect(value);
       closeMenu();
     }
 
@@ -1438,6 +1500,30 @@
         setupJumpDropdown('noticeJumpSeasonWrap', 'noticeJumpSeasonToggle', 'noticeJumpSeasonMenu', 'noticeJumpSeasonInput', items, selected, '不跳转');
       })
       .catch(function () {});
+  }
+
+  function setupLineupBulkImportSeasonDropdown() {
+    var selected = state.lineupBulkImport.season_id || state.lineupSeasons.default_season_id || '';
+    var items = (state.lineupSeasons.seasons || []).map(function (season) {
+      return { value: season.id, label: season.name || season.id };
+    });
+    setupJumpDropdown(
+      'lineupBulkImportSeasonWrap',
+      'lineupBulkImportSeasonToggle',
+      'lineupBulkImportSeasonMenu',
+      'lineupBulkImportSeasonInput',
+      items,
+      selected,
+      '请选择赛季',
+      function (value) {
+        state.lineupBulkImport.raw_text = document.querySelector('#lineupBulkImportRawText')?.value || state.lineupBulkImport.raw_text;
+        state.lineupBulkImport.season_id = value;
+        state.lineupBulkImport.result = null;
+        state.lineupBulkImport.preview_raw_text = '';
+        state.lineupBulkImport.preview_season_id = '';
+        render();
+      },
+    );
   }
 
   function setupJumpTabDropdown(form, item) {

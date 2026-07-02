@@ -161,7 +161,11 @@ def test_admin_js_contains_lineup_bulk_import_workspace():
     assert 'lineupBulkImport' in js
     assert '批量导入阵容码' in js
     assert '导入赛季' in js
+    assert 'lineupBulkImportSeasonToggle' in js
+    assert 'setupLineupBulkImportSeasonDropdown' in js
+    assert '/api/admin/lineups/bulk-import/preview' in js
     assert '/api/admin/lineups/bulk-import' in js
+    assert '确认导入' in js
 
 
 def test_index_page_contains_account_value_copy_and_favorites_tab(client):

@@ -131,6 +131,7 @@ def _bulk_import_summary(season_id, entries):
     return {
         'ok': True,
         'season_id': season_id,
+        'importable_count': sum(1 for entry in entries if entry['status'] == 'importable'),
         'created_count': sum(1 for entry in entries if entry['status'] == 'created'),
         'duplicate_existing_count': sum(1 for entry in entries if entry['status'] == 'duplicate_existing'),
         'duplicate_in_upload_count': sum(1 for entry in entries if entry['status'] == 'duplicate_in_upload'),
@@ -139,7 +140,7 @@ def _bulk_import_summary(season_id, entries):
     }
 
 
-def bulk_import_lineups(db, admin_id, data):
+def prepare_bulk_import_preview(db, data):
     raw_text = str((data or {}).get('raw_text') or '').strip()
     if not raw_text:
         return None, '请粘贴阵容码', 400
@@ -156,13 +157,30 @@ def bulk_import_lineups(db, admin_id, data):
 
     unique_codes = _mark_upload_duplicates(entries)
     existing_codes = existing_lineup_codes(db, unique_codes)
-    now = now_text()
     for entry in entries:
         if entry['status'] in {'invalid', 'duplicate_in_upload'}:
             continue
         if entry['code'] in existing_codes:
             entry['status'] = 'duplicate_existing'
             entry['reason'] = '阵容码已存在'
+            continue
+        entry['status'] = 'importable'
+    return _bulk_import_summary(season_id, entries), None, 200
+
+
+def preview_bulk_import_lineups(db, data):
+    return prepare_bulk_import_preview(db, data)
+
+
+def bulk_import_lineups(db, admin_id, data):
+    summary, service_error, status_code = prepare_bulk_import_preview(db, data)
+    if service_error:
+        return summary, service_error, status_code
+
+    season_id = summary['season_id']
+    now = now_text()
+    for entry in summary['items']:
+        if entry['status'] != 'importable':
             continue
         cursor = db.execute(
             insert_returning_id_sql(
@@ -175,7 +193,7 @@ def bulk_import_lineups(db, admin_id, data):
         entry['id'] = last_insert_id(cursor, db_kind())
         entry['status'] = 'created'
 
-    summary = _bulk_import_summary(season_id, entries)
+    summary = _bulk_import_summary(season_id, summary['items'])
     write_audit(
         admin_id,
         'admin_bulk_import_lineups',

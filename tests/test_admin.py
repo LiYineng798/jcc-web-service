@@ -107,6 +107,45 @@ def test_admin_bulk_import_creates_lineups_from_named_codes(client):
     assert search['items'][0]['owner_nickname'] == '系统'
 
 
+def test_admin_bulk_import_preview_parses_without_creating_lineups(client):
+    register_user(client)
+    create_lineup(client, name='已有阵容', code='#EXISTING001')
+    client.post('/api/logout')
+    headers = login_admin(client)
+
+    response = client.post(
+        '/api/admin/lineups/bulk-import/preview',
+        json={
+            'season_id': 's17-star-god',
+            'raw_text': '\n'.join([
+                '【阵容码】#One-预览新增#PREVIEW001',
+                '【阵容码】#Two-重复上传#PREVIEW001',
+                '【阵容码】#Three-已有阵容#EXISTING001',
+                '无效内容',
+            ]),
+        },
+        headers=headers,
+    )
+
+    assert response.status_code == 200
+    payload = response.get_json()
+    assert payload['importable_count'] == 1
+    assert payload['duplicate_in_upload_count'] == 1
+    assert payload['duplicate_existing_count'] == 1
+    assert payload['invalid_count'] == 1
+    statuses = {item['line']: item['status'] for item in payload['items']}
+    assert statuses == {
+        1: 'importable',
+        2: 'duplicate_in_upload',
+        3: 'duplicate_existing',
+        4: 'invalid',
+    }
+    assert payload['items'][0]['name'] == '预览新增'
+
+    search = client.get('/api/admin/lineups?q=PREVIEW001', headers=headers).get_json()
+    assert search['total'] == 0
+
+
 def test_admin_bulk_import_skips_duplicates_and_reports_invalid_lines(client):
     register_user(client)
     create_lineup(client, name='已有阵容', code='#EXISTING001')

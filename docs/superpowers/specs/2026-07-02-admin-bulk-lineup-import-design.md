@@ -6,7 +6,7 @@ Allow administrators to paste many regular lineup-code snippets into the admin c
 
 ## Admin Entry
 
-The feature belongs in the existing admin "阵容" tab because it creates and maintains regular lineup-library content. It should appear above the lineup search controls as a compact import panel, not as a new top-level admin tab.
+The feature belongs in the existing admin "阵容" tab because it creates and maintains regular lineup-library content. It should appear above the lineup search controls as a compact import panel, not as a new top-level admin tab. The season picker uses the site's existing `account-menu`/`season-toggle` dropdown pattern instead of a native select.
 
 ## Input Format
 
@@ -20,7 +20,10 @@ The first hash-delimited segment is the display-name source. If it contains a hy
 
 ## API
 
-Add `POST /api/admin/lineups/bulk-import`.
+Add two admin-only endpoints:
+
+- `POST /api/admin/lineups/bulk-import/preview` parses and validates pasted text without writing rows.
+- `POST /api/admin/lineups/bulk-import` re-parses, re-checks duplicates, and writes importable rows after admin confirmation.
 
 Payload:
 
@@ -31,11 +34,11 @@ Payload:
 }
 ```
 
-The endpoint is admin-only and uses the existing CSRF protection.
+Both endpoints are admin-only and use the existing CSRF protection.
 
 ## Import Behavior
 
-The current admin user becomes the owner of imported lineups. Imported rows use the selected `season_id` and `normal` status.
+Admins must preview before importing. The preview shows importable, database-duplicate, upload-duplicate, and invalid rows so admins can review parsed names and codes before confirming. The current admin user becomes the owner of imported lineups. Imported rows use the selected `season_id` and `normal` status.
 
 Deduplication happens in two places:
 
@@ -46,12 +49,13 @@ Invalid lines are skipped and returned in the response with a reason. A missing 
 
 ## Response
 
-Return a summary with counts and item-level statuses:
+Preview returns `importable_count` with item statuses such as `importable`, `duplicate_existing`, `duplicate_in_upload`, and `invalid`. Final import returns the same shape, with successfully written rows changed to `created` and `created_count` populated:
 
 ```json
 {
   "ok": true,
   "season_id": "s17-star-god",
+  "importable_count": 0,
   "created_count": 1,
   "duplicate_existing_count": 1,
   "duplicate_in_upload_count": 1,
@@ -64,4 +68,4 @@ Return a summary with counts and item-level statuses:
 
 ## Testing
 
-Backend tests cover parsing, selected-season writes, existing-code skip, upload-internal duplicate skip, invalid-line reporting, and admin-only permission. UI route tests cover that the admin JS contains the bulk import controls and API call.
+Backend tests cover preview without writes, parsing, selected-season writes, existing-code skip, upload-internal duplicate skip, invalid-line reporting, and admin-only permission. UI route tests cover that the admin JS contains the internal dropdown controls, preview API call, final import API call, and confirmation action.
