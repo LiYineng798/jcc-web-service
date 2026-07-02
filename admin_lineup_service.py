@@ -1,10 +1,18 @@
 from __future__ import annotations
 
+import re
+
 from audit import write_audit
-from db import now_text
+from db import db_kind, now_text
+from db_adapter import insert_returning_id_sql, last_insert_id, qmarks
+from lineup_code import extract_lineup_code
 from lineups_serialization import serialize_lineup_row
-from lineups_utils import lineup_row
+from lineups_utils import canonical_lineup_season_id, lineup_row, season_choice_map
 from scoring import score_map
+
+BULK_LINEUP_PATTERN = re.compile(r'[＃#]([^＃#\r\n]+)[＃#]\s*([A-Za-z0-9]+)')
+BULK_NAME_SEPARATORS = ('-', '－', '–', '—')
+MAX_BULK_IMPORT_TEXT_LENGTH = 200000
 
 
 def build_admin_lineups_query(query):
@@ -31,6 +39,157 @@ def prepare_admin_lineup_update(data):
             fields.append(f'{key} = ?')
             params.append(str(data[key]).strip())
     return fields, params
+
+
+def bulk_lineup_display_name(name_segment):
+    name = str(name_segment or '').strip()
+    for separator in BULK_NAME_SEPARATORS:
+        if separator in name:
+            suffix = name.rsplit(separator, 1)[1].strip()
+            if suffix:
+                return suffix
+    return name
+
+
+def parse_bulk_lineup_entries(raw_text):
+    entries = []
+    for line_number, raw_line in enumerate(str(raw_text or '').splitlines(), start=1):
+        line = raw_line.strip()
+        if not line:
+            continue
+        match = BULK_LINEUP_PATTERN.search(line)
+        if not match:
+            entries.append({
+                'line': line_number,
+                'raw': line,
+                'status': 'invalid',
+                'reason': '阵容码格式无效',
+            })
+            continue
+        name = bulk_lineup_display_name(match.group(1))
+        code = extract_lineup_code(f'#{match.group(2)}')
+        if not name:
+            entries.append({
+                'line': line_number,
+                'raw': line,
+                'status': 'invalid',
+                'reason': '阵容名称为空',
+            })
+            continue
+        if len(name) > 80:
+            entries.append({
+                'line': line_number,
+                'raw': line,
+                'status': 'invalid',
+                'reason': '阵容名称过长',
+            })
+            continue
+        if not code:
+            entries.append({
+                'line': line_number,
+                'raw': line,
+                'status': 'invalid',
+                'reason': '阵容码格式无效',
+            })
+            continue
+        entries.append({
+            'line': line_number,
+            'name': name,
+            'code': code,
+            'status': 'pending',
+        })
+    return entries
+
+
+def existing_lineup_codes(db, codes):
+    if not codes:
+        return set()
+    rows = db.execute(
+        f'SELECT code FROM lineups WHERE code IN ({qmarks(db_kind(), len(codes))})',
+        tuple(codes),
+    ).fetchall()
+    return {row['code'] for row in rows}
+
+
+def _mark_upload_duplicates(entries):
+    seen = set()
+    unique_codes = []
+    for entry in entries:
+        if entry['status'] == 'invalid':
+            continue
+        code = entry['code']
+        if code in seen:
+            entry['status'] = 'duplicate_in_upload'
+            entry['reason'] = '本次上传内重复'
+            continue
+        seen.add(code)
+        unique_codes.append(code)
+    return unique_codes
+
+
+def _bulk_import_summary(season_id, entries):
+    return {
+        'ok': True,
+        'season_id': season_id,
+        'created_count': sum(1 for entry in entries if entry['status'] == 'created'),
+        'duplicate_existing_count': sum(1 for entry in entries if entry['status'] == 'duplicate_existing'),
+        'duplicate_in_upload_count': sum(1 for entry in entries if entry['status'] == 'duplicate_in_upload'),
+        'invalid_count': sum(1 for entry in entries if entry['status'] == 'invalid'),
+        'items': entries,
+    }
+
+
+def bulk_import_lineups(db, admin_id, data):
+    raw_text = str((data or {}).get('raw_text') or '').strip()
+    if not raw_text:
+        return None, '请粘贴阵容码', 400
+    if len(raw_text) > MAX_BULK_IMPORT_TEXT_LENGTH:
+        return None, '粘贴内容过长', 400
+
+    season_id = canonical_lineup_season_id((data or {}).get('season_id'))
+    if not season_id or season_id not in season_choice_map():
+        return None, '赛季无效或已隐藏', 400
+
+    entries = parse_bulk_lineup_entries(raw_text)
+    if not entries:
+        return None, '请粘贴阵容码', 400
+
+    unique_codes = _mark_upload_duplicates(entries)
+    existing_codes = existing_lineup_codes(db, unique_codes)
+    now = now_text()
+    for entry in entries:
+        if entry['status'] in {'invalid', 'duplicate_in_upload'}:
+            continue
+        if entry['code'] in existing_codes:
+            entry['status'] = 'duplicate_existing'
+            entry['reason'] = '阵容码已存在'
+            continue
+        cursor = db.execute(
+            insert_returning_id_sql(
+                '''INSERT INTO lineups (user_id, name, code, season_id, status, created_at, updated_at)
+                   VALUES (?, ?, ?, ?, 'normal', ?, ?)''',
+                db_kind(),
+            ),
+            (admin_id, entry['name'], entry['code'], season_id, now, now),
+        )
+        entry['id'] = last_insert_id(cursor, db_kind())
+        entry['status'] = 'created'
+
+    summary = _bulk_import_summary(season_id, entries)
+    write_audit(
+        admin_id,
+        'admin_bulk_import_lineups',
+        'lineup_bulk_import',
+        after={
+            'season_id': season_id,
+            'created_count': summary['created_count'],
+            'duplicate_existing_count': summary['duplicate_existing_count'],
+            'duplicate_in_upload_count': summary['duplicate_in_upload_count'],
+            'invalid_count': summary['invalid_count'],
+        },
+    )
+    db.commit()
+    return summary, None, 200
 
 
 def update_admin_lineup(db, admin_id, lineup_id, data):

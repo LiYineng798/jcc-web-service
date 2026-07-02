@@ -154,6 +154,16 @@ def test_admin_js_contains_patch_notes_workbench():
     assert 'PATCH_NOTE_TEMPLATE' in js
 
 
+def test_admin_js_contains_lineup_bulk_import_workspace():
+    with open('static/admin.js', 'r', encoding='utf-8') as file:
+        js = file.read()
+
+    assert 'lineupBulkImport' in js
+    assert '批量导入阵容码' in js
+    assert '导入赛季' in js
+    assert '/api/admin/lineups/bulk-import' in js
+
+
 def test_index_page_contains_account_value_copy_and_favorites_tab(client):
     html = client.get('/').get_data(as_text=True)
     assert 'id="favoritesTab"' in html

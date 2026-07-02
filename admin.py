@@ -8,7 +8,7 @@ from admin_live_comp_service import (
     list_admin_live_comps_seasons,
     update_admin_live_comps_season,
 )
-from admin_lineup_service import adjust_admin_lineup_score, build_admin_lineups_query, update_admin_lineup
+from admin_lineup_service import adjust_admin_lineup_score, build_admin_lineups_query, bulk_import_lineups, update_admin_lineup
 from admin_pagination import paginate_rows, parse_page, parse_page_size
 from admin_report_service import build_report_list_query, resolve_report
 from admin_user_service import build_user_list_query, create_user, disable_user, update_user
@@ -104,6 +104,15 @@ def admin_lineups():
         serializer=lambda row: serialize_lineup_row(row, scores, user=admin, admin=True),
         default_page_size=20,
     ))
+
+
+@admin_bp.post('/api/admin/lineups/bulk-import')
+def admin_bulk_import_lineups():
+    admin, error = admin_required()
+    if error:
+        return error
+    result, service_error, status_code = bulk_import_lineups(get_db(), admin['id'], request.get_json(silent=True) or {})
+    return respond_service_result(result, service_error, status_code)
 
 
 @admin_bp.get('/api/admin/patch-notes')

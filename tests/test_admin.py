@@ -76,6 +76,87 @@ def test_admin_lineups_api_includes_hidden_lineup_and_code(client):
     assert target['code'] == '#HIDECODE001'
 
 
+def test_admin_bulk_import_creates_lineups_from_named_codes(client):
+    headers = login_admin(client)
+
+    response = client.post(
+        '/api/admin/lineups/bulk-import',
+        json={
+            'season_id': 's16-legends',
+            'raw_text': '\n'.join([
+                '【阵容码】#Suyu-星守岩雀#MjIwMDQ2MDI3MjA4Mzk1NjkxNzgyNzM4MDk2MTQ2',
+                '【阵容码】#没有横杠名称#NOHYPHEN001',
+            ]),
+        },
+        headers=headers,
+    )
+
+    assert response.status_code == 200
+    payload = response.get_json()
+    assert payload['created_count'] == 2
+    assert payload['duplicate_existing_count'] == 0
+    assert payload['duplicate_in_upload_count'] == 0
+    assert payload['invalid_count'] == 0
+    created = {item['code']: item for item in payload['items'] if item['status'] == 'created'}
+    assert created['#MjIwMDQ2MDI3MjA4Mzk1NjkxNzgyNzM4MDk2MTQ2']['name'] == '星守岩雀'
+    assert created['#NOHYPHEN001']['name'] == '没有横杠名称'
+
+    search = client.get('/api/admin/lineups?q=星守岩雀', headers=headers).get_json()
+    assert search['total'] == 1
+    assert search['items'][0]['season_id'] == 's16-legends'
+    assert search['items'][0]['owner_nickname'] == '系统'
+
+
+def test_admin_bulk_import_skips_duplicates_and_reports_invalid_lines(client):
+    register_user(client)
+    create_lineup(client, name='已有阵容', code='#EXISTING001')
+    client.post('/api/logout')
+    headers = login_admin(client)
+
+    response = client.post(
+        '/api/admin/lineups/bulk-import',
+        json={
+            'season_id': 's17-star-god',
+            'raw_text': '\n'.join([
+                '【阵容码】#One-新增阵容#NEWCODE001',
+                '【阵容码】#Two-重复上传#NEWCODE001',
+                '【阵容码】#Three-已有阵容#EXISTING001',
+                '这不是有效阵容码',
+            ]),
+        },
+        headers=headers,
+    )
+
+    assert response.status_code == 200
+    payload = response.get_json()
+    assert payload['created_count'] == 1
+    assert payload['duplicate_in_upload_count'] == 1
+    assert payload['duplicate_existing_count'] == 1
+    assert payload['invalid_count'] == 1
+    statuses = {item['line']: item['status'] for item in payload['items']}
+    assert statuses == {
+        1: 'created',
+        2: 'duplicate_in_upload',
+        3: 'duplicate_existing',
+        4: 'invalid',
+    }
+
+    search = client.get('/api/admin/lineups?q=NEWCODE001', headers=headers).get_json()
+    assert search['total'] == 1
+
+
+def test_non_admin_cannot_bulk_import_lineups(client):
+    register_user(client)
+
+    response = client.post(
+        '/api/admin/lineups/bulk-import',
+        json={'season_id': 's17-star-god', 'raw_text': '【阵容码】#User-阵容#USERCODE001'},
+        headers=auth_headers(client),
+    )
+
+    assert response.status_code == 403
+
+
 def test_admin_can_list_and_update_live_comps_seasons(client):
     headers = login_admin(client)
     manifest_path = client.application.config['LIVE_COMPS_SEASON_MANIFEST_PATH']

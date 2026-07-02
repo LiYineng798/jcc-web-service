@@ -20,6 +20,8 @@
     growthDate: todayInputValue(),
     reports: { items: [], total: 0, page: 1, page_size: 20, total_pages: 1, status: 'pending', loadedAt: 0 },
     lineups: { items: [], total: 0, page: 1, page_size: 20, total_pages: 1, query: '', searched: false, loadedAt: 0 },
+    lineupSeasons: { seasons: [], default_season_id: '', loadedAt: 0 },
+    lineupBulkImport: { season_id: '', raw_text: '', result: null },
     liveComps: { items: [], total: 0, page: 1, page_size: 20, total_pages: 1, query: '', updated_at: null, source_meta: null, selectedSeasonId: '', loadedAt: 0 },
     liveCompsSeasons: { seasons: [], default_season_id: '', loadedAt: 0 },
     patchNotes: { items: [], loadedAt: 0 },
@@ -159,6 +161,7 @@
     render();
     if (tabKey === 'overview') await loadOverview();
     if (tabKey === 'reports') await loadReports();
+    if (tabKey === 'lineups') await loadLineupSeasons();
     if (tabKey === 'live-comps') await loadAdminLiveComps();
     if (tabKey === 'patch-notes') await loadPatchNotes();
     if (tabKey === 'analytics') await loadGrowth();
@@ -197,6 +200,15 @@
     });
     const payload = await api(`/api/admin/lineups?${query.toString()}`, { signal: state.controllers.lineups.signal });
     state.lineups = { ...state.lineups, ...payload, loadedAt: Date.now() };
+  }
+
+  async function loadLineupSeasons({ force = false } = {}) {
+    if (!force && isFresh(state.lineupSeasons.loadedAt)) return;
+    const payload = await api('/api/lineup-seasons');
+    state.lineupSeasons = { ...payload, loadedAt: Date.now() };
+    if (!state.lineupBulkImport.season_id) {
+      state.lineupBulkImport.season_id = payload.default_season_id || (payload.seasons?.[0] || {}).id || '';
+    }
   }
 
   async function loadAdminLiveComps({ force = false } = {}) {
@@ -601,7 +613,7 @@
   function renderLineupsWorkspace() {
     const panel = workbenchPanel('阵容管理', '默认不加载列表，输入阵容名、阵容码、作者后开始查找');
     const body = panel.querySelector('.admin-workspace-body');
-    body.append(lineupSearchControls());
+    body.append(renderLineupBulkImportPanel(), lineupSearchControls());
     if (!state.lineups.searched) {
       body.append(empty('输入阵容名、阵容码、作者后开始查找', 'admin-empty-search'));
       return panel;
@@ -634,6 +646,87 @@
     }
     body.append(list, renderPagination('lineups'));
     return panel;
+  }
+
+  function renderLineupBulkImportPanel() {
+    const panel = el('div', 'admin-subpanel lineup-bulk-import');
+    const head = el('div', 'admin-subpanel-head');
+    const title = el('div');
+    title.append(el('h3', '', '批量导入阵容码'), el('p', 'admin-meta', '按所选赛季写入普通阵容库，已存在的阵容码会跳过'));
+    head.append(title);
+
+    const form = el('form', 'lineup-bulk-import-form');
+    const seasonField = el('label', 'lineup-bulk-import-field');
+    seasonField.append(el('span', '', '导入赛季'));
+    const select = el('select');
+    select.id = 'lineupBulkImportSeason';
+    (state.lineupSeasons.seasons || []).forEach((season) => {
+      const option = el('option', '', season.name || season.id);
+      option.value = season.id;
+      option.selected = season.id === state.lineupBulkImport.season_id;
+      select.append(option);
+    });
+    select.addEventListener('change', () => {
+      state.lineupBulkImport.season_id = select.value;
+    });
+    seasonField.append(select);
+
+    const codeField = el('label', 'lineup-bulk-import-field');
+    codeField.append(el('span', '', '阵容码文本'));
+    const textarea = adminTextarea(
+      'lineupBulkImportRawText',
+      '【阵容码】#Suyu-星守岩雀#MjIwMDQ2MDI3MjA4Mzk1NjkxNzgyNzM4MDk2MTQ2',
+      state.lineupBulkImport.raw_text,
+      6,
+    );
+    codeField.append(textarea);
+
+    const actions = el('div', 'card-actions');
+    const submit = el('button', 'small-button is-active', '开始导入');
+    submit.type = 'submit';
+    submit.disabled = !(state.lineupSeasons.seasons || []).length;
+    actions.append(submit);
+    form.append(seasonField, codeField, actions);
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      state.lineupBulkImport.raw_text = textarea.value;
+      state.lineupBulkImport.season_id = select.value;
+      await submitLineupBulkImport(submit);
+    });
+
+    panel.append(head, form, renderLineupBulkImportResult());
+    return panel;
+  }
+
+  function renderLineupBulkImportResult() {
+    const result = state.lineupBulkImport.result;
+    const wrap = el('div', 'lineup-bulk-import-result');
+    if (!result) return wrap;
+    const metrics = el('div', 'traffic-grid');
+    metrics.append(
+      trafficMetric('新增', result.created_count || 0, '已写入普通阵容库'),
+      trafficMetric('库内重复', result.duplicate_existing_count || 0, '已存在，未重复写入'),
+      trafficMetric('上传重复', result.duplicate_in_upload_count || 0, '同次粘贴重复，已跳过'),
+      trafficMetric('无效', result.invalid_count || 0, '未识别为有效阵容码'),
+    );
+    wrap.append(metrics);
+
+    const skipped = (result.items || []).filter((item) => item.status !== 'created').slice(0, 12);
+    if (skipped.length) {
+      const list = el('div', 'admin-list compact');
+      skipped.forEach((item) => {
+        const row = el('article', 'admin-row-card');
+        const info = el('div');
+        info.append(
+          el('strong', '', `第 ${item.line} 行 · ${item.reason || statusText[item.status] || item.status}`),
+          el('p', 'admin-meta', item.code || item.raw || ''),
+        );
+        row.append(info);
+        list.append(row);
+      });
+      wrap.append(list);
+    }
+    return wrap;
   }
 
   function renderLiveCompsWorkspace() {
@@ -847,6 +940,34 @@
     });
     wrap.append(input, submit, reset);
     return wrap;
+  }
+
+  async function submitLineupBulkImport(buttonNode) {
+    const rawText = state.lineupBulkImport.raw_text.trim();
+    if (!rawText) {
+      setNotice('请粘贴阵容码');
+      return;
+    }
+    if (buttonNode) buttonNode.disabled = true;
+    try {
+      const result = await api('/api/admin/lineups/bulk-import', {
+        method: 'POST',
+        body: JSON.stringify({
+          season_id: state.lineupBulkImport.season_id,
+          raw_text: rawText,
+        }),
+      });
+      state.lineupBulkImport.result = result;
+      if (state.lineups.searched) {
+        await loadLineups({ force: true });
+      }
+      await loadOverview({ force: true });
+      setNotice(`导入完成：新增 ${result.created_count || 0} 条，跳过 ${Number(result.duplicate_existing_count || 0) + Number(result.duplicate_in_upload_count || 0)} 条`);
+      render();
+    } catch (error) {
+      alert(error.message || '导入失败，请检查内容后重试');
+      if (buttonNode) buttonNode.disabled = false;
+    }
   }
 
   async function updateLineupStatus(lineup, status) {
