@@ -1,6 +1,6 @@
 import os
 
-from flask import abort, jsonify, send_from_directory
+from flask import Response, abort, jsonify, send_from_directory
 
 from auth import current_user, login_required
 from db import get_db
@@ -10,10 +10,13 @@ from notice_service import get_active_notice
 from seo import (
     DEFAULT_DESCRIPTION,
     DEFAULT_TITLE,
+    absolute_url,
     breadcrumb_json_ld,
     code_preview,
     make_seo,
+    robots_txt,
     season_label,
+    sitemap_xml,
     truncate_text,
     webpage_json_ld,
     website_json_ld,
@@ -23,7 +26,51 @@ from settings_service import get_setting
 from visits import tracked_template_response
 
 
+def _sitemap_entries():
+    db = get_db()
+    entries = [
+        {'loc': absolute_url('/'), 'lastmod': None},
+        {'loc': absolute_url('/patch-notes'), 'lastmod': None},
+        {'loc': absolute_url('/tools/special-mechanics'), 'lastmod': None},
+        {'loc': absolute_url('/tools/artifact-guide'), 'lastmod': None},
+        {'loc': absolute_url('/tools/returning-equipment'), 'lastmod': None},
+    ]
+    if get_setting(db, 'simulator_enabled', 'true') == 'true':
+        entries.append({'loc': absolute_url('/tools/lineup-simulator'), 'lastmod': None})
+
+    lineup_rows = db.execute(
+        "SELECT id, updated_at FROM lineups WHERE status = 'normal' ORDER BY updated_at DESC, id DESC"
+    ).fetchall()
+    entries.extend({'loc': absolute_url(f"/lineup/{row['id']}"), 'lastmod': row['updated_at']} for row in lineup_rows)
+
+    author_rows = db.execute(
+        '''
+        SELECT users.username, MAX(lineups.updated_at) AS lastmod
+        FROM users
+        JOIN lineups ON lineups.user_id = users.id
+        WHERE users.role != 'admin' AND lineups.status = 'normal'
+        GROUP BY users.id, users.username
+        ORDER BY users.username
+        '''
+    ).fetchall()
+    entries.extend({'loc': absolute_url(f"/author/{row['username']}"), 'lastmod': row['lastmod']} for row in author_rows)
+
+    note_rows = db.execute(
+        "SELECT id, published_at, updated_at FROM patch_notes WHERE status = 'published' ORDER BY published_at DESC, id DESC"
+    ).fetchall()
+    entries.extend({'loc': absolute_url(f"/patch-notes/{row['id']}"), 'lastmod': row['updated_at'] or row['published_at']} for row in note_rows)
+    return entries
+
+
 def register_page_routes(app):
+    @app.get('/robots.txt')
+    def robots():
+        return Response(robots_txt(), mimetype='text/plain')
+
+    @app.get('/sitemap.xml')
+    def sitemap():
+        return Response(sitemap_xml(_sitemap_entries()), mimetype='application/xml')
+
     @app.get('/')
     def index():
         db = get_db()

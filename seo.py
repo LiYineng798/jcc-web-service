@@ -109,3 +109,30 @@ def article_json_ld(note, path):
 
 def xml_escape(value):
     return html.escape(str(value or ''), quote=True)
+
+
+def robots_txt():
+    return '\n'.join([
+        'User-agent: *',
+        'Allow: /',
+        'Disallow: /api/',
+        'Disallow: /admin',
+        'Disallow: /auth',
+        'Disallow: /me',
+        'Disallow: /lineup/new',
+        'Disallow: /lineup/*/edit',
+        f'Sitemap: {absolute_url("/sitemap.xml")}',
+        '',
+    ])
+
+
+def sitemap_xml(entries):
+    lines = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
+    for entry in entries:
+        lines.append('  <url>')
+        lines.append(f'    <loc>{xml_escape(entry["loc"])}</loc>')
+        if entry.get('lastmod'):
+            lines.append(f'    <lastmod>{xml_escape(str(entry["lastmod"])[:10])}</lastmod>')
+        lines.append('  </url>')
+    lines.append('</urlset>')
+    return '\n'.join(lines) + '\n'
