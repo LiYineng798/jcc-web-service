@@ -2,7 +2,7 @@
 {% from "seo_head.html" import seo_head %}
 <html lang="zh-cn">
   <head>
-{{ seo_head(seo) }}
+{{ seo_head(seo, include_site_assets=False) }}
     <base href="{{ url_for('static', filename='tools/lineup-simulator/') }}" />
     <link rel="stylesheet" href="./style.css" />
   </head>

@@ -1054,6 +1054,15 @@ def test_lineup_simulator_hidden_when_disabled(client):
     client.put('/api/admin/settings', json={'simulator_enabled': 'true'}, headers=headers)
 
 
+def test_lineup_simulator_does_not_load_global_stylesheet(client):
+    html = client.get('/tools/lineup-simulator').get_data(as_text=True)
+
+    assert '<meta name="description" content="在线搭配金铲铲阵容棋盘、弈子、装备和羁绊。"' in html
+    assert '<link rel="canonical" href="http://localhost/tools/lineup-simulator"' in html
+    assert 'href="/static/styles.css"' not in html
+    assert 'href="./style.css"' in html
+
+
 def test_home_live_comps_uses_live_comps_seasons_without_changing_lineup_editor():
     with open('static/app.js', 'r', encoding='utf-8') as file:
         home_js = file.read()
