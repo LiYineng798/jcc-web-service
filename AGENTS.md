@@ -8,6 +8,8 @@ The parent `..\` directory is only a local coordination workspace and may also c
 
 For Web behavior changes, add or update focused tests under `tests/` and run at least the affected test subset with `python -m pytest -q`.
 
+Public pages should pass explicit SEO metadata through `seo.py` and `templates/seo_head.html`. Keep login, account, admin, editor, API, hidden, and draft surfaces noindex or out of `sitemap.xml`; public detail pages should render useful first-load HTML before JavaScript hydration.
+
 Homepage S8 return-season information is grouped under the `S8回归信息差` navigation menu in `templates/index.html`. The menu keeps the existing S8 icon and links to `/tools/special-mechanics` and `/tools/returning-equipment`.
 
 The `/tools/special-mechanics` page is a static S8 reference page. Each card shows one rank badge for the currently visible category only, and the rank mapping is maintained in `static/special-mechanics.js` alongside the card data.
