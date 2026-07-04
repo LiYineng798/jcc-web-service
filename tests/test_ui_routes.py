@@ -372,17 +372,76 @@ def test_index_and_auth_pages_include_auth_intent_script(client):
 
 
 def test_patch_note_pages_exist_and_homepage_links_to_patch_notes(client):
+    from test_admin import login_admin
+
     index_html = client.get('/').get_data(as_text=True)
     assert 'href="/patch-notes"' in index_html
     assert '更新公告' in index_html
 
+    headers = login_admin(client)
+    created = client.post('/api/admin/patch-notes', json={
+        'title': '页面存在性公告',
+        'version': 'UI',
+        'source_url': '',
+        'summary_markdown': '页面存在性公告内容',
+        'original_text': '',
+        'status': 'published',
+        'published_at': '2026-07-04',
+    }, headers=headers).get_json()
+    client.post('/api/logout')
+
     list_response = client.get('/patch-notes')
-    detail_response = client.get('/patch-notes/1')
+    detail_response = client.get(f"/patch-notes/{created['id']}")
 
     assert list_response.status_code == 200
     assert detail_response.status_code == 200
     assert 'id="patchNotesApp"' in list_response.get_data(as_text=True)
     assert 'id="patchNoteDetailApp"' in detail_response.get_data(as_text=True)
+
+
+def test_patch_note_detail_page_renders_crawlable_published_content(client):
+    from test_admin import login_admin
+
+    headers = login_admin(client)
+    created = client.post('/api/admin/patch-notes', json={
+        'title': 'S17 平衡调整',
+        'version': 'S17.1',
+        'source_url': 'https://example.com/source',
+        'summary_markdown': '## 英雄调整\n- [buff] 卡莎 攻速 0.8 => 0.85',
+        'original_text': '官方原文',
+        'status': 'published',
+        'published_at': '2026-07-04',
+    }, headers=headers).get_json()
+    client.post('/api/logout')
+
+    response = client.get(f"/patch-notes/{created['id']}")
+    html = response.get_data(as_text=True)
+
+    assert response.status_code == 200
+    assert '<h1>S17 平衡调整</h1>' in html
+    assert 'S17.1' in html
+    assert '英雄调整' in html
+    assert '卡莎 攻速 0.8 =&gt; 0.85' in html
+    assert '<script type="application/ld+json">' in html
+    assert f'<link rel="canonical" href="http://localhost/patch-notes/{created["id"]}"' in html
+
+
+def test_patch_note_detail_page_returns_404_for_draft(client):
+    from test_admin import login_admin
+
+    headers = login_admin(client)
+    created = client.post('/api/admin/patch-notes', json={
+        'title': '草稿公告',
+        'version': 'D1',
+        'source_url': '',
+        'summary_markdown': '草稿内容',
+        'original_text': '',
+        'status': 'draft',
+        'published_at': '2026-07-04',
+    }, headers=headers).get_json()
+    client.post('/api/logout')
+
+    assert client.get(f"/patch-notes/{created['id']}").status_code == 404
 
 
 def test_index_page_contains_rising_recommended_and_author_link_shell(client):

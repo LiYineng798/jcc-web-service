@@ -13,7 +13,27 @@
         {{ theme_toggle() }}
       </nav>
       <section class="panel">
-        <div id="patchNoteDetailApp" data-patch-note-id="{{ patch_note_id }}">公告加载中...</div>
+        <div id="patchNoteDetailApp" data-patch-note-id="{{ patch_note_id }}">
+          <article class="patch-note-detail">
+            <p class="section-kicker">Patch Notes</p>
+            <h1>{{ patch_note.title }}</h1>
+            <p class="hero-description">{{ patch_note.version or '版本公告' }} · {{ patch_note.published_at }}</p>
+            <div class="patch-note-body">
+{% for item in patch_note.summary_items %}
+{% if item.type == 'section' %}
+              <h2>{{ item.title }}</h2>
+{% elif item.type == 'change' %}
+              <p><span class="change-tag change-tag-{{ item.kind }}">{{ item.label }}</span> {{ item.text }}</p>
+{% else %}
+              <p>{{ item.text }}</p>
+{% endif %}
+{% endfor %}
+            </div>
+{% if patch_note.source_url %}
+            <p><a class="primary-link" href="{{ patch_note.source_url }}" target="_blank" rel="noopener">查看官方原文</a></p>
+{% endif %}
+          </article>
+        </div>
       </section>
     </div>
     <script src="{{ url_for('static', filename='theme-toggle.js') }}" defer></script>
