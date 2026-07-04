@@ -450,6 +450,37 @@ def test_lineup_detail_page_exists(client):
     assert 'lineup-detail.js' in html
 
 
+def test_lineup_detail_page_renders_crawlable_lineup_content(client):
+    from test_auth import register_user
+    from test_lineup_permissions import create_lineup
+
+    register_user(client, username='seoowner', email='seoowner@example.com', nickname='阵容作者')
+    lineup = create_lineup(client, name='SEO阵容', code='#SEOCODE123456789').get_json()
+    client.post('/api/logout')
+
+    response = client.get(f"/lineup/{lineup['id']}")
+    html = response.get_data(as_text=True)
+
+    assert response.status_code == 200
+    assert '<h1 class="detail-title">SEO阵容</h1>' in html
+    assert '阵容作者' in html
+    assert 'S17 · 星神' in html
+    assert '#SEOCODE123...' in html
+    assert f'<link rel="canonical" href="http://localhost/lineup/{lineup["id"]}"' in html
+    assert 'Lineup Detail' in html
+
+
+def test_lineup_detail_page_returns_404_for_hidden_lineup_to_public(client):
+    from test_auth import register_user
+    from test_lineup_permissions import create_lineup
+
+    register_user(client, username='hiddenowner', email='hiddenowner@example.com')
+    lineup = create_lineup(client, name='隐藏SEO阵容', code='#HIDDENSEO', status='hidden').get_json()
+    client.post('/api/logout')
+
+    assert client.get(f"/lineup/{lineup['id']}").status_code == 404
+
+
 def test_account_page_requires_login_and_contains_shell(client):
     from test_auth import register_user
 

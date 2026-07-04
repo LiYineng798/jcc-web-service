@@ -13,7 +13,18 @@
       </nav>
 
       <section class="panel">
-        <div id="lineupDetailApp" data-lineup-id="{{ lineup_id }}">阵容加载中...</div>
+        <div id="lineupDetailApp" data-lineup-id="{{ lineup_id }}">
+          <div class="detail-stack">
+            <p class="section-kicker">Lineup Detail</p>
+            <h1 class="detail-title">{{ lineup.name }}</h1>
+            <p class="hero-description">由 {{ lineup.owner_nickname }} 上传 · {{ lineup_season_label }} · 评级 {{ lineup.rank_level }}</p>
+            <p class="card-time">赞 {{ lineup.like_count }} · 复制 {{ lineup.copy_count }} · 更新于 {{ lineup.updated_at }}</p>
+{% if lineup.owner_username %}
+            <p class="card-time">作者主页：<a class="author-link" href="/author/{{ lineup.owner_username }}">{{ lineup.owner_nickname }}</a></p>
+{% endif %}
+            <pre class="code-preview">{{ lineup_code_preview }}</pre>
+          </div>
+        </div>
       </section>
     </div>
     <script src="{{ url_for('static', filename='history-store.js') }}" defer></script>

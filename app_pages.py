@@ -2,10 +2,21 @@ import os
 
 from flask import abort, jsonify, send_from_directory
 
-from auth import login_required
+from auth import current_user, login_required
 from db import get_db
+from lineup_read_service import build_lineup_detail_payload
 from notice_service import get_active_notice
-from seo import DEFAULT_DESCRIPTION, DEFAULT_TITLE, make_seo, website_json_ld
+from seo import (
+    DEFAULT_DESCRIPTION,
+    DEFAULT_TITLE,
+    breadcrumb_json_ld,
+    code_preview,
+    make_seo,
+    season_label,
+    truncate_text,
+    webpage_json_ld,
+    website_json_ld,
+)
 from settings_service import get_setting
 from visits import tracked_template_response
 
@@ -72,11 +83,35 @@ def register_page_routes(app):
 
     @app.get('/lineup/<int:lineup_id>')
     def lineup_detail_page(lineup_id):
+        payload, service_error, status_code = build_lineup_detail_payload(lineup_id, current_user())
+        if service_error:
+            abort(status_code)
+        title = f"{payload['name']} - 金铲铲阵容码 - 金铲铲阵容库"
+        description = truncate_text(
+            f"{payload['name']}，{season_label(payload['season_id'])}阵容，作者{payload['owner_nickname']}，"
+            f"评级{payload['rank_level']}，累计点赞{payload['like_count']}，累计复制{payload['copy_count']}。"
+        )
+        path = f'/lineup/{lineup_id}'
+        seo = make_seo(
+            title=title,
+            description=description,
+            path=path,
+            json_ld=[
+                webpage_json_ld(payload['name'], description, path),
+                breadcrumb_json_ld([
+                    {'name': '首页', 'path': '/'},
+                    {'name': payload['name'], 'path': path},
+                ]),
+            ],
+        )
         return tracked_template_response(
             'lineup_detail.html',
             'lineup_detail',
             lineup_id=lineup_id,
-            seo=make_seo(title='阵容详情 - 金铲铲阵容库', description='查看金铲铲阵容码详情。', path=f'/lineup/{lineup_id}'),
+            lineup=payload,
+            lineup_season_label=season_label(payload['season_id']),
+            lineup_code_preview=code_preview(payload['code']),
+            seo=seo,
         )
 
     @app.get('/author/<username>')
