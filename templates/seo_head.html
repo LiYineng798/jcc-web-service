@@ -1,0 +1,25 @@
+{% macro seo_head(seo) -%}
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{{ seo.title }}</title>
+    <meta name="description" content="{{ seo.description }}" />
+    <meta name="robots" content="{{ seo.robots }}" />
+    <link rel="canonical" href="{{ seo.canonical_url }}" />
+    <meta property="og:site_name" content="{{ seo.site_name }}" />
+    <meta property="og:type" content="{{ seo.og_type }}" />
+    <meta property="og:title" content="{{ seo.title }}" />
+    <meta property="og:description" content="{{ seo.description }}" />
+    <meta property="og:url" content="{{ seo.canonical_url }}" />
+    <meta property="og:image" content="{{ seo.og_image }}" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="{{ seo.title }}" />
+    <meta name="twitter:description" content="{{ seo.description }}" />
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+{% for item in seo.json_ld %}
+    <script type="application/ld+json">{{ item|tojson }}</script>
+{% endfor %}
+{%- endmacro %}
