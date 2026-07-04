@@ -1,5 +1,6 @@
 <!doctype html>
 {% from "theme_toggle.html" import theme_toggle %}
+{% from "seo_head.html" import seo_head %}
 {% set returning_equipment = [
   {
     'name': '鬼索的狂暴之刃',
@@ -124,14 +125,7 @@
 ] %}
 <html lang="zh-CN">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>S8·怪兽入侵 回归装备</title>
-    <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+{{ seo_head(seo) }}
     <link rel="stylesheet" href="{{ url_for('static', filename='returning-equipment.css') }}" />
   </head>
   <body>

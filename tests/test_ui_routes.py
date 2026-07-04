@@ -8,6 +8,37 @@ def test_index_uses_top_right_auth_link(client):
     assert 'id="toast"' in html
 
 
+def test_public_pages_include_seo_metadata(client):
+    html = client.get('/').get_data(as_text=True)
+
+    assert '<title>金铲铲阵容库 - 实时阵容排行与阵容码分享</title>' in html
+    assert '<meta name="description"' in html
+    assert '<link rel="canonical" href="http://localhost/"' in html
+    assert '<meta name="robots" content="index, follow"' in html
+    assert '<meta property="og:title"' in html
+    assert 'application/ld+json' in html
+
+
+def test_private_pages_are_noindex(client):
+    auth_html = client.get('/auth').get_data(as_text=True)
+    register_html = client.get('/auth/register').get_data(as_text=True)
+    create_html = client.get('/lineup/new').get_data(as_text=True)
+
+    assert '<meta name="robots" content="noindex, nofollow"' in auth_html
+    assert '<meta name="robots" content="noindex, nofollow"' in register_html
+    assert '<meta name="robots" content="noindex, nofollow"' in create_html
+
+
+def test_admin_page_is_noindex(client):
+    from test_admin import login_admin
+
+    login_admin(client)
+    html = client.get('/admin').get_data(as_text=True)
+
+    assert '<meta name="robots" content="noindex, nofollow"' in html
+    assert '<link rel="canonical" href="http://localhost/admin"' in html
+
+
 def test_auth_page_contains_login_and_register_forms(client):
     response = client.get('/auth')
     html = response.get_data(as_text=True)

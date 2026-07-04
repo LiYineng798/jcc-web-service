@@ -5,6 +5,7 @@ from flask import abort, jsonify, send_from_directory
 from auth import login_required
 from db import get_db
 from notice_service import get_active_notice
+from seo import DEFAULT_DESCRIPTION, DEFAULT_TITLE, make_seo, website_json_ld
 from settings_service import get_setting
 from visits import tracked_template_response
 
@@ -15,15 +16,31 @@ def register_page_routes(app):
         db = get_db()
         simulator_enabled = get_setting(db, 'simulator_enabled', 'true') == 'true'
         notice = get_active_notice(db)
-        return tracked_template_response('index.html', 'home', simulator_enabled=simulator_enabled, notice=notice)
+        seo = make_seo(
+            title=DEFAULT_TITLE,
+            description=DEFAULT_DESCRIPTION,
+            path='/',
+            json_ld=[website_json_ld()],
+        )
+        return tracked_template_response('index.html', 'home', simulator_enabled=simulator_enabled, notice=notice, seo=seo)
 
     @app.get('/auth')
     def auth_page():
-        return tracked_template_response('auth.html', 'auth', page_mode='login')
+        return tracked_template_response(
+            'auth.html',
+            'auth',
+            page_mode='login',
+            seo=make_seo(title='登录 - 金铲铲阵容库', description='登录金铲铲阵容库账号。', path='/auth', noindex=True),
+        )
 
     @app.get('/auth/register')
     def register_page():
-        return tracked_template_response('auth.html', 'auth', page_mode='register')
+        return tracked_template_response(
+            'auth.html',
+            'auth',
+            page_mode='register',
+            seo=make_seo(title='注册 - 金铲铲阵容库', description='注册金铲铲阵容库账号。', path='/auth/register', noindex=True),
+        )
 
     @app.get('/favicon.ico')
     def favicon():
@@ -35,44 +52,86 @@ def register_page_routes(app):
 
     @app.get('/lineup/new')
     def lineup_create_page():
-        return tracked_template_response('lineup_form.html', 'lineup_editor', lineup_id='', page_mode='create')
+        return tracked_template_response(
+            'lineup_form.html',
+            'lineup_editor',
+            lineup_id='',
+            page_mode='create',
+            seo=make_seo(title='新增阵容 - 金铲铲阵容库', description='新增金铲铲阵容。', path='/lineup/new', noindex=True),
+        )
 
     @app.get('/lineup/<int:lineup_id>/edit')
     def lineup_edit_page(lineup_id):
-        return tracked_template_response('lineup_form.html', 'lineup_editor', lineup_id=lineup_id, page_mode='edit')
+        return tracked_template_response(
+            'lineup_form.html',
+            'lineup_editor',
+            lineup_id=lineup_id,
+            page_mode='edit',
+            seo=make_seo(title='编辑阵容 - 金铲铲阵容库', description='编辑金铲铲阵容。', path=f'/lineup/{lineup_id}/edit', noindex=True),
+        )
 
     @app.get('/lineup/<int:lineup_id>')
     def lineup_detail_page(lineup_id):
-        return tracked_template_response('lineup_detail.html', 'lineup_detail', lineup_id=lineup_id)
+        return tracked_template_response(
+            'lineup_detail.html',
+            'lineup_detail',
+            lineup_id=lineup_id,
+            seo=make_seo(title='阵容详情 - 金铲铲阵容库', description='查看金铲铲阵容码详情。', path=f'/lineup/{lineup_id}'),
+        )
 
     @app.get('/author/<username>')
     def author_page(username):
-        return tracked_template_response('author.html', 'author', username=username)
+        return tracked_template_response(
+            'author.html',
+            'author',
+            username=username,
+            seo=make_seo(title='作者主页 - 金铲铲阵容库', description='查看金铲铲阵容库作者主页和公开阵容。', path=f'/author/{username}'),
+        )
 
     @app.get('/tools/lineup-simulator')
     def lineup_simulator_page():
         if get_setting(get_db(), 'simulator_enabled', 'true') != 'true':
             abort(404)
-        return tracked_template_response('lineup_simulator.html', 'lineup_simulator')
+        return tracked_template_response(
+            'lineup_simulator.html',
+            'lineup_simulator',
+            seo=make_seo(title='阵容模拟器', description='在线搭配金铲铲阵容棋盘、弈子、装备和羁绊。', path='/tools/lineup-simulator'),
+        )
 
     @app.get('/tools/special-mechanics')
     def special_mechanics_page():
-        return tracked_template_response('special_mechanics.html', 'special_mechanics')
+        return tracked_template_response(
+            'special_mechanics.html',
+            'special_mechanics',
+            seo=make_seo(title='S8·怪兽入侵 特殊机制', description='查看S8怪兽入侵回归赛季特殊机制、战力形态和经济形态。', path='/tools/special-mechanics'),
+        )
 
     @app.get('/tools/artifact-guide')
     def artifact_guide_page():
-        return tracked_template_response('artifact_guide.html', 'artifact_guide')
+        return tracked_template_response(
+            'artifact_guide.html',
+            'artifact_guide',
+            seo=make_seo(title='S8·怪兽入侵 神器搭配指南', description='查看S8怪兽入侵英雄与神器的实战搭配推荐。', path='/tools/artifact-guide'),
+        )
 
     @app.get('/tools/returning-equipment')
     def returning_equipment_page():
-        return tracked_template_response('returning_equipment.html', 'returning_equipment')
+        return tracked_template_response(
+            'returning_equipment.html',
+            'returning_equipment',
+            seo=make_seo(title='S8·怪兽入侵 回归装备', description='查看S8怪兽入侵回归装备属性、组件和效果说明。', path='/tools/returning-equipment'),
+        )
 
     @app.get('/me')
     def account_page():
         user, error = login_required()
         if error:
             return error
-        return tracked_template_response('account.html', 'account')
+        return tracked_template_response(
+            'account.html',
+            'account',
+            seo=make_seo(title='个人中心 - 金铲铲阵容库', description='金铲铲阵容库个人中心。', path='/me', noindex=True),
+        )
 
     @app.get('/api/site-config')
     def site_config():

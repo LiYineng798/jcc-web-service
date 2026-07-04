@@ -22,6 +22,7 @@ from auth import admin_required
 from db import get_db
 from lineups_serialization import serialize_lineup_row
 from route_response import respond_service_result
+from seo import make_seo
 from notice_service import (
     _is_notice_enabled,
     activate_notice,
@@ -57,7 +58,11 @@ def admin_page():
     admin, error = admin_required()
     if error:
         return error
-    return tracked_template_response('admin.html', 'admin')
+    return tracked_template_response(
+        'admin.html',
+        'admin',
+        seo=make_seo(title='金铲铲阵容库后台', description='金铲铲阵容库后台管理页面。', path='/admin', noindex=True),
+    )
 
 
 @admin_bp.get('/api/admin/users')
