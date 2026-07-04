@@ -564,6 +564,40 @@ def test_author_js_contains_copy_view_like_favorite_and_report_actions():
     assert 'showReportDialog' in js
 
 
+def test_author_page_renders_crawlable_public_profile(client):
+    from test_auth import register_user
+    from test_lineup_permissions import create_lineup
+
+    register_user(client, username='seoauthor', email='seoauthor@example.com', nickname='SEO作者')
+    create_lineup(client, name='作者公开阵容', code='#AUTHORSEO123')
+    client.post('/api/logout')
+
+    response = client.get('/author/seoauthor')
+    html = response.get_data(as_text=True)
+
+    assert response.status_code == 200
+    assert '<h1>SEO作者的金铲铲阵容</h1>' in html
+    assert '作者公开阵容' in html
+    assert '<meta name="robots" content="index, follow"' in html
+    assert '<link rel="canonical" href="http://localhost/author/seoauthor"' in html
+
+
+def test_author_page_with_no_public_lineups_is_noindex(client):
+    from test_auth import register_user
+
+    register_user(client, username='emptyauthor', email='emptyauthor@example.com', nickname='空作者')
+    client.post('/api/logout')
+
+    html = client.get('/author/emptyauthor').get_data(as_text=True)
+
+    assert '空作者' in html
+    assert '<meta name="robots" content="noindex, nofollow"' in html
+
+
+def test_author_page_returns_404_for_missing_author(client):
+    assert client.get('/author/missing-author').status_code == 404
+
+
 def test_admin_js_supports_daily_growth_filter_and_clear_labels():
     with open('static/admin.js', 'r', encoding='utf-8') as file:
         js = file.read()

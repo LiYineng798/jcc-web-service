@@ -4,6 +4,7 @@ from flask import abort, jsonify, send_from_directory
 
 from auth import current_user, login_required
 from db import get_db
+from lineup_account_service import build_author_profile_payload
 from lineup_read_service import build_lineup_detail_payload
 from notice_service import get_active_notice
 from seo import (
@@ -17,6 +18,7 @@ from seo import (
     webpage_json_ld,
     website_json_ld,
 )
+from scoring import score_map
 from settings_service import get_setting
 from visits import tracked_template_response
 
@@ -116,11 +118,24 @@ def register_page_routes(app):
 
     @app.get('/author/<username>')
     def author_page(username):
+        payload, service_error, status_code = build_author_profile_payload(username, current_user(), score_map())
+        if service_error:
+            abort(status_code)
+        profile = payload['profile']
+        summary = payload['summary']
+        noindex = summary['published_lineups'] == 0
+        title = f"{profile['nickname']}的金铲铲阵容 - 金铲铲阵容库"
+        description = truncate_text(
+            f"{profile['nickname']}在金铲铲阵容库发布了{summary['published_lineups']}套公开阵容，"
+            f"累计点赞{summary['total_likes']}，累计复制{summary['total_copies']}。"
+        )
         return tracked_template_response(
             'author.html',
             'author',
             username=username,
-            seo=make_seo(title='作者主页 - 金铲铲阵容库', description='查看金铲铲阵容库作者主页和公开阵容。', path=f'/author/{username}'),
+            author_payload=payload,
+            author_public_lineups=payload['lineups'][:6],
+            seo=make_seo(title=title, description=description, path=f'/author/{username}', noindex=noindex),
         )
 
     @app.get('/tools/lineup-simulator')

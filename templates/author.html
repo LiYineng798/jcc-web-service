@@ -14,12 +14,36 @@
 
       <header class="auth-hero">
         <p class="eyebrow">Author</p>
-        <h1>作者主页</h1>
-        <p class="hero-description">查看作者公开资料、已发布阵容与累计互动数据。</p>
+        <h1>{{ author_payload.profile.nickname }}的金铲铲阵容</h1>
+        <p class="hero-description">@{{ author_payload.profile.username }} · 公开阵容 {{ author_payload.summary.published_lineups }} 套 · 累计点赞 {{ author_payload.summary.total_likes }} · 累计复制 {{ author_payload.summary.total_copies }}</p>
       </header>
 
       <section class="panel" aria-label="作者主页区域">
-        <div id="authorApp" data-username="{{ username }}">作者主页加载中...</div>
+        <div id="authorApp" data-username="{{ username }}">
+          <section class="author-profile">
+            <div>
+              <p class="section-kicker">Creator</p>
+              <h2>{{ author_payload.profile.nickname }}</h2>
+              <p class="account-row-meta">@{{ author_payload.profile.username }} · 入驻时间：{{ author_payload.profile.created_at }}</p>
+            </div>
+          </section>
+          <section class="author-lineups">
+            <h3>公开阵容</h3>
+{% if author_public_lineups %}
+            <div class="lineup-list">
+{% for lineup in author_public_lineups %}
+              <article class="lineup-card">
+                <h3 class="lineup-title"><a href="/lineup/{{ lineup.id }}">{{ lineup.name }} · {{ lineup.rank_level }}</a></h3>
+                <p class="card-time">赞 {{ lineup.like_count }} · 复制 {{ lineup.copy_count }} · 更新于 {{ lineup.updated_at }}</p>
+                <pre class="code-preview">{{ lineup.code }}</pre>
+              </article>
+{% endfor %}
+            </div>
+{% else %}
+            <div class="empty-state">这个作者暂时还没有公开阵容。</div>
+{% endif %}
+          </section>
+        </div>
       </section>
     </div>
     <div id="authPromptRoot"></div>
