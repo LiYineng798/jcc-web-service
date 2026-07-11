@@ -592,6 +592,27 @@ def test_home_pagination_reacts_to_mobile_breakpoint_changes():
     assert 'renderPagination()' in js
 
 
+def test_home_numbered_pagination_styles_are_present():
+    with open('static/styles.css', 'r', encoding='utf-8') as file:
+        css = file.read()
+
+    for selector in (
+        '.pagination-content {',
+        '.pagination-direction,',
+        '.pagination-page {',
+        '.pagination-page.is-active {',
+        '.pagination-ellipsis {',
+        '.pagination-icon {',
+        '.pagination-direction-label {',
+    ):
+        assert selector in css
+    assert 'box-shadow: 3px 3px 0' in css
+    assert '@media (max-width: 520px)' in css
+    assert '.pagination-direction-label' in css
+    assert '.pagination-dot' not in css
+    assert '@keyframes pagination-ripple' not in css
+
+
 def test_index_page_contains_favorites_empty_state_copy(client):
     html = client.get('/').get_data(as_text=True)
     assert '登录后可收藏阵容并随时找回' in html
