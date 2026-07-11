@@ -71,6 +71,7 @@ const elements = {
   toast: $('#toast'),
   authPromptRoot: $('#authPromptRoot'),
   listTitle: $('#listTitle'),
+  listHeading: $('#listHeading'),
   heroDescription: $('#heroDescription'),
 };
 
@@ -87,6 +88,8 @@ const lineupLoader = window.JccHomeTransitions.createLineupLoader({
   container: elements.lineupList,
   count: 3,
 });
+const paginationCompactQuery = globalThis.matchMedia('(max-width: 520px)');
+let pendingPaginationScroll = false;
 
 setTheme(localStorage.getItem('theme') || 'light');
 renderHomeImageModeToggle();
@@ -105,6 +108,7 @@ document.addEventListener('keydown', closeAccountMenuOnEscape);
 elements.searchInput.addEventListener('input', (event) => searchClear.sync(event.target.value));
 elements.searchInput.addEventListener('input', debounce((event) => {
   if (state.view === 'live-comps') return;
+  cancelPaginationNavigation();
   state.query = event.target.value.trim();
   state.page = 1;
   loadLineups();
@@ -133,8 +137,10 @@ elements.pagination.addEventListener('click', (event) => {
   const nextPage = Number(button.dataset.page);
   if (!nextPage || nextPage === state.page) return;
   state.page = nextPage;
+  pendingPaginationScroll = true;
   loadCurrentView();
 });
+paginationCompactQuery.addEventListener('change', () => renderPagination());
 elements.createLineupLink.addEventListener('click', (event) => {
   if (state.user) return;
   event.preventDefault();
@@ -491,9 +497,11 @@ async function loadLineups(options = {}) {
     state.totalPages = response.total_pages ?? 1;
     renderLineups({ animate: shouldShowLoading });
     renderPagination();
+    completePaginationNavigation();
   } catch (error) {
     if (isAbortError(error)) return;
     if (state.requestControllers.lineups === controller) lineupLoader.fail();
+    if (state.requestControllers.lineups === controller) cancelPaginationNavigation();
     throw error;
   } finally {
     if (state.requestControllers.lineups === controller) state.requestControllers.lineups = null;
@@ -510,6 +518,7 @@ function syncSearchInputState(isLiveComps) {
 }
 
 function clearLineupSearch() {
+  cancelPaginationNavigation();
   state.query = '';
   state.page = 1;
   loadLineups();
@@ -548,8 +557,10 @@ async function loadLiveComps() {
     state.totalPages = pagePayload.total_pages ?? 1;
     renderLiveComps();
     renderPagination();
+    completePaginationNavigation();
   } catch (error) {
     if (isAbortError(error)) return;
+    if (state.requestControllers.liveComps === controller) cancelPaginationNavigation();
     throw error;
   } finally {
     if (state.requestControllers.liveComps === controller) state.requestControllers.liveComps = null;
@@ -580,6 +591,7 @@ function renderLineupSeasonFilter() {
         state.selectedLineupSeasonId = season.id;
       }
       state.page = 1;
+      cancelPaginationNavigation();
       closeSeasonMenu();
       renderLineupSeasonFilter();
       await loadCurrentView();
@@ -665,7 +677,7 @@ function renderPagination() {
   prevButton.append(paginationIcon('left'), paginationDirectionLabel('上一页'));
   content.append(paginationItem(prevButton));
 
-  const compact = globalThis.matchMedia('(max-width: 520px)').matches;
+  const compact = paginationCompactQuery.matches;
   buildPaginationItems(state.page, state.totalPages, compact).forEach((item) => {
     if (item.type === 'ellipsis') {
       const ellipsis = document.createElement('span');
@@ -763,6 +775,25 @@ function buildPaginationItems(currentPage, totalPages, compact = false) {
     paginationEllipsis('end'),
     paginationPage(totalPages),
   ];
+}
+
+function scrollToLineupList() {
+  if (!elements.listHeading) return;
+  const reduceMotion = globalThis.matchMedia('(prefers-reduced-motion: reduce)');
+  elements.listHeading.scrollIntoView({
+    behavior: reduceMotion.matches ? 'auto' : 'smooth',
+    block: 'start',
+  });
+}
+
+function completePaginationNavigation() {
+  if (!pendingPaginationScroll) return;
+  pendingPaginationScroll = false;
+  scrollToLineupList();
+}
+
+function cancelPaginationNavigation() {
+  pendingPaginationScroll = false;
 }
 
 function renderLiveComps() {
@@ -929,6 +960,7 @@ function button(label, handler, extraClass = '', disabled = false) {
 
 function setActiveTab(sort, view) {
   const previousView = state.view;
+  cancelPaginationNavigation();
   syncSeasonSelectionForViewChange(previousView, view);
   state.sort = sort;
   state.view = view;

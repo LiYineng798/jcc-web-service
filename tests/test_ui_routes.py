@@ -571,6 +571,27 @@ def test_home_pagination_has_desktop_and_compact_windows():
     assert 'currentPage + 1' in js
 
 
+def test_home_pagination_scrolls_after_successful_page_load():
+    with open('static/app.js', 'r', encoding='utf-8') as file:
+        js = file.read()
+
+    assert 'pendingPaginationScroll' in js
+    assert 'function scrollToLineupList()' in js
+    assert "behavior: reduceMotion.matches ? 'auto' : 'smooth'" in js
+    assert 'elements.listHeading.scrollIntoView(' in js
+    assert 'completePaginationNavigation()' in js
+    assert 'pendingPaginationScroll = true' in js
+
+
+def test_home_pagination_reacts_to_mobile_breakpoint_changes():
+    with open('static/app.js', 'r', encoding='utf-8') as file:
+        js = file.read()
+
+    assert 'paginationCompactQuery' in js
+    assert "paginationCompactQuery.addEventListener('change'" in js
+    assert 'renderPagination()' in js
+
+
 def test_index_page_contains_favorites_empty_state_copy(client):
     html = client.get('/').get_data(as_text=True)
     assert '登录后可收藏阵容并随时找回' in html
