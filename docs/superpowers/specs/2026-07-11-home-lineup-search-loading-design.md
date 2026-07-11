@@ -78,4 +78,3 @@ Run focused UI tests first, then the complete Web suite. Perform browser verific
 ## Documentation
 
 Update the Web repository `AGENTS.md` after implementation to document the homepage regular-lineup search clear interaction and skeleton loading rules.
-

@@ -350,4 +350,3 @@ Expected: no output.
 git add tests/test_ui_routes.py static/styles.css AGENTS.md
 git commit -m "feat: polish homepage lineup loading states"
 ```
-
