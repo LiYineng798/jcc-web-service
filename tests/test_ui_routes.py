@@ -313,6 +313,20 @@ def test_app_js_loads_home_stats_and_updates_current_display_count():
     assert 'elements.lineupCount.textContent = state.total' not in js
 
 
+def test_homepage_search_has_dissolve_clear_layers(client):
+    html = client.get('/').get_data(as_text=True)
+
+    assert 'class="search-field t-clear"' in html
+    assert 'id="searchInput"' in html
+    assert 'class="t-clear-mirror"' in html
+    assert 'class="t-clear-placeholder"' in html
+    assert 'class="t-clear-glow"' in html
+    assert 'id="searchClearButton"' in html
+    assert 'aria-label="清除搜索"' in html
+    assert 'src="/static/home-transitions.js"' in html
+    assert html.index('src="/static/home-transitions.js"') < html.index('src="/static/app.js"')
+
+
 def test_border_glow_is_scoped_to_homepage_realtime_cards():
     with open('static/app.js', 'r', encoding='utf-8') as file:
         js = file.read()
