@@ -45,7 +45,12 @@ const elements = {
   imageModeToggle: $('#imageModeToggle'),
   imageModeIcon: $('#imageModeIcon'),
   imageModeText: $('#imageModeText'),
+  searchClear: $('#searchClear'),
   searchInput: $('#searchInput'),
+  searchClearMirror: $('#searchClearMirror'),
+  searchClearPlaceholder: $('#searchClearPlaceholder'),
+  searchClearGlow: $('#searchClearGlow'),
+  searchClearButton: $('#searchClearButton'),
   lineupList: $('#lineupList'),
   emptyState: $('#emptyState'),
   message: $('#message'),
@@ -69,6 +74,16 @@ const elements = {
   heroDescription: $('#heroDescription'),
 };
 
+const searchClear = window.JccHomeTransitions.createSearchClear({
+  root: elements.searchClear,
+  input: elements.searchInput,
+  mirror: elements.searchClearMirror,
+  placeholder: elements.searchClearPlaceholder,
+  glow: elements.searchClearGlow,
+  button: elements.searchClearButton,
+  onClear: clearLineupSearch,
+});
+
 setTheme(localStorage.getItem('theme') || 'light');
 renderHomeImageModeToggle();
 applyBorderGlowToStaticCards();
@@ -83,6 +98,7 @@ elements.menuAuthLink.addEventListener('click', () => {
 });
 document.addEventListener('click', closeAccountMenuOnOutsideClick);
 document.addEventListener('keydown', closeAccountMenuOnEscape);
+elements.searchInput.addEventListener('input', (event) => searchClear.sync(event.target.value));
 elements.searchInput.addEventListener('input', debounce((event) => {
   if (state.view === 'live-comps') return;
   state.query = event.target.value.trim();
@@ -476,11 +492,18 @@ async function loadLineups() {
 }
 
 function syncSearchInputState(isLiveComps) {
-  elements.searchInput.disabled = isLiveComps;
-  elements.searchInput.placeholder = isLiveComps
+  const placeholder = isLiveComps
     ? '实时阵容排行暂不支持搜索'
     : '搜索阵容名称，例如：九五、卡莎、斗士';
   elements.searchInput.value = isLiveComps ? '' : state.query;
+  searchClear.setDisabled(isLiveComps, placeholder);
+  searchClear.sync(elements.searchInput.value);
+}
+
+function clearLineupSearch() {
+  state.query = '';
+  state.page = 1;
+  loadLineups();
 }
 
 async function loadCurrentView() {

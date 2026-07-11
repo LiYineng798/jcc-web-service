@@ -327,6 +327,30 @@ def test_homepage_search_has_dissolve_clear_layers(client):
     assert html.index('src="/static/home-transitions.js"') < html.index('src="/static/app.js"')
 
 
+def test_home_transition_module_supports_search_clear_animation():
+    with open('static/home-transitions.js', 'r', encoding='utf-8') as file:
+        js = file.read()
+
+    assert 'function createSearchClear(' in js
+    assert 'requestAnimationFrame' in js
+    assert 'radial-gradient(' in js
+    assert "classList.toggle('has-value'" in js
+    assert "classList.add('is-clearing')" in js
+    assert 'prefers-reduced-motion: reduce' in js
+    assert 'cancelAnimationFrame' in js
+
+
+def test_app_js_clears_search_state_before_reloading_lineups():
+    with open('static/app.js', 'r', encoding='utf-8') as file:
+        js = file.read()
+
+    assert 'JccHomeTransitions.createSearchClear' in js
+    assert 'function clearLineupSearch()' in js
+    function_body = js.split('function clearLineupSearch()', 1)[1].split('\n}', 1)[0]
+    assert function_body.index("state.query = ''") < function_body.index('loadLineups()')
+    assert function_body.index('state.page = 1') < function_body.index('loadLineups()')
+
+
 def test_border_glow_is_scoped_to_homepage_realtime_cards():
     with open('static/app.js', 'r', encoding='utf-8') as file:
         js = file.read()
