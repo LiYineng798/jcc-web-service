@@ -161,8 +161,88 @@
     };
   }
 
-  function createLineupLoader() {
-    return null;
+  function createLineupLoader({ container, count = 3 }) {
+    let wrapper = null;
+
+    function createSkeletonCard() {
+      const card = document.createElement('article');
+      card.className = 'lineup-card t-skel-card';
+      ['title', 'meta', 'code'].forEach((kind) => {
+        const block = document.createElement('span');
+        block.className = `t-skel-block t-skel-${kind}`;
+        card.append(block);
+      });
+      const actions = document.createElement('div');
+      actions.className = 't-skel-actions';
+      for (let index = 0; index < 5; index += 1) {
+        const action = document.createElement('span');
+        action.className = 't-skel-block t-skel-action';
+        actions.append(action);
+      }
+      card.append(actions);
+      return card;
+    }
+
+    function createWrapper(withSkeletons) {
+      wrapper = document.createElement('div');
+      wrapper.className = 't-skel';
+      const skeleton = document.createElement('div');
+      skeleton.className = 't-skel-skeleton is-pulsing';
+      if (withSkeletons) {
+        for (let index = 0; index < count; index += 1) skeleton.append(createSkeletonCard());
+      }
+      const content = document.createElement('div');
+      content.className = 't-skel-content';
+      wrapper.append(skeleton, content);
+      return wrapper;
+    }
+
+    function showLoading() {
+      const nextWrapper = createWrapper(true);
+      container.replaceChildren(nextWrapper);
+    }
+
+    function reveal(nodes, options = {}) {
+      if (!nodes.length) {
+        container.replaceChildren();
+        wrapper = null;
+        return;
+      }
+      if (!wrapper || !container.contains(wrapper)) {
+        const nextWrapper = createWrapper(false);
+        nextWrapper.classList.add('is-resetting');
+        container.replaceChildren(nextWrapper);
+      }
+      const content = wrapper.querySelector('.t-skel-content');
+      content.replaceChildren(...nodes);
+      if (!options.animate) {
+        wrapper.classList.add('is-resetting', 'is-revealed');
+        void wrapper.offsetWidth;
+        wrapper.classList.remove('is-resetting');
+        return;
+      }
+      wrapper.classList.add('is-resetting');
+      wrapper.classList.remove('is-revealed');
+      void wrapper.offsetWidth;
+      wrapper.classList.remove('is-resetting');
+      global.requestAnimationFrame(() => {
+        if (wrapper && container.contains(wrapper)) wrapper.classList.add('is-revealed');
+      });
+    }
+
+    function fail() {
+      if (wrapper && container.contains(wrapper) && !wrapper.classList.contains('is-revealed')) {
+        container.replaceChildren();
+      }
+      wrapper = null;
+    }
+
+    function reset() {
+      container.replaceChildren();
+      wrapper = null;
+    }
+
+    return { showLoading, reveal, fail, reset };
   }
 
   global.JccHomeTransitions = {

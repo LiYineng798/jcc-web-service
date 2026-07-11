@@ -83,6 +83,10 @@ const searchClear = window.JccHomeTransitions.createSearchClear({
   button: elements.searchClearButton,
   onClear: clearLineupSearch,
 });
+const lineupLoader = window.JccHomeTransitions.createLineupLoader({
+  container: elements.lineupList,
+  count: 3,
+});
 
 setTheme(localStorage.getItem('theme') || 'light');
 renderHomeImageModeToggle();
@@ -452,7 +456,7 @@ async function logout() {
   await loadCurrentView();
 }
 
-async function loadLineups() {
+async function loadLineups(options = {}) {
   await loadLineupSeasons();
   const params = new URLSearchParams({
     sort: state.sort,
@@ -471,20 +475,25 @@ async function loadLineups() {
     state.page,
     LINEUP_PAGE_SIZE,
   ]);
+  const cachedResponse = readHomeCache('lineups', requestKey);
+  const shouldShowLoading = !cachedResponse && !options.preserveContent;
+  if (shouldShowLoading) lineupLoader.showLoading();
   abortHomeRequest('lineups');
   const controller = new AbortController();
   state.requestControllers.lineups = controller;
   try {
-    const response = await fetchCachedJson('lineups', requestKey, `/api/lineups?${params}`, controller.signal);
+    const response = cachedResponse || await fetchCachedJson('lineups', requestKey, `/api/lineups?${params}`, controller.signal);
+    if (state.requestControllers.lineups !== controller) return;
     state.lineups = response.items || [];
     state.total = response.total ?? state.lineups.length;
     state.page = response.page ?? 1;
     state.pageSize = response.page_size ?? state.pageSize;
     state.totalPages = response.total_pages ?? 1;
-    renderLineups();
+    renderLineups({ animate: shouldShowLoading });
     renderPagination();
   } catch (error) {
     if (isAbortError(error)) return;
+    if (state.requestControllers.lineups === controller) lineupLoader.fail();
     throw error;
   } finally {
     if (state.requestControllers.lineups === controller) state.requestControllers.lineups = null;
@@ -579,14 +588,17 @@ function renderLineupSeasonFilter() {
   });
 }
 
-function renderLineups() {
-  elements.lineupList.replaceChildren();
+function renderLineups(options = {}) {
   renderCurrentDisplayCount();
   elements.emptyState.classList.toggle('hidden', state.total > 0);
   renderEmptyState();
-  state.lineups.forEach((lineup) => {
-    const card = document.createElement('article');
-    card.className = 'lineup-card';
+  const cards = state.lineups.map(createLineupCard);
+  lineupLoader.reveal(cards, options);
+}
+
+function createLineupCard(lineup) {
+  const card = document.createElement('article');
+  card.className = 'lineup-card';
     const title = document.createElement('h3');
     title.className = 'lineup-title';
     title.textContent = `${lineup.name} · ${lineup.rank_level}`;
@@ -612,8 +624,7 @@ function renderLineups() {
     if (lineup.can_edit) actions.append(button('编辑', () => openEditor(lineup.id)));
     if (lineup.can_delete) actions.append(button('删除', () => deleteLineup(lineup), 'danger-button'));
     card.append(title, meta, code, actions);
-    elements.lineupList.append(card);
-  });
+  return card;
 }
 
 function renderEmptyState() {
@@ -907,7 +918,7 @@ async function copyLineup(lineup) {
   }
   invalidateHomeViewCache('lineups');
   showToast('复制成功！祝你把把吃鸡！');
-  loadLineups();
+  loadLineups({ preserveContent: true });
 }
 
 async function writeClipboard(text) {
@@ -1000,7 +1011,7 @@ async function likeLineup(lineup) {
     await api(`/api/lineups/${lineup.id}/like`, { method: 'POST' });
     invalidateHomeViewCache('lineups');
     showMessage('点赞成功');
-    await loadLineups();
+    await loadLineups({ preserveContent: true });
   } catch (error) {
     showMessage(error.message);
   }
@@ -1018,7 +1029,7 @@ async function favoriteLineup(lineup) {
       showMessage('收藏成功');
     }
     invalidateHomeViewCache('lineups');
-    await loadLineups();
+    await loadLineups({ preserveContent: true });
   } catch (error) {
     showMessage(error.message);
   }

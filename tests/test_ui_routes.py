@@ -351,6 +351,31 @@ def test_app_js_clears_search_state_before_reloading_lineups():
     assert function_body.index('state.page = 1') < function_body.index('loadLineups()')
 
 
+def test_home_transition_module_builds_lineup_skeletons_and_reveals():
+    with open('static/home-transitions.js', 'r', encoding='utf-8') as file:
+        js = file.read()
+
+    assert 'function createLineupLoader(' in js
+    assert "wrapper.className = 't-skel'" in js
+    assert "skeleton.className = 't-skel-skeleton is-pulsing'" in js
+    assert "content.className = 't-skel-content'" in js
+    assert "classList.add('is-revealed')" in js
+    assert "classList.add('is-resetting')" in js
+
+
+def test_app_js_uses_skeletons_only_for_uncached_regular_lineup_navigation():
+    with open('static/app.js', 'r', encoding='utf-8') as file:
+        js = file.read()
+
+    assert 'const cachedResponse = readHomeCache(' in js
+    assert 'lineupLoader.showLoading()' in js
+    assert 'lineupLoader.reveal(' in js
+    assert 'lineupLoader.fail()' in js
+    assert 'async function loadLineups(options = {})' in js
+    assert 'options.preserveContent' in js
+    assert 'loadLineups({ preserveContent: true })' in js
+
+
 def test_border_glow_is_scoped_to_homepage_realtime_cards():
     with open('static/app.js', 'r', encoding='utf-8') as file:
         js = file.read()
