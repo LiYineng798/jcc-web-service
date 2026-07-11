@@ -45,7 +45,12 @@ const elements = {
   imageModeToggle: $('#imageModeToggle'),
   imageModeIcon: $('#imageModeIcon'),
   imageModeText: $('#imageModeText'),
+  searchClear: $('#searchClear'),
   searchInput: $('#searchInput'),
+  searchClearMirror: $('#searchClearMirror'),
+  searchClearPlaceholder: $('#searchClearPlaceholder'),
+  searchClearGlow: $('#searchClearGlow'),
+  searchClearButton: $('#searchClearButton'),
   lineupList: $('#lineupList'),
   emptyState: $('#emptyState'),
   message: $('#message'),
@@ -69,6 +74,20 @@ const elements = {
   heroDescription: $('#heroDescription'),
 };
 
+const searchClear = window.JccHomeTransitions.createSearchClear({
+  root: elements.searchClear,
+  input: elements.searchInput,
+  mirror: elements.searchClearMirror,
+  placeholder: elements.searchClearPlaceholder,
+  glow: elements.searchClearGlow,
+  button: elements.searchClearButton,
+  onClear: clearLineupSearch,
+});
+const lineupLoader = window.JccHomeTransitions.createLineupLoader({
+  container: elements.lineupList,
+  count: 3,
+});
+
 setTheme(localStorage.getItem('theme') || 'light');
 renderHomeImageModeToggle();
 applyBorderGlowToStaticCards();
@@ -83,6 +102,7 @@ elements.menuAuthLink.addEventListener('click', () => {
 });
 document.addEventListener('click', closeAccountMenuOnOutsideClick);
 document.addEventListener('keydown', closeAccountMenuOnEscape);
+elements.searchInput.addEventListener('input', (event) => searchClear.sync(event.target.value));
 elements.searchInput.addEventListener('input', debounce((event) => {
   if (state.view === 'live-comps') return;
   state.query = event.target.value.trim();
@@ -436,7 +456,7 @@ async function logout() {
   await loadCurrentView();
 }
 
-async function loadLineups() {
+async function loadLineups(options = {}) {
   await loadLineupSeasons();
   const params = new URLSearchParams({
     sort: state.sort,
@@ -455,20 +475,25 @@ async function loadLineups() {
     state.page,
     LINEUP_PAGE_SIZE,
   ]);
+  const cachedResponse = readHomeCache('lineups', requestKey);
+  const shouldShowLoading = !cachedResponse && !options.preserveContent;
+  if (shouldShowLoading) lineupLoader.showLoading();
   abortHomeRequest('lineups');
   const controller = new AbortController();
   state.requestControllers.lineups = controller;
   try {
-    const response = await fetchCachedJson('lineups', requestKey, `/api/lineups?${params}`, controller.signal);
+    const response = cachedResponse || await fetchCachedJson('lineups', requestKey, `/api/lineups?${params}`, controller.signal);
+    if (state.requestControllers.lineups !== controller) return;
     state.lineups = response.items || [];
     state.total = response.total ?? state.lineups.length;
     state.page = response.page ?? 1;
     state.pageSize = response.page_size ?? state.pageSize;
     state.totalPages = response.total_pages ?? 1;
-    renderLineups();
+    renderLineups({ animate: shouldShowLoading });
     renderPagination();
   } catch (error) {
     if (isAbortError(error)) return;
+    if (state.requestControllers.lineups === controller) lineupLoader.fail();
     throw error;
   } finally {
     if (state.requestControllers.lineups === controller) state.requestControllers.lineups = null;
@@ -476,11 +501,18 @@ async function loadLineups() {
 }
 
 function syncSearchInputState(isLiveComps) {
-  elements.searchInput.disabled = isLiveComps;
-  elements.searchInput.placeholder = isLiveComps
+  const placeholder = isLiveComps
     ? '实时阵容排行暂不支持搜索'
     : '搜索阵容名称，例如：九五、卡莎、斗士';
   elements.searchInput.value = isLiveComps ? '' : state.query;
+  searchClear.setDisabled(isLiveComps, placeholder);
+  searchClear.sync(elements.searchInput.value);
+}
+
+function clearLineupSearch() {
+  state.query = '';
+  state.page = 1;
+  loadLineups();
 }
 
 async function loadCurrentView() {
@@ -556,41 +588,43 @@ function renderLineupSeasonFilter() {
   });
 }
 
-function renderLineups() {
-  elements.lineupList.replaceChildren();
+function renderLineups(options = {}) {
   renderCurrentDisplayCount();
   elements.emptyState.classList.toggle('hidden', state.total > 0);
   renderEmptyState();
-  state.lineups.forEach((lineup) => {
-    const card = document.createElement('article');
-    card.className = 'lineup-card';
-    const title = document.createElement('h3');
-    title.className = 'lineup-title';
-    title.textContent = `${lineup.name} · ${lineup.rank_level}`;
-    const meta = document.createElement('div');
-    meta.className = 'card-time';
-    meta.append('由 ');
-    const authorLink = document.createElement('a');
-    authorLink.className = 'author-link';
-    authorLink.href = `/author/${encodeURIComponent(lineup.owner_username || '')}`;
-    authorLink.textContent = lineup.owner_nickname;
-    meta.append(authorLink, ` 上传 · 赞 ${lineup.like_count} · 复制 ${lineup.copy_count} · ${lineup.updated_at}`);
-    const code = document.createElement('pre');
-    code.className = 'code-preview';
-    code.textContent = lineup.code;
-    const actions = document.createElement('div');
-    actions.className = 'card-actions';
-    actions.append(button('复制阵容码', () => copyLineup(lineup)));
-    actions.append(button('查看', () => openLineupDetail(lineup.id)));
-    actions.append(button(lineup.is_liked_today ? '今日已赞' : '点赞', () => likeLineup(lineup), '', Boolean(state.user && lineup.is_liked_today)));
-    actions.append(button(lineup.is_favorited ? '取消收藏' : '收藏', () => favoriteLineup(lineup)));
-    actions.append(button('举报', () => reportLineup(lineup)));
-    if (lineup.can_hide) actions.append(button('隐藏阵容', () => hideLineup(lineup), 'danger-button'));
-    if (lineup.can_edit) actions.append(button('编辑', () => openEditor(lineup.id)));
-    if (lineup.can_delete) actions.append(button('删除', () => deleteLineup(lineup), 'danger-button'));
-    card.append(title, meta, code, actions);
-    elements.lineupList.append(card);
-  });
+  const cards = state.lineups.map(createLineupCard);
+  lineupLoader.reveal(cards, options);
+}
+
+function createLineupCard(lineup) {
+  const card = document.createElement('article');
+  card.className = 'lineup-card';
+  const title = document.createElement('h3');
+  title.className = 'lineup-title';
+  title.textContent = `${lineup.name} · ${lineup.rank_level}`;
+  const meta = document.createElement('div');
+  meta.className = 'card-time';
+  meta.append('由 ');
+  const authorLink = document.createElement('a');
+  authorLink.className = 'author-link';
+  authorLink.href = `/author/${encodeURIComponent(lineup.owner_username || '')}`;
+  authorLink.textContent = lineup.owner_nickname;
+  meta.append(authorLink, ` 上传 · 赞 ${lineup.like_count} · 复制 ${lineup.copy_count} · ${lineup.updated_at}`);
+  const code = document.createElement('pre');
+  code.className = 'code-preview';
+  code.textContent = lineup.code;
+  const actions = document.createElement('div');
+  actions.className = 'card-actions';
+  actions.append(button('复制阵容码', () => copyLineup(lineup)));
+  actions.append(button('查看', () => openLineupDetail(lineup.id)));
+  actions.append(button(lineup.is_liked_today ? '今日已赞' : '点赞', () => likeLineup(lineup), '', Boolean(state.user && lineup.is_liked_today)));
+  actions.append(button(lineup.is_favorited ? '取消收藏' : '收藏', () => favoriteLineup(lineup)));
+  actions.append(button('举报', () => reportLineup(lineup)));
+  if (lineup.can_hide) actions.append(button('隐藏阵容', () => hideLineup(lineup), 'danger-button'));
+  if (lineup.can_edit) actions.append(button('编辑', () => openEditor(lineup.id)));
+  if (lineup.can_delete) actions.append(button('删除', () => deleteLineup(lineup), 'danger-button'));
+  card.append(title, meta, code, actions);
+  return card;
 }
 
 function renderEmptyState() {
@@ -884,7 +918,7 @@ async function copyLineup(lineup) {
   }
   invalidateHomeViewCache('lineups');
   showToast('复制成功！祝你把把吃鸡！');
-  loadLineups();
+  loadLineups({ preserveContent: true });
 }
 
 async function writeClipboard(text) {
@@ -977,7 +1011,7 @@ async function likeLineup(lineup) {
     await api(`/api/lineups/${lineup.id}/like`, { method: 'POST' });
     invalidateHomeViewCache('lineups');
     showMessage('点赞成功');
-    await loadLineups();
+    await loadLineups({ preserveContent: true });
   } catch (error) {
     showMessage(error.message);
   }
@@ -995,7 +1029,7 @@ async function favoriteLineup(lineup) {
       showMessage('收藏成功');
     }
     invalidateHomeViewCache('lineups');
-    await loadLineups();
+    await loadLineups({ preserveContent: true });
   } catch (error) {
     showMessage(error.message);
   }

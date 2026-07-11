@@ -107,7 +107,16 @@
                 </div>
               </div>
             </div>
-            <label class="search-field"><span class="sr-only">搜索阵容名称</span><input id="searchInput" type="search" placeholder="搜索阵容名称，例如：九五、卡莎、斗士" /></label>
+            <div class="search-field t-clear" id="searchClear" data-placeholder="搜索阵容名称，例如：九五、卡莎、斗士">
+              <label class="sr-only" for="searchInput">搜索阵容名称</label>
+              <input id="searchInput" type="search" autocomplete="off" placeholder="" />
+              <span class="t-clear-mirror" id="searchClearMirror" aria-hidden="true"></span>
+              <span class="t-clear-placeholder" id="searchClearPlaceholder" aria-hidden="true">搜索阵容名称，例如：九五、卡莎、斗士</span>
+              <span class="t-clear-glow" id="searchClearGlow" aria-hidden="true"></span>
+              <button class="t-clear-btn" id="searchClearButton" type="button" aria-label="清除搜索" title="清除搜索">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
           </div>
           <div class="tabs-shell">
             <div class="tabs" id="tabs" role="tablist">
@@ -137,6 +146,7 @@
     <script src="{{ url_for('static', filename='history-store.js') }}" defer></script>
     <script src="{{ url_for('static', filename='auth-intent.js') }}" defer></script>
     <script src="{{ url_for('static', filename='theme-toggle.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='home-transitions.js') }}" defer></script>
     <script src="{{ url_for('static', filename='app.js') }}" defer></script>
   </body>
 </html>

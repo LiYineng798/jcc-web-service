@@ -313,6 +313,91 @@ def test_app_js_loads_home_stats_and_updates_current_display_count():
     assert 'elements.lineupCount.textContent = state.total' not in js
 
 
+def test_homepage_search_has_dissolve_clear_layers(client):
+    html = client.get('/').get_data(as_text=True)
+
+    assert '<div class="search-field t-clear"' in html
+    assert '<label class="sr-only" for="searchInput">搜索阵容名称</label>' in html
+    assert 'id="searchInput"' in html
+    assert 'class="t-clear-mirror"' in html
+    assert 'class="t-clear-placeholder"' in html
+    assert 'class="t-clear-glow"' in html
+    assert 'id="searchClearButton"' in html
+    assert 'aria-label="清除搜索"' in html
+    assert 'src="/static/home-transitions.js"' in html
+    assert html.index('src="/static/home-transitions.js"') < html.index('src="/static/app.js"')
+
+
+def test_home_transition_module_supports_search_clear_animation():
+    with open('static/home-transitions.js', 'r', encoding='utf-8') as file:
+        js = file.read()
+
+    assert 'function createSearchClear(' in js
+    assert 'requestAnimationFrame' in js
+    assert 'radial-gradient(' in js
+    assert "classList.toggle('has-value'" in js
+    assert "classList.add('is-clearing')" in js
+    assert 'prefers-reduced-motion: reduce' in js
+    assert 'cancelAnimationFrame' in js
+
+
+def test_app_js_clears_search_state_before_reloading_lineups():
+    with open('static/app.js', 'r', encoding='utf-8') as file:
+        js = file.read()
+
+    assert 'JccHomeTransitions.createSearchClear' in js
+    assert 'function clearLineupSearch()' in js
+    function_body = js.split('function clearLineupSearch()', 1)[1].split('\n}', 1)[0]
+    assert function_body.index("state.query = ''") < function_body.index('loadLineups()')
+    assert function_body.index('state.page = 1') < function_body.index('loadLineups()')
+
+
+def test_home_transition_module_builds_lineup_skeletons_and_reveals():
+    with open('static/home-transitions.js', 'r', encoding='utf-8') as file:
+        js = file.read()
+
+    assert 'function createLineupLoader(' in js
+    assert "wrapper.className = 't-skel'" in js
+    assert "skeleton.className = 't-skel-skeleton is-pulsing'" in js
+    assert "content.className = 't-skel-content'" in js
+    assert "classList.add('is-revealed')" in js
+    assert "classList.add('is-resetting')" in js
+
+
+def test_app_js_uses_skeletons_only_for_uncached_regular_lineup_navigation():
+    with open('static/app.js', 'r', encoding='utf-8') as file:
+        js = file.read()
+
+    assert 'const cachedResponse = readHomeCache(' in js
+    assert 'lineupLoader.showLoading()' in js
+    assert 'lineupLoader.reveal(' in js
+    assert 'lineupLoader.fail()' in js
+    assert 'async function loadLineups(options = {})' in js
+    assert 'options.preserveContent' in js
+    assert 'loadLineups({ preserveContent: true })' in js
+
+
+def test_homepage_clear_and_skeleton_transition_styles_are_present():
+    with open('static/styles.css', 'r', encoding='utf-8') as file:
+        css = file.read()
+
+    for selector in (
+        '.t-clear {',
+        '.t-clear-mirror,',
+        '.t-clear-glow {',
+        '.t-clear:focus-within {',
+        '.t-clear-btn {',
+        '.t-skel {',
+        '.t-skel-skeleton,',
+        '.t-skel.is-revealed .t-skel-content',
+        '.t-skel.is-resetting .t-skel-skeleton',
+        '@keyframes t-skel-pulse',
+    ):
+        assert selector in css
+    assert ':root[data-theme="dark"] .t-clear-glow' in css
+    assert '@media (prefers-reduced-motion: reduce)' in css
+
+
 def test_border_glow_is_scoped_to_homepage_realtime_cards():
     with open('static/app.js', 'r', encoding='utf-8') as file:
         js = file.read()
