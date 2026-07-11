@@ -541,20 +541,34 @@ def test_index_page_contains_guest_action_prompt_shell(client):
     assert 'id="authPromptRoot"' in html
 
 
-def test_home_pagination_uses_morphing_dots():
+def test_home_pagination_uses_numbered_navigation(client):
+    html = client.get('/').get_data(as_text=True)
     with open('static/app.js', 'r', encoding='utf-8') as file:
         js = file.read()
-    with open('static/styles.css', 'r', encoding='utf-8') as file:
-        css = file.read()
 
-    assert 'pagination-arrow' in js
-    assert 'pagination-dot' in js
-    assert 'pagination-ripple' in js
-    assert '跳转到第' in js
-    assert 'pagination-ellipsis' not in js
-    assert '.pagination-dot.is-active' in css
-    assert '.pagination-ripple' in css
-    assert '@keyframes pagination-ripple' in css
+    assert 'id="pagination"' in html
+    assert 'aria-label="分页导航"' in html
+    assert 'function buildPaginationItems(' in js
+    assert "type: 'ellipsis'" in js
+    assert 'pagination-page' in js
+    assert 'pagination-ellipsis' in js
+    assert '前往第 ${pageNumber} 页' in js
+    assert "setAttribute('aria-current', 'page')" in js
+    assert 'pagination-dot' not in js
+    assert 'pagination-ripple' not in js
+
+
+def test_home_pagination_has_desktop_and_compact_windows():
+    with open('static/app.js', 'r', encoding='utf-8') as file:
+        js = file.read()
+
+    assert 'const desktopLimit = 7' in js
+    assert 'const compactLimit = 5' in js
+    assert "globalThis.matchMedia('(max-width: 520px)')" in js
+    assert 'currentPage <= 4' in js
+    assert 'currentPage >= totalPages - 3' in js
+    assert 'currentPage - 1' in js
+    assert 'currentPage + 1' in js
 
 
 def test_index_page_contains_favorites_empty_state_copy(client):

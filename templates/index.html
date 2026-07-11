@@ -92,7 +92,7 @@
 
       <main class="content-grid">
         <section class="panel list-panel list-panel-full" aria-labelledby="listTitle">
-          <div class="panel-heading list-heading">
+          <div class="panel-heading list-heading" id="listHeading">
             <div class="list-heading-left">
               <p class="section-kicker">Library</p>
               <div class="list-heading-main">
@@ -133,7 +133,7 @@
           </div>
           <div class="message" id="message" role="status" aria-live="polite"></div>
           <div class="lineup-list" id="lineupList" data-author-link-class="author-link"></div>
-          <div class="pagination" id="pagination"></div>
+          <nav class="pagination" id="pagination" aria-label="分页导航"></nav>
           <div class="empty-state hidden" id="emptyState"><div class="empty-icon">⌘</div><h3>还没有阵容</h3><p>登录后可收藏阵容并随时找回，也可以上传第一套阵容或切换到全部阵容查看公开内容。</p></div>
         </section>
       </main>
