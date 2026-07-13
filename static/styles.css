@@ -141,6 +141,18 @@ button {
   padding: 2px;
 }
 
+.s18-preview-nav-link {
+  border-color: color-mix(in srgb, var(--accent) 36%, var(--line));
+  background: color-mix(in srgb, var(--accent-soft) 58%, var(--surface));
+}
+
+.s18-preview-nav-icon {
+  background: var(--accent);
+  color: #fffaf5;
+  font-size: 10px;
+  font-weight: 900;
+}
+
 .returning-info-menu {
   position: relative;
   display: inline-flex;
@@ -1615,6 +1627,16 @@ textarea:focus {
 }
 
 @media (max-width: 520px) {
+  html,
+  body {
+    max-width: 100%;
+    overflow-x: clip;
+  }
+
+  .border-glow-card > .edge-light {
+    display: none;
+  }
+
   .page-shell {
     width: min(100% - 18px, 460px);
   }
@@ -1625,7 +1647,42 @@ textarea:focus {
   }
 
   .nav-actions {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
     gap: 8px;
+  }
+
+  .nav-actions > .s18-preview-nav-link,
+  .nav-actions > .returning-info-menu,
+  .nav-actions > .nav-tool-link:not(.s18-preview-nav-link) {
+    grid-column: span 3;
+  }
+
+  .nav-actions > .image-mode-toggle,
+  .nav-actions > .animated-theme-toggle {
+    grid-column: span 1;
+  }
+
+  .nav-actions > .account-menu-wrap {
+    grid-column: span 4;
+  }
+
+  .returning-info-menu,
+  .returning-info-trigger,
+  .nav-actions > .nav-tool-link {
+    width: 100%;
+  }
+
+  .returning-info-trigger,
+  .nav-actions > .nav-tool-link {
+    justify-content: center;
+  }
+
+  .nav-actions > .image-mode-toggle,
+  .nav-actions > .animated-theme-toggle,
+  .nav-actions > .account-menu-wrap,
+  .nav-actions > .account-menu-wrap .account-toggle {
+    width: 100%;
   }
 
   .nav-tool-link {

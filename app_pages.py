@@ -34,6 +34,7 @@ def _sitemap_entries():
         {'loc': absolute_url('/tools/special-mechanics'), 'lastmod': None},
         {'loc': absolute_url('/tools/artifact-guide'), 'lastmod': None},
         {'loc': absolute_url('/tools/returning-equipment'), 'lastmod': None},
+        {'loc': absolute_url('/tools/s18-preview'), 'lastmod': None},
     ]
     if get_setting(db, 'simulator_enabled', 'true') == 'true':
         entries.append({'loc': absolute_url('/tools/lineup-simulator'), 'lastmod': None})
@@ -217,6 +218,18 @@ def register_page_routes(app):
             'returning_equipment.html',
             'returning_equipment',
             seo=make_seo(title='S8·怪兽入侵 回归装备', description='查看S8怪兽入侵回归装备属性、组件和效果说明。', path='/tools/returning-equipment'),
+        )
+
+    @app.get('/tools/s18-preview')
+    def s18_preview_page():
+        return tracked_template_response(
+            's18_preview.html',
+            's18_preview',
+            seo=make_seo(
+                title='S18版本前瞻 - 弈子、羁绊与法杖',
+                description='查看金铲铲S18版本弈子、羁绊、技能与法杖资料。',
+                path='/tools/s18-preview',
+            ),
         )
 
     @app.get('/me')

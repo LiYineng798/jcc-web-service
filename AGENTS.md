@@ -18,6 +18,8 @@ The `/tools/returning-equipment` page uses `templates/returning_equipment.html`,
 
 The `/tools/artifact-guide` page is a static S8 reference page. It shows hero-and-artifact pairing cards sourced from `神器搭配.md`, and all images are copied into the Web repository under `static/artifacts-guide/` so production deployments do not depend on the top-level `图片/` workspace.
 
+The `/tools/s18-preview` page is the public S18 reference surface for champions, traits, and wands. Its production data and local images live under `static/s18-preview/`; keep the three JSON files, champion images, trait SVG files, and gold icon aligned. Champion profession classification is defined in `static/s18-preview.js`, while all other traits are treated as origins. The homepage links directly to this page before the S8 return-season menu.
+
 The homepage hero stat card shows all-site public regular lineup collection size from `/api/home-stats`. Current displayed result count is list context, not site context, and belongs near the list heading through `#currentDisplayCount`.
 
 Homepage regular-lineup search uses the `.t-clear` structure in `templates/index.html` and `static/home-transitions.js`. Clearing resets query results immediately while the previous text dissolves. Uncached regular-lineup navigation requests use layout-stable skeleton cards; cache hits and copy/like/favorite refreshes must not flash the skeleton state. Live comp rankings retain their separate loading behavior.
