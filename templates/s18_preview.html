@@ -33,7 +33,14 @@
 
       <main class="s18-preview-content" id="s18PreviewContent" aria-live="polite" aria-busy="true">
         <section class="s18-view-panel active" id="championsPanel" data-panel="champions" role="tabpanel">
-          <div class="champion-filter-panel">
+          <button class="champion-filter-toggle" id="championFilterToggle" type="button" aria-expanded="false" aria-controls="championFilterPanel">
+            <span class="champion-filter-toggle-copy">
+              <strong>筛选弈子</strong>
+              <span id="championFilterSummary">全部条件</span>
+            </span>
+            <span class="champion-filter-toggle-chevron" aria-hidden="true">⌄</span>
+          </button>
+          <div class="champion-filter-panel" id="championFilterPanel">
             <div class="champion-filter-row">
               <label class="s18-search-field" for="championSearch">
                 <span>搜索弈子</span>

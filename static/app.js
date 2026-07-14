@@ -73,6 +73,9 @@ const elements = {
   listTitle: $('#listTitle'),
   listHeading: $('#listHeading'),
   heroDescription: $('#heroDescription'),
+  mobileResourceTrigger: $('#mobileResourceTrigger'),
+  mobileResourceDialog: $('#mobileResourceDialog'),
+  mobileResourceClose: $('#mobileResourceClose'),
 };
 
 const searchClear = window.JccHomeTransitions.createSearchClear({
@@ -89,6 +92,7 @@ const lineupLoader = window.JccHomeTransitions.createLineupLoader({
   count: 3,
 });
 const paginationCompactQuery = globalThis.matchMedia('(max-width: 520px)');
+const mobileResourceQuery = globalThis.matchMedia('(max-width: 520px)');
 let pendingPaginationScroll = false;
 
 setTheme(localStorage.getItem('theme') || 'light');
@@ -146,6 +150,46 @@ elements.createLineupLink.addEventListener('click', (event) => {
   event.preventDefault();
   requireAuthIntent({ type: 'open_create_lineup' }, '登录后可发布和管理自己的阵容');
 });
+elements.mobileResourceTrigger?.addEventListener('click', openMobileResourceDialog);
+elements.mobileResourceClose?.addEventListener('click', closeMobileResourceDialog);
+elements.mobileResourceDialog?.addEventListener('close', handleMobileResourceDialogClosed);
+elements.mobileResourceDialog?.addEventListener('cancel', (event) => {
+  event.preventDefault();
+  closeMobileResourceDialog();
+});
+elements.mobileResourceDialog?.addEventListener('click', (event) => {
+  if (event.target === elements.mobileResourceDialog) closeMobileResourceDialog();
+});
+elements.mobileResourceDialog?.querySelectorAll('a').forEach((link) => {
+  link.addEventListener('click', closeMobileResourceDialog);
+});
+mobileResourceQuery.addEventListener('change', (event) => {
+  if (!event.matches) closeMobileResourceDialog({ restoreFocus: false });
+});
+document.addEventListener('keydown', (event) => {
+  if (event.key !== 'Escape' || !elements.mobileResourceDialog?.open) return;
+  event.preventDefault();
+  closeMobileResourceDialog();
+});
+
+function openMobileResourceDialog() {
+  if (!elements.mobileResourceDialog || elements.mobileResourceDialog.open) return;
+  elements.mobileResourceTrigger?.setAttribute('aria-expanded', 'true');
+  elements.mobileResourceDialog.showModal();
+}
+
+function closeMobileResourceDialog({ restoreFocus = true } = {}) {
+  if (!elements.mobileResourceDialog?.open) return;
+  elements.mobileResourceDialog.dataset.restoreFocus = String(restoreFocus);
+  elements.mobileResourceDialog.close();
+}
+
+function handleMobileResourceDialogClosed() {
+  elements.mobileResourceTrigger?.setAttribute('aria-expanded', 'false');
+  const restoreFocus = elements.mobileResourceDialog?.dataset.restoreFocus !== 'false';
+  if (elements.mobileResourceDialog) delete elements.mobileResourceDialog.dataset.restoreFocus;
+  if (restoreFocus) elements.mobileResourceTrigger?.focus();
+}
 
 async function boot() {
   await loadMe();

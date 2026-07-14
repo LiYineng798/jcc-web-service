@@ -231,6 +231,139 @@ button {
   line-height: 1.35;
 }
 
+.mobile-resource-trigger,
+.mobile-resource-dialog {
+  display: none;
+}
+
+.mobile-resource-dialog {
+  width: min(calc(100% - 16px), 480px);
+  max-width: none;
+  max-height: calc(100dvh - 16px);
+  margin: auto auto 8px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 20px 20px 12px 12px;
+  background: var(--surface-solid);
+  color: var(--text);
+  box-shadow: 0 24px 80px rgba(24, 20, 16, 0.28);
+  padding: 0;
+}
+
+.mobile-resource-dialog[open] {
+  display: grid;
+  animation: mobile-resource-sheet-in 220ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.mobile-resource-dialog::backdrop {
+  background: rgba(24, 20, 16, 0.48);
+  backdrop-filter: blur(5px);
+}
+
+.mobile-resource-sheet {
+  display: grid;
+  max-height: calc(100dvh - 16px);
+  grid-template-rows: auto minmax(0, 1fr);
+}
+
+.mobile-resource-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  border-bottom: 1px solid var(--line);
+  padding: 18px 18px 14px;
+}
+
+.mobile-resource-header h2 {
+  margin: 3px 0 0;
+  font-size: 20px;
+  letter-spacing: 0;
+}
+
+.mobile-resource-close {
+  display: grid;
+  width: 38px;
+  height: 38px;
+  flex: 0 0 auto;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface);
+  color: var(--text);
+  font-size: 24px;
+  line-height: 1;
+}
+
+.mobile-resource-list {
+  display: grid;
+  gap: 8px;
+  overflow-y: auto;
+  padding: 12px 14px calc(14px + env(safe-area-inset-bottom));
+}
+
+.mobile-resource-item,
+.mobile-resource-subitem {
+  display: grid;
+  gap: 3px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  color: var(--text);
+  padding: 11px 12px;
+  text-decoration: none;
+}
+
+.mobile-resource-item-featured {
+  border-color: color-mix(in srgb, var(--accent) 42%, var(--line));
+  background: color-mix(in srgb, var(--accent-soft) 48%, var(--surface-solid));
+}
+
+.mobile-resource-item strong,
+.mobile-resource-subitem strong,
+.mobile-resource-group-title {
+  font-size: 14px;
+}
+
+.mobile-resource-item strong,
+.mobile-resource-group-title {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.mobile-resource-item span,
+.mobile-resource-subitem span {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.mobile-resource-group {
+  display: grid;
+  gap: 7px;
+  margin-top: 4px;
+  border-top: 1px solid var(--line);
+  padding-top: 12px;
+}
+
+.mobile-resource-group-title {
+  color: var(--text);
+  font-weight: 850;
+  padding: 0 2px 2px;
+}
+
+.mobile-resource-subitem {
+  margin-left: 10px;
+  border-left: 2px solid color-mix(in srgb, var(--accent) 42%, var(--line));
+}
+
+@keyframes mobile-resource-sheet-in {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+}
+
 .nav-icon-button {
   width: 44px;
   height: 44px;
@@ -1581,6 +1714,10 @@ textarea:focus {
   .pagination-page:hover:not(:disabled) {
     transform: none;
   }
+
+  .mobile-resource-dialog[open] {
+    animation: none;
+  }
 }
 
 @media (max-width: 860px) {
@@ -1648,23 +1785,30 @@ textarea:focus {
 
   .nav-actions {
     display: grid;
-    grid-template-columns: repeat(6, minmax(0, 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 8px;
   }
 
-  .nav-actions > .s18-preview-nav-link,
-  .nav-actions > .returning-info-menu,
-  .nav-actions > .nav-tool-link:not(.s18-preview-nav-link) {
-    grid-column: span 3;
+  .nav-actions > .desktop-resource-entry {
+    display: none;
+  }
+
+  .nav-actions > .mobile-resource-trigger {
+    display: inline-flex;
+    grid-column: span 2;
+    width: 100%;
+    justify-content: center;
+    border-color: color-mix(in srgb, var(--accent) 36%, var(--line));
+    background: color-mix(in srgb, var(--accent-soft) 52%, var(--surface));
   }
 
   .nav-actions > .image-mode-toggle,
   .nav-actions > .animated-theme-toggle {
-    grid-column: span 1;
+    grid-column: span 2;
   }
 
   .nav-actions > .account-menu-wrap {
-    grid-column: span 4;
+    grid-column: span 2;
   }
 
   .returning-info-menu,
@@ -1685,13 +1829,18 @@ textarea:focus {
     width: 100%;
   }
 
+  .mobile-resource-trigger-icon {
+    font-size: 20px;
+    line-height: 1;
+  }
+
   .nav-tool-link {
     padding-inline: 11px;
     font-size: 0.92rem;
   }
 
   .account-toggle {
-    max-width: 140px;
+    max-width: none;
     padding-inline: 11px;
   }
 

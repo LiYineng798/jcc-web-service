@@ -12,13 +12,13 @@
           <div class="brand-mark" aria-hidden="true">阵</div>
           <div class="nav-actions">
 {% if simulator_enabled %}
-            <a class="ghost-link nav-tool-link" href="/tools/lineup-simulator">阵容模拟器</a>
+            <a class="ghost-link nav-tool-link desktop-resource-entry" href="/tools/lineup-simulator">阵容模拟器</a>
 {% endif %}
-            <a class="ghost-link nav-tool-link s18-preview-nav-link" href="/tools/s18-preview">
+            <a class="ghost-link nav-tool-link s18-preview-nav-link desktop-resource-entry" href="/tools/s18-preview">
               <span class="nav-tool-icon s18-preview-nav-icon" aria-hidden="true">18</span>
               <span>S18版本前瞻</span>
             </a>
-            <div class="returning-info-menu">
+            <div class="returning-info-menu desktop-resource-entry">
               <button class="ghost-link nav-tool-link returning-info-trigger" type="button" aria-haspopup="true">
                 <img class="nav-tool-icon special-mechanics-nav-icon" src="{{ url_for('static', filename='special-mechanics/s8-icon.png') }}" alt="" aria-hidden="true" />
                 <span>S8回归信息差</span>
@@ -39,7 +39,11 @@
                 </a>
               </div>
             </div>
-            <a class="ghost-link nav-tool-link" href="/patch-notes">更新公告</a>
+            <a class="ghost-link nav-tool-link desktop-resource-entry" href="/patch-notes">更新公告</a>
+            <button class="ghost-link nav-tool-link mobile-resource-trigger" id="mobileResourceTrigger" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="mobileResourceDialog">
+              <span class="mobile-resource-trigger-icon" aria-hidden="true">≡</span>
+              <span>资料</span>
+            </button>
             <button class="theme-toggle nav-icon-button image-mode-toggle" id="imageModeToggle" type="button" aria-pressed="false" aria-label="切换为首页有图片模式">
               <span class="image-mode-icon" id="imageModeIcon" aria-hidden="true">无</span>
               <span id="imageModeText">无图</span>
@@ -74,6 +78,43 @@
           </section>
         </div>
       </header>
+
+      <dialog class="mobile-resource-dialog" id="mobileResourceDialog" aria-labelledby="mobileResourceTitle">
+        <div class="mobile-resource-sheet">
+          <div class="mobile-resource-header">
+            <div>
+              <p class="section-kicker">Resources</p>
+              <h2 id="mobileResourceTitle">资料与工具</h2>
+            </div>
+            <button class="mobile-resource-close" id="mobileResourceClose" type="button" aria-label="关闭资料入口">&times;</button>
+          </div>
+          <nav class="mobile-resource-list" aria-label="资料与工具">
+{% if simulator_enabled %}
+            <a class="mobile-resource-item" href="/tools/lineup-simulator">
+              <strong>阵容模拟器</strong>
+              <span>搭配弈子、装备与羁绊</span>
+            </a>
+{% endif %}
+            <a class="mobile-resource-item mobile-resource-item-featured" href="/tools/s18-preview">
+              <strong><span class="nav-tool-icon s18-preview-nav-icon" aria-hidden="true">18</span>S18版本前瞻</strong>
+              <span>弈子、羁绊与法杖资料</span>
+            </a>
+            <a class="mobile-resource-item" href="/patch-notes">
+              <strong>更新公告</strong>
+              <span>查看站点最近更新</span>
+            </a>
+            <section class="mobile-resource-group" aria-labelledby="mobileS8ResourceTitle">
+              <div class="mobile-resource-group-title" id="mobileS8ResourceTitle">
+                <img class="nav-tool-icon special-mechanics-nav-icon" src="{{ url_for('static', filename='special-mechanics/s8-icon.png') }}" alt="" aria-hidden="true" />
+                <span>S8回归信息差</span>
+              </div>
+              <a class="mobile-resource-subitem" href="/tools/special-mechanics"><strong>特殊机制</strong><span>战力形态与经济形态</span></a>
+              <a class="mobile-resource-subitem" href="/tools/artifact-guide"><strong>神器搭配指南</strong><span>英雄与神器的实战搭配</span></a>
+              <a class="mobile-resource-subitem" href="/tools/returning-equipment"><strong>回归装备</strong><span>12 件返场装备说明</span></a>
+            </section>
+          </nav>
+        </div>
+      </dialog>
 
 {% if notice %}
       <div class="site-notice" id="siteNotice">

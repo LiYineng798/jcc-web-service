@@ -20,6 +20,7 @@ const S18_COST_COLORS = {
   4: 'rgb(175, 25, 186)',
   5: 'rgb(147, 130, 22)',
 };
+const championMobileQuery = window.matchMedia('(max-width: 640px)');
 
 const state = {
   champions: [],
@@ -32,7 +33,8 @@ const state = {
   origin: 'all',
   profession: 'all',
   cost: 'all',
-  showSkills: true,
+  showSkills: !championMobileQuery.matches,
+  mobileFiltersExpanded: false,
 };
 
 const elements = {
@@ -41,6 +43,9 @@ const elements = {
   mainTabs: Array.from(document.querySelectorAll('.s18-main-tab')),
   mainTabsWrap: document.querySelector('.s18-main-tabs'),
   panels: Array.from(document.querySelectorAll('.s18-view-panel')),
+  championFilterToggle: document.querySelector('#championFilterToggle'),
+  championFilterPanel: document.querySelector('#championFilterPanel'),
+  championFilterSummary: document.querySelector('#championFilterSummary'),
   championSearch: document.querySelector('#championSearch'),
   skillToggle: document.querySelector('#skillToggle'),
   originFilters: document.querySelector('#originFilters'),
@@ -57,6 +62,8 @@ const elements = {
   themeIcon: document.querySelector('#themeIcon'),
   themeText: document.querySelector('#themeText'),
 };
+
+if (elements.skillToggle) elements.skillToggle.checked = state.showSkills;
 
 function setTheme(theme) {
   document.documentElement.dataset.theme = theme;
@@ -262,6 +269,30 @@ function filteredChampions() {
   });
 }
 
+function updateChampionFilterSummary(resultCount = filteredChampions().length) {
+  if (!elements.championFilterSummary) return;
+  const active = [];
+  if (state.query) active.push(`“${state.query}”`);
+  if (state.origin !== 'all') active.push(state.origin);
+  if (state.profession !== 'all') active.push(state.profession);
+  if (state.cost !== 'all') active.push(`${state.cost}费`);
+  elements.championFilterSummary.textContent = `${active.length ? active.join(' · ') : '全部条件'} · ${resultCount} 名`;
+}
+
+function syncChampionFilterLayout() {
+  const collapsed = championMobileQuery.matches && !state.mobileFiltersExpanded;
+  elements.championFilterPanel?.classList.toggle('mobile-collapsed', collapsed);
+  elements.championFilterToggle?.setAttribute('aria-expanded', String(!collapsed));
+}
+
+elements.championFilterToggle?.addEventListener('click', () => {
+  state.mobileFiltersExpanded = !state.mobileFiltersExpanded;
+  syncChampionFilterLayout();
+});
+
+championMobileQuery.addEventListener('change', syncChampionFilterLayout);
+syncChampionFilterLayout();
+
 function createTraitLine(traitName) {
   const trait = state.traitMap.get(traitName);
   const row = document.createElement('span');
@@ -324,6 +355,7 @@ function createChampionCard(champion, index) {
 
 function renderChampions() {
   const champions = filteredChampions();
+  updateChampionFilterSummary(champions.length);
   const sections = [];
   for (let cost = 1; cost <= 5; cost += 1) {
     const costChampions = champions.filter((champion) => champion.费用 === cost);

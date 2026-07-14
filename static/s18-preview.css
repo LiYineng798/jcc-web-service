@@ -133,6 +133,10 @@
   padding: 18px;
 }
 
+.champion-filter-toggle {
+  display: none;
+}
+
 :root[data-theme="dark"] .champion-filter-panel {
   box-shadow: 0 16px 44px rgba(0, 0, 0, 0.2);
 }
@@ -861,10 +865,66 @@
 
   .s18-main-tabs {
     top: 8px;
+    margin-bottom: 12px;
+  }
+
+  .champion-filter-toggle {
+    display: flex;
+    width: 100%;
+    min-height: 52px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 12px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: var(--surface);
+    color: var(--text);
+    padding: 9px 13px;
+    text-align: left;
+  }
+
+  .champion-filter-toggle-copy {
+    display: grid;
+    min-width: 0;
+    gap: 2px;
+  }
+
+  .champion-filter-toggle-copy strong {
+    font-size: 14px;
+  }
+
+  .champion-filter-toggle-copy span {
+    overflow: hidden;
+    color: var(--muted);
+    font-size: 12px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .champion-filter-toggle-chevron {
+    flex: 0 0 auto;
+    color: var(--muted);
+    font-size: 18px;
+    transition: transform 180ms ease;
+  }
+
+  .champion-filter-toggle[aria-expanded="true"] .champion-filter-toggle-chevron {
+    transform: rotate(180deg);
+  }
+
+  .champion-filter-toggle:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  .champion-filter-panel.mobile-collapsed {
+    display: none;
   }
 
   .champion-filter-panel {
     gap: 13px;
+    margin-bottom: 16px;
     padding: 14px;
   }
 
@@ -893,7 +953,11 @@
     width: 100%;
   }
 
-  .champion-grid,
+  .champion-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+
   .trait-grid,
   .wand-grid {
     grid-template-columns: 1fr;
@@ -904,7 +968,61 @@
   }
 
   .champion-name {
-    font-size: 22px;
+    top: 8px;
+    left: 8px;
+    max-width: calc(100% - 16px);
+    font-size: 16px;
+  }
+
+  .champion-traits {
+    bottom: 7px;
+    left: 7px;
+    max-width: calc(100% - 54px);
+    gap: 2px;
+  }
+
+  .champion-trait {
+    gap: 3px;
+    font-size: 10px;
+  }
+
+  .champion-trait img {
+    width: 13px;
+    height: 13px;
+  }
+
+  .champion-cost {
+    right: 7px;
+    bottom: 7px;
+    gap: 3px;
+    font-size: 11px;
+  }
+
+  .champion-cost img {
+    width: 13px;
+    height: 13px;
+  }
+
+  .champion-skill-body {
+    padding: 10px;
+  }
+
+  .champion-skill-name {
+    margin-bottom: 5px;
+    font-size: 13px;
+  }
+
+  .champion-skill-description {
+    font-size: 11px;
+    line-height: 1.5;
+  }
+
+  .champion-cost-heading {
+    margin-bottom: 9px;
+  }
+
+  .champion-cost-heading h2 {
+    font-size: 18px;
   }
 }
 
@@ -915,6 +1033,7 @@
   .trait-type-switch button,
   .skill-toggle-track,
   .skill-toggle-track span,
+  .champion-filter-toggle-chevron,
   .champion-skill {
     transition: none !important;
   }

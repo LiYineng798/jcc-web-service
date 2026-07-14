@@ -104,6 +104,9 @@ def test_s18_preview_frontend_defines_classification_and_empty_states():
     assert "empty.textContent = '暂无弈子'" in javascript
     assert "condition.textContent = `出现条件：${wand.出现条件}`" in javascript
     assert 'id="championEmpty"' in template
+    assert 'id="championFilterToggle"' in template
+    assert 'aria-controls="championFilterPanel"' in template
+    assert 'id="championFilterSummary"' in template
     assert 'class="champion-filter-row"' in template
     assert template.index('id="championSearch"') < template.index('id="originFilters"')
     assert template.index('id="originFilters"') < template.index('id="professionFilters"')
@@ -116,6 +119,15 @@ def test_s18_preview_frontend_defines_classification_and_empty_states():
     assert 'height: 44px;' in css
     assert css.count('align-content: start;') >= 2
     assert '@media (prefers-reduced-motion: reduce)' in css
+    assert "window.matchMedia('(max-width: 640px)')" in javascript
+    assert 'showSkills: !championMobileQuery.matches' in javascript
+    assert 'mobileFiltersExpanded: false' in javascript
+    assert 'updateChampionFilterSummary(champions.length)' in javascript
+    assert 'syncChampionFilterLayout()' in javascript
+    mobile_css = css[css.index('@media (max-width: 640px)'):]
+    assert '.champion-filter-toggle {' in mobile_css
+    assert '.champion-filter-panel.mobile-collapsed {' in mobile_css
+    assert 'grid-template-columns: repeat(2, minmax(0, 1fr));' in mobile_css
     assert 'rgb(145, 145, 145)' in javascript
     assert 'rgb(16, 166, 14)' in javascript
     assert 'rgb(67, 156, 204)' in javascript
