@@ -34,7 +34,27 @@ def test_build_admin_overview_payload_returns_expected_keys(client):
     assert 'todos' in payload
     assert payload['stats']['pending_reports_count'] >= 0
     assert payload['stats']['today_uv'] >= 0
+    assert 'today_new_visitors' in payload['stats']
+    assert 'today_returning_visitors' in payload['stats']
     assert len(payload['traffic_7d']) == 7
+
+
+def test_admin_overview_reports_returning_visitor_mix(client):
+    client.get('/')
+    with client.application.app_context():
+        from datetime import datetime, timedelta
+
+        db = get_db()
+        yesterday = (datetime.now() - timedelta(days=1)).strftime('%Y-%m-%d')
+        db.execute('UPDATE visit_events SET visit_date = ?', (yesterday,))
+        db.commit()
+
+    client.get('/')
+    with client.application.app_context():
+        payload = build_admin_overview_payload(get_db())
+
+    assert payload['stats']['today_new_visitors'] == 0
+    assert payload['stats']['today_returning_visitors'] == 1
 
 
 def test_admin_overview_counts_today_total_copy_count(client):

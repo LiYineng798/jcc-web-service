@@ -75,6 +75,7 @@ def build_admin_stats_payload(db):
 
 def build_admin_overview_payload(db):
     today, yesterday = _today_and_yesterday()
+    today_visitor_mix = daily_new_returning_visitors(today)
     total_users = db.execute("SELECT COUNT(*) AS c FROM users WHERE role != 'admin'").fetchone()['c']
     today_users = db.execute(
         "SELECT COUNT(*) AS c FROM users WHERE role != 'admin' AND created_at LIKE ?",
@@ -93,6 +94,8 @@ def build_admin_overview_payload(db):
         'stats': {
             'today_uv': daily_uv_count(today),
             'yesterday_uv': daily_uv_count(yesterday),
+            'today_new_visitors': today_visitor_mix['new_visitors'],
+            'today_returning_visitors': today_visitor_mix['returning_visitors'],
             'today_users': today_users,
             'today_logins': today_logins,
             'today_lineup_copy_count': today_lineup_copy_count,

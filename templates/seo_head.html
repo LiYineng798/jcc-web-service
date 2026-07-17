@@ -1,6 +1,14 @@
 {% macro seo_head(seo, include_site_assets=True) -%}
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script>
+      try {
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark' || savedTheme === 'light') document.documentElement.dataset.theme = savedTheme;
+      } catch (error) {
+        // Storage can be unavailable in privacy-restricted browsing contexts.
+      }
+    </script>
     <title>{{ seo.title }}</title>
     <meta name="description" content="{{ seo.description }}" />
     <meta name="robots" content="{{ seo.robots }}" />
