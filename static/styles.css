@@ -3167,10 +3167,28 @@ textarea:focus {
   outline: none;
 }
 
+.traffic-line-hit-area {
+  fill: transparent;
+}
+
+.traffic-line-guide {
+  opacity: 0;
+  stroke: color-mix(in srgb, var(--accent-strong) 45%, transparent);
+  stroke-width: 1;
+  stroke-dasharray: 4 4;
+  pointer-events: none;
+  transition: opacity 140ms ease;
+}
+
 .traffic-line-point-wrap:hover .traffic-line-point,
 .traffic-line-point-wrap:focus-visible .traffic-line-point {
   fill: var(--accent-strong);
   stroke: var(--surface-solid);
+}
+
+.traffic-line-point-wrap:hover .traffic-line-guide,
+.traffic-line-point-wrap:focus-visible .traffic-line-guide {
+  opacity: 1;
 }
 
 .traffic-line-tooltip {
@@ -3179,8 +3197,8 @@ textarea:focus {
   transition: opacity 140ms ease;
 }
 
-.traffic-line-point-wrap:hover + .traffic-line-tooltip,
-.traffic-line-point-wrap:focus-visible + .traffic-line-tooltip {
+.traffic-line-point-wrap:hover .traffic-line-tooltip,
+.traffic-line-point-wrap:focus-visible .traffic-line-tooltip {
   opacity: 1;
 }
 

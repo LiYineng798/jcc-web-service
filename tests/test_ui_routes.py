@@ -825,8 +825,19 @@ def test_admin_js_renders_today_total_copy_metric():
         js = file.read()
 
     assert '今日总复制' in js
-    assert '实时阵容 + 普通阵容有效复制' in js
+    assert '普通阵容 ${stats.today_lineup_copy_count || 0}' in js
+    assert '实时阵容 ${stats.today_live_comp_copy_count || 0}' in js
     assert 'today_total_copy_count' in js
+
+
+def test_shared_head_restores_saved_theme_before_stylesheet():
+    with open('templates/seo_head.html', 'r', encoding='utf-8') as file:
+        head = file.read()
+
+    theme_position = head.index("localStorage.getItem('theme')")
+    stylesheet_position = head.index("filename='styles.css'")
+    assert theme_position < stylesheet_position
+    assert "document.documentElement.dataset.theme = savedTheme" in head
 
 
 def test_styles_support_history_scroll_and_visibility_toggle():
@@ -1559,6 +1570,8 @@ def test_admin_dashboard_renders_uv_trend_as_line_chart():
     assert 'traffic-line-path' in js
     assert 'traffic-line-point' in js
     assert 'traffic-line-point-wrap' in js
+    assert 'traffic-line-hit-area' in js
+    assert 'traffic-line-guide' in js
     assert 'traffic-line-tooltip' in js
     assert 'traffic-line-tooltip-date' in js
     assert 'traffic-line-tooltip-value' in js
@@ -1569,8 +1582,8 @@ def test_admin_dashboard_renders_uv_trend_as_line_chart():
     assert '.traffic-line-chart' in css
     assert '.traffic-line-path' in css
     assert '.traffic-line-point' in css
-    assert '.traffic-line-point-wrap:hover + .traffic-line-tooltip' in css
-    assert '.traffic-line-point-wrap:focus-visible + .traffic-line-tooltip' in css
+    assert '.traffic-line-point-wrap:hover .traffic-line-tooltip' in css
+    assert '.traffic-line-point-wrap:focus-visible .traffic-line-tooltip' in css
 
 
 def test_admin_live_comps_season_manager_supports_order_controls():

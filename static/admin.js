@@ -339,7 +339,7 @@
     const cards = el('div', 'admin-stat-grid');
     [
       ['今日全站 UV', stats.today_uv || 0, '全站页面按自然日去重'],
-      ['今日总复制', stats.today_total_copy_count || 0, '实时阵容 + 普通阵容有效复制'],
+      ['今日总复制', stats.today_total_copy_count || 0, `普通阵容 ${stats.today_lineup_copy_count || 0} · 实时阵容 ${stats.today_live_comp_copy_count || 0}`],
       ['今日注册', stats.today_users || 0, '新增用户数'],
       ['今日登录', stats.today_logins || 0, '去重登录用户'],
       ['待处理举报', stats.pending_reports_count || 0, '优先处理'],
@@ -434,12 +434,28 @@
 
     const pointGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
     pointGroup.setAttribute('role', 'list');
-    points.forEach((point) => {
+    points.forEach((point, index) => {
       const pointWrap = document.createElementNS('http://www.w3.org/2000/svg', 'g');
       pointWrap.setAttribute('class', 'traffic-line-point-wrap');
       pointWrap.setAttribute('role', 'listitem');
       pointWrap.setAttribute('tabindex', '0');
       pointWrap.setAttribute('aria-label', `${point.date}，${point.uv} UV`);
+
+      const hitStart = index === 0 ? padding.left : (points[index - 1].x + point.x) / 2;
+      const hitEnd = index === points.length - 1 ? width - padding.right : (point.x + points[index + 1].x) / 2;
+      const hitArea = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+      hitArea.setAttribute('class', 'traffic-line-hit-area');
+      hitArea.setAttribute('x', hitStart.toFixed(1));
+      hitArea.setAttribute('y', String(padding.top));
+      hitArea.setAttribute('width', (hitEnd - hitStart).toFixed(1));
+      hitArea.setAttribute('height', String(plotHeight));
+
+      const guide = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      guide.setAttribute('class', 'traffic-line-guide');
+      guide.setAttribute('x1', point.x.toFixed(1));
+      guide.setAttribute('x2', point.x.toFixed(1));
+      guide.setAttribute('y1', String(padding.top));
+      guide.setAttribute('y2', String(height - padding.bottom));
 
       const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
       circle.setAttribute('class', 'traffic-line-point');
@@ -477,8 +493,8 @@
       tooltipValue.textContent = `${point.uv} UV`;
 
       tooltip.append(tooltipBox, tooltipDate, tooltipValue);
-      pointWrap.append(circle);
-      pointGroup.append(pointWrap, tooltip);
+      pointWrap.append(hitArea, guide, circle, tooltip);
+      pointGroup.append(pointWrap);
     });
 
     const labelGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
