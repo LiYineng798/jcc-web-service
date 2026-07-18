@@ -3,6 +3,14 @@
 }
 
 .s18-preview-page {
+  --s18-cost-1: rgb(145, 145, 145);
+  --s18-cost-2: rgb(16, 166, 14);
+  --s18-cost-3: rgb(67, 156, 204);
+  --s18-cost-4: rgb(175, 25, 186);
+  --s18-cost-5: rgb(147, 130, 22);
+}
+
+.s18-preview-page {
   width: min(1380px, calc(100% - 36px));
 }
 
@@ -430,6 +438,26 @@
   align-items: stretch;
 }
 
+.champion-card-link {
+  min-width: 0;
+  height: 100%;
+  border-radius: 8px;
+  color: inherit;
+  text-decoration: none;
+  transition: transform 180ms ease, filter 180ms ease;
+}
+
+.champion-card-link:hover {
+  z-index: 1;
+  transform: translateY(-3px);
+  filter: drop-shadow(0 12px 20px color-mix(in srgb, var(--accent) 18%, transparent));
+}
+
+.champion-card-link:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--accent) 72%, white);
+  outline-offset: 3px;
+}
+
 .champion-card,
 .trait-card,
 .wand-card {
@@ -690,6 +718,21 @@
   display: grid;
   gap: 4px;
   justify-items: center;
+  border-radius: 8px;
+  color: inherit;
+  text-decoration: none;
+  transition: transform 160ms ease, background-color 160ms ease;
+}
+
+.trait-champion:hover,
+.trait-champion:focus-visible {
+  z-index: 1;
+  transform: translateY(-3px);
+}
+
+.trait-champion:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
 }
 
 .trait-champion img {
@@ -699,6 +742,13 @@
   border: 2px solid var(--cost-color);
   border-radius: 7px;
   object-fit: cover;
+  box-shadow: 0 5px 12px color-mix(in srgb, var(--cost-color) 20%, transparent);
+  transition: box-shadow 160ms ease;
+}
+
+.trait-champion:hover img,
+.trait-champion:focus-visible img {
+  box-shadow: 0 8px 18px color-mix(in srgb, var(--cost-color) 42%, transparent);
 }
 
 .trait-champion span {
@@ -714,6 +764,123 @@
   margin: 0;
   color: var(--muted);
   font-size: 13px;
+}
+
+.champion-hover-layer {
+  position: fixed;
+  z-index: 1200;
+  width: min(292px, calc(100vw - 20px));
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(5px) scale(0.98);
+  transform-origin: center;
+  transition: opacity 140ms ease, transform 180ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.champion-hover-layer.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.champion-hover-card {
+  overflow: hidden;
+  border: 2px solid var(--cost-color);
+  border-radius: 8px;
+  background: var(--surface-solid);
+  box-shadow: 0 20px 46px rgba(20, 17, 12, 0.28);
+}
+
+.champion-hover-art {
+  position: relative;
+  aspect-ratio: 720 / 427;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--cost-color) 16%, var(--surface-solid));
+}
+
+.champion-hover-art::after {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(10, 9, 8, 0.72), transparent 38%, rgba(10, 9, 8, 0.9));
+  content: "";
+}
+
+.champion-hover-art > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.champion-hover-overlay {
+  position: absolute;
+  z-index: 1;
+  inset: 11px 12px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-content: space-between;
+  color: #fff;
+  text-shadow: 0 2px 7px rgba(0, 0, 0, 0.72);
+}
+
+.champion-hover-overlay > strong {
+  grid-column: 1 / -1;
+  align-self: start;
+  font-size: 18px;
+}
+
+.champion-hover-traits {
+  display: grid;
+  align-self: end;
+  gap: 3px;
+}
+
+.champion-hover-traits span {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  font-weight: 750;
+}
+
+.champion-hover-traits img {
+  width: 14px;
+  height: 14px;
+  object-fit: contain;
+  filter: brightness(0) invert(1) drop-shadow(0 1px 2px rgba(0, 0, 0, 0.6));
+}
+
+.champion-hover-cost {
+  display: flex;
+  align-self: end;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.champion-hover-cost img {
+  width: 16px;
+  height: 16px;
+}
+
+.champion-hover-skill {
+  padding: 12px 13px 13px;
+}
+
+.champion-hover-skill strong {
+  color: var(--text);
+  font-size: 13px;
+}
+
+.champion-hover-skill p {
+  display: -webkit-box;
+  margin: 5px 0 0;
+  overflow: hidden;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.5;
+  white-space: pre-line;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
 }
 
 .wand-grid {
@@ -1034,7 +1201,11 @@
   .skill-toggle-track,
   .skill-toggle-track span,
   .champion-filter-toggle-chevron,
-  .champion-skill {
+  .champion-skill,
+  .champion-card-link,
+  .trait-champion,
+  .trait-champion img,
+  .champion-hover-layer {
     transition: none !important;
   }
 

@@ -1,0 +1,234 @@
+.s18-champion-detail-page {
+  padding-bottom: 72px;
+}
+
+.champion-detail-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 24px;
+  margin: 18px 0 30px;
+  padding-bottom: 22px;
+  border-bottom: 1px solid var(--line);
+}
+
+.champion-detail-heading h1 {
+  margin: 6px 0 0;
+  color: var(--text);
+  font-size: clamp(36px, 6vw, 64px);
+  line-height: 1;
+  letter-spacing: 0;
+}
+
+.champion-detail-cost,
+.champion-detail-member-count {
+  flex: 0 0 auto;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 750;
+}
+
+.champion-detail-cost {
+  padding: 8px 12px;
+}
+
+.champion-detail-layout {
+  display: grid;
+  grid-template-columns: minmax(280px, 330px) minmax(0, 1fr);
+  gap: 28px;
+  align-items: start;
+}
+
+.champion-detail-summary {
+  position: sticky;
+  top: 22px;
+}
+
+.champion-detail-card {
+  opacity: 1;
+  transform: none;
+  animation: champion-detail-card-in 440ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes champion-detail-card-in {
+  from {
+    opacity: 0;
+    transform: translateX(-14px);
+  }
+}
+
+.champion-detail-traits {
+  display: grid;
+  gap: 16px;
+}
+
+.champion-detail-trait-card {
+  min-width: 0;
+  overflow: visible;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  padding: 20px;
+  box-shadow: 0 14px 38px rgba(55, 45, 31, 0.07);
+  animation: champion-detail-trait-in 420ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: var(--detail-delay, 0ms);
+}
+
+:root[data-theme="dark"] .champion-detail-trait-card {
+  box-shadow: 0 14px 38px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes champion-detail-trait-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+
+.champion-detail-trait-header {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 13px;
+}
+
+.champion-detail-trait-icon {
+  display: grid;
+  width: 46px;
+  height: 46px;
+  place-items: center;
+  border-radius: 8px;
+  background: var(--accent-soft);
+}
+
+.champion-detail-trait-icon img {
+  width: 29px;
+  height: 29px;
+  object-fit: contain;
+}
+
+:root:not([data-theme="dark"]) .champion-detail-trait-icon img {
+  filter: brightness(0) saturate(100%) opacity(0.78);
+}
+
+:root[data-theme="dark"] .champion-detail-trait-icon img {
+  filter: brightness(0) invert(1) opacity(0.86);
+}
+
+.champion-detail-trait-kicker {
+  display: block;
+  margin-bottom: 2px;
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 750;
+  text-transform: uppercase;
+}
+
+.champion-detail-trait-header h2 {
+  margin: 0;
+  color: var(--text);
+  font-size: 21px;
+  letter-spacing: 0;
+}
+
+.champion-detail-member-count {
+  padding: 6px 9px;
+}
+
+.champion-detail-trait-description {
+  margin-top: 16px;
+}
+
+.champion-detail-levels {
+  margin-top: 15px;
+}
+
+.champion-detail-level-empty {
+  margin: 15px 0 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  color: var(--muted);
+  padding: 11px 0;
+  font-size: 12px;
+}
+
+.champion-detail-members {
+  margin-top: 17px;
+}
+
+.champion-detail-members h3 {
+  margin: 0 0 10px;
+  color: var(--text);
+  font-size: 13px;
+  letter-spacing: 0;
+}
+
+@media (max-width: 820px) {
+  .champion-detail-layout {
+    grid-template-columns: minmax(230px, 280px) minmax(0, 1fr);
+    gap: 18px;
+  }
+
+  .champion-detail-trait-header {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .champion-detail-member-count {
+    grid-column: 2;
+    width: fit-content;
+  }
+}
+
+@media (max-width: 640px) {
+  .s18-champion-detail-page {
+    padding-bottom: 44px;
+  }
+
+  .champion-detail-heading {
+    align-items: flex-start;
+    margin: 14px 0 20px;
+    padding-bottom: 17px;
+  }
+
+  .champion-detail-heading h1 {
+    font-size: 40px;
+  }
+
+  .champion-detail-layout {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .champion-detail-summary {
+    position: static;
+  }
+
+  .champion-detail-card {
+    max-width: 420px;
+  }
+
+  .champion-detail-trait-card {
+    padding: 16px;
+  }
+
+  .champion-detail-trait-header {
+    gap: 10px;
+  }
+
+  .champion-detail-trait-icon {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .champion-detail-card,
+  .champion-detail-trait-card {
+    opacity: 1;
+    transform: none;
+    animation: none !important;
+  }
+}

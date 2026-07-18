@@ -20,6 +20,8 @@ The `/tools/artifact-guide` page is a static S8 reference page. It shows hero-an
 
 The `/tools/s18-preview` page is the public S18 reference surface for champions, traits, and wands. Its production data and local images live under `static/s18-preview/`; keep the three JSON files, champion images, trait SVG files, and gold icon aligned. Champion profession classification is defined in `static/s18-preview.js`, while all other traits are treated as origins. The homepage links directly to this page before the S8 return-season menu.
 
+Each S18 champion card links to `/tools/s18-preview/champions/<champion_name>`. Champion detail pages render the champion card and skill beside full trait descriptions, quantity tiers, and linked trait members. Trait-member thumbnails on both the S18 trait list and champion detail pages use `static/s18-champion-ui.js` for cost borders, hover/focus champion previews, and detail navigation. Keep these surfaces aligned when changing champion or trait card presentation.
+
 On screens up to 640px wide, the S18 champion filters are collapsed behind a summary trigger by default, champion skills start hidden, and champion cards render in a compact two-column grid. Desktop filters stay expanded and champion skills stay visible by default. Keep filter state, the filtered result count, and `aria-expanded` synchronized when changing this behavior.
 
 On screens up to 520px wide, the homepage replaces its individual content links with the `资料` trigger and a native-dialog bottom sheet. The sheet groups the simulator, S18 preview, patch notes, and the three S8 return-season references. Image mode, theme, and account controls remain directly available; desktop navigation keeps its existing individual links and S8 hover menu.

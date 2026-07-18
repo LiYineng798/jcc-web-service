@@ -316,6 +316,10 @@ function createCostBadge(cost, className) {
 }
 
 function createChampionCard(champion, index) {
+  const link = document.createElement('a');
+  link.className = 'champion-card-link';
+  link.href = window.JccS18ChampionUi.championUrl(champion.名称);
+  link.setAttribute('aria-label', `查看${champion.名称}详情`);
   const card = document.createElement('article');
   card.className = `champion-card${state.showSkills ? '' : ' skills-hidden'}`;
   card.style.setProperty('--cost-color', costStyle(champion.费用));
@@ -350,7 +354,8 @@ function createChampionCard(champion, index) {
   skillClip.append(skillBody);
   skill.append(skillClip);
   card.append(art, skill);
-  return card;
+  link.append(card);
+  return link;
 }
 
 function renderChampions() {
@@ -438,15 +443,7 @@ function createTraitCard(trait, index) {
     const champions = document.createElement('div');
     champions.className = 'trait-champions';
     matchingChampions.forEach((champion) => {
-      const item = document.createElement('div');
-      item.className = 'trait-champion';
-      item.style.setProperty('--cost-color', costStyle(champion.费用));
-      item.title = `${champion.名称} · ${champion.费用}费`;
-      item.append(createImage(assetPath('xt', champion.费用, `${champion.名称}.jpg`), champion.名称));
-      const name = document.createElement('span');
-      name.textContent = champion.名称;
-      item.append(name);
-      champions.append(item);
+      champions.append(window.JccS18ChampionUi.createMemberLink(champion));
     });
     card.append(champions);
   } else {
@@ -513,6 +510,7 @@ async function loadData() {
     if (responses.some((response) => !response.ok)) throw new Error('S18 data request failed');
     [state.champions, state.traits, state.wands] = await Promise.all(responses.map((response) => response.json()));
     state.traitMap = new Map(state.traits.map((trait) => [trait.名称, trait]));
+    window.JccS18ChampionUi.configure(state.champions, state.traitMap);
 
     const professionSet = new Set(S18_PROFESSIONS);
     const origins = state.traits.map((trait) => trait.名称).filter((name) => !professionSet.has(name));

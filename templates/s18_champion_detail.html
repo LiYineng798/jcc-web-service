@@ -1,0 +1,106 @@
+<!doctype html>
+{% from "theme_toggle.html" import theme_toggle %}
+{% from "seo_head.html" import seo_head %}
+{% set champion = detail.champion %}
+<html lang="zh-CN">
+  <head>
+{{ seo_head(seo) }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='s18-preview.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='s18-champion-detail.css') }}" />
+  </head>
+  <body>
+    <div class="page-shell s18-preview-page s18-champion-detail-page">
+      <nav class="nav-bar s18-preview-nav" aria-label="页面工具">
+        <a class="brand-mark brand-link" href="/" aria-label="返回首页">阵</a>
+        <div class="nav-actions">
+          <a class="ghost-link nav-tool-link" href="/tools/s18-preview">返回S18前瞻</a>
+          {{ theme_toggle("nav-icon-button") }}
+        </div>
+      </nav>
+
+      <header class="champion-detail-heading">
+        <div>
+          <p class="eyebrow">S18 Champion Archive</p>
+          <h1>{{ champion.名称 }}</h1>
+        </div>
+        <span class="champion-detail-cost">{{ champion.费用 }}费弈子</span>
+      </header>
+
+      <main class="champion-detail-layout">
+        <aside class="champion-detail-summary" aria-label="{{ champion.名称 }}弈子卡片">
+          <article class="champion-card champion-detail-card" style="--cost-color: var(--s18-cost-{{ champion.费用 }})">
+            <div class="champion-art">
+              <img src="{{ url_for('static', filename='s18-preview/bg/' ~ champion.费用 ~ '/' ~ champion.名称 ~ '.jpg') }}" alt="{{ champion.名称 }}" />
+              <h2 class="champion-name">{{ champion.名称 }}</h2>
+              <div class="champion-traits">
+{% for trait in detail.traits %}
+                <span class="champion-trait">
+                  <img src="{{ url_for('static', filename='s18-preview/' ~ trait.svg) }}" alt="" aria-hidden="true" />
+                  <span>{{ trait.名称 }}</span>
+                </span>
+{% endfor %}
+              </div>
+              <span class="champion-cost">
+                <img src="{{ url_for('static', filename='s18-preview/system/gold.png') }}" alt="" aria-hidden="true" />
+                <span>{{ champion.费用 }}</span>
+              </span>
+            </div>
+            <div class="champion-skill">
+              <div><div class="champion-skill-body">
+                <h3 class="champion-skill-name">{{ champion.技能名称 }}</h3>
+                <p class="champion-skill-description">{{ champion.技能描述 }}</p>
+              </div></div>
+            </div>
+          </article>
+        </aside>
+
+        <section class="champion-detail-traits" aria-label="{{ champion.名称 }}的羁绊详情">
+{% for trait in detail.traits %}
+          <article class="champion-detail-trait-card" style="--detail-delay: {{ loop.index0 * 70 }}ms">
+            <header class="champion-detail-trait-header">
+              <span class="champion-detail-trait-icon">
+                <img src="{{ url_for('static', filename='s18-preview/' ~ trait.svg) }}" alt="" aria-hidden="true" />
+              </span>
+              <div>
+                <span class="champion-detail-trait-kicker">羁绊 {{ loop.index }} / {{ detail.traits|length }}</span>
+                <h2>{{ trait.名称 }}</h2>
+              </div>
+              <span class="champion-detail-member-count">{{ trait.弈子|length }} 名弈子</span>
+            </header>
+            <p class="trait-description champion-detail-trait-description">{{ trait.介绍 }}</p>
+
+{% if trait.层级 %}
+            <div class="trait-levels champion-detail-levels" aria-label="{{ trait.名称 }}羁绊数量">
+{% for level in trait.层级 %}
+              <div class="trait-level">
+                <span class="trait-level-count">{{ level.数量 }}</span>
+                <span class="trait-level-effect">{{ level.效果 }}</span>
+              </div>
+{% endfor %}
+            </div>
+{% else %}
+            <p class="champion-detail-level-empty">该羁绊暂无公开的数量层级资料</p>
+{% endif %}
+
+            <div class="champion-detail-members">
+              <h3>所属弈子</h3>
+              <div class="trait-champions">
+{% for member in trait.弈子 %}
+                <a class="trait-champion" href="{{ url_for('s18_champion_detail_page', champion_name=member.名称) }}" data-champion-name="{{ member.名称 }}" style="--cost-color: var(--s18-cost-{{ member.费用 }})" aria-label="查看{{ member.名称 }}详情">
+                  <img src="{{ url_for('static', filename='s18-preview/xt/' ~ member.费用 ~ '/' ~ member.名称 ~ '.jpg') }}" alt="{{ member.名称 }}" />
+                  <span>{{ member.名称 }}</span>
+                </a>
+{% endfor %}
+              </div>
+            </div>
+          </article>
+{% endfor %}
+        </section>
+      </main>
+    </div>
+    <div class="champion-hover-layer" id="championHoverLayer" hidden></div>
+    <script src="{{ url_for('static', filename='theme-toggle.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='s18-champion-ui.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='s18-champion-detail.js') }}" defer></script>
+  </body>
+</html>

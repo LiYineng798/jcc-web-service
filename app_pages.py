@@ -1,4 +1,5 @@
 import os
+from urllib.parse import quote
 
 from flask import Response, abort, jsonify, send_from_directory
 
@@ -22,6 +23,7 @@ from seo import (
     website_json_ld,
 )
 from scoring import score_map
+from s18_preview_service import build_champion_detail, champion_names
 from settings_service import get_setting
 from visits import tracked_template_response
 
@@ -36,6 +38,10 @@ def _sitemap_entries():
         {'loc': absolute_url('/tools/returning-equipment'), 'lastmod': None},
         {'loc': absolute_url('/tools/s18-preview'), 'lastmod': None},
     ]
+    entries.extend({
+        'loc': absolute_url(f'/tools/s18-preview/champions/{quote(name)}'),
+        'lastmod': None,
+    } for name in champion_names())
     if get_setting(db, 'simulator_enabled', 'true') == 'true':
         entries.append({'loc': absolute_url('/tools/lineup-simulator'), 'lastmod': None})
 
@@ -229,6 +235,37 @@ def register_page_routes(app):
                 title='S18版本前瞻 - 弈子、羁绊与法杖',
                 description='查看金铲铲S18版本弈子、羁绊、技能与法杖资料。',
                 path='/tools/s18-preview',
+            ),
+        )
+
+    @app.get('/tools/s18-preview/champions/<champion_name>')
+    def s18_champion_detail_page(champion_name):
+        detail = build_champion_detail(champion_name)
+        if detail is None:
+            abort(404)
+        champion = detail['champion']
+        path = f'/tools/s18-preview/champions/{quote(champion_name)}'
+        description = truncate_text(
+            f"S18 {champion['名称']}，{champion['费用']}费弈子，"
+            f"羁绊为{'、'.join(champion['羁绊'])}。技能：{champion['技能名称']}，{champion['技能描述']}"
+        )
+        return tracked_template_response(
+            's18_champion_detail.html',
+            's18_champion_detail',
+            detail=detail,
+            seo=make_seo(
+                title=f"{champion['名称']} - S18弈子详情 - 金铲铲阵容库",
+                description=description,
+                path=path,
+                image_path=f"/static/s18-preview/bg/{champion['费用']}/{quote(champion['名称'])}.jpg",
+                json_ld=[
+                    webpage_json_ld(champion['名称'], description, path),
+                    breadcrumb_json_ld([
+                        {'name': '首页', 'path': '/'},
+                        {'name': 'S18版本前瞻', 'path': '/tools/s18-preview'},
+                        {'name': champion['名称'], 'path': path},
+                    ]),
+                ],
             ),
         )
 

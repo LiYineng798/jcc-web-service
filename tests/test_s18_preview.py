@@ -1,5 +1,8 @@
 import json
 from pathlib import Path
+from urllib.parse import quote
+
+from s18_preview_service import build_champion_detail, champion_names
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -41,6 +44,41 @@ def test_s18_preview_route_and_homepage_entry(client):
     assert '浏览新赛季弈子、羁绊与法杖资料。' not in html
     assert 's18-preview.css' in html
     assert 's18-preview.js' in html
+    assert 's18-champion-ui.js' in html
+
+
+def test_s18_champion_detail_renders_champion_traits_and_member_links(client):
+    response = client.get(f"/tools/s18-preview/champions/{quote('维迦')}")
+    html = response.get_data(as_text=True)
+
+    assert response.status_code == 200
+    assert '<title>维迦 - S18弈子详情 - 金铲铲阵容库</title>' in html
+    assert 'class="champion-card champion-detail-card"' in html
+    assert '能量爆裂' in html
+    assert '古神' in html
+    assert '森林妖精' in html
+    assert '法师' in html
+    assert '羁绊数量' in html
+    assert 'data-champion-name="维迦"' in html
+    assert 's18-champion-detail.css' in html
+    assert 's18-champion-detail.js' in html
+
+
+def test_s18_champion_detail_returns_404_for_unknown_champion(client):
+    assert client.get('/tools/s18-preview/champions/not-a-champion').status_code == 404
+
+
+def test_s18_champion_detail_service_links_every_champion_and_trait_member():
+    champions = load_json('champions.json')
+
+    assert champion_names() == [champion['名称'] for champion in champions]
+    for champion in champions:
+        detail = build_champion_detail(champion['名称'])
+        assert detail['champion'] == champion
+        assert [trait['名称'] for trait in detail['traits']] == champion['羁绊']
+        for trait in detail['traits']:
+            assert trait['弈子']
+            assert all(trait['名称'] in member['羁绊'] for member in trait['弈子'])
 
 
 def test_s18_preview_data_and_assets_are_complete():
@@ -98,6 +136,7 @@ def test_s18_preview_frontend_defines_classification_and_empty_states():
     javascript = (ROOT / 'static' / 's18-preview.js').read_text(encoding='utf-8')
     template = (ROOT / 'templates' / 's18_preview.html').read_text(encoding='utf-8')
     css = (ROOT / 'static' / 's18-preview.css').read_text(encoding='utf-8')
+    champion_ui = (ROOT / 'static' / 's18-champion-ui.js').read_text(encoding='utf-8')
 
     for profession in PROFESSIONS:
         assert f"'{profession}'" in javascript
@@ -133,3 +172,10 @@ def test_s18_preview_frontend_defines_classification_and_empty_states():
     assert 'rgb(67, 156, 204)' in javascript
     assert 'rgb(175, 25, 186)' in javascript
     assert 'rgb(147, 130, 22)' in javascript
+    assert "link.className = 'champion-card-link'" in javascript
+    assert 'JccS18ChampionUi.createMemberLink' in javascript
+    assert 'createHoverCard' in champion_ui
+    assert 'data-champion-name' in champion_ui
+    assert "pointerenter" in champion_ui
+    assert "focus" in champion_ui
+    assert '.champion-hover-layer.visible' in css
