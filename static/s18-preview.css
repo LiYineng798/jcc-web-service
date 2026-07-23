@@ -141,6 +141,38 @@
   padding: 18px;
 }
 
+@media (min-width: 861px) {
+  .champion-filter-panel {
+    padding: 12px;
+  }
+
+  .champion-filter-row {
+    grid-template-columns: minmax(260px, 1.45fr) repeat(3, minmax(150px, 1fr)) auto;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .s18-search-field,
+  .champion-filter-group {
+    position: relative;
+  }
+
+  .s18-search-field > span,
+  .champion-filter-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+
+  .s18-search-field input,
+  .s18-filter-select-trigger {
+    height: 40px;
+  }
+}
+
 .champion-filter-toggle {
   display: none;
 }

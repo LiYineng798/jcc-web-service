@@ -14,10 +14,17 @@
 {% if simulator_enabled %}
             <a class="ghost-link nav-tool-link desktop-resource-entry" href="/tools/lineup-simulator">阵容模拟器</a>
 {% endif %}
-            <a class="ghost-link nav-tool-link s18-preview-nav-link desktop-resource-entry" href="/tools/s18-preview">
-              <span class="nav-tool-icon s18-preview-nav-icon" aria-hidden="true">18</span>
-              <span>S18版本前瞻</span>
-            </a>
+            <div class="returning-info-menu library-menu desktop-resource-entry">
+              <button class="ghost-link nav-tool-link returning-info-trigger" type="button" aria-haspopup="true">
+                <span class="nav-tool-icon s18-preview-nav-icon" aria-hidden="true">资</span>
+                <span>资料库</span>
+                <span class="returning-info-chevron" aria-hidden="true">⌄</span>
+              </button>
+              <div class="returning-info-menu-panel" role="menu">
+                <a class="returning-info-menu-item" href="/tools/s16-5-preview" role="menuitem"><span>S16.5英雄联盟传奇·海克斯宝典</span><small>115 名弈子与技能资料</small></a>
+                <a class="returning-info-menu-item" href="/tools/s18-preview" role="menuitem"><span>S18版本前瞻</span><small>弈子、羁绊与法杖资料</small></a>
+              </div>
+            </div>
             <div class="returning-info-menu desktop-resource-entry">
               <button class="ghost-link nav-tool-link returning-info-trigger" type="button" aria-haspopup="true">
                 <img class="nav-tool-icon special-mechanics-nav-icon" src="{{ url_for('static', filename='special-mechanics/s8-icon.png') }}" alt="" aria-hidden="true" />
@@ -89,20 +96,11 @@
             <button class="mobile-resource-close" id="mobileResourceClose" type="button" aria-label="关闭资料入口">&times;</button>
           </div>
           <nav class="mobile-resource-list" aria-label="资料与工具">
-{% if simulator_enabled %}
-            <a class="mobile-resource-item" href="/tools/lineup-simulator">
-              <strong>阵容模拟器</strong>
-              <span>搭配弈子、装备与羁绊</span>
-            </a>
-{% endif %}
-            <a class="mobile-resource-item mobile-resource-item-featured" href="/tools/s18-preview">
-              <strong><span class="nav-tool-icon s18-preview-nav-icon" aria-hidden="true">18</span>S18版本前瞻</strong>
-              <span>弈子、羁绊与法杖资料</span>
-            </a>
-            <a class="mobile-resource-item" href="/patch-notes">
-              <strong>更新公告</strong>
-              <span>查看站点最近更新</span>
-            </a>
+            <section class="mobile-resource-group" aria-labelledby="mobileLibraryResourceTitle">
+              <div class="mobile-resource-group-title" id="mobileLibraryResourceTitle"><span class="nav-tool-icon s18-preview-nav-icon" aria-hidden="true">资</span><span>资料库</span></div>
+              <a class="mobile-resource-subitem" href="/tools/s16-5-preview"><strong>S16.5英雄联盟传奇·海克斯宝典</strong><span>115 名弈子与技能资料</span></a>
+              <a class="mobile-resource-subitem" href="/tools/s18-preview"><strong>S18版本前瞻</strong><span>弈子、羁绊与法杖资料</span></a>
+            </section>
             <section class="mobile-resource-group" aria-labelledby="mobileS8ResourceTitle">
               <div class="mobile-resource-group-title" id="mobileS8ResourceTitle">
                 <img class="nav-tool-icon special-mechanics-nav-icon" src="{{ url_for('static', filename='special-mechanics/s8-icon.png') }}" alt="" aria-hidden="true" />
@@ -111,6 +109,14 @@
               <a class="mobile-resource-subitem" href="/tools/special-mechanics"><strong>特殊机制</strong><span>战力形态与经济形态</span></a>
               <a class="mobile-resource-subitem" href="/tools/artifact-guide"><strong>神器搭配指南</strong><span>英雄与神器的实战搭配</span></a>
               <a class="mobile-resource-subitem" href="/tools/returning-equipment"><strong>回归装备</strong><span>12 件返场装备说明</span></a>
+            </section>
+            <section class="mobile-resource-group" aria-labelledby="mobileToolsResourceTitle">
+              <div class="mobile-resource-group-title" id="mobileToolsResourceTitle"><span>工具</span></div>
+{% if simulator_enabled %}<a class="mobile-resource-subitem" href="/tools/lineup-simulator"><strong>阵容模拟器</strong><span>搭配弈子、装备与羁绊</span></a>{% endif %}
+            </section>
+            <section class="mobile-resource-group" aria-labelledby="mobileSiteResourceTitle">
+              <div class="mobile-resource-group-title" id="mobileSiteResourceTitle"><span>站点</span></div>
+              <a class="mobile-resource-subitem" href="/patch-notes"><strong>更新公告</strong><span>查看站点最近更新</span></a>
             </section>
           </nav>
         </div>

@@ -1,0 +1,41 @@
+.s16-preview-page {
+  --s18-cost-7: rgb(205, 82, 61);
+}
+
+.s16-preview-page .champion-card {
+  position: relative;
+}
+
+.s16-new-badge {
+  position: absolute;
+  z-index: 3;
+  top: 11px;
+  left: 12px;
+  border: 1px solid rgba(255, 248, 218, 0.75);
+  border-radius: 6px;
+  background: #d86135;
+  color: #fffaf2;
+  padding: 3px 7px;
+  font-size: 11px;
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: 0;
+  text-shadow: none;
+}
+
+.s16-preview-page .champion-art.has-new .champion-name {
+  top: 37px;
+}
+
+@media (max-width: 640px) {
+  .s16-new-badge {
+    top: 7px;
+    left: 8px;
+    padding: 3px 6px;
+    font-size: 10px;
+  }
+
+  .s16-preview-page .champion-art.has-new .champion-name {
+    top: 31px;
+  }
+}

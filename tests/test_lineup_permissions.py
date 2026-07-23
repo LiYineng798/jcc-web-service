@@ -82,10 +82,10 @@ def test_lineup_seasons_endpoint_exposes_only_public_choices(client):
     payload = client.get('/api/lineup-seasons').get_json()
 
     assert payload['default_season_id'] == 's17-star-god'
-    assert [season['id'] for season in payload['seasons']] == ['s17-star-god', 's16-legends', 'lucky-lantern', 's8-monsters-attack']
+    assert [season['id'] for season in payload['seasons']] == ['s17-star-god', 's16-5-legends', 's16-legends', 'lucky-lantern', 's8-monsters-attack']
     assert payload['seasons'][0]['name'] == 'S17 · 星神'
-    assert payload['seasons'][1]['name'] == 'S16 · 英雄联盟传奇'
-    assert payload['seasons'][2]['name'] == '天选福星'
+    assert payload['seasons'][1]['name'] == 'S16.5 · 英雄联盟传奇'
+    assert payload['seasons'][2]['name'] == 'S16 · 英雄联盟传奇'
     assert all(season['status'] in {'active'} for season in payload['seasons'])
 
 
@@ -99,9 +99,9 @@ def test_lineup_seasons_use_live_comp_visibility_and_first_visible_default(clien
     payload = client.get('/api/lineup-seasons').get_json()
 
     assert payload['default_season_id'] == 's17-star-god'
-    assert [season['id'] for season in payload['seasons']] == ['s17-star-god', 's16-legends']
+    assert [season['id'] for season in payload['seasons']] == ['s17-star-god', 's16-5-legends', 's16-legends']
     assert payload['seasons'][0]['name'] == 'S17 · 星神'
-    assert payload['seasons'][1]['status'] == 'archived'
+    assert payload['seasons'][2]['status'] == 'archived'
 
 
 def test_lineup_seasons_default_uses_first_visible_ordered_season(client):
@@ -113,7 +113,7 @@ def test_lineup_seasons_default_uses_first_visible_ordered_season(client):
 
     payload = client.get('/api/lineup-seasons').get_json()
 
-    assert [season['id'] for season in payload['seasons']] == ['s8-monsters-attack', 's17-star-god', 's16-legends', 'lucky-lantern']
+    assert [season['id'] for season in payload['seasons']] == ['s8-monsters-attack', 's16-5-legends', 's17-star-god', 's16-legends', 'lucky-lantern']
     assert payload['default_season_id'] == 's8-monsters-attack'
 
 
@@ -126,8 +126,8 @@ def test_lineup_seasons_default_falls_back_when_lineup_default_is_disabled(clien
 
     payload = client.get('/api/lineup-seasons').get_json()
 
-    assert payload['default_season_id'] == 's16-legends'
-    assert [season['id'] for season in payload['seasons']] == ['s16-legends']
+    assert payload['default_season_id'] == 's16-5-legends'
+    assert [season['id'] for season in payload['seasons']] == ['s16-5-legends', 's16-legends']
 
 
 def test_anonymous_can_list_search_and_copy_but_cannot_create_update_delete(client):

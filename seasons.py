@@ -5,6 +5,8 @@ DEFAULT_SEASON_ID = 's17-star-god'
 SEASON_ALIASES = {
     'default': DEFAULT_SEASON_ID,
     's16-archive': 's16-legends',
+    's16.5': 's16-5-legends',
+    's16-5': 's16-5-legends',
 }
 
 SEASON_CATALOG = (
@@ -17,10 +19,18 @@ SEASON_CATALOG = (
         'data_file': 's17-star-god.json',
     },
     {
+        'id': 's16-5-legends',
+        'name': 'S16.5 · 英雄联盟传奇',
+        'status': 'active',
+        'order': 2,
+        'description': 'S16.5赛季',
+        'data_file': 's16-5-legends.json',
+    },
+    {
         'id': 's16-legends',
         'name': 'S16 · 英雄联盟传奇',
         'status': 'active',
-        'order': 2,
+        'order': 3,
         'description': '经典赛季',
         'data_file': 's16-legends.json',
     },
@@ -28,7 +38,7 @@ SEASON_CATALOG = (
         'id': 'lucky-lantern',
         'name': '天选福星',
         'status': 'active',
-        'order': 3,
+        'order': 4,
         'description': '返场赛季',
         'data_file': 'lucky-lantern.json',
     },
@@ -36,7 +46,7 @@ SEASON_CATALOG = (
         'id': 's8-monsters-attack',
         'name': 'S8·怪兽入侵',
         'status': 'active',
-        'order': 4,
+        'order': 5,
         'description': '返场赛季',
         'data_file': 's8-monsters-attack.json',
     },

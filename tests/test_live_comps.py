@@ -90,9 +90,19 @@ def test_live_comps_seasons_falls_back_to_default_manifest(client):
     data = client.get('/api/live-comps/seasons').get_json()
 
     assert data['default_season_id'] == 's17-star-god'
-    assert [season['id'] for season in data['seasons']] == ['s17-star-god', 's16-legends', 'lucky-lantern', 's8-monsters-attack']
+    assert [season['id'] for season in data['seasons']] == ['s17-star-god', 's16-5-legends', 's16-legends', 'lucky-lantern', 's8-monsters-attack']
     assert data['seasons'][0]['id'] == 's17-star-god'
     assert data['seasons'][0]['status'] == 'active'
+
+
+def test_s16_5_live_comps_season_is_public_and_alias_is_supported(client):
+    data = client.get('/api/live-comps/seasons').get_json()
+    season = next(item for item in data['seasons'] if item['id'] == 's16-5-legends')
+    assert season['name'] == 'S16.5 · 英雄联盟传奇'
+    assert season['status'] == 'active'
+
+    summary = client.get('/api/live-comps/summary?season=s16.5').get_json()
+    assert summary['season']['id'] == 's16-5-legends'
 
 
 def test_live_comps_seasons_hides_private_entries_from_public(client):
@@ -108,7 +118,7 @@ def test_live_comps_seasons_hides_private_entries_from_public(client):
 
     data = client.get('/api/live-comps/seasons').get_json()
 
-    assert [season['id'] for season in data['seasons']] == ['s17-star-god', 's16-legends', 'lucky-lantern', 's8-monsters-attack']
+    assert [season['id'] for season in data['seasons']] == ['s17-star-god', 's16-5-legends', 's16-legends', 'lucky-lantern', 's8-monsters-attack']
 
 
 def test_live_comps_seasons_falls_back_when_default_is_private(client):
@@ -124,8 +134,8 @@ def test_live_comps_seasons_falls_back_when_default_is_private(client):
 
     data = client.get('/api/live-comps/seasons').get_json()
 
-    assert data['default_season_id'] == 's16-legends'
-    assert [season['id'] for season in data['seasons']] == ['s16-legends', 's8-monsters-attack']
+    assert data['default_season_id'] == 's16-5-legends'
+    assert [season['id'] for season in data['seasons']] == ['s16-5-legends', 's16-legends', 's8-monsters-attack']
 
 
 def test_live_comps_summary_returns_empty_for_public_season_without_payload(client):

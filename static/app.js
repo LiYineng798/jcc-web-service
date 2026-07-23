@@ -873,11 +873,6 @@ function renderLiveCompsSummaryHeader() {
   meta.textContent = state.liveCompsSummary?.updated_at
     ? `共 ${state.total} 套 · 最近更新：${state.liveCompsSummary.updated_at}`
     : '最近更新：暂无数据';
-  const source = document.createElement('span');
-  source.className = 'live-comps-summary-source';
-  source.textContent = ' 由 DataTFT 支持';
-  meta.append(source);
-
   header.append(title, meta);
   return header;
 }

@@ -28,7 +28,7 @@ def app():
         if directory.exists():
             shutil.rmtree(directory)
     live_comps_manifest_path.write_text(
-        '{"default_season_id":"s17-star-god","seasons":[{"id":"s17-star-god","name":"S17 · 星神","status":"active","order":1,"description":"当前赛季","data_file":"s17-star-god.json"},{"id":"s16-legends","name":"S16 · 英雄联盟传奇","status":"active","order":2,"description":"经典赛季","data_file":"s16-legends.json"},{"id":"lucky-lantern","name":"天选福星","status":"active","order":3,"description":"返场赛季","data_file":"lucky-lantern.json"},{"id":"s8-monsters-attack","name":"S8·怪兽入侵","status":"active","order":4,"description":"返场赛季","data_file":"s8-monsters-attack.json"}]}',
+        '{"default_season_id":"s17-star-god","seasons":[{"id":"s17-star-god","name":"S17 · 星神","status":"active","order":1,"description":"当前赛季","data_file":"s17-star-god.json"},{"id":"s16-5-legends","name":"S16.5 · 英雄联盟传奇","status":"active","order":2,"description":"S16.5赛季","data_file":"s16-5-legends.json"},{"id":"s16-legends","name":"S16 · 英雄联盟传奇","status":"active","order":3,"description":"经典赛季","data_file":"s16-legends.json"},{"id":"lucky-lantern","name":"天选福星","status":"active","order":4,"description":"返场赛季","data_file":"lucky-lantern.json"},{"id":"s8-monsters-attack","name":"S8·怪兽入侵","status":"active","order":5,"description":"返场赛季","data_file":"s8-monsters-attack.json"}]}',
         encoding='utf-8',
     )
     app = create_app({

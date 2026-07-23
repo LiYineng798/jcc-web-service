@@ -244,7 +244,7 @@ def test_admin_live_comps_season_order_controls_public_and_lineup_season_order(c
     )
 
     assert updated.status_code == 200
-    expected_order = ['s8-monsters-attack', 's17-star-god', 's16-legends', 'lucky-lantern']
+    expected_order = ['s8-monsters-attack', 's17-star-god', 's16-5-legends', 's16-legends', 'lucky-lantern']
     assert [season['id'] for season in updated.get_json()['seasons']] == expected_order
     assert [season['id'] for season in client.get('/api/live-comps/seasons').get_json()['seasons']] == expected_order
     lineup_seasons = client.get('/api/lineup-seasons').get_json()

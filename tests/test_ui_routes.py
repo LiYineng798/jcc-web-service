@@ -939,7 +939,7 @@ def test_app_js_contains_live_comps_mode_and_copy_only_actions():
     assert 'renderLiveComps' in js
     assert "sort: 'live'" in js
     assert "view: 'live-comps'" in js
-    assert '由 DataTFT 支持' in js
+    assert '由 DataTFT 支持' not in js
     assert '暂无阵容码' in js
     assert 'item.jccCode' in js
     assert "button('暂无阵容码'" in js
@@ -950,7 +950,7 @@ def test_styles_include_live_comps_sections_and_cards():
     with open('static/styles.css', 'r', encoding='utf-8') as file:
         css = file.read()
 
-    assert '.live-comps-summary-source' in css
+    assert '.live-comps-summary-source' not in css
 
     assert '.live-comps-shell' in css
     assert '.live-comps-grid' in css
@@ -1032,9 +1032,12 @@ def test_home_mobile_resource_dialog_groups_content_entries(client):
     assert 'aria-controls="mobileResourceDialog"' in index_html
     assert '<dialog class="mobile-resource-dialog" id="mobileResourceDialog"' in index_html
     assert 'id="mobileS8ResourceTitle"' in index_html
-    assert 'class="mobile-resource-item" href="/tools/lineup-simulator"' in index_html
-    assert 'class="mobile-resource-item mobile-resource-item-featured" href="/tools/s18-preview"' in index_html
-    assert 'class="mobile-resource-item" href="/patch-notes"' in index_html
+    assert 'id="mobileLibraryResourceTitle"' in index_html
+    assert 'class="mobile-resource-subitem" href="/tools/s16-5-preview"' in index_html
+    assert 'class="mobile-resource-subitem" href="/tools/s18-preview"' in index_html
+    assert 'id="mobileToolsResourceTitle"' in index_html
+    assert 'class="mobile-resource-subitem" href="/tools/lineup-simulator"' in index_html
+    assert 'class="mobile-resource-subitem" href="/patch-notes"' in index_html
     assert 'class="mobile-resource-subitem" href="/tools/special-mechanics"' in index_html
     assert 'class="mobile-resource-subitem" href="/tools/artifact-guide"' in index_html
     assert 'class="mobile-resource-subitem" href="/tools/returning-equipment"' in index_html

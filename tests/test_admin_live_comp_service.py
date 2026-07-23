@@ -114,7 +114,8 @@ def test_update_admin_live_comps_season_moves_target_and_compacts_order(client):
     assert [season['id'] for season in payload['seasons']] == [
         's8-monsters-attack',
         's17-star-god',
+        's16-5-legends',
         's16-legends',
         'lucky-lantern',
     ]
-    assert [season['order'] for season in payload['seasons']] == [1, 2, 3, 4]
+    assert [season['order'] for season in payload['seasons']] == [1, 2, 3, 4, 5]

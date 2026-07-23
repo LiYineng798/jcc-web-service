@@ -36,6 +36,7 @@ def _sitemap_entries():
         {'loc': absolute_url('/tools/special-mechanics'), 'lastmod': None},
         {'loc': absolute_url('/tools/artifact-guide'), 'lastmod': None},
         {'loc': absolute_url('/tools/returning-equipment'), 'lastmod': None},
+        {'loc': absolute_url('/tools/s16-5-preview'), 'lastmod': None},
         {'loc': absolute_url('/tools/s18-preview'), 'lastmod': None},
     ]
     entries.extend({
@@ -235,6 +236,18 @@ def register_page_routes(app):
                 title='S18版本前瞻 - 弈子、羁绊与法杖',
                 description='查看金铲铲S18版本弈子、羁绊、技能与法杖资料。',
                 path='/tools/s18-preview',
+            ),
+        )
+
+    @app.get('/tools/s16-5-preview')
+    def s16_5_preview_page():
+        return tracked_template_response(
+            's16_5_preview.html',
+            's16_5_preview',
+            seo=make_seo(
+                title='S16.5英雄联盟传奇·海克斯宝典 - 金铲铲阵容库',
+                description='查看金铲铲S16.5英雄联盟传奇赛季的弈子、羁绊、费用与技能资料。',
+                path='/tools/s16-5-preview',
             ),
         )
 

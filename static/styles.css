@@ -1084,11 +1084,6 @@ textarea:focus {
   color: var(--muted);
 }
 
-.live-comps-summary-source {
-  font-size: 12px;
-  color: color-mix(in srgb, var(--muted) 88%, white 12%);
-}
-
 .live-comps-season-switch {
   display: grid;
   gap: 10px;
