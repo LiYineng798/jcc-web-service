@@ -76,24 +76,37 @@ def build_admin_stats_payload(db):
 def build_admin_overview_payload(db):
     today, yesterday = _today_and_yesterday()
     today_visitor_mix = daily_new_returning_visitors(today)
-    total_users = db.execute("SELECT COUNT(*) AS c FROM users WHERE role != 'admin'").fetchone()['c']
-    today_users = db.execute(
-        "SELECT COUNT(*) AS c FROM users WHERE role != 'admin' AND created_at LIKE ?",
-        (f'{today}%',),
-    ).fetchone()['c']
-    today_logins = _today_login_count(db, today)
-    today_lineup_copy_count = _today_lineup_copy_count(db, today)
-    today_live_comp_copy_count = _today_live_comp_copy_count(db, today)
-    pending_reports_count = db.execute("SELECT COUNT(*) AS c FROM reports WHERE status = 'pending'").fetchone()['c']
-    hidden_lineups_count = db.execute("SELECT COUNT(*) AS c FROM lineups WHERE status = 'hidden'").fetchone()['c']
-    recent_audit_count = db.execute(
-        "SELECT COUNT(*) AS c FROM audit_logs WHERE created_at LIKE ?",
-        (f'{today}%',),
-    ).fetchone()['c']
+    counts = db.execute(
+        '''
+        SELECT
+          (SELECT COUNT(*) FROM users WHERE role != 'admin') AS total_users,
+          (SELECT COUNT(*) FROM users WHERE role != 'admin' AND created_at LIKE ?) AS today_users,
+          (SELECT COUNT(DISTINCT le.user_id)
+             FROM login_events le JOIN users u ON u.id = le.user_id
+            WHERE le.success = 1 AND le.created_at LIKE ? AND u.role != 'admin') AS today_logins,
+          (SELECT COUNT(*) FROM copy_events WHERE counted = 1 AND created_at LIKE ?) AS today_lineup_copy_count,
+          (SELECT COALESCE(copy_count, 0) FROM live_comp_global_daily_stats WHERE copy_date = ?) AS today_live_comp_copy_count,
+          (SELECT COUNT(*) FROM reports WHERE status = 'pending') AS pending_reports_count,
+          (SELECT COUNT(*) FROM lineups WHERE status = 'hidden') AS hidden_lineups_count,
+          (SELECT COUNT(*) FROM audit_logs WHERE created_at LIKE ?) AS recent_audit_count
+        ''',
+        (f'{today}%', f'{today}%', f'{today}%', today, f'{today}%'),
+    ).fetchone()
+    counts = dict(counts)
+    total_users = int(counts['total_users'] or 0)
+    today_users = int(counts['today_users'] or 0)
+    today_logins = int(counts['today_logins'] or 0)
+    today_lineup_copy_count = int(counts['today_lineup_copy_count'] or 0)
+    today_live_comp_copy_count = int(counts['today_live_comp_copy_count'] or 0)
+    pending_reports_count = int(counts['pending_reports_count'] or 0)
+    hidden_lineups_count = int(counts['hidden_lineups_count'] or 0)
+    recent_audit_count = int(counts['recent_audit_count'] or 0)
+    traffic_7d = last_7_days_uv()
+    traffic_by_date = {item['date']: item['uv'] for item in traffic_7d}
     return {
         'stats': {
-            'today_uv': daily_uv_count(today),
-            'yesterday_uv': daily_uv_count(yesterday),
+            'today_uv': traffic_by_date.get(today, 0),
+            'yesterday_uv': traffic_by_date.get(yesterday, 0),
             'today_new_visitors': today_visitor_mix['new_visitors'],
             'today_returning_visitors': today_visitor_mix['returning_visitors'],
             'today_users': today_users,
@@ -104,7 +117,7 @@ def build_admin_overview_payload(db):
             'total_users': total_users,
             'pending_reports_count': pending_reports_count,
         },
-        'traffic_7d': last_7_days_uv(),
+        'traffic_7d': traffic_7d,
         'todos': {
             'pending_reports_count': pending_reports_count,
             'hidden_lineups_count': hidden_lineups_count,

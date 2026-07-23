@@ -1,4 +1,13 @@
 (async function () {
+  const {
+    button,
+    debounce,
+    el,
+    escapeAttribute,
+    escapeHtml,
+    formatPercent,
+    todayInputValue,
+  } = window.JccAdminCore;
   const root = document.querySelector('#adminApp');
   const dialogRoot = document.querySelector('#adminDialogRoot');
   const elements = {
@@ -88,6 +97,15 @@
 
 - [nerf] 名称：旧值 => 新值`;
 
+  const renderOverviewDashboardFromModule = window.JccAdminOverview.createOverviewRenderer({
+    activateTab,
+    button,
+    empty,
+    getOverview: () => state.overview,
+    trafficMetric,
+    workbenchPanel,
+  });
+
   initTheme();
   elements.themeToggle?.addEventListener('click', () => {
     setTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark');
@@ -107,47 +125,14 @@
 
   await boot();
 
-  function el(tag, className = '', text = '') {
-    const node = document.createElement(tag);
-    if (className) node.className = className;
-    if (text) node.textContent = text;
-    return node;
-  }
-
-  function escapeHtml(value) {
-    return String(value)
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;');
-  }
-
-  function escapeAttribute(value) {
-    return escapeHtml(value)
-      .replace(/"/g, '&quot;')
-      .replace(/'/g, '&#39;');
-  }
-
-  function button(label, handler, className = 'small-button', disabled = false) {
-    const node = el('button', className, label);
-    node.type = 'button';
-    node.disabled = disabled;
-    node.addEventListener('click', async (event) => {
-      try {
-        await handler(event, node);
-      } catch (error) {
-        if (error?.name === 'AbortError') return;
-        alert(error.message || '操作失败，请刷新后重试');
-      }
-    });
-    return node;
-  }
-
   async function boot() {
     const me = await fetch('/api/me').then((response) => response.json());
     state.me = me.user;
     state.csrfToken = me.csrf_token;
-    await loadOverview({ force: true });
-    await loadAdminLiveCompsSeasons({ force: true });
+    await Promise.all([
+      loadOverview({ force: true }),
+      loadAdminLiveCompsSeasons({ force: true }),
+    ]);
     render();
   }
 
@@ -192,7 +177,7 @@
     if (tabKey === 'analytics') await loadGrowth();
     if (tabKey === 'audit') await loadAudit();
     if (tabKey === 'guestbook') await loadGuestbook();
-    if (tabKey === 'settings') { await loadSettings(); await loadNotice(); }
+    if (tabKey === 'settings') await Promise.all([loadSettings(), loadNotice()]);
     render();
   }
 
@@ -322,7 +307,7 @@
     root.classList.remove('admin-app-loading');
     root.replaceChildren();
     if (state.notice) root.append(el('div', 'message admin-inline-message', state.notice));
-    if (state.activeTab === 'overview') root.append(renderOverviewDashboard());
+    if (state.activeTab === 'overview') root.append(renderOverviewDashboardFromModule());
     if (state.activeTab === 'reports') root.append(renderReportsWorkspace());
     if (state.activeTab === 'lineups') root.append(renderLineupsWorkspace());
     if (state.activeTab === 'live-comps') root.append(renderLiveCompsWorkspace());
@@ -361,244 +346,6 @@
 
   function refreshIcons() {
     window.lucide?.createIcons({ attrs: { 'aria-hidden': 'true' } });
-  }
-
-  function renderOverviewDashboard() {
-    const wrap = el('div', 'admin-dashboard');
-    wrap.append(renderOverviewStats());
-
-    const grid = el('div', 'admin-dashboard-grid');
-    grid.append(renderTrafficOverview(), renderTodoPanel(), renderQuickLinks());
-    wrap.append(grid);
-    return wrap;
-  }
-
-  function renderOverviewStats() {
-    const stats = state.overview?.stats || {};
-    const cards = el('div', 'admin-stat-grid');
-    [
-      ['今日全站 UV', stats.today_uv || 0, '全站页面按自然日去重'],
-      ['今日总复制', stats.today_total_copy_count || 0, `普通阵容 ${stats.today_lineup_copy_count || 0} · 实时阵容 ${stats.today_live_comp_copy_count || 0}`],
-      ['今日注册', stats.today_users || 0, '新增用户数'],
-      ['今日登录', stats.today_logins || 0, '去重登录用户'],
-      ['待处理举报', stats.pending_reports_count || 0, '优先处理'],
-      ['总用户', stats.total_users || 0, '不含管理员'],
-    ].forEach(([label, value, caption]) => {
-      const card = el('article', 'admin-stat-card');
-      card.append(el('span', 'stat-label', label), el('strong', '', String(value)), el('small', '', caption));
-      cards.append(card);
-    });
-    return cards;
-  }
-
-  function renderTrafficOverview() {
-    const panel = workbenchPanel('7 日访问趋势', '只展示轻量趋势，不在首页加载完整增长漏斗');
-    const body = panel.querySelector('.admin-workspace-body');
-    const stats = state.overview?.stats || {};
-    const trend = state.overview?.traffic_7d || [];
-    const totalUv = trend.reduce((sum, item) => sum + Number(item.uv || 0), 0);
-
-    const overview = el('div', 'traffic-overview');
-    overview.append(
-      trafficMetric('今日全站 UV', stats.today_uv || 0, buildDeltaText(stats.today_uv || 0, stats.yesterday_uv || 0)),
-      trafficMetric('昨日全站 UV', stats.yesterday_uv || 0, '上一自然日全站去重'),
-      trafficMetric('7 日累计全站 UV', totalUv, '最近 7 天全站访问人数'),
-      trafficMetric('今日新访客', stats.today_new_visitors || 0, '首次访问日期为今天'),
-      trafficMetric('今日老访客', stats.today_returning_visitors || 0, '今天之前已访问过'),
-    );
-
-    body.append(overview, renderTrafficLineChart(trend));
-    return panel;
-  }
-
-  function renderTrafficLineChart(trend) {
-    const wrap = el('div', 'traffic-line-chart');
-    if (!trend.length) {
-      wrap.append(empty('暂无访问数据'));
-      return wrap;
-    }
-
-    const values = trend.map((item) => Number(item.uv || 0));
-    const maxUv = Math.max(1, ...values);
-    const minUv = Math.min(...values);
-    const width = 640;
-    const height = 220;
-    const padding = { top: 24, right: 24, bottom: 42, left: 44 };
-    const plotWidth = width - padding.left - padding.right;
-    const plotHeight = height - padding.top - padding.bottom;
-    const pointX = (index) => padding.left + (trend.length === 1 ? plotWidth / 2 : (plotWidth / (trend.length - 1)) * index);
-    const pointY = (uv) => padding.top + plotHeight - (uv / maxUv) * plotHeight;
-    const points = trend.map((item, index) => ({
-      date: item.date,
-      label: formatDay(item.date),
-      uv: Number(item.uv || 0),
-      x: pointX(index),
-      y: pointY(Number(item.uv || 0)),
-    }));
-    const pathData = points.map((point, index) => `${index ? 'L' : 'M'} ${point.x.toFixed(1)} ${point.y.toFixed(1)}`).join(' ');
-
-    const summary = el('div', 'traffic-line-summary');
-    const latest = points[points.length - 1];
-    const previous = points[points.length - 2] || latest;
-    const delta = latest.uv - previous.uv;
-    summary.append(
-      el('strong', '', '每日 UV 折线'),
-      el('span', '', `最新 ${latest.uv} UV · ${delta >= 0 ? '+' : ''}${delta} 较前日`),
-    );
-
-    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-    svg.setAttribute('viewBox', `0 0 ${width} ${height}`);
-    svg.setAttribute('role', 'img');
-    svg.setAttribute('aria-label', '最近 7 天每日 UV 折线图');
-
-    const gridGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-    gridGroup.setAttribute('class', 'traffic-line-grid');
-    [0, 0.5, 1].forEach((ratio) => {
-      const y = padding.top + plotHeight * ratio;
-      const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-      line.setAttribute('x1', String(padding.left));
-      line.setAttribute('x2', String(width - padding.right));
-      line.setAttribute('y1', y.toFixed(1));
-      line.setAttribute('y2', y.toFixed(1));
-      gridGroup.append(line);
-    });
-
-    const area = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-    area.setAttribute('class', 'traffic-line-area');
-    area.setAttribute('d', `${pathData} L ${points[points.length - 1].x.toFixed(1)} ${height - padding.bottom} L ${points[0].x.toFixed(1)} ${height - padding.bottom} Z`);
-
-    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-    path.setAttribute('class', 'traffic-line-path');
-    path.setAttribute('d', pathData);
-
-    const pointGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-    pointGroup.setAttribute('role', 'list');
-    points.forEach((point, index) => {
-      const pointWrap = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-      pointWrap.setAttribute('class', 'traffic-line-point-wrap');
-      pointWrap.setAttribute('role', 'listitem');
-      pointWrap.setAttribute('tabindex', '0');
-      pointWrap.setAttribute('aria-label', `${point.date}，${point.uv} UV`);
-
-      const hitStart = index === 0 ? padding.left : (points[index - 1].x + point.x) / 2;
-      const hitEnd = index === points.length - 1 ? width - padding.right : (point.x + points[index + 1].x) / 2;
-      const hitArea = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-      hitArea.setAttribute('class', 'traffic-line-hit-area');
-      hitArea.setAttribute('x', hitStart.toFixed(1));
-      hitArea.setAttribute('y', String(padding.top));
-      hitArea.setAttribute('width', (hitEnd - hitStart).toFixed(1));
-      hitArea.setAttribute('height', String(plotHeight));
-
-      const guide = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-      guide.setAttribute('class', 'traffic-line-guide');
-      guide.setAttribute('x1', point.x.toFixed(1));
-      guide.setAttribute('x2', point.x.toFixed(1));
-      guide.setAttribute('y1', String(padding.top));
-      guide.setAttribute('y2', String(height - padding.bottom));
-
-      const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-      circle.setAttribute('class', 'traffic-line-point');
-      circle.setAttribute('cx', point.x.toFixed(1));
-      circle.setAttribute('cy', point.y.toFixed(1));
-      circle.setAttribute('r', point.uv === maxUv ? '5' : '4');
-      const title = document.createElementNS('http://www.w3.org/2000/svg', 'title');
-      title.textContent = `${point.label}：${point.uv} UV`;
-      circle.append(title);
-
-      const tooltipWidth = 104;
-      const tooltipHeight = 46;
-      const tooltipX = Math.max(6, Math.min(width - tooltipWidth - 6, point.x - tooltipWidth / 2));
-      const tooltipY = Math.max(6, point.y - tooltipHeight - 14);
-      const tooltip = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-      tooltip.setAttribute('class', 'traffic-line-tooltip');
-      tooltip.setAttribute('aria-hidden', 'true');
-      tooltip.setAttribute('transform', `translate(${tooltipX.toFixed(1)} ${tooltipY.toFixed(1)})`);
-
-      const tooltipBox = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-      tooltipBox.setAttribute('width', String(tooltipWidth));
-      tooltipBox.setAttribute('height', String(tooltipHeight));
-      tooltipBox.setAttribute('rx', '10');
-
-      const tooltipDate = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-      tooltipDate.setAttribute('class', 'traffic-line-tooltip-date');
-      tooltipDate.setAttribute('x', '12');
-      tooltipDate.setAttribute('y', '18');
-      tooltipDate.textContent = point.date;
-
-      const tooltipValue = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-      tooltipValue.setAttribute('class', 'traffic-line-tooltip-value');
-      tooltipValue.setAttribute('x', '12');
-      tooltipValue.setAttribute('y', '35');
-      tooltipValue.textContent = `${point.uv} UV`;
-
-      tooltip.append(tooltipBox, tooltipDate, tooltipValue);
-      pointWrap.append(hitArea, guide, circle, tooltip);
-      pointGroup.append(pointWrap);
-    });
-
-    const labelGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-    labelGroup.setAttribute('class', 'traffic-line-labels');
-    points.forEach((point) => {
-      const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-      text.setAttribute('x', point.x.toFixed(1));
-      text.setAttribute('y', String(height - 14));
-      text.setAttribute('text-anchor', 'middle');
-      text.textContent = point.label;
-      labelGroup.append(text);
-    });
-    [maxUv, minUv].forEach((uv, index) => {
-      const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-      text.setAttribute('x', '8');
-      text.setAttribute('y', (index === 0 ? padding.top + 4 : height - padding.bottom).toFixed(1));
-      text.textContent = String(uv);
-      labelGroup.append(text);
-    });
-
-    svg.append(gridGroup, area, path, pointGroup, labelGroup);
-    wrap.append(summary, svg);
-    return wrap;
-  }
-
-  function renderTodoPanel() {
-    const panel = workbenchPanel('待办事项', '优先完成有风险和有反馈压力的任务');
-    const body = panel.querySelector('.admin-workspace-body');
-    const todos = state.overview?.todos || {};
-    const list = el('div', 'admin-list compact');
-    [
-      ['待处理举报', `${todos.pending_reports_count || 0} 条`, '需要人工判断与处理'],
-      ['已隐藏阵容', `${todos.hidden_lineups_count || 0} 条`, '可去阵容管理复核'],
-      ['今日后台操作', `${todos.recent_audit_count || 0} 次`, '建议关注异常频繁操作'],
-    ].forEach(([label, value, caption]) => {
-      const card = el('article', 'admin-row-card');
-      const info = el('div');
-      info.append(el('strong', '', label), el('p', 'admin-meta', caption));
-      card.append(info, el('span', 'admin-meta', value));
-      list.append(card);
-    });
-    body.append(list);
-    return panel;
-  }
-
-  function renderQuickLinks() {
-    const panel = workbenchPanel('快捷入口', '按任务进入对应工作台');
-    const body = panel.querySelector('.admin-workspace-body');
-    const links = el('div', 'admin-quick-links');
-    [
-      ['去处理举报', '优先清理待处理问题', 'reports'],
-      ['去查找阵容', '按阵容名、阵容码、作者查找', 'lineups'],
-      ['去管理用户', '查找用户、改密、禁用', 'users'],
-      ['查看增长分析', '查看转化漏斗与日期数据', 'analytics'],
-      ['查看审计日志', '查看最近后台操作记录', 'audit'],
-    ].forEach(([title, desc, tabKey]) => {
-      const card = button(title, async () => {
-        await activateTab(tabKey);
-      }, 'admin-quick-link');
-      const copy = el('span', 'admin-meta', desc);
-      card.append(copy);
-      links.append(card);
-    });
-    body.append(links);
-    return panel;
   }
 
   function renderReportsWorkspace() {
@@ -2098,30 +1845,6 @@
     }, 2600);
   }
 
-  function buildDeltaText(today, yesterday) {
-    const delta = Number(today || 0) - Number(yesterday || 0);
-    if (delta === 0) return '与昨日持平';
-    return delta > 0 ? `较昨日 +${delta}` : `较昨日 ${delta}`;
-  }
-
-  function formatDay(value) {
-    const parts = String(value || '').split('-');
-    if (parts.length !== 3) return value || '-';
-    return `${parts[1]}-${parts[2]}`;
-  }
-
-  function formatPercent(value) {
-    return `${Number(value || 0).toFixed(2)}%`;
-  }
-
-  function todayInputValue() {
-    const now = new Date();
-    const year = now.getFullYear();
-    const month = String(now.getMonth() + 1).padStart(2, '0');
-    const day = String(now.getDate()).padStart(2, '0');
-    return `${year}-${month}-${day}`;
-  }
-
   function initTheme() {
     setTheme(localStorage.getItem('theme') || 'light');
   }
@@ -2133,13 +1856,6 @@
     if (!window.jccApplyThemeToggleState && elements.themeText) elements.themeText.textContent = theme === 'dark' ? '白天模式' : '夜间模式';
   }
 
-  function debounce(callback, delay) {
-    let timer;
-    return (...args) => {
-      clearTimeout(timer);
-      timer = setTimeout(() => callback(...args), delay);
-    };
-  }
 })().catch((error) => {
   const root = document.querySelector('#adminApp');
   if (root) root.textContent = error.message || '后台加载失败';

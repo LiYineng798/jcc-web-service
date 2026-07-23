@@ -126,3 +126,35 @@ def test_admin_stats_include_new_and_returning_visitors(client):
     assert 'yesterday_new_visitors' in data
     assert 'yesterday_returning_visitors' in data
 
+
+def test_last_7_days_uv_groups_rows_and_fills_missing_days(client):
+    from visits import last_7_days_uv
+
+    with client.application.app_context():
+        from db import get_db, now_text
+
+        db = get_db()
+        today = datetime.now().date()
+        dates = [
+            (today - timedelta(days=6)).strftime('%Y-%m-%d'),
+            (today - timedelta(days=4)).strftime('%Y-%m-%d'),
+            today.strftime('%Y-%m-%d'),
+        ]
+        for index, date_value in enumerate(dates):
+            db.execute(
+                '''
+                INSERT INTO visit_events
+                  (visit_date, visitor_key, visitor_kind, user_id, visitor_token, ip_address, page_key, created_at)
+                VALUES (?, ?, 'guest_token', NULL, ?, '127.0.0.1', 'home', ?)
+                ''',
+                (date_value, f'uv-{index}', f'token-{index}', now_text()),
+            )
+        db.commit()
+        result = last_7_days_uv()
+
+    assert [item['date'] for item in result] == [
+        (today - timedelta(days=offset)).strftime('%Y-%m-%d')
+        for offset in range(6, -1, -1)
+    ]
+    assert [item['uv'] for item in result] == [1, 0, 1, 0, 0, 0, 1]
+

@@ -120,10 +120,31 @@ def daily_new_returning_visitors(target_date):
     }
 
 
+def daily_uv_series(start_date, end_date):
+    rows = get_db().execute(
+        '''
+        SELECT ve.visit_date, COUNT(DISTINCT ve.visitor_key) AS uv
+        FROM visit_events ve
+        LEFT JOIN users u ON u.id = ve.user_id
+        WHERE ve.visit_date BETWEEN ? AND ?
+          AND (ve.user_id IS NULL OR COALESCE(u.role, 'user') != 'admin')
+        GROUP BY ve.visit_date
+        ORDER BY ve.visit_date
+        ''',
+        (start_date, end_date),
+    ).fetchall()
+    return {row['visit_date']: int(row['uv'] or 0) for row in rows}
+
+
 def last_7_days_uv():
     today = datetime.now().date()
-    values = []
-    for offset in range(6, -1, -1):
-        date_value = (today - timedelta(days=offset)).strftime('%Y-%m-%d')
-        values.append({'date': date_value, 'uv': daily_uv_count(date_value)})
-    return values
+    start_date = (today - timedelta(days=6)).strftime('%Y-%m-%d')
+    end_date = today.strftime('%Y-%m-%d')
+    series = daily_uv_series(start_date, end_date)
+    return [
+        {
+            'date': (today - timedelta(days=offset)).strftime('%Y-%m-%d'),
+            'uv': series.get((today - timedelta(days=offset)).strftime('%Y-%m-%d'), 0),
+        }
+        for offset in range(6, -1, -1)
+    ]

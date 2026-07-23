@@ -138,6 +138,9 @@ def test_pages_include_favicon_and_favicon_route_exists(client):
     assert 'id="adminMoreDialog"' in admin_html
     assert '/static/admin.css' in admin_html
     assert '/static/vendor/lucide/lucide.min.js' in admin_html
+    assert '/static/admin/core.js' in admin_html
+    assert '/static/admin/overview.js' in admin_html
+    assert admin_html.index('/static/admin/core.js') < admin_html.index('/static/admin/overview.js') < admin_html.index('/static/admin.js')
     assert 'class="hero"' not in admin_html
     assert 'id="adminTabBar"' not in admin_html
 
@@ -840,8 +843,25 @@ def test_admin_js_supports_daily_growth_filter_and_clear_labels():
     assert 'pending_reports_count' in js
 
 
-def test_admin_js_renders_today_total_copy_metric():
+def test_admin_boot_and_settings_load_independent_requests_in_parallel():
     with open('static/admin.js', 'r', encoding='utf-8') as file:
+        js = file.read()
+
+    assert "await Promise.all([\n      loadOverview({ force: true }),\n      loadAdminLiveCompsSeasons({ force: true }),\n    ])" in js
+    assert "if (tabKey === 'settings') await Promise.all([loadSettings(), loadNotice()]);" in js
+
+
+def test_admin_shared_helpers_live_in_core_module():
+    with open('static/admin/core.js', 'r', encoding='utf-8') as file:
+        js = file.read()
+
+    assert 'JccAdminCore' in js
+    assert 'function debounce(' in js
+    assert 'function escapeHtml(' in js
+
+
+def test_admin_js_renders_today_total_copy_metric():
+    with open('static/admin/overview.js', 'r', encoding='utf-8') as file:
         js = file.read()
 
     assert '今日总复制' in js
@@ -1566,21 +1586,24 @@ def test_lineup_simulator_remembers_loaded_progressive_images():
 
 
 def test_admin_dashboard_clarifies_uv_labels_and_new_returning_visitors():
-    with open('static/admin.js', 'r', encoding='utf-8') as file:
+    with open('static/admin/overview.js', 'r', encoding='utf-8') as file:
         js = file.read()
 
     assert '\u4eca\u65e5\u5168\u7ad9 UV' in js
     assert '\u6628\u65e5\u5168\u7ad9 UV' in js
     assert '7 \u65e5\u7d2f\u8ba1\u5168\u7ad9 UV' in js
-    assert '\u9996\u9875 UV' in js
     assert '\u4eca\u65e5\u65b0\u8bbf\u5ba2' in js
     assert '\u4eca\u65e5\u8001\u8bbf\u5ba2' in js
     assert '\u9996\u6b21\u8bbf\u95ee\u65e5\u671f\u4e3a\u4eca\u5929' in js
     assert '\u4eca\u5929\u4e4b\u524d\u5df2\u8bbf\u95ee\u8fc7' in js
 
+    with open('static/admin.js', 'r', encoding='utf-8') as file:
+        app_js = file.read()
+    assert '\u9996\u9875 UV' in app_js
+
 
 def test_admin_dashboard_renders_uv_trend_as_line_chart():
-    with open('static/admin.js', 'r', encoding='utf-8') as file:
+    with open('static/admin/overview.js', 'r', encoding='utf-8') as file:
         js = file.read()
     with open('static/styles.css', 'r', encoding='utf-8') as file:
         css = file.read()
