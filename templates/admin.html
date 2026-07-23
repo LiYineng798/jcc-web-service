@@ -4,50 +4,91 @@
 <html lang="zh-CN">
   <head>
 {{ seo_head(seo) }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin.css', v='20260723-admin-redesign-1') }}" />
   </head>
-  <body>
-    <main class="page-shell admin-shell">
-      <header class="hero">
-        <nav class="nav-bar" aria-label="后台工具">
-          <div class="brand-mark" aria-hidden="true">阵</div>
-          <div class="nav-actions">
-            <a class="ghost-link" href="/">返回前台</a>
-            <span class="auth-status nav-user" id="adminIdentity">后台账号</span>
-            {{ theme_toggle() }}
-          </div>
+  <body class="admin-page">
+    <div class="admin-layout">
+      <aside class="admin-sidebar" aria-label="后台主导航">
+        <a class="admin-brand" href="/admin" aria-label="金铲铲阵容站后台首页">
+          <span class="admin-brand-mark" aria-hidden="true">阵</span>
+          <span class="admin-brand-copy"><strong>阵容管理台</strong><small>JCC Admin</small></span>
+        </a>
+
+        <nav class="admin-sidebar-nav">
+          <section class="admin-nav-group" aria-labelledby="adminNavWorkbench">
+            <h2 id="adminNavWorkbench">工作台</h2>
+            <button class="admin-nav-item is-active" data-admin-tab="overview" type="button"><i data-lucide="layout-dashboard"></i><span>概览</span></button>
+            <button class="admin-nav-item" data-admin-tab="reports" type="button"><i data-lucide="shield-alert"></i><span>举报处理</span><span class="admin-nav-count" id="pendingReportCount">0</span></button>
+            <button class="admin-nav-item" data-admin-tab="lineups" type="button"><i data-lucide="swords"></i><span>阵容管理</span></button>
+            <button class="admin-nav-item" data-admin-tab="live-comps" type="button"><i data-lucide="radio"></i><span>实时阵容</span></button>
+          </section>
+          <section class="admin-nav-group" aria-labelledby="adminNavContent">
+            <h2 id="adminNavContent">内容与用户</h2>
+            <button class="admin-nav-item" data-admin-tab="patch-notes" type="button"><i data-lucide="notebook-tabs"></i><span>更新公告</span></button>
+            <button class="admin-nav-item" data-admin-tab="users" type="button"><i data-lucide="users"></i><span>用户管理</span></button>
+            <button class="admin-nav-item" data-admin-tab="guestbook" type="button"><i data-lucide="message-square-text"></i><span>留言管理</span></button>
+          </section>
+          <section class="admin-nav-group" aria-labelledby="adminNavSystem">
+            <h2 id="adminNavSystem">数据与系统</h2>
+            <button class="admin-nav-item" data-admin-tab="analytics" type="button"><i data-lucide="chart-no-axes-combined"></i><span>增长分析</span></button>
+            <button class="admin-nav-item" data-admin-tab="audit" type="button"><i data-lucide="scroll-text"></i><span>审计日志</span></button>
+            <button class="admin-nav-item" data-admin-tab="settings" type="button"><i data-lucide="settings-2"></i><span>系统设置</span></button>
+          </section>
         </nav>
-        <div class="hero-grid admin-hero-grid">
-          <section class="hero-copy">
-            <p class="eyebrow">Admin Console</p>
-            <h1>后台管理</h1>
-            <p class="hero-description">查看访问数据，处理用户举报，管理阵容与账号，并保留关键审计记录。</p>
-          </section>
-          <section class="stat-card admin-hero-card" aria-label="今日访问概览">
-            <span class="stat-label">今日重点</span>
-            <strong id="heroTodayUv">0</strong>
-            <span class="stat-caption">站点 UV</span>
-            <p class="admin-summary">按自然日去重，包含游客和登录用户。</p>
-          </section>
+
+        <div class="admin-sidebar-footer">
+          <span class="admin-system-state"><i data-lucide="circle-check"></i>服务运行正常</span>
+          <span class="admin-system-caption">管理操作将写入审计日志</span>
         </div>
-      </header>
-      <section class="panel admin-panel-shell">
-        <div class="admin-tab-bar" id="adminTabBar" role="tablist" aria-label="后台模块">
-          <button class="admin-tab is-active" data-admin-tab="overview" type="button">概览</button>
-          <button class="admin-tab" data-admin-tab="reports" type="button">举报</button>
-          <button class="admin-tab" data-admin-tab="lineups" type="button">阵容</button>
-          <button class="admin-tab" data-admin-tab="live-comps" type="button">实时阵容</button>
-          <button class="admin-tab" data-admin-tab="patch-notes" type="button">更新公告</button>
-          <button class="admin-tab" data-admin-tab="users" type="button">用户</button>
-          <button class="admin-tab" data-admin-tab="analytics" type="button">增长分析</button>
-          <button class="admin-tab" data-admin-tab="audit" type="button">审计日志</button>
-          <button class="admin-tab" data-admin-tab="guestbook" type="button">留言管理</button>
-          <button class="admin-tab" data-admin-tab="settings" type="button">设置</button>
-        </div>
-        <div id="adminApp">后台数据加载中...</div>
-      </section>
-    </main>
+      </aside>
+
+      <main class="admin-main">
+        <header class="admin-topbar">
+          <div class="admin-mobile-brand" aria-label="阵容管理台">
+            <span class="admin-brand-mark" aria-hidden="true">阵</span>
+            <span><strong>阵容管理台</strong><small>管理员工作台</small></span>
+          </div>
+          <div class="admin-page-heading">
+            <h1 id="adminPageTitle">运营概览</h1>
+            <p id="adminPageSubtitle">今日关键指标与待处理事项</p>
+          </div>
+          <div class="admin-top-actions">
+            <a class="admin-icon-link" href="/" title="返回前台" aria-label="返回前台"><i data-lucide="external-link"></i><span>返回前台</span></a>
+            {{ theme_toggle('admin-theme-toggle') }}
+            <span class="admin-identity" id="adminIdentity"><span class="admin-avatar" aria-hidden="true">管</span><span class="admin-identity-copy"><strong>后台账号</strong><small>管理员</small></span></span>
+          </div>
+        </header>
+
+        <section class="admin-content" aria-live="polite">
+          <div id="adminApp" class="admin-app-loading">后台数据加载中...</div>
+        </section>
+      </main>
+    </div>
+
+    <nav class="admin-mobile-nav" aria-label="手机端后台导航">
+      <button class="admin-mobile-nav-item is-active" data-admin-tab="overview" type="button"><i data-lucide="layout-dashboard"></i><span>概览</span></button>
+      <button class="admin-mobile-nav-item" data-admin-tab="reports" type="button"><i data-lucide="shield-alert"></i><span>举报</span></button>
+      <button class="admin-mobile-nav-item" data-admin-tab="lineups" type="button"><i data-lucide="swords"></i><span>阵容</span></button>
+      <button class="admin-mobile-nav-item" data-admin-tab="analytics" type="button"><i data-lucide="chart-no-axes-combined"></i><span>分析</span></button>
+      <button class="admin-mobile-nav-item" id="adminMoreButton" type="button" aria-haspopup="dialog"><i data-lucide="menu"></i><span>更多</span></button>
+    </nav>
+
+    <dialog class="admin-more-dialog" id="adminMoreDialog" aria-labelledby="adminMoreTitle">
+      <div class="admin-more-handle" aria-hidden="true"></div>
+      <header><div><h2 id="adminMoreTitle">更多管理工具</h2><p>内容、用户与系统设置</p></div><button class="admin-dialog-close" id="adminMoreClose" type="button" aria-label="关闭"><i data-lucide="x"></i></button></header>
+      <div class="admin-more-grid">
+        <button data-admin-tab="live-comps" type="button"><i data-lucide="radio"></i><span>实时阵容</span></button>
+        <button data-admin-tab="patch-notes" type="button"><i data-lucide="notebook-tabs"></i><span>更新公告</span></button>
+        <button data-admin-tab="users" type="button"><i data-lucide="users"></i><span>用户管理</span></button>
+        <button data-admin-tab="guestbook" type="button"><i data-lucide="message-square-text"></i><span>留言管理</span></button>
+        <button data-admin-tab="audit" type="button"><i data-lucide="scroll-text"></i><span>审计日志</span></button>
+        <button data-admin-tab="settings" type="button"><i data-lucide="settings-2"></i><span>系统设置</span></button>
+      </div>
+    </dialog>
+
     <div id="adminDialogRoot"></div>
+    <script src="{{ url_for('static', filename='vendor/lucide/lucide.min.js', v='0.468.0') }}" defer></script>
     <script src="{{ url_for('static', filename='theme-toggle.js') }}" defer></script>
-    <script src="{{ url_for('static', filename='admin.js', v='20260510-uv-admin-1') }}" defer></script>
+    <script src="{{ url_for('static', filename='admin.js', v='20260723-admin-redesign-2') }}" defer></script>
   </body>
 </html>

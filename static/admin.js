@@ -2,12 +2,17 @@
   const root = document.querySelector('#adminApp');
   const dialogRoot = document.querySelector('#adminDialogRoot');
   const elements = {
-    tabBar: document.querySelector('#adminTabBar'),
     themeToggle: document.querySelector('#themeToggle'),
     themeIcon: document.querySelector('#themeIcon'),
     themeText: document.querySelector('#themeText'),
     adminIdentity: document.querySelector('#adminIdentity'),
-    heroTodayUv: document.querySelector('#heroTodayUv'),
+    adminIdentityName: document.querySelector('#adminIdentity .admin-identity-copy strong'),
+    pageTitle: document.querySelector('#adminPageTitle'),
+    pageSubtitle: document.querySelector('#adminPageSubtitle'),
+    pendingReportCount: document.querySelector('#pendingReportCount'),
+    moreButton: document.querySelector('#adminMoreButton'),
+    moreDialog: document.querySelector('#adminMoreDialog'),
+    moreClose: document.querySelector('#adminMoreClose'),
   };
   if (!root) return;
 
@@ -57,6 +62,18 @@
     ['hidden', '后台隐藏'],
     ['disabled', '停用'],
   ];
+  const tabMeta = {
+    overview: ['运营概览', '今日关键指标与待处理事项'],
+    reports: ['举报处理', '核查用户反馈并记录处理结果'],
+    lineups: ['阵容管理', '搜索、审核与维护普通阵容'],
+    'live-comps': ['实时阵容', '维护赛季状态与阵容码'],
+    'patch-notes': ['更新公告', '编辑版本内容与发布状态'],
+    users: ['用户管理', '查询账号、权限和可用状态'],
+    analytics: ['增长分析', '查看访问、注册与转化数据'],
+    audit: ['审计日志', '追踪管理员关键操作记录'],
+    guestbook: ['留言管理', '处理访客提交的站点反馈'],
+    settings: ['系统设置', '管理功能开关与全站通知'],
+  };
   const PATCH_NOTE_TEMPLATE = `## 英雄调整
 
 - [buff] 名称：旧值 => 新值
@@ -75,11 +92,18 @@
   elements.themeToggle?.addEventListener('click', () => {
     setTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark');
   });
-  elements.tabBar?.addEventListener('click', async (event) => {
+  document.addEventListener('click', async (event) => {
     const button = event.target.closest('[data-admin-tab]');
     if (!button) return;
     await activateTab(button.dataset.adminTab);
   });
+  elements.moreButton?.addEventListener('click', () => elements.moreDialog?.showModal());
+  elements.moreClose?.addEventListener('click', () => elements.moreDialog?.close());
+  elements.moreDialog?.addEventListener('click', (event) => {
+    if (event.target === elements.moreDialog) elements.moreDialog.close();
+  });
+
+  refreshIcons();
 
   await boot();
 
@@ -157,6 +181,7 @@
 
   async function activateTab(tabKey) {
     if (!tabKey) return;
+    elements.moreDialog?.close();
     state.activeTab = tabKey;
     render();
     if (tabKey === 'overview') await loadOverview();
@@ -294,6 +319,7 @@
   function render() {
     syncHeader();
     syncTabs();
+    root.classList.remove('admin-app-loading');
     root.replaceChildren();
     if (state.notice) root.append(el('div', 'message admin-inline-message', state.notice));
     if (state.activeTab === 'overview') root.append(renderOverviewDashboard());
@@ -307,21 +333,34 @@
     if (state.activeTab === 'guestbook') root.append(renderGuestbookWorkspace());
     if (state.activeTab === 'settings') root.append(renderSettingsWorkspace());
     renderDialogs();
+    refreshIcons();
   }
 
   function syncHeader() {
-    if (elements.adminIdentity) {
-      elements.adminIdentity.textContent = state.me ? `${state.me.nickname} · 管理员` : '后台账号';
+    if (elements.adminIdentityName) {
+      elements.adminIdentityName.textContent = state.me?.nickname || '后台账号';
     }
-    if (elements.heroTodayUv) {
-      elements.heroTodayUv.textContent = String(state.overview?.stats?.today_uv || 0);
+    const [title, subtitle] = tabMeta[state.activeTab] || tabMeta.overview;
+    if (elements.pageTitle) elements.pageTitle.textContent = title;
+    if (elements.pageSubtitle) elements.pageSubtitle.textContent = subtitle;
+    if (elements.pendingReportCount) {
+      elements.pendingReportCount.textContent = String(state.overview?.stats?.pending_reports_count || 0);
     }
   }
 
   function syncTabs() {
     document.querySelectorAll('[data-admin-tab]').forEach((node) => {
       node.classList.toggle('is-active', node.dataset.adminTab === state.activeTab);
+      if (node.matches('.admin-nav-item, .admin-mobile-nav-item')) {
+        node.setAttribute('aria-current', node.dataset.adminTab === state.activeTab ? 'page' : 'false');
+      }
     });
+    const primaryMobileTabs = ['overview', 'reports', 'lineups', 'analytics'];
+    elements.moreButton?.classList.toggle('is-active', !primaryMobileTabs.includes(state.activeTab));
+  }
+
+  function refreshIcons() {
+    window.lucide?.createIcons({ attrs: { 'aria-hidden': 'true' } });
   }
 
   function renderOverviewDashboard() {
@@ -720,7 +759,7 @@
     wrap.innerHTML = `
       <button class="account-toggle season-toggle" id="lineupBulkImportSeasonToggle" type="button" aria-haspopup="menu" aria-expanded="false">
         <span id="lineupBulkImportSeasonText">${escapeHtml(selectedSeason?.name || selectedSeason?.id || '请选择赛季')}</span>
-        <span class="account-chevron" aria-hidden="true">⌄</span>
+        <i class="account-chevron" data-lucide="chevron-down" aria-hidden="true"></i>
       </button>
       <div class="account-menu hidden season-menu" id="lineupBulkImportSeasonMenu" role="menu"></div>
       <input type="hidden" id="lineupBulkImportSeasonInput" value="${escapeAttribute(selected)}" />
@@ -1769,15 +1808,12 @@
     dialogRoot.replaceChildren();
     if (state.passwordUser) {
       renderPasswordDialog();
-      return;
-    }
-    if (state.liveCompManualCodeTarget) {
+    } else if (state.liveCompManualCodeTarget) {
       renderLiveCompManualCodeDialog();
-      return;
-    }
-    if (state.noticeEditing) {
+    } else if (state.noticeEditing) {
       renderNoticeDialog();
     }
+    refreshIcons();
   }
 
   function renderNoticeDialog() {
@@ -1816,7 +1852,7 @@
         <div class="season-menu-wrap" id="noticeJumpSeasonWrap">
           <button class="account-toggle season-toggle" id="noticeJumpSeasonToggle" type="button" aria-haspopup="menu" aria-expanded="false">
             <span id="noticeJumpSeasonText">不跳转</span>
-            <span class="account-chevron" aria-hidden="true">⌄</span>
+            <i class="account-chevron" data-lucide="chevron-down" aria-hidden="true"></i>
           </button>
           <div class="account-menu hidden season-menu" id="noticeJumpSeasonMenu" role="menu"></div>
         </div>
@@ -1827,7 +1863,7 @@
         <div class="season-menu-wrap" id="noticeJumpTabWrap">
           <button class="account-toggle season-toggle" id="noticeJumpTabToggle" type="button" aria-haspopup="menu" aria-expanded="false">
             <span id="noticeJumpTabText">不跳转</span>
-            <span class="account-chevron" aria-hidden="true">⌄</span>
+            <i class="account-chevron" data-lucide="chevron-down" aria-hidden="true"></i>
           </button>
           <div class="account-menu hidden season-menu" id="noticeJumpTabMenu" role="menu"></div>
         </div>

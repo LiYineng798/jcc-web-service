@@ -132,6 +132,14 @@ def test_pages_include_favicon_and_favicon_route_exists(client):
     assert 'data-admin-tab="audit"' in admin_html
     assert 'data-admin-tab="settings"' in admin_html
     assert 'data-admin-tab="patch-notes"' in admin_html
+    assert 'data-admin-tab="guestbook"' in admin_html
+    assert 'class="admin-sidebar"' in admin_html
+    assert 'class="admin-mobile-nav"' in admin_html
+    assert 'id="adminMoreDialog"' in admin_html
+    assert '/static/admin.css' in admin_html
+    assert '/static/vendor/lucide/lucide.min.js' in admin_html
+    assert 'class="hero"' not in admin_html
+    assert 'id="adminTabBar"' not in admin_html
 
     favicon_response = client.get('/favicon.ico')
     assert favicon_response.status_code == 200
@@ -145,14 +153,26 @@ def test_admin_mobile_styles_do_not_force_fixed_height_on_wide_traffic_module():
     assert '.admin-module:not(.admin-module-wide)' in css
 
 
-def test_admin_mobile_tab_bar_uses_readable_grid_layout():
-    with open('static/styles.css', 'r', encoding='utf-8') as file:
+def test_admin_responsive_shell_uses_sidebar_and_mobile_bottom_navigation():
+    with open('static/admin.css', 'r', encoding='utf-8') as file:
         css = file.read()
 
-    assert '.admin-tab-bar {' in css
-    assert 'grid-template-columns: repeat(2, minmax(0, 1fr));' in css
-    assert 'white-space: nowrap;' in css
-    assert 'overflow-x: auto;' not in css[css.index('@media (max-width: 560px)'):]
+    assert '.admin-sidebar {' in css
+    assert '.admin-mobile-nav {' in css
+    assert '.admin-more-dialog {' in css
+    assert '@media (max-width: 820px)' in css
+    assert 'grid-template-columns: repeat(5, 1fr);' in css
+    assert 'padding-bottom: calc(var(--admin-mobile-nav-height) + env(safe-area-inset-bottom));' in css
+
+
+def test_admin_vendors_lucide_icons_locally():
+    with open('static/vendor/lucide/lucide.min.js', 'r', encoding='utf-8') as file:
+        lucide_js = file.read()
+    with open('static/vendor/lucide/LICENSE', 'r', encoding='utf-8') as file:
+        license_text = file.read()
+
+    assert 'createIcons' in lucide_js
+    assert 'ISC License' in license_text
 
 
 def test_patch_note_styles_exist():
