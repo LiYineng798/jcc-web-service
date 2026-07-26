@@ -12,10 +12,32 @@ def test_home_page_sets_visitor_cookie_and_records_guest_uv(client):
     with client.application.app_context():
         from db import get_db
 
+        # The first, cookie-less request only sets the cookie; the visit is
+        # recorded once the client echoes the token back.
+        rows = get_db().execute('SELECT visitor_kind, page_key FROM visit_events').fetchall()
+        assert rows == []
+
+    client.get('/')
+    with client.application.app_context():
+        from db import get_db
+
         rows = get_db().execute('SELECT visitor_kind, page_key FROM visit_events').fetchall()
         assert len(rows) == 1
         assert rows[0]['visitor_kind'] == 'guest_token'
         assert rows[0]['page_key'] == 'home'
+
+
+def test_cookieless_and_bot_requests_do_not_write_visit_rows(client):
+    client.get('/', headers={'User-Agent': 'Mozilla/5.0 (compatible; Googlebot/2.1)'})
+    client.get('/', headers={'User-Agent': 'python-requests/2.32'})
+    fresh = client.application.test_client()
+    fresh.get('/')
+
+    with client.application.app_context():
+        from db import get_db
+
+        count = get_db().execute('SELECT COUNT(*) AS c FROM visit_events').fetchone()['c']
+        assert count == 0
 
 
 def test_guest_with_cookie_counts_once_per_day(client):
@@ -60,6 +82,7 @@ def test_visit_identity_falls_back_to_ip_without_user_or_cookie():
 
 
 def test_admin_stats_include_uv_metrics(client):
+    client.get('/')
     client.get('/')
     register_user(client, username='trend', email='trend@example.com')
     client.get('/')

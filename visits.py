@@ -10,6 +10,19 @@ from db_adapter import insert_ignore_sql
 VISITOR_COOKIE_NAME = 'visitor_token'
 VISITOR_COOKIE_MAX_AGE = 180 * 24 * 60 * 60
 
+# Requests whose User-Agent contains one of these markers never write visit
+# rows: crawlers do not echo cookies, so every hit would insert a brand-new
+# guest row (a full sitemap pass is 300+ writes).
+BOT_UA_MARKERS = (
+    'bot', 'spider', 'crawler', 'slurp', 'petalbot', 'headless',
+    'python-requests', 'python-urllib', 'curl/', 'wget/',
+)
+
+
+def is_bot_request():
+    user_agent = (request.user_agent.string or '').lower()
+    return any(marker in user_agent for marker in BOT_UA_MARKERS)
+
 
 def resolve_visitor_identity(user, visitor_token, ip_address):
     if user:
@@ -70,7 +83,14 @@ def record_page_visit(page_key, user=None, visitor_token=None, ip_address=None):
 def tracked_template_response(template_name, page_key, **context):
     user = current_user()
     visitor_token, created = ensure_visitor_token()
-    record_page_visit(page_key, user=user, visitor_token=visitor_token, ip_address=get_client_ip())
+    # Only count identities that can deduplicate: logged-in users, or guests
+    # who echoed the visitor cookie back. A cookie-less client (crawler,
+    # curl, cookie-blocked browser) would mint a fresh token every request
+    # and insert an uncollapsible row per page view. The first page view of
+    # a genuine new visitor is uncounted; they count from the next request.
+    should_record = user is not None or not created
+    if should_record and not is_bot_request():
+        record_page_visit(page_key, user=user, visitor_token=visitor_token, ip_address=get_client_ip())
     response = make_response(render_template(template_name, **context))
     return maybe_set_visitor_cookie(response, visitor_token, created)
 

@@ -1,5 +1,31 @@
 import recommendation
+from lineup_cache import TimedCache
 from live_comps_helpers import read_live_comps_payload_for_season
+
+
+def test_timed_cache_is_bounded_lru():
+    cache = TimedCache(ttl_seconds=60, max_entries=3)
+    for index in range(5):
+        cache.set(('key', index), index)
+    assert cache.get(('key', 0)) is None
+    assert cache.get(('key', 1)) is None
+    assert cache.get(('key', 4)) == 4
+
+
+def test_timed_cache_revision_stamp_overwrites_slot():
+    cache = TimedCache(ttl_seconds=60, max_entries=4)
+    cache.set('slot', 'old', revision=1)
+    assert cache.get('slot', revision=2) is None
+    cache.set('slot', 'new', revision=2)
+    assert cache.get('slot', revision=2) == 'new'
+    assert len(cache._entries) == 1
+
+
+def test_timed_cache_stale_tolerance_serves_recent_entries():
+    cache = TimedCache(ttl_seconds=60, max_entries=4)
+    cache.set('slot', 'value', revision=1)
+    assert cache.get('slot', revision=2, stale_tolerance=30) == 'value'
+    assert cache.get('slot', revision=2, stale_tolerance=0) is None
 
 
 def test_recommended_scores_reads_cache_even_with_supplied_scores(app, monkeypatch):

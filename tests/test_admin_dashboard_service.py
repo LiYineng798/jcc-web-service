@@ -41,6 +41,7 @@ def test_build_admin_overview_payload_returns_expected_keys(client):
 
 def test_admin_overview_reports_returning_visitor_mix(client):
     client.get('/')
+    client.get('/')
     with client.application.app_context():
         from datetime import datetime, timedelta
 
