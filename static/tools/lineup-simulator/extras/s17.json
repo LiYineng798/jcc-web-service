@@ -1,0 +1,200 @@
+{
+  "equips": [
+    {
+      "id": "6079",
+      "name": "视界专注",
+      "type": "神器",
+      "sourceType": "神器装备",
+      "grantedTrait": "",
+      "image": "webp/mode17s18_equip_by_type/神器/6079-视界专注.webp",
+      "draggable": true,
+      "searchText": "视界专注 神器 神器装备"
+    },
+    {
+      "id": "3026",
+      "name": "魔像军团",
+      "type": "特殊装备",
+      "sourceType": "特殊装备",
+      "grantedTrait": "",
+      "image": "webp/mode17s18_equip_by_type/特殊装备/3026-魔像军团.webp",
+      "draggable": true,
+      "searchText": "魔像军团 特殊装备 特殊装备"
+    },
+    {
+      "id": "3022",
+      "name": "传承之物",
+      "type": "未归类",
+      "sourceType": "-1",
+      "grantedTrait": "",
+      "image": "webp/mode17s18_equip_by_type/未归类/3022-传承之物.webp",
+      "draggable": true,
+      "searchText": "传承之物 未归类 -1"
+    },
+    {
+      "id": "3015",
+      "name": "辅助装锻造器",
+      "type": "未归类",
+      "sourceType": "-1",
+      "grantedTrait": "",
+      "image": "webp/mode17s18_equip_by_type/未归类/3015-辅助装锻造器.webp",
+      "draggable": true,
+      "searchText": "辅助装锻造器 未归类 -1"
+    },
+    {
+      "id": "3025",
+      "name": "古代装备锻造器",
+      "type": "未归类",
+      "sourceType": "-1",
+      "grantedTrait": "",
+      "image": "webp/mode17s18_equip_by_type/未归类/3025-古代装备锻造器.webp",
+      "draggable": true,
+      "searchText": "古代装备锻造器 未归类 -1"
+    },
+    {
+      "id": "3004",
+      "name": "灌铅骰子",
+      "type": "未归类",
+      "sourceType": "-1",
+      "grantedTrait": "",
+      "image": "webp/mode17s18_equip_by_type/未归类/3004-灌铅骰子.webp",
+      "draggable": true,
+      "searchText": "灌铅骰子 未归类 -1"
+    },
+    {
+      "id": "9851",
+      "name": "机械重组！",
+      "type": "未归类",
+      "sourceType": "-1",
+      "grantedTrait": "",
+      "image": "webp/mode17s18_equip_by_type/未归类/9851-机械重组！.webp",
+      "draggable": true,
+      "searchText": "机械重组！ 未归类 -1"
+    },
+    {
+      "id": "3031",
+      "name": "金币神器装备锻造器",
+      "type": "未归类",
+      "sourceType": "-1",
+      "grantedTrait": "",
+      "image": "webp/mode17s18_equip_by_type/未归类/3031-金币神器装备锻造器.webp",
+      "draggable": true,
+      "searchText": "金币神器装备锻造器 未归类 -1"
+    },
+    {
+      "id": "6105",
+      "name": "凯尔的光明崇拜",
+      "type": "未归类",
+      "sourceType": "-1",
+      "grantedTrait": "",
+      "image": "webp/mode17s18_equip_by_type/未归类/6105-凯尔的光明崇拜.webp",
+      "draggable": true,
+      "searchText": "凯尔的光明崇拜 未归类 -1"
+    },
+    {
+      "id": "3016",
+      "name": "免费刷新道具",
+      "type": "未归类",
+      "sourceType": "-1",
+      "grantedTrait": "",
+      "image": "webp/mode17s18_equip_by_type/未归类/3016-免费刷新道具.webp",
+      "draggable": true,
+      "searchText": "免费刷新道具 未归类 -1"
+    },
+    {
+      "id": "3023",
+      "name": "皮城装备锻造器",
+      "type": "未归类",
+      "sourceType": "-1",
+      "grantedTrait": "",
+      "image": "webp/mode17s18_equip_by_type/未归类/3023-皮城装备锻造器.webp",
+      "draggable": true,
+      "searchText": "皮城装备锻造器 未归类 -1"
+    },
+    {
+      "id": "3014",
+      "name": "商店回溯器",
+      "type": "未归类",
+      "sourceType": "-1",
+      "grantedTrait": "",
+      "image": "webp/mode17s18_equip_by_type/未归类/3014-商店回溯器.webp",
+      "draggable": true,
+      "searchText": "商店回溯器 未归类 -1"
+    },
+    {
+      "id": "3018",
+      "name": "推荐装备选择器",
+      "type": "未归类",
+      "sourceType": "-1",
+      "grantedTrait": "",
+      "image": "webp/mode17s18_equip_by_type/未归类/3018-推荐装备选择器.webp",
+      "draggable": true,
+      "searchText": "推荐装备选择器 未归类 -1"
+    },
+    {
+      "id": "3005",
+      "name": "纹章之书",
+      "type": "未归类",
+      "sourceType": "-1",
+      "grantedTrait": "",
+      "image": "webp/mode17s18_equip_by_type/未归类/3005-纹章之书.webp",
+      "draggable": true,
+      "searchText": "纹章之书 未归类 -1"
+    },
+    {
+      "id": "3017",
+      "name": "五费刷新道具",
+      "type": "未归类",
+      "sourceType": "-1",
+      "grantedTrait": "",
+      "image": "webp/mode17s18_equip_by_type/未归类/3017-五费刷新道具.webp",
+      "draggable": true,
+      "searchText": "五费刷新道具 未归类 -1"
+    },
+    {
+      "id": "3021",
+      "name": "战利品",
+      "type": "未归类",
+      "sourceType": "-1",
+      "grantedTrait": "",
+      "image": "webp/mode17s18_equip_by_type/未归类/3021-战利品.webp",
+      "draggable": true,
+      "searchText": "战利品 未归类 -1"
+    },
+    {
+      "id": "3024",
+      "name": "祖安装备锻造器",
+      "type": "未归类",
+      "sourceType": "-1",
+      "grantedTrait": "",
+      "image": "webp/mode17s18_equip_by_type/未归类/3024-祖安装备锻造器.webp",
+      "draggable": true,
+      "searchText": "祖安装备锻造器 未归类 -1"
+    }
+  ],
+  "pets": [
+    {
+      "id": "18406",
+      "name": "圣物",
+      "image": "webp/assets/pets/18406.webp",
+      "entityType": "pet"
+    },
+    {
+      "id": "18407",
+      "name": "羊咩咩 & 咩咩羊",
+      "image": "webp/assets/pets/18407.webp",
+      "entityType": "pet"
+    },
+    {
+      "id": "18408",
+      "name": "羊咩咩 & 咩咩羊",
+      "image": "webp/assets/pets/18408.webp",
+      "entityType": "pet"
+    },
+    {
+      "id": "18428",
+      "name": "暗星召唤物",
+      "image": "webp/assets/pets/18428.webp",
+      "entityType": "pet"
+    }
+  ]
+}

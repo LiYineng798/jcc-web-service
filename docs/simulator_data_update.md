@@ -2,6 +2,8 @@
 
 阵容模拟器运行时读取 `static/tools/lineup-simulator/data/` 下的 JSON 文件，不再直接依赖 `local-data.js`。
 
+> **推荐方式**：数据现在优先从赛季资料库生成——`python scripts/season_library/build_simulator_from_library.py --season <season_id>`（见 `docs/season-library.md`）。该脚本会同时生成 JSON、96px WebP 与模糊占位图；档案库覆盖不到的特殊道具/召唤物放在 `extras/<season_id>.json`。以下手工流程仅作为后备。
+
 ## 数据文件
 
 - `version.json`：数据版本信息

@@ -1,30 +1,5 @@
 [
   {
-    "key": "1463",
-    "name": "贝蕾亚",
-    "cost": 1,
-    "costLabel": "1费",
-    "traits": [
-      "幻灵战队",
-      "海魔人",
-      "游侠"
-    ],
-    "image": "webp/mode17s18_hero_by_cost_cn/price-1/贝蕾亚.webp",
-    "searchText": "贝蕾亚 幻灵战队 海魔人 游侠"
-  },
-  {
-    "key": "1462",
-    "name": "波比",
-    "cost": 1,
-    "costLabel": "1费",
-    "traits": [
-      "木灵族",
-      "堡垒卫士"
-    ],
-    "image": "webp/mode17s18_hero_by_cost_cn/price-1/波比.webp",
-    "searchText": "波比 木灵族 堡垒卫士"
-  },
-  {
     "key": "1450",
     "name": "崔斯特",
     "cost": 1,
@@ -33,44 +8,44 @@
       "观星者",
       "织命人"
     ],
-    "image": "webp/mode17s18_hero_by_cost_cn/price-1/崔斯特.webp",
+    "image": "webp/season/s17/heroes/1450.webp",
     "searchText": "崔斯特 观星者 织命人"
   },
   {
-    "key": "1456",
-    "name": "凯特琳",
+    "key": "1451",
+    "name": "伊泽瑞尔",
     "cost": 1,
     "costLabel": "1费",
     "traits": [
-      "新星特攻队",
-      "织命人"
+      "未来战士",
+      "狙神"
     ],
-    "image": "webp/mode17s18_hero_by_cost_cn/price-1/凯特琳.webp",
-    "searchText": "凯特琳 新星特攻队 织命人"
+    "image": "webp/season/s17/heroes/1451.webp",
+    "searchText": "伊泽瑞尔 未来战士 狙神"
   },
   {
-    "key": "1459",
-    "name": "科加斯",
+    "key": "1452",
+    "name": "泰隆",
     "cost": 1,
     "costLabel": "1费",
     "traits": [
-      "暗星",
-      "斗士"
+      "观星者",
+      "游侠"
     ],
-    "image": "webp/mode17s18_hero_by_cost_cn/price-1/科加斯.webp",
-    "searchText": "科加斯 暗星 斗士"
+    "image": "webp/season/s17/heroes/1452.webp",
+    "searchText": "泰隆 观星者 游侠"
   },
   {
-    "key": "1455",
-    "name": "雷克塞",
+    "key": "1453",
+    "name": "内瑟斯",
     "cost": 1,
     "costLabel": "1费",
     "traits": [
-      "海魔人",
-      "斗士"
+      "太空律动",
+      "重装战士"
     ],
-    "image": "webp/mode17s18_hero_by_cost_cn/price-1/雷克塞.webp",
-    "searchText": "雷克塞 海魔人 斗士"
+    "image": "webp/season/s17/heroes/1453.webp",
+    "searchText": "内瑟斯 太空律动 重装战士"
   },
   {
     "key": "1454",
@@ -81,8 +56,32 @@
       "法官",
       "重装战士"
     ],
-    "image": "webp/mode17s18_hero_by_cost_cn/price-1/蕾欧娜.webp",
+    "image": "webp/season/s17/heroes/1454.webp",
     "searchText": "蕾欧娜 法官 重装战士"
+  },
+  {
+    "key": "1455",
+    "name": "雷克塞",
+    "cost": 1,
+    "costLabel": "1费",
+    "traits": [
+      "海魔人",
+      "斗士"
+    ],
+    "image": "webp/season/s17/heroes/1455.webp",
+    "searchText": "雷克塞 海魔人 斗士"
+  },
+  {
+    "key": "1456",
+    "name": "凯特琳",
+    "cost": 1,
+    "costLabel": "1费",
+    "traits": [
+      "新星特攻队",
+      "织命人"
+    ],
+    "image": "webp/season/s17/heroes/1456.webp",
+    "searchText": "凯特琳 新星特攻队 织命人"
   },
   {
     "key": "1457",
@@ -94,32 +93,32 @@
       "牧羊人",
       "魔术师"
     ],
-    "image": "webp/mode17s18_hero_by_cost_cn/price-1/丽桑卓.webp",
+    "image": "webp/season/s17/heroes/1457.webp",
     "searchText": "丽桑卓 暗星 牧羊人 魔术师"
   },
   {
-    "key": "1453",
-    "name": "内瑟斯",
+    "key": "1458",
+    "name": "亚托克斯",
     "cost": 1,
     "costLabel": "1费",
     "traits": [
-      "太空律动",
-      "重装战士"
+      "新星特攻队",
+      "堡垒卫士"
     ],
-    "image": "webp/mode17s18_hero_by_cost_cn/price-1/内瑟斯.webp",
-    "searchText": "内瑟斯 太空律动 重装战士"
+    "image": "webp/season/s17/heroes/1458.webp",
+    "searchText": "亚托克斯 新星特攻队 堡垒卫士"
   },
   {
-    "key": "1452",
-    "name": "泰隆",
+    "key": "1459",
+    "name": "科加斯",
     "cost": 1,
     "costLabel": "1费",
     "traits": [
-      "观星者",
-      "游侠"
+      "暗星",
+      "斗士"
     ],
-    "image": "webp/mode17s18_hero_by_cost_cn/price-1/泰隆.webp",
-    "searchText": "泰隆 观星者 游侠"
+    "image": "webp/season/s17/heroes/1459.webp",
+    "searchText": "科加斯 暗星 斗士"
   },
   {
     "key": "1460",
@@ -130,7 +129,7 @@
       "太空律动",
       "牧羊人"
     ],
-    "image": "webp/mode17s18_hero_by_cost_cn/price-1/提莫.webp",
+    "image": "webp/season/s17/heroes/1460.webp",
     "searchText": "提莫 太空律动 牧羊人"
   },
   {
@@ -142,44 +141,81 @@
       "木灵族",
       "魔术师"
     ],
-    "image": "webp/mode17s18_hero_by_cost_cn/price-1/维迦.webp",
+    "image": "webp/season/s17/heroes/1461.webp",
     "searchText": "维迦 木灵族 魔术师"
   },
   {
-    "key": "1458",
-    "name": "亚托克斯",
+    "key": "1462",
+    "name": "波比",
     "cost": 1,
     "costLabel": "1费",
     "traits": [
-      "新星特攻队",
+      "木灵族",
       "堡垒卫士"
     ],
-    "image": "webp/mode17s18_hero_by_cost_cn/price-1/亚托克斯.webp",
-    "searchText": "亚托克斯 新星特攻队 堡垒卫士"
+    "image": "webp/season/s17/heroes/1462.webp",
+    "searchText": "波比 木灵族 堡垒卫士"
   },
   {
-    "key": "1451",
-    "name": "伊泽瑞尔",
+    "key": "1463",
+    "name": "贝蕾亚",
     "cost": 1,
     "costLabel": "1费",
     "traits": [
-      "未来战士",
-      "狙神"
+      "幻灵战队",
+      "海魔人",
+      "游侠"
     ],
-    "image": "webp/mode17s18_hero_by_cost_cn/price-1/伊泽瑞尔.webp",
-    "searchText": "伊泽瑞尔 未来战士 狙神"
+    "image": "webp/season/s17/heroes/1463.webp",
+    "searchText": "贝蕾亚 幻灵战队 海魔人 游侠"
   },
   {
-    "key": "2461",
-    "name": "阿卡丽",
+    "key": "2450",
+    "name": "纳尔",
     "cost": 2,
     "costLabel": "2费",
     "traits": [
-      "新星特攻队",
-      "狂战士"
+      "木灵族",
+      "狙神"
     ],
-    "image": "webp/mode17s18_hero_by_cost_cn/price-2/阿卡丽.webp",
-    "searchText": "阿卡丽 新星特攻队 狂战士"
+    "image": "webp/season/s17/heroes/2450.webp",
+    "searchText": "纳尔 木灵族 狙神"
+  },
+  {
+    "key": "2451",
+    "name": "格温",
+    "cost": 2,
+    "costLabel": "2费",
+    "traits": [
+      "太空律动",
+      "游侠"
+    ],
+    "image": "webp/season/s17/heroes/2451.webp",
+    "searchText": "格温 太空律动 游侠"
+  },
+  {
+    "key": "2452",
+    "name": "派克",
+    "cost": 2,
+    "costLabel": "2费",
+    "traits": [
+      "灵能特工",
+      "旅人"
+    ],
+    "image": "webp/season/s17/heroes/2452.webp",
+    "searchText": "派克 灵能特工 旅人"
+  },
+  {
+    "key": "2453",
+    "name": "佐伊",
+    "cost": 2,
+    "costLabel": "2费",
+    "traits": [
+      "法官",
+      "神谕"
+    ],
+    "image": "webp/season/s17/heroes/2453.webp",
+    "searchText": "佐伊 法官 神谕"
   },
   {
     "key": "2454",
@@ -191,20 +227,8 @@
       "挑战者",
       "狂战士"
     ],
-    "image": "webp/mode17s18_hero_by_cost_cn/price-2/卑尔维斯.webp",
+    "image": "webp/season/s17/heroes/2454.webp",
     "searchText": "卑尔维斯 海魔人 挑战者 狂战士"
-  },
-  {
-    "key": "2451",
-    "name": "格温",
-    "cost": 2,
-    "costLabel": "2费",
-    "traits": [
-      "太空律动",
-      "游侠"
-    ],
-    "image": "webp/mode17s18_hero_by_cost_cn/price-2/格温.webp",
-    "searchText": "格温 太空律动 游侠"
   },
   {
     "key": "2455",
@@ -215,32 +239,8 @@
       "灵能特工",
       "斗士"
     ],
-    "image": "webp/mode17s18_hero_by_cost_cn/price-2/古拉加斯.webp",
+    "image": "webp/season/s17/heroes/2455.webp",
     "searchText": "古拉加斯 灵能特工 斗士"
-  },
-  {
-    "key": "2462",
-    "name": "贾克斯",
-    "cost": 2,
-    "costLabel": "2费",
-    "traits": [
-      "观星者",
-      "堡垒卫士"
-    ],
-    "image": "webp/mode17s18_hero_by_cost_cn/price-2/贾克斯.webp",
-    "searchText": "贾克斯 观星者 堡垒卫士"
-  },
-  {
-    "key": "2458",
-    "name": "金克丝",
-    "cost": 2,
-    "costLabel": "2费",
-    "traits": [
-      "幻灵战队",
-      "挑战者"
-    ],
-    "image": "webp/mode17s18_hero_by_cost_cn/price-2/金克丝.webp",
-    "searchText": "金克丝 幻灵战队 挑战者"
   },
   {
     "key": "2456",
@@ -251,7 +251,7 @@
       "未来战士",
       "织命人"
     ],
-    "image": "webp/mode17s18_hero_by_cost_cn/price-2/米利欧.webp",
+    "image": "webp/season/s17/heroes/2456.webp",
     "searchText": "米利欧 未来战士 织命人"
   },
   {
@@ -264,32 +264,20 @@
       "神谕",
       "重装战士"
     ],
-    "image": "webp/mode17s18_hero_by_cost_cn/price-2/莫德凯撒.webp",
+    "image": "webp/season/s17/heroes/2457.webp",
     "searchText": "莫德凯撒 暗星 神谕 重装战士"
   },
   {
-    "key": "2450",
-    "name": "纳尔",
+    "key": "2458",
+    "name": "金克丝",
     "cost": 2,
     "costLabel": "2费",
     "traits": [
-      "木灵族",
-      "狙神"
+      "幻灵战队",
+      "挑战者"
     ],
-    "image": "webp/mode17s18_hero_by_cost_cn/price-2/纳尔.webp",
-    "searchText": "纳尔 木灵族 狙神"
-  },
-  {
-    "key": "2452",
-    "name": "派克",
-    "cost": 2,
-    "costLabel": "2费",
-    "traits": [
-      "灵能特工",
-      "旅人"
-    ],
-    "image": "webp/mode17s18_hero_by_cost_cn/price-2/派克.webp",
-    "searchText": "派克 灵能特工 旅人"
+    "image": "webp/season/s17/heroes/2458.webp",
+    "searchText": "金克丝 幻灵战队 挑战者"
   },
   {
     "key": "2459",
@@ -301,7 +289,7 @@
       "斗士",
       "魔术师"
     ],
-    "image": "webp/mode17s18_hero_by_cost_cn/price-2/潘森.webp",
+    "image": "webp/season/s17/heroes/2459.webp",
     "searchText": "潘森 未来战士 斗士 魔术师"
   },
   {
@@ -314,69 +302,44 @@
       "牧羊人",
       "旅人"
     ],
-    "image": "webp/mode17s18_hero_by_cost_cn/price-2/小木灵.webp",
+    "image": "webp/season/s17/heroes/2460.webp",
     "searchText": "小木灵 木灵族 牧羊人 旅人"
   },
   {
-    "key": "2453",
-    "name": "佐伊",
+    "key": "2461",
+    "name": "阿卡丽",
     "cost": 2,
     "costLabel": "2费",
     "traits": [
-      "法官",
-      "神谕"
+      "新星特攻队",
+      "狂战士"
     ],
-    "image": "webp/mode17s18_hero_by_cost_cn/price-2/佐伊.webp",
-    "searchText": "佐伊 法官 神谕"
+    "image": "webp/season/s17/heroes/2461.webp",
+    "searchText": "阿卡丽 新星特攻队 狂战士"
   },
   {
-    "key": "3462",
-    "name": "阿萝拉",
-    "cost": 3,
-    "costLabel": "3费",
+    "key": "2462",
+    "name": "贾克斯",
+    "cost": 2,
+    "costLabel": "2费",
     "traits": [
-      "幻灵战队",
-      "旅人"
-    ],
-    "image": "webp/mode17s18_hero_by_cost_cn/price-3/阿萝拉.webp",
-    "searchText": "阿萝拉 幻灵战队 旅人"
-  },
-  {
-    "key": "3453",
-    "name": "奥恩",
-    "cost": 3,
-    "costLabel": "3费",
-    "traits": [
-      "太空律动",
+      "观星者",
       "堡垒卫士"
     ],
-    "image": "webp/mode17s18_hero_by_cost_cn/price-3/奥恩.webp",
-    "searchText": "奥恩 太空律动 堡垒卫士"
+    "image": "webp/season/s17/heroes/2462.webp",
+    "searchText": "贾克斯 观星者 堡垒卫士"
   },
   {
-    "key": "3458",
-    "name": "黛安娜",
+    "key": "3450",
+    "name": "卡莎",
     "cost": 3,
     "costLabel": "3费",
     "traits": [
-      "法官",
-      "挑战者"
+      "暗星",
+      "游侠"
     ],
-    "image": "webp/mode17s18_hero_by_cost_cn/price-3/黛安娜.webp",
-    "searchText": "黛安娜 法官 挑战者"
-  },
-  {
-    "key": "3460",
-    "name": "俄洛伊",
-    "cost": 3,
-    "costLabel": "3费",
-    "traits": [
-      "幻灵战队",
-      "牧羊人",
-      "重装战士"
-    ],
-    "image": "webp/mode17s18_hero_by_cost_cn/price-3/俄洛伊.webp",
-    "searchText": "俄洛伊 幻灵战队 牧羊人 重装战士"
+    "image": "webp/season/s17/heroes/3450.webp",
+    "searchText": "卡莎 暗星 游侠"
   },
   {
     "key": "3451",
@@ -388,8 +351,116 @@
       "狂战士",
       "斗士"
     ],
-    "image": "webp/mode17s18_hero_by_cost_cn/price-3/厄加特.webp",
+    "image": "webp/season/s17/heroes/3451.webp",
     "searchText": "厄加特 霸天机甲 狂战士 斗士"
+  },
+  {
+    "key": "3452",
+    "name": "维克托",
+    "cost": 3,
+    "costLabel": "3费",
+    "traits": [
+      "灵能特工",
+      "神谕"
+    ],
+    "image": "webp/season/s17/heroes/3452.webp",
+    "searchText": "维克托 灵能特工 神谕"
+  },
+  {
+    "key": "3453",
+    "name": "奥恩",
+    "cost": 3,
+    "costLabel": "3费",
+    "traits": [
+      "太空律动",
+      "堡垒卫士"
+    ],
+    "image": "webp/season/s17/heroes/3453.webp",
+    "searchText": "奥恩 太空律动 堡垒卫士"
+  },
+  {
+    "key": "3455",
+    "name": "菲兹",
+    "cost": 3,
+    "costLabel": "3费",
+    "traits": [
+      "木灵族",
+      "游侠"
+    ],
+    "image": "webp/season/s17/heroes/3455.webp",
+    "searchText": "菲兹 木灵族 游侠"
+  },
+  {
+    "key": "3457",
+    "name": "茂凯",
+    "cost": 3,
+    "costLabel": "3费",
+    "traits": [
+      "新星特攻队",
+      "斗士"
+    ],
+    "image": "webp/season/s17/heroes/3457.webp",
+    "searchText": "茂凯 新星特攻队 斗士"
+  },
+  {
+    "key": "3458",
+    "name": "黛安娜",
+    "cost": 3,
+    "costLabel": "3费",
+    "traits": [
+      "法官",
+      "挑战者"
+    ],
+    "image": "webp/season/s17/heroes/3458.webp",
+    "searchText": "黛安娜 法官 挑战者"
+  },
+  {
+    "key": "3459",
+    "name": "拉亚斯特",
+    "cost": 3,
+    "costLabel": "3费",
+    "traits": [
+      "救世主"
+    ],
+    "image": "webp/season/s17/heroes/3459.webp",
+    "searchText": "拉亚斯特 救世主"
+  },
+  {
+    "key": "3460",
+    "name": "俄洛伊",
+    "cost": 3,
+    "costLabel": "3费",
+    "traits": [
+      "幻灵战队",
+      "牧羊人",
+      "重装战士"
+    ],
+    "image": "webp/season/s17/heroes/3460.webp",
+    "searchText": "俄洛伊 幻灵战队 牧羊人 重装战士"
+  },
+  {
+    "key": "3461",
+    "name": "莎弥拉",
+    "cost": 3,
+    "costLabel": "3费",
+    "traits": [
+      "太空律动",
+      "狙神"
+    ],
+    "image": "webp/season/s17/heroes/3461.webp",
+    "searchText": "莎弥拉 太空律动 狙神"
+  },
+  {
+    "key": "3462",
+    "name": "阿萝拉",
+    "cost": 3,
+    "costLabel": "3费",
+    "traits": [
+      "幻灵战队",
+      "旅人"
+    ],
+    "image": "webp/season/s17/heroes/3462.webp",
+    "searchText": "阿萝拉 幻灵战队 旅人"
   },
   {
     "key": "3465",
@@ -400,7 +471,7 @@
       "武装战姬",
       "神谕"
     ],
-    "image": "webp/mode17s18_hero_by_cost_cn/price-3/厄运小姐-3465.webp",
+    "image": "webp/season/s17/heroes/3465.webp",
     "searchText": "厄运小姐 武装战姬 神谕"
   },
   {
@@ -412,7 +483,7 @@
       "武装战姬",
       "挑战者"
     ],
-    "image": "webp/mode17s18_hero_by_cost_cn/price-3/厄运小姐-3466.webp",
+    "image": "webp/season/s17/heroes/3466.webp",
     "searchText": "厄运小姐 武装战姬 挑战者"
   },
   {
@@ -424,43 +495,8 @@
       "武装战姬",
       "魔术师"
     ],
-    "image": "webp/mode17s18_hero_by_cost_cn/price-3/厄运小姐-3467.webp",
+    "image": "webp/season/s17/heroes/3467.webp",
     "searchText": "厄运小姐 武装战姬 魔术师"
-  },
-  {
-    "key": "3455",
-    "name": "菲兹",
-    "cost": 3,
-    "costLabel": "3费",
-    "traits": [
-      "木灵族",
-      "游侠"
-    ],
-    "image": "webp/mode17s18_hero_by_cost_cn/price-3/菲兹.webp",
-    "searchText": "菲兹 木灵族 游侠"
-  },
-  {
-    "key": "3450",
-    "name": "卡莎",
-    "cost": 3,
-    "costLabel": "3费",
-    "traits": [
-      "暗星",
-      "游侠"
-    ],
-    "image": "webp/mode17s18_hero_by_cost_cn/price-3/卡莎.webp",
-    "searchText": "卡莎 暗星 游侠"
-  },
-  {
-    "key": "3459",
-    "name": "拉亚斯特",
-    "cost": 3,
-    "costLabel": "3费",
-    "traits": [
-      "救世主"
-    ],
-    "image": "webp/mode17s18_hero_by_cost_cn/price-3/拉亚斯特.webp",
-    "searchText": "拉亚斯特 救世主"
   },
   {
     "key": "3468",
@@ -471,128 +507,20 @@
       "观星者",
       "魔术师"
     ],
-    "image": "webp/mode17s18_hero_by_cost_cn/price-3/璐璐.webp",
+    "image": "webp/season/s17/heroes/3468.webp",
     "searchText": "璐璐 观星者 魔术师"
   },
   {
-    "key": "3457",
-    "name": "茂凯",
-    "cost": 3,
-    "costLabel": "3费",
-    "traits": [
-      "新星特攻队",
-      "斗士"
-    ],
-    "image": "webp/mode17s18_hero_by_cost_cn/price-3/茂凯.webp",
-    "searchText": "茂凯 新星特攻队 斗士"
-  },
-  {
-    "key": "3461",
-    "name": "莎弥拉",
-    "cost": 3,
-    "costLabel": "3费",
-    "traits": [
-      "太空律动",
-      "狙神"
-    ],
-    "image": "webp/mode17s18_hero_by_cost_cn/price-3/莎弥拉.webp",
-    "searchText": "莎弥拉 太空律动 狙神"
-  },
-  {
-    "key": "3452",
-    "name": "维克托",
-    "cost": 3,
-    "costLabel": "3费",
+    "key": "4370",
+    "name": "易",
+    "cost": 4,
+    "costLabel": "4费",
     "traits": [
       "灵能特工",
-      "神谕"
+      "狂战士"
     ],
-    "image": "webp/mode17s18_hero_by_cost_cn/price-3/维克托.webp",
-    "searchText": "维克托 灵能特工 神谕"
-  },
-  {
-    "key": "4382",
-    "name": "奥瑞利安·索尔",
-    "cost": 4,
-    "costLabel": "4费",
-    "traits": [
-      "霸天机甲",
-      "神谕"
-    ],
-    "image": "webp/mode17s18_hero_by_cost_cn/price-4/奥瑞利安·索尔.webp",
-    "searchText": "奥瑞利安·索尔 霸天机甲 神谕"
-  },
-  {
-    "key": "4379",
-    "name": "超级机甲",
-    "cost": 4,
-    "costLabel": "4费",
-    "traits": [
-      "霸天机甲",
-      "旅人"
-    ],
-    "image": "webp/mode17s18_hero_by_cost_cn/price-4/超级机甲.webp",
-    "searchText": "超级机甲 霸天机甲 旅人"
-  },
-  {
-    "key": "4373",
-    "name": "卡尔玛",
-    "cost": 4,
-    "costLabel": "4费",
-    "traits": [
-      "暗星",
-      "旅人"
-    ],
-    "image": "webp/mode17s18_hero_by_cost_cn/price-4/卡尔玛.webp",
-    "searchText": "卡尔玛 暗星 旅人"
-  },
-  {
-    "key": "4372",
-    "name": "库奇",
-    "cost": 4,
-    "costLabel": "4费",
-    "traits": [
-      "木灵族",
-      "织命人"
-    ],
-    "image": "webp/mode17s18_hero_by_cost_cn/price-4/库奇.webp",
-    "searchText": "库奇 木灵族 织命人"
-  },
-  {
-    "key": "4376",
-    "name": "拉莫斯",
-    "cost": 4,
-    "costLabel": "4费",
-    "traits": [
-      "木灵族",
-      "堡垒卫士"
-    ],
-    "image": "webp/mode17s18_hero_by_cost_cn/price-4/拉莫斯.webp",
-    "searchText": "拉莫斯 木灵族 堡垒卫士"
-  },
-  {
-    "key": "4380",
-    "name": "乐芙兰",
-    "cost": 4,
-    "costLabel": "4费",
-    "traits": [
-      "法官",
-      "牧羊人"
-    ],
-    "image": "webp/mode17s18_hero_by_cost_cn/price-4/乐芙兰.webp",
-    "searchText": "乐芙兰 法官 牧羊人"
-  },
-  {
-    "key": "4377",
-    "name": "娜美",
-    "cost": 4,
-    "costLabel": "4费",
-    "traits": [
-      "太空律动",
-      "魔术师"
-    ],
-    "image": "webp/mode17s18_hero_by_cost_cn/price-4/娜美.webp",
-    "searchText": "娜美 太空律动 魔术师"
+    "image": "webp/season/s17/heroes/4370.webp",
+    "searchText": "易 灵能特工 狂战士"
   },
   {
     "key": "4371",
@@ -603,8 +531,32 @@
       "观星者",
       "重装战士"
     ],
-    "image": "webp/mode17s18_hero_by_cost_cn/price-4/努努和威朗普.webp",
+    "image": "webp/season/s17/heroes/4371.webp",
     "searchText": "努努和威朗普 观星者 重装战士"
+  },
+  {
+    "key": "4372",
+    "name": "库奇",
+    "cost": 4,
+    "costLabel": "4费",
+    "traits": [
+      "木灵族",
+      "织命人"
+    ],
+    "image": "webp/season/s17/heroes/4372.webp",
+    "searchText": "库奇 木灵族 织命人"
+  },
+  {
+    "key": "4373",
+    "name": "卡尔玛",
+    "cost": 4,
+    "costLabel": "4费",
+    "traits": [
+      "暗星",
+      "旅人"
+    ],
+    "image": "webp/season/s17/heroes/4373.webp",
+    "searchText": "卡尔玛 暗星 旅人"
   },
   {
     "key": "4374",
@@ -615,7 +567,7 @@
       "新星特攻队",
       "挑战者"
     ],
-    "image": "webp/mode17s18_hero_by_cost_cn/price-4/千珏.webp",
+    "image": "webp/season/s17/heroes/4374.webp",
     "searchText": "千珏 新星特攻队 挑战者"
   },
   {
@@ -627,8 +579,32 @@
       "未来战士",
       "游侠"
     ],
-    "image": "webp/mode17s18_hero_by_cost_cn/price-4/锐雯.webp",
+    "image": "webp/season/s17/heroes/4375.webp",
     "searchText": "锐雯 未来战士 游侠"
+  },
+  {
+    "key": "4376",
+    "name": "拉莫斯",
+    "cost": 4,
+    "costLabel": "4费",
+    "traits": [
+      "木灵族",
+      "堡垒卫士"
+    ],
+    "image": "webp/season/s17/heroes/4376.webp",
+    "searchText": "拉莫斯 木灵族 堡垒卫士"
+  },
+  {
+    "key": "4377",
+    "name": "娜美",
+    "cost": 4,
+    "costLabel": "4费",
+    "traits": [
+      "太空律动",
+      "魔术师"
+    ],
+    "image": "webp/season/s17/heroes/4377.webp",
+    "searchText": "娜美 太空律动 魔术师"
   },
   {
     "key": "4378",
@@ -638,8 +614,32 @@
     "traits": [
       "斗士"
     ],
-    "image": "webp/mode17s18_hero_by_cost_cn/price-4/塔姆.webp",
+    "image": "webp/season/s17/heroes/4378.webp",
     "searchText": "塔姆 斗士"
+  },
+  {
+    "key": "4379",
+    "name": "超级机甲",
+    "cost": 4,
+    "costLabel": "4费",
+    "traits": [
+      "霸天机甲",
+      "旅人"
+    ],
+    "image": "webp/season/s17/heroes/4379.webp",
+    "searchText": "超级机甲 霸天机甲 旅人"
+  },
+  {
+    "key": "4380",
+    "name": "乐芙兰",
+    "cost": 4,
+    "costLabel": "4费",
+    "traits": [
+      "法官",
+      "牧羊人"
+    ],
+    "image": "webp/season/s17/heroes/4380.webp",
+    "searchText": "乐芙兰 法官 牧羊人"
   },
   {
     "key": "4381",
@@ -650,20 +650,20 @@
       "观星者",
       "狙神"
     ],
-    "image": "webp/mode17s18_hero_by_cost_cn/price-4/霞.webp",
+    "image": "webp/season/s17/heroes/4381.webp",
     "searchText": "霞 观星者 狙神"
   },
   {
-    "key": "4370",
-    "name": "易",
+    "key": "4382",
+    "name": "奥瑞利安·索尔",
     "cost": 4,
     "costLabel": "4费",
     "traits": [
-      "灵能特工",
-      "狂战士"
+      "霸天机甲",
+      "神谕"
     ],
-    "image": "webp/mode17s18_hero_by_cost_cn/price-4/易.webp",
-    "searchText": "易 灵能特工 狂战士"
+    "image": "webp/season/s17/heroes/4382.webp",
+    "searchText": "奥瑞利安·索尔 霸天机甲 神谕"
   },
   {
     "key": "5420",
@@ -674,7 +674,7 @@
       "木灵族",
       "神谕"
     ],
-    "image": "webp/mode17s18_hero_by_cost_cn/price-5/巴德.webp",
+    "image": "webp/season/s17/heroes/5420.webp",
     "searchText": "巴德 木灵族 神谕"
   },
   {
@@ -684,24 +684,23 @@
     "costLabel": "5费",
     "traits": [
       "太空律动",
-      "狗狗机器人",
+      "汪星机器人",
       "重装战士"
     ],
-    "image": "webp/mode17s18_hero_by_cost_cn/price-5/布里茨.webp",
-    "searchText": "布里茨 太空律动 狗狗机器人 重装战士"
+    "image": "webp/season/s17/heroes/5421.webp",
+    "searchText": "布里茨 太空律动 汪星机器人 重装战士"
   },
   {
-    "key": "5426",
-    "name": "菲奥娜",
+    "key": "5422",
+    "name": "薇古丝",
     "cost": 5,
     "costLabel": "5费",
     "traits": [
-      "斗神",
-      "幻灵战队",
-      "狂战士"
+      "末日使者",
+      "观星者"
     ],
-    "image": "webp/mode17s18_hero_by_cost_cn/price-5/菲奥娜.webp",
-    "searchText": "菲奥娜 斗神 幻灵战队 狂战士"
+    "image": "webp/season/s17/heroes/5422.webp",
+    "searchText": "薇古丝 末日使者 观星者"
   },
   {
     "key": "5423",
@@ -711,43 +710,8 @@
     "traits": [
       "军工1号"
     ],
-    "image": "webp/mode17s18_hero_by_cost_cn/price-5/格雷福斯.webp",
+    "image": "webp/season/s17/heroes/5423.webp",
     "searchText": "格雷福斯 军工1号"
-  },
-  {
-    "key": "5428",
-    "name": "劫",
-    "cost": 5,
-    "costLabel": "5费",
-    "traits": [
-      "天煞"
-    ],
-    "image": "webp/mode17s18_hero_by_cost_cn/price-5/劫.webp",
-    "searchText": "劫 天煞"
-  },
-  {
-    "key": "5427",
-    "name": "烬",
-    "cost": 5,
-    "costLabel": "5费",
-    "traits": [
-      "暗星",
-      "根除者",
-      "狙神"
-    ],
-    "image": "webp/mode17s18_hero_by_cost_cn/price-5/烬.webp",
-    "searchText": "烬 暗星 根除者 狙神"
-  },
-  {
-    "key": "5434",
-    "name": "莫甘娜",
-    "cost": 4,
-    "costLabel": "4费",
-    "traits": [
-      "黑暗魔女"
-    ],
-    "image": "webp/mode17s18_hero_by_cost_cn/price-5/莫甘娜.webp",
-    "searchText": "莫甘娜 黑暗魔女"
   },
   {
     "key": "5424",
@@ -756,10 +720,11 @@
     "costLabel": "5费",
     "traits": [
       "暮光铁壁",
+      "未来战士",
       "堡垒卫士"
     ],
-    "image": "webp/mode17s18_hero_by_cost_cn/price-5/慎.webp",
-    "searchText": "慎 暮光铁壁 堡垒卫士"
+    "image": "webp/season/s17/heroes/5424.webp",
+    "searchText": "慎 暮光铁壁 未来战士 堡垒卫士"
   },
   {
     "key": "5425",
@@ -771,18 +736,55 @@
       "灵能特工",
       "牧羊人"
     ],
-    "image": "webp/mode17s18_hero_by_cost_cn/price-5/娑娜.webp",
+    "image": "webp/season/s17/heroes/5425.webp",
     "searchText": "娑娜 最高指挥官 灵能特工 牧羊人"
   },
   {
-    "key": "5422",
-    "name": "薇古丝",
+    "key": "5426",
+    "name": "菲奥娜",
     "cost": 5,
     "costLabel": "5费",
     "traits": [
-      "末日使者"
+      "斗神",
+      "幻灵战队",
+      "狂战士"
     ],
-    "image": "webp/mode17s18_hero_by_cost_cn/price-5/薇古丝.webp",
-    "searchText": "薇古丝 末日使者"
+    "image": "webp/season/s17/heroes/5426.webp",
+    "searchText": "菲奥娜 斗神 幻灵战队 狂战士"
+  },
+  {
+    "key": "5427",
+    "name": "烬",
+    "cost": 5,
+    "costLabel": "5费",
+    "traits": [
+      "暗星",
+      "灭星尊",
+      "狙神"
+    ],
+    "image": "webp/season/s17/heroes/5427.webp",
+    "searchText": "烬 暗星 灭星尊 狙神"
+  },
+  {
+    "key": "5428",
+    "name": "劫",
+    "cost": 5,
+    "costLabel": "5费",
+    "traits": [
+      "天煞"
+    ],
+    "image": "webp/season/s17/heroes/5428.webp",
+    "searchText": "劫 天煞"
+  },
+  {
+    "key": "5434",
+    "name": "莫甘娜",
+    "cost": 4,
+    "costLabel": "4费",
+    "traits": [
+      "黑暗魔女"
+    ],
+    "image": "webp/season/s17/heroes/5434.webp",
+    "searchText": "莫甘娜 黑暗魔女"
   }
 ]

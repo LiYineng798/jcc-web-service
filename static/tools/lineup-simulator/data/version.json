@@ -1,7 +1,7 @@
 {
-  "set": "manual",
-  "version": "manual",
-  "updatedAt": "manual",
-  "source": "D:\\1\\codex\\jcc\\claude_project\\static\\tools\\lineup-simulator\\local-data.js",
-  "note": "由 scripts/build_simulator_data.py 自动生成"
+  "set": "s17",
+  "version": "17.17.7",
+  "updatedAt": "2026-07-15",
+  "source": "static/season-data/s17",
+  "note": "由 scripts/season_library/build_simulator_from_library.py 生成"
 }
