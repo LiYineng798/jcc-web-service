@@ -86,9 +86,22 @@ cd /opt/jcc/jcc-web-service
 git pull origin main
 . .venv/bin/activate
 pip install -r requirements.txt
-pip install 'gunicorn>=26.0'
 systemctl restart jcc
 curl -fsS http://127.0.0.1:5000/api/health
+```
+
+`gunicorn` and `psycopg[pool]` are part of `requirements.txt`; the service unit
+runs `gunicorn -c deploy/gunicorn.conf.py app:app` (2 gthread workers x 4
+threads, sized for the 2C/2G host). When `deploy/nginx.conf.example` or
+`deploy/jcc.service.example` change, re-apply them manually:
+
+```bash
+# compare and update the live configs
+diff /etc/nginx/sites-available/jcc deploy/nginx.conf.example
+diff /etc/systemd/system/jcc.service deploy/jcc.service.example
+# after updating:
+nginx -t && systemctl reload nginx
+systemctl daemon-reload && systemctl restart jcc
 ```
 
 Also verify from the public domain:

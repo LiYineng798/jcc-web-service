@@ -6,8 +6,8 @@
 <html lang="zh-CN">
   <head>
 {{ seo_head(seo) }}
-    <link rel="stylesheet" href="{{ url_for('static', filename='season-reference.css') }}" />
-    <link rel="stylesheet" href="{{ url_for('static', filename='season-champion-detail.css') }}" />
+    <link rel="stylesheet" href="{{ static_v('season-reference.css') }}" />
+    <link rel="stylesheet" href="{{ static_v('season-champion-detail.css') }}" />
   </head>
   <body>
     <div class="page-shell s18-preview-page s18-champion-detail-page">
@@ -175,8 +175,8 @@
          data-season-id="{{ season.season_id }}"
          data-asset-root="{{ asset_root }}"
          data-data-url="/static/season-data/{{ season.season_id }}/index.json?v={{ season.version_id }}"></div>
-    <script src="{{ url_for('static', filename='theme-toggle.js') }}" defer></script>
-    <script src="{{ url_for('static', filename='season-champion-ui.js') }}" defer></script>
-    <script src="{{ url_for('static', filename='season-champion-detail.js') }}" defer></script>
+    <script src="{{ static_v('theme-toggle.js') }}" defer></script>
+    <script src="{{ static_v('season-champion-ui.js') }}" defer></script>
+    <script src="{{ static_v('season-champion-detail.js') }}" defer></script>
   </body>
 </html>

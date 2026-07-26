@@ -126,7 +126,7 @@
 <html lang="zh-CN">
   <head>
 {{ seo_head(seo) }}
-    <link rel="stylesheet" href="{{ url_for('static', filename='returning-equipment.css') }}" />
+    <link rel="stylesheet" href="{{ static_v('returning-equipment.css') }}" />
   </head>
   <body>
     <div class="page-shell returning-equipment-page">
@@ -175,7 +175,7 @@
         {% endfor %}
       </main>
     </div>
-    <script src="{{ url_for('static', filename='theme-toggle.js') }}" defer></script>
-    <script src="{{ url_for('static', filename='returning-equipment.js') }}" defer></script>
+    <script src="{{ static_v('theme-toggle.js') }}" defer></script>
+    <script src="{{ static_v('returning-equipment.js') }}" defer></script>
   </body>
 </html>

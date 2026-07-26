@@ -4,7 +4,7 @@
 <html lang="zh-CN">
   <head>
 {{ seo_head(seo) }}
-    <link rel="stylesheet" href="{{ url_for('static', filename='artifacts-guide.css') }}" />
+    <link rel="stylesheet" href="{{ static_v('artifacts-guide.css') }}" />
   </head>
   <body>
     <div class="page-shell artifacts-guide-page">
@@ -25,7 +25,7 @@
 
       <main class="artifact-guide-grid" id="artifactGuideGrid" aria-live="polite"></main>
     </div>
-    <script src="{{ url_for('static', filename='theme-toggle.js') }}" defer></script>
-    <script src="{{ url_for('static', filename='artifacts-guide.js') }}" defer></script>
+    <script src="{{ static_v('theme-toggle.js') }}" defer></script>
+    <script src="{{ static_v('artifacts-guide.js') }}" defer></script>
   </body>
 </html>

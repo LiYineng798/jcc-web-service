@@ -4,7 +4,7 @@
 <html lang="zh-CN">
   <head>
 {{ seo_head(seo) }}
-    <link rel="stylesheet" href="{{ url_for('static', filename='special-mechanics.css') }}" />
+    <link rel="stylesheet" href="{{ static_v('special-mechanics.css') }}" />
   </head>
   <body>
     <div class="page-shell special-mechanics-page">
@@ -33,7 +33,7 @@
 
       <main class="special-mechanic-list" id="specialMechanicList" aria-live="polite"></main>
     </div>
-    <script src="{{ url_for('static', filename='theme-toggle.js') }}" defer></script>
-    <script src="{{ url_for('static', filename='special-mechanics.js') }}" defer></script>
+    <script src="{{ static_v('theme-toggle.js') }}" defer></script>
+    <script src="{{ static_v('special-mechanics.js') }}" defer></script>
   </body>
 </html>

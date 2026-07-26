@@ -5,7 +5,7 @@
 <html lang="zh-CN">
   <head>
 {{ seo_head(seo) }}
-    <link rel="stylesheet" href="{{ url_for('static', filename='season-reference.css') }}" />
+    <link rel="stylesheet" href="{{ static_v('season-reference.css') }}" />
   </head>
   <body>
     <div class="page-shell s18-preview-page">
@@ -99,8 +99,8 @@
       </main>
     </div>
     <div class="champion-hover-layer" id="championHoverLayer" hidden></div>
-    <script src="{{ url_for('static', filename='theme-toggle.js') }}" defer></script>
-    <script src="{{ url_for('static', filename='season-champion-ui.js') }}" defer></script>
-    <script src="{{ url_for('static', filename='season-reference.js') }}" defer></script>
+    <script src="{{ static_v('theme-toggle.js') }}" defer></script>
+    <script src="{{ static_v('season-champion-ui.js') }}" defer></script>
+    <script src="{{ static_v('season-reference.js') }}" defer></script>
   </body>
 </html>

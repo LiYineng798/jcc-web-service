@@ -4,7 +4,7 @@
 <html lang="zh-CN">
   <head>
 {{ seo_head(seo) }}
-    <link rel="stylesheet" href="{{ url_for('static', filename='admin.css', v='20260723-admin-redesign-1') }}" />
+    <link rel="stylesheet" href="{{ static_v('admin.css') }}" />
   </head>
   <body class="admin-page">
     <div class="admin-layout">
@@ -87,10 +87,10 @@
     </dialog>
 
     <div id="adminDialogRoot"></div>
-    <script src="{{ url_for('static', filename='vendor/lucide/lucide.min.js', v='0.468.0') }}" defer></script>
-    <script src="{{ url_for('static', filename='theme-toggle.js') }}" defer></script>
-    <script src="{{ url_for('static', filename='admin/core.js', v='20260723-admin-modules-1') }}" defer></script>
-    <script src="{{ url_for('static', filename='admin/overview.js', v='20260723-admin-modules-1') }}" defer></script>
-    <script src="{{ url_for('static', filename='admin.js', v='20260723-admin-modules-1') }}" defer></script>
+    <script src="{{ static_v('vendor/lucide/lucide.min.js') }}" defer></script>
+    <script src="{{ static_v('theme-toggle.js') }}" defer></script>
+    <script src="{{ static_v('admin/core.js') }}" defer></script>
+    <script src="{{ static_v('admin/overview.js') }}" defer></script>
+    <script src="{{ static_v('admin.js') }}" defer></script>
   </body>
 </html>

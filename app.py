@@ -3,6 +3,7 @@ import os
 from flask import Flask
 
 from app_pages import register_page_routes, register_test_helpers
+from assets_version import register_asset_helpers
 from config import apply_config
 from db import close_db, init_db, table_names
 
@@ -13,6 +14,7 @@ def create_app(test_config=None):
     os.makedirs(app.instance_path, exist_ok=True)
 
     app.teardown_appcontext(close_db)
+    register_asset_helpers(app)
 
     from auth import auth_bp
     from captcha import captcha_bp, lookup_answer_for_tests
