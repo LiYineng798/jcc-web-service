@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta
 
-from analytics import growth_summary
-from visits import daily_new_returning_visitors, daily_uv_count, last_7_days_uv
+from analytics import growth_summary, _day_bounds
+from visits import daily_new_returning_visitors, last_7_days_uv
 
 
 def _today_and_yesterday():
@@ -17,17 +17,17 @@ def _today_login_count(db, today):
         FROM login_events le
         JOIN users u ON u.id = le.user_id
         WHERE le.success = 1
-          AND le.created_at LIKE ?
+          AND le.created_at >= ? AND le.created_at < ?
           AND u.role != 'admin'
         ''',
-        (f'{today}%',),
+        _day_bounds(today),
     ).fetchone()['c']
 
 
 def _today_lineup_copy_count(db, today):
     return db.execute(
-        "SELECT COUNT(*) AS c FROM copy_events WHERE counted = 1 AND created_at LIKE ?",
-        (f'{today}%',),
+        "SELECT COUNT(*) AS c FROM copy_events WHERE counted = 1 AND created_at >= ? AND created_at < ?",
+        _day_bounds(today),
     ).fetchone()['c']
 
 
@@ -45,30 +45,32 @@ def build_admin_stats_payload(db):
     today_visitor_mix = daily_new_returning_visitors(today)
     yesterday_visitor_mix = daily_new_returning_visitors(yesterday)
     today_users = db.execute(
-        "SELECT COUNT(*) AS c FROM users WHERE role != 'admin' AND created_at LIKE ?",
-        (f'{today}%',),
+        "SELECT COUNT(*) AS c FROM users WHERE role != 'admin' AND created_at >= ? AND created_at < ?",
+        _day_bounds(today),
     ).fetchone()['c']
     today_logins = _today_login_count(db, today)
     today_lineup_copy_count = _today_lineup_copy_count(db, today)
     today_live_comp_copy_count = _today_live_comp_copy_count(db, today)
+    traffic_7d = last_7_days_uv()
+    traffic_by_date = {item['date']: item['uv'] for item in traffic_7d}
     hourly = db.execute(
-        "SELECT substr(created_at, 12, 2) AS hour, COUNT(*) AS count FROM users WHERE created_at LIKE ? GROUP BY hour",
-        (f'{today}%',),
+        "SELECT substr(created_at, 12, 2) AS hour, COUNT(*) AS count FROM users WHERE created_at >= ? AND created_at < ? GROUP BY hour",
+        _day_bounds(today),
     ).fetchall()
     return {
         'total_users': total,
         'today_users': today_users,
         'today_logins': today_logins,
-        'today_uv': daily_uv_count(today),
+        'today_uv': traffic_by_date.get(today, 0),
         'today_lineup_copy_count': today_lineup_copy_count,
         'today_live_comp_copy_count': today_live_comp_copy_count,
         'today_total_copy_count': today_lineup_copy_count + today_live_comp_copy_count,
-        'yesterday_uv': daily_uv_count(yesterday),
+        'yesterday_uv': traffic_by_date.get(yesterday, 0),
         'today_new_visitors': today_visitor_mix['new_visitors'],
         'today_returning_visitors': today_visitor_mix['returning_visitors'],
         'yesterday_new_visitors': yesterday_visitor_mix['new_visitors'],
         'yesterday_returning_visitors': yesterday_visitor_mix['returning_visitors'],
-        'last_7_days_uv': last_7_days_uv(),
+        'last_7_days_uv': traffic_7d,
         'hourly_registrations': [dict(row) for row in hourly],
     }
 
@@ -80,17 +82,17 @@ def build_admin_overview_payload(db):
         '''
         SELECT
           (SELECT COUNT(*) FROM users WHERE role != 'admin') AS total_users,
-          (SELECT COUNT(*) FROM users WHERE role != 'admin' AND created_at LIKE ?) AS today_users,
+          (SELECT COUNT(*) FROM users WHERE role != 'admin' AND created_at >= ? AND created_at < ?) AS today_users,
           (SELECT COUNT(DISTINCT le.user_id)
              FROM login_events le JOIN users u ON u.id = le.user_id
-            WHERE le.success = 1 AND le.created_at LIKE ? AND u.role != 'admin') AS today_logins,
-          (SELECT COUNT(*) FROM copy_events WHERE counted = 1 AND created_at LIKE ?) AS today_lineup_copy_count,
+            WHERE le.success = 1 AND le.created_at >= ? AND le.created_at < ? AND u.role != 'admin') AS today_logins,
+          (SELECT COUNT(*) FROM copy_events WHERE counted = 1 AND created_at >= ? AND created_at < ?) AS today_lineup_copy_count,
           (SELECT COALESCE(copy_count, 0) FROM live_comp_global_daily_stats WHERE copy_date = ?) AS today_live_comp_copy_count,
           (SELECT COUNT(*) FROM reports WHERE status = 'pending') AS pending_reports_count,
           (SELECT COUNT(*) FROM lineups WHERE status = 'hidden') AS hidden_lineups_count,
-          (SELECT COUNT(*) FROM audit_logs WHERE created_at LIKE ?) AS recent_audit_count
+          (SELECT COUNT(*) FROM audit_logs WHERE created_at >= ? AND created_at < ?) AS recent_audit_count
         ''',
-        (f'{today}%', f'{today}%', f'{today}%', today, f'{today}%'),
+        (*_day_bounds(today), *_day_bounds(today), *_day_bounds(today), today, *_day_bounds(today)),
     ).fetchone()
     counts = dict(counts)
     total_users = int(counts['total_users'] or 0)

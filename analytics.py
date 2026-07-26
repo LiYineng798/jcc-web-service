@@ -1,5 +1,5 @@
 import json
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from db import db_kind, get_db, now_text
 
@@ -48,6 +48,17 @@ def _normalize_target_date(target_date=None):
     return value
 
 
+def _day_bounds(target_date):
+    """Half-open [start, end) text-timestamp range for one day.
+
+    ``substr(created_at, 1, 10) = ?`` disables index use entirely; a plain
+    string range is sargable on both SQLite and PostgreSQL because
+    created_at is stored as 'YYYY-MM-DD HH:MM:SS' text.
+    """
+    next_day = (datetime.strptime(target_date, '%Y-%m-%d') + timedelta(days=1)).strftime('%Y-%m-%d')
+    return target_date, next_day
+
+
 def _event_actor_key(alias):
     return f'''
         CASE
@@ -59,16 +70,17 @@ def _event_actor_key(alias):
 
 
 def _count_event_visitors(target_date):
+    start, end = _day_bounds(target_date)
     rows = get_db().execute(
         f'''
         SELECT ge.event_name, COUNT(DISTINCT {_event_actor_key('ge')}) AS c
         FROM growth_events ge
         LEFT JOIN users u ON u.id = ge.user_id
-        WHERE substr(ge.created_at, 1, 10) = ?
+        WHERE ge.created_at >= ? AND ge.created_at < ?
           AND (ge.user_id IS NULL OR COALESCE(u.role, 'user') != 'admin')
         GROUP BY ge.event_name
         ''',
-        (target_date,),
+        (start, end),
     ).fetchall()
     return {row['event_name']: row['c'] for row in rows}
 
@@ -89,21 +101,23 @@ def _count_home_uv(target_date):
 
 
 def _count_auth_success_users(target_date):
+    start, end = _day_bounds(target_date)
     row = get_db().execute(
         '''
         SELECT COUNT(DISTINCT ge.user_id) AS c
         FROM growth_events ge
         JOIN users u ON u.id = ge.user_id
-        WHERE substr(ge.created_at, 1, 10) = ?
+        WHERE ge.created_at >= ? AND ge.created_at < ?
           AND ge.event_name IN ('register_success', 'login_success')
           AND u.role != 'admin'
         ''',
-        (target_date,),
+        (start, end),
     ).fetchone()
     return row['c'] if row else 0
 
 
-def _count_post_login_action_users(target_date, action_event_name):
+def _count_post_login_action_users_by_event(target_date, action_event_names):
+    """One grouped pass for all funnel actions (was three identical scans)."""
     if db_kind() == 'postgres':
         auth_created_at = 'auth.created_at::timestamp'
         action_created_at = 'action.created_at::timestamp'
@@ -112,26 +126,27 @@ def _count_post_login_action_users(target_date, action_event_name):
         auth_created_at = 'auth.created_at'
         action_created_at = 'action.created_at'
         action_window_end = "datetime(auth.created_at, '+10 minutes')"
-    row = get_db().execute(
+    start, end = _day_bounds(target_date)
+    placeholders = ', '.join('?' for _ in action_event_names)
+    rows = get_db().execute(
         f'''
-        SELECT COUNT(DISTINCT auth.user_id) AS c
+        SELECT action.event_name AS event_name, COUNT(DISTINCT auth.user_id) AS c
         FROM growth_events auth
         JOIN users u ON u.id = auth.user_id
-        WHERE substr(auth.created_at, 1, 10) = ?
+        JOIN growth_events action
+          ON action.user_id = auth.user_id
+         AND action.event_name IN ({placeholders})
+         AND {action_created_at} >= {auth_created_at}
+         AND {action_created_at} <= {action_window_end}
+        WHERE auth.created_at >= ? AND auth.created_at < ?
           AND auth.event_name IN ('register_success', 'login_success')
           AND u.role != 'admin'
-          AND EXISTS (
-              SELECT 1
-              FROM growth_events action
-              WHERE action.user_id = auth.user_id
-                AND action.event_name = ?
-                AND {action_created_at} >= {auth_created_at}
-                AND {action_created_at} <= {action_window_end}
-          )
+        GROUP BY action.event_name
         ''',
-        (target_date, action_event_name),
-    ).fetchone()
-    return row['c'] if row else 0
+        (*action_event_names, start, end),
+    ).fetchall()
+    counts = {row['event_name']: int(row['c'] or 0) for row in rows}
+    return {name: counts.get(name, 0) for name in action_event_names}
 
 
 def sanitize_growth_payload(data):
@@ -200,9 +215,13 @@ def growth_summary(target_date=None):
     event_counts = _count_event_visitors(target_date)
     home_uv = _count_home_uv(target_date)
     auth_success_users = _count_auth_success_users(target_date)
-    post_login_like_users = _count_post_login_action_users(target_date, 'post_login_like')
-    post_login_favorite_users = _count_post_login_action_users(target_date, 'post_login_favorite')
-    post_login_create_lineup_users = _count_post_login_action_users(target_date, 'post_login_create_lineup')
+    post_login_counts = _count_post_login_action_users_by_event(
+        target_date,
+        ('post_login_like', 'post_login_favorite', 'post_login_create_lineup'),
+    )
+    post_login_like_users = post_login_counts['post_login_like']
+    post_login_favorite_users = post_login_counts['post_login_favorite']
+    post_login_create_lineup_users = post_login_counts['post_login_create_lineup']
 
     login_entry_visitors = event_counts.get('click_login_entry', 0)
     auth_page_visitors = event_counts.get('open_auth_page', 0)

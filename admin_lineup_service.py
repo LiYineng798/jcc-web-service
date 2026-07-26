@@ -26,7 +26,14 @@ def build_admin_lineups_query(query):
             lineups.name LIKE ? OR lineups.code LIKE ? OR users.username LIKE ? OR users.nickname LIKE ?
         )'''
         params.extend([f'%{query}%', f'%{query}%', f'%{query}%', f'%{query}%'])
-    base_sql = 'SELECT lineups.* ' + from_sql + ' ORDER BY lineups.id DESC'
+    # Owner columns ride the existing join and the admin list renders no
+    # like/favorite state — constant flags keep serialize_lineup_row from
+    # issuing its three per-row fallback queries (was ~60 queries per page).
+    base_sql = (
+        'SELECT lineups.*, users.role AS owner_role, users.username AS owner_username, '
+        'users.nickname AS owner_nickname_raw, 0 AS is_liked_today, 0 AS is_favorited '
+        + from_sql + ' ORDER BY lineups.id DESC'
+    )
     count_sql = 'SELECT COUNT(*) AS c ' + from_sql
     return base_sql, count_sql, params
 

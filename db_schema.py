@@ -400,6 +400,15 @@ EXTRA_INDEX_STATEMENTS = (
     'CREATE INDEX IF NOT EXISTS idx_copy_events_counted_created_lineup ON copy_events (counted, created_at, lineup_id)',
     'CREATE INDEX IF NOT EXISTS idx_copy_action_events_target_created_at ON copy_action_events (target_type, target_id, created_at)',
     'CREATE INDEX IF NOT EXISTS idx_copy_action_events_user_created_at ON copy_action_events (user_id, created_at)',
+    # Performance-audit additions (mirror jcc-db-service migration 0005).
+    'CREATE INDEX IF NOT EXISTS idx_lineups_season_status_updated_id ON lineups (season_id, status, updated_at DESC, id DESC)',
+    'CREATE INDEX IF NOT EXISTS idx_visit_events_visitor_date ON visit_events (visitor_key, visit_date)',
+    'CREATE INDEX IF NOT EXISTS idx_login_events_created_at ON login_events (created_at)',
+    'CREATE INDEX IF NOT EXISTS idx_audit_logs_created_at ON audit_logs (created_at)',
+    'CREATE INDEX IF NOT EXISTS idx_reports_status ON reports (status)',
+    'CREATE INDEX IF NOT EXISTS idx_users_created_at ON users (created_at)',
+    'CREATE INDEX IF NOT EXISTS idx_recent_lineup_views_user_updated ON recent_lineup_views (user_id, updated_at DESC, id DESC)',
+    'CREATE INDEX IF NOT EXISTS idx_recent_lineup_copies_user_updated ON recent_lineup_copies (user_id, updated_at DESC, id DESC)',
 )
 
 
