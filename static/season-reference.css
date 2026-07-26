@@ -102,7 +102,7 @@
   bottom: 4px;
   left: 4px;
   z-index: 1;
-  width: calc((100% - 8px) / 3);
+  width: calc((100% - 8px) / var(--tab-count, 3));
   border-radius: 10px;
   background: var(--accent);
   box-shadow: 0 8px 24px color-mix(in srgb, var(--accent) 32%, transparent);
@@ -1249,4 +1249,155 @@
     transform: none;
     animation: none !important;
   }
+}
+
+/* ---- Season library generic additions ---- */
+
+.s18-preview-page {
+  --s18-cost-7: rgb(205, 82, 61);
+}
+
+.champion-card {
+  position: relative;
+}
+
+.champion-new-badge {
+  position: absolute;
+  z-index: 3;
+  top: 11px;
+  left: 12px;
+  border: 1px solid rgba(255, 248, 218, 0.75);
+  border-radius: 6px;
+  background: #d86135;
+  color: #fffaf2;
+  padding: 3px 7px;
+  font-size: 11px;
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: 0;
+  text-shadow: none;
+}
+
+.champion-unlock-badge {
+  position: absolute;
+  z-index: 3;
+  top: 11px;
+  right: 12px;
+  border: 1px solid rgba(212, 231, 255, 0.7);
+  border-radius: 6px;
+  background: rgba(38, 92, 167, 0.92);
+  color: #f3f8ff;
+  padding: 3px 7px;
+  font-size: 11px;
+  font-weight: 800;
+  line-height: 1;
+  text-shadow: none;
+}
+
+.champion-art.has-new .champion-name {
+  top: 37px;
+}
+
+.season-version-note {
+  margin: 2px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.mechanic-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 14px;
+}
+
+.mechanic-card {
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--surface);
+  padding: 16px;
+  display: grid;
+  gap: 10px;
+}
+
+.mechanic-card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.mechanic-card-header img {
+  width: 46px;
+  height: 46px;
+  border-radius: 10px;
+  object-fit: cover;
+  flex: none;
+}
+
+.mechanic-card-header h2 {
+  margin: 0;
+  font-size: 17px;
+}
+
+.mechanic-description {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13.5px;
+  line-height: 1.65;
+}
+
+.mechanic-card.has-splash {
+  padding: 0;
+  overflow: hidden;
+}
+
+.mechanic-splash {
+  width: 100%;
+  aspect-ratio: 16 / 7;
+  object-fit: cover;
+  display: block;
+}
+
+.mechanic-card.has-splash .mechanic-card-body {
+  padding: 14px 16px 16px;
+  display: grid;
+  gap: 10px;
+}
+
+.mechanic-stage {
+  border-top: 1px dashed var(--line);
+  padding-top: 10px;
+  display: grid;
+  gap: 8px;
+}
+
+.mechanic-stage-title {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--muted);
+}
+
+.mechanic-wish {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.mechanic-wish img {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  flex: none;
+}
+
+.mechanic-wish strong {
+  display: block;
+  font-size: 13.5px;
+}
+
+.mechanic-wish p {
+  margin: 2px 0 0;
+  color: var(--muted);
+  font-size: 12.5px;
+  line-height: 1.55;
 }

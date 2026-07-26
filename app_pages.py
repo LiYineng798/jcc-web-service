@@ -1,7 +1,6 @@
 import os
-from urllib.parse import quote
 
-from flask import Response, abort, jsonify, send_from_directory
+from flask import Response, abort, jsonify, redirect, send_from_directory
 
 from auth import current_user, login_required
 from db import get_db
@@ -23,7 +22,14 @@ from seo import (
     website_json_ld,
 )
 from scoring import score_map
-from s18_preview_service import build_champion_detail, champion_names
+from season_reference_service import (
+    build_champion_detail as build_season_champion_detail,
+    catalog_seasons,
+    champion_ids as season_champion_ids,
+    find_champion_id_by_name,
+    normalize_season_id,
+    season_page_context,
+)
 from settings_service import get_setting
 from visits import tracked_template_response
 
@@ -36,13 +42,14 @@ def _sitemap_entries():
         {'loc': absolute_url('/tools/special-mechanics'), 'lastmod': None},
         {'loc': absolute_url('/tools/artifact-guide'), 'lastmod': None},
         {'loc': absolute_url('/tools/returning-equipment'), 'lastmod': None},
-        {'loc': absolute_url('/tools/s16-5-preview'), 'lastmod': None},
-        {'loc': absolute_url('/tools/s18-preview'), 'lastmod': None},
     ]
-    entries.extend({
-        'loc': absolute_url(f'/tools/s18-preview/champions/{quote(name)}'),
-        'lastmod': None,
-    } for name in champion_names())
+    for season in catalog_seasons():
+        season_id = season['season_id']
+        entries.append({'loc': absolute_url(f'/tools/seasons/{season_id}'), 'lastmod': None})
+        entries.extend({
+            'loc': absolute_url(f'/tools/seasons/{season_id}/champions/{champion_id}'),
+            'lastmod': None,
+        } for champion_id in season_champion_ids(season_id))
     if get_setting(db, 'simulator_enabled', 'true') == 'true':
         entries.append({'loc': absolute_url('/tools/lineup-simulator'), 'lastmod': None})
 
@@ -90,7 +97,14 @@ def register_page_routes(app):
             path='/',
             json_ld=[website_json_ld()],
         )
-        return tracked_template_response('index.html', 'home', simulator_enabled=simulator_enabled, notice=notice, seo=seo)
+        return tracked_template_response(
+            'index.html',
+            'home',
+            simulator_enabled=simulator_enabled,
+            notice=notice,
+            reference_seasons=catalog_seasons(),
+            seo=seo,
+        )
 
     @app.get('/auth')
     def auth_page():
@@ -227,60 +241,81 @@ def register_page_routes(app):
             seo=make_seo(title='S8·怪兽入侵 回归装备', description='查看S8怪兽入侵回归装备属性、组件和效果说明。', path='/tools/returning-equipment'),
         )
 
-    @app.get('/tools/s18-preview')
-    def s18_preview_page():
+    @app.get('/tools/seasons/<season_id>')
+    def season_reference_page(season_id):
+        normalized = normalize_season_id(season_id)
+        context = season_page_context(normalized)
+        if context is None:
+            abort(404)
+        if season_id != normalized:
+            return redirect(f'/tools/seasons/{normalized}', 301)
+        season = context['season']
+        mechanic_names = '、'.join(item['display_name'] for item in context['mechanics'] if item.get('display_name'))
+        section_text = f"弈子、羁绊{'与' + mechanic_names if mechanic_names else ''}"
         return tracked_template_response(
-            's18_preview.html',
-            's18_preview',
+            'season_reference.html',
+            'season_reference',
             seo=make_seo(
-                title='S18版本前瞻 - 弈子、羁绊与法杖',
-                description='查看金铲铲S18版本弈子、羁绊、技能与法杖资料。',
-                path='/tools/s18-preview',
+                title=f"{season['display_name']}资料 - {section_text} - 金铲铲阵容库",
+                description=f"查看金铲铲{season['display_name']}赛季的{section_text}资料。",
+                path=f'/tools/seasons/{normalized}',
             ),
+            **context,
         )
 
-    @app.get('/tools/s16-5-preview')
-    def s16_5_preview_page():
-        return tracked_template_response(
-            's16_5_preview.html',
-            's16_5_preview',
-            seo=make_seo(
-                title='S16.5英雄联盟传奇·海克斯宝典 - 金铲铲阵容库',
-                description='查看金铲铲S16.5英雄联盟传奇赛季的弈子、羁绊、费用与技能资料。',
-                path='/tools/s16-5-preview',
-            ),
-        )
-
-    @app.get('/tools/s18-preview/champions/<champion_name>')
-    def s18_champion_detail_page(champion_name):
-        detail = build_champion_detail(champion_name)
+    @app.get('/tools/seasons/<season_id>/champions/<champion_id>')
+    def season_champion_detail_page(season_id, champion_id):
+        normalized = normalize_season_id(season_id)
+        detail = build_season_champion_detail(normalized, champion_id)
         if detail is None:
             abort(404)
+        if season_id != normalized:
+            return redirect(f'/tools/seasons/{normalized}/champions/{champion_id}', 301)
+        season = detail['season']
         champion = detail['champion']
-        path = f'/tools/s18-preview/champions/{quote(champion_name)}'
+        path = f'/tools/seasons/{normalized}/champions/{champion["id"]}'
+        trait_names = '、'.join(trait['name'] for trait in detail['traits'])
         description = truncate_text(
-            f"S18 {champion['名称']}，{champion['费用']}费弈子，"
-            f"羁绊为{'、'.join(champion['羁绊'])}。技能：{champion['技能名称']}，{champion['技能描述']}"
+            f"{season['display_name']} {champion['name']}，{champion['cost']}费弈子"
+            f"{'，羁绊为' + trait_names if trait_names else ''}。"
+            f"技能：{champion['skill']['name'] or ''}，{champion['skill']['description'] or ''}"
         )
+        splash = champion['splash'] or champion['icon']
         return tracked_template_response(
-            's18_champion_detail.html',
-            's18_champion_detail',
+            'season_champion_detail.html',
+            'season_champion_detail',
             detail=detail,
+            asset_root=f"/static/season-data/{season['season_id']}",
             seo=make_seo(
-                title=f"{champion['名称']} - S18弈子详情 - 金铲铲阵容库",
+                title=f"{champion['name']} - {season['display_name']}弈子详情 - 金铲铲阵容库",
                 description=description,
                 path=path,
-                image_path=f"/static/s18-preview/bg/{champion['费用']}/{quote(champion['名称'])}.jpg",
+                image_path=f"/static/season-data/{season['season_id']}/{splash}" if splash else None,
                 json_ld=[
-                    webpage_json_ld(champion['名称'], description, path),
+                    webpage_json_ld(champion['name'], description, path),
                     breadcrumb_json_ld([
                         {'name': '首页', 'path': '/'},
-                        {'name': 'S18版本前瞻', 'path': '/tools/s18-preview'},
-                        {'name': champion['名称'], 'path': path},
+                        {'name': f"{season['display_name']}资料", 'path': f'/tools/seasons/{normalized}'},
+                        {'name': champion['name'], 'path': path},
                     ]),
                 ],
             ),
         )
+
+    @app.get('/tools/s18-preview')
+    def legacy_s18_preview_page():
+        return redirect('/tools/seasons/s18', 301)
+
+    @app.get('/tools/s16-5-preview')
+    def legacy_s16_5_preview_page():
+        return redirect('/tools/seasons/s16_5', 301)
+
+    @app.get('/tools/s18-preview/champions/<champion_name>')
+    def legacy_s18_champion_detail_page(champion_name):
+        champion_id = find_champion_id_by_name('s18', champion_name)
+        if champion_id is None:
+            abort(404)
+        return redirect(f'/tools/seasons/s18/champions/{champion_id}', 301)
 
     @app.get('/me')
     def account_page():

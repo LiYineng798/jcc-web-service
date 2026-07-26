@@ -1,0 +1,179 @@
+<!doctype html>
+{% from "theme_toggle.html" import theme_toggle %}
+{% from "seo_head.html" import seo_head %}
+{% set season = detail.season %}
+{% set champion = detail.champion %}
+<html lang="zh-CN">
+  <head>
+{{ seo_head(seo) }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='season-reference.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='season-champion-detail.css') }}" />
+  </head>
+  <body>
+    <div class="page-shell s18-preview-page s18-champion-detail-page">
+      <nav class="nav-bar s18-preview-nav" aria-label="页面工具">
+        <a class="brand-mark brand-link" href="/" aria-label="返回首页">阵</a>
+        <div class="nav-actions">
+          <a class="ghost-link nav-tool-link" href="/tools/seasons/{{ season.season_id }}">返回{{ season.display_name }}</a>
+          {{ theme_toggle("nav-icon-button") }}
+        </div>
+      </nav>
+
+      <header class="champion-detail-heading">
+        <div>
+          <p class="eyebrow">{{ season.display_name }} · Champion Archive</p>
+          <h1>{{ champion.name }}</h1>
+        </div>
+        <span class="champion-detail-cost">{{ champion.cost }}费弈子</span>
+      </header>
+
+      <main class="champion-detail-layout">
+        <aside class="champion-detail-summary" aria-label="{{ champion.name }}弈子卡片">
+          <article class="champion-card champion-detail-card" style="--cost-color: var(--s18-cost-{{ champion.cost }})">
+            <div class="champion-art">
+{% if champion.splash or champion.icon %}
+              <img src="{{ asset_root }}/{{ champion.splash or champion.icon }}" alt="{{ champion.name }}" />
+{% endif %}
+              <h2 class="champion-name">{{ champion.name }}</h2>
+              <div class="champion-traits">
+{% for trait in detail.traits %}
+                <span class="champion-trait">
+{% if trait.image %}
+                  <img src="{{ asset_root }}/{{ trait.image }}" alt="" aria-hidden="true" />
+{% endif %}
+                  <span>{{ trait.name }}</span>
+                </span>
+{% endfor %}
+              </div>
+              <span class="champion-cost">
+                <img src="{{ url_for('static', filename='season-gold.png') }}" alt="" aria-hidden="true" />
+                <span>{{ champion.cost }}</span>
+              </span>
+            </div>
+            <div class="champion-skill">
+              <div><div class="champion-skill-body">
+                <h3 class="champion-skill-name">{{ champion.skill.name }}</h3>
+                <p class="champion-skill-description">{{ champion.skill.description }}</p>
+              </div></div>
+            </div>
+          </article>
+
+{% if champion.availability.type == 'unlock' and champion.availability.description %}
+          <section class="champion-detail-panel" aria-label="解锁条件">
+            <h3>解锁条件</h3>
+            <p>{{ champion.availability.description }}</p>
+          </section>
+{% endif %}
+
+{% if champion.star_levels %}
+          <section class="champion-detail-panel" aria-label="{{ champion.name }}逐星属性">
+            <h3>逐星属性</h3>
+            <table class="champion-stats-table">
+              <thead>
+                <tr>
+                  <th scope="col">属性</th>
+{% for star in champion.star_levels %}
+                  <th scope="col">{{ star }}星</th>
+{% endfor %}
+                </tr>
+              </thead>
+              <tbody>
+{% for stat_key, stat_label in [
+    ('health', '生命值'),
+    ('attack_damage', '攻击力'),
+    ('armor', '护甲'),
+    ('magic_resist', '魔抗'),
+    ('attack_speed', '攻速'),
+    ('attack_range', '攻击距离'),
+    ('max_mana', '蓝量上限'),
+    ('sell_price', '出售价格'),
+] %}
+                <tr>
+                  <th scope="row">{{ stat_label }}</th>
+{% for star in champion.star_levels %}
+                  <td>{{ champion.stats_by_star[star].get(stat_key) if champion.stats_by_star[star].get(stat_key) is not none else '—' }}</td>
+{% endfor %}
+                </tr>
+{% endfor %}
+              </tbody>
+            </table>
+          </section>
+{% endif %}
+
+{% if champion.skill.variables and champion.star_levels %}
+          <section class="champion-detail-panel" aria-label="技能逐星数值">
+            <h3>技能数值</h3>
+            <table class="champion-stats-table">
+              <tbody>
+{% for variable in champion.skill.variables %}
+                <tr>
+                  <th scope="row">{{ variable.label }}</th>
+{% for star in champion.star_levels %}
+                  <td>{{ variable['values'].get(star, '—') }}</td>
+{% endfor %}
+                </tr>
+{% endfor %}
+              </tbody>
+            </table>
+          </section>
+{% endif %}
+        </aside>
+
+        <section class="champion-detail-traits" aria-label="{{ champion.name }}的羁绊详情">
+{% for trait in detail.traits %}
+          <article class="champion-detail-trait-card" style="--detail-delay: {{ loop.index0 * 70 }}ms">
+            <header class="champion-detail-trait-header">
+              <span class="champion-detail-trait-icon">
+{% if trait.image %}
+                <img src="{{ asset_root }}/{{ trait.image }}" alt="" aria-hidden="true" />
+{% endif %}
+              </span>
+              <div>
+                <span class="champion-detail-trait-kicker">羁绊 {{ loop.index }} / {{ detail.traits|length }}</span>
+                <h2>{{ trait.name }}</h2>
+              </div>
+              <span class="champion-detail-member-count">{{ trait.members|length }} 名弈子</span>
+            </header>
+            <p class="trait-description champion-detail-trait-description">{{ trait.description }}</p>
+
+{% if trait.breakpoints %}
+            <div class="trait-levels champion-detail-levels" aria-label="{{ trait.name }}羁绊数量">
+{% for breakpoint in trait.breakpoints %}
+              <div class="trait-level">
+                <span class="trait-level-count">{{ breakpoint.min_units }}</span>
+                <span class="trait-level-effect">{{ breakpoint.effect }}</span>
+              </div>
+{% endfor %}
+            </div>
+{% else %}
+            <p class="champion-detail-level-empty">该羁绊暂无公开的数量层级资料</p>
+{% endif %}
+
+            <div class="champion-detail-members">
+              <h3>所属弈子</h3>
+              <div class="trait-champions">
+{% for member in trait.members %}
+                <a class="trait-champion" href="{{ url_for('season_champion_detail_page', season_id=season.season_id, champion_id=member.id) }}" data-champion-id="{{ member.id }}" style="--cost-color: var(--s18-cost-{{ member.cost }})" aria-label="查看{{ member.name }}详情">
+{% if member.icon %}
+                  <img src="{{ asset_root }}/{{ member.icon }}" alt="{{ member.name }}" />
+{% endif %}
+                  <span>{{ member.name }}</span>
+                </a>
+{% endfor %}
+              </div>
+            </div>
+          </article>
+{% endfor %}
+        </section>
+      </main>
+    </div>
+    <div class="champion-hover-layer" id="championHoverLayer" hidden></div>
+    <div id="seasonDetailConfig" hidden
+         data-season-id="{{ season.season_id }}"
+         data-asset-root="{{ asset_root }}"
+         data-data-url="/static/season-data/{{ season.season_id }}/index.json?v={{ season.version_id }}"></div>
+    <script src="{{ url_for('static', filename='theme-toggle.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='season-champion-ui.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='season-champion-detail.js') }}" defer></script>
+  </body>
+</html>

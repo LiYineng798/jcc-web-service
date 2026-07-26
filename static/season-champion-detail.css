@@ -232,3 +232,52 @@
     animation: none !important;
   }
 }
+
+/* ---- Season library detail additions ---- */
+
+.champion-detail-panel {
+  margin-top: 16px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--surface);
+  padding: 16px;
+}
+
+.champion-detail-panel h3 {
+  margin: 0 0 10px;
+  font-size: 15px;
+}
+
+.champion-detail-panel p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13.5px;
+  line-height: 1.65;
+}
+
+.champion-stats-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.champion-stats-table th,
+.champion-stats-table td {
+  border-top: 1px solid var(--line);
+  padding: 7px 8px;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.champion-stats-table thead th {
+  border-top: 0;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.champion-stats-table th[scope="row"] {
+  color: var(--muted);
+  font-weight: 700;
+  text-align: left;
+  white-space: nowrap;
+}

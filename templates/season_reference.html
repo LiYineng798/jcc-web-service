@@ -1,0 +1,106 @@
+<!doctype html>
+{% from "theme_toggle.html" import theme_toggle %}
+{% from "seo_head.html" import seo_head %}
+{% set tab_count = 2 + mechanics|length %}
+<html lang="zh-CN">
+  <head>
+{{ seo_head(seo) }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='season-reference.css') }}" />
+  </head>
+  <body>
+    <div class="page-shell s18-preview-page">
+      <nav class="nav-bar s18-preview-nav" aria-label="页面工具">
+        <a class="brand-mark brand-link" href="/" aria-label="返回首页">阵</a>
+        <div class="nav-actions">
+          <a class="ghost-link nav-tool-link" href="/">返回首页</a>
+          {{ theme_toggle("nav-icon-button") }}
+        </div>
+      </nav>
+
+      <header class="s18-preview-hero">
+        <p class="eyebrow">{{ season.status_label or '赛季资料' }} · Season Library</p>
+        <div class="s18-preview-title-row">
+          <div>
+            <h1>{{ season.display_name }}</h1>
+            {% if season.game_version %}
+            <p class="season-version-note">游戏版本 {{ season.game_version }}</p>
+            {% endif %}
+          </div>
+          <span class="s18-preview-count" id="previewCount">资料加载中</span>
+        </div>
+      </header>
+
+      <div class="s18-main-tabs" role="tablist" aria-label="{{ season.display_name }}资料分类" style="--tab-count: {{ tab_count }}">
+        <button class="s18-main-tab active" type="button" data-view="champions" role="tab" aria-selected="true" aria-controls="championsPanel">弈子</button>
+        <button class="s18-main-tab" type="button" data-view="traits" role="tab" aria-selected="false" aria-controls="traitsPanel">羁绊</button>
+{% for mechanic in mechanics %}
+        <button class="s18-main-tab" type="button" data-view="mechanic-{{ mechanic.id }}" role="tab" aria-selected="false" aria-controls="mechanicPanel-{{ mechanic.id }}">{{ mechanic.display_name }}</button>
+{% endfor %}
+        <span class="s18-tab-indicator" aria-hidden="true"></span>
+      </div>
+
+      <main class="s18-preview-content" id="seasonContent" aria-live="polite" aria-busy="true"
+            data-season-id="{{ season.season_id }}"
+            data-asset-root="{{ asset_root }}"
+            data-data-url="{{ data_url }}">
+        <section class="s18-view-panel active" id="championsPanel" data-panel="champions" role="tabpanel">
+          <button class="champion-filter-toggle" id="championFilterToggle" type="button" aria-expanded="false" aria-controls="championFilterPanel">
+            <span class="champion-filter-toggle-copy">
+              <strong>筛选弈子</strong>
+              <span id="championFilterSummary">全部条件</span>
+            </span>
+            <span class="champion-filter-toggle-chevron" aria-hidden="true">⌄</span>
+          </button>
+          <div class="champion-filter-panel" id="championFilterPanel">
+            <div class="champion-filter-row">
+              <label class="s18-search-field" for="championSearch">
+                <span>搜索弈子</span>
+                <input id="championSearch" type="search" autocomplete="off" placeholder="搜索弈子或羁绊" />
+              </label>
+              <div class="champion-filter-group">
+                <span class="champion-filter-label">种族</span>
+                <div class="champion-filter-options" id="originFilters" aria-label="按种族筛选"></div>
+              </div>
+              <div class="champion-filter-group">
+                <span class="champion-filter-label">职业</span>
+                <div class="champion-filter-options" id="professionFilters" aria-label="按职业筛选"></div>
+              </div>
+              <div class="champion-filter-group">
+                <span class="champion-filter-label">费用</span>
+                <div class="champion-filter-options" id="costFilters" aria-label="按费用筛选"></div>
+              </div>
+              <label class="skill-toggle" for="skillToggle">
+                <span>显示技能</span>
+                <input id="skillToggle" type="checkbox" checked />
+                <span class="skill-toggle-track" aria-hidden="true"><span></span></span>
+              </label>
+            </div>
+          </div>
+          <div id="championSections"></div>
+          <div class="s18-empty-state hidden" id="championEmpty"><strong>没有找到弈子</strong><span>调整搜索词或筛选条件后再试。</span></div>
+        </section>
+
+        <section class="s18-view-panel" id="traitsPanel" data-panel="traits" role="tabpanel" hidden>
+          <div class="trait-type-switch" role="tablist" aria-label="羁绊类型">
+            <button class="active" type="button" data-trait-type="origin" role="tab" aria-selected="true">种族</button>
+            <button type="button" data-trait-type="class" role="tab" aria-selected="false">职业</button>
+          </div>
+          <div class="trait-grid" id="traitGrid"></div>
+        </section>
+
+{% for mechanic in mechanics %}
+        <section class="s18-view-panel" id="mechanicPanel-{{ mechanic.id }}" data-panel="mechanic-{{ mechanic.id }}" data-mechanic-id="{{ mechanic.id }}" role="tabpanel" hidden>
+          <div class="{% if mechanic.kind == 'wand' %}wand-grid{% else %}mechanic-grid{% endif %}" data-mechanic-grid="{{ mechanic.id }}"></div>
+        </section>
+{% endfor %}
+
+        <div class="s18-loading" id="seasonLoading">正在整理 {{ season.display_name }} 资料...</div>
+        <div class="s18-load-error hidden" id="seasonLoadError" role="alert">资料加载失败，请刷新页面后重试。</div>
+      </main>
+    </div>
+    <div class="champion-hover-layer" id="championHoverLayer" hidden></div>
+    <script src="{{ url_for('static', filename='theme-toggle.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='season-champion-ui.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='season-reference.js') }}" defer></script>
+  </body>
+</html>

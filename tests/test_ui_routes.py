@@ -1033,8 +1033,8 @@ def test_home_mobile_resource_dialog_groups_content_entries(client):
     assert '<dialog class="mobile-resource-dialog" id="mobileResourceDialog"' in index_html
     assert 'id="mobileS8ResourceTitle"' in index_html
     assert 'id="mobileLibraryResourceTitle"' in index_html
-    assert 'class="mobile-resource-subitem" href="/tools/s16-5-preview"' in index_html
-    assert 'class="mobile-resource-subitem" href="/tools/s18-preview"' in index_html
+    assert 'class="mobile-resource-subitem" href="/tools/seasons/s16_5"' in index_html
+    assert 'class="mobile-resource-subitem" href="/tools/seasons/s18"' in index_html
     assert 'id="mobileToolsResourceTitle"' in index_html
     assert 'class="mobile-resource-subitem" href="/tools/lineup-simulator"' in index_html
     assert 'class="mobile-resource-subitem" href="/patch-notes"' in index_html

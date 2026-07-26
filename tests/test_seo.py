@@ -1,5 +1,3 @@
-from urllib.parse import quote
-
 from seo import code_preview, make_seo, season_label, truncate_text
 
 
@@ -93,8 +91,8 @@ def test_sitemap_includes_public_urls_and_excludes_hidden_and_draft(client):
     assert response.status_code == 200
     assert response.mimetype in {'application/xml', 'text/xml'}
     assert '<loc>http://localhost/</loc>' in body
-    assert '<loc>http://localhost/tools/s18-preview</loc>' in body
-    assert f'<loc>http://localhost/tools/s18-preview/champions/{quote("卡尔玛")}</loc>' in body
+    assert '<loc>http://localhost/tools/seasons/s18</loc>' in body
+    assert '<loc>http://localhost/tools/seasons/s18/champions/' in body
     assert f'<loc>http://localhost/lineup/{public_lineup["id"]}</loc>' in body
     assert f'<loc>http://localhost/lineup/{hidden_lineup["id"]}</loc>' not in body
     assert '<loc>http://localhost/author/mapauthor</loc>' in body

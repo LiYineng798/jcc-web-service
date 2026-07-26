@@ -21,8 +21,9 @@
                 <span class="returning-info-chevron" aria-hidden="true">⌄</span>
               </button>
               <div class="returning-info-menu-panel" role="menu">
-                <a class="returning-info-menu-item" href="/tools/s16-5-preview" role="menuitem"><span>S16.5英雄联盟传奇·海克斯宝典</span><small>115 名弈子与技能资料</small></a>
-                <a class="returning-info-menu-item" href="/tools/s18-preview" role="menuitem"><span>S18版本前瞻</span><small>弈子、羁绊与法杖资料</small></a>
+{% for season in reference_seasons %}
+                <a class="returning-info-menu-item" href="/tools/seasons/{{ season.season_id }}" role="menuitem"><span>{{ season.display_name }}{% if season.status != 'active' and season.status_label %}（{{ season.status_label }}）{% endif %}</span><small>{{ season.counts.champions }} 名弈子 · {{ season.counts.traits }} 个羁绊</small></a>
+{% endfor %}
               </div>
             </div>
             <div class="returning-info-menu desktop-resource-entry">
@@ -98,8 +99,9 @@
           <nav class="mobile-resource-list" aria-label="资料与工具">
             <section class="mobile-resource-group" aria-labelledby="mobileLibraryResourceTitle">
               <div class="mobile-resource-group-title" id="mobileLibraryResourceTitle"><span class="nav-tool-icon s18-preview-nav-icon" aria-hidden="true">资</span><span>资料库</span></div>
-              <a class="mobile-resource-subitem" href="/tools/s16-5-preview"><strong>S16.5英雄联盟传奇·海克斯宝典</strong><span>115 名弈子与技能资料</span></a>
-              <a class="mobile-resource-subitem" href="/tools/s18-preview"><strong>S18版本前瞻</strong><span>弈子、羁绊与法杖资料</span></a>
+{% for season in reference_seasons %}
+              <a class="mobile-resource-subitem" href="/tools/seasons/{{ season.season_id }}"><strong>{{ season.display_name }}{% if season.status != 'active' and season.status_label %}（{{ season.status_label }}）{% endif %}</strong><span>{{ season.counts.champions }} 名弈子 · {{ season.counts.traits }} 个羁绊</span></a>
+{% endfor %}
             </section>
             <section class="mobile-resource-group" aria-labelledby="mobileS8ResourceTitle">
               <div class="mobile-resource-group-title" id="mobileS8ResourceTitle">
