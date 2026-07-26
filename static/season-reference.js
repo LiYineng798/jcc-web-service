@@ -373,7 +373,7 @@ function createChampionCard(champion, index) {
   skillName.textContent = (champion.skill && champion.skill.name) || '';
   const description = document.createElement('p');
   description.className = 'champion-skill-description';
-  description.textContent = (champion.skill && champion.skill.description) || '';
+  window.JccSeasonChampionUi.appendSkillDescription(description, champion.skill && champion.skill.description);
   skillBody.append(skillName, description);
   skillClip.append(skillBody);
   skill.append(skillClip);
@@ -442,7 +442,7 @@ function createTraitCard(trait, index) {
 
   const description = document.createElement('p');
   description.className = 'trait-description';
-  description.textContent = trait.description || '';
+  window.JccSeasonChampionUi.appendSkillDescription(description, trait.description);
   card.append(title, description);
 
   const breakpoints = trait.breakpoints || [];
@@ -457,7 +457,7 @@ function createTraitCard(trait, index) {
       count.textContent = String(breakpoint.min_units);
       const effect = document.createElement('span');
       effect.className = 'trait-level-effect';
-      effect.textContent = breakpoint.effect || '';
+      window.JccSeasonChampionUi.appendSkillDescription(effect, breakpoint.effect);
       row.append(count, effect);
       levels.append(row);
     });
@@ -512,7 +512,7 @@ function createWandCard(entry, index) {
   if (cost !== null && cost !== undefined) header.append(createCostBadge(cost, 'wand-cost'));
   const effect = document.createElement('p');
   effect.className = 'wand-effect';
-  effect.textContent = entry.description || '';
+  window.JccSeasonChampionUi.appendSkillDescription(effect, entry.description);
   card.append(header, effect);
   const condition = entry.data && entry.data.appearance_condition;
   if (condition) {
@@ -532,7 +532,7 @@ function createWishRow(wish) {
   const name = document.createElement('strong');
   name.textContent = wish.name || '';
   const description = document.createElement('p');
-  description.textContent = wish.description || '';
+  window.JccSeasonChampionUi.appendSkillDescription(description, wish.description);
   body.append(name, description);
   row.append(body);
   return row;
@@ -559,7 +559,7 @@ function createMechanicCard(entry, index) {
   if (entry.description) {
     const description = document.createElement('p');
     description.className = 'mechanic-description';
-    description.textContent = entry.description;
+    window.JccSeasonChampionUi.appendSkillDescription(description, entry.description);
     body.append(description);
   }
 

@@ -255,29 +255,65 @@
   line-height: 1.65;
 }
 
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.champion-stats-scroll {
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+}
+
 .champion-stats-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 13px;
+  font-size: 12.5px;
 }
 
 .champion-stats-table th,
 .champion-stats-table td {
   border-top: 1px solid var(--line);
-  padding: 7px 8px;
+  padding: 6px 5px;
   text-align: right;
   font-variant-numeric: tabular-nums;
+}
+
+.champion-stats-table td {
+  min-width: 40px;
 }
 
 .champion-stats-table thead th {
   border-top: 0;
   color: var(--muted);
-  font-size: 12px;
+  font-size: 11.5px;
+  padding-top: 0;
 }
 
 .champion-stats-table th[scope="row"] {
   color: var(--muted);
   font-weight: 700;
   text-align: left;
+  padding-left: 0;
   white-space: nowrap;
+}
+
+.stat-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  max-width: 130px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.stat-icon {
+  width: 16px;
+  height: 16px;
+  flex: none;
+  object-fit: contain;
 }

@@ -10,6 +10,8 @@ import json
 from functools import lru_cache
 from pathlib import Path
 
+from markupsafe import Markup, escape
+
 DATA_ROOT = Path(__file__).resolve().parent / 'static' / 'season-data'
 
 SEASON_STATUS_LABELS = {
@@ -17,6 +19,101 @@ SEASON_STATUS_LABELS = {
     'active': '进行中',
     'archived': '往期',
 }
+
+SCALING_TOKEN_KINDS = {
+    '物理加成': 'ad',
+    '法术加成': 'ap',
+}
+
+STAT_ROW_SPECS = (
+    ('hp', '生命值'),
+    ('ad', '攻击力'),
+    ('armor', '护甲'),
+    ('mr', '魔法抗性'),
+    ('as', '攻速'),
+    ('range', '射程'),
+    ('mana', '法力值'),
+    ('crit', '暴击率'),
+    ('sell', '出售价'),
+)
+
+
+def format_skill_description(text):
+    """Escape a skill text and turn 【物理加成】/【法术加成】 markers into chips."""
+    if not text:
+        return Markup('')
+    rendered = str(escape(text))
+    for token, kind in SCALING_TOKEN_KINDS.items():
+        chip = f'<span class="scale-chip scale-chip-{kind}">{token}</span>'
+        rendered = rendered.replace(f'(【{token}】)', chip).replace(f'【{token}】', chip)
+    return Markup(rendered)
+
+
+def strip_scaling_tokens(text):
+    """Plain-text version for SEO descriptions: drop 【物理/法术加成】 markers."""
+    if not text:
+        return ''
+    for token in SCALING_TOKEN_KINDS:
+        text = text.replace(f'(【{token}】)', '').replace(f'【{token}】', '')
+    return text
+
+
+def clean_variable_label(label):
+    """Some archive variable labels carry the whole raw string after a colon."""
+    if not label:
+        return ''
+    return label.replace('：', ':').split(':', 1)[0].strip()
+
+
+def _format_stat(value, *, suffix='', decimals=None):
+    if value is None:
+        return None
+    if decimals is not None and isinstance(value, float):
+        value = round(value, decimals)
+    if isinstance(value, float) and value.is_integer():
+        value = int(value)
+    return f'{value}{suffix}'
+
+
+def _stat_cell(key, stats):
+    if key == 'hp':
+        return _format_stat(stats.get('health'))
+    if key == 'ad':
+        return _format_stat(stats.get('attack_damage'))
+    if key == 'armor':
+        return _format_stat(stats.get('armor'))
+    if key == 'mr':
+        return _format_stat(stats.get('magic_resist'))
+    if key == 'as':
+        return _format_stat(stats.get('attack_speed'), decimals=2)
+    if key == 'range':
+        return _format_stat(stats.get('attack_range'))
+    if key == 'mana':
+        max_mana = stats.get('max_mana')
+        if max_mana is None:
+            return None
+        initial = stats.get('initial_mana')
+        return f'{initial if initial is not None else 0}/{max_mana}'
+    if key == 'crit':
+        return _format_stat(stats.get('critical_strike_chance'), suffix='%')
+    if key == 'sell':
+        return _format_stat(stats.get('sell_price'))
+    return None
+
+
+def build_stat_rows(stats_by_star, star_levels):
+    rows = []
+    for key, label in STAT_ROW_SPECS:
+        values = [_stat_cell(key, stats_by_star.get(star) or {}) for star in star_levels]
+        if not any(value is not None for value in values):
+            continue
+        rows.append({
+            'key': key,
+            'label': label,
+            'icon': '/static/season-gold.png' if key == 'sell' else f'/static/season-stats/{key}.png',
+            'values': [value if value is not None else '—' for value in values],
+        })
+    return rows
 
 
 def normalize_season_id(value):
@@ -143,14 +240,26 @@ def build_champion_detail(season_id, champion_id):
             'name': trait['name'],
             'category': trait.get('category'),
             'description': trait.get('description'),
+            'description_html': format_skill_description(trait.get('description')),
             'image': _image_path(trait.get('image')),
-            'breakpoints': trait.get('breakpoints') or [],
+            'breakpoints': [
+                {**breakpoint, 'effect_html': format_skill_description(breakpoint.get('effect'))}
+                for breakpoint in trait.get('breakpoints') or []
+            ],
             'members': members,
         })
 
     skill = (champion.get('skills') or [{}])[0]
     images = champion.get('images') or {}
     stats_by_star = champion.get('stats_by_star') or {}
+    star_levels = sorted(stats_by_star.keys(), key=lambda star: int(star))
+    variables = [
+        {
+            'label': clean_variable_label(variable.get('label')),
+            'values': variable.get('values') or {},
+        }
+        for variable in skill.get('variables') or []
+    ]
     return {
         'season': entry,
         'champion': {
@@ -164,11 +273,13 @@ def build_champion_detail(season_id, champion_id):
             'skill': {
                 'name': skill.get('name'),
                 'description': skill.get('description'),
+                'description_html': format_skill_description(skill.get('description')),
                 'image': _image_path(skill.get('image')),
-                'variables': skill.get('variables') or [],
+                'variables': variables,
             },
             'stats_by_star': stats_by_star,
-            'star_levels': sorted(stats_by_star.keys(), key=lambda star: int(star)),
+            'star_levels': star_levels,
+            'stat_rows': build_stat_rows(stats_by_star, star_levels),
         },
         'traits': traits,
     }

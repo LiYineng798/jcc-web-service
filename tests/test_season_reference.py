@@ -111,6 +111,30 @@ def test_champion_detail_shows_star_stats_when_available(client):
     html = client.get(f'/tools/seasons/s16_5/champions/{champion_id}').get_data(as_text=True)
     assert '逐星属性' in html
     assert '技能数值' in html
+    assert 'champion-stats-scroll' in html
+    for icon in ('hp', 'ad', 'armor', 'mr', 'as', 'range', 'mana', 'crit'):
+        assert f'/static/season-stats/{icon}.png' in html
+    assert '/static/season-gold.png' in html
+    assert 'scale-chip scale-chip-ap' in html
+    assert '【法术加成】' not in html
+
+
+def test_variable_labels_and_skill_chips_are_sanitized():
+    from season_reference_service import clean_variable_label, format_skill_description
+
+    assert clean_variable_label('伤害:460=410(【物理加成】)+50(【法术加成】) 135/195/300/410') == '伤害'
+    assert clean_variable_label('额外伤害：1320') == '额外伤害'
+    assert clean_variable_label('被动每秒攻击次数') == '被动每秒攻击次数'
+
+    html = str(format_skill_description('造成55(【法术加成】)点伤害与10(【物理加成】)点伤害<x>'))
+    assert '<span class="scale-chip scale-chip-ap">法术加成</span>' in html
+    assert '<span class="scale-chip scale-chip-ad">物理加成</span>' in html
+    assert '&lt;x&gt;' in html
+
+    detail = build_champion_detail('s16_5', find_champion_id_by_name('s16_5', '佛耶戈'))
+    for variable in detail['champion']['skill']['variables']:
+        assert ':' not in variable['label'] and '：' not in variable['label']
+        assert '【' not in variable['label']
 
 
 def test_s16_5_new_champion_tags_render_from_data():

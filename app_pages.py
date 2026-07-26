@@ -29,6 +29,7 @@ from season_reference_service import (
     find_champion_id_by_name,
     normalize_season_id,
     season_page_context,
+    strip_scaling_tokens,
 )
 from settings_service import get_setting
 from visits import tracked_template_response
@@ -278,7 +279,7 @@ def register_page_routes(app):
         description = truncate_text(
             f"{season['display_name']} {champion['name']}，{champion['cost']}费弈子"
             f"{'，羁绊为' + trait_names if trait_names else ''}。"
-            f"技能：{champion['skill']['name'] or ''}，{champion['skill']['description'] or ''}"
+            f"技能：{champion['skill']['name'] or ''}，{strip_scaling_tokens(champion['skill']['description'])}"
         )
         splash = champion['splash'] or champion['icon']
         return tracked_template_response(

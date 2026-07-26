@@ -1401,3 +1401,37 @@
   font-size: 12.5px;
   line-height: 1.55;
 }
+
+/* ---- Skill scaling chips (物理/法术加成) ---- */
+
+.scale-chip {
+  display: inline-block;
+  margin: 0 2px;
+  border-radius: 5px;
+  padding: 0 5px;
+  font-size: 0.82em;
+  font-weight: 800;
+  line-height: 1.6;
+  vertical-align: 1px;
+  white-space: nowrap;
+}
+
+.scale-chip-ad {
+  color: #b04a12;
+  background: rgba(216, 97, 53, 0.16);
+}
+
+.scale-chip-ap {
+  color: #2d5fc0;
+  background: rgba(77, 125, 214, 0.16);
+}
+
+:root[data-theme="dark"] .scale-chip-ad {
+  color: #ffab7e;
+  background: rgba(216, 97, 53, 0.26);
+}
+
+:root[data-theme="dark"] .scale-chip-ap {
+  color: #9dbdff;
+  background: rgba(77, 125, 214, 0.28);
+}

@@ -53,7 +53,7 @@
             <div class="champion-skill">
               <div><div class="champion-skill-body">
                 <h3 class="champion-skill-name">{{ champion.skill.name }}</h3>
-                <p class="champion-skill-description">{{ champion.skill.description }}</p>
+                <p class="champion-skill-description">{{ champion.skill.description_html }}</p>
               </div></div>
             </div>
           </article>
@@ -65,56 +65,59 @@
           </section>
 {% endif %}
 
-{% if champion.star_levels %}
+{% if champion.stat_rows %}
           <section class="champion-detail-panel" aria-label="{{ champion.name }}逐星属性">
             <h3>逐星属性</h3>
-            <table class="champion-stats-table">
-              <thead>
-                <tr>
-                  <th scope="col">属性</th>
+            <div class="champion-stats-scroll">
+              <table class="champion-stats-table">
+                <thead>
+                  <tr>
+                    <th scope="col"><span class="visually-hidden">属性</span></th>
 {% for star in champion.star_levels %}
-                  <th scope="col">{{ star }}星</th>
+                    <th scope="col">{{ star }}星</th>
 {% endfor %}
-                </tr>
-              </thead>
-              <tbody>
-{% for stat_key, stat_label in [
-    ('health', '生命值'),
-    ('attack_damage', '攻击力'),
-    ('armor', '护甲'),
-    ('magic_resist', '魔抗'),
-    ('attack_speed', '攻速'),
-    ('attack_range', '攻击距离'),
-    ('max_mana', '蓝量上限'),
-    ('sell_price', '出售价格'),
-] %}
-                <tr>
-                  <th scope="row">{{ stat_label }}</th>
-{% for star in champion.star_levels %}
-                  <td>{{ champion.stats_by_star[star].get(stat_key) if champion.stats_by_star[star].get(stat_key) is not none else '—' }}</td>
+                  </tr>
+                </thead>
+                <tbody>
+{% for row in champion.stat_rows %}
+                  <tr>
+                    <th scope="row"><span class="stat-label"><img class="stat-icon" src="{{ row.icon }}" alt="" aria-hidden="true" /><span>{{ row.label }}</span></span></th>
+{% for value in row['values'] %}
+                    <td>{{ value }}</td>
 {% endfor %}
-                </tr>
+                  </tr>
 {% endfor %}
-              </tbody>
-            </table>
+                </tbody>
+              </table>
+            </div>
           </section>
 {% endif %}
 
 {% if champion.skill.variables and champion.star_levels %}
           <section class="champion-detail-panel" aria-label="技能逐星数值">
             <h3>技能数值</h3>
-            <table class="champion-stats-table">
-              <tbody>
-{% for variable in champion.skill.variables %}
-                <tr>
-                  <th scope="row">{{ variable.label }}</th>
+            <div class="champion-stats-scroll">
+              <table class="champion-stats-table">
+                <thead>
+                  <tr>
+                    <th scope="col"><span class="visually-hidden">数值</span></th>
 {% for star in champion.star_levels %}
-                  <td>{{ variable['values'].get(star, '—') }}</td>
+                    <th scope="col">{{ star }}星</th>
 {% endfor %}
-                </tr>
+                  </tr>
+                </thead>
+                <tbody>
+{% for variable in champion.skill.variables %}
+                  <tr>
+                    <th scope="row"><span class="stat-label">{{ variable.label }}</span></th>
+{% for star in champion.star_levels %}
+                    <td>{{ variable['values'].get(star, '—') }}</td>
 {% endfor %}
-              </tbody>
-            </table>
+                  </tr>
+{% endfor %}
+                </tbody>
+              </table>
+            </div>
           </section>
 {% endif %}
         </aside>
@@ -134,14 +137,14 @@
               </div>
               <span class="champion-detail-member-count">{{ trait.members|length }} 名弈子</span>
             </header>
-            <p class="trait-description champion-detail-trait-description">{{ trait.description }}</p>
+            <p class="trait-description champion-detail-trait-description">{{ trait.description_html }}</p>
 
 {% if trait.breakpoints %}
             <div class="trait-levels champion-detail-levels" aria-label="{{ trait.name }}羁绊数量">
 {% for breakpoint in trait.breakpoints %}
               <div class="trait-level">
                 <span class="trait-level-count">{{ breakpoint.min_units }}</span>
-                <span class="trait-level-effect">{{ breakpoint.effect }}</span>
+                <span class="trait-level-effect">{{ breakpoint.effect_html }}</span>
               </div>
 {% endfor %}
             </div>

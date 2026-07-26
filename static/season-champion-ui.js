@@ -35,6 +35,23 @@
     return element;
   }
 
+  const SCALE_KINDS = {物理加成: 'ad', 法术加成: 'ap'};
+  const SCALE_TOKEN_RE = /\(?【(物理加成|法术加成)】\)?/g;
+
+  function appendSkillDescription(target, text) {
+    const value = String(text || '');
+    let cursor = 0;
+    for (const match of value.matchAll(SCALE_TOKEN_RE)) {
+      if (match.index > cursor) target.append(document.createTextNode(value.slice(cursor, match.index)));
+      const chip = document.createElement('span');
+      chip.className = `scale-chip scale-chip-${SCALE_KINDS[match[1]]}`;
+      chip.textContent = match[1];
+      target.append(chip);
+      cursor = match.index + match[0].length;
+    }
+    if (cursor < value.length) target.append(document.createTextNode(value.slice(cursor)));
+  }
+
   function configure(config) {
     seasonId = config.seasonId;
     assetRoot = config.assetRoot;
@@ -80,7 +97,7 @@
     const skillName = document.createElement('strong');
     skillName.textContent = (champion.skill && champion.skill.name) || '';
     const skillDescription = document.createElement('p');
-    skillDescription.textContent = (champion.skill && champion.skill.description) || '';
+    appendSkillDescription(skillDescription, champion.skill && champion.skill.description);
     skill.append(skillName, skillDescription);
     card.append(art, skill);
     return card;
@@ -173,6 +190,7 @@
   });
 
   window.JccSeasonChampionUi = {
+    appendSkillDescription,
     assetUrl: (path) => assetUrl(path),
     bindChampionLinks,
     championUrl,
