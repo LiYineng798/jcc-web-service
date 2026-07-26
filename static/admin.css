@@ -850,3 +850,22 @@ body.admin-page {
     scroll-behavior: auto !important;
   }
 }
+
+/* Live comp updated-at row with inline refresh button */
+.admin-page .admin-updated-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.admin-page .admin-inline-link {
+  margin-left: 8px;
+  color: var(--admin-accent, var(--accent));
+  font-size: 12px;
+  text-decoration: none;
+}
+
+.admin-page .admin-inline-link:hover {
+  text-decoration: underline;
+}

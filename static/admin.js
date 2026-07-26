@@ -38,6 +38,9 @@
     lineupBulkImport: { season_id: '', raw_text: '', result: null, preview_raw_text: '', preview_season_id: '' },
     liveComps: { items: [], total: 0, page: 1, page_size: 20, total_pages: 1, query: '', updated_at: null, source_meta: null, selectedSeasonId: '', loadedAt: 0 },
     liveCompsSeasons: { seasons: [], default_season_id: '', loadedAt: 0 },
+    copyRank: { date: '', items: [], loadedAt: 0 },
+    liveSeasonCreating: null,
+    liveSeasonCreateError: '',
     patchNotes: { items: [], loadedAt: 0 },
     users: { items: [], total: 0, page: 1, page_size: 20, total_pages: 1, query: '', searched: false, loadedAt: 0 },
     audit: { items: [], total: 0, page: 1, page_size: 30, total_pages: 1, loadedAt: 0 },
@@ -102,6 +105,11 @@
     button,
     empty,
     getOverview: () => state.overview,
+    getCopyRank: () => state.copyRank,
+    refreshCopyRank: async () => {
+      await loadCopyRank({ force: true });
+      render();
+    },
     trafficMetric,
     workbenchPanel,
   });
@@ -169,7 +177,7 @@
     elements.moreDialog?.close();
     state.activeTab = tabKey;
     render();
-    if (tabKey === 'overview') await loadOverview();
+    if (tabKey === 'overview') await Promise.all([loadOverview(), loadCopyRank()]);
     if (tabKey === 'reports') await loadReports();
     if (tabKey === 'lineups') await loadLineupSeasons();
     if (tabKey === 'live-comps') await loadAdminLiveComps();
@@ -185,6 +193,12 @@
     if (!force && state.overview && isFresh(state.overview.loadedAt)) return;
     const payload = await api('/api/admin/overview');
     state.overview = { ...payload, loadedAt: Date.now() };
+  }
+
+  async function loadCopyRank({ force = false } = {}) {
+    if (!force && state.copyRank && isFresh(state.copyRank.loadedAt)) return;
+    const payload = await api('/api/admin/copy-rank?page_size=10');
+    state.copyRank = { ...payload, loadedAt: Date.now() };
   }
 
   async function loadReports({ force = false } = {}) {
@@ -562,7 +576,20 @@
     const panel = workbenchPanel('实时阵容', '按实时阵容专区整体统计与赛季管理，支持按赛季查看并给缺少阵容码的条目补码');
     const body = panel.querySelector('.admin-workspace-body');
     body.append(renderLiveCompSeasonPicker());
-    body.append(el('p', 'admin-meta', state.liveComps.updated_at ? `实时阵容数据更新时间：${state.liveComps.updated_at}` : '实时阵容数据更新时间：暂无'));
+    const updatedRow = el('p', 'admin-meta admin-updated-row');
+    updatedRow.append(state.liveComps.updated_at ? `实时阵容数据更新时间：${state.liveComps.updated_at}` : '实时阵容数据更新时间：暂无');
+    updatedRow.append(button('更新时间设为现在', async () => {
+      try {
+        await api(`/api/admin/live-comps/seasons/${encodeURIComponent(state.liveComps.selectedSeasonId)}/touch-updated-at`, { method: 'POST' });
+      } catch (error) {
+        setNotice(error.message || '更新失败');
+        return;
+      }
+      await loadAdminLiveComps({ force: true });
+      setNotice('已把当前赛季的更新时间刷新为现在');
+      render();
+    }, 'small-button'));
+    body.append(updatedRow);
     body.append(renderLiveCompMetrics(), el('p', 'admin-meta', `最近统计更新：${state.liveComps.copy_updated_at || '未复制'}`));
     body.append(renderLiveCompItemList(), renderPagination('liveComps'));
     body.append(renderLiveCompSeasonManager());
@@ -621,6 +648,11 @@
     const seasonPanel = el('div', 'admin-subpanel');
     const seasonHeader = el('div', 'admin-subpanel-head');
     seasonHeader.append(el('h3', '', '赛季管理'));
+    seasonHeader.append(button('新增赛季', () => {
+      state.liveSeasonCreating = { id: '', name: '', description: '', status: 'active' };
+      state.liveSeasonCreateError = '';
+      renderDialogs();
+    }));
     seasonHeader.append(button('刷新赛季', async () => {
       await loadAdminLiveCompsSeasons({ force: true });
       render();
@@ -1557,10 +1589,101 @@
       renderPasswordDialog();
     } else if (state.liveCompManualCodeTarget) {
       renderLiveCompManualCodeDialog();
+    } else if (state.liveSeasonCreating) {
+      renderLiveSeasonCreateDialog();
     } else if (state.noticeEditing) {
       renderNoticeDialog();
     }
     refreshIcons();
+  }
+
+  function closeLiveSeasonCreateDialog() {
+    state.liveSeasonCreating = null;
+    state.liveSeasonCreateError = '';
+    renderDialogs();
+  }
+
+  function renderLiveSeasonCreateDialog() {
+    if (!dialogRoot || !state.liveSeasonCreating) return;
+    const draft = state.liveSeasonCreating;
+    const overlay = el('div', 'modal-backdrop');
+    const card = el('section', 'modal-card admin-password-dialog');
+    card.setAttribute('role', 'dialog');
+    card.setAttribute('aria-modal', 'true');
+    card.setAttribute('aria-labelledby', 'liveSeasonCreateTitle');
+
+    const header = el('div', 'modal-header');
+    const titleWrap = el('div');
+    const title = el('h2', '', '新增实时阵容赛季');
+    title.id = 'liveSeasonCreateTitle';
+    titleWrap.append(title, el('p', 'admin-meta', '创建后即出现在赛季列表；建议先以"后台隐藏"创建，数据上传完成后再启用展示'));
+    header.append(titleWrap, button('取消', async () => closeLiveSeasonCreateDialog()));
+
+    const form = el('form', 'modal-form');
+    form.innerHTML = `
+      <label class="field">
+        <span>赛季 ID（小写字母/数字/短横线，如 s18-preview）</span>
+        <input id="liveSeasonIdInput" name="id" maxlength="40" placeholder="s18-preview" value="${escapeHtml(draft.id)}" />
+      </label>
+      <label class="field">
+        <span>赛季名称</span>
+        <input id="liveSeasonNameInput" name="name" maxlength="60" placeholder="S18 · 新赛季" value="${escapeHtml(draft.name)}" />
+      </label>
+      <label class="field">
+        <span>说明（可选）</span>
+        <input id="liveSeasonDescriptionInput" name="description" maxlength="200" placeholder="赛季说明" value="${escapeHtml(draft.description)}" />
+      </label>
+      <label class="field">
+        <span>初始状态</span>
+        <select id="liveSeasonStatusInput" name="status">
+          <option value="hidden">后台隐藏（推荐，数据齐后再启用）</option>
+          <option value="active">启用展示</option>
+          <option value="archived">归档展示</option>
+          <option value="disabled">停用</option>
+        </select>
+      </label>
+      <div class="message" id="liveSeasonCreateMessage">${escapeHtml(state.liveSeasonCreateError || '')}</div>
+      <div class="editor-actions">
+        <button class="primary-button" type="submit">创建赛季</button>
+        <button class="ghost-button" type="button" id="cancelLiveSeasonCreateButton">取消</button>
+      </div>
+    `;
+    form.querySelector('#liveSeasonStatusInput').value = draft.status || 'hidden';
+    form.addEventListener('submit', submitLiveSeasonCreate);
+    form.querySelector('#cancelLiveSeasonCreateButton').addEventListener('click', closeLiveSeasonCreateDialog);
+    overlay.addEventListener('click', (event) => {
+      if (event.target === overlay) closeLiveSeasonCreateDialog();
+    });
+
+    card.append(header, form);
+    overlay.append(card);
+    dialogRoot.append(overlay);
+  }
+
+  async function submitLiveSeasonCreate(event) {
+    event.preventDefault();
+    const form = event.currentTarget;
+    const payload = {
+      id: form.querySelector('#liveSeasonIdInput').value.trim(),
+      name: form.querySelector('#liveSeasonNameInput').value.trim(),
+      description: form.querySelector('#liveSeasonDescriptionInput').value.trim(),
+      status: form.querySelector('#liveSeasonStatusInput').value,
+    };
+    state.liveSeasonCreating = { ...payload };
+    try {
+      await api('/api/admin/live-comps/seasons', {
+        method: 'POST',
+        body: JSON.stringify(payload),
+      });
+    } catch (error) {
+      state.liveSeasonCreateError = error.message || '创建失败';
+      renderDialogs();
+      return;
+    }
+    closeLiveSeasonCreateDialog();
+    await loadAdminLiveCompsSeasons({ force: true });
+    setNotice(`赛季「${payload.name}」已创建`);
+    render();
   }
 
   function renderNoticeDialog() {

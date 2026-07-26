@@ -130,3 +130,88 @@ def build_admin_overview_payload(db):
 
 def build_admin_growth_payload(target_date):
     return growth_summary(target_date=target_date)
+
+
+def build_admin_copy_rank_payload(db, target_date, limit=10):
+    """Top copied lineup codes (regular lineups + live comps) for one day."""
+    from analytics import _normalize_target_date
+    from live_comps_helpers import find_live_comp, load_live_comps_manifest, read_live_comps_payload_for_season
+
+    target_date = _normalize_target_date(target_date)
+    start, end = _day_bounds(target_date)
+    limit = max(1, min(int(limit or 10), 50))
+    rows = db.execute(
+        '''
+        SELECT target_type, target_id, season_id,
+               COUNT(*) AS copies,
+               COUNT(DISTINCT CASE
+                   WHEN user_id IS NOT NULL THEN 'u:' || CAST(user_id AS TEXT)
+                   WHEN COALESCE(visitor_token, '') != '' THEN 'v:' || visitor_token
+                   ELSE 'ip:' || COALESCE(ip_address, '')
+               END) AS unique_visitors
+        FROM copy_action_events
+        WHERE created_at >= ? AND created_at < ?
+          AND success = 1
+        GROUP BY target_type, target_id, season_id
+        ORDER BY copies DESC, target_type, target_id
+        LIMIT ?
+        ''',
+        (start, end, limit),
+    ).fetchall()
+
+    lineup_ids = [int(row['target_id']) for row in rows if row['target_type'] == 'lineup']
+    lineups_by_id = {}
+    if lineup_ids:
+        placeholders = ', '.join('?' for _ in lineup_ids)
+        lineups_by_id = {
+            lineup['id']: lineup
+            for lineup in db.execute(
+                f'SELECT id, name, code, season_id, status FROM lineups WHERE id IN ({placeholders})',
+                lineup_ids,
+            ).fetchall()
+        }
+
+    season_names = {
+        season['id']: season.get('name') or season['id']
+        for season in load_live_comps_manifest().get('seasons', [])
+    }
+    live_payload_cache = {}
+
+    items = []
+    for rank, row in enumerate(rows, start=1):
+        item = {
+            'rank': rank,
+            'target_type': row['target_type'],
+            'target_id': str(row['target_id']),
+            'season_id': row['season_id'],
+            'season_name': season_names.get(row['season_id'], row['season_id'] or ''),
+            'copies': int(row['copies'] or 0),
+            'unique_visitors': int(row['unique_visitors'] or 0),
+            'title': None,
+            'tier': None,
+            'lineup_id': None,
+            'status': None,
+        }
+        if row['target_type'] == 'lineup':
+            lineup = lineups_by_id.get(int(row['target_id']))
+            if lineup:
+                item['title'] = lineup['name']
+                item['lineup_id'] = lineup['id']
+                item['status'] = lineup['status']
+                item['season_id'] = item['season_id'] or lineup['season_id']
+                item['season_name'] = season_names.get(item['season_id'], item['season_id'] or '')
+            else:
+                item['title'] = f"已删除阵容 #{row['target_id']}"
+        else:
+            season_key = row['season_id'] or ''
+            if season_key not in live_payload_cache:
+                payload, _, _, _, _ = read_live_comps_payload_for_season(season_key or None)
+                live_payload_cache[season_key] = payload
+            live_item = find_live_comp(live_payload_cache[season_key], row['target_id'])
+            if live_item:
+                item['title'] = live_item.get('title')
+                item['tier'] = live_item.get('tier')
+            else:
+                item['title'] = f"未收录实时阵容 #{row['target_id']}"
+        items.append(item)
+    return {'date': target_date, 'items': items}

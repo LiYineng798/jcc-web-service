@@ -1,11 +1,18 @@
 from flask import Blueprint, jsonify, request
 
 from admin_audit_service import list_admin_audit_logs
-from admin_dashboard_service import build_admin_growth_payload, build_admin_overview_payload, build_admin_stats_payload
+from admin_dashboard_service import (
+    build_admin_copy_rank_payload,
+    build_admin_growth_payload,
+    build_admin_overview_payload,
+    build_admin_stats_payload,
+)
 from admin_live_comp_service import (
     add_admin_live_comp_manual_code,
     build_admin_live_comps_payload,
+    create_admin_live_comps_season,
     list_admin_live_comps_seasons,
+    touch_admin_live_comps_season,
     update_admin_live_comps_season,
 )
 from admin_lineup_service import (
@@ -204,6 +211,18 @@ def admin_live_comps_seasons():
     return jsonify(list_admin_live_comps_seasons())
 
 
+@admin_bp.post('/api/admin/live-comps/seasons')
+def admin_create_live_comps_season():
+    admin, error = admin_required()
+    if error:
+        return error
+    result, service_error, status_code = create_admin_live_comps_season(
+        admin['id'],
+        request.get_json(silent=True) or {},
+    )
+    return respond_service_result(result, service_error, status_code)
+
+
 @admin_bp.put('/api/admin/live-comps/seasons/<season_id>')
 def admin_update_live_comps_season(season_id):
     admin, error = admin_required()
@@ -214,6 +233,15 @@ def admin_update_live_comps_season(season_id):
         season_id,
         request.get_json(silent=True) or {},
     )
+    return respond_service_result(result, service_error, status_code)
+
+
+@admin_bp.post('/api/admin/live-comps/seasons/<season_id>/touch-updated-at')
+def admin_touch_live_comps_season(season_id):
+    admin, error = admin_required()
+    if error:
+        return error
+    result, service_error, status_code = touch_admin_live_comps_season(admin['id'], season_id)
     return respond_service_result(result, service_error, status_code)
 
 
@@ -257,6 +285,18 @@ def admin_growth():
     if error:
         return error
     return jsonify(build_admin_growth_payload(request.args.get('date')))
+
+
+@admin_bp.get('/api/admin/copy-rank')
+def admin_copy_rank():
+    admin, error = admin_required()
+    if error:
+        return error
+    return jsonify(build_admin_copy_rank_payload(
+        get_db(),
+        request.args.get('date'),
+        limit=_parse_page_size(default=10, maximum=50),
+    ))
 
 
 @admin_bp.get('/api/admin/audit-logs')

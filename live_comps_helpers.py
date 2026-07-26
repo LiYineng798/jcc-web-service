@@ -259,6 +259,24 @@ def _resolve_season_source(manifest, season_id=None):
     return season, data_path
 
 
+def touch_live_comps_season_data(season_id):
+    """Bump the season data file's mtime so its public updated_at becomes now.
+
+    Returns (updated_at, season, error). The mtime is what read_* reports as
+    updated_at, and changing it also invalidates the payload cache signature.
+    """
+    manifest = load_live_comps_manifest()
+    requested_id = canonical_season_id(season_id)
+    if not any(item['id'] == requested_id for item in manifest['seasons']):
+        return None, None, '赛季不存在'
+    season, data_path = _resolve_season_source(manifest, requested_id)
+    if not data_path.exists():
+        return None, season, '该赛季还没有数据文件，请先上传实时阵容数据'
+    os.utime(data_path, None)
+    updated_at = datetime.fromtimestamp(data_path.stat().st_mtime).isoformat(timespec='seconds')
+    return updated_at, season, None
+
+
 def read_raw_live_comps_payload_for_season(season_id=None):
     manifest = load_live_comps_manifest()
     season, data_path = _resolve_season_source(manifest, season_id)

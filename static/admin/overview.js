@@ -1,7 +1,7 @@
 (function (global) {
   const { buildDeltaText, el, formatDay } = global.JccAdminCore;
 
-  function createOverviewRenderer({ activateTab, button, empty, getOverview, trafficMetric, workbenchPanel }) {
+  function createOverviewRenderer({ activateTab, button, empty, getOverview, getCopyRank, refreshCopyRank, trafficMetric, workbenchPanel }) {
     function renderOverviewDashboard() {
       const wrap = el('div', 'admin-dashboard');
       wrap.append(renderOverviewStats());
@@ -9,7 +9,50 @@
       const grid = el('div', 'admin-dashboard-grid');
       grid.append(renderTrafficOverview(), renderTodoPanel(), renderQuickLinks());
       wrap.append(grid);
+      wrap.append(renderCopyRankPanel());
       return wrap;
+    }
+
+    function renderCopyRankPanel() {
+      const rank = getCopyRank?.() || {};
+      const panel = workbenchPanel('今日复制排行', `${rank.date || '今天'} 被复制最多的阵容码（普通阵容 + 实时阵容）`);
+      const body = panel.querySelector('.admin-workspace-body');
+      if (refreshCopyRank) {
+        const actions = el('div', 'card-actions');
+        actions.append(button('刷新', async () => refreshCopyRank(), 'small-button'));
+        body.append(actions);
+      }
+      const items = rank.items || [];
+      if (!items.length) {
+        body.append(empty('今天还没有复制记录'));
+        return panel;
+      }
+      const list = el('div', 'admin-list compact');
+      items.forEach((item) => {
+        const card = el('article', 'admin-row-card');
+        const info = el('div');
+        const typeLabel = item.target_type === 'live_comp' ? '实时阵容' : '普通阵容';
+        const titleRow = el('strong', '', `#${item.rank} ${item.title || item.target_id}`);
+        if (item.target_type === 'lineup' && item.lineup_id) {
+          const link = el('a', 'admin-inline-link', ' 查看');
+          link.href = `/lineup/${item.lineup_id}`;
+          link.target = '_blank';
+          link.rel = 'noopener';
+          titleRow.append(link);
+        }
+        const metaParts = [typeLabel];
+        if (item.tier) metaParts.push(`${item.tier} 级`);
+        if (item.season_name) metaParts.push(item.season_name);
+        if (item.status && item.status !== 'normal') metaParts.push(`状态：${item.status}`);
+        info.append(
+          titleRow,
+          el('p', 'admin-meta', `${metaParts.join(' · ')} · 复制 ${item.copies} 次 · ${item.unique_visitors} 人`),
+        );
+        card.append(info);
+        list.append(card);
+      });
+      body.append(list);
+      return panel;
     }
 
     function renderOverviewStats() {

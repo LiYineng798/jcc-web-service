@@ -409,6 +409,8 @@ EXTRA_INDEX_STATEMENTS = (
     'CREATE INDEX IF NOT EXISTS idx_users_created_at ON users (created_at)',
     'CREATE INDEX IF NOT EXISTS idx_recent_lineup_views_user_updated ON recent_lineup_views (user_id, updated_at DESC, id DESC)',
     'CREATE INDEX IF NOT EXISTS idx_recent_lineup_copies_user_updated ON recent_lineup_copies (user_id, updated_at DESC, id DESC)',
+    # Daily copy leaderboard (mirror jcc-db-service migration 0006).
+    'CREATE INDEX IF NOT EXISTS idx_copy_action_events_created_at ON copy_action_events (created_at)',
 )
 
 

@@ -120,7 +120,9 @@ def get_db():
         kind = database_kind(current_app.config['DATABASE_URL'])
         if kind == 'postgres':
             url = current_app.config['DATABASE_URL']
-            pool = _postgres_pool(url)
+            # Tests stub psycopg.connect with fakes; the pool would open real
+            # sockets to the fake URL instead. Direct connects under TESTING.
+            pool = None if current_app.config.get('TESTING') else _postgres_pool(url)
             if pool is not None:
                 connection = pool.getconn(timeout=10)
                 g.db_from_pool = True

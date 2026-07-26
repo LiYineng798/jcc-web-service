@@ -1,3 +1,5 @@
+import re
+
 from flask import current_app
 
 from audit import write_audit
@@ -11,6 +13,11 @@ from live_comps import (
     read_raw_live_comps_payload_for_season,
     save_live_comps_manifest,
 )
+from live_comps_helpers import touch_live_comps_season_data
+from seasons import SEASON_ALIASES, canonical_season_id
+
+SEASON_ID_RE = re.compile(r'^[a-z0-9][a-z0-9-]{1,39}$')
+SEASON_STATUSES = {'active', 'archived', 'hidden', 'disabled'}
 
 
 def build_admin_live_comps_payload(season_id, page, page_size):
@@ -59,6 +66,67 @@ def add_admin_live_comp_manual_code(admin_id, season_id, live_comp_id, data):
 
 def list_admin_live_comps_seasons():
     return load_live_comps_manifest()
+
+
+def create_admin_live_comps_season(admin_id, data):
+    data = data or {}
+    season_id = str(data.get('id') or '').strip().lower()
+    name = str(data.get('name') or '').strip()
+    description = str(data.get('description') or '').strip()
+    status = str(data.get('status') or 'active').strip()
+
+    if not SEASON_ID_RE.match(season_id):
+        return None, '赛季 ID 只能包含小写字母、数字和短横线（2-40 位，以字母或数字开头）', 400
+    if season_id in SEASON_ALIASES or canonical_season_id(season_id) != season_id:
+        return None, '该 ID 是保留别名，请换一个', 400
+    if not name or len(name) > 60:
+        return None, '赛季名称必填且不超过 60 字', 400
+    if len(description) > 200:
+        return None, '赛季说明不超过 200 字', 400
+    if status not in SEASON_STATUSES:
+        return None, '赛季状态无效', 400
+
+    manifest = load_live_comps_manifest()
+    if any(str(season.get('id')) == season_id for season in manifest['seasons']):
+        return None, '该赛季 ID 已存在', 400
+
+    seasons = list(manifest['seasons'])
+    seasons.append({
+        'id': season_id,
+        'name': name,
+        'status': status,
+        'order': max([int(season.get('order') or 0) for season in seasons] or [0]) + 1,
+        'description': description,
+        'data_file': f'{season_id}.json',
+    })
+    updated_manifest = save_live_comps_manifest({
+        'default_season_id': manifest.get('default_season_id'),
+        'seasons': seasons,
+    })
+    write_audit(
+        admin_id,
+        'create_live_comps_season',
+        'live_comp_season',
+        season_id,
+        before=None,
+        after={'id': season_id, 'name': name, 'status': status, 'description': description},
+    )
+    return updated_manifest, None, 200
+
+
+def touch_admin_live_comps_season(admin_id, season_id):
+    updated_at, season, error = touch_live_comps_season_data(season_id)
+    if error:
+        return None, error, 404 if error == '赛季不存在' else 400
+    write_audit(
+        admin_id,
+        'touch_live_comps_season_updated_at',
+        'live_comp_season',
+        season['id'],
+        before=None,
+        after={'updated_at': updated_at},
+    )
+    return {'season_id': season['id'], 'updated_at': updated_at}, None, 200
 
 
 def _reorder_live_comps_seasons(seasons, target_season_id, target_order):
