@@ -1,0 +1,2529 @@
+{
+  "$schema": "../../../../../schemas/traits.schema.json",
+  "version_id": "s16_5__17_17_7",
+  "traits": [
+    {
+      "id": "340",
+      "name": "比尔吉沃特",
+      "category": "origin",
+      "description": "每回合获得【银蛇币】【银蛇币】，【比尔吉沃特】弈子每次参与击败时额外获得1。  【银蛇币】可用于在【黑市】获取【比尔吉沃特】弈子的额外属性和特殊战利品。随着羁绊层级提升，【黑市】还会解锁更稀有的战利品",
+      "breakpoints": [
+        {
+          "min_units": 3,
+          "max_units": 4,
+          "style": "bronze",
+          "effect": "(3)15【银蛇币】",
+          "values": {
+            "source_style": "1"
+          }
+        },
+        {
+          "min_units": 5,
+          "max_units": 6,
+          "style": "silver",
+          "effect": "(5)35【银蛇币】，进阶战利品",
+          "values": {
+            "source_style": "2"
+          }
+        },
+        {
+          "min_units": 7,
+          "max_units": 9,
+          "style": "gold",
+          "effect": "(7)65【银蛇币】，高级战利品",
+          "values": {
+            "source_style": "3"
+          }
+        },
+        {
+          "min_units": 10,
+          "max_units": null,
+          "style": "prismatic",
+          "effect": "(10)150【银蛇币】，2x属性，加农炮齐射  当前加成： 0%【物理加成】【法术加成】，0%【攻击速度】，0%【生命上限】 当前【银蛇币】：3【银蛇币】",
+          "values": {
+            "source_style": "4"
+          }
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/340.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_bilgewater.png",
+        "alt": "比尔吉沃特羁绊图标"
+      },
+      "source_ids": {
+        "official_id": "340",
+        "tft_spec_id": "10003",
+        "map_id": "1"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "1|2|3|4",
+        "raw_description": "(3)15【银蛇币】 |(5)35【银蛇币】，进阶战利品 |(7)65【银蛇币】，高级战利品 |(10)150【银蛇币】，2x属性，加农炮齐射  当前加成： 0%【物理加成】【法术加成】，0%【攻击速度】，0%【生命上限】 当前【银蛇币】：3【银蛇币】"
+      }
+    },
+    {
+      "id": "341",
+      "name": "德玛西亚",
+      "category": "origin",
+      "description": "每当你的队伍损失了25%最大生命值，【德玛西亚】弈子会重振旗鼓，减少10%技能消耗。【德玛西亚】弈子获得护甲和魔法抗性。",
+      "breakpoints": [
+        {
+          "min_units": 3,
+          "max_units": 4,
+          "style": "bronze",
+          "effect": "(3)12【护甲】【魔法抗性】",
+          "values": {
+            "source_style": "1"
+          }
+        },
+        {
+          "min_units": 5,
+          "max_units": 6,
+          "style": "silver",
+          "effect": "(5)35【护甲】【魔法抗性】",
+          "values": {
+            "source_style": "2"
+          }
+        },
+        {
+          "min_units": 7,
+          "max_units": 10,
+          "style": "gold",
+          "effect": "(7)35【护甲】【魔法抗性】。重振旗鼓时，会重击敌人，造成相当于其5%最大生命值的伤害。",
+          "values": {
+            "source_style": "3"
+          }
+        },
+        {
+          "min_units": 11,
+          "max_units": null,
+          "style": "prismatic",
+          "effect": "(11)150【护甲】【魔法抗性】。奋起而战吧，为了德玛西亚！",
+          "values": {
+            "source_style": "4"
+          }
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/341.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_demacia.png",
+        "alt": "德玛西亚羁绊图标"
+      },
+      "source_ids": {
+        "official_id": "341",
+        "tft_spec_id": "10003",
+        "map_id": "2"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "1|2|3|4",
+        "raw_description": "(3)12【护甲】【魔法抗性】 |(5)35【护甲】【魔法抗性】 |(7)35【护甲】【魔法抗性】。重振旗鼓时，会重击敌人，造成相当于其5%最大生命值的伤害。 |(11)150【护甲】【魔法抗性】。奋起而战吧，为了德玛西亚！"
+      }
+    },
+    {
+      "id": "342",
+      "name": "弗雷尔卓德",
+      "category": "origin",
+      "description": "召唤一座冰封之塔。在塔前的友军获得生命值，在塔后的友军获得伤害增幅。  【弗雷尔卓德】弈子额外获得150%。",
+      "breakpoints": [
+        {
+          "min_units": 3,
+          "max_units": 4,
+          "style": "bronze",
+          "effect": "(3)8%【生命上限】，10%【伤害加成】",
+          "values": {
+            "source_style": "1"
+          }
+        },
+        {
+          "min_units": 5,
+          "max_units": 6,
+          "style": "silver",
+          "effect": "(5)两座冰封之塔。12%【生命上限】，16%【伤害加成】",
+          "values": {
+            "source_style": "2"
+          }
+        },
+        {
+          "min_units": 7,
+          "max_units": null,
+          "style": "gold",
+          "effect": "(7)冰封之塔在被摧毁时会晕眩敌人1.5秒。16%【生命上限】，22%【伤害加成】。",
+          "values": {
+            "source_style": "3"
+          }
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/342.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_freljord.png",
+        "alt": "弗雷尔卓德羁绊图标"
+      },
+      "source_ids": {
+        "official_id": "342",
+        "tft_spec_id": "10003",
+        "map_id": "3"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "1|2|3",
+        "raw_description": "(3)8%【生命上限】，10%【伤害加成】 |(5)两座冰封之塔。12%【生命上限】，16%【伤害加成】 |(7)冰封之塔在被摧毁时会晕眩敌人1.5秒。16%【生命上限】，22%【伤害加成】。"
+      }
+    },
+    {
+      "id": "343",
+      "name": "艾欧尼亚",
+      "category": "origin",
+      "description": "超凡之路：【艾欧尼亚】弈子获得额外生命值，并造成额外魔法伤害。3星【艾欧尼亚】弈子额外获得130%。",
+      "breakpoints": [
+        {
+          "min_units": 3,
+          "max_units": 4,
+          "style": "bronze",
+          "effect": "(3)10%【生命上限】，+20%魔法伤害",
+          "values": {
+            "source_style": "1"
+          }
+        },
+        {
+          "min_units": 5,
+          "max_units": 6,
+          "style": "silver",
+          "effect": "(5)15%【生命上限】，+25%魔法伤害",
+          "values": {
+            "source_style": "2"
+          }
+        },
+        {
+          "min_units": 7,
+          "max_units": 9,
+          "style": "gold",
+          "effect": "(7)20%【生命上限】，+30%魔法伤害",
+          "values": {
+            "source_style": "3"
+          }
+        },
+        {
+          "min_units": 10,
+          "max_units": null,
+          "style": "prismatic",
+          "effect": "(10)30%【生命上限】，+70%魔法伤害；所有我方弈子获得200%【攻击速度】，10【法力回复】，每秒回复5%【生命上限】，敌方弈子降低40%【攻击速度】，40%移动速度  【艾欧尼亚】弈子每局游戏会选择不同的道路。",
+          "values": {
+            "source_style": "4"
+          }
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/343.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_ionia.png",
+        "alt": "艾欧尼亚羁绊图标"
+      },
+      "source_ids": {
+        "official_id": "343",
+        "tft_spec_id": "10003",
+        "map_id": "4"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "1|2|3|4",
+        "raw_description": "(3)10%【生命上限】，+20%魔法伤害|(5)15%【生命上限】，+25%魔法伤害|(7)20%【生命上限】，+30%魔法伤害|(10)30%【生命上限】，+70%魔法伤害；所有我方弈子获得200%【攻击速度】，10【法力回复】，每秒回复5%【生命上限】，敌方弈子降低40%【攻击速度】，40%移动速度  【艾欧尼亚】弈子每局游戏会选择不同的道路。"
+      }
+    },
+    {
+      "id": "344",
+      "name": "以绪塔尔",
+      "category": "origin",
+      "description": "(3)完成探险以赚取【太阳碎片】(【太阳碎片】)，【太阳碎片】可以用来购买战利品！ |(5)在每场玩家对战回合开始时，回复2点玩家生命值。 |(7)在赢下对战回合后，找到50【太阳碎片】并挖掘出额外战利品。  完成一次探险后，会在下个回合开始时为你提供一个新的探险。",
+      "breakpoints": [
+        {
+          "min_units": 3,
+          "max_units": 4,
+          "style": "bronze",
+          "effect": "(3)完成探险以赚取【太阳碎片】(【太阳碎片】)，【太阳碎片】可以用来购买战利品！",
+          "values": {
+            "source_style": "1"
+          }
+        },
+        {
+          "min_units": 5,
+          "max_units": 6,
+          "style": "silver",
+          "effect": "(5)在每场玩家对战回合开始时，回复2点玩家生命值。",
+          "values": {
+            "source_style": "2"
+          }
+        },
+        {
+          "min_units": 7,
+          "max_units": null,
+          "style": "gold",
+          "effect": "(7)在赢下对战回合后，找到50【太阳碎片】并挖掘出额外战利品。  完成一次探险后，会在下个回合开始时为你提供一个新的探险。",
+          "values": {
+            "source_style": "3"
+          }
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/344.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_ixtal.png",
+        "alt": "以绪塔尔羁绊图标"
+      },
+      "source_ids": {
+        "official_id": "344",
+        "tft_spec_id": "10003",
+        "map_id": "5"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "1|2|3",
+        "raw_description": "(3)完成探险以赚取【太阳碎片】(【太阳碎片】)，【太阳碎片】可以用来购买战利品！ |(5)在每场玩家对战回合开始时，回复2点玩家生命值。 |(7)在赢下对战回合后，找到50【太阳碎片】并挖掘出额外战利品。  完成一次探险后，会在下个回合开始时为你提供一个新的探险。"
+      }
+    },
+    {
+      "id": "345",
+      "name": "诺克萨斯",
+      "category": "origin",
+      "description": "在敌方队伍损失15%生命值后，召唤破灭使者【厄塔汗】。他的强度基于【诺克萨斯】弈子的星级成长。",
+      "breakpoints": [
+        {
+          "min_units": 3,
+          "max_units": 4,
+          "style": "bronze",
+          "effect": "(3)他劈砍敌人，造成魔法伤害。",
+          "values": {
+            "source_style": "1"
+          }
+        },
+        {
+          "min_units": 5,
+          "max_units": 6,
+          "style": "silver",
+          "effect": "(5)他存活得越久，【诺克萨斯】弈子会越强。",
+          "values": {
+            "source_style": "2"
+          }
+        },
+        {
+          "min_units": 7,
+          "max_units": 9,
+          "style": "gold",
+          "effect": "(7)施放技能时，他会抽离敌人的灵魂。",
+          "values": {
+            "source_style": "3"
+          }
+        },
+        {
+          "min_units": 10,
+          "max_units": null,
+          "style": "prismatic",
+          "effect": "(10)在10秒后，带来破灭。",
+          "values": {
+            "source_style": "4"
+          }
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/345.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_noxus.png",
+        "alt": "诺克萨斯羁绊图标"
+      },
+      "source_ids": {
+        "official_id": "345",
+        "tft_spec_id": "10003",
+        "map_id": "6"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "1|2|3|4",
+        "raw_description": "(3)他劈砍敌人，造成魔法伤害。 |(5)他存活得越久，【诺克萨斯】弈子会越强。 |(7)施放技能时，他会抽离敌人的灵魂。 |(10)在10秒后，带来破灭。"
+      }
+    },
+    {
+      "id": "346",
+      "name": "皮尔特沃夫",
+      "category": "origin",
+      "description": "在棋盘右侧建造一个发明。在8秒后，发明会激活，从而启动其每个模块。",
+      "breakpoints": [
+        {
+          "min_units": 2,
+          "max_units": 3,
+          "style": "bronze",
+          "effect": "(2)选择一个模块",
+          "values": {
+            "source_style": "1"
+          }
+        },
+        {
+          "min_units": 4,
+          "max_units": 5,
+          "style": "silver",
+          "effect": "(4)选择第二个模块",
+          "values": {
+            "source_style": "2"
+          }
+        },
+        {
+          "min_units": 6,
+          "max_units": null,
+          "style": "gold",
+          "effect": "(6)选择第三个模块",
+          "values": {
+            "source_style": "3"
+          }
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/346.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_piltover.png",
+        "alt": "皮尔特沃夫羁绊图标"
+      },
+      "source_ids": {
+        "official_id": "346",
+        "tft_spec_id": "10003",
+        "map_id": "7"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "1|2|3",
+        "raw_description": "(2)选择一个模块 |(4)选择第二个模块 |(6)选择第三个模块"
+      }
+    },
+    {
+      "id": "347",
+      "name": "暗影岛",
+      "category": "origin",
+      "description": "任何弈子倒下时，均可获得灵魂(【灵魂】)。基于你拥有的灵魂数量，【暗影岛】弈子的技能将获得独特强化。  【暗影岛】弈子获得物理加成和法术加成。",
+      "breakpoints": [
+        {
+          "min_units": 2,
+          "max_units": 2,
+          "style": "bronze",
+          "effect": "(2)1x【灵魂】，18%【物理加成】【法术加成】",
+          "values": {
+            "source_style": "1"
+          }
+        },
+        {
+          "min_units": 3,
+          "max_units": 3,
+          "style": "silver",
+          "effect": "(3)1.3x【灵魂】，20%【物理加成】【法术加成】",
+          "values": {
+            "source_style": "2"
+          }
+        },
+        {
+          "min_units": 4,
+          "max_units": 4,
+          "style": "gold",
+          "effect": "(4)1.6x【灵魂】，25%【物理加成】【法术加成】",
+          "values": {
+            "source_style": "3"
+          }
+        },
+        {
+          "min_units": 5,
+          "max_units": null,
+          "style": "gold",
+          "effect": "(5)1.9x【灵魂】，33%【物理加成】【法术加成】  已收集的灵魂：0【灵魂】",
+          "values": {
+            "source_style": "3"
+          }
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/347.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_shadowisles.png",
+        "alt": "暗影岛羁绊图标"
+      },
+      "source_ids": {
+        "official_id": "347",
+        "tft_spec_id": "10003",
+        "map_id": "8"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "1|2|3|3",
+        "raw_description": "(2)1x【灵魂】，18%【物理加成】【法术加成】 |(3)1.3x【灵魂】，20%【物理加成】【法术加成】 |(4)1.6x【灵魂】，25%【物理加成】【法术加成】 |(5)1.9x【灵魂】，33%【物理加成】【法术加成】  已收集的灵魂：0【灵魂】"
+      }
+    },
+    {
+      "id": "348",
+      "name": "恕瑞玛",
+      "category": "origin",
+      "description": "每一秒，【恕瑞玛】弈子获得2%攻击速度和回复20生命值。战斗开始时，他们获得额外的效果。",
+      "breakpoints": [
+        {
+          "min_units": 2,
+          "max_units": 2,
+          "style": "bronze",
+          "effect": "(2)20%最大生命值",
+          "values": {
+            "source_style": "1"
+          }
+        },
+        {
+          "min_units": 3,
+          "max_units": 3,
+          "style": "silver",
+          "effect": "(3)50护甲和魔抗",
+          "values": {
+            "source_style": "2"
+          }
+        },
+        {
+          "min_units": 4,
+          "max_units": null,
+          "style": "prismatic",
+          "effect": "(4)每3秒，一个【恕瑞玛】弈子会飞升成神。",
+          "values": {
+            "source_style": "4"
+          }
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/348.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_shurima.png",
+        "alt": "恕瑞玛羁绊图标"
+      },
+      "source_ids": {
+        "official_id": "348",
+        "tft_spec_id": "10003",
+        "map_id": "9"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "1|2|4",
+        "raw_description": "(2)20%最大生命值 |(3)50护甲和魔抗 |(4)每3秒，一个【恕瑞玛】弈子会飞升成神。"
+      }
+    },
+    {
+      "id": "349",
+      "name": "巨神峰",
+      "category": "origin",
+      "description": "【巨神峰】弈子由星辰铸就。他们没有羁绊，但比一般单位更强大。",
+      "breakpoints": [
+        {
+          "min_units": 1,
+          "max_units": 1,
+          "style": "gold",
+          "effect": "【巨神峰】弈子由星辰铸就。他们没有羁绊，但比一般单位更强大。",
+          "values": {
+            "source_style": "3"
+          }
+        },
+        {
+          "min_units": 2,
+          "max_units": 2,
+          "style": "gold",
+          "effect": "【巨神峰】弈子由星辰铸就。他们没有羁绊，但比一般单位更强大。",
+          "values": {
+            "source_style": "3"
+          }
+        },
+        {
+          "min_units": 3,
+          "max_units": 3,
+          "style": "gold",
+          "effect": "【巨神峰】弈子由星辰铸就。他们没有羁绊，但比一般单位更强大。",
+          "values": {
+            "source_style": "3"
+          }
+        },
+        {
+          "min_units": 4,
+          "max_units": 4,
+          "style": "gold",
+          "effect": "【巨神峰】弈子由星辰铸就。他们没有羁绊，但比一般单位更强大。",
+          "values": {
+            "source_style": "3"
+          }
+        },
+        {
+          "min_units": 5,
+          "max_units": 5,
+          "style": "gold",
+          "effect": "【巨神峰】弈子由星辰铸就。他们没有羁绊，但比一般单位更强大。",
+          "values": {
+            "source_style": "3"
+          }
+        },
+        {
+          "min_units": 6,
+          "max_units": null,
+          "style": "gold",
+          "effect": "【巨神峰】弈子由星辰铸就。他们没有羁绊，但比一般单位更强大。",
+          "values": {
+            "source_style": "3"
+          }
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/349.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_targon.png",
+        "alt": "巨神峰羁绊图标"
+      },
+      "source_ids": {
+        "official_id": "349",
+        "tft_spec_id": "10003",
+        "map_id": "10"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "3|3|3|3|3|3",
+        "raw_description": "【巨神峰】弈子由星辰铸就。他们没有羁绊，但比一般单位更强大。"
+      }
+    },
+    {
+      "id": "350",
+      "name": "虚空",
+      "category": "origin",
+      "description": "获得【突变】，仅限【虚空】弈子使用。【虚空】弈子获得攻击速度。",
+      "breakpoints": [
+        {
+          "min_units": 2,
+          "max_units": 3,
+          "style": "bronze",
+          "effect": "(2)1个突变，8%【攻击速度】",
+          "values": {
+            "source_style": "1"
+          }
+        },
+        {
+          "min_units": 4,
+          "max_units": 5,
+          "style": "silver",
+          "effect": "(4)2个【突变】，18%【攻击速度】",
+          "values": {
+            "source_style": "2"
+          }
+        },
+        {
+          "min_units": 6,
+          "max_units": 8,
+          "style": "gold",
+          "effect": "(6)3个【突变】，33%【攻击速度】",
+          "values": {
+            "source_style": "3"
+          }
+        },
+        {
+          "min_units": 9,
+          "max_units": null,
+          "style": "gold",
+          "effect": "(9)【突变】得到了过载充能，其效果增加100%。40%【攻击速度】  弈子同一时间只能拥有一个【突变】。将弈子放置在备战区可以移除其【突变】。",
+          "values": {
+            "source_style": "3"
+          }
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/350.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_void.png",
+        "alt": "虚空羁绊图标"
+      },
+      "source_ids": {
+        "official_id": "350",
+        "tft_spec_id": "10003",
+        "map_id": "11"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "1|2|3|3",
+        "raw_description": "(2)1个突变，8%【攻击速度】 |(4)2个【突变】，18%【攻击速度】 |(6)3个【突变】，33%【攻击速度】 |(9)【突变】得到了过载充能，其效果增加100%。40%【攻击速度】  弈子同一时间只能拥有一个【突变】。将弈子放置在备战区可以移除其【突变】。"
+      }
+    },
+    {
+      "id": "351",
+      "name": "约德尔人",
+      "category": "origin",
+      "description": "(2)每登场一个【约德尔人】弈子，【约德尔人】弈子获得40生命值和5%攻击速度。3星【约德尔人】弈子额外提供120%！ |(4)并且每回合的第一个商店都会刷新一个【约德尔人】弈子！ |(6)并且每回合获得1次免费刷新！ |(8)并且每回合获得一个【约德尔人】福袋！ |(10)每登场一个【约德尔人】弈子，【约德尔人】弈子额外获得100%生命值和攻击速度，并且打开一道通向【约德尔城】的传送门！ 当前属性：0【生命上限】，0%【攻击速度】",
+      "breakpoints": [
+        {
+          "min_units": 2,
+          "max_units": 3,
+          "style": "bronze",
+          "effect": "(2)每登场一个【约德尔人】弈子，【约德尔人】弈子获得40生命值和5%攻击速度。3星【约德尔人】弈子额外提供120%！",
+          "values": {
+            "source_style": "1"
+          }
+        },
+        {
+          "min_units": 4,
+          "max_units": 5,
+          "style": "silver",
+          "effect": "(4)并且每回合的第一个商店都会刷新一个【约德尔人】弈子！",
+          "values": {
+            "source_style": "2"
+          }
+        },
+        {
+          "min_units": 6,
+          "max_units": 7,
+          "style": "gold",
+          "effect": "(6)并且每回合获得1次免费刷新！",
+          "values": {
+            "source_style": "3"
+          }
+        },
+        {
+          "min_units": 8,
+          "max_units": 9,
+          "style": "gold",
+          "effect": "(8)并且每回合获得一个【约德尔人】福袋！",
+          "values": {
+            "source_style": "3"
+          }
+        },
+        {
+          "min_units": 10,
+          "max_units": null,
+          "style": "prismatic",
+          "effect": "(10)每登场一个【约德尔人】弈子，【约德尔人】弈子额外获得100%生命值和攻击速度，并且打开一道通向【约德尔城】的传送门！ 当前属性：0【生命上限】，0%【攻击速度】",
+          "values": {
+            "source_style": "4"
+          }
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/351.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_yordle.png",
+        "alt": "约德尔人羁绊图标"
+      },
+      "source_ids": {
+        "official_id": "351",
+        "tft_spec_id": "10003",
+        "map_id": "12"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "1|2|3|3|4",
+        "raw_description": "(2)每登场一个【约德尔人】弈子，【约德尔人】弈子获得40生命值和5%攻击速度。3星【约德尔人】弈子额外提供120%！|(4)并且每回合的第一个商店都会刷新一个【约德尔人】弈子！|(6)并且每回合获得1次免费刷新！|(8)并且每回合获得一个【约德尔人】福袋！|(10)每登场一个【约德尔人】弈子，【约德尔人】弈子额外获得100%生命值和攻击速度，并且打开一道通向【约德尔城】的传送门！ 当前属性：0【生命上限】，0%【攻击速度】"
+      }
+    },
+    {
+      "id": "352",
+      "name": "祖安",
+      "category": "origin",
+      "description": "4秒后，【祖安】弈子受到【微光融合】效果，获得15%伤害减免和90%随时间衰减的攻击速度，持续4秒。  在短暂的冷却时间后，其再次获得【微光融合】效果。",
+      "breakpoints": [
+        {
+          "min_units": 3,
+          "max_units": 4,
+          "style": "bronze",
+          "effect": "(3)效果在4秒后刷新。",
+          "values": {
+            "source_style": "1"
+          }
+        },
+        {
+          "min_units": 5,
+          "max_units": 6,
+          "style": "silver",
+          "effect": "(5)在60%生命值时，【祖安】弈子在3秒内持续回复30%生命值，并立刻获得【微光融合】效果。",
+          "values": {
+            "source_style": "2"
+          }
+        },
+        {
+          "min_units": 7,
+          "max_units": null,
+          "style": "gold",
+          "effect": "(7)【微光融合】效果的加成提高50%。效果变为在3秒后刷新。",
+          "values": {
+            "source_style": "3"
+          }
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/352.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_zaun.png",
+        "alt": "祖安羁绊图标"
+      },
+      "source_ids": {
+        "official_id": "352",
+        "tft_spec_id": "10003",
+        "map_id": "13"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "1|2|3",
+        "raw_description": "(3)效果在4秒后刷新。 |(5)在60%生命值时，【祖安】弈子在3秒内持续回复30%生命值，并立刻获得【微光融合】效果。 |(7)【微光融合】效果的加成提高50%。效果变为在3秒后刷新。"
+      }
+    },
+    {
+      "id": "353",
+      "name": "星界游神",
+      "category": "origin",
+      "description": "在赢下玩家对战回合后，获得一个来自【符文之地】的随机单位。输掉对战回合后，获得免费刷新次数，该数额会随阶段提升。  输掉时的刷新次数：0",
+      "breakpoints": [
+        {
+          "min_units": 1,
+          "max_units": null,
+          "style": "unique",
+          "effect": "在赢下玩家对战回合后，获得一个来自【符文之地】的随机单位。输掉对战回合后，获得免费刷新次数，该数额会随阶段提升。  输掉时的刷新次数：0",
+          "values": {
+            "source_style": "5"
+          }
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/353.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_caretaker.png",
+        "alt": "星界游神羁绊图标"
+      },
+      "source_ids": {
+        "official_id": "353",
+        "tft_spec_id": "10003",
+        "map_id": "14"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "5",
+        "raw_description": "在赢下玩家对战回合后，获得一个来自【符文之地】的随机单位。输掉对战回合后，获得免费刷新次数，该数额会随阶段提升。  输掉时的刷新次数：0"
+      }
+    },
+    {
+      "id": "354",
+      "name": "虚空之女",
+      "category": "origin",
+      "description": "【卡莎】可在两种不同的技能之间切换，取决于她的物理加成与法术加成哪一方更高。",
+      "breakpoints": [
+        {
+          "min_units": 1,
+          "max_units": null,
+          "style": "unique",
+          "effect": "【卡莎】可在两种不同的技能之间切换，取决于她的物理加成与法术加成哪一方更高。",
+          "values": {
+            "source_style": "5"
+          }
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/354.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_assimilator.png",
+        "alt": "虚空之女羁绊图标"
+      },
+      "source_ids": {
+        "official_id": "354",
+        "tft_spec_id": "10003",
+        "map_id": "15"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "5",
+        "raw_description": "【卡莎】可在两种不同的技能之间切换，取决于她的物理加成与法术加成哪一方更高。"
+      }
+    },
+    {
+      "id": "355",
+      "name": "黑暗之女",
+      "category": "origin",
+      "description": "【安妮】在你的备战区召唤出【提伯斯】，它被视作独立的单位，可以单独登场和携带装备。【提伯斯】的星级与【安妮】相同。  可上阵人数+1。",
+      "breakpoints": [
+        {
+          "min_units": 1,
+          "max_units": null,
+          "style": "unique",
+          "effect": "【安妮】在你的备战区召唤出【提伯斯】，它被视作独立的单位，可以单独登场和携带装备。【提伯斯】的星级与【安妮】相同。  可上阵人数+1。",
+          "values": {
+            "source_style": "5"
+          }
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/355.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_darkchild.png",
+        "alt": "黑暗之女羁绊图标"
+      },
+      "source_ids": {
+        "official_id": "355",
+        "tft_spec_id": "10003",
+        "map_id": "16"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "5",
+        "raw_description": "【安妮】在你的备战区召唤出【提伯斯】，它被视作独立的单位，可以单独登场和携带装备。【提伯斯】的星级与【安妮】相同。  可上阵人数+1。"
+      }
+    },
+    {
+      "id": "356",
+      "name": "时光守护者",
+      "category": "origin",
+      "description": "每2次施放技能，【时光守护者】会储存2经验值。若储存的经验值足够你升级，他会传输给你所需的经验值。  若你已是10级，他转而获得15%伤害增幅。  已储存的经验值：0",
+      "breakpoints": [
+        {
+          "min_units": 1,
+          "max_units": null,
+          "style": "unique",
+          "effect": "每2次施放技能，【时光守护者】会储存2经验值。若储存的经验值足够你升级，他会传输给你所需的经验值。  若你已是10级，他转而获得15%伤害增幅。  已储存的经验值：0",
+          "values": {
+            "source_style": "5"
+          }
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/356.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_chronokeeper.png",
+        "alt": "时光守护者羁绊图标"
+      },
+      "source_ids": {
+        "official_id": "356",
+        "tft_spec_id": "10003",
+        "map_id": "17"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "5",
+        "raw_description": "每2次施放技能，【时光守护者】会储存2经验值。若储存的经验值足够你升级，他会传输给你所需的经验值。  若你已是10级，他转而获得15%伤害增幅。  已储存的经验值：0"
+      }
+    },
+    {
+      "id": "357",
+      "name": "远古巫灵",
+      "category": "origin",
+      "description": "在每个对战回合结束后，一个【飞升法杖】会出现在你的商店。它们拥有强大的效果，并且能够用金币购买。  选择一把武器。",
+      "breakpoints": [
+        {
+          "min_units": 1,
+          "max_units": null,
+          "style": "unique",
+          "effect": "在每个对战回合结束后，一个【飞升法杖】会出现在你的商店。它们拥有强大的效果，并且能够用金币购买。  选择一把武器。",
+          "values": {
+            "source_style": "5"
+          }
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/357.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_ascendant.png",
+        "alt": "远古巫灵羁绊图标"
+      },
+      "source_ids": {
+        "official_id": "357",
+        "tft_spec_id": "10003",
+        "map_id": "18"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "5",
+        "raw_description": "在每个对战回合结束后，一个【飞升法杖】会出现在你的商店。它们拥有强大的效果，并且能够用金币购买。  选择一把武器。"
+      }
+    },
+    {
+      "id": "358",
+      "name": "海克斯机甲",
+      "category": "origin",
+      "description": "获得一个【驾驶员格】。战斗开始时：该格内的弈子会跃入【海克斯霸龙】，基于其角色定位和星级，为【海克斯霸龙】提供其80%生命值和额外属性。  坦克：+20/30/40%全能汲取 战士：+20/30/40%物理加成 射手：+12/20/30%伤害增幅 术师：+2/4/5法力回复 突袭者：+40/70/100%暴击几率  倒下时，【驾驶员】会被弹出，【海克斯霸龙】将附近的敌人击退并晕眩1.5秒。",
+      "breakpoints": [
+        {
+          "min_units": 1,
+          "max_units": null,
+          "style": "unique",
+          "effect": "获得一个【驾驶员格】。战斗开始时：该格内的弈子会跃入【海克斯霸龙】，基于其角色定位和星级，为【海克斯霸龙】提供其80%生命值和额外属性。  坦克：+20/30/40%全能汲取 战士：+20/30/40%物理加成 射手：+12/20/30%伤害增幅 术师：+2/4/5法力回复 突袭者：+40/70/100%暴击几率  倒下时，【驾驶员】会被弹出，【海克斯霸龙】将附近的敌人击退并晕眩1.5秒。",
+          "values": {
+            "source_style": "5"
+          }
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/358.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_hexmech.png",
+        "alt": "海克斯机甲羁绊图标"
+      },
+      "source_ids": {
+        "official_id": "358",
+        "tft_spec_id": "10003",
+        "map_id": "19"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "5",
+        "raw_description": "获得一个【驾驶员格】。战斗开始时：该格内的弈子会跃入【海克斯霸龙】，基于其角色定位和星级，为【海克斯霸龙】提供其80%生命值和额外属性。  坦克：+20/30/40%全能汲取 战士：+20/30/40%物理加成 射手：+12/20/30%伤害增幅 术师：+2/4/5法力回复 突袭者：+40/70/100%暴击几率  倒下时，【驾驶员】会被弹出，【海克斯霸龙】将附近的敌人击退并晕眩1.5秒。"
+      }
+    },
+    {
+      "id": "359",
+      "name": "河流之王",
+      "category": "origin",
+      "description": "在每个备战阶段，你可以用一个弈子喂养【塔姆·肯奇】，基于被喂养弈子的角色定位和星级，为他永久提供生命值、攻击速度或法术加成中的一项。  要喂养塔姆，只需要将备战区的一名友军悬停在塔姆上方，在他的嘴巴张开时松开即可。  当前属性：0【生命上限】，0%【攻击速度】，0%【法术加成】",
+      "breakpoints": [
+        {
+          "min_units": 1,
+          "max_units": null,
+          "style": "unique",
+          "effect": "在每个备战阶段，你可以用一个弈子喂养【塔姆·肯奇】，基于被喂养弈子的角色定位和星级，为他永久提供生命值、攻击速度或法术加成中的一项。  要喂养塔姆，只需要将备战区的一名友军悬停在塔姆上方，在他的嘴巴张开时松开即可。  当前属性：0【生命上限】，0%【攻击速度】，0%【法术加成】",
+          "values": {
+            "source_style": "5"
+          }
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/359.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_glutton.png",
+        "alt": "河流之王羁绊图标"
+      },
+      "source_ids": {
+        "official_id": "359",
+        "tft_spec_id": "10003",
+        "map_id": "20"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "5",
+        "raw_description": "在每个备战阶段，你可以用一个弈子喂养【塔姆·肯奇】，基于被喂养弈子的角色定位和星级，为他永久提供生命值、攻击速度或法术加成中的一项。  要喂养塔姆，只需要将备战区的一名友军悬停在塔姆上方，在他的嘴巴张开时松开即可。  当前属性：0【生命上限】，0%【攻击速度】，0%【法术加成】"
+      }
+    },
+    {
+      "id": "360",
+      "name": "解脱者",
+      "category": "origin",
+      "description": "【塞拉斯】可在3种不同技能之间轮换，取决于当时哪种技能效果最佳。他无法连续两次施放同一种技能。",
+      "breakpoints": [
+        {
+          "min_units": 1,
+          "max_units": null,
+          "style": "unique",
+          "effect": "【塞拉斯】可在3种不同技能之间轮换，取决于当时哪种技能效果最佳。他无法连续两次施放同一种技能。",
+          "values": {
+            "source_style": "5"
+          }
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/360.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_chainbreaker.png",
+        "alt": "解脱者羁绊图标"
+      },
+      "source_ids": {
+        "official_id": "360",
+        "tft_spec_id": "10003",
+        "map_id": "21"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "5",
+        "raw_description": "【塞拉斯】可在3种不同技能之间轮换，取决于当时哪种技能效果最佳。他无法连续两次施放同一种技能。"
+      }
+    },
+    {
+      "id": "361",
+      "name": "龙血武姬",
+      "category": "origin",
+      "description": "施放技能时，【希瓦娜】会用【烈焰吐息】替换她的技能。在变身状态下，所有友军受到来自敌人的技能伤害减少8%。",
+      "breakpoints": [
+        {
+          "min_units": 1,
+          "max_units": null,
+          "style": "unique",
+          "effect": "施放技能时，【希瓦娜】会用【烈焰吐息】替换她的技能。在变身状态下，所有友军受到来自敌人的技能伤害减少8%。",
+          "values": {
+            "source_style": "5"
+          }
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/361.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_dragonborn.png",
+        "alt": "龙血武姬羁绊图标"
+      },
+      "source_ids": {
+        "official_id": "361",
+        "tft_spec_id": "10003",
+        "map_id": "22"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "5",
+        "raw_description": "施放技能时，【希瓦娜】会用【烈焰吐息】替换她的技能。在变身状态下，所有友军受到来自敌人的技能伤害减少8%。"
+      }
+    },
+    {
+      "id": "362",
+      "name": "腕豪",
+      "category": "origin",
+      "description": "当最大生命值首次降至45%后，【瑟提】会离开战斗并开始做仰卧起坐。每次仰卧起坐回复15%最大生命值，并为其提供60%攻击和移动速度。  如果他回满了生命值，则会带着【斗志满满】效果重返战斗，将所有来自他的攻击和技能的伤害转换为真实伤害。如果他的所有友军均已倒下，他会立刻重返战斗。",
+      "breakpoints": [
+        {
+          "min_units": 1,
+          "max_units": null,
+          "style": "unique",
+          "effect": "当最大生命值首次降至45%后，【瑟提】会离开战斗并开始做仰卧起坐。每次仰卧起坐回复15%最大生命值，并为其提供60%攻击和移动速度。  如果他回满了生命值，则会带着【斗志满满】效果重返战斗，将所有来自他的攻击和技能的伤害转换为真实伤害。如果他的所有友军均已倒下，他会立刻重返战斗。",
+          "values": {
+            "source_style": "5"
+          }
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/362.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_theboss.png",
+        "alt": "腕豪羁绊图标"
+      },
+      "source_ids": {
+        "official_id": "362",
+        "tft_spec_id": "10003",
+        "map_id": "23"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "5",
+        "raw_description": "当最大生命值首次降至45%后，【瑟提】会离开战斗并开始做仰卧起坐。每次仰卧起坐回复15%最大生命值，并为其提供60%攻击和移动速度。  如果他回满了生命值，则会带着【斗志满满】效果重返战斗，将所有来自他的攻击和技能的伤害转换为真实伤害。如果他的所有友军均已倒下，他会立刻重返战斗。"
+      }
+    },
+    {
+      "id": "363",
+      "name": "符文法师",
+      "category": "origin",
+      "description": "【符文法师】可从所有已激活的地区羁绊中获益，但不对任何羁绊做出贡献。  他可借助已激活的地区羁绊获得符文能量来修改他的技能，并以独特的方式来将其强化。",
+      "breakpoints": [
+        {
+          "min_units": 1,
+          "max_units": null,
+          "style": "unique",
+          "effect": "【符文法师】可从所有已激活的地区羁绊中获益，但不对任何羁绊做出贡献。  他可借助已激活的地区羁绊获得符文能量来修改他的技能，并以独特的方式来将其强化。",
+          "values": {
+            "source_style": "5"
+          }
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/363.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_runemage.png",
+        "alt": "符文法师羁绊图标"
+      },
+      "source_ids": {
+        "official_id": "363",
+        "tft_spec_id": "10003",
+        "map_id": "24"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "5",
+        "raw_description": "【符文法师】可从所有已激活的地区羁绊中获益，但不对任何羁绊做出贡献。  他可借助已激活的地区羁绊获得符文能量来修改他的技能，并以独特的方式来将其强化。"
+      }
+    },
+    {
+      "id": "364",
+      "name": "山隐之焰",
+      "category": "origin",
+      "description": "你最强大的那个【奥恩】在每次参与玩家对战回合之后，都将提升一件神器的打造进度。  每件【奥恩】携带的装备会为他提供350/600/2000最大生命值。神器额外提供300%。  打造进度：0/4",
+      "breakpoints": [
+        {
+          "min_units": 1,
+          "max_units": null,
+          "style": "unique",
+          "effect": "你最强大的那个【奥恩】在每次参与玩家对战回合之后，都将提升一件神器的打造进度。  每件【奥恩】携带的装备会为他提供350/600/2000最大生命值。神器额外提供300%。  打造进度：0/4",
+          "values": {
+            "source_style": "5"
+          }
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/364.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_blacksmith.png",
+        "alt": "山隐之焰羁绊图标"
+      },
+      "source_ids": {
+        "official_id": "364",
+        "tft_spec_id": "10003",
+        "map_id": "25"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "5",
+        "raw_description": "你最强大的那个【奥恩】在每次参与玩家对战回合之后，都将提升一件神器的打造进度。  每件【奥恩】携带的装备会为他提供350/600/2000最大生命值。神器额外提供300%。  打造进度：0/4"
+      }
+    },
+    {
+      "id": "365",
+      "name": "系魂圣枪",
+      "category": "origin",
+      "description": "【卢锡安与赛娜】并肩作战，每一方施放技能后都会置换为另一方。他们每人都有一个独立的技能。  你最强大的那对【系魂圣枪】会在存活时为你的队伍提供额外加成。当【赛娜】登场后，所有友军获得7%伤害减免。当【卢锡安】登场后，所有友军获得7%伤害增幅。",
+      "breakpoints": [
+        {
+          "min_units": 1,
+          "max_units": null,
+          "style": "unique",
+          "effect": "【卢锡安与赛娜】并肩作战，每一方施放技能后都会置换为另一方。他们每人都有一个独立的技能。  你最强大的那对【系魂圣枪】会在存活时为你的队伍提供额外加成。当【赛娜】登场后，所有友军获得7%伤害减免。当【卢锡安】登场后，所有友军获得7%伤害增幅。",
+          "values": {
+            "source_style": "5"
+          }
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/365.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_soulbound.png",
+        "alt": "系魂圣枪羁绊图标"
+      },
+      "source_ids": {
+        "official_id": "365",
+        "tft_spec_id": "10003",
+        "map_id": "26"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "5",
+        "raw_description": "【卢锡安与赛娜】并肩作战，每一方施放技能后都会置换为另一方。他们每人都有一个独立的技能。  你最强大的那对【系魂圣枪】会在存活时为你的队伍提供额外加成。当【赛娜】登场后，所有友军获得7%伤害减免。当【卢锡安】登场后，所有友军获得7%伤害增幅。"
+      }
+    },
+    {
+      "id": "366",
+      "name": "永猎双子",
+      "category": "origin",
+      "description": "对同一名敌人的每第3次攻击会造成325%伤害，狼灵会撕咬该目标。",
+      "breakpoints": [
+        {
+          "min_units": 1,
+          "max_units": null,
+          "style": "unique",
+          "effect": "对同一名敌人的每第3次攻击会造成325%伤害，狼灵会撕咬该目标。",
+          "values": {
+            "source_style": "5"
+          }
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/366.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_eternal.png",
+        "alt": "永猎双子羁绊图标"
+      },
+      "source_ids": {
+        "official_id": "366",
+        "tft_spec_id": "10003",
+        "map_id": "27"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "5",
+        "raw_description": "对同一名敌人的每第3次攻击会造成325%伤害，狼灵会撕咬该目标。"
+      }
+    },
+    {
+      "id": "367",
+      "name": "正义巨像",
+      "category": "origin",
+      "description": "【加里奥】无法被放置在战场上。取而代之的是，他可以在备战区提供他的羁绊计数，并且当【德玛西亚】弈子重振旗鼓时，他会加入战斗。  在着陆时，他会产生3格的冲击波，造成相当于他10%最大生命值的魔法伤害。击中敌人时会将其击飞1秒，距离着陆中心越远的敌人被击飞的时长越短。",
+      "breakpoints": [
+        {
+          "min_units": 1,
+          "max_units": null,
+          "style": "unique",
+          "effect": "【加里奥】无法被放置在战场上。取而代之的是，他可以在备战区提供他的羁绊计数，并且当【德玛西亚】弈子重振旗鼓时，他会加入战斗。  在着陆时，他会产生3格的冲击波，造成相当于他10%最大生命值的魔法伤害。击中敌人时会将其击飞1秒，距离着陆中心越远的敌人被击飞的时长越短。",
+          "values": {
+            "source_style": "5"
+          }
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/367.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_heroic.png",
+        "alt": "正义巨像羁绊图标"
+      },
+      "source_ids": {
+        "official_id": "367",
+        "tft_spec_id": "10003",
+        "map_id": "28"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "5",
+        "raw_description": "【加里奥】无法被放置在战场上。取而代之的是，他可以在备战区提供他的羁绊计数，并且当【德玛西亚】弈子重振旗鼓时，他会加入战斗。  在着陆时，他会产生3格的冲击波，造成相当于他10%最大生命值的魔法伤害。击中敌人时会将其击飞1秒，距离着陆中心越远的敌人被击飞的时长越短。"
+      }
+    },
+    {
+      "id": "368",
+      "name": "远古恐惧",
+      "category": "origin",
+      "description": "每当一个敌方弈子倒下时，获得10法力值。施放技能不会消耗法力值。  所有敌人失去10护甲和魔抗。",
+      "breakpoints": [
+        {
+          "min_units": 1,
+          "max_units": null,
+          "style": "unique",
+          "effect": "每当一个敌方弈子倒下时，获得10法力值。施放技能不会消耗法力值。  所有敌人失去10护甲和魔抗。",
+          "values": {
+            "source_style": "5"
+          }
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/368.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_harvester.png",
+        "alt": "远古恐惧羁绊图标"
+      },
+      "source_ids": {
+        "official_id": "368",
+        "tft_spec_id": "10003",
+        "map_id": "29"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "5",
+        "raw_description": "每当一个敌方弈子倒下时，获得10法力值。施放技能不会消耗法力值。  所有敌人失去10护甲和魔抗。"
+      }
+    },
+    {
+      "id": "369",
+      "name": "纳什男爵",
+      "category": "origin",
+      "description": "【纳什男爵】占用2个队伍栏位并提供+2至【虚空】羁绊。  在8秒后，棋盘上会出现一道虚空裂隙。裂隙为【虚空】弈子提供30%伤害增幅，并持续用电浆弹攻击敌人，造成5%最大生命值的魔法伤害。",
+      "breakpoints": [
+        {
+          "min_units": 1,
+          "max_units": null,
+          "style": "unique",
+          "effect": "【纳什男爵】占用2个队伍栏位并提供+2至【虚空】羁绊。  在8秒后，棋盘上会出现一道虚空裂隙。裂隙为【虚空】弈子提供30%伤害增幅，并持续用电浆弹攻击敌人，造成5%最大生命值的魔法伤害。",
+          "values": {
+            "source_style": "5"
+          }
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/369.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_riftscourge.png",
+        "alt": "纳什男爵羁绊图标"
+      },
+      "source_ids": {
+        "official_id": "369",
+        "tft_spec_id": "10003",
+        "map_id": "30"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "5",
+        "raw_description": "【纳什男爵】占用2个队伍栏位并提供+2至【虚空】羁绊。  在8秒后，棋盘上会出现一道虚空裂隙。裂隙为【虚空】弈子提供30%伤害增幅，并持续用电浆弹攻击敌人，造成5%最大生命值的魔法伤害。"
+      }
+    },
+    {
+      "id": "370",
+      "name": "沙漠皇帝",
+      "category": "origin",
+      "description": "【阿兹尔】会部署两个可被放置在战场上任意位置的沙漠卫兵。他们不会移动或攻击，并会在【阿兹尔】倒下时一起倒下。",
+      "breakpoints": [
+        {
+          "min_units": 1,
+          "max_units": null,
+          "style": "unique",
+          "effect": "【阿兹尔】会部署两个可被放置在战场上任意位置的沙漠卫兵。他们不会移动或攻击，并会在【阿兹尔】倒下时一起倒下。",
+          "values": {
+            "source_style": "5"
+          }
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/370.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_emperor.png",
+        "alt": "沙漠皇帝羁绊图标"
+      },
+      "source_ids": {
+        "official_id": "370",
+        "tft_spec_id": "10003",
+        "map_id": "31"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "5",
+        "raw_description": "【阿兹尔】会部署两个可被放置在战场上任意位置的沙漠卫兵。他们不会移动或攻击，并会在【阿兹尔】倒下时一起倒下。"
+      }
+    },
+    {
+      "id": "372",
+      "name": "狂野女猎手",
+      "category": "origin",
+      "description": "当你最强大的那个【妮蔻】存活时，你最强大的那个【奈德丽】不可被普攻选取，并获得50%伤害减免。",
+      "breakpoints": [
+        {
+          "min_units": 1,
+          "max_units": null,
+          "style": "unique",
+          "effect": "当你最强大的那个【妮蔻】存活时，你最强大的那个【奈德丽】不可被普攻选取，并获得50%伤害减免。",
+          "values": {
+            "source_style": "5"
+          }
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/372.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_huntress.png",
+        "alt": "狂野女猎手羁绊图标"
+      },
+      "source_ids": {
+        "official_id": "372",
+        "tft_spec_id": "10003",
+        "map_id": "33"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "5",
+        "raw_description": "当你最强大的那个【妮蔻】存活时，你最强大的那个【奈德丽】不可被普攻选取，并获得50%伤害减免。"
+      }
+    },
+    {
+      "id": "373",
+      "name": "不落魔锋",
+      "category": "origin",
+      "description": "如果【赵信】没有被放置在棋盘上，【亚恒】获得【艾欧尼亚】、【德玛西亚】和【神盾使】羁绊。  取得击败时，【亚恒】获得1层持续到战斗结束的【果决】。如果他拥有3及以上的【果决】层数，他会将其消耗用以复活，并回复60%生命值。",
+      "breakpoints": [
+        {
+          "min_units": 1,
+          "max_units": null,
+          "style": "unique",
+          "effect": "如果【赵信】没有被放置在棋盘上，【亚恒】获得【艾欧尼亚】、【德玛西亚】和【神盾使】羁绊。  取得击败时，【亚恒】获得1层持续到战斗结束的【果决】。如果他拥有3及以上的【果决】层数，他会将其消耗用以复活，并回复60%生命值。",
+          "values": {
+            "source_style": "5"
+          }
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/373.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_immortal.png",
+        "alt": "不落魔锋羁绊图标"
+      },
+      "source_ids": {
+        "official_id": "373",
+        "tft_spec_id": "10003",
+        "map_id": "34"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "5",
+        "raw_description": "如果【赵信】没有被放置在棋盘上，【亚恒】获得【艾欧尼亚】、【德玛西亚】和【神盾使】羁绊。  取得击败时，【亚恒】获得1层持续到战斗结束的【果决】。如果他拥有3及以上的【果决】层数，他会将其消耗用以复活，并回复60%生命值。"
+      }
+    },
+    {
+      "id": "381",
+      "name": "铸星龙王",
+      "category": "origin",
+      "description": "每有一个其他的独特【巨神峰】弈子在战斗中登场，【奥瑞利安·索尔】就会获得25/30/100%星尘层数加成。  当前加成：0%",
+      "breakpoints": [
+        {
+          "min_units": 1,
+          "max_units": null,
+          "style": "unique",
+          "effect": "每有一个其他的独特【巨神峰】弈子在战斗中登场，【奥瑞利安·索尔】就会获得25/30/100%星尘层数加成。  当前加成：0%",
+          "values": {
+            "source_style": "5"
+          }
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/381.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_starforger.png",
+        "alt": "铸星龙王羁绊图标"
+      },
+      "source_ids": {
+        "official_id": "381",
+        "tft_spec_id": "10003",
+        "map_id": "35"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "5",
+        "raw_description": "每有一个其他的独特【巨神峰】弈子在战斗中登场，【奥瑞利安·索尔】就会获得25/30/100%星尘层数加成。  当前加成：0%"
+      }
+    },
+    {
+      "id": "382",
+      "name": "暗裔",
+      "category": "origin",
+      "description": "(1)【暗裔】获得15%全能汲取。 |(2)并且：吸血溢出数值转化为护盾(上限为500) |(3)并且：【暗裔】每损失10%最大生命值，获得5%增伤 |(4)并且你会回复相当于你30%造成玩家伤害的生命值。 |(5)并且每当【暗裔】回复了500生命值，就会对2名最近的敌人造成700魔法伤害。",
+      "breakpoints": [
+        {
+          "min_units": 1,
+          "max_units": 1,
+          "style": "bronze",
+          "effect": "(1)【暗裔】获得15%全能汲取。",
+          "values": {
+            "source_style": "1"
+          }
+        },
+        {
+          "min_units": 2,
+          "max_units": 2,
+          "style": "bronze",
+          "effect": "(2)并且：吸血溢出数值转化为护盾(上限为500)",
+          "values": {
+            "source_style": "1"
+          }
+        },
+        {
+          "min_units": 3,
+          "max_units": 3,
+          "style": "silver",
+          "effect": "(3)并且：【暗裔】每损失10%最大生命值，获得5%增伤",
+          "values": {
+            "source_style": "2"
+          }
+        },
+        {
+          "min_units": 4,
+          "max_units": 4,
+          "style": "silver",
+          "effect": "(4)并且你会回复相当于你30%造成玩家伤害的生命值。",
+          "values": {
+            "source_style": "2"
+          }
+        },
+        {
+          "min_units": 5,
+          "max_units": null,
+          "style": "gold",
+          "effect": "(5)并且每当【暗裔】回复了500生命值，就会对2名最近的敌人造成700魔法伤害。",
+          "values": {
+            "source_style": "3"
+          }
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/382.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/plus_trait_icon_darkin.png",
+        "alt": "暗裔羁绊图标"
+      },
+      "source_ids": {
+        "official_id": "382",
+        "tft_spec_id": "10003",
+        "map_id": "36"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "1|1|2|2|3",
+        "raw_description": "(1)【暗裔】获得15%全能汲取。 |(2)并且：吸血溢出数值转化为护盾(上限为500) |(3)并且：【暗裔】每损失10%最大生命值，获得5%增伤 |(4)并且你会回复相当于你30%造成玩家伤害的生命值。 |(5)并且每当【暗裔】回复了500生命值，就会对2名最近的敌人造成700魔法伤害。"
+      }
+    },
+    {
+      "id": "388",
+      "name": "暗裔剑魔",
+      "category": "origin",
+      "description": "【亚托克斯】获得相当于其200%全能汲取的物理加成。  当第一次倒下时，他将短暂变为不可被选取状态，并在2秒内回复至满额生命值。随后，他减少10最大法力值，并获得20%伤害减免。",
+      "breakpoints": [
+        {
+          "min_units": 1,
+          "max_units": null,
+          "style": "unique",
+          "effect": "【亚托克斯】获得相当于其200%全能汲取的物理加成。  当第一次倒下时，他将短暂变为不可被选取状态，并在2秒内回复至满额生命值。随后，他减少10最大法力值，并获得20%伤害减免。",
+          "values": {
+            "source_style": "5"
+          }
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/388.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_worldender.png",
+        "alt": "暗裔剑魔羁绊图标"
+      },
+      "source_ids": {
+        "official_id": "388",
+        "tft_spec_id": "10003",
+        "map_id": "42"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "5",
+        "raw_description": "【亚托克斯】获得相当于其200%全能汲取的物理加成。  当第一次倒下时，他将短暂变为不可被选取状态，并在2秒内回复至满额生命值。随后，他减少10最大法力值，并获得20%伤害减免。"
+      }
+    },
+    {
+      "id": "397",
+      "name": "恶魔小丑",
+      "category": "origin",
+      "description": "1星时，【萨科】身上的装备会在战斗结束后随机变为其他装备弹出并回到装备栏。 战斗开始后10秒内不会被选择为目标，除非萨科是唯一存活的友军。",
+      "breakpoints": [
+        {
+          "min_units": 1,
+          "max_units": null,
+          "style": "unique",
+          "effect": "1星时，【萨科】身上的装备会在战斗结束后随机变为其他装备弹出并回到装备栏。 战斗开始后10秒内不会被选择为目标，除非萨科是唯一存活的友军。",
+          "values": {
+            "source_style": "5"
+          }
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/397.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_magic.png",
+        "alt": "恶魔小丑羁绊图标"
+      },
+      "source_ids": {
+        "official_id": "397",
+        "tft_spec_id": "0",
+        "map_id": "54"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "5",
+        "raw_description": "1星时，【萨科】身上的装备会在战斗结束后随机变为其他装备弹出并回到装备栏。 战斗开始后10秒内不会被选择为目标，除非萨科是唯一存活的友军。"
+      }
+    },
+    {
+      "id": "398",
+      "name": "熔岩巨兽",
+      "category": "origin",
+      "description": "获得2块可放置的岩石。战斗开始时：岩石附近的友军获得10护甲/物理加成/法术加成；若自身护甲在150及以上，则获得3倍效果。 ",
+      "breakpoints": [
+        {
+          "min_units": 1,
+          "max_units": null,
+          "style": "unique",
+          "effect": "获得2块可放置的岩石。战斗开始时：岩石附近的友军获得10护甲/物理加成/法术加成；若自身护甲在150及以上，则获得3倍效果。",
+          "values": {
+            "source_style": "5"
+          }
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/398.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_rockymountain.png",
+        "alt": "熔岩巨兽羁绊图标"
+      },
+      "source_ids": {
+        "official_id": "398",
+        "tft_spec_id": "0",
+        "map_id": "55"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "5",
+        "raw_description": "获得2块可放置的岩石。战斗开始时：岩石附近的友军获得10护甲/物理加成/法术加成；若自身护甲在150及以上，则获得3倍效果。"
+      }
+    },
+    {
+      "id": "475",
+      "name": "铁铠冥魂",
+      "category": "origin",
+      "description": "【铁铠冥魂】占用2个队伍栏位。攻击额外造成350/500/10000真实伤害；每次击败时获得200/300/10000+10%最大生命值的护盾，持续3秒。",
+      "breakpoints": [
+        {
+          "min_units": 1,
+          "max_units": null,
+          "style": "unique",
+          "effect": "【铁铠冥魂】占用2个队伍栏位。攻击额外造成350/500/10000真实伤害；每次击败时获得200/300/10000+10%最大生命值的护盾，持续3秒。",
+          "values": {
+            "source_style": "5"
+          }
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/475.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_mordekaiser.png",
+        "alt": "铁铠冥魂羁绊图标"
+      },
+      "source_ids": {
+        "official_id": "475",
+        "tft_spec_id": "0",
+        "map_id": "45"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "5",
+        "raw_description": "【铁铠冥魂】占用2个队伍栏位。攻击额外造成350/500/10000真实伤害；每次击败时获得200/300/10000+10%最大生命值的护盾，持续3秒。"
+      }
+    },
+    {
+      "id": "476",
+      "name": "远古巨龙",
+      "category": "origin",
+      "description": "【远古巨龙】占用2个队伍栏位。所有友军获得300生命值、10%攻击速度和10%移动速度。 战斗开始12秒后，【远古巨龙】进入狂暴状态：获得20%伤害增幅，并且其伤害会立刻处决生命值低于15%的目标。",
+      "breakpoints": [
+        {
+          "min_units": 1,
+          "max_units": null,
+          "style": "unique",
+          "effect": "【远古巨龙】占用2个队伍栏位。所有友军获得300生命值、10%攻击速度和10%移动速度。 战斗开始12秒后，【远古巨龙】进入狂暴状态：获得20%伤害增幅，并且其伤害会立刻处决生命值低于15%的目标。",
+          "values": {
+            "source_style": "5"
+          }
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/476.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_dragon.png",
+        "alt": "远古巨龙羁绊图标"
+      },
+      "source_ids": {
+        "official_id": "476",
+        "tft_spec_id": "0",
+        "map_id": "46"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "5",
+        "raw_description": "【远古巨龙】占用2个队伍栏位。所有友军获得300生命值、10%攻击速度和10%移动速度。 战斗开始12秒后，【远古巨龙】进入狂暴状态：获得20%伤害增幅，并且其伤害会立刻处决生命值低于15%的目标。"
+      }
+    },
+    {
+      "id": "477",
+      "name": "影流之镰",
+      "category": "origin",
+      "description": "【凯隐】可在两种不同的技能之间切换，取决于他的物理加成与法术加成哪一方更高。",
+      "breakpoints": [
+        {
+          "min_units": 1,
+          "max_units": null,
+          "style": "unique",
+          "effect": "【凯隐】可在两种不同的技能之间切换，取决于他的物理加成与法术加成哪一方更高。",
+          "values": {
+            "source_style": "5"
+          }
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/477.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_twosides.png",
+        "alt": "影流之镰羁绊图标"
+      },
+      "source_ids": {
+        "official_id": "477",
+        "tft_spec_id": "0",
+        "map_id": "56"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "5",
+        "raw_description": "【凯隐】可在两种不同的技能之间切换，取决于他的物理加成与法术加成哪一方更高。"
+      }
+    },
+    {
+      "id": "478",
+      "name": "异画师",
+      "category": "origin",
+      "description": "【彗】绘出你放置在一个特别备战席栏位的弈子。【彗】画好后，你将获得该英雄的1星弈子。  完成回合数=弈子的费用 ",
+      "breakpoints": [
+        {
+          "min_units": 1,
+          "max_units": null,
+          "style": "unique",
+          "effect": "【彗】绘出你放置在一个特别备战席栏位的弈子。【彗】画好后，你将获得该英雄的1星弈子。  完成回合数=弈子的费用",
+          "values": {
+            "source_style": "5"
+          }
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/478.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_artist.png",
+        "alt": "异画师羁绊图标"
+      },
+      "source_ids": {
+        "official_id": "478",
+        "tft_spec_id": "0",
+        "map_id": "47"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "5",
+        "raw_description": "【彗】绘出你放置在一个特别备战席栏位的弈子。【彗】画好后，你将获得该英雄的1星弈子。  完成回合数=弈子的费用  "
+      }
+    },
+    {
+      "id": "479",
+      "name": "战争女神",
+      "category": "origin",
+      "description": "战斗开始时，为左右两侧盟友提供20%攻击速度。",
+      "breakpoints": [
+        {
+          "min_units": 1,
+          "max_units": null,
+          "style": "unique",
+          "effect": "战斗开始时，为左右两侧盟友提供20%攻击速度。",
+          "values": {
+            "source_style": "5"
+          }
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/479.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_sivir.png",
+        "alt": "战争女神羁绊图标"
+      },
+      "source_ids": {
+        "official_id": "479",
+        "tft_spec_id": "0",
+        "map_id": "48"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "5",
+        "raw_description": "战斗开始时，为左右两侧盟友提供20%攻击速度。"
+      }
+    },
+    {
+      "id": "480",
+      "name": "牛头酋长",
+      "category": "origin",
+      "description": "每场玩家战斗后，你的单位永久获得25生命值。",
+      "breakpoints": [
+        {
+          "min_units": 1,
+          "max_units": null,
+          "style": "unique",
+          "effect": "每场玩家战斗后，你的单位永久获得25生命值。每场玩家战斗开始时，我方场上每有一个单位，永久为阿利斯塔提供20最大生命值。",
+          "values": {
+            "source_style": "5"
+          }
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/480.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_alistar.png",
+        "alt": "牛头酋长羁绊图标"
+      },
+      "source_ids": {
+        "official_id": "480",
+        "tft_spec_id": "0",
+        "map_id": "49"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "5",
+        "raw_description": "每场玩家战斗后，你的单位永久获得25生命值。每场玩家战斗开始时，我方场上每有一个单位，永久为阿利斯塔提供20最大生命值。"
+      }
+    },
+    {
+      "id": "481",
+      "name": "复仇焰魂",
+      "category": "origin",
+      "description": "若对处于灼烧状态的敌人造成伤害，则其灼烧伤害在3秒内提高至3倍。",
+      "breakpoints": [
+        {
+          "min_units": 1,
+          "max_units": null,
+          "style": "unique",
+          "effect": "若对处于灼烧状态的敌人造成伤害，则其灼烧伤害在3秒内提高至3倍。",
+          "values": {
+            "source_style": "5"
+          }
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/481.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_brand.png",
+        "alt": "复仇焰魂羁绊图标"
+      },
+      "source_ids": {
+        "official_id": "481",
+        "tft_spec_id": "0",
+        "map_id": "50"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "5",
+        "raw_description": "若对处于灼烧状态的敌人造成伤害，则其灼烧伤害在3秒内提高至3倍。"
+      }
+    },
+    {
+      "id": "484",
+      "name": "蜘蛛女皇",
+      "category": "origin",
+      "description": "战斗开始时：使敌人冰冷，持续3秒。如果【伊莉丝】存活，15秒后再次触发此效果。  冰冷：降低攻击速度。",
+      "breakpoints": [
+        {
+          "min_units": 1,
+          "max_units": null,
+          "style": "unique",
+          "effect": "战斗开始时：使敌人冰冷，持续3秒。如果【伊莉丝】存活，15秒后再次触发此效果。  冰冷：降低攻击速度。",
+          "values": {
+            "source_style": "5"
+          }
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/484.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_thespiderqueen.png",
+        "alt": "蜘蛛女皇羁绊图标"
+      },
+      "source_ids": {
+        "official_id": "484",
+        "tft_spec_id": "0",
+        "map_id": "53"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "5",
+        "raw_description": "战斗开始时：使敌人冰冷，持续3秒。如果【伊莉丝】存活，15秒后再次触发此效果。  冰冷：降低攻击速度。"
+      }
+    },
+    {
+      "id": "291",
+      "name": "斗士",
+      "category": "class",
+      "description": "你的队伍获得150最大生命值。【斗士】获得更多。",
+      "breakpoints": [
+        {
+          "min_units": 2,
+          "max_units": 3,
+          "style": "bronze",
+          "effect": "(2)25%【生命上限】",
+          "values": {
+            "source_style": "1"
+          }
+        },
+        {
+          "min_units": 4,
+          "max_units": 5,
+          "style": "silver",
+          "effect": "(4)40%【生命上限】",
+          "values": {
+            "source_style": "2"
+          }
+        },
+        {
+          "min_units": 6,
+          "max_units": null,
+          "style": "gold",
+          "effect": "(6)60%【生命上限】",
+          "values": {
+            "source_style": "3"
+          }
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/291.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_brawler.png",
+        "alt": "斗士羁绊图标"
+      },
+      "source_ids": {
+        "official_id": "291",
+        "tft_spec_id": "10011",
+        "map_id": "1"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "1|2|3",
+        "raw_description": "(2)25%【生命上限】|(4)40%【生命上限】|(6)60%【生命上限】"
+      }
+    },
+    {
+      "id": "292",
+      "name": "耀光使",
+      "category": "class",
+      "description": "【耀光使】的技能会对命中的敌人们施加目眩。【耀光使】对被目眩的敌人造成额外伤害。",
+      "breakpoints": [
+        {
+          "min_units": 2,
+          "max_units": 3,
+          "style": "bronze",
+          "effect": "(2)18%额外伤害",
+          "values": {
+            "source_style": "1"
+          }
+        },
+        {
+          "min_units": 4,
+          "max_units": null,
+          "style": "silver",
+          "effect": "(4)40%额外伤害  目眩：减少10%造成伤害",
+          "values": {
+            "source_style": "2"
+          }
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/292.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_disruptor.png",
+        "alt": "耀光使羁绊图标"
+      },
+      "source_ids": {
+        "official_id": "292",
+        "tft_spec_id": "10011",
+        "map_id": "2"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "1|2",
+        "raw_description": "(2)18%额外伤害|(4)40%额外伤害  目眩：减少10%造成伤害"
+      }
+    },
+    {
+      "id": "293",
+      "name": "护卫",
+      "category": "class",
+      "description": "你的队伍获得12护甲和魔法抗性。【护卫】获得更多。",
+      "breakpoints": [
+        {
+          "min_units": 2,
+          "max_units": 3,
+          "style": "bronze",
+          "effect": "(2)30【护甲】【魔法抗性】",
+          "values": {
+            "source_style": "1"
+          }
+        },
+        {
+          "min_units": 4,
+          "max_units": 5,
+          "style": "silver",
+          "effect": "(4)55【护甲】【魔法抗性】",
+          "values": {
+            "source_style": "2"
+          }
+        },
+        {
+          "min_units": 6,
+          "max_units": null,
+          "style": "gold",
+          "effect": "(6)80【护甲】【魔法抗性】",
+          "values": {
+            "source_style": "3"
+          }
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/293.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_defender.png",
+        "alt": "护卫羁绊图标"
+      },
+      "source_ids": {
+        "official_id": "293",
+        "tft_spec_id": "10011",
+        "map_id": "3"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "1|2|3",
+        "raw_description": "(2)30【护甲】【魔法抗性】|(4)55【护甲】【魔法抗性】|(6)80【护甲】【魔法抗性】"
+      }
+    },
+    {
+      "id": "294",
+      "name": "枪手",
+      "category": "class",
+      "description": "【枪手】获得物理加成。来自【枪手】的每第4次攻击会造成额外物理伤害。",
+      "breakpoints": [
+        {
+          "min_units": 2,
+          "max_units": 3,
+          "style": "bronze",
+          "effect": "(2)22%【物理加成】，100额外伤害",
+          "values": {
+            "source_style": "1"
+          }
+        },
+        {
+          "min_units": 4,
+          "max_units": null,
+          "style": "gold",
+          "effect": "(4)44%【物理加成】，200额外伤害",
+          "values": {
+            "source_style": "3"
+          }
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/294.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_gunslinger.png",
+        "alt": "枪手羁绊图标"
+      },
+      "source_ids": {
+        "official_id": "294",
+        "tft_spec_id": "10011",
+        "map_id": "4"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "1|3",
+        "raw_description": "(2)22%【物理加成】，100额外伤害|(4)44%【物理加成】，200额外伤害"
+      }
+    },
+    {
+      "id": "295",
+      "name": "神谕者",
+      "category": "class",
+      "description": "你的队伍获得1法力回复。【神谕者】从所有来源中获得更多法力值。",
+      "breakpoints": [
+        {
+          "min_units": 2,
+          "max_units": 3,
+          "style": "bronze",
+          "effect": "(2)25%额外法力值",
+          "values": {
+            "source_style": "1"
+          }
+        },
+        {
+          "min_units": 4,
+          "max_units": null,
+          "style": "gold",
+          "effect": "(4)40%额外法力值",
+          "values": {
+            "source_style": "3"
+          }
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/295.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_invoker.png",
+        "alt": "神谕者羁绊图标"
+      },
+      "source_ids": {
+        "official_id": "295",
+        "tft_spec_id": "10011",
+        "map_id": "5"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "1|3",
+        "raw_description": "(2)25%额外法力值|(4)40%额外法力值"
+      }
+    },
+    {
+      "id": "296",
+      "name": "主宰",
+      "category": "class",
+      "description": "【主宰】获得伤害减免，这个加成在生命值高于50%时还会提升。当一个【主宰】倒下时，其他的【主宰】会治疗他们5%最大生命值。",
+      "breakpoints": [
+        {
+          "min_units": 2,
+          "max_units": 3,
+          "style": "bronze",
+          "effect": "(2)18%或25%【伤害减免】",
+          "values": {
+            "source_style": "1"
+          }
+        },
+        {
+          "min_units": 4,
+          "max_units": 5,
+          "style": "silver",
+          "effect": "(4)20%或30%【伤害减免】",
+          "values": {
+            "source_style": "2"
+          }
+        },
+        {
+          "min_units": 6,
+          "max_units": null,
+          "style": "gold",
+          "effect": "(6)26%或36%【伤害减免】",
+          "values": {
+            "source_style": "3"
+          }
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/296.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_juggernaut.png",
+        "alt": "主宰羁绊图标"
+      },
+      "source_ids": {
+        "official_id": "296",
+        "tft_spec_id": "10011",
+        "map_id": "6"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "1|2|3",
+        "raw_description": "(2)18%或25%【伤害减免】|(4)20%或30%【伤害减免】|(6)26%或36%【伤害减免】"
+      }
+    },
+    {
+      "id": "297",
+      "name": "狙神",
+      "category": "class",
+      "description": "【狙神】获得伤害增幅，并对相距更远的目标造成更高的伤害。",
+      "breakpoints": [
+        {
+          "min_units": 2,
+          "max_units": 2,
+          "style": "bronze",
+          "effect": "(2)18%【伤害加成】每格+2%",
+          "values": {
+            "source_style": "1"
+          }
+        },
+        {
+          "min_units": 3,
+          "max_units": 3,
+          "style": "silver",
+          "effect": "(3)24%【伤害加成】每格+3%",
+          "values": {
+            "source_style": "2"
+          }
+        },
+        {
+          "min_units": 4,
+          "max_units": 4,
+          "style": "silver",
+          "effect": "(4)28%【伤害加成】每格+4%",
+          "values": {
+            "source_style": "2"
+          }
+        },
+        {
+          "min_units": 5,
+          "max_units": null,
+          "style": "gold",
+          "effect": "(5)32%【伤害加成】每格+5%",
+          "values": {
+            "source_style": "3"
+          }
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/297.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_longshot.png",
+        "alt": "狙神羁绊图标"
+      },
+      "source_ids": {
+        "official_id": "297",
+        "tft_spec_id": "10011",
+        "map_id": "7"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "1|2|2|3",
+        "raw_description": "(2)18%【伤害加成】每格+2%|(3)24%【伤害加成】每格+3%|(4)28%【伤害加成】每格+4%|(5)32%【伤害加成】每格+5%"
+      }
+    },
+    {
+      "id": "298",
+      "name": "迅击战士",
+      "category": "class",
+      "description": "你的队伍获得15%攻击速度。【迅击战士】基于他们目标已损失生命值获得额外攻击速度。",
+      "breakpoints": [
+        {
+          "min_units": 2,
+          "max_units": 2,
+          "style": "bronze",
+          "effect": "(2)10-30%【攻击速度】",
+          "values": {
+            "source_style": "1"
+          }
+        },
+        {
+          "min_units": 3,
+          "max_units": 3,
+          "style": "silver",
+          "effect": "(3)20-45%【攻击速度】",
+          "values": {
+            "source_style": "2"
+          }
+        },
+        {
+          "min_units": 4,
+          "max_units": 4,
+          "style": "silver",
+          "effect": "(4)30-60%【攻击速度】",
+          "values": {
+            "source_style": "2"
+          }
+        },
+        {
+          "min_units": 5,
+          "max_units": null,
+          "style": "gold",
+          "effect": "(5)40-80%【攻击速度】",
+          "values": {
+            "source_style": "3"
+          }
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/298.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_quickstriker.png",
+        "alt": "迅击战士羁绊图标"
+      },
+      "source_ids": {
+        "official_id": "298",
+        "tft_spec_id": "10011",
+        "map_id": "8"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "1|2|2|3",
+        "raw_description": "(2)10-30%【攻击速度】 |(3)20-45%【攻击速度】 |(4)30-60%【攻击速度】 |(5)40-80%【攻击速度】"
+      }
+    },
+    {
+      "id": "299",
+      "name": "裁决战士",
+      "category": "class",
+      "description": "【裁决战士】获得全能汲取和物理加成。基于他们已损失生命值，他们会获得额外物理加成，至多获得50%",
+      "breakpoints": [
+        {
+          "min_units": 2,
+          "max_units": 3,
+          "style": "bronze",
+          "effect": "(2)20%【物理加成】，10%【全能吸血】",
+          "values": {
+            "source_style": "1"
+          }
+        },
+        {
+          "min_units": 4,
+          "max_units": 5,
+          "style": "silver",
+          "effect": "(4)30%【物理加成】，16%【全能吸血】",
+          "values": {
+            "source_style": "2"
+          }
+        },
+        {
+          "min_units": 6,
+          "max_units": null,
+          "style": "gold",
+          "effect": "(6)40%【物理加成】，20%【全能吸血】",
+          "values": {
+            "source_style": "3"
+          }
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/299.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_slayer.png",
+        "alt": "裁决战士羁绊图标"
+      },
+      "source_ids": {
+        "official_id": "299",
+        "tft_spec_id": "10011",
+        "map_id": "9"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "1|2|3",
+        "raw_description": "(2)20%【物理加成】，10%【全能吸血】|(4)30%【物理加成】，16%【全能吸血】|(6)40%【物理加成】，20%【全能吸血】"
+      }
+    },
+    {
+      "id": "300",
+      "name": "法师",
+      "category": "class",
+      "description": "你的队伍获得法术加成，【法师】获得更多。",
+      "breakpoints": [
+        {
+          "min_units": 2,
+          "max_units": 3,
+          "style": "bronze",
+          "effect": "(2)15【法术加成】，【法师】获得25【法术加成】",
+          "values": {
+            "source_style": "1"
+          }
+        },
+        {
+          "min_units": 4,
+          "max_units": 5,
+          "style": "silver",
+          "effect": "(4)20【法术加成】，【法师】获得50【法术加成】",
+          "values": {
+            "source_style": "2"
+          }
+        },
+        {
+          "min_units": 6,
+          "max_units": null,
+          "style": "gold",
+          "effect": "(6)35【法术加成】，【法师】获得70【法术加成】",
+          "values": {
+            "source_style": "3"
+          }
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/300.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_arcanist.png",
+        "alt": "法师羁绊图标"
+      },
+      "source_ids": {
+        "official_id": "300",
+        "tft_spec_id": "10011",
+        "map_id": "10"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "1|2|3",
+        "raw_description": "(2)15【法术加成】，【法师】获得25【法术加成】|(4)20【法术加成】，【法师】获得50【法术加成】|(6)35【法术加成】，【法师】获得70【法术加成】"
+      }
+    },
+    {
+      "id": "301",
+      "name": "征服者",
+      "category": "class",
+      "description": "【征服者】技能可以造成暴击。【征服者】弈子获得额外暴击几率和暴击伤害。",
+      "breakpoints": [
+        {
+          "min_units": 2,
+          "max_units": 2,
+          "style": "bronze",
+          "effect": "(2)15%【暴击率】，15%【暴击倍率】",
+          "values": {
+            "source_style": "1"
+          }
+        },
+        {
+          "min_units": 3,
+          "max_units": 3,
+          "style": "silver",
+          "effect": "(3)20%【暴击率】，20%【暴击倍率】",
+          "values": {
+            "source_style": "2"
+          }
+        },
+        {
+          "min_units": 4,
+          "max_units": 4,
+          "style": "silver",
+          "effect": "(4)25%【暴击率】，25%【暴击倍率】",
+          "values": {
+            "source_style": "2"
+          }
+        },
+        {
+          "min_units": 5,
+          "max_units": null,
+          "style": "gold",
+          "effect": "(5)30%【暴击率】，30%【暴击倍率】",
+          "values": {
+            "source_style": "3"
+          }
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/301.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_vanquisher.png",
+        "alt": "征服者羁绊图标"
+      },
+      "source_ids": {
+        "official_id": "301",
+        "tft_spec_id": "10011",
+        "map_id": "11"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "1|2|2|3",
+        "raw_description": "(2)15%【暴击率】，15%【暴击倍率】|(3)20%【暴击率】，20%【暴击倍率】|(4)25%【暴击率】，25%【暴击倍率】|(5)30%【暴击率】，30%【暴击倍率】"
+      }
+    },
+    {
+      "id": "302",
+      "name": "神盾使",
+      "category": "class",
+      "description": "当【神盾使】的生命值首次降至75%和25%时，其获得一个基于最大生命值的护盾。",
+      "breakpoints": [
+        {
+          "min_units": 2,
+          "max_units": 2,
+          "style": "bronze",
+          "effect": "(2)16%【生命上限】",
+          "values": {
+            "source_style": "1"
+          }
+        },
+        {
+          "min_units": 3,
+          "max_units": 3,
+          "style": "silver",
+          "effect": "(3)20%【生命上限】",
+          "values": {
+            "source_style": "2"
+          }
+        },
+        {
+          "min_units": 4,
+          "max_units": 4,
+          "style": "silver",
+          "effect": "(4)26%【生命上限】",
+          "values": {
+            "source_style": "2"
+          }
+        },
+        {
+          "min_units": 5,
+          "max_units": null,
+          "style": "gold",
+          "effect": "(5)33%【生命上限】",
+          "values": {
+            "source_style": "3"
+          }
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/302.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_warden.png",
+        "alt": "神盾使羁绊图标"
+      },
+      "source_ids": {
+        "official_id": "302",
+        "tft_spec_id": "10011",
+        "map_id": "12"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "1|2|2|3",
+        "raw_description": "(2)16%【生命上限】|(3)20%【生命上限】|(4)26%【生命上限】|(5)33%【生命上限】"
+      }
+    },
+    {
+      "id": "308",
+      "name": "换形师",
+      "category": "class",
+      "description": "【换形师】会根据其站位改变技能和角色定位。 (2)【换形师】获得15%伤害减免或20%伤害增幅。",
+      "breakpoints": [
+        {
+          "min_units": 2,
+          "max_units": null,
+          "style": "bronze",
+          "effect": "【换形师】会根据其站位改变技能和角色定位。 (2)【换形师】获得15%伤害减免或20%伤害增幅。",
+          "values": {
+            "source_style": "1"
+          }
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/308.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_shapeshifter.png",
+        "alt": "换形师羁绊图标"
+      },
+      "source_ids": {
+        "official_id": "308",
+        "tft_spec_id": "10011",
+        "map_id": "13"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "1",
+        "raw_description": "【换形师】会根据其站位改变技能和角色定位。 (2)【换形师】获得15%伤害减免或20%伤害增幅。"
+      }
+    },
+    {
+      "id": "309",
+      "name": "发明家",
+      "category": "class",
+      "description": "(1)【发明家】会与距离最近的2名友军分享一件他们携带的随机装备。 (2)【发明家】获得20%【物理加成】【法术加成】。每经过3场战斗，发明家会制造一个【基础装备锻造器】。",
+      "breakpoints": [
+        {
+          "min_units": 1,
+          "max_units": 1,
+          "style": "bronze",
+          "effect": "(1)【发明家】会与距离最近的2名友军分享一件他们携带的随机装备。 (2)【发明家】获得20%【物理加成】【法术加成】。每经过3场战斗，发明家会制造一个【基础装备锻造器】。",
+          "values": {
+            "source_style": "1"
+          }
+        },
+        {
+          "min_units": 2,
+          "max_units": null,
+          "style": "silver",
+          "effect": "(1)【发明家】会与距离最近的2名友军分享一件他们携带的随机装备。 (2)【发明家】获得20%【物理加成】【法术加成】。每经过3场战斗，发明家会制造一个【基础装备锻造器】。",
+          "values": {
+            "source_style": "2"
+          }
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/309.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_technogenius.png",
+        "alt": "发明家羁绊图标"
+      },
+      "source_ids": {
+        "official_id": "309",
+        "tft_spec_id": "10011",
+        "map_id": "14"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "1|2",
+        "raw_description": "(1)【发明家】会与距离最近的2名友军分享一件他们携带的随机装备。 (2)【发明家】获得20%【物理加成】【法术加成】。每经过3场战斗，发明家会制造一个【基础装备锻造器】。"
+      }
+    }
+  ]
+}

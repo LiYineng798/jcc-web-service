@@ -1,0 +1,1347 @@
+{
+  "$schema": "../../../../../schemas/traits.schema.json",
+  "version_id": "s8__17_17_7",
+  "traits": [
+    {
+      "id": "160",
+      "name": "幻灵战队",
+      "category": "origin",
+      "description": "幻灵战队成员们在击杀英雄之后会摆个姿势，因而提升他们的【名声】。每一点【名声】会为每个幻灵战队成员提供永久的5生命值。  他们还会获得：",
+      "breakpoints": [
+        {
+          "min_units": 3,
+          "max_units": 4,
+          "style": "bronze",
+          "effect": "(3)10%物理加成和10法术加成",
+          "values": {
+            "source_style": "1"
+          }
+        },
+        {
+          "min_units": 5,
+          "max_units": 6,
+          "style": "silver",
+          "effect": "(5)35%物理加成和35法术加成",
+          "values": {
+            "source_style": "2"
+          }
+        },
+        {
+          "min_units": 7,
+          "max_units": null,
+          "style": "gold",
+          "effect": "(7)60%物理加成和60法术加成",
+          "values": {
+            "source_style": "3"
+          }
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/160.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/trait/s8_trait_icon_animasquad.png",
+        "alt": "幻灵战队羁绊图标"
+      },
+      "source_ids": {
+        "official_id": "160",
+        "tft_spec_id": "0",
+        "map_id": "1"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "1|2|3",
+        "raw_description": "(3)10%物理加成和10法术加成|(5)35%物理加成和35法术加成|(7)60%物理加成和60法术加成"
+      }
+    },
+    {
+      "id": "161",
+      "name": "平民英雄",
+      "category": "origin",
+      "description": "如果一名平民英雄处于存活状态，你的所有弈子们都会获得激励来保护该弈子，从而每2秒获得法力值。",
+      "breakpoints": [
+        {
+          "min_units": 1,
+          "max_units": 1,
+          "style": "bronze",
+          "effect": "(1)+2法力值",
+          "values": {
+            "source_style": "1"
+          }
+        },
+        {
+          "min_units": 2,
+          "max_units": 2,
+          "style": "silver",
+          "effect": "(2)+4法力值",
+          "values": {
+            "source_style": "2"
+          }
+        },
+        {
+          "min_units": 3,
+          "max_units": null,
+          "style": "gold",
+          "effect": "(3)+10法力值",
+          "values": {
+            "source_style": "3"
+          }
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/161.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/trait/s8_trait_icon_civilian.png",
+        "alt": "平民英雄羁绊图标"
+      },
+      "source_ids": {
+        "official_id": "161",
+        "tft_spec_id": "0",
+        "map_id": "2"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "1|2|3",
+        "raw_description": "(1)+2法力值|(2)+4法力值|(3)+10法力值"
+      }
+    },
+    {
+      "id": "162",
+      "name": "小天才",
+      "category": "origin",
+      "description": "每个回合，小天才们都会制造拥有强力效果的随机改装武器，这些改装武器会在一个回合后解体。小天才们每携带一件装备就会获得伤害提升和伤害减免。",
+      "breakpoints": [
+        {
+          "min_units": 3,
+          "max_units": 4,
+          "style": "bronze",
+          "effect": "(3)制造1件装备，每件装备提供3%伤害提升和伤害减免。",
+          "values": {
+            "source_style": "1"
+          }
+        },
+        {
+          "min_units": 5,
+          "max_units": null,
+          "style": "silver",
+          "effect": "(5)制造2件装备，每件装备提供7%伤害提升和伤害减免。",
+          "values": {
+            "source_style": "2"
+          }
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/162.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/trait/s8_trait_icon_gadgeteens.png",
+        "alt": "小天才羁绊图标"
+      },
+      "source_ids": {
+        "official_id": "162",
+        "tft_spec_id": "0",
+        "map_id": "3"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "1|2",
+        "raw_description": "(3)制造1件装备，每件装备提供3%伤害提升和伤害减免。|(5)制造2件装备，每件装备提供7%伤害提升和伤害减免。"
+      }
+    },
+    {
+      "id": "163",
+      "name": "星之守护者",
+      "category": "origin",
+      "description": "星之守护者们在战斗中获得更多法力值。",
+      "breakpoints": [
+        {
+          "min_units": 3,
+          "max_units": 4,
+          "style": "bronze",
+          "effect": "(3)35%法力值",
+          "values": {
+            "source_style": "1"
+          }
+        },
+        {
+          "min_units": 5,
+          "max_units": 6,
+          "style": "silver",
+          "effect": "(5)90%法力值",
+          "values": {
+            "source_style": "2"
+          }
+        },
+        {
+          "min_units": 7,
+          "max_units": 8,
+          "style": "gold",
+          "effect": "(7)150%法力值",
+          "values": {
+            "source_style": "3"
+          }
+        },
+        {
+          "min_units": 9,
+          "max_units": null,
+          "style": "gold",
+          "effect": "(9)240%法力值。享受盛大的演出吧！",
+          "values": {
+            "source_style": "3"
+          }
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/163.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/trait/s8_trait_icon_starguardian.png",
+        "alt": "星之守护者羁绊图标"
+      },
+      "source_ids": {
+        "official_id": "163",
+        "tft_spec_id": "0",
+        "map_id": "4"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "1|2|3|3",
+        "raw_description": "(3)35%法力值|(5)90%法力值|(7)150%法力值|(9)240%法力值。享受盛大的演出吧！"
+      }
+    },
+    {
+      "id": "164",
+      "name": "超级英雄",
+      "category": "origin",
+      "description": "(3)战斗环节开始时：摆个造型，从而为友军们提供20%伤害增幅。你的队伍中每拥有1个3星弈子，这个伤害增幅就会提升6%。  当前增伤：0%",
+      "breakpoints": [
+        {
+          "min_units": 3,
+          "max_units": null,
+          "style": "gold",
+          "effect": "(3)战斗环节开始时：摆个造型，从而为友军们提供20%伤害增幅。你的队伍中每拥有1个3星弈子，这个伤害增幅就会提升6%。  当前增伤：0%",
+          "values": {
+            "source_style": "3"
+          }
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/164.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/trait/s8_trait_icon_supers.png",
+        "alt": "超级英雄羁绊图标"
+      },
+      "source_ids": {
+        "official_id": "164",
+        "tft_spec_id": "0",
+        "map_id": "5"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "3",
+        "raw_description": "(3)战斗环节开始时：摆个造型，从而为友军们提供20%伤害增幅。你的队伍中每拥有1个3星弈子，这个伤害增幅就会提升6%。  当前增伤：0%"
+      }
+    },
+    {
+      "id": "165",
+      "name": "福牛守护者",
+      "category": "origin",
+      "description": "福牛守护者们获得额外防御属性。  每场战斗一次：当他们即将跌到1生命值以下时，会转而被降至1生命值并获得相当于其50%最大生命值的护盾值，护盾持续1.5秒。",
+      "breakpoints": [
+        {
+          "min_units": 2,
+          "max_units": 3,
+          "style": "bronze",
+          "effect": "(2)10护甲与魔法抗性",
+          "values": {
+            "source_style": "1"
+          }
+        },
+        {
+          "min_units": 4,
+          "max_units": 5,
+          "style": "silver",
+          "effect": "(4)45护甲与魔法抗性",
+          "values": {
+            "source_style": "2"
+          }
+        },
+        {
+          "min_units": 6,
+          "max_units": 7,
+          "style": "gold",
+          "effect": "(6)90护甲与魔法抗性",
+          "values": {
+            "source_style": "3"
+          }
+        },
+        {
+          "min_units": 8,
+          "max_units": 9,
+          "style": "gold",
+          "effect": "(8)150护甲与魔法抗性",
+          "values": {
+            "source_style": "3"
+          }
+        },
+        {
+          "min_units": 10,
+          "max_units": null,
+          "style": "prismatic",
+          "effect": "(10)500护甲与魔法抗性",
+          "values": {
+            "source_style": "4"
+          }
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/165.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/trait/s8_trait_icon_oxforce.png",
+        "alt": "福牛守护者羁绊图标"
+      },
+      "source_ids": {
+        "official_id": "165",
+        "tft_spec_id": "0",
+        "map_id": "6"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "1|2|3|3|4",
+        "raw_description": "(2)10护甲与魔法抗性|(4)45护甲与魔法抗性|(6)90护甲与魔法抗性|(8)150护甲与魔法抗性|(10)500护甲与魔法抗性"
+      }
+    },
+    {
+      "id": "166",
+      "name": "战斗机甲",
+      "category": "origin",
+      "description": "使用【至尊选择器】来指定一个【至尊机甲】。  战斗环节开始时：【至尊机甲】与相距最近的2个【战斗机甲】弈子合体，吸收这些弈子的90%基础生命值。",
+      "breakpoints": [
+        {
+          "min_units": 3,
+          "max_units": 4,
+          "style": "bronze",
+          "effect": "(3)【至尊机甲】获得60法术加成和60%物理加成",
+          "values": {
+            "source_style": "1"
+          }
+        },
+        {
+          "min_units": 5,
+          "max_units": 7,
+          "style": "silver",
+          "effect": "(5)所有【战斗机甲】获得55法术加成和55%物理加成。【至尊机甲】获得双倍的此数额",
+          "values": {
+            "source_style": "2"
+          }
+        },
+        {
+          "min_units": 8,
+          "max_units": null,
+          "style": "prismatic",
+          "effect": "(8)战斗开始时召唤【霸天零式-赛恩】！",
+          "values": {
+            "source_style": "4"
+          }
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/166.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/trait/s8_trait_icon_mechaprime.png",
+        "alt": "战斗机甲羁绊图标"
+      },
+      "source_ids": {
+        "official_id": "166",
+        "tft_spec_id": "0",
+        "map_id": "7"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "1|2|4",
+        "raw_description": "(3)【至尊机甲】获得60法术加成和60%物理加成|(5)所有【战斗机甲】获得55法术加成和55%物理加成。【至尊机甲】获得双倍的此数额|(8)战斗开始时召唤【霸天零式-赛恩】！"
+      }
+    },
+    {
+      "id": "167",
+      "name": "怪兽",
+      "category": "origin",
+      "description": "怪兽们没有羁绊加成，但会拥有强大的技能和提升过的各项基础属性。",
+      "breakpoints": [
+        {
+          "min_units": 1,
+          "max_units": null,
+          "style": "gold",
+          "effect": "",
+          "values": {
+            "source_style": "3"
+          }
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/167.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/trait/s8_trait_icon_threat.png",
+        "alt": "怪兽羁绊图标"
+      },
+      "source_ids": {
+        "official_id": "167",
+        "tft_spec_id": "0",
+        "map_id": "8"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "3",
+        "raw_description": ""
+      }
+    },
+    {
+      "id": "169",
+      "name": "地下魔盗团",
+      "category": "origin",
+      "description": "【地下魔盗团】们必须偷偷穿过下水道然后撬开10个锁才能打开一个金库。金库打开后，选择立刻带走战利品，或者尝试开始另一次盗窃来获得更好的奖励。",
+      "breakpoints": [
+        {
+          "min_units": 3,
+          "max_units": 3,
+          "style": "bronze",
+          "effect": "(3)在玩家战斗中获胜会撬开金库的2个锁，失败会撬开3个锁",
+          "values": {
+            "source_style": "1"
+          }
+        },
+        {
+          "min_units": 4,
+          "max_units": 4,
+          "style": "silver",
+          "effect": "(4)在玩家战斗中获胜会撬开金库的2个锁，失败会撬开4个锁",
+          "values": {
+            "source_style": "2"
+          }
+        },
+        {
+          "min_units": 5,
+          "max_units": 5,
+          "style": "gold",
+          "effect": "(5)在玩家战斗中获胜会撬开金库的3个锁，失败会撬开5个锁",
+          "values": {
+            "source_style": "3"
+          }
+        },
+        {
+          "min_units": 6,
+          "max_units": 7,
+          "style": "gold",
+          "effect": "(6)在玩家战斗中获胜会撬开金库的4个锁，失败会撬开7个锁",
+          "values": {
+            "source_style": "3"
+          }
+        },
+        {
+          "min_units": 8,
+          "max_units": null,
+          "style": "prismatic",
+          "effect": "(8)激活下水道的终极形态，并解锁终极的第9层奖励！",
+          "values": {
+            "source_style": "4"
+          }
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/169.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/trait/s8_trait_icon_underground.png",
+        "alt": "地下魔盗团羁绊图标"
+      },
+      "source_ids": {
+        "official_id": "169",
+        "tft_spec_id": "0",
+        "map_id": "10"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "1|2|3|3|4",
+        "raw_description": "(3)在玩家战斗中获胜会撬开金库的2个锁，失败会撬开3个锁|(4)在玩家战斗中获胜会撬开金库的2个锁，失败会撬开4个锁|(5)在玩家战斗中获胜会撬开金库的3个锁，失败会撬开5个锁|(6)在玩家战斗中获胜会撬开金库的4个锁，失败会撬开7个锁|(8)激活下水道的终极形态，并解锁终极的第9层奖励！"
+      }
+    },
+    {
+      "id": "170",
+      "name": "AI程序",
+      "category": "origin",
+      "description": "AI程序在每局游戏中对每个玩家的配置都不同。",
+      "breakpoints": [
+        {
+          "min_units": 2,
+          "max_units": 3,
+          "style": "bronze",
+          "effect": "(2)[初始化【AI程序】的条件和结果]",
+          "values": {
+            "source_style": "1"
+          }
+        },
+        {
+          "min_units": 4,
+          "max_units": 5,
+          "style": "silver",
+          "effect": "(4)[对程序添加另一个结果]，并提升所有效果25%",
+          "values": {
+            "source_style": "2"
+          }
+        },
+        {
+          "min_units": 6,
+          "max_units": null,
+          "style": "gold",
+          "effect": "(6)前几个层级的加成提升100%",
+          "values": {
+            "source_style": "3"
+          }
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/170.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/trait/s8_trait_icon_admin.png",
+        "alt": "AI程序羁绊图标"
+      },
+      "source_ids": {
+        "official_id": "170",
+        "tft_spec_id": "0",
+        "map_id": "11"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "1|2|3",
+        "raw_description": "(2)[初始化【AI程序】的条件和结果]|(4)[对程序添加另一个结果]，并提升所有效果25%|(6)前几个层级的加成提升100%"
+      }
+    },
+    {
+      "id": "171",
+      "name": "源计划：激光特工",
+      "category": "origin",
+      "description": "在一名无人机操纵员进行普攻或被普攻命中时，其战斗无人机会对该特工的目标造成魔法伤害(0.4秒冷却时间)。当一名操纵员阵亡时，该操纵员的无人机会被重新分配给相距最近且依然存活的操纵员。  无人机的激光造成：",
+      "breakpoints": [
+        {
+          "min_units": 3,
+          "max_units": 4,
+          "style": "bronze",
+          "effect": "(3)27魔法伤害",
+          "values": {
+            "source_style": "1"
+          }
+        },
+        {
+          "min_units": 5,
+          "max_units": 6,
+          "style": "silver",
+          "effect": "(5)35魔法伤害，所有弈子获得一架无人机",
+          "values": {
+            "source_style": "2"
+          }
+        },
+        {
+          "min_units": 7,
+          "max_units": 9,
+          "style": "gold",
+          "effect": "(7)55魔法伤害，所有弈子获得一架无人机",
+          "values": {
+            "source_style": "3"
+          }
+        },
+        {
+          "min_units": 10,
+          "max_units": null,
+          "style": "prismatic",
+          "effect": "(10)80魔法伤害，召唤无人机群!",
+          "values": {
+            "source_style": "4"
+          }
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/171.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/trait/s8_trait_icon_lasercorps.png",
+        "alt": "源计划：激光特工羁绊图标"
+      },
+      "source_ids": {
+        "official_id": "171",
+        "tft_spec_id": "0",
+        "map_id": "12"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "1|2|3|4",
+        "raw_description": "(3)27魔法伤害|(5)35魔法伤害，所有弈子获得一架无人机|(7)55魔法伤害，所有弈子获得一架无人机|(10)80魔法伤害，召唤无人机群!"
+      }
+    },
+    {
+      "id": "174",
+      "name": "堕落使者",
+      "category": "origin",
+      "description": "(1)战斗环节开始时：蛰伏着吸收倒下弈子们的灵魂。每个灵魂提供40法术加成。  每场战斗一次：在生命值跌到70%(或在所有友军都倒下)时，活过来并战斗。",
+      "breakpoints": [
+        {
+          "min_units": 1,
+          "max_units": null,
+          "style": "unique",
+          "effect": "(1)战斗环节开始时：蛰伏着吸收倒下弈子们的灵魂。每个灵魂提供40法术加成。  每场战斗一次：在生命值跌到70%(或在所有友军都倒下)时，活过来并战斗。",
+          "values": {
+            "source_style": "5"
+          }
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/174.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/trait/s8_trait_icon_corrupted.png",
+        "alt": "堕落使者羁绊图标"
+      },
+      "source_ids": {
+        "official_id": "174",
+        "tft_spec_id": "0",
+        "map_id": "15"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "5",
+        "raw_description": "(1)战斗环节开始时：蛰伏着吸收倒下弈子们的灵魂。每个灵魂提供40法术加成。  每场战斗一次：在生命值跌到70%(或在所有友军都倒下)时，活过来并战斗。"
+      }
+    },
+    {
+      "id": "120",
+      "name": "混沌战士",
+      "category": "class",
+      "description": "混沌战士们会造成额外伤害，并且挺到最后那名【混沌战士】会造成更多额外伤害。",
+      "breakpoints": [
+        {
+          "min_units": 3,
+          "max_units": 4,
+          "style": "bronze",
+          "effect": "(3)25%额外伤害，挺到最后则多造成20%额外伤害",
+          "values": {
+            "source_style": "1"
+          }
+        },
+        {
+          "min_units": 5,
+          "max_units": 6,
+          "style": "silver",
+          "effect": "(5)40%额外伤害，挺到最后则多造成30%额外伤害",
+          "values": {
+            "source_style": "2"
+          }
+        },
+        {
+          "min_units": 7,
+          "max_units": null,
+          "style": "gold",
+          "effect": "(7)70%额外伤害，挺到最后则多造成40%额外伤害",
+          "values": {
+            "source_style": "3"
+          }
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/120.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/trait/s8_trait_icon_renegade.png",
+        "alt": "混沌战士羁绊图标"
+      },
+      "source_ids": {
+        "official_id": "120",
+        "tft_spec_id": "0",
+        "map_id": "1"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "1|2|3",
+        "raw_description": "(3)25%额外伤害，挺到最后则多造成20%额外伤害|(5)40%额外伤害，挺到最后则多造成30%额外伤害|(7)70%额外伤害，挺到最后则多造成40%额外伤害"
+      }
+    },
+    {
+      "id": "121",
+      "name": "黑客",
+      "category": "class",
+      "description": "【黑客】们获得全能吸血并召唤一个【黑客里姆】。任一被放置在【骑手格】的弈子会被带到敌方后排并且在战斗的最初2秒里处于无法被选取状态。",
+      "breakpoints": [
+        {
+          "min_units": 3,
+          "max_units": 3,
+          "style": "bronze",
+          "effect": "(3)黑客获得10%全能汲取",
+          "values": {
+            "source_style": "1"
+          }
+        },
+        {
+          "min_units": 4,
+          "max_units": 4,
+          "style": "silver",
+          "effect": "(4)黑客获得20%全能汲取，骑手获得15%全能汲取",
+          "values": {
+            "source_style": "2"
+          }
+        },
+        {
+          "min_units": 5,
+          "max_units": null,
+          "style": "gold",
+          "effect": "(5)黑客获得40%全能汲取，骑手获得30%全能汲取  全能汲取：获得相当于一部分实际伤害值的治疗效果。",
+          "values": {
+            "source_style": "3"
+          }
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/121.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/trait/s8_trait_icon_hacker.png",
+        "alt": "黑客羁绊图标"
+      },
+      "source_ids": {
+        "official_id": "121",
+        "tft_spec_id": "0",
+        "map_id": "2"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "1|2|3",
+        "raw_description": "(3)黑客获得10%全能汲取|(4)黑客获得20%全能汲取，骑手获得15%全能汲取|(5)黑客获得40%全能汲取，骑手获得30%全能汲取  全能汲取：获得相当于一部分实际伤害值的治疗效果。"
+      }
+    },
+    {
+      "id": "122",
+      "name": "淘气包",
+      "category": "class",
+      "description": "(2)每场战斗一次：在50%生命值时，【淘气包】们生成一个目标假人，移动到一个安全处，并回复150生命值|(3)以及，【淘气包】假人们在被敌人击败时会使击败者晕眩1.5秒|(4)生命值回复提升至350，晕眩时间提升至2秒。",
+      "breakpoints": [
+        {
+          "min_units": 2,
+          "max_units": 2,
+          "style": "bronze",
+          "effect": "(2)每场战斗一次：在50%生命值时，【淘气包】们生成一个目标假人，移动到一个安全处，并回复150生命值",
+          "values": {
+            "source_style": "1"
+          }
+        },
+        {
+          "min_units": 3,
+          "max_units": 3,
+          "style": "silver",
+          "effect": "(3)以及，【淘气包】假人们在被敌人击败时会使击败者晕眩1.5秒",
+          "values": {
+            "source_style": "2"
+          }
+        },
+        {
+          "min_units": 4,
+          "max_units": null,
+          "style": "gold",
+          "effect": "(4)生命值回复提升至350，晕眩时间提升至2秒。",
+          "values": {
+            "source_style": "3"
+          }
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/122.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/trait/s8_trait_icon_prankster.png",
+        "alt": "淘气包羁绊图标"
+      },
+      "source_ids": {
+        "official_id": "122",
+        "tft_spec_id": "0",
+        "map_id": "3"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "1|2|3",
+        "raw_description": "(2)每场战斗一次：在50%生命值时，【淘气包】们生成一个目标假人，移动到一个安全处，并回复150生命值|(3)以及，【淘气包】假人们在被敌人击败时会使击败者晕眩1.5秒|(4)生命值回复提升至350，晕眩时间提升至2秒。"
+      }
+    },
+    {
+      "id": "123",
+      "name": "灵能使",
+      "category": "class",
+      "description": "每过6秒，灵能使的下一次攻击就会转而发射一个目标随机的魔法球，魔法球会在爆炸时造成50受法术加成的魔法伤害。 【灵能使】们还会获得：",
+      "breakpoints": [
+        {
+          "min_units": 2,
+          "max_units": 3,
+          "style": "bronze",
+          "effect": "(2)+30法术加成",
+          "values": {
+            "source_style": "1"
+          }
+        },
+        {
+          "min_units": 4,
+          "max_units": 5,
+          "style": "silver",
+          "effect": "(4)+60法术加成",
+          "values": {
+            "source_style": "2"
+          }
+        },
+        {
+          "min_units": 6,
+          "max_units": 7,
+          "style": "gold",
+          "effect": "(6)+80法术加成",
+          "values": {
+            "source_style": "3"
+          }
+        },
+        {
+          "min_units": 8,
+          "max_units": null,
+          "style": "gold",
+          "effect": "(8)+120法术加成，且魔法球造成200受法术加成的魔法伤害",
+          "values": {
+            "source_style": "3"
+          }
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/123.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/trait/s8_trait_icon_spellslinger.png",
+        "alt": "灵能使羁绊图标"
+      },
+      "source_ids": {
+        "official_id": "123",
+        "tft_spec_id": "0",
+        "map_id": "4"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "1|2|3|3",
+        "raw_description": "(2)+30法术加成|(4)+60法术加成|(6)+80法术加成|(8)+120法术加成，且魔法球造成200受法术加成的魔法伤害"
+      }
+    },
+    {
+      "id": "124",
+      "name": "决斗大师",
+      "category": "class",
+      "description": "固有能力：移动速度得到提升。  决斗大师们的攻击会提供额外攻击速度，至多12层。",
+      "breakpoints": [
+        {
+          "min_units": 2,
+          "max_units": 3,
+          "style": "bronze",
+          "effect": "(2)每层+5%攻击速度",
+          "values": {
+            "source_style": "1"
+          }
+        },
+        {
+          "min_units": 4,
+          "max_units": 5,
+          "style": "silver",
+          "effect": "(4)每层+8%攻击速度",
+          "values": {
+            "source_style": "2"
+          }
+        },
+        {
+          "min_units": 6,
+          "max_units": 7,
+          "style": "gold",
+          "effect": "(6)每层+13%攻击速度；决斗大师们减伤8%",
+          "values": {
+            "source_style": "3"
+          }
+        },
+        {
+          "min_units": 8,
+          "max_units": null,
+          "style": "gold",
+          "effect": "(8)每层+24%攻击速度；决斗大师们减伤20%",
+          "values": {
+            "source_style": "3"
+          }
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/124.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/trait/s8_trait_icon_duelist.png",
+        "alt": "决斗大师羁绊图标"
+      },
+      "source_ids": {
+        "official_id": "124",
+        "tft_spec_id": "0",
+        "map_id": "5"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "1|2|3|3",
+        "raw_description": "(2)每层+5%攻击速度|(4)每层+8%攻击速度|(6)每层+13%攻击速度；决斗大师们减伤8%|(8)每层+24%攻击速度；决斗大师们减伤20%"
+      }
+    },
+    {
+      "id": "125",
+      "name": "强袭枪手",
+      "category": "class",
+      "description": "战斗环节开始时：强袭枪手们在现在和之后的每4秒获得物理加成。",
+      "breakpoints": [
+        {
+          "min_units": 2,
+          "max_units": 2,
+          "style": "bronze",
+          "effect": "(2)+6%物理加成",
+          "values": {
+            "source_style": "1"
+          }
+        },
+        {
+          "min_units": 3,
+          "max_units": 3,
+          "style": "silver",
+          "effect": "(3)+12%物理加成",
+          "values": {
+            "source_style": "2"
+          }
+        },
+        {
+          "min_units": 4,
+          "max_units": 4,
+          "style": "gold",
+          "effect": "(4)+15%物理加成",
+          "values": {
+            "source_style": "3"
+          }
+        },
+        {
+          "min_units": 5,
+          "max_units": null,
+          "style": "gold",
+          "effect": "(5)+20%物理加成",
+          "values": {
+            "source_style": "3"
+          }
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/125.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/trait/s8_trait_icon_sureshot.png",
+        "alt": "强袭枪手羁绊图标"
+      },
+      "source_ids": {
+        "official_id": "125",
+        "tft_spec_id": "0",
+        "map_id": "6"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "1|2|3|3",
+        "raw_description": "(2)+6%物理加成|(3)+12%物理加成|(4)+15%物理加成|(5)+20%物理加成"
+      }
+    },
+    {
+      "id": "126",
+      "name": "护卫",
+      "category": "class",
+      "description": "你的弈子们获得额外护甲，并且护卫们获得更多的护甲。",
+      "breakpoints": [
+        {
+          "min_units": 2,
+          "max_units": 3,
+          "style": "bronze",
+          "effect": "(2)+25护甲，护卫们+50护甲",
+          "values": {
+            "source_style": "1"
+          }
+        },
+        {
+          "min_units": 4,
+          "max_units": 5,
+          "style": "silver",
+          "effect": "(4)+75护甲，护卫们+150护甲",
+          "values": {
+            "source_style": "2"
+          }
+        },
+        {
+          "min_units": 6,
+          "max_units": null,
+          "style": "gold",
+          "effect": "(6)+200护甲，护卫们+400护甲",
+          "values": {
+            "source_style": "3"
+          }
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/126.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/trait/s8_trait_icon_defender.png",
+        "alt": "护卫羁绊图标"
+      },
+      "source_ids": {
+        "official_id": "126",
+        "tft_spec_id": "0",
+        "map_id": "7"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "1|2|3",
+        "raw_description": "(2)+25护甲，护卫们+50护甲|(4)+75护甲，护卫们+150护甲|(6)+200护甲，护卫们+400护甲"
+      }
+    },
+    {
+      "id": "127",
+      "name": "吉祥物",
+      "category": "class",
+      "description": "你的弈子们每2秒治疗一定百分比的最大生命值，并且吉祥物们的治疗效果是双倍的此数额。  当吉祥物阵亡时，会撤退到边线来为你的队伍加油助威。每个正在助威的吉祥物弈子都会使你的弈子们的治疗效果提升1%。",
+      "breakpoints": [
+        {
+          "min_units": 2,
+          "max_units": 3,
+          "style": "bronze",
+          "effect": "(2)1.5%治疗效果",
+          "values": {
+            "source_style": "1"
+          }
+        },
+        {
+          "min_units": 4,
+          "max_units": 5,
+          "style": "silver",
+          "effect": "(4)3%治疗效果",
+          "values": {
+            "source_style": "2"
+          }
+        },
+        {
+          "min_units": 6,
+          "max_units": null,
+          "style": "gold",
+          "effect": "(6)6%治疗效果",
+          "values": {
+            "source_style": "3"
+          }
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/127.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/trait/s8_trait_icon_mascot.png",
+        "alt": "吉祥物羁绊图标"
+      },
+      "source_ids": {
+        "official_id": "127",
+        "tft_spec_id": "0",
+        "map_id": "8"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "1|2|3",
+        "raw_description": "(2)1.5%治疗效果|(4)3%治疗效果|(6)6%治疗效果"
+      }
+    },
+    {
+      "id": "128",
+      "name": "爱心使者",
+      "category": "class",
+      "description": "每当爱心使者弈子们施放其技能时，你的所有弈子们都将获得可叠加的法术加成，持续到战斗环节结束为止。",
+      "breakpoints": [
+        {
+          "min_units": 2,
+          "max_units": 3,
+          "style": "bronze",
+          "effect": "(2)+4法术加成",
+          "values": {
+            "source_style": "1"
+          }
+        },
+        {
+          "min_units": 4,
+          "max_units": 5,
+          "style": "silver",
+          "effect": "(4)+7法术加成",
+          "values": {
+            "source_style": "2"
+          }
+        },
+        {
+          "min_units": 6,
+          "max_units": null,
+          "style": "gold",
+          "effect": "(6)+11法术加成",
+          "values": {
+            "source_style": "3"
+          }
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/128.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/trait/s8_trait_icon_heart.png",
+        "alt": "爱心使者羁绊图标"
+      },
+      "source_ids": {
+        "official_id": "128",
+        "tft_spec_id": "0",
+        "map_id": "9"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "1|2|3",
+        "raw_description": "(2)+4法术加成|(4)+7法术加成|(6)+11法术加成"
+      }
+    },
+    {
+      "id": "130",
+      "name": "气象主播",
+      "category": "class",
+      "description": "晴朗天气： 战斗环节开始时：为邻格的友军们提供400/600/2000护盾值，持续6/6/45秒。  【气象主播】的效果在每局游戏都会改变。",
+      "breakpoints": [
+        {
+          "min_units": 1,
+          "max_units": null,
+          "style": "unique",
+          "effect": "",
+          "values": {
+            "source_style": "5"
+          }
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/130.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/trait/s8_trait_icon_forecaster.png",
+        "alt": "气象主播羁绊图标"
+      },
+      "source_ids": {
+        "official_id": "130",
+        "tft_spec_id": "0",
+        "map_id": "12"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "5",
+        "raw_description": ""
+      }
+    },
+    {
+      "id": "131",
+      "name": "枪神",
+      "category": "class",
+      "description": "(1)在部署枪神弈子时，玩家可以选择他将要装备的武器。",
+      "breakpoints": [
+        {
+          "min_units": 1,
+          "max_units": null,
+          "style": "unique",
+          "effect": "(1)在部署枪神弈子时，玩家可以选择他将要装备的武器。",
+          "values": {
+            "source_style": "5"
+          }
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/131.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/trait/s8_trait_icon_arsenal.png",
+        "alt": "枪神羁绊图标"
+      },
+      "source_ids": {
+        "official_id": "131",
+        "tft_spec_id": "0",
+        "map_id": "13"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "5",
+        "raw_description": "(1)在部署枪神弈子时，玩家可以选择他将要装备的武器。"
+      }
+    },
+    {
+      "id": "132",
+      "name": "斗士",
+      "category": "class",
+      "description": "斗士可获得额外的最大生命值。",
+      "breakpoints": [
+        {
+          "min_units": 2,
+          "max_units": 3,
+          "style": "bronze",
+          "effect": "(2)+20%最大生命值",
+          "values": {
+            "source_style": "1"
+          }
+        },
+        {
+          "min_units": 4,
+          "max_units": 5,
+          "style": "silver",
+          "effect": "(4)+45%最大生命值",
+          "values": {
+            "source_style": "2"
+          }
+        },
+        {
+          "min_units": 6,
+          "max_units": 7,
+          "style": "gold",
+          "effect": "(6)+75%最大生命值",
+          "values": {
+            "source_style": "3"
+          }
+        },
+        {
+          "min_units": 8,
+          "max_units": null,
+          "style": "gold",
+          "effect": "(8)+110%最大生命值",
+          "values": {
+            "source_style": "3"
+          }
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/132.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/trait/s8_trait_icon_brawler.png",
+        "alt": "斗士羁绊图标"
+      },
+      "source_ids": {
+        "official_id": "132",
+        "tft_spec_id": "0",
+        "map_id": "14"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "1|2|3|3",
+        "raw_description": "(2)+20%最大生命值|(4)+45%最大生命值|(6)+75%最大生命值|(8)+110%最大生命值"
+      }
+    },
+    {
+      "id": "133",
+      "name": "情报特工",
+      "category": "class",
+      "description": "固有能力：获得2格攻击距离。  如果有敌人在附近，那么情报特工们会先冲刺到安全处之后再施放其技能。",
+      "breakpoints": [
+        {
+          "min_units": 2,
+          "max_units": 2,
+          "style": "bronze",
+          "effect": "(2)+20%暴击几率",
+          "values": {
+            "source_style": "1"
+          }
+        },
+        {
+          "min_units": 3,
+          "max_units": 3,
+          "style": "silver",
+          "effect": "(3)+75%暴击几率",
+          "values": {
+            "source_style": "2"
+          }
+        },
+        {
+          "min_units": 4,
+          "max_units": null,
+          "style": "gold",
+          "effect": "(4)+100%暴击几率并且【情报特工】们的技能可以暴击",
+          "values": {
+            "source_style": "3"
+          }
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/133.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/trait/s8_trait_icon_recon.png",
+        "alt": "情报特工羁绊图标"
+      },
+      "source_ids": {
+        "official_id": "133",
+        "tft_spec_id": "0",
+        "map_id": "15"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "1|2|3",
+        "raw_description": "(2)+20%暴击几率|(3)+75%暴击几率|(4)+100%暴击几率并且【情报特工】们的技能可以暴击"
+      }
+    },
+    {
+      "id": "134",
+      "name": "秘术卫士",
+      "category": "class",
+      "description": "你的弈子们获得魔法抗性，并且秘术卫士弈子获得更多魔法抗性。",
+      "breakpoints": [
+        {
+          "min_units": 2,
+          "max_units": 2,
+          "style": "bronze",
+          "effect": "(2)+20魔法抗性，秘术卫士们+40魔法抗性",
+          "values": {
+            "source_style": "1"
+          }
+        },
+        {
+          "min_units": 3,
+          "max_units": 3,
+          "style": "silver",
+          "effect": "(3)+40魔法抗性，秘术卫士们+80魔法抗性",
+          "values": {
+            "source_style": "2"
+          }
+        },
+        {
+          "min_units": 4,
+          "max_units": 4,
+          "style": "gold",
+          "effect": "(4)+60魔法抗性，秘术卫士们+120魔法抗性",
+          "values": {
+            "source_style": "3"
+          }
+        },
+        {
+          "min_units": 5,
+          "max_units": null,
+          "style": "gold",
+          "effect": "(5)+90魔法抗性，秘术卫士们+180魔法抗性",
+          "values": {
+            "source_style": "3"
+          }
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/134.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/trait/s8_trait_icon_aegis.png",
+        "alt": "秘术卫士羁绊图标"
+      },
+      "source_ids": {
+        "official_id": "134",
+        "tft_spec_id": "0",
+        "map_id": "16"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "1|2|3|3",
+        "raw_description": "(2)+20魔法抗性，秘术卫士们+40魔法抗性|(3)+40魔法抗性，秘术卫士们+80魔法抗性|(4)+60魔法抗性，秘术卫士们+120魔法抗性|(5)+90魔法抗性，秘术卫士们+180魔法抗性"
+      }
+    },
+    {
+      "id": "135",
+      "name": "精英战士",
+      "category": "class",
+      "description": "这个羁绊仅会在你恰好拥有1个或4个独特的【精英战士】弈子时激活。",
+      "breakpoints": [
+        {
+          "min_units": 1,
+          "max_units": 3,
+          "style": "bronze",
+          "effect": "(1)处决低于15%生命值的敌人",
+          "values": {
+            "source_style": "1"
+          }
+        },
+        {
+          "min_units": 4,
+          "max_units": null,
+          "style": "silver",
+          "effect": "(4)处决低于30%生命值的敌人",
+          "values": {
+            "source_style": "2"
+          }
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/135.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/trait/s8_trait_icon_ace.png",
+        "alt": "精英战士羁绊图标"
+      },
+      "source_ids": {
+        "official_id": "135",
+        "tft_spec_id": "0",
+        "map_id": "17"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "1|2",
+        "raw_description": "(1)处决低于15%生命值的敌人|(4)处决低于30%生命值的敌人"
+      }
+    }
+  ]
+}

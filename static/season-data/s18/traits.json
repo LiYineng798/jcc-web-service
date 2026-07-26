@@ -1,0 +1,1226 @@
+{
+  "$schema": "../../../../../schemas/traits.schema.json",
+  "version_id": "s18__preview_2026_07_13",
+  "traits": [
+    {
+      "id": "trait_017da4d74a10",
+      "name": "灵魂莲华",
+      "category": "origin",
+      "description": "战斗结束后，你的小精灵获得强化。灵魂莲华弈子获得攻击力、法强和最大生命值。高层级会升级小精灵，增加商店中的小精灵数量，并在后期使其充满力量。",
+      "breakpoints": [
+        {
+          "min_units": 3,
+          "max_units": 4,
+          "style": null,
+          "effect": "5%双攻，小精灵获得升级",
+          "values": {}
+        },
+        {
+          "min_units": 5,
+          "max_units": 6,
+          "style": null,
+          "effect": "15%双攻，在购买1个小精灵时获得1金币",
+          "values": {}
+        },
+        {
+          "min_units": 7,
+          "max_units": 8,
+          "style": null,
+          "effect": "20%双攻，小精灵会出现在每次商店刷新中",
+          "values": {}
+        },
+        {
+          "min_units": 9,
+          "max_units": 10,
+          "style": null,
+          "effect": "35%双攻，每回合释放两个小精灵",
+          "values": {}
+        },
+        {
+          "min_units": 11,
+          "max_units": null,
+          "style": null,
+          "effect": "100%双攻，小精灵的力量满溢",
+          "values": {}
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/trait_017da4d74a10.svg",
+        "source_url": null,
+        "alt": "灵魂莲华羁绊图标"
+      },
+      "source_ids": {},
+      "tags": [],
+      "extensions": {
+        "source_svg": "svg/tft_s18_traits_mobalytics/blossom.svg"
+      }
+    },
+    {
+      "id": "trait_84e5bd33e5c7",
+      "name": "地狱火",
+      "category": "origin",
+      "description": "地狱火弈子的伤害会点燃敌人，造成燃烧和重伤。",
+      "breakpoints": [
+        {
+          "min_units": 2,
+          "max_units": 2,
+          "style": null,
+          "effect": "地狱火弈子的伤害会对敌人施加持续4秒的灼烧和33%重伤。地狱火灼烧可与其他灼烧效果叠加。",
+          "values": {}
+        },
+        {
+          "min_units": 3,
+          "max_units": null,
+          "style": null,
+          "effect": "战斗后你的商店中会有1-3个栏位着火，从而提升所提供的弈子阶级，或是为你提供一个对己方队伍有用的弈子。",
+          "values": {}
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/trait_84e5bd33e5c7.svg",
+        "source_url": null,
+        "alt": "地狱火羁绊图标"
+      },
+      "source_ids": {},
+      "tags": [],
+      "extensions": {
+        "source_svg": "svg/tft_s18_traits_mobalytics/inferno.svg"
+      }
+    },
+    {
+      "id": "trait_5fb781d266ec",
+      "name": "森林妖精",
+      "category": "origin",
+      "description": "获得大毛绒伙伴。将一名森林妖精放到伙伴上，为其选择骑手。伙伴的攻击和技能会根据骑手是近战还是远程而改变。更高层级提升生命值和属性。",
+      "breakpoints": [
+        {
+          "min_units": 3,
+          "max_units": 4,
+          "style": null,
+          "effect": "骑手获得15%最大生命值和攻速加成",
+          "values": {}
+        },
+        {
+          "min_units": 5,
+          "max_units": 6,
+          "style": null,
+          "effect": "骑手获得25%最大生命值和攻速加成，50%的加成作用于你的队伍",
+          "values": {}
+        },
+        {
+          "min_units": 7,
+          "max_units": null,
+          "style": null,
+          "effect": "骑手获得35%最大生命值和攻速加成，100%的加成作用于你的队伍",
+          "values": {}
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/trait_5fb781d266ec.svg",
+        "source_url": null,
+        "alt": "森林妖精羁绊图标"
+      },
+      "source_ids": {},
+      "tags": [],
+      "extensions": {
+        "source_svg": "svg/tft_s18_traits_mobalytics/sprykin.svg"
+      }
+    },
+    {
+      "id": "trait_1654b9778620",
+      "name": "永恒之森",
+      "category": "origin",
+      "description": "获得可放置的永恒之森植物。每个永恒之森弈子星级会使植物提高5%最大生命值和5%法术强度。",
+      "breakpoints": [
+        {
+          "min_units": 3,
+          "max_units": 4,
+          "style": null,
+          "effect": "石皮树和生命之花",
+          "values": {}
+        },
+        {
+          "min_units": 5,
+          "max_units": 6,
+          "style": null,
+          "effect": "再获得一棵石皮树和生命之花",
+          "values": {}
+        },
+        {
+          "min_units": 7,
+          "max_units": 8,
+          "style": null,
+          "effect": "获得深林守卫",
+          "values": {}
+        },
+        {
+          "min_units": 9,
+          "max_units": 10,
+          "style": null,
+          "effect": "森林变得更强壮了（所有植物升至2星）",
+          "values": {}
+        },
+        {
+          "min_units": 11,
+          "max_units": null,
+          "style": null,
+          "effect": "森林疯长（所有植物升至3星）",
+          "values": {}
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/trait_1654b9778620.svg",
+        "source_url": null,
+        "alt": "永恒之森羁绊图标"
+      },
+      "source_ids": {},
+      "tags": [],
+      "extensions": {
+        "source_svg": "svg/tft_s18_traits_mobalytics/elderwood.svg"
+      }
+    },
+    {
+      "id": "trait_ab0bcb11b7c7",
+      "name": "古神",
+      "category": "origin",
+      "description": "战斗开始时，古神格上的友军会被献祭，为团队提供生命值。古神弈子会根据被献祭弈子的定位、星级和费用获得额外属性。",
+      "breakpoints": [
+        {
+          "min_units": 2,
+          "max_units": 3,
+          "style": null,
+          "effect": "获得古神格",
+          "values": {}
+        },
+        {
+          "min_units": 4,
+          "max_units": 5,
+          "style": null,
+          "effect": "获得额外20%属性",
+          "values": {}
+        },
+        {
+          "min_units": 6,
+          "max_units": null,
+          "style": null,
+          "effect": "该格子上的古神弈子不会阵亡，而是释放其真正形态",
+          "values": {}
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/trait_ab0bcb11b7c7.svg",
+        "source_url": null,
+        "alt": "古神羁绊图标"
+      },
+      "source_ids": {},
+      "tags": [],
+      "extensions": {
+        "source_svg": "svg/tft_s18_traits_mobalytics/eldritch.svg"
+      }
+    },
+    {
+      "id": "trait_186ec1a871e4",
+      "name": "魔女",
+      "category": "origin",
+      "description": "击杀弈子时收集精粹；输掉玩家战斗时获得更多精粹。每50精粹，可选择兑换随机奖励，或继续收集以提升仪式层级。",
+      "breakpoints": [
+        {
+          "min_units": 3,
+          "max_units": 3,
+          "style": null,
+          "effect": "每次击杀1精粹，每次失败18精粹",
+          "values": {}
+        },
+        {
+          "min_units": 4,
+          "max_units": 4,
+          "style": null,
+          "effect": "每次击杀1精粹，每次失败25精粹",
+          "values": {}
+        },
+        {
+          "min_units": 5,
+          "max_units": 6,
+          "style": null,
+          "effect": "每次击杀2精粹，每次失败35精粹",
+          "values": {}
+        },
+        {
+          "min_units": 7,
+          "max_units": null,
+          "style": null,
+          "effect": "每次击杀5精粹，每次失败60精粹",
+          "values": {}
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/trait_186ec1a871e4.svg",
+        "source_url": null,
+        "alt": "魔女羁绊图标"
+      },
+      "source_ids": {},
+      "tags": [],
+      "extensions": {
+        "source_svg": "svg/tft_s18_traits_mobalytics/coven.svg"
+      }
+    },
+    {
+      "id": "trait_7a4a17e78512",
+      "name": "峡谷野怪",
+      "category": "origin",
+      "description": "野区已加入云顶之弈！",
+      "breakpoints": [
+        {
+          "min_units": 3,
+          "max_units": 4,
+          "style": null,
+          "effect": "获得一个阿尔法印记，用其赋予一名峡谷野怪专属增益。",
+          "values": {}
+        },
+        {
+          "min_units": 5,
+          "max_units": 6,
+          "style": null,
+          "effect": "与玩家战斗2次后，下一次商店会被峡谷野怪占满。",
+          "values": {}
+        },
+        {
+          "min_units": 7,
+          "max_units": 9,
+          "style": null,
+          "effect": "战斗开始时及之后每5秒，峡谷野怪获得属性加成。",
+          "values": {}
+        },
+        {
+          "min_units": 10,
+          "max_units": null,
+          "style": null,
+          "effect": "最大队伍规模+1。获得远古巨龙增益",
+          "values": {}
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/trait_7a4a17e78512.svg",
+        "source_url": null,
+        "alt": "峡谷野怪羁绊图标"
+      },
+      "source_ids": {},
+      "tags": [],
+      "extensions": {
+        "source_svg": "svg/tft_s18_traits_mobalytics/riftbeast.svg"
+      }
+    },
+    {
+      "id": "trait_3ff0ce83497f",
+      "name": "宿敌",
+      "category": "origin",
+      "description": "仅在登场1名宿敌时激活，且只对你最强的一名卡兹克或雷恩加尔生效。参与击杀即可为雷恩加尔获得战利品或为卡兹克获得进化层数，在对抗其他宿敌时该收益变为3倍。",
+      "breakpoints": [
+        {
+          "min_units": 1,
+          "max_units": null,
+          "style": null,
+          "effect": "雷恩加尔：每8战利品提供1/3/5金币；战利品达到100时，每有1战利品，己方队伍获得0.2%攻击力。卡兹克：每拥有25层进化会令卡兹克发生进化，提供一次选择不同羁绊的机会。",
+          "values": {}
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/trait_3ff0ce83497f.svg",
+        "source_url": null,
+        "alt": "宿敌羁绊图标"
+      },
+      "source_ids": {},
+      "tags": [],
+      "extensions": {
+        "source_svg": "svg/tft_s18_traits_mobalytics/rival.svg"
+      }
+    },
+    {
+      "id": "trait_4f3d05de58cb",
+      "name": "仙灵",
+      "category": "origin",
+      "description": "团队的伤害、治疗和护盾效果会吸引皮克斯精灵环绕仙灵弈子。每个皮克斯精灵会为仙灵弈子提供攻击力和法强，并在其生命值低于50%时为其治疗。",
+      "breakpoints": [
+        {
+          "min_units": 2,
+          "max_units": 3,
+          "style": null,
+          "effect": "4%攻击力和法强，5%治疗",
+          "values": {}
+        },
+        {
+          "min_units": 4,
+          "max_units": null,
+          "style": null,
+          "effect": "7%攻击力和法强，8%治疗；吸引7个皮克斯精灵后，转而开始吸引会提供金币的金色皮克斯精灵。",
+          "values": {}
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/trait_4f3d05de58cb.svg",
+        "source_url": null,
+        "alt": "仙灵羁绊图标"
+      },
+      "source_ids": {},
+      "tags": [],
+      "extensions": {
+        "source_svg": "svg/tft_s18_traits_mobalytics/fae.svg"
+      }
+    },
+    {
+      "id": "trait_be5e3401e827",
+      "name": "远古",
+      "category": "origin",
+      "description": "始祖从4种原始赐福中选择1种：灵龟（治疗）、猛虎（处决）、战马（攻速）、巨龙（获得基础装备）。",
+      "breakpoints": [
+        {
+          "min_units": 2,
+          "max_units": 3,
+          "style": null,
+          "effect": "选择1个赐福",
+          "values": {}
+        },
+        {
+          "min_units": 4,
+          "max_units": null,
+          "style": null,
+          "effect": "再选择1个赐福",
+          "values": {}
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/trait_be5e3401e827.svg",
+        "source_url": null,
+        "alt": "远古羁绊图标"
+      },
+      "source_ids": {},
+      "tags": [],
+      "extensions": {
+        "source_svg": "svg/tft_s18_traits_mobalytics/primal.svg"
+      }
+    },
+    {
+      "id": "trait_3ffbbf12219b",
+      "name": "绝命花妖",
+      "category": "origin",
+      "description": "绝命花妖弈子在参与击杀后收割敌人。",
+      "breakpoints": [
+        {
+          "min_units": 1,
+          "max_units": 1,
+          "style": null,
+          "effect": "获得10法力值",
+          "values": {}
+        },
+        {
+          "min_units": 2,
+          "max_units": null,
+          "style": null,
+          "effect": "为生命值最低的友军提供相当于8%最大生命值的治疗。",
+          "values": {}
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/trait_3ffbbf12219b.svg",
+        "source_url": null,
+        "alt": "绝命花妖羁绊图标"
+      },
+      "source_ids": {},
+      "tags": [],
+      "extensions": {
+        "source_svg": "svg/tft_s18_traits_mobalytics/flora-fatalis.svg"
+      }
+    },
+    {
+      "id": "trait_54b0eec2cdc3",
+      "name": "日食",
+      "category": "origin",
+      "description": "弈子获得5%最大生命值护盾，并造成5%额外魔法伤害。每拥有一名不同的3星弈子，效果提升4%。达到更高数量时，将获得额外防御、真实伤害转化和飞升效果。",
+      "breakpoints": [],
+      "image": {
+        "local_path": "assets/traits/trait_54b0eec2cdc3.svg",
+        "source_url": null,
+        "alt": "日食羁绊图标"
+      },
+      "source_ids": {},
+      "tags": [],
+      "extensions": {
+        "source_svg": "svg/tft_s18_traits_mobalytics/eclipse.svg"
+      }
+    },
+    {
+      "id": "trait_d662a1c8bc9c",
+      "name": "月食",
+      "category": "origin",
+      "description": "月食弈子及其相邻友军获得攻速和法强。月食弈子获得的加成提升30%。更高层级会进一步提升攻速和法强。",
+      "breakpoints": [
+        {
+          "min_units": 2,
+          "max_units": 2,
+          "style": null,
+          "effect": "10%攻速与法强",
+          "values": {}
+        },
+        {
+          "min_units": 3,
+          "max_units": 3,
+          "style": null,
+          "effect": "15%攻速与法强",
+          "values": {}
+        },
+        {
+          "min_units": 4,
+          "max_units": 4,
+          "style": null,
+          "effect": "20%攻速与法强",
+          "values": {}
+        },
+        {
+          "min_units": 5,
+          "max_units": null,
+          "style": null,
+          "effect": "25%攻速与法强",
+          "values": {}
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/trait_d662a1c8bc9c.svg",
+        "source_url": null,
+        "alt": "月食羁绊图标"
+      },
+      "source_ids": {},
+      "tags": [],
+      "extensions": {
+        "source_svg": "svg/tft_s18_traits_mobalytics/lunar.svg"
+      }
+    },
+    {
+      "id": "trait_d449d0978938",
+      "name": "日月蚀",
+      "category": "origin",
+      "description": "12秒后，日蚀会击杀生命值最低的敌人，此后每3秒重复一次。月食和日食全激活时触发。",
+      "breakpoints": [],
+      "image": {
+        "local_path": "assets/traits/trait_d449d0978938.svg",
+        "source_url": null,
+        "alt": "日月蚀羁绊图标"
+      },
+      "source_ids": {},
+      "tags": [],
+      "extensions": {
+        "source_svg": "svg/tft_s18_traits_mobalytics/solar.svg"
+      }
+    },
+    {
+      "id": "trait_7e3fe77a22db",
+      "name": "腐蚀",
+      "category": "origin",
+      "description": "腐蚀弈子造成伤害时，会对敌人施加30%护甲削减和魔抗削减，持续2秒。",
+      "breakpoints": [
+        {
+          "min_units": 1,
+          "max_units": null,
+          "style": null,
+          "effect": "腐蚀弈子的伤害施加30%护甲削减和魔抗削减，持续2秒。",
+          "values": {}
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/trait_7e3fe77a22db.svg",
+        "source_url": null,
+        "alt": "腐蚀羁绊图标"
+      },
+      "source_ids": {},
+      "tags": [],
+      "extensions": {
+        "source_svg": "svg/tft_s18_traits_mobalytics/caustic.svg"
+      }
+    },
+    {
+      "id": "trait_5de8ddde9d4a",
+      "name": "巨像",
+      "category": "origin",
+      "description": "每有1名敌人将其作为目标，巨像获得10护甲和10魔法抗性。",
+      "breakpoints": [
+        {
+          "min_units": 1,
+          "max_units": null,
+          "style": null,
+          "effect": "每有1名敌人将其作为目标，巨像获得10护甲和10魔法抗性。",
+          "values": {}
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/trait_5de8ddde9d4a.svg",
+        "source_url": null,
+        "alt": "巨像羁绊图标"
+      },
+      "source_ids": {},
+      "tags": [],
+      "extensions": {
+        "source_svg": "svg/tft_s18_traits_mobalytics/monolith.svg"
+      }
+    },
+    {
+      "id": "trait_da68a17eb83c",
+      "name": "狂野女猎手",
+      "category": "origin",
+      "description": "奈德丽的技能会追踪她伤害的敌人。被追踪的敌人受到技能伤害提升10%，来自奈德丽的技能伤害提升20%。",
+      "breakpoints": [
+        {
+          "min_units": 1,
+          "max_units": null,
+          "style": null,
+          "effect": "奈德丽的技能会追踪她伤害的敌人；被追踪的敌人受到技能伤害提升10%，来自奈德丽的技能伤害提升20%。",
+          "values": {}
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/trait_da68a17eb83c.svg",
+        "source_url": null,
+        "alt": "狂野女猎手羁绊图标"
+      },
+      "source_ids": {},
+      "tags": [],
+      "extensions": {
+        "source_svg": "svg/tft_s18_traits_mobalytics/thornmaiden.svg"
+      }
+    },
+    {
+      "id": "trait_a6dee4da01b9",
+      "name": "翡翠化身",
+      "category": "origin",
+      "description": "将一名友军拖到最强的塔里克上与其绑定。塔里克施放技能时，会为绑定友军提供装备效果。",
+      "breakpoints": [
+        {
+          "min_units": 1,
+          "max_units": null,
+          "style": null,
+          "effect": "绑定一名友军与最强的塔里克，塔里克施放技能时为其提供装备效果。",
+          "values": {}
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/trait_a6dee4da01b9.svg",
+        "source_url": null,
+        "alt": "翡翠化身羁绊图标"
+      },
+      "source_ids": {},
+      "tags": [],
+      "extensions": {
+        "source_svg": "svg/tft_s18_traits_mobalytics/emerald-aspect.svg"
+      }
+    },
+    {
+      "id": "trait_4890101893ae",
+      "name": "古树生长",
+      "category": "origin",
+      "description": "当一名位于2格内的敌人阵亡时，永久获得20最大生命值。",
+      "breakpoints": [
+        {
+          "min_units": 1,
+          "max_units": null,
+          "style": null,
+          "effect": "当一名位于2格内的敌人阵亡时，永久获得20最大生命值。",
+          "values": {}
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/trait_4890101893ae.svg",
+        "source_url": null,
+        "alt": "古树生长羁绊图标"
+      },
+      "source_ids": {},
+      "tags": [],
+      "extensions": {
+        "source_svg": "svg/tft_s18_traits_mobalytics/old-growth.svg"
+      }
+    },
+    {
+      "id": "trait_44c99f22998e",
+      "name": "翠神",
+      "category": "origin",
+      "description": "当最强的艾翁施放技能时获得1颗种子，每次战斗额外获得2颗。艾翁消耗5颗种子来生成一个地形格，地形格会为格上弈子提供加成。每局的生态会发生改变。",
+      "breakpoints": [
+        {
+          "min_units": 1,
+          "max_units": null,
+          "style": null,
+          "effect": "艾翁收集种子并消耗5颗种子生成地形格，为格上弈子提供加成。",
+          "values": {}
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/trait_44c99f22998e.svg",
+        "source_url": null,
+        "alt": "翠神羁绊图标"
+      },
+      "source_ids": {},
+      "tags": [],
+      "extensions": {
+        "source_svg": "svg/tft_s18_traits_mobalytics/greenfather.svg"
+      }
+    },
+    {
+      "id": "trait_073983e2f146",
+      "name": "调律",
+      "category": "origin",
+      "description": "最强的拉露恩在每次施放技能后切换至新的月相。月亮处于或低于半月时，团队获得7%伤害减免；高于半月时，团队获得7%伤害增幅。月相包括新月、娥眉月、半月、盈凸月、满月。",
+      "breakpoints": [
+        {
+          "min_units": 1,
+          "max_units": null,
+          "style": null,
+          "effect": "拉露恩每次施放技能后切换月相，并根据月相为团队提供7%伤害减免或7%伤害增幅。",
+          "values": {}
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/trait_073983e2f146.svg",
+        "source_url": null,
+        "alt": "调律羁绊图标"
+      },
+      "source_ids": {},
+      "tags": [],
+      "extensions": {
+        "source_svg": "svg/tft_s18_traits_mobalytics/attuned.svg"
+      }
+    },
+    {
+      "id": "trait_b76b6e7480b8",
+      "name": "赏金猎人",
+      "category": "origin",
+      "description": "选择一项赏金任务。你最强的德莱文可推进任务进度并获得奖励。完成任务后，可在下一个备战环节选择新任务。",
+      "breakpoints": [
+        {
+          "min_units": 1,
+          "max_units": null,
+          "style": null,
+          "effect": "选择赏金任务，由最强的德莱文推进任务进度并获得奖励。",
+          "values": {}
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/trait_b76b6e7480b8.svg",
+        "source_url": null,
+        "alt": "赏金猎人羁绊图标"
+      },
+      "source_ids": {},
+      "tags": [],
+      "extensions": {
+        "source_svg": "svg/tft_s18_traits_mobalytics/bounty-seeker.svg"
+      }
+    },
+    {
+      "id": "trait_49ca9388964f",
+      "name": "天选化身",
+      "category": "origin",
+      "description": "拥有一名天选化身时，会将商店中所有其它天选化身转化为与其相同的羁绊。每种羁绊的天选化身只能由一名玩家拥有。计算羁绊加成时，选定的羁绊会被计算两次。",
+      "breakpoints": [
+        {
+          "min_units": 1,
+          "max_units": null,
+          "style": null,
+          "effect": "天选化身选定的羁绊在计算羁绊加成时会被计算两次。",
+          "values": {}
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/trait_49ca9388964f.svg",
+        "source_url": null,
+        "alt": "天选化身羁绊图标"
+      },
+      "source_ids": {},
+      "tags": [],
+      "extensions": {
+        "source_svg": "svg/tft_s18_traits_mobalytics/avatar.svg"
+      }
+    },
+    {
+      "id": "trait_831ef4923bbf",
+      "name": "顶级掠食者",
+      "category": "origin",
+      "description": "远古巨龙占用2个队伍格，并使峡谷野怪+2。远古巨龙无法被阻挡。战斗开始时飞向空中，每秒获得10法力值，随后猛击地面，使所有敌人晕眩1秒。",
+      "breakpoints": [
+        {
+          "min_units": 1,
+          "max_units": null,
+          "style": null,
+          "effect": "远古巨龙占用2个队伍格，使峡谷野怪+2，并在战斗开始时飞向空中后猛击地面，使所有敌人晕眩1秒。",
+          "values": {}
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/trait_831ef4923bbf.svg",
+        "source_url": null,
+        "alt": "顶级掠食者羁绊图标"
+      },
+      "source_ids": {},
+      "tags": [],
+      "extensions": {
+        "source_svg": "svg/tft_s18_traits_mobalytics/apex-predator.svg"
+      }
+    },
+    {
+      "id": "trait_ba577210e69d",
+      "name": "法师",
+      "category": "class",
+      "description": "团队获得10法强。法师获得更多；每当3名法师施放技能时，再获得额外法强。",
+      "breakpoints": [
+        {
+          "min_units": 2,
+          "max_units": 2,
+          "style": null,
+          "effect": "+10%法强，每次释放+1%",
+          "values": {}
+        },
+        {
+          "min_units": 3,
+          "max_units": 3,
+          "style": null,
+          "effect": "+20%法强，每次释放+2%",
+          "values": {}
+        },
+        {
+          "min_units": 4,
+          "max_units": 4,
+          "style": null,
+          "effect": "+50%法强，每次释放+4%",
+          "values": {}
+        },
+        {
+          "min_units": 5,
+          "max_units": null,
+          "style": null,
+          "effect": "+90%法强，每次释放+6%",
+          "values": {}
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/trait_ba577210e69d.svg",
+        "source_url": null,
+        "alt": "法师羁绊图标"
+      },
+      "source_ids": {},
+      "tags": [],
+      "extensions": {
+        "source_svg": "svg/tft_s18_traits_mobalytics/spellweaver.svg"
+      }
+    },
+    {
+      "id": "trait_4956eff98d91",
+      "name": "适配者",
+      "category": "class",
+      "description": "适配者的技能会根据其攻击力或法强中的较高者发生变化。适配者会根据自身较高属性获得攻击力或法强。",
+      "breakpoints": [
+        {
+          "min_units": 2,
+          "max_units": 3,
+          "style": null,
+          "effect": "25%攻击力/法强",
+          "values": {}
+        },
+        {
+          "min_units": 4,
+          "max_units": null,
+          "style": null,
+          "effect": "60%攻击力/法强",
+          "values": {}
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/trait_4956eff98d91.svg",
+        "source_url": null,
+        "alt": "适配者羁绊图标"
+      },
+      "source_ids": {},
+      "tags": [],
+      "extensions": {
+        "source_svg": "svg/tft_s18_traits_mobalytics/adaptor.svg"
+      }
+    },
+    {
+      "id": "trait_1ffde90c1d1a",
+      "name": "毁灭者",
+      "category": "class",
+      "description": "毁灭者获得15%全能吸血。此外，造成额外伤害，对生命值低于50%的单位造成双倍额外伤害。",
+      "breakpoints": [
+        {
+          "min_units": 2,
+          "max_units": 3,
+          "style": null,
+          "effect": "10%额外伤害",
+          "values": {}
+        },
+        {
+          "min_units": 4,
+          "max_units": 5,
+          "style": null,
+          "effect": "20%额外伤害",
+          "values": {}
+        },
+        {
+          "min_units": 6,
+          "max_units": null,
+          "style": null,
+          "effect": "25%额外伤害",
+          "values": {}
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/trait_1ffde90c1d1a.svg",
+        "source_url": null,
+        "alt": "毁灭者羁绊图标"
+      },
+      "source_ids": {},
+      "tags": [],
+      "extensions": {
+        "source_svg": "svg/tft_s18_traits_mobalytics/ravager.svg"
+      }
+    },
+    {
+      "id": "trait_7747455acbfc",
+      "name": "斗士",
+      "category": "class",
+      "description": "团队获得7%最大生命值。斗士获得更多。",
+      "breakpoints": [
+        {
+          "min_units": 2,
+          "max_units": 3,
+          "style": null,
+          "effect": "20%生命值",
+          "values": {}
+        },
+        {
+          "min_units": 4,
+          "max_units": 5,
+          "style": null,
+          "effect": "40%生命值",
+          "values": {}
+        },
+        {
+          "min_units": 6,
+          "max_units": null,
+          "style": null,
+          "effect": "60%生命值",
+          "values": {}
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/trait_7747455acbfc.svg",
+        "source_url": null,
+        "alt": "斗士羁绊图标"
+      },
+      "source_ids": {},
+      "tags": [],
+      "extensions": {
+        "source_svg": "svg/tft_s18_traits_mobalytics/brawler.svg"
+      }
+    },
+    {
+      "id": "trait_c5402e9d5450",
+      "name": "迅捷射手",
+      "category": "class",
+      "description": "团队获得10%攻速。迅捷射手每次攻击都会获得更多攻速，最多叠加10次。",
+      "breakpoints": [
+        {
+          "min_units": 2,
+          "max_units": 3,
+          "style": null,
+          "effect": "每次攻击+3%攻速",
+          "values": {}
+        },
+        {
+          "min_units": 4,
+          "max_units": 5,
+          "style": null,
+          "effect": "每次攻击+8%攻速",
+          "values": {}
+        },
+        {
+          "min_units": 6,
+          "max_units": null,
+          "style": null,
+          "effect": "每次攻击+15%攻速",
+          "values": {}
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/trait_c5402e9d5450.svg",
+        "source_url": null,
+        "alt": "迅捷射手羁绊图标"
+      },
+      "source_ids": {},
+      "tags": [],
+      "extensions": {
+        "source_svg": "svg/tft_s18_traits_mobalytics/rapidfire.svg"
+      }
+    },
+    {
+      "id": "trait_2f3a36d0e244",
+      "name": "猎手",
+      "category": "class",
+      "description": "猎手获得攻击力。若4秒内未切换目标，则获得10%伤害增幅。",
+      "breakpoints": [
+        {
+          "min_units": 2,
+          "max_units": 3,
+          "style": null,
+          "effect": "18%攻击力",
+          "values": {}
+        },
+        {
+          "min_units": 4,
+          "max_units": 5,
+          "style": null,
+          "effect": "36%攻击力",
+          "values": {}
+        },
+        {
+          "min_units": 6,
+          "max_units": null,
+          "style": null,
+          "effect": "60%攻击力",
+          "values": {}
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/trait_2f3a36d0e244.svg",
+        "source_url": null,
+        "alt": "猎手羁绊图标"
+      },
+      "source_ids": {},
+      "tags": [],
+      "extensions": {
+        "source_svg": "svg/tft_s18_traits_mobalytics/hunter.svg"
+      }
+    },
+    {
+      "id": "trait_9c2472dd47f9",
+      "name": "裁决使",
+      "category": "class",
+      "description": "裁决使获得精准和额外暴击几率。精准使技能伤害可以暴击；额外精准会提供10%暴击伤害。",
+      "breakpoints": [
+        {
+          "min_units": 2,
+          "max_units": 2,
+          "style": null,
+          "effect": "技能可以造成暴击并获得25%暴击率",
+          "values": {}
+        },
+        {
+          "min_units": 3,
+          "max_units": null,
+          "style": null,
+          "effect": "使敌人流血，在2秒内造成额外真实伤害。",
+          "values": {}
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/trait_9c2472dd47f9.svg",
+        "source_url": null,
+        "alt": "裁决使羁绊图标"
+      },
+      "source_ids": {},
+      "tags": [],
+      "extensions": {
+        "source_svg": "svg/tft_s18_traits_mobalytics/executioner.svg"
+      }
+    },
+    {
+      "id": "trait_1a9499630b2d",
+      "name": "召唤使",
+      "category": "class",
+      "description": "召唤使获得额外的小型召唤物。",
+      "breakpoints": [
+        {
+          "min_units": 2,
+          "max_units": 3,
+          "style": null,
+          "effect": "额外召唤1次40%召唤物",
+          "values": {}
+        },
+        {
+          "min_units": 4,
+          "max_units": null,
+          "style": null,
+          "effect": "额外召唤2次50%召唤物",
+          "values": {}
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/trait_1a9499630b2d.svg",
+        "source_url": null,
+        "alt": "召唤使羁绊图标"
+      },
+      "source_ids": {},
+      "tags": [],
+      "extensions": {
+        "source_svg": "svg/tft_s18_traits_mobalytics/summoner.svg"
+      }
+    },
+    {
+      "id": "trait_456638a0294c",
+      "name": "重装战士",
+      "category": "class",
+      "description": "战斗开始时及生命值降至50%时，获得持续10秒的最大生命值护盾。",
+      "breakpoints": [
+        {
+          "min_units": 2,
+          "max_units": 3,
+          "style": null,
+          "effect": "16%",
+          "values": {}
+        },
+        {
+          "min_units": 4,
+          "max_units": 5,
+          "style": null,
+          "effect": "32%",
+          "values": {}
+        },
+        {
+          "min_units": 6,
+          "max_units": null,
+          "style": null,
+          "effect": "40%，且在护盾存在时获得16%伤害减免",
+          "values": {}
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/trait_456638a0294c.svg",
+        "source_url": null,
+        "alt": "重装战士羁绊图标"
+      },
+      "source_ids": {},
+      "tags": [],
+      "extensions": {
+        "source_svg": "svg/tft_s18_traits_mobalytics/vanguard.svg"
+      }
+    },
+    {
+      "id": "trait_c0e78908630c",
+      "name": "护卫",
+      "category": "class",
+      "description": "团队获得15护甲和魔法抗性。护卫获得更多。",
+      "breakpoints": [
+        {
+          "min_units": 2,
+          "max_units": 3,
+          "style": null,
+          "effect": "30双抗",
+          "values": {}
+        },
+        {
+          "min_units": 4,
+          "max_units": 5,
+          "style": null,
+          "effect": "55双抗",
+          "values": {}
+        },
+        {
+          "min_units": 6,
+          "max_units": null,
+          "style": null,
+          "effect": "80双抗",
+          "values": {}
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/trait_c0e78908630c.svg",
+        "source_url": null,
+        "alt": "护卫羁绊图标"
+      },
+      "source_ids": {},
+      "tags": [],
+      "extensions": {
+        "source_svg": "svg/tft_s18_traits_mobalytics/defender.svg"
+      }
+    },
+    {
+      "id": "trait_e6f87c6b1561",
+      "name": "主宰",
+      "category": "class",
+      "description": "团队获得伤害减免，主宰获得双倍效果。一名主宰阵亡时，其他主宰获得法力值。",
+      "breakpoints": [
+        {
+          "min_units": 2,
+          "max_units": 3,
+          "style": null,
+          "effect": "8%伤害减免，10法力值",
+          "values": {}
+        },
+        {
+          "min_units": 4,
+          "max_units": 5,
+          "style": null,
+          "effect": "12%伤害减免，15法力值",
+          "values": {}
+        },
+        {
+          "min_units": 6,
+          "max_units": null,
+          "style": null,
+          "effect": "18%伤害减免，20法力值",
+          "values": {}
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/trait_e6f87c6b1561.svg",
+        "source_url": null,
+        "alt": "主宰羁绊图标"
+      },
+      "source_ids": {},
+      "tags": [],
+      "extensions": {
+        "source_svg": "svg/tft_s18_traits_mobalytics/juggernaut.svg"
+      }
+    },
+    {
+      "id": "trait_d8cefba1320f",
+      "name": "神谕者",
+      "category": "class",
+      "description": "团队获得法力回复，神谕者获得更多。",
+      "breakpoints": [
+        {
+          "min_units": 2,
+          "max_units": 2,
+          "style": null,
+          "effect": "1法力回复/3法力回复",
+          "values": {}
+        },
+        {
+          "min_units": 3,
+          "max_units": 3,
+          "style": null,
+          "effect": "1法力回复/5法力回复",
+          "values": {}
+        },
+        {
+          "min_units": 4,
+          "max_units": 4,
+          "style": null,
+          "effect": "2法力回复/7法力回复",
+          "values": {}
+        },
+        {
+          "min_units": 5,
+          "max_units": null,
+          "style": null,
+          "effect": "2法力回复/9法力回复",
+          "values": {}
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/trait_d8cefba1320f.svg",
+        "source_url": null,
+        "alt": "神谕者羁绊图标"
+      },
+      "source_ids": {},
+      "tags": [],
+      "extensions": {
+        "source_svg": "svg/tft_s18_traits_mobalytics/invoker.svg"
+      }
+    }
+  ]
+}

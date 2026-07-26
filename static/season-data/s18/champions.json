@@ -1,0 +1,2742 @@
+{
+  "$schema": "../../../../../schemas/champions.schema.json",
+  "version_id": "s18__preview_2026_07_13",
+  "champions": [
+    {
+      "id": "champion_bf4be2686d03",
+      "name": "卡尔玛",
+      "aliases": [],
+      "cost": 1,
+      "trait_ids": [
+        "trait_017da4d74a10",
+        "trait_ba577210e69d"
+      ],
+      "role": null,
+      "availability": {
+        "type": "special",
+        "description": null,
+        "rules": []
+      },
+      "stats_by_star": {},
+      "skills": [
+        {
+          "id": "champion_bf4be2686d03_skill",
+          "name": "坚定不移",
+          "description": "拴住当前目标，在1.5秒内造成魔法伤害，随后在其周围释放能量爆裂，对1格半径内的所有敌人造成魔法伤害，并施加30%的减速效果，持续2秒。\n减速:降低攻击速度",
+          "variables": [],
+          "raw_values": null,
+          "image": null
+        }
+      ],
+      "images": {
+        "icon": {
+          "local_path": "assets/champions/champion_bf4be2686d03.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918043.jpg",
+          "alt": "卡尔玛头像"
+        },
+        "splash": {
+          "local_path": "assets/champions/splash/champion_bf4be2686d03.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918043.jpg",
+          "alt": "卡尔玛大图"
+        }
+      },
+      "source_ids": {},
+      "tags": [],
+      "extensions": {}
+    },
+    {
+      "id": "champion_2bf010641f51",
+      "name": "维迦",
+      "aliases": [],
+      "cost": 1,
+      "trait_ids": [
+        "trait_ab0bcb11b7c7",
+        "trait_5fb781d266ec",
+        "trait_ba577210e69d"
+      ],
+      "role": null,
+      "availability": {
+        "type": "special",
+        "description": null,
+        "rules": []
+      },
+      "stats_by_star": {},
+      "skills": [
+        {
+          "id": "champion_2bf010641f51_skill",
+          "name": "能量爆裂",
+          "description": "向目标发射一记巨大冲击波，造成魔法伤害，若其生命值低于最大生命值的30%，则提升60%威力。\n若目标阵亡，永久获得1%法术强度。",
+          "variables": [],
+          "raw_values": null,
+          "image": null
+        }
+      ],
+      "images": {
+        "icon": {
+          "local_path": "assets/champions/champion_2bf010641f51.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918045.jpg",
+          "alt": "维迦头像"
+        },
+        "splash": {
+          "local_path": "assets/champions/splash/champion_2bf010641f51.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918045.jpg",
+          "alt": "维迦大图"
+        }
+      },
+      "source_ids": {},
+      "tags": [],
+      "extensions": {}
+    },
+    {
+      "id": "champion_67d0dd7d871c",
+      "name": "约里克",
+      "aliases": [],
+      "cost": 1,
+      "trait_ids": [
+        "trait_017da4d74a10",
+        "trait_e6f87c6b1561",
+        "trait_1a9499630b2d"
+      ],
+      "role": null,
+      "availability": {
+        "type": "special",
+        "description": null,
+        "rules": []
+      },
+      "stats_by_star": {},
+      "skills": [
+        {
+          "id": "champion_67d0dd7d871c_skill",
+          "name": "临终仪式",
+          "description": "被动:阵亡时，生成一个拥有约里克部分最大生命值和基础攻击力的灵魂行者。\n主动:回复生命值并打击目标，造成物理伤害。",
+          "variables": [],
+          "raw_values": null,
+          "image": null
+        }
+      ],
+      "images": {
+        "icon": {
+          "local_path": "assets/champions/champion_67d0dd7d871c.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918083.jpg",
+          "alt": "约里克头像"
+        },
+        "splash": {
+          "local_path": "assets/champions/splash/champion_67d0dd7d871c.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918083.jpg",
+          "alt": "约里克大图"
+        }
+      },
+      "source_ids": {},
+      "tags": [],
+      "extensions": {}
+    },
+    {
+      "id": "champion_d25cf1e77552",
+      "name": "阿卡丽",
+      "aliases": [],
+      "cost": 1,
+      "trait_ids": [
+        "trait_84e5bd33e5c7",
+        "trait_4956eff98d91",
+        "trait_1ffde90c1d1a"
+      ],
+      "role": null,
+      "availability": {
+        "type": "special",
+        "description": null,
+        "rules": []
+      },
+      "stats_by_star": {},
+      "skills": [
+        {
+          "id": "champion_d25cf1e77552_skill",
+          "name": "我流奥义！寒影",
+          "description": "【适配者】：此技能将根据法术强度或攻击力中较高的属性而改变。\n物理：向目标掷出一连串苦无，造成物理伤害，对被灼烧的敌人造成额外伤害。\n魔法：向目标掷出一连串苦无，造成魔法伤害，如果目标阵亡则会以70%的效能再次释放。",
+          "variables": [],
+          "raw_values": null,
+          "image": null
+        }
+      ],
+      "images": {
+        "icon": {
+          "local_path": "assets/champions/champion_d25cf1e77552.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918084.jpg",
+          "alt": "阿卡丽头像"
+        },
+        "splash": {
+          "local_path": "assets/champions/splash/champion_d25cf1e77552.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918084.jpg",
+          "alt": "阿卡丽大图"
+        }
+      },
+      "source_ids": {},
+      "tags": [],
+      "extensions": {}
+    },
+    {
+      "id": "champion_e989b2edee05",
+      "name": "蕾欧娜",
+      "aliases": [],
+      "cost": 1,
+      "trait_ids": [
+        "trait_54b0eec2cdc3",
+        "trait_c0e78908630c"
+      ],
+      "role": null,
+      "availability": {
+        "type": "special",
+        "description": null,
+        "rules": []
+      },
+      "stats_by_star": {},
+      "skills": [
+        {
+          "id": "champion_e989b2edee05_skill",
+          "name": "破晓之盾",
+          "description": "被动：在战斗开始时获得额外护甲和魔抗，在10秒内持续衰减。\n主动：猛击当前目标，造成魔法伤害并令其眩晕2秒。",
+          "variables": [],
+          "raw_values": null,
+          "image": null
+        }
+      ],
+      "images": {
+        "icon": {
+          "local_path": "assets/champions/champion_e989b2edee05.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918089.jpg",
+          "alt": "蕾欧娜头像"
+        },
+        "splash": {
+          "local_path": "assets/champions/splash/champion_e989b2edee05.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918089.jpg",
+          "alt": "蕾欧娜大图"
+        }
+      },
+      "source_ids": {},
+      "tags": [],
+      "extensions": {}
+    },
+    {
+      "id": "champion_a391aa0c667d",
+      "name": "韦鲁斯",
+      "aliases": [],
+      "cost": 1,
+      "trait_ids": [
+        "trait_84e5bd33e5c7",
+        "trait_c5402e9d5450"
+      ],
+      "role": null,
+      "availability": {
+        "type": "special",
+        "description": null,
+        "rules": []
+      },
+      "stats_by_star": {},
+      "skills": [
+        {
+          "id": "champion_a391aa0c667d_skill",
+          "name": "穿刺之箭",
+          "description": "蓄力，然后向敌人最多的一条直线射出箭矢。对命中的敌人造成物理伤害，每穿过一个敌人，伤害降低40%(最低40%)。",
+          "variables": [],
+          "raw_values": null,
+          "image": null
+        }
+      ],
+      "images": {
+        "icon": {
+          "local_path": "assets/champions/champion_a391aa0c667d.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918110.jpg",
+          "alt": "韦鲁斯头像"
+        },
+        "splash": {
+          "local_path": "assets/champions/splash/champion_a391aa0c667d.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918110.jpg",
+          "alt": "韦鲁斯大图"
+        }
+      },
+      "source_ids": {},
+      "tags": [],
+      "extensions": {}
+    },
+    {
+      "id": "champion_1f36ce47855b",
+      "name": "卡蜜尔",
+      "aliases": [],
+      "cost": 1,
+      "trait_ids": [
+        "trait_186ec1a871e4",
+        "trait_1ffde90c1d1a"
+      ],
+      "role": null,
+      "availability": {
+        "type": "special",
+        "description": null,
+        "rules": []
+      },
+      "stats_by_star": {},
+      "skills": [
+        {
+          "id": "champion_1f36ce47855b_skill",
+          "name": "战术横扫",
+          "description": "斩击目标，造成物理伤害并获得护盾值，持续3秒。",
+          "variables": [],
+          "raw_values": null,
+          "image": null
+        }
+      ],
+      "images": {
+        "icon": {
+          "local_path": "assets/champions/champion_1f36ce47855b.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918164.jpg",
+          "alt": "卡蜜尔头像"
+        },
+        "splash": {
+          "local_path": "assets/champions/splash/champion_1f36ce47855b.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918164.jpg",
+          "alt": "卡蜜尔大图"
+        }
+      },
+      "source_ids": {},
+      "tags": [],
+      "extensions": {}
+    },
+    {
+      "id": "champion_7e99467af3b4",
+      "name": "雷克塞",
+      "aliases": [],
+      "cost": 1,
+      "trait_ids": [
+        "trait_ab0bcb11b7c7",
+        "trait_7747455acbfc"
+      ],
+      "role": null,
+      "availability": {
+        "type": "special",
+        "description": null,
+        "rules": []
+      },
+      "stats_by_star": {},
+      "skills": [
+        {
+          "id": "champion_7e99467af3b4_skill",
+          "name": "破土而出",
+          "description": "被动:每秒回复生命值，施放技能后的5秒内该效果变为3倍。\n主动:冲出地面，使邻格的敌人眩晕1秒并对其造成魔法伤害。",
+          "variables": [],
+          "raw_values": null,
+          "image": null
+        }
+      ],
+      "images": {
+        "icon": {
+          "local_path": "assets/champions/champion_7e99467af3b4.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918421.jpg",
+          "alt": "雷克塞头像"
+        },
+        "splash": {
+          "local_path": "assets/champions/splash/champion_7e99467af3b4.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918421.jpg",
+          "alt": "雷克塞大图"
+        }
+      },
+      "source_ids": {},
+      "tags": [],
+      "extensions": {}
+    },
+    {
+      "id": "champion_6f4ea83a28b5",
+      "name": "洛",
+      "aliases": [],
+      "cost": 1,
+      "trait_ids": [
+        "trait_4f3d05de58cb",
+        "trait_e6f87c6b1561",
+        "trait_456638a0294c"
+      ],
+      "role": null,
+      "availability": {
+        "type": "special",
+        "description": null,
+        "rules": []
+      },
+      "stats_by_star": {},
+      "skills": [
+        {
+          "id": "champion_6f4ea83a28b5_skill",
+          "name": "盛大登场",
+          "description": "获得4秒的护盾，随后使伤害最高的友军获得持续衰减的大量攻击速度，持续6秒。",
+          "variables": [],
+          "raw_values": null,
+          "image": null
+        }
+      ],
+      "images": {
+        "icon": {
+          "local_path": "assets/champions/champion_6f4ea83a28b5.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918497.jpg",
+          "alt": "洛头像"
+        },
+        "splash": {
+          "local_path": "assets/champions/splash/champion_6f4ea83a28b5.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918497.jpg",
+          "alt": "洛大图"
+        }
+      },
+      "source_ids": {},
+      "tags": [],
+      "extensions": {}
+    },
+    {
+      "id": "champion_389a3f1a1da1",
+      "name": "霞",
+      "aliases": [],
+      "cost": 1,
+      "trait_ids": [
+        "trait_1654b9778620",
+        "trait_4f3d05de58cb",
+        "trait_c5402e9d5450"
+      ],
+      "role": null,
+      "availability": {
+        "type": "special",
+        "description": null,
+        "rules": []
+      },
+      "stats_by_star": {},
+      "skills": [
+        {
+          "id": "champion_389a3f1a1da1_skill",
+          "name": "致死羽衣",
+          "description": "接下来的5次攻击会转为发射羽毛，造成物理伤害并削减护甲。",
+          "variables": [],
+          "raw_values": null,
+          "image": null
+        }
+      ],
+      "images": {
+        "icon": {
+          "local_path": "assets/champions/champion_389a3f1a1da1.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918498.jpg",
+          "alt": "霞头像"
+        },
+        "splash": {
+          "local_path": "assets/champions/splash/champion_389a3f1a1da1.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918498.jpg",
+          "alt": "霞大图"
+        }
+      },
+      "source_ids": {},
+      "tags": [],
+      "extensions": {}
+    },
+    {
+      "id": "champion_ab300e2dfe3e",
+      "name": "奥恩",
+      "aliases": [],
+      "cost": 1,
+      "trait_ids": [
+        "trait_1654b9778620",
+        "trait_c0e78908630c"
+      ],
+      "role": null,
+      "availability": {
+        "type": "special",
+        "description": null,
+        "rules": []
+      },
+      "stats_by_star": {},
+      "skills": [
+        {
+          "id": "champion_ab300e2dfe3e_skill",
+          "name": "风箱炎息",
+          "description": "被动:在玩家战斗期间，奥恩会将格挡的伤害转化为【锻造之力】进行储存，3星时储存量翻倍。\n【锻造之力】首次达到85,000时，获得1件【神器锻造器】！\n主动:获得持续4秒的护盾值，并对圆锥范围内的敌人造成魔法伤害。",
+          "variables": [],
+          "raw_values": null,
+          "image": null
+        }
+      ],
+      "images": {
+        "icon": {
+          "local_path": "assets/champions/champion_ab300e2dfe3e.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918516.jpg",
+          "alt": "奥恩头像"
+        },
+        "splash": {
+          "local_path": "assets/champions/splash/champion_ab300e2dfe3e.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918516.jpg",
+          "alt": "奥恩大图"
+        }
+      },
+      "source_ids": {},
+      "tags": [],
+      "extensions": {}
+    },
+    {
+      "id": "champion_04cc71191c48",
+      "name": "可酷伯",
+      "aliases": [],
+      "cost": 1,
+      "trait_ids": [
+        "trait_5fb781d266ec",
+        "trait_7747455acbfc"
+      ],
+      "role": null,
+      "availability": {
+        "type": "special",
+        "description": null,
+        "rules": []
+      },
+      "stats_by_star": {},
+      "skills": [
+        {
+          "id": "champion_04cc71191c48_skill",
+          "name": "生命之舞",
+          "description": "在2秒内持续回复生命值，下一次的攻击被替换为猛击，造成魔法伤害。",
+          "variables": [],
+          "raw_values": null,
+          "image": null
+        }
+      ],
+      "images": {
+        "icon": {
+          "local_path": "assets/champions/champion_04cc71191c48.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918954.jpg",
+          "alt": "可酷伯头像"
+        },
+        "splash": {
+          "local_path": "assets/champions/splash/champion_04cc71191c48.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918954.jpg",
+          "alt": "可酷伯大图"
+        }
+      },
+      "source_ids": {},
+      "tags": [],
+      "extensions": {}
+    },
+    {
+      "id": "champion_6df333154ea3",
+      "name": "驻灵",
+      "aliases": [],
+      "cost": 1,
+      "trait_ids": [
+        "trait_7a4a17e78512",
+        "trait_d8cefba1320f"
+      ],
+      "role": null,
+      "availability": {
+        "type": "special",
+        "description": null,
+        "rules": []
+      },
+      "stats_by_star": {},
+      "skills": [
+        {
+          "id": "champion_6df333154ea3_skill",
+          "name": "蔚蓝激光",
+          "description": "开始每秒消耗35%最大法力值，并对目标引导一道激光。引导期间，每秒对其造成魔法伤害，并使其魔法抗性降低4。\n青色增益:友军获得1法力回复。驻灵每次施放技能时，都会额外获得2法力回复。",
+          "variables": [],
+          "raw_values": null,
+          "image": null
+        }
+      ],
+      "images": {
+        "icon": {
+          "local_path": "assets/champions/champion_6df333154ea3.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918989.jpg",
+          "alt": "驻灵头像"
+        },
+        "splash": {
+          "local_path": "assets/champions/splash/champion_6df333154ea3.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918989.jpg",
+          "alt": "驻灵大图"
+        }
+      },
+      "source_ids": {},
+      "tags": [],
+      "extensions": {}
+    },
+    {
+      "id": "champion_ab9eba46bcbd",
+      "name": "绯红树怪",
+      "aliases": [],
+      "cost": 1,
+      "trait_ids": [
+        "trait_7a4a17e78512",
+        "trait_2f3a36d0e244"
+      ],
+      "role": null,
+      "availability": {
+        "type": "special",
+        "description": null,
+        "rules": []
+      },
+      "stats_by_star": {},
+      "skills": [
+        {
+          "id": "champion_ab9eba46bcbd_skill",
+          "name": "绯红之羽",
+          "description": "发射5枚绯红树叶对敌方造成伤害。\n紫色增益:绯红树怪的攻击和技能对敌人施加30%撕裂效果，持续5秒。队友造成的伤害提高10%，受到受伤敌人的伤害减少10%。",
+          "variables": [],
+          "raw_values": null,
+          "image": null
+        }
+      ],
+      "images": {
+        "icon": {
+          "local_path": "assets/champions/champion_ab9eba46bcbd.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918990.jpg",
+          "alt": "绯红树怪头像"
+        },
+        "splash": {
+          "local_path": "assets/champions/splash/champion_ab9eba46bcbd.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918990.jpg",
+          "alt": "绯红树怪大图"
+        }
+      },
+      "source_ids": {},
+      "tags": [],
+      "extensions": {}
+    },
+    {
+      "id": "champion_5484d19060d1",
+      "name": "乐芙兰",
+      "aliases": [],
+      "cost": 2,
+      "trait_ids": [
+        "trait_1654b9778620",
+        "trait_ba577210e69d"
+      ],
+      "role": null,
+      "availability": {
+        "type": "special",
+        "description": null,
+        "rules": []
+      },
+      "stats_by_star": {},
+      "skills": [
+        {
+          "id": "champion_5484d19060d1_skill",
+          "name": "镜花水月",
+          "description": "被动：在玩家对战结束后，你最强的【乐芙兰】有20%/40%/60%的几率生成一个不超过3费的友军的1星复制品。\n主动：向当前目标发射锁链，造成魔法伤害，并对邻格敌人造成魔法伤害。",
+          "variables": [],
+          "raw_values": null,
+          "image": null
+        }
+      ],
+      "images": {
+        "icon": {
+          "local_path": "assets/champions/champion_5484d19060d1.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918007.jpg",
+          "alt": "乐芙兰头像"
+        },
+        "splash": {
+          "local_path": "assets/champions/splash/champion_5484d19060d1.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918007.jpg",
+          "alt": "乐芙兰大图"
+        }
+      },
+      "source_ids": {},
+      "tags": [],
+      "extensions": {}
+    },
+    {
+      "id": "champion_a51358e36de0",
+      "name": "凯尔",
+      "aliases": [],
+      "cost": 2,
+      "trait_ids": [
+        "trait_54b0eec2cdc3",
+        "trait_c5402e9d5450"
+      ],
+      "role": null,
+      "availability": {
+        "type": "special",
+        "description": null,
+        "rules": []
+      },
+      "stats_by_star": {},
+      "skills": [
+        {
+          "id": "champion_a51358e36de0_skill",
+          "name": "登神长阶",
+          "description": "被动：凯尔基于其星级获得飞升，并获得可叠加的增益。\n第1次飞升：普攻造成额外魔法伤害。\n第2次飞升：普攻对命中的敌人施加20%魔抗击碎，持续2秒。\n第3次飞升：普攻发射冲击波，对命中的所有其他卒子造成魔法伤害。",
+          "variables": [],
+          "raw_values": null,
+          "image": null
+        }
+      ],
+      "images": {
+        "icon": {
+          "local_path": "assets/champions/champion_a51358e36de0.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918010.jpg",
+          "alt": "凯尔头像"
+        },
+        "splash": {
+          "local_path": "assets/champions/splash/champion_a51358e36de0.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918010.jpg",
+          "alt": "凯尔大图"
+        }
+      },
+      "source_ids": {},
+      "tags": [],
+      "extensions": {}
+    },
+    {
+      "id": "champion_7fdaebcedc1f",
+      "name": "阿利斯塔",
+      "aliases": [],
+      "cost": 2,
+      "trait_ids": [
+        "trait_1654b9778620",
+        "trait_7747455acbfc"
+      ],
+      "role": null,
+      "availability": {
+        "type": "special",
+        "description": null,
+        "rules": []
+      },
+      "stats_by_star": {},
+      "skills": [
+        {
+          "id": "champion_7fdaebcedc1f_skill",
+          "name": "凯旋怒吼",
+          "description": "怒吼，回复生命值，净化控制效果，并为生命值最低的两名友军回复生命值。然后猛击当前目标，造成魔法伤害并令其眩晕1.5秒。",
+          "variables": [],
+          "raw_values": null,
+          "image": null
+        }
+      ],
+      "images": {
+        "icon": {
+          "local_path": "assets/champions/champion_7fdaebcedc1f.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918012.jpg",
+          "alt": "阿利斯塔头像"
+        },
+        "splash": {
+          "local_path": "assets/champions/splash/champion_7fdaebcedc1f.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918012.jpg",
+          "alt": "阿利斯塔大图"
+        }
+      },
+      "source_ids": {},
+      "tags": [],
+      "extensions": {}
+    },
+    {
+      "id": "champion_bc7509dda681",
+      "name": "提莫",
+      "aliases": [],
+      "cost": 2,
+      "trait_ids": [
+        "trait_5fb781d266ec",
+        "trait_d8cefba1320f"
+      ],
+      "role": null,
+      "availability": {
+        "type": "special",
+        "description": null,
+        "rules": []
+      },
+      "stats_by_star": {},
+      "skills": [
+        {
+          "id": "champion_bc7509dda681_skill",
+          "name": "种蘑菇",
+          "description": "投掷3颗蘑菇，对附近的3名敌人造成魔法伤害，偶尔会采集到额外的蘑菇，食用后可获得加成效果。\n红色：1次刷新\n绿色：1小小英雄生命值\n黄色：1经验值",
+          "variables": [],
+          "raw_values": null,
+          "image": null
+        }
+      ],
+      "images": {
+        "icon": {
+          "local_path": "assets/champions/champion_bc7509dda681.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918017.jpg",
+          "alt": "提莫头像"
+        },
+        "splash": {
+          "local_path": "assets/champions/splash/champion_bc7509dda681.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918017.jpg",
+          "alt": "提莫大图"
+        }
+      },
+      "source_ids": {},
+      "tags": [],
+      "extensions": {}
+    },
+    {
+      "id": "champion_7b8c64b780e8",
+      "name": "沃里克",
+      "aliases": [],
+      "cost": 2,
+      "trait_ids": [
+        "trait_ab0bcb11b7c7",
+        "trait_1ffde90c1d1a"
+      ],
+      "role": null,
+      "availability": {
+        "type": "special",
+        "description": null,
+        "rules": []
+      },
+      "stats_by_star": {},
+      "skills": [
+        {
+          "id": "champion_7b8c64b780e8_skill",
+          "name": "野兽之口",
+          "description": "撕咬当前目标，造成物理伤害，并回复相当于所造成伤害15%的生命值，并获得5%攻速，持续到战斗结束。",
+          "variables": [],
+          "raw_values": null,
+          "image": null
+        }
+      ],
+      "images": {
+        "icon": {
+          "local_path": "assets/champions/champion_7b8c64b780e8.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918019.jpg",
+          "alt": "沃里克头像"
+        },
+        "splash": {
+          "local_path": "assets/champions/splash/champion_7b8c64b780e8.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918019.jpg",
+          "alt": "沃里克大图"
+        }
+      },
+      "source_ids": {},
+      "tags": [],
+      "extensions": {}
+    },
+    {
+      "id": "champion_7be44df20c26",
+      "name": "凯特琳",
+      "aliases": [],
+      "cost": 2,
+      "trait_ids": [
+        "trait_186ec1a871e4",
+        "trait_2f3a36d0e244"
+      ],
+      "role": null,
+      "availability": {
+        "type": "special",
+        "description": null,
+        "rules": []
+      },
+      "stats_by_star": {},
+      "skills": [
+        {
+          "id": "champion_7be44df20c26_skill",
+          "name": "爆头",
+          "description": "下一次攻击会转为爆头，造成物理伤害，在本次战斗中每进行一次爆头此技能的威力就会提升一次。",
+          "variables": [],
+          "raw_values": null,
+          "image": null
+        }
+      ],
+      "images": {
+        "icon": {
+          "local_path": "assets/champions/champion_7be44df20c26.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918051.jpg",
+          "alt": "凯特琳头像"
+        },
+        "splash": {
+          "local_path": "assets/champions/splash/champion_7be44df20c26.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918051.jpg",
+          "alt": "凯特琳大图"
+        }
+      },
+      "source_ids": {},
+      "tags": [],
+      "extensions": {}
+    },
+    {
+      "id": "champion_8dc1da564096",
+      "name": "伊莉丝",
+      "aliases": [],
+      "cost": 2,
+      "trait_ids": [
+        "trait_186ec1a871e4",
+        "trait_456638a0294c"
+      ],
+      "role": null,
+      "availability": {
+        "type": "special",
+        "description": null,
+        "rules": []
+      },
+      "stats_by_star": {},
+      "skills": [
+        {
+          "id": "champion_8dc1da564096_skill",
+          "name": "蜘蛛形态",
+          "description": "变身为蜘蛛，并获得最大生命值，处于蜘蛛形态的攻击附带额外魔法伤害，并回复生命值。后续每次释放提供4秒内衰减的攻速。",
+          "variables": [],
+          "raw_values": null,
+          "image": null
+        }
+      ],
+      "images": {
+        "icon": {
+          "local_path": "assets/champions/champion_8dc1da564096.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918060.jpg",
+          "alt": "伊莉丝头像"
+        },
+        "splash": {
+          "local_path": "assets/champions/splash/champion_8dc1da564096.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918060.jpg",
+          "alt": "伊莉丝大图"
+        }
+      },
+      "source_ids": {},
+      "tags": [],
+      "extensions": {}
+    },
+    {
+      "id": "champion_a4d99a388ab2",
+      "name": "慎",
+      "aliases": [],
+      "cost": 2,
+      "trait_ids": [
+        "trait_84e5bd33e5c7",
+        "trait_c0e78908630c"
+      ],
+      "role": null,
+      "availability": {
+        "type": "special",
+        "description": null,
+        "rules": []
+      },
+      "stats_by_star": {},
+      "skills": [
+        {
+          "id": "champion_a4d99a388ab2_skill",
+          "name": "忍法！气合盾",
+          "description": "为自己和附近一名受伤的队友提供护盾值，持续4秒。两者接下来的3次攻击获得50%攻击速度并造成额外魔法伤害。",
+          "variables": [],
+          "raw_values": null,
+          "image": null
+        }
+      ],
+      "images": {
+        "icon": {
+          "local_path": "assets/champions/champion_a4d99a388ab2.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918098.jpg",
+          "alt": "慎头像"
+        },
+        "splash": {
+          "local_path": "assets/champions/splash/champion_a4d99a388ab2.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918098.jpg",
+          "alt": "慎大图"
+        }
+      },
+      "source_ids": {},
+      "tags": [],
+      "extensions": {}
+    },
+    {
+      "id": "champion_2385eaca81e7",
+      "name": "瑟庄妮",
+      "aliases": [],
+      "cost": 2,
+      "trait_ids": [
+        "trait_54b0eec2cdc3",
+        "trait_e6f87c6b1561"
+      ],
+      "role": null,
+      "availability": {
+        "type": "special",
+        "description": null,
+        "rules": []
+      },
+      "stats_by_star": {},
+      "skills": [
+        {
+          "id": "champion_2385eaca81e7_skill",
+          "name": "烈阳之怒",
+          "description": "获得护盾值，持续4秒。然后，在锥形范围内顺劈并沿直线打击，二者分别对命中的敌人造成魔法伤害。",
+          "variables": [],
+          "raw_values": null,
+          "image": null
+        }
+      ],
+      "images": {
+        "icon": {
+          "local_path": "assets/champions/champion_2385eaca81e7.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918113.jpg",
+          "alt": "瑟庄妮头像"
+        },
+        "splash": {
+          "local_path": "assets/champions/splash/champion_2385eaca81e7.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918113.jpg",
+          "alt": "瑟庄妮大图"
+        }
+      },
+      "source_ids": {},
+      "tags": [],
+      "extensions": {}
+    },
+    {
+      "id": "champion_c4b455faa037",
+      "name": "芸阿娜",
+      "aliases": [],
+      "cost": 2,
+      "trait_ids": [
+        "trait_017da4d74a10",
+        "trait_9c2472dd47f9"
+      ],
+      "role": null,
+      "availability": {
+        "type": "special",
+        "description": null,
+        "rules": []
+      },
+      "stats_by_star": {},
+      "skills": [
+        {
+          "id": "champion_c4b455faa037_skill",
+          "name": "灵蕴拳",
+          "description": "冲刺并向当前目标发射一颗法球，造成物理伤害并分裂，对附近的2名敌人造成物理伤害。",
+          "variables": [],
+          "raw_values": null,
+          "image": null
+        }
+      ],
+      "images": {
+        "icon": {
+          "local_path": "assets/champions/champion_c4b455faa037.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918804.jpg",
+          "alt": "芸阿娜头像"
+        },
+        "splash": {
+          "local_path": "assets/champions/splash/champion_c4b455faa037.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918804.jpg",
+          "alt": "芸阿娜大图"
+        }
+      },
+      "source_ids": {},
+      "tags": [],
+      "extensions": {}
+    },
+    {
+      "id": "champion_d43083b25965",
+      "name": "魔沼蛙",
+      "aliases": [],
+      "cost": 2,
+      "trait_ids": [
+        "trait_7a4a17e78512",
+        "trait_4956eff98d91"
+      ],
+      "role": null,
+      "availability": {
+        "type": "special",
+        "description": null,
+        "rules": []
+      },
+      "stats_by_star": {},
+      "skills": [
+        {
+          "id": "champion_d43083b25965_skill",
+          "name": "打嗝泡泡",
+          "description": "【适配者】：此技能将根据法术强度或攻击力中较高的属性而改变。\n物理：向当前目标吐出一团沉重的泡泡，在命中第一名敌人时爆炸，造成物理伤害并施加30%减速，持续3秒。1格半径范围内的敌人受到部分物理伤害。\n魔法：向当前目标吐出一团毒泡泡，在命中第一名敌人时爆炸，造成魔法伤害。目标及1格半径范围内的敌人格在6秒内持续受到魔法伤害。\n紫色增益：友军获得10%攻击力/法强加成（取决于魔沼蛙属性）。每5秒，魔沼蛙获得25%攻击力/法强加成。",
+          "variables": [],
+          "raw_values": null,
+          "image": null
+        }
+      ],
+      "images": {
+        "icon": {
+          "local_path": "assets/champions/champion_d43083b25965.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918991.jpg",
+          "alt": "魔沼蛙头像"
+        },
+        "splash": {
+          "local_path": "assets/champions/splash/champion_d43083b25965.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918991.jpg",
+          "alt": "魔沼蛙大图"
+        }
+      },
+      "source_ids": {},
+      "tags": [],
+      "extensions": {}
+    },
+    {
+      "id": "champion_710d04739bd5",
+      "name": "暗影狼",
+      "aliases": [],
+      "cost": 2,
+      "trait_ids": [
+        "trait_7a4a17e78512",
+        "trait_1ffde90c1d1a"
+      ],
+      "role": null,
+      "availability": {
+        "type": "special",
+        "description": null,
+        "rules": []
+      },
+      "stats_by_star": {},
+      "skills": [
+        {
+          "id": "champion_710d04739bd5_skill",
+          "name": "撕裂之爪",
+          "description": "跳向3格内生命值最低的敌人，造成物理伤害。接下来3次攻击造成额外物理伤害。如果这次跃击或强化攻击击杀一名敌人，则额外强化2次攻击。\n灰色增益:友军获得10%攻击速度。参与击杀时，【暗影狼】获得25%攻击速度。",
+          "variables": [],
+          "raw_values": null,
+          "image": null
+        }
+      ],
+      "images": {
+        "icon": {
+          "local_path": "assets/champions/champion_710d04739bd5.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918992.jpg",
+          "alt": "暗影狼头像"
+        },
+        "splash": {
+          "local_path": "assets/champions/splash/champion_710d04739bd5.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918992.jpg",
+          "alt": "暗影狼大图"
+        }
+      },
+      "source_ids": {},
+      "tags": [],
+      "extensions": {}
+    },
+    {
+      "id": "champion_2cf32cc3a497",
+      "name": "迅捷蟹",
+      "aliases": [],
+      "cost": 2,
+      "trait_ids": [
+        "trait_7a4a17e78512",
+        "trait_e6f87c6b1561"
+      ],
+      "role": null,
+      "availability": {
+        "type": "special",
+        "description": null,
+        "rules": []
+      },
+      "stats_by_star": {},
+      "skills": [
+        {
+          "id": "champion_2cf32cc3a497_skill",
+          "name": "这种快乐你懂吗?",
+          "description": "被动:每3次攻击用弹跳攻击，对所有相邻敌人造成物理伤害。\n主动:钻入地下，获得20%伤害减免，持续3秒，并在持续期间回复生命值。\n绿色增益:友军获得+10%治疗和护盾。当生命值降至50%时，回复30%最大生命值，冲刺穿过目标并嘲讽附近敌人。",
+          "variables": [],
+          "raw_values": null,
+          "image": null
+        }
+      ],
+      "images": {
+        "icon": {
+          "local_path": "assets/champions/champion_2cf32cc3a497.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918994.jpg",
+          "alt": "迅捷蟹头像"
+        },
+        "splash": {
+          "local_path": "assets/champions/splash/champion_2cf32cc3a497.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918994.jpg",
+          "alt": "迅捷蟹大图"
+        }
+      },
+      "source_ids": {},
+      "tags": [],
+      "extensions": {}
+    },
+    {
+      "id": "champion_fd0ce19f6c66",
+      "name": "费德提克",
+      "aliases": [],
+      "cost": 3,
+      "trait_ids": [
+        "trait_3ffbbf12219b"
+      ],
+      "role": null,
+      "availability": {
+        "type": "special",
+        "description": null,
+        "rules": []
+      },
+      "stats_by_star": {},
+      "skills": [
+        {
+          "id": "champion_fd0ce19f6c66_skill",
+          "name": "夜割",
+          "description": "在锥形范围内扫击，移除命中敌人的10魔抗并对其造成魔法伤害，回复生命值，且每命中一名敌人将额外回复。",
+          "variables": [],
+          "raw_values": null,
+          "image": null
+        }
+      ],
+      "images": {
+        "icon": {
+          "local_path": "assets/champions/champion_fd0ce19f6c66.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918009.jpg",
+          "alt": "费德提克头像"
+        },
+        "splash": {
+          "local_path": "assets/champions/splash/champion_fd0ce19f6c66.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918009.jpg",
+          "alt": "费德提克大图"
+        }
+      },
+      "source_ids": {},
+      "tags": [],
+      "extensions": {}
+    },
+    {
+      "id": "champion_fb1b844eed8a",
+      "name": "易",
+      "aliases": [],
+      "cost": 3,
+      "trait_ids": [
+        "trait_017da4d74a10",
+        "trait_4956eff98d91"
+      ],
+      "role": null,
+      "availability": {
+        "type": "special",
+        "description": null,
+        "rules": []
+      },
+      "stats_by_star": {},
+      "skills": [
+        {
+          "id": "champion_fb1b844eed8a_skill",
+          "name": "无极剑道",
+          "description": "【适配者】：此技能将根据法术强度或攻击力中较高的属性而改变。\n物理：每第三次攻击提供20%可叠加攻速的双重打击。\n魔法：每第三次攻击变为造成额外魔法伤害的双重打击，并回复相当于造成额外伤害50%的生命值。",
+          "variables": [],
+          "raw_values": null,
+          "image": null
+        }
+      ],
+      "images": {
+        "icon": {
+          "local_path": "assets/champions/champion_fb1b844eed8a.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918011.jpg",
+          "alt": "易头像"
+        },
+        "splash": {
+          "local_path": "assets/champions/splash/champion_fb1b844eed8a.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918011.jpg",
+          "alt": "易大图"
+        }
+      },
+      "source_ids": {},
+      "tags": [],
+      "extensions": {}
+    },
+    {
+      "id": "champion_7e2b4f2cdcee",
+      "name": "崔丝塔娜",
+      "aliases": [],
+      "cost": 3,
+      "trait_ids": [
+        "trait_4f3d05de58cb",
+        "trait_5fb781d266ec",
+        "trait_2f3a36d0e244"
+      ],
+      "role": null,
+      "availability": {
+        "type": "special",
+        "description": null,
+        "rules": []
+      },
+      "stats_by_star": {},
+      "skills": [
+        {
+          "id": "champion_7e2b4f2cdcee_skill",
+          "name": "爆炸火花",
+          "description": "向目标投掷一个炸药包，持续4秒。生效期间，获得无限射程和高额攻击速度。持续时间结束后，炸药包爆炸并在2格内的所有敌人间分摊伤害，造成物理伤害；施放期间每次攻击提供额外物理伤害。\n如果携带炸药包的敌人阵亡，炸药包会转移至崔丝塔娜的新目标。",
+          "variables": [],
+          "raw_values": null,
+          "image": null
+        }
+      ],
+      "images": {
+        "icon": {
+          "local_path": "assets/champions/champion_7e2b4f2cdcee.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918018.jpg",
+          "alt": "崔丝塔娜头像"
+        },
+        "splash": {
+          "local_path": "assets/champions/splash/champion_7e2b4f2cdcee.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918018.jpg",
+          "alt": "崔丝塔娜大图"
+        }
+      },
+      "source_ids": {},
+      "tags": [],
+      "extensions": {}
+    },
+    {
+      "id": "champion_c6f2f3e0cb94",
+      "name": "拉莫斯",
+      "aliases": [],
+      "cost": 3,
+      "trait_ids": [
+        "trait_5fb781d266ec",
+        "trait_c0e78908630c"
+      ],
+      "role": null,
+      "availability": {
+        "type": "special",
+        "description": null,
+        "rules": []
+      },
+      "stats_by_star": {},
+      "skills": [
+        {
+          "id": "champion_c6f2f3e0cb94_skill",
+          "name": "尖刺防御",
+          "description": "强迫附近的敌人攻击该卒子。获得持续4秒的护盾值和护甲与魔抗。\n护盾被打破时，对2格内的敌人造成物理伤害。",
+          "variables": [],
+          "raw_values": null,
+          "image": null
+        }
+      ],
+      "images": {
+        "icon": {
+          "local_path": "assets/champions/champion_c6f2f3e0cb94.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918033.jpg",
+          "alt": "拉莫斯头像"
+        },
+        "splash": {
+          "local_path": "assets/champions/splash/champion_c6f2f3e0cb94.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918033.jpg",
+          "alt": "拉莫斯大图"
+        }
+      },
+      "source_ids": {},
+      "tags": [],
+      "extensions": {}
+    },
+    {
+      "id": "champion_f58054236f1f",
+      "name": "卡西奥佩娅",
+      "aliases": [],
+      "cost": 3,
+      "trait_ids": [
+        "trait_186ec1a871e4",
+        "trait_ba577210e69d"
+      ],
+      "role": null,
+      "availability": {
+        "type": "special",
+        "description": null,
+        "rules": []
+      },
+      "stats_by_star": {},
+      "skills": [
+        {
+          "id": "champion_f58054236f1f_skill",
+          "name": "瘟毒爆炸",
+          "description": "向距离最近未中毒的敌人投毒，15秒内造成魔法伤害。",
+          "variables": [],
+          "raw_values": null,
+          "image": null
+        }
+      ],
+      "images": {
+        "icon": {
+          "local_path": "assets/champions/champion_f58054236f1f.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918069.jpg",
+          "alt": "卡西奥佩娅头像"
+        },
+        "splash": {
+          "local_path": "assets/champions/splash/champion_f58054236f1f.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918069.jpg",
+          "alt": "卡西奥佩娅大图"
+        }
+      },
+      "source_ids": {},
+      "tags": [],
+      "extensions": {}
+    },
+    {
+      "id": "champion_4e18ee711f3a",
+      "name": "克格莫",
+      "aliases": [],
+      "cost": 3,
+      "trait_ids": [
+        "trait_7e3fe77a22db",
+        "trait_4956eff98d91",
+        "trait_d8cefba1320f"
+      ],
+      "role": null,
+      "availability": {
+        "type": "special",
+        "description": null,
+        "rules": []
+      },
+      "stats_by_star": {},
+      "skills": [
+        {
+          "id": "champion_4e18ee711f3a_skill",
+          "name": "生化喷嚏",
+          "description": "【适配者】：此技能将根据法术强度或攻击力中较高的属性而改变。\n物理：向两名距离最近的敌人喷射酸液，造成物理伤害。\n毒：对生命值低于50%的敌人造成40%额外伤害。\n魔法：向两名距离最近的敌人喷射酸液，造成魔法伤害。在3秒间持续造成相当于其伤害20%的额外伤害。",
+          "variables": [],
+          "raw_values": null,
+          "image": null
+        }
+      ],
+      "images": {
+        "icon": {
+          "local_path": "assets/champions/champion_4e18ee711f3a.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918096.jpg",
+          "alt": "克格莫头像"
+        },
+        "splash": {
+          "local_path": "assets/champions/splash/champion_4e18ee711f3a.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918096.jpg",
+          "alt": "克格莫大图"
+        }
+      },
+      "source_ids": {},
+      "tags": [],
+      "extensions": {}
+    },
+    {
+      "id": "champion_118dde87c7b4",
+      "name": "雷恩加尔",
+      "aliases": [],
+      "cost": 3,
+      "trait_ids": [
+        "trait_3ff0ce83497f"
+      ],
+      "role": null,
+      "availability": {
+        "type": "special",
+        "description": null,
+        "rules": []
+      },
+      "stats_by_star": {},
+      "skills": [
+        {
+          "id": "champion_118dde87c7b4_skill",
+          "name": "残忍无情",
+          "description": "跳向3格内生命值最低的敌人并刺击，造成物理伤害。然后回复相当于其已损失生命值10%的生命值。",
+          "variables": [],
+          "raw_values": null,
+          "image": null
+        }
+      ],
+      "images": {
+        "icon": {
+          "local_path": "assets/champions/champion_118dde87c7b4.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918107.jpg",
+          "alt": "雷恩加尔头像"
+        },
+        "splash": {
+          "local_path": "assets/champions/splash/champion_118dde87c7b4.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918107.jpg",
+          "alt": "雷恩加尔大图"
+        }
+      },
+      "source_ids": {},
+      "tags": [],
+      "extensions": {}
+    },
+    {
+      "id": "champion_6912478984ed",
+      "name": "赫卡里姆",
+      "aliases": [],
+      "cost": 3,
+      "trait_ids": [
+        "trait_1654b9778620",
+        "trait_456638a0294c"
+      ],
+      "role": null,
+      "availability": {
+        "type": "special",
+        "description": null,
+        "rules": []
+      },
+      "stats_by_star": {},
+      "skills": [
+        {
+          "id": "champion_6912478984ed_skill",
+          "name": "暗影冲击",
+          "description": "被动：从所有来源获得的护甲和魔抗额外提升30%。\n主动：召唤暗影骑士向距离最近的3名敌人冲锋，造成魔法伤害和1.5秒眩晕。",
+          "variables": [],
+          "raw_values": null,
+          "image": null
+        }
+      ],
+      "images": {
+        "icon": {
+          "local_path": "assets/champions/champion_6912478984ed.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918120.jpg",
+          "alt": "赫卡里姆头像"
+        },
+        "splash": {
+          "local_path": "assets/champions/splash/champion_6912478984ed.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918120.jpg",
+          "alt": "赫卡里姆大图"
+        }
+      },
+      "source_ids": {},
+      "tags": [],
+      "extensions": {}
+    },
+    {
+      "id": "champion_68d532e62a16",
+      "name": "卡兹克",
+      "aliases": [],
+      "cost": 3,
+      "trait_ids": [
+        "trait_3ff0ce83497f"
+      ],
+      "role": null,
+      "availability": {
+        "type": "special",
+        "description": null,
+        "rules": []
+      },
+      "stats_by_star": {},
+      "skills": [
+        {
+          "id": "champion_68d532e62a16_skill",
+          "name": "品尝恐惧",
+          "description": "跃向2格内生命值最低的敌人，对其造成魔法伤害。如果该目标在邻格没有友军，则造成50%额外伤害。",
+          "variables": [],
+          "raw_values": null,
+          "image": null
+        }
+      ],
+      "images": {
+        "icon": {
+          "local_path": "assets/champions/champion_68d532e62a16.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918121.jpg",
+          "alt": "卡兹克头像"
+        },
+        "splash": {
+          "local_path": "assets/champions/splash/champion_68d532e62a16.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918121.jpg",
+          "alt": "卡兹克大图"
+        }
+      },
+      "source_ids": {},
+      "tags": [],
+      "extensions": {}
+    },
+    {
+      "id": "champion_ce86eaee2d4d",
+      "name": "黛安娜",
+      "aliases": [],
+      "cost": 3,
+      "trait_ids": [
+        "trait_d662a1c8bc9c",
+        "trait_1ffde90c1d1a",
+        "trait_456638a0294c"
+      ],
+      "role": null,
+      "availability": {
+        "type": "special",
+        "description": null,
+        "rules": []
+      },
+      "stats_by_star": {},
+      "skills": [
+        {
+          "id": "champion_ce86eaee2d4d_skill",
+          "name": "苍白之瀑",
+          "description": "向距离最近的3名敌人发射一个月光法球，造成魔法伤害。随后法球返回，为黛安娜提供持续3秒的护盾，护盾值相当于它们对目标所造成伤害的50%。",
+          "variables": [],
+          "raw_values": null,
+          "image": null
+        }
+      ],
+      "images": {
+        "icon": {
+          "local_path": "assets/champions/champion_ce86eaee2d4d.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918131.jpg",
+          "alt": "黛安娜头像"
+        },
+        "splash": {
+          "local_path": "assets/champions/splash/champion_ce86eaee2d4d.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918131.jpg",
+          "alt": "黛安娜大图"
+        }
+      },
+      "source_ids": {},
+      "tags": [],
+      "extensions": {}
+    },
+    {
+      "id": "champion_027121d997d5",
+      "name": "蔚",
+      "aliases": [],
+      "cost": 3,
+      "trait_ids": [
+        "trait_be5e3401e827",
+        "trait_c0e78908630c",
+        "trait_e6f87c6b1561"
+      ],
+      "role": null,
+      "availability": {
+        "type": "special",
+        "description": null,
+        "rules": []
+      },
+      "stats_by_star": {},
+      "skills": [
+        {
+          "id": "champion_027121d997d5_skill",
+          "name": "狂怒之拳",
+          "description": "被动:攻击时，回复生命值，在蔚的技能激活期间翻倍。\n主动:发出一声震天怒吼，回复生命值，然后获得50%攻击速度、15%伤害减免和控制免疫效果，持续6秒。",
+          "variables": [],
+          "raw_values": null,
+          "image": null
+        }
+      ],
+      "images": {
+        "icon": {
+          "local_path": "assets/champions/champion_027121d997d5.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918254.jpg",
+          "alt": "蔚头像"
+        },
+        "splash": {
+          "local_path": "assets/champions/splash/champion_027121d997d5.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918254.jpg",
+          "alt": "蔚大图"
+        }
+      },
+      "source_ids": {},
+      "tags": [],
+      "extensions": {}
+    },
+    {
+      "id": "champion_013dacfaf1ec",
+      "name": "阿兹尔",
+      "aliases": [],
+      "cost": 3,
+      "trait_ids": [
+        "trait_ab0bcb11b7c7",
+        "trait_9c2472dd47f9",
+        "trait_1a9499630b2d"
+      ],
+      "role": null,
+      "availability": {
+        "type": "special",
+        "description": null,
+        "rules": []
+      },
+      "stats_by_star": {},
+      "skills": [
+        {
+          "id": "champion_013dacfaf1ec_skill",
+          "name": "狂沙猛攻",
+          "description": "召唤两名士兵，持续6秒；当阿兹尔发动攻击时，这两名士兵会对其目标发起攻击，每名士兵造成魔法伤害。",
+          "variables": [],
+          "raw_values": null,
+          "image": null
+        }
+      ],
+      "images": {
+        "icon": {
+          "local_path": "assets/champions/champion_013dacfaf1ec.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918268.jpg",
+          "alt": "阿兹尔头像"
+        },
+        "splash": {
+          "local_path": "assets/champions/splash/champion_013dacfaf1ec.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918268.jpg",
+          "alt": "阿兹尔大图"
+        }
+      },
+      "source_ids": {},
+      "tags": [],
+      "extensions": {}
+    },
+    {
+      "id": "champion_f25894d5822f",
+      "name": "石甲虫",
+      "aliases": [],
+      "cost": 3,
+      "trait_ids": [
+        "trait_7a4a17e78512",
+        "trait_7747455acbfc"
+      ],
+      "role": null,
+      "availability": {
+        "type": "special",
+        "description": null,
+        "rules": []
+      },
+      "stats_by_star": {},
+      "skills": [
+        {
+          "id": "champion_f25894d5822f_skill",
+          "name": "岩之摇滚",
+          "description": "被动:阵亡时，分裂成两个【小型石甲虫】，每个拥有12%+100/150/200生命值。\n主动:获得最大生命值，随后滚向目标，造成伤害并将其击退1格，同时将其眩晕1.5秒。\n米色增益:己方卒子获得10%最大生命值。",
+          "variables": [],
+          "raw_values": null,
+          "image": null
+        }
+      ],
+      "images": {
+        "icon": {
+          "local_path": "assets/champions/champion_f25894d5822f.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918993.jpg",
+          "alt": "石甲虫头像"
+        },
+        "splash": {
+          "local_path": "assets/champions/splash/champion_f25894d5822f.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918993.jpg",
+          "alt": "石甲虫大图"
+        }
+      },
+      "source_ids": {},
+      "tags": [],
+      "extensions": {}
+    },
+    {
+      "id": "champion_688a91c9eac8",
+      "name": "锋喙鸟",
+      "aliases": [],
+      "cost": 3,
+      "trait_ids": [
+        "trait_7a4a17e78512",
+        "trait_1a9499630b2d",
+        "trait_c5402e9d5450"
+      ],
+      "role": null,
+      "availability": {
+        "type": "special",
+        "description": null,
+        "rules": []
+      },
+      "stats_by_star": {},
+      "skills": [
+        {
+          "id": "champion_688a91c9eac8_skill",
+          "name": "集合",
+          "description": "召唤四支小锋喙鸟协同5次攻击，造成物理伤害。\n橙色增益：对敌人造成物理伤害会使其护甲减少2点。每因该效果使敌人护甲减少10点，就会额外造成物理伤害。",
+          "variables": [],
+          "raw_values": null,
+          "image": null
+        }
+      ],
+      "images": {
+        "icon": {
+          "local_path": "assets/champions/champion_688a91c9eac8.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918995.jpg",
+          "alt": "锋喙鸟头像"
+        },
+        "splash": {
+          "local_path": "assets/champions/splash/champion_688a91c9eac8.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918995.jpg",
+          "alt": "锋喙鸟大图"
+        }
+      },
+      "source_ids": {},
+      "tags": [],
+      "extensions": {}
+    },
+    {
+      "id": "champion_7d285e9304bb",
+      "name": "希维尔",
+      "aliases": [],
+      "cost": 4,
+      "trait_ids": [
+        "trait_be5e3401e827",
+        "trait_2f3a36d0e244"
+      ],
+      "role": null,
+      "availability": {
+        "type": "special",
+        "description": null,
+        "rules": []
+      },
+      "stats_by_star": {},
+      "skills": [
+        {
+          "id": "champion_7d285e9304bb_skill",
+          "name": "回旋之刃",
+          "description": "投掷一把巨大的十字刃，它会对当前敌人造成物理伤害，并在附近敌人之间弹跳4次，每次弹跳造成物理伤害。当这个技能击杀了一个敌人，它会额外弹跳一次。",
+          "variables": [],
+          "raw_values": null,
+          "image": null
+        }
+      ],
+      "images": {
+        "icon": {
+          "local_path": "assets/champions/champion_7d285e9304bb.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918015.jpg",
+          "alt": "希维尔头像"
+        },
+        "splash": {
+          "local_path": "assets/champions/splash/champion_7d285e9304bb.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918015.jpg",
+          "alt": "希维尔大图"
+        }
+      },
+      "source_ids": {},
+      "tags": [],
+      "extensions": {}
+    },
+    {
+      "id": "champion_b819bdafac8b",
+      "name": "索拉卡",
+      "aliases": [],
+      "cost": 4,
+      "trait_ids": [
+        "trait_3ffbbf12219b"
+      ],
+      "role": null,
+      "availability": {
+        "type": "special",
+        "description": null,
+        "rules": []
+      },
+      "stats_by_star": {},
+      "skills": [
+        {
+          "id": "champion_b819bdafac8b_skill",
+          "name": "流星坠落",
+          "description": "召唤一颗星星落在当前目标身上，造成魔法伤害。如果此前曾有一颗星星落在其上，则额外召唤3颗星星，每颗造成魔法伤害。",
+          "variables": [],
+          "raw_values": null,
+          "image": null
+        }
+      ],
+      "images": {
+        "icon": {
+          "local_path": "assets/champions/champion_b819bdafac8b.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918016.jpg",
+          "alt": "索拉卡头像"
+        },
+        "splash": {
+          "local_path": "assets/champions/splash/champion_b819bdafac8b.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918016.jpg",
+          "alt": "索拉卡大图"
+        }
+      },
+      "source_ids": {},
+      "tags": [],
+      "extensions": {}
+    },
+    {
+      "id": "champion_e878377899b1",
+      "name": "莫甘娜",
+      "aliases": [],
+      "cost": 4,
+      "trait_ids": [
+        "trait_186ec1a871e4",
+        "trait_d8cefba1320f"
+      ],
+      "role": null,
+      "availability": {
+        "type": "special",
+        "description": null,
+        "rules": []
+      },
+      "stats_by_star": {},
+      "skills": [
+        {
+          "id": "champion_e878377899b1_skill",
+          "name": "枯萎诅咒",
+          "description": "向附近敌人发射3个黑暗语言，造成魔法伤害并诅咒他们4秒。在此期间内，召唤一个2格大小的枯萎区域，并获得20%全能吸血。每秒该区域会对其中的敌人造成伤害，他们身上每带有个诅咒便会受到伤害提升。",
+          "variables": [],
+          "raw_values": null,
+          "image": null
+        }
+      ],
+      "images": {
+        "icon": {
+          "local_path": "assets/champions/champion_e878377899b1.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918025.jpg",
+          "alt": "莫甘娜头像"
+        },
+        "splash": {
+          "local_path": "assets/champions/splash/champion_e878377899b1.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918025.jpg",
+          "alt": "莫甘娜大图"
+        }
+      },
+      "source_ids": {},
+      "tags": [],
+      "extensions": {}
+    },
+    {
+      "id": "champion_615d0e24d10b",
+      "name": "阿木木",
+      "aliases": [],
+      "cost": 4,
+      "trait_ids": [
+        "trait_84e5bd33e5c7",
+        "trait_e6f87c6b1561"
+      ],
+      "role": null,
+      "availability": {
+        "type": "special",
+        "description": null,
+        "rules": []
+      },
+      "stats_by_star": {},
+      "skills": [
+        {
+          "id": "champion_615d0e24d10b_skill",
+          "name": "阿木木的愤怒",
+          "description": "被动：每1秒回复生命值并对1格内的敌人们造成魔法伤害。\n主动：对2格内的敌人造成魔法伤害并眩晕他们1.25秒，如果目标处于灼烧状态则延长至1.8秒。",
+          "variables": [],
+          "raw_values": null,
+          "image": null
+        }
+      ],
+      "images": {
+        "icon": {
+          "local_path": "assets/champions/champion_615d0e24d10b.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918032.jpg",
+          "alt": "阿木木头像"
+        },
+        "splash": {
+          "local_path": "assets/champions/splash/champion_615d0e24d10b.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918032.jpg",
+          "alt": "阿木木大图"
+        }
+      },
+      "source_ids": {},
+      "tags": [],
+      "extensions": {}
+    },
+    {
+      "id": "champion_f01a0ac710fe",
+      "name": "墨菲特",
+      "aliases": [],
+      "cost": 4,
+      "trait_ids": [
+        "trait_ab0bcb11b7c7",
+        "trait_5de8ddde9d4a"
+      ],
+      "role": null,
+      "availability": {
+        "type": "special",
+        "description": null,
+        "rules": []
+      },
+      "stats_by_star": {},
+      "skills": [
+        {
+          "id": "champion_f01a0ac710fe_skill",
+          "name": "石化护盾",
+          "description": "获得护盾值，持续4秒并进入石化状态。护盾被打破时释放一道黑暗能量波，对2格内的敌人造成魔法伤害。",
+          "variables": [],
+          "raw_values": null,
+          "image": null
+        }
+      ],
+      "images": {
+        "icon": {
+          "local_path": "assets/champions/champion_f01a0ac710fe.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918054.jpg",
+          "alt": "墨菲特头像"
+        },
+        "splash": {
+          "local_path": "assets/champions/splash/champion_f01a0ac710fe.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918054.jpg",
+          "alt": "墨菲特大图"
+        }
+      },
+      "source_ids": {},
+      "tags": [],
+      "extensions": {}
+    },
+    {
+      "id": "champion_89b363489076",
+      "name": "奈德丽",
+      "aliases": [],
+      "cost": 4,
+      "trait_ids": [
+        "trait_da68a17eb83c",
+        "trait_4956eff98d91"
+      ],
+      "role": null,
+      "availability": {
+        "type": "special",
+        "description": null,
+        "rules": []
+      },
+      "stats_by_star": {},
+      "skills": [
+        {
+          "id": "champion_89b363489076_skill",
+          "name": "标枪投掷/暗行者之跃",
+          "description": "【适配者】：奈德丽可在人类与美洲狮形态间自由切换，其技能将根据法术强度或攻击力中较高的属性而改变。\n物理：美洲狮形态：跃向4格内相距最远且未被追踪的敌人，并进行抓挠挥击，造成物理伤害并追踪该敌人。重复该动作，直到所有被追踪的目标都受到伤害。\n魔法：人类形态：设下陷阱阻挡当前目标和相距最远的敌人，造成魔法伤害并对其他敌人造成魔法伤害。被追踪的敌人每秒受到魔法伤害。如果场上有敌人处于被【捕猎】状态，则转而向生命值最低的被【追踪】敌人投掷标枪，造成魔法伤害，外加基于其被追踪时长而递增的额外魔法伤害。",
+          "variables": [],
+          "raw_values": null,
+          "image": null
+        }
+      ],
+      "images": {
+        "icon": {
+          "local_path": "assets/champions/champion_89b363489076.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918076.jpg",
+          "alt": "奈德丽头像"
+        },
+        "splash": {
+          "local_path": "assets/champions/splash/champion_89b363489076.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918076.jpg",
+          "alt": "奈德丽大图"
+        }
+      },
+      "source_ids": {},
+      "tags": [],
+      "extensions": {}
+    },
+    {
+      "id": "champion_b0a4168a301b",
+      "name": "伊泽瑞尔",
+      "aliases": [],
+      "cost": 4,
+      "trait_ids": [
+        "trait_1654b9778620",
+        "trait_9c2472dd47f9"
+      ],
+      "role": null,
+      "availability": {
+        "type": "special",
+        "description": null,
+        "rules": []
+      },
+      "stats_by_star": {},
+      "skills": [
+        {
+          "id": "champion_b0a4168a301b_skill",
+          "name": "自然之怒",
+          "description": "闪烁远离当前目标，对其造成物理伤害，并获得攻击速度。\n每第五次释放时会消耗来自【自然之怒】的攻击速度，并释放一次冲击波，对一条直线上的所有敌人造成物理伤害。",
+          "variables": [],
+          "raw_values": null,
+          "image": null
+        }
+      ],
+      "images": {
+        "icon": {
+          "local_path": "assets/champions/champion_b0a4168a301b.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918081.jpg",
+          "alt": "伊泽瑞尔头像"
+        },
+        "splash": {
+          "local_path": "assets/champions/splash/champion_b0a4168a301b.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918081.jpg",
+          "alt": "伊泽瑞尔大图"
+        }
+      },
+      "source_ids": {},
+      "tags": [],
+      "extensions": {}
+    },
+    {
+      "id": "champion_760371e99a3b",
+      "name": "阿狸",
+      "aliases": [],
+      "cost": 4,
+      "trait_ids": [
+        "trait_017da4d74a10",
+        "trait_ba577210e69d"
+      ],
+      "role": null,
+      "availability": {
+        "type": "special",
+        "description": null,
+        "rules": []
+      },
+      "stats_by_star": {},
+      "skills": [
+        {
+          "id": "champion_760371e99a3b_skill",
+          "name": "灵魄炸弹",
+          "description": "在1.75秒内将能量注入灵魄炸弹，随后将其投向一大群敌人。对3格半径内的敌人造成魔法伤害，与中心的距离每增加1格，伤害衰减40%(最低为20%)。",
+          "variables": [],
+          "raw_values": null,
+          "image": null
+        }
+      ],
+      "images": {
+        "icon": {
+          "local_path": "assets/champions/champion_760371e99a3b.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918103.jpg",
+          "alt": "阿狸头像"
+        },
+        "splash": {
+          "local_path": "assets/champions/splash/champion_760371e99a3b.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918103.jpg",
+          "alt": "阿狸大图"
+        }
+      },
+      "source_ids": {},
+      "tags": [],
+      "extensions": {}
+    },
+    {
+      "id": "champion_e4e86c94bb67",
+      "name": "婕拉",
+      "aliases": [],
+      "cost": 4,
+      "trait_ids": [
+        "trait_1a9499630b2d"
+      ],
+      "role": null,
+      "availability": {
+        "type": "special",
+        "description": null,
+        "rules": []
+      },
+      "stats_by_star": {},
+      "skills": [
+        {
+          "id": "champion_e4e86c94bb67_skill",
+          "name": "狂野生长",
+          "description": "在战场周围生成2株植物，它们会攻击最近的敌人，持续12秒，它们每秒造成魔法伤害。",
+          "variables": [],
+          "raw_values": null,
+          "image": null
+        }
+      ],
+      "images": {
+        "icon": {
+          "local_path": "assets/champions/champion_e4e86c94bb67.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918143.jpg",
+          "alt": "婕拉头像"
+        },
+        "splash": {
+          "local_path": "assets/champions/splash/champion_e4e86c94bb67.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918143.jpg",
+          "alt": "婕拉大图"
+        }
+      },
+      "source_ids": {},
+      "tags": [],
+      "extensions": {}
+    },
+    {
+      "id": "champion_6b57883ebbc0",
+      "name": "厄斐琉斯",
+      "aliases": [],
+      "cost": 4,
+      "trait_ids": [
+        "trait_d662a1c8bc9c",
+        "trait_c5402e9d5450"
+      ],
+      "role": null,
+      "availability": {
+        "type": "special",
+        "description": null,
+        "rules": []
+      },
+      "stats_by_star": {},
+      "skills": [
+        {
+          "id": "champion_6b57883ebbc0_skill",
+          "name": "月夜侵袭",
+          "description": "装备断魄，并在2秒内对目标连续扫击数次，每次造成附带敌方最大生命值1%的物理伤害。攻势结束后，发射一道月光，造成物理伤害，在2格半径内的所有敌人间分摊。",
+          "variables": [],
+          "raw_values": null,
+          "image": null
+        }
+      ],
+      "images": {
+        "icon": {
+          "local_path": "assets/champions/champion_6b57883ebbc0.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918523.jpg",
+          "alt": "厄斐琉斯头像"
+        },
+        "splash": {
+          "local_path": "assets/champions/splash/champion_6b57883ebbc0.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918523.jpg",
+          "alt": "厄斐琉斯大图"
+        }
+      },
+      "source_ids": {},
+      "tags": [],
+      "extensions": {}
+    },
+    {
+      "id": "champion_52d45525fde4",
+      "name": "瑟提",
+      "aliases": [],
+      "cost": 4,
+      "trait_ids": [
+        "trait_017da4d74a10",
+        "trait_7747455acbfc"
+      ],
+      "role": null,
+      "availability": {
+        "type": "special",
+        "description": null,
+        "rules": []
+      },
+      "stats_by_star": {},
+      "skills": [
+        {
+          "id": "champion_52d45525fde4_skill",
+          "name": "蓄意轰拳",
+          "description": "被动:每场战斗中首次跌至最大生命值的25%以下时，获得100法力值。\n主动:蓄力打出一记重拳，快速回复生命值，随后在大型锥形范围内造成物理伤害。",
+          "variables": [],
+          "raw_values": null,
+          "image": null
+        }
+      ],
+      "images": {
+        "icon": {
+          "local_path": "assets/champions/champion_52d45525fde4.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918875.jpg",
+          "alt": "瑟提头像"
+        },
+        "splash": {
+          "local_path": "assets/champions/splash/champion_52d45525fde4.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918875.jpg",
+          "alt": "瑟提大图"
+        }
+      },
+      "source_ids": {},
+      "tags": [],
+      "extensions": {}
+    },
+    {
+      "id": "champion_5be2f809bb25",
+      "name": "莉莉娅",
+      "aliases": [],
+      "cost": 4,
+      "trait_ids": [
+        "trait_4f3d05de58cb",
+        "trait_c0e78908630c"
+      ],
+      "role": null,
+      "availability": {
+        "type": "special",
+        "description": null,
+        "rules": []
+      },
+      "stats_by_star": {},
+      "skills": [
+        {
+          "id": "champion_5be2f809bb25_skill",
+          "name": "夜阑谣",
+          "description": "先造成部分最大生命值伤害，随后施加魔法伤害，并使最近的5个敌人进入睡眠状态，持续时间分别为2/2/8秒。\n若沉睡敌人受到超过1000点伤害，便会苏醒并额外遭受大量魔法伤害。",
+          "variables": [],
+          "raw_values": null,
+          "image": null
+        }
+      ],
+      "images": {
+        "icon": {
+          "local_path": "assets/champions/champion_5be2f809bb25.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918876.jpg",
+          "alt": "莉莉娅头像"
+        },
+        "splash": {
+          "local_path": "assets/champions/splash/champion_5be2f809bb25.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918876.jpg",
+          "alt": "莉莉娅大图"
+        }
+      },
+      "source_ids": {},
+      "tags": [],
+      "extensions": {}
+    },
+    {
+      "id": "champion_fcae8cf04142",
+      "name": "绯红印记树怪",
+      "aliases": [],
+      "cost": 4,
+      "trait_ids": [
+        "trait_7a4a17e78512",
+        "trait_1ffde90c1d1a"
+      ],
+      "role": null,
+      "availability": {
+        "type": "special",
+        "description": null,
+        "rules": []
+      },
+      "stats_by_star": {},
+      "skills": [
+        {
+          "id": "champion_fcae8cf04142_skill",
+          "name": "猩红之怒",
+          "description": "进入烈焰狂暴状态，持续到战斗环节结束。获得控制免疫、80%攻击力，并无视30%护甲。\n在改变目标时，跃向该目标，造成物理伤害。\n红色增益：【印记树怪】的攻击会灼烧敌人。己方卒子对被施加【灼烧】的敌人造成10%额外伤害，并且所受来自这些敌人的伤害降低10%。",
+          "variables": [],
+          "raw_values": null,
+          "image": null
+        }
+      ],
+      "images": {
+        "icon": {
+          "local_path": "assets/champions/champion_fcae8cf04142.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918996.jpg",
+          "alt": "绯红印记树怪头像"
+        },
+        "splash": {
+          "local_path": "assets/champions/splash/champion_fcae8cf04142.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918996.jpg",
+          "alt": "绯红印记树怪大图"
+        }
+      },
+      "source_ids": {},
+      "tags": [],
+      "extensions": {}
+    },
+    {
+      "id": "champion_215525ebecb1",
+      "name": "苍蓝雕纹魔像",
+      "aliases": [],
+      "cost": 4,
+      "trait_ids": [
+        "trait_7a4a17e78512",
+        "trait_456638a0294c",
+        "trait_d8cefba1320f"
+      ],
+      "role": null,
+      "availability": {
+        "type": "special",
+        "description": null,
+        "rules": []
+      },
+      "stats_by_star": {},
+      "skills": [
+        {
+          "id": "champion_215525ebecb1_skill",
+          "name": "蔚蓝冲击波",
+          "description": "获得一个持续4秒的护盾。猛击地面，向敌人最密集的方向发出一道裂隙。被命中的敌人会被短暂击飞，受到魔法伤害并受到20%破法。\n破法:提升下一次技能施放的法力消耗。\n蓝色增益:【魔像】获得5法力回复，持续至其首次施放技能。每次施放技能时，友军获得2法力回复。",
+          "variables": [],
+          "raw_values": null,
+          "image": null
+        }
+      ],
+      "images": {
+        "icon": {
+          "local_path": "assets/champions/champion_215525ebecb1.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918997.jpg",
+          "alt": "苍蓝雕纹魔像头像"
+        },
+        "splash": {
+          "local_path": "assets/champions/splash/champion_215525ebecb1.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918997.jpg",
+          "alt": "苍蓝雕纹魔像大图"
+        }
+      },
+      "source_ids": {},
+      "tags": [],
+      "extensions": {}
+    },
+    {
+      "id": "champion_d446245a7388",
+      "name": "艾希",
+      "aliases": [],
+      "cost": 5,
+      "trait_ids": [
+        "trait_017da4d74a10",
+        "trait_2f3a36d0e244"
+      ],
+      "role": null,
+      "availability": {
+        "type": "special",
+        "description": null,
+        "rules": []
+      },
+      "stats_by_star": {},
+      "skills": [
+        {
+          "id": "champion_d446245a7388_skill",
+          "name": "灵魂裂隙",
+          "description": "朝距离最远的敌人射出一支箭矢，对沿途经过的每个敌人造成物理伤害。箭矢每穿过一名敌人，箭矢的伤害便降低25%(最低伤害为40%)。这支箭矢会撕开一道持续3秒的裂隙，对其中的敌人每秒造成物理伤害，并施加20%冰冷效果。\n如果裂缝中仅存一名敌人，则会将其直接处决并关闭裂缝。\n冰冷:降低攻击速度",
+          "variables": [],
+          "raw_values": null,
+          "image": null
+        }
+      ],
+      "images": {
+        "icon": {
+          "local_path": "assets/champions/champion_d446245a7388.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918022.jpg",
+          "alt": "艾希头像"
+        },
+        "splash": {
+          "local_path": "assets/champions/splash/champion_d446245a7388.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918022.jpg",
+          "alt": "艾希大图"
+        }
+      },
+      "source_ids": {},
+      "tags": [],
+      "extensions": {}
+    },
+    {
+      "id": "champion_0300aa932aec",
+      "name": "塔里克",
+      "aliases": [],
+      "cost": 5,
+      "trait_ids": [
+        "trait_a6dee4da01b9",
+        "trait_456638a0294c"
+      ],
+      "role": null,
+      "availability": {
+        "type": "special",
+        "description": null,
+        "rules": []
+      },
+      "stats_by_star": {},
+      "skills": [
+        {
+          "id": "champion_0300aa932aec_skill",
+          "name": "翡翠光耀",
+          "description": "被动:塔里克与其配对友军在生命值首次降至50%以下时，双方均会释放翡翠能量，为3格内的友军提供护盾值，持续4秒。\n主动:回复生命值，塔里克及其配对友军在接下来的2次攻击中获得额外魔法伤害。",
+          "variables": [],
+          "raw_values": null,
+          "image": null
+        }
+      ],
+      "images": {
+        "icon": {
+          "local_path": "assets/champions/champion_0300aa932aec.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918044.jpg",
+          "alt": "塔里克头像"
+        },
+        "splash": {
+          "local_path": "assets/champions/splash/champion_0300aa932aec.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918044.jpg",
+          "alt": "塔里克大图"
+        }
+      },
+      "source_ids": {},
+      "tags": [],
+      "extensions": {}
+    },
+    {
+      "id": "champion_d57b5468107b",
+      "name": "茂凯",
+      "aliases": [],
+      "cost": 5,
+      "trait_ids": [
+        "trait_4890101893ae",
+        "trait_e6f87c6b1561"
+      ],
+      "role": null,
+      "availability": {
+        "type": "special",
+        "description": null,
+        "rules": []
+      },
+      "stats_by_star": {},
+      "skills": [
+        {
+          "id": "champion_d57b5468107b_skill",
+          "name": "播种",
+          "description": "被动：每格挡1000伤害后，一株树苗会跳向附近的一名敌人并造成魔法伤害。阵亡时会跳出3个树苗。\n主动：对目标造成魔法伤害并回复200+20%已损失生命值。",
+          "variables": [],
+          "raw_values": null,
+          "image": null
+        }
+      ],
+      "images": {
+        "icon": {
+          "local_path": "assets/champions/champion_d57b5468107b.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918057.jpg",
+          "alt": "茂凯头像"
+        },
+        "splash": {
+          "local_path": "assets/champions/splash/champion_d57b5468107b.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918057.jpg",
+          "alt": "茂凯大图"
+        }
+      },
+      "source_ids": {},
+      "tags": [],
+      "extensions": {}
+    },
+    {
+      "id": "champion_e8bd17049f0b",
+      "name": "凯南",
+      "aliases": [],
+      "cost": 5,
+      "trait_ids": [
+        "trait_84e5bd33e5c7",
+        "trait_9c2472dd47f9"
+      ],
+      "role": null,
+      "availability": {
+        "type": "special",
+        "description": null,
+        "rules": []
+      },
+      "stats_by_star": {},
+      "skills": [
+        {
+          "id": "champion_e8bd17049f0b_skill",
+          "name": "火焰风暴",
+          "description": "蓄力，每有一名被灼烧的敌人便获得法术强度。随后冲过附近的一群敌人，对途经的敌人造成魔法伤害。冲刺后，获得护盾值，并释放一场2格大小的火焰风暴，在2秒内造成大量魔法伤害。",
+          "variables": [],
+          "raw_values": null,
+          "image": null
+        }
+      ],
+      "images": {
+        "icon": {
+          "local_path": "assets/champions/champion_e8bd17049f0b.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918085.jpg",
+          "alt": "凯南头像"
+        },
+        "splash": {
+          "local_path": "assets/champions/splash/champion_e8bd17049f0b.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918085.jpg",
+          "alt": "凯南大图"
+        }
+      },
+      "source_ids": {},
+      "tags": [],
+      "extensions": {}
+    },
+    {
+      "id": "champion_97925303c41e",
+      "name": "拉克丝",
+      "aliases": [],
+      "cost": 5,
+      "trait_ids": [
+        "trait_49ca9388964f"
+      ],
+      "role": null,
+      "availability": {
+        "type": "special",
+        "description": null,
+        "rules": []
+      },
+      "stats_by_star": {},
+      "skills": [
+        {
+          "id": "champion_97925303c41e_skill",
+          "name": "终极闪光",
+          "description": "被动：释放时，所有与【拉克丝】拥有同一羁绊的己方卒子获得法力值。\n主动：向人数最多的敌方群体发射一道激光造成魔法伤害，每命中一个敌人伤害减少30%。",
+          "variables": [],
+          "raw_values": null,
+          "image": null
+        }
+      ],
+      "images": {
+        "icon": {
+          "local_path": "assets/champions/champion_97925303c41e.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918099.jpg",
+          "alt": "拉克丝头像"
+        },
+        "splash": {
+          "local_path": "assets/champions/splash/champion_97925303c41e.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918099.jpg",
+          "alt": "拉克丝大图"
+        }
+      },
+      "source_ids": {},
+      "tags": [],
+      "extensions": {}
+    },
+    {
+      "id": "champion_46d56ee0d004",
+      "name": "德莱文",
+      "aliases": [],
+      "cost": 5,
+      "trait_ids": [
+        "trait_b76b6e7480b8"
+      ],
+      "role": null,
+      "availability": {
+        "type": "special",
+        "description": null,
+        "rules": []
+      },
+      "stats_by_star": {},
+      "skills": [
+        {
+          "id": "champion_46d56ee0d004_skill",
+          "name": "冷血追命",
+          "description": "被动:攻击范围内的随机敌人并对其施加流血效果，在12秒里持续造成物理伤害。攻击还有20%几率施加2层流血效果并造成物理伤害。\n主动:朝流血层数最多的敌人投掷两把巨斧。对命中的敌人造成物理伤害，并立即结算其身上所有的流血伤害。",
+          "variables": [],
+          "raw_values": null,
+          "image": null
+        }
+      ],
+      "images": {
+        "icon": {
+          "local_path": "assets/champions/champion_46d56ee0d004.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918119.jpg",
+          "alt": "德莱文头像"
+        },
+        "splash": {
+          "local_path": "assets/champions/splash/champion_46d56ee0d004.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918119.jpg",
+          "alt": "德莱文大图"
+        }
+      },
+      "source_ids": {},
+      "tags": [],
+      "extensions": {}
+    },
+    {
+      "id": "champion_d7730549fed6",
+      "name": "纳尔",
+      "aliases": [],
+      "cost": 5,
+      "trait_ids": [
+        "trait_1654b9778620",
+        "trait_5fb781d266ec",
+        "trait_7747455acbfc"
+      ],
+      "role": null,
+      "availability": {
+        "type": "special",
+        "description": null,
+        "rules": []
+      },
+      "stats_by_star": {},
+      "skills": [
+        {
+          "id": "champion_d7730549fed6_skill",
+          "name": "狂怒基因",
+          "description": "被动:每秒获得5怒气，每次攻击提供5怒气。达到最大怒气时，变形并跃向3格内人数最多的敌群中。然后，对2格内的敌人造成物理伤害，将其护甲和魔抗降低，并令其眩晕1秒。巨型纳尔获得最大生命值，并将其技能替换为“抓投”。\n抓投:抓住目标并将其投向距离最远的敌人，对主要目标造成大量物理伤害，并对途经的敌人造成物理伤害。如果目标是最后存活的1名敌人，则转而将其抛出战场。",
+          "variables": [],
+          "raw_values": null,
+          "image": null
+        }
+      ],
+      "images": {
+        "icon": {
+          "local_path": "assets/champions/champion_d7730549fed6.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918150.jpg",
+          "alt": "纳尔头像"
+        },
+        "splash": {
+          "local_path": "assets/champions/splash/champion_d7730549fed6.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918150.jpg",
+          "alt": "纳尔大图"
+        }
+      },
+      "source_ids": {},
+      "tags": [],
+      "extensions": {}
+    },
+    {
+      "id": "champion_044ba826b9ea",
+      "name": "艾翁",
+      "aliases": [],
+      "cost": 5,
+      "trait_ids": [
+        "trait_44c99f22998e"
+      ],
+      "role": null,
+      "availability": {
+        "type": "special",
+        "description": null,
+        "rules": []
+      },
+      "stats_by_star": {},
+      "skills": [
+        {
+          "id": "champion_044ba826b9ea_skill",
+          "name": "种豆得瓜",
+          "description": "被动：获得法力回复。\n主动：为2名友军提供护盾值和伤害增幅，持续4秒，随后对其邻格的敌人造成魔法伤害，释放10次后该技能还会为目标提供100%可叠加的攻击速度。",
+          "variables": [],
+          "raw_values": null,
+          "image": null
+        }
+      ],
+      "images": {
+        "icon": {
+          "local_path": "assets/champions/champion_044ba826b9ea.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918427.jpg",
+          "alt": "艾翁头像"
+        },
+        "splash": {
+          "local_path": "assets/champions/splash/champion_044ba826b9ea.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918427.jpg",
+          "alt": "艾翁大图"
+        }
+      },
+      "source_ids": {},
+      "tags": [],
+      "extensions": {}
+    },
+    {
+      "id": "champion_e76351aed074",
+      "name": "拉露恩",
+      "aliases": [],
+      "cost": 5,
+      "trait_ids": [
+        "trait_073983e2f146",
+        "trait_d662a1c8bc9c",
+        "trait_ba577210e69d"
+      ],
+      "role": null,
+      "availability": {
+        "type": "special",
+        "description": null,
+        "rules": []
+      },
+      "stats_by_star": {},
+      "skills": [
+        {
+          "id": "champion_e76351aed074_skill",
+          "name": "月之降临",
+          "description": "向4个最近的敌人降下12枚月光碎片，每枚造成魔法伤害。\n满月时，月曜降临，对所有敌人分摊造成大量魔法伤害，并将其击飞1.5秒。",
+          "variables": [],
+          "raw_values": null,
+          "image": null
+        }
+      ],
+      "images": {
+        "icon": {
+          "local_path": "assets/champions/champion_e76351aed074.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918955.jpg",
+          "alt": "拉露恩头像"
+        },
+        "splash": {
+          "local_path": "assets/champions/splash/champion_e76351aed074.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918955.jpg",
+          "alt": "拉露恩大图"
+        }
+      },
+      "source_ids": {},
+      "tags": [],
+      "extensions": {}
+    },
+    {
+      "id": "champion_880d07ae598b",
+      "name": "远古巨龙",
+      "aliases": [],
+      "cost": 5,
+      "trait_ids": [
+        "trait_831ef4923bbf",
+        "trait_7a4a17e78512"
+      ],
+      "role": null,
+      "availability": {
+        "type": "special",
+        "description": null,
+        "rules": []
+      },
+      "stats_by_star": {},
+      "skills": [
+        {
+          "id": "champion_880d07ae598b_skill",
+          "name": "绝伦火热",
+          "description": "向当前目标及其1格内的敌人喷射一团火焰，造成物理伤害和魔法伤害。\n他们脚下的地面将持续燃烧6秒，敌人们在火中每停留一秒，便会受到相当于其最大生命值3%的伤害，并被削减3护甲。\n火焰翻滚席卷战场，点燃途经的敌人3秒。被点燃的敌人每秒受到相当于其最大生命值5%的魔法伤害，并被削减5魔抗。\n【远古巨龙】增益:对生命值低于自身最大生命值12%的敌人造成伤害，会直接将其处决。每5秒，获得额外属性(护甲、魔抗、暴击几率、暴击伤害、全能吸血)。",
+          "variables": [],
+          "raw_values": null,
+          "image": null
+        }
+      ],
+      "images": {
+        "icon": {
+          "local_path": "assets/champions/champion_880d07ae598b.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918998.jpg",
+          "alt": "远古巨龙头像"
+        },
+        "splash": {
+          "local_path": "assets/champions/splash/champion_880d07ae598b.jpg",
+          "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918998.jpg",
+          "alt": "远古巨龙大图"
+        }
+      },
+      "source_ids": {},
+      "tags": [],
+      "extensions": {}
+    }
+  ]
+}

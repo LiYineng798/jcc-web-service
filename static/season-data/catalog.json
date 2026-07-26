@@ -1,0 +1,73 @@
+{
+ "format_version": "1.0.0",
+ "seasons": [
+  {
+   "season_id": "s8",
+   "display_name": "S8 怪物入侵",
+   "set_number": "8",
+   "set_variant": null,
+   "theme": "怪物入侵",
+   "status": "active",
+   "game_version": "17.17.7",
+   "version_id": "s8__17_17_7",
+   "effective_at": "2026-07-15",
+   "path": "s8/index.json",
+   "counts": {
+    "champions": 63,
+    "traits": 27,
+    "mechanics": 19
+   }
+  },
+  {
+   "season_id": "s16_5",
+   "display_name": "S16.5 英雄联盟传奇",
+   "set_number": "16",
+   "set_variant": ".5",
+   "theme": "英雄联盟传奇",
+   "status": "active",
+   "game_version": "17.17.7",
+   "version_id": "s16_5__17_17_7",
+   "effective_at": "2026-07-23",
+   "path": "s16_5/index.json",
+   "counts": {
+    "champions": 115,
+    "traits": 60,
+    "mechanics": 0
+   }
+  },
+  {
+   "season_id": "s17",
+   "display_name": "S17 星神",
+   "set_number": "17",
+   "set_variant": null,
+   "theme": "星神",
+   "status": "active",
+   "game_version": "17.17.7",
+   "version_id": "s17__17_17_7",
+   "effective_at": "2026-07-15",
+   "path": "s17/index.json",
+   "counts": {
+    "champions": 71,
+    "traits": 34,
+    "mechanics": 9
+   }
+  },
+  {
+   "season_id": "s18",
+   "display_name": "S18",
+   "set_number": "18",
+   "set_variant": null,
+   "theme": null,
+   "status": "draft",
+   "game_version": "unknown-preview-20260713",
+   "version_id": "s18__preview_2026_07_13",
+   "effective_at": null,
+   "path": "s18/index.json",
+   "counts": {
+    "champions": 65,
+    "traits": 36,
+    "mechanics": 200
+   }
+  }
+ ]
+}

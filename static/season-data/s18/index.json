@@ -1,0 +1,4275 @@
+{
+ "season_id": "s18",
+ "display_name": "S18",
+ "set_number": "18",
+ "set_variant": null,
+ "theme": null,
+ "status": "draft",
+ "game_version": "unknown-preview-20260713",
+ "version_id": "s18__preview_2026_07_13",
+ "effective_at": null,
+ "champions": [
+  {
+   "id": "champion_bf4be2686d03",
+   "name": "卡尔玛",
+   "cost": 1,
+   "trait_ids": [
+    "trait_017da4d74a10",
+    "trait_ba577210e69d"
+   ],
+   "availability": {
+    "type": "special",
+    "description": null
+   },
+   "tags": [],
+   "icon": "assets/champions/champion_bf4be2686d03.jpg",
+   "splash": "assets/champions/splash/champion_bf4be2686d03.jpg",
+   "has_stats": false,
+   "skill": {
+    "name": "坚定不移",
+    "description": "拴住当前目标，在1.5秒内造成魔法伤害，随后在其周围释放能量爆裂，对1格半径内的所有敌人造成魔法伤害，并施加30%的减速效果，持续2秒。\n减速:降低攻击速度",
+    "image": null
+   }
+  },
+  {
+   "id": "champion_2bf010641f51",
+   "name": "维迦",
+   "cost": 1,
+   "trait_ids": [
+    "trait_ab0bcb11b7c7",
+    "trait_5fb781d266ec",
+    "trait_ba577210e69d"
+   ],
+   "availability": {
+    "type": "special",
+    "description": null
+   },
+   "tags": [],
+   "icon": "assets/champions/champion_2bf010641f51.jpg",
+   "splash": "assets/champions/splash/champion_2bf010641f51.jpg",
+   "has_stats": false,
+   "skill": {
+    "name": "能量爆裂",
+    "description": "向目标发射一记巨大冲击波，造成魔法伤害，若其生命值低于最大生命值的30%，则提升60%威力。\n若目标阵亡，永久获得1%法术强度。",
+    "image": null
+   }
+  },
+  {
+   "id": "champion_67d0dd7d871c",
+   "name": "约里克",
+   "cost": 1,
+   "trait_ids": [
+    "trait_017da4d74a10",
+    "trait_e6f87c6b1561",
+    "trait_1a9499630b2d"
+   ],
+   "availability": {
+    "type": "special",
+    "description": null
+   },
+   "tags": [],
+   "icon": "assets/champions/champion_67d0dd7d871c.jpg",
+   "splash": "assets/champions/splash/champion_67d0dd7d871c.jpg",
+   "has_stats": false,
+   "skill": {
+    "name": "临终仪式",
+    "description": "被动:阵亡时，生成一个拥有约里克部分最大生命值和基础攻击力的灵魂行者。\n主动:回复生命值并打击目标，造成物理伤害。",
+    "image": null
+   }
+  },
+  {
+   "id": "champion_d25cf1e77552",
+   "name": "阿卡丽",
+   "cost": 1,
+   "trait_ids": [
+    "trait_84e5bd33e5c7",
+    "trait_4956eff98d91",
+    "trait_1ffde90c1d1a"
+   ],
+   "availability": {
+    "type": "special",
+    "description": null
+   },
+   "tags": [],
+   "icon": "assets/champions/champion_d25cf1e77552.jpg",
+   "splash": "assets/champions/splash/champion_d25cf1e77552.jpg",
+   "has_stats": false,
+   "skill": {
+    "name": "我流奥义！寒影",
+    "description": "【适配者】：此技能将根据法术强度或攻击力中较高的属性而改变。\n物理：向目标掷出一连串苦无，造成物理伤害，对被灼烧的敌人造成额外伤害。\n魔法：向目标掷出一连串苦无，造成魔法伤害，如果目标阵亡则会以70%的效能再次释放。",
+    "image": null
+   }
+  },
+  {
+   "id": "champion_e989b2edee05",
+   "name": "蕾欧娜",
+   "cost": 1,
+   "trait_ids": [
+    "trait_54b0eec2cdc3",
+    "trait_c0e78908630c"
+   ],
+   "availability": {
+    "type": "special",
+    "description": null
+   },
+   "tags": [],
+   "icon": "assets/champions/champion_e989b2edee05.jpg",
+   "splash": "assets/champions/splash/champion_e989b2edee05.jpg",
+   "has_stats": false,
+   "skill": {
+    "name": "破晓之盾",
+    "description": "被动：在战斗开始时获得额外护甲和魔抗，在10秒内持续衰减。\n主动：猛击当前目标，造成魔法伤害并令其眩晕2秒。",
+    "image": null
+   }
+  },
+  {
+   "id": "champion_a391aa0c667d",
+   "name": "韦鲁斯",
+   "cost": 1,
+   "trait_ids": [
+    "trait_84e5bd33e5c7",
+    "trait_c5402e9d5450"
+   ],
+   "availability": {
+    "type": "special",
+    "description": null
+   },
+   "tags": [],
+   "icon": "assets/champions/champion_a391aa0c667d.jpg",
+   "splash": "assets/champions/splash/champion_a391aa0c667d.jpg",
+   "has_stats": false,
+   "skill": {
+    "name": "穿刺之箭",
+    "description": "蓄力，然后向敌人最多的一条直线射出箭矢。对命中的敌人造成物理伤害，每穿过一个敌人，伤害降低40%(最低40%)。",
+    "image": null
+   }
+  },
+  {
+   "id": "champion_1f36ce47855b",
+   "name": "卡蜜尔",
+   "cost": 1,
+   "trait_ids": [
+    "trait_186ec1a871e4",
+    "trait_1ffde90c1d1a"
+   ],
+   "availability": {
+    "type": "special",
+    "description": null
+   },
+   "tags": [],
+   "icon": "assets/champions/champion_1f36ce47855b.jpg",
+   "splash": "assets/champions/splash/champion_1f36ce47855b.jpg",
+   "has_stats": false,
+   "skill": {
+    "name": "战术横扫",
+    "description": "斩击目标，造成物理伤害并获得护盾值，持续3秒。",
+    "image": null
+   }
+  },
+  {
+   "id": "champion_7e99467af3b4",
+   "name": "雷克塞",
+   "cost": 1,
+   "trait_ids": [
+    "trait_ab0bcb11b7c7",
+    "trait_7747455acbfc"
+   ],
+   "availability": {
+    "type": "special",
+    "description": null
+   },
+   "tags": [],
+   "icon": "assets/champions/champion_7e99467af3b4.jpg",
+   "splash": "assets/champions/splash/champion_7e99467af3b4.jpg",
+   "has_stats": false,
+   "skill": {
+    "name": "破土而出",
+    "description": "被动:每秒回复生命值，施放技能后的5秒内该效果变为3倍。\n主动:冲出地面，使邻格的敌人眩晕1秒并对其造成魔法伤害。",
+    "image": null
+   }
+  },
+  {
+   "id": "champion_6f4ea83a28b5",
+   "name": "洛",
+   "cost": 1,
+   "trait_ids": [
+    "trait_4f3d05de58cb",
+    "trait_e6f87c6b1561",
+    "trait_456638a0294c"
+   ],
+   "availability": {
+    "type": "special",
+    "description": null
+   },
+   "tags": [],
+   "icon": "assets/champions/champion_6f4ea83a28b5.jpg",
+   "splash": "assets/champions/splash/champion_6f4ea83a28b5.jpg",
+   "has_stats": false,
+   "skill": {
+    "name": "盛大登场",
+    "description": "获得4秒的护盾，随后使伤害最高的友军获得持续衰减的大量攻击速度，持续6秒。",
+    "image": null
+   }
+  },
+  {
+   "id": "champion_389a3f1a1da1",
+   "name": "霞",
+   "cost": 1,
+   "trait_ids": [
+    "trait_1654b9778620",
+    "trait_4f3d05de58cb",
+    "trait_c5402e9d5450"
+   ],
+   "availability": {
+    "type": "special",
+    "description": null
+   },
+   "tags": [],
+   "icon": "assets/champions/champion_389a3f1a1da1.jpg",
+   "splash": "assets/champions/splash/champion_389a3f1a1da1.jpg",
+   "has_stats": false,
+   "skill": {
+    "name": "致死羽衣",
+    "description": "接下来的5次攻击会转为发射羽毛，造成物理伤害并削减护甲。",
+    "image": null
+   }
+  },
+  {
+   "id": "champion_ab300e2dfe3e",
+   "name": "奥恩",
+   "cost": 1,
+   "trait_ids": [
+    "trait_1654b9778620",
+    "trait_c0e78908630c"
+   ],
+   "availability": {
+    "type": "special",
+    "description": null
+   },
+   "tags": [],
+   "icon": "assets/champions/champion_ab300e2dfe3e.jpg",
+   "splash": "assets/champions/splash/champion_ab300e2dfe3e.jpg",
+   "has_stats": false,
+   "skill": {
+    "name": "风箱炎息",
+    "description": "被动:在玩家战斗期间，奥恩会将格挡的伤害转化为【锻造之力】进行储存，3星时储存量翻倍。\n【锻造之力】首次达到85,000时，获得1件【神器锻造器】！\n主动:获得持续4秒的护盾值，并对圆锥范围内的敌人造成魔法伤害。",
+    "image": null
+   }
+  },
+  {
+   "id": "champion_04cc71191c48",
+   "name": "可酷伯",
+   "cost": 1,
+   "trait_ids": [
+    "trait_5fb781d266ec",
+    "trait_7747455acbfc"
+   ],
+   "availability": {
+    "type": "special",
+    "description": null
+   },
+   "tags": [],
+   "icon": "assets/champions/champion_04cc71191c48.jpg",
+   "splash": "assets/champions/splash/champion_04cc71191c48.jpg",
+   "has_stats": false,
+   "skill": {
+    "name": "生命之舞",
+    "description": "在2秒内持续回复生命值，下一次的攻击被替换为猛击，造成魔法伤害。",
+    "image": null
+   }
+  },
+  {
+   "id": "champion_6df333154ea3",
+   "name": "驻灵",
+   "cost": 1,
+   "trait_ids": [
+    "trait_7a4a17e78512",
+    "trait_d8cefba1320f"
+   ],
+   "availability": {
+    "type": "special",
+    "description": null
+   },
+   "tags": [],
+   "icon": "assets/champions/champion_6df333154ea3.jpg",
+   "splash": "assets/champions/splash/champion_6df333154ea3.jpg",
+   "has_stats": false,
+   "skill": {
+    "name": "蔚蓝激光",
+    "description": "开始每秒消耗35%最大法力值，并对目标引导一道激光。引导期间，每秒对其造成魔法伤害，并使其魔法抗性降低4。\n青色增益:友军获得1法力回复。驻灵每次施放技能时，都会额外获得2法力回复。",
+    "image": null
+   }
+  },
+  {
+   "id": "champion_ab9eba46bcbd",
+   "name": "绯红树怪",
+   "cost": 1,
+   "trait_ids": [
+    "trait_7a4a17e78512",
+    "trait_2f3a36d0e244"
+   ],
+   "availability": {
+    "type": "special",
+    "description": null
+   },
+   "tags": [],
+   "icon": "assets/champions/champion_ab9eba46bcbd.jpg",
+   "splash": "assets/champions/splash/champion_ab9eba46bcbd.jpg",
+   "has_stats": false,
+   "skill": {
+    "name": "绯红之羽",
+    "description": "发射5枚绯红树叶对敌方造成伤害。\n紫色增益:绯红树怪的攻击和技能对敌人施加30%撕裂效果，持续5秒。队友造成的伤害提高10%，受到受伤敌人的伤害减少10%。",
+    "image": null
+   }
+  },
+  {
+   "id": "champion_5484d19060d1",
+   "name": "乐芙兰",
+   "cost": 2,
+   "trait_ids": [
+    "trait_1654b9778620",
+    "trait_ba577210e69d"
+   ],
+   "availability": {
+    "type": "special",
+    "description": null
+   },
+   "tags": [],
+   "icon": "assets/champions/champion_5484d19060d1.jpg",
+   "splash": "assets/champions/splash/champion_5484d19060d1.jpg",
+   "has_stats": false,
+   "skill": {
+    "name": "镜花水月",
+    "description": "被动：在玩家对战结束后，你最强的【乐芙兰】有20%/40%/60%的几率生成一个不超过3费的友军的1星复制品。\n主动：向当前目标发射锁链，造成魔法伤害，并对邻格敌人造成魔法伤害。",
+    "image": null
+   }
+  },
+  {
+   "id": "champion_a51358e36de0",
+   "name": "凯尔",
+   "cost": 2,
+   "trait_ids": [
+    "trait_54b0eec2cdc3",
+    "trait_c5402e9d5450"
+   ],
+   "availability": {
+    "type": "special",
+    "description": null
+   },
+   "tags": [],
+   "icon": "assets/champions/champion_a51358e36de0.jpg",
+   "splash": "assets/champions/splash/champion_a51358e36de0.jpg",
+   "has_stats": false,
+   "skill": {
+    "name": "登神长阶",
+    "description": "被动：凯尔基于其星级获得飞升，并获得可叠加的增益。\n第1次飞升：普攻造成额外魔法伤害。\n第2次飞升：普攻对命中的敌人施加20%魔抗击碎，持续2秒。\n第3次飞升：普攻发射冲击波，对命中的所有其他卒子造成魔法伤害。",
+    "image": null
+   }
+  },
+  {
+   "id": "champion_7fdaebcedc1f",
+   "name": "阿利斯塔",
+   "cost": 2,
+   "trait_ids": [
+    "trait_1654b9778620",
+    "trait_7747455acbfc"
+   ],
+   "availability": {
+    "type": "special",
+    "description": null
+   },
+   "tags": [],
+   "icon": "assets/champions/champion_7fdaebcedc1f.jpg",
+   "splash": "assets/champions/splash/champion_7fdaebcedc1f.jpg",
+   "has_stats": false,
+   "skill": {
+    "name": "凯旋怒吼",
+    "description": "怒吼，回复生命值，净化控制效果，并为生命值最低的两名友军回复生命值。然后猛击当前目标，造成魔法伤害并令其眩晕1.5秒。",
+    "image": null
+   }
+  },
+  {
+   "id": "champion_bc7509dda681",
+   "name": "提莫",
+   "cost": 2,
+   "trait_ids": [
+    "trait_5fb781d266ec",
+    "trait_d8cefba1320f"
+   ],
+   "availability": {
+    "type": "special",
+    "description": null
+   },
+   "tags": [],
+   "icon": "assets/champions/champion_bc7509dda681.jpg",
+   "splash": "assets/champions/splash/champion_bc7509dda681.jpg",
+   "has_stats": false,
+   "skill": {
+    "name": "种蘑菇",
+    "description": "投掷3颗蘑菇，对附近的3名敌人造成魔法伤害，偶尔会采集到额外的蘑菇，食用后可获得加成效果。\n红色：1次刷新\n绿色：1小小英雄生命值\n黄色：1经验值",
+    "image": null
+   }
+  },
+  {
+   "id": "champion_7b8c64b780e8",
+   "name": "沃里克",
+   "cost": 2,
+   "trait_ids": [
+    "trait_ab0bcb11b7c7",
+    "trait_1ffde90c1d1a"
+   ],
+   "availability": {
+    "type": "special",
+    "description": null
+   },
+   "tags": [],
+   "icon": "assets/champions/champion_7b8c64b780e8.jpg",
+   "splash": "assets/champions/splash/champion_7b8c64b780e8.jpg",
+   "has_stats": false,
+   "skill": {
+    "name": "野兽之口",
+    "description": "撕咬当前目标，造成物理伤害，并回复相当于所造成伤害15%的生命值，并获得5%攻速，持续到战斗结束。",
+    "image": null
+   }
+  },
+  {
+   "id": "champion_7be44df20c26",
+   "name": "凯特琳",
+   "cost": 2,
+   "trait_ids": [
+    "trait_186ec1a871e4",
+    "trait_2f3a36d0e244"
+   ],
+   "availability": {
+    "type": "special",
+    "description": null
+   },
+   "tags": [],
+   "icon": "assets/champions/champion_7be44df20c26.jpg",
+   "splash": "assets/champions/splash/champion_7be44df20c26.jpg",
+   "has_stats": false,
+   "skill": {
+    "name": "爆头",
+    "description": "下一次攻击会转为爆头，造成物理伤害，在本次战斗中每进行一次爆头此技能的威力就会提升一次。",
+    "image": null
+   }
+  },
+  {
+   "id": "champion_8dc1da564096",
+   "name": "伊莉丝",
+   "cost": 2,
+   "trait_ids": [
+    "trait_186ec1a871e4",
+    "trait_456638a0294c"
+   ],
+   "availability": {
+    "type": "special",
+    "description": null
+   },
+   "tags": [],
+   "icon": "assets/champions/champion_8dc1da564096.jpg",
+   "splash": "assets/champions/splash/champion_8dc1da564096.jpg",
+   "has_stats": false,
+   "skill": {
+    "name": "蜘蛛形态",
+    "description": "变身为蜘蛛，并获得最大生命值，处于蜘蛛形态的攻击附带额外魔法伤害，并回复生命值。后续每次释放提供4秒内衰减的攻速。",
+    "image": null
+   }
+  },
+  {
+   "id": "champion_a4d99a388ab2",
+   "name": "慎",
+   "cost": 2,
+   "trait_ids": [
+    "trait_84e5bd33e5c7",
+    "trait_c0e78908630c"
+   ],
+   "availability": {
+    "type": "special",
+    "description": null
+   },
+   "tags": [],
+   "icon": "assets/champions/champion_a4d99a388ab2.jpg",
+   "splash": "assets/champions/splash/champion_a4d99a388ab2.jpg",
+   "has_stats": false,
+   "skill": {
+    "name": "忍法！气合盾",
+    "description": "为自己和附近一名受伤的队友提供护盾值，持续4秒。两者接下来的3次攻击获得50%攻击速度并造成额外魔法伤害。",
+    "image": null
+   }
+  },
+  {
+   "id": "champion_2385eaca81e7",
+   "name": "瑟庄妮",
+   "cost": 2,
+   "trait_ids": [
+    "trait_54b0eec2cdc3",
+    "trait_e6f87c6b1561"
+   ],
+   "availability": {
+    "type": "special",
+    "description": null
+   },
+   "tags": [],
+   "icon": "assets/champions/champion_2385eaca81e7.jpg",
+   "splash": "assets/champions/splash/champion_2385eaca81e7.jpg",
+   "has_stats": false,
+   "skill": {
+    "name": "烈阳之怒",
+    "description": "获得护盾值，持续4秒。然后，在锥形范围内顺劈并沿直线打击，二者分别对命中的敌人造成魔法伤害。",
+    "image": null
+   }
+  },
+  {
+   "id": "champion_c4b455faa037",
+   "name": "芸阿娜",
+   "cost": 2,
+   "trait_ids": [
+    "trait_017da4d74a10",
+    "trait_9c2472dd47f9"
+   ],
+   "availability": {
+    "type": "special",
+    "description": null
+   },
+   "tags": [],
+   "icon": "assets/champions/champion_c4b455faa037.jpg",
+   "splash": "assets/champions/splash/champion_c4b455faa037.jpg",
+   "has_stats": false,
+   "skill": {
+    "name": "灵蕴拳",
+    "description": "冲刺并向当前目标发射一颗法球，造成物理伤害并分裂，对附近的2名敌人造成物理伤害。",
+    "image": null
+   }
+  },
+  {
+   "id": "champion_d43083b25965",
+   "name": "魔沼蛙",
+   "cost": 2,
+   "trait_ids": [
+    "trait_7a4a17e78512",
+    "trait_4956eff98d91"
+   ],
+   "availability": {
+    "type": "special",
+    "description": null
+   },
+   "tags": [],
+   "icon": "assets/champions/champion_d43083b25965.jpg",
+   "splash": "assets/champions/splash/champion_d43083b25965.jpg",
+   "has_stats": false,
+   "skill": {
+    "name": "打嗝泡泡",
+    "description": "【适配者】：此技能将根据法术强度或攻击力中较高的属性而改变。\n物理：向当前目标吐出一团沉重的泡泡，在命中第一名敌人时爆炸，造成物理伤害并施加30%减速，持续3秒。1格半径范围内的敌人受到部分物理伤害。\n魔法：向当前目标吐出一团毒泡泡，在命中第一名敌人时爆炸，造成魔法伤害。目标及1格半径范围内的敌人格在6秒内持续受到魔法伤害。\n紫色增益：友军获得10%攻击力/法强加成（取决于魔沼蛙属性）。每5秒，魔沼蛙获得25%攻击力/法强加成。",
+    "image": null
+   }
+  },
+  {
+   "id": "champion_710d04739bd5",
+   "name": "暗影狼",
+   "cost": 2,
+   "trait_ids": [
+    "trait_7a4a17e78512",
+    "trait_1ffde90c1d1a"
+   ],
+   "availability": {
+    "type": "special",
+    "description": null
+   },
+   "tags": [],
+   "icon": "assets/champions/champion_710d04739bd5.jpg",
+   "splash": "assets/champions/splash/champion_710d04739bd5.jpg",
+   "has_stats": false,
+   "skill": {
+    "name": "撕裂之爪",
+    "description": "跳向3格内生命值最低的敌人，造成物理伤害。接下来3次攻击造成额外物理伤害。如果这次跃击或强化攻击击杀一名敌人，则额外强化2次攻击。\n灰色增益:友军获得10%攻击速度。参与击杀时，【暗影狼】获得25%攻击速度。",
+    "image": null
+   }
+  },
+  {
+   "id": "champion_2cf32cc3a497",
+   "name": "迅捷蟹",
+   "cost": 2,
+   "trait_ids": [
+    "trait_7a4a17e78512",
+    "trait_e6f87c6b1561"
+   ],
+   "availability": {
+    "type": "special",
+    "description": null
+   },
+   "tags": [],
+   "icon": "assets/champions/champion_2cf32cc3a497.jpg",
+   "splash": "assets/champions/splash/champion_2cf32cc3a497.jpg",
+   "has_stats": false,
+   "skill": {
+    "name": "这种快乐你懂吗?",
+    "description": "被动:每3次攻击用弹跳攻击，对所有相邻敌人造成物理伤害。\n主动:钻入地下，获得20%伤害减免，持续3秒，并在持续期间回复生命值。\n绿色增益:友军获得+10%治疗和护盾。当生命值降至50%时，回复30%最大生命值，冲刺穿过目标并嘲讽附近敌人。",
+    "image": null
+   }
+  },
+  {
+   "id": "champion_fd0ce19f6c66",
+   "name": "费德提克",
+   "cost": 3,
+   "trait_ids": [
+    "trait_3ffbbf12219b"
+   ],
+   "availability": {
+    "type": "special",
+    "description": null
+   },
+   "tags": [],
+   "icon": "assets/champions/champion_fd0ce19f6c66.jpg",
+   "splash": "assets/champions/splash/champion_fd0ce19f6c66.jpg",
+   "has_stats": false,
+   "skill": {
+    "name": "夜割",
+    "description": "在锥形范围内扫击，移除命中敌人的10魔抗并对其造成魔法伤害，回复生命值，且每命中一名敌人将额外回复。",
+    "image": null
+   }
+  },
+  {
+   "id": "champion_fb1b844eed8a",
+   "name": "易",
+   "cost": 3,
+   "trait_ids": [
+    "trait_017da4d74a10",
+    "trait_4956eff98d91"
+   ],
+   "availability": {
+    "type": "special",
+    "description": null
+   },
+   "tags": [],
+   "icon": "assets/champions/champion_fb1b844eed8a.jpg",
+   "splash": "assets/champions/splash/champion_fb1b844eed8a.jpg",
+   "has_stats": false,
+   "skill": {
+    "name": "无极剑道",
+    "description": "【适配者】：此技能将根据法术强度或攻击力中较高的属性而改变。\n物理：每第三次攻击提供20%可叠加攻速的双重打击。\n魔法：每第三次攻击变为造成额外魔法伤害的双重打击，并回复相当于造成额外伤害50%的生命值。",
+    "image": null
+   }
+  },
+  {
+   "id": "champion_7e2b4f2cdcee",
+   "name": "崔丝塔娜",
+   "cost": 3,
+   "trait_ids": [
+    "trait_4f3d05de58cb",
+    "trait_5fb781d266ec",
+    "trait_2f3a36d0e244"
+   ],
+   "availability": {
+    "type": "special",
+    "description": null
+   },
+   "tags": [],
+   "icon": "assets/champions/champion_7e2b4f2cdcee.jpg",
+   "splash": "assets/champions/splash/champion_7e2b4f2cdcee.jpg",
+   "has_stats": false,
+   "skill": {
+    "name": "爆炸火花",
+    "description": "向目标投掷一个炸药包，持续4秒。生效期间，获得无限射程和高额攻击速度。持续时间结束后，炸药包爆炸并在2格内的所有敌人间分摊伤害，造成物理伤害；施放期间每次攻击提供额外物理伤害。\n如果携带炸药包的敌人阵亡，炸药包会转移至崔丝塔娜的新目标。",
+    "image": null
+   }
+  },
+  {
+   "id": "champion_c6f2f3e0cb94",
+   "name": "拉莫斯",
+   "cost": 3,
+   "trait_ids": [
+    "trait_5fb781d266ec",
+    "trait_c0e78908630c"
+   ],
+   "availability": {
+    "type": "special",
+    "description": null
+   },
+   "tags": [],
+   "icon": "assets/champions/champion_c6f2f3e0cb94.jpg",
+   "splash": "assets/champions/splash/champion_c6f2f3e0cb94.jpg",
+   "has_stats": false,
+   "skill": {
+    "name": "尖刺防御",
+    "description": "强迫附近的敌人攻击该卒子。获得持续4秒的护盾值和护甲与魔抗。\n护盾被打破时，对2格内的敌人造成物理伤害。",
+    "image": null
+   }
+  },
+  {
+   "id": "champion_f58054236f1f",
+   "name": "卡西奥佩娅",
+   "cost": 3,
+   "trait_ids": [
+    "trait_186ec1a871e4",
+    "trait_ba577210e69d"
+   ],
+   "availability": {
+    "type": "special",
+    "description": null
+   },
+   "tags": [],
+   "icon": "assets/champions/champion_f58054236f1f.jpg",
+   "splash": "assets/champions/splash/champion_f58054236f1f.jpg",
+   "has_stats": false,
+   "skill": {
+    "name": "瘟毒爆炸",
+    "description": "向距离最近未中毒的敌人投毒，15秒内造成魔法伤害。",
+    "image": null
+   }
+  },
+  {
+   "id": "champion_4e18ee711f3a",
+   "name": "克格莫",
+   "cost": 3,
+   "trait_ids": [
+    "trait_7e3fe77a22db",
+    "trait_4956eff98d91",
+    "trait_d8cefba1320f"
+   ],
+   "availability": {
+    "type": "special",
+    "description": null
+   },
+   "tags": [],
+   "icon": "assets/champions/champion_4e18ee711f3a.jpg",
+   "splash": "assets/champions/splash/champion_4e18ee711f3a.jpg",
+   "has_stats": false,
+   "skill": {
+    "name": "生化喷嚏",
+    "description": "【适配者】：此技能将根据法术强度或攻击力中较高的属性而改变。\n物理：向两名距离最近的敌人喷射酸液，造成物理伤害。\n毒：对生命值低于50%的敌人造成40%额外伤害。\n魔法：向两名距离最近的敌人喷射酸液，造成魔法伤害。在3秒间持续造成相当于其伤害20%的额外伤害。",
+    "image": null
+   }
+  },
+  {
+   "id": "champion_118dde87c7b4",
+   "name": "雷恩加尔",
+   "cost": 3,
+   "trait_ids": [
+    "trait_3ff0ce83497f"
+   ],
+   "availability": {
+    "type": "special",
+    "description": null
+   },
+   "tags": [],
+   "icon": "assets/champions/champion_118dde87c7b4.jpg",
+   "splash": "assets/champions/splash/champion_118dde87c7b4.jpg",
+   "has_stats": false,
+   "skill": {
+    "name": "残忍无情",
+    "description": "跳向3格内生命值最低的敌人并刺击，造成物理伤害。然后回复相当于其已损失生命值10%的生命值。",
+    "image": null
+   }
+  },
+  {
+   "id": "champion_6912478984ed",
+   "name": "赫卡里姆",
+   "cost": 3,
+   "trait_ids": [
+    "trait_1654b9778620",
+    "trait_456638a0294c"
+   ],
+   "availability": {
+    "type": "special",
+    "description": null
+   },
+   "tags": [],
+   "icon": "assets/champions/champion_6912478984ed.jpg",
+   "splash": "assets/champions/splash/champion_6912478984ed.jpg",
+   "has_stats": false,
+   "skill": {
+    "name": "暗影冲击",
+    "description": "被动：从所有来源获得的护甲和魔抗额外提升30%。\n主动：召唤暗影骑士向距离最近的3名敌人冲锋，造成魔法伤害和1.5秒眩晕。",
+    "image": null
+   }
+  },
+  {
+   "id": "champion_68d532e62a16",
+   "name": "卡兹克",
+   "cost": 3,
+   "trait_ids": [
+    "trait_3ff0ce83497f"
+   ],
+   "availability": {
+    "type": "special",
+    "description": null
+   },
+   "tags": [],
+   "icon": "assets/champions/champion_68d532e62a16.jpg",
+   "splash": "assets/champions/splash/champion_68d532e62a16.jpg",
+   "has_stats": false,
+   "skill": {
+    "name": "品尝恐惧",
+    "description": "跃向2格内生命值最低的敌人，对其造成魔法伤害。如果该目标在邻格没有友军，则造成50%额外伤害。",
+    "image": null
+   }
+  },
+  {
+   "id": "champion_ce86eaee2d4d",
+   "name": "黛安娜",
+   "cost": 3,
+   "trait_ids": [
+    "trait_d662a1c8bc9c",
+    "trait_1ffde90c1d1a",
+    "trait_456638a0294c"
+   ],
+   "availability": {
+    "type": "special",
+    "description": null
+   },
+   "tags": [],
+   "icon": "assets/champions/champion_ce86eaee2d4d.jpg",
+   "splash": "assets/champions/splash/champion_ce86eaee2d4d.jpg",
+   "has_stats": false,
+   "skill": {
+    "name": "苍白之瀑",
+    "description": "向距离最近的3名敌人发射一个月光法球，造成魔法伤害。随后法球返回，为黛安娜提供持续3秒的护盾，护盾值相当于它们对目标所造成伤害的50%。",
+    "image": null
+   }
+  },
+  {
+   "id": "champion_027121d997d5",
+   "name": "蔚",
+   "cost": 3,
+   "trait_ids": [
+    "trait_be5e3401e827",
+    "trait_c0e78908630c",
+    "trait_e6f87c6b1561"
+   ],
+   "availability": {
+    "type": "special",
+    "description": null
+   },
+   "tags": [],
+   "icon": "assets/champions/champion_027121d997d5.jpg",
+   "splash": "assets/champions/splash/champion_027121d997d5.jpg",
+   "has_stats": false,
+   "skill": {
+    "name": "狂怒之拳",
+    "description": "被动:攻击时，回复生命值，在蔚的技能激活期间翻倍。\n主动:发出一声震天怒吼，回复生命值，然后获得50%攻击速度、15%伤害减免和控制免疫效果，持续6秒。",
+    "image": null
+   }
+  },
+  {
+   "id": "champion_013dacfaf1ec",
+   "name": "阿兹尔",
+   "cost": 3,
+   "trait_ids": [
+    "trait_ab0bcb11b7c7",
+    "trait_9c2472dd47f9",
+    "trait_1a9499630b2d"
+   ],
+   "availability": {
+    "type": "special",
+    "description": null
+   },
+   "tags": [],
+   "icon": "assets/champions/champion_013dacfaf1ec.jpg",
+   "splash": "assets/champions/splash/champion_013dacfaf1ec.jpg",
+   "has_stats": false,
+   "skill": {
+    "name": "狂沙猛攻",
+    "description": "召唤两名士兵，持续6秒；当阿兹尔发动攻击时，这两名士兵会对其目标发起攻击，每名士兵造成魔法伤害。",
+    "image": null
+   }
+  },
+  {
+   "id": "champion_f25894d5822f",
+   "name": "石甲虫",
+   "cost": 3,
+   "trait_ids": [
+    "trait_7a4a17e78512",
+    "trait_7747455acbfc"
+   ],
+   "availability": {
+    "type": "special",
+    "description": null
+   },
+   "tags": [],
+   "icon": "assets/champions/champion_f25894d5822f.jpg",
+   "splash": "assets/champions/splash/champion_f25894d5822f.jpg",
+   "has_stats": false,
+   "skill": {
+    "name": "岩之摇滚",
+    "description": "被动:阵亡时，分裂成两个【小型石甲虫】，每个拥有12%+100/150/200生命值。\n主动:获得最大生命值，随后滚向目标，造成伤害并将其击退1格，同时将其眩晕1.5秒。\n米色增益:己方卒子获得10%最大生命值。",
+    "image": null
+   }
+  },
+  {
+   "id": "champion_688a91c9eac8",
+   "name": "锋喙鸟",
+   "cost": 3,
+   "trait_ids": [
+    "trait_7a4a17e78512",
+    "trait_1a9499630b2d",
+    "trait_c5402e9d5450"
+   ],
+   "availability": {
+    "type": "special",
+    "description": null
+   },
+   "tags": [],
+   "icon": "assets/champions/champion_688a91c9eac8.jpg",
+   "splash": "assets/champions/splash/champion_688a91c9eac8.jpg",
+   "has_stats": false,
+   "skill": {
+    "name": "集合",
+    "description": "召唤四支小锋喙鸟协同5次攻击，造成物理伤害。\n橙色增益：对敌人造成物理伤害会使其护甲减少2点。每因该效果使敌人护甲减少10点，就会额外造成物理伤害。",
+    "image": null
+   }
+  },
+  {
+   "id": "champion_7d285e9304bb",
+   "name": "希维尔",
+   "cost": 4,
+   "trait_ids": [
+    "trait_be5e3401e827",
+    "trait_2f3a36d0e244"
+   ],
+   "availability": {
+    "type": "special",
+    "description": null
+   },
+   "tags": [],
+   "icon": "assets/champions/champion_7d285e9304bb.jpg",
+   "splash": "assets/champions/splash/champion_7d285e9304bb.jpg",
+   "has_stats": false,
+   "skill": {
+    "name": "回旋之刃",
+    "description": "投掷一把巨大的十字刃，它会对当前敌人造成物理伤害，并在附近敌人之间弹跳4次，每次弹跳造成物理伤害。当这个技能击杀了一个敌人，它会额外弹跳一次。",
+    "image": null
+   }
+  },
+  {
+   "id": "champion_b819bdafac8b",
+   "name": "索拉卡",
+   "cost": 4,
+   "trait_ids": [
+    "trait_3ffbbf12219b"
+   ],
+   "availability": {
+    "type": "special",
+    "description": null
+   },
+   "tags": [],
+   "icon": "assets/champions/champion_b819bdafac8b.jpg",
+   "splash": "assets/champions/splash/champion_b819bdafac8b.jpg",
+   "has_stats": false,
+   "skill": {
+    "name": "流星坠落",
+    "description": "召唤一颗星星落在当前目标身上，造成魔法伤害。如果此前曾有一颗星星落在其上，则额外召唤3颗星星，每颗造成魔法伤害。",
+    "image": null
+   }
+  },
+  {
+   "id": "champion_e878377899b1",
+   "name": "莫甘娜",
+   "cost": 4,
+   "trait_ids": [
+    "trait_186ec1a871e4",
+    "trait_d8cefba1320f"
+   ],
+   "availability": {
+    "type": "special",
+    "description": null
+   },
+   "tags": [],
+   "icon": "assets/champions/champion_e878377899b1.jpg",
+   "splash": "assets/champions/splash/champion_e878377899b1.jpg",
+   "has_stats": false,
+   "skill": {
+    "name": "枯萎诅咒",
+    "description": "向附近敌人发射3个黑暗语言，造成魔法伤害并诅咒他们4秒。在此期间内，召唤一个2格大小的枯萎区域，并获得20%全能吸血。每秒该区域会对其中的敌人造成伤害，他们身上每带有个诅咒便会受到伤害提升。",
+    "image": null
+   }
+  },
+  {
+   "id": "champion_615d0e24d10b",
+   "name": "阿木木",
+   "cost": 4,
+   "trait_ids": [
+    "trait_84e5bd33e5c7",
+    "trait_e6f87c6b1561"
+   ],
+   "availability": {
+    "type": "special",
+    "description": null
+   },
+   "tags": [],
+   "icon": "assets/champions/champion_615d0e24d10b.jpg",
+   "splash": "assets/champions/splash/champion_615d0e24d10b.jpg",
+   "has_stats": false,
+   "skill": {
+    "name": "阿木木的愤怒",
+    "description": "被动：每1秒回复生命值并对1格内的敌人们造成魔法伤害。\n主动：对2格内的敌人造成魔法伤害并眩晕他们1.25秒，如果目标处于灼烧状态则延长至1.8秒。",
+    "image": null
+   }
+  },
+  {
+   "id": "champion_f01a0ac710fe",
+   "name": "墨菲特",
+   "cost": 4,
+   "trait_ids": [
+    "trait_ab0bcb11b7c7",
+    "trait_5de8ddde9d4a"
+   ],
+   "availability": {
+    "type": "special",
+    "description": null
+   },
+   "tags": [],
+   "icon": "assets/champions/champion_f01a0ac710fe.jpg",
+   "splash": "assets/champions/splash/champion_f01a0ac710fe.jpg",
+   "has_stats": false,
+   "skill": {
+    "name": "石化护盾",
+    "description": "获得护盾值，持续4秒并进入石化状态。护盾被打破时释放一道黑暗能量波，对2格内的敌人造成魔法伤害。",
+    "image": null
+   }
+  },
+  {
+   "id": "champion_89b363489076",
+   "name": "奈德丽",
+   "cost": 4,
+   "trait_ids": [
+    "trait_da68a17eb83c",
+    "trait_4956eff98d91"
+   ],
+   "availability": {
+    "type": "special",
+    "description": null
+   },
+   "tags": [],
+   "icon": "assets/champions/champion_89b363489076.jpg",
+   "splash": "assets/champions/splash/champion_89b363489076.jpg",
+   "has_stats": false,
+   "skill": {
+    "name": "标枪投掷/暗行者之跃",
+    "description": "【适配者】：奈德丽可在人类与美洲狮形态间自由切换，其技能将根据法术强度或攻击力中较高的属性而改变。\n物理：美洲狮形态：跃向4格内相距最远且未被追踪的敌人，并进行抓挠挥击，造成物理伤害并追踪该敌人。重复该动作，直到所有被追踪的目标都受到伤害。\n魔法：人类形态：设下陷阱阻挡当前目标和相距最远的敌人，造成魔法伤害并对其他敌人造成魔法伤害。被追踪的敌人每秒受到魔法伤害。如果场上有敌人处于被【捕猎】状态，则转而向生命值最低的被【追踪】敌人投掷标枪，造成魔法伤害，外加基于其被追踪时长而递增的额外魔法伤害。",
+    "image": null
+   }
+  },
+  {
+   "id": "champion_b0a4168a301b",
+   "name": "伊泽瑞尔",
+   "cost": 4,
+   "trait_ids": [
+    "trait_1654b9778620",
+    "trait_9c2472dd47f9"
+   ],
+   "availability": {
+    "type": "special",
+    "description": null
+   },
+   "tags": [],
+   "icon": "assets/champions/champion_b0a4168a301b.jpg",
+   "splash": "assets/champions/splash/champion_b0a4168a301b.jpg",
+   "has_stats": false,
+   "skill": {
+    "name": "自然之怒",
+    "description": "闪烁远离当前目标，对其造成物理伤害，并获得攻击速度。\n每第五次释放时会消耗来自【自然之怒】的攻击速度，并释放一次冲击波，对一条直线上的所有敌人造成物理伤害。",
+    "image": null
+   }
+  },
+  {
+   "id": "champion_760371e99a3b",
+   "name": "阿狸",
+   "cost": 4,
+   "trait_ids": [
+    "trait_017da4d74a10",
+    "trait_ba577210e69d"
+   ],
+   "availability": {
+    "type": "special",
+    "description": null
+   },
+   "tags": [],
+   "icon": "assets/champions/champion_760371e99a3b.jpg",
+   "splash": "assets/champions/splash/champion_760371e99a3b.jpg",
+   "has_stats": false,
+   "skill": {
+    "name": "灵魄炸弹",
+    "description": "在1.75秒内将能量注入灵魄炸弹，随后将其投向一大群敌人。对3格半径内的敌人造成魔法伤害，与中心的距离每增加1格，伤害衰减40%(最低为20%)。",
+    "image": null
+   }
+  },
+  {
+   "id": "champion_e4e86c94bb67",
+   "name": "婕拉",
+   "cost": 4,
+   "trait_ids": [
+    "trait_1a9499630b2d"
+   ],
+   "availability": {
+    "type": "special",
+    "description": null
+   },
+   "tags": [],
+   "icon": "assets/champions/champion_e4e86c94bb67.jpg",
+   "splash": "assets/champions/splash/champion_e4e86c94bb67.jpg",
+   "has_stats": false,
+   "skill": {
+    "name": "狂野生长",
+    "description": "在战场周围生成2株植物，它们会攻击最近的敌人，持续12秒，它们每秒造成魔法伤害。",
+    "image": null
+   }
+  },
+  {
+   "id": "champion_6b57883ebbc0",
+   "name": "厄斐琉斯",
+   "cost": 4,
+   "trait_ids": [
+    "trait_d662a1c8bc9c",
+    "trait_c5402e9d5450"
+   ],
+   "availability": {
+    "type": "special",
+    "description": null
+   },
+   "tags": [],
+   "icon": "assets/champions/champion_6b57883ebbc0.jpg",
+   "splash": "assets/champions/splash/champion_6b57883ebbc0.jpg",
+   "has_stats": false,
+   "skill": {
+    "name": "月夜侵袭",
+    "description": "装备断魄，并在2秒内对目标连续扫击数次，每次造成附带敌方最大生命值1%的物理伤害。攻势结束后，发射一道月光，造成物理伤害，在2格半径内的所有敌人间分摊。",
+    "image": null
+   }
+  },
+  {
+   "id": "champion_52d45525fde4",
+   "name": "瑟提",
+   "cost": 4,
+   "trait_ids": [
+    "trait_017da4d74a10",
+    "trait_7747455acbfc"
+   ],
+   "availability": {
+    "type": "special",
+    "description": null
+   },
+   "tags": [],
+   "icon": "assets/champions/champion_52d45525fde4.jpg",
+   "splash": "assets/champions/splash/champion_52d45525fde4.jpg",
+   "has_stats": false,
+   "skill": {
+    "name": "蓄意轰拳",
+    "description": "被动:每场战斗中首次跌至最大生命值的25%以下时，获得100法力值。\n主动:蓄力打出一记重拳，快速回复生命值，随后在大型锥形范围内造成物理伤害。",
+    "image": null
+   }
+  },
+  {
+   "id": "champion_5be2f809bb25",
+   "name": "莉莉娅",
+   "cost": 4,
+   "trait_ids": [
+    "trait_4f3d05de58cb",
+    "trait_c0e78908630c"
+   ],
+   "availability": {
+    "type": "special",
+    "description": null
+   },
+   "tags": [],
+   "icon": "assets/champions/champion_5be2f809bb25.jpg",
+   "splash": "assets/champions/splash/champion_5be2f809bb25.jpg",
+   "has_stats": false,
+   "skill": {
+    "name": "夜阑谣",
+    "description": "先造成部分最大生命值伤害，随后施加魔法伤害，并使最近的5个敌人进入睡眠状态，持续时间分别为2/2/8秒。\n若沉睡敌人受到超过1000点伤害，便会苏醒并额外遭受大量魔法伤害。",
+    "image": null
+   }
+  },
+  {
+   "id": "champion_fcae8cf04142",
+   "name": "绯红印记树怪",
+   "cost": 4,
+   "trait_ids": [
+    "trait_7a4a17e78512",
+    "trait_1ffde90c1d1a"
+   ],
+   "availability": {
+    "type": "special",
+    "description": null
+   },
+   "tags": [],
+   "icon": "assets/champions/champion_fcae8cf04142.jpg",
+   "splash": "assets/champions/splash/champion_fcae8cf04142.jpg",
+   "has_stats": false,
+   "skill": {
+    "name": "猩红之怒",
+    "description": "进入烈焰狂暴状态，持续到战斗环节结束。获得控制免疫、80%攻击力，并无视30%护甲。\n在改变目标时，跃向该目标，造成物理伤害。\n红色增益：【印记树怪】的攻击会灼烧敌人。己方卒子对被施加【灼烧】的敌人造成10%额外伤害，并且所受来自这些敌人的伤害降低10%。",
+    "image": null
+   }
+  },
+  {
+   "id": "champion_215525ebecb1",
+   "name": "苍蓝雕纹魔像",
+   "cost": 4,
+   "trait_ids": [
+    "trait_7a4a17e78512",
+    "trait_456638a0294c",
+    "trait_d8cefba1320f"
+   ],
+   "availability": {
+    "type": "special",
+    "description": null
+   },
+   "tags": [],
+   "icon": "assets/champions/champion_215525ebecb1.jpg",
+   "splash": "assets/champions/splash/champion_215525ebecb1.jpg",
+   "has_stats": false,
+   "skill": {
+    "name": "蔚蓝冲击波",
+    "description": "获得一个持续4秒的护盾。猛击地面，向敌人最密集的方向发出一道裂隙。被命中的敌人会被短暂击飞，受到魔法伤害并受到20%破法。\n破法:提升下一次技能施放的法力消耗。\n蓝色增益:【魔像】获得5法力回复，持续至其首次施放技能。每次施放技能时，友军获得2法力回复。",
+    "image": null
+   }
+  },
+  {
+   "id": "champion_d446245a7388",
+   "name": "艾希",
+   "cost": 5,
+   "trait_ids": [
+    "trait_017da4d74a10",
+    "trait_2f3a36d0e244"
+   ],
+   "availability": {
+    "type": "special",
+    "description": null
+   },
+   "tags": [],
+   "icon": "assets/champions/champion_d446245a7388.jpg",
+   "splash": "assets/champions/splash/champion_d446245a7388.jpg",
+   "has_stats": false,
+   "skill": {
+    "name": "灵魂裂隙",
+    "description": "朝距离最远的敌人射出一支箭矢，对沿途经过的每个敌人造成物理伤害。箭矢每穿过一名敌人，箭矢的伤害便降低25%(最低伤害为40%)。这支箭矢会撕开一道持续3秒的裂隙，对其中的敌人每秒造成物理伤害，并施加20%冰冷效果。\n如果裂缝中仅存一名敌人，则会将其直接处决并关闭裂缝。\n冰冷:降低攻击速度",
+    "image": null
+   }
+  },
+  {
+   "id": "champion_0300aa932aec",
+   "name": "塔里克",
+   "cost": 5,
+   "trait_ids": [
+    "trait_a6dee4da01b9",
+    "trait_456638a0294c"
+   ],
+   "availability": {
+    "type": "special",
+    "description": null
+   },
+   "tags": [],
+   "icon": "assets/champions/champion_0300aa932aec.jpg",
+   "splash": "assets/champions/splash/champion_0300aa932aec.jpg",
+   "has_stats": false,
+   "skill": {
+    "name": "翡翠光耀",
+    "description": "被动:塔里克与其配对友军在生命值首次降至50%以下时，双方均会释放翡翠能量，为3格内的友军提供护盾值，持续4秒。\n主动:回复生命值，塔里克及其配对友军在接下来的2次攻击中获得额外魔法伤害。",
+    "image": null
+   }
+  },
+  {
+   "id": "champion_d57b5468107b",
+   "name": "茂凯",
+   "cost": 5,
+   "trait_ids": [
+    "trait_4890101893ae",
+    "trait_e6f87c6b1561"
+   ],
+   "availability": {
+    "type": "special",
+    "description": null
+   },
+   "tags": [],
+   "icon": "assets/champions/champion_d57b5468107b.jpg",
+   "splash": "assets/champions/splash/champion_d57b5468107b.jpg",
+   "has_stats": false,
+   "skill": {
+    "name": "播种",
+    "description": "被动：每格挡1000伤害后，一株树苗会跳向附近的一名敌人并造成魔法伤害。阵亡时会跳出3个树苗。\n主动：对目标造成魔法伤害并回复200+20%已损失生命值。",
+    "image": null
+   }
+  },
+  {
+   "id": "champion_e8bd17049f0b",
+   "name": "凯南",
+   "cost": 5,
+   "trait_ids": [
+    "trait_84e5bd33e5c7",
+    "trait_9c2472dd47f9"
+   ],
+   "availability": {
+    "type": "special",
+    "description": null
+   },
+   "tags": [],
+   "icon": "assets/champions/champion_e8bd17049f0b.jpg",
+   "splash": "assets/champions/splash/champion_e8bd17049f0b.jpg",
+   "has_stats": false,
+   "skill": {
+    "name": "火焰风暴",
+    "description": "蓄力，每有一名被灼烧的敌人便获得法术强度。随后冲过附近的一群敌人，对途经的敌人造成魔法伤害。冲刺后，获得护盾值，并释放一场2格大小的火焰风暴，在2秒内造成大量魔法伤害。",
+    "image": null
+   }
+  },
+  {
+   "id": "champion_97925303c41e",
+   "name": "拉克丝",
+   "cost": 5,
+   "trait_ids": [
+    "trait_49ca9388964f"
+   ],
+   "availability": {
+    "type": "special",
+    "description": null
+   },
+   "tags": [],
+   "icon": "assets/champions/champion_97925303c41e.jpg",
+   "splash": "assets/champions/splash/champion_97925303c41e.jpg",
+   "has_stats": false,
+   "skill": {
+    "name": "终极闪光",
+    "description": "被动：释放时，所有与【拉克丝】拥有同一羁绊的己方卒子获得法力值。\n主动：向人数最多的敌方群体发射一道激光造成魔法伤害，每命中一个敌人伤害减少30%。",
+    "image": null
+   }
+  },
+  {
+   "id": "champion_46d56ee0d004",
+   "name": "德莱文",
+   "cost": 5,
+   "trait_ids": [
+    "trait_b76b6e7480b8"
+   ],
+   "availability": {
+    "type": "special",
+    "description": null
+   },
+   "tags": [],
+   "icon": "assets/champions/champion_46d56ee0d004.jpg",
+   "splash": "assets/champions/splash/champion_46d56ee0d004.jpg",
+   "has_stats": false,
+   "skill": {
+    "name": "冷血追命",
+    "description": "被动:攻击范围内的随机敌人并对其施加流血效果，在12秒里持续造成物理伤害。攻击还有20%几率施加2层流血效果并造成物理伤害。\n主动:朝流血层数最多的敌人投掷两把巨斧。对命中的敌人造成物理伤害，并立即结算其身上所有的流血伤害。",
+    "image": null
+   }
+  },
+  {
+   "id": "champion_d7730549fed6",
+   "name": "纳尔",
+   "cost": 5,
+   "trait_ids": [
+    "trait_1654b9778620",
+    "trait_5fb781d266ec",
+    "trait_7747455acbfc"
+   ],
+   "availability": {
+    "type": "special",
+    "description": null
+   },
+   "tags": [],
+   "icon": "assets/champions/champion_d7730549fed6.jpg",
+   "splash": "assets/champions/splash/champion_d7730549fed6.jpg",
+   "has_stats": false,
+   "skill": {
+    "name": "狂怒基因",
+    "description": "被动:每秒获得5怒气，每次攻击提供5怒气。达到最大怒气时，变形并跃向3格内人数最多的敌群中。然后，对2格内的敌人造成物理伤害，将其护甲和魔抗降低，并令其眩晕1秒。巨型纳尔获得最大生命值，并将其技能替换为“抓投”。\n抓投:抓住目标并将其投向距离最远的敌人，对主要目标造成大量物理伤害，并对途经的敌人造成物理伤害。如果目标是最后存活的1名敌人，则转而将其抛出战场。",
+    "image": null
+   }
+  },
+  {
+   "id": "champion_044ba826b9ea",
+   "name": "艾翁",
+   "cost": 5,
+   "trait_ids": [
+    "trait_44c99f22998e"
+   ],
+   "availability": {
+    "type": "special",
+    "description": null
+   },
+   "tags": [],
+   "icon": "assets/champions/champion_044ba826b9ea.jpg",
+   "splash": "assets/champions/splash/champion_044ba826b9ea.jpg",
+   "has_stats": false,
+   "skill": {
+    "name": "种豆得瓜",
+    "description": "被动：获得法力回复。\n主动：为2名友军提供护盾值和伤害增幅，持续4秒，随后对其邻格的敌人造成魔法伤害，释放10次后该技能还会为目标提供100%可叠加的攻击速度。",
+    "image": null
+   }
+  },
+  {
+   "id": "champion_e76351aed074",
+   "name": "拉露恩",
+   "cost": 5,
+   "trait_ids": [
+    "trait_073983e2f146",
+    "trait_d662a1c8bc9c",
+    "trait_ba577210e69d"
+   ],
+   "availability": {
+    "type": "special",
+    "description": null
+   },
+   "tags": [],
+   "icon": "assets/champions/champion_e76351aed074.jpg",
+   "splash": "assets/champions/splash/champion_e76351aed074.jpg",
+   "has_stats": false,
+   "skill": {
+    "name": "月之降临",
+    "description": "向4个最近的敌人降下12枚月光碎片，每枚造成魔法伤害。\n满月时，月曜降临，对所有敌人分摊造成大量魔法伤害，并将其击飞1.5秒。",
+    "image": null
+   }
+  },
+  {
+   "id": "champion_880d07ae598b",
+   "name": "远古巨龙",
+   "cost": 5,
+   "trait_ids": [
+    "trait_831ef4923bbf",
+    "trait_7a4a17e78512"
+   ],
+   "availability": {
+    "type": "special",
+    "description": null
+   },
+   "tags": [],
+   "icon": "assets/champions/champion_880d07ae598b.jpg",
+   "splash": "assets/champions/splash/champion_880d07ae598b.jpg",
+   "has_stats": false,
+   "skill": {
+    "name": "绝伦火热",
+    "description": "向当前目标及其1格内的敌人喷射一团火焰，造成物理伤害和魔法伤害。\n他们脚下的地面将持续燃烧6秒，敌人们在火中每停留一秒，便会受到相当于其最大生命值3%的伤害，并被削减3护甲。\n火焰翻滚席卷战场，点燃途经的敌人3秒。被点燃的敌人每秒受到相当于其最大生命值5%的魔法伤害，并被削减5魔抗。\n【远古巨龙】增益:对生命值低于自身最大生命值12%的敌人造成伤害，会直接将其处决。每5秒，获得额外属性(护甲、魔抗、暴击几率、暴击伤害、全能吸血)。",
+    "image": null
+   }
+  }
+ ],
+ "traits": [
+  {
+   "id": "trait_017da4d74a10",
+   "name": "灵魂莲华",
+   "category": "origin",
+   "description": "战斗结束后，你的小精灵获得强化。灵魂莲华弈子获得攻击力、法强和最大生命值。高层级会升级小精灵，增加商店中的小精灵数量，并在后期使其充满力量。",
+   "image": "assets/traits/trait_017da4d74a10.svg",
+   "breakpoints": [
+    {
+     "min_units": 3,
+     "max_units": 4,
+     "style": null,
+     "effect": "5%双攻，小精灵获得升级"
+    },
+    {
+     "min_units": 5,
+     "max_units": 6,
+     "style": null,
+     "effect": "15%双攻，在购买1个小精灵时获得1金币"
+    },
+    {
+     "min_units": 7,
+     "max_units": 8,
+     "style": null,
+     "effect": "20%双攻，小精灵会出现在每次商店刷新中"
+    },
+    {
+     "min_units": 9,
+     "max_units": 10,
+     "style": null,
+     "effect": "35%双攻，每回合释放两个小精灵"
+    },
+    {
+     "min_units": 11,
+     "max_units": null,
+     "style": null,
+     "effect": "100%双攻，小精灵的力量满溢"
+    }
+   ]
+  },
+  {
+   "id": "trait_84e5bd33e5c7",
+   "name": "地狱火",
+   "category": "origin",
+   "description": "地狱火弈子的伤害会点燃敌人，造成燃烧和重伤。",
+   "image": "assets/traits/trait_84e5bd33e5c7.svg",
+   "breakpoints": [
+    {
+     "min_units": 2,
+     "max_units": 2,
+     "style": null,
+     "effect": "地狱火弈子的伤害会对敌人施加持续4秒的灼烧和33%重伤。地狱火灼烧可与其他灼烧效果叠加。"
+    },
+    {
+     "min_units": 3,
+     "max_units": null,
+     "style": null,
+     "effect": "战斗后你的商店中会有1-3个栏位着火，从而提升所提供的弈子阶级，或是为你提供一个对己方队伍有用的弈子。"
+    }
+   ]
+  },
+  {
+   "id": "trait_5fb781d266ec",
+   "name": "森林妖精",
+   "category": "origin",
+   "description": "获得大毛绒伙伴。将一名森林妖精放到伙伴上，为其选择骑手。伙伴的攻击和技能会根据骑手是近战还是远程而改变。更高层级提升生命值和属性。",
+   "image": "assets/traits/trait_5fb781d266ec.svg",
+   "breakpoints": [
+    {
+     "min_units": 3,
+     "max_units": 4,
+     "style": null,
+     "effect": "骑手获得15%最大生命值和攻速加成"
+    },
+    {
+     "min_units": 5,
+     "max_units": 6,
+     "style": null,
+     "effect": "骑手获得25%最大生命值和攻速加成，50%的加成作用于你的队伍"
+    },
+    {
+     "min_units": 7,
+     "max_units": null,
+     "style": null,
+     "effect": "骑手获得35%最大生命值和攻速加成，100%的加成作用于你的队伍"
+    }
+   ]
+  },
+  {
+   "id": "trait_1654b9778620",
+   "name": "永恒之森",
+   "category": "origin",
+   "description": "获得可放置的永恒之森植物。每个永恒之森弈子星级会使植物提高5%最大生命值和5%法术强度。",
+   "image": "assets/traits/trait_1654b9778620.svg",
+   "breakpoints": [
+    {
+     "min_units": 3,
+     "max_units": 4,
+     "style": null,
+     "effect": "石皮树和生命之花"
+    },
+    {
+     "min_units": 5,
+     "max_units": 6,
+     "style": null,
+     "effect": "再获得一棵石皮树和生命之花"
+    },
+    {
+     "min_units": 7,
+     "max_units": 8,
+     "style": null,
+     "effect": "获得深林守卫"
+    },
+    {
+     "min_units": 9,
+     "max_units": 10,
+     "style": null,
+     "effect": "森林变得更强壮了（所有植物升至2星）"
+    },
+    {
+     "min_units": 11,
+     "max_units": null,
+     "style": null,
+     "effect": "森林疯长（所有植物升至3星）"
+    }
+   ]
+  },
+  {
+   "id": "trait_ab0bcb11b7c7",
+   "name": "古神",
+   "category": "origin",
+   "description": "战斗开始时，古神格上的友军会被献祭，为团队提供生命值。古神弈子会根据被献祭弈子的定位、星级和费用获得额外属性。",
+   "image": "assets/traits/trait_ab0bcb11b7c7.svg",
+   "breakpoints": [
+    {
+     "min_units": 2,
+     "max_units": 3,
+     "style": null,
+     "effect": "获得古神格"
+    },
+    {
+     "min_units": 4,
+     "max_units": 5,
+     "style": null,
+     "effect": "获得额外20%属性"
+    },
+    {
+     "min_units": 6,
+     "max_units": null,
+     "style": null,
+     "effect": "该格子上的古神弈子不会阵亡，而是释放其真正形态"
+    }
+   ]
+  },
+  {
+   "id": "trait_186ec1a871e4",
+   "name": "魔女",
+   "category": "origin",
+   "description": "击杀弈子时收集精粹；输掉玩家战斗时获得更多精粹。每50精粹，可选择兑换随机奖励，或继续收集以提升仪式层级。",
+   "image": "assets/traits/trait_186ec1a871e4.svg",
+   "breakpoints": [
+    {
+     "min_units": 3,
+     "max_units": 3,
+     "style": null,
+     "effect": "每次击杀1精粹，每次失败18精粹"
+    },
+    {
+     "min_units": 4,
+     "max_units": 4,
+     "style": null,
+     "effect": "每次击杀1精粹，每次失败25精粹"
+    },
+    {
+     "min_units": 5,
+     "max_units": 6,
+     "style": null,
+     "effect": "每次击杀2精粹，每次失败35精粹"
+    },
+    {
+     "min_units": 7,
+     "max_units": null,
+     "style": null,
+     "effect": "每次击杀5精粹，每次失败60精粹"
+    }
+   ]
+  },
+  {
+   "id": "trait_7a4a17e78512",
+   "name": "峡谷野怪",
+   "category": "origin",
+   "description": "野区已加入云顶之弈！",
+   "image": "assets/traits/trait_7a4a17e78512.svg",
+   "breakpoints": [
+    {
+     "min_units": 3,
+     "max_units": 4,
+     "style": null,
+     "effect": "获得一个阿尔法印记，用其赋予一名峡谷野怪专属增益。"
+    },
+    {
+     "min_units": 5,
+     "max_units": 6,
+     "style": null,
+     "effect": "与玩家战斗2次后，下一次商店会被峡谷野怪占满。"
+    },
+    {
+     "min_units": 7,
+     "max_units": 9,
+     "style": null,
+     "effect": "战斗开始时及之后每5秒，峡谷野怪获得属性加成。"
+    },
+    {
+     "min_units": 10,
+     "max_units": null,
+     "style": null,
+     "effect": "最大队伍规模+1。获得远古巨龙增益"
+    }
+   ]
+  },
+  {
+   "id": "trait_3ff0ce83497f",
+   "name": "宿敌",
+   "category": "origin",
+   "description": "仅在登场1名宿敌时激活，且只对你最强的一名卡兹克或雷恩加尔生效。参与击杀即可为雷恩加尔获得战利品或为卡兹克获得进化层数，在对抗其他宿敌时该收益变为3倍。",
+   "image": "assets/traits/trait_3ff0ce83497f.svg",
+   "breakpoints": [
+    {
+     "min_units": 1,
+     "max_units": null,
+     "style": null,
+     "effect": "雷恩加尔：每8战利品提供1/3/5金币；战利品达到100时，每有1战利品，己方队伍获得0.2%攻击力。卡兹克：每拥有25层进化会令卡兹克发生进化，提供一次选择不同羁绊的机会。"
+    }
+   ]
+  },
+  {
+   "id": "trait_4f3d05de58cb",
+   "name": "仙灵",
+   "category": "origin",
+   "description": "团队的伤害、治疗和护盾效果会吸引皮克斯精灵环绕仙灵弈子。每个皮克斯精灵会为仙灵弈子提供攻击力和法强，并在其生命值低于50%时为其治疗。",
+   "image": "assets/traits/trait_4f3d05de58cb.svg",
+   "breakpoints": [
+    {
+     "min_units": 2,
+     "max_units": 3,
+     "style": null,
+     "effect": "4%攻击力和法强，5%治疗"
+    },
+    {
+     "min_units": 4,
+     "max_units": null,
+     "style": null,
+     "effect": "7%攻击力和法强，8%治疗；吸引7个皮克斯精灵后，转而开始吸引会提供金币的金色皮克斯精灵。"
+    }
+   ]
+  },
+  {
+   "id": "trait_be5e3401e827",
+   "name": "远古",
+   "category": "origin",
+   "description": "始祖从4种原始赐福中选择1种：灵龟（治疗）、猛虎（处决）、战马（攻速）、巨龙（获得基础装备）。",
+   "image": "assets/traits/trait_be5e3401e827.svg",
+   "breakpoints": [
+    {
+     "min_units": 2,
+     "max_units": 3,
+     "style": null,
+     "effect": "选择1个赐福"
+    },
+    {
+     "min_units": 4,
+     "max_units": null,
+     "style": null,
+     "effect": "再选择1个赐福"
+    }
+   ]
+  },
+  {
+   "id": "trait_3ffbbf12219b",
+   "name": "绝命花妖",
+   "category": "origin",
+   "description": "绝命花妖弈子在参与击杀后收割敌人。",
+   "image": "assets/traits/trait_3ffbbf12219b.svg",
+   "breakpoints": [
+    {
+     "min_units": 1,
+     "max_units": 1,
+     "style": null,
+     "effect": "获得10法力值"
+    },
+    {
+     "min_units": 2,
+     "max_units": null,
+     "style": null,
+     "effect": "为生命值最低的友军提供相当于8%最大生命值的治疗。"
+    }
+   ]
+  },
+  {
+   "id": "trait_54b0eec2cdc3",
+   "name": "日食",
+   "category": "origin",
+   "description": "弈子获得5%最大生命值护盾，并造成5%额外魔法伤害。每拥有一名不同的3星弈子，效果提升4%。达到更高数量时，将获得额外防御、真实伤害转化和飞升效果。",
+   "image": "assets/traits/trait_54b0eec2cdc3.svg",
+   "breakpoints": []
+  },
+  {
+   "id": "trait_d662a1c8bc9c",
+   "name": "月食",
+   "category": "origin",
+   "description": "月食弈子及其相邻友军获得攻速和法强。月食弈子获得的加成提升30%。更高层级会进一步提升攻速和法强。",
+   "image": "assets/traits/trait_d662a1c8bc9c.svg",
+   "breakpoints": [
+    {
+     "min_units": 2,
+     "max_units": 2,
+     "style": null,
+     "effect": "10%攻速与法强"
+    },
+    {
+     "min_units": 3,
+     "max_units": 3,
+     "style": null,
+     "effect": "15%攻速与法强"
+    },
+    {
+     "min_units": 4,
+     "max_units": 4,
+     "style": null,
+     "effect": "20%攻速与法强"
+    },
+    {
+     "min_units": 5,
+     "max_units": null,
+     "style": null,
+     "effect": "25%攻速与法强"
+    }
+   ]
+  },
+  {
+   "id": "trait_d449d0978938",
+   "name": "日月蚀",
+   "category": "origin",
+   "description": "12秒后，日蚀会击杀生命值最低的敌人，此后每3秒重复一次。月食和日食全激活时触发。",
+   "image": "assets/traits/trait_d449d0978938.svg",
+   "breakpoints": []
+  },
+  {
+   "id": "trait_7e3fe77a22db",
+   "name": "腐蚀",
+   "category": "origin",
+   "description": "腐蚀弈子造成伤害时，会对敌人施加30%护甲削减和魔抗削减，持续2秒。",
+   "image": "assets/traits/trait_7e3fe77a22db.svg",
+   "breakpoints": [
+    {
+     "min_units": 1,
+     "max_units": null,
+     "style": null,
+     "effect": "腐蚀弈子的伤害施加30%护甲削减和魔抗削减，持续2秒。"
+    }
+   ]
+  },
+  {
+   "id": "trait_5de8ddde9d4a",
+   "name": "巨像",
+   "category": "origin",
+   "description": "每有1名敌人将其作为目标，巨像获得10护甲和10魔法抗性。",
+   "image": "assets/traits/trait_5de8ddde9d4a.svg",
+   "breakpoints": [
+    {
+     "min_units": 1,
+     "max_units": null,
+     "style": null,
+     "effect": "每有1名敌人将其作为目标，巨像获得10护甲和10魔法抗性。"
+    }
+   ]
+  },
+  {
+   "id": "trait_da68a17eb83c",
+   "name": "狂野女猎手",
+   "category": "origin",
+   "description": "奈德丽的技能会追踪她伤害的敌人。被追踪的敌人受到技能伤害提升10%，来自奈德丽的技能伤害提升20%。",
+   "image": "assets/traits/trait_da68a17eb83c.svg",
+   "breakpoints": [
+    {
+     "min_units": 1,
+     "max_units": null,
+     "style": null,
+     "effect": "奈德丽的技能会追踪她伤害的敌人；被追踪的敌人受到技能伤害提升10%，来自奈德丽的技能伤害提升20%。"
+    }
+   ]
+  },
+  {
+   "id": "trait_a6dee4da01b9",
+   "name": "翡翠化身",
+   "category": "origin",
+   "description": "将一名友军拖到最强的塔里克上与其绑定。塔里克施放技能时，会为绑定友军提供装备效果。",
+   "image": "assets/traits/trait_a6dee4da01b9.svg",
+   "breakpoints": [
+    {
+     "min_units": 1,
+     "max_units": null,
+     "style": null,
+     "effect": "绑定一名友军与最强的塔里克，塔里克施放技能时为其提供装备效果。"
+    }
+   ]
+  },
+  {
+   "id": "trait_4890101893ae",
+   "name": "古树生长",
+   "category": "origin",
+   "description": "当一名位于2格内的敌人阵亡时，永久获得20最大生命值。",
+   "image": "assets/traits/trait_4890101893ae.svg",
+   "breakpoints": [
+    {
+     "min_units": 1,
+     "max_units": null,
+     "style": null,
+     "effect": "当一名位于2格内的敌人阵亡时，永久获得20最大生命值。"
+    }
+   ]
+  },
+  {
+   "id": "trait_44c99f22998e",
+   "name": "翠神",
+   "category": "origin",
+   "description": "当最强的艾翁施放技能时获得1颗种子，每次战斗额外获得2颗。艾翁消耗5颗种子来生成一个地形格，地形格会为格上弈子提供加成。每局的生态会发生改变。",
+   "image": "assets/traits/trait_44c99f22998e.svg",
+   "breakpoints": [
+    {
+     "min_units": 1,
+     "max_units": null,
+     "style": null,
+     "effect": "艾翁收集种子并消耗5颗种子生成地形格，为格上弈子提供加成。"
+    }
+   ]
+  },
+  {
+   "id": "trait_073983e2f146",
+   "name": "调律",
+   "category": "origin",
+   "description": "最强的拉露恩在每次施放技能后切换至新的月相。月亮处于或低于半月时，团队获得7%伤害减免；高于半月时，团队获得7%伤害增幅。月相包括新月、娥眉月、半月、盈凸月、满月。",
+   "image": "assets/traits/trait_073983e2f146.svg",
+   "breakpoints": [
+    {
+     "min_units": 1,
+     "max_units": null,
+     "style": null,
+     "effect": "拉露恩每次施放技能后切换月相，并根据月相为团队提供7%伤害减免或7%伤害增幅。"
+    }
+   ]
+  },
+  {
+   "id": "trait_b76b6e7480b8",
+   "name": "赏金猎人",
+   "category": "origin",
+   "description": "选择一项赏金任务。你最强的德莱文可推进任务进度并获得奖励。完成任务后，可在下一个备战环节选择新任务。",
+   "image": "assets/traits/trait_b76b6e7480b8.svg",
+   "breakpoints": [
+    {
+     "min_units": 1,
+     "max_units": null,
+     "style": null,
+     "effect": "选择赏金任务，由最强的德莱文推进任务进度并获得奖励。"
+    }
+   ]
+  },
+  {
+   "id": "trait_49ca9388964f",
+   "name": "天选化身",
+   "category": "origin",
+   "description": "拥有一名天选化身时，会将商店中所有其它天选化身转化为与其相同的羁绊。每种羁绊的天选化身只能由一名玩家拥有。计算羁绊加成时，选定的羁绊会被计算两次。",
+   "image": "assets/traits/trait_49ca9388964f.svg",
+   "breakpoints": [
+    {
+     "min_units": 1,
+     "max_units": null,
+     "style": null,
+     "effect": "天选化身选定的羁绊在计算羁绊加成时会被计算两次。"
+    }
+   ]
+  },
+  {
+   "id": "trait_831ef4923bbf",
+   "name": "顶级掠食者",
+   "category": "origin",
+   "description": "远古巨龙占用2个队伍格，并使峡谷野怪+2。远古巨龙无法被阻挡。战斗开始时飞向空中，每秒获得10法力值，随后猛击地面，使所有敌人晕眩1秒。",
+   "image": "assets/traits/trait_831ef4923bbf.svg",
+   "breakpoints": [
+    {
+     "min_units": 1,
+     "max_units": null,
+     "style": null,
+     "effect": "远古巨龙占用2个队伍格，使峡谷野怪+2，并在战斗开始时飞向空中后猛击地面，使所有敌人晕眩1秒。"
+    }
+   ]
+  },
+  {
+   "id": "trait_ba577210e69d",
+   "name": "法师",
+   "category": "class",
+   "description": "团队获得10法强。法师获得更多；每当3名法师施放技能时，再获得额外法强。",
+   "image": "assets/traits/trait_ba577210e69d.svg",
+   "breakpoints": [
+    {
+     "min_units": 2,
+     "max_units": 2,
+     "style": null,
+     "effect": "+10%法强，每次释放+1%"
+    },
+    {
+     "min_units": 3,
+     "max_units": 3,
+     "style": null,
+     "effect": "+20%法强，每次释放+2%"
+    },
+    {
+     "min_units": 4,
+     "max_units": 4,
+     "style": null,
+     "effect": "+50%法强，每次释放+4%"
+    },
+    {
+     "min_units": 5,
+     "max_units": null,
+     "style": null,
+     "effect": "+90%法强，每次释放+6%"
+    }
+   ]
+  },
+  {
+   "id": "trait_4956eff98d91",
+   "name": "适配者",
+   "category": "class",
+   "description": "适配者的技能会根据其攻击力或法强中的较高者发生变化。适配者会根据自身较高属性获得攻击力或法强。",
+   "image": "assets/traits/trait_4956eff98d91.svg",
+   "breakpoints": [
+    {
+     "min_units": 2,
+     "max_units": 3,
+     "style": null,
+     "effect": "25%攻击力/法强"
+    },
+    {
+     "min_units": 4,
+     "max_units": null,
+     "style": null,
+     "effect": "60%攻击力/法强"
+    }
+   ]
+  },
+  {
+   "id": "trait_1ffde90c1d1a",
+   "name": "毁灭者",
+   "category": "class",
+   "description": "毁灭者获得15%全能吸血。此外，造成额外伤害，对生命值低于50%的单位造成双倍额外伤害。",
+   "image": "assets/traits/trait_1ffde90c1d1a.svg",
+   "breakpoints": [
+    {
+     "min_units": 2,
+     "max_units": 3,
+     "style": null,
+     "effect": "10%额外伤害"
+    },
+    {
+     "min_units": 4,
+     "max_units": 5,
+     "style": null,
+     "effect": "20%额外伤害"
+    },
+    {
+     "min_units": 6,
+     "max_units": null,
+     "style": null,
+     "effect": "25%额外伤害"
+    }
+   ]
+  },
+  {
+   "id": "trait_7747455acbfc",
+   "name": "斗士",
+   "category": "class",
+   "description": "团队获得7%最大生命值。斗士获得更多。",
+   "image": "assets/traits/trait_7747455acbfc.svg",
+   "breakpoints": [
+    {
+     "min_units": 2,
+     "max_units": 3,
+     "style": null,
+     "effect": "20%生命值"
+    },
+    {
+     "min_units": 4,
+     "max_units": 5,
+     "style": null,
+     "effect": "40%生命值"
+    },
+    {
+     "min_units": 6,
+     "max_units": null,
+     "style": null,
+     "effect": "60%生命值"
+    }
+   ]
+  },
+  {
+   "id": "trait_c5402e9d5450",
+   "name": "迅捷射手",
+   "category": "class",
+   "description": "团队获得10%攻速。迅捷射手每次攻击都会获得更多攻速，最多叠加10次。",
+   "image": "assets/traits/trait_c5402e9d5450.svg",
+   "breakpoints": [
+    {
+     "min_units": 2,
+     "max_units": 3,
+     "style": null,
+     "effect": "每次攻击+3%攻速"
+    },
+    {
+     "min_units": 4,
+     "max_units": 5,
+     "style": null,
+     "effect": "每次攻击+8%攻速"
+    },
+    {
+     "min_units": 6,
+     "max_units": null,
+     "style": null,
+     "effect": "每次攻击+15%攻速"
+    }
+   ]
+  },
+  {
+   "id": "trait_2f3a36d0e244",
+   "name": "猎手",
+   "category": "class",
+   "description": "猎手获得攻击力。若4秒内未切换目标，则获得10%伤害增幅。",
+   "image": "assets/traits/trait_2f3a36d0e244.svg",
+   "breakpoints": [
+    {
+     "min_units": 2,
+     "max_units": 3,
+     "style": null,
+     "effect": "18%攻击力"
+    },
+    {
+     "min_units": 4,
+     "max_units": 5,
+     "style": null,
+     "effect": "36%攻击力"
+    },
+    {
+     "min_units": 6,
+     "max_units": null,
+     "style": null,
+     "effect": "60%攻击力"
+    }
+   ]
+  },
+  {
+   "id": "trait_9c2472dd47f9",
+   "name": "裁决使",
+   "category": "class",
+   "description": "裁决使获得精准和额外暴击几率。精准使技能伤害可以暴击；额外精准会提供10%暴击伤害。",
+   "image": "assets/traits/trait_9c2472dd47f9.svg",
+   "breakpoints": [
+    {
+     "min_units": 2,
+     "max_units": 2,
+     "style": null,
+     "effect": "技能可以造成暴击并获得25%暴击率"
+    },
+    {
+     "min_units": 3,
+     "max_units": null,
+     "style": null,
+     "effect": "使敌人流血，在2秒内造成额外真实伤害。"
+    }
+   ]
+  },
+  {
+   "id": "trait_1a9499630b2d",
+   "name": "召唤使",
+   "category": "class",
+   "description": "召唤使获得额外的小型召唤物。",
+   "image": "assets/traits/trait_1a9499630b2d.svg",
+   "breakpoints": [
+    {
+     "min_units": 2,
+     "max_units": 3,
+     "style": null,
+     "effect": "额外召唤1次40%召唤物"
+    },
+    {
+     "min_units": 4,
+     "max_units": null,
+     "style": null,
+     "effect": "额外召唤2次50%召唤物"
+    }
+   ]
+  },
+  {
+   "id": "trait_456638a0294c",
+   "name": "重装战士",
+   "category": "class",
+   "description": "战斗开始时及生命值降至50%时，获得持续10秒的最大生命值护盾。",
+   "image": "assets/traits/trait_456638a0294c.svg",
+   "breakpoints": [
+    {
+     "min_units": 2,
+     "max_units": 3,
+     "style": null,
+     "effect": "16%"
+    },
+    {
+     "min_units": 4,
+     "max_units": 5,
+     "style": null,
+     "effect": "32%"
+    },
+    {
+     "min_units": 6,
+     "max_units": null,
+     "style": null,
+     "effect": "40%，且在护盾存在时获得16%伤害减免"
+    }
+   ]
+  },
+  {
+   "id": "trait_c0e78908630c",
+   "name": "护卫",
+   "category": "class",
+   "description": "团队获得15护甲和魔法抗性。护卫获得更多。",
+   "image": "assets/traits/trait_c0e78908630c.svg",
+   "breakpoints": [
+    {
+     "min_units": 2,
+     "max_units": 3,
+     "style": null,
+     "effect": "30双抗"
+    },
+    {
+     "min_units": 4,
+     "max_units": 5,
+     "style": null,
+     "effect": "55双抗"
+    },
+    {
+     "min_units": 6,
+     "max_units": null,
+     "style": null,
+     "effect": "80双抗"
+    }
+   ]
+  },
+  {
+   "id": "trait_e6f87c6b1561",
+   "name": "主宰",
+   "category": "class",
+   "description": "团队获得伤害减免，主宰获得双倍效果。一名主宰阵亡时，其他主宰获得法力值。",
+   "image": "assets/traits/trait_e6f87c6b1561.svg",
+   "breakpoints": [
+    {
+     "min_units": 2,
+     "max_units": 3,
+     "style": null,
+     "effect": "8%伤害减免，10法力值"
+    },
+    {
+     "min_units": 4,
+     "max_units": 5,
+     "style": null,
+     "effect": "12%伤害减免，15法力值"
+    },
+    {
+     "min_units": 6,
+     "max_units": null,
+     "style": null,
+     "effect": "18%伤害减免，20法力值"
+    }
+   ]
+  },
+  {
+   "id": "trait_d8cefba1320f",
+   "name": "神谕者",
+   "category": "class",
+   "description": "团队获得法力回复，神谕者获得更多。",
+   "image": "assets/traits/trait_d8cefba1320f.svg",
+   "breakpoints": [
+    {
+     "min_units": 2,
+     "max_units": 2,
+     "style": null,
+     "effect": "1法力回复/3法力回复"
+    },
+    {
+     "min_units": 3,
+     "max_units": 3,
+     "style": null,
+     "effect": "1法力回复/5法力回复"
+    },
+    {
+     "min_units": 4,
+     "max_units": 4,
+     "style": null,
+     "effect": "2法力回复/7法力回复"
+    },
+    {
+     "min_units": 5,
+     "max_units": null,
+     "style": null,
+     "effect": "2法力回复/9法力回复"
+    }
+   ]
+  }
+ ],
+ "mechanics": [
+  {
+   "id": "wands",
+   "kind": "wand",
+   "display_name": "法杖",
+   "has_images": false,
+   "entries": [
+    {
+     "id": "wand_e6c85f999f48",
+     "name": "弃船逃生",
+     "description": "出售你场上和备战席上的所有棋子，获得10金币、10经验值和5次刷新次数。",
+     "image": null,
+     "data": {
+      "cost": 0,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_6a1d0cbdf6c0",
+     "name": "全是一费",
+     "description": "将商店刷新为全部1费棋子。",
+     "image": null,
+     "data": {
+      "cost": 0,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_7a402606f5f0",
+     "name": "神器化",
+     "description": "失去3个装备零件（包括已合成装备中的零件），获得一个神器铁砧。",
+     "image": null,
+     "data": {
+      "cost": 0,
+      "appearance_condition": "拥有至少3个装备零件"
+     }
+    },
+    {
+     "id": "wand_2e35d5332a23",
+     "name": "残酷交易",
+     "description": "失去8点玩家血量，获得一个零件铁砧。",
+     "image": null,
+     "data": {
+      "cost": 0,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_1c22750bd104",
+     "name": "硬币一掷",
+     "description": "抛一枚硬币，若正面朝上则获得1金币。",
+     "image": null,
+     "data": {
+      "cost": 0,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_0c9c63924dbd",
+     "name": "小玩意罐",
+     "description": "获得1个随机消耗品，提供护甲、魔法抗性或生命值。",
+     "image": null,
+     "data": {
+      "cost": 0,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_55e629f7ac33",
+     "name": "提前修缮",
+     "description": "获得1个重铸炉。",
+     "image": null,
+     "data": {
+      "cost": 0,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_d056ac2db094",
+     "name": "森林法师",
+     "description": "将商店填满5个精灵，你可以施放其中1个。",
+     "image": null,
+     "data": {
+      "cost": 0,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_8aa9b0e91903",
+     "name": "黄金祭坛",
+     "description": "根据古源献祭棋子的费用和星级获得对应金币。",
+     "image": null,
+     "data": {
+      "cost": 0,
+      "appearance_condition": "古源特质激活"
+     }
+    },
+    {
+     "id": "wand_c1b48445a650",
+     "name": "小玩意罐（攻击）",
+     "description": "获得1个随机消耗品，提供攻击力或攻击速度。",
+     "image": null,
+     "data": {
+      "cost": 0,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_651a48c92a63",
+     "name": "生命债务",
+     "description": "每损失10点玩家血量获得1金币。",
+     "image": null,
+     "data": {
+      "cost": 0,
+      "appearance_condition": "已损失至少70点玩家血量"
+     }
+    },
+    {
+     "id": "wand_74e62fd8e1c9",
+     "name": "高端以物换物",
+     "description": "出售一个3星棋子，获得3次刷新次数和一个幸运装备宝箱。",
+     "image": null,
+     "data": {
+      "cost": 0,
+      "appearance_condition": "拥有3星棋子"
+     }
+    },
+    {
+     "id": "wand_e24637dfb437",
+     "name": "丰沛之力",
+     "description": "你的棋子获得8%攻击力和法术强度。",
+     "image": null,
+     "data": {
+      "cost": 0,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_bc1daa1071ec",
+     "name": "拆解者",
+     "description": "备战席上的所有棋子身上的装备被移除并拆解为零件。",
+     "image": null,
+     "data": {
+      "cost": 0,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_db2e0966b6dd",
+     "name": "险恶交易",
+     "description": "失去3点玩家血量，获得2金币。",
+     "image": null,
+     "data": {
+      "cost": 0,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_a9ca14e5aa7d",
+     "name": "玩意儿罐（法力）",
+     "description": "获得1个随机消耗品，提供法术强度或法力回复。",
+     "image": null,
+     "data": {
+      "cost": 0,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_102488ec7b36",
+     "name": "摸摸草地",
+     "description": "获得5金币并禁用所有操作；若在回合开始刷新或规划阶段前2秒内使用，则改为获得2金币。",
+     "image": null,
+     "data": {
+      "cost": 0,
+      "appearance_condition": "回合开始刷新阶段或规划阶段前2秒"
+     }
+    },
+    {
+     "id": "wand_2fc2e58e52dd",
+     "name": "停战协议",
+     "description": "获得1金币，你的对手也获得1金币。",
+     "image": null,
+     "data": {
+      "cost": 0,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_d72f264a084c",
+     "name": "极限飞升",
+     "description": "25秒后，友方棋子获得300%伤害加成。",
+     "image": null,
+     "data": {
+      "cost": 0,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_55b4e1fda9de",
+     "name": "翠绿活力",
+     "description": "你的棋子获得125点生命值。",
+     "image": null,
+     "data": {
+      "cost": 0,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_1c6a8d19ffc4",
+     "name": "全是二费",
+     "description": "将商店刷新为全部2费棋子。",
+     "image": null,
+     "data": {
+      "cost": 1,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_06279d579747",
+     "name": "树皮护甲",
+     "description": "你的棋子获得150点护盾，持续10秒。",
+     "image": null,
+     "data": {
+      "cost": 1,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_23b43e878ab5",
+     "name": "以物换物",
+     "description": "下一个出售的棋子可获得200%的金币。",
+     "image": null,
+     "data": {
+      "cost": 1,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_1f3c256009f9",
+     "name": "更好的好友",
+     "description": "BFF骑手获得15%攻击速度和150点生命值。",
+     "image": null,
+     "data": {
+      "cost": 1,
+      "appearance_condition": "精灵兽特质激活"
+     }
+    },
+    {
+     "id": "wand_40e04e01e25f",
+     "name": "爆炸药水",
+     "description": "获得一个可装备的一次性爆炸药水。",
+     "image": null,
+     "data": {
+      "cost": 1,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_de44cd3c4e81",
+     "name": "血腥金钱",
+     "description": "每击杀一个棋子获得1金币。",
+     "image": null,
+     "data": {
+      "cost": 1,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_8d1856116d03",
+     "name": "借来的装备",
+     "description": "一个棋子获得一件临时推荐装备。",
+     "image": null,
+     "data": {
+      "cost": 1,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_134ac8e4b627",
+     "name": "微风",
+     "description": "你的队伍获得12%攻击速度。",
+     "image": null,
+     "data": {
+      "cost": 1,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_cd0cc6647430",
+     "name": "消耗品商店",
+     "description": "开启一个商店，你可以花费金币购买消耗品。",
+     "image": null,
+     "data": {
+      "cost": 1,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_a1208633c378",
+     "name": "水晶球",
+     "description": "揭示你的下一个对手，你的队伍获得12%攻击速度。",
+     "image": null,
+     "data": {
+      "cost": 1,
+      "appearance_condition": "剩余4名或以上玩家"
+     }
+    },
+    {
+     "id": "wand_770e0f5d1043",
+     "name": "干旱",
+     "description": "你的连败数增加2。",
+     "image": null,
+     "data": {
+      "cost": 1,
+      "appearance_condition": "当前无连胜/连败或处于连败状态"
+     }
+    },
+    {
+     "id": "wand_c1458fc883ab",
+     "name": "精华窃取",
+     "description": "本场战斗获得50%额外女巫精华。",
+     "image": null,
+     "data": {
+      "cost": 1,
+      "appearance_condition": "女巫集会特质激活"
+     }
+    },
+    {
+     "id": "wand_60f2b07043c2",
+     "name": "经验积累",
+     "description": "获得2点经验值。",
+     "image": null,
+     "data": {
+      "cost": 1,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_ad8cd13beb8b",
+     "name": "精灵飞行",
+     "description": "本场战斗吸引100%更多精灵小仙子。",
+     "image": null,
+     "data": {
+      "cost": 1,
+      "appearance_condition": "精灵特质激活"
+     }
+    },
+    {
+     "id": "wand_ddae47cd1786",
+     "name": "施肥",
+     "description": "每有一个敌方棋子死亡，获得1点经验值。",
+     "image": null,
+     "data": {
+      "cost": 1,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_cfc842ab9780",
+     "name": "狂掷硬币",
+     "description": "抛硬币，正面朝上获得1金币，持续抛掷直到出现反面为止。",
+     "image": null,
+     "data": {
+      "cost": 1,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_6a21dad5470b",
+     "name": "洪流",
+     "description": "你的连胜数增加2。",
+     "image": null,
+     "data": {
+      "cost": 1,
+      "appearance_condition": "当前无连胜/连败或处于连胜状态"
+     }
+    },
+    {
+     "id": "wand_f629a42f3f45",
+     "name": "意外之友",
+     "description": "获得一个携带巨人腰带的训练假人。",
+     "image": null,
+     "data": {
+      "cost": 1,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_cc04700b9b86",
+     "name": "生命药水",
+     "description": "获得一个可装备的一次性生命药水。",
+     "image": null,
+     "data": {
+      "cost": 1,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_8e80ef63a695",
+     "name": "膨胀",
+     "description": "你生命值最高的棋子膨胀变大，获得350点生命值。",
+     "image": null,
+     "data": {
+      "cost": 1,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_c9b4d13670fd",
+     "name": "蜂鸟",
+     "description": "你攻击速度最高的棋子缩小，并额外获得20%攻击速度。",
+     "image": null,
+     "data": {
+      "cost": 1,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_64acc875fc49",
+     "name": "小玩意袋（攻击）",
+     "description": "获得2个随机消耗品，提供攻击力或攻击速度。",
+     "image": null,
+     "data": {
+      "cost": 1,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_a6a58ab43b58",
+     "name": "小混沌",
+     "description": "施放一个随机精灵。",
+     "image": null,
+     "data": {
+      "cost": 1,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_38999e32a6a5",
+     "name": "高阶变形",
+     "description": "你拥有的一个4费棋子永久变形为一个5费棋子。",
+     "image": null,
+     "data": {
+      "cost": 1,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_871db5650473",
+     "name": "法力药水",
+     "description": "获得一个可装备的一次性法力药水。",
+     "image": null,
+     "data": {
+      "cost": 1,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_1013ac5749af",
+     "name": "小赌一把",
+     "description": "若你赢得下一场玩家对战，获得2金币。",
+     "image": null,
+     "data": {
+      "cost": 1,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_c819aedffde4",
+     "name": "低阶变形",
+     "description": "你拥有的一个1费棋子永久变形为一个2费棋子。",
+     "image": null,
+     "data": {
+      "cost": 1,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_4bd2ca40cbba",
+     "name": "有丝分裂",
+     "description": "获得一个小型复制器。",
+     "image": null,
+     "data": {
+      "cost": 1,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_c484b210e194",
+     "name": "零钱",
+     "description": "你的1星棋子死亡时掉落1金币。",
+     "image": null,
+     "data": {
+      "cost": 1,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_64f3d2a3eb7b",
+     "name": "变形",
+     "description": "你拥有的一个2费棋子永久变形为一个3费棋子。",
+     "image": null,
+     "data": {
+      "cost": 1,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_1a2da4d456f8",
+     "name": "传播",
+     "description": "获得一个第一个死亡的友方棋子的复制品。",
+     "image": null,
+     "data": {
+      "cost": 1,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_f7dc5fb0f13f",
+     "name": "保护仪式",
+     "description": "本回合受到的玩家伤害减少3点。",
+     "image": null,
+     "data": {
+      "cost": 1,
+      "appearance_condition": "女巫集会特质激活"
+     }
+    },
+    {
+     "id": "wand_3536a9be0fef",
+     "name": "降雨",
+     "description": "你的队伍获得1点法力回复。",
+     "image": null,
+     "data": {
+      "cost": 1,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_241b676faa0d",
+     "name": "星落",
+     "description": "当你刷新商店时，费用最低的棋子变为2星。",
+     "image": null,
+     "data": {
+      "cost": 1,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_6da1499a06e3",
+     "name": "潜行",
+     "description": "你最强的2个战士或刺客在6秒内无法被选中为目标。",
+     "image": null,
+     "data": {
+      "cost": 1,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_9c953383a9c7",
+     "name": "拉个垫背",
+     "description": "若你失败但至少击杀了1个棋子，获得4点经验值。",
+     "image": null,
+     "data": {
+      "cost": 1,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_f2ae1903592e",
+     "name": "余震",
+     "description": "10秒后，眩晕所有敌方棋子1.5秒。",
+     "image": null,
+     "data": {
+      "cost": 2,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_f5a0a0f16108",
+     "name": "全是三费",
+     "description": "将商店刷新为全部3费棋子。",
+     "image": null,
+     "data": {
+      "cost": 2,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_da851b9a63b4",
+     "name": "壁垒",
+     "description": "友方棋子获得1000点护盾，在5秒内逐渐衰减。",
+     "image": null,
+     "data": {
+      "cost": 2,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_81fac924741a",
+     "name": "大爆炸",
+     "description": "第一个死亡的友方棋子发生爆炸，对敌方造成20%最大生命值的魔法伤害。",
+     "image": null,
+     "data": {
+      "cost": 2,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_1a1ae9df00b6",
+     "name": "血腥猎杀",
+     "description": "对手击杀时会向目标冲刺并造成150点物理伤害。",
+     "image": null,
+     "data": {
+      "cost": 2,
+      "appearance_condition": "对手特质激活且至少1个对手棋子携带装备"
+     }
+    },
+    {
+     "id": "wand_ff9b2f471132",
+     "name": "一堆腰带",
+     "description": "你的棋子获得7个临时且不可移除的巨人腰带。",
+     "image": null,
+     "data": {
+      "cost": 2,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_259864689c9f",
+     "name": "心灵慰藉",
+     "description": "获得2点玩家血量；若你输掉下一场玩家对战，再额外获得4点。",
+     "image": null,
+     "data": {
+      "cost": 2,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_d69afeca492a",
+     "name": "掷骰子",
+     "description": "掷一个六面骰子，获得与结果等量的金币。",
+     "image": null,
+     "data": {
+      "cost": 2,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_672ff7b6de47",
+     "name": "多元化",
+     "description": "每个激活的特质为你的队伍提供30点生命值。",
+     "image": null,
+     "data": {
+      "cost": 2,
+      "appearance_condition": "至少4个非唯一特质激活"
+     }
+    },
+    {
+     "id": "wand_7f9f66272900",
+     "name": "加倍下注",
+     "description": "下一个购买的精灵激活两次，但费用翻倍。",
+     "image": null,
+     "data": {
+      "cost": 2,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_dc492bd8a4d7",
+     "name": "倾盆大雨",
+     "description": "你的队伍获得2点法力回复。",
+     "image": null,
+     "data": {
+      "cost": 2,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_5169c53f099e",
+     "name": "流动",
+     "description": "你的棋子在10秒内变为无法阻挡状态并获得15%攻击速度。",
+     "image": null,
+     "data": {
+      "cost": 2,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_39b2755b73fc",
+     "name": "免费刷新",
+     "description": "获得2次刷新次数。",
+     "image": null,
+     "data": {
+      "cost": 2,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_de0f8bb3f1c1",
+     "name": "友善植物",
+     "description": "所有友方棋子以50%效果获得致命花卉的加成。",
+     "image": null,
+     "data": {
+      "cost": 2,
+      "appearance_condition": "致命花卉特质激活"
+     }
+    },
+    {
+     "id": "wand_ca80af672c72",
+     "name": "金鹅",
+     "description": "你伤害最高的棋子每造成1000点伤害，获得1金币。",
+     "image": null,
+     "data": {
+      "cost": 2,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_d0ee04136416",
+     "name": "大混沌",
+     "description": "施放2个随机精灵。",
+     "image": null,
+     "data": {
+      "cost": 2,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_dfd02e952eef",
+     "name": "治愈之泉",
+     "description": "获得5点玩家血量。",
+     "image": null,
+     "data": {
+      "cost": 2,
+      "appearance_condition": "已损失至少10点玩家血量"
+     }
+    },
+    {
+     "id": "wand_c1b0869a4a49",
+     "name": "钢铁核心",
+     "description": "你前排中央的棋子每有一个前排棋子就获得4%最大生命值。",
+     "image": null,
+     "data": {
+      "cost": 2,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_18ebbb9349a6",
+     "name": "闪电打击",
+     "description": "对敌方棋子造成10%最大生命值的真实伤害。",
+     "image": null,
+     "data": {
+      "cost": 2,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_8471d2e3b24e",
+     "name": "活土",
+     "description": "每4秒，根系束缚一个敌方棋子1秒。",
+     "image": null,
+     "data": {
+      "cost": 2,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_58919f4d1500",
+     "name": "大赌一把",
+     "description": "若你赢得下一场玩家对战，获得10金币。",
+     "image": null,
+     "data": {
+      "cost": 2,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_8c14cc7ea1a6",
+     "name": "神射手之风",
+     "description": "你的神射手每次攻击叠加3%攻击速度。",
+     "image": null,
+     "data": {
+      "cost": 2,
+      "appearance_condition": "场上有2个或以上神射手"
+     }
+    },
+    {
+     "id": "wand_9fbda0a8eb04",
+     "name": "月光仪式",
+     "description": "你星级最低的1费或2费棋子在战斗中升星。",
+     "image": null,
+     "data": {
+      "cost": 2,
+      "appearance_condition": "至少有1个2星的1费或2费棋子"
+     }
+    },
+    {
+     "id": "wand_0436836945ed",
+     "name": "月升",
+     "description": "10秒后，月神特质效果提升100%。",
+     "image": null,
+     "data": {
+      "cost": 2,
+      "appearance_condition": "月神特质激活"
+     }
+    },
+    {
+     "id": "wand_aca98be99bf0",
+     "name": "自然盟友",
+     "description": "每有3个友方棋子死亡，召唤一个随机裂隙兽。",
+     "image": null,
+     "data": {
+      "cost": 2,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_417550fbc781",
+     "name": "石化假人",
+     "description": "你第一个死亡的棋子变为拥有1000点生命值和原有防御属性的靶子假人。",
+     "image": null,
+     "data": {
+      "cost": 2,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_96d857ac4919",
+     "name": "石化护盾",
+     "description": "减速敌方棋子10%并降低其护盾20%，持续10秒。",
+     "image": null,
+     "data": {
+      "cost": 2,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_4ae9aa776b9c",
+     "name": "幻影护甲",
+     "description": "获得1件临时的温暖甲。",
+     "image": null,
+     "data": {
+      "cost": 2,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_5401ac6e7896",
+     "name": "幻影背心",
+     "description": "获得1件临时的荆棘背心。",
+     "image": null,
+     "data": {
+      "cost": 2,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_bd5ffc6d7e26",
+     "name": "强化护盾",
+     "description": "护盾强度提升15%，友方棋子额外获得150点护盾，持续10秒。",
+     "image": null,
+     "data": {
+      "cost": 2,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_6c4f9c2fcc73",
+     "name": "盆栽石皮树",
+     "description": "获得一棵临时的石皮树。",
+     "image": null,
+     "data": {
+      "cost": 2,
+      "appearance_condition": "古木特质激活"
+     }
+    },
+    {
+     "id": "wand_3bd59a4c61f7",
+     "name": "预备者",
+     "description": "你的叠加类装备在战斗开始时已部分叠加。",
+     "image": null,
+     "data": {
+      "cost": 2,
+      "appearance_condition": "至少拥有2件叠加类装备"
+     }
+    },
+    {
+     "id": "wand_27c75f4ac930",
+     "name": "急速",
+     "description": "施法时，你的棋子获得25%攻击速度，持续3秒。",
+     "image": null,
+     "data": {
+      "cost": 2,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_0d40173188b3",
+     "name": "抵抗",
+     "description": "坦克每次受到的伤害减少15点。",
+     "image": null,
+     "data": {
+      "cost": 2,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_0fd7263a4213",
+     "name": "日炎魔法",
+     "description": "对敌方棋子施加燃烧和创伤效果，持续10秒。",
+     "image": null,
+     "data": {
+      "cost": 2,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_c0c6596bd499",
+     "name": "破损护甲",
+     "description": "对敌方棋子施加30%撕裂和破甲效果，持续10秒。",
+     "image": null,
+     "data": {
+      "cost": 2,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_b3ede37865f8",
+     "name": "地形改造",
+     "description": "战斗开始时获得5颗绿父种子。",
+     "image": null,
+     "data": {
+      "cost": 2,
+      "appearance_condition": "绿父特质激活"
+     }
+    },
+    {
+     "id": "wand_f1cb08d166cc",
+     "name": "猎杀收藏家",
+     "description": "对对手棋子的击杀数增加100%。",
+     "image": null,
+     "data": {
+      "cost": 2,
+      "appearance_condition": "对手特质激活且至少1个对手棋子携带装备"
+     }
+    },
+    {
+     "id": "wand_85fd4b912794",
+     "name": "荆棘缠绕",
+     "description": "你的坦克每4秒将受到伤害的12%反弹给相邻敌方棋子。",
+     "image": null,
+     "data": {
+      "cost": 2,
+      "appearance_condition": "队伍中有2个或以上坦克"
+     }
+    },
+    {
+     "id": "wand_397399e8371c",
+     "name": "学徒",
+     "description": "获得一个随机2星1费棋子。",
+     "image": null,
+     "data": {
+      "cost": 3,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_2a75e3c1ea13",
+     "name": "铁血",
+     "description": "累计20个棋子死亡后，获得一个零件铁砧。",
+     "image": null,
+     "data": {
+      "cost": 3,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_a2388e226834",
+     "name": "铜汤匙",
+     "description": "获得6点经验值。",
+     "image": null,
+     "data": {
+      "cost": 3,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_ec48dc10a769",
+     "name": "堡垒",
+     "description": "你的坦克在生命值低于50%时获得20%最大生命值的护盾。",
+     "image": null,
+     "data": {
+      "cost": 3,
+      "appearance_condition": "场上有2个或以上坦克"
+     }
+    },
+    {
+     "id": "wand_96a773cfc679",
+     "name": "反制咒语",
+     "description": "将所有敌方棋子的最大法力值提升15，直到其下次施法为止。",
+     "image": null,
+     "data": {
+      "cost": 3,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_06829a578a81",
+     "name": "扒手",
+     "description": "每5秒，你的棋子有20%概率掉落1金币。",
+     "image": null,
+     "data": {
+      "cost": 3,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_84000a579e1a",
+     "name": "小玩意袋（防御）",
+     "description": "获得3个随机消耗品，提供护甲、魔法抗性或生命值。",
+     "image": null,
+     "data": {
+      "cost": 3,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_94996ca62233",
+     "name": "升级",
+     "description": "战斗15秒后，你的队伍获得30%伤害加成。",
+     "image": null,
+     "data": {
+      "cost": 3,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_0c000f5e847a",
+     "name": "闪火",
+     "description": "刷新商店，地狱火点燃2个商店格，将其升级。",
+     "image": null,
+     "data": {
+      "cost": 3,
+      "appearance_condition": "地狱火特质激活"
+     }
+    },
+    {
+     "id": "wand_d83df5e4cd8a",
+     "name": "黄金之路",
+     "description": "3场玩家对战后，每赢得一场获得3金币。",
+     "image": null,
+     "data": {
+      "cost": 3,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_ed91ecca0654",
+     "name": "激烈对手",
+     "description": "获得一个雷恩加尔或卡兹克斯，他们获得3次击杀数。",
+     "image": null,
+     "data": {
+      "cost": 3,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_0046f6006ce1",
+     "name": "英雄献祭",
+     "description": "携带3件装备的棋子获得英雄之力，但其他友方棋子被献祭。",
+     "image": null,
+     "data": {
+      "cost": 3,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_af7ea2ddd431",
+     "name": "追踪萤火虫",
+     "description": "施法者每消耗20点法力值生成一只萤火虫，每只造成150点魔法伤害。",
+     "image": null,
+     "data": {
+      "cost": 3,
+      "appearance_condition": "场上有2个或以上施法者"
+     }
+    },
+    {
+     "id": "wand_52d49aac23be",
+     "name": "马之来访",
+     "description": "本场战斗获得马原始增益。",
+     "image": null,
+     "data": {
+      "cost": 3,
+      "appearance_condition": "原始特质激活且未选择马"
+     }
+    },
+    {
+     "id": "wand_9bb9851c47ba",
+     "name": "延伸射程",
+     "description": "战士获得1点射程。",
+     "image": null,
+     "data": {
+      "cost": 3,
+      "appearance_condition": "场上有2个或以上战士"
+     }
+    },
+    {
+     "id": "wand_8b9c11202220",
+     "name": "铁木",
+     "description": "攻击你生命值最高棋子的敌方棋子造成的伤害减少10%。",
+     "image": null,
+     "data": {
+      "cost": 3,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_de1720f39796",
+     "name": "杀戮狂热",
+     "description": "战士对生命值低于10%的目标执行处决，每次击杀获得15%攻击速度。",
+     "image": null,
+     "data": {
+      "cost": 3,
+      "appearance_condition": "场上有2个或以上战士"
+     }
+    },
+    {
+     "id": "wand_6d092d12fa0d",
+     "name": "迷路旅人",
+     "description": "获得价值3金币的随机棋子。",
+     "image": null,
+     "data": {
+      "cost": 3,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_e6f387016584",
+     "name": "富法沃土",
+     "description": "你的施法者最大法力值降低15%。",
+     "image": null,
+     "data": {
+      "cost": 3,
+      "appearance_condition": "场上有2个或以上施法者"
+     }
+    },
+    {
+     "id": "wand_7b71061e5605",
+     "name": "神射手印记",
+     "description": "你的神射手有25%概率进行双重攻击。",
+     "image": null,
+     "data": {
+      "cost": 3,
+      "appearance_condition": "场上有2个或以上神射手"
+     }
+    },
+    {
+     "id": "wand_a0eeb2cb8cd8",
+     "name": "纪念假人",
+     "description": "你第一个携带装备的坦克死亡时，生成一个携带其装备的假人。",
+     "image": null,
+     "data": {
+      "cost": 3,
+      "appearance_condition": "场上有1个或以上携带装备的坦克"
+     }
+    },
+    {
+     "id": "wand_48bdaaf51141",
+     "name": "雇佣军势力",
+     "description": "每拥有10金币获得3%伤害加成。",
+     "image": null,
+     "data": {
+      "cost": 3,
+      "appearance_condition": "拥有超过30金币"
+     }
+    },
+    {
+     "id": "wand_bfae2239051a",
+     "name": "全新升级",
+     "description": "获得一个口袋重组仪。",
+     "image": null,
+     "data": {
+      "cost": 3,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_0a8732d118ab",
+     "name": "发薪日",
+     "description": "每有一个友方棋子在战斗中存活，获得2金币。",
+     "image": null,
+     "data": {
+      "cost": 3,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_60000fdd5774",
+     "name": "幻影手套",
+     "description": "获得一副临时的盗贼手套。",
+     "image": null,
+     "data": {
+      "cost": 3,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_b8054129f6fc",
+     "name": "炼药术",
+     "description": "获得三个可装备的一次性药水。",
+     "image": null,
+     "data": {
+      "cost": 3,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_472e76c03cf1",
+     "name": "盆栽生命绽放",
+     "description": "获得一株临时的生命绽放。",
+     "image": null,
+     "data": {
+      "cost": 3,
+      "appearance_condition": "古木特质激活"
+     }
+    },
+    {
+     "id": "wand_d25e1490afd4",
+     "name": "再生",
+     "description": "你的队伍每秒回复1%最大生命值。",
+     "image": null,
+     "data": {
+      "cost": 3,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_5121623fe2ee",
+     "name": "复仇",
+     "description": "每当一个友方棋子死亡，你的棋子叠加获得4%伤害加成。",
+     "image": null,
+     "data": {
+      "cost": 3,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_def90bceb3a9",
+     "name": "乘风破浪",
+     "description": "本回合接下来的2次刷新将包含上场战斗中出战的2个或以上棋子。",
+     "image": null,
+     "data": {
+      "cost": 3,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_294d59a1d227",
+     "name": "仪式完成",
+     "description": "若你赢得战斗，完成当前女巫集会仪式。",
+     "image": null,
+     "data": {
+      "cost": 3,
+      "appearance_condition": "女巫集会特质激活"
+     }
+    },
+    {
+     "id": "wand_cfede9956b09",
+     "name": "骨骰连滚",
+     "description": "每次击杀有60%概率获得一次免费刷新。",
+     "image": null,
+     "data": {
+      "cost": 3,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_2616a2c171d7",
+     "name": "团团转",
+     "description": "每有一个友方棋子在18秒时存活，获得一次刷新次数。",
+     "image": null,
+     "data": {
+      "cost": 3,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_3dbb96ccc673",
+     "name": "简陋装备",
+     "description": "2个没有装备的棋子获得一件临时推荐装备。",
+     "image": null,
+     "data": {
+      "cost": 3,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_0a418b1becdc",
+     "name": "搜寻队",
+     "description": "本回合每次刷新的商店都包含一个4费棋子，直到你购买为止。",
+     "image": null,
+     "data": {
+      "cost": 3,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_cb0776f82e45",
+     "name": "慢速学习",
+     "description": "每有一个友方棋子在15秒时存活，获得2点经验值。",
+     "image": null,
+     "data": {
+      "cost": 3,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_75bdeee06a38",
+     "name": "孤独斗篷",
+     "description": "没有相邻友方棋子的棋子获得10%最大生命值和10%伤害加成。",
+     "image": null,
+     "data": {
+      "cost": 3,
+      "appearance_condition": "日光束或月光束特质激活时不出现"
+     }
+    },
+    {
+     "id": "wand_d46bba36fbb8",
+     "name": "独当一面",
+     "description": "在所在行中独处的棋子获得15%生命值和15%伤害加成。",
+     "image": null,
+     "data": {
+      "cost": 3,
+      "appearance_condition": "古木特质未激活"
+     }
+    },
+    {
+     "id": "wand_58780b9e9911",
+     "name": "星力",
+     "description": "你的队伍获得10%攻击力/法术强度，3星棋子额外获得25%攻击力/法术强度。",
+     "image": null,
+     "data": {
+      "cost": 3,
+      "appearance_condition": "至少有1个3星非坦克棋子上场"
+     }
+    },
+    {
+     "id": "wand_12f2da879889",
+     "name": "超级暴击",
+     "description": "你拥有精准特质的棋子获得25%暴击伤害。",
+     "image": null,
+     "data": {
+      "cost": 3,
+      "appearance_condition": "队伍中至少有1个棋子拥有精准特质"
+     }
+    },
+    {
+     "id": "wand_d6e4c4d2f060",
+     "name": "玩意儿袋（法力）",
+     "description": "获得3个随机消耗品，提供法术强度或法力回复。",
+     "image": null,
+     "data": {
+      "cost": 3,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_f5557be1d74d",
+     "name": "虎之来访",
+     "description": "本场战斗获得虎原始增益。",
+     "image": null,
+     "data": {
+      "cost": 3,
+      "appearance_condition": "原始特质激活且未选择虎"
+     }
+    },
+    {
+     "id": "wand_f49f4c88f7b4",
+     "name": "训练场",
+     "description": "获得2个训练假人，每个携带一件随机坦克装备。",
+     "image": null,
+     "data": {
+      "cost": 3,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_357734d9eec8",
+     "name": "龟之来访",
+     "description": "本场战斗获得龟原始增益。",
+     "image": null,
+     "data": {
+      "cost": 3,
+      "appearance_condition": "原始特质激活且未选择龟"
+     }
+    },
+    {
+     "id": "wand_b4d58dac0d48",
+     "name": "约德尔精神",
+     "description": "友方棋子在4秒内有99%概率闪避攻击。",
+     "image": null,
+     "data": {
+      "cost": 3,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_6470926332b7",
+     "name": "全是四费",
+     "description": "将商店刷新为全部4费棋子。",
+     "image": null,
+     "data": {
+      "cost": 4,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_41c9c627e318",
+     "name": "后排之星",
+     "description": "一个随机后排棋子获得75%攻击速度，持续7秒。",
+     "image": null,
+     "data": {
+      "cost": 4,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_880c8d0e71d2",
+     "name": "强化注射",
+     "description": "最多2个1星棋子在战斗中临时升星。",
+     "image": null,
+     "data": {
+      "cost": 4,
+      "appearance_condition": "场上有1个或以上1星3-5费棋子"
+     }
+    },
+    {
+     "id": "wand_ef4844ada455",
+     "name": "零件赏金",
+     "description": "若你赢得下一场玩家对战，获得一个零件铁砧。",
+     "image": null,
+     "data": {
+      "cost": 4,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_7ad24cd1a2b2",
+     "name": "精灵联邦",
+     "description": "本回合你所有棋子获得2个精灵小仙子。",
+     "image": null,
+     "data": {
+      "cost": 4,
+      "appearance_condition": "精灵特质激活"
+     }
+    },
+    {
+     "id": "wand_94992c36df85",
+     "name": "同伴情谊",
+     "description": "棋子每有一个相邻友方棋子，获得4%最大生命值护盾和4%伤害加成。",
+     "image": null,
+     "data": {
+      "cost": 4,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_f17f4a474584",
+     "name": "森林双生",
+     "description": "获得2个你没有的2费棋子的复制品。",
+     "image": null,
+     "data": {
+      "cost": 4,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_6740067fa55f",
+     "name": "巨人成长",
+     "description": "你生命值最高的棋子获得600点生命值并体型变大。",
+     "image": null,
+     "data": {
+      "cost": 4,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_afe9a257f756",
+     "name": "巨人光环",
+     "description": "你生命值最高的友方棋子每秒对范围内敌人造成2%最大生命值的伤害。",
+     "image": null,
+     "data": {
+      "cost": 4,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_e467f4b875f3",
+     "name": "英雄登场",
+     "description": "8秒后，备战席最左侧的棋子携带2件装备加入战斗。",
+     "image": null,
+     "data": {
+      "cost": 4,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_fed8f2acd8a0",
+     "name": "闲置工匠",
+     "description": "备战席上的一个零件变为其可合成的完整装备。",
+     "image": null,
+     "data": {
+      "cost": 4,
+      "appearance_condition": "拥有至少1个装备零件"
+     }
+    },
+    {
+     "id": "wand_9309f53d0672",
+     "name": "打野",
+     "description": "用裂隙兽填满商店。",
+     "image": null,
+     "data": {
+      "cost": 4,
+      "appearance_condition": "裂隙兽特质激活"
+     }
+    },
+    {
+     "id": "wand_26734d2b495a",
+     "name": "融化抗性",
+     "description": "燃烧状态的敌方棋子每秒损失3点护甲和魔法抗性。",
+     "image": null,
+     "data": {
+      "cost": 4,
+      "appearance_condition": "地狱火特质激活"
+     }
+    },
+    {
+     "id": "wand_df18b6b86c0b",
+     "name": "小兵大军",
+     "description": "召唤4个小兵。",
+     "image": null,
+     "data": {
+      "cost": 4,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_cf0b477ffe00",
+     "name": "小型血祭",
+     "description": "失去3点玩家血量，获得一个小型棋子复制器。",
+     "image": null,
+     "data": {
+      "cost": 4,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_5d1b8db4b696",
+     "name": "幻影溅射",
+     "description": "战斗开始时，最多2个未激活特质以最低等级激活。",
+     "image": null,
+     "data": {
+      "cost": 4,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_bd32bc6c4228",
+     "name": "零食时间！",
+     "description": "BFF会吞噬他伤害到的生命值低于10%最大生命值的敌人。",
+     "image": null,
+     "data": {
+      "cost": 4,
+      "appearance_condition": "精灵兽特质激活"
+     }
+    },
+    {
+     "id": "wand_83173e3e38fc",
+     "name": "起始小镇",
+     "description": "将商店刷新为全部2星1费棋子。",
+     "image": null,
+     "data": {
+      "cost": 4,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_53cde84bc302",
+     "name": "全力押注",
+     "description": "若你赢得接下来的3场战斗，升级。",
+     "image": null,
+     "data": {
+      "cost": 5,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_860d2a913517",
+     "name": "烈焰",
+     "description": "火焰蔓延整个棋盘，对敌方棋子造成持续递增的真实伤害。",
+     "image": null,
+     "data": {
+      "cost": 5,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_3ed870773960",
+     "name": "血祭",
+     "description": "失去9点玩家血量，获得一个棋子复制器。",
+     "image": null,
+     "data": {
+      "cost": 5,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_4a839c679d10",
+     "name": "克隆伙伴",
+     "description": "克隆你伤害最高的棋子，克隆体造成20%的伤害。",
+     "image": null,
+     "data": {
+      "cost": 5,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_0aaafeb8541a",
+     "name": "燃烧殆尽",
+     "description": "你的棋子死亡时爆炸，对敌方造成20%最大生命值的魔法伤害。",
+     "image": null,
+     "data": {
+      "cost": 5,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_405ce5dc6ba9",
+     "name": "小玩意麻袋（防御）",
+     "description": "获得5个随机消耗品，提供护甲、魔法抗性或生命值。",
+     "image": null,
+     "data": {
+      "cost": 5,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_0580577b2dc5",
+     "name": "鼠鼠大军",
+     "description": "你每上场一种不同的1费棋子，获得一个小型复制器。",
+     "image": null,
+     "data": {
+      "cost": 5,
+      "appearance_condition": "上场战斗中有2个或以上1费棋子上场"
+     }
+    },
+    {
+     "id": "wand_1ed618382c42",
+     "name": "森林向导",
+     "description": "获得一个随机4费棋子。",
+     "image": null,
+     "data": {
+      "cost": 5,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_7bfeff1fe241",
+     "name": "好的失败",
+     "description": "接下来3场玩家对战中，每输一场获得6点经验值。",
+     "image": null,
+     "data": {
+      "cost": 5,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_e532c1442d07",
+     "name": "杀手的遗憾",
+     "description": "你前3个死亡的棋子会眩晕击杀它们的敌人1秒。",
+     "image": null,
+     "data": {
+      "cost": 5,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_dcea1033c83a",
+     "name": "小玩意麻袋（攻击）",
+     "description": "获得4个随机消耗品，提供攻击力或攻击速度。",
+     "image": null,
+     "data": {
+      "cost": 5,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_da17cb22892b",
+     "name": "大器晚成",
+     "description": "一个携带1件推荐装备的临时3星1费棋子加入你的队伍。",
+     "image": null,
+     "data": {
+      "cost": 5,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_23d19c85af00",
+     "name": "雷暴",
+     "description": "每1秒对一个敌方棋子造成7%最大生命值的真实伤害。",
+     "image": null,
+     "data": {
+      "cost": 5,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_c04ebd57f794",
+     "name": "太阳馈赠",
+     "description": "获得一个雷欧娜、瑟庄妮和凯尔。",
+     "image": null,
+     "data": {
+      "cost": 5,
+      "appearance_condition": "太阳特质激活"
+     }
+    },
+    {
+     "id": "wand_a383b5460518",
+     "name": "玩意儿麻袋（法力）",
+     "description": "获得5个随机消耗品，提供法术强度或法力回复。",
+     "image": null,
+     "data": {
+      "cost": 5,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_a67591b1e96f",
+     "name": "树顶弓手",
+     "description": "弓手从树上射击，每3秒造成500点物理伤害。",
+     "image": null,
+     "data": {
+      "cost": 5,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_e590edcfc489",
+     "name": "边境村庄",
+     "description": "将商店刷新为全部2星2费棋子。",
+     "image": null,
+     "data": {
+      "cost": 6,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_76feec569096",
+     "name": "盗贼公会",
+     "description": "获得2副临时的盗贼手套。",
+     "image": null,
+     "data": {
+      "cost": 6,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_7cf7ec2a9102",
+     "name": "雇工",
+     "description": "一个携带1件推荐装备的临时1星5费棋子加入你的队伍。",
+     "image": null,
+     "data": {
+      "cost": 6,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_06588b9c0624",
+     "name": "折磨",
+     "description": "对敌方棋子施加减速、燃烧、撕裂和破甲效果，持续8秒。",
+     "image": null,
+     "data": {
+      "cost": 6,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_4bf6868aa0ea",
+     "name": "旅行者",
+     "description": "获得一个随机2星2费棋子。",
+     "image": null,
+     "data": {
+      "cost": 6,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_1bf3d659b472",
+     "name": "小贩",
+     "description": "开启一个商店，你可以购买装备，价格为0至10金币。",
+     "image": null,
+     "data": {
+      "cost": 6,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_d80882fdf1ca",
+     "name": "幻影徽章",
+     "description": "获得一个你最活跃特质的临时徽章。",
+     "image": null,
+     "data": {
+      "cost": 6,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_32420549c774",
+     "name": "辉光化",
+     "description": "12秒后，1件随机已装备的装备临时变为辉光装备。",
+     "image": null,
+     "data": {
+      "cost": 6,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_695cc56a6c21",
+     "name": "清新之光",
+     "description": "每个独特日光束棋子每个星级提供一次免费刷新。",
+     "image": null,
+     "data": {
+      "cost": 6,
+      "appearance_condition": "太阳特质激活"
+     }
+    },
+    {
+     "id": "wand_b68aaaf34eaa",
+     "name": "震颤",
+     "description": "每8秒，眩晕所有敌方棋子1秒。",
+     "image": null,
+     "data": {
+      "cost": 6,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_d13c8c501313",
+     "name": "幸运7",
+     "description": "获得7次商店刷新次数。",
+     "image": null,
+     "data": {
+      "cost": 7,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_ba1178a6ebcb",
+     "name": "中间道路",
+     "description": "将商店刷新为全部2星3费棋子。",
+     "image": null,
+     "data": {
+      "cost": 7,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_e7830e6c3834",
+     "name": "动态商店",
+     "description": "在20秒内，你的商店每2秒免费刷新一次。",
+     "image": null,
+     "data": {
+      "cost": 8,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_5f4f738bc93e",
+     "name": "大炮",
+     "description": "获得2个随机1星4费棋子。",
+     "image": null,
+     "data": {
+      "cost": 8,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_17a18ba504e2",
+     "name": "降维打击",
+     "description": "获得一个随机5费棋子。",
+     "image": null,
+     "data": {
+      "cost": 8,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_b9068f192185",
+     "name": "三重自我",
+     "description": "获得一个随机2星3费棋子。",
+     "image": null,
+     "data": {
+      "cost": 9,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_8948ff4d09f5",
+     "name": "全是五费",
+     "description": "将商店刷新为全部5费棋子。",
+     "image": null,
+     "data": {
+      "cost": 10,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_78c6acf161c8",
+     "name": "虚假等级",
+     "description": "你临时变为10级。",
+     "image": null,
+     "data": {
+      "cost": 10,
+      "appearance_condition": "当前不是10级"
+     }
+    },
+    {
+     "id": "wand_16cc0bf3dd25",
+     "name": "成长",
+     "description": "获得16点经验值。",
+     "image": null,
+     "data": {
+      "cost": 10,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_6cab5e0bf5ff",
+     "name": "男爵之手",
+     "description": "你的队伍获得男爵增益，提升各项属性。",
+     "image": null,
+     "data": {
+      "cost": 10,
+      "appearance_condition": "裂隙兽特质激活"
+     }
+    },
+    {
+     "id": "wand_0e3f0dcba48a",
+     "name": "战车",
+     "description": "刷新和经验值的费用减半。",
+     "image": null,
+     "data": {
+      "cost": 10,
+      "appearance_condition": "拥有至少30金币"
+     }
+    },
+    {
+     "id": "wand_3de63d961d58",
+     "name": "龙卷风",
+     "description": "召唤一个龙卷风，对敌方棋子造成5%最大生命值的魔法伤害。",
+     "image": null,
+     "data": {
+      "cost": 10,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_73682130daea",
+     "name": "自然之怒",
+     "description": "10秒后，击杀所有没有装备的棋子。",
+     "image": null,
+     "data": {
+      "cost": 15,
+      "appearance_condition": "队伍中至少有3个携带装备的棋子"
+     }
+    },
+    {
+     "id": "wand_ed76d2735752",
+     "name": "宗师",
+     "description": "获得一个随机2星5费棋子。",
+     "image": null,
+     "data": {
+      "cost": 18,
+      "appearance_condition": null
+     }
+    },
+    {
+     "id": "wand_57bdaa186d18",
+     "name": "预言英雄",
+     "description": "每回合永久获得一个相同的随机5费棋子复制品。",
+     "image": null,
+     "data": {
+      "cost": 35,
+      "appearance_condition": "10级且至少有1种5费棋子没有任何副本"
+     }
+    },
+    {
+     "id": "wand_3f7c20afdeaf",
+     "name": "长老之环",
+     "description": "获得每种5费棋子各一个。",
+     "image": null,
+     "data": {
+      "cost": 45,
+      "appearance_condition": null
+     }
+    }
+   ]
+  }
+ ]
+}
