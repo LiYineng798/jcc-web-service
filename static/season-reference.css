@@ -58,7 +58,7 @@
   top: 12px;
   z-index: 70;
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(var(--tab-count, 3), minmax(0, 1fr));
   width: min(540px, 100%);
   margin: 0 auto 20px;
   border: 1px solid var(--line);
