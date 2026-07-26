@@ -339,7 +339,7 @@ function createChampionCard(champion, index) {
   const isNew = (champion.tags || []).includes('new');
   const art = document.createElement('div');
   art.className = `champion-art${isNew ? ' has-new' : ''}`;
-  const artPath = champion.splash || champion.icon;
+  const artPath = champion.card || champion.splash || champion.icon;
   if (artPath) art.append(createImage(assetUrl(artPath), champion.name));
   if (isNew) {
     const badge = document.createElement('span');

@@ -24,6 +24,7 @@
    "tags": [],
    "icon": "assets/champions/1152.png",
    "splash": "assets/champions/splash/1152.jpg",
+   "card": "assets/champions/card/1152.webp",
    "has_stats": true,
    "skill": {
     "name": "破防打击！",
@@ -46,6 +47,7 @@
    "tags": [],
    "icon": "assets/champions/1153.png",
    "splash": "assets/champions/splash/1153.jpg",
+   "card": "assets/champions/card/1153.webp",
    "has_stats": true,
    "skill": {
     "name": "战斗蝠冲击波",
@@ -68,6 +70,7 @@
    "tags": [],
    "icon": "assets/champions/1154.png",
    "splash": "assets/champions/splash/1154.jpg",
+   "card": "assets/champions/card/1154.webp",
    "has_stats": true,
    "skill": {
     "name": "射手的专注",
@@ -90,6 +93,7 @@
    "tags": [],
    "icon": "assets/champions/1155.png",
    "splash": "assets/champions/splash/1155.jpg",
+   "card": "assets/champions/card/1155.webp",
    "has_stats": true,
    "skill": {
     "name": "别挡道！",
@@ -112,6 +116,7 @@
    "tags": [],
    "icon": "assets/champions/1156.png",
    "splash": "assets/champions/splash/1156.jpg",
+   "card": "assets/champions/card/1156.webp",
    "has_stats": true,
    "skill": {
     "name": "烈火审讯",
@@ -134,6 +139,7 @@
    "tags": [],
    "icon": "assets/champions/1157.png",
    "splash": "assets/champions/splash/1157.jpg",
+   "card": "assets/champions/card/1157.webp",
    "has_stats": true,
    "skill": {
     "name": "透光奇点",
@@ -156,6 +162,7 @@
    "tags": [],
    "icon": "assets/champions/1158.png",
    "splash": "assets/champions/splash/1158.jpg",
+   "card": "assets/champions/card/1158.webp",
    "has_stats": true,
    "skill": {
     "name": "终极统治",
@@ -178,6 +185,7 @@
    "tags": [],
    "icon": "assets/champions/1159.png",
    "splash": "assets/champions/splash/1159.jpg",
+   "card": "assets/champions/card/1159.webp",
    "has_stats": true,
    "skill": {
     "name": "福牛式外交",
@@ -200,6 +208,7 @@
    "tags": [],
    "icon": "assets/champions/1160.png",
    "splash": "assets/champions/splash/1160.jpg",
+   "card": "assets/champions/card/1160.webp",
    "has_stats": true,
    "skill": {
     "name": "静态防御",
@@ -222,6 +231,7 @@
    "tags": [],
    "icon": "assets/champions/1162.png",
    "splash": "assets/champions/splash/1162.jpg",
+   "card": "assets/champions/card/1162.webp",
    "has_stats": true,
    "skill": {
     "name": "闪耀长枪",
@@ -244,6 +254,7 @@
    "tags": [],
    "icon": "assets/champions/1163.png",
    "splash": "assets/champions/splash/1163.jpg",
+   "card": "assets/champions/card/1163.webp",
    "has_stats": true,
    "skill": {
     "name": "金刚不坏",
@@ -266,6 +277,7 @@
    "tags": [],
    "icon": "assets/champions/1164.png",
    "splash": "assets/champions/splash/1164.jpg",
+   "card": "assets/champions/card/1164.webp",
    "has_stats": true,
    "skill": {
     "name": "星火符刃",
@@ -288,6 +300,7 @@
    "tags": [],
    "icon": "assets/champions/1165.png",
    "splash": "assets/champions/splash/1165.jpg",
+   "card": "assets/champions/card/1165.webp",
    "has_stats": true,
    "skill": {
     "name": "圆盾投掷",
@@ -310,6 +323,7 @@
    "tags": [],
    "icon": "assets/champions/2143.png",
    "splash": "assets/champions/splash/2143.jpg",
+   "card": "assets/champions/card/2143.webp",
    "has_stats": true,
    "skill": {
     "name": "鱼骨头",
@@ -333,6 +347,7 @@
    "tags": [],
    "icon": "assets/champions/2144.png",
    "splash": "assets/champions/splash/2144.jpg",
+   "card": "assets/champions/card/2144.webp",
    "has_stats": true,
    "skill": {
     "name": "爆裂护盾",
@@ -355,6 +370,7 @@
    "tags": [],
    "icon": "assets/champions/2145.png",
    "splash": "assets/champions/splash/2145.jpg",
+   "card": "assets/champions/card/2145.webp",
    "has_stats": true,
    "skill": {
     "name": "战术横扫",
@@ -377,6 +393,7 @@
    "tags": [],
    "icon": "assets/champions/2146.png",
    "splash": "assets/champions/splash/2146.jpg",
+   "card": "assets/champions/card/2146.webp",
    "has_stats": true,
    "skill": {
     "name": "亮出架势！",
@@ -400,6 +417,7 @@
    "tags": [],
    "icon": "assets/champions/2147.png",
    "splash": "assets/champions/splash/2147.jpg",
+   "card": "assets/champions/card/2147.webp",
    "has_stats": true,
    "skill": {
     "name": "金钟罩",
@@ -422,6 +440,7 @@
    "tags": [],
    "icon": "assets/champions/2148.png",
    "splash": "assets/champions/splash/2148.jpg",
+   "card": "assets/champions/card/2148.webp",
    "has_stats": true,
    "skill": {
     "name": "钢铁纽带",
@@ -444,6 +463,7 @@
    "tags": [],
    "icon": "assets/champions/2149.png",
    "splash": "assets/champions/splash/2149.jpg",
+   "card": "assets/champions/card/2149.webp",
    "has_stats": true,
    "skill": {
     "name": "披萨投送",
@@ -466,6 +486,7 @@
    "tags": [],
    "icon": "assets/champions/2150.png",
    "splash": "assets/champions/splash/2150.jpg",
+   "card": "assets/champions/card/2150.webp",
    "has_stats": true,
    "skill": {
     "name": "斩钢闪",
@@ -489,6 +510,7 @@
    "tags": [],
    "icon": "assets/champions/2151.png",
    "splash": "assets/champions/splash/2151.jpg",
+   "card": "assets/champions/card/2151.webp",
    "has_stats": true,
    "skill": {
     "name": "摸鱼飞弹",
@@ -511,6 +533,7 @@
    "tags": [],
    "icon": "assets/champions/2152.png",
    "splash": "assets/champions/splash/2152.jpg",
+   "card": "assets/champions/card/2152.webp",
    "has_stats": true,
    "skill": {
     "name": "大地震颤",
@@ -533,6 +556,7 @@
    "tags": [],
    "icon": "assets/champions/2153.png",
    "splash": "assets/champions/splash/2153.jpg",
+   "card": "assets/champions/card/2153.webp",
    "has_stats": true,
    "skill": {
     "name": "冷血追命",
@@ -556,6 +580,7 @@
    "tags": [],
    "icon": "assets/champions/2154.png",
    "splash": "assets/champions/splash/2154.jpg",
+   "card": "assets/champions/card/2154.webp",
    "has_stats": true,
    "skill": {
     "name": "爆裂护盾",
@@ -578,6 +603,7 @@
    "tags": [],
    "icon": "assets/champions/2155.png",
    "splash": "assets/champions/splash/2155.jpg",
+   "card": "assets/champions/card/2155.webp",
    "has_stats": true,
    "skill": {
     "name": "蓄意破坏",
@@ -601,6 +627,7 @@
    "tags": [],
    "icon": "assets/champions/3158.png",
    "splash": "assets/champions/splash/3158.jpg",
+   "card": "assets/champions/card/3158.webp",
    "has_stats": true,
    "skill": {
     "name": "战斗兔之刃",
@@ -624,6 +651,7 @@
    "tags": [],
    "icon": "assets/champions/3159.png",
    "splash": "assets/champions/splash/3159.jpg",
+   "card": "assets/champions/card/3159.webp",
    "has_stats": true,
    "skill": {
     "name": "圣银弩箭",
@@ -647,6 +675,7 @@
    "tags": [],
    "icon": "assets/champions/3160.png",
    "splash": "assets/champions/splash/3160.jpg",
+   "card": "assets/champions/card/3160.webp",
    "has_stats": true,
    "skill": {
     "name": "大地粉碎",
@@ -668,6 +697,7 @@
    "tags": [],
    "icon": "assets/champions/3161.png",
    "splash": "assets/champions/splash/3161.jpg",
+   "card": "assets/champions/card/3161.webp",
    "has_stats": true,
    "skill": {
     "name": "星界咆哮",
@@ -691,6 +721,7 @@
    "tags": [],
    "icon": "assets/champions/3162.png",
    "splash": "assets/champions/splash/3162.jpg",
+   "card": "assets/champions/card/3162.webp",
    "has_stats": true,
    "skill": {
     "name": "终章序列",
@@ -712,6 +743,7 @@
    "tags": [],
    "icon": "assets/champions/3163.png",
    "splash": "assets/champions/splash/3163.jpg",
+   "card": "assets/champions/card/3163.webp",
    "has_stats": true,
    "skill": {
     "name": "冰封陵墓",
@@ -735,6 +767,7 @@
    "tags": [],
    "icon": "assets/champions/3164.png",
    "splash": "assets/champions/splash/3164.jpg",
+   "card": "assets/champions/card/3164.webp",
    "has_stats": true,
    "skill": {
     "name": "麻烦气泡",
@@ -756,6 +789,7 @@
    "tags": [],
    "icon": "assets/champions/3165.png",
    "splash": "assets/champions/splash/3165.jpg",
+   "card": "assets/champions/card/3165.webp",
    "has_stats": true,
    "skill": {
     "name": "沙漠猛撞",
@@ -778,6 +812,7 @@
    "tags": [],
    "icon": "assets/champions/3166.png",
    "splash": "assets/champions/splash/3166.jpg",
+   "card": "assets/champions/card/3166.webp",
    "has_stats": true,
    "skill": {
     "name": "神恩激荡",
@@ -800,6 +835,7 @@
    "tags": [],
    "icon": "assets/champions/3167.png",
    "splash": "assets/champions/splash/3167.jpg",
+   "card": "assets/champions/card/3167.webp",
    "has_stats": true,
    "skill": {
     "name": "黑暗洞灭",
@@ -822,6 +858,7 @@
    "tags": [],
    "icon": "assets/champions/3168.png",
    "splash": "assets/champions/splash/3168.jpg",
+   "card": "assets/champions/card/3168.webp",
    "has_stats": true,
    "skill": {
     "name": "自适应打击",
@@ -845,6 +882,7 @@
    "tags": [],
    "icon": "assets/champions/3169.png",
    "splash": "assets/champions/splash/3169.jpg",
+   "card": "assets/champions/card/3169.webp",
    "has_stats": true,
    "skill": {
     "name": "恶意魔印",
@@ -867,6 +905,7 @@
    "tags": [],
    "icon": "assets/champions/3170.png",
    "splash": "assets/champions/splash/3170.jpg",
+   "card": "assets/champions/card/3170.webp",
    "has_stats": true,
    "skill": {
     "name": "星之超载",
@@ -888,6 +927,7 @@
    "tags": [],
    "icon": "assets/champions/3172.png",
    "splash": "assets/champions/splash/3172.jpg",
+   "card": "assets/champions/card/3172.webp",
    "has_stats": true,
    "skill": {
     "name": "暗之禁锢",
@@ -910,6 +950,7 @@
    "tags": [],
    "icon": "assets/champions/4141.png",
    "splash": "assets/champions/splash/4141.jpg",
+   "card": "assets/champions/card/4141.webp",
    "has_stats": true,
    "skill": {
     "name": "墙幔",
@@ -933,6 +974,7 @@
    "tags": [],
    "icon": "assets/champions/4142.png",
    "splash": "assets/champions/splash/4142.jpg",
+   "card": "assets/champions/card/4142.webp",
    "has_stats": true,
    "skill": {
     "name": "痛贯天灵",
@@ -954,6 +996,7 @@
    "tags": [],
    "icon": "assets/champions/4143.png",
    "splash": "assets/champions/splash/4143.jpg",
+   "card": "assets/champions/card/4143.webp",
    "has_stats": true,
    "skill": {
     "name": "流星雨",
@@ -975,6 +1018,7 @@
    "tags": [],
    "icon": "assets/champions/4144.png",
    "splash": "assets/champions/splash/4144.jpg",
+   "card": "assets/champions/card/4144.webp",
    "has_stats": true,
    "skill": {
     "name": "万载豪筵",
@@ -997,6 +1041,7 @@
    "tags": [],
    "icon": "assets/champions/4146.png",
    "splash": "assets/champions/splash/4146.jpg",
+   "card": "assets/champions/card/4146.webp",
    "has_stats": true,
    "skill": {
     "name": "弹幕时间",
@@ -1020,6 +1065,7 @@
    "tags": [],
    "icon": "assets/champions/4147.png",
    "splash": "assets/champions/splash/4147.jpg",
+   "card": "assets/champions/card/4147.webp",
    "has_stats": true,
    "skill": {
     "name": "交火",
@@ -1042,6 +1088,7 @@
    "tags": [],
    "icon": "assets/champions/4148.png",
    "splash": "assets/champions/splash/4148.jpg",
+   "card": "assets/champions/card/4148.webp",
    "has_stats": true,
    "skill": {
     "name": "机甲猛击",
@@ -1063,6 +1110,7 @@
    "tags": [],
    "icon": "assets/champions/4149.png",
    "splash": "assets/champions/splash/4149.jpg",
+   "card": "assets/champions/card/4149.webp",
    "has_stats": true,
    "skill": {
     "name": "共生分裂",
@@ -1086,6 +1134,7 @@
    "tags": [],
    "icon": "assets/champions/4150.png",
    "splash": "assets/champions/splash/4150.jpg",
+   "card": "assets/champions/card/4150.webp",
    "has_stats": true,
    "skill": {
     "name": "强化杀戮模式",
@@ -1108,6 +1157,7 @@
    "tags": [],
    "icon": "assets/champions/4151.png",
    "splash": "assets/champions/splash/4151.jpg",
+   "card": "assets/champions/card/4151.webp",
    "has_stats": true,
    "skill": {
     "name": "流星坠落",
@@ -1130,6 +1180,7 @@
    "tags": [],
    "icon": "assets/champions/4152.png",
    "splash": "assets/champions/splash/4152.jpg",
+   "card": "assets/champions/card/4152.webp",
    "has_stats": true,
    "skill": {
     "name": "冰晶手雷",
@@ -1153,6 +1204,7 @@
    "tags": [],
    "icon": "assets/champions/4157.png",
    "splash": "assets/champions/splash/4157.jpg",
+   "card": "assets/champions/card/4157.webp",
    "has_stats": true,
    "skill": {
     "name": "星之尖兵",
@@ -1174,6 +1226,7 @@
    "tags": [],
    "icon": "assets/champions/4164.png",
    "splash": "assets/champions/splash/4164.jpg",
+   "card": "assets/champions/card/4164.webp",
    "has_stats": true,
    "skill": {
     "name": "灵魂碾压",
@@ -1196,6 +1249,7 @@
    "tags": [],
    "icon": "assets/champions/5121.png",
    "splash": "assets/champions/splash/5121.jpg",
+   "card": "assets/champions/card/5121.webp",
    "has_stats": true,
    "skill": {
     "name": "史上最大机器球！",
@@ -1218,6 +1272,7 @@
    "tags": [],
    "icon": "assets/champions/5122.png",
    "splash": "assets/champions/splash/5122.jpg",
+   "card": "assets/champions/card/5122.webp",
    "has_stats": true,
    "skill": {
     "name": "驱使念力",
@@ -1241,6 +1296,7 @@
    "tags": [],
    "icon": "assets/champions/5123.png",
    "splash": "assets/champions/splash/5123.jpg",
+   "card": "assets/champions/card/5123.webp",
    "has_stats": true,
    "skill": {
     "name": "旋风！",
@@ -1264,6 +1320,7 @@
    "tags": [],
    "icon": "assets/champions/5124.png",
    "splash": "assets/champions/splash/5124.jpg",
+   "card": "assets/champions/card/5124.webp",
    "has_stats": true,
    "skill": {
     "name": "机械降神",
@@ -1286,6 +1343,7 @@
    "tags": [],
    "icon": "assets/champions/5125.png",
    "splash": "assets/champions/splash/5125.jpg",
+   "card": "assets/champions/card/5125.webp",
    "has_stats": true,
    "skill": {
     "name": "天际线",
@@ -1308,6 +1366,7 @@
    "tags": [],
    "icon": "assets/champions/5126.png",
    "splash": "assets/champions/splash/5126.jpg",
+   "card": "assets/champions/card/5126.webp",
    "has_stats": true,
    "skill": {
     "name": "黑暗收割",
@@ -1329,6 +1388,7 @@
    "tags": [],
    "icon": "assets/champions/5127.png",
    "splash": "assets/champions/splash/5127.jpg",
+   "card": "assets/champions/card/5127.webp",
    "has_stats": true,
    "skill": {
     "name": "逆流",
@@ -1352,6 +1412,7 @@
    "tags": [],
    "icon": "assets/champions/5128.png",
    "splash": "assets/champions/splash/5128.jpg",
+   "card": "assets/champions/card/5128.webp",
    "has_stats": true,
    "skill": {
     "name": "对影",
@@ -1375,6 +1436,7 @@
    "tags": [],
    "icon": "assets/champions/5129.png",
    "splash": "assets/champions/splash/5129.jpg",
+   "card": "assets/champions/card/5129.webp",
    "has_stats": true,
    "skill": {
     "name": "暝涌",
@@ -1398,6 +1460,7 @@
    "tags": [],
    "icon": "assets/champions/5130.png",
    "splash": "assets/champions/splash/5130.jpg",
+   "card": "assets/champions/card/5130.webp",
    "has_stats": true,
    "skill": {
     "name": "地霜暗蚀",

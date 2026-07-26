@@ -39,6 +39,11 @@ TARGET_ROOT = REPO_ROOT / "static" / "season-data"
 ARCHIVE_DIR_NAME = os.path.join("ccmax资料", "数据模版")
 FULL_SNAPSHOT_FILES = ("champions.json", "traits.json", "items.json")
 
+# Card-grid thumbnails: splash art ships at up to 1624x750 (~130KB each) but
+# renders at ~250 CSS px. A 500px WebP keeps DPR-2 sharpness at ~15-25KB.
+CARD_WIDTH = 500
+CARD_QUALITY = 75
+
 
 def resolve_source(cli_value: str | None) -> Path:
     candidates = []
@@ -89,7 +94,22 @@ def strip_image_objects(value):
     return value
 
 
-def compact_champion(champion: dict) -> dict:
+def build_card_thumbnail(source: Path, target: Path) -> bool:
+    try:
+        from PIL import Image
+    except ImportError:
+        return False
+    target.parent.mkdir(parents=True, exist_ok=True)
+    with Image.open(source) as image:
+        frame = image.convert("RGB")
+        if frame.width > CARD_WIDTH:
+            height = round(frame.height * CARD_WIDTH / frame.width)
+            frame = frame.resize((CARD_WIDTH, height), Image.LANCZOS)
+        frame.save(target, format="WEBP", quality=CARD_QUALITY, method=6)
+    return True
+
+
+def compact_champion(champion: dict, card_path: str | None = None) -> dict:
     skill = (champion.get("skills") or [{}])[0]
     images = champion.get("images") or {}
     availability = champion.get("availability") or {}
@@ -105,6 +125,7 @@ def compact_champion(champion: dict) -> dict:
         "tags": champion.get("tags") or [],
         "icon": image_path(images.get("icon")),
         "splash": image_path(images.get("splash")),
+        "card": card_path,
         "has_stats": bool(champion.get("stats_by_star")),
         "skill": {
             "name": skill.get("name"),
@@ -191,7 +212,20 @@ def import_season(source_root: Path, catalog_entry: dict) -> dict:
     if assets_dir.is_dir():
         shutil.copytree(assets_dir, target_dir / "assets")
 
-    champions = [compact_champion(item) for item in champions_doc.get("champions") or []]
+    champions = []
+    card_failures = 0
+    for item in champions_doc.get("champions") or []:
+        splash = image_path((item.get("images") or {}).get("splash"))
+        card_path = None
+        if splash and (target_dir / splash).is_file():
+            candidate = f"assets/champions/card/{item['id']}.webp"
+            if build_card_thumbnail(target_dir / splash, target_dir / candidate):
+                card_path = candidate
+            else:
+                card_failures += 1
+        champions.append(compact_champion(item, card_path))
+    if card_failures:
+        print(f"  警告: {season_id} 有 {card_failures} 张卡片缩图未生成（需要 Pillow）")
     traits = [compact_trait(item) for item in traits_doc.get("traits") or []]
     mechanics = compact_mechanics(version_dir)
 

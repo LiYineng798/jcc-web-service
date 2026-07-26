@@ -65,6 +65,16 @@ def test_season_assets_referenced_by_index_exist():
         walk(payload)
 
 
+def test_every_splash_has_card_thumbnail():
+    for season in catalog_seasons():
+        payload = json.loads((DATA_ROOT / season['path']).read_text(encoding='utf-8'))
+        for champion in payload['champions']:
+            if champion['splash']:
+                assert champion['card'], f"{season['season_id']} {champion['id']} missing card thumbnail"
+                assert champion['card'].endswith('.webp')
+                assert (DATA_ROOT / season['season_id'] / champion['card']).is_file()
+
+
 def test_season_reference_pages_render_for_every_catalog_season(client):
     for season in catalog_seasons():
         response = client.get(f"/tools/seasons/{season['season_id']}")
