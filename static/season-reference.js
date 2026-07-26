@@ -12,6 +12,7 @@ const content = document.querySelector('#seasonContent');
 const config = {
   seasonId: content.dataset.seasonId,
   assetRoot: content.dataset.assetRoot,
+  assetVersion: content.dataset.version || '',
   dataUrl: content.dataset.dataUrl,
 };
 
@@ -74,7 +75,8 @@ themeElements.themeToggle?.addEventListener('click', () => {
 
 function assetUrl(path) {
   if (!path) return '';
-  return `${config.assetRoot}/${String(path).split('/').map(encodeURIComponent).join('/')}`;
+  const url = `${config.assetRoot}/${String(path).split('/').map(encodeURIComponent).join('/')}`;
+  return config.assetVersion ? `${url}?v=${encodeURIComponent(config.assetVersion)}` : url;
 }
 
 function createImage(src, alt, className = '') {
@@ -605,6 +607,7 @@ async function loadData() {
     window.JccSeasonChampionUi.configure({
       seasonId: config.seasonId,
       assetRoot: config.assetRoot,
+      assetVersion: config.assetVersion,
       champions: state.champions,
       traitsById: state.traitsById,
     });

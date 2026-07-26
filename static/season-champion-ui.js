@@ -9,13 +9,15 @@
   };
   let seasonId = '';
   let assetRoot = '';
+  let assetVersion = '';
   const championsById = new Map();
   let traitsById = new Map();
   let activeTrigger = null;
 
   function assetUrl(path) {
     if (!path) return '';
-    return `${assetRoot}/${String(path).split('/').map(encodeURIComponent).join('/')}`;
+    const url = `${assetRoot}/${String(path).split('/').map(encodeURIComponent).join('/')}`;
+    return assetVersion ? `${url}?v=${encodeURIComponent(assetVersion)}` : url;
   }
 
   function championUrl(championId) {
@@ -55,6 +57,7 @@
   function configure(config) {
     seasonId = config.seasonId;
     assetRoot = config.assetRoot;
+    assetVersion = config.assetVersion || '';
     championsById.clear();
     (config.champions || []).forEach((champion) => championsById.set(String(champion.id), champion));
     traitsById = config.traitsById instanceof Map

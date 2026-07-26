@@ -21,8 +21,11 @@ def create_app(test_config=None):
     from lineups import lineups_bp
     from admin import admin_bp
     from live_comps import live_comps_bp
+    from live_comps_helpers import clear_live_comps_caches
     from guestbook import guestbook_bp
     from patch_notes import patch_notes_bp
+
+    clear_live_comps_caches()
 
     app.register_blueprint(auth_bp)
     app.register_blueprint(captcha_bp)

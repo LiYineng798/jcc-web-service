@@ -72,10 +72,10 @@ function setSimulatorData(data) {
   petById = new Map(pets.map((pet) => [pet.id, pet]));
 }
 
-async function fetchJsonData(path) {
-  const response = await fetch(path, { cache: "no-cache" });
+async function fetchJsonData(path, options = {}) {
+  const response = await fetch(path, options);
   if (!response.ok) {
-    throw new Error(`??????????${path}`);
+    throw new Error(`数据加载失败：${path}`);
   }
   return response.json();
 }
@@ -89,13 +89,17 @@ async function loadSimulatorData() {
     };
   }
 
-  const [version, tabs, loadedHeroes, loadedEquips, loadedTraits, loadedPets] = await Promise.all([
-    fetchJsonData("data/version.json"),
-    fetchJsonData("data/tabs.json"),
-    fetchJsonData("data/heroes.json"),
-    fetchJsonData("data/equips.json"),
-    fetchJsonData("data/traits.json"),
-    fetchJsonData("data/pets.json"),
+  // version.json is the only revalidated request; the五个数据文件用它的
+  // 版本号做缓存指纹，命中浏览器 HTTP 缓存。
+  const version = await fetchJsonData("data/version.json", { cache: "no-cache" });
+  const stamp = encodeURIComponent(`${version.set ?? ""}-${version.version ?? ""}-${version.updatedAt ?? ""}`);
+  const versioned = (path) => fetchJsonData(`${path}?v=${stamp}`);
+  const [tabs, loadedHeroes, loadedEquips, loadedTraits, loadedPets] = await Promise.all([
+    versioned("data/tabs.json"),
+    versioned("data/heroes.json"),
+    versioned("data/equips.json"),
+    versioned("data/traits.json"),
+    versioned("data/pets.json"),
   ]);
 
   return {

@@ -13,7 +13,7 @@ def recommended_scores(user=None, scores=None, db=None, refresh=False):
     db = db or get_db()
     user_id = user['id'] if user else None
     cache_key = recommended_cache_key(db, user_id)
-    if scores is None and not refresh:
+    if not refresh:
         cached = get_recommended_cache(cache_key)
         if cached is not None:
             return cached

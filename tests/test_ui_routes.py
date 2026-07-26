@@ -347,8 +347,8 @@ def test_homepage_search_has_dissolve_clear_layers(client):
     assert 'class="t-clear-glow"' in html
     assert 'id="searchClearButton"' in html
     assert 'aria-label="清除搜索"' in html
-    assert 'src="/static/home-transitions.js"' in html
-    assert html.index('src="/static/home-transitions.js"') < html.index('src="/static/app.js"')
+    assert 'src="/static/home-transitions.js?v=' in html
+    assert html.index('src="/static/home-transitions.js?v=') < html.index('src="/static/app.js?v=')
 
 
 def test_home_transition_module_supports_search_clear_animation():
@@ -875,7 +875,7 @@ def test_shared_head_restores_saved_theme_before_stylesheet():
         head = file.read()
 
     theme_position = head.index("localStorage.getItem('theme')")
-    stylesheet_position = head.index("filename='styles.css'")
+    stylesheet_position = head.index("static_v('styles.css')")
     assert theme_position < stylesheet_position
     assert "document.documentElement.dataset.theme = savedTheme" in head
 
@@ -1529,12 +1529,13 @@ def test_lineup_simulator_loads_versioned_json_data_files(client):
     assert './local-data.js' not in html
     assert './app.js' in html
     assert 'loadSimulatorData' in js
-    assert 'fetchJsonData("data/heroes.json")' in js
-    assert 'fetchJsonData("data/equips.json")' in js
-    assert 'fetchJsonData("data/traits.json")' in js
-    assert 'fetchJsonData("data/pets.json")' in js
-    assert 'fetchJsonData("data/tabs.json")' in js
-    assert 'fetchJsonData("data/version.json")' in js
+    assert 'fetchJsonData("data/version.json", { cache: "no-cache" })' in js
+    assert 'versioned("data/heroes.json")' in js
+    assert 'versioned("data/equips.json")' in js
+    assert 'versioned("data/traits.json")' in js
+    assert 'versioned("data/pets.json")' in js
+    assert 'versioned("data/tabs.json")' in js
+    assert '?v=${stamp}' in js
 
     for path in [
         '/static/tools/lineup-simulator/data/version.json',

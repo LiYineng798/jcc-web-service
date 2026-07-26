@@ -1,7 +1,7 @@
 ﻿import re
 import secrets
 
-from flask import Blueprint, jsonify, request, session
+from flask import Blueprint, g, jsonify, request, session
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from analytics import record_growth_event
@@ -27,10 +27,15 @@ def current_user():
     user_id = session.get('user_id')
     if not user_id:
         return None
-    return get_db().execute(
+    cached = g.get('_current_user_cache')
+    if cached is not None and cached[0] == user_id:
+        return cached[1]
+    row = get_db().execute(
         'SELECT id, username, email, nickname, role, status, created_at, updated_at, last_login_at FROM users WHERE id = ?',
         (user_id,),
     ).fetchone()
+    g._current_user_cache = (user_id, row)
+    return row
 
 
 def csrf_token():

@@ -1,4 +1,5 @@
 import os
+from time import monotonic
 
 from flask import Response, abort, jsonify, redirect, send_from_directory
 
@@ -78,14 +79,28 @@ def _sitemap_entries():
     return entries
 
 
+SITEMAP_CACHE_SECONDS = 3600
+_sitemap_cache = {'built_at': 0.0, 'xml': None}
+
+
 def register_page_routes(app):
+    _sitemap_cache['xml'] = None
+
     @app.get('/robots.txt')
     def robots():
         return Response(robots_txt(), mimetype='text/plain')
 
     @app.get('/sitemap.xml')
     def sitemap():
-        return Response(sitemap_xml(_sitemap_entries()), mimetype='application/xml')
+        # Crawler-only endpoint that walks several full tables — rebuild at
+        # most once per hour instead of per request.
+        now = monotonic()
+        if _sitemap_cache['xml'] is None or now - _sitemap_cache['built_at'] > SITEMAP_CACHE_SECONDS:
+            _sitemap_cache['xml'] = sitemap_xml(_sitemap_entries())
+            _sitemap_cache['built_at'] = now
+        response = Response(_sitemap_cache['xml'], mimetype='application/xml')
+        response.headers['Cache-Control'] = 'public, max-age=3600'
+        return response
 
     @app.get('/')
     def index():

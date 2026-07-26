@@ -15,23 +15,38 @@ detailElements.themeToggle?.addEventListener('click', () => {
   setDetailTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark');
 });
 
-async function initializeChampionDetail() {
+// Hover previews need the season index, but most visitors never hover —
+// defer the download until the first pointer/focus touches a champion link.
+let detailDataPromise = null;
+
+async function loadChampionPreviewData(configNode) {
+  const response = await fetch(configNode.dataset.dataUrl);
+  if (!response.ok) throw new Error('season index request failed');
+  const data = await response.json();
+  window.JccSeasonChampionUi?.configure({
+    seasonId: configNode.dataset.seasonId,
+    assetRoot: configNode.dataset.assetRoot,
+    assetVersion: configNode.dataset.version || '',
+    champions: data.champions || [],
+    traits: data.traits || [],
+  });
+  window.JccSeasonChampionUi?.bindChampionLinks(document);
+}
+
+function initializeChampionDetail() {
   const configNode = document.querySelector('#seasonDetailConfig');
   if (!configNode) return;
-  try {
-    const response = await fetch(configNode.dataset.dataUrl);
-    if (!response.ok) return;
-    const data = await response.json();
-    window.JccSeasonChampionUi?.configure({
-      seasonId: configNode.dataset.seasonId,
-      assetRoot: configNode.dataset.assetRoot,
-      champions: data.champions || [],
-      traits: data.traits || [],
-    });
-    window.JccSeasonChampionUi?.bindChampionLinks(document);
-  } catch (error) {
-    console.error('champion previews failed to initialize', error);
-  }
+  const prime = () => {
+    if (!detailDataPromise) {
+      detailDataPromise = loadChampionPreviewData(configNode).catch((error) => {
+        console.error('champion previews failed to initialize', error);
+      });
+    }
+  };
+  document.querySelectorAll('[data-champion-id]').forEach((link) => {
+    link.addEventListener('pointerenter', prime, {once: true});
+    link.addEventListener('focus', prime, {once: true});
+  });
 }
 
 initializeChampionDetail();

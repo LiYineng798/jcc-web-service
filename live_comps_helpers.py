@@ -12,9 +12,12 @@ from urllib.parse import urlparse
 
 from flask import current_app, jsonify, request
 
+from copy import deepcopy
+
 from db import get_db, now_text
 from live_comp_manual_codes import (
     load_manual_code_overlay,
+    manual_code_overlay_path,
     merge_manual_codes_into_payload,
     prune_manual_codes_for_payload,
 )
@@ -180,14 +183,42 @@ def normalize_live_comps_manifest(manifest):
     }
 
 
+# File-signature caches: the manifest and season payloads are re-read on
+# every list/summary request, so parse them once per file version instead of
+# per request. Signatures are (mtime_ns, size); any write invalidates.
+_manifest_cache = {'sig': None, 'value': None}
+_merged_payload_cache = {}
+
+
+def _file_sig(path):
+    try:
+        stat = Path(path).stat()
+    except OSError:
+        return None
+    return (stat.st_mtime_ns, stat.st_size)
+
+
+def clear_live_comps_caches():
+    _manifest_cache['sig'] = None
+    _manifest_cache['value'] = None
+    _merged_payload_cache.clear()
+
+
 def load_live_comps_manifest():
     path = manifest_path()
-    if not path.exists():
+    sig = _file_sig(path)
+    if sig is not None and _manifest_cache['sig'] == sig:
+        # The manifest is small; a copy keeps callers free to mutate.
+        return deepcopy(_manifest_cache['value'])
+    if sig is None:
         return empty_live_comps_manifest()
     try:
-        return normalize_live_comps_manifest(json.loads(path.read_text(encoding='utf-8')))
+        manifest = normalize_live_comps_manifest(json.loads(path.read_text(encoding='utf-8')))
     except Exception:
         return empty_live_comps_manifest()
+    _manifest_cache['sig'] = sig
+    _manifest_cache['value'] = manifest
+    return deepcopy(manifest)
 
 
 def save_live_comps_manifest(manifest):
@@ -215,8 +246,7 @@ def default_season_file_exists():
     return Path(current_app.config['LIVE_COMPS_DATA_PATH']).exists()
 
 
-def read_raw_live_comps_payload_for_season(season_id=None):
-    manifest = load_live_comps_manifest()
+def _resolve_season_source(manifest, season_id=None):
     selected_id = canonical_season_id(season_id) or manifest['default_season_id']
     season = next((item for item in manifest['seasons'] if item['id'] == selected_id), None)
     if season is None:
@@ -226,6 +256,12 @@ def read_raw_live_comps_payload_for_season(season_id=None):
     data_path = season_data_path(season['id'])
     if not data_path.exists() and season['id'] == manifest['default_season_id']:
         data_path = Path(current_app.config['LIVE_COMPS_DATA_PATH'])
+    return season, data_path
+
+
+def read_raw_live_comps_payload_for_season(season_id=None):
+    manifest = load_live_comps_manifest()
+    season, data_path = _resolve_season_source(manifest, season_id)
     if not data_path.exists():
         return empty_live_comps_payload(), None, False, manifest, season
     updated_at = datetime.fromtimestamp(data_path.stat().st_mtime).isoformat(timespec='seconds')
@@ -238,9 +274,23 @@ def read_raw_live_comps_payload_for_season(season_id=None):
 
 
 def read_live_comps_payload_for_season(season_id=None):
-    payload, updated_at, is_valid, manifest, season = read_raw_live_comps_payload_for_season(season_id)
+    """Merged payload with manual codes, cached per season on file signatures.
+
+    The returned payload is shared between requests and must be treated as
+    read-only (all current consumers only slice and serialize it).
+    """
+    manifest = load_live_comps_manifest()
+    season, data_path = _resolve_season_source(manifest, season_id)
+    overlay_path = manual_code_overlay_path(manual_code_dir(), season['id'])
+    sig = (_file_sig(manifest_path()), _file_sig(data_path), _file_sig(overlay_path))
+    entry = _merged_payload_cache.get(season['id'])
+    if entry is not None and entry['sig'] == sig:
+        payload, updated_at, is_valid = entry['value']
+        return payload, updated_at, is_valid, manifest, season
+    payload, updated_at, is_valid, _, _ = read_raw_live_comps_payload_for_season(season_id)
     overlay = load_manual_code_overlay(manual_code_dir(), season['id'])
     merged_payload = merge_manual_codes_into_payload(payload, overlay)
+    _merged_payload_cache[season['id']] = {'sig': sig, 'value': (merged_payload, updated_at, is_valid)}
     return merged_payload, updated_at, is_valid, manifest, season
 
 
