@@ -3,127 +3,152 @@
 <html lang="zh-cn">
   <head>
 {{ seo_head(seo, include_site_assets=False) }}
-    <base href="{{ url_for('static', filename='tools/lineup-simulator/') }}" />
-    <link rel="stylesheet" href="./style.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="{{ static_v('tools/lineup-simulator/style.css') }}" />
   </head>
   <body>
-    <a class="simulator-back-link" href="/" aria-label="返回阵容库">← 返回阵容库</a>
-    <main id="simulator-root" class="simulator-shell simulator-shell--three-column">
-      <header class="simulator-topbar">
+    <header class="sim-topbar">
+      <a class="sim-brand" href="/" aria-label="返回金铲铲阵容库">
+        <span class="sim-brand-mark">阵</span>
+        <span><strong>阵容模拟器</strong><small>JCC LAB</small></span>
+      </a>
+      <div class="season-switcher" id="seasonSwitcher" aria-label="选择赛季"></div>
+      <nav class="top-actions" aria-label="棋盘操作">
+        <button class="icon-button" id="undoButton" type="button" title="撤销" aria-label="撤销"><i data-lucide="undo-2"></i></button>
+        <button class="icon-button" id="redoButton" type="button" title="重做" aria-label="重做"><i data-lucide="redo-2"></i></button>
+        <button class="icon-button" id="exportImageButton" type="button" title="保存阵容图" aria-label="保存阵容图"><i data-lucide="camera"></i></button>
+        <button class="icon-button" id="shareButton" type="button" title="复制阵容链接" aria-label="复制阵容链接"><i data-lucide="share-2"></i></button>
+        <button class="icon-button danger" id="resetButton" type="button" title="清空棋盘" aria-label="清空棋盘"><i data-lucide="trash-2"></i></button>
+      </nav>
+    </header>
+
+    <main class="sim-shell" id="simulatorRoot">
+      <section class="sim-heading">
         <div>
-          <p class="simulator-kicker">JCC TOOL</p>
-          <h1>阵容模拟器</h1>
+          <p class="eyebrow">TEAM PLANNER</p>
+          <h1>构筑你的阵容</h1>
+          <p id="seasonMeta">正在加载赛季资料...</p>
         </div>
-        <p class="simulator-quick-guide">电脑端可拖拽，手机端可点击弈子上阵；选择装备后点棋盘英雄即可装备。</p>
-      </header>
-      <aside class="simulator-side simulator-hero-panel simulator-tool-panel">
-        <section class="panel-shell panel-shell--heroes">
-          <div class="simulator-side-heading">
-            <p class="simulator-side-kicker">HEROES</p>
-            <h2 class="simulator-side-title">弈子库</h2>
-          </div>
-          <section id="heroes-panel" class="panel-body">
-            <div class="panel-search">
-              <input id="hero-search" class="search-input" type="text" placeholder="搜索弈子或羁绊" />
-            </div>
-            <div id="hero-cost-filters" class="filter-row" aria-label="弈子费用筛选"></div>
-            <div id="hero-list" class="pool-grid hero-grid" aria-live="polite"></div>
-          </section>
-
-        </section>
-      </aside>
-
-      <section class="simulator-center simulator-board-panel">
-        <div class="battle-card-shell">
-          <section class="battle-card" aria-label="战场卡片">
-            <div id="battle-card-background" class="battle-card-background" aria-hidden="true">
-              <div class="battle-card-background-gradient"></div>
-              <div class="battle-card-background-image"></div>
-              <div class="battle-card-background-glow"></div>
-              <div class="battle-card-background-glass"></div>
-            </div>
-
-            <div class="battle-card-content">
-              <div id="battle-card-board-area" class="battle-card-board-area">
-                <div id="battle-card-board-scale" class="battle-card-board-scale">
-                  <div class="board-panel battle-card-board-panel">
-                    <div id="board-grid" class="lineup-list" role="grid" aria-label="棋盘 28 格">
-                      <div class="lineup-item" role="gridcell" aria-label="Slot 1"><div class="lineup"></div></div>
-                      <div class="lineup-item" role="gridcell" aria-label="Slot 2"><div class="lineup"></div></div>
-                      <div class="lineup-item" role="gridcell" aria-label="Slot 3"><div class="lineup"></div></div>
-                      <div class="lineup-item" role="gridcell" aria-label="Slot 4"><div class="lineup"></div></div>
-                      <div class="lineup-item" role="gridcell" aria-label="Slot 5"><div class="lineup"></div></div>
-                      <div class="lineup-item" role="gridcell" aria-label="Slot 6"><div class="lineup"></div></div>
-                      <div class="lineup-item" role="gridcell" aria-label="Slot 7"><div class="lineup"></div></div>
-
-                      <div class="lineup-item" role="gridcell" aria-label="Slot 8"><div class="lineup"></div></div>
-                      <div class="lineup-item" role="gridcell" aria-label="Slot 9"><div class="lineup"></div></div>
-                      <div class="lineup-item" role="gridcell" aria-label="Slot 10"><div class="lineup"></div></div>
-                      <div class="lineup-item" role="gridcell" aria-label="Slot 11"><div class="lineup"></div></div>
-                      <div class="lineup-item" role="gridcell" aria-label="Slot 12"><div class="lineup"></div></div>
-                      <div class="lineup-item" role="gridcell" aria-label="Slot 13"><div class="lineup"></div></div>
-                      <div class="lineup-item" role="gridcell" aria-label="Slot 14"><div class="lineup"></div></div>
-
-                      <div class="lineup-item" role="gridcell" aria-label="Slot 15"><div class="lineup"></div></div>
-                      <div class="lineup-item" role="gridcell" aria-label="Slot 16"><div class="lineup"></div></div>
-                      <div class="lineup-item" role="gridcell" aria-label="Slot 17"><div class="lineup"></div></div>
-                      <div class="lineup-item" role="gridcell" aria-label="Slot 18"><div class="lineup"></div></div>
-                      <div class="lineup-item" role="gridcell" aria-label="Slot 19"><div class="lineup"></div></div>
-                      <div class="lineup-item" role="gridcell" aria-label="Slot 20"><div class="lineup"></div></div>
-                      <div class="lineup-item" role="gridcell" aria-label="Slot 21"><div class="lineup"></div></div>
-
-                      <div class="lineup-item" role="gridcell" aria-label="Slot 22"><div class="lineup"></div></div>
-                      <div class="lineup-item" role="gridcell" aria-label="Slot 23"><div class="lineup"></div></div>
-                      <div class="lineup-item" role="gridcell" aria-label="Slot 24"><div class="lineup"></div></div>
-                      <div class="lineup-item" role="gridcell" aria-label="Slot 25"><div class="lineup"></div></div>
-                      <div class="lineup-item" role="gridcell" aria-label="Slot 26"><div class="lineup"></div></div>
-                      <div class="lineup-item" role="gridcell" aria-label="Slot 27"><div class="lineup"></div></div>
-                      <div class="lineup-item" role="gridcell" aria-label="Slot 28"><div class="lineup"></div></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <section id="trait-panel" class="trait-panel battle-card-trait-panel">
-                <h2 class="trait-panel-title">羁绊</h2>
-                <div id="trait-list" class="trait-list" aria-live="polite"></div>
-              </section>
-            </div>
-          </section>
-        </div>
-
-        <div class="board-actions">
-          <div id="trash-dropzone" class="trash-dropzone" aria-label="垃圾桶拖拽区域">
-            <span class="trash-icon">🗑</span>
-            <span class="trash-text">把棋盘里的弈子拖到这里删除</span>
-          </div>
+        <div class="heading-actions">
+          <label class="toggle-control">
+            <input id="showNamesToggle" type="checkbox" checked />
+            <span></span>显示名称
+          </label>
+          <button class="text-button" id="importButton" type="button"><i data-lucide="download"></i>导入</button>
+          <button class="text-button" id="exportButton" type="button"><i data-lucide="copy"></i>导出</button>
         </div>
       </section>
 
-
-      <aside class="simulator-side simulator-equip-panel">
-        <section class="panel-shell panel-shell--equips">
-          <div class="simulator-side-heading">
-            <p class="simulator-side-kicker">EQUIPS</p>
-            <h2 class="simulator-side-title">装备库</h2>
+      <section class="workspace" aria-label="阵容编辑区">
+        <aside class="trait-rail tool-panel" aria-label="已激活羁绊">
+          <div class="panel-title-row">
+            <div><span class="panel-kicker">SYNERGIES</span><h2>阵容羁绊</h2></div>
+            <span class="panel-count" id="activeTraitCount">0</span>
           </div>
-          <section id="equips-panel" class="panel-body">
-            <div class="panel-search">
-              <input id="equip-search" class="search-input" type="text" placeholder="搜索装备名称" />
+          <div class="trait-summary" id="traitSummary">
+            <div class="empty-state compact">添加弈子后显示羁绊</div>
+          </div>
+        </aside>
+
+        <section class="board-stage" id="boardCapture">
+          <div class="board-toolbar">
+            <div class="board-stat"><i data-lucide="users"></i><strong id="unitCount">0</strong><span>/ 28</span></div>
+            <div class="board-stat gold-stat"><img src="/static/tools/lineup-simulator/ui/gold.png" alt="费用" /><strong id="totalCost">0</strong><span>总费用</span></div>
+            <div class="board-hint"><i data-lucide="layout-grid"></i><span id="boardStatus">阵容未配置</span></div>
+          </div>
+          <div class="hex-board-wrap">
+            <div class="hex-board" id="boardGrid" role="grid" aria-label="4 行 7 列阵容棋盘"></div>
+          </div>
+          <div class="board-footer">
+            <div class="component-summary-wrap">
+              <span class="footer-label">散件需求</span>
+              <div class="component-summary" id="componentSummary"><span class="muted">暂无装备</span></div>
             </div>
-            <div id="equip-type-tabs" class="filter-row" aria-label="装备分类筛选"></div>
-            <div id="equip-list" class="pool-grid equip-grid" aria-live="polite"></div>
-          </section>
-
-          <div class="panel-footer-actions board-action-buttons simulator-board-actions">
-            <button id="toggle-name-button" class="board-action-button is-active" type="button" aria-pressed="true">隐藏名字</button>
-            <button id="reset-board-button" class="reset-button" type="button">一键重置棋盘</button>
+            <div class="selected-help" id="selectedHelp" hidden></div>
           </div>
-          <p class="equip-removal-hint">提示：点击英雄身上的装备可移除；点击英雄右上角 × 可删除弈子。</p>
         </section>
-      </aside>
+
+        <aside class="item-rail tool-panel" aria-label="装备库">
+          <div class="panel-title-row">
+            <div><span class="panel-kicker">ITEMS</span><h2>装备库</h2></div>
+          </div>
+          <div class="item-tabs" id="itemTabs" role="tablist"></div>
+          <label class="search-field compact-search">
+            <i data-lucide="search"></i>
+            <input id="itemSearch" type="search" placeholder="搜索装备" autocomplete="off" />
+          </label>
+          <div class="item-grid" id="itemGrid"></div>
+        </aside>
+      </section>
+
+      <section class="roster-panel tool-panel">
+        <div class="roster-toolbar">
+          <div>
+            <span class="panel-kicker">CHAMPIONS</span>
+            <h2>弈子库</h2>
+          </div>
+          <label class="search-field hero-search">
+            <i data-lucide="search"></i>
+            <input id="heroSearch" type="search" placeholder="搜索弈子名称" autocomplete="off" />
+          </label>
+          <div class="trait-picker" id="traitFilterPicker">
+            <button class="trait-picker-trigger" id="traitFilterButton" type="button" aria-haspopup="listbox" aria-expanded="false" aria-controls="traitFilterMenu">
+              <span class="trait-filter-current-icon" id="traitFilterIcon"><i data-lucide="shapes"></i></span>
+              <span class="trait-filter-current-label" id="traitFilterLabel">全部羁绊</span>
+              <i class="trait-picker-chevron" data-lucide="chevron-down"></i>
+            </button>
+            <button id="traitFilterClear" class="trait-filter-clear" type="button" title="清除羁绊筛选" aria-label="清除羁绊筛选" hidden><i data-lucide="x"></i></button>
+            <div class="trait-filter-menu" id="traitFilterMenu" role="listbox" aria-label="羁绊筛选" hidden></div>
+          </div>
+          <div class="cost-filters" id="costFilters" aria-label="费用筛选"></div>
+        </div>
+        <div class="hero-groups" id="heroGroups" aria-live="polite"></div>
+      </section>
     </main>
 
-    <script src="./app.js" defer></script>
+    <div class="detail-popover" id="detailPopover" role="tooltip" hidden></div>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <dialog class="code-dialog" id="codeDialog">
+      <form method="dialog">
+        <div class="dialog-heading">
+          <div><span class="panel-kicker">FORMATION CODE</span><h2 id="codeDialogTitle">导入阵容</h2></div>
+          <button class="icon-button" value="cancel" aria-label="关闭"><i data-lucide="x"></i></button>
+        </div>
+        <p id="codeDialogHint">阵容码</p>
+        <textarea id="formationCode" rows="7" spellcheck="false"></textarea>
+        <div class="dialog-actions">
+          <button class="text-button" value="cancel">取消</button>
+          <button class="primary-button" id="confirmCodeButton" type="button">确认导入</button>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog class="export-image-dialog" id="exportImageDialog">
+      <form method="dialog">
+        <div class="dialog-heading">
+          <div><span class="panel-kicker">LINEUP IMAGE</span><h2>保存阵容图</h2></div>
+          <button class="icon-button" value="cancel" aria-label="关闭"><i data-lucide="x"></i></button>
+        </div>
+        <label class="export-image-option">
+          <span><strong>阵容羁绊</strong><small>在图片左侧展示当前阵容的羁绊列表</small></span>
+          <input id="exportIncludeTraits" type="checkbox" checked />
+          <span class="toggle-track"></span>
+        </label>
+        <label class="export-image-option">
+          <span><strong>透明背景</strong><small>导出带透明通道的 PNG 图片</small></span>
+          <input id="exportTransparentBackground" type="checkbox" />
+          <span class="toggle-track"></span>
+        </label>
+        <div class="dialog-actions">
+          <button class="text-button" value="cancel">取消</button>
+          <button class="primary-button" id="confirmExportImageButton" type="button"><i data-lucide="image-down"></i>保存图片</button>
+        </div>
+      </form>
+    </dialog>
+
+    <script src="{{ static_v('vendor/lucide/lucide.min.js') }}"></script>
+    <script src="{{ static_v('tools/lineup-simulator/vendor/html-to-image.min.js') }}"></script>
+    <script src="{{ static_v('tools/lineup-simulator/app.js') }}" type="module"></script>
   </body>
 </html>

@@ -1,1413 +1,855 @@
-const BOARD_SLOT_COUNT = 28;
-const BOARD_SCALE_MAX = 1.32;
-const DRAG_MIME = "application/x-board-repro";
-const COST_CLASS_BY_VALUE = {
-  1: "cost-1",
-  2: "cost-2",
-  3: "cost-3",
-  4: "cost-4",
-  5: "cost-5",
-};
-const FALLBACK_PETS = [
-  {
-    id: "18406",
-    name: "圣物",
-    image: "assets/pets/18406.png",
-    entityType: "pet",
-  },
-  {
-    id: "18407",
-    name: "羊咩咩 & 咩咩羊",
-    image: "assets/pets/18407.png",
-    entityType: "pet",
-  },
-  {
-    id: "18408",
-    name: "羊咩咩 & 咩咩羊",
-    image: "assets/pets/18408.png",
-    entityType: "pet",
-  },
-  {
-    id: "18428",
-    name: "暗星召唤物",
-    image: "assets/pets/18428.png",
-    entityType: "pet",
-  },
+const DATA_ROOT = "/static/season-data";
+const UI_ROOT = "/static/tools/lineup-simulator/ui";
+const STORAGE_PREFIX = "jcc-simulator-v2:";
+const MAX_HISTORY = 40;
+const MAX_EXPORT_TRAITS = 8;
+const ITEM_CATEGORIES = [
+  { id: "normal", label: "普通", source: ["completed"] },
+  { id: "emblem", label: "纹章", source: ["emblem"] },
+  { id: "artifact", label: "神器", source: ["artifact"] },
+  { id: "radiant", label: "光明", source: ["radiant"] },
+  { id: "other", label: "其他", source: ["other"] },
 ];
-
-const DEFAULT_SIMULATOR_DATA = {
-  version: null,
-  heroCostTabs: ["??", "1?", "2?", "3?", "4?", "5?"],
-  equipTabs: ["??", "??", "???", "??", "??", "????", "???"],
-  heroes: [],
-  equips: [],
-  traits: [],
-  pets: FALLBACK_PETS,
+const COST_COLORS = {
+  1: "rgb(175, 175, 175)",
+  2: "rgb(28, 195, 152)",
+  3: "rgb(7, 165, 241)",
+  4: "rgb(213, 105, 230)",
+  5: "rgb(255, 183, 1)",
+  7: "rgb(255, 183, 1)",
+};
+const TRAIT_STYLE_INDEX = { bronze: 1, silver: 2, gold: 3, prismatic: 4 };
+const TRAIT_STYLE_COLORS = {
+  0: "#667080",
+  1: "#b66e3d",
+  2: "#aab3bd",
+  3: "#d7a934",
+  4: "#7fd2e8",
+  unique: "#d7a934",
 };
 
-let simulatorVersion = DEFAULT_SIMULATOR_DATA.version;
-let heroCostTabs = DEFAULT_SIMULATOR_DATA.heroCostTabs;
-let equipTabs = DEFAULT_SIMULATOR_DATA.equipTabs;
-let heroes = DEFAULT_SIMULATOR_DATA.heroes;
-let equips = DEFAULT_SIMULATOR_DATA.equips;
-let traits = DEFAULT_SIMULATOR_DATA.traits;
-let pets = DEFAULT_SIMULATOR_DATA.pets;
+const elements = {
+  root: document.querySelector("#simulatorRoot"),
+  seasonSwitcher: document.querySelector("#seasonSwitcher"),
+  seasonMeta: document.querySelector("#seasonMeta"),
+  board: document.querySelector("#boardGrid"),
+  unitCount: document.querySelector("#unitCount"),
+  totalCost: document.querySelector("#totalCost"),
+  boardStatus: document.querySelector("#boardStatus"),
+  activeTraitCount: document.querySelector("#activeTraitCount"),
+  traitSummary: document.querySelector("#traitSummary"),
+  componentSummary: document.querySelector("#componentSummary"),
+  selectedHelp: document.querySelector("#selectedHelp"),
+  itemTabs: document.querySelector("#itemTabs"),
+  itemSearch: document.querySelector("#itemSearch"),
+  itemGrid: document.querySelector("#itemGrid"),
+  heroSearch: document.querySelector("#heroSearch"),
+  costFilters: document.querySelector("#costFilters"),
+  traitFilterPicker: document.querySelector("#traitFilterPicker"),
+  traitFilterButton: document.querySelector("#traitFilterButton"),
+  traitFilterIcon: document.querySelector("#traitFilterIcon"),
+  traitFilterLabel: document.querySelector("#traitFilterLabel"),
+  traitFilterMenu: document.querySelector("#traitFilterMenu"),
+  traitFilterClear: document.querySelector("#traitFilterClear"),
+  heroGroups: document.querySelector("#heroGroups"),
+  showNames: document.querySelector("#showNamesToggle"),
+  undo: document.querySelector("#undoButton"),
+  redo: document.querySelector("#redoButton"),
+  reset: document.querySelector("#resetButton"),
+  exportImage: document.querySelector("#exportImageButton"),
+  share: document.querySelector("#shareButton"),
+  import: document.querySelector("#importButton"),
+  export: document.querySelector("#exportButton"),
+  boardCapture: document.querySelector("#boardCapture"),
+  popover: document.querySelector("#detailPopover"),
+  toast: document.querySelector("#toast"),
+  dialog: document.querySelector("#codeDialog"),
+  dialogTitle: document.querySelector("#codeDialogTitle"),
+  dialogHint: document.querySelector("#codeDialogHint"),
+  code: document.querySelector("#formationCode"),
+  confirmCode: document.querySelector("#confirmCodeButton"),
+  exportImageDialog: document.querySelector("#exportImageDialog"),
+  exportIncludeTraits: document.querySelector("#exportIncludeTraits"),
+  exportTransparentBackground: document.querySelector("#exportTransparentBackground"),
+  confirmExportImage: document.querySelector("#confirmExportImageButton"),
+};
 
-let heroByKey = new Map();
-let equipById = new Map();
-let petById = new Map();
-const loadedProgressiveImagePaths = new Set();
+const state = {
+  catalog: [],
+  season: null,
+  champions: [],
+  traits: [],
+  items: [],
+  championById: new Map(),
+  traitById: new Map(),
+  itemById: new Map(),
+  board: Array(28).fill(null),
+  selectedItemId: null,
+  itemCategory: "normal",
+  heroSearch: "",
+  itemSearch: "",
+  costFilter: "all",
+  traitFilters: new Set(),
+  showNames: true,
+  history: [],
+  historyIndex: -1,
+  dragging: null,
+  dialogMode: "import",
+};
 
-function setSimulatorData(data) {
-  simulatorVersion = data.version ?? null;
-  heroCostTabs = data.heroCostTabs?.length ? data.heroCostTabs : DEFAULT_SIMULATOR_DATA.heroCostTabs;
-  equipTabs = data.equipTabs?.length ? data.equipTabs : DEFAULT_SIMULATOR_DATA.equipTabs;
-  heroes = data.heroes ?? [];
-  equips = data.equips ?? [];
-  traits = data.traits ?? [];
-  pets = data.pets?.length ? data.pets : FALLBACK_PETS;
-
-  heroByKey = new Map(heroes.map((hero) => [hero.key, hero]));
-  equipById = new Map(equips.map((equip) => [equip.id, equip]));
-  petById = new Map(pets.map((pet) => [pet.id, pet]));
+function escapeHtml(value) {
+  return String(value ?? "").replace(/[&<>'"]/g, (character) => ({
+    "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", '"': "&quot;",
+  })[character]);
 }
 
-async function fetchJsonData(path, options = {}) {
-  const response = await fetch(path, options);
-  if (!response.ok) {
-    throw new Error(`数据加载失败：${path}`);
-  }
-  return response.json();
+function seasonAsset(path) {
+  if (!path || !state.season) return "";
+  return `${DATA_ROOT}/${encodeURIComponent(state.season.season_id)}/${path}?v=${encodeURIComponent(state.season.version_id)}`;
 }
 
-async function loadSimulatorData() {
-  if (globalThis.LOCAL_SIMULATOR_DATA) {
-    return {
-      ...DEFAULT_SIMULATOR_DATA,
-      ...globalThis.LOCAL_SIMULATOR_DATA,
-      version: globalThis.LOCAL_SIMULATOR_DATA.version ?? null,
-    };
-  }
-
-  // version.json is the only revalidated request; the五个数据文件用它的
-  // 版本号做缓存指纹，命中浏览器 HTTP 缓存。
-  const version = await fetchJsonData("data/version.json", { cache: "no-cache" });
-  const stamp = encodeURIComponent(`${version.set ?? ""}-${version.version ?? ""}-${version.updatedAt ?? ""}`);
-  const versioned = (path) => fetchJsonData(`${path}?v=${stamp}`);
-  const [tabs, loadedHeroes, loadedEquips, loadedTraits, loadedPets] = await Promise.all([
-    versioned("data/tabs.json"),
-    versioned("data/heroes.json"),
-    versioned("data/equips.json"),
-    versioned("data/traits.json"),
-    versioned("data/pets.json"),
-  ]);
-
-  return {
-    version,
-    heroCostTabs: tabs.heroCostTabs,
-    equipTabs: tabs.equipTabs,
-    heroes: loadedHeroes,
-    equips: loadedEquips,
-    traits: loadedTraits,
-    pets: loadedPets,
-  };
-}
-
-setSimulatorData(DEFAULT_SIMULATOR_DATA);
-
-function createEmptyBoardSlots(count = BOARD_SLOT_COUNT) {
-  return attachBoardMeta(Array.from({ length: count }, () => null), createBoardMeta());
-}
-
-function placeHeroOnBoard(slots, index, hero) {
-  if (!isValidSlotIndex(index, slots.length) || !hero || hero.entityType === "pet") {
-    return slots;
-  }
-
-  if (isPetBoardHero(slots[index])) {
-    return slots;
-  }
-
-  const manualSlots = extractManualBoardSlots(slots);
-  if (manualSlots[index]?.heroKey === hero.key || hasBoardHeroKey(manualSlots, hero.key, index)) {
-    return slots;
-  }
-
-  const next = manualSlots.slice();
-  next[index] = buildBoardHero(hero);
-  return recomputeBoardSlots(withBoardMetaFrom(slots, next));
-}
-
-function autoPlaceHeroOnBoard(slots, hero) {
-  const nextIndex = findNextOpenSlotIndex(slots);
-  if (nextIndex === -1) {
-    return slots;
-  }
-
-  return placeHeroOnBoard(slots, nextIndex, hero);
-}
-
-function moveHeroOnBoard(slots, fromIndex, toIndex) {
-  if (
-    !isValidSlotIndex(fromIndex, slots.length) ||
-    !isValidSlotIndex(toIndex, slots.length) ||
-    fromIndex === toIndex
-  ) {
-    return slots;
-  }
-
-  if (!isManualBoardHero(slots[fromIndex])) {
-    return slots;
-  }
-
-  return moveBoardUnit(slots, fromIndex, toIndex);
-}
-
-function moveBoardUnit(slots, fromIndex, toIndex) {
-  if (
-    !isValidSlotIndex(fromIndex, slots.length) ||
-    !isValidSlotIndex(toIndex, slots.length) ||
-    fromIndex === toIndex ||
-    !slots[fromIndex]
-  ) {
-    return slots;
-  }
-
-  const next = slots.slice();
-  const movingUnit = next[fromIndex];
-  next[fromIndex] = next[toIndex] ?? null;
-  next[toIndex] = movingUnit;
-
-  const nextMeta = cloneBoardMeta(slots);
-  if (isPetBoardHero(next[fromIndex])) {
-    nextMeta.summonPositionMemory.set(getRuntimeSummonKey(next[fromIndex]), fromIndex);
-  }
-  if (isPetBoardHero(next[toIndex])) {
-    nextMeta.summonPositionMemory.set(getRuntimeSummonKey(next[toIndex]), toIndex);
-  }
-
-  return recomputeBoardSlots(attachBoardMeta(next, nextMeta));
-}
-
-function attachEquipToHero(slots, index, equip) {
-  if (!isValidSlotIndex(index, slots.length) || !equip?.draggable || !slots[index] || isPetBoardHero(slots[index])) {
-    return slots;
-  }
-
-  const manualSlots = extractManualBoardSlots(slots);
-  const targetHero = manualSlots[index];
-  if (targetHero.equips.length >= 3) {
-    return slots;
-  }
-
-  if (equip.grantedTrait && heroHasTraitContribution(targetHero, equip.grantedTrait)) {
-    return slots;
-  }
-
-  const next = manualSlots.slice();
-  next[index] = {
-    ...targetHero,
-    equips: [...targetHero.equips, buildBoardEquip(equip)],
-  };
-  return recomputeBoardSlots(withBoardMetaFrom(slots, next));
-}
-
-function removeEquipFromHero(slots, index, equipIndex) {
-  if (!isValidSlotIndex(index, slots.length) || !slots[index] || isPetBoardHero(slots[index])) {
-    return slots;
-  }
-
-  const manualSlots = extractManualBoardSlots(slots);
-  const targetHero = manualSlots[index];
-  if (!targetHero?.equips?.[equipIndex]) {
-    return slots;
-  }
-
-  const next = manualSlots.slice();
-  next[index] = {
-    ...targetHero,
-    equips: targetHero.equips.filter((_, currentIndex) => currentIndex !== equipIndex),
-  };
-  return recomputeBoardSlots(withBoardMetaFrom(slots, next));
-}
-
-function removeHeroFromBoard(slots, index) {
-  if (!isValidSlotIndex(index, slots.length) || !slots[index] || isPetBoardHero(slots[index])) {
-    return slots;
-  }
-
-  const next = extractManualBoardSlots(slots);
-  next[index] = null;
-  return recomputeBoardSlots(withBoardMetaFrom(slots, next));
-}
-
-function resetBoardSlots(count = BOARD_SLOT_COUNT) {
-  return createEmptyBoardSlots(count);
-}
-
-function summarizeBoardTraits(slots, traitCatalog) {
-  const counts = new Map();
-  const catalogByName = new Map((traitCatalog ?? []).map((trait) => [trait.name, trait]));
-  const seenHeroKeys = new Set();
-
-  for (const slot of slots) {
-    if (!slot) {
-      continue;
-    }
-
-    if (slot.heroKey && seenHeroKeys.has(slot.heroKey)) {
-      continue;
-    }
-
-    if (slot.heroKey) {
-      seenHeroKeys.add(slot.heroKey);
-    }
-
-    for (const traitName of collectHeroTraitContributions(slot)) {
-      counts.set(traitName, (counts.get(traitName) ?? 0) + 1);
-    }
-  }
-
-  return [...counts.entries()]
-    .map(([name, count]) => {
-      const trait = catalogByName.get(name) ?? buildFallbackTrait(name);
-      const levels = [...(trait.levels ?? [])].sort((left, right) => left.count - right.count || left.level - right.level);
-      const activeLevel = getActiveTraitLevel(count, levels);
-      const nextLevel = levels.find((level) => count < level.count) ?? null;
-      const activationTarget = levels[0]?.count ?? 0;
-      const progressRatio = activationTarget ? count / (activeLevel?.count ?? nextLevel?.count ?? activationTarget) : 0;
-
-      return {
-        ...trait,
-        count,
-        isActive: Boolean(activeLevel),
-        activeLevel,
-        nextLevel,
-        nextTarget: nextLevel?.count ?? null,
-        activationTarget,
-        progressRatio,
-      };
-    })
-    .sort(compareTraitSummaries);
-}
-
-function getTraitToneClass(summary) {
-  if (!summary?.isActive) {
-    return "tier-0";
-  }
-
-  const color = Number(summary.activeLevel?.color ?? 1);
-  if (!Number.isFinite(color)) {
-    return "tier-1";
-  }
-
-  return `tier-${Math.min(5, Math.max(1, color))}`;
-}
-
-function getTraitProgressDisplay(summary) {
-  const levels = summary?.levels ?? [];
-  const count = Number(summary?.count ?? 0);
-
-  if (!summary?.isActive) {
-    const nextTarget = Number(summary?.nextTarget ?? levels[0]?.count ?? count);
-    return {
-      kind: "inactive",
-      text: `${count}/${nextTarget || count}`,
-    };
-  }
-
-  const currentCount = Number(summary?.activeLevel?.count ?? levels[levels.length - 1]?.count ?? count);
-  return {
-    kind: levels.length > 1 ? "active" : "active-single",
-    text: levels.length > 1 ? levels.map((level) => level.count).join(" > ") : `${currentCount}`,
-    currentCount,
-  };
-}
-
-function buildBoardHero(hero) {
-  return {
-    heroKey: hero.key,
-    name: hero.name,
-    cost: Number(hero.cost),
-    image: hero.image,
-    traits: [...(hero.traits ?? [])],
-    equips: [],
-    entityType: "hero",
-    isAutoPlaced: false,
-  };
-}
-
-function buildBoardEquip(equip) {
-  return {
-    id: equip.id,
-    name: equip.name,
-    type: equip.type,
-    image: equip.image,
-    grantedTrait: equip.grantedTrait ?? "",
-  };
-}
-
-function buildBoardPet(pet, overrides) {
-  return {
-    heroKey: `pet-${pet.id}-${overrides.anchorKey}-${overrides.sequence}`,
-    petId: pet.id,
-    name: pet.name,
-    cost: 0,
-    image: pet.image,
-    traits: [],
-    equips: [],
-    entityType: "pet",
-    isAutoPlaced: true,
-    ownerHeroKey: overrides.ownerHeroKey ?? "",
-    ownerTraitName: overrides.ownerTraitName ?? "",
-    anchorKey: overrides.anchorKey ?? pet.id,
-    sequence: overrides.sequence ?? 0,
-  };
-}
-
-function createBoardMeta() {
-  return {
-    summonPositionMemory: new Map(),
-    summonSignature: "",
-  };
-}
-
-function getBoardMeta(slots) {
-  return slots?._boardMeta ?? createBoardMeta();
-}
-
-function attachBoardMeta(slots, meta) {
-  Object.defineProperty(slots, "_boardMeta", {
-    value: meta,
-    configurable: true,
-    enumerable: false,
-    writable: true,
-  });
-  return slots;
-}
-
-function cloneBoardMeta(slots) {
-  const meta = getBoardMeta(slots);
-  return {
-    summonPositionMemory: new Map(meta.summonPositionMemory),
-    summonSignature: meta.summonSignature,
-  };
-}
-
-function withBoardMetaFrom(sourceSlots, targetSlots) {
-  return attachBoardMeta(targetSlots, cloneBoardMeta(sourceSlots));
-}
-
-function isPetBoardHero(slot) {
-  return slot?.entityType === "pet";
-}
-
-function isManualBoardHero(slot) {
-  return Boolean(slot) && !isPetBoardHero(slot);
-}
-
-function extractManualBoardSlots(slots) {
-  return slots.map((slot) => (isManualBoardHero(slot) ? slot : null));
-}
-
-function recomputeBoardSlots(slots) {
-  const manualSlots = extractManualBoardSlots(slots);
-  const traitCounts = collectTraitCounts(manualSlots);
-  const summonSpecs = collectAutoSummonSpecs(manualSlots, traitCounts);
-  const previousMeta = cloneBoardMeta(slots);
-  const nextSignature = buildSummonSignature(summonSpecs);
-  const nextMemory = previousMeta.summonSignature === nextSignature ? previousMeta.summonPositionMemory : new Map();
-  const nextSlots = placeSummonSpecs(manualSlots, summonSpecs, nextMemory);
-
-  return attachBoardMeta(nextSlots, {
-    summonPositionMemory: nextMemory,
-    summonSignature: nextSignature,
-  });
-}
-
-function collectTraitCounts(slots) {
-  const counts = new Map();
-  const seenHeroKeys = new Set();
-
-  for (const slot of slots) {
-    if (!slot) {
-      continue;
-    }
-
-    if (slot.heroKey && seenHeroKeys.has(slot.heroKey)) {
-      continue;
-    }
-
-    if (slot.heroKey) {
-      seenHeroKeys.add(slot.heroKey);
-    }
-
-    for (const traitName of collectHeroTraitContributions(slot)) {
-      counts.set(traitName, (counts.get(traitName) ?? 0) + 1);
-    }
-  }
-
-  return counts;
-}
-
-function collectAutoSummonSpecs(slots, traitCounts) {
-  const specs = [];
-  const bulwarkAnchors = collectTraitAnchorIndices(slots, "暮光铁壁");
-  const shepherdAnchors = collectTraitAnchorIndices(slots, "牧羊人");
-  const darkStarAnchors = collectTraitAnchorIndices(slots, "暗星");
-  const shepherdCount = traitCounts.get("牧羊人") ?? 0;
-  const darkStarCount = traitCounts.get("暗星") ?? 0;
-
-  if ((traitCounts.get("暮光铁壁") ?? 0) >= 1 && petById.has("18406")) {
-    specs.push({
-      petId: "18406",
-      ownerHeroKey: slots[bulwarkAnchors[0]]?.heroKey ?? "",
-      ownerTraitName: "暮光铁壁",
-      anchorIndex: bulwarkAnchors[0] ?? -1,
-      anchorKey: slots[bulwarkAnchors[0]]?.heroKey ?? "416",
-      signatureTag: "416-1",
-      priority: 1,
-      sequence: 0,
-    });
-  }
-
-  if (shepherdCount >= 3 && petById.has("18407")) {
-    const shepherdPetId = shepherdCount >= 5 && petById.has("18408") ? "18408" : "18407";
-    const shepherdTier = shepherdCount >= 7 ? 7 : shepherdCount >= 5 ? 5 : 3;
-    specs.push({
-      petId: shepherdPetId,
-      ownerHeroKey: slots[shepherdAnchors[0]]?.heroKey ?? "",
-      ownerTraitName: "牧羊人",
-      anchorIndex: shepherdAnchors[0] ?? -1,
-      anchorKey: slots[shepherdAnchors[0]]?.heroKey ?? "319-a",
-      signatureTag: `319-${shepherdTier}`,
-      priority: 2,
-      sequence: 0,
-    });
-  }
-
-  if (darkStarCount >= 6 && petById.has("18428")) {
-    const firstAnchor = darkStarAnchors[0] ?? -1;
-    const secondAnchor = darkStarAnchors[1] ?? firstAnchor;
-    const darkStarTier = darkStarCount >= 9 ? 9 : 6;
-    specs.push({
-      petId: "18428",
-      ownerHeroKey: slots[firstAnchor]?.heroKey ?? "",
-      ownerTraitName: "暗星",
-      anchorIndex: firstAnchor,
-      anchorKey: "403-a",
-      signatureTag: `403-${darkStarTier}`,
-      priority: 3,
-      sequence: 0,
-    });
-    specs.push({
-      petId: "18428",
-      ownerHeroKey: slots[secondAnchor]?.heroKey ?? "",
-      ownerTraitName: "暗星",
-      anchorIndex: secondAnchor,
-      anchorKey: "403-b",
-      signatureTag: `403-${darkStarTier}`,
-      priority: 3,
-      sequence: 1,
-    });
-  }
-
-  return specs.sort((left, right) => left.priority - right.priority || left.sequence - right.sequence);
-}
-
-function collectTraitAnchorIndices(slots, traitName) {
-  return slots
-    .map((slot, index) => (collectHeroTraitContributions(slot).has(traitName) ? index : -1))
-    .filter((index) => index >= 0);
-}
-
-function buildSummonSignature(summonSpecs) {
-  return summonSpecs.map((spec) => getSummonSignatureKey(spec)).join("|");
-}
-
-function getSummonStableKey(spec) {
-  return `${spec.petId}:${spec.ownerTraitName || spec.ownerHeroKey}:${spec.sequence}`;
-}
-
-function getSummonSignatureKey(spec) {
-  return `${getSummonStableKey(spec)}:${spec.signatureTag ?? ""}`;
-}
-
-function getRuntimeSummonKey(slot) {
-  return `${slot.petId}:${slot.ownerTraitName || slot.ownerHeroKey}:${slot.sequence ?? 0}`;
-}
-
-function placeSummonSpecs(manualSlots, summonSpecs, summonPositionMemory) {
-  const next = manualSlots.slice();
-
-  for (const spec of summonSpecs) {
-    const stableKey = getSummonStableKey(spec);
-    const rememberedIndex = summonPositionMemory.get(stableKey) ?? -1;
-    const targetIndex = findSummonPlacementIndex(next, spec.anchorIndex, rememberedIndex);
-    if (targetIndex === -1) {
-      continue;
-    }
-
-    const pet = petById.get(spec.petId);
-    if (!pet) {
-      continue;
-    }
-
-    next[targetIndex] = buildBoardPet(pet, spec);
-    summonPositionMemory.set(stableKey, targetIndex);
-  }
-
-  return next;
-}
-
-function findSummonPlacementIndex(slots, anchorIndex, rememberedIndex = -1) {
-  if (isValidSlotIndex(rememberedIndex, slots.length) && slots[rememberedIndex] === null) {
-    return rememberedIndex;
-  }
-
-  const preferredIndices = getNeighborPreference(anchorIndex, slots.length);
-
-  for (const index of preferredIndices) {
-    if (slots[index] === null) {
-      return index;
-    }
-  }
-
-  return findNextOpenSlotIndex(slots);
-}
-
-function getNeighborPreference(anchorIndex, slotCount) {
-  if (!isValidSlotIndex(anchorIndex, slotCount)) {
-    return [];
-  }
-
-  const row = Math.floor(anchorIndex / 7);
-  const col = anchorIndex % 7;
-  const candidates = [];
-
-  for (let rowOffset = -1; rowOffset <= 1; rowOffset += 1) {
-    for (let colOffset = -1; colOffset <= 1; colOffset += 1) {
-      if (rowOffset === 0 && colOffset === 0) {
-        continue;
-      }
-
-      const nextRow = row + rowOffset;
-      const nextCol = col + colOffset;
-      if (nextRow < 0 || nextRow >= 4 || nextCol < 0 || nextCol >= 7) {
-        continue;
-      }
-
-      const distance = Math.abs(rowOffset) + Math.abs(colOffset);
-      candidates.push({
-        index: nextRow * 7 + nextCol,
-        distance,
-      });
-    }
-  }
-
-  return candidates
-    .sort((left, right) => left.distance - right.distance || left.index - right.index)
-    .map((item) => item.index);
-}
-
-function findNextOpenSlotIndex(slots) {
-  return slots.findIndex((slot) => slot === null);
-}
-
-function hasBoardHeroKey(slots, heroKey, ignoreIndex = -1) {
-  return slots.some((slot, index) => index !== ignoreIndex && slot?.heroKey === heroKey);
-}
-
-function collectHeroTraitContributions(hero) {
-  const traitNames = new Set(hero?.traits ?? []);
-
-  for (const equip of hero?.equips ?? []) {
-    if (equip?.grantedTrait) {
-      traitNames.add(equip.grantedTrait);
-    }
-  }
-
-  return traitNames;
-}
-
-function heroHasTraitContribution(hero, traitName) {
-  return collectHeroTraitContributions(hero).has(traitName);
-}
-
-function isValidSlotIndex(index, length) {
-  return Number.isInteger(index) && index >= 0 && index < length;
+function compareSeasons(a, b) {
+  const statusScore = (season) => season.status === "active" ? 2 : season.status === "draft" ? 1 : 0;
+  return statusScore(b) - statusScore(a)
+    || String(b.effective_at || "").localeCompare(String(a.effective_at || ""))
+    || String(b.game_version || "").localeCompare(String(a.game_version || ""), undefined, { numeric: true });
 }
 
 function normalizeText(value) {
-  return String(value ?? "").trim().toLowerCase();
+  return String(value || "").trim().toLocaleLowerCase("zh-CN");
 }
 
-function escapeHtml(value) {
-  return String(value ?? "")
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#39;");
-}
-
-function getHeroCostClass(cost) {
-  return COST_CLASS_BY_VALUE[Number(cost)] ?? "cost-1";
-}
-
-function getBlurImagePath(imagePath) {
-  const normalizedPath = String(imagePath ?? "").replace(/^\.\//, "");
-  return normalizedPath ? `blur/${normalizedPath}` : "";
-}
-
-function getProgressiveImageStyle(imagePath) {
-  const blurPath = getBlurImagePath(imagePath);
-  return blurPath ? ` style="--blur-image: url('${blurPath}')"` : "";
-}
-
-function getProgressiveImageCacheKey(imagePath) {
-  return String(imagePath ?? "").replace(/^\.\//, "");
-}
-
-function isProgressiveImageLoaded(imagePath) {
-  const cacheKey = getProgressiveImageCacheKey(imagePath);
-  return Boolean(cacheKey) && loadedProgressiveImagePaths.has(cacheKey);
-}
-
-function getProgressiveShellClass(imagePath) {
-  return `progressive-image-shell${isProgressiveImageLoaded(imagePath) ? " is-loaded" : ""}`;
-}
-
-function getProgressiveImageClass(imagePath) {
-  return `progressive-image${isProgressiveImageLoaded(imagePath) ? " is-loaded" : ""}`;
-}
-
-function markProgressiveImageLoaded(image) {
-  loadedProgressiveImagePaths.add(getProgressiveImageCacheKey(image.getAttribute("src")));
-  image.classList.add("is-loaded");
-  image.closest(".progressive-image-shell")?.classList.add("is-loaded");
-}
-
-function hydrateProgressiveImages(refs) {
-  refs.root?.querySelectorAll("[data-progressive-image]").forEach((image) => {
-    if (image instanceof HTMLImageElement && image.complete) {
-      markProgressiveImageLoaded(image);
-    }
-  });
-}
-
-function buildFallbackTrait(name) {
+function normalizeChampion(raw) {
   return {
-    id: name,
-    name,
-    type: "",
-    image: "",
-    levels: [],
+    id: String(raw.id),
+    name: raw.name || "未知弈子",
+    aliases: raw.aliases || [],
+    cost: Number(raw.cost) || 0,
+    traitIds: (raw.trait_ids || []).map(String),
+    availability: raw.availability || { type: "shop", description: null, rules: [] },
+    icon: seasonAsset(raw.images?.icon?.local_path),
+    splash: seasonAsset(raw.images?.splash?.local_path || raw.images?.icon?.local_path),
+    skill: raw.skills?.[0] || null,
+    stats: raw.stats_by_star?.["1"] || {},
   };
 }
 
-function getActiveTraitLevel(count, levels) {
-  let activeLevel = null;
-
-  for (const level of levels) {
-    if (count >= level.count) {
-      activeLevel = level;
-      continue;
-    }
-
-    break;
-  }
-
-  return activeLevel;
-}
-
-function compareTraitSummaries(left, right) {
-  const uniqueDelta = Number(isUniqueTraitSummary(right)) - Number(isUniqueTraitSummary(left));
-  if (uniqueDelta !== 0) {
-    return uniqueDelta;
-  }
-
-  if (left.isActive !== right.isActive) {
-    return Number(right.isActive) - Number(left.isActive);
-  }
-
-  if (left.isActive && right.isActive) {
-    const activeThresholdDelta = (right.activeLevel?.count ?? 0) - (left.activeLevel?.count ?? 0);
-    if (activeThresholdDelta !== 0) {
-      return activeThresholdDelta;
-    }
-  } else {
-    const progressDelta = right.progressRatio - left.progressRatio;
-    if (progressDelta !== 0) {
-      return progressDelta;
-    }
-  }
-
-  const countDelta = right.count - left.count;
-  if (countDelta !== 0) {
-    return countDelta;
-  }
-
-  return left.name.localeCompare(right.name, "zh-Hans-CN");
-}
-
-function isUniqueTraitSummary(summary) {
-  return (summary?.levels ?? []).some((level) => Number(level.color) === 5);
-}
-
-if (typeof document !== "undefined") {
-  void initSimulator();
-}
-
-async function initSimulator() {
-  const refs = getRefs();
-  if (!refs.root) {
-    return;
-  }
-
-  try {
-    const data = await loadSimulatorData();
-    setSimulatorData(data);
-  } catch (error) {
-    console.error(error);
-    setSimulatorData(DEFAULT_SIMULATOR_DATA);
-  }
-
-  const state = {
-    activePanel: "heroes",
-    heroSearch: "",
-    heroCost: heroCostTabs[0],
-    equipSearch: "",
-    equipTab: "成装",
-    showBoardNames: true,
-    boardSlots: createEmptyBoardSlots(),
-    dragPayload: null,
-    activeDropSlot: null,
-    selectedEquipId: null,
-  };
-
-  renderHeroCostFilters(refs, state);
-  renderEquipTabs(refs, state);
-  renderBoardActionButtons(refs, state);
-  renderPanels(refs, state);
-  renderHeroList(refs, state);
-  renderEquipList(refs, state);
-  renderBoardState(refs, state);
-  syncBattleCardScale(refs);
-  bindEvents(refs, state);
-  hydrateProgressiveImages(refs);
-}
-
-function getRefs() {
+function normalizeTrait(raw) {
   return {
-    root: document.getElementById("simulator-root"),
-    heroTabButton: document.getElementById("panel-tab-heroes"),
-    equipTabButton: document.getElementById("panel-tab-equips"),
-    heroPanel: document.getElementById("heroes-panel"),
-    equipPanel: document.getElementById("equips-panel"),
-    heroSearch: document.getElementById("hero-search"),
-    equipSearch: document.getElementById("equip-search"),
-    heroCostFilters: document.getElementById("hero-cost-filters"),
-    equipTabs: document.getElementById("equip-type-tabs"),
-    heroList: document.getElementById("hero-list"),
-    equipList: document.getElementById("equip-list"),
-    battleCard: document.querySelector(".battle-card"),
-    battleCardBoardArea: document.getElementById("battle-card-board-area"),
-    battleCardBoardScale: document.getElementById("battle-card-board-scale"),
-    boardGrid: document.getElementById("board-grid"),
-    traitList: document.getElementById("trait-list"),
-    trashZone: document.getElementById("trash-dropzone"),
-    toggleNameButton: document.getElementById("toggle-name-button"),
-    resetButton: document.getElementById("reset-board-button"),
+    id: String(raw.id),
+    name: raw.name || "未知羁绊",
+    category: raw.category || "other",
+    description: raw.description || "",
+    breakpoints: [...(raw.breakpoints || [])].sort((a, b) => Number(a.min_units) - Number(b.min_units)),
+    icon: seasonAsset(raw.image?.local_path),
+    tags: raw.tags || [],
   };
 }
 
-function bindEvents(refs, state) {
-  refs.root?.addEventListener("load", (event) => {
-    const image = event.target;
-    if (image instanceof HTMLImageElement && image.matches("[data-progressive-image]")) {
-      markProgressiveImageLoaded(image);
-    }
-  }, true);
-
-  refs.heroTabButton?.addEventListener("click", () => {
-    state.activePanel = "heroes";
-    clearSelectedEquip(refs, state);
-    renderPanels(refs, state);
-  });
-
-  refs.equipTabButton?.addEventListener("click", () => {
-    state.activePanel = "equips";
-    renderPanels(refs, state);
-  });
-
-  refs.heroSearch.addEventListener("input", (event) => {
-    state.heroSearch = event.target.value;
-    renderHeroList(refs, state);
-  });
-
-  refs.equipSearch.addEventListener("input", (event) => {
-    state.equipSearch = event.target.value;
-    renderEquipList(refs, state);
-  });
-
-  refs.heroCostFilters.addEventListener("click", (event) => {
-    const button = event.target.closest("[data-hero-cost]");
-    if (!button) {
-      return;
-    }
-
-    state.heroCost = button.dataset.heroCost;
-    renderHeroCostFilters(refs, state);
-    renderHeroList(refs, state);
-  });
-
-  refs.equipTabs.addEventListener("click", (event) => {
-    const button = event.target.closest("[data-equip-tab]");
-    if (!button) {
-      return;
-    }
-
-    state.equipTab = button.dataset.equipTab;
-    clearSelectedEquip(refs, state);
-    renderEquipTabs(refs, state);
-    renderEquipList(refs, state);
-  });
-
-  refs.heroList.addEventListener("dragstart", (event) => {
-    const card = event.target.closest("[data-hero-key]");
-    if (!card) {
-      return;
-    }
-
-    setDragPayload(event, state, {
-      kind: "hero-pool",
-      heroKey: card.dataset.heroKey,
-    });
-  });
-
-  refs.heroList.addEventListener("click", (event) => {
-    const card = event.target.closest("[data-hero-key]");
-    if (!card) {
-      return;
-    }
-
-    const hero = heroByKey.get(card.dataset.heroKey);
-    if (!hero) {
-      return;
-    }
-
-    clearSelectedEquip(refs, state);
-    state.boardSlots = autoPlaceHeroOnBoard(state.boardSlots, hero);
-    renderBoardState(refs, state);
-  });
-
-  refs.equipList.addEventListener("dragstart", (event) => {
-    const card = event.target.closest("[data-equip-id]");
-    if (!card || card.getAttribute("draggable") !== "true") {
-      return;
-    }
-
-    clearSelectedEquip(refs, state);
-    setDragPayload(event, state, {
-      kind: "equip-pool",
-      equipId: card.dataset.equipId,
-    });
-  });
-
-  refs.equipList.addEventListener("click", (event) => {
-    const card = event.target.closest("[data-equip-id]");
-    if (!card || card.getAttribute("draggable") !== "true") {
-      return;
-    }
-
-    selectEquipForClick(refs, state, card.dataset.equipId);
-  });
-
-  refs.boardGrid.addEventListener("click", (event) => {
-    const removeEquipButton = event.target.closest("[data-remove-equip-index]");
-    if (removeEquipButton) {
-      removeEquipFromBoardSlot(
-        refs,
-        state,
-        Number(removeEquipButton.dataset.boardSlot),
-        Number(removeEquipButton.dataset.removeEquipIndex),
-      );
-      return;
-    }
-
-    const removeHeroButton = event.target.closest("[data-remove-board-slot]");
-    if (removeHeroButton) {
-      removeHeroFromBoardSlot(refs, state, Number(removeHeroButton.dataset.removeBoardSlot));
-      return;
-    }
-
-    const slot = event.target.closest(".lineup-item");
-    if (!slot) {
-      return;
-    }
-
-    applySelectedEquipToBoardSlot(refs, state, Number(slot.dataset.slotIndex));
-  });
-
-  refs.boardGrid.addEventListener("dragstart", (event) => {
-    const card = event.target.closest("[data-board-slot]");
-    if (!card) {
-      return;
-    }
-
-    setDragPayload(event, state, {
-      kind: "hero-board",
-      fromIndex: Number(card.dataset.boardSlot),
-    });
-  });
-
-  refs.boardGrid.addEventListener("dragover", (event) => {
-    const slot = event.target.closest(".lineup-item");
-    if (!slot || !state.dragPayload) {
-      return;
-    }
-
-    event.preventDefault();
-    highlightSlot(state, slot);
-  });
-
-  refs.boardGrid.addEventListener("drop", (event) => {
-    const slot = event.target.closest(".lineup-item");
-    if (!slot) {
-      return;
-    }
-
-    event.preventDefault();
-    const payload = getDragPayload(event, state);
-    clearSlotHighlights(refs, state);
-
-    if (!payload) {
-      return;
-    }
-
-    state.boardSlots = applyBoardDrop(state.boardSlots, Number(slot.dataset.slotIndex), payload);
-    renderBoardState(refs, state);
-  });
-
-  refs.boardGrid.addEventListener("dragleave", (event) => {
-    const slot = event.target.closest(".lineup-item");
-    if (!slot) {
-      return;
-    }
-
-    if (!slot.contains(event.relatedTarget)) {
-      slot.classList.remove("is-drop-target");
-    }
-  });
-
-  refs.boardGrid.addEventListener("dragend", () => {
-    state.dragPayload = null;
-    clearSlotHighlights(refs, state);
-    refs.trashZone.classList.remove("is-trash-target");
-  });
-
-  refs.trashZone.addEventListener("dragover", (event) => {
-    const payload = state.dragPayload;
-    if (!payload || payload.kind !== "hero-board") {
-      return;
-    }
-
-    if (isPetBoardHero(state.boardSlots[payload.fromIndex])) {
-      return;
-    }
-
-    event.preventDefault();
-    refs.trashZone.classList.add("is-trash-target");
-  });
-
-  refs.trashZone.addEventListener("dragleave", () => {
-    refs.trashZone.classList.remove("is-trash-target");
-  });
-
-  refs.trashZone.addEventListener("drop", (event) => {
-    event.preventDefault();
-    const payload = getDragPayload(event, state);
-    refs.trashZone.classList.remove("is-trash-target");
-    clearSlotHighlights(refs, state);
-
-    if (!payload || payload.kind !== "hero-board") {
-      return;
-    }
-
-    if (isPetBoardHero(state.boardSlots[payload.fromIndex])) {
-      return;
-    }
-
-    state.boardSlots = removeHeroFromBoard(state.boardSlots, payload.fromIndex);
-    renderBoardState(refs, state);
-  });
-
-  refs.toggleNameButton.addEventListener("click", () => {
-    state.showBoardNames = !state.showBoardNames;
-    renderBoardActionButtons(refs, state);
-    renderBoardState(refs, state);
-  });
-
-  refs.resetButton.addEventListener("click", () => {
-    clearSelectedEquip(refs, state);
-    state.boardSlots = resetBoardSlots(state.boardSlots.length);
-    renderBoardState(refs, state);
-  });
-
-  window.addEventListener("resize", () => {
-    syncBattleCardScale(refs);
-  });
-
-  document.addEventListener("drop", () => {
-    state.dragPayload = null;
-    clearSlotHighlights(refs, state);
-    refs.trashZone.classList.remove("is-trash-target");
-  });
-
-
+function normalizeItem(raw) {
+  return {
+    id: String(raw.id),
+    name: raw.name || "未知装备",
+    category: raw.category || "other",
+    description: raw.description || "",
+    stats: raw.stats?.raw || "",
+    effects: raw.effects || [],
+    unique: Boolean(raw.unique),
+    recipe: raw.recipe || { type: "none", component_ids: [] },
+    icon: seasonAsset(raw.image?.local_path),
+  };
 }
 
-function getSelectedEquip(state) {
-  return state.selectedEquipId ? equipById.get(state.selectedEquipId) ?? null : null;
+async function fetchJson(path) {
+  const response = await fetch(path, { headers: { Accept: "application/json" } });
+  if (!response.ok) throw new Error(`资料加载失败 (${response.status})`);
+  return response.json();
 }
 
-function renderSelectedEquipState(refs, state) {
-  refs.equipList.querySelectorAll("[data-equip-id]").forEach((card) => {
-    const selected = Boolean(state.selectedEquipId) && card.dataset.equipId === state.selectedEquipId;
-    card.classList.toggle("is-selected-for-click", selected);
-    card.setAttribute("aria-pressed", String(selected));
-  });
-
-  const hasSelectedEquip = Boolean(getSelectedEquip(state));
-  refs.boardGrid.querySelectorAll(".lineup-item").forEach((slot, index) => {
-    const hero = state.boardSlots[index];
-    slot.classList.toggle("is-click-target", hasSelectedEquip && Boolean(hero) && !isPetBoardHero(hero));
-  });
+async function loadCatalog() {
+  const catalog = await fetchJson(`${DATA_ROOT}/catalog.json`);
+  state.catalog = [...(catalog.seasons || [])].sort(compareSeasons);
+  renderSeasonSwitcher();
+  const hashPayload = readHashPayload();
+  const requestedId = hashPayload?.season || localStorage.getItem(`${STORAGE_PREFIX}season`);
+  const initial = state.catalog.find((season) => season.season_id === requestedId)
+    || state.catalog.find((season) => season.status === "active")
+    || state.catalog[0];
+  if (!initial) throw new Error("资料库中没有可用赛季");
+  await loadSeason(initial.season_id, hashPayload);
 }
 
-function selectEquipForClick(refs, state, equipId) {
-  const equip = equipById.get(equipId);
-  state.selectedEquipId = equip?.draggable ? equip.id : null;
-  renderSelectedEquipState(refs, state);
-}
-
-function clearSelectedEquip(refs, state) {
-  state.selectedEquipId = null;
-  renderSelectedEquipState(refs, state);
-}
-
-function applySelectedEquipToBoardSlot(refs, state, slotIndex) {
-  const equip = getSelectedEquip(state);
-  if (!equip) {
-    return;
-  }
-
-  const before = state.boardSlots;
-  state.boardSlots = attachEquipToHero(state.boardSlots, slotIndex, equip);
-  if (state.boardSlots !== before) {
-    clearSelectedEquip(refs, state);
-  }
-  renderBoardState(refs, state);
-}
-
-function removeHeroFromBoardSlot(refs, state, slotIndex) {
-  clearSelectedEquip(refs, state);
-  state.boardSlots = removeHeroFromBoard(state.boardSlots, slotIndex);
-  renderBoardState(refs, state);
-}
-
-function removeEquipFromBoardSlot(refs, state, slotIndex, equipIndex) {
-  clearSelectedEquip(refs, state);
-  state.boardSlots = removeEquipFromHero(state.boardSlots, slotIndex, equipIndex);
-  renderBoardState(refs, state);
-}
-
-function setDragPayload(event, state, payload) {
-  state.dragPayload = payload;
-  event.dataTransfer.effectAllowed = "move";
-  event.dataTransfer.setData(DRAG_MIME, JSON.stringify(payload));
-  event.dataTransfer.setData("text/plain", JSON.stringify(payload));
-}
-
-function getDragPayload(event, state) {
-  const raw =
-    event.dataTransfer.getData(DRAG_MIME) ||
-    event.dataTransfer.getData("text/plain");
-
-  if (!raw) {
-    return state.dragPayload;
-  }
-
+async function loadSeason(seasonId, importedPayload = null) {
+  const season = state.catalog.find((item) => item.season_id === seasonId);
+  if (!season) throw new Error("赛季不存在");
+  state.season = season;
+  state.selectedItemId = null;
+  state.traitFilters.clear();
+  state.heroSearch = "";
+  state.itemSearch = "";
+  state.costFilter = "all";
+  state.itemCategory = "normal";
+  elements.heroSearch.value = "";
+  elements.itemSearch.value = "";
+  setLoading(true);
   try {
-    return JSON.parse(raw);
-  } catch {
-    return state.dragPayload;
+    const stamp = encodeURIComponent(season.version_id);
+    const [championData, traitData, itemData] = await Promise.all([
+      fetchJson(`${DATA_ROOT}/${encodeURIComponent(seasonId)}/champions.json?v=${stamp}`),
+      fetchJson(`${DATA_ROOT}/${encodeURIComponent(seasonId)}/traits.json?v=${stamp}`),
+      fetchJson(`${DATA_ROOT}/${encodeURIComponent(seasonId)}/items.json?v=${stamp}`),
+    ]);
+    state.champions = (championData.champions || []).map(normalizeChampion).sort((a, b) => a.cost - b.cost || a.name.localeCompare(b.name, "zh-CN"));
+    state.traits = (traitData.traits || []).map(normalizeTrait).sort((a, b) => a.category.localeCompare(b.category) || a.name.localeCompare(b.name, "zh-CN"));
+    state.items = (itemData.items || []).map(normalizeItem);
+    state.championById = new Map(state.champions.map((item) => [item.id, item]));
+    state.traitById = new Map(state.traits.map((item) => [item.id, item]));
+    state.itemById = new Map(state.items.map((item) => [item.id, item]));
+    const payload = importedPayload?.season === seasonId ? importedPayload : readStoredFormation(seasonId);
+    state.board = hydrateBoard(payload?.board);
+    state.showNames = payload?.showNames !== false;
+    elements.showNames.checked = state.showNames;
+    state.history = [];
+    state.historyIndex = -1;
+    pushHistory();
+    localStorage.setItem(`${STORAGE_PREFIX}season`, seasonId);
+    renderAll();
+  } finally {
+    setLoading(false);
   }
 }
 
-function applyBoardDrop(boardSlots, slotIndex, payload) {
-  if (payload.kind === "hero-pool") {
-    return placeHeroOnBoard(boardSlots, slotIndex, heroByKey.get(payload.heroKey));
+function hydrateBoard(rawBoard) {
+  const board = Array(28).fill(null);
+  if (!Array.isArray(rawBoard)) return board;
+  rawBoard.slice(0, 28).forEach((slot, index) => {
+    if (!slot || !state.championById.has(String(slot.championId))) return;
+    board[index] = {
+      championId: String(slot.championId),
+      items: (slot.items || []).map(String).filter((id) => state.itemById.has(id)).slice(0, 3),
+    };
+  });
+  return board;
+}
+
+function setLoading(isLoading) {
+  elements.root.toggleAttribute("aria-busy", isLoading);
+  if (isLoading) elements.seasonMeta.textContent = "正在加载赛季资料...";
+}
+
+function renderAll() {
+  renderSeasonSwitcher();
+  renderFilters();
+  renderHeroes();
+  renderItems();
+  renderBoard();
+  persist();
+  window.lucide?.createIcons();
+}
+
+function renderSeasonSwitcher() {
+  elements.seasonSwitcher.innerHTML = state.catalog.map((season) => `
+    <button class="season-button ${season.season_id === state.season?.season_id ? "is-active" : ""}" type="button" data-season-id="${escapeHtml(season.season_id)}">
+      ${escapeHtml(season.set_variant ? `S${season.set_number}${season.set_variant}` : `S${season.set_number}`)}
+      ${season.status === "draft" ? "<small>预览</small>" : ""}
+    </button>`).join("");
+  if (state.season) {
+    elements.seasonMeta.textContent = `${state.season.display_name} · ${state.season.game_version} · ${state.champions.length} 名弈子`;
   }
-
-  if (payload.kind === "hero-board") {
-    return moveBoardUnit(boardSlots, payload.fromIndex, slotIndex);
-  }
-
-  if (payload.kind === "equip-pool") {
-    return attachEquipToHero(boardSlots, slotIndex, equipById.get(payload.equipId));
-  }
-
-  return boardSlots;
 }
 
-function renderPanels(refs, state) {
-  const hasPanelSwitcher = Boolean(refs.heroTabButton && refs.equipTabButton);
-  const heroesActive = state.activePanel === "heroes";
-  const equipsActive = state.activePanel === "equips";
-
-  if (hasPanelSwitcher) {
-    refs.heroPanel.hidden = !heroesActive;
-    refs.equipPanel.hidden = !equipsActive;
-    refs.heroTabButton.classList.toggle("is-active", heroesActive);
-    refs.equipTabButton.classList.toggle("is-active", equipsActive);
-    return;
-  }
-
-  refs.heroPanel.hidden = false;
-  refs.equipPanel.hidden = false;
+function renderFilters() {
+  const costs = [...new Set(state.champions.map((hero) => hero.cost))].sort((a, b) => a - b);
+  elements.costFilters.innerHTML = ["all", ...costs].map((cost) => {
+    const active = String(state.costFilter) === String(cost);
+    const color = cost === "all" ? "var(--accent)" : costColor(cost);
+    return `<button class="cost-filter ${active ? "is-active" : ""}" type="button" data-cost="${cost}" style="--filter-color:${color}">${cost === "all" ? "全部" : `${cost}费`}</button>`;
+  }).join("");
+  const selectedTraitId = [...state.traitFilters][0] || "all";
+  const championCountByTrait = new Map();
+  state.champions.forEach((hero) => hero.traitIds.forEach((traitId) => {
+    championCountByTrait.set(traitId, (championCountByTrait.get(traitId) || 0) + 1);
+  }));
+  const selectedTrait = state.traitById.get(selectedTraitId) || null;
+  elements.traitFilterIcon.innerHTML = selectedTrait?.icon
+    ? `<img src="${escapeHtml(selectedTrait.icon)}" alt="" />`
+    : '<i data-lucide="shapes"></i>';
+  elements.traitFilterLabel.textContent = selectedTrait?.name || "全部羁绊";
+  const traitGroups = [
+    { id: "origin", label: "特质" },
+    { id: "class", label: "职业" },
+  ];
+  elements.traitFilterMenu.innerHTML = `
+    <button class="trait-filter-option ${selectedTraitId === "all" ? "is-selected" : ""}" type="button" role="option" aria-selected="${selectedTraitId === "all"}" data-trait-filter="all">
+      <span class="trait-option-icon all-traits"><i data-lucide="shapes"></i></span>
+      <span>全部羁绊</span><small>${state.traits.length}</small>
+    </button>
+    ${traitGroups.map((group) => {
+      const options = state.traits.filter((trait) => trait.category === group.id && championCountByTrait.has(trait.id));
+      return options.length ? `<div class="trait-filter-group"><span class="trait-filter-group-label">${group.label}</span>${options.map((trait) => `
+        <button class="trait-filter-option ${selectedTraitId === trait.id ? "is-selected" : ""}" type="button" role="option" aria-selected="${selectedTraitId === trait.id}" data-trait-filter="${escapeHtml(trait.id)}">
+          <span class="trait-option-icon">${trait.icon ? `<img src="${escapeHtml(trait.icon)}" alt="" />` : ""}</span>
+          <span>${escapeHtml(trait.name)}</span><small>${championCountByTrait.get(trait.id)}</small>
+        </button>`).join("")}</div>` : "";
+    }).join("")}`;
+  const filteringByTrait = selectedTraitId !== "all";
+  elements.traitFilterClear.hidden = !filteringByTrait;
+  elements.traitFilterPicker.classList.toggle("is-filtering", filteringByTrait);
+  elements.itemTabs.innerHTML = ITEM_CATEGORIES.map((category) => `
+    <button class="item-tab ${state.itemCategory === category.id ? "is-active" : ""}" type="button" role="tab" aria-selected="${state.itemCategory === category.id}" data-item-category="${category.id}">${category.label}</button>
+  `).join("");
+  window.lucide?.createIcons();
 }
 
-function renderHeroCostFilters(refs, state) {
-  refs.heroCostFilters.innerHTML = heroCostTabs
-    .map(
-      (tab) => `
-        <button
-          type="button"
-          class="filter-chip ${tab === state.heroCost ? "is-active" : ""}"
-          data-hero-cost="${tab}"
-        >
-          ${tab}
-        </button>
-      `,
-    )
-    .join("");
-}
-
-function renderEquipTabs(refs, state) {
-  refs.equipTabs.innerHTML = equipTabs
-    .map(
-      (tab) => `
-        <button
-          type="button"
-          class="filter-chip ${tab === state.equipTab ? "is-active" : ""}"
-          data-equip-tab="${tab}"
-        >
-          ${tab}
-        </button>
-      `,
-    )
-    .join("");
-}
-
-function renderBoardActionButtons(refs, state) {
-  refs.toggleNameButton.textContent = state.showBoardNames ? "隐藏名字" : "显示名字";
-  refs.toggleNameButton.classList.toggle("is-active", state.showBoardNames);
-  refs.toggleNameButton.setAttribute("aria-pressed", String(state.showBoardNames));
-}
-
-function renderBoardState(refs, state) {
-  renderBoard(refs, state);
-  renderTraitList(refs, state);
-  renderSelectedEquipState(refs, state);
-  syncBattleCardScale(refs);
-}
-
-function renderHeroList(refs, state) {
+function renderHeroes() {
   const query = normalizeText(state.heroSearch);
-  const filtered = heroes.filter((hero) => {
-    const matchCost = state.heroCost === "全部" || hero.costLabel === state.heroCost;
-    const matchQuery = !query || normalizeText(hero.searchText).includes(query);
-    return matchCost && matchQuery;
-  });
-
-  refs.heroList.innerHTML = filtered.length
-    ? filtered
-        .map(
-          (hero) => `
-            <article
-              class="pool-card hero-card ${getHeroCostClass(hero.cost)}"
-              draggable="true"
-              data-hero-key="${hero.key}"
-              title="${hero.name} | ${hero.traits.join(" / ")}"
-            >
-              <div class="pool-card-pic-box ${getProgressiveShellClass(hero.image)}"${getProgressiveImageStyle(hero.image)}>
-                <img class="pool-card-pic ${getProgressiveImageClass(hero.image)}" src="${hero.image}" alt="${hero.name}" loading="lazy" decoding="async" fetchpriority="low" data-progressive-image draggable="false" />
-              </div>
-              <div class="pool-card-name">${hero.name}</div>
-              <div class="pool-card-meta">${hero.traits.join(" / ")}</div>
-            </article>
-          `,
-        )
-        .join("")
-    : `<div class="empty-state">没有匹配的弈子</div>`;
+  const costs = [...new Set(state.champions.map((hero) => hero.cost))].sort((a, b) => a - b);
+  const groups = costs.map((cost) => {
+    if (state.costFilter !== "all" && Number(state.costFilter) !== cost) return "";
+    const heroes = state.champions.filter((hero) => hero.cost === cost && (!query || normalizeText([hero.name, ...hero.aliases].join(" ")).includes(query)));
+    if (!heroes.length) return "";
+    return `<section class="hero-cost-group" aria-label="${cost}费弈子">
+      <div class="cost-heading" style="--cost-color:${costColor(cost)}"><span class="cost-dot"></span><span><strong>${cost}</strong>费用</span></div>
+      <div class="hero-grid">${heroes.map(heroButtonHtml).join("")}</div>
+    </section>`;
+  }).join("");
+  elements.heroGroups.innerHTML = groups || '<div class="empty-state">没有符合条件的弈子</div>';
 }
 
-function renderEquipList(refs, state) {
-  const query = normalizeText(state.equipSearch);
-  const filtered = equips.filter((equip) => {
-    const matchTab = equip.type === state.equipTab;
-    const matchQuery = !query || normalizeText(equip.searchText).includes(query);
-    return matchTab && matchQuery;
-  });
-
-  refs.equipList.innerHTML = filtered.length
-    ? filtered
-        .map(
-          (equip) => `
-            <article
-              class="pool-card equip-card ${equip.draggable ? "" : "is-disabled"} ${state.selectedEquipId === equip.id ? "is-selected-for-click" : ""}"
-              ${equip.draggable ? 'draggable="true"' : ""}
-              aria-pressed="${state.selectedEquipId === equip.id ? "true" : "false"}"
-              data-equip-id="${equip.id}"
-              title="${equip.name}"
-            >
-              <div class="pool-card-pic-box ${getProgressiveShellClass(equip.image)}"${getProgressiveImageStyle(equip.image)}>
-                <img class="pool-card-pic ${getProgressiveImageClass(equip.image)}" src="${equip.image}" alt="${equip.name}" loading="lazy" decoding="async" fetchpriority="low" data-progressive-image draggable="false" />
-              </div>
-              <div class="pool-card-name">${equip.name}</div>
-              <div class="pool-card-meta">${equip.type}${equip.draggable ? "" : " · 仅展示"}</div>
-            </article>
-          `,
-        )
-        .join("")
-    : `<div class="empty-state">没有匹配的装备</div>`;
-
-  renderSelectedEquipState(refs, state);
+function heroButtonHtml(hero) {
+  const traitMismatch = state.traitFilters.size > 0 && ![...state.traitFilters].every((id) => hero.traitIds.includes(id));
+  const unlocked = hero.availability?.type === "unlock";
+  return `<button class="hero-button ${traitMismatch ? "is-dimmed" : ""}" type="button" draggable="true" data-hero-id="${escapeHtml(hero.id)}" style="--hero-color:${costColor(hero.cost)}" aria-label="上阵 ${escapeHtml(hero.name)}"${traitMismatch ? ' title="不属于当前筛选羁绊"' : ""}>
+    <img src="${escapeHtml(hero.icon)}" alt="" loading="lazy" decoding="async" />
+    <span>${escapeHtml(hero.name)}</span>
+    ${unlocked ? `<img class="hero-unlock" src="${UI_ROOT}/unlock.png" alt="解锁弈子" />` : ""}
+  </button>`;
 }
 
-function renderBoard(refs, state) {
-  const slots = refs.boardGrid.querySelectorAll(".lineup-item");
+function renderItems() {
+  const category = ITEM_CATEGORIES.find((item) => item.id === state.itemCategory) || ITEM_CATEGORIES[0];
+  const query = normalizeText(state.itemSearch);
+  const items = state.items.filter((item) => category.source.includes(item.category) && (!query || normalizeText(item.name).includes(query)));
+  elements.itemGrid.innerHTML = items.length ? items.map((item) => `
+    <button class="item-button ${state.selectedItemId === item.id ? "is-selected" : ""}" type="button" draggable="true" data-item-id="${escapeHtml(item.id)}" aria-label="选择 ${escapeHtml(item.name)}">
+      <img src="${escapeHtml(item.icon)}" alt="" loading="lazy" decoding="async" />
+    </button>`).join("") : '<div class="empty-state">该分类暂无装备</div>';
+  updateSelectedItemStatus();
+}
 
-  slots.forEach((slot, index) => {
-    slot.dataset.slotIndex = String(index);
-    const lineup = slot.querySelector(".lineup");
-    const hero = state.boardSlots[index];
+function renderBoard() {
+  elements.board.classList.toggle("hide-names", !state.showNames);
+  elements.board.innerHTML = state.board.map((slot, index) => boardSlotHtml(slot, index)).join("");
+  const units = state.board.filter(Boolean);
+  elements.unitCount.textContent = String(units.length);
+  elements.totalCost.textContent = String(units.reduce((total, slot) => total + (state.championById.get(slot.championId)?.cost || 0), 0));
+  elements.boardStatus.textContent = units.length ? `${units.length} 名弈子已上阵` : "阵容未配置";
+  renderTraitSummary();
+  renderComponentSummary();
+  elements.undo.disabled = state.historyIndex <= 0;
+  elements.redo.disabled = state.historyIndex >= state.history.length - 1;
+}
 
-    slot.classList.toggle("lineup-item--occupied", Boolean(hero));
+function boardSlotHtml(slot, index) {
+  if (!slot) return `<button class="hex-cell" type="button" role="gridcell" data-slot-index="${index}" aria-label="空棋格 ${index + 1}"><span class="hex-floor"></span></button>`;
+  const hero = state.championById.get(slot.championId);
+  if (!hero) return `<button class="hex-cell" type="button" role="gridcell" data-slot-index="${index}"><span class="hex-floor"></span></button>`;
+  const items = slot.items.map((itemId, itemIndex) => {
+    const item = state.itemById.get(itemId);
+    return item ? `<span class="unit-item" data-item-id="${escapeHtml(item.id)}" data-slot-index="${index}" data-item-index="${itemIndex}"><img src="${escapeHtml(item.icon)}" alt="${escapeHtml(item.name)}" /></span>` : "";
+  }).join("");
+  return `<button class="hex-cell has-unit ${items ? "has-items" : ""}" type="button" role="gridcell" draggable="true" data-slot-index="${index}" data-hero-id="${escapeHtml(hero.id)}" aria-label="${escapeHtml(hero.name)}">
+    <span class="hex-floor"></span>
+    <span class="unit-portrait" style="--unit-color:${costColor(hero.cost)}"><img class="unit-portrait-image" src="${escapeHtml(hero.icon)}" alt="" /></span>
+    <span class="unit-items">${items}</span>
+    <span class="unit-name">${escapeHtml(hero.name)}</span>
+    ${hero.availability?.type === "unlock" ? `<span class="unlock-mark" title="解锁弈子"><img src="${UI_ROOT}/unlock.png" alt="" /></span>` : ""}
+  </button>`;
+}
 
-    if (!hero) {
-      lineup.innerHTML = "";
-      return;
+function getTraitCounts() {
+  const contributors = new Map();
+  state.board.filter(Boolean).forEach((slot) => {
+    const hero = state.championById.get(slot.championId);
+    hero?.traitIds.forEach((traitId) => {
+      if (!contributors.has(traitId)) contributors.set(traitId, new Set());
+      contributors.get(traitId).add(hero.id);
+    });
+  });
+  return new Map([...contributors].map(([traitId, heroIds]) => [traitId, heroIds.size]));
+}
+
+function traitState(trait, count) {
+  const active = trait.breakpoints.filter((point) => count >= Number(point.min_units)).at(-1) || null;
+  const next = trait.breakpoints.find((point) => count < Number(point.min_units)) || null;
+  const unique = active?.style === "unique"
+    || trait.category === "unique"
+    || trait.tags.some((tag) => normalizeText(tag).includes("unique") || String(tag).includes("独特"));
+  const styleIndex = active && unique ? "unique" : active ? (TRAIT_STYLE_INDEX[active.style] || Math.min(4, trait.breakpoints.indexOf(active) + 1)) : 0;
+  return { active, next, unique, styleIndex };
+}
+
+function traitTierRank(status) {
+  if (!status?.active) return 0;
+  if (status.styleIndex === "unique") return 5;
+  return Number(status.styleIndex) || 1;
+}
+
+function compareTraitRows(a, b) {
+  return traitTierRank(b.status) - traitTierRank(a.status)
+    || b.count - a.count
+    || a.trait.name.localeCompare(b.trait.name, "zh-CN");
+}
+
+function renderTraitSummary() {
+  const counts = getTraitCounts();
+  const rows = [...counts].map(([traitId, count]) => {
+    const trait = state.traitById.get(traitId);
+    return trait ? { trait, count, status: traitState(trait, count) } : null;
+  }).filter(Boolean).sort(compareTraitRows);
+  elements.activeTraitCount.textContent = String(rows.filter((row) => row.status.active).length);
+  elements.traitSummary.innerHTML = rows.length ? rows.map(({ trait, count, status }) => {
+    const breakpointText = trait.breakpoints.length
+      ? trait.breakpoints.map((breakpoint) => breakpoint.min_units).join(" > ")
+      : "独特";
+    const background = status.styleIndex === "unique" ? `${UI_ROOT}/unique.svg` : `${UI_ROOT}/${status.styleIndex}.svg`;
+    return `<div class="trait-row" style="--trait-color:${TRAIT_STYLE_COLORS[status.styleIndex]}" data-trait-id="${escapeHtml(trait.id)}" data-tier-rank="${traitTierRank(status)}">
+      <span class="trait-badge"><img class="trait-badge-frame" src="${background}" alt="" />${trait.icon ? `<img class="trait-badge-icon" src="${escapeHtml(trait.icon)}" alt="" />` : ""}</span>
+      <span class="trait-copy"><strong>${escapeHtml(trait.name)}</strong><small>${escapeHtml(breakpointText)}</small></span>
+      <span class="trait-count">${count}</span>
+    </div>`;
+  }).join("") : '<div class="empty-state compact">添加弈子后显示羁绊</div>';
+}
+
+function renderComponentSummary() {
+  const counts = new Map();
+  state.board.filter(Boolean).flatMap((slot) => slot.items).forEach((itemId) => {
+    const item = state.itemById.get(itemId);
+    (item?.recipe?.component_ids || []).forEach((componentId) => counts.set(String(componentId), (counts.get(String(componentId)) || 0) + 1));
+  });
+  elements.componentSummary.innerHTML = counts.size ? [...counts].map(([itemId, count]) => {
+    const item = state.itemById.get(itemId);
+    return item ? `<span class="component-stack" data-item-id="${escapeHtml(item.id)}"><img src="${escapeHtml(item.icon)}" alt="${escapeHtml(item.name)}" /><b>${count}</b></span>` : "";
+  }).join("") : '<span class="muted">暂无装备</span>';
+}
+
+function updateSelectedItemStatus() {
+  const item = state.itemById.get(state.selectedItemId);
+  elements.selectedHelp.hidden = !item;
+  elements.selectedHelp.textContent = item ? `待装备：${item.name}` : "";
+}
+
+function costColor(cost) {
+  return COST_COLORS[cost] || COST_COLORS[5];
+}
+
+function firstEmptySlot() {
+  return state.board.findIndex((slot) => slot === null);
+}
+
+function addChampion(championId) {
+  const index = firstEmptySlot();
+  if (index < 0) return showToast("棋盘已满");
+  mutate(() => { state.board[index] = { championId, items: [] }; });
+}
+
+function equipItem(slotIndex, itemId) {
+  const slot = state.board[slotIndex];
+  if (!slot) return showToast("请先在该位置上阵弈子");
+  if (slot.items.length >= 3) return showToast("每名弈子最多携带 3 件装备");
+  mutate(() => { slot.items.push(itemId); });
+}
+
+function moveUnit(fromIndex, toIndex) {
+  if (fromIndex === toIndex) return;
+  mutate(() => {
+    const target = state.board[toIndex];
+    state.board[toIndex] = state.board[fromIndex];
+    state.board[fromIndex] = target;
+  });
+}
+
+function mutate(callback) {
+  callback();
+  pushHistory();
+  renderBoard();
+  persist();
+}
+
+function snapshot() {
+  return JSON.stringify({ board: state.board, showNames: state.showNames });
+}
+
+function pushHistory() {
+  const next = snapshot();
+  if (state.history[state.historyIndex] === next) return;
+  state.history = state.history.slice(0, state.historyIndex + 1);
+  state.history.push(next);
+  if (state.history.length > MAX_HISTORY) state.history.shift();
+  state.historyIndex = state.history.length - 1;
+}
+
+function applyHistory(index) {
+  if (index < 0 || index >= state.history.length) return;
+  state.historyIndex = index;
+  const value = JSON.parse(state.history[index]);
+  state.board = hydrateBoard(value.board);
+  state.showNames = value.showNames !== false;
+  elements.showNames.checked = state.showNames;
+  renderBoard();
+  persist();
+}
+
+function formationPayload() {
+  return { version: 2, season: state.season.season_id, showNames: state.showNames, board: state.board };
+}
+
+function persist() {
+  if (!state.season) return;
+  localStorage.setItem(`${STORAGE_PREFIX}${state.season.season_id}`, JSON.stringify(formationPayload()));
+}
+
+function readStoredFormation(seasonId) {
+  try { return JSON.parse(localStorage.getItem(`${STORAGE_PREFIX}${seasonId}`) || "null"); }
+  catch { return null; }
+}
+
+function encodePayload(payload) {
+  const bytes = new TextEncoder().encode(JSON.stringify(payload));
+  let binary = "";
+  bytes.forEach((byte) => { binary += String.fromCharCode(byte); });
+  return btoa(binary).replaceAll("+", "-").replaceAll("/", "_").replaceAll("=", "");
+}
+
+function decodePayload(code) {
+  const normalized = code.trim().replace(/^.*#lineup=/, "").replaceAll("-", "+").replaceAll("_", "/");
+  const binary = atob(normalized.padEnd(Math.ceil(normalized.length / 4) * 4, "="));
+  const bytes = Uint8Array.from(binary, (character) => character.charCodeAt(0));
+  return JSON.parse(new TextDecoder().decode(bytes));
+}
+
+function readHashPayload() {
+  const match = location.hash.match(/^#lineup=(.+)$/);
+  if (!match) return null;
+  try { return decodePayload(match[1]); }
+  catch { return null; }
+}
+
+function openCodeDialog(mode) {
+  state.dialogMode = mode;
+  elements.dialogTitle.textContent = mode === "import" ? "导入阵容" : "导出阵容";
+  elements.dialogHint.textContent = mode === "import" ? "粘贴阵容码" : "当前阵容码";
+  elements.code.value = mode === "import" ? "" : encodePayload(formationPayload());
+  elements.code.readOnly = mode === "export";
+  elements.confirmCode.textContent = mode === "import" ? "确认导入" : "复制阵容码";
+  elements.dialog.showModal();
+  elements.code.focus();
+  if (mode === "export") elements.code.select();
+}
+
+async function handleCodeConfirm() {
+  if (state.dialogMode === "export") {
+    await copyText(elements.code.value);
+    elements.dialog.close();
+    return showToast("阵容码已复制");
+  }
+  try {
+    const payload = decodePayload(elements.code.value);
+    if (!payload.season || !Array.isArray(payload.board)) throw new Error();
+    if (payload.season !== state.season.season_id) await loadSeason(payload.season, payload);
+    else {
+      state.board = hydrateBoard(payload.board);
+      state.showNames = payload.showNames !== false;
+      elements.showNames.checked = state.showNames;
+      pushHistory();
+      renderBoard();
+      persist();
     }
-
-    const isPet = isPetBoardHero(hero);
-
-    lineup.innerHTML = `
-      <article
-        class="board-unit ${isPet ? "board-unit--pet" : ""} ${getHeroCostClass(hero.cost)}"
-        draggable="true"
-        data-board-slot="${index}"
-        title="${hero.name}"
-      >
-        ${isPet ? "" : `<button class="board-unit-remove" type="button" data-remove-board-slot="${index}" aria-label="删除${escapeHtml(hero.name)}">×</button>`}
-        <div class="board-unit-frame ${getProgressiveShellClass(hero.image)} ${isPet ? "board-unit-frame--pet" : ""}"${getProgressiveImageStyle(hero.image)}>
-          <img class="board-unit-image ${getProgressiveImageClass(hero.image)}" src="${hero.image}" alt="${hero.name}" data-progressive-image draggable="false" />
-        </div>
-        <div class="board-unit-name ${state.showBoardNames ? "" : "is-hidden"}">${hero.name}</div>
-        <div class="board-unit-equips">
-          ${isPet
-            ? ""
-            : hero.equips
-            .map(
-              (equip, equipIndex) => `
-                <button class="board-unit-equip" type="button" title="移除${equip.name}" data-board-slot="${index}" data-remove-equip-index="${equipIndex}" aria-label="移除${equip.name}">
-                  <span class="board-unit-equip-image-shell ${getProgressiveShellClass(equip.image)}"${getProgressiveImageStyle(equip.image)}><img class="${getProgressiveImageClass(equip.image)}" src="${equip.image}" alt="${equip.name}" loading="lazy" decoding="async" fetchpriority="low" data-progressive-image draggable="false" /></span>
-                </button>
-              `,
-            )
-            .join("")}
-        </div>
-      </article>
-    `;
-  });
-}
-
-function renderTraitList(refs, state) {
-  const summary = summarizeBoardTraits(state.boardSlots, traits);
-
-  refs.traitList.innerHTML = summary.length
-    ? summary
-        .map((trait) => {
-          const toneClass = getTraitToneClass(trait);
-          const progressDisplay = getTraitProgressDisplay(trait);
-          const titleText = `${trait.name} | ${trait.count} | ${progressDisplay.text}`;
-          const progressMarkup = trait.isActive
-            ? (trait.levels ?? [])
-                .map((level, index, levels) => {
-                  const tokenClass =
-                    level.count === progressDisplay.currentCount
-                      ? "trait-progress-token is-current"
-                      : level.count < (progressDisplay.currentCount ?? 0)
-                        ? "trait-progress-token is-passed"
-                        : "trait-progress-token";
-                  const separator = index < levels.length - 1 ? '<span class="trait-progress-separator">&gt;</span>' : "";
-
-                  return `<span class="${tokenClass}">${level.count}</span>${separator}`;
-                })
-                .join("")
-            : `<span class="trait-progress-text">${progressDisplay.text}</span>`;
-
-          return `
-            <article class="trait-row ${toneClass} ${trait.isActive ? "is-active" : "is-inactive"}" title="${titleText}">
-              <div class="trait-badge-shell">
-                <div class="trait-badge">
-                  <img class="trait-badge-icon" src="${trait.image}" alt="${trait.name}" draggable="false" />
-                </div>
-              </div>
-              <div class="trait-row-count">${trait.count}</div>
-              <div class="trait-row-body">
-                <div class="trait-row-name">${trait.name}</div>
-                <div class="trait-row-progress">${progressMarkup}</div>
-              </div>
-            </article>
-          `;
-        })
-        .join("")
-    : `<div class="trait-empty-state">上场弈子后显示羁绊</div>`;
-}
-
-function highlightSlot(state, slot) {
-  if (state.activeDropSlot && state.activeDropSlot !== slot) {
-    state.activeDropSlot.classList.remove("is-drop-target");
+    elements.dialog.close();
+    showToast("阵容已导入");
+  } catch {
+    showToast("阵容码无效或版本不受支持");
   }
-
-  state.activeDropSlot = slot;
-  slot.classList.add("is-drop-target");
 }
 
-function clearSlotHighlights(refs, state) {
-  refs.boardGrid.querySelectorAll(".lineup-item.is-drop-target").forEach((slot) => {
-    slot.classList.remove("is-drop-target");
-  });
-  state.activeDropSlot = null;
+async function copyText(text) {
+  if (navigator.clipboard?.writeText) return navigator.clipboard.writeText(text);
+  const area = document.createElement("textarea");
+  area.value = text;
+  document.body.append(area);
+  area.select();
+  document.execCommand("copy");
+  area.remove();
 }
 
-function syncBattleCardScale(refs) {
-  if (!refs.battleCardBoardArea || !refs.battleCardBoardScale) {
+async function shareFormation() {
+  const url = `${location.origin}${location.pathname}#lineup=${encodePayload(formationPayload())}`;
+  await copyText(url);
+  history.replaceState(null, "", url);
+  showToast("阵容链接已复制");
+}
+
+function buildImageCapture(includeTraits, transparentBackground) {
+  const capture = document.createElement("div");
+  capture.className = `lineup-image-capture ${includeTraits ? "with-traits" : "board-only"}`;
+  capture.classList.toggle("is-transparent", transparentBackground);
+  if (includeTraits) {
+    const traitPanel = document.createElement("aside");
+    traitPanel.className = "lineup-image-traits";
+    traitPanel.innerHTML = `<div class="lineup-image-trait-title"><span>SYNERGIES</span><strong>阵容羁绊</strong></div>`;
+    const traitSummary = elements.traitSummary.cloneNode(true);
+    traitSummary.querySelectorAll(".trait-row").forEach((row, index) => {
+      if (index >= MAX_EXPORT_TRAITS) row.remove();
+    });
+    traitPanel.append(traitSummary);
+    capture.append(traitPanel);
+  }
+  const boardPanel = document.createElement("section");
+  boardPanel.className = "lineup-image-board";
+  boardPanel.append(elements.board.cloneNode(true));
+  capture.append(boardPanel);
+  document.body.append(capture);
+  return capture;
+}
+
+async function exportBoardImage(includeTraits = true, transparentBackground = false) {
+  if (!window.htmlToImage?.toPng || !elements.boardCapture) throw new Error("图片导出组件未加载");
+  elements.exportImage.disabled = true;
+  elements.confirmExportImage.disabled = true;
+  showToast("正在生成阵容图...");
+  const capture = buildImageCapture(includeTraits, transparentBackground);
+  try {
+    await document.fonts?.ready;
+    const dataUrl = await window.htmlToImage.toPng(capture, {
+      backgroundColor: transparentBackground ? "transparent" : "#0d101a",
+      cacheBust: true,
+      pixelRatio: 2,
+      style: { position: "static", left: "auto", top: "auto", zIndex: "auto" },
+    });
+    const link = document.createElement("a");
+    link.download = `${state.season.season_id}-lineup.png`;
+    link.href = dataUrl;
+    link.click();
+    elements.exportImageDialog.close();
+    showToast("阵容图已保存");
+  } finally {
+    capture.remove();
+    elements.exportImage.disabled = false;
+    elements.confirmExportImage.disabled = false;
+  }
+}
+
+function showHeroPopover(heroId, anchor) {
+  const hero = state.championById.get(heroId);
+  if (!hero) return;
+  const skill = hero.skill;
+  const traits = hero.traitIds.map((id) => state.traitById.get(id)).filter(Boolean);
+  const stats = hero.stats || {};
+  elements.popover.innerHTML = `
+    <div class="hero-detail-cover" style="--splash:url(&quot;${escapeHtml(hero.splash)}&quot;)">
+      <h3>${escapeHtml(hero.name)}</h3>
+      <div class="hero-detail-traits">${traits.map((trait) => `<span>${trait.icon ? `<img src="${escapeHtml(trait.icon)}" alt="" />` : ""}${escapeHtml(trait.name)}</span>`).join("")}</div>
+      <span class="hero-detail-cost"><img src="${UI_ROOT}/gold.png" alt="" />${hero.cost}</span>
+    </div>
+    <div class="hero-detail-body">
+      ${skill ? `<div class="skill-heading">${skill.image?.local_path ? `<img src="${escapeHtml(seasonAsset(skill.image.local_path))}" alt="" />` : "<span></span>"}<strong>${escapeHtml(skill.name)}</strong><span class="mana">${stats.initial_mana ?? 0} / ${stats.max_mana ?? 0}</span></div>
+      <p class="skill-description">${escapeHtml(skill.description)}</p>
+      <div class="skill-values">${(skill.variables || []).map((variable) => `<div class="skill-value"><span>${escapeHtml(variable.label)}</span><span>${escapeHtml(Object.values(variable.values || {}).join(" / "))}</span></div>`).join("")}</div>` : '<p class="skill-description">暂无技能资料</p>'}
+      ${hero.availability?.type === "unlock" ? `<div class="unlock-box"><img src="${UI_ROOT}/unlock.png" alt="" /><div><strong>解锁条件</strong><p>${escapeHtml(hero.availability.description || "满足赛季解锁条件")}</p></div></div>` : ""}
+    </div>`;
+  showPopover(anchor);
+}
+
+function showItemPopover(itemId, anchor) {
+  const item = state.itemById.get(itemId);
+  if (!item) return;
+  const components = (item.recipe?.component_ids || []).map((id) => state.itemById.get(String(id))).filter(Boolean);
+  const effects = item.effects.map((effect) => typeof effect === "string" ? effect : effect.description || effect.text || "").filter(Boolean);
+  elements.popover.innerHTML = `<div class="item-detail">
+    <div class="item-detail-heading"><img src="${escapeHtml(item.icon)}" alt="" /><div><h3>${escapeHtml(item.name)}</h3>${components.length ? `<div class="item-recipe">${components.map((component, index) => `${index ? "<b>+</b>" : ""}<img src="${escapeHtml(component.icon)}" alt="${escapeHtml(component.name)}" />`).join("")}</div>` : ""}</div></div>
+    ${item.stats ? `<p class="item-stats">${escapeHtml(item.stats)}</p>` : ""}
+    <p class="item-description">${escapeHtml([item.description, ...effects].filter(Boolean).join("\n")) || "暂无装备说明"}</p>
+  </div>`;
+  showPopover(anchor);
+}
+
+function showPopover(anchor) {
+  elements.popover.hidden = false;
+  const rect = anchor.getBoundingClientRect();
+  const popoverRect = elements.popover.getBoundingClientRect();
+  let left = rect.right + 10;
+  if (left + popoverRect.width > innerWidth - 10) left = rect.left - popoverRect.width - 10;
+  left = Math.max(10, Math.min(left, innerWidth - popoverRect.width - 10));
+  let top = rect.top;
+  if (top + popoverRect.height > innerHeight - 10) top = innerHeight - popoverRect.height - 10;
+  elements.popover.style.left = `${Math.max(10, left)}px`;
+  elements.popover.style.top = `${Math.max(10, top)}px`;
+}
+
+function hidePopover() { elements.popover.hidden = true; }
+
+let toastTimer;
+function showToast(message) {
+  clearTimeout(toastTimer);
+  elements.toast.textContent = message;
+  elements.toast.classList.add("is-visible");
+  toastTimer = setTimeout(() => elements.toast.classList.remove("is-visible"), 1800);
+}
+
+elements.seasonSwitcher.addEventListener("click", async (event) => {
+  const button = event.target.closest("[data-season-id]");
+  if (!button || button.dataset.seasonId === state.season?.season_id) return;
+  try { await loadSeason(button.dataset.seasonId); }
+  catch (error) { showToast(error.message); }
+});
+
+elements.costFilters.addEventListener("click", (event) => {
+  const button = event.target.closest("[data-cost]");
+  if (!button) return;
+  state.costFilter = button.dataset.cost;
+  renderFilters();
+  renderHeroes();
+});
+
+function setTraitFilterMenu(open) {
+  elements.traitFilterMenu.hidden = !open;
+  elements.traitFilterButton.setAttribute("aria-expanded", String(open));
+  elements.traitFilterPicker.classList.toggle("is-open", open);
+}
+
+elements.traitFilterButton.addEventListener("click", () => {
+  setTraitFilterMenu(elements.traitFilterMenu.hidden);
+});
+
+elements.traitFilterMenu.addEventListener("click", (event) => {
+  const option = event.target.closest("[data-trait-filter]");
+  if (!option) return;
+  state.traitFilters.clear();
+  if (option.dataset.traitFilter !== "all") state.traitFilters.add(option.dataset.traitFilter);
+  setTraitFilterMenu(false);
+  renderFilters();
+  renderHeroes();
+  elements.traitFilterButton.focus();
+});
+
+elements.traitFilterClear.addEventListener("click", () => {
+  state.traitFilters.clear();
+  setTraitFilterMenu(false);
+  renderFilters();
+  renderHeroes();
+  elements.traitFilterButton.focus();
+});
+
+document.addEventListener("pointerdown", (event) => {
+  if (!elements.traitFilterPicker.contains(event.target)) setTraitFilterMenu(false);
+});
+
+elements.itemTabs.addEventListener("click", (event) => {
+  const button = event.target.closest("[data-item-category]");
+  if (!button) return;
+  state.itemCategory = button.dataset.itemCategory;
+  renderFilters();
+  renderItems();
+});
+
+elements.heroSearch.addEventListener("input", () => { state.heroSearch = elements.heroSearch.value; renderHeroes(); });
+elements.itemSearch.addEventListener("input", () => { state.itemSearch = elements.itemSearch.value; renderItems(); });
+elements.heroGroups.addEventListener("click", (event) => { const button = event.target.closest("[data-hero-id]"); if (button) addChampion(button.dataset.heroId); });
+elements.itemGrid.addEventListener("click", (event) => {
+  const button = event.target.closest("[data-item-id]");
+  if (!button) return;
+  state.selectedItemId = state.selectedItemId === button.dataset.itemId ? null : button.dataset.itemId;
+  renderItems();
+});
+
+elements.board.addEventListener("click", (event) => {
+  const itemChip = event.target.closest(".unit-item");
+  if (itemChip) return;
+  const cell = event.target.closest("[data-slot-index]");
+  if (!cell || !state.selectedItemId) return;
+  equipItem(Number(cell.dataset.slotIndex), state.selectedItemId);
+});
+
+elements.board.addEventListener("contextmenu", (event) => {
+  const itemChip = event.target.closest(".unit-item");
+  if (itemChip) {
+    event.preventDefault();
+    hidePopover();
+    mutate(() => { state.board[Number(itemChip.dataset.slotIndex)].items.splice(Number(itemChip.dataset.itemIndex), 1); });
     return;
   }
+  const cell = event.target.closest(".has-unit");
+  if (!cell) return;
+  event.preventDefault();
+  hidePopover();
+  mutate(() => { state.board[Number(cell.dataset.slotIndex)] = null; });
+});
 
-  refs.battleCardBoardScale.style.transform = "translate(-50%, -50%) scale(1)";
+document.addEventListener("dragstart", (event) => {
+  const hero = event.target.closest(".hero-button");
+  const item = event.target.closest(".item-button");
+  const unit = event.target.closest(".hex-cell.has-unit");
+  if (hero) state.dragging = { type: "hero", id: hero.dataset.heroId };
+  else if (item) state.dragging = { type: "item", id: item.dataset.itemId };
+  else if (unit) state.dragging = { type: "unit", index: Number(unit.dataset.slotIndex) };
+  if (state.dragging) event.dataTransfer?.setData("text/plain", JSON.stringify(state.dragging));
+});
+document.addEventListener("dragend", () => { state.dragging = null; document.querySelectorAll(".is-drop-target").forEach((node) => node.classList.remove("is-drop-target")); });
+elements.board.addEventListener("dragover", (event) => { const cell = event.target.closest(".hex-cell"); if (cell) { event.preventDefault(); cell.classList.add("is-drop-target"); } });
+elements.board.addEventListener("dragleave", (event) => { event.target.closest(".hex-cell")?.classList.remove("is-drop-target"); });
+elements.board.addEventListener("drop", (event) => {
+  const cell = event.target.closest(".hex-cell");
+  if (!cell || !state.dragging) return;
+  event.preventDefault();
+  cell.classList.remove("is-drop-target");
+  const target = Number(cell.dataset.slotIndex);
+  if (state.dragging.type === "hero") {
+    if (state.board[target]) return showToast("该棋格已有弈子");
+    mutate(() => { state.board[target] = { championId: state.dragging.id, items: [] }; });
+  } else if (state.dragging.type === "item") equipItem(target, state.dragging.id);
+  else if (state.dragging.type === "unit") moveUnit(state.dragging.index, target);
+});
 
-  const areaRect = refs.battleCardBoardArea.getBoundingClientRect();
-  const boardRect = refs.battleCardBoardScale.getBoundingClientRect();
-  if (!areaRect.width || !areaRect.height || !boardRect.width || !boardRect.height) {
-    return;
-  }
+document.addEventListener("pointerover", (event) => {
+  const hero = event.target.closest("[data-hero-id]");
+  const item = event.target.closest("[data-item-id]");
+  if (item) showItemPopover(item.dataset.itemId, item);
+  else if (hero) showHeroPopover(hero.dataset.heroId, hero);
+});
+document.addEventListener("pointerout", (event) => {
+  if (!event.target.closest("[data-hero-id], [data-item-id]")) return;
+  const related = event.relatedTarget;
+  if (related instanceof Element && related.closest("[data-hero-id], [data-item-id]") === event.target.closest("[data-hero-id], [data-item-id]")) return;
+  hidePopover();
+});
 
-  const scale = Math.min(areaRect.width / boardRect.width, areaRect.height / boardRect.height, BOARD_SCALE_MAX);
-  refs.battleCardBoardScale.style.transform = `translate(-50%, -50%) scale(${scale})`;
-}
+elements.showNames.addEventListener("change", () => {
+  state.showNames = elements.showNames.checked;
+  pushHistory();
+  renderBoard();
+  persist();
+});
+elements.undo.addEventListener("click", () => applyHistory(state.historyIndex - 1));
+elements.redo.addEventListener("click", () => applyHistory(state.historyIndex + 1));
+elements.reset.addEventListener("click", () => { if (state.board.some(Boolean) && !confirm("确认清空当前棋盘？")) return; mutate(() => { state.board = Array(28).fill(null); }); });
+elements.import.addEventListener("click", () => openCodeDialog("import"));
+elements.export.addEventListener("click", () => openCodeDialog("export"));
+elements.confirmCode.addEventListener("click", handleCodeConfirm);
+elements.share.addEventListener("click", () => shareFormation().catch(() => showToast("复制失败")));
+elements.exportImage.addEventListener("click", () => elements.exportImageDialog.showModal());
+elements.confirmExportImage.addEventListener("click", () => exportBoardImage(
+  elements.exportIncludeTraits.checked,
+  elements.exportTransparentBackground.checked,
+).catch(() => showToast("图片生成失败")));
+document.addEventListener("keydown", (event) => {
+  if (event.key === "/" && !event.ctrlKey && !event.metaKey && !/INPUT|TEXTAREA/.test(document.activeElement?.tagName)) { event.preventDefault(); elements.heroSearch.focus(); }
+  if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "z") { event.preventDefault(); applyHistory(state.historyIndex + (event.shiftKey ? 1 : -1)); }
+  if (event.key === "Escape") { state.selectedItemId = null; setTraitFilterMenu(false); renderItems(); hidePopover(); }
+});
 
+window.lucide?.createIcons();
+loadCatalog().catch((error) => {
+  elements.seasonMeta.textContent = error.message;
+  elements.heroGroups.innerHTML = `<div class="empty-state">${escapeHtml(error.message)}</div>`;
+  showToast(error.message);
+});
