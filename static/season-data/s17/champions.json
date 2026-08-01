@@ -1,6 +1,6 @@
 {
   "$schema": "../../../../../schemas/champions.schema.json",
-  "version_id": "s17__17_17_7",
+  "version_id": "s17__17_17_8",
   "champions": [
     {
       "id": "1450",
@@ -71,7 +71,7 @@
         {
           "id": "1450_skill",
           "name": "命运的断言",
-          "description": "按幸运几率随机抽取一张数值在1到9之间的卡牌，然后将其扔向目标。基于抽到的卡牌，造成205(【法术加成】)到410(【法术加成】)魔法伤害。过量击败伤害将弹跳至相距最近的那个敌人。  3星加成：如果扔出一张9，则生成1金币。  幸运：进行两次判定，选择较优的结果。",
+          "description": "按幸运几率随机抽取一张数值在1到9之间的卡牌，然后将其扔向目标。基于抽到的卡牌，造成205(【法术加成】)到450(【法术加成】)魔法伤害。过量击败伤害将弹跳至相距最近的那个敌人。  3星加成：如果扔出一张9，则生成1金币。  幸运：进行两次判定，选择较优的结果。",
           "variables": [
             {
               "key": "value_1",
@@ -89,25 +89,26 @@
               "label": "最大伤害",
               "unit": "raw",
               "values": {
-                "1": "410",
-                "2": "610",
-                "3": "920",
-                "4": "1565"
+                "1": "450",
+                "2": "675",
+                "3": "1015",
+                "4": "1725"
               }
             }
           ],
-          "raw_values": "最小伤害：800(【法术加成】) 205/305/460/800|最大伤害：1565(【法术加成】) 410/610/920/1565",
+          "raw_values": "最小伤害：800(【法术加成】) 205/305/460/800|最大伤害：1725(【法术加成】) 450/675/1015/1725",
           "image": {
             "local_path": "assets/skills/1450.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/skill/s17_twistedfate.png",
-            "alt": "崔斯特技能图标"
+            "alt": "崔斯特技能图标",
+            "optimized_local_path": "assets/optimized/s17__17_17_8/skills/1450_skill.webp"
           },
           "extensions": {
             "description_by_star": {
-              "1": "按幸运几率随机抽取一张数值在1到9之间的卡牌，然后将其扔向目标。基于抽到的卡牌，造成205(【法术加成】)到410(【法术加成】)魔法伤害。过量击败伤害将弹跳至相距最近的那个敌人。  3星加成：如果扔出一张9，则生成1金币。  幸运：进行两次判定，选择较优的结果。",
-              "2": "按幸运几率随机抽取一张数值在1到9之间的卡牌，然后将其扔向目标。基于抽到的卡牌，造成305(【法术加成】)到610(【法术加成】)魔法伤害。过量击败伤害将弹跳至相距最近的那个敌人。  3星加成：如果扔出一张9，则生成1金币。  幸运：进行两次判定，选择较优的结果。",
-              "3": "按幸运几率随机抽取一张数值在1到9之间的卡牌，然后将其扔向目标。基于抽到的卡牌，造成460(【法术加成】)到920(【法术加成】)魔法伤害。过量击败伤害将弹跳至相距最近的那个敌人。  3星加成：如果扔出一张9，则生成1金币。  幸运：进行两次判定，选择较优的结果。",
-              "4": "按幸运几率随机抽取一张数值在1到9之间的卡牌，然后将其扔向目标。基于抽到的卡牌，造成800(【法术加成】)到1565(【法术加成】)魔法伤害。过量击败伤害将弹跳至相距最近的那个敌人。  3星加成：如果扔出一张9，则生成1金币。  幸运：进行两次判定，选择较优的结果。"
+              "1": "按幸运几率随机抽取一张数值在1到9之间的卡牌，然后将其扔向目标。基于抽到的卡牌，造成205(【法术加成】)到450(【法术加成】)魔法伤害。过量击败伤害将弹跳至相距最近的那个敌人。  3星加成：如果扔出一张9，则生成1金币。  幸运：进行两次判定，选择较优的结果。",
+              "2": "按幸运几率随机抽取一张数值在1到9之间的卡牌，然后将其扔向目标。基于抽到的卡牌，造成305(【法术加成】)到675(【法术加成】)魔法伤害。过量击败伤害将弹跳至相距最近的那个敌人。  3星加成：如果扔出一张9，则生成1金币。  幸运：进行两次判定，选择较优的结果。",
+              "3": "按幸运几率随机抽取一张数值在1到9之间的卡牌，然后将其扔向目标。基于抽到的卡牌，造成460(【法术加成】)到1015(【法术加成】)魔法伤害。过量击败伤害将弹跳至相距最近的那个敌人。  3星加成：如果扔出一张9，则生成1金币。  幸运：进行两次判定，选择较优的结果。",
+              "4": "按幸运几率随机抽取一张数值在1到9之间的卡牌，然后将其扔向目标。基于抽到的卡牌，造成800(【法术加成】)到1725(【法术加成】)魔法伤害。过量击败伤害将弹跳至相距最近的那个敌人。  3星加成：如果扔出一张9，则生成1金币。  幸运：进行两次判定，选择较优的结果。"
             }
           }
         }
@@ -116,7 +117,8 @@
         "icon": {
           "local_path": "assets/champions/1450.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/hero/s17_head_twistedfate.png",
-          "alt": "崔斯特头像"
+          "alt": "崔斯特头像",
+          "optimized_local_path": "assets/optimized/s17__17_17_8/champions/1450.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/1450.jpg",
@@ -249,7 +251,8 @@
           "image": {
             "local_path": "assets/skills/1451.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/skill/s17_ezreal.png",
-            "alt": "伊泽瑞尔技能图标"
+            "alt": "伊泽瑞尔技能图标",
+            "optimized_local_path": "assets/optimized/s17__17_17_8/skills/1451_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -265,7 +268,8 @@
         "icon": {
           "local_path": "assets/champions/1451.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/hero/s17_head_ezreal.png",
-          "alt": "伊泽瑞尔头像"
+          "alt": "伊泽瑞尔头像",
+          "optimized_local_path": "assets/optimized/s17__17_17_8/champions/1451.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/1451.jpg",
@@ -358,7 +362,7 @@
         {
           "id": "1452_skill",
           "name": "圣神审判",
-          "description": "戳刺目标，使其流血，在18秒内持续造成460(【物理加成】【法术加成】)物理伤害。这次攻击之后，跳跃至3格内生命值百分比最高的那个敌人处。",
+          "description": "戳刺目标，使其受伤，在18秒内持续造成460(【物理加成】【法术加成】)物理伤害。这次攻击之后，跳跃至3格内生命值百分比最高的那个敌人处。",
           "variables": [
             {
               "key": "value_1",
@@ -387,14 +391,15 @@
           "image": {
             "local_path": "assets/skills/1452.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/skill/s17_talon.png",
-            "alt": "泰隆技能图标"
+            "alt": "泰隆技能图标",
+            "optimized_local_path": "assets/optimized/s17__17_17_8/skills/1452_skill.webp"
           },
           "extensions": {
             "description_by_star": {
-              "1": "戳刺目标，使其流血，在18秒内持续造成460(【物理加成】【法术加成】)物理伤害。这次攻击之后，跳跃至3格内生命值百分比最高的那个敌人处。",
-              "2": "戳刺目标，使其流血，在18秒内持续造成690(【物理加成】【法术加成】)物理伤害。这次攻击之后，跳跃至3格内生命值百分比最高的那个敌人处。",
-              "3": "戳刺目标，使其流血，在18秒内持续造成1235(【物理加成】【法术加成】)物理伤害。这次攻击之后，跳跃至3格内生命值百分比最高的那个敌人处。",
-              "4": "戳刺目标，使其流血，在18秒内持续造成2080(【物理加成】【法术加成】)物理伤害。这次攻击之后，跳跃至3格内生命值百分比最高的那个敌人处。"
+              "1": "戳刺目标，使其受伤，在18秒内持续造成460(【物理加成】【法术加成】)物理伤害。这次攻击之后，跳跃至3格内生命值百分比最高的那个敌人处。",
+              "2": "戳刺目标，使其受伤，在18秒内持续造成690(【物理加成】【法术加成】)物理伤害。这次攻击之后，跳跃至3格内生命值百分比最高的那个敌人处。",
+              "3": "戳刺目标，使其受伤，在18秒内持续造成1235(【物理加成】【法术加成】)物理伤害。这次攻击之后，跳跃至3格内生命值百分比最高的那个敌人处。",
+              "4": "戳刺目标，使其受伤，在18秒内持续造成2080(【物理加成】【法术加成】)物理伤害。这次攻击之后，跳跃至3格内生命值百分比最高的那个敌人处。"
             }
           }
         }
@@ -403,7 +408,8 @@
         "icon": {
           "local_path": "assets/champions/1452.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/hero/s17_head_talon.png",
-          "alt": "泰隆头像"
+          "alt": "泰隆头像",
+          "optimized_local_path": "assets/optimized/s17__17_17_8/champions/1452.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/1452.jpg",
@@ -525,7 +531,8 @@
           "image": {
             "local_path": "assets/skills/1453.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/skill/s17_nasus.png",
-            "alt": "内瑟斯技能图标"
+            "alt": "内瑟斯技能图标",
+            "optimized_local_path": "assets/optimized/s17__17_17_8/skills/1453_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -541,7 +548,8 @@
         "icon": {
           "local_path": "assets/champions/1453.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/hero/s17_head_nasus.png",
-          "alt": "内瑟斯头像"
+          "alt": "内瑟斯头像",
+          "optimized_local_path": "assets/optimized/s17__17_17_8/champions/1453.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/1453.jpg",
@@ -685,7 +693,8 @@
           "image": {
             "local_path": "assets/skills/1454.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/skill/s17_leona.png",
-            "alt": "蕾欧娜技能图标"
+            "alt": "蕾欧娜技能图标",
+            "optimized_local_path": "assets/optimized/s17__17_17_8/skills/1454_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -701,7 +710,8 @@
         "icon": {
           "local_path": "assets/champions/1454.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/hero/s17_head_leona.png",
-          "alt": "蕾欧娜头像"
+          "alt": "蕾欧娜头像",
+          "optimized_local_path": "assets/optimized/s17__17_17_8/champions/1454.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/1454.jpg",
@@ -823,7 +833,8 @@
           "image": {
             "local_path": "assets/skills/1455.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/skill/s17_reksai.png",
-            "alt": "雷克塞技能图标"
+            "alt": "雷克塞技能图标",
+            "optimized_local_path": "assets/optimized/s17__17_17_8/skills/1455_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -839,7 +850,8 @@
         "icon": {
           "local_path": "assets/champions/1455.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/hero/s17_head_reksai.png",
-          "alt": "雷克塞头像"
+          "alt": "雷克塞头像",
+          "optimized_local_path": "assets/optimized/s17__17_17_8/champions/1455.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/1455.jpg",
@@ -961,7 +973,8 @@
           "image": {
             "local_path": "assets/skills/1456.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/skill/s17_caitlyn.png",
-            "alt": "凯特琳技能图标"
+            "alt": "凯特琳技能图标",
+            "optimized_local_path": "assets/optimized/s17__17_17_8/skills/1456_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -977,7 +990,8 @@
         "icon": {
           "local_path": "assets/champions/1456.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/hero/s17_head_caitlyn.png",
-          "alt": "凯特琳头像"
+          "alt": "凯特琳头像",
+          "optimized_local_path": "assets/optimized/s17__17_17_8/champions/1456.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/1456.jpg",
@@ -1100,7 +1114,8 @@
           "image": {
             "local_path": "assets/skills/1457.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/skill/s17_lissandra.png",
-            "alt": "丽桑卓技能图标"
+            "alt": "丽桑卓技能图标",
+            "optimized_local_path": "assets/optimized/s17__17_17_8/skills/1457_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -1116,7 +1131,8 @@
         "icon": {
           "local_path": "assets/champions/1457.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/hero/s17_head_lissandra.png",
-          "alt": "丽桑卓头像"
+          "alt": "丽桑卓头像",
+          "optimized_local_path": "assets/optimized/s17__17_17_8/champions/1457.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/1457.jpg",
@@ -1249,7 +1265,8 @@
           "image": {
             "local_path": "assets/skills/1458.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/skill/s17_aatrox.png",
-            "alt": "亚托克斯技能图标"
+            "alt": "亚托克斯技能图标",
+            "optimized_local_path": "assets/optimized/s17__17_17_8/skills/1458_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -1265,7 +1282,8 @@
         "icon": {
           "local_path": "assets/champions/1458.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/hero/s17_head_aatrox.png",
-          "alt": "亚托克斯头像"
+          "alt": "亚托克斯头像",
+          "optimized_local_path": "assets/optimized/s17__17_17_8/champions/1458.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/1458.jpg",
@@ -1398,7 +1416,8 @@
           "image": {
             "local_path": "assets/skills/1459.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/skill/s17_chogath.png",
-            "alt": "科加斯技能图标"
+            "alt": "科加斯技能图标",
+            "optimized_local_path": "assets/optimized/s17__17_17_8/skills/1459_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -1414,7 +1433,8 @@
         "icon": {
           "local_path": "assets/champions/1459.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/hero/s17_head_chogath.png",
-          "alt": "科加斯头像"
+          "alt": "科加斯头像",
+          "optimized_local_path": "assets/optimized/s17__17_17_8/champions/1459.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/1459.jpg",
@@ -1536,7 +1556,8 @@
           "image": {
             "local_path": "assets/skills/1460.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/skill/s17_teemo.png",
-            "alt": "提莫技能图标"
+            "alt": "提莫技能图标",
+            "optimized_local_path": "assets/optimized/s17__17_17_8/skills/1460_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -1552,7 +1573,8 @@
         "icon": {
           "local_path": "assets/champions/1460.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/hero/s17_head_teemo.png",
-          "alt": "提莫头像"
+          "alt": "提莫头像",
+          "optimized_local_path": "assets/optimized/s17__17_17_8/champions/1460.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/1460.jpg",
@@ -1674,7 +1696,8 @@
           "image": {
             "local_path": "assets/skills/1461.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/skill/s17_veigar.png",
-            "alt": "维迦技能图标"
+            "alt": "维迦技能图标",
+            "optimized_local_path": "assets/optimized/s17__17_17_8/skills/1461_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -1690,7 +1713,8 @@
         "icon": {
           "local_path": "assets/champions/1461.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/hero/s17_head_veigar.png",
-          "alt": "维迦头像"
+          "alt": "维迦头像",
+          "optimized_local_path": "assets/optimized/s17__17_17_8/champions/1461.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/1461.jpg",
@@ -1823,7 +1847,8 @@
           "image": {
             "local_path": "assets/skills/1462.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/skill/s17_poppy.png",
-            "alt": "波比技能图标"
+            "alt": "波比技能图标",
+            "optimized_local_path": "assets/optimized/s17__17_17_8/skills/1462_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -1839,7 +1864,8 @@
         "icon": {
           "local_path": "assets/champions/1462.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/hero/s17_head_poppy.png",
-          "alt": "波比头像"
+          "alt": "波比头像",
+          "optimized_local_path": "assets/optimized/s17__17_17_8/champions/1462.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/1462.jpg",
@@ -1882,7 +1908,7 @@
       "stats_by_star": {
         "1": {
           "health": 650.0,
-          "attack_damage": 35.0,
+          "attack_damage": 40.0,
           "armor": 35.0,
           "magic_resist": 35.0,
           "attack_speed": 0.75,
@@ -1894,7 +1920,7 @@
         },
         "2": {
           "health": 1170.0,
-          "attack_damage": 52.0,
+          "attack_damage": 60.0,
           "armor": 35.0,
           "magic_resist": 35.0,
           "attack_speed": 0.75,
@@ -1906,7 +1932,7 @@
         },
         "3": {
           "health": 2106.0,
-          "attack_damage": 78.0,
+          "attack_damage": 90.0,
           "armor": 35.0,
           "magic_resist": 35.0,
           "attack_speed": 0.75,
@@ -1918,7 +1944,7 @@
         },
         "4": {
           "health": 3042.0,
-          "attack_damage": 105.0,
+          "attack_damage": 120.0,
           "armor": 35.0,
           "magic_resist": 35.0,
           "attack_speed": 0.75,
@@ -1962,7 +1988,8 @@
           "image": {
             "local_path": "assets/skills/1463.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/skill/s17_briar.png",
-            "alt": "贝蕾亚技能图标"
+            "alt": "贝蕾亚技能图标",
+            "optimized_local_path": "assets/optimized/s17__17_17_8/skills/1463_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -1978,7 +2005,8 @@
         "icon": {
           "local_path": "assets/champions/1463.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/hero/s17_head_briar.png",
-          "alt": "贝蕾亚头像"
+          "alt": "贝蕾亚头像",
+          "optimized_local_path": "assets/optimized/s17__17_17_8/champions/1463.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/1463.jpg",
@@ -2009,7 +2037,8 @@
       "cost": 2,
       "trait_ids": [
         "402",
-        "318"
+        "318",
+        "311"
       ],
       "role": null,
       "availability": {
@@ -2100,7 +2129,8 @@
           "image": {
             "local_path": "assets/skills/2450.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/skill/s17_gnar.png",
-            "alt": "纳尔技能图标"
+            "alt": "纳尔技能图标",
+            "optimized_local_path": "assets/optimized/s17__17_17_8/skills/2450_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -2116,7 +2146,8 @@
         "icon": {
           "local_path": "assets/champions/2450.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/hero/s17_head_gnar.png",
-          "alt": "纳尔头像"
+          "alt": "纳尔头像",
+          "optimized_local_path": "assets/optimized/s17__17_17_8/champions/2450.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/2450.jpg",
@@ -2238,7 +2269,8 @@
           "image": {
             "local_path": "assets/skills/2451.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/skill/s17_gwen.png",
-            "alt": "格温技能图标"
+            "alt": "格温技能图标",
+            "optimized_local_path": "assets/optimized/s17__17_17_8/skills/2451_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -2254,7 +2286,8 @@
         "icon": {
           "local_path": "assets/champions/2451.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/hero/s17_head_gwen.png",
-          "alt": "格温头像"
+          "alt": "格温头像",
+          "optimized_local_path": "assets/optimized/s17__17_17_8/champions/2451.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/2451.jpg",
@@ -2387,7 +2420,8 @@
           "image": {
             "local_path": "assets/skills/2452.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/skill/s17_pyke.png",
-            "alt": "派克技能图标"
+            "alt": "派克技能图标",
+            "optimized_local_path": "assets/optimized/s17__17_17_8/skills/2452_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -2403,7 +2437,8 @@
         "icon": {
           "local_path": "assets/champions/2452.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/hero/s17_head_pyke.png",
-          "alt": "派克头像"
+          "alt": "派克头像",
+          "optimized_local_path": "assets/optimized/s17__17_17_8/champions/2452.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/2452.jpg",
@@ -2525,7 +2560,8 @@
           "image": {
             "local_path": "assets/skills/2453.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/skill/s17_zoe.png",
-            "alt": "佐伊技能图标"
+            "alt": "佐伊技能图标",
+            "optimized_local_path": "assets/optimized/s17__17_17_8/skills/2453_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -2541,7 +2577,8 @@
         "icon": {
           "local_path": "assets/champions/2453.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/hero/s17_head_zoe.png",
-          "alt": "佐伊头像"
+          "alt": "佐伊头像",
+          "optimized_local_path": "assets/optimized/s17__17_17_8/champions/2453.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/2453.jpg",
@@ -2664,7 +2701,8 @@
           "image": {
             "local_path": "assets/skills/2454.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/skill/s17_belveth.png",
-            "alt": "卑尔维斯技能图标"
+            "alt": "卑尔维斯技能图标",
+            "optimized_local_path": "assets/optimized/s17__17_17_8/skills/2454_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -2680,7 +2718,8 @@
         "icon": {
           "local_path": "assets/champions/2454.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/hero/s17_head_belveth.png",
-          "alt": "卑尔维斯头像"
+          "alt": "卑尔维斯头像",
+          "optimized_local_path": "assets/optimized/s17__17_17_8/champions/2454.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/2454.jpg",
@@ -2802,7 +2841,8 @@
           "image": {
             "local_path": "assets/skills/2455.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/skill/s17_gragas.png",
-            "alt": "古拉加斯技能图标"
+            "alt": "古拉加斯技能图标",
+            "optimized_local_path": "assets/optimized/s17__17_17_8/skills/2455_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -2818,7 +2858,8 @@
         "icon": {
           "local_path": "assets/champions/2455.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/hero/s17_head_gragas.png",
-          "alt": "古拉加斯头像"
+          "alt": "古拉加斯头像",
+          "optimized_local_path": "assets/optimized/s17__17_17_8/champions/2455.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/2455.jpg",
@@ -2940,7 +2981,8 @@
           "image": {
             "local_path": "assets/skills/2456.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/skill/s17_milio.png",
-            "alt": "米利欧技能图标"
+            "alt": "米利欧技能图标",
+            "optimized_local_path": "assets/optimized/s17__17_17_8/skills/2456_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -2956,7 +2998,8 @@
         "icon": {
           "local_path": "assets/champions/2456.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/hero/s17_head_milio.png",
-          "alt": "米利欧头像"
+          "alt": "米利欧头像",
+          "optimized_local_path": "assets/optimized/s17__17_17_8/champions/2456.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/2456.jpg",
@@ -3090,7 +3133,8 @@
           "image": {
             "local_path": "assets/skills/2457.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/skill/s17_mordekaiser.png",
-            "alt": "莫德凯撒技能图标"
+            "alt": "莫德凯撒技能图标",
+            "optimized_local_path": "assets/optimized/s17__17_17_8/skills/2457_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -3106,7 +3150,8 @@
         "icon": {
           "local_path": "assets/champions/2457.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/hero/s17_head_mordekaiser.png",
-          "alt": "莫德凯撒头像"
+          "alt": "莫德凯撒头像",
+          "optimized_local_path": "assets/optimized/s17__17_17_8/champions/2457.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/2457.jpg",
@@ -3228,7 +3273,8 @@
           "image": {
             "local_path": "assets/skills/2458.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/skill/s17_jinx.png",
-            "alt": "金克丝技能图标"
+            "alt": "金克丝技能图标",
+            "optimized_local_path": "assets/optimized/s17__17_17_8/skills/2458_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -3244,7 +3290,8 @@
         "icon": {
           "local_path": "assets/champions/2458.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/hero/s17_head_jinx.png",
-          "alt": "金克丝头像"
+          "alt": "金克丝头像",
+          "optimized_local_path": "assets/optimized/s17__17_17_8/champions/2458.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/2458.jpg",
@@ -3367,7 +3414,8 @@
           "image": {
             "local_path": "assets/skills/2459.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/skill/s17_pantheon.png",
-            "alt": "潘森技能图标"
+            "alt": "潘森技能图标",
+            "optimized_local_path": "assets/optimized/s17__17_17_8/skills/2459_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -3383,7 +3431,8 @@
         "icon": {
           "local_path": "assets/champions/2459.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/hero/s17_head_pantheon.png",
-          "alt": "潘森头像"
+          "alt": "潘森头像",
+          "optimized_local_path": "assets/optimized/s17__17_17_8/champions/2459.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/2459.jpg",
@@ -3517,7 +3566,8 @@
           "image": {
             "local_path": "assets/skills/2460.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/skill/s17_meepsie.png",
-            "alt": "小木灵技能图标"
+            "alt": "小木灵技能图标",
+            "optimized_local_path": "assets/optimized/s17__17_17_8/skills/2460_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -3533,7 +3583,8 @@
         "icon": {
           "local_path": "assets/champions/2460.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/hero/s17_head_meepsie.png",
-          "alt": "小木灵头像"
+          "alt": "小木灵头像",
+          "optimized_local_path": "assets/optimized/s17__17_17_8/champions/2460.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/2460.jpg",
@@ -3626,7 +3677,7 @@
         {
           "id": "2461_skill",
           "name": "群星打击",
-          "description": "重新定位至目标附近，以打击最多的敌人。随后投掷5枚透体苦无，每枚对首个命中的敌人造成43(【物理加成】)物理伤害，后续目标伤害降低至17(【物理加成】)。苦无削减1护甲，这个数额在暴击时提升至2。  【新星特攻队】特攻：斩击所有敌人，对其施加重伤和流血效果，每秒造成15(【物理加成】)物理伤害，持续至战斗结束。苦无使该流血效果的伤害提升12%。  【新星特攻队】特攻：斩击所有敌人，对其施加重伤和流血效果，每秒造成15(【物理加成】)物理伤害，持续至战斗结束。苦无使该流血效果的伤害提升12%。",
+          "description": "重新定位至目标附近，以打击最多的敌人。随后投掷5枚透体苦无，每枚对首个命中的敌人造成43(【物理加成】)物理伤害，后续目标伤害降低至17(【物理加成】)。苦无削减1护甲，这个数额在暴击时提升至2。  【新星特攻队】特攻：斩击所有敌人，对其施加重伤和受伤效果，每秒造成14(【物理加成】)物理伤害，持续至战斗结束。苦无使该受伤效果的伤害提升12%。  【新星特攻队】特攻：斩击所有敌人，对其施加重伤和受伤效果，每秒造成14(【物理加成】)物理伤害，持续至战斗结束。苦无使该受伤效果的伤害提升12%。",
           "variables": [
             {
               "key": "value_1",
@@ -3655,25 +3706,26 @@
               "label": "新星特攻伤害",
               "unit": "raw",
               "values": {
-                "1": "15",
-                "2": "22",
-                "3": "28",
+                "1": "14",
+                "2": "18",
+                "3": "25",
                 "4": "34"
               }
             }
           ],
-          "raw_values": "伤害：【法术加成】 4/6/9/15|伤害：162(【物理加成】)=147【物理加成】+15【法术加成】 39/59/88/147|次要伤害：65=40%x162(【物理加成】) |新星特攻伤害：34(【物理加成】) 15/22/28/34",
+          "raw_values": "伤害：【法术加成】 4/6/9/15|伤害：162(【物理加成】)=147【物理加成】+15【法术加成】 39/59/88/147|次要伤害：65=40%x162(【物理加成】) |新星特攻伤害：34(【物理加成】) 14/18/25/34",
           "image": {
             "local_path": "assets/skills/2461.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/skill/s17_akali.png",
-            "alt": "阿卡丽技能图标"
+            "alt": "阿卡丽技能图标",
+            "optimized_local_path": "assets/optimized/s17__17_17_8/skills/2461_skill.webp"
           },
           "extensions": {
             "description_by_star": {
-              "1": "重新定位至目标附近，以打击最多的敌人。随后投掷5枚透体苦无，每枚对首个命中的敌人造成43(【物理加成】)物理伤害，后续目标伤害降低至17(【物理加成】)。苦无削减1护甲，这个数额在暴击时提升至2。  【新星特攻队】特攻：斩击所有敌人，对其施加重伤和流血效果，每秒造成15(【物理加成】)物理伤害，持续至战斗结束。苦无使该流血效果的伤害提升12%。  【新星特攻队】特攻：斩击所有敌人，对其施加重伤和流血效果，每秒造成15(【物理加成】)物理伤害，持续至战斗结束。苦无使该流血效果的伤害提升12%。",
-              "2": "重新定位至目标附近，以打击最多的敌人。随后投掷5枚透体苦无，每枚对首个命中的敌人造成65(【物理加成】)物理伤害，后续目标伤害降低至26(【物理加成】)。苦无削减1护甲，这个数额在暴击时提升至2。  【新星特攻队】特攻：斩击所有敌人，对其施加重伤和流血效果，每秒造成22(【物理加成】)物理伤害，持续至战斗结束。苦无使该流血效果的伤害提升12%。  【新星特攻队】特攻：斩击所有敌人，对其施加重伤和流血效果，每秒造成22(【物理加成】)物理伤害，持续至战斗结束。苦无使该流血效果的伤害提升12%。",
-              "3": "重新定位至目标附近，以打击最多的敌人。随后投掷5枚透体苦无，每枚对首个命中的敌人造成97(【物理加成】)物理伤害，后续目标伤害降低至39(【物理加成】)。苦无削减1护甲，这个数额在暴击时提升至2。  【新星特攻队】特攻：斩击所有敌人，对其施加重伤和流血效果，每秒造成28(【物理加成】)物理伤害，持续至战斗结束。苦无使该流血效果的伤害提升12%。  【新星特攻队】特攻：斩击所有敌人，对其施加重伤和流血效果，每秒造成28(【物理加成】)物理伤害，持续至战斗结束。苦无使该流血效果的伤害提升12%。",
-              "4": "重新定位至目标附近，以打击最多的敌人。随后投掷5枚透体苦无，每枚对首个命中的敌人造成162(【物理加成】)物理伤害，后续目标伤害降低至65(【物理加成】)。苦无削减1护甲，这个数额在暴击时提升至2。  【新星特攻队】特攻：斩击所有敌人，对其施加重伤和流血效果，每秒造成34(【物理加成】)物理伤害，持续至战斗结束。苦无使该流血效果的伤害提升12%。  【新星特攻队】特攻：斩击所有敌人，对其施加重伤和流血效果，每秒造成34(【物理加成】)物理伤害，持续至战斗结束。苦无使该流血效果的伤害提升12%。"
+              "1": "重新定位至目标附近，以打击最多的敌人。随后投掷5枚透体苦无，每枚对首个命中的敌人造成43(【物理加成】)物理伤害，后续目标伤害降低至17(【物理加成】)。苦无削减1护甲，这个数额在暴击时提升至2。  【新星特攻队】特攻：斩击所有敌人，对其施加重伤和受伤效果，每秒造成14(【物理加成】)物理伤害，持续至战斗结束。苦无使该受伤效果的伤害提升12%。  【新星特攻队】特攻：斩击所有敌人，对其施加重伤和受伤效果，每秒造成14(【物理加成】)物理伤害，持续至战斗结束。苦无使该受伤效果的伤害提升12%。",
+              "2": "重新定位至目标附近，以打击最多的敌人。随后投掷5枚透体苦无，每枚对首个命中的敌人造成65(【物理加成】)物理伤害，后续目标伤害降低至26(【物理加成】)。苦无削减1护甲，这个数额在暴击时提升至2。  【新星特攻队】特攻：斩击所有敌人，对其施加重伤和受伤效果，每秒造成18(【物理加成】)物理伤害，持续至战斗结束。苦无使该受伤效果的伤害提升12%。  【新星特攻队】特攻：斩击所有敌人，对其施加重伤和受伤效果，每秒造成18(【物理加成】)物理伤害，持续至战斗结束。苦无使该受伤效果的伤害提升12%。",
+              "3": "重新定位至目标附近，以打击最多的敌人。随后投掷5枚透体苦无，每枚对首个命中的敌人造成97(【物理加成】)物理伤害，后续目标伤害降低至39(【物理加成】)。苦无削减1护甲，这个数额在暴击时提升至2。  【新星特攻队】特攻：斩击所有敌人，对其施加重伤和受伤效果，每秒造成25(【物理加成】)物理伤害，持续至战斗结束。苦无使该受伤效果的伤害提升12%。  【新星特攻队】特攻：斩击所有敌人，对其施加重伤和受伤效果，每秒造成25(【物理加成】)物理伤害，持续至战斗结束。苦无使该受伤效果的伤害提升12%。",
+              "4": "重新定位至目标附近，以打击最多的敌人。随后投掷5枚透体苦无，每枚对首个命中的敌人造成162(【物理加成】)物理伤害，后续目标伤害降低至65(【物理加成】)。苦无削减1护甲，这个数额在暴击时提升至2。  【新星特攻队】特攻：斩击所有敌人，对其施加重伤和受伤效果，每秒造成34(【物理加成】)物理伤害，持续至战斗结束。苦无使该受伤效果的伤害提升12%。  【新星特攻队】特攻：斩击所有敌人，对其施加重伤和受伤效果，每秒造成34(【物理加成】)物理伤害，持续至战斗结束。苦无使该受伤效果的伤害提升12%。"
             }
           }
         }
@@ -3682,7 +3734,8 @@
         "icon": {
           "local_path": "assets/champions/2461.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/hero/s17_head_akali.png",
-          "alt": "阿卡丽头像"
+          "alt": "阿卡丽头像",
+          "optimized_local_path": "assets/optimized/s17__17_17_8/champions/2461.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/2461.jpg",
@@ -3826,7 +3879,8 @@
           "image": {
             "local_path": "assets/skills/2462.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/skill/s17_jax.png",
-            "alt": "贾克斯技能图标"
+            "alt": "贾克斯技能图标",
+            "optimized_local_path": "assets/optimized/s17__17_17_8/skills/2462_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -3842,7 +3896,8 @@
         "icon": {
           "local_path": "assets/champions/2462.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/hero/s17_head_jax.png",
-          "alt": "贾克斯头像"
+          "alt": "贾克斯头像",
+          "optimized_local_path": "assets/optimized/s17__17_17_8/champions/2462.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/2462.jpg",
@@ -3953,7 +4008,8 @@
           "image": {
             "local_path": "assets/skills/3450.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/skill/s17_kaisa.png",
-            "alt": "卡莎技能图标"
+            "alt": "卡莎技能图标",
+            "optimized_local_path": "assets/optimized/s17__17_17_8/skills/3450_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -3969,7 +4025,8 @@
         "icon": {
           "local_path": "assets/champions/3450.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/hero/s17_head_kaisa.png",
-          "alt": "卡莎头像"
+          "alt": "卡莎头像",
+          "optimized_local_path": "assets/optimized/s17__17_17_8/champions/3450.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/3450.jpg",
@@ -4092,7 +4149,8 @@
           "image": {
             "local_path": "assets/skills/3451.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/skill/s17_urgot.png",
-            "alt": "厄加特技能图标"
+            "alt": "厄加特技能图标",
+            "optimized_local_path": "assets/optimized/s17__17_17_8/skills/3451_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -4108,7 +4166,8 @@
         "icon": {
           "local_path": "assets/champions/3451.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/hero/s17_head_urgot.png",
-          "alt": "厄加特头像"
+          "alt": "厄加特头像",
+          "optimized_local_path": "assets/optimized/s17__17_17_8/champions/3451.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/3451.jpg",
@@ -4219,7 +4278,8 @@
           "image": {
             "local_path": "assets/skills/3452.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/skill/s17_viktor.png",
-            "alt": "维克托技能图标"
+            "alt": "维克托技能图标",
+            "optimized_local_path": "assets/optimized/s17__17_17_8/skills/3452_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -4235,7 +4295,8 @@
         "icon": {
           "local_path": "assets/champions/3452.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/hero/s17_head_viktor.png",
-          "alt": "维克托头像"
+          "alt": "维克托头像",
+          "optimized_local_path": "assets/optimized/s17__17_17_8/champions/3452.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/3452.jpg",
@@ -4357,7 +4418,8 @@
           "image": {
             "local_path": "assets/skills/3453.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/skill/s17_ornn.png",
-            "alt": "奥恩技能图标"
+            "alt": "奥恩技能图标",
+            "optimized_local_path": "assets/optimized/s17__17_17_8/skills/3453_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -4373,7 +4435,8 @@
         "icon": {
           "local_path": "assets/champions/3453.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/hero/s17_head_ornn.png",
-          "alt": "奥恩头像"
+          "alt": "奥恩头像",
+          "optimized_local_path": "assets/optimized/s17__17_17_8/champions/3453.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/3453.jpg",
@@ -4506,7 +4569,8 @@
           "image": {
             "local_path": "assets/skills/3455.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/skill/s17_fizz.png",
-            "alt": "菲兹技能图标"
+            "alt": "菲兹技能图标",
+            "optimized_local_path": "assets/optimized/s17__17_17_8/skills/3455_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -4522,7 +4586,8 @@
         "icon": {
           "local_path": "assets/champions/3455.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/hero/s17_head_fizz.png",
-          "alt": "菲兹头像"
+          "alt": "菲兹头像",
+          "optimized_local_path": "assets/optimized/s17__17_17_8/champions/3455.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/3455.jpg",
@@ -4655,7 +4720,8 @@
           "image": {
             "local_path": "assets/skills/3457.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/skill/s17_maokai.png",
-            "alt": "茂凯技能图标"
+            "alt": "茂凯技能图标",
+            "optimized_local_path": "assets/optimized/s17__17_17_8/skills/3457_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -4671,7 +4737,8 @@
         "icon": {
           "local_path": "assets/champions/3457.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/hero/s17_head_maokai.png",
-          "alt": "茂凯头像"
+          "alt": "茂凯头像",
+          "optimized_local_path": "assets/optimized/s17__17_17_8/champions/3457.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/3457.jpg",
@@ -4719,7 +4786,7 @@
           "attack_speed": 0.8,
           "attack_range": 1.0,
           "initial_mana": 0.0,
-          "max_mana": 50.0,
+          "max_mana": 40.0,
           "critical_strike_chance": 25.0,
           "sell_price": 3.0
         },
@@ -4731,7 +4798,7 @@
           "attack_speed": 0.8,
           "attack_range": 1.0,
           "initial_mana": 0.0,
-          "max_mana": 50.0,
+          "max_mana": 40.0,
           "critical_strike_chance": 25.0,
           "sell_price": 8.0
         },
@@ -4743,7 +4810,7 @@
           "attack_speed": 0.8,
           "attack_range": 1.0,
           "initial_mana": 0.0,
-          "max_mana": 50.0,
+          "max_mana": 40.0,
           "critical_strike_chance": 25.0,
           "sell_price": 26.0
         },
@@ -4755,7 +4822,7 @@
           "attack_speed": 0.8,
           "attack_range": 1.0,
           "initial_mana": 0.0,
-          "max_mana": 50.0,
+          "max_mana": 40.0,
           "critical_strike_chance": 25.0,
           "sell_price": 80.0
         }
@@ -4764,7 +4831,7 @@
         {
           "id": "3458_skill",
           "name": "苍白之瀑",
-          "description": "被动：普攻造成52(【法术加成】)额外魔法伤害。  主动：获得275(【法术加成】)护盾并召唤3颗环绕法球，持续3秒。法球穿过敌人时造成60(【法术加成】)魔法伤害，并根据攻击速度加速旋转。",
+          "description": "被动：普攻造成52(【法术加成】)额外魔法伤害。  主动：获得230(【法术加成】)护盾并召唤3颗环绕法球，持续3秒。法球穿过敌人时造成60(【法术加成】)魔法伤害，并根据攻击速度加速旋转。",
           "variables": [
             {
               "key": "value_1",
@@ -4782,9 +4849,9 @@
               "label": "护盾值",
               "unit": "raw",
               "values": {
-                "1": "275",
-                "2": "325",
-                "3": "515",
+                "1": "230",
+                "2": "280",
+                "3": "450",
                 "4": "525"
               }
             },
@@ -4800,17 +4867,18 @@
               }
             }
           ],
-          "raw_values": "攻击附带伤害：220(【法术加成】) 52/78/135/220|护盾值：525(【法术加成】) 275/325/515/525|法球伤害：190(【法术加成】) 60/90/160/190",
+          "raw_values": "攻击附带伤害：220(【法术加成】) 52/78/135/220|护盾值：525(【法术加成】) 230/280/450/525|法球伤害：190(【法术加成】) 60/90/160/190",
           "image": {
             "local_path": "assets/skills/3458.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/skill/s17_diana.png",
-            "alt": "黛安娜技能图标"
+            "alt": "黛安娜技能图标",
+            "optimized_local_path": "assets/optimized/s17__17_17_8/skills/3458_skill.webp"
           },
           "extensions": {
             "description_by_star": {
-              "1": "被动：普攻造成52(【法术加成】)额外魔法伤害。  主动：获得275(【法术加成】)护盾并召唤3颗环绕法球，持续3秒。法球穿过敌人时造成60(【法术加成】)魔法伤害，并根据攻击速度加速旋转。",
-              "2": "被动：普攻造成78(【法术加成】)额外魔法伤害。  主动：获得325(【法术加成】)护盾并召唤3颗环绕法球，持续3秒。法球穿过敌人时造成90(【法术加成】)魔法伤害，并根据攻击速度加速旋转。",
-              "3": "被动：普攻造成135(【法术加成】)额外魔法伤害。  主动：获得515(【法术加成】)护盾并召唤3颗环绕法球，持续3秒。法球穿过敌人时造成160(【法术加成】)魔法伤害，并根据攻击速度加速旋转。",
+              "1": "被动：普攻造成52(【法术加成】)额外魔法伤害。  主动：获得230(【法术加成】)护盾并召唤3颗环绕法球，持续3秒。法球穿过敌人时造成60(【法术加成】)魔法伤害，并根据攻击速度加速旋转。",
+              "2": "被动：普攻造成78(【法术加成】)额外魔法伤害。  主动：获得280(【法术加成】)护盾并召唤3颗环绕法球，持续3秒。法球穿过敌人时造成90(【法术加成】)魔法伤害，并根据攻击速度加速旋转。",
+              "3": "被动：普攻造成135(【法术加成】)额外魔法伤害。  主动：获得450(【法术加成】)护盾并召唤3颗环绕法球，持续3秒。法球穿过敌人时造成160(【法术加成】)魔法伤害，并根据攻击速度加速旋转。",
               "4": "被动：普攻造成220(【法术加成】)额外魔法伤害。  主动：获得525(【法术加成】)护盾并召唤3颗环绕法球，持续3秒。法球穿过敌人时造成190(【法术加成】)魔法伤害，并根据攻击速度加速旋转。"
             }
           }
@@ -4820,7 +4888,8 @@
         "icon": {
           "local_path": "assets/champions/3458.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/hero/s17_head_diana.png",
-          "alt": "黛安娜头像"
+          "alt": "黛安娜头像",
+          "optimized_local_path": "assets/optimized/s17__17_17_8/champions/3458.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/3458.jpg",
@@ -4941,7 +5010,8 @@
           "image": {
             "local_path": "assets/skills/3459.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/skill/s17_rhaast.png",
-            "alt": "拉亚斯特技能图标"
+            "alt": "拉亚斯特技能图标",
+            "optimized_local_path": "assets/optimized/s17__17_17_8/skills/3459_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -4957,7 +5027,8 @@
         "icon": {
           "local_path": "assets/champions/3459.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/hero/s17_head_rhaast.png",
-          "alt": "拉亚斯特头像"
+          "alt": "拉亚斯特头像",
+          "optimized_local_path": "assets/optimized/s17__17_17_8/champions/3459.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/3459.jpg",
@@ -5091,7 +5162,8 @@
           "image": {
             "local_path": "assets/skills/3460.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/skill/s17_illaoi.png",
-            "alt": "俄洛伊技能图标"
+            "alt": "俄洛伊技能图标",
+            "optimized_local_path": "assets/optimized/s17__17_17_8/skills/3460_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -5107,7 +5179,8 @@
         "icon": {
           "local_path": "assets/champions/3460.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/hero/s17_head_illaoi.png",
-          "alt": "俄洛伊头像"
+          "alt": "俄洛伊头像",
+          "optimized_local_path": "assets/optimized/s17__17_17_8/champions/3460.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/3460.jpg",
@@ -5200,7 +5273,7 @@
         {
           "id": "3461_skill",
           "name": "蹦跳摇摆",
-          "description": "被动：每当一个敌人被击飞时，对其射击，造成65(【物理加成】【法术加成】)物理伤害并进入~太~空~律~动~状态3秒。  主动：对目标发射一连串子弹，造成375(【物理加成】)物理伤害和1秒击飞。",
+          "description": "被动：每当一个敌人被击飞时，对其射击，造成55(【物理加成】【法术加成】)物理伤害并进入~太~空~律~动~状态3秒。  主动：对目标发射一连串子弹，造成375(【物理加成】)物理伤害和0.75秒击飞。",
           "variables": [
             {
               "key": "value_1",
@@ -5218,9 +5291,9 @@
               "label": "被动伤害",
               "unit": "raw",
               "values": {
-                "1": "55",
-                "2": "80",
-                "3": "130",
+                "1": "45",
+                "2": "68",
+                "3": "115",
                 "4": "220"
               }
             },
@@ -5236,18 +5309,19 @@
               }
             }
           ],
-          "raw_values": "被动伤害:【法术加成】 10/15/25/35|被动伤害：255=220(【物理加成】)+35(【法术加成】) 55/80/130/220|伤害:1555【物理加成】 375/560/900/1555",
+          "raw_values": "被动伤害:【法术加成】 10/15/25/35|被动伤害：255=220(【物理加成】)+35(【法术加成】) 45/68/115/220|伤害:1555【物理加成】 375/560/900/1555",
           "image": {
             "local_path": "assets/skills/3461.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/skill/s17_samira.png",
-            "alt": "莎弥拉技能图标"
+            "alt": "莎弥拉技能图标",
+            "optimized_local_path": "assets/optimized/s17__17_17_8/skills/3461_skill.webp"
           },
           "extensions": {
             "description_by_star": {
-              "1": "被动：每当一个敌人被击飞时，对其射击，造成65(【物理加成】【法术加成】)物理伤害并进入~太~空~律~动~状态3秒。  主动：对目标发射一连串子弹，造成375(【物理加成】)物理伤害和1秒击飞。",
-              "2": "被动：每当一个敌人被击飞时，对其射击，造成95(【物理加成】【法术加成】)物理伤害并进入~太~空~律~动~状态3秒。  主动：对目标发射一连串子弹，造成560(【物理加成】)物理伤害和1秒击飞。",
-              "3": "被动：每当一个敌人被击飞时，对其射击，造成155(【物理加成】【法术加成】)物理伤害并进入~太~空~律~动~状态3秒。  主动：对目标发射一连串子弹，造成900(【物理加成】)物理伤害和1秒击飞。",
-              "4": "被动：每当一个敌人被击飞时，对其射击，造成255(【物理加成】【法术加成】)物理伤害并进入~太~空~律~动~状态3秒。  主动：对目标发射一连串子弹，造成1555(【物理加成】)物理伤害和1秒击飞。"
+              "1": "被动：每当一个敌人被击飞时，对其射击，造成55(【物理加成】【法术加成】)物理伤害并进入~太~空~律~动~状态3秒。  主动：对目标发射一连串子弹，造成375(【物理加成】)物理伤害和0.75秒击飞。",
+              "2": "被动：每当一个敌人被击飞时，对其射击，造成83(【物理加成】【法术加成】)物理伤害并进入~太~空~律~动~状态3秒。  主动：对目标发射一连串子弹，造成560(【物理加成】)物理伤害和0.75秒击飞。",
+              "3": "被动：每当一个敌人被击飞时，对其射击，造成140(【物理加成】【法术加成】)物理伤害并进入~太~空~律~动~状态3秒。  主动：对目标发射一连串子弹，造成900(【物理加成】)物理伤害和0.75秒击飞。",
+              "4": "被动：每当一个敌人被击飞时，对其射击，造成255(【物理加成】【法术加成】)物理伤害并进入~太~空~律~动~状态3秒。  主动：对目标发射一连串子弹，造成1555(【物理加成】)物理伤害和0.75秒击飞。"
             }
           }
         }
@@ -5256,7 +5330,8 @@
         "icon": {
           "local_path": "assets/champions/3461.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/hero/s17_head_samira.png",
-          "alt": "莎弥拉头像"
+          "alt": "莎弥拉头像",
+          "optimized_local_path": "assets/optimized/s17__17_17_8/champions/3461.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/3461.jpg",
@@ -5378,7 +5453,8 @@
           "image": {
             "local_path": "assets/skills/3462.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/skill/s17_aurora.png",
-            "alt": "阿萝拉技能图标"
+            "alt": "阿萝拉技能图标",
+            "optimized_local_path": "assets/optimized/s17__17_17_8/skills/3462_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -5394,7 +5470,8 @@
         "icon": {
           "local_path": "assets/champions/3462.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/hero/s17_head_aurora.png",
-          "alt": "阿萝拉头像"
+          "alt": "阿萝拉头像",
+          "optimized_local_path": "assets/optimized/s17__17_17_8/champions/3462.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/3462.jpg",
@@ -5487,7 +5564,7 @@
         {
           "id": "3465_skill",
           "name": "神谕模式",
-          "description": "朝最近的两名敌人引导一连串子弹，持续3.252.52.5秒，每颗子弹每秒造成90（【物理加成】【法术加成】）物理伤害。",
+          "description": "朝最近的两名敌人引导一连串子弹，持续3.252.52.5秒，每颗子弹每秒造成100（【物理加成】【法术加成】）物理伤害。",
           "variables": [
             {
               "key": "value_1",
@@ -5505,24 +5582,25 @@
               "label": "每秒伤害",
               "unit": "raw",
               "values": {
-                "1": "80",
-                "2": "120",
-                "3": "190",
+                "1": "90",
+                "2": "135",
+                "3": "225",
                 "4": "265"
               }
             }
           ],
-          "raw_values": "每秒伤害：【法术加成】 10/15/25/28|每秒伤害：293=265（【物理加成】）+28（【法术加成】） 80/120/190/265",
+          "raw_values": "每秒伤害：【法术加成】 10/15/25/28|每秒伤害：293=265（【物理加成】）+28（【法术加成】） 90/135/225/265",
           "image": {
             "local_path": "assets/skills/3465.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/skill/s17_missfortune.png",
-            "alt": "厄运小姐技能图标"
+            "alt": "厄运小姐技能图标",
+            "optimized_local_path": "assets/optimized/s17__17_17_8/skills/3465_skill.webp"
           },
           "extensions": {
             "description_by_star": {
-              "1": "朝最近的两名敌人引导一连串子弹，持续3.252.52.5秒，每颗子弹每秒造成90（【物理加成】【法术加成】）物理伤害。",
-              "2": "朝最近的两名敌人引导一连串子弹，持续3.252.52.5秒，每颗子弹每秒造成135（【物理加成】【法术加成】）物理伤害。",
-              "3": "朝最近的两名敌人引导一连串子弹，持续3.252.52.5秒，每颗子弹每秒造成215（【物理加成】【法术加成】）物理伤害。",
+              "1": "朝最近的两名敌人引导一连串子弹，持续3.252.52.5秒，每颗子弹每秒造成100（【物理加成】【法术加成】）物理伤害。",
+              "2": "朝最近的两名敌人引导一连串子弹，持续3.252.52.5秒，每颗子弹每秒造成150（【物理加成】【法术加成】）物理伤害。",
+              "3": "朝最近的两名敌人引导一连串子弹，持续3.252.52.5秒，每颗子弹每秒造成250（【物理加成】【法术加成】）物理伤害。",
               "4": "朝最近的两名敌人引导一连串子弹，持续3.252.52.5秒，每颗子弹每秒造成293（【物理加成】【法术加成】）物理伤害。"
             }
           }
@@ -5532,7 +5610,8 @@
         "icon": {
           "local_path": "assets/champions/3465.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/hero/s17_head_missfortune.png",
-          "alt": "厄运小姐头像"
+          "alt": "厄运小姐头像",
+          "optimized_local_path": "assets/optimized/s17__17_17_8/champions/3465.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/3465.jpg",
@@ -5654,7 +5733,8 @@
           "image": {
             "local_path": "assets/skills/3466.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/skill/s17_missfortune.png",
-            "alt": "厄运小姐技能图标"
+            "alt": "厄运小姐技能图标",
+            "optimized_local_path": "assets/optimized/s17__17_17_8/skills/3466_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -5670,7 +5750,8 @@
         "icon": {
           "local_path": "assets/champions/3466.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/hero/s17_head_missfortune.png",
-          "alt": "厄运小姐头像"
+          "alt": "厄运小姐头像",
+          "optimized_local_path": "assets/optimized/s17__17_17_8/champions/3466.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/3466.jpg",
@@ -5763,7 +5844,7 @@
         {
           "id": "3467_skill",
           "name": "魔术师模式",
-          "description": "向一条直线上的敌人疯狂倾泻子弹，对敌人造成280(【物理加成】【法术加成】)物理伤害，每穿过一个敌人，伤害降低30%。",
+          "description": "向一条直线上的敌人疯狂倾泻子弹，对敌人造成330(【物理加成】【法术加成】)物理伤害，每穿过一个敌人，伤害降低30%。",
           "variables": [
             {
               "key": "value_1",
@@ -5781,24 +5862,25 @@
               "label": "伤害",
               "unit": "raw",
               "values": {
-                "1": "250",
-                "2": "375",
-                "3": "600",
+                "1": "300",
+                "2": "450",
+                "3": "675",
                 "4": "1065"
               }
             }
           ],
-          "raw_values": "伤害：【法术加成】 30/45/70/120|伤害：1185=1065(【物理加成】)+120(【法术加成】) 250/375/600/1065",
+          "raw_values": "伤害：【法术加成】 30/45/70/120|伤害：1185=1065(【物理加成】)+120(【法术加成】) 300/450/675/1065",
           "image": {
             "local_path": "assets/skills/3467.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/skill/s17_missfortune.png",
-            "alt": "厄运小姐技能图标"
+            "alt": "厄运小姐技能图标",
+            "optimized_local_path": "assets/optimized/s17__17_17_8/skills/3467_skill.webp"
           },
           "extensions": {
             "description_by_star": {
-              "1": "向一条直线上的敌人疯狂倾泻子弹，对敌人造成280(【物理加成】【法术加成】)物理伤害，每穿过一个敌人，伤害降低30%。",
-              "2": "向一条直线上的敌人疯狂倾泻子弹，对敌人造成420(【物理加成】【法术加成】)物理伤害，每穿过一个敌人，伤害降低30%。",
-              "3": "向一条直线上的敌人疯狂倾泻子弹，对敌人造成670(【物理加成】【法术加成】)物理伤害，每穿过一个敌人，伤害降低30%。",
+              "1": "向一条直线上的敌人疯狂倾泻子弹，对敌人造成330(【物理加成】【法术加成】)物理伤害，每穿过一个敌人，伤害降低30%。",
+              "2": "向一条直线上的敌人疯狂倾泻子弹，对敌人造成495(【物理加成】【法术加成】)物理伤害，每穿过一个敌人，伤害降低30%。",
+              "3": "向一条直线上的敌人疯狂倾泻子弹，对敌人造成745(【物理加成】【法术加成】)物理伤害，每穿过一个敌人，伤害降低30%。",
               "4": "向一条直线上的敌人疯狂倾泻子弹，对敌人造成1185(【物理加成】【法术加成】)物理伤害，每穿过一个敌人，伤害降低30%。"
             }
           }
@@ -5808,7 +5890,8 @@
         "icon": {
           "local_path": "assets/champions/3467.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/hero/s17_head_missfortune.png",
-          "alt": "厄运小姐头像"
+          "alt": "厄运小姐头像",
+          "optimized_local_path": "assets/optimized/s17__17_17_8/champions/3467.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/3467.jpg",
@@ -5919,7 +6002,8 @@
           "image": {
             "local_path": "assets/skills/3468.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/skill/s17_lulu.png",
-            "alt": "璐璐技能图标"
+            "alt": "璐璐技能图标",
+            "optimized_local_path": "assets/optimized/s17__17_17_8/skills/3468_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -5935,7 +6019,8 @@
         "icon": {
           "local_path": "assets/champions/3468.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/hero/s17_head_lulu.png",
-          "alt": "璐璐头像"
+          "alt": "璐璐头像",
+          "optimized_local_path": "assets/optimized/s17__17_17_8/champions/3468.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/3468.jpg",
@@ -6057,7 +6142,8 @@
           "image": {
             "local_path": "assets/skills/3469.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/skill/s17_lulu.png",
-            "alt": "璐璐技能图标"
+            "alt": "璐璐技能图标",
+            "optimized_local_path": "assets/optimized/s17__17_17_8/skills/3469_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -6073,7 +6159,8 @@
         "icon": {
           "local_path": "assets/champions/3469.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/hero/s17_head_lulu.png",
-          "alt": "璐璐头像"
+          "alt": "璐璐头像",
+          "optimized_local_path": "assets/optimized/s17__17_17_8/champions/3469.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/3469.jpg",
@@ -6195,7 +6282,8 @@
           "image": {
             "local_path": "assets/skills/3470.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/skill/s17_lulu.png",
-            "alt": "璐璐技能图标"
+            "alt": "璐璐技能图标",
+            "optimized_local_path": "assets/optimized/s17__17_17_8/skills/3470_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -6211,7 +6299,8 @@
         "icon": {
           "local_path": "assets/champions/3470.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/hero/s17_head_lulu.png",
-          "alt": "璐璐头像"
+          "alt": "璐璐头像",
+          "optimized_local_path": "assets/optimized/s17__17_17_8/champions/3470.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/3470.jpg",
@@ -6312,7 +6401,7 @@
               "unit": "raw",
               "values": {
                 "1": "150",
-                "2": "223",
+                "2": "225",
                 "3": "360",
                 "4": "640"
               }
@@ -6329,11 +6418,12 @@
               }
             }
           ],
-          "raw_values": "伤害：640(【法术加成】) 150/223/360/640|魔抗击碎 4/6/8/13",
+          "raw_values": "伤害：640(【法术加成】) 150/225/360/640|魔抗击碎 4/6/8/13",
           "image": {
             "local_path": "assets/skills/3471.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/skill/s17_lulu.png",
-            "alt": "璐璐技能图标"
+            "alt": "璐璐技能图标",
+            "optimized_local_path": "assets/optimized/s17__17_17_8/skills/3471_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -6349,7 +6439,8 @@
         "icon": {
           "local_path": "assets/champions/3471.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/hero/s17_head_lulu.png",
-          "alt": "璐璐头像"
+          "alt": "璐璐头像",
+          "optimized_local_path": "assets/optimized/s17__17_17_8/champions/3471.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/3471.jpg",
@@ -6471,7 +6562,8 @@
           "image": {
             "local_path": "assets/skills/3472.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/skill/s17_lulu.png",
-            "alt": "璐璐技能图标"
+            "alt": "璐璐技能图标",
+            "optimized_local_path": "assets/optimized/s17__17_17_8/skills/3472_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -6487,7 +6579,8 @@
         "icon": {
           "local_path": "assets/champions/3472.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/hero/s17_head_lulu.png",
-          "alt": "璐璐头像"
+          "alt": "璐璐头像",
+          "optimized_local_path": "assets/optimized/s17__17_17_8/champions/3472.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/3472.jpg",
@@ -6609,7 +6702,8 @@
           "image": {
             "local_path": "assets/skills/3473.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/skill/s17_lulu.png",
-            "alt": "璐璐技能图标"
+            "alt": "璐璐技能图标",
+            "optimized_local_path": "assets/optimized/s17__17_17_8/skills/3473_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -6625,7 +6719,8 @@
         "icon": {
           "local_path": "assets/champions/3473.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/hero/s17_head_lulu.png",
-          "alt": "璐璐头像"
+          "alt": "璐璐头像",
+          "optimized_local_path": "assets/optimized/s17__17_17_8/champions/3473.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/3473.jpg",
@@ -6747,7 +6842,8 @@
           "image": {
             "local_path": "assets/skills/3474.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/skill/s17_lulu.png",
-            "alt": "璐璐技能图标"
+            "alt": "璐璐技能图标",
+            "optimized_local_path": "assets/optimized/s17__17_17_8/skills/3474_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -6763,7 +6859,8 @@
         "icon": {
           "local_path": "assets/champions/3474.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/hero/s17_head_lulu.png",
-          "alt": "璐璐头像"
+          "alt": "璐璐头像",
+          "optimized_local_path": "assets/optimized/s17__17_17_8/champions/3474.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/3474.jpg",
@@ -6896,7 +6993,8 @@
           "image": {
             "local_path": "assets/skills/4370.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/skill/s17_masteryi.png",
-            "alt": "易技能图标"
+            "alt": "易技能图标",
+            "optimized_local_path": "assets/optimized/s17__17_17_8/skills/4370_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -6912,7 +7010,8 @@
         "icon": {
           "local_path": "assets/champions/4370.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/hero/s17_head_masteryi.png",
-          "alt": "易头像"
+          "alt": "易头像",
+          "optimized_local_path": "assets/optimized/s17__17_17_8/champions/4370.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/4370.jpg",
@@ -7056,7 +7155,8 @@
           "image": {
             "local_path": "assets/skills/4371.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/skill/s17_nunu.png",
-            "alt": "努努和威朗普技能图标"
+            "alt": "努努和威朗普技能图标",
+            "optimized_local_path": "assets/optimized/s17__17_17_8/skills/4371_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -7072,7 +7172,8 @@
         "icon": {
           "local_path": "assets/champions/4371.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/hero/s17_head_nunu.png",
-          "alt": "努努和威朗普头像"
+          "alt": "努努和威朗普头像",
+          "optimized_local_path": "assets/optimized/s17__17_17_8/champions/4371.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/4371.jpg",
@@ -7205,7 +7306,8 @@
           "image": {
             "local_path": "assets/skills/4372.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/skill/s17_corki.png",
-            "alt": "库奇技能图标"
+            "alt": "库奇技能图标",
+            "optimized_local_path": "assets/optimized/s17__17_17_8/skills/4372_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -7221,7 +7323,8 @@
         "icon": {
           "local_path": "assets/champions/4372.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/hero/s17_head_corki.png",
-          "alt": "库奇头像"
+          "alt": "库奇头像",
+          "optimized_local_path": "assets/optimized/s17__17_17_8/champions/4372.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/4372.jpg",
@@ -7353,7 +7456,8 @@
           "image": {
             "local_path": "assets/skills/4373.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/skill/s17_karma.png",
-            "alt": "卡尔玛技能图标"
+            "alt": "卡尔玛技能图标",
+            "optimized_local_path": "assets/optimized/s17__17_17_8/skills/4373_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -7369,7 +7473,8 @@
         "icon": {
           "local_path": "assets/champions/4373.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/hero/s17_head_karma.png",
-          "alt": "卡尔玛头像"
+          "alt": "卡尔玛头像",
+          "optimized_local_path": "assets/optimized/s17__17_17_8/champions/4373.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/4373.jpg",
@@ -7513,7 +7618,8 @@
           "image": {
             "local_path": "assets/skills/4374.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/skill/s17_kindred.png",
-            "alt": "千珏技能图标"
+            "alt": "千珏技能图标",
+            "optimized_local_path": "assets/optimized/s17__17_17_8/skills/4374_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -7529,7 +7635,8 @@
         "icon": {
           "local_path": "assets/champions/4374.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/hero/s17_head_kindred.png",
-          "alt": "千珏头像"
+          "alt": "千珏头像",
+          "optimized_local_path": "assets/optimized/s17__17_17_8/champions/4374.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/4374.jpg",
@@ -7622,7 +7729,7 @@
         {
           "id": "4375_skill",
           "name": "时光发条",
-          "description": "被动：此技能的伤害类型会基于物理加成或法术加成进行适应，取较高一项。普攻造成75(【法术加成】)魔法伤害。<active:compare_adrate_ap>0>被动：此技能的伤害类型会基于物理加成或法术加成进行适应，取较高一项。普攻造成75(【物理加成】)物理伤害。  主动：冲向附近一个格子，获得持续2秒的100护盾值，并斩击邻格敌人们，造成90(【法术加成】)魔法伤害，每三次施放，跳到空中，发射一道能量波，对一条直线上的敌人造成160(【法术加成】)魔法伤害。<active:compare_adrate_ap>0>主动：冲向附近一个格子，获得持续2秒的100护盾值，并斩击邻格敌人们，造成90(【物理加成】)物理伤害。每三次施放，跳到空中，发射一道能量波，对一条直线上的敌人造成160(【物理加成】)物理伤害。",
+          "description": "被动：此技能的伤害类型会基于物理加成或法术加成进行适应，取较高一项。普攻造成75(【法术加成】)魔法伤害。<active:compare_adrate_ap>0>被动：此技能的伤害类型会基于物理加成或法术加成进行适应，取较高一项。普攻造成75(【物理加成】)物理伤害。  主动：冲向附近一个格子，获得持续2秒的100护盾值，并斩击邻格敌人们，造成100(【法术加成】)魔法伤害，每三次施放，跳到空中，发射一道能量波，对一条直线上的敌人造成180(【法术加成】)魔法伤害。<active:compare_adrate_ap>0>主动：冲向附近一个格子，获得持续2秒的100护盾值，并斩击邻格敌人们，造成100(【物理加成】)物理伤害。每三次施放，跳到空中，发射一道能量波，对一条直线上的敌人造成180(【物理加成】)物理伤害。",
           "variables": [
             {
               "key": "value_1",
@@ -7651,8 +7758,8 @@
               "label": "伤害",
               "unit": "raw",
               "values": {
-                "1": "90",
-                "2": "135",
+                "1": "100",
+                "2": "150",
                 "3": "1000",
                 "4": "1250"
               }
@@ -7662,23 +7769,24 @@
               "label": "能量波伤害",
               "unit": "raw",
               "values": {
-                "1": "160",
-                "2": "240",
+                "1": "180",
+                "2": "270",
                 "3": "2000",
                 "4": "3400"
               }
             }
           ],
-          "raw_values": "普攻伤害：400(【法术加成】)或400(【物理加成】) 75/115/300/400|护盾值：2000 100/150/1200/2000|伤害：1250(【法术加成】)或1250(【物理加成】) 90/135/1000/1250|能量波伤害：3400(【法术加成】)或3400(【物理加成】) 160/240/2000/3400",
+          "raw_values": "普攻伤害：400(【法术加成】)或400(【物理加成】) 75/115/300/400|护盾值：2000 100/150/1200/2000|伤害：1250(【法术加成】)或1250(【物理加成】) 100/150/1000/1250|能量波伤害：3400(【法术加成】)或3400(【物理加成】) 180/270/2000/3400",
           "image": {
             "local_path": "assets/skills/4375.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/skill/s17_riven.png",
-            "alt": "锐雯技能图标"
+            "alt": "锐雯技能图标",
+            "optimized_local_path": "assets/optimized/s17__17_17_8/skills/4375_skill.webp"
           },
           "extensions": {
             "description_by_star": {
-              "1": "被动：此技能的伤害类型会基于物理加成或法术加成进行适应，取较高一项。普攻造成75(【法术加成】)魔法伤害。<active:compare_adrate_ap>0>被动：此技能的伤害类型会基于物理加成或法术加成进行适应，取较高一项。普攻造成75(【物理加成】)物理伤害。  主动：冲向附近一个格子，获得持续2秒的100护盾值，并斩击邻格敌人们，造成90(【法术加成】)魔法伤害，每三次施放，跳到空中，发射一道能量波，对一条直线上的敌人造成160(【法术加成】)魔法伤害。<active:compare_adrate_ap>0>主动：冲向附近一个格子，获得持续2秒的100护盾值，并斩击邻格敌人们，造成90(【物理加成】)物理伤害。每三次施放，跳到空中，发射一道能量波，对一条直线上的敌人造成160(【物理加成】)物理伤害。",
-              "2": "被动：此技能的伤害类型会基于物理加成或法术加成进行适应，取较高一项。普攻造成115(【法术加成】)魔法伤害。<active:compare_adrate_ap>0>被动：此技能的伤害类型会基于物理加成或法术加成进行适应，取较高一项。普攻造成115(【物理加成】)物理伤害。  主动：冲向附近一个格子，获得持续2秒的150护盾值，并斩击邻格敌人们，造成135(【法术加成】)魔法伤害，每三次施放，跳到空中，发射一道能量波，对一条直线上的敌人造成240(【法术加成】)魔法伤害。<active:compare_adrate_ap>0>主动：冲向附近一个格子，获得持续2秒的150护盾值，并斩击邻格敌人们，造成135(【物理加成】)物理伤害。每三次施放，跳到空中，发射一道能量波，对一条直线上的敌人造成240(【物理加成】)物理伤害。",
+              "1": "被动：此技能的伤害类型会基于物理加成或法术加成进行适应，取较高一项。普攻造成75(【法术加成】)魔法伤害。<active:compare_adrate_ap>0>被动：此技能的伤害类型会基于物理加成或法术加成进行适应，取较高一项。普攻造成75(【物理加成】)物理伤害。  主动：冲向附近一个格子，获得持续2秒的100护盾值，并斩击邻格敌人们，造成100(【法术加成】)魔法伤害，每三次施放，跳到空中，发射一道能量波，对一条直线上的敌人造成180(【法术加成】)魔法伤害。<active:compare_adrate_ap>0>主动：冲向附近一个格子，获得持续2秒的100护盾值，并斩击邻格敌人们，造成100(【物理加成】)物理伤害。每三次施放，跳到空中，发射一道能量波，对一条直线上的敌人造成180(【物理加成】)物理伤害。",
+              "2": "被动：此技能的伤害类型会基于物理加成或法术加成进行适应，取较高一项。普攻造成115(【法术加成】)魔法伤害。<active:compare_adrate_ap>0>被动：此技能的伤害类型会基于物理加成或法术加成进行适应，取较高一项。普攻造成115(【物理加成】)物理伤害。  主动：冲向附近一个格子，获得持续2秒的150护盾值，并斩击邻格敌人们，造成150(【法术加成】)魔法伤害，每三次施放，跳到空中，发射一道能量波，对一条直线上的敌人造成270(【法术加成】)魔法伤害。<active:compare_adrate_ap>0>主动：冲向附近一个格子，获得持续2秒的150护盾值，并斩击邻格敌人们，造成150(【物理加成】)物理伤害。每三次施放，跳到空中，发射一道能量波，对一条直线上的敌人造成270(【物理加成】)物理伤害。",
               "3": "被动：此技能的伤害类型会基于物理加成或法术加成进行适应，取较高一项。普攻造成300(【法术加成】)魔法伤害。<active:compare_adrate_ap>0>被动：此技能的伤害类型会基于物理加成或法术加成进行适应，取较高一项。普攻造成300(【物理加成】)物理伤害。  主动：冲向附近一个格子，获得持续2秒的1200护盾值，并斩击邻格敌人们，造成1000(【法术加成】)魔法伤害，每三次施放，跳到空中，发射一道能量波，对一条直线上的敌人造成2000(【法术加成】)魔法伤害。<active:compare_adrate_ap>0>主动：冲向附近一个格子，获得持续2秒的1200护盾值，并斩击邻格敌人们，造成1000(【物理加成】)物理伤害。每三次施放，跳到空中，发射一道能量波，对一条直线上的敌人造成2000(【物理加成】)物理伤害。",
               "4": "被动：此技能的伤害类型会基于物理加成或法术加成进行适应，取较高一项。普攻造成400(【法术加成】)魔法伤害。<active:compare_adrate_ap>0>被动：此技能的伤害类型会基于物理加成或法术加成进行适应，取较高一项。普攻造成400(【物理加成】)物理伤害。  主动：冲向附近一个格子，获得持续2秒的2000护盾值，并斩击邻格敌人们，造成1250(【法术加成】)魔法伤害，每三次施放，跳到空中，发射一道能量波，对一条直线上的敌人造成3400(【法术加成】)魔法伤害。<active:compare_adrate_ap>0>主动：冲向附近一个格子，获得持续2秒的2000护盾值，并斩击邻格敌人们，造成1250(【物理加成】)物理伤害。每三次施放，跳到空中，发射一道能量波，对一条直线上的敌人造成3400(【物理加成】)物理伤害。"
             }
@@ -7689,7 +7797,8 @@
         "icon": {
           "local_path": "assets/champions/4375.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/hero/s17_head_riven.png",
-          "alt": "锐雯头像"
+          "alt": "锐雯头像",
+          "optimized_local_path": "assets/optimized/s17__17_17_8/champions/4375.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/4375.jpg",
@@ -7833,7 +7942,8 @@
           "image": {
             "local_path": "assets/skills/4376.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/skill/s17_rammus.png",
-            "alt": "拉莫斯技能图标"
+            "alt": "拉莫斯技能图标",
+            "optimized_local_path": "assets/optimized/s17__17_17_8/skills/4376_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -7849,7 +7959,8 @@
         "icon": {
           "local_path": "assets/champions/4376.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/hero/s17_head_rammus.png",
-          "alt": "拉莫斯头像"
+          "alt": "拉莫斯头像",
+          "optimized_local_path": "assets/optimized/s17__17_17_8/champions/4376.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/4376.jpg",
@@ -7971,7 +8082,8 @@
           "image": {
             "local_path": "assets/skills/4377.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/skill/s17_nami.png",
-            "alt": "娜美技能图标"
+            "alt": "娜美技能图标",
+            "optimized_local_path": "assets/optimized/s17__17_17_8/skills/4377_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -7987,7 +8099,8 @@
         "icon": {
           "local_path": "assets/champions/4377.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/hero/s17_head_nami.png",
-          "alt": "娜美头像"
+          "alt": "娜美头像",
+          "optimized_local_path": "assets/optimized/s17__17_17_8/champions/4377.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/4377.jpg",
@@ -8108,7 +8221,8 @@
           "image": {
             "local_path": "assets/skills/4378.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/skill/s17_tahmkench.png",
-            "alt": "塔姆技能图标"
+            "alt": "塔姆技能图标",
+            "optimized_local_path": "assets/optimized/s17__17_17_8/skills/4378_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -8124,7 +8238,8 @@
         "icon": {
           "local_path": "assets/champions/4378.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/hero/s17_head_tahmkench.png",
-          "alt": "塔姆头像"
+          "alt": "塔姆头像",
+          "optimized_local_path": "assets/optimized/s17__17_17_8/champions/4378.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/4378.jpg",
@@ -8248,7 +8363,8 @@
           "image": {
             "local_path": "assets/skills/4379.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/skill/s17_galio.png",
-            "alt": "超级机甲技能图标"
+            "alt": "超级机甲技能图标",
+            "optimized_local_path": "assets/optimized/s17__17_17_8/skills/4379_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -8264,7 +8380,8 @@
         "icon": {
           "local_path": "assets/champions/4379.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/hero/s17_head_galio.png",
-          "alt": "超级机甲头像"
+          "alt": "超级机甲头像",
+          "optimized_local_path": "assets/optimized/s17__17_17_8/champions/4379.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/4379.jpg",
@@ -8397,7 +8514,8 @@
           "image": {
             "local_path": "assets/skills/4380.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/skill/s17_leblanc.png",
-            "alt": "乐芙兰技能图标"
+            "alt": "乐芙兰技能图标",
+            "optimized_local_path": "assets/optimized/s17__17_17_8/skills/4380_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -8413,7 +8531,8 @@
         "icon": {
           "local_path": "assets/champions/4380.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/hero/s17_head_leblanc.png",
-          "alt": "乐芙兰头像"
+          "alt": "乐芙兰头像",
+          "optimized_local_path": "assets/optimized/s17__17_17_8/champions/4380.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/4380.jpg",
@@ -8568,7 +8687,8 @@
           "image": {
             "local_path": "assets/skills/4381.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/skill/s17_xayah.png",
-            "alt": "霞技能图标"
+            "alt": "霞技能图标",
+            "optimized_local_path": "assets/optimized/s17__17_17_8/skills/4381_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -8584,7 +8704,8 @@
         "icon": {
           "local_path": "assets/champions/4381.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/hero/s17_head_xayah.png",
-          "alt": "霞头像"
+          "alt": "霞头像",
+          "optimized_local_path": "assets/optimized/s17__17_17_8/champions/4381.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/4381.jpg",
@@ -8695,7 +8816,8 @@
           "image": {
             "local_path": "assets/skills/4382.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/skill/s17_aurelionsol.png",
-            "alt": "奥瑞利安·索尔技能图标"
+            "alt": "奥瑞利安·索尔技能图标",
+            "optimized_local_path": "assets/optimized/s17__17_17_8/skills/4382_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -8711,7 +8833,8 @@
         "icon": {
           "local_path": "assets/champions/4382.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/hero/s17_head_aurelionsol.png",
-          "alt": "奥瑞利安·索尔头像"
+          "alt": "奥瑞利安·索尔头像",
+          "optimized_local_path": "assets/optimized/s17__17_17_8/champions/4382.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/4382.jpg",
@@ -8844,7 +8967,8 @@
           "image": {
             "local_path": "assets/skills/5420.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/skill/s17_bard.png",
-            "alt": "巴德技能图标"
+            "alt": "巴德技能图标",
+            "optimized_local_path": "assets/optimized/s17__17_17_8/skills/5420_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -8860,7 +8984,8 @@
         "icon": {
           "local_path": "assets/champions/5420.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/hero/s17_head_bard.png",
-          "alt": "巴德头像"
+          "alt": "巴德头像",
+          "optimized_local_path": "assets/optimized/s17__17_17_8/champions/5420.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/5420.jpg",
@@ -8994,7 +9119,8 @@
           "image": {
             "local_path": "assets/skills/5421.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/skill/s17_blitzcrank.png",
-            "alt": "布里茨技能图标"
+            "alt": "布里茨技能图标",
+            "optimized_local_path": "assets/optimized/s17__17_17_8/skills/5421_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -9010,7 +9136,8 @@
         "icon": {
           "local_path": "assets/champions/5421.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/hero/s17_head_blitzcrank.png",
-          "alt": "布里茨头像"
+          "alt": "布里茨头像",
+          "optimized_local_path": "assets/optimized/s17__17_17_8/champions/5421.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/5421.jpg",
@@ -9132,7 +9259,8 @@
           "image": {
             "local_path": "assets/skills/5422.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/skill/s17_vex.png",
-            "alt": "薇古丝技能图标"
+            "alt": "薇古丝技能图标",
+            "optimized_local_path": "assets/optimized/s17__17_17_8/skills/5422_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -9148,7 +9276,8 @@
         "icon": {
           "local_path": "assets/champions/5422.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/hero/s17_head_vex.png",
-          "alt": "薇古丝头像"
+          "alt": "薇古丝头像",
+          "optimized_local_path": "assets/optimized/s17__17_17_8/champions/5422.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/5422.jpg",
@@ -9280,7 +9409,8 @@
           "image": {
             "local_path": "assets/skills/5423.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/skill/s17_graves.png",
-            "alt": "格雷福斯技能图标"
+            "alt": "格雷福斯技能图标",
+            "optimized_local_path": "assets/optimized/s17__17_17_8/skills/5423_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -9296,7 +9426,8 @@
         "icon": {
           "local_path": "assets/champions/5423.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/hero/s17_head_graves.png",
-          "alt": "格雷福斯头像"
+          "alt": "格雷福斯头像",
+          "optimized_local_path": "assets/optimized/s17__17_17_8/champions/5423.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/5423.jpg",
@@ -9419,7 +9550,8 @@
           "image": {
             "local_path": "assets/skills/5424.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/skill/s17_shen.png",
-            "alt": "慎技能图标"
+            "alt": "慎技能图标",
+            "optimized_local_path": "assets/optimized/s17__17_17_8/skills/5424_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -9435,7 +9567,8 @@
         "icon": {
           "local_path": "assets/champions/5424.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/hero/s17_head_shen.png",
-          "alt": "慎头像"
+          "alt": "慎头像",
+          "optimized_local_path": "assets/optimized/s17__17_17_8/champions/5424.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/5424.jpg",
@@ -9569,7 +9702,8 @@
           "image": {
             "local_path": "assets/skills/5425.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/skill/s17_sona.png",
-            "alt": "娑娜技能图标"
+            "alt": "娑娜技能图标",
+            "optimized_local_path": "assets/optimized/s17__17_17_8/skills/5425_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -9585,7 +9719,8 @@
         "icon": {
           "local_path": "assets/champions/5425.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/hero/s17_head_sona.png",
-          "alt": "娑娜头像"
+          "alt": "娑娜头像",
+          "optimized_local_path": "assets/optimized/s17__17_17_8/champions/5425.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/5425.jpg",
@@ -9708,7 +9843,8 @@
           "image": {
             "local_path": "assets/skills/5426.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/skill/s17_fiora.png",
-            "alt": "菲奥娜技能图标"
+            "alt": "菲奥娜技能图标",
+            "optimized_local_path": "assets/optimized/s17__17_17_8/skills/5426_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -9724,7 +9860,8 @@
         "icon": {
           "local_path": "assets/champions/5426.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/hero/s17_head_fiora.png",
-          "alt": "菲奥娜头像"
+          "alt": "菲奥娜头像",
+          "optimized_local_path": "assets/optimized/s17__17_17_8/champions/5426.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/5426.jpg",
@@ -9858,7 +9995,8 @@
           "image": {
             "local_path": "assets/skills/5427.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/skill/s17_jhin.png",
-            "alt": "烬技能图标"
+            "alt": "烬技能图标",
+            "optimized_local_path": "assets/optimized/s17__17_17_8/skills/5427_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -9874,7 +10012,8 @@
         "icon": {
           "local_path": "assets/champions/5427.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/hero/s17_head_jhin.png",
-          "alt": "烬头像"
+          "alt": "烬头像",
+          "optimized_local_path": "assets/optimized/s17__17_17_8/champions/5427.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/5427.jpg",
@@ -9966,32 +10105,33 @@
         {
           "id": "5428_skill",
           "name": "量子克隆",
-          "description": "在目标身后创造一个分身，其最大生命值降低33%且法力消耗提高30。分身会继承本尊的装备、属性和当前生命值，并且可以施放【量子克隆】。",
+          "description": "在目标身后创造一个分身，其最大生命值降低25%且法力消耗提高30。分身会继承本尊的装备、属性和当前生命值，并且可以施放【量子克隆】。",
           "variables": [
             {
               "key": "value_1",
-              "label": "额外生命值 33%/40%/40%/40%",
+              "label": "额外生命值 25%/35%/35%/35%",
               "unit": "raw",
               "values": {
-                "1": "33%",
-                "2": "40%",
-                "3": "40%",
-                "4": "40%"
+                "1": "25%",
+                "2": "35%",
+                "3": "35%",
+                "4": "35%"
               }
             }
           ],
-          "raw_values": "额外生命值 33%/40%/40%/40%",
+          "raw_values": "额外生命值 25%/35%/35%/35%",
           "image": {
             "local_path": "assets/skills/5428.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/skill/s17_zed.png",
-            "alt": "劫技能图标"
+            "alt": "劫技能图标",
+            "optimized_local_path": "assets/optimized/s17__17_17_8/skills/5428_skill.webp"
           },
           "extensions": {
             "description_by_star": {
-              "1": "在目标身后创造一个分身，其最大生命值降低33%且法力消耗提高30。分身会继承本尊的装备、属性和当前生命值，并且可以施放【量子克隆】。",
-              "2": "在目标身后创造一个分身，其最大生命值降低40%且法力消耗提高30。分身会继承本尊的装备、属性和当前生命值，并且可以施放【量子克隆】。",
-              "3": "在目标身后创造一个分身，其最大生命值降低40%且法力消耗提高30。分身会继承本尊的装备、属性和当前生命值，并且可以施放【量子克隆】。",
-              "4": "在目标身后创造一个分身，其最大生命值降低40%且法力消耗提高30。分身会继承本尊的装备、属性和当前生命值，并且可以施放【量子克隆】。"
+              "1": "在目标身后创造一个分身，其最大生命值降低25%且法力消耗提高30。分身会继承本尊的装备、属性和当前生命值，并且可以施放【量子克隆】。",
+              "2": "在目标身后创造一个分身，其最大生命值降低35%且法力消耗提高30。分身会继承本尊的装备、属性和当前生命值，并且可以施放【量子克隆】。",
+              "3": "在目标身后创造一个分身，其最大生命值降低35%且法力消耗提高30。分身会继承本尊的装备、属性和当前生命值，并且可以施放【量子克隆】。",
+              "4": "在目标身后创造一个分身，其最大生命值降低35%且法力消耗提高30。分身会继承本尊的装备、属性和当前生命值，并且可以施放【量子克隆】。"
             }
           }
         }
@@ -10000,7 +10140,8 @@
         "icon": {
           "local_path": "assets/champions/5428.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/hero/s17_head_zed.png",
-          "alt": "劫头像"
+          "alt": "劫头像",
+          "optimized_local_path": "assets/optimized/s17__17_17_8/champions/5428.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/5428.jpg",
@@ -10030,7 +10171,8 @@
       "aliases": [],
       "cost": 4,
       "trait_ids": [
-        "420"
+        "420",
+        "313"
       ],
       "role": null,
       "availability": {
@@ -10046,8 +10188,8 @@
           "magic_resist": 70.0,
           "attack_speed": 0.65,
           "attack_range": 1.0,
-          "initial_mana": 40.0,
-          "max_mana": 90.0,
+          "initial_mana": 45.0,
+          "max_mana": 95.0,
           "critical_strike_chance": 25.0,
           "sell_price": 4.0
         },
@@ -10058,8 +10200,8 @@
           "magic_resist": 70.0,
           "attack_speed": 0.65,
           "attack_range": 1.0,
-          "initial_mana": 40.0,
-          "max_mana": 90.0,
+          "initial_mana": 45.0,
+          "max_mana": 95.0,
           "critical_strike_chance": 25.0,
           "sell_price": 11.0
         },
@@ -10070,8 +10212,8 @@
           "magic_resist": 70.0,
           "attack_speed": 0.65,
           "attack_range": 1.0,
-          "initial_mana": 40.0,
-          "max_mana": 90.0,
+          "initial_mana": 45.0,
+          "max_mana": 95.0,
           "critical_strike_chance": 25.0,
           "sell_price": 35.0
         },
@@ -10082,8 +10224,8 @@
           "magic_resist": 70.0,
           "attack_speed": 0.65,
           "attack_range": 1.0,
-          "initial_mana": 40.0,
-          "max_mana": 90.0,
+          "initial_mana": 45.0,
+          "max_mana": 95.0,
           "critical_strike_chance": 25.0,
           "sell_price": 107.0
         }
@@ -10092,15 +10234,15 @@
         {
           "id": "5434_skill",
           "name": "黑暗形态",
-          "description": "变形3秒，从而获得780(【法术加成】【生命上限】)生命值并与附近的弈子们生成灵链。在持续期间，对相距最近的3个敌人造成100(【法术加成】)魔法伤害并为相距最近的2个受伤友军回复125(【法术加成】)生命值。",
+          "description": "变形3秒，从而获得730(【法术加成】【生命上限】)生命值并与附近的弈子们生成灵链。在持续期间，对相距最近的3个敌人造成100(【法术加成】)魔法伤害并为相距最近的2个受伤友军回复125(【法术加成】)生命值。",
           "variables": [
             {
               "key": "value_1",
               "label": "生命值获取",
               "unit": "raw",
               "values": {
-                "1": "600",
-                "2": "700",
+                "1": "550",
+                "2": "650",
                 "3": "2500",
                 "4": "4250"
               }
@@ -10128,16 +10270,17 @@
               }
             }
           ],
-          "raw_values": "生命值获取：7558=4250(【法术加成】)+50%【生命上限】 600/700/2500/4250|伤害：5100(【法术加成】) 100/150/3000/5100|治疗：5100(【法术加成】) 125/185/3000/5100",
+          "raw_values": "生命值获取：7558=4250(【法术加成】)+50%【生命上限】 550/650/2500/4250|伤害：5100(【法术加成】) 100/150/3000/5100|治疗：5100(【法术加成】) 125/185/3000/5100",
           "image": {
             "local_path": "assets/skills/5434.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/skill/s17_morgana.png",
-            "alt": "莫甘娜技能图标"
+            "alt": "莫甘娜技能图标",
+            "optimized_local_path": "assets/optimized/s17__17_17_8/skills/5434_skill.webp"
           },
           "extensions": {
             "description_by_star": {
-              "1": "变形3秒，从而获得780(【法术加成】【生命上限】)生命值并与附近的弈子们生成灵链。在持续期间，对相距最近的3个敌人造成100(【法术加成】)魔法伤害并为相距最近的2个受伤友军回复125(【法术加成】)生命值。",
-              "2": "变形3秒，从而获得1024(【法术加成】【生命上限】)生命值并与附近的弈子们生成灵链。在持续期间，对相距最近的3个敌人造成150(【法术加成】)魔法伤害并为相距最近的2个受伤友军回复185(【法术加成】)生命值。",
+              "1": "变形3秒，从而获得730(【法术加成】【生命上限】)生命值并与附近的弈子们生成灵链。在持续期间，对相距最近的3个敌人造成100(【法术加成】)魔法伤害并为相距最近的2个受伤友军回复125(【法术加成】)生命值。",
+              "2": "变形3秒，从而获得974(【法术加成】【生命上限】)生命值并与附近的弈子们生成灵链。在持续期间，对相距最近的3个敌人造成150(【法术加成】)魔法伤害并为相距最近的2个受伤友军回复185(【法术加成】)生命值。",
               "3": "变形3秒，从而获得4944(【法术加成】【生命上限】)生命值并与附近的弈子们生成灵链。在持续期间，对相距最近的3个敌人造成3000(【法术加成】)魔法伤害并为相距最近的2个受伤友军回复3000(【法术加成】)生命值。",
               "4": "变形3秒，从而获得7558(【法术加成】【生命上限】)生命值并与附近的弈子们生成灵链。在持续期间，对相距最近的3个敌人造成5100(【法术加成】)魔法伤害并为相距最近的2个受伤友军回复5100(【法术加成】)生命值。"
             }
@@ -10148,7 +10291,8 @@
         "icon": {
           "local_path": "assets/champions/5434.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/hero/s17_head_morgana.png",
-          "alt": "莫甘娜头像"
+          "alt": "莫甘娜头像",
+          "optimized_local_path": "assets/optimized/s17__17_17_8/champions/5434.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/5434.jpg",

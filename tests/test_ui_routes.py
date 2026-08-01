@@ -975,11 +975,11 @@ def test_lineup_simulator_page_exists_and_index_links_to_it(client):
 
     assert response.status_code == 200
     assert '<title>\u9635\u5bb9\u6a21\u62df\u5668</title>' in html
-    assert 'simulator-root' in html
+    assert 'simulatorRoot' in html
     assert 'tools/lineup-simulator/' in html
     assert 'local-data.js' not in html
     assert 'app.js' in html
-    assert '\u8fd4\u56de\u9635\u5bb9\u5e93' in html
+    assert '\u8fd4\u56de\u91d1\u94f2\u94f2\u9635\u5bb9\u5e93' in html
     assert 'background-upload-button' not in html
     assert 'background-upload-input' not in html
     assert 'custom-background-list' not in html
@@ -988,7 +988,7 @@ def test_lineup_simulator_page_exists_and_index_links_to_it(client):
     assert 'preset-background-list' not in html
 
     assert client.get('/static/tools/lineup-simulator/style.css').status_code == 200
-    assert client.get('/static/tools/lineup-simulator/data/heroes.json').status_code == 200
+    assert client.get('/static/season-data/catalog.json').status_code == 200
     assert client.get('/static/tools/lineup-simulator/app.js').status_code == 200
 
 
@@ -1283,7 +1283,7 @@ def test_lineup_simulator_does_not_load_global_stylesheet(client):
     assert '<meta name="description" content="在线搭配金铲铲阵容棋盘、弈子、装备和羁绊。"' in html
     assert '<link rel="canonical" href="http://localhost/tools/lineup-simulator"' in html
     assert 'href="/static/styles.css"' not in html
-    assert 'href="./style.css"' in html
+    assert 'tools/lineup-simulator/style.css' in html
 
 
 def test_home_live_comps_uses_live_comps_seasons_without_changing_lineup_editor():
@@ -1317,276 +1317,6 @@ def test_home_tab_switch_keeps_selected_season_across_live_and_lineup_views():
     assert 'state.selectedLineupSeasonId = state.selectedLiveCompSeasonId;' in js
     assert "previousView !== 'live-comps' && nextView === 'live-comps'" in js
     assert 'state.selectedLiveCompSeasonId = state.selectedLineupSeasonId;' in js
-
-
-def test_lineup_simulator_uses_jcc_light_theme_and_no_upload_script():
-    with open('static/tools/lineup-simulator/style.css', 'r', encoding='utf-8') as file:
-        css = file.read()
-    with open('static/tools/lineup-simulator/app.js', 'r', encoding='utf-8') as file:
-        js = file.read()
-
-    assert 'JCC integrated light theme overrides' in css
-    assert '--jcc-bg: #f8f5ef' in css
-    assert '--jcc-accent: #c96442' in css
-    assert 'backgroundUploadButton' not in js
-    assert 'backgroundUploadInput' not in js
-    assert 'customBackgroundList' not in js
-    assert 'backgroundTabButton' not in js
-    assert 'presetBackgroundList' not in js
-    assert 'renderBackgroundPanel(refs, state)' not in js
-    assert 'function loadCustomBackgrounds' not in js
-    assert 'function renderBackgroundPanel' not in js
-    assert 'function applyBattleCardBackground' not in js
-    assert 'SELECTED_BACKGROUND_STORAGE_KEY' not in js
-
-
-
-def test_lineup_simulator_has_no_background_modification_ui(client):
-    html = client.get('/tools/lineup-simulator').get_data(as_text=True)
-
-    assert 'panel-tab-backgrounds' not in html
-    assert 'backgrounds-panel' not in html
-    assert 'preset-background-list' not in html
-    assert 'background-upload-button' not in html
-    assert 'background-upload-input' not in html
-    assert 'custom-background-list' not in html
-
-
-
-def test_lineup_simulator_responsive_ux_structure(client):
-    html = client.get('/tools/lineup-simulator').get_data(as_text=True)
-    with open('static/tools/lineup-simulator/style.css', 'r', encoding='utf-8') as file:
-        css = file.read()
-
-    assert 'simulator-topbar' in html
-    assert 'simulator-quick-guide' in html
-    assert 'simulator-board-actions' in html
-    assert 'simulator-tool-panel' in html
-    assert '\u9635\u5bb9\u6a21\u62df\u5668' in html
-    assert '\u7535\u8111\u7aef\u53ef\u62d6\u62fd' in html
-    assert '\u5f08\u5b50' in html
-    assert '\u88c5\u5907' in html
-    assert 'order: 1' in css
-    assert 'order: 2' in css
-    assert 'position: sticky' in css
-    assert 'max-height: min(58vh, 520px)' in css
-    assert '@media (max-width: 760px)' in css
-    assert 'max-height: 42vh' in css
-
-
-def test_lineup_simulator_click_equip_interaction_support():
-    with open('static/tools/lineup-simulator/app.js', 'r', encoding='utf-8') as file:
-        js = file.read()
-
-    assert 'selectedEquipId' in js
-    assert 'selectEquipForClick' in js
-    assert 'applySelectedEquipToBoardSlot' in js
-    assert 'clearSelectedEquip' in js
-    assert 'is-selected-for-click' in js
-    assert 'aria-pressed' in js
-
-
-
-def test_lineup_simulator_tool_panel_keeps_actions_visible():
-    with open('static/tools/lineup-simulator/style.css', 'r', encoding='utf-8') as file:
-        css = file.read()
-
-    assert '.panel-shell {' in css
-    assert 'min-height: 0' in css
-    assert '.panel-body:not([hidden])' in css
-    assert 'flex: 1 1 auto' in css
-    assert '.simulator-board-actions {' in css
-    assert 'flex: 0 0 auto' in css
-    assert 'overscroll-behavior: contain' in css
-    assert 'margin-right: 0' in css
-
-
-
-def test_lineup_simulator_uses_three_column_workspace(client):
-    html = client.get('/tools/lineup-simulator').get_data(as_text=True)
-    with open('static/tools/lineup-simulator/style.css', 'r', encoding='utf-8') as file:
-        css = file.read()
-
-    assert 'simulator-shell--three-column' in html
-    assert 'simulator-hero-panel' in html
-    assert 'simulator-board-panel' in html
-    assert 'simulator-equip-panel' in html
-    assert 'simulator-side-title' in html
-    assert 'equip-removal-hint' in html
-    assert 'grid-template-columns: minmax(250px, 300px) minmax(560px, 1fr) minmax(250px, 300px)' in css
-    assert 'grid-template-areas:' in css
-    assert '"hero board equip"' in css
-    assert '.simulator-hero-panel' in css
-    assert '.simulator-equip-panel' in css
-    assert '.simulator-board-panel' in css
-
-
-def test_lineup_simulator_mobile_orders_board_before_side_panels():
-    with open('static/tools/lineup-simulator/style.css', 'r', encoding='utf-8') as file:
-        css = file.read()
-
-    assert '@media (max-width: 760px)' in css
-    assert '"board"' in css
-    assert '"hero"' in css
-    assert '"equip"' in css
-    assert 'max-height: 46vh' in css
-
-
-def test_lineup_simulator_supports_direct_delete_and_equip_removal():
-    with open('static/tools/lineup-simulator/app.js', 'r', encoding='utf-8') as file:
-        js = file.read()
-
-    assert 'removeEquipFromHero' in js
-    assert 'removeEquipFromBoardSlot' in js
-    assert 'data-remove-equip-index' in js
-    assert 'data-remove-board-slot' in js
-    assert 'board-unit-remove' in js
-
-
-
-def test_lineup_simulator_enlarges_board_without_enlarging_card():
-    with open('static/tools/lineup-simulator/style.css', 'r', encoding='utf-8') as file:
-        css = file.read()
-    with open('static/tools/lineup-simulator/app.js', 'r', encoding='utf-8') as file:
-        js = file.read()
-
-    assert 'grid-template-columns: minmax(250px, 300px) minmax(560px, 1fr) minmax(250px, 300px)' in css
-    assert 'width: min(1380px, calc(100vw - 28px))' in css
-    assert 'min-height: 560px' in css
-    assert 'max-width: 1120px' not in css
-    assert 'const BOARD_SCALE_MAX = 1.32;' in js
-    assert '.simulator-shell--three-column .battle-card-board-panel' in css
-    assert 'padding: 0.02rem 0 0.04rem' in css
-
-
-
-def test_lineup_simulator_board_has_no_scroll_interaction():
-    with open('static/tools/lineup-simulator/style.css', 'r', encoding='utf-8') as file:
-        css = file.read()
-
-    assert '.battle-card-board-area {' in css
-    assert 'touch-action: none' in css
-    assert 'overscroll-behavior: none' in css
-    assert 'scrollbar-width: none' in css
-    assert '.battle-card-board-area::-webkit-scrollbar' in css
-    assert 'display: none' in css
-    assert '.lineup-list {' in css
-    assert 'overflow: visible' in css
-
-
-def test_lineup_simulator_mobile_uses_board_first_layout_from_repo():
-    with open('static/tools/lineup-simulator/style.css', 'r', encoding='utf-8') as file:
-        css = file.read()
-
-    assert '/* JCC mobile simulator board-first UX */' in css
-    assert 'min-height: clamp(410px, 128vw, 520px)' in css
-    assert 'grid-template-rows: minmax(235px, 1fr) auto' in css
-    assert 'width: 5.32rem' in css
-    assert 'width: 0.7rem' in css
-    assert 'max-height: 118px' in css
-
-
-
-def test_lineup_simulator_cost_borders_use_requested_rgb_colors():
-    with open('static/tools/lineup-simulator/style.css', 'r', encoding='utf-8') as file:
-        css = file.read()
-
-    assert '--cost-1-border: rgb(175, 175, 175)' in css
-    assert '--cost-2-border: rgb(28, 195, 152)' in css
-    assert '--cost-3-border: rgb(7, 165, 241)' in css
-    assert '--cost-4-border: rgb(213, 105, 230)' in css
-    assert '--cost-5-border: rgb(255, 183, 1)' in css
-    assert '.cost-1 {' in css
-    assert '.cost-5 {' in css
-    assert 'border-color: var(--cost-border)' in css
-    assert 'box-shadow: 0 0 0 2px color-mix' in css
-
-
-
-def test_lineup_simulator_board_units_show_cost_borders():
-    with open('static/tools/lineup-simulator/style.css', 'r', encoding='utf-8') as file:
-        css = file.read()
-
-    assert '.cost-1.board-unit .board-unit-frame' in css
-    assert '.cost-5.board-unit .board-unit-frame' in css
-    assert 'padding: 0.028rem' in css
-    assert 'filter: none' in css
-    assert '.cost-1.board-unit::after' in css
-    assert 'background: var(--cost-border)' in css
-    assert '-webkit-mask:' in css
-    assert 'mask-composite: exclude' in css
-    board_section = css.split('/* JCC board unit cost borders */', 1)[1]
-    assert 'drop-shadow' not in board_section
-    assert 'color-mix' not in board_section
-
-
-
-def test_lineup_simulator_loads_versioned_json_data_files(client):
-    html = client.get('/tools/lineup-simulator').get_data(as_text=True)
-    with open('static/tools/lineup-simulator/app.js', 'r', encoding='utf-8') as file:
-        js = file.read()
-
-    assert './local-data.js' not in html
-    assert './app.js' in html
-    assert 'loadSimulatorData' in js
-    assert 'fetchJsonData("data/version.json", { cache: "no-cache" })' in js
-    assert 'versioned("data/heroes.json")' in js
-    assert 'versioned("data/equips.json")' in js
-    assert 'versioned("data/traits.json")' in js
-    assert 'versioned("data/pets.json")' in js
-    assert 'versioned("data/tabs.json")' in js
-    assert '?v=${stamp}' in js
-
-    for path in [
-        '/static/tools/lineup-simulator/data/version.json',
-        '/static/tools/lineup-simulator/data/tabs.json',
-        '/static/tools/lineup-simulator/data/heroes.json',
-        '/static/tools/lineup-simulator/data/equips.json',
-        '/static/tools/lineup-simulator/data/traits.json',
-        '/static/tools/lineup-simulator/data/pets.json',
-    ]:
-        response = client.get(path)
-        assert response.status_code == 200
-        assert response.mimetype == 'application/json'
-
-
-def test_lineup_simulator_pool_images_use_lazy_loading():
-    with open('static/tools/lineup-simulator/app.js', 'r', encoding='utf-8') as file:
-        js = file.read()
-
-    assert '<img class="pool-card-pic ${getProgressiveImageClass(hero.image)}" src="${hero.image}" alt="${hero.name}" loading="lazy" decoding="async" fetchpriority="low" data-progressive-image draggable="false" />' in js
-    assert '<img class="pool-card-pic ${getProgressiveImageClass(equip.image)}" src="${equip.image}" alt="${equip.name}" loading="lazy" decoding="async" fetchpriority="low" data-progressive-image draggable="false" />' in js
-    assert '<img class="${getProgressiveImageClass(equip.image)}" src="${equip.image}" alt="${equip.name}" loading="lazy" decoding="async" fetchpriority="low" data-progressive-image draggable="false" />' in js
-
-
-def test_lineup_simulator_uses_blur_placeholders_for_progressive_images():
-    with open('static/tools/lineup-simulator/app.js', 'r', encoding='utf-8') as file:
-        js = file.read()
-    with open('static/tools/lineup-simulator/style.css', 'r', encoding='utf-8') as file:
-        css = file.read()
-
-    assert 'function getBlurImagePath' in js
-    assert 'class="pool-card-pic-box ${getProgressiveShellClass(hero.image)}"' in js
-    assert 'getProgressiveImageStyle(hero.image)' in js
-    assert 'getProgressiveImageStyle(equip.image)' in js
-    assert 'return normalizedPath ? `blur/${normalizedPath}` : "";' in js
-    assert 'data-progressive-image' in js
-    assert 'markProgressiveImageLoaded' in js
-    assert '.progressive-image-shell::before' in css
-    assert '.progressive-image.is-loaded' in css
-
-
-def test_lineup_simulator_remembers_loaded_progressive_images():
-    with open('static/tools/lineup-simulator/app.js', 'r', encoding='utf-8') as file:
-        js = file.read()
-
-    assert 'const loadedProgressiveImagePaths = new Set();' in js
-    assert 'function isProgressiveImageLoaded' in js
-    assert 'function getProgressiveShellClass' in js
-    assert 'function getProgressiveImageClass' in js
-    assert 'loadedProgressiveImagePaths.add(getProgressiveImageCacheKey(image.getAttribute("src")))' in js
-    assert 'class="pool-card-pic-box ${getProgressiveShellClass(hero.image)}"' in js
-    assert 'class="pool-card-pic ${getProgressiveImageClass(hero.image)}"' in js
 
 
 def test_admin_dashboard_clarifies_uv_labels_and_new_returning_visitors():

@@ -1,6 +1,6 @@
 {
   "$schema": "../../../../../schemas/traits.schema.json",
-  "version_id": "s17__17_17_7",
+  "version_id": "s17__17_17_8",
   "traits": [
     {
       "id": "400",
@@ -30,7 +30,8 @@
       "image": {
         "local_path": "assets/traits/400.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/trait/s17_trait_icon_animatech.png",
-        "alt": "幻灵战队羁绊图标"
+        "alt": "幻灵战队羁绊图标",
+        "optimized_local_path": "assets/optimized/s17__17_17_8/traits/400.webp"
       },
       "source_ids": {
         "official_id": "400",
@@ -71,7 +72,8 @@
       "image": {
         "local_path": "assets/traits/401.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/trait/s17_trait_icon_arbiter.png",
-        "alt": "法官羁绊图标"
+        "alt": "法官羁绊图标",
+        "optimized_local_path": "assets/optimized/s17__17_17_8/traits/401.webp"
       },
       "source_ids": {
         "official_id": "401",
@@ -130,7 +132,8 @@
       "image": {
         "local_path": "assets/traits/402.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/trait/s17_trait_icon_astronaut.png",
-        "alt": "木灵族羁绊图标"
+        "alt": "木灵族羁绊图标",
+        "optimized_local_path": "assets/optimized/s17__17_17_8/traits/402.webp"
       },
       "source_ids": {
         "official_id": "402",
@@ -189,7 +192,8 @@
       "image": {
         "local_path": "assets/traits/403.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/trait/s17_trait_icon_darkstar.png",
-        "alt": "暗星羁绊图标"
+        "alt": "暗星羁绊图标",
+        "optimized_local_path": "assets/optimized/s17__17_17_8/traits/403.webp"
       },
       "source_ids": {
         "official_id": "403",
@@ -206,7 +210,7 @@
       "id": "404",
       "name": "霸天机甲",
       "category": "origin",
-      "description": "固有能力：【霸天机甲】单位们可以变形为其【究极形态】，升级其技能并获得40%生命值。【已变形的霸天机甲】占用2个弈子栏位，并为【霸天机甲】羁绊提供双倍羁绊计数。",
+      "description": "固有能力：【霸天机甲】单位们可以变形为其【究极形态】，升级其技能并获得40%生命值。【已变形的霸天机甲】占用2个弈子栏位，并为【霸天机甲】特质提供双倍特质计数。",
       "breakpoints": [
         {
           "min_units": 3,
@@ -239,7 +243,8 @@
       "image": {
         "local_path": "assets/traits/404.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/trait/s17_trait_icon_mecha.png",
-        "alt": "霸天机甲羁绊图标"
+        "alt": "霸天机甲羁绊图标",
+        "optimized_local_path": "assets/optimized/s17__17_17_8/traits/404.webp"
       },
       "source_ids": {
         "official_id": "404",
@@ -280,7 +285,8 @@
       "image": {
         "local_path": "assets/traits/405.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/trait/s17_trait_icon_nova.png",
-        "alt": "新星特攻队羁绊图标"
+        "alt": "新星特攻队羁绊图标",
+        "optimized_local_path": "assets/optimized/s17__17_17_8/traits/405.webp"
       },
       "source_ids": {
         "official_id": "405",
@@ -321,7 +327,8 @@
       "image": {
         "local_path": "assets/traits/406.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/trait/s17_trait_icon_primordian.png",
-        "alt": "海魔人羁绊图标"
+        "alt": "海魔人羁绊图标",
+        "optimized_local_path": "assets/optimized/s17__17_17_8/traits/406.webp"
       },
       "source_ids": {
         "official_id": "406",
@@ -362,7 +369,8 @@
       "image": {
         "local_path": "assets/traits/407.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/trait/s17_trait_icon_psionic.png",
-        "alt": "灵能特工羁绊图标"
+        "alt": "灵能特工羁绊图标",
+        "optimized_local_path": "assets/optimized/s17__17_17_8/traits/407.webp"
       },
       "source_ids": {
         "official_id": "407",
@@ -430,7 +438,8 @@
       "image": {
         "local_path": "assets/traits/408.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/trait/s17_trait_icon_spacegroove.png",
-        "alt": "太空律动羁绊图标"
+        "alt": "太空律动羁绊图标",
+        "optimized_local_path": "assets/optimized/s17__17_17_8/traits/408.webp"
       },
       "source_ids": {
         "official_id": "408",
@@ -489,7 +498,8 @@
       "image": {
         "local_path": "assets/traits/409.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/trait/s17_trait_icon_stargazer.png",
-        "alt": "观星者羁绊图标"
+        "alt": "观星者羁绊图标",
+        "optimized_local_path": "assets/optimized/s17__17_17_8/traits/409.webp"
       },
       "source_ids": {
         "official_id": "409",
@@ -539,7 +549,8 @@
       "image": {
         "local_path": "assets/traits/410.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/trait/s17_trait_icon_timebreaker.png",
-        "alt": "未来战士羁绊图标"
+        "alt": "未来战士羁绊图标",
+        "optimized_local_path": "assets/optimized/s17__17_17_8/traits/410.webp"
       },
       "source_ids": {
         "official_id": "410",
@@ -571,7 +582,8 @@
       "image": {
         "local_path": "assets/traits/411.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/trait/s17_trait_icon_commander.png",
-        "alt": "最高指挥官羁绊图标"
+        "alt": "最高指挥官羁绊图标",
+        "optimized_local_path": "assets/optimized/s17__17_17_8/traits/411.webp"
       },
       "source_ids": {
         "official_id": "411",
@@ -603,7 +615,8 @@
       "image": {
         "local_path": "assets/traits/412.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/trait/s17_trait_icon_factorynew.png",
-        "alt": "军工1号羁绊图标"
+        "alt": "军工1号羁绊图标",
+        "optimized_local_path": "assets/optimized/s17__17_17_8/traits/412.webp"
       },
       "source_ids": {
         "official_id": "412",
@@ -635,7 +648,8 @@
       "image": {
         "local_path": "assets/traits/413.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/trait/s17_trait_icon_galaxyhunter.png",
-        "alt": "天煞羁绊图标"
+        "alt": "天煞羁绊图标",
+        "optimized_local_path": "assets/optimized/s17__17_17_8/traits/413.webp"
       },
       "source_ids": {
         "official_id": "413",
@@ -652,13 +666,13 @@
       "id": "415",
       "name": "武装战姬",
       "category": "origin",
-      "description": "当你登场【厄运小姐】时，需要在【神谕模式】、【挑战者模式】、以及【魔术师模式】中选择一种。【厄运小姐】的每个模式都会为其提供1个独特的技能，同时她获得对应的羁绊。",
+      "description": "当你登场【厄运小姐】时，需要在【神谕模式】、【挑战者模式】、以及【魔术师模式】中选择一种。【厄运小姐】的每个模式都会为其提供1个独特的技能，同时她获得对应的特质/职业。",
       "breakpoints": [
         {
           "min_units": 1,
           "max_units": null,
           "style": "unique",
-          "effect": "当你登场【厄运小姐】时，需要在【神谕模式】、【挑战者模式】、以及【魔术师模式】中选择一种。【厄运小姐】的每个模式都会为其提供1个独特的技能，同时她获得对应的羁绊。",
+          "effect": "当你登场【厄运小姐】时，需要在【神谕模式】、【挑战者模式】、以及【魔术师模式】中选择一种。【厄运小姐】的每个模式都会为其提供1个独特的技能，同时她获得对应的特质/职业。",
           "values": {
             "source_style": "5"
           }
@@ -667,7 +681,8 @@
       "image": {
         "local_path": "assets/traits/415.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/trait/s17_trait_icon_gungoddess.png",
-        "alt": "武装战姬羁绊图标"
+        "alt": "武装战姬羁绊图标",
+        "optimized_local_path": "assets/optimized/s17__17_17_8/traits/415.webp"
       },
       "source_ids": {
         "official_id": "415",
@@ -677,7 +692,7 @@
       "tags": [],
       "extensions": {
         "raw_color": "5",
-        "raw_description": "当你登场【厄运小姐】时，需要在【神谕模式】、【挑战者模式】、以及【魔术师模式】中选择一种。【厄运小姐】的每个模式都会为其提供1个独特的技能，同时她获得对应的羁绊。"
+        "raw_description": "当你登场【厄运小姐】时，需要在【神谕模式】、【挑战者模式】、以及【魔术师模式】中选择一种。【厄运小姐】的每个模式都会为其提供1个独特的技能，同时她获得对应的特质/职业。"
       }
     },
     {
@@ -699,7 +714,8 @@
       "image": {
         "local_path": "assets/traits/416.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/trait/s17_trait_icon_bulwark.png",
-        "alt": "暮光铁壁羁绊图标"
+        "alt": "暮光铁壁羁绊图标",
+        "optimized_local_path": "assets/optimized/s17__17_17_8/traits/416.webp"
       },
       "source_ids": {
         "official_id": "416",
@@ -731,7 +747,8 @@
       "image": {
         "local_path": "assets/traits/417.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/trait/s17_trait_icon_doomer.png",
-        "alt": "末日使者羁绊图标"
+        "alt": "末日使者羁绊图标",
+        "optimized_local_path": "assets/optimized/s17__17_17_8/traits/417.webp"
       },
       "source_ids": {
         "official_id": "417",
@@ -748,13 +765,13 @@
       "id": "418",
       "name": "救世主",
       "category": "origin",
-      "description": "(1)每激活一个非单人羁绊，你的队伍获得2%攻击速度，以及2护甲和魔抗。  队伍获得的攻击速度：0.0%【攻击速度】 队伍获得的双抗：0.0【护甲】【魔法抗性】",
+      "description": "(1)每激活一个非单人特质，你的队伍获得2%攻击速度，以及2护甲和魔抗。  队伍获得的攻击速度：0.0%【攻击速度】 队伍获得的双抗：0.0【护甲】【魔法抗性】",
       "breakpoints": [
         {
           "min_units": 1,
           "max_units": null,
           "style": "unique",
-          "effect": "(1)每激活一个非单人羁绊，你的队伍获得2%攻击速度，以及2护甲和魔抗。  队伍获得的攻击速度：0.0%【攻击速度】 队伍获得的双抗：0.0【护甲】【魔法抗性】",
+          "effect": "(1)每激活一个非单人特质，你的队伍获得2%攻击速度，以及2护甲和魔抗。  队伍获得的攻击速度：0.0%【攻击速度】 队伍获得的双抗：0.0【护甲】【魔法抗性】",
           "values": {
             "source_style": "5"
           }
@@ -763,7 +780,8 @@
       "image": {
         "local_path": "assets/traits/418.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/trait/s17_trait_icon_redeemer.png",
-        "alt": "救世主羁绊图标"
+        "alt": "救世主羁绊图标",
+        "optimized_local_path": "assets/optimized/s17__17_17_8/traits/418.webp"
       },
       "source_ids": {
         "official_id": "418",
@@ -773,7 +791,7 @@
       "tags": [],
       "extensions": {
         "raw_color": "5",
-        "raw_description": "(1)每激活一个非单人羁绊，你的队伍获得2%攻击速度，以及2护甲和魔抗。  队伍获得的攻击速度：0.0%【攻击速度】 队伍获得的双抗：0.0【护甲】【魔法抗性】"
+        "raw_description": "(1)每激活一个非单人特质，你的队伍获得2%攻击速度，以及2护甲和魔抗。  队伍获得的攻击速度：0.0%【攻击速度】 队伍获得的双抗：0.0【护甲】【魔法抗性】"
       }
     },
     {
@@ -795,7 +813,8 @@
       "image": {
         "local_path": "assets/traits/419.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/trait/s17_trait_icon_partyanimal.png",
-        "alt": "汪星机器人羁绊图标"
+        "alt": "汪星机器人羁绊图标",
+        "optimized_local_path": "assets/optimized/s17__17_17_8/traits/419.webp"
       },
       "source_ids": {
         "official_id": "419",
@@ -827,7 +846,8 @@
       "image": {
         "local_path": "assets/traits/420.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/trait/s17_trait_icon_darklady.png",
-        "alt": "黑暗魔女羁绊图标"
+        "alt": "黑暗魔女羁绊图标",
+        "optimized_local_path": "assets/optimized/s17__17_17_8/traits/420.webp"
       },
       "source_ids": {
         "official_id": "420",
@@ -859,7 +879,8 @@
       "image": {
         "local_path": "assets/traits/421.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/trait/s17_trait_icon_divineduelist.png",
-        "alt": "斗神羁绊图标"
+        "alt": "斗神羁绊图标",
+        "optimized_local_path": "assets/optimized/s17__17_17_8/traits/421.webp"
       },
       "source_ids": {
         "official_id": "421",
@@ -891,7 +912,8 @@
       "image": {
         "local_path": "assets/traits/422.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/trait/s17_trait_icon_destroyer.png",
-        "alt": "灭星尊羁绊图标"
+        "alt": "灭星尊羁绊图标",
+        "optimized_local_path": "assets/optimized/s17__17_17_8/traits/422.webp"
       },
       "source_ids": {
         "official_id": "422",
@@ -941,7 +963,8 @@
       "image": {
         "local_path": "assets/traits/310.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/trait/s17_trait_icon_bastion.png",
-        "alt": "堡垒卫士羁绊图标"
+        "alt": "堡垒卫士羁绊图标",
+        "optimized_local_path": "assets/optimized/s17__17_17_8/traits/310.webp"
       },
       "source_ids": {
         "official_id": "310",
@@ -991,7 +1014,8 @@
       "image": {
         "local_path": "assets/traits/311.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/trait/s17_trait_icon_brawler.png",
-        "alt": "斗士羁绊图标"
+        "alt": "斗士羁绊图标",
+        "optimized_local_path": "assets/optimized/s17__17_17_8/traits/311.webp"
       },
       "source_ids": {
         "official_id": "311",
@@ -1050,7 +1074,8 @@
       "image": {
         "local_path": "assets/traits/312.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/trait/s17_trait_icon_challenger.png",
-        "alt": "挑战者羁绊图标"
+        "alt": "挑战者羁绊图标",
+        "optimized_local_path": "assets/optimized/s17__17_17_8/traits/312.webp"
       },
       "source_ids": {
         "official_id": "312",
@@ -1100,7 +1125,7 @@
           "min_units": 5,
           "max_units": null,
           "style": "gold",
-          "effect": "(5)3【法力回复】##9【法力回复】",
+          "effect": "(5)2【法力回复】##9【法力回复】",
           "values": {
             "source_style": "3"
           }
@@ -1109,7 +1134,8 @@
       "image": {
         "local_path": "assets/traits/313.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/trait/s17_trait_icon_channeler.png",
-        "alt": "神谕羁绊图标"
+        "alt": "神谕羁绊图标",
+        "optimized_local_path": "assets/optimized/s17__17_17_8/traits/313.webp"
       },
       "source_ids": {
         "official_id": "313",
@@ -1119,7 +1145,7 @@
       "tags": [],
       "extensions": {
         "raw_color": "1|2|2|3",
-        "raw_description": "(2)1【法力回复】##3【法力回复】|(3)1【法力回复】##5【法力回复】|(4)2【法力回复】##7【法力回复】|(5)3【法力回复】##9【法力回复】"
+        "raw_description": "(2)1【法力回复】##3【法力回复】|(3)1【法力回复】##5【法力回复】|(4)2【法力回复】##7【法力回复】|(5)2【法力回复】##9【法力回复】"
       }
     },
     {
@@ -1150,7 +1176,8 @@
       "image": {
         "local_path": "assets/traits/314.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/trait/s17_trait_icon_fateweaver.png",
-        "alt": "织命人羁绊图标"
+        "alt": "织命人羁绊图标",
+        "optimized_local_path": "assets/optimized/s17__17_17_8/traits/314.webp"
       },
       "source_ids": {
         "official_id": "314",
@@ -1200,7 +1227,8 @@
       "image": {
         "local_path": "assets/traits/315.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/trait/s17_trait_icon_marauder.png",
-        "alt": "狂战士羁绊图标"
+        "alt": "狂战士羁绊图标",
+        "optimized_local_path": "assets/optimized/s17__17_17_8/traits/315.webp"
       },
       "source_ids": {
         "official_id": "315",
@@ -1241,7 +1269,8 @@
       "image": {
         "local_path": "assets/traits/316.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/trait/s17_trait_icon_replicator.png",
-        "alt": "魔术师羁绊图标"
+        "alt": "魔术师羁绊图标",
+        "optimized_local_path": "assets/optimized/s17__17_17_8/traits/316.webp"
       },
       "source_ids": {
         "official_id": "316",
@@ -1300,7 +1329,8 @@
       "image": {
         "local_path": "assets/traits/317.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/trait/s17_trait_icon_rogue.png",
-        "alt": "游侠羁绊图标"
+        "alt": "游侠羁绊图标",
+        "optimized_local_path": "assets/optimized/s17__17_17_8/traits/317.webp"
       },
       "source_ids": {
         "official_id": "317",
@@ -1350,7 +1380,8 @@
       "image": {
         "local_path": "assets/traits/318.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/trait/s17_trait_icon_sniper.png",
-        "alt": "狙神羁绊图标"
+        "alt": "狙神羁绊图标",
+        "optimized_local_path": "assets/optimized/s17__17_17_8/traits/318.webp"
       },
       "source_ids": {
         "official_id": "318",
@@ -1400,7 +1431,8 @@
       "image": {
         "local_path": "assets/traits/319.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/trait/s17_trait_icon_shepherd.png",
-        "alt": "牧羊人羁绊图标"
+        "alt": "牧羊人羁绊图标",
+        "optimized_local_path": "assets/optimized/s17__17_17_8/traits/319.webp"
       },
       "source_ids": {
         "official_id": "319",
@@ -1450,7 +1482,8 @@
       "image": {
         "local_path": "assets/traits/320.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/trait/s17_trait_icon_vanguard.png",
-        "alt": "重装战士羁绊图标"
+        "alt": "重装战士羁绊图标",
+        "optimized_local_path": "assets/optimized/s17__17_17_8/traits/320.webp"
       },
       "source_ids": {
         "official_id": "320",
@@ -1518,7 +1551,8 @@
       "image": {
         "local_path": "assets/traits/321.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/trait/s17_trait_icon_voyager.png",
-        "alt": "旅人羁绊图标"
+        "alt": "旅人羁绊图标",
+        "optimized_local_path": "assets/optimized/s17__17_17_8/traits/321.webp"
       },
       "source_ids": {
         "official_id": "321",

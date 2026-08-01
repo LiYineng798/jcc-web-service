@@ -12,8 +12,8 @@ outside the repo:
             index.json            compact payload for the reference page
             champions.json        full snapshot (server-side detail pages)
             traits.json           full snapshot
-            items.json            full snapshot (simulator builder input)
-            assets/...            local images, paths preserved
+            items.json            full snapshot (simulator runtime data)
+            assets/...            original images plus versioned WebP images
 
 Usage (run from the repository root)::
 
@@ -32,17 +32,19 @@ import json
 import os
 import shutil
 import sys
+from io import BytesIO
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 TARGET_ROOT = REPO_ROOT / "static" / "season-data"
 ARCHIVE_DIR_NAME = os.path.join("ccmax资料", "数据模版")
-FULL_SNAPSHOT_FILES = ("champions.json", "traits.json", "items.json")
 
 # Card-grid thumbnails: splash art ships at up to 1624x750 (~130KB each) but
 # renders at ~250 CSS px. A 500px WebP keeps DPR-2 sharpness at ~15-25KB.
 CARD_WIDTH = 500
 CARD_QUALITY = 75
+ICON_MAX_SIZE = 96
+ICON_QUALITY = 82
 
 
 def resolve_source(cli_value: str | None) -> Path:
@@ -67,17 +69,18 @@ def load_json(path: Path):
         return json.load(fh)
 
 
-def dump_json(path: Path, payload) -> None:
+def dump_json(path: Path, payload, *, indent: int = 1) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("w", encoding="utf-8", newline="\n") as fh:
-        json.dump(payload, fh, ensure_ascii=False, indent=1)
+        json.dump(payload, fh, ensure_ascii=False, indent=indent)
         fh.write("\n")
 
 
-def image_path(image) -> str | None:
+def image_path(image, *, prefer_optimized: bool = False) -> str | None:
     """Reduce an archive image object to its bundle-relative path."""
     if isinstance(image, dict):
-        local = image.get("local_path")
+        local = image.get("optimized_local_path") if prefer_optimized else None
+        local = local or image.get("local_path")
         if isinstance(local, str) and local:
             return local
     return None
@@ -109,6 +112,84 @@ def build_card_thumbnail(source: Path, target: Path) -> bool:
     return True
 
 
+def build_icon_webp(source: Path, target: Path) -> bool:
+    try:
+        from PIL import Image
+    except ImportError:
+        return False
+    image_source = source
+    if source.suffix.lower() == ".svg":
+        try:
+            from cairosvg import svg2png
+        except ImportError:
+            return False
+        image_source = BytesIO(
+            svg2png(
+                bytestring=source.read_bytes(),
+                output_width=ICON_MAX_SIZE,
+                output_height=ICON_MAX_SIZE,
+            )
+        )
+    target.parent.mkdir(parents=True, exist_ok=True)
+    with Image.open(image_source) as image:
+        frame = image.convert("RGBA") if image.mode in {"P", "LA", "RGBA"} else image.convert("RGB")
+        frame.thumbnail((ICON_MAX_SIZE, ICON_MAX_SIZE), Image.LANCZOS)
+        frame.save(target, format="WEBP", quality=ICON_QUALITY, method=6)
+    return True
+
+
+def add_optimized_image(
+    image: dict | None,
+    target_dir: Path,
+    relative_target: str,
+) -> bool:
+    if not isinstance(image, dict):
+        return False
+    source_path = image.get("local_path")
+    if not isinstance(source_path, str) or not (target_dir / source_path).is_file():
+        return False
+    if not build_icon_webp(target_dir / source_path, target_dir / relative_target):
+        return False
+    image["optimized_local_path"] = relative_target
+    return True
+
+
+def generate_optimized_images(
+    target_dir: Path,
+    version_id: str,
+    champions_doc: dict,
+    traits_doc: dict,
+    items_doc: dict,
+) -> tuple[int, list[str]]:
+    root = f"assets/optimized/{version_id}"
+    built = 0
+    missing = []
+    for champion in champions_doc.get("champions") or []:
+        champion_id = str(champion["id"])
+        images = champion.get("images") or {}
+        if add_optimized_image(images.get("icon"), target_dir, f"{root}/champions/{champion_id}.webp"):
+            built += 1
+        else:
+            missing.append(f"champion:{champion_id}")
+        for position, skill in enumerate(champion.get("skills") or []):
+            skill_id = str(skill.get("id") or f"{champion_id}_{position + 1}")
+            if add_optimized_image(skill.get("image"), target_dir, f"{root}/skills/{skill_id}.webp"):
+                built += 1
+    for trait in traits_doc.get("traits") or []:
+        trait_id = str(trait["id"])
+        if add_optimized_image(trait.get("image"), target_dir, f"{root}/traits/{trait_id}.webp"):
+            built += 1
+        else:
+            missing.append(f"trait:{trait_id}")
+    for item in items_doc.get("items") or []:
+        item_id = str(item["id"])
+        if add_optimized_image(item.get("image"), target_dir, f"{root}/items/{item_id}.webp"):
+            built += 1
+        else:
+            missing.append(f"item:{item_id}")
+    return built, missing
+
+
 def compact_champion(champion: dict, card_path: str | None = None) -> dict:
     skill = (champion.get("skills") or [{}])[0]
     images = champion.get("images") or {}
@@ -123,14 +204,14 @@ def compact_champion(champion: dict, card_path: str | None = None) -> dict:
             "description": availability.get("description"),
         },
         "tags": champion.get("tags") or [],
-        "icon": image_path(images.get("icon")),
+        "icon": image_path(images.get("icon"), prefer_optimized=True),
         "splash": image_path(images.get("splash")),
         "card": card_path,
         "has_stats": bool(champion.get("stats_by_star")),
         "skill": {
             "name": skill.get("name"),
             "description": skill.get("description"),
-            "image": image_path(skill.get("image")),
+            "image": image_path(skill.get("image"), prefer_optimized=True),
         },
     }
 
@@ -141,7 +222,7 @@ def compact_trait(trait: dict) -> dict:
         "name": trait["name"],
         "category": trait.get("category"),
         "description": trait.get("description"),
-        "image": image_path(trait.get("image")),
+        "image": image_path(trait.get("image"), prefer_optimized=True),
         "breakpoints": [
             {
                 "min_units": bp.get("min_units"),
@@ -203,14 +284,26 @@ def import_season(source_root: Path, catalog_entry: dict) -> dict:
 
     champions_doc = load_json(version_dir / "champions.json")
     traits_doc = load_json(version_dir / "traits.json")
-    for name in FULL_SNAPSHOT_FILES:
-        source_file = version_dir / name
-        if source_file.is_file():
-            shutil.copyfile(source_file, target_dir / name)
+    items_path = version_dir / "items.json"
+    items_doc = load_json(items_path) if items_path.is_file() else {"items": []}
 
     assets_dir = version_dir / "assets"
     if assets_dir.is_dir():
         shutil.copytree(assets_dir, target_dir / "assets")
+
+    optimized_count, optimized_missing = generate_optimized_images(
+        target_dir,
+        version_meta["version_id"],
+        champions_doc,
+        traits_doc,
+        items_doc,
+    )
+    dump_json(target_dir / "champions.json", champions_doc, indent=2)
+    dump_json(target_dir / "traits.json", traits_doc, indent=2)
+    dump_json(target_dir / "items.json", items_doc, indent=2)
+    print(f"  WebP: 已生成 {optimized_count} 张 96px 版本化小图")
+    if optimized_missing:
+        print(f"  警告: {season_id} 有 {len(optimized_missing)} 个模拟器小图缺少源文件")
 
     champions = []
     card_failures = 0

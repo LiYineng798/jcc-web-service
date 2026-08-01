@@ -100,7 +100,8 @@
           "image": {
             "local_path": "assets/skills/1152.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/skill/s8_nasus.png",
-            "alt": "内瑟斯技能图标"
+            "alt": "内瑟斯技能图标",
+            "optimized_local_path": "assets/optimized/s8__17_17_7/skills/1152_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -116,7 +117,8 @@
         "icon": {
           "local_path": "assets/champions/1152.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/hero/s8_nasus.png",
-          "alt": "内瑟斯头像"
+          "alt": "内瑟斯头像",
+          "optimized_local_path": "assets/optimized/s8__17_17_7/champions/1152.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/1152.jpg",
@@ -238,7 +240,8 @@
           "image": {
             "local_path": "assets/skills/1153.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/skill/s8_sylas.png",
-            "alt": "塞拉斯技能图标"
+            "alt": "塞拉斯技能图标",
+            "optimized_local_path": "assets/optimized/s8__17_17_7/skills/1153_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -254,7 +257,8 @@
         "icon": {
           "local_path": "assets/champions/1153.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/hero/s8_sylas.png",
-          "alt": "塞拉斯头像"
+          "alt": "塞拉斯头像",
+          "optimized_local_path": "assets/optimized/s8__17_17_7/champions/1153.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/1153.jpg",
@@ -365,7 +369,8 @@
           "image": {
             "local_path": "assets/skills/1154.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/skill/s8_ashe.png",
-            "alt": "艾希技能图标"
+            "alt": "艾希技能图标",
+            "optimized_local_path": "assets/optimized/s8__17_17_7/skills/1154_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -381,7 +386,8 @@
         "icon": {
           "local_path": "assets/champions/1154.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/hero/s8_ashe.png",
-          "alt": "艾希头像"
+          "alt": "艾希头像",
+          "optimized_local_path": "assets/optimized/s8__17_17_7/champions/1154.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/1154.jpg",
@@ -503,7 +509,8 @@
           "image": {
             "local_path": "assets/skills/1155.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/skill/s8_galio.png",
-            "alt": "加里奥技能图标"
+            "alt": "加里奥技能图标",
+            "optimized_local_path": "assets/optimized/s8__17_17_7/skills/1155_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -519,7 +526,8 @@
         "icon": {
           "local_path": "assets/champions/1155.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/hero/s8_galio.png",
-          "alt": "加里奥头像"
+          "alt": "加里奥头像",
+          "optimized_local_path": "assets/optimized/s8__17_17_7/champions/1155.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/1155.jpg",
@@ -630,7 +638,8 @@
           "image": {
             "local_path": "assets/skills/1156.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/skill/s8_gangplank.png",
-            "alt": "普朗克技能图标"
+            "alt": "普朗克技能图标",
+            "optimized_local_path": "assets/optimized/s8__17_17_7/skills/1156_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -646,7 +655,8 @@
         "icon": {
           "local_path": "assets/champions/1156.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/hero/s8_gangplank.png",
-          "alt": "普朗克头像"
+          "alt": "普朗克头像",
+          "optimized_local_path": "assets/optimized/s8__17_17_7/champions/1156.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/1156.jpg",
@@ -757,7 +767,8 @@
           "image": {
             "local_path": "assets/skills/1157.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/skill/s8_lux.png",
-            "alt": "拉克丝技能图标"
+            "alt": "拉克丝技能图标",
+            "optimized_local_path": "assets/optimized/s8__17_17_7/skills/1157_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -773,7 +784,8 @@
         "icon": {
           "local_path": "assets/champions/1157.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/hero/s8_lux.png",
-          "alt": "拉克丝头像"
+          "alt": "拉克丝头像",
+          "optimized_local_path": "assets/optimized/s8__17_17_7/champions/1157.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/1157.jpg",
@@ -895,7 +907,8 @@
           "image": {
             "local_path": "assets/skills/1158.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/skill/s8_renekton.png",
-            "alt": "雷克顿技能图标"
+            "alt": "雷克顿技能图标",
+            "optimized_local_path": "assets/optimized/s8__17_17_7/skills/1158_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -911,7 +924,8 @@
         "icon": {
           "local_path": "assets/champions/1158.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/hero/s8_renekton.png",
-          "alt": "雷克顿头像"
+          "alt": "雷克顿头像",
+          "optimized_local_path": "assets/optimized/s8__17_17_7/champions/1158.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/1158.jpg",
@@ -1033,7 +1047,8 @@
           "image": {
             "local_path": "assets/skills/1159.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/skill/s8_talon.png",
-            "alt": "泰隆技能图标"
+            "alt": "泰隆技能图标",
+            "optimized_local_path": "assets/optimized/s8__17_17_7/skills/1159_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -1049,7 +1064,8 @@
         "icon": {
           "local_path": "assets/champions/1159.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/hero/s8_talon.png",
-          "alt": "泰隆头像"
+          "alt": "泰隆头像",
+          "optimized_local_path": "assets/optimized/s8__17_17_7/champions/1159.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/1159.jpg",
@@ -1160,7 +1176,8 @@
           "image": {
             "local_path": "assets/skills/1160.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/skill/s8_blitzcrank.png",
-            "alt": "布里茨技能图标"
+            "alt": "布里茨技能图标",
+            "optimized_local_path": "assets/optimized/s8__17_17_7/skills/1160_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -1176,7 +1193,8 @@
         "icon": {
           "local_path": "assets/champions/1160.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/hero/s8_blitzcrank.png",
-          "alt": "布里茨头像"
+          "alt": "布里茨头像",
+          "optimized_local_path": "assets/optimized/s8__17_17_7/champions/1160.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/1160.jpg",
@@ -1298,7 +1316,8 @@
           "image": {
             "local_path": "assets/skills/1162.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/skill/s8_lulu.png",
-            "alt": "璐璐技能图标"
+            "alt": "璐璐技能图标",
+            "optimized_local_path": "assets/optimized/s8__17_17_7/skills/1162_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -1314,7 +1333,8 @@
         "icon": {
           "local_path": "assets/champions/1162.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/hero/s8_lulu.png",
-          "alt": "璐璐头像"
+          "alt": "璐璐头像",
+          "optimized_local_path": "assets/optimized/s8__17_17_7/champions/1162.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/1162.jpg",
@@ -1436,7 +1456,8 @@
           "image": {
             "local_path": "assets/skills/1163.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/skill/s8_wukong.png",
-            "alt": "孙悟空技能图标"
+            "alt": "孙悟空技能图标",
+            "optimized_local_path": "assets/optimized/s8__17_17_7/skills/1163_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -1452,7 +1473,8 @@
         "icon": {
           "local_path": "assets/champions/1163.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/hero/s8_wukong.png",
-          "alt": "孙悟空头像"
+          "alt": "孙悟空头像",
+          "optimized_local_path": "assets/optimized/s8__17_17_7/champions/1163.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/1163.jpg",
@@ -1574,7 +1596,8 @@
           "image": {
             "local_path": "assets/skills/1164.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/skill/s8_kayle.png",
-            "alt": "凯尔技能图标"
+            "alt": "凯尔技能图标",
+            "optimized_local_path": "assets/optimized/s8__17_17_7/skills/1164_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -1590,7 +1613,8 @@
         "icon": {
           "local_path": "assets/champions/1164.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/hero/s8_kayle.png",
-          "alt": "凯尔头像"
+          "alt": "凯尔头像",
+          "optimized_local_path": "assets/optimized/s8__17_17_7/champions/1164.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/1164.jpg",
@@ -1712,7 +1736,8 @@
           "image": {
             "local_path": "assets/skills/1165.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/skill/s8_poppy.png",
-            "alt": "波比技能图标"
+            "alt": "波比技能图标",
+            "optimized_local_path": "assets/optimized/s8__17_17_7/skills/1165_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -1728,7 +1753,8 @@
         "icon": {
           "local_path": "assets/champions/1165.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/hero/s8_poppy.png",
-          "alt": "波比头像"
+          "alt": "波比头像",
+          "optimized_local_path": "assets/optimized/s8__17_17_7/champions/1165.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/1165.jpg",
@@ -1850,7 +1876,8 @@
           "image": {
             "local_path": "assets/skills/2143.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/skill/s8_jinx.png",
-            "alt": "金克丝技能图标"
+            "alt": "金克丝技能图标",
+            "optimized_local_path": "assets/optimized/s8__17_17_7/skills/2143_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -1866,7 +1893,8 @@
         "icon": {
           "local_path": "assets/champions/2143.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/hero/s8_jinx.png",
-          "alt": "金克丝头像"
+          "alt": "金克丝头像",
+          "optimized_local_path": "assets/optimized/s8__17_17_7/champions/2143.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/2143.jpg",
@@ -1989,7 +2017,8 @@
           "image": {
             "local_path": "assets/skills/2144.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/skill/s8_annie.png",
-            "alt": "安妮技能图标"
+            "alt": "安妮技能图标",
+            "optimized_local_path": "assets/optimized/s8__17_17_7/skills/2144_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -2005,7 +2034,8 @@
         "icon": {
           "local_path": "assets/champions/2144.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/hero/s8_annie.png",
-          "alt": "安妮头像"
+          "alt": "安妮头像",
+          "optimized_local_path": "assets/optimized/s8__17_17_7/champions/2144.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/2144.jpg",
@@ -2138,7 +2168,8 @@
           "image": {
             "local_path": "assets/skills/2145.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/skill/s8_camille.png",
-            "alt": "卡蜜尔技能图标"
+            "alt": "卡蜜尔技能图标",
+            "optimized_local_path": "assets/optimized/s8__17_17_7/skills/2145_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -2154,7 +2185,8 @@
         "icon": {
           "local_path": "assets/champions/2145.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/hero/s8_camille.png",
-          "alt": "卡蜜尔头像"
+          "alt": "卡蜜尔头像",
+          "optimized_local_path": "assets/optimized/s8__17_17_7/champions/2145.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/2145.jpg",
@@ -2276,7 +2308,8 @@
           "image": {
             "local_path": "assets/skills/2146.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/skill/s8_fiora.png",
-            "alt": "菲奥娜技能图标"
+            "alt": "菲奥娜技能图标",
+            "optimized_local_path": "assets/optimized/s8__17_17_7/skills/2146_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -2292,7 +2325,8 @@
         "icon": {
           "local_path": "assets/champions/2146.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/hero/s8_fiora.png",
-          "alt": "菲奥娜头像"
+          "alt": "菲奥娜头像",
+          "optimized_local_path": "assets/optimized/s8__17_17_7/champions/2146.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/2146.jpg",
@@ -2426,7 +2460,8 @@
           "image": {
             "local_path": "assets/skills/2147.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/skill/s8_leesin.png",
-            "alt": "李青技能图标"
+            "alt": "李青技能图标",
+            "optimized_local_path": "assets/optimized/s8__17_17_7/skills/2147_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -2442,7 +2477,8 @@
         "icon": {
           "local_path": "assets/champions/2147.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/hero/s8_leesin.png",
-          "alt": "李青头像"
+          "alt": "李青头像",
+          "optimized_local_path": "assets/optimized/s8__17_17_7/champions/2147.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/2147.jpg",
@@ -2564,7 +2600,8 @@
           "image": {
             "local_path": "assets/skills/2148.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/skill/s8_rell.png",
-            "alt": "芮尔技能图标"
+            "alt": "芮尔技能图标",
+            "optimized_local_path": "assets/optimized/s8__17_17_7/skills/2148_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -2580,7 +2617,8 @@
         "icon": {
           "local_path": "assets/champions/2148.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/hero/s8_rell.png",
-          "alt": "芮尔头像"
+          "alt": "芮尔头像",
+          "optimized_local_path": "assets/optimized/s8__17_17_7/champions/2148.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/2148.jpg",
@@ -2702,7 +2740,8 @@
           "image": {
             "local_path": "assets/skills/2149.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/skill/s8_sivir.png",
-            "alt": "希维尔技能图标"
+            "alt": "希维尔技能图标",
+            "optimized_local_path": "assets/optimized/s8__17_17_7/skills/2149_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -2718,7 +2757,8 @@
         "icon": {
           "local_path": "assets/champions/2149.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/hero/s8_sivir.png",
-          "alt": "希维尔头像"
+          "alt": "希维尔头像",
+          "optimized_local_path": "assets/optimized/s8__17_17_7/champions/2149.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/2149.jpg",
@@ -2829,7 +2869,8 @@
           "image": {
             "local_path": "assets/skills/2150.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/skill/s8_yasuo.png",
-            "alt": "亚索技能图标"
+            "alt": "亚索技能图标",
+            "optimized_local_path": "assets/optimized/s8__17_17_7/skills/2150_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -2845,7 +2886,8 @@
         "icon": {
           "local_path": "assets/champions/2150.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/hero/s8_yasuo.png",
-          "alt": "亚索头像"
+          "alt": "亚索头像",
+          "optimized_local_path": "assets/optimized/s8__17_17_7/champions/2150.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/2150.jpg",
@@ -2957,7 +2999,8 @@
           "image": {
             "local_path": "assets/skills/2151.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/skill/s8_yuumi.png",
-            "alt": "悠米技能图标"
+            "alt": "悠米技能图标",
+            "optimized_local_path": "assets/optimized/s8__17_17_7/skills/2151_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -2973,7 +3016,8 @@
         "icon": {
           "local_path": "assets/champions/2151.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/hero/s8_yuumi.png",
-          "alt": "悠米头像"
+          "alt": "悠米头像",
+          "optimized_local_path": "assets/optimized/s8__17_17_7/champions/2151.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/2151.jpg",
@@ -3095,7 +3139,8 @@
           "image": {
             "local_path": "assets/skills/2152.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/skill/s8_malphite.png",
-            "alt": "墨菲特技能图标"
+            "alt": "墨菲特技能图标",
+            "optimized_local_path": "assets/optimized/s8__17_17_7/skills/2152_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -3111,7 +3156,8 @@
         "icon": {
           "local_path": "assets/champions/2152.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/hero/s8_malphite.png",
-          "alt": "墨菲特头像"
+          "alt": "墨菲特头像",
+          "optimized_local_path": "assets/optimized/s8__17_17_7/champions/2152.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/2152.jpg",
@@ -3233,7 +3279,8 @@
           "image": {
             "local_path": "assets/skills/2153.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/skill/s8_draven.png",
-            "alt": "德莱文技能图标"
+            "alt": "德莱文技能图标",
+            "optimized_local_path": "assets/optimized/s8__17_17_7/skills/2153_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -3249,7 +3296,8 @@
         "icon": {
           "local_path": "assets/champions/2153.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/hero/s8_draven.png",
-          "alt": "德莱文头像"
+          "alt": "德莱文头像",
+          "optimized_local_path": "assets/optimized/s8__17_17_7/champions/2153.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/2153.jpg",
@@ -3372,7 +3420,8 @@
           "image": {
             "local_path": "assets/skills/2154.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/skill/s8_vi.png",
-            "alt": "蔚技能图标"
+            "alt": "蔚技能图标",
+            "optimized_local_path": "assets/optimized/s8__17_17_7/skills/2154_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -3388,7 +3437,8 @@
         "icon": {
           "local_path": "assets/champions/2154.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/hero/s8_vi.png",
-          "alt": "蔚头像"
+          "alt": "蔚头像",
+          "optimized_local_path": "assets/optimized/s8__17_17_7/champions/2154.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/2154.jpg",
@@ -3510,7 +3560,8 @@
           "image": {
             "local_path": "assets/skills/2155.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/skill/s8_ezreal.png",
-            "alt": "伊泽瑞尔技能图标"
+            "alt": "伊泽瑞尔技能图标",
+            "optimized_local_path": "assets/optimized/s8__17_17_7/skills/2155_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -3526,7 +3577,8 @@
         "icon": {
           "local_path": "assets/champions/2155.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/hero/s8_ezreal.png",
-          "alt": "伊泽瑞尔头像"
+          "alt": "伊泽瑞尔头像",
+          "optimized_local_path": "assets/optimized/s8__17_17_7/champions/2155.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/2155.jpg",
@@ -3649,7 +3701,8 @@
           "image": {
             "local_path": "assets/skills/3158.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/skill/s8_riven.png",
-            "alt": "锐雯技能图标"
+            "alt": "锐雯技能图标",
+            "optimized_local_path": "assets/optimized/s8__17_17_7/skills/3158_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -3665,7 +3718,8 @@
         "icon": {
           "local_path": "assets/champions/3158.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/hero/s8_riven.png",
-          "alt": "锐雯头像"
+          "alt": "锐雯头像",
+          "optimized_local_path": "assets/optimized/s8__17_17_7/champions/3158.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/3158.jpg",
@@ -3788,7 +3842,8 @@
           "image": {
             "local_path": "assets/skills/3159.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/skill/s8_vayne.png",
-            "alt": "薇恩技能图标"
+            "alt": "薇恩技能图标",
+            "optimized_local_path": "assets/optimized/s8__17_17_7/skills/3159_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -3804,7 +3859,8 @@
         "icon": {
           "local_path": "assets/champions/3159.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/hero/s8_vayne.png",
-          "alt": "薇恩头像"
+          "alt": "薇恩头像",
+          "optimized_local_path": "assets/optimized/s8__17_17_7/champions/3159.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/3159.jpg",
@@ -3927,7 +3983,8 @@
           "image": {
             "local_path": "assets/skills/3160.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/skill/s8_alistar.png",
-            "alt": "阿利斯塔技能图标"
+            "alt": "阿利斯塔技能图标",
+            "optimized_local_path": "assets/optimized/s8__17_17_7/skills/3160_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -3943,7 +4000,8 @@
         "icon": {
           "local_path": "assets/champions/3160.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/hero/s8_alistar.png",
-          "alt": "阿利斯塔头像"
+          "alt": "阿利斯塔头像",
+          "optimized_local_path": "assets/optimized/s8__17_17_7/champions/3160.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/3160.jpg",
@@ -4086,7 +4144,8 @@
           "image": {
             "local_path": "assets/skills/3161.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/skill/s8_chogath.png",
-            "alt": "科加斯技能图标"
+            "alt": "科加斯技能图标",
+            "optimized_local_path": "assets/optimized/s8__17_17_7/skills/3161_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -4102,7 +4161,8 @@
         "icon": {
           "local_path": "assets/champions/3161.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/hero/s8_chogath.png",
-          "alt": "科加斯头像"
+          "alt": "科加斯头像",
+          "optimized_local_path": "assets/optimized/s8__17_17_7/champions/3161.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/3161.jpg",
@@ -4236,7 +4296,8 @@
           "image": {
             "local_path": "assets/skills/3162.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/skill/s8_sona.png",
-            "alt": "娑娜技能图标"
+            "alt": "娑娜技能图标",
+            "optimized_local_path": "assets/optimized/s8__17_17_7/skills/3162_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -4252,7 +4313,8 @@
         "icon": {
           "local_path": "assets/champions/3162.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/hero/s8_sona.png",
-          "alt": "娑娜头像"
+          "alt": "娑娜头像",
+          "optimized_local_path": "assets/optimized/s8__17_17_7/champions/3162.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/3162.jpg",
@@ -4373,7 +4435,8 @@
           "image": {
             "local_path": "assets/skills/3163.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/skill/s8_velkoz.png",
-            "alt": "维克兹技能图标"
+            "alt": "维克兹技能图标",
+            "optimized_local_path": "assets/optimized/s8__17_17_7/skills/3163_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -4389,7 +4452,8 @@
         "icon": {
           "local_path": "assets/champions/3163.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/hero/s8_velkoz.png",
-          "alt": "维克兹头像"
+          "alt": "维克兹头像",
+          "optimized_local_path": "assets/optimized/s8__17_17_7/champions/3163.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/3163.jpg",
@@ -4512,7 +4576,8 @@
           "image": {
             "local_path": "assets/skills/3164.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/skill/s8_zoe.png",
-            "alt": "佐伊技能图标"
+            "alt": "佐伊技能图标",
+            "optimized_local_path": "assets/optimized/s8__17_17_7/skills/3164_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -4528,7 +4593,8 @@
         "icon": {
           "local_path": "assets/champions/3164.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/hero/s8_zoe.png",
-          "alt": "佐伊头像"
+          "alt": "佐伊头像",
+          "optimized_local_path": "assets/optimized/s8__17_17_7/champions/3164.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/3164.jpg",
@@ -4660,7 +4726,8 @@
           "image": {
             "local_path": "assets/skills/3165.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/skill/s8_rammus.png",
-            "alt": "拉莫斯技能图标"
+            "alt": "拉莫斯技能图标",
+            "optimized_local_path": "assets/optimized/s8__17_17_7/skills/3165_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -4676,7 +4743,8 @@
         "icon": {
           "local_path": "assets/champions/3165.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/hero/s8_rammus.png",
-          "alt": "拉莫斯头像"
+          "alt": "拉莫斯头像",
+          "optimized_local_path": "assets/optimized/s8__17_17_7/champions/3165.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/3165.jpg",
@@ -4809,7 +4877,8 @@
           "image": {
             "local_path": "assets/skills/3166.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/skill/s8_nilah.png",
-            "alt": "尼菈技能图标"
+            "alt": "尼菈技能图标",
+            "optimized_local_path": "assets/optimized/s8__17_17_7/skills/3166_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -4825,7 +4894,8 @@
         "icon": {
           "local_path": "assets/champions/3166.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/hero/s8_nilah.png",
-          "alt": "尼菈头像"
+          "alt": "尼菈头像",
+          "optimized_local_path": "assets/optimized/s8__17_17_7/champions/3166.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/3166.jpg",
@@ -4947,7 +5017,8 @@
           "image": {
             "local_path": "assets/skills/3167.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/skill/s8_senna.png",
-            "alt": "赛娜技能图标"
+            "alt": "赛娜技能图标",
+            "optimized_local_path": "assets/optimized/s8__17_17_7/skills/3167_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -4963,7 +5034,8 @@
         "icon": {
           "local_path": "assets/champions/3167.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/hero/s8_senna.png",
-          "alt": "赛娜头像"
+          "alt": "赛娜头像",
+          "optimized_local_path": "assets/optimized/s8__17_17_7/champions/3167.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/3167.jpg",
@@ -5085,7 +5157,8 @@
           "image": {
             "local_path": "assets/skills/3168.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/skill/s8_jax.png",
-            "alt": "贾克斯技能图标"
+            "alt": "贾克斯技能图标",
+            "optimized_local_path": "assets/optimized/s8__17_17_7/skills/3168_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -5101,7 +5174,8 @@
         "icon": {
           "local_path": "assets/champions/3168.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/hero/s8_jax.png",
-          "alt": "贾克斯头像"
+          "alt": "贾克斯头像",
+          "optimized_local_path": "assets/optimized/s8__17_17_7/champions/3168.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/3168.jpg",
@@ -5224,7 +5298,8 @@
           "image": {
             "local_path": "assets/skills/3169.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/skill/s8_leblanc.png",
-            "alt": "乐芙兰技能图标"
+            "alt": "乐芙兰技能图标",
+            "optimized_local_path": "assets/optimized/s8__17_17_7/skills/3169_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -5240,7 +5315,8 @@
         "icon": {
           "local_path": "assets/champions/3169.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/hero/s8_leblanc.png",
-          "alt": "乐芙兰头像"
+          "alt": "乐芙兰头像",
+          "optimized_local_path": "assets/optimized/s8__17_17_7/champions/3169.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/3169.jpg",
@@ -5351,7 +5427,8 @@
           "image": {
             "local_path": "assets/skills/3170.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/skill/s8_kaisa.png",
-            "alt": "卡莎技能图标"
+            "alt": "卡莎技能图标",
+            "optimized_local_path": "assets/optimized/s8__17_17_7/skills/3170_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -5367,7 +5444,8 @@
         "icon": {
           "local_path": "assets/champions/3170.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/hero/s8_kaisa.png",
-          "alt": "卡莎头像"
+          "alt": "卡莎头像",
+          "optimized_local_path": "assets/optimized/s8__17_17_7/champions/3170.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/3170.jpg",
@@ -5440,7 +5518,8 @@
           "image": {
             "local_path": "assets/skills/3172.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/skill/s8_morgana.png",
-            "alt": "莫甘娜技能图标"
+            "alt": "莫甘娜技能图标",
+            "optimized_local_path": "assets/optimized/s8__17_17_7/skills/3172_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -5453,7 +5532,8 @@
         "icon": {
           "local_path": "assets/champions/3172.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/hero/s8_morgana.png",
-          "alt": "莫甘娜头像"
+          "alt": "莫甘娜头像",
+          "optimized_local_path": "assets/optimized/s8__17_17_7/champions/3172.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/3172.jpg",
@@ -5572,7 +5652,8 @@
           "image": {
             "local_path": "assets/skills/4141.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/skill/s8_taliyah.png",
-            "alt": "塔莉垭技能图标"
+            "alt": "塔莉垭技能图标",
+            "optimized_local_path": "assets/optimized/s8__17_17_7/skills/4141_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -5588,7 +5669,8 @@
         "icon": {
           "local_path": "assets/champions/4141.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/hero/s8_taliyah.png",
-          "alt": "塔莉垭头像"
+          "alt": "塔莉垭头像",
+          "optimized_local_path": "assets/optimized/s8__17_17_7/champions/4141.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/4141.jpg",
@@ -5722,7 +5804,8 @@
           "image": {
             "local_path": "assets/skills/4142.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/skill/s8_viego.png",
-            "alt": "佛耶戈技能图标"
+            "alt": "佛耶戈技能图标",
+            "optimized_local_path": "assets/optimized/s8__17_17_7/skills/4142_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -5738,7 +5821,8 @@
         "icon": {
           "local_path": "assets/champions/4142.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/hero/s8_viego.png",
-          "alt": "佛耶戈头像"
+          "alt": "佛耶戈头像",
+          "optimized_local_path": "assets/optimized/s8__17_17_7/champions/4142.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/4142.jpg",
@@ -5859,7 +5943,8 @@
           "image": {
             "local_path": "assets/skills/4143.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/skill/s8_aurelionsol.png",
-            "alt": "奥瑞利安 · 索尔技能图标"
+            "alt": "奥瑞利安 · 索尔技能图标",
+            "optimized_local_path": "assets/optimized/s8__17_17_7/skills/4143_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -5875,7 +5960,8 @@
         "icon": {
           "local_path": "assets/champions/4143.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/hero/s8_aurelionsol.png",
-          "alt": "奥瑞利安 · 索尔头像"
+          "alt": "奥瑞利安 · 索尔头像",
+          "optimized_local_path": "assets/optimized/s8__17_17_7/champions/4143.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/4143.jpg",
@@ -5996,7 +6082,8 @@
           "image": {
             "local_path": "assets/skills/4144.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/skill/s8_belveth.png",
-            "alt": "卑尔维斯技能图标"
+            "alt": "卑尔维斯技能图标",
+            "optimized_local_path": "assets/optimized/s8__17_17_7/skills/4144_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -6012,7 +6099,8 @@
         "icon": {
           "local_path": "assets/champions/4144.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/hero/s8_belveth.png",
-          "alt": "卑尔维斯头像"
+          "alt": "卑尔维斯头像",
+          "optimized_local_path": "assets/optimized/s8__17_17_7/champions/4144.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/4144.jpg",
@@ -6134,7 +6222,8 @@
           "image": {
             "local_path": "assets/skills/4146.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/skill/s8_missfortune.png",
-            "alt": "厄运小姐技能图标"
+            "alt": "厄运小姐技能图标",
+            "optimized_local_path": "assets/optimized/s8__17_17_7/skills/4146_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -6150,7 +6239,8 @@
         "icon": {
           "local_path": "assets/champions/4146.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/hero/s8_missfortune.png",
-          "alt": "厄运小姐头像"
+          "alt": "厄运小姐头像",
+          "optimized_local_path": "assets/optimized/s8__17_17_7/champions/4146.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/4146.jpg",
@@ -6273,7 +6363,8 @@
           "image": {
             "local_path": "assets/skills/4147.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/skill/s8_samira.png",
-            "alt": "莎弥拉技能图标"
+            "alt": "莎弥拉技能图标",
+            "optimized_local_path": "assets/optimized/s8__17_17_7/skills/4147_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -6289,7 +6380,8 @@
         "icon": {
           "local_path": "assets/champions/4147.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/hero/s8_samira.png",
-          "alt": "莎弥拉头像"
+          "alt": "莎弥拉头像",
+          "optimized_local_path": "assets/optimized/s8__17_17_7/champions/4147.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/4147.jpg",
@@ -6422,7 +6514,8 @@
           "image": {
             "local_path": "assets/skills/4148.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/skill/s8_sett.png",
-            "alt": "瑟提技能图标"
+            "alt": "瑟提技能图标",
+            "optimized_local_path": "assets/optimized/s8__17_17_7/skills/4148_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -6438,7 +6531,8 @@
         "icon": {
           "local_path": "assets/champions/4148.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/hero/s8_sett.png",
-          "alt": "瑟提头像"
+          "alt": "瑟提头像",
+          "optimized_local_path": "assets/optimized/s8__17_17_7/champions/4148.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/4148.jpg",
@@ -6570,7 +6664,8 @@
           "image": {
             "local_path": "assets/skills/4149.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/skill/s8_zac.png",
-            "alt": "扎克技能图标"
+            "alt": "扎克技能图标",
+            "optimized_local_path": "assets/optimized/s8__17_17_7/skills/4149_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -6586,7 +6681,8 @@
         "icon": {
           "local_path": "assets/champions/4149.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/hero/s8_zac.png",
-          "alt": "扎克头像"
+          "alt": "扎克头像",
+          "optimized_local_path": "assets/optimized/s8__17_17_7/champions/4149.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/4149.jpg",
@@ -6720,7 +6816,8 @@
           "image": {
             "local_path": "assets/skills/4150.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/skill/s8_zed.png",
-            "alt": "劫技能图标"
+            "alt": "劫技能图标",
+            "optimized_local_path": "assets/optimized/s8__17_17_7/skills/4150_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -6736,7 +6833,8 @@
         "icon": {
           "local_path": "assets/champions/4150.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/hero/s8_zed.png",
-          "alt": "劫头像"
+          "alt": "劫头像",
+          "optimized_local_path": "assets/optimized/s8__17_17_7/champions/4150.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/4150.jpg",
@@ -6858,7 +6956,8 @@
           "image": {
             "local_path": "assets/skills/4151.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/skill/s8_soraka.png",
-            "alt": "索拉卡技能图标"
+            "alt": "索拉卡技能图标",
+            "optimized_local_path": "assets/optimized/s8__17_17_7/skills/4151_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -6874,7 +6973,8 @@
         "icon": {
           "local_path": "assets/champions/4151.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/hero/s8_soraka.png",
-          "alt": "索拉卡头像"
+          "alt": "索拉卡头像",
+          "optimized_local_path": "assets/optimized/s8__17_17_7/champions/4151.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/4151.jpg",
@@ -6996,7 +7096,8 @@
           "image": {
             "local_path": "assets/skills/4152.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/skill/s8_sejuani.png",
-            "alt": "瑟庄妮技能图标"
+            "alt": "瑟庄妮技能图标",
+            "optimized_local_path": "assets/optimized/s8__17_17_7/skills/4152_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -7012,7 +7113,8 @@
         "icon": {
           "local_path": "assets/champions/4152.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/hero/s8_sejuani.png",
-          "alt": "瑟庄妮头像"
+          "alt": "瑟庄妮头像",
+          "optimized_local_path": "assets/optimized/s8__17_17_7/champions/4152.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/4152.jpg",
@@ -7135,7 +7237,8 @@
           "image": {
             "local_path": "assets/skills/4157.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/skill/s8_ekko.png",
-            "alt": "艾克技能图标"
+            "alt": "艾克技能图标",
+            "optimized_local_path": "assets/optimized/s8__17_17_7/skills/4157_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -7151,7 +7254,8 @@
         "icon": {
           "local_path": "assets/champions/4157.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/hero/s8_ekko.png",
-          "alt": "艾克头像"
+          "alt": "艾克头像",
+          "optimized_local_path": "assets/optimized/s8__17_17_7/champions/4157.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/4157.jpg",
@@ -7254,7 +7358,8 @@
           "image": {
             "local_path": "assets/skills/4164.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/skill/s8_aatrox.png",
-            "alt": "亚托克斯技能图标"
+            "alt": "亚托克斯技能图标",
+            "optimized_local_path": "assets/optimized/s8__17_17_7/skills/4164_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -7267,7 +7372,8 @@
         "icon": {
           "local_path": "assets/champions/4164.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/hero/s8_aatrox.png",
-          "alt": "亚托克斯头像"
+          "alt": "亚托克斯头像",
+          "optimized_local_path": "assets/optimized/s8__17_17_7/champions/4164.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/4164.jpg",
@@ -7386,7 +7492,8 @@
           "image": {
             "local_path": "assets/skills/5121.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/skill/s8_nunu.png",
-            "alt": "努努和威朗普技能图标"
+            "alt": "努努和威朗普技能图标",
+            "optimized_local_path": "assets/optimized/s8__17_17_7/skills/5121_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -7402,7 +7509,8 @@
         "icon": {
           "local_path": "assets/champions/5121.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/hero/s8_nunu.png",
-          "alt": "努努和威朗普头像"
+          "alt": "努努和威朗普头像",
+          "optimized_local_path": "assets/optimized/s8__17_17_7/champions/5121.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/5121.jpg",
@@ -7524,7 +7632,8 @@
           "image": {
             "local_path": "assets/skills/5122.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/skill/s8_syndra.png",
-            "alt": "辛德拉技能图标"
+            "alt": "辛德拉技能图标",
+            "optimized_local_path": "assets/optimized/s8__17_17_7/skills/5122_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -7540,7 +7649,8 @@
         "icon": {
           "local_path": "assets/champions/5122.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/hero/s8_syndra.png",
-          "alt": "辛德拉头像"
+          "alt": "辛德拉头像",
+          "optimized_local_path": "assets/optimized/s8__17_17_7/champions/5122.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/5122.jpg",
@@ -7663,7 +7773,8 @@
           "image": {
             "local_path": "assets/skills/5123.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/skill/s8_janna.png",
-            "alt": "迦娜技能图标"
+            "alt": "迦娜技能图标",
+            "optimized_local_path": "assets/optimized/s8__17_17_7/skills/5123_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -7679,7 +7790,8 @@
         "icon": {
           "local_path": "assets/champions/5123.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/hero/s8_janna.png",
-          "alt": "迦娜头像"
+          "alt": "迦娜头像",
+          "optimized_local_path": "assets/optimized/s8__17_17_7/champions/5123.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/5123.jpg",
@@ -7802,7 +7914,8 @@
           "image": {
             "local_path": "assets/skills/5124.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/skill/s8_leona.png",
-            "alt": "蕾欧娜技能图标"
+            "alt": "蕾欧娜技能图标",
+            "optimized_local_path": "assets/optimized/s8__17_17_7/skills/5124_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -7818,7 +7931,8 @@
         "icon": {
           "local_path": "assets/champions/5124.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/hero/s8_leona.png",
-          "alt": "蕾欧娜头像"
+          "alt": "蕾欧娜头像",
+          "optimized_local_path": "assets/optimized/s8__17_17_7/champions/5124.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/5124.jpg",
@@ -7951,7 +8065,8 @@
           "image": {
             "local_path": "assets/skills/5125.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/skill/s8_mordekaiser.png",
-            "alt": "莫德凯撒技能图标"
+            "alt": "莫德凯撒技能图标",
+            "optimized_local_path": "assets/optimized/s8__17_17_7/skills/5125_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -7967,7 +8082,8 @@
         "icon": {
           "local_path": "assets/champions/5125.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/hero/s8_mordekaiser.png",
-          "alt": "莫德凯撒头像"
+          "alt": "莫德凯撒头像",
+          "optimized_local_path": "assets/optimized/s8__17_17_7/champions/5125.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/5125.jpg",
@@ -8100,7 +8216,8 @@
           "image": {
             "local_path": "assets/skills/5126.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/skill/s8_fiddlesticks.png",
-            "alt": "费德提克技能图标"
+            "alt": "费德提克技能图标",
+            "optimized_local_path": "assets/optimized/s8__17_17_7/skills/5126_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -8116,7 +8233,8 @@
         "icon": {
           "local_path": "assets/champions/5126.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/hero/s8_fiddlesticks.png",
-          "alt": "费德提克头像"
+          "alt": "费德提克头像",
+          "optimized_local_path": "assets/optimized/s8__17_17_7/champions/5126.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/5126.jpg",
@@ -8270,7 +8388,8 @@
           "image": {
             "local_path": "assets/skills/5127.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/skill/s8_urgot.png",
-            "alt": "厄加特技能图标"
+            "alt": "厄加特技能图标",
+            "optimized_local_path": "assets/optimized/s8__17_17_7/skills/5127_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -8286,7 +8405,8 @@
         "icon": {
           "local_path": "assets/champions/5127.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/hero/s8_urgot.png",
-          "alt": "厄加特头像"
+          "alt": "厄加特头像",
+          "optimized_local_path": "assets/optimized/s8__17_17_7/champions/5127.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/5127.jpg",
@@ -8409,7 +8529,8 @@
           "image": {
             "local_path": "assets/skills/5128.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/skill/s8_apheliosred.png",
-            "alt": "厄斐琉斯技能图标"
+            "alt": "厄斐琉斯技能图标",
+            "optimized_local_path": "assets/optimized/s8__17_17_7/skills/5128_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -8425,7 +8546,8 @@
         "icon": {
           "local_path": "assets/champions/5128.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/hero/s8_aphelios.png",
-          "alt": "厄斐琉斯头像"
+          "alt": "厄斐琉斯头像",
+          "optimized_local_path": "assets/optimized/s8__17_17_7/champions/5128.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/5128.jpg",
@@ -8559,7 +8681,8 @@
           "image": {
             "local_path": "assets/skills/5129.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/skill/s8_apheliosblue.png",
-            "alt": "厄斐琉斯技能图标"
+            "alt": "厄斐琉斯技能图标",
+            "optimized_local_path": "assets/optimized/s8__17_17_7/skills/5129_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -8575,7 +8698,8 @@
         "icon": {
           "local_path": "assets/champions/5129.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/hero/s8_aphelios.png",
-          "alt": "厄斐琉斯头像"
+          "alt": "厄斐琉斯头像",
+          "optimized_local_path": "assets/optimized/s8__17_17_7/champions/5129.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/5129.jpg",
@@ -8709,7 +8833,8 @@
           "image": {
             "local_path": "assets/skills/5130.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/skill/s8_apheliospurple.png",
-            "alt": "厄斐琉斯技能图标"
+            "alt": "厄斐琉斯技能图标",
+            "optimized_local_path": "assets/optimized/s8__17_17_7/skills/5130_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -8725,7 +8850,8 @@
         "icon": {
           "local_path": "assets/champions/5130.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/hero/s8_aphelios.png",
-          "alt": "厄斐琉斯头像"
+          "alt": "厄斐琉斯头像",
+          "optimized_local_path": "assets/optimized/s8__17_17_7/champions/5130.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/5130.jpg",
