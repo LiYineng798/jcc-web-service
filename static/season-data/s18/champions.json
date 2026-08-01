@@ -32,7 +32,8 @@
         "icon": {
           "local_path": "assets/champions/champion_bf4be2686d03.jpg",
           "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918043.jpg",
-          "alt": "卡尔玛头像"
+          "alt": "卡尔玛头像",
+          "optimized_local_path": "assets/optimized/s18__preview_2026_07_13/champions/champion_bf4be2686d03.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/champion_bf4be2686d03.jpg",
@@ -75,7 +76,8 @@
         "icon": {
           "local_path": "assets/champions/champion_2bf010641f51.jpg",
           "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918045.jpg",
-          "alt": "维迦头像"
+          "alt": "维迦头像",
+          "optimized_local_path": "assets/optimized/s18__preview_2026_07_13/champions/champion_2bf010641f51.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/champion_2bf010641f51.jpg",
@@ -118,7 +120,8 @@
         "icon": {
           "local_path": "assets/champions/champion_67d0dd7d871c.jpg",
           "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918083.jpg",
-          "alt": "约里克头像"
+          "alt": "约里克头像",
+          "optimized_local_path": "assets/optimized/s18__preview_2026_07_13/champions/champion_67d0dd7d871c.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/champion_67d0dd7d871c.jpg",
@@ -161,7 +164,8 @@
         "icon": {
           "local_path": "assets/champions/champion_d25cf1e77552.jpg",
           "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918084.jpg",
-          "alt": "阿卡丽头像"
+          "alt": "阿卡丽头像",
+          "optimized_local_path": "assets/optimized/s18__preview_2026_07_13/champions/champion_d25cf1e77552.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/champion_d25cf1e77552.jpg",
@@ -203,7 +207,8 @@
         "icon": {
           "local_path": "assets/champions/champion_e989b2edee05.jpg",
           "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918089.jpg",
-          "alt": "蕾欧娜头像"
+          "alt": "蕾欧娜头像",
+          "optimized_local_path": "assets/optimized/s18__preview_2026_07_13/champions/champion_e989b2edee05.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/champion_e989b2edee05.jpg",
@@ -245,7 +250,8 @@
         "icon": {
           "local_path": "assets/champions/champion_a391aa0c667d.jpg",
           "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918110.jpg",
-          "alt": "韦鲁斯头像"
+          "alt": "韦鲁斯头像",
+          "optimized_local_path": "assets/optimized/s18__preview_2026_07_13/champions/champion_a391aa0c667d.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/champion_a391aa0c667d.jpg",
@@ -287,7 +293,8 @@
         "icon": {
           "local_path": "assets/champions/champion_1f36ce47855b.jpg",
           "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918164.jpg",
-          "alt": "卡蜜尔头像"
+          "alt": "卡蜜尔头像",
+          "optimized_local_path": "assets/optimized/s18__preview_2026_07_13/champions/champion_1f36ce47855b.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/champion_1f36ce47855b.jpg",
@@ -329,7 +336,8 @@
         "icon": {
           "local_path": "assets/champions/champion_7e99467af3b4.jpg",
           "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918421.jpg",
-          "alt": "雷克塞头像"
+          "alt": "雷克塞头像",
+          "optimized_local_path": "assets/optimized/s18__preview_2026_07_13/champions/champion_7e99467af3b4.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/champion_7e99467af3b4.jpg",
@@ -372,7 +380,8 @@
         "icon": {
           "local_path": "assets/champions/champion_6f4ea83a28b5.jpg",
           "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918497.jpg",
-          "alt": "洛头像"
+          "alt": "洛头像",
+          "optimized_local_path": "assets/optimized/s18__preview_2026_07_13/champions/champion_6f4ea83a28b5.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/champion_6f4ea83a28b5.jpg",
@@ -415,7 +424,8 @@
         "icon": {
           "local_path": "assets/champions/champion_389a3f1a1da1.jpg",
           "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918498.jpg",
-          "alt": "霞头像"
+          "alt": "霞头像",
+          "optimized_local_path": "assets/optimized/s18__preview_2026_07_13/champions/champion_389a3f1a1da1.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/champion_389a3f1a1da1.jpg",
@@ -457,7 +467,8 @@
         "icon": {
           "local_path": "assets/champions/champion_ab300e2dfe3e.jpg",
           "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918516.jpg",
-          "alt": "奥恩头像"
+          "alt": "奥恩头像",
+          "optimized_local_path": "assets/optimized/s18__preview_2026_07_13/champions/champion_ab300e2dfe3e.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/champion_ab300e2dfe3e.jpg",
@@ -499,7 +510,8 @@
         "icon": {
           "local_path": "assets/champions/champion_04cc71191c48.jpg",
           "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918954.jpg",
-          "alt": "可酷伯头像"
+          "alt": "可酷伯头像",
+          "optimized_local_path": "assets/optimized/s18__preview_2026_07_13/champions/champion_04cc71191c48.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/champion_04cc71191c48.jpg",
@@ -541,7 +553,8 @@
         "icon": {
           "local_path": "assets/champions/champion_6df333154ea3.jpg",
           "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918989.jpg",
-          "alt": "驻灵头像"
+          "alt": "驻灵头像",
+          "optimized_local_path": "assets/optimized/s18__preview_2026_07_13/champions/champion_6df333154ea3.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/champion_6df333154ea3.jpg",
@@ -583,7 +596,8 @@
         "icon": {
           "local_path": "assets/champions/champion_ab9eba46bcbd.jpg",
           "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918990.jpg",
-          "alt": "绯红树怪头像"
+          "alt": "绯红树怪头像",
+          "optimized_local_path": "assets/optimized/s18__preview_2026_07_13/champions/champion_ab9eba46bcbd.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/champion_ab9eba46bcbd.jpg",
@@ -625,7 +639,8 @@
         "icon": {
           "local_path": "assets/champions/champion_5484d19060d1.jpg",
           "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918007.jpg",
-          "alt": "乐芙兰头像"
+          "alt": "乐芙兰头像",
+          "optimized_local_path": "assets/optimized/s18__preview_2026_07_13/champions/champion_5484d19060d1.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/champion_5484d19060d1.jpg",
@@ -667,7 +682,8 @@
         "icon": {
           "local_path": "assets/champions/champion_a51358e36de0.jpg",
           "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918010.jpg",
-          "alt": "凯尔头像"
+          "alt": "凯尔头像",
+          "optimized_local_path": "assets/optimized/s18__preview_2026_07_13/champions/champion_a51358e36de0.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/champion_a51358e36de0.jpg",
@@ -709,7 +725,8 @@
         "icon": {
           "local_path": "assets/champions/champion_7fdaebcedc1f.jpg",
           "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918012.jpg",
-          "alt": "阿利斯塔头像"
+          "alt": "阿利斯塔头像",
+          "optimized_local_path": "assets/optimized/s18__preview_2026_07_13/champions/champion_7fdaebcedc1f.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/champion_7fdaebcedc1f.jpg",
@@ -751,7 +768,8 @@
         "icon": {
           "local_path": "assets/champions/champion_bc7509dda681.jpg",
           "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918017.jpg",
-          "alt": "提莫头像"
+          "alt": "提莫头像",
+          "optimized_local_path": "assets/optimized/s18__preview_2026_07_13/champions/champion_bc7509dda681.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/champion_bc7509dda681.jpg",
@@ -793,7 +811,8 @@
         "icon": {
           "local_path": "assets/champions/champion_7b8c64b780e8.jpg",
           "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918019.jpg",
-          "alt": "沃里克头像"
+          "alt": "沃里克头像",
+          "optimized_local_path": "assets/optimized/s18__preview_2026_07_13/champions/champion_7b8c64b780e8.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/champion_7b8c64b780e8.jpg",
@@ -835,7 +854,8 @@
         "icon": {
           "local_path": "assets/champions/champion_7be44df20c26.jpg",
           "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918051.jpg",
-          "alt": "凯特琳头像"
+          "alt": "凯特琳头像",
+          "optimized_local_path": "assets/optimized/s18__preview_2026_07_13/champions/champion_7be44df20c26.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/champion_7be44df20c26.jpg",
@@ -877,7 +897,8 @@
         "icon": {
           "local_path": "assets/champions/champion_8dc1da564096.jpg",
           "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918060.jpg",
-          "alt": "伊莉丝头像"
+          "alt": "伊莉丝头像",
+          "optimized_local_path": "assets/optimized/s18__preview_2026_07_13/champions/champion_8dc1da564096.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/champion_8dc1da564096.jpg",
@@ -919,7 +940,8 @@
         "icon": {
           "local_path": "assets/champions/champion_a4d99a388ab2.jpg",
           "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918098.jpg",
-          "alt": "慎头像"
+          "alt": "慎头像",
+          "optimized_local_path": "assets/optimized/s18__preview_2026_07_13/champions/champion_a4d99a388ab2.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/champion_a4d99a388ab2.jpg",
@@ -961,7 +983,8 @@
         "icon": {
           "local_path": "assets/champions/champion_2385eaca81e7.jpg",
           "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918113.jpg",
-          "alt": "瑟庄妮头像"
+          "alt": "瑟庄妮头像",
+          "optimized_local_path": "assets/optimized/s18__preview_2026_07_13/champions/champion_2385eaca81e7.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/champion_2385eaca81e7.jpg",
@@ -1003,7 +1026,8 @@
         "icon": {
           "local_path": "assets/champions/champion_c4b455faa037.jpg",
           "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918804.jpg",
-          "alt": "芸阿娜头像"
+          "alt": "芸阿娜头像",
+          "optimized_local_path": "assets/optimized/s18__preview_2026_07_13/champions/champion_c4b455faa037.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/champion_c4b455faa037.jpg",
@@ -1045,7 +1069,8 @@
         "icon": {
           "local_path": "assets/champions/champion_d43083b25965.jpg",
           "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918991.jpg",
-          "alt": "魔沼蛙头像"
+          "alt": "魔沼蛙头像",
+          "optimized_local_path": "assets/optimized/s18__preview_2026_07_13/champions/champion_d43083b25965.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/champion_d43083b25965.jpg",
@@ -1087,7 +1112,8 @@
         "icon": {
           "local_path": "assets/champions/champion_710d04739bd5.jpg",
           "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918992.jpg",
-          "alt": "暗影狼头像"
+          "alt": "暗影狼头像",
+          "optimized_local_path": "assets/optimized/s18__preview_2026_07_13/champions/champion_710d04739bd5.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/champion_710d04739bd5.jpg",
@@ -1129,7 +1155,8 @@
         "icon": {
           "local_path": "assets/champions/champion_2cf32cc3a497.jpg",
           "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918994.jpg",
-          "alt": "迅捷蟹头像"
+          "alt": "迅捷蟹头像",
+          "optimized_local_path": "assets/optimized/s18__preview_2026_07_13/champions/champion_2cf32cc3a497.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/champion_2cf32cc3a497.jpg",
@@ -1170,7 +1197,8 @@
         "icon": {
           "local_path": "assets/champions/champion_fd0ce19f6c66.jpg",
           "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918009.jpg",
-          "alt": "费德提克头像"
+          "alt": "费德提克头像",
+          "optimized_local_path": "assets/optimized/s18__preview_2026_07_13/champions/champion_fd0ce19f6c66.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/champion_fd0ce19f6c66.jpg",
@@ -1212,7 +1240,8 @@
         "icon": {
           "local_path": "assets/champions/champion_fb1b844eed8a.jpg",
           "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918011.jpg",
-          "alt": "易头像"
+          "alt": "易头像",
+          "optimized_local_path": "assets/optimized/s18__preview_2026_07_13/champions/champion_fb1b844eed8a.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/champion_fb1b844eed8a.jpg",
@@ -1255,7 +1284,8 @@
         "icon": {
           "local_path": "assets/champions/champion_7e2b4f2cdcee.jpg",
           "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918018.jpg",
-          "alt": "崔丝塔娜头像"
+          "alt": "崔丝塔娜头像",
+          "optimized_local_path": "assets/optimized/s18__preview_2026_07_13/champions/champion_7e2b4f2cdcee.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/champion_7e2b4f2cdcee.jpg",
@@ -1297,7 +1327,8 @@
         "icon": {
           "local_path": "assets/champions/champion_c6f2f3e0cb94.jpg",
           "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918033.jpg",
-          "alt": "拉莫斯头像"
+          "alt": "拉莫斯头像",
+          "optimized_local_path": "assets/optimized/s18__preview_2026_07_13/champions/champion_c6f2f3e0cb94.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/champion_c6f2f3e0cb94.jpg",
@@ -1339,7 +1370,8 @@
         "icon": {
           "local_path": "assets/champions/champion_f58054236f1f.jpg",
           "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918069.jpg",
-          "alt": "卡西奥佩娅头像"
+          "alt": "卡西奥佩娅头像",
+          "optimized_local_path": "assets/optimized/s18__preview_2026_07_13/champions/champion_f58054236f1f.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/champion_f58054236f1f.jpg",
@@ -1382,7 +1414,8 @@
         "icon": {
           "local_path": "assets/champions/champion_4e18ee711f3a.jpg",
           "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918096.jpg",
-          "alt": "克格莫头像"
+          "alt": "克格莫头像",
+          "optimized_local_path": "assets/optimized/s18__preview_2026_07_13/champions/champion_4e18ee711f3a.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/champion_4e18ee711f3a.jpg",
@@ -1423,7 +1456,8 @@
         "icon": {
           "local_path": "assets/champions/champion_118dde87c7b4.jpg",
           "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918107.jpg",
-          "alt": "雷恩加尔头像"
+          "alt": "雷恩加尔头像",
+          "optimized_local_path": "assets/optimized/s18__preview_2026_07_13/champions/champion_118dde87c7b4.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/champion_118dde87c7b4.jpg",
@@ -1465,7 +1499,8 @@
         "icon": {
           "local_path": "assets/champions/champion_6912478984ed.jpg",
           "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918120.jpg",
-          "alt": "赫卡里姆头像"
+          "alt": "赫卡里姆头像",
+          "optimized_local_path": "assets/optimized/s18__preview_2026_07_13/champions/champion_6912478984ed.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/champion_6912478984ed.jpg",
@@ -1506,7 +1541,8 @@
         "icon": {
           "local_path": "assets/champions/champion_68d532e62a16.jpg",
           "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918121.jpg",
-          "alt": "卡兹克头像"
+          "alt": "卡兹克头像",
+          "optimized_local_path": "assets/optimized/s18__preview_2026_07_13/champions/champion_68d532e62a16.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/champion_68d532e62a16.jpg",
@@ -1549,7 +1585,8 @@
         "icon": {
           "local_path": "assets/champions/champion_ce86eaee2d4d.jpg",
           "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918131.jpg",
-          "alt": "黛安娜头像"
+          "alt": "黛安娜头像",
+          "optimized_local_path": "assets/optimized/s18__preview_2026_07_13/champions/champion_ce86eaee2d4d.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/champion_ce86eaee2d4d.jpg",
@@ -1592,7 +1629,8 @@
         "icon": {
           "local_path": "assets/champions/champion_027121d997d5.jpg",
           "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918254.jpg",
-          "alt": "蔚头像"
+          "alt": "蔚头像",
+          "optimized_local_path": "assets/optimized/s18__preview_2026_07_13/champions/champion_027121d997d5.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/champion_027121d997d5.jpg",
@@ -1635,7 +1673,8 @@
         "icon": {
           "local_path": "assets/champions/champion_013dacfaf1ec.jpg",
           "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918268.jpg",
-          "alt": "阿兹尔头像"
+          "alt": "阿兹尔头像",
+          "optimized_local_path": "assets/optimized/s18__preview_2026_07_13/champions/champion_013dacfaf1ec.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/champion_013dacfaf1ec.jpg",
@@ -1677,7 +1716,8 @@
         "icon": {
           "local_path": "assets/champions/champion_f25894d5822f.jpg",
           "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918993.jpg",
-          "alt": "石甲虫头像"
+          "alt": "石甲虫头像",
+          "optimized_local_path": "assets/optimized/s18__preview_2026_07_13/champions/champion_f25894d5822f.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/champion_f25894d5822f.jpg",
@@ -1720,7 +1760,8 @@
         "icon": {
           "local_path": "assets/champions/champion_688a91c9eac8.jpg",
           "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918995.jpg",
-          "alt": "锋喙鸟头像"
+          "alt": "锋喙鸟头像",
+          "optimized_local_path": "assets/optimized/s18__preview_2026_07_13/champions/champion_688a91c9eac8.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/champion_688a91c9eac8.jpg",
@@ -1762,7 +1803,8 @@
         "icon": {
           "local_path": "assets/champions/champion_7d285e9304bb.jpg",
           "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918015.jpg",
-          "alt": "希维尔头像"
+          "alt": "希维尔头像",
+          "optimized_local_path": "assets/optimized/s18__preview_2026_07_13/champions/champion_7d285e9304bb.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/champion_7d285e9304bb.jpg",
@@ -1803,7 +1845,8 @@
         "icon": {
           "local_path": "assets/champions/champion_b819bdafac8b.jpg",
           "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918016.jpg",
-          "alt": "索拉卡头像"
+          "alt": "索拉卡头像",
+          "optimized_local_path": "assets/optimized/s18__preview_2026_07_13/champions/champion_b819bdafac8b.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/champion_b819bdafac8b.jpg",
@@ -1845,7 +1888,8 @@
         "icon": {
           "local_path": "assets/champions/champion_e878377899b1.jpg",
           "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918025.jpg",
-          "alt": "莫甘娜头像"
+          "alt": "莫甘娜头像",
+          "optimized_local_path": "assets/optimized/s18__preview_2026_07_13/champions/champion_e878377899b1.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/champion_e878377899b1.jpg",
@@ -1887,7 +1931,8 @@
         "icon": {
           "local_path": "assets/champions/champion_615d0e24d10b.jpg",
           "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918032.jpg",
-          "alt": "阿木木头像"
+          "alt": "阿木木头像",
+          "optimized_local_path": "assets/optimized/s18__preview_2026_07_13/champions/champion_615d0e24d10b.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/champion_615d0e24d10b.jpg",
@@ -1929,7 +1974,8 @@
         "icon": {
           "local_path": "assets/champions/champion_f01a0ac710fe.jpg",
           "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918054.jpg",
-          "alt": "墨菲特头像"
+          "alt": "墨菲特头像",
+          "optimized_local_path": "assets/optimized/s18__preview_2026_07_13/champions/champion_f01a0ac710fe.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/champion_f01a0ac710fe.jpg",
@@ -1971,7 +2017,8 @@
         "icon": {
           "local_path": "assets/champions/champion_89b363489076.jpg",
           "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918076.jpg",
-          "alt": "奈德丽头像"
+          "alt": "奈德丽头像",
+          "optimized_local_path": "assets/optimized/s18__preview_2026_07_13/champions/champion_89b363489076.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/champion_89b363489076.jpg",
@@ -2013,7 +2060,8 @@
         "icon": {
           "local_path": "assets/champions/champion_b0a4168a301b.jpg",
           "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918081.jpg",
-          "alt": "伊泽瑞尔头像"
+          "alt": "伊泽瑞尔头像",
+          "optimized_local_path": "assets/optimized/s18__preview_2026_07_13/champions/champion_b0a4168a301b.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/champion_b0a4168a301b.jpg",
@@ -2055,7 +2103,8 @@
         "icon": {
           "local_path": "assets/champions/champion_760371e99a3b.jpg",
           "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918103.jpg",
-          "alt": "阿狸头像"
+          "alt": "阿狸头像",
+          "optimized_local_path": "assets/optimized/s18__preview_2026_07_13/champions/champion_760371e99a3b.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/champion_760371e99a3b.jpg",
@@ -2096,7 +2145,8 @@
         "icon": {
           "local_path": "assets/champions/champion_e4e86c94bb67.jpg",
           "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918143.jpg",
-          "alt": "婕拉头像"
+          "alt": "婕拉头像",
+          "optimized_local_path": "assets/optimized/s18__preview_2026_07_13/champions/champion_e4e86c94bb67.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/champion_e4e86c94bb67.jpg",
@@ -2138,7 +2188,8 @@
         "icon": {
           "local_path": "assets/champions/champion_6b57883ebbc0.jpg",
           "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918523.jpg",
-          "alt": "厄斐琉斯头像"
+          "alt": "厄斐琉斯头像",
+          "optimized_local_path": "assets/optimized/s18__preview_2026_07_13/champions/champion_6b57883ebbc0.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/champion_6b57883ebbc0.jpg",
@@ -2180,7 +2231,8 @@
         "icon": {
           "local_path": "assets/champions/champion_52d45525fde4.jpg",
           "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918875.jpg",
-          "alt": "瑟提头像"
+          "alt": "瑟提头像",
+          "optimized_local_path": "assets/optimized/s18__preview_2026_07_13/champions/champion_52d45525fde4.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/champion_52d45525fde4.jpg",
@@ -2222,7 +2274,8 @@
         "icon": {
           "local_path": "assets/champions/champion_5be2f809bb25.jpg",
           "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918876.jpg",
-          "alt": "莉莉娅头像"
+          "alt": "莉莉娅头像",
+          "optimized_local_path": "assets/optimized/s18__preview_2026_07_13/champions/champion_5be2f809bb25.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/champion_5be2f809bb25.jpg",
@@ -2264,7 +2317,8 @@
         "icon": {
           "local_path": "assets/champions/champion_fcae8cf04142.jpg",
           "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918996.jpg",
-          "alt": "绯红印记树怪头像"
+          "alt": "绯红印记树怪头像",
+          "optimized_local_path": "assets/optimized/s18__preview_2026_07_13/champions/champion_fcae8cf04142.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/champion_fcae8cf04142.jpg",
@@ -2307,7 +2361,8 @@
         "icon": {
           "local_path": "assets/champions/champion_215525ebecb1.jpg",
           "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918997.jpg",
-          "alt": "苍蓝雕纹魔像头像"
+          "alt": "苍蓝雕纹魔像头像",
+          "optimized_local_path": "assets/optimized/s18__preview_2026_07_13/champions/champion_215525ebecb1.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/champion_215525ebecb1.jpg",
@@ -2349,7 +2404,8 @@
         "icon": {
           "local_path": "assets/champions/champion_d446245a7388.jpg",
           "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918022.jpg",
-          "alt": "艾希头像"
+          "alt": "艾希头像",
+          "optimized_local_path": "assets/optimized/s18__preview_2026_07_13/champions/champion_d446245a7388.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/champion_d446245a7388.jpg",
@@ -2391,7 +2447,8 @@
         "icon": {
           "local_path": "assets/champions/champion_0300aa932aec.jpg",
           "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918044.jpg",
-          "alt": "塔里克头像"
+          "alt": "塔里克头像",
+          "optimized_local_path": "assets/optimized/s18__preview_2026_07_13/champions/champion_0300aa932aec.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/champion_0300aa932aec.jpg",
@@ -2433,7 +2490,8 @@
         "icon": {
           "local_path": "assets/champions/champion_d57b5468107b.jpg",
           "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918057.jpg",
-          "alt": "茂凯头像"
+          "alt": "茂凯头像",
+          "optimized_local_path": "assets/optimized/s18__preview_2026_07_13/champions/champion_d57b5468107b.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/champion_d57b5468107b.jpg",
@@ -2475,7 +2533,8 @@
         "icon": {
           "local_path": "assets/champions/champion_e8bd17049f0b.jpg",
           "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918085.jpg",
-          "alt": "凯南头像"
+          "alt": "凯南头像",
+          "optimized_local_path": "assets/optimized/s18__preview_2026_07_13/champions/champion_e8bd17049f0b.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/champion_e8bd17049f0b.jpg",
@@ -2516,7 +2575,8 @@
         "icon": {
           "local_path": "assets/champions/champion_97925303c41e.jpg",
           "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918099.jpg",
-          "alt": "拉克丝头像"
+          "alt": "拉克丝头像",
+          "optimized_local_path": "assets/optimized/s18__preview_2026_07_13/champions/champion_97925303c41e.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/champion_97925303c41e.jpg",
@@ -2557,7 +2617,8 @@
         "icon": {
           "local_path": "assets/champions/champion_46d56ee0d004.jpg",
           "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918119.jpg",
-          "alt": "德莱文头像"
+          "alt": "德莱文头像",
+          "optimized_local_path": "assets/optimized/s18__preview_2026_07_13/champions/champion_46d56ee0d004.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/champion_46d56ee0d004.jpg",
@@ -2600,7 +2661,8 @@
         "icon": {
           "local_path": "assets/champions/champion_d7730549fed6.jpg",
           "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918150.jpg",
-          "alt": "纳尔头像"
+          "alt": "纳尔头像",
+          "optimized_local_path": "assets/optimized/s18__preview_2026_07_13/champions/champion_d7730549fed6.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/champion_d7730549fed6.jpg",
@@ -2641,7 +2703,8 @@
         "icon": {
           "local_path": "assets/champions/champion_044ba826b9ea.jpg",
           "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918427.jpg",
-          "alt": "艾翁头像"
+          "alt": "艾翁头像",
+          "optimized_local_path": "assets/optimized/s18__preview_2026_07_13/champions/champion_044ba826b9ea.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/champion_044ba826b9ea.jpg",
@@ -2684,7 +2747,8 @@
         "icon": {
           "local_path": "assets/champions/champion_e76351aed074.jpg",
           "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918955.jpg",
-          "alt": "拉露恩头像"
+          "alt": "拉露恩头像",
+          "optimized_local_path": "assets/optimized/s18__preview_2026_07_13/champions/champion_e76351aed074.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/champion_e76351aed074.jpg",
@@ -2726,7 +2790,8 @@
         "icon": {
           "local_path": "assets/champions/champion_880d07ae598b.jpg",
           "source_url": "https://static.datatft.com/images/heros/default/tmp0712/918998.jpg",
-          "alt": "远古巨龙头像"
+          "alt": "远古巨龙头像",
+          "optimized_local_path": "assets/optimized/s18__preview_2026_07_13/champions/champion_880d07ae598b.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/champion_880d07ae598b.jpg",

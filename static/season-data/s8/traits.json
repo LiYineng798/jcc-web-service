@@ -39,7 +39,8 @@
       "image": {
         "local_path": "assets/traits/160.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/trait/s8_trait_icon_animasquad.png",
-        "alt": "幻灵战队羁绊图标"
+        "alt": "幻灵战队羁绊图标",
+        "optimized_local_path": "assets/optimized/s8__17_17_7/traits/160.webp"
       },
       "source_ids": {
         "official_id": "160",
@@ -89,7 +90,8 @@
       "image": {
         "local_path": "assets/traits/161.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/trait/s8_trait_icon_civilian.png",
-        "alt": "平民英雄羁绊图标"
+        "alt": "平民英雄羁绊图标",
+        "optimized_local_path": "assets/optimized/s8__17_17_7/traits/161.webp"
       },
       "source_ids": {
         "official_id": "161",
@@ -130,7 +132,8 @@
       "image": {
         "local_path": "assets/traits/162.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/trait/s8_trait_icon_gadgeteens.png",
-        "alt": "小天才羁绊图标"
+        "alt": "小天才羁绊图标",
+        "optimized_local_path": "assets/optimized/s8__17_17_7/traits/162.webp"
       },
       "source_ids": {
         "official_id": "162",
@@ -189,7 +192,8 @@
       "image": {
         "local_path": "assets/traits/163.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/trait/s8_trait_icon_starguardian.png",
-        "alt": "星之守护者羁绊图标"
+        "alt": "星之守护者羁绊图标",
+        "optimized_local_path": "assets/optimized/s8__17_17_7/traits/163.webp"
       },
       "source_ids": {
         "official_id": "163",
@@ -221,7 +225,8 @@
       "image": {
         "local_path": "assets/traits/164.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/trait/s8_trait_icon_supers.png",
-        "alt": "超级英雄羁绊图标"
+        "alt": "超级英雄羁绊图标",
+        "optimized_local_path": "assets/optimized/s8__17_17_7/traits/164.webp"
       },
       "source_ids": {
         "official_id": "164",
@@ -289,7 +294,8 @@
       "image": {
         "local_path": "assets/traits/165.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/trait/s8_trait_icon_oxforce.png",
-        "alt": "福牛守护者羁绊图标"
+        "alt": "福牛守护者羁绊图标",
+        "optimized_local_path": "assets/optimized/s8__17_17_7/traits/165.webp"
       },
       "source_ids": {
         "official_id": "165",
@@ -339,7 +345,8 @@
       "image": {
         "local_path": "assets/traits/166.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/trait/s8_trait_icon_mechaprime.png",
-        "alt": "战斗机甲羁绊图标"
+        "alt": "战斗机甲羁绊图标",
+        "optimized_local_path": "assets/optimized/s8__17_17_7/traits/166.webp"
       },
       "source_ids": {
         "official_id": "166",
@@ -371,7 +378,8 @@
       "image": {
         "local_path": "assets/traits/167.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/trait/s8_trait_icon_threat.png",
-        "alt": "怪兽羁绊图标"
+        "alt": "怪兽羁绊图标",
+        "optimized_local_path": "assets/optimized/s8__17_17_7/traits/167.webp"
       },
       "source_ids": {
         "official_id": "167",
@@ -439,7 +447,8 @@
       "image": {
         "local_path": "assets/traits/169.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/trait/s8_trait_icon_underground.png",
-        "alt": "地下魔盗团羁绊图标"
+        "alt": "地下魔盗团羁绊图标",
+        "optimized_local_path": "assets/optimized/s8__17_17_7/traits/169.webp"
       },
       "source_ids": {
         "official_id": "169",
@@ -489,7 +498,8 @@
       "image": {
         "local_path": "assets/traits/170.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/trait/s8_trait_icon_admin.png",
-        "alt": "AI程序羁绊图标"
+        "alt": "AI程序羁绊图标",
+        "optimized_local_path": "assets/optimized/s8__17_17_7/traits/170.webp"
       },
       "source_ids": {
         "official_id": "170",
@@ -548,7 +558,8 @@
       "image": {
         "local_path": "assets/traits/171.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/trait/s8_trait_icon_lasercorps.png",
-        "alt": "源计划：激光特工羁绊图标"
+        "alt": "源计划：激光特工羁绊图标",
+        "optimized_local_path": "assets/optimized/s8__17_17_7/traits/171.webp"
       },
       "source_ids": {
         "official_id": "171",
@@ -580,7 +591,8 @@
       "image": {
         "local_path": "assets/traits/174.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/trait/s8_trait_icon_corrupted.png",
-        "alt": "堕落使者羁绊图标"
+        "alt": "堕落使者羁绊图标",
+        "optimized_local_path": "assets/optimized/s8__17_17_7/traits/174.webp"
       },
       "source_ids": {
         "official_id": "174",
@@ -630,7 +642,8 @@
       "image": {
         "local_path": "assets/traits/120.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/trait/s8_trait_icon_renegade.png",
-        "alt": "混沌战士羁绊图标"
+        "alt": "混沌战士羁绊图标",
+        "optimized_local_path": "assets/optimized/s8__17_17_7/traits/120.webp"
       },
       "source_ids": {
         "official_id": "120",
@@ -680,7 +693,8 @@
       "image": {
         "local_path": "assets/traits/121.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/trait/s8_trait_icon_hacker.png",
-        "alt": "黑客羁绊图标"
+        "alt": "黑客羁绊图标",
+        "optimized_local_path": "assets/optimized/s8__17_17_7/traits/121.webp"
       },
       "source_ids": {
         "official_id": "121",
@@ -730,7 +744,8 @@
       "image": {
         "local_path": "assets/traits/122.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/trait/s8_trait_icon_prankster.png",
-        "alt": "淘气包羁绊图标"
+        "alt": "淘气包羁绊图标",
+        "optimized_local_path": "assets/optimized/s8__17_17_7/traits/122.webp"
       },
       "source_ids": {
         "official_id": "122",
@@ -789,7 +804,8 @@
       "image": {
         "local_path": "assets/traits/123.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/trait/s8_trait_icon_spellslinger.png",
-        "alt": "灵能使羁绊图标"
+        "alt": "灵能使羁绊图标",
+        "optimized_local_path": "assets/optimized/s8__17_17_7/traits/123.webp"
       },
       "source_ids": {
         "official_id": "123",
@@ -848,7 +864,8 @@
       "image": {
         "local_path": "assets/traits/124.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/trait/s8_trait_icon_duelist.png",
-        "alt": "决斗大师羁绊图标"
+        "alt": "决斗大师羁绊图标",
+        "optimized_local_path": "assets/optimized/s8__17_17_7/traits/124.webp"
       },
       "source_ids": {
         "official_id": "124",
@@ -907,7 +924,8 @@
       "image": {
         "local_path": "assets/traits/125.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/trait/s8_trait_icon_sureshot.png",
-        "alt": "强袭枪手羁绊图标"
+        "alt": "强袭枪手羁绊图标",
+        "optimized_local_path": "assets/optimized/s8__17_17_7/traits/125.webp"
       },
       "source_ids": {
         "official_id": "125",
@@ -957,7 +975,8 @@
       "image": {
         "local_path": "assets/traits/126.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/trait/s8_trait_icon_defender.png",
-        "alt": "护卫羁绊图标"
+        "alt": "护卫羁绊图标",
+        "optimized_local_path": "assets/optimized/s8__17_17_7/traits/126.webp"
       },
       "source_ids": {
         "official_id": "126",
@@ -1007,7 +1026,8 @@
       "image": {
         "local_path": "assets/traits/127.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/trait/s8_trait_icon_mascot.png",
-        "alt": "吉祥物羁绊图标"
+        "alt": "吉祥物羁绊图标",
+        "optimized_local_path": "assets/optimized/s8__17_17_7/traits/127.webp"
       },
       "source_ids": {
         "official_id": "127",
@@ -1057,7 +1077,8 @@
       "image": {
         "local_path": "assets/traits/128.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/trait/s8_trait_icon_heart.png",
-        "alt": "爱心使者羁绊图标"
+        "alt": "爱心使者羁绊图标",
+        "optimized_local_path": "assets/optimized/s8__17_17_7/traits/128.webp"
       },
       "source_ids": {
         "official_id": "128",
@@ -1089,7 +1110,8 @@
       "image": {
         "local_path": "assets/traits/130.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/trait/s8_trait_icon_forecaster.png",
-        "alt": "气象主播羁绊图标"
+        "alt": "气象主播羁绊图标",
+        "optimized_local_path": "assets/optimized/s8__17_17_7/traits/130.webp"
       },
       "source_ids": {
         "official_id": "130",
@@ -1121,7 +1143,8 @@
       "image": {
         "local_path": "assets/traits/131.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/trait/s8_trait_icon_arsenal.png",
-        "alt": "枪神羁绊图标"
+        "alt": "枪神羁绊图标",
+        "optimized_local_path": "assets/optimized/s8__17_17_7/traits/131.webp"
       },
       "source_ids": {
         "official_id": "131",
@@ -1180,7 +1203,8 @@
       "image": {
         "local_path": "assets/traits/132.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/trait/s8_trait_icon_brawler.png",
-        "alt": "斗士羁绊图标"
+        "alt": "斗士羁绊图标",
+        "optimized_local_path": "assets/optimized/s8__17_17_7/traits/132.webp"
       },
       "source_ids": {
         "official_id": "132",
@@ -1230,7 +1254,8 @@
       "image": {
         "local_path": "assets/traits/133.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/trait/s8_trait_icon_recon.png",
-        "alt": "情报特工羁绊图标"
+        "alt": "情报特工羁绊图标",
+        "optimized_local_path": "assets/optimized/s8__17_17_7/traits/133.webp"
       },
       "source_ids": {
         "official_id": "133",
@@ -1289,7 +1314,8 @@
       "image": {
         "local_path": "assets/traits/134.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/trait/s8_trait_icon_aegis.png",
-        "alt": "秘术卫士羁绊图标"
+        "alt": "秘术卫士羁绊图标",
+        "optimized_local_path": "assets/optimized/s8__17_17_7/traits/134.webp"
       },
       "source_ids": {
         "official_id": "134",
@@ -1330,7 +1356,8 @@
       "image": {
         "local_path": "assets/traits/135.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/trait/s8_trait_icon_ace.png",
-        "alt": "精英战士羁绊图标"
+        "alt": "精英战士羁绊图标",
+        "optimized_local_path": "assets/optimized/s8__17_17_7/traits/135.webp"
       },
       "source_ids": {
         "official_id": "135",

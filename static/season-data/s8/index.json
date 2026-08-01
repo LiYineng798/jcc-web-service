@@ -22,14 +22,14 @@
     "description": null
    },
    "tags": [],
-   "icon": "assets/champions/1152.png",
+   "icon": "assets/optimized/s8__17_17_7/champions/1152.webp",
    "splash": "assets/champions/splash/1152.jpg",
    "card": "assets/champions/card/1152.webp",
    "has_stats": true,
    "skill": {
     "name": "破防打击！",
     "description": "【内瑟斯】向他的目标敌人猛砸他的权杖，对目标敌人造成206(【物理加成】【法术加成】)物理伤害和持续3秒的40%冰冷效果。  冰冷:使攻击速度减缓",
-    "image": "assets/skills/1152.png"
+    "image": "assets/optimized/s8__17_17_7/skills/1152_skill.webp"
    }
   },
   {
@@ -45,14 +45,14 @@
     "description": null
    },
    "tags": [],
-   "icon": "assets/champions/1153.png",
+   "icon": "assets/optimized/s8__17_17_7/champions/1153.webp",
    "splash": "assets/champions/splash/1153.jpg",
    "card": "assets/champions/card/1153.webp",
    "has_stats": true,
    "skill": {
     "name": "战斗蝠冲击波",
     "description": "【塞拉斯】挥舞他的锁链，对附近的敌人们造成70(【生命上限】)魔法伤害并治疗他自身150(【法术加成】)生命值。",
-    "image": "assets/skills/1153.png"
+    "image": "assets/optimized/s8__17_17_7/skills/1153_skill.webp"
    }
   },
   {
@@ -68,14 +68,14 @@
     "description": null
    },
    "tags": [],
-   "icon": "assets/champions/1154.png",
+   "icon": "assets/optimized/s8__17_17_7/champions/1154.webp",
    "splash": "assets/champions/splash/1154.jpg",
    "card": "assets/champions/card/1154.webp",
    "has_stats": true,
    "skill": {
     "name": "射手的专注",
     "description": "【艾希】在接下来的5秒里获得51【攻击力】攻击力。",
-    "image": "assets/skills/1154.png"
+    "image": "assets/optimized/s8__17_17_7/skills/1154_skill.webp"
    }
   },
   {
@@ -91,14 +91,14 @@
     "description": null
    },
    "tags": [],
-   "icon": "assets/champions/1155.png",
+   "icon": "assets/optimized/s8__17_17_7/champions/1155.webp",
    "splash": "assets/champions/splash/1155.jpg",
    "card": "assets/champions/card/1155.webp",
    "has_stats": true,
    "skill": {
     "name": "别挡道！",
     "description": "【加里奥】朝着相距最近的敌人冲刺，造成150(【法术加成】)魔法伤害。然后他会为他自身和相距最近的友军提供持续4秒的250(【法术加成】)护盾值。",
-    "image": "assets/skills/1155.png"
+    "image": "assets/optimized/s8__17_17_7/skills/1155_skill.webp"
    }
   },
   {
@@ -114,14 +114,14 @@
     "description": null
    },
    "tags": [],
-   "icon": "assets/champions/1156.png",
+   "icon": "assets/optimized/s8__17_17_7/champions/1156.webp",
    "splash": "assets/champions/splash/1156.jpg",
    "card": "assets/champions/card/1156.webp",
    "has_stats": true,
    "skill": {
     "name": "烈火审讯",
     "description": "【普朗克】摆脱掉各种控制效果，然后对他的目标敌人发射一颗烈焰子弹。这颗子弹会对该目标造成240(【法术加成】)魔法伤害和持续8秒的33%重伤效果。  重伤：使受到的治疗效果降低",
-    "image": "assets/skills/1156.png"
+    "image": "assets/optimized/s8__17_17_7/skills/1156_skill.webp"
    }
   },
   {
@@ -137,14 +137,14 @@
     "description": null
    },
    "tags": [],
-   "icon": "assets/champions/1157.png",
+   "icon": "assets/optimized/s8__17_17_7/champions/1157.webp",
    "splash": "assets/champions/splash/1157.jpg",
    "card": "assets/champions/card/1157.webp",
    "has_stats": true,
    "skill": {
     "name": "透光奇点",
     "description": "【拉克丝】朝当前攻击目标的位置发射一个奇点。在奇点爆炸时，会对目标敌人造成持续4秒的40%攻击力削减效果，并对附近的敌人们造成230(【法术加成】)魔法伤害。",
-    "image": "assets/skills/1157.png"
+    "image": "assets/optimized/s8__17_17_7/skills/1157_skill.webp"
    }
   },
   {
@@ -160,14 +160,14 @@
     "description": null
    },
    "tags": [],
-   "icon": "assets/champions/1158.png",
+   "icon": "assets/optimized/s8__17_17_7/champions/1158.webp",
    "splash": "assets/champions/splash/1158.jpg",
    "card": "assets/champions/card/1158.webp",
    "has_stats": true,
    "skill": {
     "name": "终极统治",
     "description": "【雷克顿】强化自身8秒，因而获得200(【法术加成】)最大生命值并使他的攻击造成39(【生命上限】)的额外魔法伤害。",
-    "image": "assets/skills/1158.png"
+    "image": "assets/optimized/s8__17_17_7/skills/1158_skill.webp"
    }
   },
   {
@@ -183,14 +183,14 @@
     "description": null
    },
    "tags": [],
-   "icon": "assets/champions/1159.png",
+   "icon": "assets/optimized/s8__17_17_7/champions/1159.webp",
    "splash": "assets/champions/splash/1159.jpg",
    "card": "assets/champions/card/1159.webp",
    "has_stats": true,
    "skill": {
     "name": "福牛式外交",
     "description": "【泰隆】跳到距棋盘中心最远的弈子处并戳刺该弈子造成200(【法术加成】)魔法伤害。如果这个技能击败了该弈子，那么【泰隆】会治疗自身150生命值。",
-    "image": "assets/skills/1159.png"
+    "image": "assets/optimized/s8__17_17_7/skills/1159_skill.webp"
    }
   },
   {
@@ -206,14 +206,14 @@
     "description": null
    },
    "tags": [],
-   "icon": "assets/champions/1160.png",
+   "icon": "assets/optimized/s8__17_17_7/champions/1160.webp",
    "splash": "assets/champions/splash/1160.jpg",
    "card": "assets/champions/card/1160.webp",
    "has_stats": true,
    "skill": {
     "name": "静态防御",
     "description": "【布里茨】制造一个环绕自身的强化领域，获得50%(【法术加成】)伤害减免，持续4秒。",
-    "image": "assets/skills/1160.png"
+    "image": "assets/optimized/s8__17_17_7/skills/1160_skill.webp"
    }
   },
   {
@@ -229,14 +229,14 @@
     "description": null
    },
    "tags": [],
-   "icon": "assets/champions/1162.png",
+   "icon": "assets/optimized/s8__17_17_7/champions/1162.webp",
    "splash": "assets/champions/splash/1162.jpg",
    "card": "assets/champions/card/1162.webp",
    "has_stats": true,
    "skill": {
     "name": "闪耀长枪",
     "description": "【璐璐】朝她的目标敌人发射一颗魔法弹，对命中的第一个敌人造成300(【法术加成】)魔法伤害并对之后的敌人们造成135(【法术加成】)魔法伤害。",
-    "image": "assets/skills/1162.png"
+    "image": "assets/optimized/s8__17_17_7/skills/1162_skill.webp"
    }
   },
   {
@@ -252,14 +252,14 @@
     "description": null
    },
    "tags": [],
-   "icon": "assets/champions/1163.png",
+   "icon": "assets/optimized/s8__17_17_7/champions/1163.webp",
    "splash": "assets/champions/splash/1163.jpg",
    "card": "assets/champions/card/1163.webp",
    "has_stats": true,
    "skill": {
     "name": "金刚不坏",
     "description": "【孙悟空】围绕自身旋转他的金箍棒，对附近的所有敌人造成140(【法术加成】)魔法伤害。他每命中一名敌人就会获得60护甲和魔法抗性，持续3秒。",
-    "image": "assets/skills/1163.png"
+    "image": "assets/optimized/s8__17_17_7/skills/1163_skill.webp"
    }
   },
   {
@@ -275,14 +275,14 @@
     "description": null
    },
    "tags": [],
-   "icon": "assets/champions/1164.png",
+   "icon": "assets/optimized/s8__17_17_7/champions/1164.webp",
    "splash": "assets/champions/splash/1164.jpg",
    "card": "assets/champions/card/1164.webp",
    "has_stats": true,
    "skill": {
     "name": "星火符刃",
     "description": "【凯尔】的下3次攻击会对她的目标敌人造成85(【物理加成】)物理伤害，并对其1格距离内的敌人们造成25(【法术加成】)魔法伤害。",
-    "image": "assets/skills/1164.png"
+    "image": "assets/optimized/s8__17_17_7/skills/1164_skill.webp"
    }
   },
   {
@@ -298,14 +298,14 @@
     "description": null
    },
    "tags": [],
-   "icon": "assets/champions/1165.png",
+   "icon": "assets/optimized/s8__17_17_7/champions/1165.webp",
    "splash": "assets/champions/splash/1165.jpg",
    "card": "assets/champions/card/1165.webp",
    "has_stats": true,
    "skill": {
     "name": "圆盾投掷",
     "description": "【波比】对相距最远的敌人扔出她的小圆盾，造成72(【护甲】)魔法伤害。随后小圆盾会弹回，为波比提供300(【法术加成】)护盾值。",
-    "image": "assets/skills/1165.png"
+    "image": "assets/optimized/s8__17_17_7/skills/1165_skill.webp"
    }
   },
   {
@@ -321,14 +321,14 @@
     "description": null
    },
    "tags": [],
-   "icon": "assets/champions/2143.png",
+   "icon": "assets/optimized/s8__17_17_7/champions/2143.webp",
    "splash": "assets/champions/splash/2143.jpg",
    "card": "assets/champions/card/2143.webp",
    "has_stats": true,
    "skill": {
     "name": "鱼骨头",
     "description": "【金克丝】朝她的目标发射一枚一碰就爆的火箭，对附近所有敌人造成225(【法术加成】)魔法伤害和1.5秒晕眩。  晕眩：不能移动、攻击或施放技能",
-    "image": "assets/skills/2143.png"
+    "image": "assets/optimized/s8__17_17_7/skills/2143_skill.webp"
    }
   },
   {
@@ -345,14 +345,14 @@
     "description": null
    },
    "tags": [],
-   "icon": "assets/champions/2144.png",
+   "icon": "assets/optimized/s8__17_17_7/champions/2144.webp",
    "splash": "assets/champions/splash/2144.jpg",
    "card": "assets/champions/card/2144.webp",
    "has_stats": true,
    "skill": {
     "name": "爆裂护盾",
     "description": "【安妮】用火焰引爆一个锥形区域，对她前方的敌人造成140(【法术加成】)魔法伤害，然后给自己生成300(【法术加成】)护盾值，持续4秒。",
-    "image": "assets/skills/2144.png"
+    "image": "assets/optimized/s8__17_17_7/skills/2144_skill.webp"
    }
   },
   {
@@ -368,14 +368,14 @@
     "description": null
    },
    "tags": [],
-   "icon": "assets/champions/2145.png",
+   "icon": "assets/optimized/s8__17_17_7/champions/2145.webp",
    "splash": "assets/champions/splash/2145.jpg",
    "card": "assets/champions/card/2145.webp",
    "has_stats": true,
    "skill": {
     "name": "战术横扫",
     "description": "【卡蜜尔】用她的腿进行横扫，对命中的敌人们造成210(【物理加成】【法术加成】)物理伤害和1.5秒缴械效果。  缴械：目标不能移动或攻击",
-    "image": "assets/skills/2145.png"
+    "image": "assets/optimized/s8__17_17_7/skills/2145_skill.webp"
    }
   },
   {
@@ -391,14 +391,14 @@
     "description": null
    },
    "tags": [],
-   "icon": "assets/champions/2146.png",
+   "icon": "assets/optimized/s8__17_17_7/champions/2146.webp",
    "splash": "assets/champions/splash/2146.jpg",
    "card": "assets/champions/card/2146.webp",
    "has_stats": true,
    "skill": {
     "name": "亮出架势！",
     "description": "【菲奥娜】朝着她的敌人进行突刺，对命中的所有敌人造成137(【物理加成】)物理伤害。在接下来的8秒里，她受到的伤害降低20%并且她的每次攻击回复30(【法术加成】)生命值。",
-    "image": "assets/skills/2146.png"
+    "image": "assets/optimized/s8__17_17_7/skills/2146_skill.webp"
    }
   },
   {
@@ -415,14 +415,14 @@
     "description": null
    },
    "tags": [],
-   "icon": "assets/champions/2147.png",
+   "icon": "assets/optimized/s8__17_17_7/champions/2147.webp",
    "splash": "assets/champions/splash/2147.jpg",
    "card": "assets/champions/card/2147.webp",
    "has_stats": true,
    "skill": {
     "name": "金钟罩",
     "description": "【李青】朝着附近的一名友军冲刺，并为该友军和他自身提供持续4秒的180(【法术加成】)护盾值。随后，他会冲刺回去并对他的目标敌人造成165(【物理加成】)物理伤害。  如果附近没有任何友军，那么他会转而获得360(【法术加成】)护盾值。",
-    "image": "assets/skills/2147.png"
+    "image": "assets/optimized/s8__17_17_7/skills/2147_skill.webp"
    }
   },
   {
@@ -438,14 +438,14 @@
     "description": null
    },
    "tags": [],
-   "icon": "assets/champions/2148.png",
+   "icon": "assets/optimized/s8__17_17_7/champions/2148.webp",
    "splash": "assets/champions/splash/2148.jpg",
    "card": "assets/champions/card/2148.webp",
    "has_stats": true,
    "skill": {
     "name": "钢铁纽带",
     "description": "【芮尔】在她自己和她生命值百分比最低的友军之间形成一条灵链，对她和该友军之间的所有敌人造成140(【法术加成】)魔法伤害。她还会为自身和该友军提供【芮尔】当前的50%护甲和魔抗，持续4秒。",
-    "image": "assets/skills/2148.png"
+    "image": "assets/optimized/s8__17_17_7/skills/2148_skill.webp"
    }
   },
   {
@@ -461,14 +461,14 @@
     "description": null
    },
    "tags": [],
-   "icon": "assets/champions/2149.png",
+   "icon": "assets/optimized/s8__17_17_7/champions/2149.webp",
    "splash": "assets/champions/splash/2149.jpg",
    "card": "assets/champions/card/2149.webp",
    "has_stats": true,
    "skill": {
     "name": "披萨投送",
     "description": "【希维尔】朝她的目标投出她的披萨，造成260(【物理加成】)物理伤害。随后披萨会分裂为几瓣并投送给相距最近的3名友军，来为他们治疗80(【法术加成】)生命值。",
-    "image": "assets/skills/2149.png"
+    "image": "assets/optimized/s8__17_17_7/skills/2149_skill.webp"
    }
   },
   {
@@ -484,14 +484,14 @@
     "description": null
    },
    "tags": [],
-   "icon": "assets/champions/2150.png",
+   "icon": "assets/optimized/s8__17_17_7/champions/2150.webp",
    "splash": "assets/champions/splash/2150.jpg",
    "card": "assets/champions/card/2150.webp",
    "has_stats": true,
    "skill": {
     "name": "斩钢闪",
     "description": "【亚索】对他的目标发射一道飓风，对命中的所有敌人造成210(【法术加成】)魔法伤害和1.5秒击飞效果。如果当前位置不是理想位置，那么他会至多冲刺1格来寻找敌人更多的一条直线。",
-    "image": "assets/skills/2150.png"
+    "image": "assets/optimized/s8__17_17_7/skills/2150_skill.webp"
    }
   },
   {
@@ -508,14 +508,14 @@
     "description": null
    },
    "tags": [],
-   "icon": "assets/champions/2151.png",
+   "icon": "assets/optimized/s8__17_17_7/champions/2151.webp",
    "splash": "assets/champions/splash/2151.jpg",
    "card": "assets/champions/card/2151.webp",
    "has_stats": true,
    "skill": {
     "name": "摸鱼飞弹",
     "description": "【悠米】朝她攻击距离内相距最远的目标发射一颗曲射飞弹，对命中的首个敌方弈子造成255(【法术加成】)魔法伤害。",
-    "image": "assets/skills/2151.png"
+    "image": "assets/optimized/s8__17_17_7/skills/2151_skill.webp"
    }
   },
   {
@@ -531,14 +531,14 @@
     "description": null
    },
    "tags": [],
-   "icon": "assets/champions/2152.png",
+   "icon": "assets/optimized/s8__17_17_7/champions/2152.webp",
    "splash": "assets/champions/splash/2152.jpg",
    "card": "assets/champions/card/2152.webp",
    "has_stats": true,
    "skill": {
     "name": "大地震颤",
     "description": "【墨菲特】锤击地面，对周围敌人造成150(【法术加成】)魔法伤害并为他自身提供持续6秒的100护甲。",
-    "image": "assets/skills/2152.png"
+    "image": "assets/optimized/s8__17_17_7/skills/2152_skill.webp"
    }
   },
   {
@@ -554,14 +554,14 @@
     "description": null
    },
    "tags": [],
-   "icon": "assets/champions/2153.png",
+   "icon": "assets/optimized/s8__17_17_7/champions/2153.webp",
    "splash": "assets/champions/splash/2153.jpg",
    "card": "assets/champions/card/2153.webp",
    "has_stats": true,
    "skill": {
     "name": "冷血追命",
     "description": "【德莱文】朝着他目标敌人的方向挥出两把巨斧，巨斧们在抵达终点时会调转方向折返至他的位置。巨斧们对途经的所有敌人造成144(【物理加成】【法术加成】)物理伤害，每穿过一个敌人，伤害就会降低25%。",
-    "image": "assets/skills/2153.png"
+    "image": "assets/optimized/s8__17_17_7/skills/2153_skill.webp"
    }
   },
   {
@@ -578,14 +578,14 @@
     "description": null
    },
    "tags": [],
-   "icon": "assets/champions/2154.png",
+   "icon": "assets/optimized/s8__17_17_7/champions/2154.webp",
    "splash": "assets/champions/splash/2154.jpg",
    "card": "assets/champions/card/2154.webp",
    "has_stats": true,
    "skill": {
     "name": "爆裂护盾",
     "description": "【蔚】为她自身提供持续4秒的270(【法术加成】)护盾值，然后她对附近的敌人们造成125(【物理加成】)物理伤害和持续4秒的50%护甲击碎效果。  护甲击碎：使护甲降低",
-    "image": "assets/skills/2154.png"
+    "image": "assets/optimized/s8__17_17_7/skills/2154_skill.webp"
    }
   },
   {
@@ -601,14 +601,14 @@
     "description": null
    },
    "tags": [],
-   "icon": "assets/champions/2155.png",
+   "icon": "assets/optimized/s8__17_17_7/champions/2155.webp",
    "splash": "assets/champions/splash/2155.jpg",
    "card": "assets/champions/card/2155.webp",
    "has_stats": true,
    "skill": {
     "name": "蓄意破坏",
     "description": "【伊泽瑞尔】对他的目标敌人发射一颗破坏之球，对其造成持续4秒的30%冰冷效果。随后，他会发射另一颗子弹，对该目标和附近的敌人们造成250(【法术加成】)魔法伤害  冰冷:使攻击速度减缓",
-    "image": "assets/skills/2155.png"
+    "image": "assets/optimized/s8__17_17_7/skills/2155_skill.webp"
    }
   },
   {
@@ -625,14 +625,14 @@
     "description": null
    },
    "tags": [],
-   "icon": "assets/champions/3158.png",
+   "icon": "assets/optimized/s8__17_17_7/champions/3158.webp",
    "splash": "assets/champions/splash/3158.jpg",
    "card": "assets/champions/card/3158.webp",
    "has_stats": true,
    "skill": {
     "name": "战斗兔之刃",
     "description": "【锐雯】获得持续4秒的400(【法术加成】)护盾值，并强化她的下3次攻击以造成100(【法术加成】)额外魔法伤害。如果【锐雯】的生命值多于她的目标，那么她会多造成100%额外魔法伤害。",
-    "image": "assets/skills/3158.png"
+    "image": "assets/optimized/s8__17_17_7/skills/3158_skill.webp"
    }
   },
   {
@@ -649,14 +649,14 @@
     "description": null
    },
    "tags": [],
-   "icon": "assets/champions/3159.png",
+   "icon": "assets/optimized/s8__17_17_7/champions/3159.webp",
    "splash": "assets/champions/splash/3159.jpg",
    "card": "assets/champions/card/3159.webp",
    "has_stats": true,
    "skill": {
     "name": "圣银弩箭",
     "description": "【薇恩】对她的目标发射一支重型弩箭，造成110(【物理加成】【法术加成】)真实伤害。",
-    "image": "assets/skills/3159.png"
+    "image": "assets/optimized/s8__17_17_7/skills/3159_skill.webp"
    }
   },
   {
@@ -673,14 +673,14 @@
     "description": null
    },
    "tags": [],
-   "icon": "assets/champions/3160.png",
+   "icon": "assets/optimized/s8__17_17_7/champions/3160.webp",
    "splash": "assets/champions/splash/3160.jpg",
    "card": "assets/champions/card/3160.webp",
    "has_stats": true,
    "skill": {
     "name": "大地粉碎",
     "description": "【阿利斯塔】猛砸他目标下方的地面，对目标造成140(【法术加成】)魔法伤害和1.5秒击飞效果。他随后会怒吼，为他自身和生命值最低的友方英雄治疗160(【生命上限】)生命值。",
-    "image": "assets/skills/3160.png"
+    "image": "assets/optimized/s8__17_17_7/skills/3160_skill.webp"
    }
   },
   {
@@ -695,14 +695,14 @@
     "description": null
    },
    "tags": [],
-   "icon": "assets/champions/3161.png",
+   "icon": "assets/optimized/s8__17_17_7/champions/3161.webp",
    "splash": "assets/champions/splash/3161.jpg",
    "card": "assets/champions/card/3161.webp",
    "has_stats": true,
    "skill": {
     "name": "星界咆哮",
     "description": "被动：获得75魔法抗性。  主动：【科加斯】向前方呈弧形喷吐出一道星界光束，对命中的敌人们造成153(【法术加成】)魔法伤害和35%破法效果。  破法:提升最大法力值，持续到施放技能为止。 (当前累计生命值:0)",
-    "image": "assets/skills/3161.png"
+    "image": "assets/optimized/s8__17_17_7/skills/3161_skill.webp"
    }
   },
   {
@@ -719,14 +719,14 @@
     "description": null
    },
    "tags": [],
-   "icon": "assets/champions/3162.png",
+   "icon": "assets/optimized/s8__17_17_7/champions/3162.webp",
    "splash": "assets/champions/splash/3162.jpg",
    "card": "assets/champions/card/3162.webp",
    "has_stats": true,
    "skill": {
     "name": "终章序列",
     "description": "【娑娜】发射2道光束，光束效果会在3个阶段中循环：  1：对相距最近的敌人们造成205(【法术加成】)魔法伤害。 2：为生命值最低的友军们治疗200(【法术加成】)生命值。 3：对相距最近的敌人们造成135(【法术加成】)魔法伤害和1.5秒晕眩效果。  晕眩：不能移动、攻击或施放技能",
-    "image": "assets/skills/3162.png"
+    "image": "assets/optimized/s8__17_17_7/skills/3162_skill.webp"
    }
   },
   {
@@ -741,14 +741,14 @@
     "description": null
    },
    "tags": [],
-   "icon": "assets/champions/3163.png",
+   "icon": "assets/optimized/s8__17_17_7/champions/3163.webp",
    "splash": "assets/champions/splash/3163.jpg",
    "card": "assets/champions/card/3163.webp",
    "has_stats": true,
    "skill": {
     "name": "冰封陵墓",
     "description": "【维克兹】使在这个回合中造成了最多伤害的敌方英雄晕眩2秒，并对其造成275(【法术加成】)魔法伤害。  晕眩：不能移动、攻击或施放技能",
-    "image": "assets/skills/3163.png"
+    "image": "assets/optimized/s8__17_17_7/skills/3163_skill.webp"
    }
   },
   {
@@ -765,14 +765,14 @@
     "description": null
    },
    "tags": [],
-   "icon": "assets/champions/3164.png",
+   "icon": "assets/optimized/s8__17_17_7/champions/3164.webp",
    "splash": "assets/champions/splash/3164.jpg",
    "card": "assets/champions/card/3164.webp",
    "has_stats": true,
    "skill": {
     "name": "麻烦气泡",
     "description": "【佐伊】对相距最近且未被感染的敌人发射一团气泡，用麻烦魔法感染该敌人，麻烦魔法会在10秒里持续造成共390(【法术加成】)魔法伤害。被感染的敌人们受到的伤害会提升10%。",
-    "image": "assets/skills/3164.png"
+    "image": "assets/optimized/s8__17_17_7/skills/3164_skill.webp"
    }
   },
   {
@@ -787,14 +787,14 @@
     "description": null
    },
    "tags": [],
-   "icon": "assets/champions/3165.png",
+   "icon": "assets/optimized/s8__17_17_7/champions/3165.webp",
    "splash": "assets/champions/splash/3165.jpg",
    "card": "assets/champions/card/3165.webp",
    "has_stats": true,
    "skill": {
     "name": "沙漠猛撞",
     "description": "被动：获得60护甲。  主动：【拉莫斯】给他自身充能，然后跃至附近敌人最密集的位置，对命中的敌人们造成113(【护甲】【法术加成】)魔法伤害、1.5秒击飞效果和持续4秒的40%攻击力【攻击力】削减效果。",
-    "image": "assets/skills/3165.png"
+    "image": "assets/optimized/s8__17_17_7/skills/3165_skill.webp"
    }
   },
   {
@@ -810,14 +810,14 @@
     "description": null
    },
    "tags": [],
-   "icon": "assets/champions/3166.png",
+   "icon": "assets/optimized/s8__17_17_7/champions/3166.webp",
    "splash": "assets/champions/splash/3166.jpg",
    "card": "assets/champions/card/3166.webp",
    "has_stats": true,
    "skill": {
     "name": "神恩激荡",
     "description": "【尼菈】挥舞她的鞭刃，对附近的敌人们造成90(【法术加成】)魔法伤害，并在1秒里持续为她自身和友军们治疗共235(【法术加成】)生命值。她会以一次爆裂结束施放，来造成90(【法术加成】)魔法伤害。",
-    "image": "assets/skills/3166.png"
+    "image": "assets/optimized/s8__17_17_7/skills/3166_skill.webp"
    }
   },
   {
@@ -833,14 +833,14 @@
     "description": null
    },
    "tags": [],
-   "icon": "assets/champions/3167.png",
+   "icon": "assets/optimized/s8__17_17_7/champions/3167.webp",
    "splash": "assets/champions/splash/3167.jpg",
    "card": "assets/champions/card/3167.webp",
    "has_stats": true,
    "skill": {
     "name": "黑暗洞灭",
     "description": "【赛娜】朝着她的目标的方向发射一道镭射光束，对一条直线上的敌人们造成179(【物理加成】【法术加成】)物理伤害。",
-    "image": "assets/skills/3167.png"
+    "image": "assets/optimized/s8__17_17_7/skills/3167_skill.webp"
    }
   },
   {
@@ -856,14 +856,14 @@
     "description": null
    },
    "tags": [],
-   "icon": "assets/champions/3168.png",
+   "icon": "assets/optimized/s8__17_17_7/champions/3168.webp",
    "splash": "assets/champions/splash/3168.jpg",
    "card": "assets/champions/card/3168.webp",
    "has_stats": true,
    "skill": {
     "name": "自适应打击",
     "description": "被动：【贾克斯】每第三次攻击会跃至他的目标敌人处并造成80(【法术加成】)额外魔法伤害。每第三次攻击都会使这个额外伤害提升20(【法术加成】)，并且至多可叠加7次。  当前附加伤害：0(【法术加成】)",
-    "image": "assets/skills/3168.png"
+    "image": "assets/optimized/s8__17_17_7/skills/3168_skill.webp"
    }
   },
   {
@@ -880,14 +880,14 @@
     "description": null
    },
    "tags": [],
-   "icon": "assets/champions/3169.png",
+   "icon": "assets/optimized/s8__17_17_7/champions/3169.webp",
    "splash": "assets/champions/splash/3169.jpg",
    "card": "assets/champions/card/3169.webp",
    "has_stats": true,
    "skill": {
     "name": "恶意魔印",
     "description": "【乐芙兰】对她的目标敌人发射6个魔印，每个魔印造成80(【法术加成】)魔法伤害，如果目标倒下，那么她会将剩余魔印施放给相距最近的敌人，并新增1个魔印。",
-    "image": "assets/skills/3169.png"
+    "image": "assets/optimized/s8__17_17_7/skills/3169_skill.webp"
    }
   },
   {
@@ -903,14 +903,14 @@
     "description": null
    },
    "tags": [],
-   "icon": "assets/champions/3170.png",
+   "icon": "assets/optimized/s8__17_17_7/champions/3170.webp",
    "splash": "assets/champions/splash/3170.jpg",
    "card": "assets/champions/card/3170.webp",
    "has_stats": true,
    "skill": {
     "name": "星之超载",
     "description": "被动：【卡莎】的攻击会施加电浆。她对带有2层电浆效果的目标打出的下一次攻击会造成150(【法术加成】)魔法伤害并移除电浆。  主动：【卡莎】获得持续10秒的100%攻击速度。这个加成可以叠加！",
-    "image": "assets/skills/3170.png"
+    "image": "assets/optimized/s8__17_17_7/skills/3170_skill.webp"
    }
   },
   {
@@ -925,14 +925,14 @@
     "description": null
    },
    "tags": [],
-   "icon": "assets/champions/3172.png",
+   "icon": "assets/optimized/s8__17_17_7/champions/3172.webp",
    "splash": "assets/champions/splash/3172.jpg",
    "card": "assets/champions/card/3172.webp",
    "has_stats": true,
    "skill": {
     "name": "暗之禁锢",
     "description": "被动：在【莫甘娜】对一名敌人造成伤害时，她会对其施加持续4秒的40%护甲击碎和魔抗击碎。  主动：【莫甘娜】朝相距最近的2个敌人发出暗之禁锢，对其造成215(【法术加成】)魔法伤害和1.5秒晕眩。  护甲击碎：使护甲降低 魔抗击碎：使魔抗降低",
-    "image": "assets/skills/3172.png"
+    "image": "assets/optimized/s8__17_17_7/skills/3172_skill.webp"
    }
   },
   {
@@ -948,14 +948,14 @@
     "description": null
    },
    "tags": [],
-   "icon": "assets/champions/4141.png",
+   "icon": "assets/optimized/s8__17_17_7/champions/4141.webp",
    "splash": "assets/champions/splash/4141.jpg",
    "card": "assets/champions/card/4141.webp",
    "has_stats": true,
    "skill": {
     "name": "墙幔",
     "description": "【塔莉垭】对一条直线上的敌人们召唤一道螺旋岩石激流，激流会对命中的所有敌人造成75(【法术加成】)魔法伤害。在短暂的延迟后，墙体会爆裂，对附近的敌人们造成额外的235(【法术加成】)魔法伤害。",
-    "image": "assets/skills/4141.png"
+    "image": "assets/optimized/s8__17_17_7/skills/4141_skill.webp"
    }
   },
   {
@@ -972,14 +972,14 @@
     "description": null
    },
    "tags": [],
-   "icon": "assets/champions/4142.png",
+   "icon": "assets/optimized/s8__17_17_7/champions/4142.webp",
    "splash": "assets/champions/splash/4142.jpg",
    "card": "assets/champions/card/4142.webp",
    "has_stats": true,
    "skill": {
     "name": "痛贯天灵",
     "description": "【佛耶戈】变为不可阻挡状态，跃至附近敌人最密集的位置并将他的剑砸落到生命值最低的那名敌人身上，对主要目标造成330(【法术加成】)魔法伤害并对附近的敌人们造成165(【法术加成】)魔法伤害。如果【佛耶戈】击败了一名敌人，那么他会再次施放这个技能但技能的伤害值会削减18%。",
-    "image": "assets/skills/4142.png"
+    "image": "assets/optimized/s8__17_17_7/skills/4142_skill.webp"
    }
   },
   {
@@ -994,14 +994,14 @@
     "description": null
    },
    "tags": [],
-   "icon": "assets/champions/4143.png",
+   "icon": "assets/optimized/s8__17_17_7/champions/4143.webp",
    "splash": "assets/champions/splash/4143.jpg",
    "card": "assets/champions/card/4143.webp",
    "has_stats": true,
    "skill": {
     "name": "流星雨",
     "description": "【奥瑞利安·索尔】召唤4颗流星落到随机的敌人身上。流星对敌人们造成155(【法术加成】)魔法伤害，然后施加持续10秒的1%灼烧效果和33%重伤效果。  灼伤：造成目标百分比最大生命值的真实伤害 重伤：使受到的治疗效果降低",
-    "image": "assets/skills/4143.png"
+    "image": "assets/optimized/s8__17_17_7/skills/4143_skill.webp"
    }
   },
   {
@@ -1016,14 +1016,14 @@
     "description": null
    },
    "tags": [],
-   "icon": "assets/champions/4144.png",
+   "icon": "assets/optimized/s8__17_17_7/champions/4144.webp",
    "splash": "assets/champions/splash/4144.jpg",
    "card": "assets/champions/card/4144.webp",
    "has_stats": true,
    "skill": {
     "name": "万载豪筵",
     "description": "【卑尔维斯】围着她的目标进行冲刺并释放一连串的2(【攻击速度】)次攻击，每次攻击造成80(【物理加成】【法术加成】)物理伤害。  这个技能每施放一次，【卑尔维斯】就会获得30%攻速，持续到战斗环节结束为止。",
-    "image": "assets/skills/4144.png"
+    "image": "assets/optimized/s8__17_17_7/skills/4144_skill.webp"
    }
   },
   {
@@ -1039,14 +1039,14 @@
     "description": null
    },
    "tags": [],
-   "icon": "assets/champions/4146.png",
+   "icon": "assets/optimized/s8__17_17_7/champions/4146.webp",
    "splash": "assets/champions/splash/4146.jpg",
    "card": "assets/champions/card/4146.webp",
    "has_stats": true,
    "skill": {
     "name": "弹幕时间",
     "description": "【厄运小姐】在2秒引导时间里朝着密度最大敌人的方向发射8波弹幕。首次命中敌人的那波弹幕会对该敌人造成40(【法术加成】)魔法伤害。之后的每波弹幕则造成20(【法术加成】)魔法伤害。",
-    "image": "assets/skills/4146.png"
+    "image": "assets/optimized/s8__17_17_7/skills/4146_skill.webp"
    }
   },
   {
@@ -1063,14 +1063,14 @@
     "description": null
    },
    "tags": [],
-   "icon": "assets/champions/4147.png",
+   "icon": "assets/optimized/s8__17_17_7/champions/4147.webp",
    "splash": "assets/champions/splash/4147.jpg",
    "card": "assets/champions/card/4147.webp",
    "has_stats": true,
    "skill": {
     "name": "交火",
     "description": "【莎弥拉】快速发射子弹，总共造成388(【物理加成】【法术加成】)物理伤害。子弹会弹射到附近的敌人处，但子弹伤害会被削减20%。",
-    "image": "assets/skills/4147.png"
+    "image": "assets/optimized/s8__17_17_7/skills/4147_skill.webp"
    }
   },
   {
@@ -1086,14 +1086,14 @@
     "description": null
    },
    "tags": [],
-   "icon": "assets/champions/4148.png",
+   "icon": "assets/optimized/s8__17_17_7/champions/4148.webp",
    "splash": "assets/champions/splash/4148.jpg",
    "card": "assets/champions/card/4148.webp",
    "has_stats": true,
    "skill": {
     "name": "机甲猛击",
     "description": "【瑟提】获得325(【法术加成】)护盾值并变为控制免疫状态，持续2秒。他会在护盾处于激活状态时进行蓄力；当护盾被打破或到期时，他会打出一个锥形的震波，对震波范围内的所有敌人造成126(【物理加成】)物理伤害。基于他的蓄力时长，震波伤害至多可提升至252(【物理加成】)。",
-    "image": "assets/skills/4148.png"
+    "image": "assets/optimized/s8__17_17_7/skills/4148_skill.webp"
    }
   },
   {
@@ -1108,14 +1108,14 @@
     "description": null
    },
    "tags": [],
-   "icon": "assets/champions/4149.png",
+   "icon": "assets/optimized/s8__17_17_7/champions/4149.webp",
    "splash": "assets/champions/splash/4149.jpg",
    "card": "assets/champions/card/4149.webp",
    "has_stats": true,
    "skill": {
     "name": "共生分裂",
     "description": "被动：在倒下时，分裂为2团更小的【扎克粘液】，各拥有【扎克】40%的最大生命值并会嘲讽附近的敌人们。  主动：【扎克】弹到空中然后猛然砸落，对附近的敌人们造成100(【法术加成】)加上25%当前生命值的魔法伤害。然后他治疗自身30%的已损失生命值。",
-    "image": "assets/skills/4149.png"
+    "image": "assets/optimized/s8__17_17_7/skills/4149_skill.webp"
    }
   },
   {
@@ -1132,14 +1132,14 @@
     "description": null
    },
    "tags": [],
-   "icon": "assets/champions/4150.png",
+   "icon": "assets/optimized/s8__17_17_7/champions/4150.webp",
    "splash": "assets/champions/splash/4150.jpg",
    "card": "assets/champions/card/4150.webp",
    "has_stats": true,
    "skill": {
     "name": "强化杀戮模式",
     "description": "【劫】短暂变为不可选取状态，并传送到他的目标敌人身后，削减其20护甲并进入狂暴模式，持续7秒。在狂暴模式中，攻击会造成40(【法术加成】)额外物理伤害并且每第三次攻击会对所有邻格的敌人们造成148(【物理加成】)物理伤害。",
-    "image": "assets/skills/4150.png"
+    "image": "assets/optimized/s8__17_17_7/skills/4150_skill.webp"
    }
   },
   {
@@ -1155,14 +1155,14 @@
     "description": null
    },
    "tags": [],
-   "icon": "assets/champions/4151.png",
+   "icon": "assets/optimized/s8__17_17_7/champions/4151.webp",
    "splash": "assets/champions/splash/4151.jpg",
    "card": "assets/champions/card/4151.webp",
    "has_stats": true,
    "skill": {
     "name": "流星坠落",
     "description": "【索拉卡】朝她的目标敌人发射一颗星星，星星造成235(【法术加成】)魔法伤害并为【索拉卡】治疗她8%的最大生命值。每第3次施放，她会发射3颗星星给相距最近的敌人们，每个敌人一颗。",
-    "image": "assets/skills/4151.png"
+    "image": "assets/optimized/s8__17_17_7/skills/4151_skill.webp"
    }
   },
   {
@@ -1178,14 +1178,14 @@
     "description": null
    },
    "tags": [],
-   "icon": "assets/champions/4152.png",
+   "icon": "assets/optimized/s8__17_17_7/champions/4152.webp",
    "splash": "assets/champions/splash/4152.jpg",
    "card": "assets/champions/card/4152.webp",
    "has_stats": true,
    "skill": {
     "name": "冰晶手雷",
     "description": "【瑟庄妮】朝相距最近的敌人扔出一颗冰晶手雷，手雷会在2秒的延迟后爆炸。3格距离内的敌人们会受到125(【法术加成】)魔法伤害和2秒晕眩效果。  晕眩：不能移动、攻击或施放技能",
-    "image": "assets/skills/4152.png"
+    "image": "assets/optimized/s8__17_17_7/skills/4152_skill.webp"
    }
   },
   {
@@ -1202,14 +1202,14 @@
     "description": null
    },
    "tags": [],
-   "icon": "assets/champions/4157.png",
+   "icon": "assets/optimized/s8__17_17_7/champions/4157.webp",
    "splash": "assets/champions/splash/4157.jpg",
    "card": "assets/champions/card/4157.webp",
    "has_stats": true,
    "skill": {
     "name": "星之尖兵",
     "description": "【艾克】突入敌阵，为他自身提供持续5秒的550(【法术加成】)护盾值并嘲讽附近的敌人们。当护盾被打破时，他会形成一个时间领域，对附近的敌人们造成100(【法术加成】)伤害和持续2秒的50%冰冷效果。  冰冷：降低攻击速度。",
-    "image": "assets/skills/4157.png"
+    "image": "assets/optimized/s8__17_17_7/skills/4157_skill.webp"
    }
   },
   {
@@ -1224,14 +1224,14 @@
     "description": null
    },
    "tags": [],
-   "icon": "assets/champions/4164.png",
+   "icon": "assets/optimized/s8__17_17_7/champions/4164.webp",
    "splash": "assets/champions/splash/4164.jpg",
    "card": "assets/champions/card/4164.webp",
    "has_stats": true,
    "skill": {
     "name": "灵魂碾压",
     "description": "亚托克斯吮吸附近敌人们的灵魂，从而造成200(【法术加成】)魔法伤害，并获得330(【生命上限】)最大生命值。然后他会释放他的恶魔形态，持续到战斗环节结束为止，并将他的技能替换为【暗裔利刃】。  暗裔利刃：亚托克斯将他的大剑砸落到他的目标上，对命中的所有敌人造成200(【法术加成】)魔法伤害，并治疗自身300(【法术加成】)生命值。",
-    "image": "assets/skills/4164.png"
+    "image": "assets/optimized/s8__17_17_7/skills/4164_skill.webp"
    }
   },
   {
@@ -1247,14 +1247,14 @@
     "description": null
    },
    "tags": [],
-   "icon": "assets/champions/5121.png",
+   "icon": "assets/optimized/s8__17_17_7/champions/5121.webp",
    "splash": "assets/champions/splash/5121.jpg",
    "card": "assets/champions/card/5121.webp",
    "has_stats": true,
    "skill": {
     "name": "史上最大机器球！",
     "description": "被动：【努努和威朗普】朝着相距最远的敌人围着棋盘推动一个球体。球体对途经的所有敌人造成120(【法术加成】)魔法伤害和短暂晕眩。当他们碰到目标敌人时，他们会寻找一个新的目的地。【努努和威朗普】每秒获得30法力值。  主动：【努努和威朗普】使球体变大，从而使他们的移动速度、球体的体型和球体的伤害提升40%。",
-    "image": "assets/skills/5121.png"
+    "image": "assets/optimized/s8__17_17_7/skills/5121_skill.webp"
    }
   },
   {
@@ -1270,14 +1270,14 @@
     "description": null
    },
    "tags": [],
-   "icon": "assets/champions/5122.png",
+   "icon": "assets/optimized/s8__17_17_7/champions/5122.webp",
    "splash": "assets/champions/splash/5122.jpg",
    "card": "assets/champions/card/5122.webp",
    "has_stats": true,
    "skill": {
     "name": "驱使念力",
     "description": "【辛德拉】提供200(【法术加成】)护盾值给你备战席上的一名弈子，然后用一颗法球将其带到棋盘上，并落在距她最近的敌人处。法球对命中的敌人们造成250(【法术加成】)魔法伤害和短暂击飞。  被带到棋盘上的弈子们的羁绊都不会变为激活状态，【堕落使者】除外",
-    "image": "assets/skills/5122.png"
+    "image": "assets/optimized/s8__17_17_7/skills/5122_skill.webp"
    }
   },
   {
@@ -1294,14 +1294,14 @@
     "description": null
    },
    "tags": [],
-   "icon": "assets/champions/5123.png",
+   "icon": "assets/optimized/s8__17_17_7/champions/5123.webp",
    "splash": "assets/champions/splash/5123.jpg",
    "card": "assets/champions/card/5123.webp",
    "has_stats": true,
    "skill": {
     "name": "旋风！",
     "description": "【迦娜】朝着敌人最密集的位置发送一道旋风。旋风会在抵达终点时扩大，从而将附近的所有敌人击飞到空中、造成1.25秒晕眩、并在3秒里持续造成共450(【法术加成】)魔法伤害。  晕眩：不能移动、攻击或施放技能",
-    "image": "assets/skills/5123.png"
+    "image": "assets/optimized/s8__17_17_7/skills/5123_skill.webp"
    }
   },
   {
@@ -1318,14 +1318,14 @@
     "description": null
    },
    "tags": [],
-   "icon": "assets/champions/5124.png",
+   "icon": "assets/optimized/s8__17_17_7/champions/5124.webp",
    "splash": "assets/champions/splash/5124.jpg",
    "card": "assets/champions/card/5124.webp",
    "has_stats": true,
    "skill": {
     "name": "机械降神",
     "description": "【蕾欧娜】锁定她的目标然后召唤一道轨道激光打击。激光对该目标敌人每秒造成350(【法术加成】)真实伤害，持续到该目标倒下为止，并对附近的敌人们造成280(【法术加成】)魔法伤害。",
-    "image": "assets/skills/5124.png"
+    "image": "assets/optimized/s8__17_17_7/skills/5124_skill.webp"
    }
   },
   {
@@ -1341,14 +1341,14 @@
     "description": null
    },
    "tags": [],
-   "icon": "assets/champions/5125.png",
+   "icon": "assets/optimized/s8__17_17_7/champions/5125.webp",
    "splash": "assets/champions/splash/5125.jpg",
    "card": "assets/champions/card/5125.webp",
    "has_stats": true,
    "skill": {
     "name": "天际线",
     "description": "【莫德凯撒】将棋盘运送到他的国度，持续4秒。他会对所有敌人施加50魔抗击碎效果，然后将一座建筑物砸到棋盘上，对命中的所有敌人造成420(【法术加成】)魔法伤害。  魔抗击碎：使魔法抗性降低",
-    "image": "assets/skills/5125.png"
+    "image": "assets/optimized/s8__17_17_7/skills/5125_skill.webp"
    }
   },
   {
@@ -1364,14 +1364,14 @@
     "description": null
    },
    "tags": [],
-   "icon": "assets/champions/5126.png",
+   "icon": "assets/optimized/s8__17_17_7/champions/5126.webp",
    "splash": "assets/champions/splash/5126.jpg",
    "card": "assets/champions/card/5126.webp",
    "has_stats": true,
    "skill": {
     "name": "黑暗收割",
     "description": "【费德提克】传送到敌人最密集的位置，并对他们造成1秒恐惧效果。在接下来的5秒里，【费德提克】会从附近的敌人们身上汲取生命力，每秒造成70(【法术加成】)魔法伤害并提供相当于20%已造成伤害值的治疗效果。",
-    "image": "assets/skills/5126.png"
+    "image": "assets/optimized/s8__17_17_7/skills/5126_skill.webp"
    }
   },
   {
@@ -1386,14 +1386,14 @@
     "description": null
    },
    "tags": [],
-   "icon": "assets/champions/5127.png",
+   "icon": "assets/optimized/s8__17_17_7/champions/5127.webp",
    "splash": "assets/champions/splash/5127.jpg",
    "card": "assets/champions/card/5127.webp",
    "has_stats": true,
    "skill": {
     "name": "逆流",
     "description": "被动：【厄加特】的爪子每秒发射5次攻击，每次攻击造成46(【物理加成】)物理伤害。  主动：【厄加特】在他的敌人们后方召唤一道巨浪来对敌人们造成各敌人5%最大生命值的魔法伤害。巨浪会将敌人们前推1格、造成1秒晕眩效果，并有10%(【法术加成】)几率挖掘出宝藏(金币或战利品)。  晕眩：不能移动、攻击或施放技能",
-    "image": "assets/skills/5127.png"
+    "image": "assets/optimized/s8__17_17_7/skills/5127_skill.webp"
    }
   },
   {
@@ -1410,14 +1410,14 @@
     "description": null
    },
    "tags": [],
-   "icon": "assets/champions/5128.png",
+   "icon": "assets/optimized/s8__17_17_7/champions/5128.webp",
    "splash": "assets/champions/splash/5128.jpg",
    "card": "assets/champions/card/5128.webp",
    "has_stats": true,
    "skill": {
     "name": "对影",
     "description": "【厄斐琉斯】对相距最近的2个敌人发射一连串的攻击，对每个敌人造成311(【物理加成】【法术加成】)物理伤害。",
-    "image": "assets/skills/5128.png"
+    "image": "assets/optimized/s8__17_17_7/skills/5128_skill.webp"
    }
   },
   {
@@ -1434,14 +1434,14 @@
     "description": null
    },
    "tags": [],
-   "icon": "assets/champions/5129.png",
+   "icon": "assets/optimized/s8__17_17_7/champions/5129.webp",
    "splash": "assets/champions/splash/5129.jpg",
    "card": "assets/champions/card/5129.webp",
    "has_stats": true,
    "skill": {
     "name": "暝涌",
     "description": "【厄斐琉斯】朝着他目标敌人的方向呈锥形释放一道能量波，对命中的所有敌人造成55(【法术加成】)魔法伤害和锁定效果。在一段延迟后，【厄斐琉斯】会对每个被锁定的敌人发射一连串子弹，造成208(【物理加成】)物理伤害。",
-    "image": "assets/skills/5129.png"
+    "image": "assets/optimized/s8__17_17_7/skills/5129_skill.webp"
    }
   },
   {
@@ -1458,14 +1458,14 @@
     "description": null
    },
    "tags": [],
-   "icon": "assets/champions/5130.png",
+   "icon": "assets/optimized/s8__17_17_7/champions/5130.webp",
    "splash": "assets/champions/splash/5130.jpg",
    "card": "assets/champions/card/5130.webp",
    "has_stats": true,
    "skill": {
     "name": "地霜暗蚀",
     "description": "【厄斐琉斯】向敌人最密集的位置施放一道月华射灯，对区域内的所有敌人造成157(【物理加成】【法术加成】)物理伤害和1.25秒晕眩。  晕眩：不能移动、攻击或施放技能",
-    "image": "assets/skills/5130.png"
+    "image": "assets/optimized/s8__17_17_7/skills/5130_skill.webp"
    }
   }
  ],
@@ -1475,7 +1475,7 @@
    "name": "幻灵战队",
    "category": "origin",
    "description": "幻灵战队成员们在击杀英雄之后会摆个姿势，因而提升他们的【名声】。每一点【名声】会为每个幻灵战队成员提供永久的5生命值。  他们还会获得：",
-   "image": "assets/traits/160.png",
+   "image": "assets/optimized/s8__17_17_7/traits/160.webp",
    "breakpoints": [
     {
      "min_units": 3,
@@ -1502,7 +1502,7 @@
    "name": "平民英雄",
    "category": "origin",
    "description": "如果一名平民英雄处于存活状态，你的所有弈子们都会获得激励来保护该弈子，从而每2秒获得法力值。",
-   "image": "assets/traits/161.png",
+   "image": "assets/optimized/s8__17_17_7/traits/161.webp",
    "breakpoints": [
     {
      "min_units": 1,
@@ -1529,7 +1529,7 @@
    "name": "小天才",
    "category": "origin",
    "description": "每个回合，小天才们都会制造拥有强力效果的随机改装武器，这些改装武器会在一个回合后解体。小天才们每携带一件装备就会获得伤害提升和伤害减免。",
-   "image": "assets/traits/162.png",
+   "image": "assets/optimized/s8__17_17_7/traits/162.webp",
    "breakpoints": [
     {
      "min_units": 3,
@@ -1550,7 +1550,7 @@
    "name": "星之守护者",
    "category": "origin",
    "description": "星之守护者们在战斗中获得更多法力值。",
-   "image": "assets/traits/163.png",
+   "image": "assets/optimized/s8__17_17_7/traits/163.webp",
    "breakpoints": [
     {
      "min_units": 3,
@@ -1583,7 +1583,7 @@
    "name": "超级英雄",
    "category": "origin",
    "description": "(3)战斗环节开始时：摆个造型，从而为友军们提供20%伤害增幅。你的队伍中每拥有1个3星弈子，这个伤害增幅就会提升6%。  当前增伤：0%",
-   "image": "assets/traits/164.png",
+   "image": "assets/optimized/s8__17_17_7/traits/164.webp",
    "breakpoints": [
     {
      "min_units": 3,
@@ -1598,7 +1598,7 @@
    "name": "福牛守护者",
    "category": "origin",
    "description": "福牛守护者们获得额外防御属性。  每场战斗一次：当他们即将跌到1生命值以下时，会转而被降至1生命值并获得相当于其50%最大生命值的护盾值，护盾持续1.5秒。",
-   "image": "assets/traits/165.png",
+   "image": "assets/optimized/s8__17_17_7/traits/165.webp",
    "breakpoints": [
     {
      "min_units": 2,
@@ -1637,7 +1637,7 @@
    "name": "战斗机甲",
    "category": "origin",
    "description": "使用【至尊选择器】来指定一个【至尊机甲】。  战斗环节开始时：【至尊机甲】与相距最近的2个【战斗机甲】弈子合体，吸收这些弈子的90%基础生命值。",
-   "image": "assets/traits/166.png",
+   "image": "assets/optimized/s8__17_17_7/traits/166.webp",
    "breakpoints": [
     {
      "min_units": 3,
@@ -1664,7 +1664,7 @@
    "name": "怪兽",
    "category": "origin",
    "description": "怪兽们没有羁绊加成，但会拥有强大的技能和提升过的各项基础属性。",
-   "image": "assets/traits/167.png",
+   "image": "assets/optimized/s8__17_17_7/traits/167.webp",
    "breakpoints": [
     {
      "min_units": 1,
@@ -1679,7 +1679,7 @@
    "name": "地下魔盗团",
    "category": "origin",
    "description": "【地下魔盗团】们必须偷偷穿过下水道然后撬开10个锁才能打开一个金库。金库打开后，选择立刻带走战利品，或者尝试开始另一次盗窃来获得更好的奖励。",
-   "image": "assets/traits/169.png",
+   "image": "assets/optimized/s8__17_17_7/traits/169.webp",
    "breakpoints": [
     {
      "min_units": 3,
@@ -1718,7 +1718,7 @@
    "name": "AI程序",
    "category": "origin",
    "description": "AI程序在每局游戏中对每个玩家的配置都不同。",
-   "image": "assets/traits/170.png",
+   "image": "assets/optimized/s8__17_17_7/traits/170.webp",
    "breakpoints": [
     {
      "min_units": 2,
@@ -1745,7 +1745,7 @@
    "name": "源计划：激光特工",
    "category": "origin",
    "description": "在一名无人机操纵员进行普攻或被普攻命中时，其战斗无人机会对该特工的目标造成魔法伤害(0.4秒冷却时间)。当一名操纵员阵亡时，该操纵员的无人机会被重新分配给相距最近且依然存活的操纵员。  无人机的激光造成：",
-   "image": "assets/traits/171.png",
+   "image": "assets/optimized/s8__17_17_7/traits/171.webp",
    "breakpoints": [
     {
      "min_units": 3,
@@ -1778,7 +1778,7 @@
    "name": "堕落使者",
    "category": "origin",
    "description": "(1)战斗环节开始时：蛰伏着吸收倒下弈子们的灵魂。每个灵魂提供40法术加成。  每场战斗一次：在生命值跌到70%(或在所有友军都倒下)时，活过来并战斗。",
-   "image": "assets/traits/174.png",
+   "image": "assets/optimized/s8__17_17_7/traits/174.webp",
    "breakpoints": [
     {
      "min_units": 1,
@@ -1793,7 +1793,7 @@
    "name": "混沌战士",
    "category": "class",
    "description": "混沌战士们会造成额外伤害，并且挺到最后那名【混沌战士】会造成更多额外伤害。",
-   "image": "assets/traits/120.png",
+   "image": "assets/optimized/s8__17_17_7/traits/120.webp",
    "breakpoints": [
     {
      "min_units": 3,
@@ -1820,7 +1820,7 @@
    "name": "黑客",
    "category": "class",
    "description": "【黑客】们获得全能吸血并召唤一个【黑客里姆】。任一被放置在【骑手格】的弈子会被带到敌方后排并且在战斗的最初2秒里处于无法被选取状态。",
-   "image": "assets/traits/121.png",
+   "image": "assets/optimized/s8__17_17_7/traits/121.webp",
    "breakpoints": [
     {
      "min_units": 3,
@@ -1847,7 +1847,7 @@
    "name": "淘气包",
    "category": "class",
    "description": "(2)每场战斗一次：在50%生命值时，【淘气包】们生成一个目标假人，移动到一个安全处，并回复150生命值|(3)以及，【淘气包】假人们在被敌人击败时会使击败者晕眩1.5秒|(4)生命值回复提升至350，晕眩时间提升至2秒。",
-   "image": "assets/traits/122.png",
+   "image": "assets/optimized/s8__17_17_7/traits/122.webp",
    "breakpoints": [
     {
      "min_units": 2,
@@ -1874,7 +1874,7 @@
    "name": "灵能使",
    "category": "class",
    "description": "每过6秒，灵能使的下一次攻击就会转而发射一个目标随机的魔法球，魔法球会在爆炸时造成50受法术加成的魔法伤害。 【灵能使】们还会获得：",
-   "image": "assets/traits/123.png",
+   "image": "assets/optimized/s8__17_17_7/traits/123.webp",
    "breakpoints": [
     {
      "min_units": 2,
@@ -1907,7 +1907,7 @@
    "name": "决斗大师",
    "category": "class",
    "description": "固有能力：移动速度得到提升。  决斗大师们的攻击会提供额外攻击速度，至多12层。",
-   "image": "assets/traits/124.png",
+   "image": "assets/optimized/s8__17_17_7/traits/124.webp",
    "breakpoints": [
     {
      "min_units": 2,
@@ -1940,7 +1940,7 @@
    "name": "强袭枪手",
    "category": "class",
    "description": "战斗环节开始时：强袭枪手们在现在和之后的每4秒获得物理加成。",
-   "image": "assets/traits/125.png",
+   "image": "assets/optimized/s8__17_17_7/traits/125.webp",
    "breakpoints": [
     {
      "min_units": 2,
@@ -1973,7 +1973,7 @@
    "name": "护卫",
    "category": "class",
    "description": "你的弈子们获得额外护甲，并且护卫们获得更多的护甲。",
-   "image": "assets/traits/126.png",
+   "image": "assets/optimized/s8__17_17_7/traits/126.webp",
    "breakpoints": [
     {
      "min_units": 2,
@@ -2000,7 +2000,7 @@
    "name": "吉祥物",
    "category": "class",
    "description": "你的弈子们每2秒治疗一定百分比的最大生命值，并且吉祥物们的治疗效果是双倍的此数额。  当吉祥物阵亡时，会撤退到边线来为你的队伍加油助威。每个正在助威的吉祥物弈子都会使你的弈子们的治疗效果提升1%。",
-   "image": "assets/traits/127.png",
+   "image": "assets/optimized/s8__17_17_7/traits/127.webp",
    "breakpoints": [
     {
      "min_units": 2,
@@ -2027,7 +2027,7 @@
    "name": "爱心使者",
    "category": "class",
    "description": "每当爱心使者弈子们施放其技能时，你的所有弈子们都将获得可叠加的法术加成，持续到战斗环节结束为止。",
-   "image": "assets/traits/128.png",
+   "image": "assets/optimized/s8__17_17_7/traits/128.webp",
    "breakpoints": [
     {
      "min_units": 2,
@@ -2054,7 +2054,7 @@
    "name": "气象主播",
    "category": "class",
    "description": "晴朗天气： 战斗环节开始时：为邻格的友军们提供400/600/2000护盾值，持续6/6/45秒。  【气象主播】的效果在每局游戏都会改变。",
-   "image": "assets/traits/130.png",
+   "image": "assets/optimized/s8__17_17_7/traits/130.webp",
    "breakpoints": [
     {
      "min_units": 1,
@@ -2069,7 +2069,7 @@
    "name": "枪神",
    "category": "class",
    "description": "(1)在部署枪神弈子时，玩家可以选择他将要装备的武器。",
-   "image": "assets/traits/131.png",
+   "image": "assets/optimized/s8__17_17_7/traits/131.webp",
    "breakpoints": [
     {
      "min_units": 1,
@@ -2084,7 +2084,7 @@
    "name": "斗士",
    "category": "class",
    "description": "斗士可获得额外的最大生命值。",
-   "image": "assets/traits/132.png",
+   "image": "assets/optimized/s8__17_17_7/traits/132.webp",
    "breakpoints": [
     {
      "min_units": 2,
@@ -2117,7 +2117,7 @@
    "name": "情报特工",
    "category": "class",
    "description": "固有能力：获得2格攻击距离。  如果有敌人在附近，那么情报特工们会先冲刺到安全处之后再施放其技能。",
-   "image": "assets/traits/133.png",
+   "image": "assets/optimized/s8__17_17_7/traits/133.webp",
    "breakpoints": [
     {
      "min_units": 2,
@@ -2144,7 +2144,7 @@
    "name": "秘术卫士",
    "category": "class",
    "description": "你的弈子们获得魔法抗性，并且秘术卫士弈子获得更多魔法抗性。",
-   "image": "assets/traits/134.png",
+   "image": "assets/optimized/s8__17_17_7/traits/134.webp",
    "breakpoints": [
     {
      "min_units": 2,
@@ -2177,7 +2177,7 @@
    "name": "精英战士",
    "category": "class",
    "description": "这个羁绊仅会在你恰好拥有1个或4个独特的【精英战士】弈子时激活。",
-   "image": "assets/traits/135.png",
+   "image": "assets/optimized/s8__17_17_7/traits/135.webp",
    "breakpoints": [
     {
      "min_units": 1,

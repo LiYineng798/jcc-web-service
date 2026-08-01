@@ -41,6 +41,32 @@ def test_simulator_loads_every_season_from_catalog():
         assert (season_root / 'items.json').is_file()
 
 
+def test_simulator_prefers_versioned_webp_images_for_every_season():
+    javascript = (SIMULATOR_ROOT / 'app.js').read_text(encoding='utf-8')
+    catalog = json.loads((SEASON_ROOT / 'catalog.json').read_text(encoding='utf-8'))
+
+    assert 'optimized_local_path || raw.images?.icon?.local_path' in javascript
+    assert 'optimized_local_path || raw.image?.local_path' in javascript
+    for season in catalog['seasons']:
+        season_root = SEASON_ROOT / season['season_id']
+        documents = (
+            ('champions.json', 'champions', lambda row: (row.get('images') or {}).get('icon')),
+            ('traits.json', 'traits', lambda row: row.get('image')),
+            ('items.json', 'items', lambda row: row.get('image')),
+        )
+        for filename, collection, get_image in documents:
+            rows = json.loads((season_root / filename).read_text(encoding='utf-8')).get(collection) or []
+            for row in rows:
+                image = get_image(row)
+                if not isinstance(image, dict) or not image.get('local_path'):
+                    continue
+                optimized = image.get('optimized_local_path')
+                assert optimized, f"{season['season_id']} {collection} {row['id']} missing optimized image"
+                assert optimized.endswith('.webp')
+                assert f"/{season['version_id']}/" in f"/{optimized}"
+                assert (season_root / optimized).is_file()
+
+
 def test_simulator_implements_board_and_equipment_rules():
     javascript = (SIMULATOR_ROOT / 'app.js').read_text(encoding='utf-8')
 

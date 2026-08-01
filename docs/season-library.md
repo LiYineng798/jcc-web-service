@@ -53,13 +53,14 @@ static/season-data/
 
 ## 图片与 WebP
 
-档案库保存原始图片，Web 导入脚本复制原图，并在 Pillow 可用时从弈子大图生成宽度不超过 500px、质量 75 的卡片 WebP：
+档案库保存原始图片，Web 导入脚本复制原图，并使用 Pillow 生成两类 WebP：
 
 ```text
 static/season-data/<season_id>/assets/champions/card/<champion_id>.webp
+static/season-data/<season_id>/assets/optimized/<version_id>/{champions,skills,items,traits}/<id>.webp
 ```
 
-页面优先使用适合展示尺寸的小图，大图只用于详情或悬浮卡片。Pillow 已列入 `requirements.txt`；导入前先执行 `python -m pip install -r requirements.txt`。若控制台仍出现“需要 Pillow”警告，说明 JSON 已导入但卡片 WebP 没有生成，应修复运行环境后重新导入。不得手工逐张转换或把 WebP 写回档案库覆盖原图。
+卡片图宽度不超过 500px、质量 75；模拟器小图限制在 96px、质量 82，并通过 `optimized_local_path` 优先加载。弈子悬浮卡片背景继续使用原始大图。优化路径包含 `version_id`，新补丁不会命中旧图缓存。Pillow 已列入 `requirements.txt`；导入前先执行 `python -m pip install -r requirements.txt`。若控制台出现“需要 Pillow”或 WebP 缺图警告，应修复运行环境后重新导入。不得手工逐张转换或把 WebP 写回档案库覆盖原图。
 
 当前站点输出目录按赛季隔离，但同一赛季只发布一个默认版本。若以后需要让多个补丁同时在线，必须先把输出升级为 `static/season-data/<season_id>/<version_id>/...`，并同步修改 catalog、路由、前端加载地址和缓存键；在这套改造完成前，不要声称站点能够同时托管同赛季多个版本。
 

@@ -127,7 +127,7 @@ function normalizeChampion(raw) {
     cost: Number(raw.cost) || 0,
     traitIds: (raw.trait_ids || []).map(String),
     availability: raw.availability || { type: "shop", description: null, rules: [] },
-    icon: seasonAsset(raw.images?.icon?.local_path),
+    icon: seasonAsset(raw.images?.icon?.optimized_local_path || raw.images?.icon?.local_path),
     splash: seasonAsset(raw.images?.splash?.local_path || raw.images?.icon?.local_path),
     skill: raw.skills?.[0] || null,
     stats: raw.stats_by_star?.["1"] || {},
@@ -141,7 +141,7 @@ function normalizeTrait(raw) {
     category: raw.category || "other",
     description: raw.description || "",
     breakpoints: [...(raw.breakpoints || [])].sort((a, b) => Number(a.min_units) - Number(b.min_units)),
-    icon: seasonAsset(raw.image?.local_path),
+    icon: seasonAsset(raw.image?.optimized_local_path || raw.image?.local_path),
     tags: raw.tags || [],
   };
 }
@@ -156,7 +156,7 @@ function normalizeItem(raw) {
     effects: raw.effects || [],
     unique: Boolean(raw.unique),
     recipe: raw.recipe || { type: "none", component_ids: [] },
-    icon: seasonAsset(raw.image?.local_path),
+    icon: seasonAsset(raw.image?.optimized_local_path || raw.image?.local_path),
   };
 }
 
@@ -652,7 +652,7 @@ function showHeroPopover(heroId, anchor) {
       <span class="hero-detail-cost"><img src="${UI_ROOT}/gold.png" alt="" />${hero.cost}</span>
     </div>
     <div class="hero-detail-body">
-      ${skill ? `<div class="skill-heading">${skill.image?.local_path ? `<img src="${escapeHtml(seasonAsset(skill.image.local_path))}" alt="" />` : "<span></span>"}<strong>${escapeHtml(skill.name)}</strong><span class="mana">${stats.initial_mana ?? 0} / ${stats.max_mana ?? 0}</span></div>
+      ${skill ? `<div class="skill-heading">${skill.image?.optimized_local_path || skill.image?.local_path ? `<img src="${escapeHtml(seasonAsset(skill.image.optimized_local_path || skill.image.local_path))}" alt="" />` : "<span></span>"}<strong>${escapeHtml(skill.name)}</strong><span class="mana">${stats.initial_mana ?? 0} / ${stats.max_mana ?? 0}</span></div>
       <p class="skill-description">${escapeHtml(skill.description)}</p>
       <div class="skill-values">${(skill.variables || []).map((variable) => `<div class="skill-value"><span>${escapeHtml(variable.label)}</span><span>${escapeHtml(Object.values(variable.values || {}).join(" / "))}</span></div>`).join("")}</div>` : '<p class="skill-description">暂无技能资料</p>'}
       ${hero.availability?.type === "unlock" ? `<div class="unlock-box"><img src="${UI_ROOT}/unlock.png" alt="" /><div><strong>解锁条件</strong><p>${escapeHtml(hero.availability.description || "满足赛季解锁条件")}</p></div></div>` : ""}
