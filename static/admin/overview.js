@@ -48,7 +48,27 @@
           titleRow,
           el('p', 'admin-meta', `${metaParts.join(' · ')} · 复制 ${item.copies} 次 · ${item.unique_visitors} 人`),
         );
-        card.append(info);
+        const details = document.createElement('details');
+        details.className = 'copy-rank-details';
+        const summary = document.createElement('summary');
+        summary.textContent = `查看明细（${(item.details || []).length} 条）`;
+        details.append(summary);
+        const eventList = el('div', 'copy-rank-event-list');
+        (item.details || []).forEach((event) => {
+          const row = el('div', 'copy-rank-event');
+          const copiedCode = event.code ? el('code', 'copy-rank-code', event.code) : el('span', 'admin-meta', '阵容码已不可用');
+          row.append(
+            el('strong', '', event.actor || '游客'),
+            el('span', 'copy-rank-event-time', event.copied_at || ''),
+            el('span', 'copy-rank-event-owner', `上传者：${event.uploader || '未知用户'}`),
+            el('span', 'copy-rank-event-source', event.source_page ? `来源：${event.source_page}` : '来源：未记录'),
+            copiedCode,
+          );
+          eventList.append(row);
+        });
+        if (!eventList.children.length) eventList.append(el('p', 'admin-meta', '暂无可展示的明细'));
+        details.append(eventList);
+        card.append(info, details);
         list.append(card);
       });
       body.append(list);

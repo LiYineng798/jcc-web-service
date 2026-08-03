@@ -683,6 +683,29 @@ function showItemPopover(itemId, anchor) {
   showPopover(anchor);
 }
 
+function showTraitPopover(traitId, anchor) {
+  const trait = state.traitById.get(traitId);
+  if (!trait) return;
+  const count = getTraitCounts().get(traitId) || 0;
+  const status = traitState(trait, count);
+  const breakpoints = trait.breakpoints || [];
+  elements.popover.innerHTML = `<div class="trait-detail">
+    <div class="trait-detail-heading">
+      ${trait.icon ? `<img src="${escapeHtml(trait.icon)}" alt="" />` : ""}
+      <div><span class="trait-detail-kicker">羁绊详情</span><h3>${escapeHtml(trait.name)}</h3></div>
+      <strong class="trait-detail-count">${count}</strong>
+    </div>
+    ${trait.description ? `<p class="trait-detail-description">${escapeHtml(trait.description)}</p>` : ""}
+    <div class="trait-detail-tiers">${breakpoints.length ? breakpoints.map((point) => {
+      const active = Number(point.min_units) <= count;
+      return `<div class="trait-detail-tier ${active ? "is-active" : ""}">
+        <strong>${escapeHtml(point.min_units)} 人</strong><span>${escapeHtml(point.effect || point.description || "")}</span>
+      </div>`;
+    }).join("") : `<p class="muted">独特羁绊 · ${status.active ? "已激活" : "未激活"}</p>`}</div>
+  </div>`;
+  showPopover(anchor);
+}
+
 function showPopover(anchor) {
   elements.popover.hidden = false;
   const rect = anchor.getBoundingClientRect();
@@ -823,13 +846,15 @@ elements.board.addEventListener("drop", (event) => {
 document.addEventListener("pointerover", (event) => {
   const hero = event.target.closest("[data-hero-id]");
   const item = event.target.closest("[data-item-id]");
+  const trait = event.target.closest("[data-trait-id]");
   if (item) showItemPopover(item.dataset.itemId, item);
   else if (hero) showHeroPopover(hero.dataset.heroId, hero);
+  else if (trait) showTraitPopover(trait.dataset.traitId, trait);
 });
 document.addEventListener("pointerout", (event) => {
-  if (!event.target.closest("[data-hero-id], [data-item-id]")) return;
+  if (!event.target.closest("[data-hero-id], [data-item-id], [data-trait-id]")) return;
   const related = event.relatedTarget;
-  if (related instanceof Element && related.closest("[data-hero-id], [data-item-id]") === event.target.closest("[data-hero-id], [data-item-id]")) return;
+  if (related instanceof Element && related.closest("[data-hero-id], [data-item-id], [data-trait-id]") === event.target.closest("[data-hero-id], [data-item-id], [data-trait-id]")) return;
   hidePopover();
 });
 

@@ -23,6 +23,22 @@ SEASON_STATUS_LABELS = {
 SCALING_TOKEN_KINDS = {
     '物理加成': 'ad',
     '法术加成': 'ap',
+    '法强': 'ap',
+    '攻击力': 'attack',
+    '攻击速度': 'attack-speed',
+    '攻击范围': 'range',
+    '护甲': 'armor',
+    '魔法抗性': 'magic-resist',
+    '魔抗': 'magic-resist',
+    '生命上限': 'health',
+    '最大生命值': 'health',
+    '暴击率': 'crit',
+    '暴击倍率': 'crit-multiplier',
+    '法力回复': 'mana-regen',
+    '全能吸血': 'omnivamp',
+    '伤害加成': 'damage-amplification',
+    '伤害减免': 'damage-reduction',
+    '技能暴击': 'skill-crit',
 }
 
 STAT_ROW_SPECS = (
@@ -50,7 +66,7 @@ def format_skill_description(text):
 
 
 def strip_scaling_tokens(text):
-    """Plain-text version for SEO descriptions: drop 【物理/法术加成】 markers."""
+    """Plain-text version for SEO descriptions: drop stat scaling markers."""
     if not text:
         return ''
     for token in SCALING_TOKEN_KINDS:

@@ -37,8 +37,14 @@
     return element;
   }
 
-  const SCALE_KINDS = {物理加成: 'ad', 法术加成: 'ap'};
-  const SCALE_TOKEN_RE = /\(?【(物理加成|法术加成)】\)?/g;
+  const SCALE_KINDS = {
+    物理加成: 'ad', 法术加成: 'ap', 法强: 'ap', 攻击力: 'attack', 攻击速度: 'attack-speed',
+    攻击范围: 'range', 护甲: 'armor', 魔法抗性: 'magic-resist', 魔抗: 'magic-resist',
+    生命上限: 'health', 最大生命值: 'health', 暴击率: 'crit', 暴击倍率: 'crit-multiplier',
+    法力回复: 'mana-regen', 全能吸血: 'omnivamp', 伤害加成: 'damage-amplification',
+    伤害减免: 'damage-reduction', 技能暴击: 'skill-crit',
+  };
+  const SCALE_TOKEN_RE = new RegExp(`\\(?【(${Object.keys(SCALE_KINDS).join('|')})】\\)?`, 'g');
 
   function appendSkillDescription(target, text) {
     const value = String(text || '');
