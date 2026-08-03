@@ -104,6 +104,20 @@ def test_lineup_seasons_use_live_comp_visibility_and_first_visible_default(clien
     assert payload['seasons'][2]['status'] == 'archived'
 
 
+def test_lineup_seasons_include_new_public_live_season(client):
+    manifest_path = Path(client.application.config['LIVE_COMPS_SEASON_MANIFEST_PATH'])
+    manifest_path.write_text(
+        '{"default_season_id":"s17-star-god","seasons":[{"id":"s17-star-god","name":"S17 · 星神","status":"active","order":1},{"id":"s18-enchanted-wilds","name":"S18 · 自然之力","status":"active","order":2,"description":"新赛季","data_file":"s18-enchanted-wilds.json"}]}',
+        encoding='utf-8',
+    )
+
+    payload = client.get('/api/lineup-seasons').get_json()
+
+    s18 = next(season for season in payload['seasons'] if season['id'] == 's18-enchanted-wilds')
+    assert s18['name'] == 'S18 · 自然之力'
+    assert s18['status'] == 'active'
+
+
 def test_lineup_seasons_default_uses_first_visible_ordered_season(client):
     manifest_path = Path(client.application.config['LIVE_COMPS_SEASON_MANIFEST_PATH'])
     manifest_path.write_text(

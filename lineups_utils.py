@@ -22,13 +22,13 @@ def lineup_season_manifest():
     seasons = []
     for live_season in live_manifest.get('seasons', []):
         season_id = live_season['id']
-        base_season = base_seasons.get(season_id)
-        if not base_season:
-            continue
         live_status = live_season.get('status')
         if live_status not in LINEUP_SEASON_PUBLIC_STATUSES:
             continue
-        item = dict(base_season)
+        # The admin-managed live season manifest is the source of truth for
+        # visibility. Keep catalog metadata for legacy seasons, but allow a
+        # newly created season to flow through without a code deployment.
+        item = dict(base_seasons.get(season_id) or live_season)
         item['id'] = season_id
         item['status'] = live_status
         item['order'] = live_season.get('order', item.get('order'))

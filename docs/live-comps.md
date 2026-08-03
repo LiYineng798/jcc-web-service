@@ -43,7 +43,7 @@ X-Upload-Token: <JCC_LIVE_COMPS_UPLOAD_TOKEN>
 
 - 赛季菜单读取 `/api/live-comps/seasons`，不复用普通阵容的 `/api/lineup-seasons`。
 - `active` 和 `archived` 赛季会公开展示；`hidden` 和 `disabled` 赛季只保留后台管理，不进入公开赛季菜单。
-- 新增或编辑普通阵容时的“所属赛季”仍读取 `/api/lineup-seasons`，但该接口会按同一套状态过滤掉 `hidden` 和 `disabled` 赛季。
+- 新增或编辑普通阵容时的“所属赛季”仍读取 `/api/lineup-seasons`，该接口复用后台赛季 manifest 的公开状态；后台新增的 `active` 或 `archived` 赛季无需修改代码即可出现在普通阵容筛选和创建/编辑选项中。
 - S/A/B/C/D 混合展示。
 - 每页最多 6 个。
 - 不直接展示阵容码内容。
