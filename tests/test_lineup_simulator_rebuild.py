@@ -73,6 +73,10 @@ def test_simulator_implements_board_and_equipment_rules():
     assert 'Array(28).fill(null)' in javascript
     assert 'if (slot.items.length >= 3)' in javascript
     assert 'contributors.get(traitId).add(hero.id)' in javascript
+    assert 'raw.extensions?.trait_id ?? raw.extensions?.fetter_id' in javascript
+    assert 'grantedTraitId: rawGrantedTraitId == null' in javascript
+    assert 'state.itemById.get(itemId)?.grantedTraitId' in javascript
+    assert 'state.traitById.has(traitId)' in javascript
     assert 'item?.recipe?.component_ids' in javascript
     assert 'hero.availability?.type === "unlock"' in javascript
     assert 'moveUnit(fromIndex, toIndex)' in javascript
@@ -80,6 +84,25 @@ def test_simulator_implements_board_and_equipment_rules():
     assert 'exportBoardImage' in javascript
     assert 'if (itemChip) {\n    event.preventDefault();\n    hidePopover();' in javascript
     assert 'if (!cell) return;\n  event.preventDefault();\n  hidePopover();\n  mutate(() => { state.board' in javascript
+
+
+def test_every_simulator_emblem_maps_to_a_known_trait():
+    catalog = json.loads((SEASON_ROOT / 'catalog.json').read_text(encoding='utf-8'))
+
+    for season in catalog['seasons']:
+        season_root = SEASON_ROOT / season['season_id']
+        items = json.loads((season_root / 'items.json').read_text(encoding='utf-8')).get('items') or []
+        traits = json.loads((season_root / 'traits.json').read_text(encoding='utf-8')).get('traits') or []
+        trait_ids = {str(trait['id']) for trait in traits}
+        for item in items:
+            if item.get('category') != 'emblem':
+                continue
+            extensions = item.get('extensions') or {}
+            granted_trait_id = extensions.get('trait_id') or extensions.get('fetter_id')
+            assert granted_trait_id is not None, f"{season['season_id']} {item['id']} missing granted trait"
+            assert str(granted_trait_id) in trait_ids, (
+                f"{season['season_id']} {item['id']} references unknown trait {granted_trait_id}"
+            )
 
 
 def test_simulator_uses_flat_hex_board_and_requested_cost_colors():

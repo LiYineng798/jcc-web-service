@@ -147,6 +147,9 @@ function normalizeTrait(raw) {
 }
 
 function normalizeItem(raw) {
+  const rawGrantedTraitId = raw.category === "emblem"
+    ? raw.extensions?.trait_id ?? raw.extensions?.fetter_id
+    : null;
   return {
     id: String(raw.id),
     name: raw.name || "未知装备",
@@ -156,6 +159,7 @@ function normalizeItem(raw) {
     effects: raw.effects || [],
     unique: Boolean(raw.unique),
     recipe: raw.recipe || { type: "none", component_ids: [] },
+    grantedTraitId: rawGrantedTraitId == null || rawGrantedTraitId === "" ? null : String(rawGrantedTraitId),
     icon: seasonAsset(raw.image?.optimized_local_path || raw.image?.local_path),
   };
 }
@@ -372,6 +376,12 @@ function getTraitCounts() {
   state.board.filter(Boolean).forEach((slot) => {
     const hero = state.championById.get(slot.championId);
     hero?.traitIds.forEach((traitId) => {
+      if (!contributors.has(traitId)) contributors.set(traitId, new Set());
+      contributors.get(traitId).add(hero.id);
+    });
+    slot.items.forEach((itemId) => {
+      const traitId = state.itemById.get(itemId)?.grantedTraitId;
+      if (!traitId || !state.traitById.has(traitId)) return;
       if (!contributors.has(traitId)) contributors.set(traitId, new Set());
       contributors.get(traitId).add(hero.id);
     });
