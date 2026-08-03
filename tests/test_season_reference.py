@@ -142,6 +142,11 @@ def test_variable_labels_and_skill_chips_are_sanitized():
     assert '<span class="scale-chip scale-chip-ad">物理加成</span>' in html
     assert '&lt;x&gt;' in html
 
+    extended = str(format_skill_description('获得100(【生命上限】)、20(【护甲】)和10(【魔法抗性】)'))
+    assert 'scale-chip-health' in extended
+    assert 'scale-chip-armor' in extended
+    assert 'scale-chip-magic-resist' in extended
+
     detail = build_champion_detail('s16_5', find_champion_id_by_name('s16_5', '佛耶戈'))
     for variable in detail['champion']['skill']['variables']:
         assert ':' not in variable['label'] and '：' not in variable['label']

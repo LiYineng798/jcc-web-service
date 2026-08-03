@@ -214,4 +214,55 @@ def build_admin_copy_rank_payload(db, target_date, limit=10):
             else:
                 item['title'] = f"未收录实时阵容 #{row['target_id']}"
         items.append(item)
+    # Keep the ranked query compact, then enrich only the visible targets with
+    # the underlying successful events used to produce each aggregate row.
+    target_keys = {(item['target_type'], item['target_id'], item.get('season_id') or '') for item in items}
+    event_rows = db.execute(
+        '''
+        SELECT e.target_type, e.target_id, e.season_id, e.user_id,
+               e.source_page, e.counted, e.created_at,
+               u.username, owner.username AS uploader, l.name AS lineup_name, l.code AS lineup_code
+        FROM copy_action_events e
+        LEFT JOIN users u ON u.id = e.user_id
+        LEFT JOIN lineups l ON l.id = e.lineup_id
+        LEFT JOIN users owner ON owner.id = l.user_id
+        WHERE e.created_at >= ? AND e.created_at < ? AND e.success = 1
+        ORDER BY e.created_at DESC, e.id DESC
+        ''',
+        (start, end),
+    ).fetchall()
+    live_code_cache = {}
+    details_by_key = {key: [] for key in target_keys}
+    for event in event_rows:
+        key = (event['target_type'], str(event['target_id']), event['season_id'] or '')
+        if key not in details_by_key:
+            continue
+        copied_code = event['lineup_code']
+        lineup_name = event['lineup_name']
+        uploader = event['uploader'] or '未知用户'
+        if event['target_type'] == 'live_comp':
+            season_key = event['season_id'] or ''
+            if season_key not in live_code_cache:
+                payload = live_payload_cache.get(season_key)
+                if payload is None:
+                    payload, _, _, _, _ = read_live_comps_payload_for_season(season_key or None)
+                    live_payload_cache[season_key] = payload
+                live_code_cache[season_key] = payload
+            live_item = find_live_comp(live_code_cache[season_key], event['target_id'])
+            copied_code = (live_item or {}).get('resolvedJccCode') or (live_item or {}).get('jccCode')
+            lineup_name = (live_item or {}).get('title')
+            uploader = '实时阵容数据'
+        details_by_key[key].append({
+            'actor': event['username'] or '游客',
+            'actor_type': 'user' if event['user_id'] is not None else 'visitor',
+            'copied_at': event['created_at'],
+            'source_page': event['source_page'] or '',
+            'counted': bool(event['counted']),
+            'lineup_name': lineup_name,
+            'uploader': uploader,
+            'code': copied_code or '',
+        })
+    for item in items:
+        key = (item['target_type'], item['target_id'], item.get('season_id') or '')
+        item['details'] = details_by_key.get(key, [])
     return {'date': target_date, 'items': items}

@@ -102,6 +102,10 @@ def test_admin_copy_rank_ranks_lineups_and_live_comps(client):
     assert top['lineup_id'] == lineup['id']
     assert top['copies'] == 2
     assert top['unique_visitors'] == 1
+    assert top['details']
+    assert top['details'][0]['actor'] == 'ranker'
+    assert top['details'][0]['uploader'] == 'ranker'
+    assert top['details'][0]['code'] == '#RANK001'
 
     live_rows = [item for item in data['items'] if item['target_type'] == 'live_comp']
     assert live_rows and live_rows[0]['target_id'] == str(live_id)

@@ -847,7 +847,7 @@ def test_admin_boot_and_settings_load_independent_requests_in_parallel():
     with open('static/admin.js', 'r', encoding='utf-8') as file:
         js = file.read()
 
-    assert "await Promise.all([\n      loadOverview({ force: true }),\n      loadAdminLiveCompsSeasons({ force: true }),\n    ])" in js
+    assert "await Promise.all([\n      loadOverview({ force: true }),\n      loadCopyRank({ force: true }),\n      loadAdminLiveCompsSeasons({ force: true }),\n    ])" in js
     assert "if (tabKey === 'settings') await Promise.all([loadSettings(), loadNotice()]);" in js
 
 

@@ -139,6 +139,7 @@
     state.csrfToken = me.csrf_token;
     await Promise.all([
       loadOverview({ force: true }),
+      loadCopyRank({ force: true }),
       loadAdminLiveCompsSeasons({ force: true }),
     ]);
     render();
@@ -579,15 +580,10 @@
     const updatedRow = el('p', 'admin-meta admin-updated-row');
     updatedRow.append(state.liveComps.updated_at ? `实时阵容数据更新时间：${state.liveComps.updated_at}` : '实时阵容数据更新时间：暂无');
     updatedRow.append(button('更新时间设为现在', async () => {
-      try {
-        await api(`/api/admin/live-comps/seasons/${encodeURIComponent(state.liveComps.selectedSeasonId)}/touch-updated-at`, { method: 'POST' });
-      } catch (error) {
-        setNotice(error.message || '更新失败');
-        return;
-      }
-      await loadAdminLiveComps({ force: true });
-      setNotice('已把当前赛季的更新时间刷新为现在');
-      render();
+      await runLiveCompMutation(
+        () => api(`/api/admin/live-comps/seasons/${encodeURIComponent(state.liveComps.selectedSeasonId)}/touch-updated-at`, { method: 'POST' }),
+        '已把当前赛季的更新时间刷新为现在',
+      );
     }, 'small-button'));
     body.append(updatedRow);
     body.append(renderLiveCompMetrics(), el('p', 'admin-meta', `最近统计更新：${state.liveComps.copy_updated_at || '未复制'}`));
@@ -679,22 +675,24 @@
       );
       liveSeasonStatusOptions.forEach(([status, label]) => {
         controls.append(button(label, async () => {
-          await api(`/api/admin/live-comps/seasons/${encodeURIComponent(season.id)}`, {
-            method: 'PUT',
-            body: JSON.stringify({ status }),
-          });
-          await loadAdminLiveCompsSeasons({ force: true });
-          render();
+          await runLiveCompMutation(
+            () => api(`/api/admin/live-comps/seasons/${encodeURIComponent(season.id)}`, {
+              method: 'PUT',
+              body: JSON.stringify({ status }),
+            }),
+            `已将「${season.name || season.id}」设为${label}`,
+          );
         }, `small-button${season.status === status ? ' is-active' : ''}`));
       });
       if (season.id !== state.liveCompsSeasons.default_season_id) {
         controls.append(button('设为默认', async () => {
-          await api(`/api/admin/live-comps/seasons/${encodeURIComponent(season.id)}`, {
-            method: 'PUT',
-            body: JSON.stringify({ default_season_id: season.id }),
-          });
-          await loadAdminLiveCompsSeasons({ force: true });
-          render();
+          await runLiveCompMutation(
+            () => api(`/api/admin/live-comps/seasons/${encodeURIComponent(season.id)}`, {
+              method: 'PUT',
+              body: JSON.stringify({ default_season_id: season.id }),
+            }),
+            `已将「${season.name || season.id}」设为默认赛季`,
+          );
         }));
       }
       card.append(info, controls);
@@ -711,11 +709,31 @@
     const nextIndex = Math.max(0, Math.min(seasons.length - 1, currentIndex + direction));
     if (nextIndex === currentIndex) return;
     const nextOrder = nextIndex + 1;
-    await api(`/api/admin/live-comps/seasons/${encodeURIComponent(season.id)}`, {
-      method: 'PUT',
-      body: JSON.stringify({ order: nextOrder }),
-    });
-    await loadAdminLiveCompsSeasons({ force: true });
+    await runLiveCompMutation(
+      () => api(`/api/admin/live-comps/seasons/${encodeURIComponent(season.id)}`, {
+        method: 'PUT',
+        body: JSON.stringify({ order: nextOrder }),
+      }),
+      `已调整「${season.name || season.id}」的赛季顺序`,
+    );
+  }
+
+  async function runLiveCompMutation(action, successMessage) {
+    try {
+      const result = await action();
+      if (result?.updated_at) state.liveComps.updated_at = result.updated_at;
+      await loadAdminLiveCompsSeasons({ force: true });
+      // A successful manifest/file mutation should not be reported as failed
+      // merely because the follow-up data refresh is temporarily unavailable.
+      try {
+        await loadAdminLiveComps({ force: true });
+      } catch (refreshError) {
+        console.warn('实时阵容操作已完成，但刷新详情失败', refreshError);
+      }
+      setNotice(successMessage);
+    } catch (error) {
+      setNotice(error.message || '操作失败');
+    }
     render();
   }
 
