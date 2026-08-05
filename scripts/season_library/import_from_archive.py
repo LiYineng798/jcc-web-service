@@ -1,6 +1,6 @@
 """Import season snapshots from the ccmax season archive into static/season-data/.
 
-The archive (``ccmax资料/数据模版``) is the source of truth for season reference
+The archive (``ccmax资料/数据模板``) is the source of truth for season reference
 data: ``data/catalog.json`` lists seasons, each season has ``season.json`` plus
 one full snapshot per game version. This script copies the *default* version of
 each season into the Web repository so production never depends on files
@@ -19,10 +19,10 @@ Usage (run from the repository root)::
 
     python scripts/season_library/import_from_archive.py            # all seasons
     python scripts/season_library/import_from_archive.py --season s18
-    python scripts/season_library/import_from_archive.py --source "D:/.../数据模版"
+    python scripts/season_library/import_from_archive.py --source "D:/.../数据模板"
 
 Source resolution order: ``--source``, ``JCC_SEASON_ARCHIVE`` env var, then a
-scan of ancestor directories for ``ccmax资料/数据模版``.
+scan of ancestor directories for ``ccmax资料/数据模板`` (and legacy ``数据模版``).
 """
 
 from __future__ import annotations
@@ -37,7 +37,10 @@ from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 TARGET_ROOT = REPO_ROOT / "static" / "season-data"
-ARCHIVE_DIR_NAME = os.path.join("ccmax资料", "数据模版")
+ARCHIVE_DIR_NAMES = (
+    os.path.join("ccmax资料", "数据模板"),
+    os.path.join("ccmax资料", "数据模版"),
+)
 
 # Card-grid thumbnails: splash art ships at up to 1624x750 (~130KB each) but
 # renders at ~250 CSS px. A 500px WebP keeps DPR-2 sharpness at ~15-25KB.
@@ -55,12 +58,12 @@ def resolve_source(cli_value: str | None) -> Path:
     if env_value:
         candidates.append(Path(env_value))
     for ancestor in REPO_ROOT.parents:
-        candidates.append(ancestor / ARCHIVE_DIR_NAME)
+        candidates.extend(ancestor / name for name in ARCHIVE_DIR_NAMES)
     for candidate in candidates:
         if (candidate / "data" / "catalog.json").is_file():
             return candidate
     raise SystemExit(
-        "找不到赛季档案库（需包含 data/catalog.json）。请用 --source 或 JCC_SEASON_ARCHIVE 指定 数据模版 目录。"
+        "找不到赛季档案库（需包含 data/catalog.json）。请用 --source 或 JCC_SEASON_ARCHIVE 指定 数据模板 目录。"
     )
 
 

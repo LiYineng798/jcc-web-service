@@ -1,6 +1,8 @@
 import json
 from pathlib import Path
 
+from PIL import Image
+
 from season_reference_service import (
     build_champion_detail,
     catalog_seasons,
@@ -88,6 +90,94 @@ def test_season_reference_pages_render_for_every_catalog_season(client):
         for mechanic in context['mechanics']:
             assert mechanic['display_name'] in html
         assert f'style="--tab-count: {2 + len(context["mechanics"])}"' in html
+
+
+def test_s18_pbe_replaces_wands_with_filterable_charms(client):
+    payload = json.loads((DATA_ROOT / 's18' / 'index.json').read_text(encoding='utf-8'))
+    assert payload['game_version'] == 'PBE'
+    assert payload['display_name'] == 'S18 PBE'
+    assert len(payload['mechanics']) == 1
+    mechanic = payload['mechanics'][0]
+    assert mechanic['kind'] == 'charm'
+    assert mechanic['display_name'] == '仙灵'
+    assert len(mechanic['entries']) == 186
+    assert {entry['data']['category'] for entry in mechanic['entries']} == {
+        'champion', 'item', 'shop', 'combat', 'gold_xp', 'other',
+    }
+    assert sum(bool(entry['data'].get('upgrade')) for entry in mechanic['entries']) == 140
+    assert sum(bool(entry['data'].get('prismatic')) for entry in mechanic['entries']) == 19
+    for entry in mechanic['entries']:
+        assert entry['image']
+        assert (DATA_ROOT / 's18' / entry['image']).is_file()
+
+    html = client.get('/tools/seasons/s18').get_data(as_text=True)
+    assert 'data-charm-search="charms"' in html
+    assert 'data-charm-upgrades="charms"' in html
+    assert 'data-charm-category="gold_xp"' in html
+    assert '>仙灵<' in html
+    assert '>法杖<' not in html
+
+
+def test_s18_champion_detail_and_hover_use_large_splash_art(client):
+    payload = json.loads((DATA_ROOT / 's18' / 'index.json').read_text(encoding='utf-8'))
+    for champion in payload['champions']:
+        splash_path = DATA_ROOT / 's18' / champion['splash']
+        icon_path = DATA_ROOT / 's18' / champion['icon']
+        with Image.open(splash_path) as splash, Image.open(icon_path) as icon:
+            assert splash.width >= 700, champion['name']
+            assert splash.width / splash.height > 1.6, champion['name']
+            assert splash.width > icon.width * 4, champion['name']
+
+    champion = payload['champions'][0]
+    detail_html = client.get(f"/tools/seasons/s18/champions/{champion['id']}").get_data(as_text=True)
+    assert champion['splash'] in detail_html
+    hover_javascript = (ROOT / 'static' / 'season-champion-ui.js').read_text(encoding='utf-8')
+    assert 'const artPath = champion.splash || champion.card || champion.icon;' in hover_javascript
+
+
+def test_every_s18_champion_has_a_local_optimized_skill_icon():
+    payload = json.loads((DATA_ROOT / 's18' / 'champions.json').read_text(encoding='utf-8'))
+    assert len(payload['champions']) == 65
+    for champion in payload['champions']:
+        skill = champion['skills'][0]
+        image = skill['image']
+        assert image, champion['name']
+        assert image['source_url'] == f"https://static.datatft.com/images/skill/{champion['id']}.jpg"
+        assert (DATA_ROOT / 's18' / image['local_path']).is_file(), champion['name']
+        assert (DATA_ROOT / 's18' / image['optimized_local_path']).is_file(), champion['name']
+
+        with Image.open(DATA_ROOT / 's18' / image['optimized_local_path']) as optimized:
+            assert optimized.width > 0 and optimized.height > 0, champion['name']
+
+
+def test_every_s18_consumable_has_a_local_image_with_explicit_fallbacks():
+    payload = json.loads((DATA_ROOT / 's18' / 'items.json').read_text(encoding='utf-8'))
+    consumables = [item for item in payload['items'] if item['category'] == 'consumable']
+    assert len(consumables) == 17
+    for item in consumables:
+        assert item['image'], item['name']
+        assert (DATA_ROOT / 's18' / item['image']['local_path']).is_file(), item['name']
+        assert (DATA_ROOT / 's18' / item['image']['optimized_local_path']).is_file(), item['name']
+
+    fallbacks = {item['id']: item for item in consumables if item['extensions'].get('image_fallback_reason')}
+    assert set(fallbacks) == {'33037', '33045', '33047', '33048', '33049', '33050', '33052'}
+    assert fallbacks['33045']['extensions']['image_fallback_item_id'] == '33053'
+    assert fallbacks['33047']['extensions']['image_fallback_item_id'] == '33044'
+    assert fallbacks['33048']['extensions']['image_fallback_item_id'] == '33055'
+
+
+def test_s18_charm_cards_render_conditions_costs_and_upgrade_layers():
+    javascript = (ROOT / 'static' / 'season-reference.js').read_text(encoding='utf-8')
+    stylesheet = (ROOT / 'static' / 'season-reference.css').read_text(encoding='utf-8')
+
+    assert 'function createCharmCard(entry, index, showUpgrades)' in javascript
+    assert "appendCharmEffect(card, '升级效果'" in javascript
+    assert "appendCharmEffect(card, '棱彩效果'" in javascript
+    assert 'data.category !== filters.category' in javascript
+    assert 'data.requires || []' in javascript
+    assert '.charm-card-header' in stylesheet
+    assert '.charm-icon' in stylesheet
+    assert '.charm-categories' in stylesheet
 
 
 def test_season_alias_and_unknown_season(client):

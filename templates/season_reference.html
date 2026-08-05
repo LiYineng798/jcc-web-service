@@ -91,7 +91,30 @@
 
 {% for mechanic in mechanics %}
         <section class="s18-view-panel" id="mechanicPanel-{{ mechanic.id }}" data-panel="mechanic-{{ mechanic.id }}" data-mechanic-id="{{ mechanic.id }}" role="tabpanel" hidden>
-          <div class="{% if mechanic.kind == 'wand' %}wand-grid{% else %}mechanic-grid{% endif %}" data-mechanic-grid="{{ mechanic.id }}"></div>
+{% if mechanic.kind == 'charm' %}
+          <div class="charm-toolbar" data-charm-toolbar="{{ mechanic.id }}">
+            <label class="charm-search" for="charmSearch-{{ mechanic.id }}">
+              <span class="sr-only">搜索仙灵</span>
+              <input id="charmSearch-{{ mechanic.id }}" type="search" autocomplete="off" placeholder="搜索仙灵名称、效果或条件" data-charm-search="{{ mechanic.id }}" />
+            </label>
+            <label class="skill-toggle charm-upgrade-toggle" for="charmUpgrade-{{ mechanic.id }}">
+              <span>升级效果</span>
+              <input id="charmUpgrade-{{ mechanic.id }}" type="checkbox" checked data-charm-upgrades="{{ mechanic.id }}" />
+              <span class="skill-toggle-track" aria-hidden="true"><span></span></span>
+            </label>
+            <div class="charm-categories" role="group" aria-label="仙灵分类">
+              <button class="active" type="button" data-charm-category="all">全部</button>
+              <button type="button" data-charm-category="champion">弈子</button>
+              <button type="button" data-charm-category="item">装备</button>
+              <button type="button" data-charm-category="shop">商店</button>
+              <button type="button" data-charm-category="combat">战斗</button>
+              <button type="button" data-charm-category="gold_xp">金币经验</button>
+              <button type="button" data-charm-category="other">其他</button>
+            </div>
+          </div>
+{% endif %}
+          <div class="{% if mechanic.kind == 'wand' %}wand-grid{% elif mechanic.kind == 'charm' %}charm-grid{% else %}mechanic-grid{% endif %}" data-mechanic-grid="{{ mechanic.id }}"></div>
+          <div class="s18-empty-state hidden" data-mechanic-empty="{{ mechanic.id }}"><strong>没有找到仙灵</strong><span>调整搜索词或分类后再试。</span></div>
         </section>
 {% endfor %}
 

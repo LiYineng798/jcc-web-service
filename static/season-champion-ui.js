@@ -78,7 +78,7 @@
 
     const art = document.createElement('div');
     art.className = 'champion-hover-art';
-    const artPath = champion.card || champion.splash || champion.icon;
+    const artPath = champion.splash || champion.card || champion.icon;
     if (artPath) art.append(image(assetUrl(artPath), champion.name));
 
     const overlay = document.createElement('div');

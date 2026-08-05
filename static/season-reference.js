@@ -6,6 +6,14 @@ const COST_COLORS = {
   5: 'rgb(147, 130, 22)',
   7: 'rgb(205, 82, 61)',
 };
+const CHARM_CATEGORY_LABELS = {
+  champion: '弈子',
+  item: '装备',
+  shop: '商店',
+  combat: '战斗',
+  gold_xp: '金币经验',
+  other: '其他',
+};
 const mobileQuery = window.matchMedia('(max-width: 640px)');
 
 const content = document.querySelector('#seasonContent');
@@ -30,6 +38,7 @@ const state = {
   cost: 'all',
   showSkills: !mobileQuery.matches,
   mobileFiltersExpanded: false,
+  mechanicFilters: new Map(),
 };
 
 const elements = {
@@ -103,6 +112,34 @@ function mechanicById(mechanicId) {
   return state.mechanics.find((mechanic) => mechanic.id === mechanicId);
 }
 
+function charmFilterState(mechanicId) {
+  if (!state.mechanicFilters.has(mechanicId)) {
+    state.mechanicFilters.set(mechanicId, { query: '', category: 'all', showUpgrades: true });
+  }
+  return state.mechanicFilters.get(mechanicId);
+}
+
+function filteredCharmEntries(mechanic) {
+  const filters = charmFilterState(mechanic.id);
+  const query = filters.query.trim().toLocaleLowerCase('zh-CN');
+  return mechanic.entries.filter((entry) => {
+    const data = entry.data || {};
+    if (filters.category !== 'all' && data.category !== filters.category) return false;
+    if (!query) return true;
+    const searchable = [
+      entry.name,
+      entry.description,
+      data.key,
+      data.category_label,
+      ...(data.rounds || []),
+      ...(data.requires || []),
+      data.upgrade?.effect,
+      data.prismatic?.effect,
+    ].filter(Boolean).join(' ').toLocaleLowerCase('zh-CN');
+    return searchable.includes(query);
+  });
+}
+
 function updateCount() {
   if (!elements.previewCount) return;
   if (state.activeView === 'champions') {
@@ -114,7 +151,10 @@ function updateCount() {
     return;
   }
   const mechanic = mechanicById(state.activeView.replace(/^mechanic-/, ''));
-  if (mechanic) elements.previewCount.textContent = `${mechanic.entries.length} 条${mechanic.display_name}`;
+  if (mechanic) {
+    const count = mechanic.kind === 'charm' ? filteredCharmEntries(mechanic).length : mechanic.entries.length;
+    elements.previewCount.textContent = `${count} 条${mechanic.display_name}`;
+  }
 }
 
 function setActiveView(view) {
@@ -526,6 +566,71 @@ function createWandCard(entry, index) {
   return card;
 }
 
+function appendCharmEffect(card, label, effect, className) {
+  if (!effect || !effect.effect) return;
+  const box = document.createElement('div');
+  box.className = `charm-extra ${className}`;
+  const heading = document.createElement('div');
+  heading.className = 'charm-extra-heading';
+  const badge = document.createElement('span');
+  badge.textContent = label;
+  heading.append(badge);
+  if (effect.cost !== null && effect.cost !== undefined) heading.append(createCostBadge(effect.cost, 'charm-extra-cost'));
+  const description = document.createElement('p');
+  window.JccSeasonChampionUi.appendSkillDescription(description, effect.effect);
+  box.append(heading, description);
+  card.append(box);
+}
+
+function createCharmCard(entry, index, showUpgrades) {
+  const data = entry.data || {};
+  const card = document.createElement('article');
+  card.className = `charm-card charm-tier-${data.tier || 1}${index < 18 ? ' animate-in' : ''}`;
+  if (index < 18) card.style.setProperty('--delay', `${index * 22}ms`);
+
+  const header = document.createElement('div');
+  header.className = 'charm-card-header';
+  if (entry.image) header.append(createImage(assetUrl(entry.image), '', 'charm-icon'));
+  const titleWrap = document.createElement('div');
+  titleWrap.className = 'charm-title-wrap';
+  const category = document.createElement('span');
+  category.className = 'charm-category-label';
+  category.textContent = data.category_label || CHARM_CATEGORY_LABELS[data.category] || '其他';
+  const title = document.createElement('h2');
+  title.textContent = entry.name || '';
+  titleWrap.append(category, title);
+  header.append(titleWrap);
+  if (data.cost !== null && data.cost !== undefined) header.append(createCostBadge(data.cost, 'charm-cost'));
+
+  const description = document.createElement('p');
+  description.className = 'charm-effect';
+  window.JccSeasonChampionUi.appendSkillDescription(description, entry.description);
+  card.append(header, description);
+
+  const rounds = Array.isArray(data.rounds) ? data.rounds : [];
+  const requires = Array.isArray(data.requires) ? data.requires : [];
+  if (rounds.length || requires.length) {
+    const conditions = document.createElement('div');
+    conditions.className = 'charm-conditions';
+    rounds.forEach((round) => {
+      const chip = document.createElement('span');
+      chip.textContent = `回合：${round}`;
+      conditions.append(chip);
+    });
+    requires.forEach((requirement) => {
+      const chip = document.createElement('span');
+      chip.textContent = requirement;
+      conditions.append(chip);
+    });
+    card.append(conditions);
+  }
+  if (showUpgrades) {
+    appendCharmEffect(card, '升级效果', data.upgrade, 'is-upgrade');
+    appendCharmEffect(card, '棱彩效果', data.prismatic, 'is-prismatic');
+  }
+  return card;
+}
+
 function createWishRow(wish) {
   const row = document.createElement('div');
   row.className = 'mechanic-wish';
@@ -589,8 +694,42 @@ function renderMechanics() {
   state.mechanics.forEach((mechanic) => {
     const grid = document.querySelector(`[data-mechanic-grid="${CSS.escape(mechanic.id)}"]`);
     if (!grid) return;
+    const empty = document.querySelector(`[data-mechanic-empty="${CSS.escape(mechanic.id)}"]`);
+    if (mechanic.kind === 'charm') {
+      const filters = charmFilterState(mechanic.id);
+      const entries = filteredCharmEntries(mechanic);
+      grid.replaceChildren(...entries.map((entry, index) => createCharmCard(entry, index, filters.showUpgrades)));
+      empty?.classList.toggle('hidden', entries.length > 0);
+      return;
+    }
     const factory = mechanic.kind === 'wand' ? createWandCard : createMechanicCard;
     grid.replaceChildren(...mechanic.entries.map((entry, index) => factory(entry, index)));
+    empty?.classList.add('hidden');
+  });
+  updateCount();
+}
+
+function bindCharmControls() {
+  document.querySelectorAll('[data-charm-toolbar]').forEach((toolbar) => {
+    const mechanicId = toolbar.dataset.charmToolbar;
+    const mechanic = mechanicById(mechanicId);
+    if (!mechanic || mechanic.kind !== 'charm') return;
+    const filters = charmFilterState(mechanicId);
+    toolbar.querySelector('[data-charm-search]')?.addEventListener('input', (event) => {
+      filters.query = event.target.value || '';
+      renderMechanics();
+    });
+    toolbar.querySelector('[data-charm-upgrades]')?.addEventListener('change', (event) => {
+      filters.showUpgrades = event.target.checked;
+      renderMechanics();
+    });
+    toolbar.querySelectorAll('[data-charm-category]').forEach((button) => {
+      button.addEventListener('click', () => {
+        filters.category = button.dataset.charmCategory;
+        toolbar.querySelectorAll('[data-charm-category]').forEach((item) => item.classList.toggle('active', item === button));
+        renderMechanics();
+      });
+    });
   });
 }
 
@@ -602,6 +741,7 @@ async function loadData() {
     state.champions = data.champions || [];
     state.traits = data.traits || [];
     state.mechanics = data.mechanics || [];
+    bindCharmControls();
     state.traitsById = new Map(state.traits.map((trait) => [trait.id, trait]));
     state.costs = [...new Set(state.champions.map((champion) => champion.cost).filter((cost) => cost !== null))].sort((a, b) => a - b);
     window.JccSeasonChampionUi.configure({

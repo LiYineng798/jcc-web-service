@@ -13,7 +13,7 @@ static/season-data/<season_id>/items.json
 
 ## 更新流程
 
-1. 在外部档案库 `ccmax资料/数据模版` 抓取或维护新的完整版本。
+1. 在外部档案库 `ccmax资料/数据模板` 抓取或维护新的完整版本。S18 PBE 合并 JSON 先运行 `python scripts/import_existing_seasons.py --season s18 --s18-json "..\data-cn-CJkaeodq.S18.json"`。
 2. 在档案库执行 `python scripts/validate.py --all`。
 3. 在 Web 仓库根目录导入单个赛季：
 
@@ -21,7 +21,7 @@ static/season-data/<season_id>/items.json
    python scripts/season_library/import_from_archive.py --season s17
    ```
 
-   找不到档案库时，通过 `--source "D:\...\ccmax资料\数据模版"` 或 `JCC_SEASON_ARCHIVE` 指定。
+   找不到档案库时，通过 `--source "D:\...\ccmax资料\数据模板"` 或 `JCC_SEASON_ARCHIVE` 指定。
 4. 检查 `static/season-data/catalog.json` 和对应赛季 `index.json` 的 `version_id`，确认 WebP 生成没有警告。
 5. 运行：
 
@@ -30,6 +30,8 @@ static/season-data/<season_id>/items.json
    ```
 
 完整的数据结构、图片规则、缓存、部署和回滚说明见 `docs/season-library.md`。
+
+装备分类标签由当前赛季 `items.json` 动态生成：某分类至少有一件装备时才显示。新增赛季只需填写标准 `category`，不要在前端增加赛季 ID 判断或固定标签开关。
 
 ## 旧构建器
 

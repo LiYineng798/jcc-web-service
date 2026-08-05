@@ -54,19 +54,19 @@
   },
   {
    "season_id": "s18",
-   "display_name": "S18",
+   "display_name": "S18 PBE",
    "set_number": "18",
    "set_variant": null,
    "theme": null,
    "status": "draft",
-   "game_version": "unknown-preview-20260713",
-   "version_id": "s18__preview_2026_07_13",
-   "effective_at": null,
+   "game_version": "PBE",
+   "version_id": "s18__pbe",
+   "effective_at": "2026-08-03T14:23:38+00:00",
    "path": "s18/index.json",
    "counts": {
     "champions": 65,
     "traits": 36,
-    "mechanics": 200
+    "mechanics": 186
    }
   }
  ]

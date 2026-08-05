@@ -5,11 +5,19 @@ const MAX_HISTORY = 40;
 const MAX_EXPORT_TRAITS = 8;
 const ITEM_CATEGORIES = [
   { id: "normal", label: "普通", source: ["completed"] },
+  { id: "component", label: "散件", source: ["component"] },
   { id: "emblem", label: "纹章", source: ["emblem"] },
   { id: "artifact", label: "神器", source: ["artifact"] },
   { id: "radiant", label: "光明", source: ["radiant"] },
+  { id: "support", label: "辅助", source: ["support"] },
+  { id: "consumable", label: "消耗", source: ["consumable"] },
   { id: "other", label: "其他", source: ["other"] },
 ];
+
+function availableItemCategories() {
+  const populated = new Set(state.items.map((item) => item.category));
+  return ITEM_CATEGORIES.filter((category) => category.source.some((source) => populated.has(source)));
+}
 const COST_COLORS = {
   1: "rgb(175, 175, 175)",
   2: "rgb(28, 195, 152)",
@@ -206,6 +214,10 @@ async function loadSeason(seasonId, importedPayload = null) {
     state.champions = (championData.champions || []).map(normalizeChampion).sort((a, b) => a.cost - b.cost || a.name.localeCompare(b.name, "zh-CN"));
     state.traits = (traitData.traits || []).map(normalizeTrait).sort((a, b) => a.category.localeCompare(b.category) || a.name.localeCompare(b.name, "zh-CN"));
     state.items = (itemData.items || []).map(normalizeItem);
+    const availableCategories = availableItemCategories();
+    if (!availableCategories.some((category) => category.id === state.itemCategory)) {
+      state.itemCategory = availableCategories[0]?.id || "normal";
+    }
     state.championById = new Map(state.champions.map((item) => [item.id, item]));
     state.traitById = new Map(state.traits.map((item) => [item.id, item]));
     state.itemById = new Map(state.items.map((item) => [item.id, item]));
@@ -299,7 +311,7 @@ function renderFilters() {
   const filteringByTrait = selectedTraitId !== "all";
   elements.traitFilterClear.hidden = !filteringByTrait;
   elements.traitFilterPicker.classList.toggle("is-filtering", filteringByTrait);
-  elements.itemTabs.innerHTML = ITEM_CATEGORIES.map((category) => `
+  elements.itemTabs.innerHTML = availableItemCategories().map((category) => `
     <button class="item-tab ${state.itemCategory === category.id ? "is-active" : ""}" type="button" role="tab" aria-selected="${state.itemCategory === category.id}" data-item-category="${category.id}">${category.label}</button>
   `).join("");
   window.lucide?.createIcons();
@@ -331,9 +343,12 @@ function heroButtonHtml(hero) {
 }
 
 function renderItems() {
-  const category = ITEM_CATEGORIES.find((item) => item.id === state.itemCategory) || ITEM_CATEGORIES[0];
+  const categories = availableItemCategories();
+  const category = categories.find((item) => item.id === state.itemCategory) || categories[0];
   const query = normalizeText(state.itemSearch);
-  const items = state.items.filter((item) => category.source.includes(item.category) && (!query || normalizeText(item.name).includes(query)));
+  const items = category
+    ? state.items.filter((item) => category.source.includes(item.category) && (!query || normalizeText(item.name).includes(query)))
+    : [];
   elements.itemGrid.innerHTML = items.length ? items.map((item) => `
     <button class="item-button ${state.selectedItemId === item.id ? "is-selected" : ""}" type="button" draggable="true" data-item-id="${escapeHtml(item.id)}" aria-label="选择 ${escapeHtml(item.name)}">
       <img src="${escapeHtml(item.icon)}" alt="" loading="lazy" decoding="async" />

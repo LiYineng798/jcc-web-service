@@ -1,5 +1,5679 @@
 {
   "$schema": "../../../../../schemas/items.schema.json",
-  "version_id": "s18__preview_2026_07_13",
-  "items": []
+  "version_id": "s18__pbe",
+  "items": [
+    {
+      "id": "501",
+      "name": "暴风大剑",
+      "category": "component",
+      "description": "【AD】+10%",
+      "stats": {
+        "raw": ""
+      },
+      "effects": [],
+      "recipe": {
+        "type": "none",
+        "component_ids": [],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/501.png",
+        "source_url": "https://static.datatft.com/images/equips/501.png",
+        "alt": "暴风大剑装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/501.webp"
+      },
+      "source_ids": {
+        "equip_id": 501,
+        "key": "DA_Component_BFSword",
+        "code": "BL"
+      },
+      "tags": [
+        "大剑"
+      ],
+      "extensions": {
+        "source_type": "part",
+        "code": "BL",
+        "key": "DA_Component_BFSword"
+      }
+    },
+    {
+      "id": "502",
+      "name": "反曲之弓",
+      "category": "component",
+      "description": "【AS】+10%",
+      "stats": {
+        "raw": ""
+      },
+      "effects": [],
+      "recipe": {
+        "type": "none",
+        "component_ids": [],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/502.png",
+        "source_url": "https://static.datatft.com/images/equips/502.png",
+        "alt": "反曲之弓装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/502.webp"
+      },
+      "source_ids": {
+        "equip_id": 502,
+        "key": "DA_Component_RecurveBow",
+        "code": "BM"
+      },
+      "tags": [
+        "弓",
+        "反曲弓"
+      ],
+      "extensions": {
+        "source_type": "part",
+        "code": "BM",
+        "key": "DA_Component_RecurveBow"
+      }
+    },
+    {
+      "id": "503",
+      "name": "无用大棒",
+      "category": "component",
+      "description": "【AP】+10",
+      "stats": {
+        "raw": ""
+      },
+      "effects": [],
+      "recipe": {
+        "type": "none",
+        "component_ids": [],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/503.png",
+        "source_url": "https://static.datatft.com/images/equips/503.png",
+        "alt": "无用大棒装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/503.webp"
+      },
+      "source_ids": {
+        "equip_id": 503,
+        "key": "DA_Component_NeedlesslyLargeRod",
+        "code": "BN"
+      },
+      "tags": [
+        "大棒"
+      ],
+      "extensions": {
+        "source_type": "part",
+        "code": "BN",
+        "key": "DA_Component_NeedlesslyLargeRod"
+      }
+    },
+    {
+      "id": "504",
+      "name": "女神之泪",
+      "category": "component",
+      "description": "【MANAREGEN】+1",
+      "stats": {
+        "raw": ""
+      },
+      "effects": [],
+      "recipe": {
+        "type": "none",
+        "component_ids": [],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/504.png",
+        "source_url": "https://static.datatft.com/images/equips/504.png",
+        "alt": "女神之泪装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/504.webp"
+      },
+      "source_ids": {
+        "equip_id": 504,
+        "key": "DA_Component_TearOfTheGoddess",
+        "code": "BO"
+      },
+      "tags": [
+        "眼泪",
+        "水滴"
+      ],
+      "extensions": {
+        "source_type": "part",
+        "code": "BO",
+        "key": "DA_Component_TearOfTheGoddess"
+      }
+    },
+    {
+      "id": "505",
+      "name": "锁子甲",
+      "category": "component",
+      "description": "【ARMOR】+20",
+      "stats": {
+        "raw": ""
+      },
+      "effects": [],
+      "recipe": {
+        "type": "none",
+        "component_ids": [],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/505.png",
+        "source_url": "https://static.datatft.com/images/equips/505.png",
+        "alt": "锁子甲装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/505.webp"
+      },
+      "source_ids": {
+        "equip_id": 505,
+        "key": "DA_Component_ChainVest",
+        "code": "BP"
+      },
+      "tags": [],
+      "extensions": {
+        "source_type": "part",
+        "code": "BP",
+        "key": "DA_Component_ChainVest"
+      }
+    },
+    {
+      "id": "506",
+      "name": "负极斗篷",
+      "category": "component",
+      "description": "【MR】+20",
+      "stats": {
+        "raw": ""
+      },
+      "effects": [],
+      "recipe": {
+        "type": "none",
+        "component_ids": [],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/506.png",
+        "source_url": "https://static.datatft.com/images/equips/506.png",
+        "alt": "负极斗篷装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/506.webp"
+      },
+      "source_ids": {
+        "equip_id": 506,
+        "key": "DA_Component_NegatronCloak",
+        "code": "BQ"
+      },
+      "tags": [
+        "斗篷"
+      ],
+      "extensions": {
+        "source_type": "part",
+        "code": "BQ",
+        "key": "DA_Component_NegatronCloak"
+      }
+    },
+    {
+      "id": "507",
+      "name": "巨人腰带",
+      "category": "component",
+      "description": "【HP】+150",
+      "stats": {
+        "raw": ""
+      },
+      "effects": [],
+      "recipe": {
+        "type": "none",
+        "component_ids": [],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/507.png",
+        "source_url": "https://static.datatft.com/images/equips/507.png",
+        "alt": "巨人腰带装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/507.webp"
+      },
+      "source_ids": {
+        "equip_id": 507,
+        "key": "DA_Component_GiantsBelt",
+        "code": "BR"
+      },
+      "tags": [
+        "腰带"
+      ],
+      "extensions": {
+        "source_type": "part",
+        "code": "BR",
+        "key": "DA_Component_GiantsBelt"
+      }
+    },
+    {
+      "id": "509",
+      "name": "拳套",
+      "category": "component",
+      "description": "【CRIT】+20%",
+      "stats": {
+        "raw": ""
+      },
+      "effects": [],
+      "recipe": {
+        "type": "none",
+        "component_ids": [],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/509.png",
+        "source_url": "https://static.datatft.com/images/equips/509.png",
+        "alt": "拳套装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/509.webp"
+      },
+      "source_ids": {
+        "equip_id": 509,
+        "key": "DA_Component_SparringGloves",
+        "code": "BS"
+      },
+      "tags": [],
+      "extensions": {
+        "source_type": "part",
+        "code": "BS",
+        "key": "DA_Component_SparringGloves"
+      }
+    },
+    {
+      "id": "508",
+      "name": "金铲铲",
+      "category": "component",
+      "description": "它必须做点什么...",
+      "stats": {
+        "raw": ""
+      },
+      "effects": [],
+      "recipe": {
+        "type": "none",
+        "component_ids": [],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/508.png",
+        "source_url": "https://static.datatft.com/images/equips/508.png",
+        "alt": "金铲铲装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/508.webp"
+      },
+      "source_ids": {
+        "equip_id": 508,
+        "key": "DA_Component_Spatula",
+        "code": "BT"
+      },
+      "tags": [],
+      "extensions": {
+        "source_type": "part",
+        "code": "BT",
+        "key": "DA_Component_Spatula"
+      }
+    },
+    {
+      "id": "31000",
+      "name": "金锅锅",
+      "category": "component",
+      "description": ".……不然它怎么会在这里？",
+      "stats": {
+        "raw": ""
+      },
+      "effects": [],
+      "recipe": {
+        "type": "none",
+        "component_ids": [],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/31000.png",
+        "source_url": "https://static.datatft.com/images/equips/31000.png",
+        "alt": "金锅锅装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/31000.webp"
+      },
+      "source_ids": {
+        "equip_id": 31000,
+        "key": "DA_Component_FryingPan",
+        "code": "BU"
+      },
+      "tags": [],
+      "extensions": {
+        "source_type": "part",
+        "code": "BU",
+        "key": "DA_Component_FryingPan"
+      }
+    },
+    {
+      "id": "519",
+      "name": "锐利之刃",
+      "category": "completed",
+      "description": "将完美的安宁和平静带给携带者——和所有面对它的人。",
+      "stats": {
+        "raw": "【AD】+55% 【DA】+10%"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "components",
+        "component_ids": [
+          "501",
+          "501"
+        ],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/519.png",
+        "source_url": "https://static.datatft.com/images/equips/519.png",
+        "alt": "死亡之刃装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/519.webp"
+      },
+      "source_ids": {
+        "equip_id": 519,
+        "key": "DA_Deathblade",
+        "code": "BV"
+      },
+      "tags": [
+        "杀人剑",
+        "锐利之刃"
+      ],
+      "extensions": {
+        "source_type": "common",
+        "code": "BV",
+        "key": "DA_Deathblade"
+      }
+    },
+    {
+      "id": "521",
+      "name": "巨人捕手",
+      "category": "completed",
+      "description": "对抗坦克时获得15%额外伤害增幅。",
+      "stats": {
+        "raw": "【AD】+15% 【AP】+15% 【AS】+15% 【DA】+15%"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "components",
+        "component_ids": [
+          "501",
+          "502"
+        ],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/521.png",
+        "source_url": "https://static.datatft.com/images/equips/521.png",
+        "alt": "巨人杀手装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/521.webp"
+      },
+      "source_ids": {
+        "equip_id": 521,
+        "key": "DA_GiantSlayer",
+        "code": "BW"
+      },
+      "tags": [
+        "巨杀",
+        "巨人捕手"
+      ],
+      "extensions": {
+        "source_type": "common",
+        "code": "BW",
+        "key": "DA_GiantSlayer"
+      }
+    },
+    {
+      "id": "610",
+      "name": "海克斯科技枪刃",
+      "category": "completed",
+      "description": "为生命值百分比最低的友军提供相当于20%造成伤害值的治疗。",
+      "stats": {
+        "raw": "【AD】+20% 【AP】+20% 【MANAREGEN】+1 【SV】+15%"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "components",
+        "component_ids": [
+          "501",
+          "503"
+        ],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/610.png",
+        "source_url": "https://static.datatft.com/images/equips/610.png",
+        "alt": "海克斯科技枪刃装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/610.webp"
+      },
+      "source_ids": {
+        "equip_id": 610,
+        "key": "DA_HextechGunblade",
+        "code": "BX"
+      },
+      "tags": [
+        "科技枪"
+      ],
+      "extensions": {
+        "source_type": "common",
+        "code": "BX",
+        "key": "DA_HextechGunblade"
+      }
+    },
+    {
+      "id": "525",
+      "name": "朔极之矛",
+      "category": "completed",
+      "description": "每次普攻提供5额外法力值。",
+      "stats": {
+        "raw": "【AD】+15% 【AP】+15% 【MANAREGEN】+1"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "components",
+        "component_ids": [
+          "501",
+          "504"
+        ],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/525.png",
+        "source_url": "https://static.datatft.com/images/equips/525.png",
+        "alt": "朔极之矛装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/525.webp"
+      },
+      "source_ids": {
+        "equip_id": 525,
+        "key": "DA_SpearOfShojin",
+        "code": "BY"
+      },
+      "tags": [
+        "青龙刀"
+      ],
+      "extensions": {
+        "source_type": "common",
+        "code": "BY",
+        "key": "DA_SpearOfShojin"
+      }
+    },
+    {
+      "id": "615",
+      "name": "夜之锋刃",
+      "category": "completed",
+      "description": "在60%生命值时，短暂变为不可被选取状态、摆脱负面效果、并治疗20%已损失生命值。",
+      "stats": {
+        "raw": "【AD】+10% 【AP】+10% 【AS】+15% 【ARMOR】+20"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "components",
+        "component_ids": [
+          "501",
+          "505"
+        ],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/615.png",
+        "source_url": "https://static.datatft.com/images/equips/615.png",
+        "alt": "夜之锋刃装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/615.webp"
+      },
+      "source_ids": {
+        "equip_id": 615,
+        "key": "DA_EdgeOfNight",
+        "code": "BZ"
+      },
+      "tags": [
+        "夜刃",
+        "复活甲"
+      ],
+      "extensions": {
+        "source_type": "common",
+        "code": "BZ",
+        "key": "DA_EdgeOfNight"
+      }
+    },
+    {
+      "id": "529",
+      "name": "汲取剑",
+      "category": "completed",
+      "description": "每场战斗仅触发1次：在40%生命值时，获得一个护盾，护盾值相当于携带者25%的最大生命值，至多持续5秒。",
+      "stats": {
+        "raw": "【AD】+15% 【AP】+15% 【MR】+20 【SV】+20%"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "components",
+        "component_ids": [
+          "501",
+          "506"
+        ],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/529.png",
+        "source_url": "https://static.datatft.com/images/equips/529.png",
+        "alt": "饮血剑装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/529.webp"
+      },
+      "source_ids": {
+        "equip_id": 529,
+        "key": "DA_Bloodthirster",
+        "code": "Ba"
+      },
+      "tags": [
+        "饮血",
+        "汲取剑"
+      ],
+      "extensions": {
+        "source_type": "common",
+        "code": "Ba",
+        "key": "DA_Bloodthirster"
+      }
+    },
+    {
+      "id": "618",
+      "name": "斯特拉克的挑战护手",
+      "category": "completed",
+      "description": "在60%生命值时，获得相当于携带者40%最大生命值的护盾值，在4秒内快速衰减。",
+      "stats": {
+        "raw": "【AD】+45% 【HP】+300"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "components",
+        "component_ids": [
+          "501",
+          "507"
+        ],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/618.png",
+        "source_url": "https://static.datatft.com/images/equips/618.png",
+        "alt": "斯特拉克的挑战护手装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/618.webp"
+      },
+      "source_ids": {
+        "equip_id": 618,
+        "key": "DA_SteraksGage",
+        "code": "Bb"
+      },
+      "tags": [
+        "挑战护手",
+        "血手"
+      ],
+      "extensions": {
+        "source_type": "common",
+        "code": "Bb",
+        "key": "DA_SteraksGage"
+      }
+    },
+    {
+      "id": "535",
+      "name": "无尽之刃",
+      "category": "completed",
+      "description": "获得【技能暴击】。\n技能暴击：技能伤害可产生暴击。额外的【技能暴击】提供10%暴击伤害。",
+      "stats": {
+        "raw": "【AD】+35% 【CRIT】+35%"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "components",
+        "component_ids": [
+          "501",
+          "509"
+        ],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/535.png",
+        "source_url": "https://static.datatft.com/images/equips/535.png",
+        "alt": "无尽之刃装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/535.webp"
+      },
+      "source_ids": {
+        "equip_id": 535,
+        "key": "DA_InfinityEdge",
+        "code": "Bc"
+      },
+      "tags": [
+        "无尽"
+      ],
+      "extensions": {
+        "source_type": "common",
+        "code": "Bc",
+        "key": "DA_InfinityEdge"
+      }
+    },
+    {
+      "id": "624",
+      "name": "红霸符",
+      "category": "completed",
+      "description": "攻击和技能的伤害对敌人们造成持续5秒的1%灼烧效果和33%重伤效果。\n灼烧：每秒造成目标一部分最大生命值的真实伤害\n重伤：降低受到的治疗效果",
+      "stats": {
+        "raw": "【AS】+45% 【DA】+3%"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "components",
+        "component_ids": [
+          "502",
+          "502"
+        ],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/624.png",
+        "source_url": "https://static.datatft.com/images/equips/624.png",
+        "alt": "红霸符装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/624.webp"
+      },
+      "source_ids": {
+        "equip_id": 624,
+        "key": "DA_RedBuff",
+        "code": "Bd"
+      },
+      "tags": [
+        "红buff",
+        "红BUFF"
+      ],
+      "extensions": {
+        "source_type": "common",
+        "code": "Bd",
+        "key": "DA_RedBuff"
+      }
+    },
+    {
+      "id": "539",
+      "name": "鬼索的狂暴之刃",
+      "category": "completed",
+      "description": "每秒获得7%可叠加的攻击速度。",
+      "stats": {
+        "raw": "【AP】+10% 【AS】+10%"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "components",
+        "component_ids": [
+          "502",
+          "503"
+        ],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/539.png",
+        "source_url": "https://static.datatft.com/images/equips/539.png",
+        "alt": "鬼索的狂暴之刃装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/539.webp"
+      },
+      "source_ids": {
+        "equip_id": 539,
+        "key": "DA_GuinsoosRageblade",
+        "code": "Be"
+      },
+      "tags": [
+        "羊刀"
+      ],
+      "extensions": {
+        "source_type": "common",
+        "code": "Be",
+        "key": "DA_GuinsoosRageblade"
+      }
+    },
+    {
+      "id": "31008",
+      "name": "虚空之杖",
+      "category": "completed",
+      "description": "来自攻击和技能的伤害会对目标施加持续5秒的30%魔抗击碎。这个效果不会叠加。\n魔抗击碎：降低魔抗值",
+      "stats": {
+        "raw": "【AP】+35% 【AS】+15% 【MANAREGEN】+1"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "components",
+        "component_ids": [
+          "502",
+          "504"
+        ],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/31008.png",
+        "source_url": "https://static.datatft.com/images/equips/31008.png",
+        "alt": "虚空之杖装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/31008.webp"
+      },
+      "source_ids": {
+        "equip_id": 31008,
+        "key": "DA_VoidStaff",
+        "code": "Bf"
+      },
+      "tags": [
+        "虚空杖",
+        "法穿",
+        "法穿棒"
+      ],
+      "extensions": {
+        "source_type": "common",
+        "code": "Bf",
+        "key": "DA_VoidStaff"
+      }
+    },
+    {
+      "id": "613",
+      "name": "泰坦的坚决",
+      "category": "completed",
+      "description": "在攻击或承受伤害时获得2%物理加成和2%法术加成，至多可叠加25次。\n在叠满层数后，获得10%伤害增幅，并获得控制免疫。",
+      "stats": {
+        "raw": "【AS】+10% 【ARMOR】+20"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "components",
+        "component_ids": [
+          "502",
+          "505"
+        ],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/613.png",
+        "source_url": "https://static.datatft.com/images/equips/613.png",
+        "alt": "泰坦的坚决装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/613.webp"
+      },
+      "source_ids": {
+        "equip_id": 613,
+        "key": "DA_TitansResolve",
+        "code": "Bg"
+      },
+      "tags": [
+        "泰坦"
+      ],
+      "extensions": {
+        "source_type": "common",
+        "code": "Bg",
+        "key": "DA_TitansResolve"
+      }
+    },
+    {
+      "id": "31010",
+      "name": "海妖之怒",
+      "category": "completed",
+      "description": "攻击提供3.5%可叠加的物理加成，至多至15次攻击。在15次攻击后，获得15%攻击速度。",
+      "stats": {
+        "raw": "【AD】+10% 【AS】+10% 【MR】+20"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "components",
+        "component_ids": [
+          "502",
+          "506"
+        ],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/31010.png",
+        "source_url": "https://static.datatft.com/images/equips/31010.png",
+        "alt": "海妖之怒装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/31010.webp"
+      },
+      "source_ids": {
+        "equip_id": 31010,
+        "key": "DA_KrakensFury",
+        "code": "Bh"
+      },
+      "tags": [
+        "海妖"
+      ],
+      "extensions": {
+        "source_type": "common",
+        "code": "Bh",
+        "key": "DA_KrakensFury"
+      }
+    },
+    {
+      "id": "619",
+      "name": "纳什之牙",
+      "category": "completed",
+      "description": "每次普攻提供2额外法力值，如果暴击则提升至4额外法力值。",
+      "stats": {
+        "raw": "【AP】+15% 【AS】+10% 【CRIT】+20% 【HP】+150"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "components",
+        "component_ids": [
+          "502",
+          "507"
+        ],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/619.png",
+        "source_url": "https://static.datatft.com/images/equips/619.png",
+        "alt": "纳什之牙装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/619.webp"
+      },
+      "source_ids": {
+        "equip_id": 619,
+        "key": "DA_NashorsTooth",
+        "code": "Bi"
+      },
+      "tags": [
+        "纳什"
+      ],
+      "extensions": {
+        "source_type": "common",
+        "code": "Bi",
+        "key": "DA_NashorsTooth"
+      }
+    },
+    {
+      "id": "551",
+      "name": "最后的轻语",
+      "category": "completed",
+      "description": "来自攻击和技能的伤害会对目标施加持续3秒的30%护甲击碎。这个效果不会叠加。\n护甲击碎：降低护甲值",
+      "stats": {
+        "raw": "【AD】+15% 【AS】+20% 【CRIT】+20%"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "components",
+        "component_ids": [
+          "502",
+          "509"
+        ],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/551.png",
+        "source_url": "https://static.datatft.com/images/equips/551.png",
+        "alt": "最后的轻语装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/551.webp"
+      },
+      "source_ids": {
+        "equip_id": 551,
+        "key": "DA_LastWhisper",
+        "code": "Bj"
+      },
+      "tags": [
+        "轻语",
+        "穿甲弓",
+        "破甲弓"
+      ],
+      "extensions": {
+        "source_type": "common",
+        "code": "Bj",
+        "key": "DA_LastWhisper"
+      }
+    },
+    {
+      "id": "553",
+      "name": "班克斯的魔法帽",
+      "category": "completed",
+      "description": "这顶不起眼的帽子可以帮助你创造，或毁灭，这个世界本身。",
+      "stats": {
+        "raw": "【AP】+55% 【DA】+15%"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "components",
+        "component_ids": [
+          "503",
+          "503"
+        ],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/553.png",
+        "source_url": "https://static.datatft.com/images/equips/553.png",
+        "alt": "灭世者的死亡之帽装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/553.webp"
+      },
+      "source_ids": {
+        "equip_id": 553,
+        "key": "DA_RabadonsDeathcap",
+        "code": "Bk"
+      },
+      "tags": [
+        "帽子",
+        "班克斯的魔法帽"
+      ],
+      "extensions": {
+        "source_type": "common",
+        "code": "Bk",
+        "key": "DA_RabadonsDeathcap"
+      }
+    },
+    {
+      "id": "555",
+      "name": "大天使之杖",
+      "category": "completed",
+      "description": "战斗开始时：在战斗期间，每5秒获得20%法术加成。",
+      "stats": {
+        "raw": "【AP】+30% 【MANAREGEN】+1"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "components",
+        "component_ids": [
+          "503",
+          "504"
+        ],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/555.png",
+        "source_url": "https://static.datatft.com/images/equips/555.png",
+        "alt": "大天使之杖装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/555.webp"
+      },
+      "source_ids": {
+        "equip_id": 555,
+        "key": "DA_ArchangelsStaff",
+        "code": "Bl"
+      },
+      "tags": [
+        "大天使"
+      ],
+      "extensions": {
+        "source_type": "common",
+        "code": "Bl",
+        "key": "DA_ArchangelsStaff"
+      }
+    },
+    {
+      "id": "620",
+      "name": "冕卫",
+      "category": "completed",
+      "description": "战斗开始时：获得持续8秒的相当于25%最大生命值的护盾值。\n在护盾到期时，获得25%法术加成。",
+      "stats": {
+        "raw": "【AP】+20% 【ARMOR】+20 【HP】+100"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "components",
+        "component_ids": [
+          "503",
+          "505"
+        ],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/620.png",
+        "source_url": "https://static.datatft.com/images/equips/620.png",
+        "alt": "冕卫装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/620.webp"
+      },
+      "source_ids": {
+        "equip_id": 620,
+        "key": "DA_Crownguard",
+        "code": "Bm"
+      },
+      "tags": [],
+      "extensions": {
+        "source_type": "common",
+        "code": "Bm",
+        "key": "DA_Crownguard"
+      }
+    },
+    {
+      "id": "611",
+      "name": "离子火花",
+      "category": "completed",
+      "description": "对2格内的敌人们施加30%魔抗击碎。在敌人施放一次技能时，对该敌人造成相当于该敌人150%法力值消耗的魔法伤害。\n魔抗击碎：降低魔抗值",
+      "stats": {
+        "raw": "【AP】+15% 【HP】+250 【MR】+35"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "components",
+        "component_ids": [
+          "503",
+          "506"
+        ],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/611.png",
+        "source_url": "https://static.datatft.com/images/equips/611.png",
+        "alt": "离子火花装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/611.webp"
+      },
+      "source_ids": {
+        "equip_id": 611,
+        "key": "DA_IonicSpark",
+        "code": "Bn"
+      },
+      "tags": [
+        "离子"
+      ],
+      "extensions": {
+        "source_type": "common",
+        "code": "Bn",
+        "key": "DA_IonicSpark"
+      }
+    },
+    {
+      "id": "561",
+      "name": "莫雷洛秘典",
+      "category": "completed",
+      "description": "攻击和技能的伤害对敌人们造成持续10秒的1%灼烧效果和33%重伤效果。\n灼烧：每秒造成目标一部分最大生命值的真实伤害\n重伤：降低受到的治疗效果",
+      "stats": {
+        "raw": "【AP】+20% 【HP】+150 【MANAREGEN】+1"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "components",
+        "component_ids": [
+          "503",
+          "507"
+        ],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/561.png",
+        "source_url": "https://static.datatft.com/images/equips/561.png",
+        "alt": "莫雷洛秘典装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/561.webp"
+      },
+      "source_ids": {
+        "equip_id": 561,
+        "key": "DA_Morellonomicon",
+        "code": "Bo"
+      },
+      "tags": [
+        "鬼书"
+      ],
+      "extensions": {
+        "source_type": "common",
+        "code": "Bo",
+        "key": "DA_Morellonomicon"
+      }
+    },
+    {
+      "id": "565",
+      "name": "珠光护手",
+      "category": "completed",
+      "description": "获得【技能暴击】。\n技能暴击：技能伤害可产生暴击。额外的【技能暴击】提供10%暴击伤害。",
+      "stats": {
+        "raw": "【AP】+35% 【CRIT】+35%"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "components",
+        "component_ids": [
+          "503",
+          "509"
+        ],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/565.png",
+        "source_url": "https://static.datatft.com/images/equips/565.png",
+        "alt": "珠光护手装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/565.webp"
+      },
+      "source_ids": {
+        "equip_id": 565,
+        "key": "DA_JeweledGauntlet",
+        "code": "Bp"
+      },
+      "tags": [
+        "法爆"
+      ],
+      "extensions": {
+        "source_type": "common",
+        "code": "Bp",
+        "key": "DA_JeweledGauntlet"
+      }
+    },
+    {
+      "id": "567",
+      "name": "蓝霸符",
+      "category": "completed",
+      "description": "从所有来源中获得10%额外物理加成和法术加成。",
+      "stats": {
+        "raw": "【AD】+15% 【AP】+15% 【MANAREGEN】+5"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "components",
+        "component_ids": [
+          "504",
+          "504"
+        ],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/567.png",
+        "source_url": "https://static.datatft.com/images/equips/567.png",
+        "alt": "蓝霸符装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/567.webp"
+      },
+      "source_ids": {
+        "equip_id": 567,
+        "key": "DA_BlueBuff",
+        "code": "Bq"
+      },
+      "tags": [
+        "蓝buff",
+        "蓝BUFF"
+      ],
+      "extensions": {
+        "source_type": "common",
+        "code": "Bq",
+        "key": "DA_BlueBuff"
+      }
+    },
+    {
+      "id": "616",
+      "name": "圣盾使的誓约",
+      "category": "completed",
+      "description": "战斗开始时：获得20法力值。\n在40%生命值时，获得15法力值和相当于20%最大生命值的护盾值。",
+      "stats": {
+        "raw": "【ARMOR】+25 【MR】+25 【MANAREGEN】+1"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "components",
+        "component_ids": [
+          "504",
+          "505"
+        ],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/616.png",
+        "source_url": "https://static.datatft.com/images/equips/616.png",
+        "alt": "圣盾使的誓约装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/616.webp"
+      },
+      "source_ids": {
+        "equip_id": 616,
+        "key": "DA_ProtectorsVow",
+        "code": "Br"
+      },
+      "tags": [
+        "冰甲"
+      ],
+      "extensions": {
+        "source_type": "common",
+        "code": "Br",
+        "key": "DA_ProtectorsVow"
+      }
+    },
+    {
+      "id": "621",
+      "name": "适应性头盔",
+      "category": "completed",
+      "description": "从所有来源中获得额外的15%法力值。携带者获得基于角色定位的一个额外加成：\n坦克和战士：获得30护甲和魔抗。\n其它角色定位：获得10%物理加成和法术加成。",
+      "stats": {
+        "raw": "【MR】+20 【MANAREGEN】+3"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "components",
+        "component_ids": [
+          "504",
+          "506"
+        ],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/621.png",
+        "source_url": "https://static.datatft.com/images/equips/621.png",
+        "alt": "适应性头盔装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/621.webp"
+      },
+      "source_ids": {
+        "equip_id": 621,
+        "key": "DA_AdaptiveHelm",
+        "code": "Bs"
+      },
+      "tags": [
+        "头盔"
+      ],
+      "extensions": {
+        "source_type": "common",
+        "code": "Bs",
+        "key": "DA_AdaptiveHelm"
+      }
+    },
+    {
+      "id": "31012",
+      "name": "振奋盔甲",
+      "category": "completed",
+      "description": "每秒回复2%已损失生命值。",
+      "stats": {
+        "raw": "【HP】+300 【MANAREGEN】+2 【DR】+8%"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "components",
+        "component_ids": [
+          "504",
+          "507"
+        ],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/31012.png",
+        "source_url": "https://static.datatft.com/images/equips/31012.png",
+        "alt": "振奋盔甲装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/31012.webp"
+      },
+      "source_ids": {
+        "equip_id": 31012,
+        "key": "DA_SpiritVisage",
+        "code": "Bt"
+      },
+      "tags": [
+        "振奋",
+        "绿甲"
+      ],
+      "extensions": {
+        "source_type": "common",
+        "code": "Bt",
+        "key": "DA_SpiritVisage"
+      }
+    },
+    {
+      "id": "577",
+      "name": "正义之手",
+      "category": "completed",
+      "description": "获得2个效果：15%物理加成和15%法术加成。12%全能吸血。\n生命值高于50%时，物理加成和法术加成翻倍。生命值低于50%时，全能吸血效果翻倍。",
+      "stats": {
+        "raw": "【CRIT】+20% 【MANAREGEN】+1"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "components",
+        "component_ids": [
+          "504",
+          "509"
+        ],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/577.png",
+        "source_url": "https://static.datatft.com/images/equips/577.png",
+        "alt": "正义之手装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/577.webp"
+      },
+      "source_ids": {
+        "equip_id": 577,
+        "key": "DA_HandOfJustice",
+        "code": "Bu"
+      },
+      "tags": [
+        "正义"
+      ],
+      "extensions": {
+        "source_type": "common",
+        "code": "Bu",
+        "key": "DA_HandOfJustice"
+      }
+    },
+    {
+      "id": "579",
+      "name": "棘刺背心",
+      "category": "completed",
+      "description": "获得6%最大生命值。\n使来自攻击的伤害降低5%。在被任一攻击命中时，对邻格所有敌人造成100魔法伤害。\n冷却时间：2秒",
+      "stats": {
+        "raw": "【ARMOR】+50"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "components",
+        "component_ids": [
+          "505",
+          "505"
+        ],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/579.png",
+        "source_url": "https://static.datatft.com/images/equips/579.png",
+        "alt": "棘刺背心装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/579.webp"
+      },
+      "source_ids": {
+        "equip_id": 579,
+        "key": "DA_BrambleVest",
+        "code": "Bv"
+      },
+      "tags": [
+        "反甲"
+      ],
+      "extensions": {
+        "source_type": "common",
+        "code": "Bv",
+        "key": "DA_BrambleVest"
+      }
+    },
+    {
+      "id": "581",
+      "name": "石像鬼石板甲",
+      "category": "completed",
+      "description": "每有一个敌人正在以携带者为目标，携带者就会获得10护甲和10魔抗。",
+      "stats": {
+        "raw": "【ARMOR】+25 【HP】+100 【MR】+25"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "components",
+        "component_ids": [
+          "505",
+          "506"
+        ],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/581.png",
+        "source_url": "https://static.datatft.com/images/equips/581.png",
+        "alt": "石像鬼石板甲装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/581.webp"
+      },
+      "source_ids": {
+        "equip_id": 581,
+        "key": "DA_GargoyleStoneplate",
+        "code": "Bw"
+      },
+      "tags": [
+        "石像鬼",
+        "板甲"
+      ],
+      "extensions": {
+        "source_type": "common",
+        "code": "Bw",
+        "key": "DA_GargoyleStoneplate"
+      }
+    },
+    {
+      "id": "583",
+      "name": "日炎斗篷",
+      "category": "completed",
+      "description": "获得8%最大生命值。\n每过2秒，对2格内的一名敌人施加持续10秒的1%灼烧效果和33%重伤效果。\n灼烧：每秒造成目标一部分最大生命值的真实伤害\n重伤：降低受到的治疗效果",
+      "stats": {
+        "raw": "【ARMOR】+20 【HP】+150"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "components",
+        "component_ids": [
+          "505",
+          "507"
+        ],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/583.png",
+        "source_url": "https://static.datatft.com/images/equips/583.png",
+        "alt": "日炎斗篷装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/583.webp"
+      },
+      "source_ids": {
+        "equip_id": 583,
+        "key": "DA_SunfireCape",
+        "code": "Bx"
+      },
+      "tags": [
+        "日炎"
+      ],
+      "extensions": {
+        "source_type": "common",
+        "code": "Bx",
+        "key": "DA_SunfireCape"
+      }
+    },
+    {
+      "id": "625",
+      "name": "坚定之心",
+      "category": "completed",
+      "description": "获得5%伤害减免。在高于50%生命值时，转而获得15%伤害减免。",
+      "stats": {
+        "raw": "【ARMOR】+20 【CRIT】+20% 【HP】+250"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "components",
+        "component_ids": [
+          "509",
+          "505"
+        ],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/625.png",
+        "source_url": "https://static.datatft.com/images/equips/625.png",
+        "alt": "坚定之心装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/625.webp"
+      },
+      "source_ids": {
+        "equip_id": 625,
+        "key": "DA_SteadfastHeart",
+        "code": "By"
+      },
+      "tags": [
+        "心之刚"
+      ],
+      "extensions": {
+        "source_type": "common",
+        "code": "By",
+        "key": "DA_SteadfastHeart"
+      }
+    },
+    {
+      "id": "609",
+      "name": "巨龙之爪",
+      "category": "completed",
+      "description": "获得6%最大生命值。\n每2秒治疗2.5%最大生命值。",
+      "stats": {
+        "raw": "【MR】+60"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "components",
+        "component_ids": [
+          "506",
+          "506"
+        ],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/609.png",
+        "source_url": "https://static.datatft.com/images/equips/609.png",
+        "alt": "巨龙之爪装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/609.webp"
+      },
+      "source_ids": {
+        "equip_id": 609,
+        "key": "DA_DragonsClaw",
+        "code": "Bz"
+      },
+      "tags": [
+        "龙牙"
+      ],
+      "extensions": {
+        "source_type": "common",
+        "code": "Bz",
+        "key": "DA_DragonsClaw"
+      }
+    },
+    {
+      "id": "623",
+      "name": "薄暮法袍",
+      "category": "completed",
+      "description": "2格内的敌人们会被施加30%护甲削减。在战斗的最初15秒获得15护甲和魔抗。\n护甲击碎：降低护甲值",
+      "stats": {
+        "raw": "【HP】+250 【MR】+20"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "components",
+        "component_ids": [
+          "506",
+          "507"
+        ],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/623.png",
+        "source_url": "https://static.datatft.com/images/equips/623.png",
+        "alt": "薄暮法袍装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/623.webp"
+      },
+      "source_ids": {
+        "equip_id": 623,
+        "key": "DA_Evenshroud",
+        "code": "CA"
+      },
+      "tags": [
+        "法袍",
+        "薄暮"
+      ],
+      "extensions": {
+        "source_type": "common",
+        "code": "CA",
+        "key": "DA_Evenshroud"
+      }
+    },
+    {
+      "id": "595",
+      "name": "水银",
+      "category": "completed",
+      "description": "战斗开始时：获得持续18秒的控制免疫效果。\n每秒获得3%可叠加的攻击速度。",
+      "stats": {
+        "raw": "【AS】+15% 【CRIT】+20% 【MR】+20"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "components",
+        "component_ids": [
+          "506",
+          "509"
+        ],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/595.png",
+        "source_url": "https://static.datatft.com/images/equips/595.png",
+        "alt": "水银装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/595.webp"
+      },
+      "source_ids": {
+        "equip_id": 595,
+        "key": "DA_Quicksilver",
+        "code": "CB"
+      },
+      "tags": [],
+      "extensions": {
+        "source_type": "common",
+        "code": "CB",
+        "key": "DA_Quicksilver"
+      }
+    },
+    {
+      "id": "597",
+      "name": "狂徒铠甲",
+      "category": "completed",
+      "description": "获得18%最大生命值。",
+      "stats": {
+        "raw": "【HP】+500"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "components",
+        "component_ids": [
+          "507",
+          "507"
+        ],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/597.png",
+        "source_url": "https://static.datatft.com/images/equips/597.png",
+        "alt": "狂徒铠甲装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/597.webp"
+      },
+      "source_ids": {
+        "equip_id": 597,
+        "key": "DA_WarmogsArmor",
+        "code": "CC"
+      },
+      "tags": [
+        "狂徒"
+      ],
+      "extensions": {
+        "source_type": "common",
+        "code": "CC",
+        "key": "DA_WarmogsArmor"
+      }
+    },
+    {
+      "id": "617",
+      "name": "强袭者的链枷",
+      "category": "completed",
+      "description": "暴击提供持续5秒的5%伤害增幅，可叠加至多4次。",
+      "stats": {
+        "raw": "【AS】+10% 【CRIT】+20% 【HP】+150 【DA】+10%"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "components",
+        "component_ids": [
+          "507",
+          "509"
+        ],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/617.png",
+        "source_url": "https://static.datatft.com/images/equips/617.png",
+        "alt": "强袭者的链枷装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/617.webp"
+      },
+      "source_ids": {
+        "equip_id": 617,
+        "key": "DA_StrikersFlail",
+        "code": "CD"
+      },
+      "tags": [
+        "破防",
+        "破防者"
+      ],
+      "extensions": {
+        "source_type": "common",
+        "code": "CD",
+        "key": "DA_StrikersFlail"
+      }
+    },
+    {
+      "id": "607",
+      "name": "秘法手套",
+      "category": "completed",
+      "description": "每一回合：装备2件随机装备。\n[需要用掉3个装备格。]",
+      "stats": {
+        "raw": "【CRIT】+20% 【HP】+150"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "components",
+        "component_ids": [
+          "509",
+          "509"
+        ],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/607.png",
+        "source_url": "https://static.datatft.com/images/equips/607.png",
+        "alt": "窃贼手套装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/607.webp"
+      },
+      "source_ids": {
+        "equip_id": 607,
+        "key": "DA_ThiefsGloves",
+        "code": "CE"
+      },
+      "tags": [
+        "偷偷",
+        "秘法手套"
+      ],
+      "extensions": {
+        "source_type": "common",
+        "code": "CE",
+        "key": "DA_ThiefsGloves"
+      }
+    },
+    {
+      "id": "608",
+      "name": "金铲铲冠冕",
+      "category": "completed",
+      "description": "你的队伍获得+1最大队伍规模。\n在你赢下战斗时，有10%几率掉落1金币。\n“……某位英雄的心……”",
+      "stats": {
+        "raw": ""
+      },
+      "effects": [],
+      "recipe": {
+        "type": "components",
+        "component_ids": [
+          "508",
+          "508"
+        ],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/608.png",
+        "source_url": "https://static.datatft.com/images/equips/608.png",
+        "alt": "金铲铲冠冕装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/608.webp"
+      },
+      "source_ids": {
+        "equip_id": 608,
+        "key": "DA_TacticiansCrown",
+        "code": "CF"
+      },
+      "tags": [
+        "冠冕",
+        "自然之力"
+      ],
+      "extensions": {
+        "source_type": "common",
+        "code": "CF",
+        "key": "DA_TacticiansCrown"
+      }
+    },
+    {
+      "id": "31002",
+      "name": "金锅锅冠冕",
+      "category": "completed",
+      "description": "你的队伍获得+1最大队伍规模。\n在携带者阵亡时，有10%几率掉落1金币。\n“充满了某位哲学家的智慧……”",
+      "stats": {
+        "raw": ""
+      },
+      "effects": [],
+      "recipe": {
+        "type": "components",
+        "component_ids": [
+          "31000",
+          "31000"
+        ],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/31002.png",
+        "source_url": "https://static.datatft.com/images/equips/31002.png",
+        "alt": "金锅锅冠冕装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/31002.webp"
+      },
+      "source_ids": {
+        "equip_id": 31002,
+        "key": "DA_TacticiansShield",
+        "code": "CG"
+      },
+      "tags": [],
+      "extensions": {
+        "source_type": "common",
+        "code": "CG",
+        "key": "DA_TacticiansShield"
+      }
+    },
+    {
+      "id": "31003",
+      "name": "金锅铲冠冕",
+      "category": "completed",
+      "description": "你的队伍获得+1最大队伍规模。\n在战斗10秒后，有10%几率掉落1金币。\n“……以及一点运气。”",
+      "stats": {
+        "raw": ""
+      },
+      "effects": [],
+      "recipe": {
+        "type": "components",
+        "component_ids": [
+          "508",
+          "31000"
+        ],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/31003.png",
+        "source_url": "https://static.datatft.com/images/equips/31003.png",
+        "alt": "金锅铲冠冕装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/31003.webp"
+      },
+      "source_ids": {
+        "equip_id": 31003,
+        "key": "DA_TacticiansCape",
+        "code": "CH"
+      },
+      "tags": [],
+      "extensions": {
+        "source_type": "common",
+        "code": "CH",
+        "key": "DA_TacticiansCape"
+      }
+    },
+    {
+      "id": "32345",
+      "name": "虚空护手",
+      "category": "artifact",
+      "description": "战斗开始时：储存30％最大生命值，并且每秒多储存2.5%。在阵亡时，释放相当于生命值储量的魔法伤害，分摊给半径4格内的敌人们。\n[唯一：一个弈子仅限一件]",
+      "stats": {
+        "raw": "【HP】+300 【DR】+10%"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "none",
+        "component_ids": [],
+        "description": null
+      },
+      "unique": true,
+      "image": {
+        "local_path": "assets/items/32345.png",
+        "source_url": "https://static.datatft.com/images/equips/32345.png",
+        "alt": "虚空护手装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/32345.webp"
+      },
+      "source_ids": {
+        "equip_id": 32345,
+        "key": "DA_Artifact_VoidGauntlet",
+        "code": "Cn"
+      },
+      "tags": [],
+      "extensions": {
+        "source_type": "aoen",
+        "code": "Cn",
+        "key": "DA_Artifact_VoidGauntlet"
+      }
+    },
+    {
+      "id": "32346",
+      "name": "黎明圣盾",
+      "category": "artifact",
+      "description": "每2.5秒，从1格内的敌人们处偷取3护甲，并治疗相当于携带者??%护甲值的生命值。\n如果还携带了【黄昏圣盾】，则转而每1.25秒触发这件装备的效果。\n治疗效果基于阶段提升。",
+      "stats": {
+        "raw": "【ARMOR】+50 【HP】+400"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "none",
+        "component_ids": [],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/32346.png",
+        "source_url": "https://static.datatft.com/images/equips/32346.png",
+        "alt": "黎明圣盾装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/32346.webp"
+      },
+      "source_ids": {
+        "equip_id": 32346,
+        "key": "DA_Artifact_AegisOfDawn",
+        "code": "Co"
+      },
+      "tags": [],
+      "extensions": {
+        "source_type": "aoen",
+        "code": "Co",
+        "key": "DA_Artifact_AegisOfDawn"
+      }
+    },
+    {
+      "id": "32347",
+      "name": "恶火小斧",
+      "category": "artifact",
+      "description": "攻击造成相当于携带者3%最大生命值的额外物理伤害。每1%已损失生命值，获得1%攻击速度。",
+      "stats": {
+        "raw": "【AD】+20% 【HP】+150 【SV】+20%"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "none",
+        "component_ids": [],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/32347.png",
+        "source_url": "https://static.datatft.com/images/equips/32347.png",
+        "alt": "恶火小斧装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/32347.webp"
+      },
+      "source_ids": {
+        "equip_id": 32347,
+        "key": "DA_Artifact_HellfireHatchet",
+        "code": "Cp"
+      },
+      "tags": [],
+      "extensions": {
+        "source_type": "aoen",
+        "code": "Cp",
+        "key": "DA_Artifact_HellfireHatchet"
+      }
+    },
+    {
+      "id": "32349",
+      "name": "黄昏圣盾",
+      "category": "artifact",
+      "description": "每2.5秒，从1格内的敌人们处偷取3魔抗，并造成相当于携带者??%魔抗值的魔法伤害。\n如果还携带了【黎明圣盾】，则转而每1.25秒触发这件装备的效果。\n伤害基于阶段提升。",
+      "stats": {
+        "raw": "【HP】+400 【MR】+70"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "none",
+        "component_ids": [],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/32349.png",
+        "source_url": "https://static.datatft.com/images/equips/32349.png",
+        "alt": "黄昏圣盾装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/32349.webp"
+      },
+      "source_ids": {
+        "equip_id": 32349,
+        "key": "DA_Artifact_AegisOfDusk",
+        "code": "Cq"
+      },
+      "tags": [],
+      "extensions": {
+        "source_type": "aoen",
+        "code": "Cq",
+        "key": "DA_Artifact_AegisOfDusk"
+      }
+    },
+    {
+      "id": "32350",
+      "name": "帽子饮品",
+      "category": "artifact",
+      "description": "携带者在每次参与击杀后带上一顶帽子。携带者从每顶帽子中获得1%物理加成和法术加成。阵亡时，失去20%总帽子数。&nbsp;",
+      "stats": {
+        "raw": "【AD】+25% 【AP】+25% 【AS】+25%"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "none",
+        "component_ids": [],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/32350.png",
+        "source_url": "https://static.datatft.com/images/equips/32350.png",
+        "alt": "帽子饮品装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/32350.webp"
+      },
+      "source_ids": {
+        "equip_id": 32350,
+        "key": "DA_Artifact_CappaJuice",
+        "code": "Cr"
+      },
+      "tags": [],
+      "extensions": {
+        "source_type": "aoen",
+        "code": "Cr",
+        "key": "DA_Artifact_CappaJuice"
+      }
+    },
+    {
+      "id": "32351",
+      "name": "永恒契约",
+      "category": "artifact",
+      "description": "战斗开始时：与生命值最高的那个友方弈子形成一个契约，如果其阵亡，则获得10法力回复和40%法术加成。\n当该友军使用其技能时，获得15法力值。每6秒，为该友军提供护盾值，数额相当于携带者的200%法术加成。",
+      "stats": {
+        "raw": "【AP】+40% 【MANAREGEN】+1"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "none",
+        "component_ids": [],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/32351.png",
+        "source_url": "https://static.datatft.com/images/equips/32351.png",
+        "alt": "永恒契约装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/32351.webp"
+      },
+      "source_ids": {
+        "equip_id": 32351,
+        "key": "DA_Artifact_EternalPact",
+        "code": "Cs"
+      },
+      "tags": [],
+      "extensions": {
+        "source_type": "aoen",
+        "code": "Cs",
+        "key": "DA_Artifact_EternalPact"
+      }
+    },
+    {
+      "id": "20044",
+      "name": "黎明核心",
+      "category": "artifact",
+      "description": "携带者的最大法力值缩减10。后续的技能施放会使最大法力值缩减10%，直至最小值10。",
+      "stats": {
+        "raw": "【AD】+15% 【AP】+15%"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "none",
+        "component_ids": [],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/20044.png",
+        "source_url": "https://static.datatft.com/images/equips/20044.png",
+        "alt": "黎明核心装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/20044.webp"
+      },
+      "source_ids": {
+        "equip_id": 20044,
+        "key": "DA_Artifact_Dawncore",
+        "code": "Ct"
+      },
+      "tags": [],
+      "extensions": {
+        "source_type": "aoen",
+        "code": "Ct",
+        "key": "DA_Artifact_Dawncore"
+      }
+    },
+    {
+      "id": "31004",
+      "name": "纳沃利烁刃",
+      "category": "artifact",
+      "description": "攻击提供5%可叠加的攻击速度。每3次攻击还会提供2%物理加成和2%法术加成。",
+      "stats": {
+        "raw": "【AP】+10% 【AS】+20%"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "none",
+        "component_ids": [],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/31004.png",
+        "source_url": "https://static.datatft.com/images/equips/31004.png",
+        "alt": "纳沃利烁刃装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/31004.webp"
+      },
+      "source_ids": {
+        "equip_id": 31004,
+        "key": "DA_Artifact_NavoriFlickerblade",
+        "code": "Cu"
+      },
+      "tags": [
+        "迅刃"
+      ],
+      "extensions": {
+        "source_type": "aoen",
+        "code": "Cu",
+        "key": "DA_Artifact_NavoriFlickerblade"
+      }
+    },
+    {
+      "id": "31005",
+      "name": "斯塔缇克电刃",
+      "category": "artifact",
+      "description": "每第3次攻击对4名敌人造成30+50%携带者法术加成的额外魔法伤害。",
+      "stats": {
+        "raw": "【AP】+15% 【AS】+50%"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "none",
+        "component_ids": [],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/31005.png",
+        "source_url": "https://static.datatft.com/images/equips/31005.png",
+        "alt": "斯塔缇克电刃装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/31005.webp"
+      },
+      "source_ids": {
+        "equip_id": 31005,
+        "key": "DA_Artifact_StatikkShiv",
+        "code": "Cv"
+      },
+      "tags": [
+        "电刀"
+      ],
+      "extensions": {
+        "source_type": "aoen",
+        "code": "Cv",
+        "key": "DA_Artifact_StatikkShiv"
+      }
+    },
+    {
+      "id": "31006",
+      "name": "巨型九头蛇",
+      "category": "artifact",
+      "description": "攻击对目标和邻格敌人造成相当于携带者4%最大生命值外加6%物理加成的额外物理伤害。",
+      "stats": {
+        "raw": "【AD】+20% 【AS】+20% 【HP】+300"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "none",
+        "component_ids": [],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/31006.png",
+        "source_url": "https://static.datatft.com/images/equips/31006.png",
+        "alt": "巨型九头蛇装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/31006.webp"
+      },
+      "source_ids": {
+        "equip_id": 31006,
+        "key": "DA_Artifact_TitanicHydra",
+        "code": "Cw"
+      },
+      "tags": [
+        "巨九"
+      ],
+      "extensions": {
+        "source_type": "aoen",
+        "code": "Cw",
+        "key": "DA_Artifact_TitanicHydra"
+      }
+    },
+    {
+      "id": "31007",
+      "name": "顽强不屈",
+      "category": "artifact",
+      "description": "携带者的移动速度大幅降低。\n获得15%最大生命值、晕眩免疫，并将当前目标拉到近战距离。",
+      "stats": {
+        "raw": "【ARMOR】+20 【HP】+500 【MR】+20"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "none",
+        "component_ids": [],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/31007.png",
+        "source_url": "https://static.datatft.com/images/equips/31007.png",
+        "alt": "顽强不屈装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/31007.webp"
+      },
+      "source_ids": {
+        "equip_id": 31007,
+        "key": "DA_Artifact_TheIndomitable",
+        "code": "Cx"
+      },
+      "tags": [],
+      "extensions": {
+        "source_type": "aoen",
+        "code": "Cx",
+        "key": "DA_Artifact_TheIndomitable"
+      }
+    },
+    {
+      "id": "20002",
+      "name": "死亡蔑视",
+      "category": "artifact",
+      "description": "携带者受到的50%伤害会转而在4秒里作为非致命伤害来持续扣除。\n[唯一 - 每位英雄仅限1件]",
+      "stats": {
+        "raw": "【AD】+25% 【AS】+15% 【ARMOR】+40 【SV】+25%"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "none",
+        "component_ids": [],
+        "description": null
+      },
+      "unique": true,
+      "image": {
+        "local_path": "assets/items/20002.png",
+        "source_url": "https://static.datatft.com/images/equips/20002.png",
+        "alt": "死亡蔑视装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/20002.webp"
+      },
+      "source_ids": {
+        "equip_id": 20002,
+        "key": "DA_Artifact_DeathsDefiance",
+        "code": "Cy"
+      },
+      "tags": [
+        "死舞"
+      ],
+      "extensions": {
+        "source_type": "aoen",
+        "code": "Cy",
+        "key": "DA_Artifact_DeathsDefiance"
+      }
+    },
+    {
+      "id": "20004",
+      "name": "三相之力",
+      "category": "artifact",
+      "description": "成吨的一切！",
+      "stats": {
+        "raw": "【AD】+30% 【AP】+30% 【AS】+30% 【ARMOR】+30 【HP】+300 【MR】+30"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "none",
+        "component_ids": [],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/20004.png",
+        "source_url": "https://static.datatft.com/images/equips/20004.png",
+        "alt": "三相之力装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/20004.webp"
+      },
+      "source_ids": {
+        "equip_id": 20004,
+        "key": "DA_Artifact_InfinityForce",
+        "code": "Cz"
+      },
+      "tags": [
+        "三相"
+      ],
+      "extensions": {
+        "source_type": "aoen",
+        "code": "Cz",
+        "key": "DA_Artifact_InfinityForce"
+      }
+    },
+    {
+      "id": "20009",
+      "name": "金币收集者",
+      "category": "artifact",
+      "description": "携带者的攻击和技能会处决低于12%最大生命值的目标。处决有33%几率掉落【GOLD】1金币。",
+      "stats": {
+        "raw": "【AD】+35% 【CRIT】+20%"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "none",
+        "component_ids": [],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/20009.png",
+        "source_url": "https://static.datatft.com/images/equips/20009.png",
+        "alt": "金币收集者装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/20009.webp"
+      },
+      "source_ids": {
+        "equip_id": 20009,
+        "key": "DA_Artifact_GoldCollector",
+        "code": "DA"
+      },
+      "tags": [
+        "收集者"
+      ],
+      "extensions": {
+        "source_type": "aoen",
+        "code": "DA",
+        "key": "DA_Artifact_GoldCollector"
+      }
+    },
+    {
+      "id": "20010",
+      "name": "中娅悖论",
+      "category": "artifact",
+      "description": "每场战斗一次：在40%生命值时，携带者进入持续3秒的免疫伤害和无法被选取状态。\n[唯一 - 每位英雄仅限1件]",
+      "stats": {
+        "raw": "【AP】+25% 【ARMOR】+25 【MR】+25"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "none",
+        "component_ids": [],
+        "description": null
+      },
+      "unique": true,
+      "image": {
+        "local_path": "assets/items/20010.png",
+        "source_url": "https://static.datatft.com/images/equips/20010.png",
+        "alt": "中娅悖论装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/20010.webp"
+      },
+      "source_ids": {
+        "equip_id": 20010,
+        "key": "DA_Artifact_ZhonyasParadox",
+        "code": "DB"
+      },
+      "tags": [
+        "中娅",
+        "金身"
+      ],
+      "extensions": {
+        "source_type": "aoen",
+        "code": "DB",
+        "key": "DA_Artifact_ZhonyasParadox"
+      }
+    },
+    {
+      "id": "20011",
+      "name": "碎舰者",
+      "category": "artifact",
+      "description": "战斗开始时：如果邻格内没有己方弈子，获得400生命值、10%物理加成和10%法术加成。",
+      "stats": {
+        "raw": "【ARMOR】+60 【MR】+60"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "none",
+        "component_ids": [],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/20011.png",
+        "source_url": "https://static.datatft.com/images/equips/20011.png",
+        "alt": "碎舰者装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/20011.webp"
+      },
+      "source_ids": {
+        "equip_id": 20011,
+        "key": "DA_Artifact_Hullcrusher",
+        "code": "DC"
+      },
+      "tags": [
+        "破舰者"
+      ],
+      "extensions": {
+        "source_type": "aoen",
+        "code": "DC",
+        "key": "DA_Artifact_Hullcrusher"
+      }
+    },
+    {
+      "id": "20014",
+      "name": "狙击手的专注",
+      "category": "artifact",
+      "description": "在对抗相距4格或更远的目标们时获得40%伤害增幅。",
+      "stats": {
+        "raw": "【AD】+20% 【AP】+20% 【AS】+20% 【MANAREGEN】+3"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "none",
+        "component_ids": [],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/20014.png",
+        "source_url": "https://static.datatft.com/images/equips/20014.png",
+        "alt": "狙击手的专注装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/20014.webp"
+      },
+      "source_ids": {
+        "equip_id": 20014,
+        "key": "TFT9_Item_OrnnHorizonFocus",
+        "code": "DD"
+      },
+      "tags": [
+        "狙击手"
+      ],
+      "extensions": {
+        "source_type": "aoen",
+        "code": "DD",
+        "key": "TFT9_Item_OrnnHorizonFocus"
+      }
+    },
+    {
+      "id": "20017",
+      "name": "大亨之铠",
+      "category": "artifact",
+      "description": "在承受伤害时提供1护甲、1魔抗和5生命值，这个效果至多叠加至35次。\n在满层时，提供【GOLD】1金币并且每11秒继续获得【GOLD】1金币。\n[唯一 - 每位英雄仅限1件]",
+      "stats": {
+        "raw": "【HP】+300"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "none",
+        "component_ids": [],
+        "description": null
+      },
+      "unique": true,
+      "image": {
+        "local_path": "assets/items/20017.png",
+        "source_url": "https://static.datatft.com/images/equips/20017.png",
+        "alt": "大亨之铠装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/20017.webp"
+      },
+      "source_ids": {
+        "equip_id": 20017,
+        "key": "TFT7_Item_ShimmerscaleMogulsMail",
+        "code": "DE"
+      },
+      "tags": [
+        "大亨"
+      ],
+      "extensions": {
+        "source_type": "aoen",
+        "code": "DE",
+        "key": "TFT7_Item_ShimmerscaleMogulsMail"
+      }
+    },
+    {
+      "id": "20101",
+      "name": "投机者之刃",
+      "category": "artifact",
+      "description": "null[唯一 - 每位英雄仅限1件]",
+      "stats": {
+        "raw": "【AS】+55%"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "none",
+        "component_ids": [],
+        "description": null
+      },
+      "unique": true,
+      "image": {
+        "local_path": "assets/items/20101.png",
+        "source_url": "https://static.datatft.com/images/equips/20101.png",
+        "alt": "投机者之刃装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/20101.webp"
+      },
+      "source_ids": {
+        "equip_id": 20101,
+        "key": "DA_Artifact_GamblersBlade",
+        "code": "DF"
+      },
+      "tags": [
+        "投机者"
+      ],
+      "extensions": {
+        "source_type": "aoen",
+        "code": "DF",
+        "key": "DA_Artifact_GamblersBlade"
+      }
+    },
+    {
+      "id": "30002",
+      "name": "飞升护符",
+      "category": "artifact",
+      "description": "在22秒后，获得100%最大生命值和120%伤害增幅，持续到战斗环节结束。",
+      "stats": {
+        "raw": "【AD】+20% 【AP】+20% 【HP】+450"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "none",
+        "component_ids": [],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/30002.png",
+        "source_url": "https://static.datatft.com/images/equips/30002.png",
+        "alt": "飞升护符装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/30002.webp"
+      },
+      "source_ids": {
+        "equip_id": 30002,
+        "key": "DA_Item_Artifact_TalismanOfAscension",
+        "code": "DG"
+      },
+      "tags": [
+        "金丹"
+      ],
+      "extensions": {
+        "source_type": "aoen",
+        "code": "DG",
+        "key": "DA_Item_Artifact_TalismanOfAscension"
+      }
+    },
+    {
+      "id": "30004",
+      "name": "鱼骨头",
+      "category": "artifact",
+      "description": "携带者的攻击会瞄准随机的敌人。",
+      "stats": {
+        "raw": "【AD】+50% 【AS】+50%"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "none",
+        "component_ids": [],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/30004.png",
+        "source_url": "https://static.datatft.com/images/equips/30004.png",
+        "alt": "鱼骨头装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/30004.webp"
+      },
+      "source_ids": {
+        "equip_id": 30004,
+        "key": "DA_Artifact_Fishbones",
+        "code": "DH"
+      },
+      "tags": [],
+      "extensions": {
+        "source_type": "aoen",
+        "code": "DH",
+        "key": "DA_Artifact_Fishbones"
+      }
+    },
+    {
+      "id": "30007",
+      "name": "连指手套",
+      "category": "artifact",
+      "description": "将携带者缩小，为其提供移动速度提升并免疫减速、灼烧以及重伤。\n减速：降低攻击速度\n灼烧：每秒对目标造成1%目标最大生命值的真实伤害\n重伤：受到的治疗效果降低33%",
+      "stats": {
+        "raw": "【AS】+65% 【DA】+15%"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "none",
+        "component_ids": [],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/30007.png",
+        "source_url": "https://static.datatft.com/images/equips/30007.png",
+        "alt": "连指手套装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/30007.webp"
+      },
+      "source_ids": {
+        "equip_id": 30007,
+        "key": "DA_Artifact_Mittens",
+        "code": "DJ"
+      },
+      "tags": [
+        "连指"
+      ],
+      "extensions": {
+        "source_type": "aoen",
+        "code": "DJ",
+        "key": "DA_Artifact_Mittens"
+      }
+    },
+    {
+      "id": "30009",
+      "name": "疾射火炮",
+      "category": "artifact",
+      "description": "获得+1攻击距离，并且这个距离会在携带者每击杀一个敌人时提升1。",
+      "stats": {
+        "raw": "【AS】+65% 【DA】+5%"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "none",
+        "component_ids": [],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/30009.png",
+        "source_url": "https://static.datatft.com/images/equips/30009.png",
+        "alt": "疾射火炮装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/30009.webp"
+      },
+      "source_ids": {
+        "equip_id": 30009,
+        "key": "DA_Artifact_RapidFireCannon",
+        "code": "DK"
+      },
+      "tags": [
+        "火炮"
+      ],
+      "extensions": {
+        "source_type": "aoen",
+        "code": "DK",
+        "key": "DA_Artifact_RapidFireCannon"
+      }
+    },
+    {
+      "id": "30012",
+      "name": "密银黎明",
+      "category": "artifact",
+      "description": "为携带者提供免疫晕眩，并且携带者的攻击可以使目标晕眩0.8秒。\n携带者的攻击速度被锁定在0.5。",
+      "stats": {
+        "raw": "【AD】+140% 【ARMOR】+80 【MR】+80"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "none",
+        "component_ids": [],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/30012.png",
+        "source_url": "https://static.datatft.com/images/equips/30012.png",
+        "alt": "密银黎明装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/30012.webp"
+      },
+      "source_ids": {
+        "equip_id": 30012,
+        "key": "DA_Artifact_SilvermereDawn",
+        "code": "DL"
+      },
+      "tags": [
+        "密银"
+      ],
+      "extensions": {
+        "source_type": "aoen",
+        "code": "DL",
+        "key": "DA_Artifact_SilvermereDawn"
+      }
+    },
+    {
+      "id": "30013",
+      "name": "暗行者之爪",
+      "category": "artifact",
+      "description": "在击杀一个目标后，摆脱负面效果并冲刺到4格内相距最远的那个目标处。下两次暴击攻击造成50%额外暴击伤害。",
+      "stats": {
+        "raw": "【AD】+35% 【CRIT】+45% 【HP】+300"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "none",
+        "component_ids": [],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/30013.png",
+        "source_url": "https://static.datatft.com/images/equips/30013.png",
+        "alt": "暗行者之爪装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/30013.webp"
+      },
+      "source_ids": {
+        "equip_id": 30013,
+        "key": "TFT_Item_Artifact_ProwlersClaw",
+        "code": "DM"
+      },
+      "tags": [
+        "暗爪",
+        "跳刀"
+      ],
+      "extensions": {
+        "source_type": "aoen",
+        "code": "DM",
+        "key": "TFT_Item_Artifact_ProwlersClaw"
+      }
+    },
+    {
+      "id": "30016",
+      "name": "枯萎珠宝",
+      "category": "artifact",
+      "description": "造成魔法伤害时会将目标的魔抗削减6。如果目标的魔抗是0，则转而会为携带者提供2法力值。\n技能伤害每0.5秒仅能在每个敌人身上触发一次此效果。",
+      "stats": {
+        "raw": "【AP】+60% 【MANAREGEN】+2"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "none",
+        "component_ids": [],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/30016.png",
+        "source_url": "https://static.datatft.com/images/equips/30016.png",
+        "alt": "枯萎珠宝装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/30016.webp"
+      },
+      "source_ids": {
+        "equip_id": 30016,
+        "key": "DA_Artifact_BlightingJewel",
+        "code": "DN"
+      },
+      "tags": [
+        "枯萎"
+      ],
+      "extensions": {
+        "source_type": "aoen",
+        "code": "DN",
+        "key": "DA_Artifact_BlightingJewel"
+      }
+    },
+    {
+      "id": "30017",
+      "name": "智慧末刃",
+      "category": "artifact",
+      "description": "攻击造成30/45/65/85/100额外魔法伤害。\n治疗携带者，数额为30%的所有已造成魔法伤害。\n这个伤害基于阶段而提升。",
+      "stats": {
+        "raw": "【AS】+25% 【ARMOR】+20 【HP】+400 【MR】+20"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "none",
+        "component_ids": [],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/30017.png",
+        "source_url": "https://static.datatft.com/images/equips/30017.png",
+        "alt": "智慧末刃装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/30017.webp"
+      },
+      "source_ids": {
+        "equip_id": 30017,
+        "key": "DA_Artifact_WitsEnd",
+        "code": "DO"
+      },
+      "tags": [],
+      "extensions": {
+        "source_type": "aoen",
+        "code": "DO",
+        "key": "DA_Artifact_WitsEnd"
+      }
+    },
+    {
+      "id": "30019",
+      "name": "巫妖之祸",
+      "category": "artifact",
+      "description": "携带者在每次技能施放后的第一次攻击造成250/350/500/600/700额外魔法伤害。\n这个伤害基于阶段而提升。",
+      "stats": {
+        "raw": "【AP】+55% 【AS】+10%"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "none",
+        "component_ids": [],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/30019.png",
+        "source_url": "https://static.datatft.com/images/equips/30019.png",
+        "alt": "巫妖之祸装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/30019.webp"
+      },
+      "source_ids": {
+        "equip_id": 30019,
+        "key": "DA_Artifact_LichBane",
+        "code": "DP"
+      },
+      "tags": [
+        "巫妖"
+      ],
+      "extensions": {
+        "source_type": "aoen",
+        "code": "DP",
+        "key": "DA_Artifact_LichBane"
+      }
+    },
+    {
+      "id": "30020",
+      "name": "光盾徽章",
+      "category": "artifact",
+      "description": "每3秒，为生命值百分比最低的那个友军提供护盾，护盾值相当于携带者70%的护甲与魔抗总和，持续5秒。\n在阵亡时，将这个护盾效果提供给所有友军。",
+      "stats": {
+        "raw": "【ARMOR】+55 【MR】+55"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "none",
+        "component_ids": [],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/30020.png",
+        "source_url": "https://static.datatft.com/images/equips/30020.png",
+        "alt": "光盾徽章装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/30020.webp"
+      },
+      "source_ids": {
+        "equip_id": 30020,
+        "key": "DA_Artifact_LightshieldCrest",
+        "code": "DQ"
+      },
+      "tags": [
+        "光盾"
+      ],
+      "extensions": {
+        "source_type": "aoen",
+        "code": "DQ",
+        "key": "DA_Artifact_LightshieldCrest"
+      }
+    },
+    {
+      "id": "30021",
+      "name": "探索者的护臂",
+      "category": "artifact",
+      "description": "参与击杀后会使携带者的护甲、魔抗和法术加成提升20。",
+      "stats": {
+        "raw": "【AP】+25% 【ARMOR】+10 【MR】+10 【SV】+20%"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "none",
+        "component_ids": [],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/30021.png",
+        "source_url": "https://static.datatft.com/images/equips/30021.png",
+        "alt": "探索者的护臂装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/30021.webp"
+      },
+      "source_ids": {
+        "equip_id": 30021,
+        "key": "DA_Artifact_SeekersArmguard",
+        "code": "DR"
+      },
+      "tags": [
+        "护臂"
+      ],
+      "extensions": {
+        "source_type": "aoen",
+        "code": "DR",
+        "key": "DA_Artifact_SeekersArmguard"
+      }
+    },
+    {
+      "id": "30011",
+      "name": "卢登的激荡",
+      "category": "artifact",
+      "description": "在击杀目标时，会对与目标相距最近的两个敌人造成魔法伤害，伤害值为过量伤害的100%外加100。",
+      "stats": {
+        "raw": "【AD】+60% 【AP】+60%"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "none",
+        "component_ids": [],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/30011.png",
+        "source_url": "https://static.datatft.com/images/equips/30011.png",
+        "alt": "卢登的激荡装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/30011.webp"
+      },
+      "source_ids": {
+        "equip_id": 30011,
+        "key": "TFT_Item_Artifact_LudensTempest",
+        "code": "DS"
+      },
+      "tags": [
+        "卢登"
+      ],
+      "extensions": {
+        "source_type": "aoen",
+        "code": "DS",
+        "key": "TFT_Item_Artifact_LudensTempest"
+      }
+    },
+    {
+      "id": "30006",
+      "name": "视界专注",
+      "category": "artifact",
+      "description": "将一名敌人晕眩时会引发闪电对其进行打击，造成相当于其30%最大生命值的魔法伤害。\n当前版本已禁用",
+      "stats": {
+        "raw": "【ARMOR】+20 【HP】+250 【MR】+20 【MANAREGEN】+2"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "none",
+        "component_ids": [],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/30006.png",
+        "source_url": "https://static.datatft.com/images/equips/30006.png",
+        "alt": "视界专注装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/30006.webp"
+      },
+      "source_ids": {
+        "equip_id": 30006,
+        "key": "DA_Artifact_HorizonFocus",
+        "code": "DI"
+      },
+      "tags": [],
+      "extensions": {
+        "source_type": "aoen",
+        "code": "DI",
+        "key": "DA_Artifact_HorizonFocus"
+      }
+    },
+    {
+      "id": "20003",
+      "name": "魔蕴",
+      "category": "artifact",
+      "description": "在施放第一个技能后，在5秒里持续回复共100法力值。\n[唯一 - 每位英雄仅限1件]",
+      "stats": {
+        "raw": "【AD】+15% 【AP】+10 【AS】+15% 【MANAREGEN】+1"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "none",
+        "component_ids": [],
+        "description": null
+      },
+      "unique": true,
+      "image": {
+        "local_path": "assets/items/20003.png",
+        "source_url": "https://static.datatft.com/images/equips/20003.png",
+        "alt": "魔蕴装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/20003.webp"
+      },
+      "source_ids": {
+        "equip_id": 20003,
+        "key": "DA_Artifact_Manazane",
+        "code": "Cm"
+      },
+      "tags": [],
+      "extensions": {
+        "source_type": "aoen",
+        "code": "Cm",
+        "key": "DA_Artifact_Manazane"
+      }
+    },
+    {
+      "id": "30018",
+      "name": "禁忌雕像",
+      "category": "artifact",
+      "description": "护盾效果会将其50%的护盾值转化为最大生命值作为替代。\n该装备当前版本已被移除",
+      "stats": {
+        "raw": "+200生命值 +25护甲 +25魔抗"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "none",
+        "component_ids": [],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/30018.png",
+        "source_url": "https://static.datatft.com/images/equips/30018.png",
+        "alt": "禁忌雕像装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/30018.webp"
+      },
+      "source_ids": {
+        "equip_id": 30018,
+        "key": "DA_Artifact_ForbiddenIdol",
+        "code": "FM"
+      },
+      "tags": [],
+      "extensions": {
+        "source_type": "aoen",
+        "code": "FM",
+        "key": "DA_Artifact_ForbiddenIdol"
+      }
+    },
+    {
+      "id": "1519",
+      "name": "光明版锐利之刃",
+      "category": "radiant",
+      "description": "它在敌人面前发光。或在朋友面前。或在任何活着的东西面前，真的。",
+      "stats": {
+        "raw": "【AD】+100% 【DA】+20%"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "none",
+        "component_ids": [],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/1519.png",
+        "source_url": "https://static.datatft.com/images/equips/1519.png",
+        "alt": "光明版死亡之刃装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/1519.webp"
+      },
+      "source_ids": {
+        "equip_id": 1519,
+        "key": "DA_DeathbladeRadiant",
+        "code": "DT"
+      },
+      "tags": [
+        "杀人剑",
+        "光明杀人剑",
+        "锐利之刃",
+        "光明锐利之刃",
+        "光明版锐利之刃"
+      ],
+      "extensions": {
+        "source_type": "guangming",
+        "code": "DT",
+        "key": "DA_DeathbladeRadiant"
+      }
+    },
+    {
+      "id": "1521",
+      "name": "光明版巨人捕手",
+      "category": "radiant",
+      "description": "对抗坦克时获得30%额外伤害增幅。",
+      "stats": {
+        "raw": "【AD】+30% 【AP】+30% 【AS】+30% 【DA】+30%"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "none",
+        "component_ids": [],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/1521.png",
+        "source_url": "https://static.datatft.com/images/equips/1521.png",
+        "alt": "光明版巨人杀手装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/1521.webp"
+      },
+      "source_ids": {
+        "equip_id": 1521,
+        "key": "DA_GiantSlayer_Radiant",
+        "code": "DU"
+      },
+      "tags": [
+        "巨杀",
+        "光明巨杀",
+        "巨人捕手",
+        "光明巨人捕手",
+        "光明版巨人捕手"
+      ],
+      "extensions": {
+        "source_type": "guangming",
+        "code": "DU",
+        "key": "DA_GiantSlayer_Radiant"
+      }
+    },
+    {
+      "id": "1523",
+      "name": "光明版海克斯科技枪刃",
+      "category": "radiant",
+      "description": "为生命值百分比最低的友军提供相当于40%造成伤害值的治疗。",
+      "stats": {
+        "raw": "【AD】+40% 【AP】+40% 【MANAREGEN】+2 【SV】+30%"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "none",
+        "component_ids": [],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/1523.png",
+        "source_url": "https://static.datatft.com/images/equips/1523.png",
+        "alt": "光明版海克斯科技枪刃装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/1523.webp"
+      },
+      "source_ids": {
+        "equip_id": 1523,
+        "key": "DA_HextechGunbladeRadiant",
+        "code": "DV"
+      },
+      "tags": [
+        "科技枪",
+        "光明科技枪"
+      ],
+      "extensions": {
+        "source_type": "guangming",
+        "code": "DV",
+        "key": "DA_HextechGunbladeRadiant"
+      }
+    },
+    {
+      "id": "1525",
+      "name": "光明版朔极之矛",
+      "category": "radiant",
+      "description": "每次普攻提供10额外法力值。",
+      "stats": {
+        "raw": "【AD】+30% 【AP】+30% 【MANAREGEN】+2"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "none",
+        "component_ids": [],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/1525.png",
+        "source_url": "https://static.datatft.com/images/equips/1525.png",
+        "alt": "光明版朔极之矛装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/1525.webp"
+      },
+      "source_ids": {
+        "equip_id": 1525,
+        "key": "DA_SpearOfShojinRadiant",
+        "code": "DW"
+      },
+      "tags": [
+        "青龙刀",
+        "光明青龙刀"
+      ],
+      "extensions": {
+        "source_type": "guangming",
+        "code": "DW",
+        "key": "DA_SpearOfShojinRadiant"
+      }
+    },
+    {
+      "id": "1527",
+      "name": "光明版夜之锋刃",
+      "category": "radiant",
+      "description": "在60%生命值时，短暂变为不可被选取状态、摆脱负面效果、并治疗所有已损失生命值。",
+      "stats": {
+        "raw": "【AD】+30% 【AP】+30% 【AS】+30% 【ARMOR】+40"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "none",
+        "component_ids": [],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/1527.png",
+        "source_url": "https://static.datatft.com/images/equips/1527.png",
+        "alt": "光明版夜之锋刃装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/1527.webp"
+      },
+      "source_ids": {
+        "equip_id": 1527,
+        "key": "DA_EdgeOfNightRadiant",
+        "code": "DX"
+      },
+      "tags": [
+        "夜刃",
+        "光明夜刃",
+        "复活甲",
+        "光明复活甲"
+      ],
+      "extensions": {
+        "source_type": "guangming",
+        "code": "DX",
+        "key": "DA_EdgeOfNightRadiant"
+      }
+    },
+    {
+      "id": "1529",
+      "name": "光明版汲取剑",
+      "category": "radiant",
+      "description": "每场战斗一次：在40%生命值时，获得一个护盾，护盾值相当于携带者50%的最大生命值，至多持续5秒。",
+      "stats": {
+        "raw": "【AD】+30% 【AP】+30% 【MR】+40 【SV】+40%"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "none",
+        "component_ids": [],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/1529.png",
+        "source_url": "https://static.datatft.com/images/equips/1529.png",
+        "alt": "光明版饮血剑装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/1529.webp"
+      },
+      "source_ids": {
+        "equip_id": 1529,
+        "key": "DA_BloodthirsterRadiant",
+        "code": "DY"
+      },
+      "tags": [
+        "汲取剑",
+        "光明汲取剑",
+        "饮血",
+        "光明饮血",
+        "光明版汲取剑"
+      ],
+      "extensions": {
+        "source_type": "guangming",
+        "code": "DY",
+        "key": "DA_BloodthirsterRadiant"
+      }
+    },
+    {
+      "id": "1618",
+      "name": "光明版斯特拉克的挑战护手",
+      "category": "radiant",
+      "description": "在60%生命值时，获得相当于携带者80%最大生命值的护盾值，在6秒内快速衰减。",
+      "stats": {
+        "raw": "【AD】+90% 【HP】+600"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "none",
+        "component_ids": [],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/1618.png",
+        "source_url": "https://static.datatft.com/images/equips/1618.png",
+        "alt": "光明版斯特拉克的挑战护手装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/1618.webp"
+      },
+      "source_ids": {
+        "equip_id": 1618,
+        "key": "DA_SteraksGageRadiant",
+        "code": "DZ"
+      },
+      "tags": [
+        "血手",
+        "光明血手",
+        "挑战护手",
+        "光明挑战护手"
+      ],
+      "extensions": {
+        "source_type": "guangming",
+        "code": "DZ",
+        "key": "DA_SteraksGageRadiant"
+      }
+    },
+    {
+      "id": "1535",
+      "name": "光明版无尽之刃",
+      "category": "radiant",
+      "description": "获得【技能暴击】。\n技能暴击：技能伤害可产生暴击。额外的【技能暴击】提供10%暴击伤害。",
+      "stats": {
+        "raw": "【AD】+75% 【CRIT】+75%"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "none",
+        "component_ids": [],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/1535.png",
+        "source_url": "https://static.datatft.com/images/equips/1535.png",
+        "alt": "光明版无尽之刃装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/1535.webp"
+      },
+      "source_ids": {
+        "equip_id": 1535,
+        "key": "DA_InfinityEdgeRadiant",
+        "code": "Da"
+      },
+      "tags": [
+        "无尽",
+        "光明无尽"
+      ],
+      "extensions": {
+        "source_type": "guangming",
+        "code": "Da",
+        "key": "DA_InfinityEdgeRadiant"
+      }
+    },
+    {
+      "id": "1624",
+      "name": "光明版红霸符",
+      "category": "radiant",
+      "description": "攻击和技能的伤害对敌人们造成持续5秒的2%灼烧效果和33%重伤效果。\n灼烧：每秒造成目标一部分最大生命值的真实伤害\n重伤：降低受到的治疗效果",
+      "stats": {
+        "raw": "【AS】+80% 【DA】+6%"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "none",
+        "component_ids": [],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/1624.png",
+        "source_url": "https://static.datatft.com/images/equips/1624.png",
+        "alt": "光明版红霸符装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/1624.webp"
+      },
+      "source_ids": {
+        "equip_id": 1624,
+        "key": "DA_RedBuffRadiant",
+        "code": "Db"
+      },
+      "tags": [
+        "红BUFF",
+        "光明红BUFF",
+        "红buff",
+        "光明红buff"
+      ],
+      "extensions": {
+        "source_type": "guangming",
+        "code": "Db",
+        "key": "DA_RedBuffRadiant"
+      }
+    },
+    {
+      "id": "1539",
+      "name": "光明版鬼索的狂暴之刃",
+      "category": "radiant",
+      "description": "每秒获得16%可叠加的攻击速度。",
+      "stats": {
+        "raw": "【AP】+20% 【AS】+25%"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "none",
+        "component_ids": [],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/1539.png",
+        "source_url": "https://static.datatft.com/images/equips/1539.png",
+        "alt": "光明版鬼索的狂暴之刃装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/1539.webp"
+      },
+      "source_ids": {
+        "equip_id": 1539,
+        "key": "DA_GuinsoosRagebladeRadiant",
+        "code": "Dc"
+      },
+      "tags": [
+        "羊刀",
+        "光明羊刀"
+      ],
+      "extensions": {
+        "source_type": "guangming",
+        "code": "Dc",
+        "key": "DA_GuinsoosRagebladeRadiant"
+      }
+    },
+    {
+      "id": "31009",
+      "name": "光明版虚空之杖",
+      "category": "radiant",
+      "description": "来自攻击和技能的伤害会对目标施加持续至战斗环节结束的30%魔抗击碎。这个效果不会叠加。\n魔抗击碎：降低魔抗值",
+      "stats": {
+        "raw": "【AP】+75% 【AS】+30% 【MANAREGEN】+2"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "none",
+        "component_ids": [],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/31009.png",
+        "source_url": "https://static.datatft.com/images/equips/31009.png",
+        "alt": "光明版虚空之杖装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/31009.webp"
+      },
+      "source_ids": {
+        "equip_id": 31009,
+        "key": "DA_VoidStaffRadiant",
+        "code": "Dd"
+      },
+      "tags": [
+        "法穿棒",
+        "光明法穿棒",
+        "虚空杖",
+        "光明虚空杖",
+        "法穿",
+        "光明法穿"
+      ],
+      "extensions": {
+        "source_type": "guangming",
+        "code": "Dd",
+        "key": "DA_VoidStaffRadiant"
+      }
+    },
+    {
+      "id": "1543",
+      "name": "光明版泰坦的坚决",
+      "category": "radiant",
+      "description": "在攻击或承受伤害时获得4%物理加成和4%法术加成，至多可叠加25次。\n在叠满层数后，获得20%伤害增幅，并获得控制免疫。",
+      "stats": {
+        "raw": "【AS】+20% 【ARMOR】+40"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "none",
+        "component_ids": [],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/1543.png",
+        "source_url": "https://static.datatft.com/images/equips/1543.png",
+        "alt": "光明版泰坦的坚决装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/1543.webp"
+      },
+      "source_ids": {
+        "equip_id": 1543,
+        "key": "DA_TitansResolve_Radiant",
+        "code": "De"
+      },
+      "tags": [
+        "泰坦",
+        "光明泰坦"
+      ],
+      "extensions": {
+        "source_type": "guangming",
+        "code": "De",
+        "key": "DA_TitansResolve_Radiant"
+      }
+    },
+    {
+      "id": "31011",
+      "name": "光明版海妖之怒",
+      "category": "radiant",
+      "description": "攻击提供7%可叠加的物理加成，至多至15次攻击。在15次攻击后，获得30%攻击速度。",
+      "stats": {
+        "raw": "【AD】+20% 【AS】+20% 【MR】+40"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "none",
+        "component_ids": [],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/31011.png",
+        "source_url": "https://static.datatft.com/images/equips/31011.png",
+        "alt": "光明版海妖之怒装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/31011.webp"
+      },
+      "source_ids": {
+        "equip_id": 31011,
+        "key": "DA_KrakensFury_Radiant",
+        "code": "Df"
+      },
+      "tags": [
+        "海妖",
+        "光明海妖"
+      ],
+      "extensions": {
+        "source_type": "guangming",
+        "code": "Df",
+        "key": "DA_KrakensFury_Radiant"
+      }
+    },
+    {
+      "id": "1619",
+      "name": "光明版纳什之牙",
+      "category": "radiant",
+      "description": "每次普攻提供4额外法力值，如果暴击则提升至6额外法力值。",
+      "stats": {
+        "raw": "【AP】+30% 【AS】+20% 【CRIT】+40% 【HP】+300"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "none",
+        "component_ids": [],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/1619.png",
+        "source_url": "https://static.datatft.com/images/equips/1619.png",
+        "alt": "光明版纳什之牙装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/1619.webp"
+      },
+      "source_ids": {
+        "equip_id": 1619,
+        "key": "DA_NashorsToothRadiant",
+        "code": "Dg"
+      },
+      "tags": [
+        "纳什",
+        "光明纳什"
+      ],
+      "extensions": {
+        "source_type": "guangming",
+        "code": "Dg",
+        "key": "DA_NashorsToothRadiant"
+      }
+    },
+    {
+      "id": "1551",
+      "name": "光明版最后的轻语",
+      "category": "radiant",
+      "description": "来自攻击和技能的伤害会对目标施加持续到战斗环节结束的30% 护甲击碎。这个效果不会叠加。\n护甲击碎：降低护甲值",
+      "stats": {
+        "raw": "【AD】+45% 【AS】+40% 【CRIT】+40%"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "none",
+        "component_ids": [],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/1551.png",
+        "source_url": "https://static.datatft.com/images/equips/1551.png",
+        "alt": "光明版最后的轻语装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/1551.webp"
+      },
+      "source_ids": {
+        "equip_id": 1551,
+        "key": "DA_LastWhisperRadiant",
+        "code": "Dh"
+      },
+      "tags": [
+        "破甲弓",
+        "光明破甲弓",
+        "轻语",
+        "光明轻语",
+        "穿甲弓",
+        "光明穿甲弓"
+      ],
+      "extensions": {
+        "source_type": "guangming",
+        "code": "Dh",
+        "key": "DA_LastWhisperRadiant"
+      }
+    },
+    {
+      "id": "1553",
+      "name": "光明版班克斯的魔法帽",
+      "category": "radiant",
+      "description": "它见证过——并释放过——奇迹和灾难。",
+      "stats": {
+        "raw": "【AP】+100% 【DA】+30%"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "none",
+        "component_ids": [],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/1553.png",
+        "source_url": "https://static.datatft.com/images/equips/1553.png",
+        "alt": "光明版灭世者的死亡之帽装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/1553.webp"
+      },
+      "source_ids": {
+        "equip_id": 1553,
+        "key": "DA_RabadonsDeathcap_Radiant",
+        "code": "Di"
+      },
+      "tags": [
+        "帽子",
+        "光明帽子",
+        "班克斯的魔法帽",
+        "光明班克斯的魔法帽",
+        "光明版班克斯的魔法帽"
+      ],
+      "extensions": {
+        "source_type": "guangming",
+        "code": "Di",
+        "key": "DA_RabadonsDeathcap_Radiant"
+      }
+    },
+    {
+      "id": "1555",
+      "name": "光明版大天使之杖",
+      "category": "radiant",
+      "description": "战斗开始时：在战斗期间，每5秒获得40%法术加成。",
+      "stats": {
+        "raw": "【AP】+60% 【MANAREGEN】+2"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "none",
+        "component_ids": [],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/1555.png",
+        "source_url": "https://static.datatft.com/images/equips/1555.png",
+        "alt": "光明版大天使之杖装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/1555.webp"
+      },
+      "source_ids": {
+        "equip_id": 1555,
+        "key": "DA_ArchangelsStaffRadiant",
+        "code": "Dj"
+      },
+      "tags": [
+        "大天使",
+        "光明大天使"
+      ],
+      "extensions": {
+        "source_type": "guangming",
+        "code": "Dj",
+        "key": "DA_ArchangelsStaffRadiant"
+      }
+    },
+    {
+      "id": "1620",
+      "name": "光明版冕卫",
+      "category": "radiant",
+      "description": "战斗开始时：获得持续8秒的相当于50%最大生命值的护盾值。\n在护盾到期时，获得50%法术加成。",
+      "stats": {
+        "raw": "【AP】+40% 【ARMOR】+40 【HP】+200"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "none",
+        "component_ids": [],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/1620.png",
+        "source_url": "https://static.datatft.com/images/equips/1620.png",
+        "alt": "光明版冕卫装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/1620.webp"
+      },
+      "source_ids": {
+        "equip_id": 1620,
+        "key": "DA_CrownguardRadiant",
+        "code": "Dk"
+      },
+      "tags": [],
+      "extensions": {
+        "source_type": "guangming",
+        "code": "Dk",
+        "key": "DA_CrownguardRadiant"
+      }
+    },
+    {
+      "id": "1559",
+      "name": "光明版离子火花",
+      "category": "radiant",
+      "description": "对2格内的敌人们施加30%魔抗击碎。在敌人施放一次技能时，对该敌人造成相当于该敌人300%法力值消耗的魔法伤害。\n[直接伤害类装备]\n魔抗击碎：降低魔抗值",
+      "stats": {
+        "raw": "【AP】+30% 【HP】+500 【MR】+70"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "none",
+        "component_ids": [],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/1559.png",
+        "source_url": "https://static.datatft.com/images/equips/1559.png",
+        "alt": "光明版离子火花装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/1559.webp"
+      },
+      "source_ids": {
+        "equip_id": 1559,
+        "key": "DA_IonicSparkRadiant",
+        "code": "Dl"
+      },
+      "tags": [
+        "离子",
+        "光明离子"
+      ],
+      "extensions": {
+        "source_type": "guangming",
+        "code": "Dl",
+        "key": "DA_IonicSparkRadiant"
+      }
+    },
+    {
+      "id": "1561",
+      "name": "光明版莫雷洛秘典",
+      "category": "radiant",
+      "description": "攻击和技能的伤害对敌人们造成持续10秒的2%灼烧效果和33%重伤效果。\n灼烧：每秒造成目标一部分最大生命值的真实伤害\n重伤：降低受到的治疗效果",
+      "stats": {
+        "raw": "【AP】+35% 【HP】+300 【MANAREGEN】+2"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "none",
+        "component_ids": [],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/1561.png",
+        "source_url": "https://static.datatft.com/images/equips/1561.png",
+        "alt": "光明版莫雷洛秘典装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/1561.webp"
+      },
+      "source_ids": {
+        "equip_id": 1561,
+        "key": "DA_MorellonomiconRadiant",
+        "code": "Dm"
+      },
+      "tags": [
+        "鬼书",
+        "光明鬼书"
+      ],
+      "extensions": {
+        "source_type": "guangming",
+        "code": "Dm",
+        "key": "DA_MorellonomiconRadiant"
+      }
+    },
+    {
+      "id": "1565",
+      "name": "光明版珠光护手",
+      "category": "radiant",
+      "description": "获得【技能暴击】。\n技能暴击：技能伤害可产生暴击。额外的【技能暴击】提供10%暴击伤害。",
+      "stats": {
+        "raw": "【AP】+75% 【CRIT】+75%"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "none",
+        "component_ids": [],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/1565.png",
+        "source_url": "https://static.datatft.com/images/equips/1565.png",
+        "alt": "光明版珠光护手装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/1565.webp"
+      },
+      "source_ids": {
+        "equip_id": 1565,
+        "key": "DA_JeweledGauntletRadiant",
+        "code": "Dn"
+      },
+      "tags": [
+        "法爆",
+        "光明法爆"
+      ],
+      "extensions": {
+        "source_type": "guangming",
+        "code": "Dn",
+        "key": "DA_JeweledGauntletRadiant"
+      }
+    },
+    {
+      "id": "1567",
+      "name": "光明版蓝霸符",
+      "category": "radiant",
+      "description": "从所有来源中获得20%额外物理加成和法术加成。",
+      "stats": {
+        "raw": "【AD】+30% 【AP】+30% 【MANAREGEN】+10"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "none",
+        "component_ids": [],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/1567.png",
+        "source_url": "https://static.datatft.com/images/equips/1567.png",
+        "alt": "光明版蓝霸符装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/1567.webp"
+      },
+      "source_ids": {
+        "equip_id": 1567,
+        "key": "DA_BlueBuffRadiant",
+        "code": "Do"
+      },
+      "tags": [
+        "蓝BUFF",
+        "光明蓝BUFF",
+        "蓝buff",
+        "光明蓝buff"
+      ],
+      "extensions": {
+        "source_type": "guangming",
+        "code": "Do",
+        "key": "DA_BlueBuffRadiant"
+      }
+    },
+    {
+      "id": "1616",
+      "name": "光明版圣盾使的誓约",
+      "category": "radiant",
+      "description": "战斗开始时：获得40法力值。\n在40%生命值时，获得30法力值和相当于50%最大生命值的护盾值。",
+      "stats": {
+        "raw": "【ARMOR】+50 【MR】+50 【MANAREGEN】+2"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "none",
+        "component_ids": [],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/1616.png",
+        "source_url": "https://static.datatft.com/images/equips/1616.png",
+        "alt": "光明版圣盾使的誓约装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/1616.webp"
+      },
+      "source_ids": {
+        "equip_id": 1616,
+        "key": "DA_ProtectorsVowRadiant",
+        "code": "Dp"
+      },
+      "tags": [
+        "冰甲",
+        "光明冰甲"
+      ],
+      "extensions": {
+        "source_type": "guangming",
+        "code": "Dp",
+        "key": "DA_ProtectorsVowRadiant"
+      }
+    },
+    {
+      "id": "1621",
+      "name": "光明版适应性头盔",
+      "category": "radiant",
+      "description": "从所有来源中获得额外的30%法力值。携带者获得基于角色定位的一个额外加成：\n坦克/战士：获得80护甲和魔抗。\n射手/术师：获得40%物理加成和法术加成。",
+      "stats": {
+        "raw": "【MR】+40 【MANAREGEN】+7"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "none",
+        "component_ids": [],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/1621.png",
+        "source_url": "https://static.datatft.com/images/equips/1621.png",
+        "alt": "光明版适应性头盔装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/1621.webp"
+      },
+      "source_ids": {
+        "equip_id": 1621,
+        "key": "DA_AdaptiveHelm_Radiant",
+        "code": "Dq"
+      },
+      "tags": [
+        "头盔",
+        "光明头盔"
+      ],
+      "extensions": {
+        "source_type": "guangming",
+        "code": "Dq",
+        "key": "DA_AdaptiveHelm_Radiant"
+      }
+    },
+    {
+      "id": "31013",
+      "name": "光明版振奋盔甲",
+      "category": "radiant",
+      "description": "每秒回复4%已损失生命值。",
+      "stats": {
+        "raw": "【HP】+700 【MANAREGEN】+4 【DR】+15%"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "none",
+        "component_ids": [],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/31013.png",
+        "source_url": "https://static.datatft.com/images/equips/31013.png",
+        "alt": "光明版振奋盔甲装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/31013.webp"
+      },
+      "source_ids": {
+        "equip_id": 31013,
+        "key": "DA_SpiritVisage_Radiant",
+        "code": "Dr"
+      },
+      "tags": [
+        "绿甲",
+        "光明绿甲",
+        "振奋",
+        "光明振奋"
+      ],
+      "extensions": {
+        "source_type": "guangming",
+        "code": "Dr",
+        "key": "DA_SpiritVisage_Radiant"
+      }
+    },
+    {
+      "id": "1577",
+      "name": "光明版正义之手",
+      "category": "radiant",
+      "description": "获得2个效果：30%物理加成和30%法术加成。24%全能吸血。\n生命值高于50%时，物理加成和法术加成翻倍。生命值低于50%时，全能吸血效果翻倍。",
+      "stats": {
+        "raw": "【CRIT】+40% 【MANAREGEN】+2"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "none",
+        "component_ids": [],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/1577.png",
+        "source_url": "https://static.datatft.com/images/equips/1577.png",
+        "alt": "光明版正义之手装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/1577.webp"
+      },
+      "source_ids": {
+        "equip_id": 1577,
+        "key": "DA_HandOfJusticeRadiant",
+        "code": "Ds"
+      },
+      "tags": [
+        "正义",
+        "光明正义"
+      ],
+      "extensions": {
+        "source_type": "guangming",
+        "code": "Ds",
+        "key": "DA_HandOfJusticeRadiant"
+      }
+    },
+    {
+      "id": "1579",
+      "name": "光明版棘刺背心",
+      "category": "radiant",
+      "description": "获得12%最大生命值。\n使来自攻击的伤害降低10%。在被任一攻击命中时，对邻格所有敌人造成200魔法伤害。\n冷却时间：2秒",
+      "stats": {
+        "raw": "【ARMOR】+100"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "none",
+        "component_ids": [],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/1579.png",
+        "source_url": "https://static.datatft.com/images/equips/1579.png",
+        "alt": "光明版棘刺背心装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/1579.webp"
+      },
+      "source_ids": {
+        "equip_id": 1579,
+        "key": "DA_BrambleVestRadiant",
+        "code": "Dt"
+      },
+      "tags": [
+        "反甲",
+        "光明反甲"
+      ],
+      "extensions": {
+        "source_type": "guangming",
+        "code": "Dt",
+        "key": "DA_BrambleVestRadiant"
+      }
+    },
+    {
+      "id": "1581",
+      "name": "光明版石像鬼石板甲",
+      "category": "radiant",
+      "description": "每有一个敌人正在以携带者为目标，携带者就会获得20护甲和20魔抗。",
+      "stats": {
+        "raw": "【ARMOR】+50 【HP】+300 【MR】+50"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "none",
+        "component_ids": [],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/1581.png",
+        "source_url": "https://static.datatft.com/images/equips/1581.png",
+        "alt": "光明版石像鬼石板甲装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/1581.webp"
+      },
+      "source_ids": {
+        "equip_id": 1581,
+        "key": "DA_GargoyleStoneplate_Radiant",
+        "code": "Du"
+      },
+      "tags": [
+        "板甲",
+        "光明板甲",
+        "石像鬼",
+        "光明石像鬼"
+      ],
+      "extensions": {
+        "source_type": "guangming",
+        "code": "Du",
+        "key": "DA_GargoyleStoneplate_Radiant"
+      }
+    },
+    {
+      "id": "1583",
+      "name": "光明版日炎斗篷",
+      "category": "radiant",
+      "description": "获得16%最大生命值。\n每2秒，对2格内的一名敌人施加持续10秒的2%灼烧效果和33%重伤效果。\n灼烧：每秒造成目标一部分最大生命值的真实伤害\n重伤：降低受到的治疗效果",
+      "stats": {
+        "raw": "【ARMOR】+40 【HP】+300"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "none",
+        "component_ids": [],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/1583.png",
+        "source_url": "https://static.datatft.com/images/equips/1583.png",
+        "alt": "光明版日炎斗篷装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/1583.webp"
+      },
+      "source_ids": {
+        "equip_id": 1583,
+        "key": "DA_SunfireCape_Radiant",
+        "code": "Dv"
+      },
+      "tags": [
+        "日炎",
+        "光明日炎"
+      ],
+      "extensions": {
+        "source_type": "guangming",
+        "code": "Dv",
+        "key": "DA_SunfireCape_Radiant"
+      }
+    },
+    {
+      "id": "1625",
+      "name": "光明版坚定之心",
+      "category": "radiant",
+      "description": "获得10%伤害减免。在高于50%生命值时，转而获得30%伤害减免。",
+      "stats": {
+        "raw": "【ARMOR】+40 【CRIT】+40% 【HP】+600"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "none",
+        "component_ids": [],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/1625.png",
+        "source_url": "https://static.datatft.com/images/equips/1625.png",
+        "alt": "光明版坚定之心装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/1625.webp"
+      },
+      "source_ids": {
+        "equip_id": 1625,
+        "key": "DA_SteadfastHeartRadiant",
+        "code": "Dw"
+      },
+      "tags": [
+        "心之刚",
+        "光明心之刚"
+      ],
+      "extensions": {
+        "source_type": "guangming",
+        "code": "Dw",
+        "key": "DA_SteadfastHeartRadiant"
+      }
+    },
+    {
+      "id": "30044",
+      "name": "光明版巨龙之爪",
+      "category": "radiant",
+      "description": "获得28%最大生命值。\n每2秒治疗5%最大生命值。",
+      "stats": {
+        "raw": "【MR】+120"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "none",
+        "component_ids": [],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/30044.png",
+        "source_url": "https://static.datatft.com/images/equips/30044.png",
+        "alt": "光明版巨龙之爪装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/30044.webp"
+      },
+      "source_ids": {
+        "equip_id": 30044,
+        "key": "DA_DragonsClawRadiant",
+        "code": "Dx"
+      },
+      "tags": [
+        "龙牙",
+        "光明龙牙"
+      ],
+      "extensions": {
+        "source_type": "guangming",
+        "code": "Dx",
+        "key": "DA_DragonsClawRadiant"
+      }
+    },
+    {
+      "id": "1623",
+      "name": "光明版薄暮法袍",
+      "category": "radiant",
+      "description": "3格内的敌人们会被施加30%护甲削减。在战斗的最初20秒获得50护甲和魔抗。\n护甲击碎：降低护甲值",
+      "stats": {
+        "raw": "【HP】+500 【MR】+40"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "none",
+        "component_ids": [],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/1623.png",
+        "source_url": "https://static.datatft.com/images/equips/1623.png",
+        "alt": "光明版薄暮法袍装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/1623.webp"
+      },
+      "source_ids": {
+        "equip_id": 1623,
+        "key": "DA_EvenshroudRadiant",
+        "code": "Dy"
+      },
+      "tags": [
+        "法袍",
+        "光明法袍",
+        "薄暮",
+        "光明薄暮"
+      ],
+      "extensions": {
+        "source_type": "guangming",
+        "code": "Dy",
+        "key": "DA_EvenshroudRadiant"
+      }
+    },
+    {
+      "id": "1595",
+      "name": "光明版水银",
+      "category": "radiant",
+      "description": "战斗开始时：获得持续45秒的控制免疫效果。\n每秒获得6%可叠加的攻击速度。",
+      "stats": {
+        "raw": "【AS】+40% 【CRIT】+40% 【MR】+40"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "none",
+        "component_ids": [],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/1595.png",
+        "source_url": "https://static.datatft.com/images/equips/1595.png",
+        "alt": "光明版水银装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/1595.webp"
+      },
+      "source_ids": {
+        "equip_id": 1595,
+        "key": "DA_QuicksilverRadiant",
+        "code": "Dz"
+      },
+      "tags": [],
+      "extensions": {
+        "source_type": "guangming",
+        "code": "Dz",
+        "key": "DA_QuicksilverRadiant"
+      }
+    },
+    {
+      "id": "1597",
+      "name": "光明版狂徒铠甲",
+      "category": "radiant",
+      "description": "获得36%最大生命值。",
+      "stats": {
+        "raw": "【HP】+1200"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "none",
+        "component_ids": [],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/1597.png",
+        "source_url": "https://static.datatft.com/images/equips/1597.png",
+        "alt": "光明版狂徒铠甲装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/1597.webp"
+      },
+      "source_ids": {
+        "equip_id": 1597,
+        "key": "DA_WarmogsArmorRadiant",
+        "code": "EA"
+      },
+      "tags": [
+        "狂徒",
+        "光明狂徒"
+      ],
+      "extensions": {
+        "source_type": "guangming",
+        "code": "EA",
+        "key": "DA_WarmogsArmorRadiant"
+      }
+    },
+    {
+      "id": "1617",
+      "name": "光明版强袭者的链枷",
+      "category": "radiant",
+      "description": "暴击提供持续5秒的10%伤害增幅，可叠加至多4次。",
+      "stats": {
+        "raw": "【AS】+20% 【CRIT】+40% 【HP】+300 【DA】+20%"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "none",
+        "component_ids": [],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/1617.png",
+        "source_url": "https://static.datatft.com/images/equips/1617.png",
+        "alt": "光明版强袭者的链枷装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/1617.webp"
+      },
+      "source_ids": {
+        "equip_id": 1617,
+        "key": "DA_StrikersFlailRadiant",
+        "code": "EB"
+      },
+      "tags": [
+        "破防者",
+        "光明破防者",
+        "破防",
+        "光明破防"
+      ],
+      "extensions": {
+        "source_type": "guangming",
+        "code": "EB",
+        "key": "DA_StrikersFlailRadiant"
+      }
+    },
+    {
+      "id": "1607",
+      "name": "光明版秘法手套",
+      "category": "radiant",
+      "description": "每一回合：装备2件随机光明武器。\n[需要用掉3个装备格。]",
+      "stats": {
+        "raw": "【CRIT】+20% 【HP】+150"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "none",
+        "component_ids": [],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/1607.png",
+        "source_url": "https://static.datatft.com/images/equips/1607.png",
+        "alt": "光明版窃贼手套装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/1607.webp"
+      },
+      "source_ids": {
+        "equip_id": 1607,
+        "key": "DA_ThiefsGlovesRadiant",
+        "code": "EC"
+      },
+      "tags": [
+        "偷偷",
+        "光明偷偷",
+        "秘法手套",
+        "光明秘法手套",
+        "光明版秘法手套"
+      ],
+      "extensions": {
+        "source_type": "guangming",
+        "code": "EC",
+        "key": "DA_ThiefsGlovesRadiant"
+      }
+    },
+    {
+      "id": "32311",
+      "name": "幸运装备宝箱",
+      "category": "consumable",
+      "description": "用在一个弈子身上即可开启一个武器库，包含为其特别定制的装备。\n这些装备都是基于该弈子的推荐装备。",
+      "stats": {
+        "raw": ""
+      },
+      "effects": [],
+      "recipe": {
+        "type": "none",
+        "component_ids": [],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/32311.png",
+        "source_url": "https://static.datatft.com/images/equips/32311.png",
+        "alt": "幸运装备宝箱装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/32311.webp"
+      },
+      "source_ids": {
+        "equip_id": 32311,
+        "key": "DA_LuckyItemChest",
+        "code": "ED"
+      },
+      "tags": [],
+      "extensions": {
+        "source_type": "remove",
+        "code": "ED",
+        "key": "DA_LuckyItemChest"
+      }
+    },
+    {
+      "id": "32312",
+      "name": "光明版幸运装备宝箱",
+      "category": "consumable",
+      "description": "用在一个弈子身上即可开启一个特别适合该弈子的光明武器库。\n这些装备都是基于弈子的推荐装备。",
+      "stats": {
+        "raw": ""
+      },
+      "effects": [],
+      "recipe": {
+        "type": "none",
+        "component_ids": [],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/32312.png",
+        "source_url": "https://static.datatft.com/images/equips/32312.png",
+        "alt": "光明版幸运装备宝箱装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/32312.webp"
+      },
+      "source_ids": {
+        "equip_id": 32312,
+        "key": "TFT_Consumable_RecommendedArmoryRadiant",
+        "code": "EE"
+      },
+      "tags": [],
+      "extensions": {
+        "source_type": "remove",
+        "code": "EE",
+        "key": "TFT_Consumable_RecommendedArmoryRadiant"
+      }
+    },
+    {
+      "id": "32314",
+      "name": "打捞术",
+      "category": "consumable",
+      "description": "你备战席的任何弈子都会被移除装备，且这些装备会被拆解。获得2金币。",
+      "stats": {
+        "raw": ""
+      },
+      "effects": [],
+      "recipe": {
+        "type": "none",
+        "component_ids": [],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/32314.png",
+        "source_url": "https://static.datatft.com/images/equips/32314.png",
+        "alt": "打捞术装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/32314.webp"
+      },
+      "source_ids": {
+        "equip_id": 32314,
+        "key": "DA_SalvagerUpgrade18",
+        "code": "EF"
+      },
+      "tags": [],
+      "extensions": {
+        "source_type": "remove",
+        "code": "EF",
+        "key": "DA_SalvagerUpgrade18"
+      }
+    },
+    {
+      "id": "32315",
+      "name": "口袋变形重组器",
+      "category": "consumable",
+      "description": "对1或2费弈子使用，可将其升级为高1费的弈子。\n不可用于活体、机械、实验、想象或复活的生物。请放在约德尔人接触不到的地方。",
+      "stats": {
+        "raw": ""
+      },
+      "effects": [],
+      "recipe": {
+        "type": "none",
+        "component_ids": [],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/32315.png",
+        "source_url": "https://static.datatft.com/images/equips/32315.png",
+        "alt": "口袋变形重组器装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/32315.webp"
+      },
+      "source_ids": {
+        "equip_id": 32315,
+        "key": "TFT_Consumable_PocketRecombobulator",
+        "code": "En"
+      },
+      "tags": [],
+      "extensions": {
+        "source_type": "remove",
+        "code": "En",
+        "key": "TFT_Consumable_PocketRecombobulator"
+      }
+    },
+    {
+      "id": "32313",
+      "name": "德玛西亚王冠",
+      "category": "other",
+      "description": "如果携带者是一个【坦克】，则每2秒回复3-21%最大生命值(基于阶段)。如果不是，则转而每2秒获得10%【AD】物理加成和【AP】法术加成。\n如果这件装备的携带者阵亡，那么你会立刻输掉战斗。\n你可以通过将携带者移到备战席来移除这个装备。",
+      "stats": {
+        "raw": "【AS】+30% 【HP】+300"
+      },
+      "effects": [],
+      "recipe": {
+        "type": "none",
+        "component_ids": [],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/32313.png",
+        "source_url": "https://static.datatft.com/images/equips/32313.png",
+        "alt": "德玛西亚王冠装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/32313.webp"
+      },
+      "source_ids": {
+        "equip_id": 32313,
+        "key": "TFT9_Item_CrownOfDemacia",
+        "code": "EG"
+      },
+      "tags": [],
+      "extensions": {
+        "source_type": "other",
+        "code": "EG",
+        "key": "TFT9_Item_CrownOfDemacia"
+      }
+    },
+    {
+      "id": "33019",
+      "name": "灵魂莲华纹章",
+      "category": "emblem",
+      "description": "",
+      "stats": {
+        "raw": ""
+      },
+      "effects": [],
+      "recipe": {
+        "type": "components",
+        "component_ids": [
+          "508",
+          "503"
+        ],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/33019.png",
+        "source_url": "https://static.datatft.com/images/equips/33019.png",
+        "alt": "灵魂莲华纹章装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/33019.webp"
+      },
+      "source_ids": {
+        "equip_id": 33019,
+        "key": "DA_18_EmblemBlossom",
+        "code": "CK"
+      },
+      "tags": [],
+      "extensions": {
+        "source_type": "zhuanzhi",
+        "code": "CK",
+        "key": "DA_18_EmblemBlossom",
+        "trait_id": "race_1"
+      }
+    },
+    {
+      "id": "33020",
+      "name": "月亮纹章",
+      "category": "emblem",
+      "description": "",
+      "stats": {
+        "raw": ""
+      },
+      "effects": [],
+      "recipe": {
+        "type": "components",
+        "component_ids": [
+          "508",
+          "504"
+        ],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/33020.png",
+        "source_url": "https://static.datatft.com/images/equips/33020.png",
+        "alt": "月亮纹章装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/33020.webp"
+      },
+      "source_ids": {
+        "equip_id": 33020,
+        "key": "DA_18_EmblemLunar",
+        "code": "CL"
+      },
+      "tags": [],
+      "extensions": {
+        "source_type": "zhuanzhi",
+        "code": "CL",
+        "key": "DA_18_EmblemLunar",
+        "trait_id": "race_5"
+      }
+    },
+    {
+      "id": "33021",
+      "name": "迅灵纹章",
+      "category": "emblem",
+      "description": "",
+      "stats": {
+        "raw": ""
+      },
+      "effects": [],
+      "recipe": {
+        "type": "components",
+        "component_ids": [
+          "508",
+          "506"
+        ],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/33021.png",
+        "source_url": "https://static.datatft.com/images/equips/33021.png",
+        "alt": "迅灵纹章装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/33021.webp"
+      },
+      "source_ids": {
+        "equip_id": 33021,
+        "key": "DA_18_EmblemSprykin",
+        "code": "CM"
+      },
+      "tags": [],
+      "extensions": {
+        "source_type": "zhuanzhi",
+        "code": "CM",
+        "key": "DA_18_EmblemSprykin",
+        "trait_id": "race_24"
+      }
+    },
+    {
+      "id": "33022",
+      "name": "仙灵纹章",
+      "category": "emblem",
+      "description": "",
+      "stats": {
+        "raw": ""
+      },
+      "effects": [],
+      "recipe": {
+        "type": "components",
+        "component_ids": [
+          "508",
+          "501"
+        ],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/33022.png",
+        "source_url": "https://static.datatft.com/images/equips/33022.png",
+        "alt": "仙灵纹章装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/33022.webp"
+      },
+      "source_ids": {
+        "equip_id": 33022,
+        "key": "DA_18_EmblemFae",
+        "code": "CN"
+      },
+      "tags": [],
+      "extensions": {
+        "source_type": "zhuanzhi",
+        "code": "CN",
+        "key": "DA_18_EmblemFae",
+        "trait_id": "race_13"
+      }
+    },
+    {
+      "id": "33023",
+      "name": "炼狱纹章",
+      "category": "emblem",
+      "description": "",
+      "stats": {
+        "raw": ""
+      },
+      "effects": [],
+      "recipe": {
+        "type": "components",
+        "component_ids": [
+          "508",
+          "502"
+        ],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/33023.png",
+        "source_url": "https://static.datatft.com/images/equips/33023.png",
+        "alt": "炼狱纹章装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/33023.webp"
+      },
+      "source_ids": {
+        "equip_id": 33023,
+        "key": "DA_18_EmblemInferno",
+        "code": "CO"
+      },
+      "tags": [],
+      "extensions": {
+        "source_type": "zhuanzhi",
+        "code": "CO",
+        "key": "DA_18_EmblemInferno",
+        "trait_id": "race_2"
+      }
+    },
+    {
+      "id": "33024",
+      "name": "永恒之森纹章",
+      "category": "emblem",
+      "description": "",
+      "stats": {
+        "raw": ""
+      },
+      "effects": [],
+      "recipe": {
+        "type": "components",
+        "component_ids": [
+          "508",
+          "505"
+        ],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/33024.png",
+        "source_url": "https://static.datatft.com/images/equips/33024.png",
+        "alt": "永恒之森纹章装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/33024.webp"
+      },
+      "source_ids": {
+        "equip_id": 33024,
+        "key": "DA_18_EmblemElderwood",
+        "code": "CP"
+      },
+      "tags": [],
+      "extensions": {
+        "source_type": "zhuanzhi",
+        "code": "CP",
+        "key": "DA_18_EmblemElderwood",
+        "trait_id": "race_3"
+      }
+    },
+    {
+      "id": "33025",
+      "name": "黑色荆棘纹章",
+      "category": "emblem",
+      "description": "",
+      "stats": {
+        "raw": ""
+      },
+      "effects": [],
+      "recipe": {
+        "type": "components",
+        "component_ids": [
+          "508",
+          "507"
+        ],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/33025.png",
+        "source_url": "https://static.datatft.com/images/equips/33025.png",
+        "alt": "黑色荆棘纹章装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/33025.webp"
+      },
+      "source_ids": {
+        "equip_id": 33025,
+        "key": "DA_18_EmblemBlackthorn",
+        "code": "CQ"
+      },
+      "tags": [],
+      "extensions": {
+        "source_type": "zhuanzhi",
+        "code": "CQ",
+        "key": "DA_18_EmblemBlackthorn",
+        "trait_id": "race_6"
+      }
+    },
+    {
+      "id": "33026",
+      "name": "远古纹章",
+      "category": "emblem",
+      "description": "",
+      "stats": {
+        "raw": ""
+      },
+      "effects": [],
+      "recipe": {
+        "type": "components",
+        "component_ids": [
+          "508",
+          "509"
+        ],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/33026.png",
+        "source_url": "https://static.datatft.com/images/equips/33026.png",
+        "alt": "远古纹章装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/33026.webp"
+      },
+      "source_ids": {
+        "equip_id": 33026,
+        "key": "DA_18_EmblemPrimal",
+        "code": "CR"
+      },
+      "tags": [],
+      "extensions": {
+        "source_type": "zhuanzhi",
+        "code": "CR",
+        "key": "DA_18_EmblemPrimal",
+        "trait_id": "race_17"
+      }
+    },
+    {
+      "id": "33027",
+      "name": "裁决使纹章",
+      "category": "emblem",
+      "description": "",
+      "stats": {
+        "raw": ""
+      },
+      "effects": [],
+      "recipe": {
+        "type": "components",
+        "component_ids": [
+          "31000",
+          "509"
+        ],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/33027.png",
+        "source_url": "https://static.datatft.com/images/equips/33027.png",
+        "alt": "裁决使纹章装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/33027.webp"
+      },
+      "source_ids": {
+        "equip_id": 33027,
+        "key": "DA_18_EmblemExecutioner",
+        "code": "CS"
+      },
+      "tags": [],
+      "extensions": {
+        "source_type": "zhuanzhiJgg",
+        "code": "CS",
+        "key": "DA_18_EmblemExecutioner",
+        "trait_id": "job_7"
+      }
+    },
+    {
+      "id": "33028",
+      "name": "斗士纹章",
+      "category": "emblem",
+      "description": "",
+      "stats": {
+        "raw": ""
+      },
+      "effects": [],
+      "recipe": {
+        "type": "components",
+        "component_ids": [
+          "31000",
+          "507"
+        ],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/33028.png",
+        "source_url": "https://static.datatft.com/images/equips/33028.png",
+        "alt": "斗士纹章装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/33028.webp"
+      },
+      "source_ids": {
+        "equip_id": 33028,
+        "key": "DA_18_EmblemBrawler",
+        "code": "CT"
+      },
+      "tags": [],
+      "extensions": {
+        "source_type": "zhuanzhiJgg",
+        "code": "CT",
+        "key": "DA_18_EmblemBrawler",
+        "trait_id": "job_4"
+      }
+    },
+    {
+      "id": "33029",
+      "name": "神谕者纹章",
+      "category": "emblem",
+      "description": "",
+      "stats": {
+        "raw": ""
+      },
+      "effects": [],
+      "recipe": {
+        "type": "components",
+        "component_ids": [
+          "31000",
+          "504"
+        ],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/33029.png",
+        "source_url": "https://static.datatft.com/images/equips/33029.png",
+        "alt": "神谕者纹章装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/33029.webp"
+      },
+      "source_ids": {
+        "equip_id": 33029,
+        "key": "DA_18_EmblemInvoker",
+        "code": "CU"
+      },
+      "tags": [],
+      "extensions": {
+        "source_type": "zhuanzhiJgg",
+        "code": "CU",
+        "key": "DA_18_EmblemInvoker",
+        "trait_id": "job_12"
+      }
+    },
+    {
+      "id": "33030",
+      "name": "迅捷射手纹章",
+      "category": "emblem",
+      "description": "",
+      "stats": {
+        "raw": ""
+      },
+      "effects": [],
+      "recipe": {
+        "type": "components",
+        "component_ids": [
+          "31000",
+          "502"
+        ],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/33030.png",
+        "source_url": "https://static.datatft.com/images/equips/33030.png",
+        "alt": "迅捷射手纹章装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/33030.webp"
+      },
+      "source_ids": {
+        "equip_id": 33030,
+        "key": "DA_18_EmblemRapidfire",
+        "code": "CV"
+      },
+      "tags": [],
+      "extensions": {
+        "source_type": "zhuanzhiJgg",
+        "code": "CV",
+        "key": "DA_18_EmblemRapidfire",
+        "trait_id": "job_5"
+      }
+    },
+    {
+      "id": "33031",
+      "name": "法师纹章",
+      "category": "emblem",
+      "description": "",
+      "stats": {
+        "raw": ""
+      },
+      "effects": [],
+      "recipe": {
+        "type": "components",
+        "component_ids": [
+          "31000",
+          "503"
+        ],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/33031.png",
+        "source_url": "https://static.datatft.com/images/equips/33031.png",
+        "alt": "法师纹章装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/33031.webp"
+      },
+      "source_ids": {
+        "equip_id": 33031,
+        "key": "DA_18_EmblemSpellweaver",
+        "code": "CW"
+      },
+      "tags": [],
+      "extensions": {
+        "source_type": "zhuanzhiJgg",
+        "code": "CW",
+        "key": "DA_18_EmblemSpellweaver",
+        "trait_id": "job_1"
+      }
+    },
+    {
+      "id": "33032",
+      "name": "重装战士纹章",
+      "category": "emblem",
+      "description": "",
+      "stats": {
+        "raw": ""
+      },
+      "effects": [],
+      "recipe": {
+        "type": "components",
+        "component_ids": [
+          "31000",
+          "505"
+        ],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/33032.png",
+        "source_url": "https://static.datatft.com/images/equips/33032.png",
+        "alt": "重装战士纹章装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/33032.webp"
+      },
+      "source_ids": {
+        "equip_id": 33032,
+        "key": "DA_18_EmblemVanguard",
+        "code": "CX"
+      },
+      "tags": [],
+      "extensions": {
+        "source_type": "zhuanzhiJgg",
+        "code": "CX",
+        "key": "DA_18_EmblemVanguard",
+        "trait_id": "job_9"
+      }
+    },
+    {
+      "id": "33033",
+      "name": "猎手纹章",
+      "category": "emblem",
+      "description": "",
+      "stats": {
+        "raw": ""
+      },
+      "effects": [],
+      "recipe": {
+        "type": "components",
+        "component_ids": [
+          "31000",
+          "501"
+        ],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/33033.png",
+        "source_url": "https://static.datatft.com/images/equips/33033.png",
+        "alt": "猎手纹章装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/33033.webp"
+      },
+      "source_ids": {
+        "equip_id": 33033,
+        "key": "DA_18_EmblemHunter",
+        "code": "CY"
+      },
+      "tags": [],
+      "extensions": {
+        "source_type": "zhuanzhiJgg",
+        "code": "CY",
+        "key": "DA_18_EmblemHunter",
+        "trait_id": "job_6"
+      }
+    },
+    {
+      "id": "33034",
+      "name": "劫掠梦魇纹章",
+      "category": "emblem",
+      "description": "",
+      "stats": {
+        "raw": ""
+      },
+      "effects": [],
+      "recipe": {
+        "type": "components",
+        "component_ids": [
+          "31000",
+          "506"
+        ],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/33034.png",
+        "source_url": "https://static.datatft.com/images/equips/33034.png",
+        "alt": "劫掠梦魇纹章装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/33034.webp"
+      },
+      "source_ids": {
+        "equip_id": 33034,
+        "key": "DA_18_EmblemSlayer",
+        "code": "CZ"
+      },
+      "tags": [],
+      "extensions": {
+        "source_type": "zhuanzhiJgg",
+        "code": "CZ",
+        "key": "DA_18_EmblemSlayer",
+        "trait_id": "job_3"
+      }
+    },
+    {
+      "id": "33035",
+      "name": "魔女纹章",
+      "category": "emblem",
+      "description": "",
+      "stats": {
+        "raw": ""
+      },
+      "effects": [],
+      "recipe": {
+        "type": "none",
+        "component_ids": [],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/33035.png",
+        "source_url": "https://static.datatft.com/images/equips/33035.png",
+        "alt": "魔女纹章装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/33035.webp"
+      },
+      "source_ids": {
+        "equip_id": 33035,
+        "key": "DA_18_EmblemCoven",
+        "code": "Ca"
+      },
+      "tags": [],
+      "extensions": {
+        "source_type": "zhuanzhi2",
+        "code": "Ca",
+        "key": "DA_18_EmblemCoven",
+        "trait_id": "race_7"
+      }
+    },
+    {
+      "id": "33036",
+      "name": "绝命花妖纹章",
+      "category": "emblem",
+      "description": "",
+      "stats": {
+        "raw": ""
+      },
+      "effects": [],
+      "recipe": {
+        "type": "none",
+        "component_ids": [],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/33036.png",
+        "source_url": "https://static.datatft.com/images/equips/33036.png",
+        "alt": "绝命花妖纹章装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/33036.webp"
+      },
+      "source_ids": {
+        "equip_id": 33036,
+        "key": "DA_18_EmblemFloraFatalis",
+        "code": "Cj"
+      },
+      "tags": [],
+      "extensions": {
+        "source_type": "zhuanzhi2",
+        "code": "Cj",
+        "key": "DA_18_EmblemFloraFatalis",
+        "trait_id": "race_18"
+      }
+    },
+    {
+      "id": "33038",
+      "name": "护卫纹章",
+      "category": "emblem",
+      "description": "",
+      "stats": {
+        "raw": ""
+      },
+      "effects": [],
+      "recipe": {
+        "type": "none",
+        "component_ids": [],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/33038.png",
+        "source_url": "https://static.datatft.com/images/equips/33038.png",
+        "alt": "护卫纹章装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/33038.webp"
+      },
+      "source_ids": {
+        "equip_id": 33038,
+        "key": "DA_18_EmblemDefender",
+        "code": "Ck"
+      },
+      "tags": [],
+      "extensions": {
+        "source_type": "zhuanzhi2",
+        "code": "Ck",
+        "key": "DA_18_EmblemDefender",
+        "trait_id": "job_10"
+      }
+    },
+    {
+      "id": "33039",
+      "name": "主宰纹章",
+      "category": "emblem",
+      "description": "",
+      "stats": {
+        "raw": ""
+      },
+      "effects": [],
+      "recipe": {
+        "type": "none",
+        "component_ids": [],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/33039.png",
+        "source_url": "https://static.datatft.com/images/equips/33039.png",
+        "alt": "主宰纹章装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/33039.webp"
+      },
+      "source_ids": {
+        "equip_id": 33039,
+        "key": "DA_18_EmblemJuggernaut",
+        "code": "Cl"
+      },
+      "tags": [],
+      "extensions": {
+        "source_type": "zhuanzhi2",
+        "code": "Cl",
+        "key": "DA_18_EmblemJuggernaut",
+        "trait_id": "job_11"
+      }
+    },
+    {
+      "id": "33037",
+      "name": "幻影纹章",
+      "category": "consumable",
+      "description": "获得1个你层级最高羁绊的临时的纹章。",
+      "stats": {
+        "raw": ""
+      },
+      "effects": [],
+      "recipe": {
+        "type": "none",
+        "component_ids": [],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/33037.png",
+        "source_url": "https://raw.communitydragon.org/pbe/game/assets/ux/tft/hud/zaps/wands/set18_mechanicicon.png",
+        "alt": "幻影纹章装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/33037.webp"
+      },
+      "source_ids": {
+        "equip_id": 33037,
+        "key": "DA_PhantomEmblem18",
+        "code": "EH"
+      },
+      "tags": [],
+      "extensions": {
+        "source_type": "remove",
+        "code": "EH",
+        "key": "DA_PhantomEmblem18",
+        "image_fallback_reason": "客户端将该临时物品指向 S18 机制图标。",
+        "image_fallback_source_url": "https://raw.communitydragon.org/pbe/game/assets/ux/tft/hud/zaps/wands/set18_mechanicicon.png"
+      }
+    },
+    {
+      "id": "33044",
+      "name": "生命药水",
+      "category": "consumable",
+      "description": "",
+      "stats": {
+        "raw": ""
+      },
+      "effects": [],
+      "recipe": {
+        "type": "none",
+        "component_ids": [],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/33044.png",
+        "source_url": "https://static.datatft.com/images/equips/33044.png",
+        "alt": "生命药水装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/33044.webp"
+      },
+      "source_ids": {
+        "equip_id": 33044,
+        "key": "DA_HealthPotion18",
+        "code": "FQ"
+      },
+      "tags": [],
+      "extensions": {
+        "source_type": "yaoshui",
+        "code": "FQ",
+        "key": "DA_HealthPotion18"
+      }
+    },
+    {
+      "id": "33045",
+      "name": "轰炸药水",
+      "category": "consumable",
+      "description": "获得1个临时的、可装备的【光明版爆炸药水】。",
+      "stats": {
+        "raw": ""
+      },
+      "effects": [],
+      "recipe": {
+        "type": "none",
+        "component_ids": [],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/33045.png",
+        "source_url": "https://raw.communitydragon.org/pbe/game/assets/maps/tft/icons/tft18/tft18_blastpotion.png",
+        "alt": "轰炸药水装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/33045.webp"
+      },
+      "source_ids": {
+        "equip_id": 33045,
+        "key": "DA_BlastPotion18_Upgrade_Charm",
+        "code": "Fu"
+      },
+      "tags": [],
+      "extensions": {
+        "source_type": "remove",
+        "code": "Fu",
+        "key": "DA_BlastPotion18_Upgrade_Charm",
+        "image_fallback_reason": "该仙灵派生物没有独立图标，复用对应基础药水图标。",
+        "image_fallback_source_url": "https://raw.communitydragon.org/pbe/game/assets/maps/tft/icons/tft18/tft18_blastpotion.png",
+        "image_fallback_item_id": "33053"
+      }
+    },
+    {
+      "id": "33046",
+      "name": "【耀焰冲击】药水",
+      "category": "consumable",
+      "description": "",
+      "stats": {
+        "raw": ""
+      },
+      "effects": [],
+      "recipe": {
+        "type": "none",
+        "component_ids": [],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/33046.png",
+        "source_url": "https://static.datatft.com/images/equips/33046.png",
+        "alt": "【耀焰冲击】药水装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/33046.webp"
+      },
+      "source_ids": {
+        "equip_id": 33046,
+        "key": "DA_BlastPotion18_Radiant",
+        "code": "HP"
+      },
+      "tags": [],
+      "extensions": {
+        "source_type": "yaoshui",
+        "code": "HP",
+        "key": "DA_BlastPotion18_Radiant"
+      }
+    },
+    {
+      "id": "33047",
+      "name": "生命药水",
+      "category": "consumable",
+      "description": "获得1个临时的、可装备的【光明版生命药水】。",
+      "stats": {
+        "raw": ""
+      },
+      "effects": [],
+      "recipe": {
+        "type": "none",
+        "component_ids": [],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/33047.png",
+        "source_url": "https://raw.communitydragon.org/pbe/game/assets/maps/tft/icons/tft18/tft18_healthpotion.png",
+        "alt": "生命药水装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/33047.webp"
+      },
+      "source_ids": {
+        "equip_id": 33047,
+        "key": "DA_HealthPotion18_Upgrade_Charm",
+        "code": "IF"
+      },
+      "tags": [],
+      "extensions": {
+        "source_type": "remove",
+        "code": "IF",
+        "key": "DA_HealthPotion18_Upgrade_Charm",
+        "image_fallback_reason": "该仙灵派生物没有独立图标，复用对应基础药水图标。",
+        "image_fallback_source_url": "https://raw.communitydragon.org/pbe/game/assets/maps/tft/icons/tft18/tft18_healthpotion.png",
+        "image_fallback_item_id": "33044"
+      }
+    },
+    {
+      "id": "33048",
+      "name": "法力药水",
+      "category": "consumable",
+      "description": "获得1个临时的、可装备的【法力药水】。",
+      "stats": {
+        "raw": ""
+      },
+      "effects": [],
+      "recipe": {
+        "type": "none",
+        "component_ids": [],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/33048.png",
+        "source_url": "https://raw.communitydragon.org/pbe/game/assets/maps/tft/icons/tft18/tft18_manapotion.png",
+        "alt": "法力药水装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/33048.webp"
+      },
+      "source_ids": {
+        "equip_id": 33048,
+        "key": "DA_ManaPotion18_Charm",
+        "code": "IH"
+      },
+      "tags": [],
+      "extensions": {
+        "source_type": "remove",
+        "code": "IH",
+        "key": "DA_ManaPotion18_Charm",
+        "image_fallback_reason": "该仙灵派生物没有独立图标，复用对应基础药水图标。",
+        "image_fallback_source_url": "https://raw.communitydragon.org/pbe/game/assets/maps/tft/icons/tft18/tft18_manapotion.png",
+        "image_fallback_item_id": "33055"
+      }
+    },
+    {
+      "id": "33049",
+      "name": "法力药水",
+      "category": "consumable",
+      "description": "获得1个临时的、可装备的【光明版法力药水】。",
+      "stats": {
+        "raw": ""
+      },
+      "effects": [],
+      "recipe": {
+        "type": "none",
+        "component_ids": [],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/33049.png",
+        "source_url": "https://raw.communitydragon.org/pbe/game/assets/maps/tft/icons/tft18/tft18_manapotion.png",
+        "alt": "法力药水装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/33049.webp"
+      },
+      "source_ids": {
+        "equip_id": 33049,
+        "key": "DA_ManaPotion18_Upgrade_Charm",
+        "code": "Mk"
+      },
+      "tags": [],
+      "extensions": {
+        "source_type": "remove",
+        "code": "Mk",
+        "key": "DA_ManaPotion18_Upgrade_Charm",
+        "image_fallback_reason": "该仙灵派生物没有独立图标，复用对应基础药水图标。",
+        "image_fallback_source_url": "https://raw.communitydragon.org/pbe/game/assets/maps/tft/icons/tft18/tft18_manapotion.png",
+        "image_fallback_item_id": "33055"
+      }
+    },
+    {
+      "id": "33050",
+      "name": "生命药水",
+      "category": "consumable",
+      "description": "获得1个临时的、可装备的【生命药水】。",
+      "stats": {
+        "raw": ""
+      },
+      "effects": [],
+      "recipe": {
+        "type": "none",
+        "component_ids": [],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/33050.png",
+        "source_url": "https://raw.communitydragon.org/pbe/game/assets/maps/tft/icons/tft18/tft18_healthpotion.png",
+        "alt": "生命药水装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/33050.webp"
+      },
+      "source_ids": {
+        "equip_id": 33050,
+        "key": "DA_HealthPotion18_Charm",
+        "code": "Ml"
+      },
+      "tags": [],
+      "extensions": {
+        "source_type": "remove",
+        "code": "Ml",
+        "key": "DA_HealthPotion18_Charm",
+        "image_fallback_reason": "该仙灵派生物没有独立图标，复用对应基础药水图标。",
+        "image_fallback_source_url": "https://raw.communitydragon.org/pbe/game/assets/maps/tft/icons/tft18/tft18_healthpotion.png",
+        "image_fallback_item_id": "33044"
+      }
+    },
+    {
+      "id": "33051",
+      "name": "光明版法力药水",
+      "category": "consumable",
+      "description": "",
+      "stats": {
+        "raw": ""
+      },
+      "effects": [],
+      "recipe": {
+        "type": "none",
+        "component_ids": [],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/33051.png",
+        "source_url": "https://static.datatft.com/images/equips/33051.png",
+        "alt": "光明版法力药水装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/33051.webp"
+      },
+      "source_ids": {
+        "equip_id": 33051,
+        "key": "DA_ManaPotion18_Radiant",
+        "code": "Mm"
+      },
+      "tags": [],
+      "extensions": {
+        "source_type": "yaoshui",
+        "code": "Mm",
+        "key": "DA_ManaPotion18_Radiant"
+      }
+    },
+    {
+      "id": "33052",
+      "name": "轰炸药水",
+      "category": "consumable",
+      "description": "获得1个临时的、可装备的【爆炸药水】。",
+      "stats": {
+        "raw": ""
+      },
+      "effects": [],
+      "recipe": {
+        "type": "none",
+        "component_ids": [],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/33052.png",
+        "source_url": "https://raw.communitydragon.org/pbe/game/assets/maps/tft/icons/tft18/tft18_blastpotion.png",
+        "alt": "轰炸药水装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/33052.webp"
+      },
+      "source_ids": {
+        "equip_id": 33052,
+        "key": "DA_BlastPotion18_Charm",
+        "code": "Mn"
+      },
+      "tags": [],
+      "extensions": {
+        "source_type": "remove",
+        "code": "Mn",
+        "key": "DA_BlastPotion18_Charm",
+        "image_fallback_reason": "该仙灵派生物没有独立图标，复用对应基础药水图标。",
+        "image_fallback_source_url": "https://raw.communitydragon.org/pbe/game/assets/maps/tft/icons/tft18/tft18_blastpotion.png",
+        "image_fallback_item_id": "33053"
+      }
+    },
+    {
+      "id": "33053",
+      "name": "轰炸药水",
+      "category": "consumable",
+      "description": "",
+      "stats": {
+        "raw": ""
+      },
+      "effects": [],
+      "recipe": {
+        "type": "none",
+        "component_ids": [],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/33053.png",
+        "source_url": "https://static.datatft.com/images/equips/33053.png",
+        "alt": "轰炸药水装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/33053.webp"
+      },
+      "source_ids": {
+        "equip_id": 33053,
+        "key": "DA_BlastPotion18",
+        "code": "Mo"
+      },
+      "tags": [],
+      "extensions": {
+        "source_type": "yaoshui",
+        "code": "Mo",
+        "key": "DA_BlastPotion18"
+      }
+    },
+    {
+      "id": "33054",
+      "name": "光明版生命药水",
+      "category": "consumable",
+      "description": "",
+      "stats": {
+        "raw": ""
+      },
+      "effects": [],
+      "recipe": {
+        "type": "none",
+        "component_ids": [],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/33054.png",
+        "source_url": "https://static.datatft.com/images/equips/33054.png",
+        "alt": "光明版生命药水装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/33054.webp"
+      },
+      "source_ids": {
+        "equip_id": 33054,
+        "key": "DA_HealthPotion18_Radiant",
+        "code": "Mp"
+      },
+      "tags": [],
+      "extensions": {
+        "source_type": "yaoshui",
+        "code": "Mp",
+        "key": "DA_HealthPotion18_Radiant"
+      }
+    },
+    {
+      "id": "33055",
+      "name": "法力药水",
+      "category": "consumable",
+      "description": "",
+      "stats": {
+        "raw": ""
+      },
+      "effects": [],
+      "recipe": {
+        "type": "none",
+        "component_ids": [],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/33055.png",
+        "source_url": "https://static.datatft.com/images/equips/33055.png",
+        "alt": "法力药水装备图标",
+        "optimized_local_path": "assets/optimized/s18__pbe/items/33055.webp"
+      },
+      "source_ids": {
+        "equip_id": 33055,
+        "key": "DA_ManaPotion18",
+        "code": "Mq"
+      },
+      "tags": [],
+      "extensions": {
+        "source_type": "yaoshui",
+        "code": "Mq",
+        "key": "DA_ManaPotion18"
+      }
+    }
+  ]
 }

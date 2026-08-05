@@ -1,11 +1,11 @@
 # 赛季资料库（season library）
 
-站内所有赛季资料页（`/tools/seasons/<season_id>`）、首页“资料库”菜单、sitemap 和阵容模拟器的数据，统一来自 `static/season-data/`。这个目录**由脚本生成，不要手工编辑**；数据源头是仓库外的赛季档案库 `ccmax资料/数据模版`（自包含的多赛季快照，含 schema 与校验脚本）。
+站内所有赛季资料页（`/tools/seasons/<season_id>`）、首页“资料库”菜单、sitemap 和阵容模拟器的数据，统一来自 `static/season-data/`。这个目录**由脚本生成，不要手工编辑**；数据源头是仓库外的赛季档案库 `ccmax资料/数据模板`（自包含的多赛季快照，含 schema 与校验脚本）。
 
 ## 数据流
 
 ```
-ccmax资料/数据模版（档案库，源头）
+ccmax资料/数据模板（档案库，源头）
    │  python scripts/season_library/import_from_archive.py
    ▼
 static/season-data/
@@ -22,14 +22,14 @@ static/season-data/
 
 ## 新增一个赛季（例：s19）
 
-1. 按档案库 `数据模版/README.md` 的教程把 s19 数据加进档案库并通过 `python scripts/validate.py --all`。
+1. 按档案库 `数据模板/README.md` 的教程把 s19 数据加进档案库并通过 `python scripts/validate.py --all`。
 2. 在 Web 仓库根目录执行：
 
    ```powershell
    python scripts/season_library/import_from_archive.py --season s19
    ```
 
-   找不到档案库时用 `--source "D:\...\数据模版"` 或环境变量 `JCC_SEASON_ARCHIVE` 指定。
+   找不到档案库时用 `--source "D:\...\数据模板"` 或环境变量 `JCC_SEASON_ARCHIVE` 指定。
 3. 完成。首页“资料库”菜单、`/tools/seasons/s19`、弈子详情页、阵容模拟器和 sitemap 全部自动出现，无需改任何页面代码。
 4. 运行 `python -m pytest -q tests/test_season_reference.py tests/test_lineup_simulator_rebuild.py`（数据一致性与页面回归）。
 
@@ -51,6 +51,18 @@ static/season-data/
 
 导入脚本目前只复制档案库的 `default_version_id`，并会先删除再生成对应的 `static/season-data/<season_id>/`。因此不要在该输出目录保存人工维护文件。单赛季导入会保留 catalog 中其他赛季；全量导入会按档案库 catalog 重建站点 catalog。
 
+### S18 PBE 合并 JSON
+
+S18 PBE 的源文件是 `ccmax资料/data-cn-CJkaeodq.S18.json`。更新时先在档案库执行：
+
+```powershell
+cd D:\1\codex\jcc-new\ccmax资料\数据模板
+python scripts/import_existing_seasons.py --season s18 --s18-json "..\data-cn-CJkaeodq.S18.json"
+python scripts/validate.py data/seasons/s18
+```
+
+该命令保留旧 S18 快照并重建默认 `PBE` 快照，自动下载弈子头像、立绘、技能图、装备和仙灵图片。技能图按 `https://static.datatft.com/images/skill/<chessId>.jpg` 获取；仙灵图片下载失败会终止生成；没有独立图片的临时消耗品使用已记录来源的本地回退图。随后在 Web 仓库运行 `python scripts/season_library/import_from_archive.py --season s18`，资料页和模拟器会同时切换到新数据，并为技能图生成版本化 WebP。
+
 ## 图片与 WebP
 
 档案库保存原始图片，Web 导入脚本复制原图，并使用 Pillow 生成两类 WebP：
@@ -65,6 +77,8 @@ static/season-data/<season_id>/assets/optimized/<version_id>/{champions,skills,i
 当前站点输出目录按赛季隔离，但同一赛季只发布一个默认版本。若以后需要让多个补丁同时在线，必须先把输出升级为 `static/season-data/<season_id>/<version_id>/...`，并同步修改 catalog、路由、前端加载地址和缓存键；在这套改造完成前，不要声称站点能够同时托管同赛季多个版本。
 
 旧的 `build_simulator_from_library.py` 属于旧模拟器构建流程；重建后的模拟器直接读取 `static/season-data/`，日常更新不需要运行它，也不要继续向旧的全局 `static/tools/lineup-simulator/data/` 写新赛季数据。
+
+弈子列表使用生成后的 WebP 小图以控制加载量；详情页和羁绊成员悬停卡使用 `splash` 大图。来源没有独立装备图标时，导入数据必须提供可用的本地回退图片，并在 `extensions.image_fallback_*` 中记录依据。
 
 ## 发布检查与回滚
 
@@ -84,7 +98,7 @@ python -m pytest -q tests/test_season_reference.py tests/test_lineup_simulator_r
 - **状态**：`active` 正常展示；`draft` 显示“前瞻”标注；`archived` 显示“往期”。三种状态都会公开展示，想下线一个赛季就把它从档案库 catalog 移除后重导入。
 - **弈子 URL 用 id 不用名字**（存在同名弈子，如 s17 的多形态厄运小姐）。旧的 S18 名字 URL 会 301 到 id URL。
 - **“新弈子”徽章**：档案库中弈子 `tags` 含 `"new"` 时展示，导入后自动生效（S16.5 的 14 个新增弈子已打标）。
-- **机制 tab**：档案库 `mechanics/` 中注册的每种玩法在页面上是一个独立 tab。`kind=wand` 用法杖卡片（无图），其余 kind（god、monster 及未来新增）用通用机制卡片（支持图片、神明阶段/祈愿）。新增机制种类无需改代码。
+- **机制 tab**：档案库 `mechanics/` 中注册的每种玩法在页面上是一个独立 tab。`kind=charm` 使用仙灵卡片，支持搜索、分类、本地图标和可切换的升级/棱彩效果；`kind=wand` 仅保留给历史快照；god、monster 等使用通用机制卡片。
 - **模拟器特殊能力**：模拟器按 schema 做能力检测。弈子的 `availability.type=unlock` 会自动展示解锁标记和条件；装备的 `recipe.component_ids` 会自动进入散件需求统计；`category=emblem` 的装备会按 `extensions.trait_id` 或 `extensions.fetter_id` 为持有弈子提供对应羁绊。未来赛季应优先扩展公共 schema，不要在模拟器中按赛季 id 写死分支。
 - **缓存**：列表页对 `index.json` 的请求带 `?v=<version_id>`，档案库版本号变化即自然失效。服务端 `season_reference_service` 用 `lru_cache` 缓存，重导入数据后需重启进程（测试可调 `clear_caches()`）。
 - 通用页面的 CSS 类名保留历史 `s18-` 前缀（`season-reference.css`），避免大规模改名回归；新增样式请用中性命名。

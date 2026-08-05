@@ -133,6 +133,37 @@ def test_simulator_item_library_has_no_redundant_clear_button():
     assert 'clearItemButton' not in javascript
 
 
+def test_simulator_exposes_every_shared_item_category():
+    javascript = (SIMULATOR_ROOT / 'app.js').read_text(encoding='utf-8')
+
+    for category in ('component', 'completed', 'emblem', 'artifact', 'radiant', 'support', 'consumable', 'other'):
+        assert f'"{category}"' in javascript
+
+
+def test_simulator_only_renders_item_categories_populated_by_the_current_season():
+    javascript = (SIMULATOR_ROOT / 'app.js').read_text(encoding='utf-8')
+    catalog = json.loads((SEASON_ROOT / 'catalog.json').read_text(encoding='utf-8'))
+
+    assert 'function availableItemCategories()' in javascript
+    assert 'category.source.some((source) => populated.has(source))' in javascript
+    assert 'availableItemCategories().map((category)' in javascript
+    assert 'availableCategories[0]?.id || "normal"' in javascript
+
+    categories_by_season = {}
+    for season in catalog['seasons']:
+        payload = json.loads(
+            (SEASON_ROOT / season['season_id'] / 'items.json').read_text(encoding='utf-8')
+        )
+        categories_by_season[season['season_id']] = {item['category'] for item in payload['items']}
+
+    assert 'consumable' in categories_by_season['s18']
+    assert all(
+        'consumable' not in categories
+        for season_id, categories in categories_by_season.items()
+        if season_id != 's18'
+    )
+
+
 def test_simulator_only_shows_item_selection_hint_when_an_item_is_selected():
     html = Path('templates/lineup_simulator.html').read_text(encoding='utf-8')
     javascript = (SIMULATOR_ROOT / 'app.js').read_text(encoding='utf-8')

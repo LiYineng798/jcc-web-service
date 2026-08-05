@@ -980,6 +980,212 @@
   overflow-wrap: anywhere;
 }
 
+.charm-toolbar {
+  display: grid;
+  grid-template-columns: minmax(260px, 1fr) auto;
+  gap: 14px 20px;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.charm-search input {
+  width: 100%;
+  min-height: 42px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: var(--surface);
+  color: var(--text);
+  padding: 0 13px;
+  font: inherit;
+  letter-spacing: 0;
+}
+
+.charm-search input:focus-visible {
+  border-color: var(--accent);
+  outline: 2px solid color-mix(in srgb, var(--accent) 24%, transparent);
+  outline-offset: 1px;
+}
+
+.charm-upgrade-toggle {
+  min-height: 42px;
+  justify-content: flex-end;
+}
+
+.charm-categories {
+  grid-column: 1 / -1;
+  display: flex;
+  width: max-content;
+  max-width: 100%;
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: var(--surface);
+  padding: 3px;
+  scrollbar-width: thin;
+}
+
+.charm-categories button {
+  min-height: 34px;
+  flex: 0 0 auto;
+  border: 0;
+  border-radius: 5px;
+  background: transparent;
+  color: var(--muted);
+  padding: 0 13px;
+  font: inherit;
+  font-size: 13px;
+  letter-spacing: 0;
+  cursor: pointer;
+}
+
+.charm-categories button:hover {
+  color: var(--text);
+}
+
+.charm-categories button.active {
+  background: var(--accent);
+  color: #fff;
+  font-weight: 800;
+}
+
+.charm-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+  gap: 14px;
+  align-items: stretch;
+}
+
+.charm-card {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  padding: 16px;
+}
+
+.charm-card.animate-in {
+  opacity: 0;
+  transform: translateY(8px);
+  animation: s18-card-in 300ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: var(--delay, 0ms);
+}
+
+.charm-card-header {
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr) auto;
+  align-items: start;
+  gap: 10px;
+}
+
+.charm-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 7px;
+  object-fit: cover;
+}
+
+.charm-title-wrap {
+  min-width: 0;
+}
+
+.charm-category-label {
+  display: block;
+  margin-bottom: 3px;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 750;
+}
+
+.charm-title-wrap h2 {
+  margin: 0;
+  font-size: 17px;
+  line-height: 1.35;
+  letter-spacing: 0;
+  overflow-wrap: anywhere;
+}
+
+.charm-cost,
+.charm-extra-cost {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--accent-strong);
+  font-size: 13px;
+}
+
+.charm-cost img,
+.charm-extra-cost img {
+  width: 15px;
+  height: 15px;
+  object-fit: contain;
+}
+
+.charm-effect {
+  margin: 0;
+  color: var(--text);
+  font-size: 13.5px;
+  line-height: 1.65;
+  overflow-wrap: anywhere;
+}
+
+.charm-conditions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.charm-conditions span {
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: var(--surface);
+  color: var(--muted);
+  padding: 3px 6px;
+  font-size: 11px;
+  line-height: 1.35;
+}
+
+.charm-extra {
+  display: grid;
+  gap: 8px;
+  border: 1px solid color-mix(in srgb, var(--accent) 30%, var(--line));
+  border-radius: 7px;
+  background: color-mix(in srgb, var(--accent-soft) 55%, var(--surface));
+  padding: 11px 12px;
+}
+
+.charm-extra.is-prismatic {
+  border-color: color-mix(in srgb, #d8b85a 48%, var(--line));
+  background: color-mix(in srgb, #d8b85a 9%, var(--surface));
+}
+
+.charm-extra-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.charm-extra-heading > span:first-child {
+  color: var(--accent-strong);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.charm-extra.is-prismatic .charm-extra-heading > span:first-child {
+  color: #a88725;
+}
+
+.charm-extra p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
 .s18-loading,
 .s18-load-error,
 .s18-empty-state {
@@ -1158,8 +1364,23 @@
   }
 
   .trait-grid,
-  .wand-grid {
+  .wand-grid,
+  .charm-grid {
     grid-template-columns: 1fr;
+  }
+
+  .charm-toolbar {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .charm-upgrade-toggle {
+    justify-content: space-between;
+  }
+
+  .charm-categories {
+    grid-column: 1;
+    width: 100%;
   }
 
   .champion-cost-section + .champion-cost-section {
