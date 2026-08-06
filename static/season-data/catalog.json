@@ -22,15 +22,15 @@
    "season_id": "s16_5",
    "display_name": "S16.5 英雄联盟传奇",
    "set_number": "16",
-   "set_variant": null,
+   "set_variant": ".5",
    "theme": "英雄联盟传奇",
    "status": "active",
-   "game_version": "17.17.8",
-   "version_id": "s16_5__17_17_8",
-   "effective_at": "2026-07-29 16:14:04",
+   "game_version": "17.17.8b",
+   "version_id": "s16_5__17_17_8b",
+   "effective_at": "2026-08-05 20:59:09",
    "path": "s16_5/index.json",
    "counts": {
-    "champions": 115,
+    "champions": 114,
     "traits": 60,
     "mechanics": 0
    }

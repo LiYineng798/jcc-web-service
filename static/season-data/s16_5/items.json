@@ -1,6 +1,6 @@
 {
   "$schema": "../../../../../schemas/items.schema.json",
-  "version_id": "s16_5__17_17_8",
+  "version_id": "s16_5__17_17_8b",
   "items": [
     {
       "id": "1001",
@@ -29,7 +29,7 @@
         "local_path": "assets/items/1001.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/1001.png",
         "alt": "暴风之剑装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/1001.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/1001.webp"
       },
       "source_ids": {
         "official_id": "1001",
@@ -73,7 +73,7 @@
         "local_path": "assets/items/1002.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/1002.png",
         "alt": "反曲之弓装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/1002.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/1002.webp"
       },
       "source_ids": {
         "official_id": "1002",
@@ -117,7 +117,7 @@
         "local_path": "assets/items/1003.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/1003.png",
         "alt": "无用大棒装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/1003.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/1003.webp"
       },
       "source_ids": {
         "official_id": "1003",
@@ -161,7 +161,7 @@
         "local_path": "assets/items/1004.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/1004.png",
         "alt": "女神之泪装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/1004.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/1004.webp"
       },
       "source_ids": {
         "official_id": "1004",
@@ -205,7 +205,7 @@
         "local_path": "assets/items/1005.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/1005.png",
         "alt": "锁子甲装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/1005.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/1005.webp"
       },
       "source_ids": {
         "official_id": "1005",
@@ -249,7 +249,7 @@
         "local_path": "assets/items/1006.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/1006.png",
         "alt": "负极斗篷装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/1006.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/1006.webp"
       },
       "source_ids": {
         "official_id": "1006",
@@ -293,7 +293,7 @@
         "local_path": "assets/items/1007.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/1007.png",
         "alt": "巨人腰带装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/1007.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/1007.webp"
       },
       "source_ids": {
         "official_id": "1007",
@@ -336,7 +336,7 @@
         "local_path": "assets/items/1008.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/1008.png",
         "alt": "金铲铲装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/1008.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/1008.webp"
       },
       "source_ids": {
         "official_id": "1008",
@@ -380,7 +380,7 @@
         "local_path": "assets/items/1009.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/1009.png",
         "alt": "拳套装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/1009.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/1009.webp"
       },
       "source_ids": {
         "official_id": "1009",
@@ -423,7 +423,7 @@
         "local_path": "assets/items/1010.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/frying_pan.png",
         "alt": "金锅锅装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/1010.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/1010.webp"
       },
       "source_ids": {
         "official_id": "1010",
@@ -482,7 +482,7 @@
         "local_path": "assets/items/2001.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/2001.png",
         "alt": "无尽之刃装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/2001.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/2001.webp"
       },
       "source_ids": {
         "official_id": "2001",
@@ -553,7 +553,7 @@
         "local_path": "assets/items/2003.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/2003.png",
         "alt": "海克斯科技枪刃装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/2003.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/2003.webp"
       },
       "source_ids": {
         "official_id": "2003",
@@ -618,7 +618,7 @@
         "local_path": "assets/items/2004.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/2004.png",
         "alt": "朔极之矛装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/2004.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/2004.webp"
       },
       "source_ids": {
         "official_id": "2004",
@@ -689,7 +689,7 @@
         "local_path": "assets/items/2005.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/2005.png",
         "alt": "夜之锋刃装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/2005.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/2005.webp"
       },
       "source_ids": {
         "official_id": "2005",
@@ -760,7 +760,7 @@
         "local_path": "assets/items/2006.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/2006.png",
         "alt": "汲取剑装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/2006.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/2006.webp"
       },
       "source_ids": {
         "official_id": "2006",
@@ -819,7 +819,7 @@
         "local_path": "assets/items/2007.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/steraksgage.png",
         "alt": "斯特拉克的挑战护手装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/2007.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/2007.webp"
       },
       "source_ids": {
         "official_id": "2007",
@@ -878,7 +878,7 @@
         "local_path": "assets/items/2009.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/2009.png",
         "alt": "红霸符装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/2009.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/2009.webp"
       },
       "source_ids": {
         "official_id": "2009",
@@ -937,7 +937,7 @@
         "local_path": "assets/items/2010.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/2010.png",
         "alt": "鬼索的狂暴之刃装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/2010.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/2010.webp"
       },
       "source_ids": {
         "official_id": "2010",
@@ -1002,7 +1002,7 @@
         "local_path": "assets/items/2011.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/voidstaff.png",
         "alt": "虚空之杖装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/2011.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/2011.webp"
       },
       "source_ids": {
         "official_id": "2011",
@@ -1061,7 +1061,7 @@
         "local_path": "assets/items/2012.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/2052.png",
         "alt": "泰坦的坚决装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/2012.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/2012.webp"
       },
       "source_ids": {
         "official_id": "2012",
@@ -1126,7 +1126,7 @@
         "local_path": "assets/items/2013.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/krakensfury.png",
         "alt": "海妖之怒装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/2013.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/2013.webp"
       },
       "source_ids": {
         "official_id": "2013",
@@ -1197,7 +1197,7 @@
         "local_path": "assets/items/2014.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/nashorstooth.png",
         "alt": "纳什之牙装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/2014.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/2014.webp"
       },
       "source_ids": {
         "official_id": "2014",
@@ -1256,7 +1256,7 @@
         "local_path": "assets/items/2016.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/2016.png",
         "alt": "班克斯的魔法帽装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/2016.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/2016.webp"
       },
       "source_ids": {
         "official_id": "2016",
@@ -1315,7 +1315,7 @@
         "local_path": "assets/items/2017.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/2017.png",
         "alt": "大天使之杖装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/2017.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/2017.webp"
       },
       "source_ids": {
         "official_id": "2017",
@@ -1380,7 +1380,7 @@
         "local_path": "assets/items/2018.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/crownguard.png",
         "alt": "冕卫装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/2018.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/2018.webp"
       },
       "source_ids": {
         "official_id": "2018",
@@ -1445,7 +1445,7 @@
         "local_path": "assets/items/2019.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/2019.png",
         "alt": "离子火花装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/2019.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/2019.webp"
       },
       "source_ids": {
         "official_id": "2019",
@@ -1510,7 +1510,7 @@
         "local_path": "assets/items/2020.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/2020.png",
         "alt": "莫雷洛秘典装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/2020.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/2020.webp"
       },
       "source_ids": {
         "official_id": "2020",
@@ -1575,7 +1575,7 @@
         "local_path": "assets/items/2022.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/2222.png",
         "alt": "蓝霸符装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/2022.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/2022.webp"
       },
       "source_ids": {
         "official_id": "2022",
@@ -1640,7 +1640,7 @@
         "local_path": "assets/items/2023.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/2023.png",
         "alt": "圣盾使的誓约装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/2023.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/2023.webp"
       },
       "source_ids": {
         "official_id": "2023",
@@ -1699,7 +1699,7 @@
         "local_path": "assets/items/2024.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/adaptivehelm.png",
         "alt": "适应性头盔装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/2024.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/2024.webp"
       },
       "source_ids": {
         "official_id": "2024",
@@ -1764,7 +1764,7 @@
         "local_path": "assets/items/2025.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/spiritvisage.png",
         "alt": "振奋盔甲装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/2025.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/2025.webp"
       },
       "source_ids": {
         "official_id": "2025",
@@ -1817,7 +1817,7 @@
         "local_path": "assets/items/2027.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/2054.png",
         "alt": "棘刺背心装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/2027.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/2027.webp"
       },
       "source_ids": {
         "official_id": "2027",
@@ -1882,7 +1882,7 @@
         "local_path": "assets/items/2028.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/2248.png",
         "alt": "石像鬼石板甲装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/2028.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/2028.webp"
       },
       "source_ids": {
         "official_id": "2028",
@@ -1941,7 +1941,7 @@
         "local_path": "assets/items/2029.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/2329.png",
         "alt": "日炎斗篷装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/2029.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/2029.webp"
       },
       "source_ids": {
         "official_id": "2029",
@@ -1994,7 +1994,7 @@
         "local_path": "assets/items/2031.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/2031.png",
         "alt": "巨龙之爪装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/2031.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/2031.webp"
       },
       "source_ids": {
         "official_id": "2031",
@@ -2053,7 +2053,7 @@
         "local_path": "assets/items/2032.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/evenshroud.png",
         "alt": "薄暮法袍装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/2032.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/2032.webp"
       },
       "source_ids": {
         "official_id": "2032",
@@ -2106,7 +2106,7 @@
         "local_path": "assets/items/2034.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/2034.png",
         "alt": "狂徒铠甲装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/2034.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/2034.webp"
       },
       "source_ids": {
         "official_id": "2034",
@@ -2152,7 +2152,7 @@
         "local_path": "assets/items/2036.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/2036.png",
         "alt": "金铲铲冠冕装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/2036.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/2036.webp"
       },
       "source_ids": {
         "official_id": "2036",
@@ -2217,7 +2217,7 @@
         "local_path": "assets/items/2037.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/2053.png",
         "alt": "最后的轻语装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/2037.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/2037.webp"
       },
       "source_ids": {
         "official_id": "2037",
@@ -2276,7 +2276,7 @@
         "local_path": "assets/items/2038.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/2038.png",
         "alt": "珠光护手装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/2038.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/2038.webp"
       },
       "source_ids": {
         "official_id": "2038",
@@ -2335,7 +2335,7 @@
         "local_path": "assets/items/2039.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/2039.png",
         "alt": "正义之手装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/2039.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/2039.webp"
       },
       "source_ids": {
         "official_id": "2039",
@@ -2400,7 +2400,7 @@
         "local_path": "assets/items/2040.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/nightharvester.png",
         "alt": "坚定之心装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/2040.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/2040.webp"
       },
       "source_ids": {
         "official_id": "2040",
@@ -2465,7 +2465,7 @@
         "local_path": "assets/items/2041.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/2041.png",
         "alt": "水银装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/2041.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/2041.webp"
       },
       "source_ids": {
         "official_id": "2041",
@@ -2536,7 +2536,7 @@
         "local_path": "assets/items/2042.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/strikersflail.png",
         "alt": "强袭者的链枷装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/2042.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/2042.webp"
       },
       "source_ids": {
         "official_id": "2042",
@@ -2595,7 +2595,7 @@
         "local_path": "assets/items/2044.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/2044.png",
         "alt": "秘法手套装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/2044.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/2044.webp"
       },
       "source_ids": {
         "official_id": "2044",
@@ -2654,7 +2654,7 @@
         "local_path": "assets/items/2045.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/2045.png",
         "alt": "锐利之刃装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/2045.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/2045.webp"
       },
       "source_ids": {
         "official_id": "2045",
@@ -2725,7 +2725,7 @@
         "local_path": "assets/items/2046.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/2046.png",
         "alt": "巨人捕手装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/2046.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/2046.webp"
       },
       "source_ids": {
         "official_id": "2046",
@@ -2771,7 +2771,7 @@
         "local_path": "assets/items/2047.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/tactician_s_shield.png",
         "alt": "金锅锅冠冕装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/2047.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/2047.webp"
       },
       "source_ids": {
         "official_id": "2047",
@@ -2817,7 +2817,7 @@
         "local_path": "assets/items/2048.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/tactician_s_cape.png",
         "alt": "金锅铲冠冕装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/2048.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/2048.webp"
       },
       "source_ids": {
         "official_id": "2048",
@@ -2873,7 +2873,7 @@
         "local_path": "assets/items/2059.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/2548.png",
         "alt": "光明版无尽之刃装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/2059.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/2059.webp"
       },
       "source_ids": {
         "official_id": "2059",
@@ -2941,7 +2941,7 @@
         "local_path": "assets/items/2060.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/2549.png",
         "alt": "光明版海克斯科技枪刃装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/2060.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/2060.webp"
       },
       "source_ids": {
         "official_id": "2060",
@@ -3003,7 +3003,7 @@
         "local_path": "assets/items/2061.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/2550.png",
         "alt": "光明版朔极之矛装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/2061.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/2061.webp"
       },
       "source_ids": {
         "official_id": "2061",
@@ -3071,7 +3071,7 @@
         "local_path": "assets/items/2062.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/2551.png",
         "alt": "光明版夜之锋刃装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/2062.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/2062.webp"
       },
       "source_ids": {
         "official_id": "2062",
@@ -3139,7 +3139,7 @@
         "local_path": "assets/items/2063.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/2552.png",
         "alt": "光明版汲取剑装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/2063.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/2063.webp"
       },
       "source_ids": {
         "official_id": "2063",
@@ -3195,7 +3195,7 @@
         "local_path": "assets/items/2064.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/steraksmegashield.png",
         "alt": "光明版斯特拉克的挑战护手装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/2064.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/2064.webp"
       },
       "source_ids": {
         "official_id": "2064",
@@ -3251,7 +3251,7 @@
         "local_path": "assets/items/2065.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/2554.png",
         "alt": "光明版红霸符装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/2065.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/2065.webp"
       },
       "source_ids": {
         "official_id": "2065",
@@ -3307,7 +3307,7 @@
         "local_path": "assets/items/2066.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/2555.png",
         "alt": "光明版鬼索的狂暴之刃装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/2066.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/2066.webp"
       },
       "source_ids": {
         "official_id": "2066",
@@ -3369,7 +3369,7 @@
         "local_path": "assets/items/2067.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/icathiasrevenge.png",
         "alt": "光明版虚空之杖装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/2067.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/2067.webp"
       },
       "source_ids": {
         "official_id": "2067",
@@ -3425,7 +3425,7 @@
         "local_path": "assets/items/2068.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/2557.png",
         "alt": "光明版泰坦的坚决装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/2068.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/2068.webp"
       },
       "source_ids": {
         "official_id": "2068",
@@ -3487,7 +3487,7 @@
         "local_path": "assets/items/2069.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/torrentialmaelstrom.png",
         "alt": "光明版海妖之怒装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/2069.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/2069.webp"
       },
       "source_ids": {
         "official_id": "2069",
@@ -3555,7 +3555,7 @@
         "local_path": "assets/items/2070.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/thebaronsgift.png",
         "alt": "光明版纳什之牙装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/2070.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/2070.webp"
       },
       "source_ids": {
         "official_id": "2070",
@@ -3611,7 +3611,7 @@
         "local_path": "assets/items/2071.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/2560.png",
         "alt": "光明版班克斯的魔法帽装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/2071.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/2071.webp"
       },
       "source_ids": {
         "official_id": "2071",
@@ -3667,7 +3667,7 @@
         "local_path": "assets/items/2072.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/2561.png",
         "alt": "光明版大天使之杖装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/2072.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/2072.webp"
       },
       "source_ids": {
         "official_id": "2072",
@@ -3729,7 +3729,7 @@
         "local_path": "assets/items/2073.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/royalcrownshield.png",
         "alt": "光明版冕卫装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/2073.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/2073.webp"
       },
       "source_ids": {
         "official_id": "2073",
@@ -3791,7 +3791,7 @@
         "local_path": "assets/items/2074.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/2563.png",
         "alt": "光明版离子火花装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/2074.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/2074.webp"
       },
       "source_ids": {
         "official_id": "2074",
@@ -3853,7 +3853,7 @@
         "local_path": "assets/items/2075.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/2564.png",
         "alt": "光明版莫雷洛秘典装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/2075.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/2075.webp"
       },
       "source_ids": {
         "official_id": "2075",
@@ -3915,7 +3915,7 @@
         "local_path": "assets/items/2076.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/2565.png",
         "alt": "光明版蓝霸符装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/2076.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/2076.webp"
       },
       "source_ids": {
         "official_id": "2076",
@@ -3977,7 +3977,7 @@
         "local_path": "assets/items/2077.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/2566.png",
         "alt": "光明版圣盾使的誓约装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/2077.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/2077.webp"
       },
       "source_ids": {
         "official_id": "2077",
@@ -4033,7 +4033,7 @@
         "local_path": "assets/items/2078.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/jakshotheprotean.png",
         "alt": "光明版适应性头盔装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/2078.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/2078.webp"
       },
       "source_ids": {
         "official_id": "2078",
@@ -4095,7 +4095,7 @@
         "local_path": "assets/items/2079.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/morespiritedvisage.png",
         "alt": "光明版振奋盔甲装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/2079.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/2079.webp"
       },
       "source_ids": {
         "official_id": "2079",
@@ -4145,7 +4145,7 @@
         "local_path": "assets/items/2080.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/2569.png",
         "alt": "光明版棘刺背心装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/2080.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/2080.webp"
       },
       "source_ids": {
         "official_id": "2080",
@@ -4207,7 +4207,7 @@
         "local_path": "assets/items/2081.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/2570.png",
         "alt": "光明版石像鬼石板甲装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/2081.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/2081.webp"
       },
       "source_ids": {
         "official_id": "2081",
@@ -4263,7 +4263,7 @@
         "local_path": "assets/items/2082.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/2571.png",
         "alt": "光明版日炎斗篷装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/2082.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/2082.webp"
       },
       "source_ids": {
         "official_id": "2082",
@@ -4313,7 +4313,7 @@
         "local_path": "assets/items/2083.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/2572.png",
         "alt": "光明版巨龙之爪装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/2083.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/2083.webp"
       },
       "source_ids": {
         "official_id": "2083",
@@ -4369,7 +4369,7 @@
         "local_path": "assets/items/2084.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/equinox.png",
         "alt": "光明版薄暮法袍装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/2084.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/2084.webp"
       },
       "source_ids": {
         "official_id": "2084",
@@ -4390,14 +4390,14 @@
       "id": "2085",
       "name": "光明版狂徒铠甲",
       "category": "radiant",
-      "description": "+1200生命上限 获得36%最大生命值。",
+      "description": "+1000生命上限 获得36%最大生命值。",
       "stats": {
-        "raw": "+1200生命上限",
+        "raw": "+1000生命上限",
         "values": [
           {
             "stat": "health",
             "source_label": "生命上限",
-            "value": 1200,
+            "value": 1000,
             "unit": "flat"
           }
         ]
@@ -4419,7 +4419,7 @@
         "local_path": "assets/items/2085.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/2574.png",
         "alt": "光明版狂徒铠甲装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/2085.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/2085.webp"
       },
       "source_ids": {
         "official_id": "2085",
@@ -4481,7 +4481,7 @@
         "local_path": "assets/items/2086.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/2575.png",
         "alt": "光明版最后的轻语装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/2086.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/2086.webp"
       },
       "source_ids": {
         "official_id": "2086",
@@ -4537,7 +4537,7 @@
         "local_path": "assets/items/2087.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/2576.png",
         "alt": "光明版珠光护手装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/2087.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/2087.webp"
       },
       "source_ids": {
         "official_id": "2087",
@@ -4593,7 +4593,7 @@
         "local_path": "assets/items/2088.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/2577.png",
         "alt": "光明版正义之手装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/2088.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/2088.webp"
       },
       "source_ids": {
         "official_id": "2088",
@@ -4655,7 +4655,7 @@
         "local_path": "assets/items/2089.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/midnightreaper.png",
         "alt": "光明版坚定之心装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/2089.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/2089.webp"
       },
       "source_ids": {
         "official_id": "2089",
@@ -4717,7 +4717,7 @@
         "local_path": "assets/items/2090.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/2579.png",
         "alt": "光明版水银装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/2090.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/2090.webp"
       },
       "source_ids": {
         "official_id": "2090",
@@ -4785,7 +4785,7 @@
         "local_path": "assets/items/2091.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/chainstriker.png",
         "alt": "光明版强袭者的链枷装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/2091.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/2091.webp"
       },
       "source_ids": {
         "official_id": "2091",
@@ -4841,7 +4841,7 @@
         "local_path": "assets/items/2092.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/2581.png",
         "alt": "光明版秘法手套装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/2092.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/2092.webp"
       },
       "source_ids": {
         "official_id": "2092",
@@ -4897,7 +4897,7 @@
         "local_path": "assets/items/2093.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/2582.png",
         "alt": "光明版锐利之刃装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/2093.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/2093.webp"
       },
       "source_ids": {
         "official_id": "2093",
@@ -4965,7 +4965,7 @@
         "local_path": "assets/items/2094.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/2583.png",
         "alt": "光明版巨人捕手装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/2094.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/2094.webp"
       },
       "source_ids": {
         "official_id": "2094",
@@ -5015,7 +5015,7 @@
         "local_path": "assets/items/6052.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/5004.png",
         "alt": "大亨之铠装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/6052.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/6052.webp"
       },
       "source_ids": {
         "official_id": "6052",
@@ -5083,7 +5083,7 @@
         "local_path": "assets/items/6054.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/3609.png",
         "alt": "死亡之蔑装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/6054.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/6054.webp"
       },
       "source_ids": {
         "official_id": "6054",
@@ -5126,7 +5126,7 @@
         "local_path": "assets/items/6057.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/3607.png",
         "alt": "三相之力装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/6057.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/6057.webp"
       },
       "source_ids": {
         "official_id": "6057",
@@ -5182,7 +5182,7 @@
         "local_path": "assets/items/6059.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/3603.png",
         "alt": "金币收集者装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/6059.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/6059.webp"
       },
       "source_ids": {
         "official_id": "6059",
@@ -5244,7 +5244,7 @@
         "local_path": "assets/items/6060.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/3610.png",
         "alt": "中娅悖论装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/6060.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/6060.webp"
       },
       "source_ids": {
         "official_id": "6060",
@@ -5300,7 +5300,7 @@
         "local_path": "assets/items/6061.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/2098.png",
         "alt": "碎舰者装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/6061.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/6061.webp"
       },
       "source_ids": {
         "official_id": "6061",
@@ -5311,74 +5311,6 @@
       "extensions": {
         "source_type": "神器装备",
         "source_picture_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/2098.png",
-        "effect_type": "0",
-        "fetter_id": null,
-        "plan_id": "16",
-        "sort": "0"
-      }
-    },
-    {
-      "id": "6063",
-      "name": "狙击手的专注",
-      "category": "artifact",
-      "description": "+20物理加成 +20法术加成 +20%攻击速度 +3法力回复 在对抗相距4格或更远的目标们时获得40%伤害增幅。",
-      "stats": {
-        "raw": "+20物理加成 +20法术加成 +20%攻击速度 +3法力回复",
-        "values": [
-          {
-            "stat": "physical_power",
-            "source_label": "物理加成",
-            "value": 20,
-            "unit": "flat"
-          },
-          {
-            "stat": "ability_power",
-            "source_label": "法术加成",
-            "value": 20,
-            "unit": "flat"
-          },
-          {
-            "stat": "attack_speed",
-            "source_label": "攻击速度",
-            "value": 20,
-            "unit": "percent"
-          },
-          {
-            "stat": "mana_regeneration",
-            "source_label": "法力回复",
-            "value": 3,
-            "unit": "flat"
-          }
-        ]
-      },
-      "effects": [
-        {
-          "id": "6063_effect",
-          "description": "在对抗相距4格或更远的目标们时获得40%伤害增幅。",
-          "values": {}
-        }
-      ],
-      "recipe": {
-        "type": "none",
-        "component_ids": [],
-        "description": null
-      },
-      "unique": false,
-      "image": {
-        "local_path": "assets/items/6063.png",
-        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/2097.png",
-        "alt": "狙击手的专注装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/6063.webp"
-      },
-      "source_ids": {
-        "official_id": "6063",
-        "tft_equip_id": "0",
-        "map_id": "116"
-      },
-      "tags": [],
-      "extensions": {
-        "source_type": "神器装备",
-        "source_picture_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/2097.png",
         "effect_type": "0",
         "fetter_id": null,
         "plan_id": "16",
@@ -5418,7 +5350,7 @@
         "local_path": "assets/items/6065.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/5008.png",
         "alt": "投机者之刃装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/6065.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/6065.webp"
       },
       "source_ids": {
         "official_id": "6065",
@@ -5480,7 +5412,7 @@
         "local_path": "assets/items/6067.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/talisman_of_ascension.png",
         "alt": "飞升护符装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/6067.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/6067.webp"
       },
       "source_ids": {
         "official_id": "6067",
@@ -5536,7 +5468,7 @@
         "local_path": "assets/items/6069.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/fishbones.png",
         "alt": "鱼骨头装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/6069.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/6069.webp"
       },
       "source_ids": {
         "official_id": "6069",
@@ -5592,7 +5524,7 @@
         "local_path": "assets/items/6070.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/mittens.png",
         "alt": "连指手套装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/6070.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/6070.webp"
       },
       "source_ids": {
         "official_id": "6070",
@@ -5603,62 +5535,6 @@
       "extensions": {
         "source_type": "神器装备",
         "source_picture_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/mittens.png",
-        "effect_type": "0",
-        "fetter_id": null,
-        "plan_id": "16",
-        "sort": "0"
-      }
-    },
-    {
-      "id": "6071",
-      "name": "卢登的激荡",
-      "category": "artifact",
-      "description": "+60物理加成 +60法术加成 在击败目标时，会对与目标相距最近的2个敌人造成魔法伤害，伤害值为100%的过量伤害外加100。",
-      "stats": {
-        "raw": "+60物理加成 +60法术加成",
-        "values": [
-          {
-            "stat": "physical_power",
-            "source_label": "物理加成",
-            "value": 60,
-            "unit": "flat"
-          },
-          {
-            "stat": "ability_power",
-            "source_label": "法术加成",
-            "value": 60,
-            "unit": "flat"
-          }
-        ]
-      },
-      "effects": [
-        {
-          "id": "6071_effect",
-          "description": "在击败目标时，会对与目标相距最近的2个敌人造成魔法伤害，伤害值为100%的过量伤害外加100。",
-          "values": {}
-        }
-      ],
-      "recipe": {
-        "type": "none",
-        "component_ids": [],
-        "description": null
-      },
-      "unique": false,
-      "image": {
-        "local_path": "assets/items/6071.png",
-        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/luden_s_tempest.png",
-        "alt": "卢登的激荡装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/6071.webp"
-      },
-      "source_ids": {
-        "official_id": "6071",
-        "tft_equip_id": "0",
-        "map_id": "124"
-      },
-      "tags": [],
-      "extensions": {
-        "source_type": "神器装备",
-        "source_picture_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/luden_s_tempest.png",
         "effect_type": "0",
         "fetter_id": null,
         "plan_id": "16",
@@ -5710,7 +5586,7 @@
         "local_path": "assets/items/6072.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/silvermere_dawn.png",
         "alt": "密银黎明装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/6072.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/6072.webp"
       },
       "source_ids": {
         "official_id": "6072",
@@ -5772,7 +5648,7 @@
         "local_path": "assets/items/6073.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/chonccsprowlersclaw.png",
         "alt": "暗行者之爪装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/6073.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/6073.webp"
       },
       "source_ids": {
         "official_id": "6073",
@@ -5840,7 +5716,7 @@
         "local_path": "assets/items/6075.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/wit_s_end.png",
         "alt": "智慧末刃装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/6075.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/6075.webp"
       },
       "source_ids": {
         "official_id": "6075",
@@ -5851,6 +5727,68 @@
       "extensions": {
         "source_type": "神器装备",
         "source_picture_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/wit_s_end.png",
+        "effect_type": "0",
+        "fetter_id": null,
+        "plan_id": "16",
+        "sort": "0"
+      }
+    },
+    {
+      "id": "6076",
+      "name": "禁忌雕像",
+      "category": "artifact",
+      "description": "+200生命上限 +25护甲 +25魔法抗性 护盾效果会将其50%的护盾值转化为最大生命值作为替代。",
+      "stats": {
+        "raw": "+200生命上限 +25护甲 +25魔法抗性",
+        "values": [
+          {
+            "stat": "health",
+            "source_label": "生命上限",
+            "value": 200,
+            "unit": "flat"
+          },
+          {
+            "stat": "armor",
+            "source_label": "护甲",
+            "value": 25,
+            "unit": "flat"
+          },
+          {
+            "stat": "magic_resist",
+            "source_label": "魔法抗性",
+            "value": 25,
+            "unit": "flat"
+          }
+        ]
+      },
+      "effects": [
+        {
+          "id": "6076_effect",
+          "description": "护盾效果会将其50%的护盾值转化为最大生命值作为替代。",
+          "values": {}
+        }
+      ],
+      "recipe": {
+        "type": "none",
+        "component_ids": [],
+        "description": null
+      },
+      "unique": false,
+      "image": {
+        "local_path": "assets/items/6076.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/forbidden_idol.png",
+        "alt": "禁忌雕像装备图标",
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/6076.webp"
+      },
+      "source_ids": {
+        "official_id": "6076",
+        "tft_equip_id": "0",
+        "map_id": "129"
+      },
+      "tags": [],
+      "extensions": {
+        "source_type": "神器装备",
+        "source_picture_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/forbidden_idol.png",
         "effect_type": "0",
         "fetter_id": null,
         "plan_id": "16",
@@ -5896,7 +5834,7 @@
         "local_path": "assets/items/6080.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/rapid_firecannon.png",
         "alt": "疾射火炮装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/6080.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/6080.webp"
       },
       "source_ids": {
         "official_id": "6080",
@@ -5952,7 +5890,7 @@
         "local_path": "assets/items/6083.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/blighting_jewel.png",
         "alt": "枯萎珠宝装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/6083.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/6083.webp"
       },
       "source_ids": {
         "official_id": "6083",
@@ -6020,7 +5958,7 @@
         "local_path": "assets/items/6084.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/seeker_s_armguard.png",
         "alt": "探索者的护臂装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/6084.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/6084.webp"
       },
       "source_ids": {
         "official_id": "6084",
@@ -6076,7 +6014,7 @@
         "local_path": "assets/items/6085.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/lightshield_crest.png",
         "alt": "光盾徽章装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/6085.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/6085.webp"
       },
       "source_ids": {
         "official_id": "6085",
@@ -6132,7 +6070,7 @@
         "local_path": "assets/items/6086.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/lich_bane.png",
         "alt": "巫妖之祸装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/6086.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/6086.webp"
       },
       "source_ids": {
         "official_id": "6086",
@@ -6188,7 +6126,7 @@
         "local_path": "assets/items/6087.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/flickerblade.png",
         "alt": "烁刃装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/6087.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/6087.webp"
       },
       "source_ids": {
         "official_id": "6087",
@@ -6244,7 +6182,7 @@
         "local_path": "assets/items/6088.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/statikkshiv.png",
         "alt": "斯塔缇克电刃装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/6088.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/6088.webp"
       },
       "source_ids": {
         "official_id": "6088",
@@ -6306,7 +6244,7 @@
         "local_path": "assets/items/6089.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/theindomitable.png",
         "alt": "顽强不屈装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/6089.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/6089.webp"
       },
       "source_ids": {
         "official_id": "6089",
@@ -6368,7 +6306,7 @@
         "local_path": "assets/items/6090.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/titanichydra.png",
         "alt": "巨型九头蛇装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/6090.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/6090.webp"
       },
       "source_ids": {
         "official_id": "6090",
@@ -6430,7 +6368,7 @@
         "local_path": "assets/items/6091.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/dawncore.png",
         "alt": "黎明核心装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/6091.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/6091.webp"
       },
       "source_ids": {
         "official_id": "6091",
@@ -6451,7 +6389,7 @@
       "id": "6092",
       "name": "黎明圣盾",
       "category": "artifact",
-      "description": "+400生命上限 +50护甲 每2.5秒，从1格内的敌人们处偷取3护甲，并治疗相当于携带者15%护甲值的生命值。  如果还携带了【黄昏圣盾】，则转而每1.25秒触发这件装备的效果。  治疗效果基于阶段提升。",
+      "description": "+400生命上限 +50护甲 每2.5秒，从1格内的敌人们处获取3护甲，并治疗相当于携带者15%护甲值的生命值。  如果还携带了【黄昏圣盾】，则转而每1.25秒触发这件装备的效果。  治疗效果基于阶段提升。",
       "stats": {
         "raw": "+400生命上限 +50护甲",
         "values": [
@@ -6472,7 +6410,7 @@
       "effects": [
         {
           "id": "6092_effect",
-          "description": "每2.5秒，从1格内的敌人们处偷取3护甲，并治疗相当于携带者15%护甲值的生命值。  如果还携带了【黄昏圣盾】，则转而每1.25秒触发这件装备的效果。  治疗效果基于阶段提升。",
+          "description": "每2.5秒，从1格内的敌人们处获取3护甲，并治疗相当于携带者15%护甲值的生命值。  如果还携带了【黄昏圣盾】，则转而每1.25秒触发这件装备的效果。  治疗效果基于阶段提升。",
           "values": {}
         }
       ],
@@ -6486,7 +6424,7 @@
         "local_path": "assets/items/6092.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/aegisofdawn.png",
         "alt": "黎明圣盾装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/6092.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/6092.webp"
       },
       "source_ids": {
         "official_id": "6092",
@@ -6507,7 +6445,7 @@
       "id": "6093",
       "name": "黄昏圣盾",
       "category": "artifact",
-      "description": "+400生命上限 +70魔法抗性 每2.5秒，从1格内的敌人们处偷取3魔抗，并造成相当于携带者15%魔抗值的魔法伤害。  如果还携带了【黎明圣盾】，则转而每1.25秒触发这件装备的效果。  伤害基于阶段提升。",
+      "description": "+400生命上限 +70魔法抗性 每2.5秒，从1格内的敌人们处获取3魔抗，并造成相当于携带者15%魔抗值的魔法伤害。  如果还携带了【黎明圣盾】，则转而每1.25秒触发这件装备的效果。  伤害基于阶段提升。",
       "stats": {
         "raw": "+400生命上限 +70魔法抗性",
         "values": [
@@ -6528,7 +6466,7 @@
       "effects": [
         {
           "id": "6093_effect",
-          "description": "每2.5秒，从1格内的敌人们处偷取3魔抗，并造成相当于携带者15%魔抗值的魔法伤害。  如果还携带了【黎明圣盾】，则转而每1.25秒触发这件装备的效果。  伤害基于阶段提升。",
+          "description": "每2.5秒，从1格内的敌人们处获取3魔抗，并造成相当于携带者15%魔抗值的魔法伤害。  如果还携带了【黎明圣盾】，则转而每1.25秒触发这件装备的效果。  伤害基于阶段提升。",
           "values": {}
         }
       ],
@@ -6542,7 +6480,7 @@
         "local_path": "assets/items/6093.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/aegisofdusk.png",
         "alt": "黄昏圣盾装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/6093.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/6093.webp"
       },
       "source_ids": {
         "official_id": "6093",
@@ -6598,7 +6536,7 @@
         "local_path": "assets/items/6094.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/voidgauntlet.png",
         "alt": "虚空护手装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/6094.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/6094.webp"
       },
       "source_ids": {
         "official_id": "6094",
@@ -6660,7 +6598,7 @@
         "local_path": "assets/items/6095.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/cappajuice.png",
         "alt": "帽子饮品装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/6095.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/6095.webp"
       },
       "source_ids": {
         "official_id": "6095",
@@ -6722,7 +6660,7 @@
         "local_path": "assets/items/6096.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/hellfirehatchet.png",
         "alt": "恶火小斧装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/6096.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/6096.webp"
       },
       "source_ids": {
         "official_id": "6096",
@@ -6778,7 +6716,7 @@
         "local_path": "assets/items/6098.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/eternalpact.png",
         "alt": "永恒契约装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/6098.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/6098.webp"
       },
       "source_ids": {
         "official_id": "6098",
@@ -6799,7 +6737,7 @@
       "id": "6099",
       "name": "暗裔之镰",
       "category": "artifact",
-      "description": "+250生命上限 +30物理加成 携带者获得【暗裔】特质。  每4秒，斩击邻格的敌人们，造成150%攻击力的物理伤害。在参与击败后或在携带者冲刺时，再次斩击。  冲刺冷却时间：1.5秒",
+      "description": "+250生命上限 +30物理加成 携带者获得【暗裔】特质/职业。  每4秒，斩击邻格的敌人们，造成150%攻击力的物理伤害。在参与击败后或在携带者冲刺时，再次斩击。  冲刺冷却时间：1.5秒",
       "stats": {
         "raw": "+250生命上限 +30物理加成",
         "values": [
@@ -6820,7 +6758,7 @@
       "effects": [
         {
           "id": "6099_effect",
-          "description": "携带者获得【暗裔】特质。  每4秒，斩击邻格的敌人们，造成150%攻击力的物理伤害。在参与击败后或在携带者冲刺时，再次斩击。  冲刺冷却时间：1.5秒",
+          "description": "携带者获得【暗裔】特质/职业。  每4秒，斩击邻格的敌人们，造成150%攻击力的物理伤害。在参与击败后或在携带者冲刺时，再次斩击。  冲刺冷却时间：1.5秒",
           "values": {}
         }
       ],
@@ -6834,7 +6772,7 @@
         "local_path": "assets/items/6099.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/darkinscythe.png",
         "alt": "暗裔之镰装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/6099.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/6099.webp"
       },
       "source_ids": {
         "official_id": "6099",
@@ -6855,7 +6793,7 @@
       "id": "6100",
       "name": "暗裔之盾",
       "category": "artifact",
-      "description": "+200生命上限 +25护甲 +25魔法抗性 携带者获得【暗裔】特质。  每一秒，对2格内的敌人们造成携带者1%最大生命值的魔法伤害。当这个区域内的单位倒下时，治疗2%最大生命值。",
+      "description": "+200生命上限 +25护甲 +25魔法抗性 携带者获得【暗裔】特质/职业。  每一秒，对2格内的敌人们造成携带者1%最大生命值的魔法伤害。当这个区域内的单位倒下时，治疗2%最大生命值。",
       "stats": {
         "raw": "+200生命上限 +25护甲 +25魔法抗性",
         "values": [
@@ -6882,7 +6820,7 @@
       "effects": [
         {
           "id": "6100_effect",
-          "description": "携带者获得【暗裔】特质。  每一秒，对2格内的敌人们造成携带者1%最大生命值的魔法伤害。当这个区域内的单位倒下时，治疗2%最大生命值。",
+          "description": "携带者获得【暗裔】特质/职业。  每一秒，对2格内的敌人们造成携带者1%最大生命值的魔法伤害。当这个区域内的单位倒下时，治疗2%最大生命值。",
           "values": {}
         }
       ],
@@ -6896,7 +6834,7 @@
         "local_path": "assets/items/6100.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/darkinaegis.png",
         "alt": "暗裔之盾装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/6100.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/6100.webp"
       },
       "source_ids": {
         "official_id": "6100",
@@ -6917,7 +6855,7 @@
       "id": "6101",
       "name": "暗裔之弓",
       "category": "artifact",
-      "description": "+10物理加成 +25%攻击速度 携带者获得【暗裔】特质。  每10次攻击，发射一支箭矢穿过当前目标，造成500%攻击力的物理伤害，该伤害值每命中一个敌人就会降低33%。",
+      "description": "+10物理加成 +25%攻击速度 携带者获得【暗裔】特质/职业。  每10次攻击，发射一支箭矢穿过当前目标，造成500%攻击力的物理伤害，该伤害值每命中一个敌人就会降低33%。",
       "stats": {
         "raw": "+10物理加成 +25%攻击速度",
         "values": [
@@ -6938,7 +6876,7 @@
       "effects": [
         {
           "id": "6101_effect",
-          "description": "携带者获得【暗裔】特质。  每10次攻击，发射一支箭矢穿过当前目标，造成500%攻击力的物理伤害，该伤害值每命中一个敌人就会降低33%。",
+          "description": "携带者获得【暗裔】特质/职业。  每10次攻击，发射一支箭矢穿过当前目标，造成500%攻击力的物理伤害，该伤害值每命中一个敌人就会降低33%。",
           "values": {}
         }
       ],
@@ -6952,7 +6890,7 @@
         "local_path": "assets/items/6101.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/darkinbow.png",
         "alt": "暗裔之弓装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/6101.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/6101.webp"
       },
       "source_ids": {
         "official_id": "6101",
@@ -6973,7 +6911,7 @@
       "id": "6102",
       "name": "暗裔之杖",
       "category": "artifact",
-      "description": "+35法术加成 +3法力回复 携带者获得【暗裔】特质。  每花费20法力值，就会对当前目标附近的敌人们发射一个卷须，造成100魔法伤害。  伤害基于阶段提升",
+      "description": "+35法术加成 +3法力回复 携带者获得【暗裔】特质/职业。  每花费20法力值，就会对当前目标附近的敌人们发射一个卷须，造成100魔法伤害。  伤害基于阶段提升",
       "stats": {
         "raw": "+35法术加成 +3法力回复",
         "values": [
@@ -6994,7 +6932,7 @@
       "effects": [
         {
           "id": "6102_effect",
-          "description": "携带者获得【暗裔】特质。  每花费20法力值，就会对当前目标附近的敌人们发射一个卷须，造成100魔法伤害。  伤害基于阶段提升",
+          "description": "携带者获得【暗裔】特质/职业。  每花费20法力值，就会对当前目标附近的敌人们发射一个卷须，造成100魔法伤害。  伤害基于阶段提升",
           "values": {}
         }
       ],
@@ -7008,7 +6946,7 @@
         "local_path": "assets/items/6102.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/darkinstaff.png",
         "alt": "暗裔之杖装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/6102.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/6102.webp"
       },
       "source_ids": {
         "official_id": "6102",
@@ -7064,7 +7002,7 @@
         "local_path": "assets/items/9181.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/deadmansdagger.png",
         "alt": "亡者的短剑装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/9181.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/9181.webp"
       },
       "source_ids": {
         "official_id": "9181",
@@ -7120,7 +7058,7 @@
         "local_path": "assets/items/9182.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/firstmatesflintlock.png",
         "alt": "大副的燧发枪装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/9182.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/9182.webp"
       },
       "source_ids": {
         "official_id": "9182",
@@ -7182,7 +7120,7 @@
         "local_path": "assets/items/9183.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/barknuckles.png",
         "alt": "酒吧指虎装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/9183.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/9183.webp"
       },
       "source_ids": {
         "official_id": "9183",
@@ -7232,7 +7170,7 @@
         "local_path": "assets/items/9184.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/pileocitrus.png",
         "alt": "成堆柑橘装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/9184.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/9184.webp"
       },
       "source_ids": {
         "official_id": "9184",
@@ -7288,7 +7226,7 @@
         "local_path": "assets/items/9185.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/luckydoubloon.png",
         "alt": "幸运达布隆金币装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/9185.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/9185.webp"
       },
       "source_ids": {
         "official_id": "9185",
@@ -7350,7 +7288,7 @@
         "local_path": "assets/items/9186.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/captainsbrew.png",
         "alt": "船长的酿造品装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/9186.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/9186.webp"
       },
       "source_ids": {
         "official_id": "9186",
@@ -7393,7 +7331,7 @@
         "local_path": "assets/items/9187.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/blackmarketrestock.png",
         "alt": "黑市补货装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/9187.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/9187.webp"
       },
       "source_ids": {
         "official_id": "9187",
@@ -7436,7 +7374,7 @@
         "local_path": "assets/items/9188.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/bilgewaterlesserchampionduplicator.png",
         "alt": "比尔吉沃特次级英雄复制器装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/9188.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/9188.webp"
       },
       "source_ids": {
         "official_id": "9188",
@@ -7479,7 +7417,7 @@
         "local_path": "assets/items/9199.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/royalhusk.png",
         "alt": "皇室外壳装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/9199.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/9199.webp"
       },
       "source_ids": {
         "official_id": "9199",
@@ -7522,7 +7460,7 @@
         "local_path": "assets/items/9200.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/ironcarapace.png",
         "alt": "坚铁甲壳装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/9200.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/9200.webp"
       },
       "source_ids": {
         "official_id": "9200",
@@ -7565,7 +7503,7 @@
         "local_path": "assets/items/9201.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/leechingnucleus.png",
         "alt": "榨血核体装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/9201.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/9201.webp"
       },
       "source_ids": {
         "official_id": "9201",
@@ -7608,7 +7546,7 @@
         "local_path": "assets/items/9202.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/spitterspines.png",
         "alt": "喷吐棘刺装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/9202.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/9202.webp"
       },
       "source_ids": {
         "official_id": "9202",
@@ -7651,7 +7589,7 @@
         "local_path": "assets/items/9203.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/adrenalinemodules.png",
         "alt": "肾上腺素模块装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/9203.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/9203.webp"
       },
       "source_ids": {
         "official_id": "9203",
@@ -7694,7 +7632,7 @@
         "local_path": "assets/items/9204.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/predatorinstincts.png",
         "alt": "掠食本能装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/9204.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/9204.webp"
       },
       "source_ids": {
         "official_id": "9204",
@@ -7737,7 +7675,7 @@
         "local_path": "assets/items/9211.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/90calibernets.png",
         "alt": "90口径绳网装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/9211.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/9211.webp"
       },
       "source_ids": {
         "official_id": "9211",
@@ -7780,7 +7718,7 @@
         "local_path": "assets/items/9212.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/overclockedcapacitors.png",
         "alt": "超频电容器装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/9212.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/9212.webp"
       },
       "source_ids": {
         "official_id": "9212",
@@ -7823,7 +7761,7 @@
         "local_path": "assets/items/9213.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/tunedoscillator.png",
         "alt": "调谐振荡器装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/9213.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/9213.webp"
       },
       "source_ids": {
         "official_id": "9213",
@@ -7866,7 +7804,7 @@
         "local_path": "assets/items/9214.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/blastshield.png",
         "alt": "爆裂护盾装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/9214.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/9214.webp"
       },
       "source_ids": {
         "official_id": "9214",
@@ -7909,7 +7847,7 @@
         "local_path": "assets/items/9215.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/emp.png",
         "alt": "电磁脉冲装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/9215.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/9215.webp"
       },
       "source_ids": {
         "official_id": "9215",
@@ -7952,7 +7890,7 @@
         "local_path": "assets/items/9216.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/electricaloverload.png",
         "alt": "电流过载装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/9216.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/9216.webp"
       },
       "source_ids": {
         "official_id": "9216",
@@ -7995,7 +7933,7 @@
         "local_path": "assets/items/9217.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/continuumcogs.png",
         "alt": "连续齿轮装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/9217.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/9217.webp"
       },
       "source_ids": {
         "official_id": "9217",
@@ -8038,7 +7976,7 @@
         "local_path": "assets/items/9218.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/magnetroncoil.png",
         "alt": "磁控线圈装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/9218.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/9218.webp"
       },
       "source_ids": {
         "official_id": "9218",
@@ -8081,7 +8019,7 @@
         "local_path": "assets/items/9219.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/microrockets.png",
         "alt": "微型导弹装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/9219.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/9219.webp"
       },
       "source_ids": {
         "official_id": "9219",
@@ -8124,7 +8062,7 @@
         "local_path": "assets/items/9220.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/kineticbarrier.png",
         "alt": "动能屏障装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/9220.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/9220.webp"
       },
       "source_ids": {
         "official_id": "9220",
@@ -8167,7 +8105,7 @@
         "local_path": "assets/items/9221.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/gigantificationray.png",
         "alt": "巨大化射线装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/9221.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/9221.webp"
       },
       "source_ids": {
         "official_id": "9221",
@@ -8210,7 +8148,7 @@
         "local_path": "assets/items/9222.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/accelerationgate.png",
         "alt": "加速之门装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/9222.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/9222.webp"
       },
       "source_ids": {
         "official_id": "9222",
@@ -8253,7 +8191,7 @@
         "local_path": "assets/items/9223.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/miningdrill.png",
         "alt": "采矿钻机装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/9223.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/9223.webp"
       },
       "source_ids": {
         "official_id": "9223",
@@ -8296,7 +8234,7 @@
         "local_path": "assets/items/9224.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/superiorlifeform.png",
         "alt": "高级生命体装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/9224.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/9224.webp"
       },
       "source_ids": {
         "official_id": "9224",
@@ -8339,7 +8277,7 @@
         "local_path": "assets/items/9225.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/echoengine.png",
         "alt": "回声引擎装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/9225.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/9225.webp"
       },
       "source_ids": {
         "official_id": "9225",
@@ -8382,7 +8320,7 @@
         "local_path": "assets/items/9226.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/armornullifier.png",
         "alt": "护甲消除器装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/9226.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/9226.webp"
       },
       "source_ids": {
         "official_id": "9226",
@@ -8425,7 +8363,7 @@
         "local_path": "assets/items/9227.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/upgrade.png",
         "alt": "升级！装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/9227.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/9227.webp"
       },
       "source_ids": {
         "official_id": "9227",
@@ -8487,7 +8425,7 @@
         "local_path": "assets/items/9230.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/cutthroatscutlass.png",
         "alt": "残酷弯刀装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/9230.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/9230.webp"
       },
       "source_ids": {
         "official_id": "9230",
@@ -8508,7 +8446,7 @@
       "id": "9410",
       "name": "德玛西亚秩序钥匙",
       "category": "other",
-      "description": "+300生命上限 +15物理加成 +15法术加成 +15%攻击速度 携带者获得【德玛西亚】特质/职业。战斗开始时，为血量最高的【德玛西亚】友军提供20%生命值。",
+      "description": "+300生命上限 +15物理加成 +15法术加成 +15%攻击速度 携带者获得【德玛西亚】特质/职业。战斗开始时，为生命值最高的【德玛西亚】友军提供20%生命值。",
       "stats": {
         "raw": "+300生命上限 +15物理加成 +15法术加成 +15%攻击速度",
         "values": [
@@ -8541,7 +8479,7 @@
       "effects": [
         {
           "id": "9410_effect",
-          "description": "携带者获得【德玛西亚】特质/职业。战斗开始时，为血量最高的【德玛西亚】友军提供20%生命值。",
+          "description": "携带者获得【德玛西亚】特质/职业。战斗开始时，为生命值最高的【德玛西亚】友军提供20%生命值。",
           "values": {}
         }
       ],
@@ -8555,7 +8493,7 @@
         "local_path": "assets/items/9410.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/demacia_blue.png",
         "alt": "德玛西亚秩序钥匙装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/9410.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/9410.webp"
       },
       "source_ids": {
         "official_id": "9410",
@@ -8617,7 +8555,7 @@
         "local_path": "assets/items/9411.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/demacia_gold.png",
         "alt": "德玛西亚科技钥匙装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/9411.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/9411.webp"
       },
       "source_ids": {
         "official_id": "9411",
@@ -8685,7 +8623,7 @@
         "local_path": "assets/items/9412.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/yordle_blue.png",
         "alt": "约德尔人秩序钥匙装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/9412.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/9412.webp"
       },
       "source_ids": {
         "official_id": "9412",
@@ -8753,7 +8691,7 @@
         "local_path": "assets/items/9413.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/yordle_gold.png",
         "alt": "约德尔人科技钥匙装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/9413.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/9413.webp"
       },
       "source_ids": {
         "official_id": "9413",
@@ -8815,7 +8753,7 @@
         "local_path": "assets/items/9414.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/bilgewater_blue.png",
         "alt": "比尔吉沃特秩序钥匙装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/9414.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/9414.webp"
       },
       "source_ids": {
         "official_id": "9414",
@@ -8877,7 +8815,7 @@
         "local_path": "assets/items/9415.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/bilgewater_gold.png",
         "alt": "比尔吉沃特科技钥匙装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/9415.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/9415.webp"
       },
       "source_ids": {
         "official_id": "9415",
@@ -8939,7 +8877,7 @@
         "local_path": "assets/items/9416.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/freljord_blue.png",
         "alt": "弗雷尔卓德秩序钥匙装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/9416.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/9416.webp"
       },
       "source_ids": {
         "official_id": "9416",
@@ -9001,7 +8939,7 @@
         "local_path": "assets/items/9417.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/freljord_gold.png",
         "alt": "弗雷尔卓德科技钥匙装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/9417.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/9417.webp"
       },
       "source_ids": {
         "official_id": "9417",
@@ -9022,7 +8960,7 @@
       "id": "9418",
       "name": "艾欧尼亚秩序钥匙",
       "category": "other",
-      "description": "携带者获得【艾欧尼亚】特质。每参与10次击败后获得一个随机基础装备。",
+      "description": "携带者获得【艾欧尼亚】特质/职业。每参与10次击败后获得一个随机基础装备。",
       "stats": {
         "raw": "",
         "values": []
@@ -9030,7 +8968,7 @@
       "effects": [
         {
           "id": "9418_effect",
-          "description": "携带者获得【艾欧尼亚】特质。每参与10次击败后获得一个随机基础装备。",
+          "description": "携带者获得【艾欧尼亚】特质/职业。每参与10次击败后获得一个随机基础装备。",
           "values": {}
         }
       ],
@@ -9044,7 +8982,7 @@
         "local_path": "assets/items/9418.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/ionia_blue.png",
         "alt": "艾欧尼亚秩序钥匙装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/9418.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/9418.webp"
       },
       "source_ids": {
         "official_id": "9418",
@@ -9087,7 +9025,7 @@
         "local_path": "assets/items/9419.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/ionia_gold.png",
         "alt": "艾欧尼亚科技钥匙装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/9419.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/9419.webp"
       },
       "source_ids": {
         "official_id": "9419",
@@ -9149,7 +9087,7 @@
         "local_path": "assets/items/9420.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/ixtal_blue.png",
         "alt": "以绪塔尔秩序钥匙装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/9420.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/9420.webp"
       },
       "source_ids": {
         "official_id": "9420",
@@ -9211,7 +9149,7 @@
         "local_path": "assets/items/9421.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/ixtal_gold.png",
         "alt": "以绪塔尔科技钥匙装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/9421.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/9421.webp"
       },
       "source_ids": {
         "official_id": "9421",
@@ -9232,26 +9170,26 @@
       "id": "9422",
       "name": "诺克萨斯秩序钥匙",
       "category": "other",
-      "description": "+40物理加成 +40法术加成 +30%攻击速度 【厄塔汗】获得携带者的物理加成和法术加成。",
+      "description": "+30物理加成 +30法术加成 +25%攻击速度 【厄塔汗】获得携带者的物理加成和法术加成。",
       "stats": {
-        "raw": "+40物理加成 +40法术加成 +30%攻击速度",
+        "raw": "+30物理加成 +30法术加成 +25%攻击速度",
         "values": [
           {
             "stat": "physical_power",
             "source_label": "物理加成",
-            "value": 40,
+            "value": 30,
             "unit": "flat"
           },
           {
             "stat": "ability_power",
             "source_label": "法术加成",
-            "value": 40,
+            "value": 30,
             "unit": "flat"
           },
           {
             "stat": "attack_speed",
             "source_label": "攻击速度",
-            "value": 30,
+            "value": 25,
             "unit": "percent"
           }
         ]
@@ -9273,7 +9211,7 @@
         "local_path": "assets/items/9422.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/noxus_blue.png",
         "alt": "诺克萨斯秩序钥匙装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/9422.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/9422.webp"
       },
       "source_ids": {
         "official_id": "9422",
@@ -9335,7 +9273,7 @@
         "local_path": "assets/items/9423.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/noxus_gold.png",
         "alt": "诺克萨斯科技钥匙装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/9423.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/9423.webp"
       },
       "source_ids": {
         "official_id": "9423",
@@ -9356,7 +9294,7 @@
       "id": "9424",
       "name": "皮尔特沃夫秩序钥匙",
       "category": "other",
-      "description": "+300生命上限 +20%伤害增幅 +20%伤害减免 +2法力回复 携带者获得【皮尔特沃夫】特质，【皮尔特沃夫】发明提前4秒激活。",
+      "description": "+300生命上限 +20%伤害增幅 +20%伤害减免 +2法力回复 携带者获得【皮尔特沃夫】特质/职业，【皮尔特沃夫】发明提前4秒激活。",
       "stats": {
         "raw": "+300生命上限 +20%伤害增幅 +20%伤害减免 +2法力回复",
         "values": [
@@ -9389,7 +9327,7 @@
       "effects": [
         {
           "id": "9424_effect",
-          "description": "携带者获得【皮尔特沃夫】特质，【皮尔特沃夫】发明提前4秒激活。",
+          "description": "携带者获得【皮尔特沃夫】特质/职业，【皮尔特沃夫】发明提前4秒激活。",
           "values": {}
         }
       ],
@@ -9403,7 +9341,7 @@
         "local_path": "assets/items/9424.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/piltover_blue.png",
         "alt": "皮尔特沃夫秩序钥匙装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/9424.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/9424.webp"
       },
       "source_ids": {
         "official_id": "9424",
@@ -9471,7 +9409,7 @@
         "local_path": "assets/items/9425.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/piltover_gold.png",
         "alt": "皮尔特沃夫科技钥匙装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/9425.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/9425.webp"
       },
       "source_ids": {
         "official_id": "9425",
@@ -9533,7 +9471,7 @@
         "local_path": "assets/items/9426.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/shadow_isles_blue.png",
         "alt": "暗影岛秩序钥匙装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/9426.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/9426.webp"
       },
       "source_ids": {
         "official_id": "9426",
@@ -9595,7 +9533,7 @@
         "local_path": "assets/items/9427.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/shadow_isles_gold.png",
         "alt": "暗影岛科技钥匙装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/9427.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/9427.webp"
       },
       "source_ids": {
         "official_id": "9427",
@@ -9657,7 +9595,7 @@
         "local_path": "assets/items/9428.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/targon_blue.png",
         "alt": "巨神峰秩序钥匙装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/9428.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/9428.webp"
       },
       "source_ids": {
         "official_id": "9428",
@@ -9719,7 +9657,7 @@
         "local_path": "assets/items/9429.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/targon_gold.png",
         "alt": "巨神峰科技钥匙装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/9429.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/9429.webp"
       },
       "source_ids": {
         "official_id": "9429",
@@ -9740,7 +9678,7 @@
       "id": "9430",
       "name": "虚空秩序钥匙",
       "category": "other",
-      "description": "+400生命上限 +20护甲 +20魔法抗性 +4法力回复 携带者获得【虚空】特质。【虚空】特质激活时额外获得2个【突变】。",
+      "description": "+400生命上限 +20护甲 +20魔法抗性 +4法力回复 携带者获得【虚空】特质/职业。【虚空】特质/职业激活时额外获得2个【突变】。",
       "stats": {
         "raw": "+400生命上限 +20护甲 +20魔法抗性 +4法力回复",
         "values": [
@@ -9773,7 +9711,7 @@
       "effects": [
         {
           "id": "9430_effect",
-          "description": "携带者获得【虚空】特质。【虚空】特质激活时额外获得2个【突变】。",
+          "description": "携带者获得【虚空】特质/职业。【虚空】特质/职业激活时额外获得2个【突变】。",
           "values": {}
         }
       ],
@@ -9787,7 +9725,7 @@
         "local_path": "assets/items/9430.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/void_blue.png",
         "alt": "虚空秩序钥匙装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/9430.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/9430.webp"
       },
       "source_ids": {
         "official_id": "9430",
@@ -9855,7 +9793,7 @@
         "local_path": "assets/items/9431.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/void_gold.png",
         "alt": "虚空科技钥匙装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/9431.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/9431.webp"
       },
       "source_ids": {
         "official_id": "9431",
@@ -9876,7 +9814,7 @@
       "id": "9432",
       "name": "祖安秩序钥匙",
       "category": "other",
-      "description": "+400生命上限 +15%伤害增幅 +15%伤害减免 携带者获得【祖安】特质/职业。祖安单位【微光融合】频率缩减1秒。",
+      "description": "+400生命上限 +15%伤害增幅 +15%伤害减免 携带者获得【祖安】特质/职业。祖安单位【微光融合】频率提高1秒。",
       "stats": {
         "raw": "+400生命上限 +15%伤害增幅 +15%伤害减免",
         "values": [
@@ -9903,7 +9841,7 @@
       "effects": [
         {
           "id": "9432_effect",
-          "description": "携带者获得【祖安】特质/职业。祖安单位【微光融合】频率缩减1秒。",
+          "description": "携带者获得【祖安】特质/职业。祖安单位【微光融合】频率提高1秒。",
           "values": {}
         }
       ],
@@ -9917,7 +9855,7 @@
         "local_path": "assets/items/9432.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/zaun_blue.png",
         "alt": "祖安秩序钥匙装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/9432.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/9432.webp"
       },
       "source_ids": {
         "official_id": "9432",
@@ -9979,7 +9917,7 @@
         "local_path": "assets/items/9433.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/zaun_gold.png",
         "alt": "祖安科技钥匙装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/9433.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/9433.webp"
       },
       "source_ids": {
         "official_id": "9433",
@@ -10000,7 +9938,7 @@
       "id": "41601",
       "name": "比尔吉沃特纹章",
       "category": "emblem",
-      "description": "+2法力回复 +10物理加成 +10法术加成 携带者获得【比尔吉沃特】特质。",
+      "description": "+2法力回复 +10物理加成 +10法术加成 携带者获得【比尔吉沃特】特质/职业。",
       "stats": {
         "raw": "+2法力回复 +10物理加成 +10法术加成",
         "values": [
@@ -10027,7 +9965,7 @@
       "effects": [
         {
           "id": "41601_effect",
-          "description": "携带者获得【比尔吉沃特】特质。",
+          "description": "携带者获得【比尔吉沃特】特质/职业。",
           "values": {}
         }
       ],
@@ -10044,7 +9982,7 @@
         "local_path": "assets/items/41601.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/41601.png",
         "alt": "比尔吉沃特纹章装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/41601.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/41601.webp"
       },
       "source_ids": {
         "official_id": "41601",
@@ -10065,7 +10003,7 @@
       "id": "41602",
       "name": "德玛西亚纹章",
       "category": "emblem",
-      "description": "+15护甲 +15魔法抗性 +3法力回复 携带者获得【德玛西亚】特质。",
+      "description": "+15护甲 +15魔法抗性 +3法力回复 携带者获得【德玛西亚】特质/职业。",
       "stats": {
         "raw": "+15护甲 +15魔法抗性 +3法力回复",
         "values": [
@@ -10092,7 +10030,7 @@
       "effects": [
         {
           "id": "41602_effect",
-          "description": "携带者获得【德玛西亚】特质。",
+          "description": "携带者获得【德玛西亚】特质/职业。",
           "values": {}
         }
       ],
@@ -10109,7 +10047,7 @@
         "local_path": "assets/items/41602.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/41602.png",
         "alt": "德玛西亚纹章装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/41602.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/41602.webp"
       },
       "source_ids": {
         "official_id": "41602",
@@ -10130,7 +10068,7 @@
       "id": "41603",
       "name": "弗雷尔卓德纹章",
       "category": "emblem",
-      "description": "+400生命上限 携带者获得【弗雷尔卓德】特质。",
+      "description": "+400生命上限 携带者获得【弗雷尔卓德】特质/职业。",
       "stats": {
         "raw": "+400生命上限",
         "values": [
@@ -10145,7 +10083,7 @@
       "effects": [
         {
           "id": "41603_effect",
-          "description": "携带者获得【弗雷尔卓德】特质。",
+          "description": "携带者获得【弗雷尔卓德】特质/职业。",
           "values": {}
         }
       ],
@@ -10162,7 +10100,7 @@
         "local_path": "assets/items/41603.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/41603.png",
         "alt": "弗雷尔卓德纹章装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/41603.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/41603.webp"
       },
       "source_ids": {
         "official_id": "41603",
@@ -10183,7 +10121,7 @@
       "id": "41604",
       "name": "艾欧尼亚纹章",
       "category": "emblem",
-      "description": "+25法术加成 +25物理加成 携带者获得【艾欧尼亚】特质。",
+      "description": "+25法术加成 +25物理加成 携带者获得【艾欧尼亚】特质/职业。",
       "stats": {
         "raw": "+25法术加成 +25物理加成",
         "values": [
@@ -10204,7 +10142,7 @@
       "effects": [
         {
           "id": "41604_effect",
-          "description": "携带者获得【艾欧尼亚】特质。",
+          "description": "携带者获得【艾欧尼亚】特质/职业。",
           "values": {}
         }
       ],
@@ -10221,7 +10159,7 @@
         "local_path": "assets/items/41604.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/41604.png",
         "alt": "艾欧尼亚纹章装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/41604.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/41604.webp"
       },
       "source_ids": {
         "official_id": "41604",
@@ -10242,7 +10180,7 @@
       "id": "41605",
       "name": "以绪塔尔纹章",
       "category": "emblem",
-      "description": "+250生命上限 携带者获得【以绪塔尔】特质。",
+      "description": "+250生命上限 携带者获得【以绪塔尔】特质/职业。",
       "stats": {
         "raw": "+250生命上限",
         "values": [
@@ -10257,7 +10195,7 @@
       "effects": [
         {
           "id": "41605_effect",
-          "description": "携带者获得【以绪塔尔】特质。",
+          "description": "携带者获得【以绪塔尔】特质/职业。",
           "values": {}
         }
       ],
@@ -10271,7 +10209,7 @@
         "local_path": "assets/items/41605.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/41605.png",
         "alt": "以绪塔尔纹章装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/41605.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/41605.webp"
       },
       "source_ids": {
         "official_id": "41605",
@@ -10292,7 +10230,7 @@
       "id": "41606",
       "name": "诺克萨斯纹章",
       "category": "emblem",
-      "description": "+25物理加成 +25法术加成 携带者获得【诺克萨斯】特质。",
+      "description": "+25物理加成 +25法术加成 携带者获得【诺克萨斯】特质/职业。",
       "stats": {
         "raw": "+25物理加成 +25法术加成",
         "values": [
@@ -10313,7 +10251,7 @@
       "effects": [
         {
           "id": "41606_effect",
-          "description": "携带者获得【诺克萨斯】特质。",
+          "description": "携带者获得【诺克萨斯】特质/职业。",
           "values": {}
         }
       ],
@@ -10330,7 +10268,7 @@
         "local_path": "assets/items/41606.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/41606.png",
         "alt": "诺克萨斯纹章装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/41606.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/41606.webp"
       },
       "source_ids": {
         "official_id": "41606",
@@ -10351,7 +10289,7 @@
       "id": "41607",
       "name": "皮尔特沃夫纹章",
       "category": "emblem",
-      "description": "+150生命上限 携带者获得【皮尔特沃夫】特质。",
+      "description": "+150生命上限 携带者获得【皮尔特沃夫】特质/职业。",
       "stats": {
         "raw": "+150生命上限",
         "values": [
@@ -10366,7 +10304,7 @@
       "effects": [
         {
           "id": "41607_effect",
-          "description": "携带者获得【皮尔特沃夫】特质。",
+          "description": "携带者获得【皮尔特沃夫】特质/职业。",
           "values": {}
         }
       ],
@@ -10380,7 +10318,7 @@
         "local_path": "assets/items/41607.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/41607.png",
         "alt": "皮尔特沃夫纹章装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/41607.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/41607.webp"
       },
       "source_ids": {
         "official_id": "41607",
@@ -10401,7 +10339,7 @@
       "id": "41611",
       "name": "虚空纹章",
       "category": "emblem",
-      "description": "+20%攻击速度 +10物理加成 +10法术加成 携带者获得【虚空】特质。",
+      "description": "+20%攻击速度 +10物理加成 +10法术加成 携带者获得【虚空】特质/职业。",
       "stats": {
         "raw": "+20%攻击速度 +10物理加成 +10法术加成",
         "values": [
@@ -10428,7 +10366,7 @@
       "effects": [
         {
           "id": "41611_effect",
-          "description": "携带者获得【虚空】特质。",
+          "description": "携带者获得【虚空】特质/职业。",
           "values": {}
         }
       ],
@@ -10445,7 +10383,7 @@
         "local_path": "assets/items/41611.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/41611.png",
         "alt": "虚空纹章装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/41611.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/41611.webp"
       },
       "source_ids": {
         "official_id": "41611",
@@ -10466,7 +10404,7 @@
       "id": "41612",
       "name": "约德尔人纹章",
       "category": "emblem",
-      "description": "+30魔法抗性 +30护甲 +20物理加成 +20法术加成 携带者获得【约德尔人】特质。",
+      "description": "+30魔法抗性 +30护甲 +20物理加成 +20法术加成 携带者获得【约德尔人】特质/职业。",
       "stats": {
         "raw": "+30魔法抗性 +30护甲 +20物理加成 +20法术加成",
         "values": [
@@ -10499,7 +10437,7 @@
       "effects": [
         {
           "id": "41612_effect",
-          "description": "携带者获得【约德尔人】特质。",
+          "description": "携带者获得【约德尔人】特质/职业。",
           "values": {}
         }
       ],
@@ -10516,7 +10454,7 @@
         "local_path": "assets/items/41612.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/41612.png",
         "alt": "约德尔人纹章装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/41612.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/41612.webp"
       },
       "source_ids": {
         "official_id": "41612",
@@ -10537,7 +10475,7 @@
       "id": "41613",
       "name": "祖安纹章",
       "category": "emblem",
-      "description": "+20%暴击率 +350生命上限 携带者获得【祖安】特质。",
+      "description": "+20%暴击率 +350生命上限 携带者获得【祖安】特质/职业。",
       "stats": {
         "raw": "+20%暴击率 +350生命上限",
         "values": [
@@ -10558,7 +10496,7 @@
       "effects": [
         {
           "id": "41613_effect",
-          "description": "携带者获得【祖安】特质。",
+          "description": "携带者获得【祖安】特质/职业。",
           "values": {}
         }
       ],
@@ -10575,7 +10513,7 @@
         "local_path": "assets/items/41613.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/41613.png",
         "alt": "祖安纹章装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/41613.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/41613.webp"
       },
       "source_ids": {
         "official_id": "41613",
@@ -10596,7 +10534,7 @@
       "id": "41614",
       "name": "斗士纹章",
       "category": "emblem",
-      "description": "+150生命上限 携带者获得【斗士】职业。每一秒，在半径1格内造成携带者2%最大生命值的魔法伤害。",
+      "description": "+150生命上限 携带者获得【斗士】特质/职业。每一秒，在半径1格内造成携带者2%最大生命值的魔法伤害。",
       "stats": {
         "raw": "+150生命上限",
         "values": [
@@ -10611,7 +10549,7 @@
       "effects": [
         {
           "id": "41614_effect",
-          "description": "携带者获得【斗士】职业。每一秒，在半径1格内造成携带者2%最大生命值的魔法伤害。",
+          "description": "携带者获得【斗士】特质/职业。每一秒，在半径1格内造成携带者2%最大生命值的魔法伤害。",
           "values": {}
         }
       ],
@@ -10628,7 +10566,7 @@
         "local_path": "assets/items/41614.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/41614.png",
         "alt": "斗士纹章装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/41614.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/41614.webp"
       },
       "source_ids": {
         "official_id": "41614",
@@ -10649,7 +10587,7 @@
       "id": "41615",
       "name": "耀光使纹章",
       "category": "emblem",
-      "description": "+150生命上限 +20%攻击速度 携带者获得【耀光使】特质。技能在3秒里持续造成20%额外魔法伤害。",
+      "description": "+150生命上限 +20%攻击速度 携带者获得【耀光使】特质/职业。技能在3秒里持续造成20%额外魔法伤害。",
       "stats": {
         "raw": "+150生命上限 +20%攻击速度",
         "values": [
@@ -10670,7 +10608,7 @@
       "effects": [
         {
           "id": "41615_effect",
-          "description": "携带者获得【耀光使】特质。技能在3秒里持续造成20%额外魔法伤害。",
+          "description": "携带者获得【耀光使】特质/职业。技能在3秒里持续造成20%额外魔法伤害。",
           "values": {}
         }
       ],
@@ -10684,7 +10622,7 @@
         "local_path": "assets/items/41615.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/41615.png",
         "alt": "耀光使纹章装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/41615.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/41615.webp"
       },
       "source_ids": {
         "official_id": "41615",
@@ -10705,7 +10643,7 @@
       "id": "41616",
       "name": "护卫纹章",
       "category": "emblem",
-      "description": "+30护甲 +30魔法抗性 携带者获得【护卫】职业。 战斗开始时：从所有来源处获得35%额外的护甲或魔抗，基于这二者哪个更高。",
+      "description": "+30护甲 +30魔法抗性 携带者获得【护卫】特质/职业。 战斗开始时：从所有来源处获得35%额外的护甲或魔抗，基于这二者哪个更高。",
       "stats": {
         "raw": "+30护甲 +30魔法抗性",
         "values": [
@@ -10726,7 +10664,7 @@
       "effects": [
         {
           "id": "41616_effect",
-          "description": "携带者获得【护卫】职业。 战斗开始时：从所有来源处获得35%额外的护甲或魔抗，基于这二者哪个更高。",
+          "description": "携带者获得【护卫】特质/职业。 战斗开始时：从所有来源处获得35%额外的护甲或魔抗，基于这二者哪个更高。",
           "values": {}
         }
       ],
@@ -10743,7 +10681,7 @@
         "local_path": "assets/items/41616.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/41616.png",
         "alt": "护卫纹章装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/41616.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/41616.webp"
       },
       "source_ids": {
         "official_id": "41616",
@@ -10764,7 +10702,7 @@
       "id": "41617",
       "name": "枪手纹章",
       "category": "emblem",
-      "description": "+150生命上限 +20物理加成 携带者获得【枪手】职业。 对一个敌人造成物理伤害时会使其护甲值降低2。",
+      "description": "+150生命上限 +20物理加成 携带者获得【枪手】特质/职业。 对一个敌人造成物理伤害时会使其护甲值降低2。",
       "stats": {
         "raw": "+150生命上限 +20物理加成",
         "values": [
@@ -10785,7 +10723,7 @@
       "effects": [
         {
           "id": "41617_effect",
-          "description": "携带者获得【枪手】职业。 对一个敌人造成物理伤害时会使其护甲值降低2。",
+          "description": "携带者获得【枪手】特质/职业。 对一个敌人造成物理伤害时会使其护甲值降低2。",
           "values": {}
         }
       ],
@@ -10799,7 +10737,7 @@
         "local_path": "assets/items/41617.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/41617.png",
         "alt": "枪手纹章装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/41617.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/41617.webp"
       },
       "source_ids": {
         "official_id": "41617",
@@ -10820,7 +10758,7 @@
       "id": "41618",
       "name": "神谕者纹章",
       "category": "emblem",
-      "description": "+3法力回复 携带者获得【神谕者】职业。施放时，获得相当于10%法力值花费的法术加成。",
+      "description": "+3法力回复 携带者获得【神谕者】特质/职业。施放时，获得相当于10%法力值花费的法术加成。",
       "stats": {
         "raw": "+3法力回复",
         "values": [
@@ -10835,7 +10773,7 @@
       "effects": [
         {
           "id": "41618_effect",
-          "description": "携带者获得【神谕者】职业。施放时，获得相当于10%法力值花费的法术加成。",
+          "description": "携带者获得【神谕者】特质/职业。施放时，获得相当于10%法力值花费的法术加成。",
           "values": {}
         }
       ],
@@ -10852,7 +10790,7 @@
         "local_path": "assets/items/41618.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/41618.png",
         "alt": "神谕者纹章装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/41618.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/41618.webp"
       },
       "source_ids": {
         "official_id": "41618",
@@ -10873,7 +10811,7 @@
       "id": "41619",
       "name": "主宰纹章",
       "category": "emblem",
-      "description": "+25魔法抗性 +25护甲 携带者获得【主宰】职业并在其他【主宰】倒下时获得其10%最大生命值。",
+      "description": "+25魔法抗性 +25护甲 携带者获得【主宰】特质/职业并在其他【主宰】倒下时获得其10%最大生命值。",
       "stats": {
         "raw": "+25魔法抗性 +25护甲",
         "values": [
@@ -10894,7 +10832,7 @@
       "effects": [
         {
           "id": "41619_effect",
-          "description": "携带者获得【主宰】职业并在其他【主宰】倒下时获得其10%最大生命值。",
+          "description": "携带者获得【主宰】特质/职业并在其他【主宰】倒下时获得其10%最大生命值。",
           "values": {}
         }
       ],
@@ -10911,7 +10849,7 @@
         "local_path": "assets/items/41619.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/41619.png",
         "alt": "主宰纹章装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/41619.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/41619.webp"
       },
       "source_ids": {
         "official_id": "41619",
@@ -10932,7 +10870,7 @@
       "id": "41620",
       "name": "狙神纹章",
       "category": "emblem",
-      "description": "+150生命上限 +20%攻击速度 携带者获得【狙神】职业并且+1攻击距离。",
+      "description": "+150生命上限 +20%攻击速度 携带者获得【狙神】特质/职业并且+1攻击距离。",
       "stats": {
         "raw": "+150生命上限 +20%攻击速度",
         "values": [
@@ -10953,7 +10891,7 @@
       "effects": [
         {
           "id": "41620_effect",
-          "description": "携带者获得【狙神】职业并且+1攻击距离。",
+          "description": "携带者获得【狙神】特质/职业并且+1攻击距离。",
           "values": {}
         }
       ],
@@ -10967,7 +10905,7 @@
         "local_path": "assets/items/41620.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/41620.png",
         "alt": "狙神纹章装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/41620.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/41620.webp"
       },
       "source_ids": {
         "official_id": "41620",
@@ -10988,7 +10926,7 @@
       "id": "41621",
       "name": "迅击战士纹章",
       "category": "emblem",
-      "description": "+25%攻击速度 携带者获得【迅击战士】职业。在参与击败后，冲刺至相距最近的那个目标并治疗10%最大生命值。",
+      "description": "+25%攻击速度 携带者获得【迅击战士】特质/职业。在参与击败后，冲刺至相距最近的那个目标并治疗10%最大生命值。",
       "stats": {
         "raw": "+25%攻击速度",
         "values": [
@@ -11003,7 +10941,7 @@
       "effects": [
         {
           "id": "41621_effect",
-          "description": "携带者获得【迅击战士】职业。在参与击败后，冲刺至相距最近的那个目标并治疗10%最大生命值。",
+          "description": "携带者获得【迅击战士】特质/职业。在参与击败后，冲刺至相距最近的那个目标并治疗10%最大生命值。",
           "values": {}
         }
       ],
@@ -11020,7 +10958,7 @@
         "local_path": "assets/items/41621.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/41621.png",
         "alt": "迅击战士纹章装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/41621.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/41621.webp"
       },
       "source_ids": {
         "official_id": "41621",
@@ -11041,7 +10979,7 @@
       "id": "41622",
       "name": "裁决战士纹章",
       "category": "emblem",
-      "description": "+20物理加成 携带者获得【裁决战士】职业。在跌下25%最大生命值时，获得20法力值和30%最大生命值的护盾值。",
+      "description": "+20物理加成 携带者获得【裁决战士】特质/职业。在跌下25%最大生命值时，获得20法力值和30%最大生命值的护盾值。",
       "stats": {
         "raw": "+20物理加成",
         "values": [
@@ -11056,7 +10994,7 @@
       "effects": [
         {
           "id": "41622_effect",
-          "description": "携带者获得【裁决战士】职业。在跌下25%最大生命值时，获得20法力值和30%最大生命值的护盾值。",
+          "description": "携带者获得【裁决战士】特质/职业。在跌下25%最大生命值时，获得20法力值和30%最大生命值的护盾值。",
           "values": {}
         }
       ],
@@ -11073,7 +11011,7 @@
         "local_path": "assets/items/41622.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/41622.png",
         "alt": "裁决战士纹章装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/41622.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/41622.webp"
       },
       "source_ids": {
         "official_id": "41622",
@@ -11094,7 +11032,7 @@
       "id": "41623",
       "name": "法师纹章",
       "category": "emblem",
-      "description": "+25法术加成 携带者获得【法师】职业。在击败时，返还携带者的20%最大法力值。",
+      "description": "+25法术加成 携带者获得【法师】特质/职业。在击败时，返还携带者的20%最大法力值。",
       "stats": {
         "raw": "+25法术加成",
         "values": [
@@ -11109,7 +11047,7 @@
       "effects": [
         {
           "id": "41623_effect",
-          "description": "携带者获得【法师】职业。在击败时，返还携带者的20%最大法力值。",
+          "description": "携带者获得【法师】特质/职业。在击败时，返还携带者的20%最大法力值。",
           "values": {}
         }
       ],
@@ -11126,7 +11064,7 @@
         "local_path": "assets/items/41623.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/41623.png",
         "alt": "法师纹章装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/41623.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/41623.webp"
       },
       "source_ids": {
         "official_id": "41623",
@@ -11147,7 +11085,7 @@
       "id": "41624",
       "name": "征服者纹章",
       "category": "emblem",
-      "description": "+20%暴击率 +15物理加成 +15法术加成 携带者获得【征服者】职业并且在暴击时有3%几率掉落1金币。  这局游戏生成的金币：0",
+      "description": "+20%暴击率 +15物理加成 +15法术加成 携带者获得【征服者】特质/职业并且在暴击时有3%几率掉落1金币。  这局游戏生成的金币：0",
       "stats": {
         "raw": "+20%暴击率 +15物理加成 +15法术加成",
         "values": [
@@ -11174,7 +11112,7 @@
       "effects": [
         {
           "id": "41624_effect",
-          "description": "携带者获得【征服者】职业并且在暴击时有3%几率掉落1金币。  这局游戏生成的金币：0",
+          "description": "携带者获得【征服者】特质/职业并且在暴击时有3%几率掉落1金币。  这局游戏生成的金币：0",
           "values": {}
         }
       ],
@@ -11191,7 +11129,7 @@
         "local_path": "assets/items/41624.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/41624.png",
         "alt": "征服者纹章装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/41624.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/41624.webp"
       },
       "source_ids": {
         "official_id": "41624",
@@ -11212,7 +11150,7 @@
       "id": "41625",
       "name": "神盾使纹章",
       "category": "emblem",
-      "description": "+250生命上限 携带者获得【神盾使】职业。当携带者身上的护盾被打破时，治疗相当于该护盾30%初始护盾值的生命值。",
+      "description": "+250生命上限 携带者获得【神盾使】特质/职业。当携带者身上的护盾被打破时，治疗相当于该护盾30%初始护盾值的生命值。",
       "stats": {
         "raw": "+250生命上限",
         "values": [
@@ -11227,7 +11165,7 @@
       "effects": [
         {
           "id": "41625_effect",
-          "description": "携带者获得【神盾使】职业。当携带者身上的护盾被打破时，治疗相当于该护盾30%初始护盾值的生命值。",
+          "description": "携带者获得【神盾使】特质/职业。当携带者身上的护盾被打破时，治疗相当于该护盾30%初始护盾值的生命值。",
           "values": {}
         }
       ],
@@ -11241,7 +11179,7 @@
         "local_path": "assets/items/41625.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/equip/41625.png",
         "alt": "神盾使纹章装备图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/items/41625.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/items/41625.webp"
       },
       "source_ids": {
         "official_id": "41625",

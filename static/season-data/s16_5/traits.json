@@ -1,12 +1,12 @@
 {
   "$schema": "../../../../../schemas/traits.schema.json",
-  "version_id": "s16_5__17_17_8",
+  "version_id": "s16_5__17_17_8b",
   "traits": [
     {
       "id": "340",
       "name": "比尔吉沃特",
       "category": "origin",
-      "description": "每回合获得【银蛇币】【银蛇币】，【比尔吉沃特】弈子每次参与击败时额外获得1。  【银蛇币】可用于在【黑市】获取【比尔吉沃特】弈子的额外属性和特殊战利品。随着特质层级提升，【黑市】还会解锁更稀有的战利品",
+      "description": "每回合获得【银蛇币】【银蛇币】，【比尔吉沃特】弈子每次参与击败时额外获得1。  【银蛇币】可用于在【黑市】获取【比尔吉沃特】弈子的额外属性和特殊战利品。随着特质/职业层级提升，【黑市】还会解锁更稀有的战利品",
       "breakpoints": [
         {
           "min_units": 3,
@@ -49,7 +49,7 @@
         "local_path": "assets/traits/340.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_bilgewater.png",
         "alt": "比尔吉沃特羁绊图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/traits/340.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/traits/340.webp"
       },
       "source_ids": {
         "official_id": "340",
@@ -109,7 +109,7 @@
         "local_path": "assets/traits/341.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_demacia.png",
         "alt": "德玛西亚羁绊图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/traits/341.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/traits/341.webp"
       },
       "source_ids": {
         "official_id": "341",
@@ -160,7 +160,7 @@
         "local_path": "assets/traits/342.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_freljord.png",
         "alt": "弗雷尔卓德羁绊图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/traits/342.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/traits/342.webp"
       },
       "source_ids": {
         "official_id": "342",
@@ -220,7 +220,7 @@
         "local_path": "assets/traits/343.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_ionia.png",
         "alt": "艾欧尼亚羁绊图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/traits/343.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/traits/343.webp"
       },
       "source_ids": {
         "official_id": "343",
@@ -230,7 +230,7 @@
       "tags": [],
       "extensions": {
         "raw_color": "1|2|3|4",
-        "raw_description": "(3)10%【生命上限】，+20%魔法伤害 |(5)15%【生命上限】，+25%魔法伤害 |(7)20%【生命上限】，+30%魔法伤害 |(10)30%【生命上限】，+70%魔法伤害；所有我方弈子获得200%【攻击速度】，10【法力回复】，每秒回复5%【生命上限】，敌方弈子降低40%【攻击速度】，40%移动速度  【艾欧尼亚】弈子每局游戏会选择不同的道路。"
+        "raw_description": "(3)10%【生命上限】，+20%魔法伤害|(5)15%【生命上限】，+25%魔法伤害|(7)20%【生命上限】，+30%魔法伤害|(10)30%【生命上限】，+70%魔法伤害；所有我方弈子获得200%【攻击速度】，10【法力回复】，每秒回复5%【生命上限】，敌方弈子降低40%【攻击速度】，40%移动速度  【艾欧尼亚】弈子每局游戏会选择不同的道路。"
       }
     },
     {
@@ -271,7 +271,7 @@
         "local_path": "assets/traits/344.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_ixtal.png",
         "alt": "以绪塔尔羁绊图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/traits/344.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/traits/344.webp"
       },
       "source_ids": {
         "official_id": "344",
@@ -331,7 +331,7 @@
         "local_path": "assets/traits/345.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_noxus.png",
         "alt": "诺克萨斯羁绊图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/traits/345.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/traits/345.webp"
       },
       "source_ids": {
         "official_id": "345",
@@ -382,7 +382,7 @@
         "local_path": "assets/traits/346.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_piltover.png",
         "alt": "皮尔特沃夫羁绊图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/traits/346.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/traits/346.webp"
       },
       "source_ids": {
         "official_id": "346",
@@ -442,7 +442,7 @@
         "local_path": "assets/traits/347.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_shadowisles.png",
         "alt": "暗影岛羁绊图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/traits/347.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/traits/347.webp"
       },
       "source_ids": {
         "official_id": "347",
@@ -493,7 +493,7 @@
         "local_path": "assets/traits/348.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_shurima.png",
         "alt": "恕瑞玛羁绊图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/traits/348.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/traits/348.webp"
       },
       "source_ids": {
         "official_id": "348",
@@ -571,7 +571,7 @@
         "local_path": "assets/traits/349.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_targon.png",
         "alt": "巨神峰羁绊图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/traits/349.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/traits/349.webp"
       },
       "source_ids": {
         "official_id": "349",
@@ -631,7 +631,7 @@
         "local_path": "assets/traits/350.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_void.png",
         "alt": "虚空羁绊图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/traits/350.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/traits/350.webp"
       },
       "source_ids": {
         "official_id": "350",
@@ -648,13 +648,13 @@
       "id": "351",
       "name": "约德尔人",
       "category": "origin",
-      "description": "(2)每登场一个【约德尔人】弈子，【约德尔人】弈子获得40生命值和5%攻击速度。3星【约德尔人】弈子额外提供120%！ |(4)并且每回合的第一个商店都会刷新一个【约德尔人】弈子！ |(6)并且每回合获得1次免费刷新！ |(8)并且每回合获得一个【约德尔人】福袋！ |(10)每登场一个【约德尔人】弈子，【约德尔人】弈子额外获得100%生命值和攻击速度，并且打开一道通向【约德尔城】的传送门！ 当前属性：0【生命上限】，0%【攻击速度】",
+      "description": "(2)每登场一个【约德尔人】弈子，【约德尔人】弈子获得35生命值和5%攻击速度。3星【约德尔人】弈子额外提供120%！ |(4)并且每回合的第一个商店都会刷新一个【约德尔人】弈子！ |(6)并且每回合获得1次免费刷新！ |(8)并且每回合获得一个【约德尔人】福袋！ |(10)每登场一个【约德尔人】弈子，【约德尔人】弈子额外获得100%生命值和攻击速度，并且打开一道通向【约德尔城】的传送门！ 当前属性：0【生命上限】，0%【攻击速度】",
       "breakpoints": [
         {
           "min_units": 2,
           "max_units": 3,
           "style": "bronze",
-          "effect": "(2)每登场一个【约德尔人】弈子，【约德尔人】弈子获得40生命值和5%攻击速度。3星【约德尔人】弈子额外提供120%！",
+          "effect": "(2)每登场一个【约德尔人】弈子，【约德尔人】弈子获得35生命值和5%攻击速度。3星【约德尔人】弈子额外提供120%！",
           "values": {
             "source_style": "1"
           }
@@ -700,7 +700,7 @@
         "local_path": "assets/traits/351.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_yordle.png",
         "alt": "约德尔人羁绊图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/traits/351.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/traits/351.webp"
       },
       "source_ids": {
         "official_id": "351",
@@ -710,7 +710,7 @@
       "tags": [],
       "extensions": {
         "raw_color": "1|2|3|3|4",
-        "raw_description": "(2)每登场一个【约德尔人】弈子，【约德尔人】弈子获得40生命值和5%攻击速度。3星【约德尔人】弈子额外提供120%！ |(4)并且每回合的第一个商店都会刷新一个【约德尔人】弈子！ |(6)并且每回合获得1次免费刷新！ |(8)并且每回合获得一个【约德尔人】福袋！ |(10)每登场一个【约德尔人】弈子，【约德尔人】弈子额外获得100%生命值和攻击速度，并且打开一道通向【约德尔城】的传送门！ 当前属性：0【生命上限】，0%【攻击速度】"
+        "raw_description": "(2)每登场一个【约德尔人】弈子，【约德尔人】弈子获得35生命值和5%攻击速度。3星【约德尔人】弈子额外提供120%！|(4)并且每回合的第一个商店都会刷新一个【约德尔人】弈子！|(6)并且每回合获得1次免费刷新！|(8)并且每回合获得一个【约德尔人】福袋！|(10)每登场一个【约德尔人】弈子，【约德尔人】弈子额外获得100%生命值和攻击速度，并且打开一道通向【约德尔城】的传送门！ 当前属性：0【生命上限】，0%【攻击速度】"
       }
     },
     {
@@ -751,7 +751,7 @@
         "local_path": "assets/traits/352.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_zaun.png",
         "alt": "祖安羁绊图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/traits/352.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/traits/352.webp"
       },
       "source_ids": {
         "official_id": "352",
@@ -784,7 +784,7 @@
         "local_path": "assets/traits/353.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_caretaker.png",
         "alt": "星界游神羁绊图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/traits/353.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/traits/353.webp"
       },
       "source_ids": {
         "official_id": "353",
@@ -817,7 +817,7 @@
         "local_path": "assets/traits/354.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_assimilator.png",
         "alt": "虚空之女羁绊图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/traits/354.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/traits/354.webp"
       },
       "source_ids": {
         "official_id": "354",
@@ -850,7 +850,7 @@
         "local_path": "assets/traits/355.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_darkchild.png",
         "alt": "黑暗之女羁绊图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/traits/355.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/traits/355.webp"
       },
       "source_ids": {
         "official_id": "355",
@@ -883,7 +883,7 @@
         "local_path": "assets/traits/356.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_chronokeeper.png",
         "alt": "时光守护者羁绊图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/traits/356.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/traits/356.webp"
       },
       "source_ids": {
         "official_id": "356",
@@ -916,7 +916,7 @@
         "local_path": "assets/traits/357.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_ascendant.png",
         "alt": "远古巫灵羁绊图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/traits/357.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/traits/357.webp"
       },
       "source_ids": {
         "official_id": "357",
@@ -949,7 +949,7 @@
         "local_path": "assets/traits/358.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_hexmech.png",
         "alt": "海克斯机甲羁绊图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/traits/358.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/traits/358.webp"
       },
       "source_ids": {
         "official_id": "358",
@@ -982,7 +982,7 @@
         "local_path": "assets/traits/359.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_glutton.png",
         "alt": "河流之王羁绊图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/traits/359.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/traits/359.webp"
       },
       "source_ids": {
         "official_id": "359",
@@ -1015,7 +1015,7 @@
         "local_path": "assets/traits/360.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_chainbreaker.png",
         "alt": "解脱者羁绊图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/traits/360.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/traits/360.webp"
       },
       "source_ids": {
         "official_id": "360",
@@ -1048,7 +1048,7 @@
         "local_path": "assets/traits/361.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_dragonborn.png",
         "alt": "龙血武姬羁绊图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/traits/361.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/traits/361.webp"
       },
       "source_ids": {
         "official_id": "361",
@@ -1081,7 +1081,7 @@
         "local_path": "assets/traits/362.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_theboss.png",
         "alt": "腕豪羁绊图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/traits/362.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/traits/362.webp"
       },
       "source_ids": {
         "official_id": "362",
@@ -1098,13 +1098,13 @@
       "id": "363",
       "name": "符文法师",
       "category": "origin",
-      "description": "【符文法师】可从所有已激活的地区特质中获益，但不对任何特质做出贡献。  他可借助已激活的地区特质获得符文能量来修改他的技能，并以独特的方式来将其强化。",
+      "description": "【符文法师】可从所有已激活的地区特质/职业中获益，但不对任何特质/职业做出贡献。  他可借助已激活的地区特质/职业获得符文能量来修改他的技能，并以独特的方式来将其强化。",
       "breakpoints": [
         {
           "min_units": 1,
           "max_units": null,
           "style": "unique",
-          "effect": "【符文法师】可从所有已激活的地区特质中获益，但不对任何特质做出贡献。  他可借助已激活的地区特质获得符文能量来修改他的技能，并以独特的方式来将其强化。",
+          "effect": "【符文法师】可从所有已激活的地区特质/职业中获益，但不对任何特质/职业做出贡献。  他可借助已激活的地区特质/职业获得符文能量来修改他的技能，并以独特的方式来将其强化。",
           "values": {
             "source_style": "5"
           }
@@ -1114,7 +1114,7 @@
         "local_path": "assets/traits/363.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_runemage.png",
         "alt": "符文法师羁绊图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/traits/363.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/traits/363.webp"
       },
       "source_ids": {
         "official_id": "363",
@@ -1124,7 +1124,7 @@
       "tags": [],
       "extensions": {
         "raw_color": "5",
-        "raw_description": "【符文法师】可从所有已激活的地区特质中获益，但不对任何特质做出贡献。  他可借助已激活的地区特质获得符文能量来修改他的技能，并以独特的方式来将其强化。"
+        "raw_description": "【符文法师】可从所有已激活的地区特质/职业中获益，但不对任何特质/职业做出贡献。  他可借助已激活的地区特质/职业获得符文能量来修改他的技能，并以独特的方式来将其强化。"
       }
     },
     {
@@ -1147,7 +1147,7 @@
         "local_path": "assets/traits/364.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_blacksmith.png",
         "alt": "山隐之焰羁绊图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/traits/364.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/traits/364.webp"
       },
       "source_ids": {
         "official_id": "364",
@@ -1180,7 +1180,7 @@
         "local_path": "assets/traits/365.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_soulbound.png",
         "alt": "系魂圣枪羁绊图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/traits/365.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/traits/365.webp"
       },
       "source_ids": {
         "official_id": "365",
@@ -1213,7 +1213,7 @@
         "local_path": "assets/traits/366.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_eternal.png",
         "alt": "永猎双子羁绊图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/traits/366.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/traits/366.webp"
       },
       "source_ids": {
         "official_id": "366",
@@ -1230,13 +1230,13 @@
       "id": "367",
       "name": "正义巨像",
       "category": "origin",
-      "description": "【加里奥】无法被放置在战场上。取而代之的是，他可以在备战区提供他的特质计数，并且当【德玛西亚】弈子重振旗鼓时，他会加入战斗。  在着陆时，他会产生3格的冲击波，造成相当于他10%最大生命值的魔法伤害。击中敌人时会将其击飞1秒，距离着陆中心越远的敌人被击飞的时长越短。",
+      "description": "【加里奥】无法被放置在战场上。取而代之的是，他可以在备战区提供他的特质/职业计数，并且当【德玛西亚】弈子重振旗鼓时，他会加入战斗。  在着陆时，他会产生3格的冲击波，造成相当于他10%最大生命值的魔法伤害。击中敌人时会将其击飞1秒，距离着陆中心越远的敌人被击飞的时长越短。",
       "breakpoints": [
         {
           "min_units": 1,
           "max_units": null,
           "style": "unique",
-          "effect": "【加里奥】无法被放置在战场上。取而代之的是，他可以在备战区提供他的特质计数，并且当【德玛西亚】弈子重振旗鼓时，他会加入战斗。  在着陆时，他会产生3格的冲击波，造成相当于他10%最大生命值的魔法伤害。击中敌人时会将其击飞1秒，距离着陆中心越远的敌人被击飞的时长越短。",
+          "effect": "【加里奥】无法被放置在战场上。取而代之的是，他可以在备战区提供他的特质/职业计数，并且当【德玛西亚】弈子重振旗鼓时，他会加入战斗。  在着陆时，他会产生3格的冲击波，造成相当于他10%最大生命值的魔法伤害。击中敌人时会将其击飞1秒，距离着陆中心越远的敌人被击飞的时长越短。",
           "values": {
             "source_style": "5"
           }
@@ -1246,7 +1246,7 @@
         "local_path": "assets/traits/367.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_heroic.png",
         "alt": "正义巨像羁绊图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/traits/367.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/traits/367.webp"
       },
       "source_ids": {
         "official_id": "367",
@@ -1256,7 +1256,7 @@
       "tags": [],
       "extensions": {
         "raw_color": "5",
-        "raw_description": "【加里奥】无法被放置在战场上。取而代之的是，他可以在备战区提供他的特质计数，并且当【德玛西亚】弈子重振旗鼓时，他会加入战斗。  在着陆时，他会产生3格的冲击波，造成相当于他10%最大生命值的魔法伤害。击中敌人时会将其击飞1秒，距离着陆中心越远的敌人被击飞的时长越短。"
+        "raw_description": "【加里奥】无法被放置在战场上。取而代之的是，他可以在备战区提供他的特质/职业计数，并且当【德玛西亚】弈子重振旗鼓时，他会加入战斗。  在着陆时，他会产生3格的冲击波，造成相当于他10%最大生命值的魔法伤害。击中敌人时会将其击飞1秒，距离着陆中心越远的敌人被击飞的时长越短。"
       }
     },
     {
@@ -1279,7 +1279,7 @@
         "local_path": "assets/traits/368.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_harvester.png",
         "alt": "远古恐惧羁绊图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/traits/368.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/traits/368.webp"
       },
       "source_ids": {
         "official_id": "368",
@@ -1296,13 +1296,13 @@
       "id": "369",
       "name": "纳什男爵",
       "category": "origin",
-      "description": "【纳什男爵】占用2个队伍栏位并提供+2至【虚空】特质。  在8秒后，棋盘上会出现一道虚空裂隙。裂隙为【虚空】弈子提供30%伤害增幅，并持续用电浆弹攻击敌人，造成5%最大生命值的魔法伤害。",
+      "description": "【纳什男爵】占用2个队伍栏位并提供+2至【虚空】特质/职业。  在8秒后，棋盘上会出现一道虚空裂隙。裂隙为【虚空】弈子提供30%伤害增幅，并持续用电浆弹攻击敌人，造成5%最大生命值的魔法伤害。",
       "breakpoints": [
         {
           "min_units": 1,
           "max_units": null,
           "style": "unique",
-          "effect": "【纳什男爵】占用2个队伍栏位并提供+2至【虚空】特质。  在8秒后，棋盘上会出现一道虚空裂隙。裂隙为【虚空】弈子提供30%伤害增幅，并持续用电浆弹攻击敌人，造成5%最大生命值的魔法伤害。",
+          "effect": "【纳什男爵】占用2个队伍栏位并提供+2至【虚空】特质/职业。  在8秒后，棋盘上会出现一道虚空裂隙。裂隙为【虚空】弈子提供30%伤害增幅，并持续用电浆弹攻击敌人，造成5%最大生命值的魔法伤害。",
           "values": {
             "source_style": "5"
           }
@@ -1312,7 +1312,7 @@
         "local_path": "assets/traits/369.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_riftscourge.png",
         "alt": "纳什男爵羁绊图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/traits/369.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/traits/369.webp"
       },
       "source_ids": {
         "official_id": "369",
@@ -1322,7 +1322,7 @@
       "tags": [],
       "extensions": {
         "raw_color": "5",
-        "raw_description": "【纳什男爵】占用2个队伍栏位并提供+2至【虚空】特质。  在8秒后，棋盘上会出现一道虚空裂隙。裂隙为【虚空】弈子提供30%伤害增幅，并持续用电浆弹攻击敌人，造成5%最大生命值的魔法伤害。"
+        "raw_description": "【纳什男爵】占用2个队伍栏位并提供+2至【虚空】特质/职业。  在8秒后，棋盘上会出现一道虚空裂隙。裂隙为【虚空】弈子提供30%伤害增幅，并持续用电浆弹攻击敌人，造成5%最大生命值的魔法伤害。"
       }
     },
     {
@@ -1345,7 +1345,7 @@
         "local_path": "assets/traits/370.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_emperor.png",
         "alt": "沙漠皇帝羁绊图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/traits/370.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/traits/370.webp"
       },
       "source_ids": {
         "official_id": "370",
@@ -1378,7 +1378,7 @@
         "local_path": "assets/traits/372.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_huntress.png",
         "alt": "狂野女猎手羁绊图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/traits/372.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/traits/372.webp"
       },
       "source_ids": {
         "official_id": "372",
@@ -1411,7 +1411,7 @@
         "local_path": "assets/traits/373.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_immortal.png",
         "alt": "不落魔锋羁绊图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/traits/373.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/traits/373.webp"
       },
       "source_ids": {
         "official_id": "373",
@@ -1444,7 +1444,7 @@
         "local_path": "assets/traits/381.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_starforger.png",
         "alt": "铸星龙王羁绊图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/traits/381.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/traits/381.webp"
       },
       "source_ids": {
         "official_id": "381",
@@ -1461,7 +1461,7 @@
       "id": "382",
       "name": "暗裔",
       "category": "origin",
-      "description": "(1)【暗裔】获得15%全能汲取。 |(2)并且：吸血溢出数值转化为护盾(上限为500) |(3)并且：【暗裔】每损失10%最大生命值，获得5%增伤 |(4)并且你会回复相当于你30%造成玩家伤害的生命值。 |(5)并且每当【暗裔】回复了500生命值，就会对2名最近的敌人造成700魔法伤害。",
+      "description": "(1)【暗裔】获得15%全能汲取。 |(2)并且：汲取溢出数值转化为护盾(上限为500) |(3)并且：【暗裔】每损失10%最大生命值，获得5%增伤 |(4)并且你会回复相当于你30%造成玩家伤害的生命值。 |(5)并且每当【暗裔】回复了500生命值，就会对2名最近的敌人造成700魔法伤害。",
       "breakpoints": [
         {
           "min_units": 1,
@@ -1476,7 +1476,7 @@
           "min_units": 2,
           "max_units": 2,
           "style": "bronze",
-          "effect": "(2)并且：吸血溢出数值转化为护盾(上限为500)",
+          "effect": "(2)并且：汲取溢出数值转化为护盾(上限为500)",
           "values": {
             "source_style": "1"
           }
@@ -1513,7 +1513,7 @@
         "local_path": "assets/traits/382.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/plus_trait_icon_darkin.png",
         "alt": "暗裔羁绊图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/traits/382.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/traits/382.webp"
       },
       "source_ids": {
         "official_id": "382",
@@ -1523,7 +1523,7 @@
       "tags": [],
       "extensions": {
         "raw_color": "1|1|2|2|3",
-        "raw_description": "(1)【暗裔】获得15%全能汲取。 |(2)并且：吸血溢出数值转化为护盾(上限为500) |(3)并且：【暗裔】每损失10%最大生命值，获得5%增伤 |(4)并且你会回复相当于你30%造成玩家伤害的生命值。 |(5)并且每当【暗裔】回复了500生命值，就会对2名最近的敌人造成700魔法伤害。"
+        "raw_description": "(1)【暗裔】获得15%全能汲取。 |(2)并且：汲取溢出数值转化为护盾(上限为500) |(3)并且：【暗裔】每损失10%最大生命值，获得5%增伤 |(4)并且你会回复相当于你30%造成玩家伤害的生命值。 |(5)并且每当【暗裔】回复了500生命值，就会对2名最近的敌人造成700魔法伤害。"
       }
     },
     {
@@ -1546,7 +1546,7 @@
         "local_path": "assets/traits/388.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_worldender.png",
         "alt": "暗裔剑魔羁绊图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/traits/388.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/traits/388.webp"
       },
       "source_ids": {
         "official_id": "388",
@@ -1579,7 +1579,7 @@
         "local_path": "assets/traits/397.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_magic.png",
         "alt": "恶魔小丑羁绊图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/traits/397.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/traits/397.webp"
       },
       "source_ids": {
         "official_id": "397",
@@ -1612,7 +1612,7 @@
         "local_path": "assets/traits/398.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_rockymountain.png",
         "alt": "熔岩巨兽羁绊图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/traits/398.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/traits/398.webp"
       },
       "source_ids": {
         "official_id": "398",
@@ -1629,13 +1629,13 @@
       "id": "475",
       "name": "铁铠冥魂",
       "category": "origin",
-      "description": "【铁铠冥魂】占用2个队伍栏位。攻击额外造成300/400/10000真实伤害；每次击败时获得200/300/10000+10%最大生命值的护盾，持续3秒。",
+      "description": "【铁铠冥魂】占用2个队伍栏位。攻击额外造成270/350/10000真实伤害；每次击败时获得200/300/10000+10%最大生命值的护盾，持续3秒。",
       "breakpoints": [
         {
           "min_units": 1,
           "max_units": null,
           "style": "unique",
-          "effect": "【铁铠冥魂】占用2个队伍栏位。攻击额外造成300/400/10000真实伤害；每次击败时获得200/300/10000+10%最大生命值的护盾，持续3秒。",
+          "effect": "【铁铠冥魂】占用2个队伍栏位。攻击额外造成270/350/10000真实伤害；每次击败时获得200/300/10000+10%最大生命值的护盾，持续3秒。",
           "values": {
             "source_style": "5"
           }
@@ -1645,7 +1645,7 @@
         "local_path": "assets/traits/475.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_mordekaiser.png",
         "alt": "铁铠冥魂羁绊图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/traits/475.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/traits/475.webp"
       },
       "source_ids": {
         "official_id": "475",
@@ -1655,7 +1655,7 @@
       "tags": [],
       "extensions": {
         "raw_color": "5",
-        "raw_description": "【铁铠冥魂】占用2个队伍栏位。攻击额外造成300/400/10000真实伤害；每次击败时获得200/300/10000+10%最大生命值的护盾，持续3秒。"
+        "raw_description": "【铁铠冥魂】占用2个队伍栏位。攻击额外造成270/350/10000真实伤害；每次击败时获得200/300/10000+10%最大生命值的护盾，持续3秒。"
       }
     },
     {
@@ -1678,7 +1678,7 @@
         "local_path": "assets/traits/476.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_dragon.png",
         "alt": "远古巨龙羁绊图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/traits/476.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/traits/476.webp"
       },
       "source_ids": {
         "official_id": "476",
@@ -1711,7 +1711,7 @@
         "local_path": "assets/traits/477.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_twosides.png",
         "alt": "影流之镰羁绊图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/traits/477.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/traits/477.webp"
       },
       "source_ids": {
         "official_id": "477",
@@ -1728,13 +1728,13 @@
       "id": "478",
       "name": "异画师",
       "category": "origin",
-      "description": "【彗】绘出你放置在一个特别备战席栏位的弈子。【彗】画好后，你将获得该英雄的1星弈子。  完成回合数=弈子的费用",
+      "description": "【彗】绘出你放置在一个特别备战席栏位的弈子。【彗】画好后，你将获得该英雄的1星弈子。  完成回合数=弈子的费用  在复制小于等于3费的弈子时可以额外复制一张。",
       "breakpoints": [
         {
           "min_units": 1,
           "max_units": null,
           "style": "unique",
-          "effect": "【彗】绘出你放置在一个特别备战席栏位的弈子。【彗】画好后，你将获得该英雄的1星弈子。  完成回合数=弈子的费用",
+          "effect": "【彗】绘出你放置在一个特别备战席栏位的弈子。【彗】画好后，你将获得该英雄的1星弈子。  完成回合数=弈子的费用  在复制小于等于3费的弈子时可以额外复制一张。",
           "values": {
             "source_style": "5"
           }
@@ -1744,7 +1744,7 @@
         "local_path": "assets/traits/478.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_artist.png",
         "alt": "异画师羁绊图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/traits/478.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/traits/478.webp"
       },
       "source_ids": {
         "official_id": "478",
@@ -1754,7 +1754,7 @@
       "tags": [],
       "extensions": {
         "raw_color": "5",
-        "raw_description": "【彗】绘出你放置在一个特别备战席栏位的弈子。【彗】画好后，你将获得该英雄的1星弈子。  完成回合数=弈子的费用"
+        "raw_description": "【彗】绘出你放置在一个特别备战席栏位的弈子。【彗】画好后，你将获得该英雄的1星弈子。  完成回合数=弈子的费用  在复制小于等于3费的弈子时可以额外复制一张。"
       }
     },
     {
@@ -1777,7 +1777,7 @@
         "local_path": "assets/traits/479.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_sivir.png",
         "alt": "战争女神羁绊图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/traits/479.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/traits/479.webp"
       },
       "source_ids": {
         "official_id": "479",
@@ -1810,7 +1810,7 @@
         "local_path": "assets/traits/480.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_alistar.png",
         "alt": "牛头酋长羁绊图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/traits/480.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/traits/480.webp"
       },
       "source_ids": {
         "official_id": "480",
@@ -1843,7 +1843,7 @@
         "local_path": "assets/traits/481.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_brand.png",
         "alt": "复仇焰魂羁绊图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/traits/481.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/traits/481.webp"
       },
       "source_ids": {
         "official_id": "481",
@@ -1876,7 +1876,7 @@
         "local_path": "assets/traits/484.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_thespiderqueen.png",
         "alt": "蜘蛛女皇羁绊图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/traits/484.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/traits/484.webp"
       },
       "source_ids": {
         "official_id": "484",
@@ -1927,7 +1927,7 @@
         "local_path": "assets/traits/291.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_brawler.png",
         "alt": "斗士羁绊图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/traits/291.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/traits/291.webp"
       },
       "source_ids": {
         "official_id": "291",
@@ -1969,7 +1969,7 @@
         "local_path": "assets/traits/292.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_disruptor.png",
         "alt": "耀光使羁绊图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/traits/292.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/traits/292.webp"
       },
       "source_ids": {
         "official_id": "292",
@@ -2020,7 +2020,7 @@
         "local_path": "assets/traits/293.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_defender.png",
         "alt": "护卫羁绊图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/traits/293.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/traits/293.webp"
       },
       "source_ids": {
         "official_id": "293",
@@ -2062,7 +2062,7 @@
         "local_path": "assets/traits/294.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_gunslinger.png",
         "alt": "枪手羁绊图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/traits/294.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/traits/294.webp"
       },
       "source_ids": {
         "official_id": "294",
@@ -2104,7 +2104,7 @@
         "local_path": "assets/traits/295.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_invoker.png",
         "alt": "神谕者羁绊图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/traits/295.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/traits/295.webp"
       },
       "source_ids": {
         "official_id": "295",
@@ -2155,7 +2155,7 @@
         "local_path": "assets/traits/296.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_juggernaut.png",
         "alt": "主宰羁绊图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/traits/296.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/traits/296.webp"
       },
       "source_ids": {
         "official_id": "296",
@@ -2215,7 +2215,7 @@
         "local_path": "assets/traits/297.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_longshot.png",
         "alt": "狙神羁绊图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/traits/297.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/traits/297.webp"
       },
       "source_ids": {
         "official_id": "297",
@@ -2275,7 +2275,7 @@
         "local_path": "assets/traits/298.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_quickstriker.png",
         "alt": "迅击战士羁绊图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/traits/298.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/traits/298.webp"
       },
       "source_ids": {
         "official_id": "298",
@@ -2326,7 +2326,7 @@
         "local_path": "assets/traits/299.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_slayer.png",
         "alt": "裁决战士羁绊图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/traits/299.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/traits/299.webp"
       },
       "source_ids": {
         "official_id": "299",
@@ -2377,7 +2377,7 @@
         "local_path": "assets/traits/300.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_arcanist.png",
         "alt": "法师羁绊图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/traits/300.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/traits/300.webp"
       },
       "source_ids": {
         "official_id": "300",
@@ -2437,7 +2437,7 @@
         "local_path": "assets/traits/301.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_vanquisher.png",
         "alt": "征服者羁绊图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/traits/301.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/traits/301.webp"
       },
       "source_ids": {
         "official_id": "301",
@@ -2497,7 +2497,7 @@
         "local_path": "assets/traits/302.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_warden.png",
         "alt": "神盾使羁绊图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/traits/302.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/traits/302.webp"
       },
       "source_ids": {
         "official_id": "302",
@@ -2530,7 +2530,7 @@
         "local_path": "assets/traits/308.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_shapeshifter.png",
         "alt": "换形师羁绊图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/traits/308.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/traits/308.webp"
       },
       "source_ids": {
         "official_id": "308",
@@ -2572,7 +2572,7 @@
         "local_path": "assets/traits/309.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/trait/s16_trait_icon_technogenius.png",
         "alt": "发明家羁绊图标",
-        "optimized_local_path": "assets/optimized/s16_5__17_17_8/traits/309.webp"
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/traits/309.webp"
       },
       "source_ids": {
         "official_id": "309",
