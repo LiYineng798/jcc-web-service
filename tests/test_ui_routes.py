@@ -870,6 +870,14 @@ def test_admin_js_renders_today_total_copy_metric():
     assert 'today_total_copy_count' in js
 
 
+def test_admin_copy_rank_details_render_recorded_ip_address():
+    with open('static/admin/overview.js', 'r', encoding='utf-8') as file:
+        js = file.read()
+
+    assert '复制 IP：${event.ip_address' in js
+    assert 'copy-rank-event-ip' in js
+
+
 def test_shared_head_restores_saved_theme_before_stylesheet():
     with open('templates/seo_head.html', 'r', encoding='utf-8') as file:
         head = file.read()

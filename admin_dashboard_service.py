@@ -220,7 +220,7 @@ def build_admin_copy_rank_payload(db, target_date, limit=10):
     event_rows = db.execute(
         '''
         SELECT e.target_type, e.target_id, e.season_id, e.user_id,
-               e.source_page, e.counted, e.created_at,
+               e.ip_address, e.source_page, e.counted, e.created_at,
                u.username, owner.username AS uploader, l.name AS lineup_name, l.code AS lineup_code
         FROM copy_action_events e
         LEFT JOIN users u ON u.id = e.user_id
@@ -255,6 +255,7 @@ def build_admin_copy_rank_payload(db, target_date, limit=10):
         details_by_key[key].append({
             'actor': event['username'] or '游客',
             'actor_type': 'user' if event['user_id'] is not None else 'visitor',
+            'ip_address': event['ip_address'] or '未记录',
             'copied_at': event['created_at'],
             'source_page': event['source_page'] or '',
             'counted': bool(event['counted']),

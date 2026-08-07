@@ -86,8 +86,9 @@ def test_admin_copy_rank_ranks_lineups_and_live_comps(client):
     register_user(client, username='ranker', email='ranker@example.com')
     lineup = create_lineup(client, name='排行阵容', code='#RANK001').get_json()
     headers = auth_headers(client)
-    client.post(f"/api/lineups/{lineup['id']}/copy", headers=headers)
-    client.post(f"/api/lineups/{lineup['id']}/copy", headers=headers)
+    copy_headers = {**headers, 'X-Forwarded-For': '203.0.113.10'}
+    client.post(f"/api/lineups/{lineup['id']}/copy", headers=copy_headers)
+    client.post(f"/api/lineups/{lineup['id']}/copy", headers=copy_headers)
     live_id = sample_live_comps_payload()['tiers']['S'][0]['id']
     assert client.post(f'/api/live-comps/{live_id}/copy', headers=headers).status_code == 200
     client.post('/api/logout')
@@ -104,6 +105,7 @@ def test_admin_copy_rank_ranks_lineups_and_live_comps(client):
     assert top['unique_visitors'] == 1
     assert top['details']
     assert top['details'][0]['actor'] == 'ranker'
+    assert top['details'][0]['ip_address'] == '203.0.113.10'
     assert top['details'][0]['uploader'] == 'ranker'
     assert top['details'][0]['code'] == '#RANK001'
 

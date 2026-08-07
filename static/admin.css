@@ -441,7 +441,7 @@ body.admin-page {
 
 .admin-page .copy-rank-event {
   display: grid;
-  grid-template-columns: auto auto 1fr;
+  grid-template-columns: minmax(0, auto) minmax(0, auto) minmax(0, 1fr);
   gap: 3px 8px;
   padding: 8px;
   border: 1px solid var(--admin-border);
@@ -451,13 +451,17 @@ body.admin-page {
 
 .admin-page .copy-rank-event-time,
 .admin-page .copy-rank-event-owner,
+.admin-page .copy-rank-event-ip,
 .admin-page .copy-rank-event-source {
   color: var(--muted);
   font-size: 10px;
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 
 .admin-page .copy-rank-event-owner { grid-column: 1 / 2; }
-.admin-page .copy-rank-event-source { grid-column: 2 / 4; }
+.admin-page .copy-rank-event-ip { grid-column: 2 / 3; }
+.admin-page .copy-rank-event-source { grid-column: 3 / 4; }
 .admin-page .copy-rank-code {
   grid-column: 1 / -1;
   overflow-wrap: anywhere;

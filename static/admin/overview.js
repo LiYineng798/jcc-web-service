@@ -61,6 +61,7 @@
             el('strong', '', event.actor || '游客'),
             el('span', 'copy-rank-event-time', event.copied_at || ''),
             el('span', 'copy-rank-event-owner', `上传者：${event.uploader || '未知用户'}`),
+            el('span', 'copy-rank-event-ip', `复制 IP：${event.ip_address || '未记录'}`),
             el('span', 'copy-rank-event-source', event.source_page ? `来源：${event.source_page}` : '来源：未记录'),
             copiedCode,
           );
