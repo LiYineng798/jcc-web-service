@@ -113,6 +113,8 @@ def test_daily_report_generation_aggregates_site_activity(app):
     assert summary['page_visits'] == 5
     assert summary['new_visitors'] == 3
     assert summary['returning_visitors'] == 0
+    assert summary['returning_3d'] == 0
+    assert summary['returning_7d'] == 0
     assert summary['new_registrations'] == 1
     assert summary['successful_logins'] == 1
     assert summary['lineup_copies'] == 1
@@ -141,6 +143,19 @@ def test_daily_report_generation_aggregates_site_activity(app):
     assert lineup_rank['code'] == '#CODE888'
     assert lineup_rank['copies'] == 1
     assert report['top_copied'][1]['target_type'] == 'live_comp'
+
+    assert report['season_copy_rank'][0]['season_id'] == 's17-star-god'
+    assert report['season_copy_rank'][0]['copies'] == 2
+    assert report['season_copy_rank'][0]['unique_visitors'] == 2
+    assert report['season_copy_rank'][0]['share'] == 100.0
+
+    top_ip = report['top_visitor_ips'][0]
+    assert top_ip['ip'] == '1.1.1.1'
+    assert top_ip['visits'] == 5
+    assert top_ip['visitors'] == 3
+    assert top_ip['pages'] == 2
+    assert top_ip['is_returning'] is False
+    assert top_ip['copied'] is False
     assert report['deltas'] is None
 
 
@@ -194,6 +209,81 @@ def test_daily_report_deltas_compare_previous_report(app):
     assert report['deltas']['total_copies'] == 2
 
 
+def test_returning_window_rates_count_visits_within_3_and_7_days(app):
+    with app.app_context():
+        from db import get_db
+        db = get_db()
+
+        def visit(day, key, page='home', ip='3.3.3.3'):
+            db.execute(
+                """
+                INSERT INTO visit_events (visit_date, visitor_key, visitor_kind, user_id, visitor_token, ip_address, page_key, created_at)
+                VALUES (?, ?, 'guest_token', NULL, ?, ?, ?, ?)
+                """,
+                (day, key, key.replace(':', ''), ip, page, f'{day} 10:00:00'),
+            )
+
+        visit('2026-08-04', 'old:v1', ip='3.3.3.1')
+        visit('2026-08-09', 'old:v1', ip='3.3.3.1')
+        visit('2026-08-08', 'recent:v2', ip='3.3.3.2')
+        visit('2026-08-09', 'recent:v2', ip='3.3.3.2')
+        visit('2026-08-09', 'fresh:v3', ip='3.3.3.3')
+        db.commit()
+
+    with app.app_context():
+        from daily_report_service import ensure_daily_report
+        report = ensure_daily_report('2026-08-09')
+
+    assert report['summary']['unique_visitors'] == 3
+    assert report['summary']['returning_3d'] == 1
+    assert report['summary']['returning_7d'] == 2
+
+
+def test_visitor_ip_panel_marks_returning_and_copied(app):
+    with app.app_context():
+        from db import get_db
+        db = get_db()
+        db.execute(
+            """
+            INSERT INTO visit_events (visit_date, visitor_key, visitor_kind, user_id, visitor_token, ip_address, page_key, created_at)
+            VALUES ('2026-08-08', 'ipuser:v1', 'guest_token', NULL, 'tok-v1', '4.4.4.4', 'home', '2026-08-08 10:00:00')
+            """
+        )
+        db.execute(
+            """
+            INSERT INTO visit_events (visit_date, visitor_key, visitor_kind, user_id, visitor_token, ip_address, page_key, created_at)
+            VALUES ('2026-08-09', 'ipuser:v1', 'guest_token', NULL, 'tok-v1', '4.4.4.4', 'home', '2026-08-09 10:00:00')
+            """
+        )
+        db.execute(
+            """
+            INSERT INTO visit_events (visit_date, visitor_key, visitor_kind, user_id, visitor_token, ip_address, page_key, created_at)
+            VALUES ('2026-08-09', 'ipuser:v2', 'guest_token', NULL, 'tok-v2', '4.4.4.5', 'home', '2026-08-09 11:00:00')
+            """
+        )
+        db.execute(
+            """
+            INSERT INTO copy_action_events (target_type, target_id, season_id, lineup_id, user_id, visitor_token, ip_address, source_page, success, counted, created_at)
+            VALUES ('lineup', '1', 's17-star-god', NULL, NULL, 'tok-c1', '4.4.4.4', 'home', 1, 1, '2026-08-09 10:05:00')
+            """
+        )
+        db.commit()
+
+    with app.app_context():
+        from daily_report_service import ensure_daily_report
+        report = ensure_daily_report('2026-08-09')
+
+    ips = report['top_visitor_ips']
+    assert ips[0]['ip'] == '4.4.4.4'
+    assert ips[0]['visits'] == 1
+    assert ips[0]['visitors'] == 1
+    assert ips[0]['is_returning'] is True
+    assert ips[0]['copied'] is True
+    assert ips[1]['ip'] == '4.4.4.5'
+    assert ips[1]['is_returning'] is False
+    assert ips[1]['copied'] is False
+
+
 def test_daily_report_api_requires_admin(client):
     assert client.get('/api/admin/daily-reports').status_code == 401
     register_user(client)
@@ -216,6 +306,10 @@ def test_daily_report_api_list_detail_and_generate(client):
     detail = client.get('/api/admin/daily-reports/2026-08-09', headers=headers).get_json()
     assert detail['summary']['total_copies'] == 2
     assert len(detail['hourly']['uv']) == 24
+    assert detail['summary']['returning_3d'] == 0
+    assert detail['summary']['returning_7d'] == 0
+    assert detail['season_copy_rank']
+    assert detail['top_visitor_ips']
 
 
 def test_daily_report_api_rejects_invalid_dates(client):

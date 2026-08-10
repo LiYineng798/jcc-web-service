@@ -14,6 +14,10 @@ The payload is deliberately data-lover friendly:
 - ``deltas``: change versus the most recent earlier report, when one exists.
 - ``hourly``: per-hour UV / PV / copy counts for the heatmap.
 - ``top_pages`` and ``top_copied``: where traffic went and what got copied.
+- ``season_copy_rank``: copies grouped by season/version.
+- ``top_visitor_ips``: yesterday's most active client IPs (admin-only view).
+- ``summary.returning_3d / returning_7d``: yesterday's visitors that also
+  visited within the previous 3 / 7 days.
 """
 
 from __future__ import annotations
@@ -28,12 +32,16 @@ from visits import daily_new_returning_visitors
 REPORT_DATE_FORMAT = '%Y-%m-%d'
 MAX_TOP_COPIED = 20
 MAX_TOP_PAGES = 12
+MAX_SEASON_RANK = 12
+MAX_VISITOR_IPS = 20
 
 DELTA_KEYS = (
     'unique_visitors',
     'page_visits',
     'new_visitors',
     'returning_visitors',
+    'returning_3d',
+    'returning_7d',
     'new_registrations',
     'successful_logins',
     'lineup_copies',
@@ -217,6 +225,134 @@ def _top_copied(db, start, end, limit=MAX_TOP_COPIED):
     return items
 
 
+def _season_copy_rank(db, start, end, limit=MAX_SEASON_RANK):
+    """Copy counts grouped by season id (the finest version dimension on the
+    copy events today). ``share`` is the percentage of the day's successful
+    copies that belong to this season."""
+    from live_comps_helpers import load_live_comps_manifest
+
+    total_row = db.execute(
+        '''
+        SELECT COUNT(*) AS c
+        FROM copy_action_events
+        WHERE created_at >= ? AND created_at < ?
+          AND success = 1
+        ''',
+        (start, end),
+    ).fetchone()
+    total = _int(total_row['c'])
+
+    rows = db.execute(
+        '''
+        SELECT season_id,
+               COUNT(*) AS copies,
+               COUNT(DISTINCT CASE
+                   WHEN user_id IS NOT NULL THEN 'u:' || CAST(user_id AS TEXT)
+                   WHEN COALESCE(visitor_token, '') != '' THEN 'v:' || visitor_token
+                   ELSE 'ip:' || COALESCE(ip_address, '')
+               END) AS unique_visitors
+        FROM copy_action_events
+        WHERE created_at >= ? AND created_at < ?
+          AND success = 1
+        GROUP BY season_id
+        ORDER BY copies DESC, season_id
+        LIMIT ?
+        ''',
+        (start, end, limit),
+    ).fetchall()
+    season_names = {
+        season['id']: season.get('name') or season['id']
+        for season in load_live_comps_manifest().get('seasons', [])
+    }
+    items = []
+    for rank, row in enumerate(rows, start=1):
+        season_id = row['season_id'] or ''
+        copies = _int(row['copies'])
+        items.append({
+            'rank': rank,
+            'season_id': season_id,
+            'season_name': season_names.get(season_id, season_id or '未标注'),
+            'copies': copies,
+            'unique_visitors': _int(row['unique_visitors']),
+            'share': round(copies / total * 100, 1) if total else 0.0,
+        })
+    return items
+
+
+def _top_visitor_ips(db, start, end, limit=MAX_VISITOR_IPS):
+    """Most active client IPs for the day (admin-only view).
+
+    ``is_returning`` means the same IP produced at least one visit before the
+    report date; ``copied`` means the IP also triggered a successful copy that
+    day. IPs are approximate identities (NAT/shared networks), so this panel
+    is for operational triage, not hard visitor counts.
+    """
+    rows = db.execute(
+        f'''
+        SELECT ve.ip_address,
+               COUNT(*) AS visits,
+               COUNT(DISTINCT ve.visitor_key) AS visitors,
+               COUNT(DISTINCT ve.page_key) AS pages,
+               CASE WHEN EXISTS (
+                   SELECT 1 FROM visit_events prior
+                   WHERE prior.ip_address = ve.ip_address
+                     AND prior.visit_date < ?
+               ) THEN 1 ELSE 0 END AS is_returning,
+               CASE WHEN EXISTS (
+                   SELECT 1 FROM copy_action_events c
+                   WHERE c.ip_address = ve.ip_address
+                     AND c.created_at >= ? AND c.created_at < ?
+                     AND c.success = 1
+               ) THEN 1 ELSE 0 END AS copied
+        FROM visit_events ve
+        LEFT JOIN users u ON u.id = ve.user_id
+        WHERE ve.created_at >= ? AND ve.created_at < ?
+          AND {_admin_excluded_visitor_scope()}
+        GROUP BY ve.ip_address
+        ORDER BY visits DESC, visitors DESC, ve.ip_address
+        LIMIT ?
+        ''',
+        (start, start, end, start, end, limit),
+    ).fetchall()
+    return [
+        {
+            'ip': row['ip_address'] or '未知',
+            'visits': _int(row['visits']),
+            'visitors': _int(row['visitors']),
+            'pages': _int(row['pages']),
+            'is_returning': bool(row['is_returning']),
+            'copied': bool(row['copied']),
+        }
+        for row in rows
+    ]
+
+
+def _returning_window_count(target_date, day):
+    """Yesterday's visitors that also visited within the previous ``day`` days
+    (half-open [target-day, target) window on visit_date)."""
+    window_start = (datetime.strptime(target_date, REPORT_DATE_FORMAT) - timedelta(days=day)).strftime(REPORT_DATE_FORMAT)
+    row = get_db().execute(
+        f'''
+        WITH today_visitors AS (
+            SELECT DISTINCT ve.visitor_key
+            FROM visit_events ve
+            LEFT JOIN users u ON u.id = ve.user_id
+            WHERE ve.visit_date = ?
+              AND {_admin_excluded_visitor_scope()}
+        )
+        SELECT SUM(CASE WHEN EXISTS (
+            SELECT 1 FROM visit_events prior
+            WHERE prior.visitor_key = today_visitors.visitor_key
+              AND prior.visit_date >= ?
+              AND prior.visit_date < ?
+        ) THEN 1 ELSE 0 END) AS returning_count
+        FROM today_visitors
+        ''',
+        (target_date, window_start, target_date),
+    ).fetchone()
+    return int(row['returning_count'] or 0) if row else 0
+
+
 def build_daily_report_payload(db, target_date):
     """Compute the full report payload for one date without persisting it."""
     start, end = _day_bounds(target_date)
@@ -334,6 +470,8 @@ def build_daily_report_payload(db, target_date):
         'page_visits': _int(summary_row['pv']),
         'new_visitors': new_returning['new_visitors'],
         'returning_visitors': new_returning['returning_visitors'],
+        'returning_3d': _returning_window_count(target_date, 3),
+        'returning_7d': _returning_window_count(target_date, 7),
         'new_registrations': _int(registrations),
         'successful_logins': _int(successful_logins),
         'lineup_copies': _int(copies_row['lineup_copies']),
@@ -379,6 +517,8 @@ def build_daily_report_payload(db, target_date):
         'peak_copy_hour': _peak_hour(hourly['copies']),
         'top_pages': _top_pages(db, start, end),
         'top_copied': _top_copied(db, start, end),
+        'season_copy_rank': _season_copy_rank(db, start, end),
+        'top_visitor_ips': _top_visitor_ips(db, start, end),
     }
 
 

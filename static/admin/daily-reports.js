@@ -20,6 +20,7 @@
 
       wrap.append(
         renderReportStats(report),
+        renderReturningStrip(report),
         renderHeatmapPanel(report),
         renderDetailPanels(report),
         renderReportFooter(report),
@@ -94,6 +95,32 @@
       return el('span', className, text);
     }
 
+    function renderReturningStrip(report) {
+      const summary = report.summary || {};
+      const deltas = report.deltas || {};
+      const uv = summary.unique_visitors || 0;
+      const strip = el('div', 'daily-returning-strip');
+
+      const metric = (label, count, deltaKey, caption) => {
+        const value = count == null ? 0 : count;
+        const pct = uv ? Math.round((value / uv) * 1000) / 10 : 0;
+        const card = el('article', 'traffic-metric daily-returning-card');
+        card.append(
+          el('span', 'stat-label', label),
+          el('strong', '', String(value)),
+          deltaBadge(deltas, deltaKey),
+          el('small', '', `${pct}% 的昨日访客 · ${caption}`),
+        );
+        return card;
+      };
+
+      strip.append(
+        metric('近3日回访', summary.returning_3d, 'returning_3d', '昨天往前 3 天内来过'),
+        metric('近7日回访', summary.returning_7d, 'returning_7d', '昨天往前 7 天内来过'),
+      );
+      return strip;
+    }
+
     function renderHeatmapPanel(report) {
       const panel = workbenchPanel(
         '昨日小时热度',
@@ -164,10 +191,13 @@
 
     function renderDetailPanels(report) {
       const grid = el('div', 'daily-report-detail-grid');
-      grid.append(
-        renderTopPagesPanel(report),
-        renderTopCopiedPanel(report),
-      );
+      grid.append(renderTopPagesPanel(report), renderSeasonRankPanel(report));
+      const copied = renderTopCopiedPanel(report);
+      copied.classList.add('is-wide');
+      grid.append(copied);
+      const ips = renderVisitorIpsPanel(report);
+      ips.classList.add('is-wide');
+      grid.append(ips);
       return grid;
     }
 
@@ -189,6 +219,32 @@
         const barWrap = el('div', 'daily-page-bar');
         const bar = el('i', '', '');
         bar.style.width = `${Math.round((page.visits / maxVisits) * 100)}%`;
+        barWrap.append(bar);
+        card.append(info, barWrap);
+        list.append(card);
+      });
+      body.append(list);
+      return panel;
+    }
+
+    function renderSeasonRankPanel(report) {
+      const panel = workbenchPanel('版本复制榜', '按赛季版本统计昨日成功复制次数');
+      const body = panel.querySelector('.admin-workspace-body');
+      const items = report.season_copy_rank || [];
+      if (!items.length) {
+        body.append(empty('昨日没有复制记录'));
+        return panel;
+      }
+      const maxCopies = Math.max(1, ...items.map((item) => item.copies));
+      const list = el('div', 'admin-list compact');
+      items.forEach((item) => {
+        const card = el('article', 'admin-row-card');
+        const info = el('div');
+        info.append(el('strong', '', `#${item.rank} ${item.season_name || item.season_id || '未标注'}`));
+        info.append(el('p', 'admin-meta', `复制 ${item.copies} 次 · ${item.unique_visitors} 人 · 占 ${item.share}%`));
+        const barWrap = el('div', 'daily-page-bar');
+        const bar = el('i', '', '');
+        bar.style.width = `${Math.round((item.copies / maxCopies) * 100)}%`;
         barWrap.append(bar);
         card.append(info, barWrap);
         list.append(card);
@@ -224,6 +280,29 @@
         metaParts.push(`复制 ${item.copies} 次 · ${item.unique_visitors} 人`);
         info.append(titleRow, el('p', 'admin-meta', metaParts.join(' · ')));
         if (item.code) info.append(el('code', 'daily-copied-code', item.code));
+        card.append(info);
+        list.append(card);
+      });
+      body.append(list);
+      return panel;
+    }
+
+    function renderVisitorIpsPanel(report) {
+      const panel = workbenchPanel('访问 IP', '昨日访问 Top IP · 仅管理员可见');
+      const body = panel.querySelector('.admin-workspace-body');
+      const items = report.top_visitor_ips || [];
+      if (!items.length) {
+        body.append(empty('昨日没有可统计的访问记录'));
+        return panel;
+      }
+      const list = el('div', 'admin-list compact');
+      items.forEach((item) => {
+        const card = el('article', 'admin-row-card admin-ip-row');
+        const info = el('div');
+        const titleRow = el('strong', '', item.ip || '未知 IP');
+        titleRow.append(' ', el('span', item.is_returning ? 'admin-pill' : 'admin-pill is-new', item.is_returning ? '回访' : '新见'));
+        if (item.copied) titleRow.append(' ', el('span', 'admin-pill is-copy', '有复制'));
+        info.append(titleRow, el('p', 'admin-meta', `访问 ${item.visits} 次 · ${item.visitors} 人 · ${item.pages} 个页面`));
         card.append(info);
         list.append(card);
       });

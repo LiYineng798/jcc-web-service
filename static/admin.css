@@ -637,6 +637,38 @@ body.admin-page {
   background: color-mix(in srgb, var(--muted) 12%, transparent);
 }
 
+.admin-page .daily-returning-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.admin-page .daily-returning-card {
+  flex: 1;
+  min-width: 220px;
+  padding: 13px 14px;
+  border: 1px solid var(--admin-border);
+  border-radius: 8px;
+  background: var(--admin-surface);
+  box-shadow: var(--admin-shadow);
+}
+
+.admin-page .daily-returning-card strong {
+  display: block;
+  margin: 6px 0 2px;
+  font-size: 24px;
+  letter-spacing: 0;
+}
+
+.admin-page .daily-returning-card small {
+  display: block;
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 10px;
+  line-height: 1.4;
+}
+
 .admin-page .daily-peak-chips {
   display: flex;
   flex-wrap: wrap;
@@ -723,6 +755,10 @@ body.admin-page {
   gap: 12px;
 }
 
+.admin-page .daily-report-detail-grid > .is-wide {
+  grid-column: 1 / -1;
+}
+
 .admin-page .daily-page-bar {
   height: 5px;
   margin-top: 8px;
@@ -748,6 +784,21 @@ body.admin-page {
   color: var(--accent-strong);
   font-size: 10px;
   overflow-wrap: anywhere;
+}
+
+.admin-page .admin-ip-row strong {
+  font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+  font-size: 12px;
+}
+
+.admin-page .admin-pill.is-new {
+  color: var(--accent-strong);
+  background: color-mix(in srgb, var(--accent) 14%, transparent);
+}
+
+.admin-page .admin-pill.is-copy {
+  color: var(--admin-success);
+  background: color-mix(in srgb, var(--admin-success) 14%, transparent);
 }
 
 .admin-page .daily-report-footer {
@@ -1035,6 +1086,24 @@ body.admin-page {
   .admin-page .daily-report-detail-grid {
     grid-template-columns: 1fr;
     gap: 10px;
+  }
+
+  .admin-page .daily-report-detail-grid > .is-wide {
+    grid-column: auto;
+  }
+
+  .admin-page .daily-returning-strip {
+    gap: 8px;
+  }
+
+  .admin-page .daily-returning-card {
+    min-width: 0;
+    padding: 11px;
+    box-shadow: none;
+  }
+
+  .admin-page .daily-returning-card strong {
+    font-size: 20px;
   }
 
   .admin-page .daily-heat-row {
