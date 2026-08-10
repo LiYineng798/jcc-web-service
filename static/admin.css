@@ -544,12 +544,229 @@ body.admin-page {
   border-radius: 8px;
 }
 
+/* Daily admin report workspace. */
+.admin-page .daily-report-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+  padding: 12px 14px;
+  border: 1px solid var(--admin-border);
+  border-radius: 8px;
+  background: var(--admin-surface);
+  box-shadow: var(--admin-shadow);
+}
+
+.admin-page .daily-report-toolbar-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.admin-page .daily-report-date-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.admin-page .daily-report-date-select {
+  min-width: 230px;
+  padding: 8px 10px;
+  border: 1px solid var(--admin-border);
+  border-radius: 6px;
+  background: var(--admin-surface);
+  color: var(--text);
+  font-size: 11px;
+}
+
+.admin-page .daily-report-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.admin-page .daily-report-stat-card {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-height: 108px;
+  padding: 14px;
+  border: 1px solid var(--admin-border);
+  border-radius: 8px;
+  background: var(--admin-surface);
+  box-shadow: var(--admin-shadow);
+}
+
+.admin-page .daily-report-stat-card strong {
+  margin: 6px 0 2px;
+  font-size: 26px;
+  letter-spacing: 0;
+}
+
+.admin-page .daily-report-stat-card small {
+  color: var(--muted);
+  font-size: 10px;
+  line-height: 1.4;
+}
+
+.admin-page .daily-delta {
+  align-self: flex-start;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 9px;
+  font-weight: 700;
+}
+
+.admin-page .daily-delta.up {
+  color: var(--accent-strong);
+  background: color-mix(in srgb, var(--accent) 14%, transparent);
+}
+
+.admin-page .daily-delta.down {
+  color: var(--admin-danger);
+  background: color-mix(in srgb, var(--admin-danger) 12%, transparent);
+}
+
+.admin-page .daily-delta.flat {
+  color: var(--muted);
+  background: color-mix(in srgb, var(--muted) 12%, transparent);
+}
+
+.admin-page .daily-peak-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.admin-page .daily-peak-chip {
+  padding: 6px 10px;
+  border: 1px solid var(--admin-border);
+  border-radius: 999px;
+  background: var(--admin-surface-muted);
+  color: var(--accent-strong);
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.admin-page .daily-heat-legend {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  color: var(--muted);
+  font-size: 9px;
+}
+
+.admin-page .daily-heat-legend-bar {
+  display: block;
+  flex: 1;
+  max-width: 260px;
+  height: 10px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(139, 92, 246, 0.06), rgba(139, 92, 246, 0.95));
+}
+
+.admin-page .daily-heatmap {
+  display: grid;
+  gap: 4px;
+}
+
+.admin-page .daily-heat-row {
+  display: grid;
+  grid-template-columns: 68px repeat(24, minmax(0, 1fr));
+  gap: 3px;
+  align-items: center;
+}
+
+.admin-page .daily-heat-row.is-head {
+  margin-bottom: 2px;
+}
+
+.admin-page .daily-heat-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--muted);
+  font-size: 10px;
+}
+
+.admin-page .daily-heat-hour {
+  text-align: center;
+  color: var(--muted);
+  font-size: 9px;
+}
+
+.admin-page .daily-heat-cell {
+  display: grid;
+  min-height: 26px;
+  place-items: center;
+  border-radius: 4px;
+  background: rgba(139, 92, 246, 0.05);
+  font-size: 9px;
+  font-variant-numeric: tabular-nums;
+}
+
+.admin-page .daily-heat-cell.has-value {
+  color: var(--text);
+  font-weight: 700;
+}
+
+.admin-page .daily-report-detail-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: 12px;
+}
+
+.admin-page .daily-page-bar {
+  height: 5px;
+  margin-top: 8px;
+  border-radius: 999px;
+  background: var(--admin-surface-muted);
+  overflow: hidden;
+}
+
+.admin-page .daily-page-bar i {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: var(--accent);
+}
+
+.admin-page .daily-copied-code {
+  display: block;
+  max-width: 100%;
+  margin-top: 7px;
+  padding: 7px 9px;
+  border-radius: 6px;
+  background: var(--admin-surface-muted);
+  color: var(--accent-strong);
+  font-size: 10px;
+  overflow-wrap: anywhere;
+}
+
+.admin-page .daily-report-footer {
+  margin: 12px 2px 0;
+  color: var(--muted);
+  font-size: 10px;
+  line-height: 1.6;
+}
+
 @media (max-width: 1180px) {
   .admin-page .admin-stat-grid {
     grid-template-columns: repeat(3, minmax(138px, 1fr));
   }
 
   .admin-page .traffic-overview {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .admin-page .daily-report-stat-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
@@ -787,6 +1004,57 @@ body.admin-page {
     box-shadow: none;
   }
 
+  .admin-page .daily-report-toolbar {
+    padding: 10px;
+  }
+
+  .admin-page .daily-report-toolbar-left {
+    flex: 1;
+  }
+
+  .admin-page .daily-report-date-select {
+    min-width: 0;
+    flex: 1;
+  }
+
+  .admin-page .daily-report-stat-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .admin-page .daily-report-stat-card {
+    min-height: 88px;
+    padding: 11px;
+    box-shadow: none;
+  }
+
+  .admin-page .daily-report-stat-card strong {
+    font-size: 22px;
+  }
+
+  .admin-page .daily-report-detail-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .admin-page .daily-heat-row {
+    grid-template-columns: 56px repeat(24, minmax(0, 1fr));
+    gap: 2px;
+  }
+
+  .admin-page .daily-heat-label {
+    font-size: 9px;
+  }
+
+  .admin-page .daily-heat-cell {
+    min-height: 22px;
+    font-size: 8px;
+  }
+
+  .admin-page .daily-heat-hour {
+    font-size: 8px;
+  }
+
   .admin-page .admin-module-header {
     align-items: flex-start;
   }
@@ -809,12 +1077,13 @@ body.admin-page {
   }
 
   .admin-page .traffic-line-chart {
-    min-height: 180px;
-    overflow-x: auto;
+    min-height: 0;
+    overflow: visible;
   }
 
   .admin-page .traffic-line-chart svg {
-    min-width: 540px;
+    width: 100%;
+    height: auto;
   }
 
   .admin-page .admin-card-head,

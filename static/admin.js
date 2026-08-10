@@ -39,6 +39,7 @@
     liveComps: { items: [], total: 0, page: 1, page_size: 20, total_pages: 1, query: '', updated_at: null, source_meta: null, selectedSeasonId: '', loadedAt: 0 },
     liveCompsSeasons: { seasons: [], default_season_id: '', loadedAt: 0 },
     copyRank: { date: '', items: [], loadedAt: 0 },
+    dailyReports: { items: [], selectedDate: '', report: null, loadedAt: 0 },
     liveSeasonCreating: null,
     liveSeasonCreateError: '',
     patchNotes: { items: [], loadedAt: 0 },
@@ -83,6 +84,7 @@
     users: ['用户管理', '查询账号、权限和可用状态'],
     analytics: ['增长分析', '查看访问、注册与转化数据'],
     audit: ['审计日志', '追踪管理员关键操作记录'],
+    'daily-reports': ['每日报告', '昨日运营快照与历史数据'],
     guestbook: ['留言管理', '处理访客提交的站点反馈'],
     settings: ['系统设置', '管理功能开关与全站通知'],
   };
@@ -112,6 +114,11 @@
     },
     trafficMetric,
     workbenchPanel,
+  });
+  const renderDailyReportsWorkspaceFromModule = window.JccAdminDailyReports.createDailyReportsRenderer({
+    workbenchPanel,
+    empty,
+    button,
   });
 
   initTheme();
@@ -184,6 +191,7 @@
     if (tabKey === 'live-comps') await loadAdminLiveComps();
     if (tabKey === 'patch-notes') await loadPatchNotes();
     if (tabKey === 'analytics') await loadGrowth();
+    if (tabKey === 'daily-reports') await loadDailyReports();
     if (tabKey === 'audit') await loadAudit();
     if (tabKey === 'guestbook') await loadGuestbook();
     if (tabKey === 'settings') await Promise.all([loadSettings(), loadNotice()]);
@@ -294,6 +302,49 @@
     state.growth = { ...payload, loadedAt: Date.now() };
   }
 
+  async function loadDailyReports({ force = false } = {}) {
+    if (!force && isFresh(state.dailyReports.loadedAt)) return;
+    const payload = await api('/api/admin/daily-reports?page_size=30');
+    state.dailyReports = {
+      ...state.dailyReports,
+      items: payload.items || [],
+      loadedAt: Date.now(),
+    };
+    if (!state.dailyReports.selectedDate && state.dailyReports.items.length) {
+      state.dailyReports.selectedDate = state.dailyReports.items[0].report_date;
+    }
+    if (state.dailyReports.selectedDate) {
+      await loadDailyReportDetail({ force });
+    } else {
+      state.dailyReports.report = null;
+    }
+  }
+
+  async function loadDailyReportDetail({ force = false } = {}) {
+    if (!state.dailyReports.selectedDate) {
+      state.dailyReports.report = null;
+      return;
+    }
+    const report = await api(`/api/admin/daily-reports/${encodeURIComponent(state.dailyReports.selectedDate)}`);
+    state.dailyReports.report = { ...report, loadedAt: Date.now() };
+  }
+
+  function yesterdayDate() {
+    const now = new Date();
+    const date = new Date(now.getFullYear(), now.getMonth(), now.getDate() - 1);
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${date.getFullYear()}-${month}-${day}`;
+  }
+
+  async function generateDailyReport(date) {
+    const report = await api(`/api/admin/daily-reports/${encodeURIComponent(date)}/generate`, { method: 'POST' });
+    state.dailyReports.selectedDate = report.report_date;
+    state.dailyReports.report = { ...report, loadedAt: Date.now() };
+    await loadDailyReports({ force: true });
+    render();
+  }
+
   async function loadSettings({ force = false } = {}) {
     if (!force && isFresh(state.settings.loadedAt)) return;
     const payload = await api('/api/admin/settings');
@@ -329,6 +380,22 @@
     if (state.activeTab === 'patch-notes') root.append(renderPatchNotesWorkspace());
     if (state.activeTab === 'users') root.append(renderUsersWorkspace());
     if (state.activeTab === 'analytics') root.append(renderAnalyticsWorkspace());
+    if (state.activeTab === 'daily-reports') {
+      root.append(renderDailyReportsWorkspaceFromModule(state.dailyReports, {
+        selectDate: async (date) => {
+          state.dailyReports.selectedDate = date;
+          state.dailyReports.report = null;
+          await loadDailyReportDetail({ force: true });
+          render();
+        },
+        generate: generateDailyReport,
+        refresh: async () => {
+          await loadDailyReports({ force: true });
+          render();
+        },
+        yesterdayDate,
+      }));
+    }
     if (state.activeTab === 'audit') root.append(renderAuditWorkspace());
     if (state.activeTab === 'guestbook') root.append(renderGuestbookWorkspace());
     if (state.activeTab === 'settings') root.append(renderSettingsWorkspace());

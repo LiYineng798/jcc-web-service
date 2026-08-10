@@ -121,12 +121,57 @@
         return wrap;
       }
 
+      const latest = trend[trend.length - 1];
+      const previous = trend[trend.length - 2] || latest;
+      const delta = Number(latest.uv || 0) - Number(previous.uv || 0);
+      const summary = el('div', 'traffic-line-summary');
+      summary.append(
+        el('strong', '', '每日 UV 折线'),
+        el('span', '', `最新 ${latest.uv} UV · ${delta >= 0 ? '+' : ''}${delta} 较前日`),
+      );
+
+      const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      svg.setAttribute('role', 'img');
+      svg.setAttribute('aria-label', '最近 7 天每日 UV 折线图');
+      wrap.append(summary, svg);
+
+      // Render at the measured container width so the chart fills the panel
+      // on phones instead of being clipped by a fixed 640px viewBox.
+      let lastWidth = 0;
+      let rafId = null;
+      const draw = (width) => {
+        const capped = Math.max(260, Math.min(760, Math.round(width)));
+        if (Math.abs(capped - lastWidth) < 8) return;
+        lastWidth = capped;
+        svg.setAttribute('width', String(capped));
+        svg.setAttribute('height', '220');
+        svg.setAttribute('viewBox', `0 0 ${capped} 220`);
+        svg.replaceChildren(buildTrafficChartContent(trend, capped));
+      };
+      requestAnimationFrame(() => draw(wrap.clientWidth || 640));
+      if (typeof ResizeObserver !== 'undefined') {
+        const observer = new ResizeObserver(() => {
+          if (rafId) return;
+          rafId = requestAnimationFrame(() => {
+            rafId = null;
+            draw(wrap.clientWidth || 640);
+          });
+        });
+        observer.observe(wrap);
+      }
+      return wrap;
+    }
+
+    function buildTrafficChartContent(trend, width) {
+      const SVG_NS = 'http://www.w3.org/2000/svg';
       const values = trend.map((item) => Number(item.uv || 0));
       const maxUv = Math.max(1, ...values);
       const minUv = Math.min(...values);
-      const width = 640;
+      const compact = width < 480;
       const height = 220;
-      const padding = { top: 24, right: 24, bottom: 42, left: 44 };
+      const padding = compact
+        ? { top: 18, right: 10, bottom: 34, left: 32 }
+        : { top: 24, right: 24, bottom: 42, left: 44 };
       const plotWidth = width - padding.left - padding.right;
       const plotHeight = height - padding.top - padding.bottom;
       const pointX = (index) => padding.left + (trend.length === 1 ? plotWidth / 2 : (plotWidth / (trend.length - 1)) * index);
@@ -140,20 +185,7 @@
       }));
       const pathData = points.map((point, index) => `${index ? 'L' : 'M'} ${point.x.toFixed(1)} ${point.y.toFixed(1)}`).join(' ');
 
-      const summary = el('div', 'traffic-line-summary');
-      const latest = points[points.length - 1];
-      const previous = points[points.length - 2] || latest;
-      const delta = latest.uv - previous.uv;
-      summary.append(
-        el('strong', '', '每日 UV 折线'),
-        el('span', '', `最新 ${latest.uv} UV · ${delta >= 0 ? '+' : ''}${delta} 较前日`),
-      );
-
-      const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-      svg.setAttribute('viewBox', `0 0 ${width} ${height}`);
-      svg.setAttribute('role', 'img');
-      svg.setAttribute('aria-label', '最近 7 天每日 UV 折线图');
-
+      const fragment = document.createDocumentFragment();
       const gridGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
       gridGroup.setAttribute('class', 'traffic-line-grid');
       [0, 0.5, 1].forEach((ratio) => {
@@ -203,12 +235,12 @@
         circle.setAttribute('class', 'traffic-line-point');
         circle.setAttribute('cx', point.x.toFixed(1));
         circle.setAttribute('cy', point.y.toFixed(1));
-        circle.setAttribute('r', point.uv === maxUv ? '5' : '4');
+        circle.setAttribute('r', compact ? '3' : point.uv === maxUv ? '5' : '4');
         const title = document.createElementNS('http://www.w3.org/2000/svg', 'title');
         title.textContent = `${point.label}：${point.uv} UV`;
         circle.append(title);
 
-        const tooltipWidth = 104;
+        const tooltipWidth = compact ? 96 : 104;
         const tooltipHeight = 46;
         const tooltipX = Math.max(6, Math.min(width - tooltipWidth - 6, point.x - tooltipWidth / 2));
         const tooltipY = Math.max(6, point.y - tooltipHeight - 14);
@@ -226,12 +258,14 @@
         tooltipDate.setAttribute('class', 'traffic-line-tooltip-date');
         tooltipDate.setAttribute('x', '12');
         tooltipDate.setAttribute('y', '18');
+        tooltipDate.setAttribute('font-size', compact ? '11' : '12');
         tooltipDate.textContent = point.date;
 
         const tooltipValue = document.createElementNS('http://www.w3.org/2000/svg', 'text');
         tooltipValue.setAttribute('class', 'traffic-line-tooltip-value');
         tooltipValue.setAttribute('x', '12');
         tooltipValue.setAttribute('y', '35');
+        tooltipValue.setAttribute('font-size', compact ? '11' : '12');
         tooltipValue.textContent = `${point.uv} UV`;
 
         tooltip.append(tooltipBox, tooltipDate, tooltipValue);
@@ -244,22 +278,23 @@
       points.forEach((point) => {
         const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
         text.setAttribute('x', point.x.toFixed(1));
-        text.setAttribute('y', String(height - 14));
+        text.setAttribute('y', String(height - 12));
         text.setAttribute('text-anchor', 'middle');
+        text.setAttribute('font-size', compact ? '10' : '12');
         text.textContent = point.label;
         labelGroup.append(text);
       });
       [maxUv, minUv].forEach((uv, index) => {
         const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-        text.setAttribute('x', '8');
+        text.setAttribute('x', compact ? '4' : '8');
         text.setAttribute('y', (index === 0 ? padding.top + 4 : height - padding.bottom).toFixed(1));
+        text.setAttribute('font-size', compact ? '10' : '12');
         text.textContent = String(uv);
         labelGroup.append(text);
       });
 
-      svg.append(gridGroup, area, path, pointGroup, labelGroup);
-      wrap.append(summary, svg);
-      return wrap;
+      fragment.append(gridGroup, area, path, pointGroup, labelGroup);
+      return fragment;
     }
 
     function renderTodoPanel() {

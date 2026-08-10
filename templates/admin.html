@@ -31,6 +31,7 @@
           <section class="admin-nav-group" aria-labelledby="adminNavSystem">
             <h2 id="adminNavSystem">数据与系统</h2>
             <button class="admin-nav-item" data-admin-tab="analytics" type="button"><i data-lucide="chart-no-axes-combined"></i><span>增长分析</span></button>
+            <button class="admin-nav-item" data-admin-tab="daily-reports" type="button"><i data-lucide="calendar-check-2"></i><span>每日报告</span></button>
             <button class="admin-nav-item" data-admin-tab="audit" type="button"><i data-lucide="scroll-text"></i><span>审计日志</span></button>
             <button class="admin-nav-item" data-admin-tab="settings" type="button"><i data-lucide="settings-2"></i><span>系统设置</span></button>
           </section>
@@ -81,6 +82,7 @@
         <button data-admin-tab="patch-notes" type="button"><i data-lucide="notebook-tabs"></i><span>更新公告</span></button>
         <button data-admin-tab="users" type="button"><i data-lucide="users"></i><span>用户管理</span></button>
         <button data-admin-tab="guestbook" type="button"><i data-lucide="message-square-text"></i><span>留言管理</span></button>
+        <button data-admin-tab="daily-reports" type="button"><i data-lucide="calendar-check-2"></i><span>每日报告</span></button>
         <button data-admin-tab="audit" type="button"><i data-lucide="scroll-text"></i><span>审计日志</span></button>
         <button data-admin-tab="settings" type="button"><i data-lucide="settings-2"></i><span>系统设置</span></button>
       </div>
@@ -91,6 +93,7 @@
     <script src="{{ static_v('theme-toggle.js') }}" defer></script>
     <script src="{{ static_v('admin/core.js') }}" defer></script>
     <script src="{{ static_v('admin/overview.js') }}" defer></script>
+    <script src="{{ static_v('admin/daily-reports.js') }}" defer></script>
     <script src="{{ static_v('admin.js') }}" defer></script>
   </body>
 </html>

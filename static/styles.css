@@ -3118,6 +3118,7 @@ textarea:focus {
 
 .traffic-line-summary {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: 12px;
@@ -3131,6 +3132,7 @@ textarea:focus {
 .traffic-line-chart svg {
   display: block;
   width: 100%;
+  height: auto;
   min-height: 180px;
 }
 

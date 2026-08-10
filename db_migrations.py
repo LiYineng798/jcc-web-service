@@ -8,6 +8,7 @@ def migrate_schema(db, admin_id, now_text_func):
     migrate_legacy_live_comp_stats(db, now_text_func)
     migrate_patch_notes_table(db)
     migrate_site_notices_table(db, now_text_func)
+    migrate_daily_admin_reports_table(db, now_text_func)
 
 
 def migrate_legacy_live_comp_stats(db, now_text_func):
@@ -150,6 +151,36 @@ def migrate_site_notices_table(db, now_text_func):
             now,
             now,
         ),
+    )
+
+
+def migrate_daily_admin_reports_table(db, now_text_func):
+    """Ensure the daily admin report snapshot table exists on older installs.
+
+    Mirrors jcc-db-service migration 0007 so SQLite and PostgreSQL stay
+    aligned. The generation worker upserts into this table and never rewrites
+    already-generated snapshots unless an admin explicitly regenerates one.
+    """
+    tables = table_names(db)
+    if 'daily_admin_reports' not in tables:
+        db.execute(
+            '''
+            CREATE TABLE IF NOT EXISTS daily_admin_reports (
+                report_date TEXT PRIMARY KEY,
+                unique_visitors INTEGER NOT NULL DEFAULT 0,
+                page_visits INTEGER NOT NULL DEFAULT 0,
+                successful_copies INTEGER NOT NULL DEFAULT 0,
+                payload_json TEXT NOT NULL,
+                generated_at TEXT NOT NULL,
+                updated_at TEXT NOT NULL
+            )
+            '''
+        )
+    db.execute(
+        '''
+        CREATE INDEX IF NOT EXISTS idx_daily_admin_reports_generated_at
+        ON daily_admin_reports (generated_at DESC)
+        '''
     )
 
 

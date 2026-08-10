@@ -6,6 +6,7 @@ from app_pages import register_page_routes, register_test_helpers
 from assets_version import register_asset_helpers
 from config import apply_config
 from db import close_db, init_db, table_names
+from daily_report_worker import start_daily_report_worker
 
 
 def create_app(test_config=None):
@@ -49,6 +50,7 @@ def create_app(test_config=None):
             return lookup_answer_for_tests(token)
 
     register_test_helpers(app, get_table_names_for_tests, lookup_captcha_answer_for_tests_wrapper)
+    start_daily_report_worker(app)
     return app
 
 

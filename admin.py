@@ -25,8 +25,15 @@ from admin_lineup_service import (
 from admin_pagination import paginate_rows, parse_page, parse_page_size
 from admin_report_service import build_report_list_query, resolve_report
 from admin_user_service import build_user_list_query, create_user, disable_user, update_user
+from audit import write_audit
 from auth import admin_required
 from db import get_db
+from daily_report_service import (
+    ensure_daily_report,
+    get_daily_report,
+    list_daily_reports,
+    normalize_report_date,
+)
 from lineups_serialization import serialize_lineup_row
 from route_response import respond_service_result
 from seo import make_seo
@@ -297,6 +304,47 @@ def admin_copy_rank():
         request.args.get('date'),
         limit=_parse_page_size(default=10, maximum=50),
     ))
+
+
+@admin_bp.get('/api/admin/daily-reports')
+def admin_daily_reports():
+    admin, error = admin_required()
+    if error:
+        return error
+    return jsonify({'items': list_daily_reports(limit=_parse_page_size(default=30, maximum=100))})
+
+
+@admin_bp.get('/api/admin/daily-reports/<date>')
+def admin_daily_report_detail(date):
+    admin, error = admin_required()
+    if error:
+        return error
+    report = get_daily_report(date)
+    if report is None:
+        return jsonify({'error': '该日期还没有每日报告'}), 404
+    return jsonify(report)
+
+
+@admin_bp.post('/api/admin/daily-reports/<date>/generate')
+def admin_generate_daily_report(date):
+    admin, error = admin_required()
+    if error:
+        return error
+    if normalize_report_date(date) is None:
+        return jsonify({'error': '日期格式应为 YYYY-MM-DD'}), 400
+    report = ensure_daily_report(date, force=True)
+    if report is None:
+        report = get_daily_report(date)
+    if report is None:
+        return jsonify({'error': '报告生成失败，请稍后重试'}), 500
+    write_audit(
+        admin['id'],
+        'generate_daily_report',
+        'daily_report',
+        target_id=date,
+        after={'report_date': report['report_date']},
+    )
+    return jsonify(report)
 
 
 @admin_bp.get('/api/admin/audit-logs')
