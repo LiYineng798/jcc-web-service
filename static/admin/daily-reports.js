@@ -79,7 +79,7 @@
         card.append(
           el('span', 'stat-label', label),
           el('strong', '', String(value == null ? 0 : value)),
-          deltaBadge(deltas, deltaKey),
+          ...[deltaBadge(deltas, deltaKey)].filter(Boolean),
           el('small', '', caption),
         );
         cards.append(card);
@@ -108,7 +108,7 @@
         card.append(
           el('span', 'stat-label', label),
           el('strong', '', String(value)),
-          deltaBadge(deltas, deltaKey),
+          ...[deltaBadge(deltas, deltaKey)].filter(Boolean),
           el('small', '', `${pct}% 的昨日访客 · ${caption}`),
         );
         return card;
