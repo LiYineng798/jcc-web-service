@@ -127,6 +127,12 @@ def test_pages_include_favicon_and_favicon_route_exists(client):
     assert 'data-admin-tab="reports"' in admin_html
     assert 'data-admin-tab="lineups"' in admin_html
     assert 'data-admin-tab="live-comps"' in admin_html
+    assert 'data-admin-nav-toggle="lineups"' in admin_html
+    assert 'data-admin-nav-toggle="live-comps"' in admin_html
+    assert 'data-admin-workspace="list"' in admin_html
+    assert 'data-admin-workspace="import"' in admin_html
+    assert 'data-admin-workspace="codes"' in admin_html
+    assert 'data-admin-workspace="seasons"' in admin_html
     assert 'data-admin-tab="users"' in admin_html
     assert 'data-admin-tab="analytics"' in admin_html
     assert 'data-admin-tab="audit"' in admin_html
@@ -829,7 +835,8 @@ def test_admin_js_supports_daily_growth_filter_and_clear_labels():
     assert '/api/admin/live-comps' in js
     assert '今日复制' in js
     assert '累计复制' in js
-    assert '按实时阵容专区整体统计' in js
+    assert '实时阵容 · 阵容码维护' in js
+    assert '实时阵容 · 赛季管理' in js
     assert 'activeTab' in js
     assert 'AbortController' in js
     assert 'debounce' in js
@@ -838,9 +845,29 @@ def test_admin_js_supports_daily_growth_filter_and_clear_labels():
     assert '首页 UV' in js
     assert '点击登录入口人数' in js
     assert '登录后 10 分钟内完成点赞人数' in js
-    assert '搜索用户名、邮箱或昵称后开始查找' in js
-    assert '输入阵容名、阵容码、作者后开始查找' in js
+    assert "page_size: 10" in js
+    assert "lineupWorkspace: 'list'" in js
+    assert "liveCompsWorkspace: 'codes'" in js
+    assert "navExpanded: { lineups: false, 'live-comps': false }" in js
+    assert "Object.keys(state.navExpanded).forEach((key) => { state.navExpanded[key] = false; });" in js
+    assert "activateTab(button.dataset.adminTab, button.dataset.adminWorkspace || '')" in js
+    assert "state.lineupWorkspace = workspaceKey" in js
+    assert "state.liveCompsWorkspace = workspaceKey" in js
+    assert "state.activeTab === 'lineups' && state.lineupWorkspace === 'list'" in js
+    assert '默认显示最近用户，每页 10 条' in js
+    assert '阵容查找' in js
+    assert '批量导入' in js
+    assert '阵容码维护' in js
+    assert '赛季管理' in js
     assert 'pending_reports_count' in js
+
+
+def test_admin_overview_has_no_quick_links():
+    with open('static/admin/overview.js', 'r', encoding='utf-8') as file:
+        js = file.read()
+
+    assert '快捷入口' not in js
+    assert 'renderQuickLinks' not in js
 
 
 def test_admin_boot_and_settings_load_independent_requests_in_parallel():

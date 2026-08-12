@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask
+from flask import Flask, request
 
 from app_pages import register_page_routes, register_test_helpers
 from assets_version import register_asset_helpers
@@ -37,6 +37,12 @@ def create_app(test_config=None):
     app.register_blueprint(patch_notes_bp)
 
     register_page_routes(app)
+
+    @app.after_request
+    def set_mutable_season_data_cache_policy(response):
+        if request.path.startswith('/static/season-data/') and request.path.endswith('.json'):
+            response.headers['Cache-Control'] = 'public, max-age=0, must-revalidate'
+        return response
 
     with app.app_context():
         init_db()

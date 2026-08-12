@@ -333,6 +333,19 @@ def test_admin_page_includes_daily_report_entry(client):
     assert 'admin/daily-reports.js' in html
 
 
+def test_daily_report_ui_uses_bounded_calendar_navigation():
+    javascript = open('static/admin/daily-reports.js', 'r', encoding='utf-8').read()
+    admin_javascript = open('static/admin.js', 'r', encoding='utf-8').read()
+
+    assert "dateInput.type = 'date'" in javascript
+    assert "button('上一日'" in javascript
+    assert "button('下一日'" in javascript
+    assert 'daily-report-recent' in javascript
+    assert "page_size=12" in admin_javascript
+    assert 'daily-report-date-select' in javascript
+    assert "el('select', 'daily-report-date-select')" not in javascript
+
+
 def test_background_worker_is_disabled_in_tests(app):
     from daily_report_worker import start_daily_report_worker
     assert start_daily_report_worker(app) is None

@@ -14,7 +14,9 @@
         return wrap;
       }
       if (!report) {
-        wrap.append(empty('正在加载报告数据...'));
+        const missing = empty(`${state.selectedDate || '所选日期'} 尚未生成报告。`);
+        missing.append(button('生成该日报告', async () => helpers.generate(state.selectedDate), 'small-button'));
+        wrap.append(missing);
         return wrap;
       }
 
@@ -32,20 +34,19 @@
       const toolbar = el('div', 'daily-report-toolbar');
       const left = el('div', 'daily-report-toolbar-left');
       const label = el('label', 'daily-report-date-label', '报告日期');
-      const select = el('select', 'daily-report-date-select');
-      (state.items || []).forEach((item) => {
-        const option = document.createElement('option');
-        option.value = item.report_date;
-        option.textContent = `${item.report_date} · UV ${item.unique_visitors} · 复制 ${item.successful_copies}`;
-        option.selected = item.report_date === state.selectedDate;
-        select.append(option);
+      const dateInput = el('input', 'daily-report-date-select');
+      dateInput.type = 'date';
+      dateInput.value = state.selectedDate || helpers.yesterdayDate();
+      dateInput.max = helpers.yesterdayDate();
+      dateInput.addEventListener('change', () => {
+        if (dateInput.value) helpers.selectDate(dateInput.value);
       });
-      select.disabled = !(state.items || []).length;
-      select.addEventListener('change', () => {
-        if (select.value) helpers.selectDate(select.value);
-      });
-      label.append(select);
-      left.append(label);
+      label.append(dateInput);
+      left.append(
+        button('上一日', () => helpers.selectDate(shiftDate(dateInput.value, -1)), 'small-button'),
+        label,
+        button('下一日', () => helpers.selectDate(shiftDate(dateInput.value, 1)), 'small-button', dateInput.value >= helpers.yesterdayDate()),
+      );
 
       const actions = el('div', 'card-actions');
       actions.append(
@@ -57,8 +58,24 @@
         }, 'small-button'),
         button('刷新', async () => helpers.refresh(), 'small-button'),
       );
-      toolbar.append(left, actions);
+      const recent = el('div', 'daily-report-recent');
+      (state.items || []).forEach((item) => {
+        recent.append(button(
+          item.report_date,
+          () => helpers.selectDate(item.report_date),
+          `small-button ${item.report_date === state.selectedDate ? 'is-active' : ''}`.trim(),
+        ));
+      });
+      toolbar.append(left, actions, recent);
       return toolbar;
+    }
+
+    function shiftDate(value, offset) {
+      const [year, month, day] = String(value || '').split('-').map(Number);
+      const date = new Date(year, month - 1, day + offset);
+      const nextMonth = String(date.getMonth() + 1).padStart(2, '0');
+      const nextDay = String(date.getDate()).padStart(2, '0');
+      return `${date.getFullYear()}-${nextMonth}-${nextDay}`;
     }
 
     function renderReportStats(report) {

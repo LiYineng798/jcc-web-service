@@ -1,6 +1,8 @@
 import json
 from pathlib import Path
 
+from assets_version import asset_stamp
+
 
 SIMULATOR_ROOT = Path('static/tools/lineup-simulator')
 SEASON_ROOT = Path('static/season-data')
@@ -20,6 +22,7 @@ def test_simulator_page_uses_new_tool_workspace(client):
     assert 'id="traitFilterMenu"' in html
     assert 'id="itemGrid"' in html
     assert 'id="detailPopover"' in html
+    assert 'data-season-data-version="' in html
     assert 'data/version.json' not in html
     assert 'local-data.js' not in html
 
@@ -28,7 +31,10 @@ def test_simulator_loads_every_season_from_catalog():
     javascript = (SIMULATOR_ROOT / 'app.js').read_text(encoding='utf-8')
     catalog = json.loads((SEASON_ROOT / 'catalog.json').read_text(encoding='utf-8'))
 
-    assert 'fetchJson(`${DATA_ROOT}/catalog.json`)' in javascript
+    assert 'fetchJson(`${DATA_ROOT}/catalog.json?v=${encodeURIComponent(DATA_VERSION)}`)' in javascript
+    assert 'cache: "no-cache"' in javascript
+    assert '`${season.version_id}-${DATA_VERSION}`' in javascript
+    assert 'await refreshCatalog();\n    await loadSeason(seasonId);' in javascript
     assert 'compareSeasons' in javascript
     assert 'season.version_id' in javascript
     assert 'champions.json?v=${stamp}' in javascript
@@ -39,6 +45,26 @@ def test_simulator_loads_every_season_from_catalog():
         assert (season_root / 'champions.json').is_file()
         assert (season_root / 'traits.json').is_file()
         assert (season_root / 'items.json').is_file()
+
+
+def test_mutable_season_json_requires_revalidation(client):
+    response = client.get('/static/season-data/catalog.json')
+
+    assert response.status_code == 200
+    assert response.headers['Cache-Control'] == 'public, max-age=0, must-revalidate'
+
+
+def test_static_asset_stamp_covers_simulator_assets(monkeypatch, tmp_path):
+    import assets_version
+
+    simulator_root = tmp_path / 'tools' / 'lineup-simulator'
+    simulator_root.mkdir(parents=True)
+    simulator_app = simulator_root / 'app.js'
+    simulator_app.write_text('console.log("simulator")', encoding='utf-8')
+    monkeypatch.setattr(assets_version, 'STATIC_ROOT', tmp_path)
+    monkeypatch.setattr(assets_version, '_stamp', None)
+
+    assert asset_stamp() == str(simulator_app.stat().st_mtime_ns)
 
 
 def test_simulator_prefers_versioned_webp_images_for_every_season():

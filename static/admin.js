@@ -33,17 +33,20 @@
     growth: null,
     growthDate: todayInputValue(),
     reports: { items: [], total: 0, page: 1, page_size: 20, total_pages: 1, status: 'pending', loadedAt: 0 },
-    lineups: { items: [], total: 0, page: 1, page_size: 20, total_pages: 1, query: '', searched: false, loadedAt: 0 },
+    lineups: { items: [], total: 0, page: 1, page_size: 10, total_pages: 1, query: '', loadedAt: 0 },
+    lineupWorkspace: 'list',
     lineupSeasons: { seasons: [], default_season_id: '', loadedAt: 0 },
     lineupBulkImport: { season_id: '', raw_text: '', result: null, preview_raw_text: '', preview_season_id: '' },
-    liveComps: { items: [], total: 0, page: 1, page_size: 20, total_pages: 1, query: '', updated_at: null, source_meta: null, selectedSeasonId: '', loadedAt: 0 },
+    liveComps: { items: [], total: 0, page: 1, page_size: 10, total_pages: 1, query: '', updated_at: null, source_meta: null, selectedSeasonId: '', loadedAt: 0 },
+    liveCompsWorkspace: 'codes',
+    navExpanded: { lineups: false, 'live-comps': false },
     liveCompsSeasons: { seasons: [], default_season_id: '', loadedAt: 0 },
     copyRank: { date: '', items: [], loadedAt: 0 },
     dailyReports: { items: [], selectedDate: '', report: null, loadedAt: 0 },
     liveSeasonCreating: null,
     liveSeasonCreateError: '',
     patchNotes: { items: [], loadedAt: 0 },
-    users: { items: [], total: 0, page: 1, page_size: 20, total_pages: 1, query: '', searched: false, loadedAt: 0 },
+    users: { items: [], total: 0, page: 1, page_size: 10, total_pages: 1, query: '', loadedAt: 0 },
     audit: { items: [], total: 0, page: 1, page_size: 30, total_pages: 1, loadedAt: 0 },
     settings: { data: {}, loadedAt: 0 },
     noticeData: { data: null, loadedAt: 0 },
@@ -103,7 +106,6 @@
 - [nerf] 名称：旧值 => 新值`;
 
   const renderOverviewDashboardFromModule = window.JccAdminOverview.createOverviewRenderer({
-    activateTab,
     button,
     empty,
     getOverview: () => state.overview,
@@ -126,9 +128,18 @@
     setTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark');
   });
   document.addEventListener('click', async (event) => {
+    const toggle = event.target.closest('[data-admin-nav-toggle]');
+    if (toggle) {
+      const group = toggle.dataset.adminNavToggle;
+      const nextExpanded = !state.navExpanded[group];
+      Object.keys(state.navExpanded).forEach((key) => { state.navExpanded[key] = false; });
+      state.navExpanded[group] = nextExpanded;
+      syncTabs();
+      return;
+    }
     const button = event.target.closest('[data-admin-tab]');
     if (!button) return;
-    await activateTab(button.dataset.adminTab);
+    await activateTab(button.dataset.adminTab, button.dataset.adminWorkspace || '');
   });
   elements.moreButton?.addEventListener('click', () => elements.moreDialog?.showModal());
   elements.moreClose?.addEventListener('click', () => elements.moreDialog?.close());
@@ -180,16 +191,27 @@
     }
   }
 
-  async function activateTab(tabKey) {
+  async function activateTab(tabKey, workspaceKey = '') {
     if (!tabKey) return;
     elements.moreDialog?.close();
+    if (tabKey === 'lineups' && ['list', 'import'].includes(workspaceKey)) {
+      state.lineupWorkspace = workspaceKey;
+    }
+    if (tabKey === 'live-comps' && ['codes', 'seasons'].includes(workspaceKey)) {
+      state.liveCompsWorkspace = workspaceKey;
+    }
+    Object.keys(state.navExpanded).forEach((key) => { state.navExpanded[key] = false; });
+    if (tabKey in state.navExpanded) state.navExpanded[tabKey] = true;
     state.activeTab = tabKey;
     render();
     if (tabKey === 'overview') await Promise.all([loadOverview(), loadCopyRank()]);
     if (tabKey === 'reports') await loadReports();
-    if (tabKey === 'lineups') await loadLineupSeasons();
-    if (tabKey === 'live-comps') await loadAdminLiveComps();
+    if (tabKey === 'lineups' && state.lineupWorkspace === 'list') await loadLineups();
+    if (tabKey === 'lineups' && state.lineupWorkspace === 'import') await loadLineupSeasons();
+    if (tabKey === 'live-comps' && state.liveCompsWorkspace === 'codes') await loadAdminLiveComps();
+    if (tabKey === 'live-comps' && state.liveCompsWorkspace === 'seasons') await loadAdminLiveCompsSeasons();
     if (tabKey === 'patch-notes') await loadPatchNotes();
+    if (tabKey === 'users') await loadUsers();
     if (tabKey === 'analytics') await loadGrowth();
     if (tabKey === 'daily-reports') await loadDailyReports();
     if (tabKey === 'audit') await loadAudit();
@@ -222,7 +244,6 @@
   }
 
   async function loadLineups({ force = false } = {}) {
-    if (!state.lineups.searched) return;
     if (!force && isFresh(state.lineups.loadedAt)) return;
     abortRequest('lineups');
     state.controllers.lineups = new AbortController();
@@ -273,7 +294,6 @@
   }
 
   async function loadUsers({ force = false } = {}) {
-    if (!state.users.searched) return;
     if (!force && isFresh(state.users.loadedAt)) return;
     abortRequest('users');
     state.controllers.users = new AbortController();
@@ -304,7 +324,7 @@
 
   async function loadDailyReports({ force = false } = {}) {
     if (!force && isFresh(state.dailyReports.loadedAt)) return;
-    const payload = await api('/api/admin/daily-reports?page_size=30');
+    const payload = await api('/api/admin/daily-reports?page_size=12');
     state.dailyReports = {
       ...state.dailyReports,
       items: payload.items || [],
@@ -385,7 +405,12 @@
         selectDate: async (date) => {
           state.dailyReports.selectedDate = date;
           state.dailyReports.report = null;
-          await loadDailyReportDetail({ force: true });
+          try {
+            await loadDailyReportDetail({ force: true });
+          } catch (error) {
+            state.dailyReports.report = null;
+            setNotice(error.message || '该日期还没有每日报告');
+          }
           render();
         },
         generate: generateDailyReport,
@@ -407,7 +432,17 @@
     if (elements.adminIdentityName) {
       elements.adminIdentityName.textContent = state.me?.nickname || '后台账号';
     }
-    const [title, subtitle] = tabMeta[state.activeTab] || tabMeta.overview;
+    let [title, subtitle] = tabMeta[state.activeTab] || tabMeta.overview;
+    if (state.activeTab === 'lineups') {
+      [title, subtitle] = state.lineupWorkspace === 'import'
+        ? ['阵容管理 · 批量导入', '批量解析、预览并导入普通阵容码']
+        : ['阵容管理 · 阵容查找', '搜索、审核与维护普通阵容'];
+    }
+    if (state.activeTab === 'live-comps') {
+      [title, subtitle] = state.liveCompsWorkspace === 'seasons'
+        ? ['实时阵容 · 赛季管理', '调整赛季状态、顺序与默认赛季']
+        : ['实时阵容 · 阵容码维护', '按赛季检查并补充实时阵容码'];
+    }
     if (elements.pageTitle) elements.pageTitle.textContent = title;
     if (elements.pageSubtitle) elements.pageSubtitle.textContent = subtitle;
     if (elements.pendingReportCount) {
@@ -417,13 +452,28 @@
 
   function syncTabs() {
     document.querySelectorAll('[data-admin-tab]').forEach((node) => {
-      node.classList.toggle('is-active', node.dataset.adminTab === state.activeTab);
-      if (node.matches('.admin-nav-item, .admin-mobile-nav-item')) {
-        node.setAttribute('aria-current', node.dataset.adminTab === state.activeTab ? 'page' : 'false');
+      const workspace = node.dataset.adminWorkspace || '';
+      const activeWorkspace = node.dataset.adminTab === 'lineups' ? state.lineupWorkspace
+        : node.dataset.adminTab === 'live-comps' ? state.liveCompsWorkspace : '';
+      const isActive = node.dataset.adminTab === state.activeTab && (!workspace || workspace === activeWorkspace);
+      node.classList.toggle('is-active', isActive);
+      if (node.matches('.admin-nav-subitem, .admin-mobile-nav-item')) {
+        node.setAttribute('aria-current', isActive ? 'page' : 'false');
       }
     });
-    const primaryMobileTabs = ['overview', 'reports', 'lineups', 'analytics'];
-    elements.moreButton?.classList.toggle('is-active', !primaryMobileTabs.includes(state.activeTab));
+    document.querySelectorAll('[data-admin-nav-tree]').forEach((tree) => {
+      const group = tree.dataset.adminNavTree;
+      const expanded = Boolean(state.navExpanded[group]);
+      const parent = tree.querySelector('[data-admin-nav-toggle]');
+      const submenu = tree.querySelector('.admin-nav-submenu');
+      tree.classList.toggle('is-current', state.activeTab === group);
+      tree.classList.toggle('is-expanded', expanded);
+      parent?.setAttribute('aria-expanded', String(expanded));
+      if (submenu) submenu.hidden = !expanded;
+    });
+    const isPrimaryMobileView = ['overview', 'reports', 'analytics'].includes(state.activeTab)
+      || (state.activeTab === 'lineups' && state.lineupWorkspace === 'list');
+    elements.moreButton?.classList.toggle('is-active', !isPrimaryMobileView);
   }
 
   function refreshIcons() {
@@ -495,13 +545,17 @@
   }
 
   function renderLineupsWorkspace() {
-    const panel = workbenchPanel('阵容管理', '默认不加载列表，输入阵容名、阵容码、作者后开始查找');
+    const isImport = state.lineupWorkspace === 'import';
+    const panel = workbenchPanel(
+      isImport ? '批量导入' : '阵容查找',
+      isImport ? '解析、预览并批量写入普通阵容' : '默认显示最新阵容，支持搜索与分页维护',
+    );
     const body = panel.querySelector('.admin-workspace-body');
-    body.append(renderLineupBulkImportPanel(), lineupSearchControls());
-    if (!state.lineups.searched) {
-      body.append(empty('输入阵容名、阵容码、作者后开始查找', 'admin-empty-search'));
+    if (isImport) {
+      body.append(renderLineupBulkImportPanel());
       return panel;
     }
+    body.append(lineupSearchControls());
     const list = el('div', 'admin-list compact');
     if (!state.lineups.items.length) {
       list.append(empty('没有找到阵容'));
@@ -641,8 +695,16 @@
   }
 
   function renderLiveCompsWorkspace() {
-    const panel = workbenchPanel('实时阵容', '按实时阵容专区整体统计与赛季管理，支持按赛季查看并给缺少阵容码的条目补码');
+    const isSeasonManagement = state.liveCompsWorkspace === 'seasons';
+    const panel = workbenchPanel(
+      isSeasonManagement ? '赛季管理' : '阵容码维护',
+      isSeasonManagement ? '调整赛季展示状态、顺序和默认项' : '按赛季查看实时阵容并为缺码条目补码',
+    );
     const body = panel.querySelector('.admin-workspace-body');
+    if (isSeasonManagement) {
+      body.append(renderLiveCompSeasonManager());
+      return panel;
+    }
     body.append(renderLiveCompSeasonPicker());
     const updatedRow = el('p', 'admin-meta admin-updated-row');
     updatedRow.append(state.liveComps.updated_at ? `实时阵容数据更新时间：${state.liveComps.updated_at}` : '实时阵容数据更新时间：暂无');
@@ -655,7 +717,6 @@
     body.append(updatedRow);
     body.append(renderLiveCompMetrics(), el('p', 'admin-meta', `最近统计更新：${state.liveComps.copy_updated_at || '未复制'}`));
     body.append(renderLiveCompItemList(), renderPagination('liveComps'));
-    body.append(renderLiveCompSeasonManager());
     return panel;
   }
 
@@ -814,38 +875,24 @@
     submit.type = 'submit';
     const reset = button('清空', async () => {
       abortRequest('lineups');
-      state.lineups = { ...state.lineups, items: [], total: 0, page: 1, total_pages: 1, query: '', searched: false, loadedAt: 0 };
+      state.lineups = { ...state.lineups, page: 1, query: '', loadedAt: 0 };
       input.value = '';
+      await loadLineups({ force: true });
       render();
     });
     const triggerSearch = debounce(async () => {
       const nextValue = input.value.trim();
-      if (!nextValue) return;
       state.lineups.query = nextValue;
       state.lineups.page = 1;
-      state.lineups.searched = true;
       await loadLineups({ force: true });
       render();
     }, 360);
-    input.addEventListener('input', () => {
-      if (!input.value.trim()) {
-        abortRequest('lineups');
-        state.lineups = { ...state.lineups, items: [], total: 0, page: 1, total_pages: 1, query: '', searched: false, loadedAt: 0 };
-        render();
-        return;
-      }
-      triggerSearch();
-    });
+    input.addEventListener('input', triggerSearch);
     wrap.addEventListener('submit', async (event) => {
       event.preventDefault();
       const nextValue = input.value.trim();
-      if (!nextValue) {
-        render();
-        return;
-      }
       state.lineups.query = nextValue;
       state.lineups.page = 1;
-      state.lineups.searched = true;
       await loadLineups({ force: true });
       render();
     });
@@ -938,9 +985,7 @@
       state.lineupBulkImport.result = result;
       state.lineupBulkImport.preview_raw_text = rawText;
       state.lineupBulkImport.preview_season_id = seasonId;
-      if (state.lineups.searched) {
-        await loadLineups({ force: true });
-      }
+      await loadLineups({ force: true });
       await loadOverview({ force: true });
       setNotice(`导入完成：新增 ${result.created_count || 0} 条，跳过 ${Number(result.duplicate_existing_count || 0) + Number(result.duplicate_in_upload_count || 0)} 条`);
       render();
@@ -970,13 +1015,9 @@
   }
 
   function renderUsersWorkspace() {
-    const panel = workbenchPanel('用户管理', '默认不加载列表，搜索用户名、邮箱或昵称后开始查找');
+    const panel = workbenchPanel('用户管理', '默认显示最近用户，每页 10 条；搜索会保留分页');
     const body = panel.querySelector('.admin-workspace-body');
     body.append(userSearchControls());
-    if (!state.users.searched) {
-      body.append(empty('搜索用户名、邮箱或昵称后开始查找', 'admin-empty-search'));
-      return panel;
-    }
     const list = el('div', 'admin-list compact');
     if (!state.users.items.length) {
       list.append(empty('没有找到用户'));
@@ -1015,38 +1056,24 @@
     submit.type = 'submit';
     const reset = button('清空', async () => {
       abortRequest('users');
-      state.users = { ...state.users, items: [], total: 0, page: 1, total_pages: 1, query: '', searched: false, loadedAt: 0 };
+      state.users = { ...state.users, page: 1, query: '', loadedAt: 0 };
       input.value = '';
+      await loadUsers({ force: true });
       render();
     });
     const triggerSearch = debounce(async () => {
       const nextValue = input.value.trim();
-      if (!nextValue) return;
       state.users.query = nextValue;
       state.users.page = 1;
-      state.users.searched = true;
       await loadUsers({ force: true });
       render();
     }, 360);
-    input.addEventListener('input', () => {
-      if (!input.value.trim()) {
-        abortRequest('users');
-        state.users = { ...state.users, items: [], total: 0, page: 1, total_pages: 1, query: '', searched: false, loadedAt: 0 };
-        render();
-        return;
-      }
-      triggerSearch();
-    });
+    input.addEventListener('input', triggerSearch);
     wrap.addEventListener('submit', async (event) => {
       event.preventDefault();
       const nextValue = input.value.trim();
-      if (!nextValue) {
-        render();
-        return;
-      }
       state.users.query = nextValue;
       state.users.page = 1;
-      state.users.searched = true;
       await loadUsers({ force: true });
       render();
     });
@@ -1968,7 +1995,7 @@
     });
     const passwordUser = state.passwordUser;
     closePasswordDialog();
-    if (state.users.searched) await loadUsers({ force: true });
+    await loadUsers({ force: true });
     setNotice(`已更新 ${passwordUser.nickname} 的密码`);
   }
 
@@ -2038,7 +2065,7 @@
   async function disableUser(id) {
     if (!confirm('确定禁用这个用户吗？')) return;
     await api(`/api/admin/users/${id}`, { method: 'DELETE' });
-    if (state.users.searched) await loadUsers({ force: true });
+    await loadUsers({ force: true });
     await loadOverview({ force: true });
     setNotice('用户已禁用');
   }

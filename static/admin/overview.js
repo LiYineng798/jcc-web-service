@@ -1,13 +1,13 @@
 (function (global) {
   const { buildDeltaText, el, formatDay } = global.JccAdminCore;
 
-  function createOverviewRenderer({ activateTab, button, empty, getOverview, getCopyRank, refreshCopyRank, trafficMetric, workbenchPanel }) {
+  function createOverviewRenderer({ button, empty, getOverview, getCopyRank, refreshCopyRank, trafficMetric, workbenchPanel }) {
     function renderOverviewDashboard() {
       const wrap = el('div', 'admin-dashboard');
       wrap.append(renderOverviewStats());
 
       const grid = el('div', 'admin-dashboard-grid');
-      grid.append(renderTrafficOverview(), renderTodoPanel(), renderQuickLinks());
+      grid.append(renderTrafficOverview(), renderTodoPanel());
       wrap.append(grid);
       wrap.append(renderCopyRankPanel());
       return wrap;
@@ -314,25 +314,6 @@
         list.append(card);
       });
       body.append(list);
-      return panel;
-    }
-
-    function renderQuickLinks() {
-      const panel = workbenchPanel('快捷入口', '按任务进入对应工作台');
-      const body = panel.querySelector('.admin-workspace-body');
-      const links = el('div', 'admin-quick-links');
-      [
-        ['去处理举报', '优先清理待处理问题', 'reports'],
-        ['去查找阵容', '按阵容名、阵容码、作者查找', 'lineups'],
-        ['去管理用户', '查找用户、改密、禁用', 'users'],
-        ['查看增长分析', '查看转化漏斗与日期数据', 'analytics'],
-        ['查看审计日志', '查看最近后台操作记录', 'audit'],
-      ].forEach(([title, desc, tabKey]) => {
-        const card = button(title, async () => activateTab(tabKey), 'admin-quick-link');
-        card.append(el('span', 'admin-meta', desc));
-        links.append(card);
-      });
-      body.append(links);
       return panel;
     }
 

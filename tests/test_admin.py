@@ -460,6 +460,30 @@ def test_admin_lineups_and_users_support_paginated_results(client):
     assert users['items'][0]['nickname'] == '作者'
 
 
+def test_admin_lineups_and_users_default_to_ten_recent_rows(client):
+    headers = login_admin(client)
+    for index in range(12):
+        response = client.post(
+            '/api/admin/users',
+            json={
+                'username': f'page-user-{index}',
+                'email': f'page-user-{index}@example.com',
+                'password': 'abc123',
+                'nickname': f'分页用户{index}',
+            },
+            headers=headers,
+        )
+        assert response.status_code == 201
+
+    users = client.get('/api/admin/users?page=1&page_size=10', headers=headers).get_json()
+    lineups = client.get('/api/admin/lineups?page=1&page_size=10', headers=headers).get_json()
+
+    assert users['page_size'] == 10
+    assert len(users['items']) == 10
+    assert users['total_pages'] >= 2
+    assert lineups['page_size'] == 10
+
+
 def test_admin_audit_logs_support_pagination_without_filters(client):
     headers = login_admin(client)
     client.post('/api/admin/users', json={'username': 'eve2', 'email': 'eve2@example.com', 'password': 'abc123'}, headers=headers)

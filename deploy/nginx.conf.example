@@ -18,6 +18,14 @@ server {
     gzip_min_length 512;
     gzip_types text/plain text/css application/javascript application/json application/xml image/svg+xml;
 
+    # 赛季 JSON 会随资料导入原地更新，要求浏览器每次重新验证。
+    # 页面仍会附带内容版本参数，确保部署后立即切换到新资料。
+    location ~ ^/static/season-data/(.*\.json)$ {
+        alias /opt/jcc/jcc-web-service/static/season-data/$1;
+        add_header Cache-Control "public, max-age=0, must-revalidate" always;
+        access_log off;
+    }
+
     # 静态文件由 nginx 直接服务，不经过 Python worker。
     # 站点 CSS/JS 引用带 ?v= 版本号，图片路径由数据版本决定，可放心长缓存。
     location /static/ {

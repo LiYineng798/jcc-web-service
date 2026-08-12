@@ -1,4 +1,5 @@
 const DATA_ROOT = "/static/season-data";
+const DATA_VERSION = document.querySelector("#simulatorRoot")?.dataset.seasonDataVersion || "0";
 const UI_ROOT = "/static/tools/lineup-simulator/ui";
 const STORAGE_PREFIX = "jcc-simulator-v2:";
 const MAX_HISTORY = 40;
@@ -173,14 +174,16 @@ function normalizeItem(raw) {
 }
 
 async function fetchJson(path) {
-  const response = await fetch(path, { headers: { Accept: "application/json" } });
+  const response = await fetch(path, {
+    cache: "no-cache",
+    headers: { Accept: "application/json" },
+  });
   if (!response.ok) throw new Error(`资料加载失败 (${response.status})`);
   return response.json();
 }
 
 async function loadCatalog() {
-  const catalog = await fetchJson(`${DATA_ROOT}/catalog.json`);
-  state.catalog = [...(catalog.seasons || [])].sort(compareSeasons);
+  await refreshCatalog();
   renderSeasonSwitcher();
   const hashPayload = readHashPayload();
   const requestedId = hashPayload?.season || localStorage.getItem(`${STORAGE_PREFIX}season`);
@@ -189,6 +192,11 @@ async function loadCatalog() {
     || state.catalog[0];
   if (!initial) throw new Error("资料库中没有可用赛季");
   await loadSeason(initial.season_id, hashPayload);
+}
+
+async function refreshCatalog() {
+  const catalog = await fetchJson(`${DATA_ROOT}/catalog.json?v=${encodeURIComponent(DATA_VERSION)}`);
+  state.catalog = [...(catalog.seasons || [])].sort(compareSeasons);
 }
 
 async function loadSeason(seasonId, importedPayload = null) {
@@ -205,7 +213,7 @@ async function loadSeason(seasonId, importedPayload = null) {
   elements.itemSearch.value = "";
   setLoading(true);
   try {
-    const stamp = encodeURIComponent(season.version_id);
+    const stamp = encodeURIComponent(`${season.version_id}-${DATA_VERSION}`);
     const [championData, traitData, itemData] = await Promise.all([
       fetchJson(`${DATA_ROOT}/${encodeURIComponent(seasonId)}/champions.json?v=${stamp}`),
       fetchJson(`${DATA_ROOT}/${encodeURIComponent(seasonId)}/traits.json?v=${stamp}`),
@@ -747,7 +755,11 @@ function showToast(message) {
 elements.seasonSwitcher.addEventListener("click", async (event) => {
   const button = event.target.closest("[data-season-id]");
   if (!button || button.dataset.seasonId === state.season?.season_id) return;
-  try { await loadSeason(button.dataset.seasonId); }
+  try {
+    const seasonId = button.dataset.seasonId;
+    await refreshCatalog();
+    await loadSeason(seasonId);
+  }
   catch (error) { showToast(error.message); }
 });
 

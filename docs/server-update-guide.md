@@ -84,6 +84,10 @@ done
 curl -sI https://jcc.np5.top/static/styles.css | grep -i cache-control
 curl -s -H 'Accept-Encoding: gzip' -o /dev/null \
   -w 'encoding=%header{content-encoding}\n' https://jcc.np5.top/static/styles.css
+
+# 赛季 JSON 会原地更新，必须重新验证，不能继承 /static 的 immutable
+curl -sI https://jcc.np5.top/static/season-data/catalog.json | grep -i cache-control
+# 预期包含：max-age=0, must-revalidate
 ```
 
 再用浏览器打开首页、随便点一个赛季资料页和弈子详情页确认无异常。

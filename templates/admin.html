@@ -19,8 +19,20 @@
             <h2 id="adminNavWorkbench">工作台</h2>
             <button class="admin-nav-item is-active" data-admin-tab="overview" type="button"><i data-lucide="layout-dashboard"></i><span>概览</span></button>
             <button class="admin-nav-item" data-admin-tab="reports" type="button"><i data-lucide="shield-alert"></i><span>举报处理</span><span class="admin-nav-count" id="pendingReportCount">0</span></button>
-            <button class="admin-nav-item" data-admin-tab="lineups" type="button"><i data-lucide="swords"></i><span>阵容管理</span></button>
-            <button class="admin-nav-item" data-admin-tab="live-comps" type="button"><i data-lucide="radio"></i><span>实时阵容</span></button>
+            <div class="admin-nav-tree" data-admin-nav-tree="lineups">
+              <button class="admin-nav-item admin-nav-parent" data-admin-nav-toggle="lineups" type="button" aria-expanded="false" aria-controls="adminLineupSubnav"><i data-lucide="swords"></i><span>阵容管理</span><i class="admin-nav-chevron" data-lucide="chevron-down"></i></button>
+              <div class="admin-nav-submenu" id="adminLineupSubnav" hidden>
+                <button class="admin-nav-subitem" data-admin-tab="lineups" data-admin-workspace="list" type="button"><i data-lucide="search"></i><span>阵容查找</span></button>
+                <button class="admin-nav-subitem" data-admin-tab="lineups" data-admin-workspace="import" type="button"><i data-lucide="upload"></i><span>批量导入</span></button>
+              </div>
+            </div>
+            <div class="admin-nav-tree" data-admin-nav-tree="live-comps">
+              <button class="admin-nav-item admin-nav-parent" data-admin-nav-toggle="live-comps" type="button" aria-expanded="false" aria-controls="adminLiveCompsSubnav"><i data-lucide="radio"></i><span>实时阵容</span><i class="admin-nav-chevron" data-lucide="chevron-down"></i></button>
+              <div class="admin-nav-submenu" id="adminLiveCompsSubnav" hidden>
+                <button class="admin-nav-subitem" data-admin-tab="live-comps" data-admin-workspace="codes" type="button"><i data-lucide="code-2"></i><span>阵容码维护</span></button>
+                <button class="admin-nav-subitem" data-admin-tab="live-comps" data-admin-workspace="seasons" type="button"><i data-lucide="layers-3"></i><span>赛季管理</span></button>
+              </div>
+            </div>
           </section>
           <section class="admin-nav-group" aria-labelledby="adminNavContent">
             <h2 id="adminNavContent">内容与用户</h2>
@@ -69,7 +81,7 @@
     <nav class="admin-mobile-nav" aria-label="手机端后台导航">
       <button class="admin-mobile-nav-item is-active" data-admin-tab="overview" type="button"><i data-lucide="layout-dashboard"></i><span>概览</span></button>
       <button class="admin-mobile-nav-item" data-admin-tab="reports" type="button"><i data-lucide="shield-alert"></i><span>举报</span></button>
-      <button class="admin-mobile-nav-item" data-admin-tab="lineups" type="button"><i data-lucide="swords"></i><span>阵容</span></button>
+      <button class="admin-mobile-nav-item" data-admin-tab="lineups" data-admin-workspace="list" type="button"><i data-lucide="swords"></i><span>阵容</span></button>
       <button class="admin-mobile-nav-item" data-admin-tab="analytics" type="button"><i data-lucide="chart-no-axes-combined"></i><span>分析</span></button>
       <button class="admin-mobile-nav-item" id="adminMoreButton" type="button" aria-haspopup="dialog"><i data-lucide="menu"></i><span>更多</span></button>
     </nav>
@@ -77,15 +89,31 @@
     <dialog class="admin-more-dialog" id="adminMoreDialog" aria-labelledby="adminMoreTitle">
       <div class="admin-more-handle" aria-hidden="true"></div>
       <header><div><h2 id="adminMoreTitle">更多管理工具</h2><p>内容、用户与系统设置</p></div><button class="admin-dialog-close" id="adminMoreClose" type="button" aria-label="关闭"><i data-lucide="x"></i></button></header>
-      <div class="admin-more-grid">
-        <button data-admin-tab="live-comps" type="button"><i data-lucide="radio"></i><span>实时阵容</span></button>
-        <button data-admin-tab="patch-notes" type="button"><i data-lucide="notebook-tabs"></i><span>更新公告</span></button>
-        <button data-admin-tab="users" type="button"><i data-lucide="users"></i><span>用户管理</span></button>
-        <button data-admin-tab="guestbook" type="button"><i data-lucide="message-square-text"></i><span>留言管理</span></button>
-        <button data-admin-tab="daily-reports" type="button"><i data-lucide="calendar-check-2"></i><span>每日报告</span></button>
-        <button data-admin-tab="audit" type="button"><i data-lucide="scroll-text"></i><span>审计日志</span></button>
-        <button data-admin-tab="settings" type="button"><i data-lucide="settings-2"></i><span>系统设置</span></button>
-      </div>
+      <section class="admin-more-section" aria-labelledby="adminMoreLineups">
+        <h3 id="adminMoreLineups">阵容管理</h3>
+        <div class="admin-more-grid admin-more-grid-compact">
+          <button data-admin-tab="lineups" data-admin-workspace="list" type="button"><i data-lucide="search"></i><span>阵容查找</span></button>
+          <button data-admin-tab="lineups" data-admin-workspace="import" type="button"><i data-lucide="upload"></i><span>批量导入</span></button>
+        </div>
+      </section>
+      <section class="admin-more-section" aria-labelledby="adminMoreLiveComps">
+        <h3 id="adminMoreLiveComps">实时阵容</h3>
+        <div class="admin-more-grid admin-more-grid-compact">
+          <button data-admin-tab="live-comps" data-admin-workspace="codes" type="button"><i data-lucide="code-2"></i><span>阵容码维护</span></button>
+          <button data-admin-tab="live-comps" data-admin-workspace="seasons" type="button"><i data-lucide="layers-3"></i><span>赛季管理</span></button>
+        </div>
+      </section>
+      <section class="admin-more-section" aria-labelledby="adminMoreOther">
+        <h3 id="adminMoreOther">其他工具</h3>
+        <div class="admin-more-grid">
+          <button data-admin-tab="patch-notes" type="button"><i data-lucide="notebook-tabs"></i><span>更新公告</span></button>
+          <button data-admin-tab="users" type="button"><i data-lucide="users"></i><span>用户管理</span></button>
+          <button data-admin-tab="guestbook" type="button"><i data-lucide="message-square-text"></i><span>留言管理</span></button>
+          <button data-admin-tab="daily-reports" type="button"><i data-lucide="calendar-check-2"></i><span>每日报告</span></button>
+          <button data-admin-tab="audit" type="button"><i data-lucide="scroll-text"></i><span>审计日志</span></button>
+          <button data-admin-tab="settings" type="button"><i data-lucide="settings-2"></i><span>系统设置</span></button>
+        </div>
+      </section>
     </dialog>
 
     <div id="adminDialogRoot"></div>
