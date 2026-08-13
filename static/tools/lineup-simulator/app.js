@@ -768,7 +768,9 @@ function buildPosterCapture(title, championId) {
   poster.style.setProperty("--poster-height", `${POSTER_HEIGHT}px`);
   poster.innerHTML = `
     <div class="lineup-poster-background">
-      ${hero?.splash ? `<img class="lineup-poster-background-image" src="${escapeHtml(hero.splash)}" alt="" data-fallback-src="${escapeHtml(hero.icon)}" />` : ""}
+      ${hero?.splash ? `
+        <img class="lineup-poster-background-fill" src="${escapeHtml(hero.splash)}" alt="" data-fallback-src="${escapeHtml(hero.icon)}" />
+        <img class="lineup-poster-background-art" src="${escapeHtml(hero.splash)}" alt="" data-fallback-src="${escapeHtml(hero.icon)}" />` : ""}
     </div>
     <div class="lineup-poster-overlay"></div>
     <header class="lineup-poster-header">

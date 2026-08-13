@@ -266,6 +266,8 @@ def test_simulator_exports_a_separate_fixed_portrait_poster():
     assert 'function defaultPosterChampionId()' in javascript
     assert 'b.hero.cost - a.hero.cost || a.index - b.index' in javascript
     assert 'function buildPosterCapture(title, championId)' in javascript
+    assert 'lineup-poster-background-fill' in javascript
+    assert 'lineup-poster-background-art' in javascript
     assert 'function posterBoardClone()' in javascript
     assert 'posterIcon: seasonAsset(raw.images?.icon?.local_path || raw.images?.icon?.optimized_local_path)' in javascript
     assert 'data-fallback-src="${escapeHtml(hero.icon)}"' in javascript
@@ -277,6 +279,8 @@ def test_simulator_exports_a_separate_fixed_portrait_poster():
     assert 'pixelRatio: 1' in javascript
     assert 'POSTER_SITE_URL = "jcc.np5.top"' in javascript
     assert '.lineup-poster-capture {' in css
+    assert '.lineup-poster-background-art {' in css
+    assert 'object-fit: contain' in css
     assert 'grid-template-rows: 292px 760px 350px 198px' in css
     assert '"Source Han Serif SC Poster"' in css
     assert '.lineup-poster-brand' in css
