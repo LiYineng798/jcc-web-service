@@ -4,6 +4,11 @@ const UI_ROOT = "/static/tools/lineup-simulator/ui";
 const STORAGE_PREFIX = "jcc-simulator-v2:";
 const MAX_HISTORY = 40;
 const MAX_EXPORT_TRAITS = 8;
+const MAX_POSTER_TRAITS = 9;
+const POSTER_WIDTH = 1200;
+const POSTER_HEIGHT = 1600;
+const POSTER_DEFAULT_TITLE = "我的阵容";
+const POSTER_SITE_URL = "jcc.np5.top";
 const ITEM_CATEGORIES = [
   { id: "normal", label: "普通", source: ["completed"] },
   { id: "component", label: "散件", source: ["component"] },
@@ -66,6 +71,7 @@ const elements = {
   redo: document.querySelector("#redoButton"),
   reset: document.querySelector("#resetButton"),
   exportImage: document.querySelector("#exportImageButton"),
+  exportPoster: document.querySelector("#exportPosterButton"),
   share: document.querySelector("#shareButton"),
   import: document.querySelector("#importButton"),
   export: document.querySelector("#exportButton"),
@@ -81,6 +87,12 @@ const elements = {
   exportIncludeTraits: document.querySelector("#exportIncludeTraits"),
   exportTransparentBackground: document.querySelector("#exportTransparentBackground"),
   confirmExportImage: document.querySelector("#confirmExportImageButton"),
+  posterExportDialog: document.querySelector("#posterExportDialog"),
+  posterTitle: document.querySelector("#posterTitle"),
+  posterTitleCount: document.querySelector("#posterTitleCount"),
+  posterChampionPicker: document.querySelector("#posterChampionPicker"),
+  posterPreview: document.querySelector("#posterPreview"),
+  confirmExportPoster: document.querySelector("#confirmExportPosterButton"),
 };
 
 const state = {
@@ -104,6 +116,7 @@ const state = {
   historyIndex: -1,
   dragging: null,
   dialogMode: "import",
+  posterChampionId: null,
 };
 
 function escapeHtml(value) {
@@ -137,6 +150,7 @@ function normalizeChampion(raw) {
     traitIds: (raw.trait_ids || []).map(String),
     availability: raw.availability || { type: "shop", description: null, rules: [] },
     icon: seasonAsset(raw.images?.icon?.optimized_local_path || raw.images?.icon?.local_path),
+    posterIcon: seasonAsset(raw.images?.icon?.local_path || raw.images?.icon?.optimized_local_path),
     splash: seasonAsset(raw.images?.splash?.local_path || raw.images?.icon?.local_path),
     skill: raw.skills?.[0] || null,
     stats: raw.stats_by_star?.["1"] || {},
@@ -375,6 +389,7 @@ function renderBoard() {
   renderComponentSummary();
   elements.undo.disabled = state.historyIndex <= 0;
   elements.redo.disabled = state.historyIndex >= state.history.length - 1;
+  elements.exportPoster.disabled = units.length === 0;
 }
 
 function boardSlotHtml(slot, index) {
@@ -672,6 +687,239 @@ async function exportBoardImage(includeTraits = true, transparentBackground = fa
   }
 }
 
+function posterChampionCandidates() {
+  const seen = new Set();
+  return state.board.flatMap((slot, index) => {
+    if (!slot || seen.has(slot.championId)) return [];
+    const hero = state.championById.get(slot.championId);
+    if (!hero) return [];
+    seen.add(slot.championId);
+    return [{ hero, index }];
+  });
+}
+
+function defaultPosterChampionId() {
+  return posterChampionCandidates()
+    .sort((a, b) => b.hero.cost - a.hero.cost || a.index - b.index)[0]?.hero.id || null;
+}
+
+function normalizedPosterTitle() {
+  return String(elements.posterTitle.value || "").trim().slice(0, 24) || POSTER_DEFAULT_TITLE;
+}
+
+function posterTitleClass(title) {
+  if (title.length > 16) return "is-very-long";
+  if (title.length > 12) return "is-long";
+  return "";
+}
+
+function posterTraitRows() {
+  return [...getTraitCounts()].map(([traitId, count]) => {
+    const trait = state.traitById.get(traitId);
+    if (!trait) return null;
+    const status = traitState(trait, count);
+    return status.active ? { trait, count, status } : null;
+  }).filter(Boolean).sort(compareTraitRows);
+}
+
+function posterTraitHtml() {
+  const rows = posterTraitRows();
+  if (!rows.length) return '<div class="lineup-poster-traits-empty">未激活羁绊</div>';
+  const visible = rows.slice(0, MAX_POSTER_TRAITS);
+  const overflow = rows.length - visible.length;
+  return `${visible.map(({ trait, count, status }) => {
+    const frame = status.styleIndex === "unique" ? `${UI_ROOT}/unique.svg` : `${UI_ROOT}/${status.styleIndex}.svg`;
+    return `<div class="lineup-poster-trait" style="--trait-color:${TRAIT_STYLE_COLORS[status.styleIndex]}">
+      <span class="lineup-poster-trait-badge"><img src="${frame}" alt="" />${trait.icon ? `<img class="lineup-poster-trait-icon" src="${escapeHtml(trait.icon)}" alt="" />` : ""}</span>
+      <span class="lineup-poster-trait-count">${count}</span>
+      <strong>${escapeHtml(trait.name)}</strong>
+    </div>`;
+  }).join("")}${overflow > 0 ? `<div class="lineup-poster-trait lineup-poster-trait-more"><b>+${overflow}</b><strong>个羁绊</strong></div>` : ""}`;
+}
+
+function posterBoardClone() {
+  const board = elements.board.cloneNode(true);
+  board.removeAttribute("id");
+  board.classList.remove("hide-names");
+  board.classList.add("lineup-poster-hex-board");
+  board.querySelectorAll(".hex-cell").forEach((cell) => {
+    cell.removeAttribute("draggable");
+    cell.setAttribute("type", "button");
+    cell.setAttribute("tabindex", "-1");
+    cell.removeAttribute("role");
+    cell.removeAttribute("aria-label");
+    const hero = state.championById.get(cell.dataset.heroId);
+    const portrait = cell.querySelector(".unit-portrait-image");
+    if (hero && portrait) {
+      portrait.dataset.fallbackSrc = hero.icon;
+      portrait.src = hero.posterIcon || hero.icon;
+    }
+  });
+  return board;
+}
+
+function buildPosterCapture(title, championId) {
+  const hero = state.championById.get(championId) || state.championById.get(defaultPosterChampionId());
+  const units = state.board.filter(Boolean);
+  const totalCost = units.reduce((total, slot) => total + (state.championById.get(slot.championId)?.cost || 0), 0);
+  const poster = document.createElement("section");
+  poster.className = "lineup-poster-capture";
+  poster.style.setProperty("--poster-width", `${POSTER_WIDTH}px`);
+  poster.style.setProperty("--poster-height", `${POSTER_HEIGHT}px`);
+  poster.innerHTML = `
+    <div class="lineup-poster-background">
+      ${hero?.splash ? `<img class="lineup-poster-background-image" src="${escapeHtml(hero.splash)}" alt="" data-fallback-src="${escapeHtml(hero.icon)}" />` : ""}
+    </div>
+    <div class="lineup-poster-overlay"></div>
+    <header class="lineup-poster-header">
+      <div class="lineup-poster-season"><span>${escapeHtml(state.season.display_name)}</span><b>${escapeHtml(state.season.game_version || "")}</b></div>
+      <h1 class="${posterTitleClass(title)}">${escapeHtml(title)}</h1>
+      <div class="lineup-poster-summary"><span>${units.length} 名弈子</span><i></i><span>总费用 ${totalCost}</span><i></i><span>${posterTraitRows().length} 个激活羁绊</span></div>
+    </header>
+    <div class="lineup-poster-board-panel"><div class="lineup-poster-board-slot"></div></div>
+    <section class="lineup-poster-traits-panel">
+      <div class="lineup-poster-section-title"><span>SYNERGIES</span><strong>阵容羁绊</strong></div>
+      <div class="lineup-poster-traits">${posterTraitHtml()}</div>
+    </section>
+    <footer class="lineup-poster-footer">
+      <div class="lineup-poster-footer-line"></div>
+      <div class="lineup-poster-brand"><img src="/static/favicon.png" alt="" /><span><strong>金铲铲阵容库</strong><small>${POSTER_SITE_URL}</small></span></div>
+    </footer>`;
+  poster.querySelector(".lineup-poster-board-slot").append(posterBoardClone());
+  return poster;
+}
+
+function fitPosterPreview() {
+  const poster = elements.posterPreview.querySelector(".lineup-poster-capture");
+  if (!poster) return;
+  const scale = elements.posterPreview.clientWidth / POSTER_WIDTH;
+  poster.style.transform = `scale(${scale})`;
+  elements.posterPreview.style.height = `${POSTER_HEIGHT * scale}px`;
+}
+
+function renderPosterPreview() {
+  const title = normalizedPosterTitle();
+  elements.posterTitleCount.textContent = String(elements.posterTitle.value.length);
+  elements.posterPreview.replaceChildren(buildPosterCapture(title, state.posterChampionId));
+  requestAnimationFrame(fitPosterPreview);
+}
+
+function renderPosterChampionPicker() {
+  const candidates = posterChampionCandidates();
+  if (!candidates.some(({ hero }) => hero.id === state.posterChampionId)) {
+    state.posterChampionId = defaultPosterChampionId();
+  }
+  elements.posterChampionPicker.innerHTML = candidates.map(({ hero }) => `
+    <button class="poster-champion-option ${hero.id === state.posterChampionId ? "is-selected" : ""}" type="button" data-poster-champion-id="${escapeHtml(hero.id)}" title="${escapeHtml(hero.name)}">
+      <img src="${escapeHtml(hero.icon)}" alt="" /><span>${escapeHtml(hero.name)}</span>
+    </button>`).join("");
+}
+
+function openPosterDialog() {
+  if (!state.board.some(Boolean)) return showToast("请先配置阵容");
+  state.posterChampionId = defaultPosterChampionId();
+  elements.posterTitle.value = POSTER_DEFAULT_TITLE;
+  renderPosterChampionPicker();
+  renderPosterPreview();
+  elements.posterExportDialog.showModal();
+  requestAnimationFrame(fitPosterPreview);
+}
+
+async function preparePosterImages(poster) {
+  await Promise.all([...poster.querySelectorAll("img")].map(async (image) => {
+    try {
+      if (!image.complete) await new Promise((resolve, reject) => {
+        image.addEventListener("load", resolve, { once: true });
+        image.addEventListener("error", reject, { once: true });
+      });
+      await image.decode?.();
+    } catch {
+      const fallback = image.dataset.fallbackSrc;
+      if (fallback && image.src !== new URL(fallback, location.href).href) {
+        image.src = fallback;
+        try { await image.decode?.(); } catch { image.hidden = true; }
+      } else {
+        image.hidden = true;
+      }
+    }
+  }));
+}
+
+function safePosterFilename(value) {
+  return String(value || POSTER_DEFAULT_TITLE).replace(/[\\/:*?"<>|]+/g, "-").replace(/\s+/g, "-").slice(0, 40);
+}
+
+function posterTitleLines(context, title, maxWidth) {
+  const lines = [""];
+  [...title].forEach((character) => {
+    const index = lines.length - 1;
+    const candidate = lines[index] + character;
+    if (lines[index] && context.measureText(candidate).width > maxWidth && lines.length < 2) lines.push(character);
+    else lines[index] = candidate;
+  });
+  return lines;
+}
+
+async function rasterizePosterTitle(poster) {
+  const heading = poster.querySelector(".lineup-poster-header h1");
+  if (!heading) return;
+  const title = heading.textContent || POSTER_DEFAULT_TITLE;
+  const fontSize = heading.classList.contains("is-very-long") ? 55 : heading.classList.contains("is-long") ? 68 : 82;
+  await document.fonts?.load(`${fontSize}px "Source Han Serif SC Poster"`, title);
+  const canvas = document.createElement("canvas");
+  canvas.width = 1020;
+  canvas.height = 150;
+  const context = canvas.getContext("2d");
+  context.font = `850 ${fontSize}px "Source Han Serif SC Poster", "Noto Serif SC", serif`;
+  context.fillStyle = "#f6e3ad";
+  context.textBaseline = "top";
+  context.shadowColor = "rgba(0, 0, 0, .68)";
+  context.shadowBlur = 20;
+  context.shadowOffsetY = 5;
+  const lineHeight = fontSize * 1.12;
+  posterTitleLines(context, title, 1000).forEach((line, index) => context.fillText(line, 0, index * lineHeight, 1000));
+  const image = document.createElement("img");
+  image.className = "lineup-poster-title-image";
+  image.src = canvas.toDataURL("image/png");
+  image.alt = title;
+  heading.replaceWith(image);
+}
+
+async function exportPortraitPoster() {
+  if (!window.htmlToImage?.toPng) throw new Error("图片导出组件未加载");
+  const title = normalizedPosterTitle();
+  const poster = buildPosterCapture(title, state.posterChampionId);
+  poster.classList.add("is-exporting");
+  document.body.append(poster);
+  elements.exportPoster.disabled = true;
+  elements.confirmExportPoster.disabled = true;
+  showToast("正在生成 3:4 阵容海报...");
+  try {
+    await document.fonts?.ready;
+    await rasterizePosterTitle(poster);
+    await preparePosterImages(poster);
+    const dataUrl = await window.htmlToImage.toPng(poster, {
+      backgroundColor: "#0b0d12",
+      cacheBust: true,
+      pixelRatio: 1,
+      skipFonts: true,
+      width: POSTER_WIDTH,
+      height: POSTER_HEIGHT,
+      style: { position: "static", left: "auto", top: "auto", zIndex: "auto", transform: "none" },
+    });
+    const link = document.createElement("a");
+    link.download = `${state.season.season_id}-${safePosterFilename(title)}-poster.png`;
+    link.href = dataUrl;
+    link.click();
+    elements.posterExportDialog.close();
+    showToast("3:4 阵容海报已保存");
+  } finally {
+    poster.remove();
+    elements.exportPoster.disabled = !state.board.some(Boolean);
+    elements.confirmExportPoster.disabled = false;
+  }
+}
+
 function showHeroPopover(heroId, anchor) {
   const hero = state.championById.get(heroId);
   if (!hero) return;
@@ -899,10 +1147,27 @@ elements.export.addEventListener("click", () => openCodeDialog("export"));
 elements.confirmCode.addEventListener("click", handleCodeConfirm);
 elements.share.addEventListener("click", () => shareFormation().catch(() => showToast("复制失败")));
 elements.exportImage.addEventListener("click", () => elements.exportImageDialog.showModal());
+elements.exportPoster.addEventListener("click", openPosterDialog);
 elements.confirmExportImage.addEventListener("click", () => exportBoardImage(
   elements.exportIncludeTraits.checked,
   elements.exportTransparentBackground.checked,
 ).catch(() => showToast("图片生成失败")));
+elements.posterTitle.addEventListener("input", renderPosterPreview);
+elements.posterChampionPicker.addEventListener("click", (event) => {
+  const option = event.target.closest("[data-poster-champion-id]");
+  if (!option) return;
+  state.posterChampionId = option.dataset.posterChampionId;
+  renderPosterChampionPicker();
+  renderPosterPreview();
+});
+elements.confirmExportPoster.addEventListener("click", () => exportPortraitPoster().catch(() => showToast("海报生成失败")));
+elements.posterExportDialog.addEventListener("close", () => {
+  elements.posterPreview.replaceChildren();
+  elements.posterPreview.style.height = "";
+});
+window.addEventListener("resize", () => {
+  if (elements.posterExportDialog.open) fitPosterPreview();
+});
 document.addEventListener("keydown", (event) => {
   if (event.key === "/" && !event.ctrlKey && !event.metaKey && !/INPUT|TEXTAREA/.test(document.activeElement?.tagName)) { event.preventDefault(); elements.heroSearch.focus(); }
   if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "z") { event.preventDefault(); applyHistory(state.historyIndex + (event.shiftKey ? 1 : -1)); }

@@ -17,6 +17,7 @@
         <button class="icon-button" id="undoButton" type="button" title="撤销" aria-label="撤销"><i data-lucide="undo-2"></i></button>
         <button class="icon-button" id="redoButton" type="button" title="重做" aria-label="重做"><i data-lucide="redo-2"></i></button>
         <button class="icon-button" id="exportImageButton" type="button" title="保存阵容图" aria-label="保存阵容图"><i data-lucide="camera"></i></button>
+        <button class="icon-button" id="exportPosterButton" type="button" title="导出 3:4 阵容海报" aria-label="导出 3:4 阵容海报" disabled><i data-lucide="image"></i></button>
         <button class="icon-button" id="shareButton" type="button" title="复制阵容链接" aria-label="复制阵容链接"><i data-lucide="share-2"></i></button>
         <button class="icon-button danger" id="resetButton" type="button" title="清空棋盘" aria-label="清空棋盘"><i data-lucide="trash-2"></i></button>
       </nav>
@@ -143,6 +144,36 @@
         <div class="dialog-actions">
           <button class="text-button" value="cancel">取消</button>
           <button class="primary-button" id="confirmExportImageButton" type="button"><i data-lucide="image-down"></i>保存图片</button>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog class="poster-export-dialog" id="posterExportDialog">
+      <form method="dialog">
+        <div class="dialog-heading">
+          <div><span class="panel-kicker">PORTRAIT POSTER</span><h2>导出 3:4 阵容海报</h2></div>
+          <button class="icon-button" value="cancel" aria-label="关闭"><i data-lucide="x"></i></button>
+        </div>
+        <div class="poster-export-layout">
+          <div class="poster-export-controls">
+            <label class="poster-title-field" for="posterTitle">
+              <span>阵容标题</span>
+              <input id="posterTitle" type="text" value="我的阵容" maxlength="24" autocomplete="off" />
+              <small><span id="posterTitleCount">4</span>/24</small>
+            </label>
+            <fieldset class="poster-champion-fieldset">
+              <legend>背景弈子</legend>
+              <div class="poster-champion-picker" id="posterChampionPicker"></div>
+            </fieldset>
+            <p class="poster-export-note">固定导出 1200 × 1600 PNG，包含棋盘、装备和精简羁绊。</p>
+          </div>
+          <div class="poster-preview-shell" aria-label="阵容海报预览">
+            <div class="poster-preview" id="posterPreview"></div>
+          </div>
+        </div>
+        <div class="dialog-actions">
+          <button class="text-button" value="cancel">取消</button>
+          <button class="primary-button" id="confirmExportPosterButton" type="button"><i data-lucide="image-down"></i>保存海报</button>
         </div>
       </form>
     </dialog>

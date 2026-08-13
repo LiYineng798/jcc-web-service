@@ -248,6 +248,52 @@ def test_simulator_exports_the_rendered_board_and_keeps_items_inside_units():
     assert '.lineup-image-board .hex-board' in css
 
 
+def test_simulator_exports_a_separate_fixed_portrait_poster():
+    html = Path('templates/lineup_simulator.html').read_text(encoding='utf-8')
+    javascript = (SIMULATOR_ROOT / 'app.js').read_text(encoding='utf-8')
+    css = (SIMULATOR_ROOT / 'style.css').read_text(encoding='utf-8')
+
+    assert 'id="exportPosterButton"' in html
+    assert 'id="posterExportDialog"' in html
+    assert 'id="posterTitle"' in html
+    assert 'maxlength="24"' in html
+    assert 'id="posterChampionPicker"' in html
+    assert 'id="posterPreview"' in html
+    assert 'id="confirmExportPosterButton"' in html
+    assert 'const POSTER_WIDTH = 1200' in javascript
+    assert 'const POSTER_HEIGHT = 1600' in javascript
+    assert 'const MAX_POSTER_TRAITS = 9' in javascript
+    assert 'function defaultPosterChampionId()' in javascript
+    assert 'b.hero.cost - a.hero.cost || a.index - b.index' in javascript
+    assert 'function buildPosterCapture(title, championId)' in javascript
+    assert 'function posterBoardClone()' in javascript
+    assert 'posterIcon: seasonAsset(raw.images?.icon?.local_path || raw.images?.icon?.optimized_local_path)' in javascript
+    assert 'data-fallback-src="${escapeHtml(hero.icon)}"' in javascript
+    assert 'await preparePosterImages(poster)' in javascript
+    assert 'await rasterizePosterTitle(poster)' in javascript
+    assert 'skipFonts: true' in javascript
+    assert 'width: POSTER_WIDTH' in javascript
+    assert 'height: POSTER_HEIGHT' in javascript
+    assert 'pixelRatio: 1' in javascript
+    assert 'POSTER_SITE_URL = "jcc.np5.top"' in javascript
+    assert '.lineup-poster-capture {' in css
+    assert 'grid-template-rows: 292px 760px 350px 198px' in css
+    assert '"Source Han Serif SC Poster"' in css
+    assert '.lineup-poster-brand' in css
+    assert 'exportBoardImage(' in javascript
+
+
+def test_simulator_bundles_poster_font_and_license(client):
+    font_path = SIMULATOR_ROOT / 'fonts' / 'source-han-serif-sc-vf-subset.woff2'
+    license_path = SIMULATOR_ROOT / 'fonts' / 'LICENSE.txt'
+
+    assert font_path.is_file()
+    assert 1_000_000 < font_path.stat().st_size < 20_000_000
+    assert license_path.is_file()
+    assert 'SIL OPEN FONT LICENSE Version 1.1' in license_path.read_text(encoding='utf-8')
+    assert client.get('/static/tools/lineup-simulator/fonts/source-han-serif-sc-vf-subset.woff2').status_code == 200
+
+
 def test_simulator_bundles_trait_and_status_assets(client):
     for filename in ('0.svg', '1.svg', '2.svg', '3.svg', '4.svg', 'unique.svg', 'gold.png', 'unlock.png'):
         path = SIMULATOR_ROOT / 'ui' / filename
