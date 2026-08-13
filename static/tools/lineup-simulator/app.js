@@ -761,7 +761,6 @@ function posterBoardClone() {
 function buildPosterCapture(title, championId) {
   const hero = state.championById.get(championId) || state.championById.get(defaultPosterChampionId());
   const units = state.board.filter(Boolean);
-  const totalCost = units.reduce((total, slot) => total + (state.championById.get(slot.championId)?.cost || 0), 0);
   const poster = document.createElement("section");
   poster.className = "lineup-poster-capture";
   poster.style.setProperty("--poster-width", `${POSTER_WIDTH}px`);
@@ -776,7 +775,7 @@ function buildPosterCapture(title, championId) {
     <header class="lineup-poster-header">
       <div class="lineup-poster-season"><span>${escapeHtml(state.season.display_name)}</span><b>${escapeHtml(state.season.game_version || "")}</b></div>
       <h1 class="${posterTitleClass(title)}">${escapeHtml(title)}</h1>
-      <div class="lineup-poster-summary"><span>${units.length} 名弈子</span><i></i><span>总费用 ${totalCost}</span><i></i><span>${posterTraitRows().length} 个激活羁绊</span></div>
+      <div class="lineup-poster-summary"><span>${units.length} 名弈子</span><i></i><span>${posterTraitRows().length} 个激活羁绊</span></div>
     </header>
     <div class="lineup-poster-board-panel"><div class="lineup-poster-board-slot"></div></div>
     <section class="lineup-poster-traits-panel">
@@ -785,7 +784,7 @@ function buildPosterCapture(title, championId) {
     </section>
     <footer class="lineup-poster-footer">
       <div class="lineup-poster-footer-line"></div>
-      <div class="lineup-poster-brand"><img src="/static/favicon.png" alt="" /><span><strong>金铲铲阵容库</strong><small>${POSTER_SITE_URL}</small></span></div>
+      <div class="lineup-poster-brand"><img src="${UI_ROOT}/poster-brand.png" alt="" /><span><strong>金铲铲阵容库</strong><small>${POSTER_SITE_URL}</small></span></div>
     </footer>`;
   poster.querySelector(".lineup-poster-board-slot").append(posterBoardClone());
   return poster;

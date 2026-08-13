@@ -1,6 +1,8 @@
 import json
 from pathlib import Path
 
+from PIL import Image
+
 from assets_version import asset_stamp
 
 
@@ -278,12 +280,22 @@ def test_simulator_exports_a_separate_fixed_portrait_poster():
     assert 'height: POSTER_HEIGHT' in javascript
     assert 'pixelRatio: 1' in javascript
     assert 'POSTER_SITE_URL = "jcc.np5.top"' in javascript
+    assert 'src="${UI_ROOT}/poster-brand.png"' in javascript
+    poster_builder = javascript.split('function buildPosterCapture(title, championId)', 1)[1].split('function ', 1)[0]
+    assert '总费用' not in poster_builder
+    assert '${units.length} 名弈子</span><i></i><span>${posterTraitRows().length} 个激活羁绊' in poster_builder
     assert '.lineup-poster-capture {' in css
     assert '.lineup-poster-background-art {' in css
     assert 'object-fit: contain' in css
     assert 'grid-template-rows: 292px 760px 350px 198px' in css
     assert '"Source Han Serif SC Poster"' in css
     assert '.lineup-poster-brand' in css
+    trait_rule = css.split('.lineup-poster-trait {', 1)[1].split('}', 1)[0]
+    assert 'background:' not in trait_rule
+    assert 'border:' not in trait_rule
+    brand_icon_rule = css.split('.lineup-poster-brand img {', 1)[1].split('}', 1)[0]
+    assert 'background: transparent' in brand_icon_rule
+    assert 'padding: 0' in brand_icon_rule
     assert 'exportBoardImage(' in javascript
 
 
@@ -299,7 +311,11 @@ def test_simulator_bundles_poster_font_and_license(client):
 
 
 def test_simulator_bundles_trait_and_status_assets(client):
-    for filename in ('0.svg', '1.svg', '2.svg', '3.svg', '4.svg', 'unique.svg', 'gold.png', 'unlock.png'):
+    for filename in ('0.svg', '1.svg', '2.svg', '3.svg', '4.svg', 'unique.svg', 'poster-brand.png', 'gold.png', 'unlock.png'):
         path = SIMULATOR_ROOT / 'ui' / filename
         assert path.is_file()
         assert client.get(f'/static/tools/lineup-simulator/ui/{filename}').status_code == 200
+
+    with Image.open(SIMULATOR_ROOT / 'ui' / 'poster-brand.png') as brand:
+        assert brand.mode == 'RGBA'
+        assert brand.getchannel('A').getextrema() == (0, 255)
