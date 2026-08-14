@@ -37,27 +37,71 @@
     return element;
   }
 
-  const SCALE_KINDS = {
-    物理加成: 'ad', 法术加成: 'ap', 法强: 'ap', 攻击力: 'attack', 攻击速度: 'attack-speed',
-    攻击范围: 'range', 护甲: 'armor', 魔法抗性: 'magic-resist', 魔抗: 'magic-resist',
-    生命上限: 'health', 最大生命值: 'health', 暴击率: 'crit', 暴击倍率: 'crit-multiplier',
-    法力回复: 'mana-regen', 全能吸血: 'omnivamp', 伤害加成: 'damage-amplification',
-    伤害减免: 'damage-reduction', 技能暴击: 'skill-crit',
+  const SCALE_MARKERS = {
+    AD: ['attack_damage', 'ad', 'ad', '物理加成', 'AD'], 物理加成: ['attack_damage', 'ad', 'ad', '物理加成', 'AD'], 攻击力: ['attack_damage', 'ad', 'ad', '物理加成', 'AD'],
+    AP: ['ability_power', 'ap', 'ap', '法术加成', 'AP'], 法术加成: ['ability_power', 'ap', 'ap', '法术加成', 'AP'], 法强: ['ability_power', 'ap', 'ap', '法术加成', 'AP'],
+    AS: ['attack_speed', 'attack-speed', 'as', '攻击速度', 'AS'], 攻击速度: ['attack_speed', 'attack-speed', 'as', '攻击速度', 'AS'], 攻速: ['attack_speed', 'attack-speed', 'as', '攻击速度', 'AS'],
+    HP: ['health', 'health', 'hp', '生命值', 'HP'], 生命上限: ['health', 'health', 'hp', '生命值', 'HP'], 最大生命值: ['health', 'health', 'hp', '生命值', 'HP'],
+    MR: ['magic_resist', 'magic-resist', 'mr', '魔法抗性', 'MR'], 魔法抗性: ['magic_resist', 'magic-resist', 'mr', '魔法抗性', 'MR'], 魔抗: ['magic_resist', 'magic-resist', 'mr', '魔法抗性', 'MR'],
+    护甲: ['armor', 'armor', 'armor', '护甲', 'AR'], ARMOR: ['armor', 'armor', 'armor', '护甲', 'AR'], 攻击范围: ['attack_range', 'range', 'range', '攻击范围', 'RNG'], RANGE: ['attack_range', 'range', 'range', '攻击范围', 'RNG'], 射程: ['attack_range', 'range', 'range', '攻击范围', 'RNG'],
+    暴击率: ['critical_strike_chance', 'crit', 'crit', '暴击率', 'CRIT'], 暴击几率: ['critical_strike_chance', 'crit', 'crit', '暴击率', 'CRIT'], CRIT: ['critical_strike_chance', 'crit', 'crit', '暴击率', 'CRIT'], 暴击倍率: ['critical_strike_damage', 'crit-multiplier', 'crit', '暴击伤害', 'CRIT'],
+    法力值: ['mana', 'mana', 'mana', '法力值', 'MP'], MANA: ['mana', 'mana', 'mana', '法力值', 'MP'], MP: ['mana', 'mana', 'mana', '法力值', 'MP'], 法力回复: ['mana_regeneration', 'mana-regen', 'mana', '法力回复', 'MP'], 全能吸血: ['omnivamp', 'omnivamp', null, '全能吸血', '吸'], OMNIVAMP: ['omnivamp', 'omnivamp', null, '全能吸血', '吸'],
+    伤害加成: ['damage_amplification', 'damage-amplification', 'amp', '伤害增幅', '增伤'], AMP: ['damage_amplification', 'damage-amplification', 'amp', '伤害增幅', '增伤'], DA: ['damage_amplification', 'damage-amplification', 'amp', '伤害增幅', '增伤'], 伤害增幅: ['damage_amplification', 'damage-amplification', 'amp', '伤害增幅', '增伤'],
+    木灵加成: ['wood_spirit_bonus', 'amp', 'amp', '木灵加成', '木灵'],
+    DR: ['damage_reduction', 'damage-reduction', null, '伤害减免', '减伤'], 伤害减免: ['damage_reduction', 'damage-reduction', null, '伤害减免', '减伤'],
+    技能暴击: ['skill_critical_strike', 'skill-crit', 'crit', '技能暴击', 'CRIT'],
   };
-  const SCALE_TOKEN_RE = new RegExp(`\\(?【(${Object.keys(SCALE_KINDS).join('|')})】\\)?`, 'g');
+  const SCALE_TOKEN_RE = new RegExp(`\\(?【(${Object.keys(SCALE_MARKERS).filter((key) => key !== '木灵加成').join('|')})】\\)?|\\(\\)`, 'g');
 
-  function appendSkillDescription(target, text) {
+  function fallbackDescriptionTokens(text) {
     const value = String(text || '');
+    const tokens = [];
     let cursor = 0;
     for (const match of value.matchAll(SCALE_TOKEN_RE)) {
-      if (match.index > cursor) target.append(document.createTextNode(value.slice(cursor, match.index)));
-      const chip = document.createElement('span');
-      chip.className = `scale-chip scale-chip-${SCALE_KINDS[match[1]]}`;
-      chip.textContent = match[1];
-      target.append(chip);
-      cursor = match.index + match[0].length;
+      const woodSpiritPlaceholder = !match[1]
+        && value.includes('木灵加成')
+        && match.index > 0
+        && /[0-9%]/.test(value[match.index - 1]);
+      if (!match[1] && !woodSpiritPlaceholder) continue;
+      const markerStart = woodSpiritPlaceholder ? match.index + 1 : match.index;
+      const markerEnd = woodSpiritPlaceholder ? markerStart : match.index + match[0].length;
+      if (markerStart > cursor) tokens.push({type: 'text', value: value.slice(cursor, markerStart)});
+      const sourceLabel = woodSpiritPlaceholder ? '木灵加成' : match[1];
+      const [stat, kind, icon, label, fallback] = SCALE_MARKERS[sourceLabel];
+      tokens.push({type: 'stat', stat, kind, icon, label, fallback, source_label: sourceLabel});
+      cursor = markerEnd;
     }
-    if (cursor < value.length) target.append(document.createTextNode(value.slice(cursor)));
+    if (cursor < value.length) tokens.push({type: 'text', value: value.slice(cursor)});
+    return tokens;
+  }
+
+  function appendSkillDescription(target, text, importedTokens = null) {
+    const tokens = Array.isArray(importedTokens) && importedTokens.some((token) => token.type === 'stat')
+      ? importedTokens
+      : fallbackDescriptionTokens(text);
+    tokens.forEach((token) => {
+      if (token.type === 'text') {
+        target.append(document.createTextNode(token.value || ''));
+        return;
+      }
+      const chip = document.createElement('span');
+      const label = token.label || token.source_label || token.stat;
+      chip.className = `scale-chip scale-chip-${token.kind || String(token.stat || '').replaceAll('_', '-')}`;
+      chip.setAttribute('role', 'img');
+      chip.setAttribute('aria-label', label);
+      chip.title = label;
+      if (token.icon) {
+        const icon = image(`/static/season-stats/${encodeURIComponent(token.icon)}.png`, '');
+        icon.setAttribute('aria-hidden', 'true');
+        chip.append(icon);
+      } else {
+        const fallback = document.createElement('span');
+        fallback.setAttribute('aria-hidden', 'true');
+        fallback.textContent = token.fallback || token.source_label || label;
+        chip.append(fallback);
+      }
+      target.append(chip);
+    });
   }
 
   function configure(config) {
@@ -106,7 +150,11 @@
     const skillName = document.createElement('strong');
     skillName.textContent = (champion.skill && champion.skill.name) || '';
     const skillDescription = document.createElement('p');
-    appendSkillDescription(skillDescription, champion.skill && champion.skill.description);
+    appendSkillDescription(
+      skillDescription,
+      champion.skill && champion.skill.description,
+      champion.skill && champion.skill.description_tokens,
+    );
     skill.append(skillName, skillDescription);
     card.append(art, skill);
     return card;

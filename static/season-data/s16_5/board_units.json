@@ -1,0 +1,319 @@
+{
+  "version_id": "s16_5__17_17_8b",
+  "rich_text_version": 1,
+  "board_units": [
+    {
+      "id": "board_8336",
+      "name": "提伯斯",
+      "kind": "trait_object",
+      "aliases": [],
+      "trait_ids": [
+        "355"
+      ],
+      "placement_rules": [
+        {
+          "trait_id": "355",
+          "min_units": 1,
+          "max_units": null,
+          "max_count": 1
+        }
+      ],
+      "can_equip": true,
+      "stats": {
+        "health": 1500.0,
+        "attack_damage": 90.0,
+        "armor": 80.0,
+        "magic_resist": 80.0,
+        "attack_speed": 0.75,
+        "attack_range": 1.0,
+        "initial_mana": 40.0,
+        "max_mana": 100.0,
+        "critical_strike_chance": 25.0,
+        "sell_price": 0.0
+      },
+      "skill": {
+        "name": "余烬之怒",
+        "description": "被动：在攻击一名敌人之后，回复38(【生命上限】)生命值。如果该敌人带有灼烧效果，则治疗效果翻倍。  主动：获得200%攻击速度和在4秒里持续衰减的1200(【法术加成】)护盾值。获得相同时长的控制免疫效果。  灼烧：每秒对目标造成1%目标最大生命值的真实伤害。",
+        "image": null,
+        "description_tokens": [
+          {
+            "type": "text",
+            "value": "被动：在攻击一名敌人之后，回复38"
+          },
+          {
+            "type": "stat",
+            "stat": "health",
+            "kind": "health",
+            "label": "生命值",
+            "source_label": "生命上限",
+            "icon": "hp",
+            "fallback": "HP"
+          },
+          {
+            "type": "text",
+            "value": "生命值。如果该敌人带有灼烧效果，则治疗效果翻倍。  主动：获得200%攻击速度和在4秒里持续衰减的1200"
+          },
+          {
+            "type": "stat",
+            "stat": "ability_power",
+            "kind": "ap",
+            "label": "法术加成",
+            "source_label": "法术加成",
+            "icon": "ap",
+            "fallback": "AP"
+          },
+          {
+            "type": "text",
+            "value": "护盾值。获得相同时长的控制免疫效果。  灼烧：每秒对目标造成1%目标最大生命值的真实伤害。"
+          }
+        ]
+      },
+      "image": {
+        "local_path": "assets/board-units/8336.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/hero/s16_head_tibbers.png",
+        "alt": "提伯斯图标",
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/board-units/board_8336.webp"
+      },
+      "source_ids": {
+        "official_ids": [
+          "8336"
+        ],
+        "record_ids": [
+          "18336",
+          "28336",
+          "38336",
+          "48336"
+        ],
+        "hero_paint": "s16_tibbers"
+      },
+      "extensions": {
+        "library_visible": false,
+        "simulator_visible": true
+      }
+    },
+    {
+      "id": "board_8337",
+      "name": "厄塔汗",
+      "kind": "trait_object",
+      "aliases": [],
+      "trait_ids": [
+        "345"
+      ],
+      "placement_rules": [
+        {
+          "trait_id": "345",
+          "min_units": 3,
+          "max_units": 4,
+          "max_count": 1
+        },
+        {
+          "trait_id": "345",
+          "min_units": 5,
+          "max_units": 6,
+          "max_count": 1
+        },
+        {
+          "trait_id": "345",
+          "min_units": 7,
+          "max_units": 9,
+          "max_count": 1
+        },
+        {
+          "trait_id": "345",
+          "min_units": 10,
+          "max_units": null,
+          "max_count": 1
+        }
+      ],
+      "can_equip": false,
+      "stats": {
+        "health": 320.0,
+        "attack_damage": 50.0,
+        "armor": 45.0,
+        "magic_resist": 45.0,
+        "attack_speed": 0.75,
+        "attack_range": 1.0,
+        "initial_mana": 0.0,
+        "max_mana": 0.0,
+        "critical_strike_chance": 25.0,
+        "sell_price": 0.0
+      },
+      "skill": {
+        "name": "释放杀戮",
+        "description": "被动：获得30%全能汲取。每攻击2次，对半径1格内的敌人们造成总计150(【法术加成】)魔法伤害。",
+        "image": null,
+        "description_tokens": [
+          {
+            "type": "text",
+            "value": "被动：获得30%全能汲取。每攻击2次，对半径1格内的敌人们造成总计150"
+          },
+          {
+            "type": "stat",
+            "stat": "ability_power",
+            "kind": "ap",
+            "label": "法术加成",
+            "source_label": "法术加成",
+            "icon": "ap",
+            "fallback": "AP"
+          },
+          {
+            "type": "text",
+            "value": "魔法伤害。"
+          }
+        ]
+      },
+      "image": {
+        "local_path": "assets/board-units/8337.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/hero/s16_head_atakhan.png",
+        "alt": "厄塔汗图标",
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/board-units/board_8337.webp"
+      },
+      "source_ids": {
+        "official_ids": [
+          "8337",
+          "8338"
+        ],
+        "record_ids": [
+          "18337",
+          "18338",
+          "28337",
+          "28338",
+          "38337",
+          "38338",
+          "48337",
+          "48338"
+        ],
+        "hero_paint": "s16_atakhan"
+      },
+      "extensions": {
+        "library_visible": false,
+        "simulator_visible": true
+      }
+    },
+    {
+      "id": "board_8346",
+      "name": "冰封塔楼",
+      "kind": "trait_object",
+      "aliases": [],
+      "trait_ids": [
+        "342"
+      ],
+      "placement_rules": [
+        {
+          "trait_id": "342",
+          "min_units": 3,
+          "max_units": 4,
+          "max_count": 1
+        },
+        {
+          "trait_id": "342",
+          "min_units": 5,
+          "max_units": 6,
+          "max_count": 2
+        },
+        {
+          "trait_id": "342",
+          "min_units": 7,
+          "max_units": null,
+          "max_count": 2
+        }
+      ],
+      "can_equip": false,
+      "stats": {
+        "health": 400.0,
+        "attack_damage": 0.0,
+        "armor": 30.0,
+        "magic_resist": 30.0,
+        "attack_speed": 0.2,
+        "attack_range": 0.0,
+        "initial_mana": 0.0,
+        "max_mana": 0.0,
+        "critical_strike_chance": 25.0,
+        "sell_price": -1.0
+      },
+      "skill": {
+        "name": "远古哨兵",
+        "description": "建造于任何人能够记忆之前，这些冰封的雕像们排列在嚎哭深渊上方的桥梁上，永远保持着警惕。",
+        "image": null
+      },
+      "image": {
+        "local_path": "assets/board-units/8346.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/hero/s16_head_frozentower.png",
+        "alt": "冰封塔楼图标",
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/board-units/board_8346.webp"
+      },
+      "source_ids": {
+        "official_ids": [
+          "8346",
+          "8360"
+        ],
+        "record_ids": [
+          "18346",
+          "18360",
+          "28346",
+          "38346",
+          "48346"
+        ],
+        "hero_paint": "s16_frozentower"
+      },
+      "extensions": {
+        "library_visible": false,
+        "simulator_visible": true
+      }
+    },
+    {
+      "id": "board_8452",
+      "name": "岩石",
+      "kind": "trait_object",
+      "aliases": [],
+      "trait_ids": [
+        "398"
+      ],
+      "placement_rules": [
+        {
+          "trait_id": "398",
+          "min_units": 1,
+          "max_units": null,
+          "max_count": 2
+        }
+      ],
+      "can_equip": false,
+      "stats": {
+        "health": 500.0,
+        "attack_damage": 0.0,
+        "armor": 50.0,
+        "magic_resist": 50.0,
+        "attack_speed": 0.2,
+        "attack_range": 0.0,
+        "initial_mana": 0.0,
+        "max_mana": 0.0,
+        "critical_strike_chance": 25.0,
+        "sell_price": 0.0
+      },
+      "skill": {
+        "name": "岩石",
+        "description": "",
+        "image": null
+      },
+      "image": {
+        "local_path": "assets/board-units/8452.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/hero/s16_head_rockymountain.png",
+        "alt": "岩石图标",
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/board-units/board_8452.webp"
+      },
+      "source_ids": {
+        "official_ids": [
+          "8452"
+        ],
+        "record_ids": [
+          "18452"
+        ],
+        "hero_paint": "s16_rockymountain"
+      },
+      "extensions": {
+        "library_visible": false,
+        "simulator_visible": true
+      }
+    }
+  ]
+}

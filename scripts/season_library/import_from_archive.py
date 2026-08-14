@@ -37,6 +37,13 @@ from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 TARGET_ROOT = REPO_ROOT / "static" / "season-data"
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
+
+from season_rich_text import enrich_rich_text_fields  # noqa: E402
+
+from official_supplements import apply_official_supplements  # noqa: E402
+
 ARCHIVE_DIR_NAMES = (
     os.path.join("ccmax资料", "数据模板"),
     os.path.join("ccmax资料", "数据模版"),
@@ -163,6 +170,7 @@ def generate_optimized_images(
     champions_doc: dict,
     traits_doc: dict,
     items_doc: dict,
+    board_units_doc: dict,
 ) -> tuple[int, list[str]]:
     root = f"assets/optimized/{version_id}"
     built = 0
@@ -190,6 +198,12 @@ def generate_optimized_images(
             built += 1
         else:
             missing.append(f"item:{item_id}")
+    for unit in board_units_doc.get("board_units") or []:
+        unit_id = str(unit["id"])
+        if add_optimized_image(unit.get("image"), target_dir, f"{root}/board-units/{unit_id}.webp"):
+            built += 1
+        else:
+            missing.append(f"board-unit:{unit_id}")
     return built, missing
 
 
@@ -214,6 +228,7 @@ def compact_champion(champion: dict, card_path: str | None = None) -> dict:
         "skill": {
             "name": skill.get("name"),
             "description": skill.get("description"),
+            "description_tokens": skill.get("description_tokens"),
             "image": image_path(skill.get("image"), prefer_optimized=True),
         },
     }
@@ -225,6 +240,7 @@ def compact_trait(trait: dict) -> dict:
         "name": trait["name"],
         "category": trait.get("category"),
         "description": trait.get("description"),
+        "description_tokens": trait.get("description_tokens"),
         "image": image_path(trait.get("image"), prefer_optimized=True),
         "breakpoints": [
             {
@@ -232,6 +248,7 @@ def compact_trait(trait: dict) -> dict:
                 "max_units": bp.get("max_units"),
                 "style": bp.get("style"),
                 "effect": bp.get("effect"),
+                "effect_tokens": bp.get("effect_tokens"),
             }
             for bp in trait.get("breakpoints") or []
         ],
@@ -245,11 +262,13 @@ def compact_mechanics(version_dir: Path) -> list[dict]:
     mechanics = []
     for entry in load_json(index_path).get("mechanics") or []:
         doc = load_json(version_dir / "mechanics" / entry["file"])
+        enrich_rich_text_fields(doc)
         records = [
             {
                 "id": record.get("id"),
                 "name": record.get("name"),
                 "description": record.get("description"),
+                "description_tokens": record.get("description_tokens"),
                 "image": image_path(record.get("image")),
                 "data": strip_image_objects(record.get("data") or {}),
             }
@@ -294,17 +313,40 @@ def import_season(source_root: Path, catalog_entry: dict) -> dict:
     if assets_dir.is_dir():
         shutil.copytree(assets_dir, target_dir / "assets")
 
+    supplements = apply_official_supplements(
+        version_dir,
+        target_dir,
+        season,
+        champions_doc,
+        traits_doc,
+        load_json,
+    )
+    board_units_doc = {
+        "version_id": version_meta["version_id"],
+        "rich_text_version": 1,
+        "board_units": supplements["board_units"],
+    }
+    for document in (champions_doc, traits_doc, items_doc, board_units_doc):
+        document["rich_text_version"] = 1
+        enrich_rich_text_fields(document)
+
     optimized_count, optimized_missing = generate_optimized_images(
         target_dir,
         version_meta["version_id"],
         champions_doc,
         traits_doc,
         items_doc,
+        board_units_doc,
     )
     dump_json(target_dir / "champions.json", champions_doc, indent=2)
     dump_json(target_dir / "traits.json", traits_doc, indent=2)
     dump_json(target_dir / "items.json", items_doc, indent=2)
+    dump_json(target_dir / "board_units.json", board_units_doc, indent=2)
     print(f"  WebP: 已生成 {optimized_count} 张 96px 版本化小图")
+    if supplements["champions"]:
+        print(f"  官方补全弈子: {', '.join(supplements['champions'])}")
+    if supplements["board_units"]:
+        print(f"  模拟器棋盘对象: {', '.join(unit['name'] for unit in supplements['board_units'])}")
     if optimized_missing:
         print(f"  警告: {season_id} 有 {len(optimized_missing)} 个模拟器小图缺少源文件")
 
@@ -338,10 +380,11 @@ def import_season(source_root: Path, catalog_entry: dict) -> dict:
         "champions": champions,
         "traits": traits,
         "mechanics": mechanics,
+        "rich_text_version": 1,
     }
     dump_json(target_dir / "index.json", index_payload)
 
-    missing = check_assets(target_dir, index_payload)
+    missing = sorted(set(check_assets(target_dir, index_payload) + check_assets(target_dir, board_units_doc)))
     for path in missing:
         print(f"  警告: {season_id} 引用的图片不存在: {path}")
 
@@ -360,6 +403,7 @@ def import_season(source_root: Path, catalog_entry: dict) -> dict:
             "champions": len(champions),
             "traits": len(traits),
             "mechanics": sum(len(m["entries"]) for m in mechanics),
+            "board_units": len(board_units_doc["board_units"]),
         },
     }
 

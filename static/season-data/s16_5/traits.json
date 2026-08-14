@@ -42,7 +42,61 @@
           "effect": "(10)150【银蛇币】，2x属性，加农炮齐射  当前加成： 0%【物理加成】【法术加成】，0%【攻击速度】，0%【生命上限】 当前【银蛇币】：3【银蛇币】",
           "values": {
             "source_style": "4"
-          }
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(10)150【银蛇币】，2x属性，加农炮齐射  当前加成： 0%"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "物理加成",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "，0%"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_speed",
+              "kind": "attack-speed",
+              "label": "攻击速度",
+              "source_label": "攻击速度",
+              "icon": "as",
+              "fallback": "AS"
+            },
+            {
+              "type": "text",
+              "value": "，0%"
+            },
+            {
+              "type": "stat",
+              "stat": "health",
+              "kind": "health",
+              "label": "生命值",
+              "source_label": "生命上限",
+              "icon": "hp",
+              "fallback": "HP"
+            },
+            {
+              "type": "text",
+              "value": " 当前【银蛇币】：3【银蛇币】"
+            }
+          ]
         }
       ],
       "image": {
@@ -75,7 +129,31 @@
           "effect": "(3)12【护甲】【魔法抗性】",
           "values": {
             "source_style": "1"
-          }
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(3)12"
+            },
+            {
+              "type": "stat",
+              "stat": "armor",
+              "kind": "armor",
+              "label": "护甲",
+              "source_label": "护甲",
+              "icon": "armor",
+              "fallback": "AR"
+            },
+            {
+              "type": "stat",
+              "stat": "magic_resist",
+              "kind": "magic-resist",
+              "label": "魔法抗性",
+              "source_label": "魔法抗性",
+              "icon": "mr",
+              "fallback": "MR"
+            }
+          ]
         },
         {
           "min_units": 5,
@@ -84,7 +162,31 @@
           "effect": "(5)35【护甲】【魔法抗性】",
           "values": {
             "source_style": "2"
-          }
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(5)35"
+            },
+            {
+              "type": "stat",
+              "stat": "armor",
+              "kind": "armor",
+              "label": "护甲",
+              "source_label": "护甲",
+              "icon": "armor",
+              "fallback": "AR"
+            },
+            {
+              "type": "stat",
+              "stat": "magic_resist",
+              "kind": "magic-resist",
+              "label": "魔法抗性",
+              "source_label": "魔法抗性",
+              "icon": "mr",
+              "fallback": "MR"
+            }
+          ]
         },
         {
           "min_units": 7,
@@ -93,7 +195,35 @@
           "effect": "(7)35【护甲】【魔法抗性】。重振旗鼓时，会重击敌人，造成相当于其5%最大生命值的伤害。",
           "values": {
             "source_style": "3"
-          }
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(7)35"
+            },
+            {
+              "type": "stat",
+              "stat": "armor",
+              "kind": "armor",
+              "label": "护甲",
+              "source_label": "护甲",
+              "icon": "armor",
+              "fallback": "AR"
+            },
+            {
+              "type": "stat",
+              "stat": "magic_resist",
+              "kind": "magic-resist",
+              "label": "魔法抗性",
+              "source_label": "魔法抗性",
+              "icon": "mr",
+              "fallback": "MR"
+            },
+            {
+              "type": "text",
+              "value": "。重振旗鼓时，会重击敌人，造成相当于其5%最大生命值的伤害。"
+            }
+          ]
         },
         {
           "min_units": 11,
@@ -102,7 +232,35 @@
           "effect": "(11)150【护甲】【魔法抗性】。奋起而战吧，为了德玛西亚！",
           "values": {
             "source_style": "4"
-          }
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(11)150"
+            },
+            {
+              "type": "stat",
+              "stat": "armor",
+              "kind": "armor",
+              "label": "护甲",
+              "source_label": "护甲",
+              "icon": "armor",
+              "fallback": "AR"
+            },
+            {
+              "type": "stat",
+              "stat": "magic_resist",
+              "kind": "magic-resist",
+              "label": "魔法抗性",
+              "source_label": "魔法抗性",
+              "icon": "mr",
+              "fallback": "MR"
+            },
+            {
+              "type": "text",
+              "value": "。奋起而战吧，为了德玛西亚！"
+            }
+          ]
         }
       ],
       "image": {
@@ -135,7 +293,35 @@
           "effect": "(3)8%【生命上限】，10%【伤害加成】",
           "values": {
             "source_style": "1"
-          }
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(3)8%"
+            },
+            {
+              "type": "stat",
+              "stat": "health",
+              "kind": "health",
+              "label": "生命值",
+              "source_label": "生命上限",
+              "icon": "hp",
+              "fallback": "HP"
+            },
+            {
+              "type": "text",
+              "value": "，10%"
+            },
+            {
+              "type": "stat",
+              "stat": "damage_amplification",
+              "kind": "damage-amplification",
+              "label": "伤害增幅",
+              "source_label": "伤害加成",
+              "icon": "amp",
+              "fallback": "增伤"
+            }
+          ]
         },
         {
           "min_units": 5,
@@ -144,7 +330,35 @@
           "effect": "(5)两座冰封之塔。12%【生命上限】，16%【伤害加成】",
           "values": {
             "source_style": "2"
-          }
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(5)两座冰封之塔。12%"
+            },
+            {
+              "type": "stat",
+              "stat": "health",
+              "kind": "health",
+              "label": "生命值",
+              "source_label": "生命上限",
+              "icon": "hp",
+              "fallback": "HP"
+            },
+            {
+              "type": "text",
+              "value": "，16%"
+            },
+            {
+              "type": "stat",
+              "stat": "damage_amplification",
+              "kind": "damage-amplification",
+              "label": "伤害增幅",
+              "source_label": "伤害加成",
+              "icon": "amp",
+              "fallback": "增伤"
+            }
+          ]
         },
         {
           "min_units": 7,
@@ -153,7 +367,39 @@
           "effect": "(7)冰封之塔在被摧毁时会晕眩敌人1.5秒。16%【生命上限】，22%【伤害加成】。",
           "values": {
             "source_style": "3"
-          }
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(7)冰封之塔在被摧毁时会晕眩敌人1.5秒。16%"
+            },
+            {
+              "type": "stat",
+              "stat": "health",
+              "kind": "health",
+              "label": "生命值",
+              "source_label": "生命上限",
+              "icon": "hp",
+              "fallback": "HP"
+            },
+            {
+              "type": "text",
+              "value": "，22%"
+            },
+            {
+              "type": "stat",
+              "stat": "damage_amplification",
+              "kind": "damage-amplification",
+              "label": "伤害增幅",
+              "source_label": "伤害加成",
+              "icon": "amp",
+              "fallback": "增伤"
+            },
+            {
+              "type": "text",
+              "value": "。"
+            }
+          ]
         }
       ],
       "image": {
@@ -186,7 +432,26 @@
           "effect": "(3)10%【生命上限】，+20%魔法伤害",
           "values": {
             "source_style": "1"
-          }
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(3)10%"
+            },
+            {
+              "type": "stat",
+              "stat": "health",
+              "kind": "health",
+              "label": "生命值",
+              "source_label": "生命上限",
+              "icon": "hp",
+              "fallback": "HP"
+            },
+            {
+              "type": "text",
+              "value": "，+20%魔法伤害"
+            }
+          ]
         },
         {
           "min_units": 5,
@@ -195,7 +460,26 @@
           "effect": "(5)15%【生命上限】，+25%魔法伤害",
           "values": {
             "source_style": "2"
-          }
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(5)15%"
+            },
+            {
+              "type": "stat",
+              "stat": "health",
+              "kind": "health",
+              "label": "生命值",
+              "source_label": "生命上限",
+              "icon": "hp",
+              "fallback": "HP"
+            },
+            {
+              "type": "text",
+              "value": "，+25%魔法伤害"
+            }
+          ]
         },
         {
           "min_units": 7,
@@ -204,7 +488,26 @@
           "effect": "(7)20%【生命上限】，+30%魔法伤害",
           "values": {
             "source_style": "3"
-          }
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(7)20%"
+            },
+            {
+              "type": "stat",
+              "stat": "health",
+              "kind": "health",
+              "label": "生命值",
+              "source_label": "生命上限",
+              "icon": "hp",
+              "fallback": "HP"
+            },
+            {
+              "type": "text",
+              "value": "，+30%魔法伤害"
+            }
+          ]
         },
         {
           "min_units": 10,
@@ -213,7 +516,78 @@
           "effect": "(10)30%【生命上限】，+70%魔法伤害；所有我方弈子获得200%【攻击速度】，10【法力回复】，每秒回复5%【生命上限】，敌方弈子降低40%【攻击速度】，40%移动速度  【艾欧尼亚】弈子每局游戏会选择不同的道路。",
           "values": {
             "source_style": "4"
-          }
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(10)30%"
+            },
+            {
+              "type": "stat",
+              "stat": "health",
+              "kind": "health",
+              "label": "生命值",
+              "source_label": "生命上限",
+              "icon": "hp",
+              "fallback": "HP"
+            },
+            {
+              "type": "text",
+              "value": "，+70%魔法伤害；所有我方弈子获得200%"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_speed",
+              "kind": "attack-speed",
+              "label": "攻击速度",
+              "source_label": "攻击速度",
+              "icon": "as",
+              "fallback": "AS"
+            },
+            {
+              "type": "text",
+              "value": "，10"
+            },
+            {
+              "type": "stat",
+              "stat": "mana_regeneration",
+              "kind": "mana-regen",
+              "label": "法力回复",
+              "source_label": "法力回复",
+              "icon": "mana",
+              "fallback": "MP"
+            },
+            {
+              "type": "text",
+              "value": "，每秒回复5%"
+            },
+            {
+              "type": "stat",
+              "stat": "health",
+              "kind": "health",
+              "label": "生命值",
+              "source_label": "生命上限",
+              "icon": "hp",
+              "fallback": "HP"
+            },
+            {
+              "type": "text",
+              "value": "，敌方弈子降低40%"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_speed",
+              "kind": "attack-speed",
+              "label": "攻击速度",
+              "source_label": "攻击速度",
+              "icon": "as",
+              "fallback": "AS"
+            },
+            {
+              "type": "text",
+              "value": "，40%移动速度  【艾欧尼亚】弈子每局游戏会选择不同的道路。"
+            }
+          ]
         }
       ],
       "image": {
@@ -408,7 +782,31 @@
           "effect": "(2)1x【灵魂】，18%【物理加成】【法术加成】",
           "values": {
             "source_style": "1"
-          }
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(2)1x【灵魂】，18%"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "物理加成",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            }
+          ]
         },
         {
           "min_units": 3,
@@ -417,7 +815,31 @@
           "effect": "(3)1.3x【灵魂】，20%【物理加成】【法术加成】",
           "values": {
             "source_style": "2"
-          }
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(3)1.3x【灵魂】，20%"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "物理加成",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            }
+          ]
         },
         {
           "min_units": 4,
@@ -426,7 +848,31 @@
           "effect": "(4)1.6x【灵魂】，25%【物理加成】【法术加成】",
           "values": {
             "source_style": "3"
-          }
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(4)1.6x【灵魂】，25%"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "物理加成",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            }
+          ]
         },
         {
           "min_units": 5,
@@ -435,7 +881,35 @@
           "effect": "(5)1.9x【灵魂】，33%【物理加成】【法术加成】  已收集的灵魂：0【灵魂】",
           "values": {
             "source_style": "3"
-          }
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(5)1.9x【灵魂】，33%"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "物理加成",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "  已收集的灵魂：0【灵魂】"
+            }
+          ]
         }
       ],
       "image": {
@@ -597,7 +1071,22 @@
           "effect": "(2)1个突变，8%【攻击速度】",
           "values": {
             "source_style": "1"
-          }
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(2)1个突变，8%"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_speed",
+              "kind": "attack-speed",
+              "label": "攻击速度",
+              "source_label": "攻击速度",
+              "icon": "as",
+              "fallback": "AS"
+            }
+          ]
         },
         {
           "min_units": 4,
@@ -606,7 +1095,22 @@
           "effect": "(4)2个【突变】，18%【攻击速度】",
           "values": {
             "source_style": "2"
-          }
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(4)2个【突变】，18%"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_speed",
+              "kind": "attack-speed",
+              "label": "攻击速度",
+              "source_label": "攻击速度",
+              "icon": "as",
+              "fallback": "AS"
+            }
+          ]
         },
         {
           "min_units": 6,
@@ -615,7 +1119,22 @@
           "effect": "(6)3个【突变】，33%【攻击速度】",
           "values": {
             "source_style": "3"
-          }
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(6)3个【突变】，33%"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_speed",
+              "kind": "attack-speed",
+              "label": "攻击速度",
+              "source_label": "攻击速度",
+              "icon": "as",
+              "fallback": "AS"
+            }
+          ]
         },
         {
           "min_units": 9,
@@ -624,7 +1143,26 @@
           "effect": "(9)【突变】得到了过载充能，其效果增加100%。40%【攻击速度】  弈子同一时间只能拥有一个【突变】。将弈子放置在备战区可以移除其【突变】。",
           "values": {
             "source_style": "3"
-          }
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(9)【突变】得到了过载充能，其效果增加100%。40%"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_speed",
+              "kind": "attack-speed",
+              "label": "攻击速度",
+              "source_label": "攻击速度",
+              "icon": "as",
+              "fallback": "AS"
+            },
+            {
+              "type": "text",
+              "value": "  弈子同一时间只能拥有一个【突变】。将弈子放置在备战区可以移除其【突变】。"
+            }
+          ]
         }
       ],
       "image": {
@@ -693,7 +1231,35 @@
           "effect": "(10)每登场一个【约德尔人】弈子，【约德尔人】弈子额外获得100%生命值和攻击速度，并且打开一道通向【约德尔城】的传送门！ 当前属性：0【生命上限】，0%【攻击速度】",
           "values": {
             "source_style": "4"
-          }
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(10)每登场一个【约德尔人】弈子，【约德尔人】弈子额外获得100%生命值和攻击速度，并且打开一道通向【约德尔城】的传送门！ 当前属性：0"
+            },
+            {
+              "type": "stat",
+              "stat": "health",
+              "kind": "health",
+              "label": "生命值",
+              "source_label": "生命上限",
+              "icon": "hp",
+              "fallback": "HP"
+            },
+            {
+              "type": "text",
+              "value": "，0%"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_speed",
+              "kind": "attack-speed",
+              "label": "攻击速度",
+              "source_label": "攻击速度",
+              "icon": "as",
+              "fallback": "AS"
+            }
+          ]
         }
       ],
       "image": {
@@ -711,7 +1277,35 @@
       "extensions": {
         "raw_color": "1|2|3|3|4",
         "raw_description": "(2)每登场一个【约德尔人】弈子，【约德尔人】弈子获得35生命值和5%攻击速度。3星【约德尔人】弈子额外提供120%！|(4)并且每回合的第一个商店都会刷新一个【约德尔人】弈子！|(6)并且每回合获得1次免费刷新！|(8)并且每回合获得一个【约德尔人】福袋！|(10)每登场一个【约德尔人】弈子，【约德尔人】弈子额外获得100%生命值和攻击速度，并且打开一道通向【约德尔城】的传送门！ 当前属性：0【生命上限】，0%【攻击速度】"
-      }
+      },
+      "description_tokens": [
+        {
+          "type": "text",
+          "value": "(2)每登场一个【约德尔人】弈子，【约德尔人】弈子获得35生命值和5%攻击速度。3星【约德尔人】弈子额外提供120%！ |(4)并且每回合的第一个商店都会刷新一个【约德尔人】弈子！ |(6)并且每回合获得1次免费刷新！ |(8)并且每回合获得一个【约德尔人】福袋！ |(10)每登场一个【约德尔人】弈子，【约德尔人】弈子额外获得100%生命值和攻击速度，并且打开一道通向【约德尔城】的传送门！ 当前属性：0"
+        },
+        {
+          "type": "stat",
+          "stat": "health",
+          "kind": "health",
+          "label": "生命值",
+          "source_label": "生命上限",
+          "icon": "hp",
+          "fallback": "HP"
+        },
+        {
+          "type": "text",
+          "value": "，0%"
+        },
+        {
+          "type": "stat",
+          "stat": "attack_speed",
+          "kind": "attack-speed",
+          "label": "攻击速度",
+          "source_label": "攻击速度",
+          "icon": "as",
+          "fallback": "AS"
+        }
+      ]
     },
     {
       "id": "352",
@@ -975,7 +1569,48 @@
           "effect": "在每个备战阶段，你可以用一个弈子喂养【塔姆·肯奇】，基于被喂养弈子的角色定位和星级，为他永久提供生命值、攻击速度或法术加成中的一项。  要喂养塔姆，只需要将备战区的一名友军悬停在塔姆上方，在他的嘴巴张开时松开即可。  当前属性：0【生命上限】，0%【攻击速度】，0%【法术加成】",
           "values": {
             "source_style": "5"
-          }
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "在每个备战阶段，你可以用一个弈子喂养【塔姆·肯奇】，基于被喂养弈子的角色定位和星级，为他永久提供生命值、攻击速度或法术加成中的一项。  要喂养塔姆，只需要将备战区的一名友军悬停在塔姆上方，在他的嘴巴张开时松开即可。  当前属性：0"
+            },
+            {
+              "type": "stat",
+              "stat": "health",
+              "kind": "health",
+              "label": "生命值",
+              "source_label": "生命上限",
+              "icon": "hp",
+              "fallback": "HP"
+            },
+            {
+              "type": "text",
+              "value": "，0%"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_speed",
+              "kind": "attack-speed",
+              "label": "攻击速度",
+              "source_label": "攻击速度",
+              "icon": "as",
+              "fallback": "AS"
+            },
+            {
+              "type": "text",
+              "value": "，0%"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            }
+          ]
         }
       ],
       "image": {
@@ -993,7 +1628,48 @@
       "extensions": {
         "raw_color": "5",
         "raw_description": "在每个备战阶段，你可以用一个弈子喂养【塔姆·肯奇】，基于被喂养弈子的角色定位和星级，为他永久提供生命值、攻击速度或法术加成中的一项。  要喂养塔姆，只需要将备战区的一名友军悬停在塔姆上方，在他的嘴巴张开时松开即可。  当前属性：0【生命上限】，0%【攻击速度】，0%【法术加成】"
-      }
+      },
+      "description_tokens": [
+        {
+          "type": "text",
+          "value": "在每个备战阶段，你可以用一个弈子喂养【塔姆·肯奇】，基于被喂养弈子的角色定位和星级，为他永久提供生命值、攻击速度或法术加成中的一项。  要喂养塔姆，只需要将备战区的一名友军悬停在塔姆上方，在他的嘴巴张开时松开即可。  当前属性：0"
+        },
+        {
+          "type": "stat",
+          "stat": "health",
+          "kind": "health",
+          "label": "生命值",
+          "source_label": "生命上限",
+          "icon": "hp",
+          "fallback": "HP"
+        },
+        {
+          "type": "text",
+          "value": "，0%"
+        },
+        {
+          "type": "stat",
+          "stat": "attack_speed",
+          "kind": "attack-speed",
+          "label": "攻击速度",
+          "source_label": "攻击速度",
+          "icon": "as",
+          "fallback": "AS"
+        },
+        {
+          "type": "text",
+          "value": "，0%"
+        },
+        {
+          "type": "stat",
+          "stat": "ability_power",
+          "kind": "ap",
+          "label": "法术加成",
+          "source_label": "法术加成",
+          "icon": "ap",
+          "fallback": "AP"
+        }
+      ]
     },
     {
       "id": "360",
@@ -1902,7 +2578,22 @@
           "effect": "(2)25%【生命上限】",
           "values": {
             "source_style": "1"
-          }
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(2)25%"
+            },
+            {
+              "type": "stat",
+              "stat": "health",
+              "kind": "health",
+              "label": "生命值",
+              "source_label": "生命上限",
+              "icon": "hp",
+              "fallback": "HP"
+            }
+          ]
         },
         {
           "min_units": 4,
@@ -1911,7 +2602,22 @@
           "effect": "(4)40%【生命上限】",
           "values": {
             "source_style": "2"
-          }
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(4)40%"
+            },
+            {
+              "type": "stat",
+              "stat": "health",
+              "kind": "health",
+              "label": "生命值",
+              "source_label": "生命上限",
+              "icon": "hp",
+              "fallback": "HP"
+            }
+          ]
         },
         {
           "min_units": 6,
@@ -1920,7 +2626,22 @@
           "effect": "(6)60%【生命上限】",
           "values": {
             "source_style": "3"
-          }
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(6)60%"
+            },
+            {
+              "type": "stat",
+              "stat": "health",
+              "kind": "health",
+              "label": "生命值",
+              "source_label": "生命上限",
+              "icon": "hp",
+              "fallback": "HP"
+            }
+          ]
         }
       ],
       "image": {
@@ -1995,7 +2716,31 @@
           "effect": "(2)30【护甲】【魔法抗性】",
           "values": {
             "source_style": "1"
-          }
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(2)30"
+            },
+            {
+              "type": "stat",
+              "stat": "armor",
+              "kind": "armor",
+              "label": "护甲",
+              "source_label": "护甲",
+              "icon": "armor",
+              "fallback": "AR"
+            },
+            {
+              "type": "stat",
+              "stat": "magic_resist",
+              "kind": "magic-resist",
+              "label": "魔法抗性",
+              "source_label": "魔法抗性",
+              "icon": "mr",
+              "fallback": "MR"
+            }
+          ]
         },
         {
           "min_units": 4,
@@ -2004,7 +2749,31 @@
           "effect": "(4)55【护甲】【魔法抗性】",
           "values": {
             "source_style": "2"
-          }
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(4)55"
+            },
+            {
+              "type": "stat",
+              "stat": "armor",
+              "kind": "armor",
+              "label": "护甲",
+              "source_label": "护甲",
+              "icon": "armor",
+              "fallback": "AR"
+            },
+            {
+              "type": "stat",
+              "stat": "magic_resist",
+              "kind": "magic-resist",
+              "label": "魔法抗性",
+              "source_label": "魔法抗性",
+              "icon": "mr",
+              "fallback": "MR"
+            }
+          ]
         },
         {
           "min_units": 6,
@@ -2013,7 +2782,31 @@
           "effect": "(6)80【护甲】【魔法抗性】",
           "values": {
             "source_style": "3"
-          }
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(6)80"
+            },
+            {
+              "type": "stat",
+              "stat": "armor",
+              "kind": "armor",
+              "label": "护甲",
+              "source_label": "护甲",
+              "icon": "armor",
+              "fallback": "AR"
+            },
+            {
+              "type": "stat",
+              "stat": "magic_resist",
+              "kind": "magic-resist",
+              "label": "魔法抗性",
+              "source_label": "魔法抗性",
+              "icon": "mr",
+              "fallback": "MR"
+            }
+          ]
         }
       ],
       "image": {
@@ -2046,7 +2839,26 @@
           "effect": "(2)22%【物理加成】，100额外伤害",
           "values": {
             "source_style": "1"
-          }
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(2)22%"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "物理加成",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "text",
+              "value": "，100额外伤害"
+            }
+          ]
         },
         {
           "min_units": 4,
@@ -2055,7 +2867,26 @@
           "effect": "(4)44%【物理加成】，200额外伤害",
           "values": {
             "source_style": "3"
-          }
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(4)44%"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "物理加成",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "text",
+              "value": "，200额外伤害"
+            }
+          ]
         }
       ],
       "image": {
@@ -2130,7 +2961,22 @@
           "effect": "(2)18%或25%【伤害减免】",
           "values": {
             "source_style": "1"
-          }
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(2)18%或25%"
+            },
+            {
+              "type": "stat",
+              "stat": "damage_reduction",
+              "kind": "damage-reduction",
+              "label": "伤害减免",
+              "source_label": "伤害减免",
+              "icon": null,
+              "fallback": "减伤"
+            }
+          ]
         },
         {
           "min_units": 4,
@@ -2139,7 +2985,22 @@
           "effect": "(4)20%或30%【伤害减免】",
           "values": {
             "source_style": "2"
-          }
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(4)20%或30%"
+            },
+            {
+              "type": "stat",
+              "stat": "damage_reduction",
+              "kind": "damage-reduction",
+              "label": "伤害减免",
+              "source_label": "伤害减免",
+              "icon": null,
+              "fallback": "减伤"
+            }
+          ]
         },
         {
           "min_units": 6,
@@ -2148,7 +3009,22 @@
           "effect": "(6)26%或36%【伤害减免】",
           "values": {
             "source_style": "3"
-          }
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(6)26%或36%"
+            },
+            {
+              "type": "stat",
+              "stat": "damage_reduction",
+              "kind": "damage-reduction",
+              "label": "伤害减免",
+              "source_label": "伤害减免",
+              "icon": null,
+              "fallback": "减伤"
+            }
+          ]
         }
       ],
       "image": {
@@ -2181,7 +3057,26 @@
           "effect": "(2)18%【伤害加成】每格+2%",
           "values": {
             "source_style": "1"
-          }
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(2)18%"
+            },
+            {
+              "type": "stat",
+              "stat": "damage_amplification",
+              "kind": "damage-amplification",
+              "label": "伤害增幅",
+              "source_label": "伤害加成",
+              "icon": "amp",
+              "fallback": "增伤"
+            },
+            {
+              "type": "text",
+              "value": "每格+2%"
+            }
+          ]
         },
         {
           "min_units": 3,
@@ -2190,7 +3085,26 @@
           "effect": "(3)24%【伤害加成】每格+3%",
           "values": {
             "source_style": "2"
-          }
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(3)24%"
+            },
+            {
+              "type": "stat",
+              "stat": "damage_amplification",
+              "kind": "damage-amplification",
+              "label": "伤害增幅",
+              "source_label": "伤害加成",
+              "icon": "amp",
+              "fallback": "增伤"
+            },
+            {
+              "type": "text",
+              "value": "每格+3%"
+            }
+          ]
         },
         {
           "min_units": 4,
@@ -2199,7 +3113,26 @@
           "effect": "(4)28%【伤害加成】每格+4%",
           "values": {
             "source_style": "2"
-          }
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(4)28%"
+            },
+            {
+              "type": "stat",
+              "stat": "damage_amplification",
+              "kind": "damage-amplification",
+              "label": "伤害增幅",
+              "source_label": "伤害加成",
+              "icon": "amp",
+              "fallback": "增伤"
+            },
+            {
+              "type": "text",
+              "value": "每格+4%"
+            }
+          ]
         },
         {
           "min_units": 5,
@@ -2208,7 +3141,26 @@
           "effect": "(5)32%【伤害加成】每格+5%",
           "values": {
             "source_style": "3"
-          }
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(5)32%"
+            },
+            {
+              "type": "stat",
+              "stat": "damage_amplification",
+              "kind": "damage-amplification",
+              "label": "伤害增幅",
+              "source_label": "伤害加成",
+              "icon": "amp",
+              "fallback": "增伤"
+            },
+            {
+              "type": "text",
+              "value": "每格+5%"
+            }
+          ]
         }
       ],
       "image": {
@@ -2241,7 +3193,22 @@
           "effect": "(2)10-30%【攻击速度】",
           "values": {
             "source_style": "1"
-          }
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(2)10-30%"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_speed",
+              "kind": "attack-speed",
+              "label": "攻击速度",
+              "source_label": "攻击速度",
+              "icon": "as",
+              "fallback": "AS"
+            }
+          ]
         },
         {
           "min_units": 3,
@@ -2250,7 +3217,22 @@
           "effect": "(3)20-45%【攻击速度】",
           "values": {
             "source_style": "2"
-          }
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(3)20-45%"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_speed",
+              "kind": "attack-speed",
+              "label": "攻击速度",
+              "source_label": "攻击速度",
+              "icon": "as",
+              "fallback": "AS"
+            }
+          ]
         },
         {
           "min_units": 4,
@@ -2259,7 +3241,22 @@
           "effect": "(4)30-60%【攻击速度】",
           "values": {
             "source_style": "2"
-          }
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(4)30-60%"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_speed",
+              "kind": "attack-speed",
+              "label": "攻击速度",
+              "source_label": "攻击速度",
+              "icon": "as",
+              "fallback": "AS"
+            }
+          ]
         },
         {
           "min_units": 5,
@@ -2268,7 +3265,22 @@
           "effect": "(5)40-80%【攻击速度】",
           "values": {
             "source_style": "3"
-          }
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(5)40-80%"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_speed",
+              "kind": "attack-speed",
+              "label": "攻击速度",
+              "source_label": "攻击速度",
+              "icon": "as",
+              "fallback": "AS"
+            }
+          ]
         }
       ],
       "image": {
@@ -2301,7 +3313,35 @@
           "effect": "(2)20%【物理加成】，10%【全能吸血】",
           "values": {
             "source_style": "1"
-          }
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(2)20%"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "物理加成",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "text",
+              "value": "，10%"
+            },
+            {
+              "type": "stat",
+              "stat": "omnivamp",
+              "kind": "omnivamp",
+              "label": "全能吸血",
+              "source_label": "全能吸血",
+              "icon": null,
+              "fallback": "吸"
+            }
+          ]
         },
         {
           "min_units": 4,
@@ -2310,7 +3350,35 @@
           "effect": "(4)30%【物理加成】，16%【全能吸血】",
           "values": {
             "source_style": "2"
-          }
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(4)30%"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "物理加成",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "text",
+              "value": "，16%"
+            },
+            {
+              "type": "stat",
+              "stat": "omnivamp",
+              "kind": "omnivamp",
+              "label": "全能吸血",
+              "source_label": "全能吸血",
+              "icon": null,
+              "fallback": "吸"
+            }
+          ]
         },
         {
           "min_units": 6,
@@ -2319,7 +3387,35 @@
           "effect": "(6)40%【物理加成】，20%【全能吸血】",
           "values": {
             "source_style": "3"
-          }
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(6)40%"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "物理加成",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "text",
+              "value": "，20%"
+            },
+            {
+              "type": "stat",
+              "stat": "omnivamp",
+              "kind": "omnivamp",
+              "label": "全能吸血",
+              "source_label": "全能吸血",
+              "icon": null,
+              "fallback": "吸"
+            }
+          ]
         }
       ],
       "image": {
@@ -2352,7 +3448,35 @@
           "effect": "(2)15【法术加成】，【法师】获得25【法术加成】",
           "values": {
             "source_style": "1"
-          }
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(2)15"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "，【法师】获得25"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            }
+          ]
         },
         {
           "min_units": 4,
@@ -2361,7 +3485,35 @@
           "effect": "(4)20【法术加成】，【法师】获得50【法术加成】",
           "values": {
             "source_style": "2"
-          }
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(4)20"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "，【法师】获得50"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            }
+          ]
         },
         {
           "min_units": 6,
@@ -2370,7 +3522,35 @@
           "effect": "(6)35【法术加成】，【法师】获得70【法术加成】",
           "values": {
             "source_style": "3"
-          }
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(6)35"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "，【法师】获得70"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            }
+          ]
         }
       ],
       "image": {
@@ -2403,7 +3583,35 @@
           "effect": "(2)15%【暴击率】，15%【暴击倍率】",
           "values": {
             "source_style": "1"
-          }
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(2)15%"
+            },
+            {
+              "type": "stat",
+              "stat": "critical_strike_chance",
+              "kind": "crit",
+              "label": "暴击率",
+              "source_label": "暴击率",
+              "icon": "crit",
+              "fallback": "CRIT"
+            },
+            {
+              "type": "text",
+              "value": "，15%"
+            },
+            {
+              "type": "stat",
+              "stat": "critical_strike_damage",
+              "kind": "crit-multiplier",
+              "label": "暴击伤害",
+              "source_label": "暴击倍率",
+              "icon": "crit",
+              "fallback": "CRIT"
+            }
+          ]
         },
         {
           "min_units": 3,
@@ -2412,7 +3620,35 @@
           "effect": "(3)20%【暴击率】，20%【暴击倍率】",
           "values": {
             "source_style": "2"
-          }
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(3)20%"
+            },
+            {
+              "type": "stat",
+              "stat": "critical_strike_chance",
+              "kind": "crit",
+              "label": "暴击率",
+              "source_label": "暴击率",
+              "icon": "crit",
+              "fallback": "CRIT"
+            },
+            {
+              "type": "text",
+              "value": "，20%"
+            },
+            {
+              "type": "stat",
+              "stat": "critical_strike_damage",
+              "kind": "crit-multiplier",
+              "label": "暴击伤害",
+              "source_label": "暴击倍率",
+              "icon": "crit",
+              "fallback": "CRIT"
+            }
+          ]
         },
         {
           "min_units": 4,
@@ -2421,7 +3657,35 @@
           "effect": "(4)25%【暴击率】，25%【暴击倍率】",
           "values": {
             "source_style": "2"
-          }
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(4)25%"
+            },
+            {
+              "type": "stat",
+              "stat": "critical_strike_chance",
+              "kind": "crit",
+              "label": "暴击率",
+              "source_label": "暴击率",
+              "icon": "crit",
+              "fallback": "CRIT"
+            },
+            {
+              "type": "text",
+              "value": "，25%"
+            },
+            {
+              "type": "stat",
+              "stat": "critical_strike_damage",
+              "kind": "crit-multiplier",
+              "label": "暴击伤害",
+              "source_label": "暴击倍率",
+              "icon": "crit",
+              "fallback": "CRIT"
+            }
+          ]
         },
         {
           "min_units": 5,
@@ -2430,7 +3694,35 @@
           "effect": "(5)30%【暴击率】，30%【暴击倍率】",
           "values": {
             "source_style": "3"
-          }
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(5)30%"
+            },
+            {
+              "type": "stat",
+              "stat": "critical_strike_chance",
+              "kind": "crit",
+              "label": "暴击率",
+              "source_label": "暴击率",
+              "icon": "crit",
+              "fallback": "CRIT"
+            },
+            {
+              "type": "text",
+              "value": "，30%"
+            },
+            {
+              "type": "stat",
+              "stat": "critical_strike_damage",
+              "kind": "crit-multiplier",
+              "label": "暴击伤害",
+              "source_label": "暴击倍率",
+              "icon": "crit",
+              "fallback": "CRIT"
+            }
+          ]
         }
       ],
       "image": {
@@ -2463,7 +3755,22 @@
           "effect": "(2)16%【生命上限】",
           "values": {
             "source_style": "1"
-          }
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(2)16%"
+            },
+            {
+              "type": "stat",
+              "stat": "health",
+              "kind": "health",
+              "label": "生命值",
+              "source_label": "生命上限",
+              "icon": "hp",
+              "fallback": "HP"
+            }
+          ]
         },
         {
           "min_units": 3,
@@ -2472,7 +3779,22 @@
           "effect": "(3)20%【生命上限】",
           "values": {
             "source_style": "2"
-          }
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(3)20%"
+            },
+            {
+              "type": "stat",
+              "stat": "health",
+              "kind": "health",
+              "label": "生命值",
+              "source_label": "生命上限",
+              "icon": "hp",
+              "fallback": "HP"
+            }
+          ]
         },
         {
           "min_units": 4,
@@ -2481,7 +3803,22 @@
           "effect": "(4)26%【生命上限】",
           "values": {
             "source_style": "2"
-          }
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(4)26%"
+            },
+            {
+              "type": "stat",
+              "stat": "health",
+              "kind": "health",
+              "label": "生命值",
+              "source_label": "生命上限",
+              "icon": "hp",
+              "fallback": "HP"
+            }
+          ]
         },
         {
           "min_units": 5,
@@ -2490,7 +3827,22 @@
           "effect": "(5)33%【生命上限】",
           "values": {
             "source_style": "3"
-          }
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(5)33%"
+            },
+            {
+              "type": "stat",
+              "stat": "health",
+              "kind": "health",
+              "label": "生命值",
+              "source_label": "生命上限",
+              "icon": "hp",
+              "fallback": "HP"
+            }
+          ]
         }
       ],
       "image": {
@@ -2556,7 +3908,35 @@
           "effect": "(1)【发明家】会与距离最近的2名友军分享一件他们携带的随机装备。 (2)【发明家】获得20%【物理加成】【法术加成】。每经过3场战斗，发明家会制造一个【基础装备锻造器】。",
           "values": {
             "source_style": "1"
-          }
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(1)【发明家】会与距离最近的2名友军分享一件他们携带的随机装备。 (2)【发明家】获得20%"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "物理加成",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "。每经过3场战斗，发明家会制造一个【基础装备锻造器】。"
+            }
+          ]
         },
         {
           "min_units": 2,
@@ -2565,7 +3945,35 @@
           "effect": "(1)【发明家】会与距离最近的2名友军分享一件他们携带的随机装备。 (2)【发明家】获得20%【物理加成】【法术加成】。每经过3场战斗，发明家会制造一个【基础装备锻造器】。",
           "values": {
             "source_style": "2"
-          }
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(1)【发明家】会与距离最近的2名友军分享一件他们携带的随机装备。 (2)【发明家】获得20%"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "物理加成",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "。每经过3场战斗，发明家会制造一个【基础装备锻造器】。"
+            }
+          ]
         }
       ],
       "image": {
@@ -2583,7 +3991,36 @@
       "extensions": {
         "raw_color": "1|2",
         "raw_description": "(1)【发明家】会与距离最近的2名友军分享一件他们携带的随机装备。 (2)【发明家】获得20%【物理加成】【法术加成】。每经过3场战斗，发明家会制造一个【基础装备锻造器】。"
-      }
+      },
+      "description_tokens": [
+        {
+          "type": "text",
+          "value": "(1)【发明家】会与距离最近的2名友军分享一件他们携带的随机装备。 (2)【发明家】获得20%"
+        },
+        {
+          "type": "stat",
+          "stat": "attack_damage",
+          "kind": "ad",
+          "label": "物理加成",
+          "source_label": "物理加成",
+          "icon": "ad",
+          "fallback": "AD"
+        },
+        {
+          "type": "stat",
+          "stat": "ability_power",
+          "kind": "ap",
+          "label": "法术加成",
+          "source_label": "法术加成",
+          "icon": "ap",
+          "fallback": "AP"
+        },
+        {
+          "type": "text",
+          "value": "。每经过3场战斗，发明家会制造一个【基础装备锻造器】。"
+        }
+      ]
     }
-  ]
+  ],
+  "rich_text_version": 1
 }

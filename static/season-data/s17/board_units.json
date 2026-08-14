@@ -1,0 +1,133 @@
+{
+  "version_id": "s17__17_17_8",
+  "rich_text_version": 1,
+  "board_units": [
+    {
+      "id": "board_8406",
+      "name": "圣物",
+      "kind": "trait_object",
+      "aliases": [],
+      "trait_ids": [
+        "416"
+      ],
+      "placement_rules": [
+        {
+          "trait_id": "416",
+          "min_units": 1,
+          "max_units": null,
+          "max_count": 1
+        }
+      ],
+      "can_equip": false,
+      "stats": {
+        "health": 400.0,
+        "attack_damage": 0.0,
+        "armor": 30.0,
+        "magic_resist": 30.0,
+        "attack_speed": 0.2,
+        "attack_range": 0.0,
+        "initial_mana": 0.0,
+        "max_mana": 0.0,
+        "critical_strike_chance": 25.0,
+        "sell_price": -1.0
+      },
+      "skill": {
+        "name": "",
+        "description": "",
+        "image": null
+      },
+      "image": {
+        "local_path": "assets/board-units/8406.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/hero/s17_head_shensword.png",
+        "alt": "圣物图标",
+        "optimized_local_path": "assets/optimized/s17__17_17_8/board-units/board_8406.webp"
+      },
+      "source_ids": {
+        "official_ids": [
+          "8406"
+        ],
+        "record_ids": [
+          "18406"
+        ],
+        "hero_paint": "s17_relic"
+      },
+      "extensions": {
+        "library_visible": false,
+        "simulator_visible": true
+      }
+    },
+    {
+      "id": "board_8428",
+      "name": "迷你黑洞",
+      "kind": "trait_object",
+      "aliases": [],
+      "trait_ids": [
+        "403"
+      ],
+      "placement_rules": [
+        {
+          "trait_id": "403",
+          "min_units": 2,
+          "max_units": 3,
+          "max_count": 1
+        },
+        {
+          "trait_id": "403",
+          "min_units": 4,
+          "max_units": 5,
+          "max_count": 1
+        },
+        {
+          "trait_id": "403",
+          "min_units": 6,
+          "max_units": 8,
+          "max_count": 2
+        },
+        {
+          "trait_id": "403",
+          "min_units": 9,
+          "max_units": null,
+          "max_count": 2
+        }
+      ],
+      "can_equip": false,
+      "stats": {
+        "health": 1.0,
+        "attack_damage": 421.0,
+        "armor": 40.0,
+        "magic_resist": 40.0,
+        "attack_speed": 4.95,
+        "attack_range": 0.0,
+        "initial_mana": 0.0,
+        "max_mana": 0.0,
+        "critical_strike_chance": 25.0,
+        "sell_price": -1.0
+      },
+      "skill": {
+        "name": "引力坍缩",
+        "description": "一个由超新星创造的微型黑洞。  获得生命值，数额相当于25%所有友军【暗星】生命值。",
+        "image": null
+      },
+      "image": {
+        "local_path": "assets/board-units/8428.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/hero/s17_h_darkstar_miniblackhole.png",
+        "alt": "迷你黑洞图标",
+        "optimized_local_path": "assets/optimized/s17__17_17_8/board-units/board_8428.webp"
+      },
+      "source_ids": {
+        "official_ids": [
+          "8428"
+        ],
+        "record_ids": [
+          "18428",
+          "38428"
+        ],
+        "hero_paint": "s17_h_darkstar_miniblackhole"
+      },
+      "extensions": {
+        "library_visible": false,
+        "simulator_visible": true
+      }
+    }
+  ]
+}

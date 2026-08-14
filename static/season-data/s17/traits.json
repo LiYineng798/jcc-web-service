@@ -99,7 +99,22 @@
           "effect": "(3)2，100【生命上限】",
           "values": {
             "source_style": "1"
-          }
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(3)2，100"
+            },
+            {
+              "type": "stat",
+              "stat": "health",
+              "kind": "health",
+              "label": "生命值",
+              "source_label": "生命上限",
+              "icon": "hp",
+              "fallback": "HP"
+            }
+          ]
         },
         {
           "min_units": 5,
@@ -108,7 +123,22 @@
           "effect": "(5)3，350【生命上限】",
           "values": {
             "source_style": "2"
-          }
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(5)3，350"
+            },
+            {
+              "type": "stat",
+              "stat": "health",
+              "kind": "health",
+              "label": "生命值",
+              "source_label": "生命上限",
+              "icon": "hp",
+              "fallback": "HP"
+            }
+          ]
         },
         {
           "min_units": 7,
@@ -117,7 +147,26 @@
           "effect": "(7)4，450【生命上限】。在你的备战席上生成一个克隆栏位。在克隆完成时，获得放置在该栏位的弈子的一个1星版本以及金币。",
           "values": {
             "source_style": "3"
-          }
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(7)4，450"
+            },
+            {
+              "type": "stat",
+              "stat": "health",
+              "kind": "health",
+              "label": "生命值",
+              "source_label": "生命上限",
+              "icon": "hp",
+              "fallback": "HP"
+            },
+            {
+              "type": "text",
+              "value": "。在你的备战席上生成一个克隆栏位。在克隆完成时，获得放置在该栏位的弈子的一个1星版本以及金币。"
+            }
+          ]
         },
         {
           "min_units": 10,
@@ -126,7 +175,26 @@
           "effect": "(10)6，550【生命上限】。召唤四大木灵领主！  克隆时间=弈子费用",
           "values": {
             "source_style": "4"
-          }
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(10)6，550"
+            },
+            {
+              "type": "stat",
+              "stat": "health",
+              "kind": "health",
+              "label": "生命值",
+              "source_label": "生命上限",
+              "icon": "hp",
+              "fallback": "HP"
+            },
+            {
+              "type": "text",
+              "value": "。召唤四大木灵领主！  克隆时间=弈子费用"
+            }
+          ]
         }
       ],
       "image": {
@@ -168,7 +236,35 @@
           "effect": "(4)并且他们获得45%【物理加成】【法术加成】。",
           "values": {
             "source_style": "2"
-          }
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(4)并且他们获得45%"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "物理加成",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "。"
+            }
+          ]
         },
         {
           "min_units": 6,
@@ -204,7 +300,35 @@
       "extensions": {
         "raw_color": "1|2|3|4",
         "raw_description": "(2)【暗星】创造【黑洞】，【黑洞】会吞噬低于最大生命值8%的敌人。 |(4)并且他们获得45%【物理加成】【法术加成】。 |(6)并且最强大的【暗星】单位进入【超大质量】状态，获得70%效能的【暗星】加成，并生成2个小型【黑洞】。 |(9)所有的【暗星】进入【超大质量】状态。达到10级后，吞！噬！天！地！万！物！。"
-      }
+      },
+      "description_tokens": [
+        {
+          "type": "text",
+          "value": "(2)【暗星】创造【黑洞】，【黑洞】会吞噬低于最大生命值8%的敌人。 |(4)并且他们获得45%"
+        },
+        {
+          "type": "stat",
+          "stat": "attack_damage",
+          "kind": "ad",
+          "label": "物理加成",
+          "source_label": "物理加成",
+          "icon": "ad",
+          "fallback": "AD"
+        },
+        {
+          "type": "stat",
+          "stat": "ability_power",
+          "kind": "ap",
+          "label": "法术加成",
+          "source_label": "法术加成",
+          "icon": "ap",
+          "fallback": "AP"
+        },
+        {
+          "type": "text",
+          "value": "。 |(6)并且最强大的【暗星】单位进入【超大质量】状态，获得70%效能的【暗星】加成，并生成2个小型【黑洞】。 |(9)所有的【暗星】进入【超大质量】状态。达到10级后，吞！噬！天！地！万！物！。"
+        }
+      ]
     },
     {
       "id": "404",
@@ -219,7 +343,35 @@
           "effect": "(3)能量电芯：【霸天机甲】们获得25%【物理加成】【法术加成】。",
           "values": {
             "source_style": "1"
-          }
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(3)能量电芯：【霸天机甲】们获得25%"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "物理加成",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "。"
+            }
+          ]
         },
         {
           "min_units": 4,
@@ -228,7 +380,35 @@
           "effect": "(4)超频电容：提升至40%【物理加成】【法术加成】。",
           "values": {
             "source_style": "2"
-          }
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(4)超频电容：提升至40%"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "物理加成",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "。"
+            }
+          ]
         },
         {
           "min_units": 6,
@@ -432,7 +612,26 @@
           "effect": "(10)~跟~着~节~奏~动~起~来~！  ~太~空~律~动~:0.00%【攻击速度】，0.00%【生命回复】",
           "values": {
             "source_style": "4"
-          }
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(10)~跟~着~节~奏~动~起~来~！  ~太~空~律~动~:0.00%"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_speed",
+              "kind": "attack-speed",
+              "label": "攻击速度",
+              "source_label": "攻击速度",
+              "icon": "as",
+              "fallback": "AS"
+            },
+            {
+              "type": "text",
+              "value": "，0.00%【生命回复】"
+            }
+          ]
         }
       ],
       "image": {
@@ -450,7 +649,26 @@
       "extensions": {
         "raw_color": "1|2|2|3|4",
         "raw_description": "(1)【太空律动】舞者们能够进入~太~空~律~动~。当进入这种状态时，他们获得攻击速度和最大生命值回复，你的队伍每有1名【太空律动】舞者还会进一步提升该加成。 |(3)所有【太空律动】舞者在对战开始时进入~太~空~律~动~，持续4秒。 |(5)在~太~空~律~动~状态中每秒会获得5%可叠加的物理加成和法术加成。 |(7)提升这些加成10%! |(10)~跟~着~节~奏~动~起~来~！  ~太~空~律~动~:0.00%【攻击速度】，0.00%【生命回复】"
-      }
+      },
+      "description_tokens": [
+        {
+          "type": "text",
+          "value": "(1)【太空律动】舞者们能够进入~太~空~律~动~。当进入这种状态时，他们获得攻击速度和最大生命值回复，你的队伍每有1名【太空律动】舞者还会进一步提升该加成。 |(3)所有【太空律动】舞者在对战开始时进入~太~空~律~动~，持续4秒。 |(5)在~太~空~律~动~状态中每秒会获得5%可叠加的物理加成和法术加成。 |(7)提升这些加成10%! |(10)~跟~着~节~奏~动~起~来~！  ~太~空~律~动~:0.00%"
+        },
+        {
+          "type": "stat",
+          "stat": "attack_speed",
+          "kind": "attack-speed",
+          "label": "攻击速度",
+          "source_label": "攻击速度",
+          "icon": "as",
+          "fallback": "AS"
+        },
+        {
+          "type": "text",
+          "value": "，0.00%【生命回复】"
+        }
+      ]
     },
     {
       "id": "409",
@@ -465,7 +683,44 @@
           "effect": "(3)1金币，2%【生命上限】，10%【物理加成】【法术加成】",
           "values": {
             "source_style": "1"
-          }
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(3)1金币，2%"
+            },
+            {
+              "type": "stat",
+              "stat": "health",
+              "kind": "health",
+              "label": "生命值",
+              "source_label": "生命上限",
+              "icon": "hp",
+              "fallback": "HP"
+            },
+            {
+              "type": "text",
+              "value": "，10%"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "物理加成",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            }
+          ]
         },
         {
           "min_units": 4,
@@ -474,7 +729,44 @@
           "effect": "(4)2金币，8%【生命上限】，15%【物理加成】【法术加成】",
           "values": {
             "source_style": "2"
-          }
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(4)2金币，8%"
+            },
+            {
+              "type": "stat",
+              "stat": "health",
+              "kind": "health",
+              "label": "生命值",
+              "source_label": "生命上限",
+              "icon": "hp",
+              "fallback": "HP"
+            },
+            {
+              "type": "text",
+              "value": "，15%"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "物理加成",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            }
+          ]
         },
         {
           "min_units": 5,
@@ -483,7 +775,44 @@
           "effect": "(5)4金币，15%【生命上限】，25%【物理加成】【法术加成】",
           "values": {
             "source_style": "2"
-          }
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(5)4金币，15%"
+            },
+            {
+              "type": "stat",
+              "stat": "health",
+              "kind": "health",
+              "label": "生命值",
+              "source_label": "生命上限",
+              "icon": "hp",
+              "fallback": "HP"
+            },
+            {
+              "type": "text",
+              "value": "，25%"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "物理加成",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            }
+          ]
         },
         {
           "min_units": 6,
@@ -492,7 +821,48 @@
           "effect": "(6)6金币，22%【生命上限】，30%【物理加成】【法术加成】  玩家等级每提升1级，就会有更多格子显露出来",
           "values": {
             "source_style": "3"
-          }
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(6)6金币，22%"
+            },
+            {
+              "type": "stat",
+              "stat": "health",
+              "kind": "health",
+              "label": "生命值",
+              "source_label": "生命上限",
+              "icon": "hp",
+              "fallback": "HP"
+            },
+            {
+              "type": "text",
+              "value": "，30%"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "物理加成",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "  玩家等级每提升1级，就会有更多格子显露出来"
+            }
+          ]
         }
       ],
       "image": {
@@ -774,7 +1144,44 @@
           "effect": "(1)每激活一个非单人特质，你的队伍获得2%攻击速度，以及2护甲和魔抗。  队伍获得的攻击速度：0.0%【攻击速度】 队伍获得的双抗：0.0【护甲】【魔法抗性】",
           "values": {
             "source_style": "5"
-          }
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(1)每激活一个非单人特质，你的队伍获得2%攻击速度，以及2护甲和魔抗。  队伍获得的攻击速度：0.0%"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_speed",
+              "kind": "attack-speed",
+              "label": "攻击速度",
+              "source_label": "攻击速度",
+              "icon": "as",
+              "fallback": "AS"
+            },
+            {
+              "type": "text",
+              "value": " 队伍获得的双抗：0.0"
+            },
+            {
+              "type": "stat",
+              "stat": "armor",
+              "kind": "armor",
+              "label": "护甲",
+              "source_label": "护甲",
+              "icon": "armor",
+              "fallback": "AR"
+            },
+            {
+              "type": "stat",
+              "stat": "magic_resist",
+              "kind": "magic-resist",
+              "label": "魔法抗性",
+              "source_label": "魔法抗性",
+              "icon": "mr",
+              "fallback": "MR"
+            }
+          ]
         }
       ],
       "image": {
@@ -792,7 +1199,44 @@
       "extensions": {
         "raw_color": "5",
         "raw_description": "(1)每激活一个非单人特质，你的队伍获得2%攻击速度，以及2护甲和魔抗。  队伍获得的攻击速度：0.0%【攻击速度】 队伍获得的双抗：0.0【护甲】【魔法抗性】"
-      }
+      },
+      "description_tokens": [
+        {
+          "type": "text",
+          "value": "(1)每激活一个非单人特质，你的队伍获得2%攻击速度，以及2护甲和魔抗。  队伍获得的攻击速度：0.0%"
+        },
+        {
+          "type": "stat",
+          "stat": "attack_speed",
+          "kind": "attack-speed",
+          "label": "攻击速度",
+          "source_label": "攻击速度",
+          "icon": "as",
+          "fallback": "AS"
+        },
+        {
+          "type": "text",
+          "value": " 队伍获得的双抗：0.0"
+        },
+        {
+          "type": "stat",
+          "stat": "armor",
+          "kind": "armor",
+          "label": "护甲",
+          "source_label": "护甲",
+          "icon": "armor",
+          "fallback": "AR"
+        },
+        {
+          "type": "stat",
+          "stat": "magic_resist",
+          "kind": "magic-resist",
+          "label": "魔法抗性",
+          "source_label": "魔法抗性",
+          "icon": "mr",
+          "fallback": "MR"
+        }
+      ]
     },
     {
       "id": "419",
@@ -939,7 +1383,31 @@
           "effect": "(2)16【护甲】【魔法抗性】",
           "values": {
             "source_style": "1"
-          }
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(2)16"
+            },
+            {
+              "type": "stat",
+              "stat": "armor",
+              "kind": "armor",
+              "label": "护甲",
+              "source_label": "护甲",
+              "icon": "armor",
+              "fallback": "AR"
+            },
+            {
+              "type": "stat",
+              "stat": "magic_resist",
+              "kind": "magic-resist",
+              "label": "魔法抗性",
+              "source_label": "魔法抗性",
+              "icon": "mr",
+              "fallback": "MR"
+            }
+          ]
         },
         {
           "min_units": 4,
@@ -948,7 +1416,31 @@
           "effect": "(4)40【护甲】【魔法抗性】",
           "values": {
             "source_style": "2"
-          }
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(4)40"
+            },
+            {
+              "type": "stat",
+              "stat": "armor",
+              "kind": "armor",
+              "label": "护甲",
+              "source_label": "护甲",
+              "icon": "armor",
+              "fallback": "AR"
+            },
+            {
+              "type": "stat",
+              "stat": "magic_resist",
+              "kind": "magic-resist",
+              "label": "魔法抗性",
+              "source_label": "魔法抗性",
+              "icon": "mr",
+              "fallback": "MR"
+            }
+          ]
         },
         {
           "min_units": 6,
@@ -957,7 +1449,57 @@
           "effect": "(6)60【护甲】【魔法抗性】；非【堡垒卫士】单位额外获得20【护甲】【魔法抗性】。",
           "values": {
             "source_style": "3"
-          }
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(6)60"
+            },
+            {
+              "type": "stat",
+              "stat": "armor",
+              "kind": "armor",
+              "label": "护甲",
+              "source_label": "护甲",
+              "icon": "armor",
+              "fallback": "AR"
+            },
+            {
+              "type": "stat",
+              "stat": "magic_resist",
+              "kind": "magic-resist",
+              "label": "魔法抗性",
+              "source_label": "魔法抗性",
+              "icon": "mr",
+              "fallback": "MR"
+            },
+            {
+              "type": "text",
+              "value": "；非【堡垒卫士】单位额外获得20"
+            },
+            {
+              "type": "stat",
+              "stat": "armor",
+              "kind": "armor",
+              "label": "护甲",
+              "source_label": "护甲",
+              "icon": "armor",
+              "fallback": "AR"
+            },
+            {
+              "type": "stat",
+              "stat": "magic_resist",
+              "kind": "magic-resist",
+              "label": "魔法抗性",
+              "source_label": "魔法抗性",
+              "icon": "mr",
+              "fallback": "MR"
+            },
+            {
+              "type": "text",
+              "value": "。"
+            }
+          ]
         }
       ],
       "image": {
@@ -1041,7 +1583,22 @@
           "effect": "(2)15%【攻击速度】",
           "values": {
             "source_style": "1"
-          }
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(2)15%"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_speed",
+              "kind": "attack-speed",
+              "label": "攻击速度",
+              "source_label": "攻击速度",
+              "icon": "as",
+              "fallback": "AS"
+            }
+          ]
         },
         {
           "min_units": 3,
@@ -1050,7 +1607,22 @@
           "effect": "(3)28%【攻击速度】",
           "values": {
             "source_style": "2"
-          }
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(3)28%"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_speed",
+              "kind": "attack-speed",
+              "label": "攻击速度",
+              "source_label": "攻击速度",
+              "icon": "as",
+              "fallback": "AS"
+            }
+          ]
         },
         {
           "min_units": 4,
@@ -1059,7 +1631,22 @@
           "effect": "(4)42%【攻击速度】",
           "values": {
             "source_style": "2"
-          }
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(4)42%"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_speed",
+              "kind": "attack-speed",
+              "label": "攻击速度",
+              "source_label": "攻击速度",
+              "icon": "as",
+              "fallback": "AS"
+            }
+          ]
         },
         {
           "min_units": 5,
@@ -1068,7 +1655,22 @@
           "effect": "(5)55%【攻击速度】",
           "values": {
             "source_style": "3"
-          }
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(5)55%"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_speed",
+              "kind": "attack-speed",
+              "label": "攻击速度",
+              "source_label": "攻击速度",
+              "icon": "as",
+              "fallback": "AS"
+            }
+          ]
         }
       ],
       "image": {
@@ -1101,7 +1703,35 @@
           "effect": "(2)1【法力回复】##3【法力回复】",
           "values": {
             "source_style": "1"
-          }
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(2)1"
+            },
+            {
+              "type": "stat",
+              "stat": "mana_regeneration",
+              "kind": "mana-regen",
+              "label": "法力回复",
+              "source_label": "法力回复",
+              "icon": "mana",
+              "fallback": "MP"
+            },
+            {
+              "type": "text",
+              "value": "##3"
+            },
+            {
+              "type": "stat",
+              "stat": "mana_regeneration",
+              "kind": "mana-regen",
+              "label": "法力回复",
+              "source_label": "法力回复",
+              "icon": "mana",
+              "fallback": "MP"
+            }
+          ]
         },
         {
           "min_units": 3,
@@ -1110,7 +1740,35 @@
           "effect": "(3)1【法力回复】##5【法力回复】",
           "values": {
             "source_style": "2"
-          }
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(3)1"
+            },
+            {
+              "type": "stat",
+              "stat": "mana_regeneration",
+              "kind": "mana-regen",
+              "label": "法力回复",
+              "source_label": "法力回复",
+              "icon": "mana",
+              "fallback": "MP"
+            },
+            {
+              "type": "text",
+              "value": "##5"
+            },
+            {
+              "type": "stat",
+              "stat": "mana_regeneration",
+              "kind": "mana-regen",
+              "label": "法力回复",
+              "source_label": "法力回复",
+              "icon": "mana",
+              "fallback": "MP"
+            }
+          ]
         },
         {
           "min_units": 4,
@@ -1119,7 +1777,35 @@
           "effect": "(4)2【法力回复】##7【法力回复】",
           "values": {
             "source_style": "2"
-          }
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(4)2"
+            },
+            {
+              "type": "stat",
+              "stat": "mana_regeneration",
+              "kind": "mana-regen",
+              "label": "法力回复",
+              "source_label": "法力回复",
+              "icon": "mana",
+              "fallback": "MP"
+            },
+            {
+              "type": "text",
+              "value": "##7"
+            },
+            {
+              "type": "stat",
+              "stat": "mana_regeneration",
+              "kind": "mana-regen",
+              "label": "法力回复",
+              "source_label": "法力回复",
+              "icon": "mana",
+              "fallback": "MP"
+            }
+          ]
         },
         {
           "min_units": 5,
@@ -1128,7 +1814,35 @@
           "effect": "(5)2【法力回复】##9【法力回复】",
           "values": {
             "source_style": "3"
-          }
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(5)2"
+            },
+            {
+              "type": "stat",
+              "stat": "mana_regeneration",
+              "kind": "mana-regen",
+              "label": "法力回复",
+              "source_label": "法力回复",
+              "icon": "mana",
+              "fallback": "MP"
+            },
+            {
+              "type": "text",
+              "value": "##9"
+            },
+            {
+              "type": "stat",
+              "stat": "mana_regeneration",
+              "kind": "mana-regen",
+              "label": "法力回复",
+              "source_label": "法力回复",
+              "icon": "mana",
+              "fallback": "MP"
+            }
+          ]
         }
       ],
       "image": {
@@ -1170,7 +1884,26 @@
           "effect": "(4)获得20%暴击几率和20%暴击伤害。暴击也会拥有幸运。  技能暴击：技能伤害可产生暴击。额外的【技能暴击】提供10%暴击伤害。 幸运：触发时进行两次判定，取最优结果输出。",
           "values": {
             "source_style": "3"
-          }
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(4)获得20%暴击几率和20%暴击伤害。暴击也会拥有幸运。  技能暴击：技能伤害可产生暴击。额外的"
+            },
+            {
+              "type": "stat",
+              "stat": "skill_critical_strike",
+              "kind": "skill-crit",
+              "label": "技能暴击",
+              "source_label": "技能暴击",
+              "icon": "crit",
+              "fallback": "CRIT"
+            },
+            {
+              "type": "text",
+              "value": "提供10%暴击伤害。 幸运：触发时进行两次判定，取最优结果输出。"
+            }
+          ]
         }
       ],
       "image": {
@@ -1203,7 +1936,35 @@
           "effect": "(2)5%【全能吸血】，18%【物理加成】",
           "values": {
             "source_style": "1"
-          }
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(2)5%"
+            },
+            {
+              "type": "stat",
+              "stat": "omnivamp",
+              "kind": "omnivamp",
+              "label": "全能吸血",
+              "source_label": "全能吸血",
+              "icon": null,
+              "fallback": "吸"
+            },
+            {
+              "type": "text",
+              "value": "，18%"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "物理加成",
+              "icon": "ad",
+              "fallback": "AD"
+            }
+          ]
         },
         {
           "min_units": 4,
@@ -1212,7 +1973,35 @@
           "effect": "(4)7%【全能吸血】，35%【物理加成】",
           "values": {
             "source_style": "2"
-          }
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(4)7%"
+            },
+            {
+              "type": "stat",
+              "stat": "omnivamp",
+              "kind": "omnivamp",
+              "label": "全能吸血",
+              "source_label": "全能吸血",
+              "icon": null,
+              "fallback": "吸"
+            },
+            {
+              "type": "text",
+              "value": "，35%"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "物理加成",
+              "icon": "ad",
+              "fallback": "AD"
+            }
+          ]
         },
         {
           "min_units": 6,
@@ -1221,7 +2010,35 @@
           "effect": "(6)10%【全能吸血】，55%【物理加成】",
           "values": {
             "source_style": "3"
-          }
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(6)10%"
+            },
+            {
+              "type": "stat",
+              "stat": "omnivamp",
+              "kind": "omnivamp",
+              "label": "全能吸血",
+              "source_label": "全能吸血",
+              "icon": null,
+              "fallback": "吸"
+            },
+            {
+              "type": "text",
+              "value": "，55%"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "物理加成",
+              "icon": "ad",
+              "fallback": "AD"
+            }
+          ]
         }
       ],
       "image": {
@@ -1296,7 +2113,31 @@
           "effect": "(2)12%【物理加成】【法术加成】",
           "values": {
             "source_style": "1"
-          }
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(2)12%"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "物理加成",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            }
+          ]
         },
         {
           "min_units": 3,
@@ -1305,7 +2146,31 @@
           "effect": "(3)25%【物理加成】【法术加成】",
           "values": {
             "source_style": "2"
-          }
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(3)25%"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "物理加成",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            }
+          ]
         },
         {
           "min_units": 4,
@@ -1314,7 +2179,31 @@
           "effect": "(4)45%【物理加成】【法术加成】",
           "values": {
             "source_style": "3"
-          }
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(4)45%"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "物理加成",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            }
+          ]
         },
         {
           "min_units": 5,
@@ -1323,7 +2212,31 @@
           "effect": "(5)60%【物理加成】【法术加成】",
           "values": {
             "source_style": "3"
-          }
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(5)60%"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "物理加成",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            }
+          ]
         }
       ],
       "image": {
@@ -1356,7 +2269,39 @@
           "effect": "(2)18%【伤害加成】；+2%【伤害加成】每格",
           "values": {
             "source_style": "1"
-          }
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(2)18%"
+            },
+            {
+              "type": "stat",
+              "stat": "damage_amplification",
+              "kind": "damage-amplification",
+              "label": "伤害增幅",
+              "source_label": "伤害加成",
+              "icon": "amp",
+              "fallback": "增伤"
+            },
+            {
+              "type": "text",
+              "value": "；+2%"
+            },
+            {
+              "type": "stat",
+              "stat": "damage_amplification",
+              "kind": "damage-amplification",
+              "label": "伤害增幅",
+              "source_label": "伤害加成",
+              "icon": "amp",
+              "fallback": "增伤"
+            },
+            {
+              "type": "text",
+              "value": "每格"
+            }
+          ]
         },
         {
           "min_units": 3,
@@ -1365,7 +2310,39 @@
           "effect": "(3)25%【伤害加成】；+3%【伤害加成】每格",
           "values": {
             "source_style": "2"
-          }
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(3)25%"
+            },
+            {
+              "type": "stat",
+              "stat": "damage_amplification",
+              "kind": "damage-amplification",
+              "label": "伤害增幅",
+              "source_label": "伤害加成",
+              "icon": "amp",
+              "fallback": "增伤"
+            },
+            {
+              "type": "text",
+              "value": "；+3%"
+            },
+            {
+              "type": "stat",
+              "stat": "damage_amplification",
+              "kind": "damage-amplification",
+              "label": "伤害增幅",
+              "source_label": "伤害加成",
+              "icon": "amp",
+              "fallback": "增伤"
+            },
+            {
+              "type": "text",
+              "value": "每格"
+            }
+          ]
         },
         {
           "min_units": 4,
@@ -1374,7 +2351,39 @@
           "effect": "(4)35%【伤害加成】；+4%【伤害加成】每格",
           "values": {
             "source_style": "3"
-          }
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(4)35%"
+            },
+            {
+              "type": "stat",
+              "stat": "damage_amplification",
+              "kind": "damage-amplification",
+              "label": "伤害增幅",
+              "source_label": "伤害加成",
+              "icon": "amp",
+              "fallback": "增伤"
+            },
+            {
+              "type": "text",
+              "value": "；+4%"
+            },
+            {
+              "type": "stat",
+              "stat": "damage_amplification",
+              "kind": "damage-amplification",
+              "label": "伤害增幅",
+              "source_label": "伤害加成",
+              "icon": "amp",
+              "fallback": "增伤"
+            },
+            {
+              "type": "text",
+              "value": "每格"
+            }
+          ]
         }
       ],
       "image": {
@@ -1476,7 +2485,22 @@
           "effect": "(6)40%最大生命值； 拥有护盾时：8%【伤害减免】",
           "values": {
             "source_style": "3"
-          }
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(6)40%最大生命值； 拥有护盾时：8%"
+            },
+            {
+              "type": "stat",
+              "stat": "damage_reduction",
+              "kind": "damage-reduction",
+              "label": "伤害减免",
+              "source_label": "伤害减免",
+              "icon": null,
+              "fallback": "减伤"
+            }
+          ]
         }
       ],
       "image": {
@@ -1509,7 +2533,22 @@
           "effect": "(2)175护盾；9%【伤害加成】",
           "values": {
             "source_style": "1"
-          }
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(2)175护盾；9%"
+            },
+            {
+              "type": "stat",
+              "stat": "damage_amplification",
+              "kind": "damage-amplification",
+              "label": "伤害增幅",
+              "source_label": "伤害加成",
+              "icon": "amp",
+              "fallback": "增伤"
+            }
+          ]
         },
         {
           "min_units": 3,
@@ -1518,7 +2557,22 @@
           "effect": "(3)250护盾；15%【伤害加成】",
           "values": {
             "source_style": "2"
-          }
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(3)250护盾；15%"
+            },
+            {
+              "type": "stat",
+              "stat": "damage_amplification",
+              "kind": "damage-amplification",
+              "label": "伤害增幅",
+              "source_label": "伤害加成",
+              "icon": "amp",
+              "fallback": "增伤"
+            }
+          ]
         },
         {
           "min_units": 4,
@@ -1527,7 +2581,22 @@
           "effect": "(4)350护盾；18%【伤害加成】",
           "values": {
             "source_style": "3"
-          }
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(4)350护盾；18%"
+            },
+            {
+              "type": "stat",
+              "stat": "damage_amplification",
+              "kind": "damage-amplification",
+              "label": "伤害增幅",
+              "source_label": "伤害加成",
+              "icon": "amp",
+              "fallback": "增伤"
+            }
+          ]
         },
         {
           "min_units": 5,
@@ -1536,7 +2605,22 @@
           "effect": "(5)500护盾；22%【伤害加成】",
           "values": {
             "source_style": "3"
-          }
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(5)500护盾；22%"
+            },
+            {
+              "type": "stat",
+              "stat": "damage_amplification",
+              "kind": "damage-amplification",
+              "label": "伤害增幅",
+              "source_label": "伤害加成",
+              "icon": "amp",
+              "fallback": "增伤"
+            }
+          ]
         },
         {
           "min_units": 6,
@@ -1545,7 +2629,22 @@
           "effect": "(6)700护盾；27%【伤害加成】",
           "values": {
             "source_style": "3"
-          }
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(6)700护盾；27%"
+            },
+            {
+              "type": "stat",
+              "stat": "damage_amplification",
+              "kind": "damage-amplification",
+              "label": "伤害增幅",
+              "source_label": "伤害加成",
+              "icon": "amp",
+              "fallback": "增伤"
+            }
+          ]
         }
       ],
       "image": {
@@ -1565,5 +2664,6 @@
         "raw_description": "(2)175护盾；9%【伤害加成】|(3)250护盾；15%【伤害加成】|(4)350护盾；18%【伤害加成】|(5)500护盾；22%【伤害加成】|(6)700护盾；27%【伤害加成】"
       }
     }
-  ]
+  ],
+  "rich_text_version": 1
 }

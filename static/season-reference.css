@@ -1626,32 +1626,65 @@
 /* ---- Skill scaling chips ---- */
 
 .scale-chip {
-  display: inline-block;
+  width: 20px;
+  height: 22px;
+  display: inline-grid;
+  place-items: center;
   margin: 0 2px;
-  border-radius: 5px;
-  padding: 0 5px;
-  font-size: 0.82em;
+  border: 0;
+  border-radius: 0;
+  padding: 0;
+  background: transparent;
+  color: inherit;
+  font-size: 9px;
   font-weight: 800;
-  line-height: 1.6;
-  vertical-align: 1px;
+  line-height: 1;
+  vertical-align: -5px;
   white-space: nowrap;
+}
+
+.champion-special-badge {
+  position: absolute;
+  z-index: 3;
+  top: 11px;
+  right: 12px;
+  border: 1px solid rgba(242, 209, 118, 0.78);
+  border-radius: 6px;
+  background: rgba(91, 71, 25, 0.94);
+  color: #fff3c8;
+  padding: 3px 7px;
+  font-size: 11px;
+  font-weight: 800;
+  line-height: 1;
+  text-shadow: none;
+}
+
+.scale-chip img {
+  width: 16px;
+  height: 16px;
+  display: block;
+  object-fit: contain;
+}
+
+.scale-chip > span {
+  max-width: 18px;
+  overflow: hidden;
+  font-size: 8px;
+  text-align: center;
 }
 
 .scale-chip-ad {
   color: #b04a12;
-  background: rgba(216, 97, 53, 0.16);
 }
 
 .scale-chip-ap {
   color: #2d5fc0;
-  background: rgba(77, 125, 214, 0.16);
 }
 
 .scale-chip-attack,
 .scale-chip-attack-speed,
 .scale-chip-range {
   color: #9a5b08;
-  background: rgba(226, 161, 52, 0.18);
 }
 
 .scale-chip-armor,
@@ -1659,34 +1692,30 @@
 .scale-chip-health,
 .scale-chip-crit,
 .scale-chip-crit-multiplier,
+.scale-chip-mana,
 .scale-chip-mana-regen,
 .scale-chip-omnivamp,
 .scale-chip-skill-crit {
   color: #15715f;
-  background: rgba(51, 166, 139, 0.17);
 }
 
 .scale-chip-damage-amplification,
 .scale-chip-damage-reduction {
   color: #9b3e71;
-  background: rgba(193, 74, 133, 0.16);
 }
 
 :root[data-theme="dark"] .scale-chip-ad {
   color: #ffab7e;
-  background: rgba(216, 97, 53, 0.26);
 }
 
 :root[data-theme="dark"] .scale-chip-ap {
   color: #9dbdff;
-  background: rgba(77, 125, 214, 0.28);
 }
 
 :root[data-theme="dark"] .scale-chip-attack,
 :root[data-theme="dark"] .scale-chip-attack-speed,
 :root[data-theme="dark"] .scale-chip-range {
   color: #ffd27d;
-  background: rgba(226, 161, 52, 0.28);
 }
 
 :root[data-theme="dark"] .scale-chip-armor,
@@ -1694,15 +1723,14 @@
 :root[data-theme="dark"] .scale-chip-health,
 :root[data-theme="dark"] .scale-chip-crit,
 :root[data-theme="dark"] .scale-chip-crit-multiplier,
+:root[data-theme="dark"] .scale-chip-mana,
 :root[data-theme="dark"] .scale-chip-mana-regen,
 :root[data-theme="dark"] .scale-chip-omnivamp,
 :root[data-theme="dark"] .scale-chip-skill-crit {
   color: #8de3ca;
-  background: rgba(51, 166, 139, 0.28);
 }
 
 :root[data-theme="dark"] .scale-chip-damage-amplification,
 :root[data-theme="dark"] .scale-chip-damage-reduction {
   color: #f4a6c9;
-  background: rgba(193, 74, 133, 0.28);
 }

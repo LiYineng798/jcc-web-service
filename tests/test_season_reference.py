@@ -11,6 +11,7 @@ from season_reference_service import (
     normalize_season_id,
     season_page_context,
 )
+from season_rich_text import parse_rich_text
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA_ROOT = ROOT / 'static' / 'season-data'
@@ -228,8 +229,11 @@ def test_variable_labels_and_skill_chips_are_sanitized():
     assert clean_variable_label('被动每秒攻击次数') == '被动每秒攻击次数'
 
     html = str(format_skill_description('造成55(【法术加成】)点伤害与10(【物理加成】)点伤害<x>'))
-    assert '<span class="scale-chip scale-chip-ap">法术加成</span>' in html
-    assert '<span class="scale-chip scale-chip-ad">物理加成</span>' in html
+    assert 'class="scale-chip scale-chip-ap"' in html
+    assert 'aria-label="法术加成"' in html
+    assert '/static/season-stats/ap.png' in html
+    assert 'class="scale-chip scale-chip-ad"' in html
+    assert '/static/season-stats/ad.png' in html
     assert '&lt;x&gt;' in html
 
     extended = str(format_skill_description('获得100(【生命上限】)、20(【护甲】)和10(【魔法抗性】)'))
@@ -241,6 +245,114 @@ def test_variable_labels_and_skill_chips_are_sanitized():
     for variable in detail['champion']['skill']['variables']:
         assert ':' not in variable['label'] and '：' not in variable['label']
         assert '【' not in variable['label']
+
+
+def test_rich_text_normalizes_s18_and_chinese_stat_markers():
+    s18 = parse_rich_text('获得【AP】、【HP】、【AS】并降低【DR】伤害')
+    chinese = parse_rich_text('获得【法术加成】、【生命上限】、【攻击速度】并获得【伤害减免】')
+    wood_spirit = parse_rich_text('木灵加成：召唤额外0()个木灵')
+
+    assert [token['stat'] for token in s18 if token['type'] == 'stat'] == [
+        'ability_power', 'health', 'attack_speed', 'damage_reduction',
+    ]
+    assert [token['stat'] for token in chinese if token['type'] == 'stat'] == [
+        'ability_power', 'health', 'attack_speed', 'damage_reduction',
+    ]
+    assert [token['source_label'] for token in s18 if token['type'] == 'stat'] == ['AP', 'HP', 'AS', 'DR']
+    assert [token['stat'] for token in wood_spirit if token['type'] == 'stat'] == ['wood_spirit_bonus']
+    assert next(token for token in wood_spirit if token['type'] == 'stat')['icon'] == 'amp'
+    assert wood_spirit[0]['value'].endswith('0(')
+    assert wood_spirit[-1]['value'].startswith(')个木灵')
+
+
+def test_stat_marker_images_are_local_and_background_free():
+    for icon in ('ap', 'amp'):
+        path = ROOT / 'static' / 'season-stats' / f'{icon}.png'
+        assert path.is_file()
+        with Image.open(path) as image:
+            assert image.format == 'PNG'
+
+    css = (ROOT / 'static' / 'season-reference.css').read_text(encoding='utf-8')
+    assert '.scale-chip {' in css
+    assert 'background: transparent;' in css
+    assert 'border: 0;' in css
+
+
+def test_s17_wood_spirit_tokens_use_amp_asset():
+    champions = json.loads((DATA_ROOT / 's17' / 'champions.json').read_text(encoding='utf-8'))['champions']
+    wood_token_contexts = [
+        (tokens[index - 1], token, tokens[index + 1])
+        for champion in champions
+        for skill in champion.get('skills', [])
+        for tokens in [skill.get('description_tokens', [])]
+        for index, token in enumerate(tokens)
+        if token.get('stat') == 'wood_spirit_bonus'
+    ]
+    assert wood_token_contexts
+    assert {token.get('icon') for _, token, _ in wood_token_contexts} == {'amp'}
+    assert all(before.get('value', '').endswith('(') for before, _, _ in wood_token_contexts)
+    assert all(after.get('value', '').startswith(')') for _, _, after in wood_token_contexts)
+
+
+def test_special_champions_are_prioritized_within_cost_groups():
+    javascript = (ROOT / 'static' / 'season-reference.js').read_text(encoding='utf-8')
+    assert "b.availability?.type === 'special'" in javascript
+    assert "a.availability?.type === 'special'" in javascript
+
+
+def test_every_season_emits_rich_text_tokens_and_board_unit_document():
+    for season in catalog_seasons():
+        season_root = DATA_ROOT / season['season_id']
+        board_units_path = season_root / 'board_units.json'
+        assert board_units_path.is_file()
+        board_units = json.loads(board_units_path.read_text(encoding='utf-8')).get('board_units') or []
+        assert season['counts']['board_units'] == len(board_units)
+        for unit in board_units:
+            image = unit['image']
+            assert image['optimized_local_path'].endswith('.webp')
+            assert (season_root / image['local_path']).is_file()
+            assert (season_root / image['optimized_local_path']).is_file()
+
+
+def test_s16_5_supplements_galio_and_trait_created_towers(client):
+    champions = json.loads((DATA_ROOT / 's16_5' / 'champions.json').read_text(encoding='utf-8'))['champions']
+    assert len(champions) == 115
+    galio = next(champion for champion in champions if champion['name'] == '加里奥')
+    assert galio['id'] == '5285'
+    assert galio['availability']['type'] == 'unlock'
+    assert galio['extensions']['library_visible'] is True
+    assert galio['extensions']['simulator_visible'] is True
+    assert galio['extensions']['supplemented_from_official_snapshot'] is True
+
+    detail = client.get('/tools/seasons/s16_5/champions/5285')
+    assert detail.status_code == 200
+    detail_html = detail.get_data(as_text=True)
+    assert '解锁条件' in detail_html
+    assert '特殊获取' not in detail_html
+
+    board_units = json.loads((DATA_ROOT / 's16_5' / 'board_units.json').read_text(encoding='utf-8'))['board_units']
+    tower = next(unit for unit in board_units if unit['name'] == '冰封塔楼')
+    rules = tower['placement_rules']
+    assert any(rule['min_units'] == 3 and rule['max_count'] == 1 for rule in rules)
+    assert all(rule['max_count'] == (1 if rule['min_units'] == 3 else 2) for rule in rules)
+    tibbers = next(unit for unit in board_units if unit['name'] == '提伯斯')
+    rock = next(unit for unit in board_units if unit['name'] == '岩石')
+    assert tibbers['can_equip'] is True
+    assert rock['can_equip'] is False
+    assert rock['placement_rules'][0]['max_count'] == 2
+    public_names = {
+        champion['name']
+        for champion in json.loads((DATA_ROOT / 's16_5' / 'index.json').read_text(encoding='utf-8'))['champions']
+    }
+    assert '冰封塔楼' not in public_names
+
+
+def test_s17_emits_relic_and_black_hole_as_simulator_only_board_units():
+    board_units = json.loads((DATA_ROOT / 's17' / 'board_units.json').read_text(encoding='utf-8'))['board_units']
+    by_name = {unit['name']: unit for unit in board_units}
+    assert {'圣物', '迷你黑洞'} <= set(by_name)
+    assert all(unit['extensions']['library_visible'] is False for unit in by_name.values())
+    assert all(unit['extensions']['simulator_visible'] is True for unit in by_name.values())
 
 
 def test_s16_5_new_champion_tags_render_from_data():

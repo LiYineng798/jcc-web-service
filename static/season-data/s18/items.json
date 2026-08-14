@@ -35,7 +35,22 @@
         "source_type": "part",
         "code": "BL",
         "key": "DA_Component_BFSword"
-      }
+      },
+      "description_tokens": [
+        {
+          "type": "stat",
+          "stat": "attack_damage",
+          "kind": "ad",
+          "label": "物理加成",
+          "source_label": "AD",
+          "icon": "ad",
+          "fallback": "AD"
+        },
+        {
+          "type": "text",
+          "value": "+10%"
+        }
+      ]
     },
     {
       "id": "502",
@@ -71,7 +86,22 @@
         "source_type": "part",
         "code": "BM",
         "key": "DA_Component_RecurveBow"
-      }
+      },
+      "description_tokens": [
+        {
+          "type": "stat",
+          "stat": "attack_speed",
+          "kind": "attack-speed",
+          "label": "攻击速度",
+          "source_label": "AS",
+          "icon": "as",
+          "fallback": "AS"
+        },
+        {
+          "type": "text",
+          "value": "+10%"
+        }
+      ]
     },
     {
       "id": "503",
@@ -106,7 +136,22 @@
         "source_type": "part",
         "code": "BN",
         "key": "DA_Component_NeedlesslyLargeRod"
-      }
+      },
+      "description_tokens": [
+        {
+          "type": "stat",
+          "stat": "ability_power",
+          "kind": "ap",
+          "label": "法术加成",
+          "source_label": "AP",
+          "icon": "ap",
+          "fallback": "AP"
+        },
+        {
+          "type": "text",
+          "value": "+10"
+        }
+      ]
     },
     {
       "id": "504",
@@ -175,7 +220,22 @@
         "source_type": "part",
         "code": "BP",
         "key": "DA_Component_ChainVest"
-      }
+      },
+      "description_tokens": [
+        {
+          "type": "stat",
+          "stat": "armor",
+          "kind": "armor",
+          "label": "护甲",
+          "source_label": "ARMOR",
+          "icon": "armor",
+          "fallback": "AR"
+        },
+        {
+          "type": "text",
+          "value": "+20"
+        }
+      ]
     },
     {
       "id": "506",
@@ -210,7 +270,22 @@
         "source_type": "part",
         "code": "BQ",
         "key": "DA_Component_NegatronCloak"
-      }
+      },
+      "description_tokens": [
+        {
+          "type": "stat",
+          "stat": "magic_resist",
+          "kind": "magic-resist",
+          "label": "魔法抗性",
+          "source_label": "MR",
+          "icon": "mr",
+          "fallback": "MR"
+        },
+        {
+          "type": "text",
+          "value": "+20"
+        }
+      ]
     },
     {
       "id": "507",
@@ -245,7 +320,22 @@
         "source_type": "part",
         "code": "BR",
         "key": "DA_Component_GiantsBelt"
-      }
+      },
+      "description_tokens": [
+        {
+          "type": "stat",
+          "stat": "health",
+          "kind": "health",
+          "label": "生命值",
+          "source_label": "HP",
+          "icon": "hp",
+          "fallback": "HP"
+        },
+        {
+          "type": "text",
+          "value": "+150"
+        }
+      ]
     },
     {
       "id": "509",
@@ -278,7 +368,22 @@
         "source_type": "part",
         "code": "BS",
         "key": "DA_Component_SparringGloves"
-      }
+      },
+      "description_tokens": [
+        {
+          "type": "stat",
+          "stat": "critical_strike_chance",
+          "kind": "crit",
+          "label": "暴击率",
+          "source_label": "CRIT",
+          "icon": "crit",
+          "fallback": "CRIT"
+        },
+        {
+          "type": "text",
+          "value": "+20%"
+        }
+      ]
     },
     {
       "id": "508",
@@ -653,7 +758,39 @@
         "source_type": "common",
         "code": "Bc",
         "key": "DA_InfinityEdge"
-      }
+      },
+      "description_tokens": [
+        {
+          "type": "text",
+          "value": "获得"
+        },
+        {
+          "type": "stat",
+          "stat": "skill_critical_strike",
+          "kind": "skill-crit",
+          "label": "技能暴击",
+          "source_label": "技能暴击",
+          "icon": "crit",
+          "fallback": "CRIT"
+        },
+        {
+          "type": "text",
+          "value": "。\n技能暴击：技能伤害可产生暴击。额外的"
+        },
+        {
+          "type": "stat",
+          "stat": "skill_critical_strike",
+          "kind": "skill-crit",
+          "label": "技能暴击",
+          "source_label": "技能暴击",
+          "icon": "crit",
+          "fallback": "CRIT"
+        },
+        {
+          "type": "text",
+          "value": "提供10%暴击伤害。"
+        }
+      ]
     },
     {
       "id": "624",
@@ -1151,7 +1288,39 @@
         "source_type": "common",
         "code": "Bp",
         "key": "DA_JeweledGauntlet"
-      }
+      },
+      "description_tokens": [
+        {
+          "type": "text",
+          "value": "获得"
+        },
+        {
+          "type": "stat",
+          "stat": "skill_critical_strike",
+          "kind": "skill-crit",
+          "label": "技能暴击",
+          "source_label": "技能暴击",
+          "icon": "crit",
+          "fallback": "CRIT"
+        },
+        {
+          "type": "text",
+          "value": "。\n技能暴击：技能伤害可产生暴击。额外的"
+        },
+        {
+          "type": "stat",
+          "stat": "skill_critical_strike",
+          "kind": "skill-crit",
+          "label": "技能暴击",
+          "source_label": "技能暴击",
+          "icon": "crit",
+          "fallback": "CRIT"
+        },
+        {
+          "type": "text",
+          "value": "提供10%暴击伤害。"
+        }
+      ]
     },
     {
       "id": "567",
@@ -3303,7 +3472,39 @@
         "source_type": "guangming",
         "code": "Da",
         "key": "DA_InfinityEdgeRadiant"
-      }
+      },
+      "description_tokens": [
+        {
+          "type": "text",
+          "value": "获得"
+        },
+        {
+          "type": "stat",
+          "stat": "skill_critical_strike",
+          "kind": "skill-crit",
+          "label": "技能暴击",
+          "source_label": "技能暴击",
+          "icon": "crit",
+          "fallback": "CRIT"
+        },
+        {
+          "type": "text",
+          "value": "。\n技能暴击：技能伤害可产生暴击。额外的"
+        },
+        {
+          "type": "stat",
+          "stat": "skill_critical_strike",
+          "kind": "skill-crit",
+          "label": "技能暴击",
+          "source_label": "技能暴击",
+          "icon": "crit",
+          "fallback": "CRIT"
+        },
+        {
+          "type": "text",
+          "value": "提供10%暴击伤害。"
+        }
+      ]
     },
     {
       "id": "1624",
@@ -3781,7 +3982,39 @@
         "source_type": "guangming",
         "code": "Dn",
         "key": "DA_JeweledGauntletRadiant"
-      }
+      },
+      "description_tokens": [
+        {
+          "type": "text",
+          "value": "获得"
+        },
+        {
+          "type": "stat",
+          "stat": "skill_critical_strike",
+          "kind": "skill-crit",
+          "label": "技能暴击",
+          "source_label": "技能暴击",
+          "icon": "crit",
+          "fallback": "CRIT"
+        },
+        {
+          "type": "text",
+          "value": "。\n技能暴击：技能伤害可产生暴击。额外的"
+        },
+        {
+          "type": "stat",
+          "stat": "skill_critical_strike",
+          "kind": "skill-crit",
+          "label": "技能暴击",
+          "source_label": "技能暴击",
+          "icon": "crit",
+          "fallback": "CRIT"
+        },
+        {
+          "type": "text",
+          "value": "提供10%暴击伤害。"
+        }
+      ]
     },
     {
       "id": "1567",
@@ -4496,7 +4729,39 @@
         "source_type": "other",
         "code": "EG",
         "key": "TFT9_Item_CrownOfDemacia"
-      }
+      },
+      "description_tokens": [
+        {
+          "type": "text",
+          "value": "如果携带者是一个【坦克】，则每2秒回复3-21%最大生命值(基于阶段)。如果不是，则转而每2秒获得10%"
+        },
+        {
+          "type": "stat",
+          "stat": "attack_damage",
+          "kind": "ad",
+          "label": "物理加成",
+          "source_label": "AD",
+          "icon": "ad",
+          "fallback": "AD"
+        },
+        {
+          "type": "text",
+          "value": "物理加成和"
+        },
+        {
+          "type": "stat",
+          "stat": "ability_power",
+          "kind": "ap",
+          "label": "法术加成",
+          "source_label": "AP",
+          "icon": "ap",
+          "fallback": "AP"
+        },
+        {
+          "type": "text",
+          "value": "法术加成。\n如果这件装备的携带者阵亡，那么你会立刻输掉战斗。\n你可以通过将携带者移到备战席来移除这个装备。"
+        }
+      ]
     },
     {
       "id": "33019",
@@ -5675,5 +5940,6 @@
         "key": "DA_ManaPotion18"
       }
     }
-  ]
+  ],
+  "rich_text_version": 1
 }

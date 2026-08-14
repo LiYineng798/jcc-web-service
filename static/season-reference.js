@@ -394,6 +394,13 @@ function createChampionCard(champion, index) {
     if (champion.availability.description) badge.title = champion.availability.description;
     art.append(badge);
   }
+  if (champion.availability && champion.availability.type === 'special') {
+    const badge = document.createElement('span');
+    badge.className = 'champion-special-badge';
+    badge.textContent = '特殊';
+    if (champion.availability.description) badge.title = champion.availability.description;
+    art.append(badge);
+  }
 
   const name = document.createElement('h3');
   name.className = 'champion-name';
@@ -415,7 +422,11 @@ function createChampionCard(champion, index) {
   skillName.textContent = (champion.skill && champion.skill.name) || '';
   const description = document.createElement('p');
   description.className = 'champion-skill-description';
-  window.JccSeasonChampionUi.appendSkillDescription(description, champion.skill && champion.skill.description);
+  window.JccSeasonChampionUi.appendSkillDescription(
+    description,
+    champion.skill && champion.skill.description,
+    champion.skill && champion.skill.description_tokens,
+  );
   skillBody.append(skillName, description);
   skillClip.append(skillBody);
   skill.append(skillClip);
@@ -429,7 +440,9 @@ function renderChampions() {
   updateChampionFilterSummary(champions.length);
   const sections = [];
   state.costs.forEach((cost) => {
-    const costChampions = champions.filter((champion) => champion.cost === cost);
+    const costChampions = champions
+      .filter((champion) => champion.cost === cost)
+      .sort((a, b) => Number(b.availability?.type === 'special') - Number(a.availability?.type === 'special'));
     if (!costChampions.length) return;
     const section = document.createElement('section');
     section.className = 'champion-cost-section';
@@ -484,7 +497,7 @@ function createTraitCard(trait, index) {
 
   const description = document.createElement('p');
   description.className = 'trait-description';
-  window.JccSeasonChampionUi.appendSkillDescription(description, trait.description);
+  window.JccSeasonChampionUi.appendSkillDescription(description, trait.description, trait.description_tokens);
   card.append(title, description);
 
   const breakpoints = trait.breakpoints || [];
@@ -499,7 +512,7 @@ function createTraitCard(trait, index) {
       count.textContent = String(breakpoint.min_units);
       const effect = document.createElement('span');
       effect.className = 'trait-level-effect';
-      window.JccSeasonChampionUi.appendSkillDescription(effect, breakpoint.effect);
+      window.JccSeasonChampionUi.appendSkillDescription(effect, breakpoint.effect, breakpoint.effect_tokens);
       row.append(count, effect);
       levels.append(row);
     });
@@ -554,7 +567,7 @@ function createWandCard(entry, index) {
   if (cost !== null && cost !== undefined) header.append(createCostBadge(cost, 'wand-cost'));
   const effect = document.createElement('p');
   effect.className = 'wand-effect';
-  window.JccSeasonChampionUi.appendSkillDescription(effect, entry.description);
+  window.JccSeasonChampionUi.appendSkillDescription(effect, entry.description, entry.description_tokens);
   card.append(header, effect);
   const condition = entry.data && entry.data.appearance_condition;
   if (condition) {
@@ -577,7 +590,7 @@ function appendCharmEffect(card, label, effect, className) {
   heading.append(badge);
   if (effect.cost !== null && effect.cost !== undefined) heading.append(createCostBadge(effect.cost, 'charm-extra-cost'));
   const description = document.createElement('p');
-  window.JccSeasonChampionUi.appendSkillDescription(description, effect.effect);
+  window.JccSeasonChampionUi.appendSkillDescription(description, effect.effect, effect.effect_tokens);
   box.append(heading, description);
   card.append(box);
 }
@@ -604,7 +617,7 @@ function createCharmCard(entry, index, showUpgrades) {
 
   const description = document.createElement('p');
   description.className = 'charm-effect';
-  window.JccSeasonChampionUi.appendSkillDescription(description, entry.description);
+  window.JccSeasonChampionUi.appendSkillDescription(description, entry.description, entry.description_tokens);
   card.append(header, description);
 
   const rounds = Array.isArray(data.rounds) ? data.rounds : [];
@@ -639,7 +652,7 @@ function createWishRow(wish) {
   const name = document.createElement('strong');
   name.textContent = wish.name || '';
   const description = document.createElement('p');
-  window.JccSeasonChampionUi.appendSkillDescription(description, wish.description);
+  window.JccSeasonChampionUi.appendSkillDescription(description, wish.description, wish.description_tokens);
   body.append(name, description);
   row.append(body);
   return row;
@@ -666,7 +679,7 @@ function createMechanicCard(entry, index) {
   if (entry.description) {
     const description = document.createElement('p');
     description.className = 'mechanic-description';
-    window.JccSeasonChampionUi.appendSkillDescription(description, entry.description);
+    window.JccSeasonChampionUi.appendSkillDescription(description, entry.description, entry.description_tokens);
     body.append(description);
   }
 

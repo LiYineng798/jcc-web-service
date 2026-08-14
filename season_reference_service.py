@@ -10,7 +10,7 @@ import json
 from functools import lru_cache
 from pathlib import Path
 
-from markupsafe import Markup, escape
+from season_rich_text import render_rich_text, strip_rich_text_markers
 
 DATA_ROOT = Path(__file__).resolve().parent / 'static' / 'season-data'
 
@@ -18,27 +18,6 @@ SEASON_STATUS_LABELS = {
     'draft': '前瞻',
     'active': '进行中',
     'archived': '往期',
-}
-
-SCALING_TOKEN_KINDS = {
-    '物理加成': 'ad',
-    '法术加成': 'ap',
-    '法强': 'ap',
-    '攻击力': 'attack',
-    '攻击速度': 'attack-speed',
-    '攻击范围': 'range',
-    '护甲': 'armor',
-    '魔法抗性': 'magic-resist',
-    '魔抗': 'magic-resist',
-    '生命上限': 'health',
-    '最大生命值': 'health',
-    '暴击率': 'crit',
-    '暴击倍率': 'crit-multiplier',
-    '法力回复': 'mana-regen',
-    '全能吸血': 'omnivamp',
-    '伤害加成': 'damage-amplification',
-    '伤害减免': 'damage-reduction',
-    '技能暴击': 'skill-crit',
 }
 
 STAT_ROW_SPECS = (
@@ -54,24 +33,14 @@ STAT_ROW_SPECS = (
 )
 
 
-def format_skill_description(text):
-    """Escape a skill text and turn 【物理加成】/【法术加成】 markers into chips."""
-    if not text:
-        return Markup('')
-    rendered = str(escape(text))
-    for token, kind in SCALING_TOKEN_KINDS.items():
-        chip = f'<span class="scale-chip scale-chip-{kind}">{token}</span>'
-        rendered = rendered.replace(f'(【{token}】)', chip).replace(f'【{token}】', chip)
-    return Markup(rendered)
+def format_skill_description(text, tokens=None):
+    """Render imported rich-text tokens with a parser fallback for old data."""
+    return render_rich_text(text, tokens)
 
 
 def strip_scaling_tokens(text):
     """Plain-text version for SEO descriptions: drop stat scaling markers."""
-    if not text:
-        return ''
-    for token in SCALING_TOKEN_KINDS:
-        text = text.replace(f'(【{token}】)', '').replace(f'【{token}】', '')
-    return text
+    return strip_rich_text_markers(text)
 
 
 def clean_variable_label(label):
@@ -256,10 +225,19 @@ def build_champion_detail(season_id, champion_id):
             'name': trait['name'],
             'category': trait.get('category'),
             'description': trait.get('description'),
-            'description_html': format_skill_description(trait.get('description')),
+            'description_html': format_skill_description(
+                trait.get('description'),
+                trait.get('description_tokens'),
+            ),
             'image': _image_path(trait.get('image')),
             'breakpoints': [
-                {**breakpoint, 'effect_html': format_skill_description(breakpoint.get('effect'))}
+                {
+                    **breakpoint,
+                    'effect_html': format_skill_description(
+                        breakpoint.get('effect'),
+                        breakpoint.get('effect_tokens'),
+                    ),
+                }
                 for breakpoint in trait.get('breakpoints') or []
             ],
             'members': members,
@@ -284,12 +262,18 @@ def build_champion_detail(season_id, champion_id):
             'cost': champion.get('cost'),
             'tags': champion.get('tags') or [],
             'availability': champion.get('availability') or {},
+            'availability_description_html': format_skill_description(
+                (champion.get('availability') or {}).get('description'),
+            ),
             'icon': _image_path(images.get('icon')),
             'splash': _image_path(images.get('splash')),
             'skill': {
                 'name': skill.get('name'),
                 'description': skill.get('description'),
-                'description_html': format_skill_description(skill.get('description')),
+                'description_html': format_skill_description(
+                    skill.get('description'),
+                    skill.get('description_tokens'),
+                ),
                 'image': _image_path(skill.get('image')),
                 'variables': variables,
             },

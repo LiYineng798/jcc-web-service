@@ -42,11 +42,13 @@ def test_simulator_loads_every_season_from_catalog():
     assert 'champions.json?v=${stamp}' in javascript
     assert 'traits.json?v=${stamp}' in javascript
     assert 'items.json?v=${stamp}' in javascript
+    assert 'board_units.json?v=${stamp}' in javascript
     for season in catalog['seasons']:
         season_root = SEASON_ROOT / season['season_id']
         assert (season_root / 'champions.json').is_file()
         assert (season_root / 'traits.json').is_file()
         assert (season_root / 'items.json').is_file()
+        assert (season_root / 'board_units.json').is_file()
 
 
 def test_mutable_season_json_requires_revalidation(client):
@@ -100,6 +102,7 @@ def test_simulator_implements_board_and_equipment_rules():
 
     assert 'Array(28).fill(null)' in javascript
     assert 'if (slot.items.length >= 3)' in javascript
+    assert 'if (state.championById.get(slot.championId)?.canEquip === false)' in javascript
     assert 'contributors.get(traitId).add(hero.id)' in javascript
     assert 'raw.extensions?.trait_id ?? raw.extensions?.fetter_id' in javascript
     assert 'grantedTraitId: rawGrantedTraitId == null' in javascript
@@ -110,6 +113,9 @@ def test_simulator_implements_board_and_equipment_rules():
     assert 'moveUnit(fromIndex, toIndex)' in javascript
     assert 'localStorage.setItem' in javascript
     assert 'exportBoardImage' in javascript
+    assert 'function boardUnitAllowance(unit)' in javascript
+    assert 'countPlacedUnit(hero.id) >= boardUnitAllowance(hero)' in javascript
+    assert 'specialPlacementIsValid' in javascript
     assert 'if (itemChip) {\n    event.preventDefault();\n    hidePopover();' in javascript
     assert 'if (!cell) return;\n  event.preventDefault();\n  hidePopover();\n  mutate(() => { state.board' in javascript
 
@@ -250,6 +256,67 @@ def test_simulator_exports_the_rendered_board_and_keeps_items_inside_units():
     assert '.lineup-image-board .hex-board' in css
 
 
+def test_simulator_shows_animated_export_progress_for_both_image_formats():
+    html = Path('templates/lineup_simulator.html').read_text(encoding='utf-8')
+    javascript = (SIMULATOR_ROOT / 'app.js').read_text(encoding='utf-8')
+    css = (SIMULATOR_ROOT / 'style.css').read_text(encoding='utf-8')
+
+    assert 'id="exportProgress"' in html
+    assert html.count('<span></span>') >= 7
+    assert 'function beginExportProgress(title)' in javascript
+    assert 'async function updateExportProgress(stage, percent)' in javascript
+    assert 'async function finishExportProgress(startedAt)' in javascript
+    assert 'beginExportProgress("图片正在导出")' in javascript
+    assert 'beginExportProgress("海报正在导出")' in javascript
+    assert 'elements.exportImageDialog.close();\n  elements.exportImage.disabled = true;' in javascript
+    assert 'elements.posterExportDialog.close();\n  const startedAt = beginExportProgress("海报正在导出")' in javascript
+    assert 'Math.max(0, 1100 - (performance.now() - startedAt))' in javascript
+    assert javascript.count('await finishExportProgress(startedAt)') == 2
+    assert '@keyframes export-tile-pulse' in css
+    assert '.export-progress-board span:nth-child(7)' in css
+
+
+def test_simulator_uses_fixed_branded_codes_and_keeps_legacy_import_support():
+    javascript = (SIMULATOR_ROOT / 'app.js').read_text(encoding='utf-8')
+
+    assert 'const FORMATION_CODE_PREFIX = "JCC2-"' in javascript
+    assert 'const FORMATION_TOTAL_BYTES = FORMATION_HEADER_BYTES + (28 * FORMATION_SLOT_BYTES) + FORMATION_CHECKSUM_BYTES' in javascript
+    assert 'const FORMATION_CODE_LENGTH = FORMATION_CODE_PREFIX.length + FORMATION_PAYLOAD_LENGTH' in javascript
+    assert 'view.setUint32(1, fnv1a32(payload.season))' in javascript
+    assert 'view.setUint32(5, codebook.hash)' in javascript
+    assert 'fnv1a32(bytes.slice(0, -FORMATION_CHECKSUM_BYTES))' in javascript
+    assert 'if (code.length !== FORMATION_CODE_LENGTH)' in javascript
+    assert 'function decodeLegacyPayload(code)' in javascript
+    assert 'return code.startsWith(FORMATION_CODE_PREFIX) ? decodeFixedFormation(code) : decodeLegacyPayload(code)' in javascript
+    assert 'if (location.hash.startsWith("#lineup="))' in javascript
+    assert 'history.replaceState(null, "", `${location.pathname}${location.search}`)' in javascript
+
+
+def test_simulator_renders_imported_stat_tokens_in_popovers():
+    javascript = (SIMULATOR_ROOT / 'app.js').read_text(encoding='utf-8')
+    css = (SIMULATOR_ROOT / 'style.css').read_text(encoding='utf-8')
+
+    assert 'function richTextHtml(text, importedTokens = null)' in javascript
+    assert 'richTextHtml(skill.description, skill.description_tokens)' in javascript
+    assert 'richTextHtml(trait.description, trait.descriptionTokens)' in javascript
+    assert 'point.effect_tokens || point.description_tokens' in javascript
+    assert '/static/season-stats/${encodeURIComponent(token.icon)}.png' in javascript
+    assert '.scale-chip' in css
+    assert '木灵加成: ["amp", "amp", "木灵加成", "木灵"]' in javascript
+    assert 'const woodSpiritPlaceholder = !match[1]' in javascript
+    assert 'background: transparent' in css
+    assert 'border: 0' in css
+
+
+def test_simulator_includes_s16_5_galio_as_an_unlock_champion():
+    champions = json.loads((SEASON_ROOT / 's16_5' / 'champions.json').read_text(encoding='utf-8'))['champions']
+    galio = next(champion for champion in champions if champion['name'] == '加里奥')
+
+    assert galio['cost'] == 5
+    assert galio['availability']['type'] == 'unlock'
+    assert galio['extensions']['simulator_visible'] is True
+
+
 def test_simulator_exports_a_separate_fixed_portrait_poster():
     html = Path('templates/lineup_simulator.html').read_text(encoding='utf-8')
     javascript = (SIMULATOR_ROOT / 'app.js').read_text(encoding='utf-8')
@@ -284,7 +351,7 @@ def test_simulator_exports_a_separate_fixed_portrait_poster():
     assert 'src="${UI_ROOT}/poster-brand.png"' in javascript
     poster_builder = javascript.split('function buildPosterCapture(title, championId)', 1)[1].split('function ', 1)[0]
     assert '总费用' not in poster_builder
-    assert '${units.length} 名弈子</span><i></i><span>${posterTraitRows().length} 个激活羁绊' in poster_builder
+    assert '${units.length} 个单位</span><i></i><span>${posterTraitRows().length} 个激活羁绊' in poster_builder
     assert '.lineup-poster-capture {' in css
     assert '.lineup-poster-background-art {' in css
     assert 'object-fit: contain' in css

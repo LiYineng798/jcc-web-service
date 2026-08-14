@@ -29,6 +29,38 @@
    "skill": {
     "name": "镜花水月",
     "description": "被动：在玩家对战结束后，你最强的【乐芙兰】有10%/15%/40%/100%的几率生成一个不超过3费的友军的1星复制品。\n主动：向当前目标发射镜像，造成250/375/565/955 (【AP】)魔法伤害，并对邻格的敌人造成85/130/190/325 (【AP】)魔法伤害。",
+    "description_tokens": [
+     {
+      "type": "text",
+      "value": "被动：在玩家对战结束后，你最强的【乐芙兰】有10%/15%/40%/100%的几率生成一个不超过3费的友军的1星复制品。\n主动：向当前目标发射镜像，造成250/375/565/955 "
+     },
+     {
+      "type": "stat",
+      "stat": "ability_power",
+      "kind": "ap",
+      "label": "法术加成",
+      "source_label": "AP",
+      "icon": "ap",
+      "fallback": "AP"
+     },
+     {
+      "type": "text",
+      "value": "魔法伤害，并对邻格的敌人造成85/130/190/325 "
+     },
+     {
+      "type": "stat",
+      "stat": "ability_power",
+      "kind": "ap",
+      "label": "法术加成",
+      "source_label": "AP",
+      "icon": "ap",
+      "fallback": "AP"
+     },
+     {
+      "type": "text",
+      "value": "魔法伤害。"
+     }
+    ],
     "image": "assets/optimized/s18__pbe/skills/918007_skill.webp"
    }
   },
@@ -53,6 +85,38 @@
    "skill": {
     "name": "收割",
     "description": "在锥形范围内挥击，移除命中敌人的10魔抗并对其造成70/105/170/300 (【AP】)魔法伤害。回复425/500/850/1200 (【AP】)生命值，且每命中一名敌人额外回复。",
+    "description_tokens": [
+     {
+      "type": "text",
+      "value": "在锥形范围内挥击，移除命中敌人的10魔抗并对其造成70/105/170/300 "
+     },
+     {
+      "type": "stat",
+      "stat": "ability_power",
+      "kind": "ap",
+      "label": "法术加成",
+      "source_label": "AP",
+      "icon": "ap",
+      "fallback": "AP"
+     },
+     {
+      "type": "text",
+      "value": "魔法伤害。回复425/500/850/1200 "
+     },
+     {
+      "type": "stat",
+      "stat": "ability_power",
+      "kind": "ap",
+      "label": "法术加成",
+      "source_label": "AP",
+      "icon": "ap",
+      "fallback": "AP"
+     },
+     {
+      "type": "text",
+      "value": "生命值，且每命中一名敌人额外回复。"
+     }
+    ],
     "image": "assets/optimized/s18__pbe/skills/918009_skill.webp"
    }
   },
@@ -76,6 +140,38 @@
    "skill": {
     "name": "太阳裁决",
     "description": "被动：凯尔基于其星级获得飞升，并获得可叠加的增益。\n第1次飞升： 普攻造成56/84/98/112 (【AP】)额外魔法伤害。\n第2次飞升： 普攻对命中的敌人施加20%魔抗击碎，持续2秒。\n第3次飞升： 普攻发射冲击波，对命中的所有其他弈子造成40/50 (【AP】)魔法伤害。\n魔抗击碎：降低魔抗",
+    "description_tokens": [
+     {
+      "type": "text",
+      "value": "被动：凯尔基于其星级获得飞升，并获得可叠加的增益。\n第1次飞升： 普攻造成56/84/98/112 "
+     },
+     {
+      "type": "stat",
+      "stat": "ability_power",
+      "kind": "ap",
+      "label": "法术加成",
+      "source_label": "AP",
+      "icon": "ap",
+      "fallback": "AP"
+     },
+     {
+      "type": "text",
+      "value": "额外魔法伤害。\n第2次飞升： 普攻对命中的敌人施加20%魔抗击碎，持续2秒。\n第3次飞升： 普攻发射冲击波，对命中的所有其他弈子造成40/50 "
+     },
+     {
+      "type": "stat",
+      "stat": "ability_power",
+      "kind": "ap",
+      "label": "法术加成",
+      "source_label": "AP",
+      "icon": "ap",
+      "fallback": "AP"
+     },
+     {
+      "type": "text",
+      "value": "魔法伤害。\n魔抗击碎：降低魔抗"
+     }
+    ],
     "image": "assets/optimized/s18__pbe/skills/918010_skill.webp"
    }
   },
@@ -99,6 +195,7 @@
    "skill": {
     "name": "无极剑道",
     "description": "【适应者】：此技能将根据法术强度或攻击力孰高而改变。\n【适应者】被动：每第三次攻击会触发一次双重打击，提供可叠加的攻击速度。\n【适应者】：双重打击会造成额外伤害并提供治疗。非常适合凭借重击来增强持续作战能力。",
+    "description_tokens": null,
     "image": "assets/optimized/s18__pbe/skills/918011_skill.webp"
    }
   },
@@ -122,6 +219,60 @@
    "skill": {
     "name": "凯旋怒吼",
     "description": "怒吼，回复276/336/396/456 (【HP】【AP】)生命值，净化控制效果，并为生命值最低的两名友军回复80/105/130/155 (【AP】)生命值。然后猛击当前目标，造成100/150/225/385 (【AP】)魔法伤害并令其眩晕1.5秒。",
+    "description_tokens": [
+     {
+      "type": "text",
+      "value": "怒吼，回复276/336/396/456 ("
+     },
+     {
+      "type": "stat",
+      "stat": "health",
+      "kind": "health",
+      "label": "生命值",
+      "source_label": "HP",
+      "icon": "hp",
+      "fallback": "HP"
+     },
+     {
+      "type": "stat",
+      "stat": "ability_power",
+      "kind": "ap",
+      "label": "法术加成",
+      "source_label": "AP",
+      "icon": "ap",
+      "fallback": "AP"
+     },
+     {
+      "type": "text",
+      "value": ")生命值，净化控制效果，并为生命值最低的两名友军回复80/105/130/155 "
+     },
+     {
+      "type": "stat",
+      "stat": "ability_power",
+      "kind": "ap",
+      "label": "法术加成",
+      "source_label": "AP",
+      "icon": "ap",
+      "fallback": "AP"
+     },
+     {
+      "type": "text",
+      "value": "生命值。然后猛击当前目标，造成100/150/225/385 "
+     },
+     {
+      "type": "stat",
+      "stat": "ability_power",
+      "kind": "ap",
+      "label": "法术加成",
+      "source_label": "AP",
+      "icon": "ap",
+      "fallback": "AP"
+     },
+     {
+      "type": "text",
+      "value": "魔法伤害并令其眩晕1.5秒。"
+     }
+    ],
     "image": "assets/optimized/s18__pbe/skills/918012_skill.webp"
    }
   },
@@ -145,6 +296,56 @@
    "skill": {
     "name": "回旋之刃",
     "description": "投掷一把巨大的十字刃，它会对当前敌人造成170/255/1150/2250 (【AD】【AP】)物理伤害，并在附近敌人之间弹跳8次，每次弹跳造成34/51/575/2250 (【AD】【AP】)物理伤害。当这个技能击杀了一个敌人，它会额外弹跳一次。",
+    "description_tokens": [
+     {
+      "type": "text",
+      "value": "投掷一把巨大的十字刃，它会对当前敌人造成170/255/1150/2250 ("
+     },
+     {
+      "type": "stat",
+      "stat": "attack_damage",
+      "kind": "ad",
+      "label": "物理加成",
+      "source_label": "AD",
+      "icon": "ad",
+      "fallback": "AD"
+     },
+     {
+      "type": "stat",
+      "stat": "ability_power",
+      "kind": "ap",
+      "label": "法术加成",
+      "source_label": "AP",
+      "icon": "ap",
+      "fallback": "AP"
+     },
+     {
+      "type": "text",
+      "value": ")物理伤害，并在附近敌人之间弹跳8次，每次弹跳造成34/51/575/2250 ("
+     },
+     {
+      "type": "stat",
+      "stat": "attack_damage",
+      "kind": "ad",
+      "label": "物理加成",
+      "source_label": "AD",
+      "icon": "ad",
+      "fallback": "AD"
+     },
+     {
+      "type": "stat",
+      "stat": "ability_power",
+      "kind": "ap",
+      "label": "法术加成",
+      "source_label": "AP",
+      "icon": "ap",
+      "fallback": "AP"
+     },
+     {
+      "type": "text",
+      "value": ")物理伤害。当这个技能击杀了一个敌人，它会额外弹跳一次。"
+     }
+    ],
     "image": "assets/optimized/s18__pbe/skills/918015_skill.webp"
    }
   },
@@ -168,6 +369,38 @@
    "skill": {
     "name": "流星坠落",
     "description": "召唤一颗星星落在当前目标身上，造成190/285/1000/2200 (【AP】)魔法伤害。如果此前曾有一颗星星落至其上，则额外召唤3颗星星，每颗造成100/150/1000/1150 (【AP】)魔法伤害。",
+    "description_tokens": [
+     {
+      "type": "text",
+      "value": "召唤一颗星星落在当前目标身上，造成190/285/1000/2200 "
+     },
+     {
+      "type": "stat",
+      "stat": "ability_power",
+      "kind": "ap",
+      "label": "法术加成",
+      "source_label": "AP",
+      "icon": "ap",
+      "fallback": "AP"
+     },
+     {
+      "type": "text",
+      "value": "魔法伤害。如果此前曾有一颗星星落至其上，则额外召唤3颗星星，每颗造成100/150/1000/1150 "
+     },
+     {
+      "type": "stat",
+      "stat": "ability_power",
+      "kind": "ap",
+      "label": "法术加成",
+      "source_label": "AP",
+      "icon": "ap",
+      "fallback": "AP"
+     },
+     {
+      "type": "text",
+      "value": "魔法伤害。"
+     }
+    ],
     "image": "assets/optimized/s18__pbe/skills/918016_skill.webp"
    }
   },
@@ -191,6 +424,25 @@
    "skill": {
     "name": "内有真菌",
     "description": "投掷簇蘑菇，对附近3名敌人造成60/90/135/230 (【AP】)魔法伤害。偶尔会采集到额外的蘑菇，食用后可获得加成效果。\n红色：1次刷新\n绿色：1小小英雄生命值\n黄色：2经验值",
+    "description_tokens": [
+     {
+      "type": "text",
+      "value": "投掷簇蘑菇，对附近3名敌人造成60/90/135/230 "
+     },
+     {
+      "type": "stat",
+      "stat": "ability_power",
+      "kind": "ap",
+      "label": "法术加成",
+      "source_label": "AP",
+      "icon": "ap",
+      "fallback": "AP"
+     },
+     {
+      "type": "text",
+      "value": "魔法伤害。偶尔会采集到额外的蘑菇，食用后可获得加成效果。\n红色：1次刷新\n绿色：1小小英雄生命值\n黄色：2经验值"
+     }
+    ],
     "image": "assets/optimized/s18__pbe/skills/918017_skill.webp"
    }
   },
@@ -215,6 +467,51 @@
    "skill": {
     "name": "爆炸火花",
     "description": "向目标投掷一个炸药包，持续4秒。生效期间，获得无限射程和0.6 (【AP】)攻击速度。持续时间结束后，炸药包爆炸并在2格内的所有敌人间分摊伤害，造成200/300/480/850 (【AD】)物理伤害+施放期间每次攻击提供额外10/15/25/42 (【AD】)物理伤害。\n如果携带炸药包的敌人阵亡，炸药包会转移至崔丝塔娜的新目标。",
+    "description_tokens": [
+     {
+      "type": "text",
+      "value": "向目标投掷一个炸药包，持续4秒。生效期间，获得无限射程和0.6 "
+     },
+     {
+      "type": "stat",
+      "stat": "ability_power",
+      "kind": "ap",
+      "label": "法术加成",
+      "source_label": "AP",
+      "icon": "ap",
+      "fallback": "AP"
+     },
+     {
+      "type": "text",
+      "value": "攻击速度。持续时间结束后，炸药包爆炸并在2格内的所有敌人间分摊伤害，造成200/300/480/850 "
+     },
+     {
+      "type": "stat",
+      "stat": "attack_damage",
+      "kind": "ad",
+      "label": "物理加成",
+      "source_label": "AD",
+      "icon": "ad",
+      "fallback": "AD"
+     },
+     {
+      "type": "text",
+      "value": "物理伤害+施放期间每次攻击提供额外10/15/25/42 "
+     },
+     {
+      "type": "stat",
+      "stat": "attack_damage",
+      "kind": "ad",
+      "label": "物理加成",
+      "source_label": "AD",
+      "icon": "ad",
+      "fallback": "AD"
+     },
+     {
+      "type": "text",
+      "value": "物理伤害。\n如果携带炸药包的敌人阵亡，炸药包会转移至崔丝塔娜的新目标。"
+     }
+    ],
     "image": "assets/optimized/s18__pbe/skills/918018_skill.webp"
    }
   },
@@ -238,6 +535,25 @@
    "skill": {
     "name": "野兽之口",
     "description": "对当前目标造成180/270/405/690 (【AD】)物理伤害，并回复相当于0.2%造成伤害的生命值。获得可叠加的攻击速度，持续至战斗环节结束。",
+    "description_tokens": [
+     {
+      "type": "text",
+      "value": "对当前目标造成180/270/405/690 "
+     },
+     {
+      "type": "stat",
+      "stat": "attack_damage",
+      "kind": "ad",
+      "label": "物理加成",
+      "source_label": "AD",
+      "icon": "ad",
+      "fallback": "AD"
+     },
+     {
+      "type": "text",
+      "value": "物理伤害，并回复相当于0.2%造成伤害的生命值。获得可叠加的攻击速度，持续至战斗环节结束。"
+     }
+    ],
     "image": "assets/optimized/s18__pbe/skills/918019_skill.webp"
    }
   },
@@ -261,6 +577,47 @@
    "skill": {
     "name": "灵魂裂隙",
     "description": "朝距离最远的敌人射出一支箭矢，对沿途经过的每个敌人造成260/400/1000 (【AD】)物理伤害。箭矢每穿过一名敌人，箭矢的伤害便降低40%（最低伤害为20%）。这支箭矢会撕开一道持续4/20秒的裂缝，对其中的敌人每秒造成25/38/220 (【AD】【AP】)物理伤害，并施加20%冰冷效果。\n如果裂缝中仅存一名敌人，则会将其直接处决并关闭裂缝。\n冰冷：降低攻击速度",
+    "description_tokens": [
+     {
+      "type": "text",
+      "value": "朝距离最远的敌人射出一支箭矢，对沿途经过的每个敌人造成260/400/1000 "
+     },
+     {
+      "type": "stat",
+      "stat": "attack_damage",
+      "kind": "ad",
+      "label": "物理加成",
+      "source_label": "AD",
+      "icon": "ad",
+      "fallback": "AD"
+     },
+     {
+      "type": "text",
+      "value": "物理伤害。箭矢每穿过一名敌人，箭矢的伤害便降低40%（最低伤害为20%）。这支箭矢会撕开一道持续4/20秒的裂缝，对其中的敌人每秒造成25/38/220 ("
+     },
+     {
+      "type": "stat",
+      "stat": "attack_damage",
+      "kind": "ad",
+      "label": "物理加成",
+      "source_label": "AD",
+      "icon": "ad",
+      "fallback": "AD"
+     },
+     {
+      "type": "stat",
+      "stat": "ability_power",
+      "kind": "ap",
+      "label": "法术加成",
+      "source_label": "AP",
+      "icon": "ap",
+      "fallback": "AP"
+     },
+     {
+      "type": "text",
+      "value": ")物理伤害，并施加20%冰冷效果。\n如果裂缝中仅存一名敌人，则会将其直接处决并关闭裂缝。\n冰冷：降低攻击速度"
+     }
+    ],
     "image": "assets/optimized/s18__pbe/skills/918022_skill.webp"
    }
   },
@@ -284,6 +641,51 @@
    "skill": {
     "name": "枯萎诅咒",
     "description": "向附近敌人发射3个黑暗祷言，造成60/90/500/375 (【AP】)魔法伤害并诅咒他们4秒。在此期间内，召唤一个格大小的枯萎区域，并获得25%全能吸血。每秒该区域会对其中的敌人造成33/50/500/800 (【AP】)伤害，他们身上每带有1个诅咒便使该伤害提升18/27/240/400 (【AP】)。",
+    "description_tokens": [
+     {
+      "type": "text",
+      "value": "向附近敌人发射3个黑暗祷言，造成60/90/500/375 "
+     },
+     {
+      "type": "stat",
+      "stat": "ability_power",
+      "kind": "ap",
+      "label": "法术加成",
+      "source_label": "AP",
+      "icon": "ap",
+      "fallback": "AP"
+     },
+     {
+      "type": "text",
+      "value": "魔法伤害并诅咒他们4秒。在此期间内，召唤一个格大小的枯萎区域，并获得25%全能吸血。每秒该区域会对其中的敌人造成33/50/500/800 "
+     },
+     {
+      "type": "stat",
+      "stat": "ability_power",
+      "kind": "ap",
+      "label": "法术加成",
+      "source_label": "AP",
+      "icon": "ap",
+      "fallback": "AP"
+     },
+     {
+      "type": "text",
+      "value": "伤害，他们身上每带有1个诅咒便使该伤害提升18/27/240/400 "
+     },
+     {
+      "type": "stat",
+      "stat": "ability_power",
+      "kind": "ap",
+      "label": "法术加成",
+      "source_label": "AP",
+      "icon": "ap",
+      "fallback": "AP"
+     },
+     {
+      "type": "text",
+      "value": "。"
+     }
+    ],
     "image": "assets/optimized/s18__pbe/skills/918025_skill.webp"
    }
   },
@@ -307,6 +709,60 @@
    "skill": {
     "name": "阿木木的愤怒",
     "description": "被动：每1秒回复31.68/31.8/33.6 (【AP】【HP】)生命值并对1格内的敌人们造成12/18/150/300 (【AP】)魔法伤害。\n主动：对2格内的敌人造成100/150/2000/1000 (【AP】)魔法伤害并眩晕他们1/6秒，如果目标处于灼烧状态则延长至2.5/12.5秒。\n灼烧：每秒造成目标一部分最大生命值的真实伤害。",
+    "description_tokens": [
+     {
+      "type": "text",
+      "value": "被动：每1秒回复31.68/31.8/33.6 ("
+     },
+     {
+      "type": "stat",
+      "stat": "ability_power",
+      "kind": "ap",
+      "label": "法术加成",
+      "source_label": "AP",
+      "icon": "ap",
+      "fallback": "AP"
+     },
+     {
+      "type": "stat",
+      "stat": "health",
+      "kind": "health",
+      "label": "生命值",
+      "source_label": "HP",
+      "icon": "hp",
+      "fallback": "HP"
+     },
+     {
+      "type": "text",
+      "value": ")生命值并对1格内的敌人们造成12/18/150/300 "
+     },
+     {
+      "type": "stat",
+      "stat": "ability_power",
+      "kind": "ap",
+      "label": "法术加成",
+      "source_label": "AP",
+      "icon": "ap",
+      "fallback": "AP"
+     },
+     {
+      "type": "text",
+      "value": "魔法伤害。\n主动：对2格内的敌人造成100/150/2000/1000 "
+     },
+     {
+      "type": "stat",
+      "stat": "ability_power",
+      "kind": "ap",
+      "label": "法术加成",
+      "source_label": "AP",
+      "icon": "ap",
+      "fallback": "AP"
+     },
+     {
+      "type": "text",
+      "value": "魔法伤害并眩晕他们1/6秒，如果目标处于灼烧状态则延长至2.5/12.5秒。\n灼烧：每秒造成目标一部分最大生命值的真实伤害。"
+     }
+    ],
     "image": "assets/optimized/s18__pbe/skills/918032_skill.webp"
    }
   },
@@ -330,6 +786,47 @@
    "skill": {
     "name": "尖刺防御",
     "description": "强迫附近的敌人攻击该弈子。获得持续4秒的350/450/550/650 (【AP】)护盾值和60护甲与魔抗。\n护盾被打破时，对2格内的敌人造成40/60/100/170 (【ARMOR】【MR】)物理伤害。",
+    "description_tokens": [
+     {
+      "type": "text",
+      "value": "强迫附近的敌人攻击该弈子。获得持续4秒的350/450/550/650 "
+     },
+     {
+      "type": "stat",
+      "stat": "ability_power",
+      "kind": "ap",
+      "label": "法术加成",
+      "source_label": "AP",
+      "icon": "ap",
+      "fallback": "AP"
+     },
+     {
+      "type": "text",
+      "value": "护盾值和60护甲与魔抗。\n护盾被打破时，对2格内的敌人造成40/60/100/170 ("
+     },
+     {
+      "type": "stat",
+      "stat": "armor",
+      "kind": "armor",
+      "label": "护甲",
+      "source_label": "ARMOR",
+      "icon": "armor",
+      "fallback": "AR"
+     },
+     {
+      "type": "stat",
+      "stat": "magic_resist",
+      "kind": "magic-resist",
+      "label": "魔法抗性",
+      "source_label": "MR",
+      "icon": "mr",
+      "fallback": "MR"
+     },
+     {
+      "type": "text",
+      "value": ")物理伤害。"
+     }
+    ],
     "image": "assets/optimized/s18__pbe/skills/918033_skill.webp"
    }
   },
@@ -353,6 +850,38 @@
    "skill": {
     "name": "宿业羁绊",
     "description": "拴住当前目标，在1.5秒内造成260/390/585/995 (【AP】)魔法伤害，随后在其周围释放能量爆裂，对1格半径内的所有敌人造成110/165/250/420 (【AP】)魔法伤害，并施加30%的减速效果，持续2秒。\n减速：降低攻击速度",
+    "description_tokens": [
+     {
+      "type": "text",
+      "value": "拴住当前目标，在1.5秒内造成260/390/585/995 "
+     },
+     {
+      "type": "stat",
+      "stat": "ability_power",
+      "kind": "ap",
+      "label": "法术加成",
+      "source_label": "AP",
+      "icon": "ap",
+      "fallback": "AP"
+     },
+     {
+      "type": "text",
+      "value": "魔法伤害，随后在其周围释放能量爆裂，对1格半径内的所有敌人造成110/165/250/420 "
+     },
+     {
+      "type": "stat",
+      "stat": "ability_power",
+      "kind": "ap",
+      "label": "法术加成",
+      "source_label": "AP",
+      "icon": "ap",
+      "fallback": "AP"
+     },
+     {
+      "type": "text",
+      "value": "魔法伤害，并施加30%的减速效果，持续2秒。\n减速：降低攻击速度"
+     }
+    ],
     "image": "assets/optimized/s18__pbe/skills/918043_skill.webp"
    }
   },
@@ -376,6 +905,51 @@
    "skill": {
     "name": "翡翠光耀",
     "description": "被动：塔里克与其配对友军在生命值首次降至50%以下时，双方均会释放翡翠能量，为3格内的友军提供406/656/11300 (【HP】)护盾值，持续3/99秒。\n主动：回复225/325/3000/9000 (【AP】)生命值，塔里克及其配对友军在接下来的2次攻击中获得100/150/1000 (【AP】)额外魔法伤害。",
+    "description_tokens": [
+     {
+      "type": "text",
+      "value": "被动：塔里克与其配对友军在生命值首次降至50%以下时，双方均会释放翡翠能量，为3格内的友军提供406/656/11300 "
+     },
+     {
+      "type": "stat",
+      "stat": "health",
+      "kind": "health",
+      "label": "生命值",
+      "source_label": "HP",
+      "icon": "hp",
+      "fallback": "HP"
+     },
+     {
+      "type": "text",
+      "value": "护盾值，持续3/99秒。\n主动：回复225/325/3000/9000 "
+     },
+     {
+      "type": "stat",
+      "stat": "ability_power",
+      "kind": "ap",
+      "label": "法术加成",
+      "source_label": "AP",
+      "icon": "ap",
+      "fallback": "AP"
+     },
+     {
+      "type": "text",
+      "value": "生命值，塔里克及其配对友军在接下来的2次攻击中获得100/150/1000 "
+     },
+     {
+      "type": "stat",
+      "stat": "ability_power",
+      "kind": "ap",
+      "label": "法术加成",
+      "source_label": "AP",
+      "icon": "ap",
+      "fallback": "AP"
+     },
+     {
+      "type": "text",
+      "value": "额外魔法伤害。"
+     }
+    ],
     "image": "assets/optimized/s18__pbe/skills/918044_skill.webp"
    }
   },
@@ -400,6 +974,38 @@
    "skill": {
     "name": "能量爆裂",
     "description": "向目标发射一记巨大冲击波，造成175/265/395/670 (【AP】)魔法伤害，若其生命值低于最大生命值的30%，则提升至265/400/595/1015 (【AP】)。\n若目标阵亡，永久获得1.5%法术强度。（当前：% ）",
+    "description_tokens": [
+     {
+      "type": "text",
+      "value": "向目标发射一记巨大冲击波，造成175/265/395/670 "
+     },
+     {
+      "type": "stat",
+      "stat": "ability_power",
+      "kind": "ap",
+      "label": "法术加成",
+      "source_label": "AP",
+      "icon": "ap",
+      "fallback": "AP"
+     },
+     {
+      "type": "text",
+      "value": "魔法伤害，若其生命值低于最大生命值的30%，则提升至265/400/595/1015 "
+     },
+     {
+      "type": "stat",
+      "stat": "ability_power",
+      "kind": "ap",
+      "label": "法术加成",
+      "source_label": "AP",
+      "icon": "ap",
+      "fallback": "AP"
+     },
+     {
+      "type": "text",
+      "value": "。\n若目标阵亡，永久获得1.5%法术强度。（当前：% ）"
+     }
+    ],
     "image": "assets/optimized/s18__pbe/skills/918045_skill.webp"
    }
   },
@@ -423,6 +1029,56 @@
    "skill": {
     "name": "爆头",
     "description": "下一次攻击会转为爆头，造成210/315/495/840 (【AD】【AP】)物理伤害，在本次战斗中，每进行一次爆头，该伤害均会提升0 (【AD】【AP】)。\n（下次爆头伤害：）",
+    "description_tokens": [
+     {
+      "type": "text",
+      "value": "下一次攻击会转为爆头，造成210/315/495/840 ("
+     },
+     {
+      "type": "stat",
+      "stat": "attack_damage",
+      "kind": "ad",
+      "label": "物理加成",
+      "source_label": "AD",
+      "icon": "ad",
+      "fallback": "AD"
+     },
+     {
+      "type": "stat",
+      "stat": "ability_power",
+      "kind": "ap",
+      "label": "法术加成",
+      "source_label": "AP",
+      "icon": "ap",
+      "fallback": "AP"
+     },
+     {
+      "type": "text",
+      "value": ")物理伤害，在本次战斗中，每进行一次爆头，该伤害均会提升0 ("
+     },
+     {
+      "type": "stat",
+      "stat": "attack_damage",
+      "kind": "ad",
+      "label": "物理加成",
+      "source_label": "AD",
+      "icon": "ad",
+      "fallback": "AD"
+     },
+     {
+      "type": "stat",
+      "stat": "ability_power",
+      "kind": "ap",
+      "label": "法术加成",
+      "source_label": "AP",
+      "icon": "ap",
+      "fallback": "AP"
+     },
+     {
+      "type": "text",
+      "value": ")。\n（下次爆头伤害：）"
+     }
+    ],
     "image": "assets/optimized/s18__pbe/skills/918051_skill.webp"
    }
   },
@@ -446,6 +1102,74 @@
    "skill": {
     "name": "石化树皮",
     "description": "获得700/850/2000/3500 (【AP】【ARMOR】【MR】)护盾值，持续4秒，并进入石化状态。护盾被打破时，释放一道黑暗能量波，对2/3格内的敌人造成82/123/3398.6/6400 (【AP】【ARMOR】【MR】)魔法伤害。",
+    "description_tokens": [
+     {
+      "type": "text",
+      "value": "获得700/850/2000/3500 ("
+     },
+     {
+      "type": "stat",
+      "stat": "ability_power",
+      "kind": "ap",
+      "label": "法术加成",
+      "source_label": "AP",
+      "icon": "ap",
+      "fallback": "AP"
+     },
+     {
+      "type": "stat",
+      "stat": "armor",
+      "kind": "armor",
+      "label": "护甲",
+      "source_label": "ARMOR",
+      "icon": "armor",
+      "fallback": "AR"
+     },
+     {
+      "type": "stat",
+      "stat": "magic_resist",
+      "kind": "magic-resist",
+      "label": "魔法抗性",
+      "source_label": "MR",
+      "icon": "mr",
+      "fallback": "MR"
+     },
+     {
+      "type": "text",
+      "value": ")护盾值，持续4秒，并进入石化状态。护盾被打破时，释放一道黑暗能量波，对2/3格内的敌人造成82/123/3398.6/6400 ("
+     },
+     {
+      "type": "stat",
+      "stat": "ability_power",
+      "kind": "ap",
+      "label": "法术加成",
+      "source_label": "AP",
+      "icon": "ap",
+      "fallback": "AP"
+     },
+     {
+      "type": "stat",
+      "stat": "armor",
+      "kind": "armor",
+      "label": "护甲",
+      "source_label": "ARMOR",
+      "icon": "armor",
+      "fallback": "AR"
+     },
+     {
+      "type": "stat",
+      "stat": "magic_resist",
+      "kind": "magic-resist",
+      "label": "魔法抗性",
+      "source_label": "MR",
+      "icon": "mr",
+      "fallback": "MR"
+     },
+     {
+      "type": "text",
+      "value": ")魔法伤害。"
+     }
+    ],
     "image": "assets/optimized/s18__pbe/skills/918054_skill.webp"
    }
   },
@@ -469,6 +1193,7 @@
    "skill": {
     "name": "播种",
     "description": "被动：每格挡650/300/200伤害后，一株树苗会跳向附近的一名敌人并造成魔法伤害。阵亡时，3/5/10株树苗会跳出。\n主动：对目标造成魔法伤害并回复300/400/2000/3000+8%/100%已损失生命值。",
+    "description_tokens": null,
     "image": "assets/optimized/s18__pbe/skills/918057_skill.webp"
    }
   },
@@ -492,6 +1217,38 @@
    "skill": {
     "name": "蜘蛛女皇",
     "description": "变身为蜘蛛，并获得最大生命值。处于蜘蛛形态时的攻击造成55/85/130/215 (【AP】)额外魔法伤害，并回复65/100/185/275 (【AP】)生命值。后续施放提供攻击速度，在秒内持续衰减。",
+    "description_tokens": [
+     {
+      "type": "text",
+      "value": "变身为蜘蛛，并获得最大生命值。处于蜘蛛形态时的攻击造成55/85/130/215 "
+     },
+     {
+      "type": "stat",
+      "stat": "ability_power",
+      "kind": "ap",
+      "label": "法术加成",
+      "source_label": "AP",
+      "icon": "ap",
+      "fallback": "AP"
+     },
+     {
+      "type": "text",
+      "value": "额外魔法伤害，并回复65/100/185/275 "
+     },
+     {
+      "type": "stat",
+      "stat": "ability_power",
+      "kind": "ap",
+      "label": "法术加成",
+      "source_label": "AP",
+      "icon": "ap",
+      "fallback": "AP"
+     },
+     {
+      "type": "text",
+      "value": "生命值。后续施放提供攻击速度，在秒内持续衰减。"
+     }
+    ],
     "image": "assets/optimized/s18__pbe/skills/918060_skill.webp"
    }
   },
@@ -515,6 +1272,25 @@
    "skill": {
     "name": "瘟毒爆炸",
     "description": "向距离最近未中毒的敌人投毒，15秒内造成400/600/960/1530 (【AP】)魔法伤害。",
+    "description_tokens": [
+     {
+      "type": "text",
+      "value": "向距离最近未中毒的敌人投毒，15秒内造成400/600/960/1530 "
+     },
+     {
+      "type": "stat",
+      "stat": "ability_power",
+      "kind": "ap",
+      "label": "法术加成",
+      "source_label": "AP",
+      "icon": "ap",
+      "fallback": "AP"
+     },
+     {
+      "type": "text",
+      "value": "魔法伤害。"
+     }
+    ],
     "image": "assets/optimized/s18__pbe/skills/918069_skill.webp"
    }
   },
@@ -538,6 +1314,38 @@
    "skill": {
     "name": "标枪投掷",
     "description": "【适应者】：奈德丽可在人类与美洲狮形态间自由切换，其技能将根据法术强度或攻击力孰高而改变。\n【适应者】：设下陷阱困住当前目标和相距最远的敌人，造成250/375/3000/5000 (【AP】)魔法伤害并对其施加追踪。被追踪的敌人每秒受到魔法伤害。\n如果场上有敌人处于被【捕猎】状态，则转而向生命值最低的被【追踪】敌人投掷标枪，造成135/205/2000/3000 (【AP】)魔法伤害，外加基于其被追踪时长而递增的额外魔法伤害。\n【适应者】：化身美洲狮形态，在战场中来回跃击并挥击敌人。非常适合用来压制敌方后排并赢下持久战。",
+    "description_tokens": [
+     {
+      "type": "text",
+      "value": "【适应者】：奈德丽可在人类与美洲狮形态间自由切换，其技能将根据法术强度或攻击力孰高而改变。\n【适应者】：设下陷阱困住当前目标和相距最远的敌人，造成250/375/3000/5000 "
+     },
+     {
+      "type": "stat",
+      "stat": "ability_power",
+      "kind": "ap",
+      "label": "法术加成",
+      "source_label": "AP",
+      "icon": "ap",
+      "fallback": "AP"
+     },
+     {
+      "type": "text",
+      "value": "魔法伤害并对其施加追踪。被追踪的敌人每秒受到魔法伤害。\n如果场上有敌人处于被【捕猎】状态，则转而向生命值最低的被【追踪】敌人投掷标枪，造成135/205/2000/3000 "
+     },
+     {
+      "type": "stat",
+      "stat": "ability_power",
+      "kind": "ap",
+      "label": "法术加成",
+      "source_label": "AP",
+      "icon": "ap",
+      "fallback": "AP"
+     },
+     {
+      "type": "text",
+      "value": "魔法伤害，外加基于其被追踪时长而递增的额外魔法伤害。\n【适应者】：化身美洲狮形态，在战场中来回跃击并挥击敌人。非常适合用来压制敌方后排并赢下持久战。"
+     }
+    ],
     "image": "assets/optimized/s18__pbe/skills/918076_skill.webp"
    }
   },
@@ -561,6 +1369,51 @@
    "skill": {
     "name": "自然之怒",
     "description": "闪烁远离当前目标，对其造成225/340/900/1530 (【AD】)物理伤害，并获得0.25/1 (【AP】)攻击速度。\n每第五次施放时，会消耗来自【自然之怒】的攻击速度，并释放一次冲击，对一条直线上的所有敌人造成385/580/2500/5000 (【AD】) 物理伤害。",
+    "description_tokens": [
+     {
+      "type": "text",
+      "value": "闪烁远离当前目标，对其造成225/340/900/1530 "
+     },
+     {
+      "type": "stat",
+      "stat": "attack_damage",
+      "kind": "ad",
+      "label": "物理加成",
+      "source_label": "AD",
+      "icon": "ad",
+      "fallback": "AD"
+     },
+     {
+      "type": "text",
+      "value": "物理伤害，并获得0.25/1 "
+     },
+     {
+      "type": "stat",
+      "stat": "ability_power",
+      "kind": "ap",
+      "label": "法术加成",
+      "source_label": "AP",
+      "icon": "ap",
+      "fallback": "AP"
+     },
+     {
+      "type": "text",
+      "value": "攻击速度。\n每第五次施放时，会消耗来自【自然之怒】的攻击速度，并释放一次冲击，对一条直线上的所有敌人造成385/580/2500/5000 "
+     },
+     {
+      "type": "stat",
+      "stat": "attack_damage",
+      "kind": "ad",
+      "label": "物理加成",
+      "source_label": "AD",
+      "icon": "ad",
+      "fallback": "AD"
+     },
+     {
+      "type": "text",
+      "value": " 物理伤害。"
+     }
+    ],
     "image": "assets/optimized/s18__pbe/skills/918081_skill.webp"
    }
   },
@@ -585,6 +1438,51 @@
    "skill": {
     "name": "临终仪式",
     "description": "被动：阵亡时，生成一个拥有330/530/830/1130 (【HP】)最大生命值和基础攻击力的灵魂行者。\n主动：回复280/325/410/495 (【AP】)生命值并打击目标，造成150/225/340/575 (【AD】)物理伤害。",
+    "description_tokens": [
+     {
+      "type": "text",
+      "value": "被动：阵亡时，生成一个拥有330/530/830/1130 "
+     },
+     {
+      "type": "stat",
+      "stat": "health",
+      "kind": "health",
+      "label": "生命值",
+      "source_label": "HP",
+      "icon": "hp",
+      "fallback": "HP"
+     },
+     {
+      "type": "text",
+      "value": "最大生命值和基础攻击力的灵魂行者。\n主动：回复280/325/410/495 "
+     },
+     {
+      "type": "stat",
+      "stat": "ability_power",
+      "kind": "ap",
+      "label": "法术加成",
+      "source_label": "AP",
+      "icon": "ap",
+      "fallback": "AP"
+     },
+     {
+      "type": "text",
+      "value": "生命值并打击目标，造成150/225/340/575 "
+     },
+     {
+      "type": "stat",
+      "stat": "attack_damage",
+      "kind": "ad",
+      "label": "物理加成",
+      "source_label": "AD",
+      "icon": "ad",
+      "fallback": "AD"
+     },
+     {
+      "type": "text",
+      "value": "物理伤害。"
+     }
+    ],
     "image": "assets/optimized/s18__pbe/skills/918083_skill.webp"
    }
   },
@@ -609,6 +1507,38 @@
    "skill": {
     "name": "苦无打击",
     "description": "【适应者】：此技能将根据法术强度或攻击力孰高而改变。\n【适应者】：向目标投掷一连串苦无，造成140/210/320/540 (【AD】)物理伤害。如果目标处于灼烧状态，则额外造成30/45/68/115 (【AD】)伤害。\n【适应者】：若该技能完成击杀，则再次施放它。在阿卡丽是你的主要输出时非常适合。",
+    "description_tokens": [
+     {
+      "type": "text",
+      "value": "【适应者】：此技能将根据法术强度或攻击力孰高而改变。\n【适应者】：向目标投掷一连串苦无，造成140/210/320/540 "
+     },
+     {
+      "type": "stat",
+      "stat": "attack_damage",
+      "kind": "ad",
+      "label": "物理加成",
+      "source_label": "AD",
+      "icon": "ad",
+      "fallback": "AD"
+     },
+     {
+      "type": "text",
+      "value": "物理伤害。如果目标处于灼烧状态，则额外造成30/45/68/115 "
+     },
+     {
+      "type": "stat",
+      "stat": "attack_damage",
+      "kind": "ad",
+      "label": "物理加成",
+      "source_label": "AD",
+      "icon": "ad",
+      "fallback": "AD"
+     },
+     {
+      "type": "text",
+      "value": "伤害。\n【适应者】：若该技能完成击杀，则再次施放它。在阿卡丽是你的主要输出时非常适合。"
+     }
+    ],
     "image": "assets/optimized/s18__pbe/skills/918084_skill.webp"
    }
   },
@@ -632,6 +1562,51 @@
    "skill": {
     "name": "火焰风暴",
     "description": "蓄力，每有一名被灼烧的敌人便获得15%法术强度。随后冲过附近的一群敌人，对途经的敌人造成50/75/300/600 (【AP】)魔法伤害。冲刺后，获得225/300/3000/1000 (【AP】)护盾值，并释放一场2格大小的火焰风暴，在2秒内持续造成共计550/825/2000/3000 (【AP】)魔法伤害，由所有被命中的敌人均摊。",
+    "description_tokens": [
+     {
+      "type": "text",
+      "value": "蓄力，每有一名被灼烧的敌人便获得15%法术强度。随后冲过附近的一群敌人，对途经的敌人造成50/75/300/600 "
+     },
+     {
+      "type": "stat",
+      "stat": "ability_power",
+      "kind": "ap",
+      "label": "法术加成",
+      "source_label": "AP",
+      "icon": "ap",
+      "fallback": "AP"
+     },
+     {
+      "type": "text",
+      "value": "魔法伤害。冲刺后，获得225/300/3000/1000 "
+     },
+     {
+      "type": "stat",
+      "stat": "ability_power",
+      "kind": "ap",
+      "label": "法术加成",
+      "source_label": "AP",
+      "icon": "ap",
+      "fallback": "AP"
+     },
+     {
+      "type": "text",
+      "value": "护盾值，并释放一场2格大小的火焰风暴，在2秒内持续造成共计550/825/2000/3000 "
+     },
+     {
+      "type": "stat",
+      "stat": "ability_power",
+      "kind": "ap",
+      "label": "法术加成",
+      "source_label": "AP",
+      "icon": "ap",
+      "fallback": "AP"
+     },
+     {
+      "type": "text",
+      "value": "魔法伤害，由所有被命中的敌人均摊。"
+     }
+    ],
     "image": "assets/optimized/s18__pbe/skills/918085_skill.webp"
    }
   },
@@ -655,6 +1630,38 @@
    "skill": {
     "name": "护盾猛击",
     "description": "被动：在战斗开始时获得60/70/80/100 (【AP】)额外护甲和魔抗，在10秒内持续衰减。\n主动：猛击当前目标，造成60/108/162/320 (【ARMOR】)魔法伤害并令其眩晕1.5秒。",
+    "description_tokens": [
+     {
+      "type": "text",
+      "value": "被动：在战斗开始时获得60/70/80/100 "
+     },
+     {
+      "type": "stat",
+      "stat": "ability_power",
+      "kind": "ap",
+      "label": "法术加成",
+      "source_label": "AP",
+      "icon": "ap",
+      "fallback": "AP"
+     },
+     {
+      "type": "text",
+      "value": "额外护甲和魔抗，在10秒内持续衰减。\n主动：猛击当前目标，造成60/108/162/320 "
+     },
+     {
+      "type": "stat",
+      "stat": "armor",
+      "kind": "armor",
+      "label": "护甲",
+      "source_label": "ARMOR",
+      "icon": "armor",
+      "fallback": "AR"
+     },
+     {
+      "type": "text",
+      "value": "魔法伤害并令其眩晕1.5秒。"
+     }
+    ],
     "image": "assets/optimized/s18__pbe/skills/918089_skill.webp"
    }
   },
@@ -679,6 +1686,25 @@
    "skill": {
     "name": "天降重炮",
     "description": "【适应者】：此技能将根据法术强度或攻击力孰高而改变。\n【适应者】：向两名距离最近的敌人喷射酸液，造成175/265/450/765 (【AD】)物理伤害。对生命值低于的敌人造成额外伤害。\n【适应者】：对敌人持续造成伤害。非常适合用来扩散伤害并延长魔抗击碎与护甲击碎。",
+    "description_tokens": [
+     {
+      "type": "text",
+      "value": "【适应者】：此技能将根据法术强度或攻击力孰高而改变。\n【适应者】：向两名距离最近的敌人喷射酸液，造成175/265/450/765 "
+     },
+     {
+      "type": "stat",
+      "stat": "attack_damage",
+      "kind": "ad",
+      "label": "物理加成",
+      "source_label": "AD",
+      "icon": "ad",
+      "fallback": "AD"
+     },
+     {
+      "type": "text",
+      "value": "物理伤害。对生命值低于的敌人造成额外伤害。\n【适应者】：对敌人持续造成伤害。非常适合用来扩散伤害并延长魔抗击碎与护甲击碎。"
+     }
+    ],
     "image": "assets/optimized/s18__pbe/skills/918096_skill.webp"
    }
   },
@@ -702,6 +1728,38 @@
    "skill": {
     "name": "忍法！气合盾",
     "description": "为自己和附近一名受伤的队友提供325/400/500/600 (【AP】)护盾值，持续4秒。两者接下来的3次攻击获得40%攻击速度并造成35/55/80/135 (【AP】)额外魔法伤害。",
+    "description_tokens": [
+     {
+      "type": "text",
+      "value": "为自己和附近一名受伤的队友提供325/400/500/600 "
+     },
+     {
+      "type": "stat",
+      "stat": "ability_power",
+      "kind": "ap",
+      "label": "法术加成",
+      "source_label": "AP",
+      "icon": "ap",
+      "fallback": "AP"
+     },
+     {
+      "type": "text",
+      "value": "护盾值，持续4秒。两者接下来的3次攻击获得40%攻击速度并造成35/55/80/135 "
+     },
+     {
+      "type": "stat",
+      "stat": "ability_power",
+      "kind": "ap",
+      "label": "法术加成",
+      "source_label": "AP",
+      "icon": "ap",
+      "fallback": "AP"
+     },
+     {
+      "type": "text",
+      "value": "额外魔法伤害。"
+     }
+    ],
     "image": "assets/optimized/s18__pbe/skills/918098_skill.webp"
    }
   },
@@ -724,6 +1782,38 @@
    "skill": {
     "name": "终极闪光",
     "description": "被动：施放时，所有与【拉克丝】拥有同一羁绊的己方弈子获得3/100/999 (【AP】)法力值。\n主动：向最大敌群发射一道激光，造成370/580/5000/9999 (【AP】)魔法伤害，每命中一个敌人伤害减少25%/10%。",
+    "description_tokens": [
+     {
+      "type": "text",
+      "value": "被动：施放时，所有与【拉克丝】拥有同一羁绊的己方弈子获得3/100/999 "
+     },
+     {
+      "type": "stat",
+      "stat": "ability_power",
+      "kind": "ap",
+      "label": "法术加成",
+      "source_label": "AP",
+      "icon": "ap",
+      "fallback": "AP"
+     },
+     {
+      "type": "text",
+      "value": "法力值。\n主动：向最大敌群发射一道激光，造成370/580/5000/9999 "
+     },
+     {
+      "type": "stat",
+      "stat": "ability_power",
+      "kind": "ap",
+      "label": "法术加成",
+      "source_label": "AP",
+      "icon": "ap",
+      "fallback": "AP"
+     },
+     {
+      "type": "text",
+      "value": "魔法伤害，每命中一个敌人伤害减少25%/10%。"
+     }
+    ],
     "image": "assets/optimized/s18__pbe/skills/918099_skill.webp"
    }
   },
@@ -747,6 +1837,25 @@
    "skill": {
     "name": "灵魄炸弹",
     "description": "1.75秒间将能量注入灵魄炸弹，随后将其投向一大群敌人。对3格半径内的敌人造成485/735/3500/5000 (【AP】)魔法伤害，与中心的距离每增加1格，伤害衰减20%（最低为20%）。",
+    "description_tokens": [
+     {
+      "type": "text",
+      "value": "1.75秒间将能量注入灵魄炸弹，随后将其投向一大群敌人。对3格半径内的敌人造成485/735/3500/5000 "
+     },
+     {
+      "type": "stat",
+      "stat": "ability_power",
+      "kind": "ap",
+      "label": "法术加成",
+      "source_label": "AP",
+      "icon": "ap",
+      "fallback": "AP"
+     },
+     {
+      "type": "text",
+      "value": "魔法伤害，与中心的距离每增加1格，伤害衰减20%（最低为20%）。"
+     }
+    ],
     "image": "assets/optimized/s18__pbe/skills/918103_skill.webp"
    }
   },
@@ -769,6 +1878,38 @@
    "skill": {
     "name": "无情",
     "description": "跳向3格内生命值最低的敌人并刺击，造成295/445/710/1255 (【AD】)物理伤害。然后回复相当于其已损失生命值80/200 (【AP】)的生命值。",
+    "description_tokens": [
+     {
+      "type": "text",
+      "value": "跳向3格内生命值最低的敌人并刺击，造成295/445/710/1255 "
+     },
+     {
+      "type": "stat",
+      "stat": "attack_damage",
+      "kind": "ad",
+      "label": "物理加成",
+      "source_label": "AD",
+      "icon": "ad",
+      "fallback": "AD"
+     },
+     {
+      "type": "text",
+      "value": "物理伤害。然后回复相当于其已损失生命值80/200 "
+     },
+     {
+      "type": "stat",
+      "stat": "ability_power",
+      "kind": "ap",
+      "label": "法术加成",
+      "source_label": "AP",
+      "icon": "ap",
+      "fallback": "AP"
+     },
+     {
+      "type": "text",
+      "value": "的生命值。"
+     }
+    ],
     "image": "assets/optimized/s18__pbe/skills/918107_skill.webp"
    }
   },
@@ -792,6 +1933,34 @@
    "skill": {
     "name": "穿刺之箭",
     "description": "蓄力，然后向敌人最多的一条直线射出箭矢。对命中的敌人造成380/570/860/1455 (【AD】【AP】)物理伤害，每穿过一个敌人，伤害降低40%（最低40%）。",
+    "description_tokens": [
+     {
+      "type": "text",
+      "value": "蓄力，然后向敌人最多的一条直线射出箭矢。对命中的敌人造成380/570/860/1455 ("
+     },
+     {
+      "type": "stat",
+      "stat": "attack_damage",
+      "kind": "ad",
+      "label": "物理加成",
+      "source_label": "AD",
+      "icon": "ad",
+      "fallback": "AD"
+     },
+     {
+      "type": "stat",
+      "stat": "ability_power",
+      "kind": "ap",
+      "label": "法术加成",
+      "source_label": "AP",
+      "icon": "ap",
+      "fallback": "AP"
+     },
+     {
+      "type": "text",
+      "value": ")物理伤害，每穿过一个敌人，伤害降低40%（最低40%）。"
+     }
+    ],
     "image": "assets/optimized/s18__pbe/skills/918110_skill.webp"
    }
   },
@@ -815,6 +1984,47 @@
    "skill": {
     "name": "烈阳之怒",
     "description": "获得315/340/365/390 (【HP】【AP】)护盾值，持续4秒。然后，在锥形范围内顺劈并沿直线打击，二者分别对命中的敌人造成40/60/90/155 (【AP】)魔法伤害。",
+    "description_tokens": [
+     {
+      "type": "text",
+      "value": "获得315/340/365/390 ("
+     },
+     {
+      "type": "stat",
+      "stat": "health",
+      "kind": "health",
+      "label": "生命值",
+      "source_label": "HP",
+      "icon": "hp",
+      "fallback": "HP"
+     },
+     {
+      "type": "stat",
+      "stat": "ability_power",
+      "kind": "ap",
+      "label": "法术加成",
+      "source_label": "AP",
+      "icon": "ap",
+      "fallback": "AP"
+     },
+     {
+      "type": "text",
+      "value": ")护盾值，持续4秒。然后，在锥形范围内顺劈并沿直线打击，二者分别对命中的敌人造成40/60/90/155 "
+     },
+     {
+      "type": "stat",
+      "stat": "ability_power",
+      "kind": "ap",
+      "label": "法术加成",
+      "source_label": "AP",
+      "icon": "ap",
+      "fallback": "AP"
+     },
+     {
+      "type": "text",
+      "value": "魔法伤害。"
+     }
+    ],
     "image": "assets/optimized/s18__pbe/skills/918113_skill.webp"
    }
   },
@@ -837,6 +2047,51 @@
    "skill": {
     "name": "冷血追命",
     "description": "被动：攻击范围内的随机敌人并对其施加流血效果，在12秒里持续造成共150/225/1000/2000 (【AD】)物理伤害。攻击还有0.12 (【AP】)几率施加2层流血效果并造成60/400物理伤害。\n主动：朝流血层数最多的敌人投掷两把巨斧。对命中的敌人造成180/270/500/9999 (【AD】)物理伤害，并立即结算其身上所有的流血伤害。",
+    "description_tokens": [
+     {
+      "type": "text",
+      "value": "被动：攻击范围内的随机敌人并对其施加流血效果，在12秒里持续造成共150/225/1000/2000 "
+     },
+     {
+      "type": "stat",
+      "stat": "attack_damage",
+      "kind": "ad",
+      "label": "物理加成",
+      "source_label": "AD",
+      "icon": "ad",
+      "fallback": "AD"
+     },
+     {
+      "type": "text",
+      "value": "物理伤害。攻击还有0.12 "
+     },
+     {
+      "type": "stat",
+      "stat": "ability_power",
+      "kind": "ap",
+      "label": "法术加成",
+      "source_label": "AP",
+      "icon": "ap",
+      "fallback": "AP"
+     },
+     {
+      "type": "text",
+      "value": "几率施加2层流血效果并造成60/400物理伤害。\n主动：朝流血层数最多的敌人投掷两把巨斧。对命中的敌人造成180/270/500/9999 "
+     },
+     {
+      "type": "stat",
+      "stat": "attack_damage",
+      "kind": "ad",
+      "label": "物理加成",
+      "source_label": "AD",
+      "icon": "ad",
+      "fallback": "AD"
+     },
+     {
+      "type": "text",
+      "value": "物理伤害，并立即结算其身上所有的流血伤害。"
+     }
+    ],
     "image": "assets/optimized/s18__pbe/skills/918119_skill.webp"
    }
   },
@@ -860,6 +2115,25 @@
    "skill": {
     "name": "Spirit of Dread",
     "description": "被动：从所有来源获得的护甲和魔抗额外提升。\n主动：召唤幽灵骑士向距离最近的3名敌人冲锋，造成80/120/195/265 (【AP】)魔法伤害和1.5/1.75/3秒晕眩。",
+    "description_tokens": [
+     {
+      "type": "text",
+      "value": "被动：从所有来源获得的护甲和魔抗额外提升。\n主动：召唤幽灵骑士向距离最近的3名敌人冲锋，造成80/120/195/265 "
+     },
+     {
+      "type": "stat",
+      "stat": "ability_power",
+      "kind": "ap",
+      "label": "法术加成",
+      "source_label": "AP",
+      "icon": "ap",
+      "fallback": "AP"
+     },
+     {
+      "type": "text",
+      "value": "魔法伤害和1.5/1.75/3秒晕眩。"
+     }
+    ],
     "image": "assets/optimized/s18__pbe/skills/918120_skill.webp"
    }
   },
@@ -882,6 +2156,7 @@
    "skill": {
     "name": "品尝恐惧",
     "description": "跃向2格内生命值最低的敌人，对其造成魔法伤害。如果该目标在邻格没有友军，则造成50%额外伤害。",
+    "description_tokens": null,
     "image": "assets/optimized/s18__pbe/skills/918121_skill.webp"
    }
   },
@@ -906,6 +2181,25 @@
    "skill": {
     "name": "苍白屏障",
     "description": "向距离最近的3名敌人发射一个月光法球，造成125/190/300/530 (【AP】)魔法伤害。随后法球返回，为黛安娜提供持续2秒的护盾，护盾值相当于它们对目标所造成伤害的40%。",
+    "description_tokens": [
+     {
+      "type": "text",
+      "value": "向距离最近的3名敌人发射一个月光法球，造成125/190/300/530 "
+     },
+     {
+      "type": "stat",
+      "stat": "ability_power",
+      "kind": "ap",
+      "label": "法术加成",
+      "source_label": "AP",
+      "icon": "ap",
+      "fallback": "AP"
+     },
+     {
+      "type": "text",
+      "value": "魔法伤害。随后法球返回，为黛安娜提供持续2秒的护盾，护盾值相当于它们对目标所造成伤害的40%。"
+     }
+    ],
     "image": "assets/optimized/s18__pbe/skills/918131_skill.webp"
    }
   },
@@ -929,6 +2223,25 @@
    "skill": {
     "name": "狂野生长",
     "description": "在战场周围生成2/4株植物，它们会攻击最近的敌人，持续秒。它们每秒造成33/50/225/425 (【AP】)魔法伤害。",
+    "description_tokens": [
+     {
+      "type": "text",
+      "value": "在战场周围生成2/4株植物，它们会攻击最近的敌人，持续秒。它们每秒造成33/50/225/425 "
+     },
+     {
+      "type": "stat",
+      "stat": "ability_power",
+      "kind": "ap",
+      "label": "法术加成",
+      "source_label": "AP",
+      "icon": "ap",
+      "fallback": "AP"
+     },
+     {
+      "type": "text",
+      "value": "魔法伤害。"
+     }
+    ],
     "image": "assets/optimized/s18__pbe/skills/918143_skill.webp"
    }
   },
@@ -953,6 +2266,64 @@
    "skill": {
     "name": "狂怒基因",
     "description": "被动：每秒获得5/50/10怒气，每次攻击提供5怒气。达到最大怒气时，变形并跃向3格内人数最多的敌群中。然后，对2/10格内的敌人造成150/225/1500 (【AD】)物理伤害，将其护甲和魔抗降低15/20/100 (【AP】)，并令其眩晕1/5秒。巨型纳尔获得400/600/10000生命值，并将其技能替换为“抓投”。\n抓投：抓住目标并将其投向距离最远的敌人，对主要目标造成380/570/9000/90000 (【AD】)物理伤害，并对途经的敌人造成135/205/4500/9001 (【AD】)物理伤害。如果目标是最后存活的1名敌人，则转而将其抛出战场。",
+    "description_tokens": [
+     {
+      "type": "text",
+      "value": "被动：每秒获得5/50/10怒气，每次攻击提供5怒气。达到最大怒气时，变形并跃向3格内人数最多的敌群中。然后，对2/10格内的敌人造成150/225/1500 "
+     },
+     {
+      "type": "stat",
+      "stat": "attack_damage",
+      "kind": "ad",
+      "label": "物理加成",
+      "source_label": "AD",
+      "icon": "ad",
+      "fallback": "AD"
+     },
+     {
+      "type": "text",
+      "value": "物理伤害，将其护甲和魔抗降低15/20/100 "
+     },
+     {
+      "type": "stat",
+      "stat": "ability_power",
+      "kind": "ap",
+      "label": "法术加成",
+      "source_label": "AP",
+      "icon": "ap",
+      "fallback": "AP"
+     },
+     {
+      "type": "text",
+      "value": "，并令其眩晕1/5秒。巨型纳尔获得400/600/10000生命值，并将其技能替换为“抓投”。\n抓投：抓住目标并将其投向距离最远的敌人，对主要目标造成380/570/9000/90000 "
+     },
+     {
+      "type": "stat",
+      "stat": "attack_damage",
+      "kind": "ad",
+      "label": "物理加成",
+      "source_label": "AD",
+      "icon": "ad",
+      "fallback": "AD"
+     },
+     {
+      "type": "text",
+      "value": "物理伤害，并对途经的敌人造成135/205/4500/9001 "
+     },
+     {
+      "type": "stat",
+      "stat": "attack_damage",
+      "kind": "ad",
+      "label": "物理加成",
+      "source_label": "AD",
+      "icon": "ad",
+      "fallback": "AD"
+     },
+     {
+      "type": "text",
+      "value": "物理伤害。如果目标是最后存活的1名敌人，则转而将其抛出战场。"
+     }
+    ],
     "image": "assets/optimized/s18__pbe/skills/918150_skill.webp"
    }
   },
@@ -976,6 +2347,34 @@
    "skill": {
     "name": "防御横扫",
     "description": "斩击目标造成170/255/385/650 (【AD】【AP】)物理伤害，并获得60/85/120/155护盾值，持续2秒。",
+    "description_tokens": [
+     {
+      "type": "text",
+      "value": "斩击目标造成170/255/385/650 ("
+     },
+     {
+      "type": "stat",
+      "stat": "attack_damage",
+      "kind": "ad",
+      "label": "物理加成",
+      "source_label": "AD",
+      "icon": "ad",
+      "fallback": "AD"
+     },
+     {
+      "type": "stat",
+      "stat": "ability_power",
+      "kind": "ap",
+      "label": "法术加成",
+      "source_label": "AP",
+      "icon": "ap",
+      "fallback": "AP"
+     },
+     {
+      "type": "text",
+      "value": ")物理伤害，并获得60/85/120/155护盾值，持续2秒。"
+     }
+    ],
     "image": "assets/optimized/s18__pbe/skills/918164_skill.webp"
    }
   },
@@ -999,6 +2398,25 @@
    "skill": {
     "name": "狂怒之拳",
     "description": "被动：攻击时，回复生命值，在蔚的技能激活期间翻倍。\n主动：发出一声原始怒吼，回复200/250/350/450 (【AP】)生命值。然后获得185%/200%/225%攻击速度、15%伤害减免和控制免疫效果，持续3秒。",
+    "description_tokens": [
+     {
+      "type": "text",
+      "value": "被动：攻击时，回复生命值，在蔚的技能激活期间翻倍。\n主动：发出一声原始怒吼，回复200/250/350/450 "
+     },
+     {
+      "type": "stat",
+      "stat": "ability_power",
+      "kind": "ap",
+      "label": "法术加成",
+      "source_label": "AP",
+      "icon": "ap",
+      "fallback": "AP"
+     },
+     {
+      "type": "text",
+      "value": "生命值。然后获得185%/200%/225%攻击速度、15%伤害减免和控制免疫效果，持续3秒。"
+     }
+    ],
     "image": "assets/optimized/s18__pbe/skills/918254_skill.webp"
    }
   },
@@ -1023,6 +2441,25 @@
    "skill": {
     "name": "沙兵现身",
     "description": "召唤2名士兵，持续秒，在阿兹尔攻击其目标时一同攻击，各造成48/72/115/205 (【AP】)魔法伤害。",
+    "description_tokens": [
+     {
+      "type": "text",
+      "value": "召唤2名士兵，持续秒，在阿兹尔攻击其目标时一同攻击，各造成48/72/115/205 "
+     },
+     {
+      "type": "stat",
+      "stat": "ability_power",
+      "kind": "ap",
+      "label": "法术加成",
+      "source_label": "AP",
+      "icon": "ap",
+      "fallback": "AP"
+     },
+     {
+      "type": "text",
+      "value": "魔法伤害。"
+     }
+    ],
     "image": "assets/optimized/s18__pbe/skills/918268_skill.webp"
    }
   },
@@ -1046,6 +2483,38 @@
    "skill": {
     "name": "连根拔起",
     "description": "被动：每秒回复16/19/22/25 (【HP】)生命值，施放技能后的3秒内该效果变为3倍。\n主动：冲出地面，使邻格的敌人眩晕1秒并对其造成70/105/160/270 (【AP】)魔法伤害。",
+    "description_tokens": [
+     {
+      "type": "text",
+      "value": "被动：每秒回复16/19/22/25 "
+     },
+     {
+      "type": "stat",
+      "stat": "health",
+      "kind": "health",
+      "label": "生命值",
+      "source_label": "HP",
+      "icon": "hp",
+      "fallback": "HP"
+     },
+     {
+      "type": "text",
+      "value": "生命值，施放技能后的3秒内该效果变为3倍。\n主动：冲出地面，使邻格的敌人眩晕1秒并对其造成70/105/160/270 "
+     },
+     {
+      "type": "stat",
+      "stat": "ability_power",
+      "kind": "ap",
+      "label": "法术加成",
+      "source_label": "AP",
+      "icon": "ap",
+      "fallback": "AP"
+     },
+     {
+      "type": "text",
+      "value": "魔法伤害。"
+     }
+    ],
     "image": "assets/optimized/s18__pbe/skills/918421_skill.webp"
    }
   },
@@ -1068,6 +2537,7 @@
    "skill": {
     "name": "种豆得瓜",
     "description": "被动：获得法力回复。\n主动：为2/10名友军提供165/325/3000/9999护盾和10%/15%/100%/200%伤害增幅，持续6秒。随后对其邻格的敌人造成140/210/2000/9999魔法伤害。施放6次后，该技能还会为目标提供2可叠加的攻击速度。",
+    "description_tokens": null,
     "image": "assets/optimized/s18__pbe/skills/918427_skill.webp"
    }
   },
@@ -1092,6 +2562,38 @@
    "skill": {
     "name": "登场之舞",
     "description": "获得4秒的250/300/375/450 (【AP】)护盾，随后使伤害最高的友军获得1.9/2/2.3/2.6 (【AP】)衰减的攻击速度，持续4秒。",
+    "description_tokens": [
+     {
+      "type": "text",
+      "value": "获得4秒的250/300/375/450 "
+     },
+     {
+      "type": "stat",
+      "stat": "ability_power",
+      "kind": "ap",
+      "label": "法术加成",
+      "source_label": "AP",
+      "icon": "ap",
+      "fallback": "AP"
+     },
+     {
+      "type": "text",
+      "value": "护盾，随后使伤害最高的友军获得1.9/2/2.3/2.6 "
+     },
+     {
+      "type": "stat",
+      "stat": "ability_power",
+      "kind": "ap",
+      "label": "法术加成",
+      "source_label": "AP",
+      "icon": "ap",
+      "fallback": "AP"
+     },
+     {
+      "type": "text",
+      "value": "衰减的攻击速度，持续4秒。"
+     }
+    ],
     "image": "assets/optimized/s18__pbe/skills/918497_skill.webp"
    }
   },
@@ -1116,6 +2618,38 @@
    "skill": {
     "name": "致死羽衣",
     "description": "接下来的5次攻击会转为发射羽毛，造成72/108/165/280 (【AD】)物理伤害并削减2 (【AP】)护甲。",
+    "description_tokens": [
+     {
+      "type": "text",
+      "value": "接下来的5次攻击会转为发射羽毛，造成72/108/165/280 "
+     },
+     {
+      "type": "stat",
+      "stat": "attack_damage",
+      "kind": "ad",
+      "label": "物理加成",
+      "source_label": "AD",
+      "icon": "ad",
+      "fallback": "AD"
+     },
+     {
+      "type": "text",
+      "value": "物理伤害并削减2 "
+     },
+     {
+      "type": "stat",
+      "stat": "ability_power",
+      "kind": "ap",
+      "label": "法术加成",
+      "source_label": "AP",
+      "icon": "ap",
+      "fallback": "AP"
+     },
+     {
+      "type": "text",
+      "value": "护甲。"
+     }
+    ],
     "image": "assets/optimized/s18__pbe/skills/918498_skill.webp"
    }
   },
@@ -1139,6 +2673,38 @@
    "skill": {
     "name": "风箱炎息",
     "description": "被动：在玩家战斗期间，奥恩会将格挡的伤害转化为【锻造之力】进行储存，3星时储存量翻倍。【锻造之力】首次达到90000时，获得1件【神器锻造器】！（锻造之力： / 90000）\n主动：获得400/480/600/720 (【AP】)护盾值，持续4秒，并对锥形范围内的敌人造成200/300/450/765 (【AP】)魔法伤害。",
+    "description_tokens": [
+     {
+      "type": "text",
+      "value": "被动：在玩家战斗期间，奥恩会将格挡的伤害转化为【锻造之力】进行储存，3星时储存量翻倍。【锻造之力】首次达到90000时，获得1件【神器锻造器】！（锻造之力： / 90000）\n主动：获得400/480/600/720 "
+     },
+     {
+      "type": "stat",
+      "stat": "ability_power",
+      "kind": "ap",
+      "label": "法术加成",
+      "source_label": "AP",
+      "icon": "ap",
+      "fallback": "AP"
+     },
+     {
+      "type": "text",
+      "value": "护盾值，持续4秒，并对锥形范围内的敌人造成200/300/450/765 "
+     },
+     {
+      "type": "stat",
+      "stat": "ability_power",
+      "kind": "ap",
+      "label": "法术加成",
+      "source_label": "AP",
+      "icon": "ap",
+      "fallback": "AP"
+     },
+     {
+      "type": "text",
+      "value": "魔法伤害。"
+     }
+    ],
     "image": "assets/optimized/s18__pbe/skills/918516_skill.webp"
    }
   },
@@ -1162,6 +2728,47 @@
    "skill": {
     "name": "月夜侵袭",
     "description": "装备断魄，并在2秒内对目标连续挥击次，每次造成70/105/1100/1500 (【AD】) + 最大生命值0%的物理伤害。\n攻势结束后，发射一道月光，造成490/735/5225/9376 (【AD】【AP】)物理伤害，在2格半径内的所有敌人间分摊。",
+    "description_tokens": [
+     {
+      "type": "text",
+      "value": "装备断魄，并在2秒内对目标连续挥击次，每次造成70/105/1100/1500 "
+     },
+     {
+      "type": "stat",
+      "stat": "attack_damage",
+      "kind": "ad",
+      "label": "物理加成",
+      "source_label": "AD",
+      "icon": "ad",
+      "fallback": "AD"
+     },
+     {
+      "type": "text",
+      "value": " + 最大生命值0%的物理伤害。\n攻势结束后，发射一道月光，造成490/735/5225/9376 ("
+     },
+     {
+      "type": "stat",
+      "stat": "attack_damage",
+      "kind": "ad",
+      "label": "物理加成",
+      "source_label": "AD",
+      "icon": "ad",
+      "fallback": "AD"
+     },
+     {
+      "type": "stat",
+      "stat": "ability_power",
+      "kind": "ap",
+      "label": "法术加成",
+      "source_label": "AP",
+      "icon": "ap",
+      "fallback": "AP"
+     },
+     {
+      "type": "text",
+      "value": ")物理伤害，在2格半径内的所有敌人间分摊。"
+     }
+    ],
     "image": "assets/optimized/s18__pbe/skills/918523_skill.webp"
    }
   },
@@ -1185,6 +2792,56 @@
    "skill": {
     "name": "灵蕴拳",
     "description": "冲刺并向当前目标发射一颗法球，造成180/270/425/720 (【AD】【AP】)物理伤害并分裂，对附近的2名敌人造成63/94.5/148.75/252 (【AD】【AP】)物理伤害。",
+    "description_tokens": [
+     {
+      "type": "text",
+      "value": "冲刺并向当前目标发射一颗法球，造成180/270/425/720 ("
+     },
+     {
+      "type": "stat",
+      "stat": "attack_damage",
+      "kind": "ad",
+      "label": "物理加成",
+      "source_label": "AD",
+      "icon": "ad",
+      "fallback": "AD"
+     },
+     {
+      "type": "stat",
+      "stat": "ability_power",
+      "kind": "ap",
+      "label": "法术加成",
+      "source_label": "AP",
+      "icon": "ap",
+      "fallback": "AP"
+     },
+     {
+      "type": "text",
+      "value": ")物理伤害并分裂，对附近的2名敌人造成63/94.5/148.75/252 ("
+     },
+     {
+      "type": "stat",
+      "stat": "attack_damage",
+      "kind": "ad",
+      "label": "物理加成",
+      "source_label": "AD",
+      "icon": "ad",
+      "fallback": "AD"
+     },
+     {
+      "type": "stat",
+      "stat": "ability_power",
+      "kind": "ap",
+      "label": "法术加成",
+      "source_label": "AP",
+      "icon": "ap",
+      "fallback": "AP"
+     },
+     {
+      "type": "text",
+      "value": ")物理伤害。"
+     }
+    ],
     "image": "assets/optimized/s18__pbe/skills/918804_skill.webp"
    }
   },
@@ -1208,6 +2865,56 @@
    "skill": {
     "name": "蓄意轰拳",
     "description": "被动：每场战斗中首次跌至最大生命值的40%以下时，获得100法力值。\n主动：蓄力打出一记重拳，快速回复369/419/2144/2644 (【HP】【AP】)生命值，随后在大型锥形范围内造成222/297/5072/9072 (【HP】【AD】)物理伤害。",
+    "description_tokens": [
+     {
+      "type": "text",
+      "value": "被动：每场战斗中首次跌至最大生命值的40%以下时，获得100法力值。\n主动：蓄力打出一记重拳，快速回复369/419/2144/2644 ("
+     },
+     {
+      "type": "stat",
+      "stat": "health",
+      "kind": "health",
+      "label": "生命值",
+      "source_label": "HP",
+      "icon": "hp",
+      "fallback": "HP"
+     },
+     {
+      "type": "stat",
+      "stat": "ability_power",
+      "kind": "ap",
+      "label": "法术加成",
+      "source_label": "AP",
+      "icon": "ap",
+      "fallback": "AP"
+     },
+     {
+      "type": "text",
+      "value": ")生命值，随后在大型锥形范围内造成222/297/5072/9072 ("
+     },
+     {
+      "type": "stat",
+      "stat": "health",
+      "kind": "health",
+      "label": "生命值",
+      "source_label": "HP",
+      "icon": "hp",
+      "fallback": "HP"
+     },
+     {
+      "type": "stat",
+      "stat": "attack_damage",
+      "kind": "ad",
+      "label": "物理加成",
+      "source_label": "AD",
+      "icon": "ad",
+      "fallback": "AD"
+     },
+     {
+      "type": "text",
+      "value": ")物理伤害。"
+     }
+    ],
     "image": "assets/optimized/s18__pbe/skills/918875_skill.webp"
    }
   },
@@ -1231,6 +2938,38 @@
    "skill": {
     "name": "夜阑谣",
     "description": "回复250/325/600/3800 (【AP】)生命值，并向附近的敌人们放出4只蝴蝶。在命中敌人时造成90/135/2000/5000 (【AP】)魔法伤害并施加昏睡1.5/1.75/8/20秒。如果目标受到的伤害达到1000，则会醒来并额外受到魔法伤害。",
+    "description_tokens": [
+     {
+      "type": "text",
+      "value": "回复250/325/600/3800 "
+     },
+     {
+      "type": "stat",
+      "stat": "ability_power",
+      "kind": "ap",
+      "label": "法术加成",
+      "source_label": "AP",
+      "icon": "ap",
+      "fallback": "AP"
+     },
+     {
+      "type": "text",
+      "value": "生命值，并向附近的敌人们放出4只蝴蝶。在命中敌人时造成90/135/2000/5000 "
+     },
+     {
+      "type": "stat",
+      "stat": "ability_power",
+      "kind": "ap",
+      "label": "法术加成",
+      "source_label": "AP",
+      "icon": "ap",
+      "fallback": "AP"
+     },
+     {
+      "type": "text",
+      "value": "魔法伤害并施加昏睡1.5/1.75/8/20秒。如果目标受到的伤害达到1000，则会醒来并额外受到魔法伤害。"
+     }
+    ],
     "image": "assets/optimized/s18__pbe/skills/918876_skill.webp"
    }
   },
@@ -1254,6 +2993,38 @@
    "skill": {
     "name": "生命之舞",
     "description": "在299/349/549 (【AP】)秒里持续回复共2生命值。下一次攻击被替换为猛击，造成140/175/220/70 (【HP】)魔法伤害。",
+    "description_tokens": [
+     {
+      "type": "text",
+      "value": "在299/349/549 "
+     },
+     {
+      "type": "stat",
+      "stat": "ability_power",
+      "kind": "ap",
+      "label": "法术加成",
+      "source_label": "AP",
+      "icon": "ap",
+      "fallback": "AP"
+     },
+     {
+      "type": "text",
+      "value": "秒里持续回复共2生命值。下一次攻击被替换为猛击，造成140/175/220/70 "
+     },
+     {
+      "type": "stat",
+      "stat": "health",
+      "kind": "health",
+      "label": "生命值",
+      "source_label": "HP",
+      "icon": "hp",
+      "fallback": "HP"
+     },
+     {
+      "type": "text",
+      "value": "魔法伤害。"
+     }
+    ],
     "image": "assets/optimized/s18__pbe/skills/918954_skill.webp"
    }
   },
@@ -1278,6 +3049,38 @@
    "skill": {
     "name": "月之降临",
     "description": "向3个最近的敌人降下9枚月光碎片，每枚造成50/75/500/9999 (【AP】)魔法伤害。\n满月时，月曜降临，对所有敌人分摊造成2200/3400/6500/7600 (【AP】)魔法伤害，并将其击飞秒。",
+    "description_tokens": [
+     {
+      "type": "text",
+      "value": "向3个最近的敌人降下9枚月光碎片，每枚造成50/75/500/9999 "
+     },
+     {
+      "type": "stat",
+      "stat": "ability_power",
+      "kind": "ap",
+      "label": "法术加成",
+      "source_label": "AP",
+      "icon": "ap",
+      "fallback": "AP"
+     },
+     {
+      "type": "text",
+      "value": "魔法伤害。\n满月时，月曜降临，对所有敌人分摊造成2200/3400/6500/7600 "
+     },
+     {
+      "type": "stat",
+      "stat": "ability_power",
+      "kind": "ap",
+      "label": "法术加成",
+      "source_label": "AP",
+      "icon": "ap",
+      "fallback": "AP"
+     },
+     {
+      "type": "text",
+      "value": "魔法伤害，并将其击飞秒。"
+     }
+    ],
     "image": "assets/optimized/s18__pbe/skills/918955_skill.webp"
    }
   },
@@ -1301,6 +3104,25 @@
    "skill": {
     "name": "蔚蓝激光",
     "description": "开始每秒消耗35%最大法力值，并对目标引导一道激光。引导期间，每秒对其造成160/240/360/615 (【AP】)魔法伤害，并使其魔法抗性降低3。\n青色增益：友军获得法力回复。驻灵每次施放技能时，都会额外获得法力回复。",
+    "description_tokens": [
+     {
+      "type": "text",
+      "value": "开始每秒消耗35%最大法力值，并对目标引导一道激光。引导期间，每秒对其造成160/240/360/615 "
+     },
+     {
+      "type": "stat",
+      "stat": "ability_power",
+      "kind": "ap",
+      "label": "法术加成",
+      "source_label": "AP",
+      "icon": "ap",
+      "fallback": "AP"
+     },
+     {
+      "type": "text",
+      "value": "魔法伤害，并使其魔法抗性降低3。\n青色增益：友军获得法力回复。驻灵每次施放技能时，都会额外获得法力回复。"
+     }
+    ],
     "image": "assets/optimized/s18__pbe/skills/918989_skill.webp"
    }
   },
@@ -1324,6 +3146,25 @@
    "skill": {
     "name": "刃叶",
     "description": "召唤五片锋利如剃刀的叶子，朝当前目标聚拢，造成总计300/450/680/1150 (【AD】)物理伤害，并施加20%重伤效果和1%灼烧效果，持续4秒。\n重伤：降低受到的治疗效果。\n灼烧：每秒造成目标一部分最大生命值的真实伤害。\n猩红增益：己方弈子对被施加【重伤】的敌人造成10%额外伤害，并且所受来自这些敌人的伤害降低10%。",
+    "description_tokens": [
+     {
+      "type": "text",
+      "value": "召唤五片锋利如剃刀的叶子，朝当前目标聚拢，造成总计300/450/680/1150 "
+     },
+     {
+      "type": "stat",
+      "stat": "attack_damage",
+      "kind": "ad",
+      "label": "物理加成",
+      "source_label": "AD",
+      "icon": "ad",
+      "fallback": "AD"
+     },
+     {
+      "type": "text",
+      "value": "物理伤害，并施加20%重伤效果和1%灼烧效果，持续4秒。\n重伤：降低受到的治疗效果。\n灼烧：每秒造成目标一部分最大生命值的真实伤害。\n猩红增益：己方弈子对被施加【重伤】的敌人造成10%额外伤害，并且所受来自这些敌人的伤害降低10%。"
+     }
+    ],
     "image": "assets/optimized/s18__pbe/skills/918990_skill.webp"
    }
   },
@@ -1347,6 +3188,90 @@
    "skill": {
     "name": "打嗝泡泡",
     "description": "【适应者】：此技能将根据法术强度或攻击力孰高而改变。\n【适应者】：向当前目标吐出一团毒泡泡，在命中第一名敌人时爆炸，造成250/375/565/960 (【AP】)魔法伤害。目标及1格半径范围内的敌人将在3秒里持续受到共100/240/360/610 (【AP】)魔法伤害。\n【适应者】：大幅减速目标。非常适合集火并逐一击破单个敌人。\n紫色增益：友军获得8% (【AD】)或8% (【AP】)（取决于魔沼蛙哪项属性更高）。每5秒，魔沼蛙获得25% (【AD】)或25% (【AP】)。",
+    "description_tokens": [
+     {
+      "type": "text",
+      "value": "【适应者】：此技能将根据法术强度或攻击力孰高而改变。\n【适应者】：向当前目标吐出一团毒泡泡，在命中第一名敌人时爆炸，造成250/375/565/960 "
+     },
+     {
+      "type": "stat",
+      "stat": "ability_power",
+      "kind": "ap",
+      "label": "法术加成",
+      "source_label": "AP",
+      "icon": "ap",
+      "fallback": "AP"
+     },
+     {
+      "type": "text",
+      "value": "魔法伤害。目标及1格半径范围内的敌人将在3秒里持续受到共100/240/360/610 "
+     },
+     {
+      "type": "stat",
+      "stat": "ability_power",
+      "kind": "ap",
+      "label": "法术加成",
+      "source_label": "AP",
+      "icon": "ap",
+      "fallback": "AP"
+     },
+     {
+      "type": "text",
+      "value": "魔法伤害。\n【适应者】：大幅减速目标。非常适合集火并逐一击破单个敌人。\n紫色增益：友军获得8% "
+     },
+     {
+      "type": "stat",
+      "stat": "attack_damage",
+      "kind": "ad",
+      "label": "物理加成",
+      "source_label": "AD",
+      "icon": "ad",
+      "fallback": "AD"
+     },
+     {
+      "type": "text",
+      "value": "或8% "
+     },
+     {
+      "type": "stat",
+      "stat": "ability_power",
+      "kind": "ap",
+      "label": "法术加成",
+      "source_label": "AP",
+      "icon": "ap",
+      "fallback": "AP"
+     },
+     {
+      "type": "text",
+      "value": "（取决于魔沼蛙哪项属性更高）。每5秒，魔沼蛙获得25% "
+     },
+     {
+      "type": "stat",
+      "stat": "attack_damage",
+      "kind": "ad",
+      "label": "物理加成",
+      "source_label": "AD",
+      "icon": "ad",
+      "fallback": "AD"
+     },
+     {
+      "type": "text",
+      "value": "或25% "
+     },
+     {
+      "type": "stat",
+      "stat": "ability_power",
+      "kind": "ap",
+      "label": "法术加成",
+      "source_label": "AP",
+      "icon": "ap",
+      "fallback": "AP"
+     },
+     {
+      "type": "text",
+      "value": "。"
+     }
+    ],
     "image": "assets/optimized/s18__pbe/skills/918991_skill.webp"
    }
   },
@@ -1370,6 +3295,47 @@
    "skill": {
     "name": "撕裂之爪",
     "description": "跳向3格内生命值最低的敌人，造成500/1050/2250/6005 (【AD】【AP】)物理伤害。接下来的2次攻击造成60/90/135/230 (【AD】)额外物理伤害。如果这次跃击或强化攻击击杀了一名敌人，则额外强化2次攻击。\n灰色增益：友军获得1.1攻击速度。参与击杀时，【暗影狼】获得1.25攻击速度。",
+    "description_tokens": [
+     {
+      "type": "text",
+      "value": "跳向3格内生命值最低的敌人，造成500/1050/2250/6005 ("
+     },
+     {
+      "type": "stat",
+      "stat": "attack_damage",
+      "kind": "ad",
+      "label": "物理加成",
+      "source_label": "AD",
+      "icon": "ad",
+      "fallback": "AD"
+     },
+     {
+      "type": "stat",
+      "stat": "ability_power",
+      "kind": "ap",
+      "label": "法术加成",
+      "source_label": "AP",
+      "icon": "ap",
+      "fallback": "AP"
+     },
+     {
+      "type": "text",
+      "value": ")物理伤害。接下来的2次攻击造成60/90/135/230 "
+     },
+     {
+      "type": "stat",
+      "stat": "attack_damage",
+      "kind": "ad",
+      "label": "物理加成",
+      "source_label": "AD",
+      "icon": "ad",
+      "fallback": "AD"
+     },
+     {
+      "type": "text",
+      "value": "额外物理伤害。如果这次跃击或强化攻击击杀了一名敌人，则额外强化2次攻击。\n灰色增益：友军获得1.1攻击速度。参与击杀时，【暗影狼】获得1.25攻击速度。"
+     }
+    ],
     "image": "assets/optimized/s18__pbe/skills/918992_skill.webp"
    }
   },
@@ -1393,6 +3359,60 @@
    "skill": {
     "name": "岩之摇滚",
     "description": "被动：阵亡时，分裂成两个【小型石甲虫】，每个拥有224/264/334/454 (【HP】)生命值。\n主动：获得175/225/350/475 (【AP】)最大生命值。随后滚向目标，造成245/310/445/610 (【AD】【HP】)伤害并将其击退1格，同时将其眩晕1.5秒。\n米色增益：己方弈子获得10%最大生命值。",
+    "description_tokens": [
+     {
+      "type": "text",
+      "value": "被动：阵亡时，分裂成两个【小型石甲虫】，每个拥有224/264/334/454 "
+     },
+     {
+      "type": "stat",
+      "stat": "health",
+      "kind": "health",
+      "label": "生命值",
+      "source_label": "HP",
+      "icon": "hp",
+      "fallback": "HP"
+     },
+     {
+      "type": "text",
+      "value": "生命值。\n主动：获得175/225/350/475 "
+     },
+     {
+      "type": "stat",
+      "stat": "ability_power",
+      "kind": "ap",
+      "label": "法术加成",
+      "source_label": "AP",
+      "icon": "ap",
+      "fallback": "AP"
+     },
+     {
+      "type": "text",
+      "value": "最大生命值。随后滚向目标，造成245/310/445/610 ("
+     },
+     {
+      "type": "stat",
+      "stat": "attack_damage",
+      "kind": "ad",
+      "label": "物理加成",
+      "source_label": "AD",
+      "icon": "ad",
+      "fallback": "AD"
+     },
+     {
+      "type": "stat",
+      "stat": "health",
+      "kind": "health",
+      "label": "生命值",
+      "source_label": "HP",
+      "icon": "hp",
+      "fallback": "HP"
+     },
+     {
+      "type": "text",
+      "value": ")伤害并将其击退1格，同时将其眩晕1.5秒。\n米色增益：己方弈子获得10%最大生命值。"
+     }
+    ],
     "image": "assets/optimized/s18__pbe/skills/918993_skill.webp"
    }
   },
@@ -1416,6 +3436,38 @@
    "skill": {
     "name": "这种快乐你懂吗？",
     "description": "被动： 舞动攻击！用舞蹈发动攻击，对所有相邻敌人造成50/75/112.5/168.75 (【AD】)物理伤害。\n主动：钻入地下，获得15%伤害减免，持续3秒，并在持续期间回复250/325/525/725 (【AP】)生命值。\n绿色增益：友军获得+10%治疗和护盾。当生命值降至50%时，回复30%最大生命值，冲刺穿过目标并嘲讽附近敌人。",
+    "description_tokens": [
+     {
+      "type": "text",
+      "value": "被动： 舞动攻击！用舞蹈发动攻击，对所有相邻敌人造成50/75/112.5/168.75 "
+     },
+     {
+      "type": "stat",
+      "stat": "attack_damage",
+      "kind": "ad",
+      "label": "物理加成",
+      "source_label": "AD",
+      "icon": "ad",
+      "fallback": "AD"
+     },
+     {
+      "type": "text",
+      "value": "物理伤害。\n主动：钻入地下，获得15%伤害减免，持续3秒，并在持续期间回复250/325/525/725 "
+     },
+     {
+      "type": "stat",
+      "stat": "ability_power",
+      "kind": "ap",
+      "label": "法术加成",
+      "source_label": "AP",
+      "icon": "ap",
+      "fallback": "AP"
+     },
+     {
+      "type": "text",
+      "value": "生命值。\n绿色增益：友军获得+10%治疗和护盾。当生命值降至50%时，回复30%最大生命值，冲刺穿过目标并嘲讽附近敌人。"
+     }
+    ],
     "image": "assets/optimized/s18__pbe/skills/918994_skill.webp"
    }
   },
@@ -1440,6 +3492,38 @@
    "skill": {
     "name": "鸟群之友",
     "description": "在附近召唤4只不可被选取的【小锋喙鸟】，持续5 (【AP】)秒。每次【锋喙鸟】攻击时，【小锋喙鸟】也会攻击同一敌人，造成25/38/60/95 (【AD】)物理伤害。\n橙色增益：对一个敌人造成物理伤害，可削减其2护甲。该效果每削减敌人10护甲，额外造成X物理伤害。",
+    "description_tokens": [
+     {
+      "type": "text",
+      "value": "在附近召唤4只不可被选取的【小锋喙鸟】，持续5 "
+     },
+     {
+      "type": "stat",
+      "stat": "ability_power",
+      "kind": "ap",
+      "label": "法术加成",
+      "source_label": "AP",
+      "icon": "ap",
+      "fallback": "AP"
+     },
+     {
+      "type": "text",
+      "value": "秒。每次【锋喙鸟】攻击时，【小锋喙鸟】也会攻击同一敌人，造成25/38/60/95 "
+     },
+     {
+      "type": "stat",
+      "stat": "attack_damage",
+      "kind": "ad",
+      "label": "物理加成",
+      "source_label": "AD",
+      "icon": "ad",
+      "fallback": "AD"
+     },
+     {
+      "type": "text",
+      "value": "物理伤害。\n橙色增益：对一个敌人造成物理伤害，可削减其2护甲。该效果每削减敌人10护甲，额外造成X物理伤害。"
+     }
+    ],
     "image": "assets/optimized/s18__pbe/skills/918995_skill.webp"
    }
   },
@@ -1463,6 +3547,38 @@
    "skill": {
     "name": "猩红之怒",
     "description": "进入烈焰狂暴状态，持续到战斗环节结束。获得控制免疫、80%/280%/400%攻击力，并无视0.3 (【AP】)护甲。\n在改变目标时，跃向该目标，造成170/255/600/1500 (【AD】)物理伤害。\n红色增益：【印记树怪】的攻击会灼烧敌人。己方弈子对被施加【灼烧】的敌人造成10%额外伤害，并且所受来自这些敌人的伤害降低10%。",
+    "description_tokens": [
+     {
+      "type": "text",
+      "value": "进入烈焰狂暴状态，持续到战斗环节结束。获得控制免疫、80%/280%/400%攻击力，并无视0.3 "
+     },
+     {
+      "type": "stat",
+      "stat": "ability_power",
+      "kind": "ap",
+      "label": "法术加成",
+      "source_label": "AP",
+      "icon": "ap",
+      "fallback": "AP"
+     },
+     {
+      "type": "text",
+      "value": "护甲。\n在改变目标时，跃向该目标，造成170/255/600/1500 "
+     },
+     {
+      "type": "stat",
+      "stat": "attack_damage",
+      "kind": "ad",
+      "label": "物理加成",
+      "source_label": "AD",
+      "icon": "ad",
+      "fallback": "AD"
+     },
+     {
+      "type": "text",
+      "value": "物理伤害。\n红色增益：【印记树怪】的攻击会灼烧敌人。己方弈子对被施加【灼烧】的敌人造成10%额外伤害，并且所受来自这些敌人的伤害降低10%。"
+     }
+    ],
     "image": "assets/optimized/s18__pbe/skills/918996_skill.webp"
    }
   },
@@ -1487,6 +3603,47 @@
    "skill": {
     "name": "蔚蓝冲击波",
     "description": "获得一个持续4秒的530/630/2130/5130 (【AP】【HP】)护盾。猛击地面，向敌人最密集的方向发出一道裂隙。被命中的敌人会被短暂击飞，受到100/150/3500/9999 (【AP】)魔法伤害并被施加%破法。\n破法：提升下一次技能施放的法力消耗。\n蓝色增益：【魔像】获得5法力回复，持续至其首次施放技能。每次施放技能时，友军获得2法力回复。",
+    "description_tokens": [
+     {
+      "type": "text",
+      "value": "获得一个持续4秒的530/630/2130/5130 ("
+     },
+     {
+      "type": "stat",
+      "stat": "ability_power",
+      "kind": "ap",
+      "label": "法术加成",
+      "source_label": "AP",
+      "icon": "ap",
+      "fallback": "AP"
+     },
+     {
+      "type": "stat",
+      "stat": "health",
+      "kind": "health",
+      "label": "生命值",
+      "source_label": "HP",
+      "icon": "hp",
+      "fallback": "HP"
+     },
+     {
+      "type": "text",
+      "value": ")护盾。猛击地面，向敌人最密集的方向发出一道裂隙。被命中的敌人会被短暂击飞，受到100/150/3500/9999 "
+     },
+     {
+      "type": "stat",
+      "stat": "ability_power",
+      "kind": "ap",
+      "label": "法术加成",
+      "source_label": "AP",
+      "icon": "ap",
+      "fallback": "AP"
+     },
+     {
+      "type": "text",
+      "value": "魔法伤害并被施加%破法。\n破法：提升下一次技能施放的法力消耗。\n蓝色增益：【魔像】获得5法力回复，持续至其首次施放技能。每次施放技能时，友军获得2法力回复。"
+     }
+    ],
     "image": "assets/optimized/s18__pbe/skills/918997_skill.webp"
    }
   },
@@ -1510,6 +3667,25 @@
    "skill": {
     "name": "绝伦火热",
     "description": "向当前目标及其1格内的敌人喷射一团火焰，造成物理伤害和魔法伤害。\n他们脚下的地面将持续燃烧秒。敌人们在火中每停留一秒，便会受到相当于其最大生命值260/390/7200/50300 (【AD】)的伤害，并被削减护甲。\n火焰翻滚席卷战场，点燃途经的敌人秒。被点燃的敌人每秒受到相当于其最大生命值的魔法伤害，并被削减魔抗。\n【远古巨龙】增益：对生命值低于自身最大生命值12%的敌人造成伤害，会直接将其处决。每5秒，获得额外属性（护甲、魔抗、暴击几率、暴击伤害、全能吸血）",
+    "description_tokens": [
+     {
+      "type": "text",
+      "value": "向当前目标及其1格内的敌人喷射一团火焰，造成物理伤害和魔法伤害。\n他们脚下的地面将持续燃烧秒。敌人们在火中每停留一秒，便会受到相当于其最大生命值260/390/7200/50300 "
+     },
+     {
+      "type": "stat",
+      "stat": "attack_damage",
+      "kind": "ad",
+      "label": "物理加成",
+      "source_label": "AD",
+      "icon": "ad",
+      "fallback": "AD"
+     },
+     {
+      "type": "text",
+      "value": "的伤害，并被削减护甲。\n火焰翻滚席卷战场，点燃途经的敌人秒。被点燃的敌人每秒受到相当于其最大生命值的魔法伤害，并被削减魔抗。\n【远古巨龙】增益：对生命值低于自身最大生命值12%的敌人造成伤害，会直接将其处决。每5秒，获得额外属性（护甲、魔抗、暴击几率、暴击伤害、全能吸血）"
+     }
+    ],
     "image": "assets/optimized/s18__pbe/skills/918998_skill.webp"
    }
   }
@@ -1520,37 +3696,158 @@
    "name": "莲华",
    "category": "origin",
    "description": "在对战后，你的【自然仙灵】将得到强化。\n【灵魂莲华】弈子们获得物理加成、法术加成和12%最大生命值。",
+   "description_tokens": null,
    "image": "assets/optimized/s18__pbe/traits/race_1.webp",
    "breakpoints": [
     {
      "min_units": 3,
      "max_units": 4,
      "style": "bronze",
-     "effect": "【自然仙灵】得到升级，12%【AD】【AP】"
+     "effect": "【自然仙灵】得到升级，12%【AD】【AP】",
+     "effect_tokens": [
+      {
+       "type": "text",
+       "value": "【自然仙灵】得到升级，12%"
+      },
+      {
+       "type": "stat",
+       "stat": "attack_damage",
+       "kind": "ad",
+       "label": "物理加成",
+       "source_label": "AD",
+       "icon": "ad",
+       "fallback": "AD"
+      },
+      {
+       "type": "stat",
+       "stat": "ability_power",
+       "kind": "ap",
+       "label": "法术加成",
+       "source_label": "AP",
+       "icon": "ap",
+       "fallback": "AP"
+      }
+     ]
     },
     {
      "min_units": 5,
      "max_units": 6,
      "style": "silver",
-     "effect": "商店每次都会刷新出【自然仙灵】，30%【AD】【AP】"
+     "effect": "商店每次都会刷新出【自然仙灵】，30%【AD】【AP】",
+     "effect_tokens": [
+      {
+       "type": "text",
+       "value": "商店每次都会刷新出【自然仙灵】，30%"
+      },
+      {
+       "type": "stat",
+       "stat": "attack_damage",
+       "kind": "ad",
+       "label": "物理加成",
+       "source_label": "AD",
+       "icon": "ad",
+       "fallback": "AD"
+      },
+      {
+       "type": "stat",
+       "stat": "ability_power",
+       "kind": "ap",
+       "label": "法术加成",
+       "source_label": "AP",
+       "icon": "ap",
+       "fallback": "AP"
+      }
+     ]
     },
     {
      "min_units": 7,
      "max_units": 8,
      "style": "gold",
-     "effect": "在购买1个【自然仙灵】后，获得5金币，45%【AD】【AP】"
+     "effect": "在购买1个【自然仙灵】后，获得5金币，45%【AD】【AP】",
+     "effect_tokens": [
+      {
+       "type": "text",
+       "value": "在购买1个【自然仙灵】后，获得5金币，45%"
+      },
+      {
+       "type": "stat",
+       "stat": "attack_damage",
+       "kind": "ad",
+       "label": "物理加成",
+       "source_label": "AD",
+       "icon": "ad",
+       "fallback": "AD"
+      },
+      {
+       "type": "stat",
+       "stat": "ability_power",
+       "kind": "ap",
+       "label": "法术加成",
+       "source_label": "AP",
+       "icon": "ap",
+       "fallback": "AP"
+      }
+     ]
     },
     {
      "min_units": 9,
      "max_units": 10,
      "style": "gold",
-     "effect": "每回合你可以购买2个【自然仙灵】，60%【AD】【AP】"
+     "effect": "每回合你可以购买2个【自然仙灵】，60%【AD】【AP】",
+     "effect_tokens": [
+      {
+       "type": "text",
+       "value": "每回合你可以购买2个【自然仙灵】，60%"
+      },
+      {
+       "type": "stat",
+       "stat": "attack_damage",
+       "kind": "ad",
+       "label": "物理加成",
+       "source_label": "AD",
+       "icon": "ad",
+       "fallback": "AD"
+      },
+      {
+       "type": "stat",
+       "stat": "ability_power",
+       "kind": "ap",
+       "label": "法术加成",
+       "source_label": "AP",
+       "icon": "ap",
+       "fallback": "AP"
+      }
+     ]
     },
     {
      "min_units": 11,
      "max_units": null,
      "style": "prismatic",
-     "effect": "【自然仙灵】的力量满溢而出，100%【AD】【AP】"
+     "effect": "【自然仙灵】的力量满溢而出，100%【AD】【AP】",
+     "effect_tokens": [
+      {
+       "type": "text",
+       "value": "【自然仙灵】的力量满溢而出，100%"
+      },
+      {
+       "type": "stat",
+       "stat": "attack_damage",
+       "kind": "ad",
+       "label": "物理加成",
+       "source_label": "AD",
+       "icon": "ad",
+       "fallback": "AD"
+      },
+      {
+       "type": "stat",
+       "stat": "ability_power",
+       "kind": "ap",
+       "label": "法术加成",
+       "source_label": "AP",
+       "icon": "ap",
+       "fallback": "AP"
+      }
+     ]
     }
    ]
   },
@@ -1559,31 +3856,36 @@
    "name": "炼狱",
    "category": "origin",
    "description": "【地狱火】的伤害会对敌人施加持续4秒的灼烧和33%重伤效果。【地狱火】的灼烧效果可以和其它灼烧效果叠加。",
+   "description_tokens": null,
    "image": "assets/optimized/s18__pbe/traits/race_2.webp",
    "breakpoints": [
     {
      "min_units": 2,
      "max_units": 2,
      "style": "bronze",
-     "effect": "1%灼烧效果"
+     "effect": "1%灼烧效果",
+     "effect_tokens": null
     },
     {
      "min_units": 3,
      "max_units": 4,
      "style": "silver",
-     "effect": "在对战后，你的1个不包含【地狱火】弈子的商店栏位会被引燃，刷新出高一阶的弈子。"
+     "effect": "在对战后，你的1个不包含【地狱火】弈子的商店栏位会被引燃，刷新出高一阶的弈子。",
+     "effect_tokens": null
     },
     {
      "min_units": 5,
      "max_units": 6,
      "style": "gold",
-     "effect": "引燃2个商店栏位，施加2%灼烧效果"
+     "effect": "引燃2个商店栏位，施加2%灼烧效果",
+     "effect_tokens": null
     },
     {
      "min_units": 7,
      "max_units": null,
      "style": "gold",
-     "effect": "引燃4个商店栏位，施加3%灼烧效果"
+     "effect": "引燃4个商店栏位，施加3%灼烧效果",
+     "effect_tokens": null
     }
    ]
   },
@@ -1592,25 +3894,118 @@
    "name": "迅灵",
    "category": "origin",
    "description": "获得【毛茸茸大朋友】。将1个【小精灵】放置在【毛茸茸大朋友】身上以选择其【骑乘者】。",
+   "description_tokens": null,
    "image": "assets/optimized/s18__pbe/traits/race_24.webp",
    "breakpoints": [
     {
      "min_units": 3,
      "max_units": 4,
      "style": "bronze",
-     "effect": "【骑乘者】获得\n15%【HP】和15%【AS】"
+     "effect": "【骑乘者】获得\n15%【HP】和15%【AS】",
+     "effect_tokens": [
+      {
+       "type": "text",
+       "value": "【骑乘者】获得\n15%"
+      },
+      {
+       "type": "stat",
+       "stat": "health",
+       "kind": "health",
+       "label": "生命值",
+       "source_label": "HP",
+       "icon": "hp",
+       "fallback": "HP"
+      },
+      {
+       "type": "text",
+       "value": "和15%"
+      },
+      {
+       "type": "stat",
+       "stat": "attack_speed",
+       "kind": "attack-speed",
+       "label": "攻击速度",
+       "source_label": "AS",
+       "icon": "as",
+       "fallback": "AS"
+      }
+     ]
     },
     {
      "min_units": 5,
      "max_units": 6,
      "style": "silver",
-     "effect": "25%【HP】25%【AS】，【毛茸茸大朋友】50%的技能加成作用于你的【小精灵】弈子们"
+     "effect": "25%【HP】25%【AS】，【毛茸茸大朋友】50%的技能加成作用于你的【小精灵】弈子们",
+     "effect_tokens": [
+      {
+       "type": "text",
+       "value": "25%"
+      },
+      {
+       "type": "stat",
+       "stat": "health",
+       "kind": "health",
+       "label": "生命值",
+       "source_label": "HP",
+       "icon": "hp",
+       "fallback": "HP"
+      },
+      {
+       "type": "text",
+       "value": "25%"
+      },
+      {
+       "type": "stat",
+       "stat": "attack_speed",
+       "kind": "attack-speed",
+       "label": "攻击速度",
+       "source_label": "AS",
+       "icon": "as",
+       "fallback": "AS"
+      },
+      {
+       "type": "text",
+       "value": "，【毛茸茸大朋友】50%的技能加成作用于你的【小精灵】弈子们"
+      }
+     ]
     },
     {
      "min_units": 7,
      "max_units": null,
      "style": "gold",
-     "effect": "35%【HP】35%【AS】，【毛茸茸大朋友】100%的技能加成作用于你的【小精灵】弈子们。"
+     "effect": "35%【HP】35%【AS】，【毛茸茸大朋友】100%的技能加成作用于你的【小精灵】弈子们。",
+     "effect_tokens": [
+      {
+       "type": "text",
+       "value": "35%"
+      },
+      {
+       "type": "stat",
+       "stat": "health",
+       "kind": "health",
+       "label": "生命值",
+       "source_label": "HP",
+       "icon": "hp",
+       "fallback": "HP"
+      },
+      {
+       "type": "text",
+       "value": "35%"
+      },
+      {
+       "type": "stat",
+       "stat": "attack_speed",
+       "kind": "attack-speed",
+       "label": "攻击速度",
+       "source_label": "AS",
+       "icon": "as",
+       "fallback": "AS"
+      },
+      {
+       "type": "text",
+       "value": "，【毛茸茸大朋友】100%的技能加成作用于你的【小精灵】弈子们。"
+      }
+     ]
     }
    ]
   },
@@ -1619,37 +4014,43 @@
    "name": "永恒之森",
    "category": "origin",
    "description": "获得可放置的【永恒之森】植物。",
+   "description_tokens": null,
    "image": "assets/optimized/s18__pbe/traits/race_3.webp",
    "breakpoints": [
     {
      "min_units": 3,
      "max_units": 4,
      "style": "bronze",
-     "effect": "一棵【石皮树】和一株【生命花】。"
+     "effect": "一棵【石皮树】和一株【生命花】。",
+     "effect_tokens": null
     },
     {
      "min_units": 5,
      "max_units": 6,
      "style": "silver",
-     "effect": "第二棵【石皮树】，并且【石皮树】获得100生命值"
+     "effect": "第二棵【石皮树】，并且【石皮树】获得100生命值",
+     "effect_tokens": null
     },
     {
      "min_units": 7,
      "max_units": 8,
      "style": "gold",
-     "effect": "以及【深林守卫】"
+     "effect": "以及【深林守卫】",
+     "effect_tokens": null
     },
     {
      "min_units": 9,
      "max_units": 10,
      "style": "gold",
-     "effect": "植物升至2星"
+     "effect": "植物升至2星",
+     "effect_tokens": null
     },
     {
      "min_units": 11,
      "max_units": null,
      "style": "prismatic",
-     "effect": "植物升至3星，森林拥有了它自己的生命"
+     "effect": "植物升至3星，森林拥有了它自己的生命",
+     "effect_tokens": null
     }
    ]
   },
@@ -1658,25 +4059,149 @@
    "name": "黑色荆棘",
    "category": "origin",
    "description": "战斗开始时：位于【魔神格】内的友军被献祭，为你的弈子们提供生命值。\n【上古魔神】弈子们基于【祭品】的定位、星级和费用，获得额外属性。",
+   "description_tokens": null,
    "image": "assets/optimized/s18__pbe/traits/race_6.webp",
    "breakpoints": [
     {
      "min_units": 2,
      "max_units": 3,
      "style": "bronze",
-     "effect": "175【HP】"
+     "effect": "175【HP】",
+     "effect_tokens": [
+      {
+       "type": "text",
+       "value": "175"
+      },
+      {
+       "type": "stat",
+       "stat": "health",
+       "kind": "health",
+       "label": "生命值",
+       "source_label": "HP",
+       "icon": "hp",
+       "fallback": "HP"
+      }
+     ]
     },
     {
      "min_units": 4,
      "max_units": 5,
      "style": "silver",
-     "effect": "300【HP】；额外加成再提升25%"
+     "effect": "300【HP】；额外加成再提升25%",
+     "effect_tokens": [
+      {
+       "type": "text",
+       "value": "300"
+      },
+      {
+       "type": "stat",
+       "stat": "health",
+       "kind": "health",
+       "label": "生命值",
+       "source_label": "HP",
+       "icon": "hp",
+       "fallback": "HP"
+      },
+      {
+       "type": "text",
+       "value": "；额外加成再提升25%"
+      }
+     ]
     },
     {
      "min_units": 6,
      "max_units": null,
      "style": "gold",
-     "effect": "350【HP】；献祭不再造成阵亡。【祭品】还会获得：30%【AD】【AP】，\n30%【AS】，20【ARMOR】【MR】，250【HP】，10%"
+     "effect": "350【HP】；献祭不再造成阵亡。【祭品】还会获得：30%【AD】【AP】，\n30%【AS】，20【ARMOR】【MR】，250【HP】，10%",
+     "effect_tokens": [
+      {
+       "type": "text",
+       "value": "350"
+      },
+      {
+       "type": "stat",
+       "stat": "health",
+       "kind": "health",
+       "label": "生命值",
+       "source_label": "HP",
+       "icon": "hp",
+       "fallback": "HP"
+      },
+      {
+       "type": "text",
+       "value": "；献祭不再造成阵亡。【祭品】还会获得：30%"
+      },
+      {
+       "type": "stat",
+       "stat": "attack_damage",
+       "kind": "ad",
+       "label": "物理加成",
+       "source_label": "AD",
+       "icon": "ad",
+       "fallback": "AD"
+      },
+      {
+       "type": "stat",
+       "stat": "ability_power",
+       "kind": "ap",
+       "label": "法术加成",
+       "source_label": "AP",
+       "icon": "ap",
+       "fallback": "AP"
+      },
+      {
+       "type": "text",
+       "value": "，\n30%"
+      },
+      {
+       "type": "stat",
+       "stat": "attack_speed",
+       "kind": "attack-speed",
+       "label": "攻击速度",
+       "source_label": "AS",
+       "icon": "as",
+       "fallback": "AS"
+      },
+      {
+       "type": "text",
+       "value": "，20"
+      },
+      {
+       "type": "stat",
+       "stat": "armor",
+       "kind": "armor",
+       "label": "护甲",
+       "source_label": "ARMOR",
+       "icon": "armor",
+       "fallback": "AR"
+      },
+      {
+       "type": "stat",
+       "stat": "magic_resist",
+       "kind": "magic-resist",
+       "label": "魔法抗性",
+       "source_label": "MR",
+       "icon": "mr",
+       "fallback": "MR"
+      },
+      {
+       "type": "text",
+       "value": "，250"
+      },
+      {
+       "type": "stat",
+       "stat": "health",
+       "kind": "health",
+       "label": "生命值",
+       "source_label": "HP",
+       "icon": "hp",
+       "fallback": "HP"
+      },
+      {
+       "type": "text",
+       "value": "，10%"
+      }
+     ]
     }
    ]
   },
@@ -1685,31 +4210,36 @@
    "name": "魔女",
    "category": "origin",
    "description": "通过击杀弈子们收集【魔女精粹】，输掉玩家对战回合时还会增加更多。\n初始值为40【魔女精粹】，选择将【魔女精粹】兑换为奖励或是继续收集【魔女精粹】。每项奖励所需的【魔女精粹】数量都会进一步增加。",
+   "description_tokens": null,
    "image": "assets/optimized/s18__pbe/traits/race_7.webp",
    "breakpoints": [
     {
      "min_units": 3,
      "max_units": 3,
      "style": "bronze",
-     "effect": "每次击杀+1【魔女精粹】，每次失败+18【魔女精粹】"
+     "effect": "每次击杀+1【魔女精粹】，每次失败+18【魔女精粹】",
+     "effect_tokens": null
     },
     {
      "min_units": 4,
      "max_units": 4,
      "style": "silver",
-     "effect": "每次击杀+2【魔女精粹】，每次失败+22【魔女精粹】"
+     "effect": "每次击杀+2【魔女精粹】，每次失败+22【魔女精粹】",
+     "effect_tokens": null
     },
     {
      "min_units": 5,
      "max_units": 6,
      "style": "silver",
-     "effect": "每次击杀+2【魔女精粹】，每次失败+35【魔女精粹】"
+     "effect": "每次击杀+2【魔女精粹】，每次失败+35【魔女精粹】",
+     "effect_tokens": null
     },
     {
      "min_units": 7,
      "max_units": null,
      "style": "gold",
-     "effect": "每次击杀+7【魔女精粹】，每次失败+70【魔女精粹】"
+     "effect": "每次击杀+7【魔女精粹】，每次失败+70【魔女精粹】",
+     "effect_tokens": null
     }
    ]
   },
@@ -1718,31 +4248,119 @@
    "name": "峡谷怪物",
    "category": "origin",
    "description": "",
+   "description_tokens": null,
    "image": "assets/optimized/s18__pbe/traits/race_9.webp",
    "breakpoints": [
     {
      "min_units": 3,
      "max_units": 4,
      "style": "bronze",
-     "effect": "使用【阿尔法印记】为1个【峡谷野兽】提供独特的增益"
+     "effect": "使用【阿尔法印记】为1个【峡谷野兽】提供独特的增益",
+     "effect_tokens": null
     },
     {
      "min_units": 5,
      "max_units": 6,
      "style": "silver",
-     "effect": "每3场对战后，你的下一次商店会被【峡谷野兽】们占领。"
+     "effect": "每3场对战后，你的下一次商店会被【峡谷野兽】们占领。",
+     "effect_tokens": null
     },
     {
      "min_units": 7,
      "max_units": 9,
      "style": "gold",
-     "effect": "战斗开始时及之后每5秒，【峡谷野兽】们成长并获得\n6%【AD】6%【AP】6%【AS】\n+6【ARMOR】+6【MR】+60【HP】+1【MANAREGEN】"
+     "effect": "战斗开始时及之后每5秒，【峡谷野兽】们成长并获得\n6%【AD】6%【AP】6%【AS】\n+6【ARMOR】+6【MR】+60【HP】+1【MANAREGEN】",
+     "effect_tokens": [
+      {
+       "type": "text",
+       "value": "战斗开始时及之后每5秒，【峡谷野兽】们成长并获得\n6%"
+      },
+      {
+       "type": "stat",
+       "stat": "attack_damage",
+       "kind": "ad",
+       "label": "物理加成",
+       "source_label": "AD",
+       "icon": "ad",
+       "fallback": "AD"
+      },
+      {
+       "type": "text",
+       "value": "6%"
+      },
+      {
+       "type": "stat",
+       "stat": "ability_power",
+       "kind": "ap",
+       "label": "法术加成",
+       "source_label": "AP",
+       "icon": "ap",
+       "fallback": "AP"
+      },
+      {
+       "type": "text",
+       "value": "6%"
+      },
+      {
+       "type": "stat",
+       "stat": "attack_speed",
+       "kind": "attack-speed",
+       "label": "攻击速度",
+       "source_label": "AS",
+       "icon": "as",
+       "fallback": "AS"
+      },
+      {
+       "type": "text",
+       "value": "\n+6"
+      },
+      {
+       "type": "stat",
+       "stat": "armor",
+       "kind": "armor",
+       "label": "护甲",
+       "source_label": "ARMOR",
+       "icon": "armor",
+       "fallback": "AR"
+      },
+      {
+       "type": "text",
+       "value": "+6"
+      },
+      {
+       "type": "stat",
+       "stat": "magic_resist",
+       "kind": "magic-resist",
+       "label": "魔法抗性",
+       "source_label": "MR",
+       "icon": "mr",
+       "fallback": "MR"
+      },
+      {
+       "type": "text",
+       "value": "+60"
+      },
+      {
+       "type": "stat",
+       "stat": "health",
+       "kind": "health",
+       "label": "生命值",
+       "source_label": "HP",
+       "icon": "hp",
+       "fallback": "HP"
+      },
+      {
+       "type": "text",
+       "value": "+1【MANAREGEN】"
+      }
+     ]
     },
     {
      "min_units": 10,
      "max_units": null,
      "style": "gold",
-     "effect": "+2最大队伍规模"
+     "effect": "+2最大队伍规模",
+     "effect_tokens": null
     }
    ]
   },
@@ -1751,19 +4369,22 @@
    "name": "宿敌",
    "category": "origin",
    "description": "",
+   "description_tokens": null,
    "image": "assets/optimized/s18__pbe/traits/race_12.webp",
    "breakpoints": [
     {
      "min_units": 1,
      "max_units": 1,
      "style": "gold",
-     "effect": "仅在登场了1个【宿敌】时激活。\n【宿敌】们收集参与击杀数，如果参与了对另一名【宿敌】的击杀，获得+3参与击杀数。"
+     "effect": "仅在登场了1个【宿敌】时激活。\n【宿敌】们收集参与击杀数，如果参与了对另一名【宿敌】的击杀，获得+3参与击杀数。",
+     "effect_tokens": null
     },
     {
      "min_units": 2,
      "max_units": null,
      "style": "gold",
-     "effect": "【宿敌】们可以同时登场。当【卡兹克】通过技能获得法力值，【雷恩加尔】也获得该法力值的100%。当【雷恩加尔】通过技能治疗生命值，【卡兹克】也治疗该生命值的50%。"
+     "effect": "【宿敌】们可以同时登场。当【卡兹克】通过技能获得法力值，【雷恩加尔】也获得该法力值的100%。当【雷恩加尔】通过技能治疗生命值，【卡兹克】也治疗该生命值的50%。",
+     "effect_tokens": null
     }
    ]
   },
@@ -1772,19 +4393,22 @@
    "name": "仙灵",
    "category": "origin",
    "description": "你的队伍的伤害、治疗强度和护盾强度会吸引【皮克斯仙灵】。\n每个【皮克斯仙灵】为【花仙子】弈子们提供物理加成和法术加成，在其生命值降至50%时，他们基于【皮克斯仙灵】数量治疗生命值。",
+   "description_tokens": null,
    "image": "assets/optimized/s18__pbe/traits/race_13.webp",
    "breakpoints": [
     {
      "min_units": 2,
      "max_units": 3,
      "style": "bronze",
-     "effect": "5%和2%治疗强度。"
+     "effect": "5%和2%治疗强度。",
+     "effect_tokens": null
     },
     {
      "min_units": 4,
      "max_units": null,
      "style": "gold",
-     "effect": "8%和4%治疗强度。在吸引了7个【皮克斯仙灵】后，转而开始吸引可提供金币的【黄金皮克斯仙灵】。"
+     "effect": "8%和4%治疗强度。在吸引了7个【皮克斯仙灵】后，转而开始吸引可提供金币的【黄金皮克斯仙灵】。",
+     "effect_tokens": null
     }
    ]
   },
@@ -1793,19 +4417,22 @@
    "name": "远古",
    "category": "origin",
    "description": "在四种【兽灵赐福】中选择一项获取。",
+   "description_tokens": null,
    "image": "assets/optimized/s18__pbe/traits/race_17.webp",
    "breakpoints": [
     {
      "min_units": 2,
      "max_units": 3,
      "style": "bronze",
-     "effect": "选择一个赐福"
+     "effect": "选择一个赐福",
+     "effect_tokens": null
     },
     {
      "min_units": 4,
      "max_units": null,
      "style": "gold",
-     "effect": "选择另一个赐福"
+     "effect": "选择另一个赐福",
+     "effect_tokens": null
     }
    ]
   },
@@ -1814,19 +4441,22 @@
    "name": "绝命花妖",
    "category": "origin",
    "description": "【绝命花妖】弈子们在参与击杀时收割敌人，获得：",
+   "description_tokens": null,
    "image": "assets/optimized/s18__pbe/traits/race_18.webp",
    "breakpoints": [
     {
      "min_units": 1,
      "max_units": 1,
      "style": "bronze",
-     "effect": "10法力值"
+     "effect": "10法力值",
+     "effect_tokens": null
     },
     {
      "min_units": 2,
      "max_units": null,
      "style": "gold",
-     "effect": "并为最低生命值的的友军治疗8%最大生命值。"
+     "effect": "并为最低生命值的的友军治疗8%最大生命值。",
+     "effect_tokens": null
     }
    ]
   },
@@ -1835,13 +4465,55 @@
    "name": "日光射线",
    "category": "origin",
    "description": "",
+   "description_tokens": null,
    "image": "assets/optimized/s18__pbe/traits/race_11.webp",
    "breakpoints": [
     {
      "min_units": 3,
      "max_units": null,
      "style": "gold",
-     "effect": "你的弈子们获得5%最大生命值护盾，并造成7%额外魔法伤害。每有1个不同的3星弈子，获得额外加成：\n1：每有1个3星弈子，提升2.5%护盾值和魔法伤害。\n3：25%【AS】和15【ARMOR】【MR】\n5：将50%额外魔法伤害转换为真实伤害。\n8：在战斗期间内每过1秒，1个3星弈子飞升至4星。"
+     "effect": "你的弈子们获得5%最大生命值护盾，并造成7%额外魔法伤害。每有1个不同的3星弈子，获得额外加成：\n1：每有1个3星弈子，提升2.5%护盾值和魔法伤害。\n3：25%【AS】和15【ARMOR】【MR】\n5：将50%额外魔法伤害转换为真实伤害。\n8：在战斗期间内每过1秒，1个3星弈子飞升至4星。",
+     "effect_tokens": [
+      {
+       "type": "text",
+       "value": "你的弈子们获得5%最大生命值护盾，并造成7%额外魔法伤害。每有1个不同的3星弈子，获得额外加成：\n1：每有1个3星弈子，提升2.5%护盾值和魔法伤害。\n3：25%"
+      },
+      {
+       "type": "stat",
+       "stat": "attack_speed",
+       "kind": "attack-speed",
+       "label": "攻击速度",
+       "source_label": "AS",
+       "icon": "as",
+       "fallback": "AS"
+      },
+      {
+       "type": "text",
+       "value": "和15"
+      },
+      {
+       "type": "stat",
+       "stat": "armor",
+       "kind": "armor",
+       "label": "护甲",
+       "source_label": "ARMOR",
+       "icon": "armor",
+       "fallback": "AR"
+      },
+      {
+       "type": "stat",
+       "stat": "magic_resist",
+       "kind": "magic-resist",
+       "label": "魔法抗性",
+       "source_label": "MR",
+       "icon": "mr",
+       "fallback": "MR"
+      },
+      {
+       "type": "text",
+       "value": "\n5：将50%额外魔法伤害转换为真实伤害。\n8：在战斗期间内每过1秒，1个3星弈子飞升至4星。"
+      }
+     ]
     }
    ]
   },
@@ -1850,31 +4522,144 @@
    "name": "月光射线",
    "category": "origin",
    "description": "【月蚀骑士】弈子们及其邻格友军获得攻击速度和法术加成。【月蚀骑士】弈子们额外获得100%。",
+   "description_tokens": null,
    "image": "assets/optimized/s18__pbe/traits/race_5.webp",
    "breakpoints": [
     {
      "min_units": 2,
      "max_units": 2,
      "style": "bronze",
-     "effect": "7%【AS】，7%【AP】"
+     "effect": "7%【AS】，7%【AP】",
+     "effect_tokens": [
+      {
+       "type": "text",
+       "value": "7%"
+      },
+      {
+       "type": "stat",
+       "stat": "attack_speed",
+       "kind": "attack-speed",
+       "label": "攻击速度",
+       "source_label": "AS",
+       "icon": "as",
+       "fallback": "AS"
+      },
+      {
+       "type": "text",
+       "value": "，7%"
+      },
+      {
+       "type": "stat",
+       "stat": "ability_power",
+       "kind": "ap",
+       "label": "法术加成",
+       "source_label": "AP",
+       "icon": "ap",
+       "fallback": "AP"
+      }
+     ]
     },
     {
      "min_units": 3,
      "max_units": 3,
      "style": "silver",
-     "effect": "10%【AS】，10%【AP】"
+     "effect": "10%【AS】，10%【AP】",
+     "effect_tokens": [
+      {
+       "type": "text",
+       "value": "10%"
+      },
+      {
+       "type": "stat",
+       "stat": "attack_speed",
+       "kind": "attack-speed",
+       "label": "攻击速度",
+       "source_label": "AS",
+       "icon": "as",
+       "fallback": "AS"
+      },
+      {
+       "type": "text",
+       "value": "，10%"
+      },
+      {
+       "type": "stat",
+       "stat": "ability_power",
+       "kind": "ap",
+       "label": "法术加成",
+       "source_label": "AP",
+       "icon": "ap",
+       "fallback": "AP"
+      }
+     ]
     },
     {
      "min_units": 4,
      "max_units": 4,
      "style": "silver",
-     "effect": "15%【AS】，15%【AP】"
+     "effect": "15%【AS】，15%【AP】",
+     "effect_tokens": [
+      {
+       "type": "text",
+       "value": "15%"
+      },
+      {
+       "type": "stat",
+       "stat": "attack_speed",
+       "kind": "attack-speed",
+       "label": "攻击速度",
+       "source_label": "AS",
+       "icon": "as",
+       "fallback": "AS"
+      },
+      {
+       "type": "text",
+       "value": "，15%"
+      },
+      {
+       "type": "stat",
+       "stat": "ability_power",
+       "kind": "ap",
+       "label": "法术加成",
+       "source_label": "AP",
+       "icon": "ap",
+       "fallback": "AP"
+      }
+     ]
     },
     {
      "min_units": 5,
      "max_units": null,
      "style": "gold",
-     "effect": "20%【AS】，20%【AP】"
+     "effect": "20%【AS】，20%【AP】",
+     "effect_tokens": [
+      {
+       "type": "text",
+       "value": "20%"
+      },
+      {
+       "type": "stat",
+       "stat": "attack_speed",
+       "kind": "attack-speed",
+       "label": "攻击速度",
+       "source_label": "AS",
+       "icon": "as",
+       "fallback": "AS"
+      },
+      {
+       "type": "text",
+       "value": "，20%"
+      },
+      {
+       "type": "stat",
+       "stat": "ability_power",
+       "kind": "ap",
+       "label": "法术加成",
+       "source_label": "AP",
+       "icon": "ap",
+       "fallback": "AP"
+      }
+     ]
     }
    ]
   },
@@ -1883,13 +4668,15 @@
    "name": "蚀",
    "category": "origin",
    "description": "",
+   "description_tokens": null,
    "image": "assets/optimized/s18__pbe/traits/race_23.webp",
    "breakpoints": [
     {
      "min_units": 1,
      "max_units": null,
      "style": "gold",
-     "effect": "战斗开始10秒后，【日月之蚀】处决最低生命值的敌人，每3秒重复一次。"
+     "effect": "战斗开始10秒后，【日月之蚀】处决最低生命值的敌人，每3秒重复一次。",
+     "effect_tokens": null
     }
    ]
   },
@@ -1898,13 +4685,15 @@
    "name": "苛性",
    "category": "origin",
    "description": "",
+   "description_tokens": null,
    "image": "assets/optimized/s18__pbe/traits/race_21.webp",
    "breakpoints": [
     {
      "min_units": 1,
      "max_units": null,
      "style": "gold",
-     "effect": "【腐蚀巨口】的伤害会对敌人施加30%魔抗击碎与护甲击碎，持续4秒。"
+     "effect": "【腐蚀巨口】的伤害会对敌人施加30%魔抗击碎与护甲击碎，持续4秒。",
+     "effect_tokens": null
     }
    ]
   },
@@ -1913,13 +4702,15 @@
    "name": "巨岩龙",
    "category": "origin",
    "description": "",
+   "description_tokens": null,
    "image": "assets/optimized/s18__pbe/traits/race_14.webp",
    "breakpoints": [
     {
      "min_units": 1,
      "max_units": null,
      "style": "gold",
-     "effect": "每成为1名敌人的目标，【魔石巨兽】获得10护甲和魔法抗性。"
+     "effect": "每成为1名敌人的目标，【魔石巨兽】获得10护甲和魔法抗性。",
+     "effect_tokens": null
     }
    ]
   },
@@ -1928,13 +4719,15 @@
    "name": "翡翠化身",
    "category": "origin",
    "description": "",
+   "description_tokens": null,
    "image": "assets/optimized/s18__pbe/traits/race_22.webp",
    "breakpoints": [
     {
      "min_units": 1,
      "max_units": null,
      "style": "gold",
-     "effect": "将1名友军拖至你最强大的那个【塔里克】身上即可将他们进行配对，通过【塔里克】的技能为友军提供强大的加成。"
+     "effect": "将1名友军拖至你最强大的那个【塔里克】身上即可将他们进行配对，通过【塔里克】的技能为友军提供强大的加成。",
+     "effect_tokens": null
     }
    ]
   },
@@ -1943,13 +4736,15 @@
    "name": "先前增长",
    "category": "origin",
    "description": "",
+   "description_tokens": null,
    "image": "assets/optimized/s18__pbe/traits/race_15.webp",
    "breakpoints": [
     {
      "min_units": 1,
      "max_units": null,
      "style": "gold",
-     "effect": "每当3格内的1名敌人阵亡时，获得30永久最大生命值。\n当前：0"
+     "effect": "每当3格内的1名敌人阵亡时，获得30永久最大生命值。\n当前：0",
+     "effect_tokens": null
     }
    ]
   },
@@ -1958,13 +4753,15 @@
    "name": "荆棘之兴",
    "category": "origin",
    "description": "",
+   "description_tokens": null,
    "image": "assets/optimized/s18__pbe/traits/race_16.webp",
    "breakpoints": [
     {
      "min_units": 1,
      "max_units": null,
      "style": "gold",
-     "effect": "你的队伍获得5%伤害减免，在6或以上株【婕拉】的植物存活时，该数值提升至10%。"
+     "effect": "你的队伍获得5%伤害减免，在6或以上株【婕拉】的植物存活时，该数值提升至10%。",
+     "effect_tokens": null
     }
    ]
   },
@@ -1973,13 +4770,15 @@
    "name": "翠神",
    "category": "origin",
    "description": "",
+   "description_tokens": null,
    "image": "assets/optimized/s18__pbe/traits/race_10.webp",
    "breakpoints": [
     {
      "min_units": 1,
      "max_units": null,
      "style": "gold",
-     "effect": "你最强大的那个【艾翁】在施放技能时获得1颗种子，且每场对战额外获得3颗。【艾翁】可消耗5颗种子在你的棋盘上培育1个格子，为格内的住民提供加成。\n种子数：0/5\n当前生物群落："
+     "effect": "你最强大的那个【艾翁】在施放技能时获得1颗种子，且每场对战额外获得3颗。【艾翁】可消耗5颗种子在你的棋盘上培育1个格子，为格内的住民提供加成。\n种子数：0/5\n当前生物群落：",
+     "effect_tokens": null
     }
    ]
   },
@@ -1988,13 +4787,15 @@
    "name": "调和",
    "category": "origin",
    "description": "",
+   "description_tokens": null,
    "image": "assets/optimized/s18__pbe/traits/race_4.webp",
    "breakpoints": [
     {
      "min_units": 1,
      "max_units": null,
      "style": "gold",
-     "effect": "你最强大的那个【拉露恩】在每一次施放技能后，推进一次【月相】。当【月相】在弦月或以下时，你的队伍获得7%伤害减免。在弦月之上时，你的队伍获得7%伤害增幅。"
+     "effect": "你最强大的那个【拉露恩】在每一次施放技能后，推进一次【月相】。当【月相】在弦月或以下时，你的队伍获得7%伤害减免。在弦月之上时，你的队伍获得7%伤害增幅。",
+     "effect_tokens": null
     }
    ]
   },
@@ -2003,13 +4804,15 @@
    "name": "赏金猎人",
    "category": "origin",
    "description": "",
+   "description_tokens": null,
    "image": "assets/optimized/s18__pbe/traits/race_20.webp",
    "breakpoints": [
     {
      "min_units": 1,
      "max_units": null,
      "style": "gold",
-     "effect": "选择1个【悬赏令】。你最强大的那个【德莱文】可以推进【悬赏令】进度以获取其奖励。在完成1个【悬赏令】后，能够选择另一个。"
+     "effect": "选择1个【悬赏令】。你最强大的那个【德莱文】可以推进【悬赏令】进度以获取其奖励。在完成1个【悬赏令】后，能够选择另一个。",
+     "effect_tokens": null
     }
    ]
   },
@@ -2018,13 +4821,15 @@
    "name": "化身",
    "category": "origin",
    "description": "",
+   "description_tokens": null,
    "image": "assets/optimized/s18__pbe/traits/race_19.webp",
    "breakpoints": [
     {
      "min_units": 1,
      "max_units": null,
      "style": "gold",
-     "effect": "在备战席或棋盘上拥有1个【大元素使】时，会将你商店中所有其他【大元素使】转换为和这个【大元素使】相同的羁绊。\n【大元素使】为选定的羁绊提供+2计数。"
+     "effect": "在备战席或棋盘上拥有1个【大元素使】时，会将你商店中所有其他【大元素使】转换为和这个【大元素使】相同的羁绊。\n【大元素使】为选定的羁绊提供+2计数。",
+     "effect_tokens": null
     }
    ]
   },
@@ -2033,13 +4838,15 @@
    "name": "顶端掠食者",
    "category": "origin",
    "description": "",
+   "description_tokens": null,
    "image": "assets/optimized/s18__pbe/traits/race_8.webp",
    "breakpoints": [
     {
      "min_units": 1,
      "max_units": null,
      "style": "gold",
-     "effect": "【远古巨龙】占用2个弈子栏位，并提供+2【峡谷野兽】羁绊。"
+     "effect": "【远古巨龙】占用2个弈子栏位，并提供+2【峡谷野兽】羁绊。",
+     "effect_tokens": null
     }
    ]
   },
@@ -2048,25 +4855,101 @@
    "name": "法师",
    "category": "class",
    "description": "你的队伍获得10%法术加成。【法师】们获得更多，每当1个【法师】施放技能时还会额外提升法术加成。",
+   "description_tokens": null,
    "image": "assets/optimized/s18__pbe/traits/job_1.webp",
    "breakpoints": [
     {
      "min_units": 2,
      "max_units": 3,
      "style": "bronze",
-     "effect": "10%【AP】，每次施放技能+1%"
+     "effect": "10%【AP】，每次施放技能+1%",
+     "effect_tokens": [
+      {
+       "type": "text",
+       "value": "10%"
+      },
+      {
+       "type": "stat",
+       "stat": "ability_power",
+       "kind": "ap",
+       "label": "法术加成",
+       "source_label": "AP",
+       "icon": "ap",
+       "fallback": "AP"
+      },
+      {
+       "type": "text",
+       "value": "，每次施放技能+1%"
+      }
+     ]
     },
     {
      "min_units": 4,
      "max_units": 5,
      "style": "silver",
-     "effect": "30%【AP】，每次施放技能+1%【AP】"
+     "effect": "30%【AP】，每次施放技能+1%【AP】",
+     "effect_tokens": [
+      {
+       "type": "text",
+       "value": "30%"
+      },
+      {
+       "type": "stat",
+       "stat": "ability_power",
+       "kind": "ap",
+       "label": "法术加成",
+       "source_label": "AP",
+       "icon": "ap",
+       "fallback": "AP"
+      },
+      {
+       "type": "text",
+       "value": "，每次施放技能+1%"
+      },
+      {
+       "type": "stat",
+       "stat": "ability_power",
+       "kind": "ap",
+       "label": "法术加成",
+       "source_label": "AP",
+       "icon": "ap",
+       "fallback": "AP"
+      }
+     ]
     },
     {
      "min_units": 6,
      "max_units": null,
      "style": "gold",
-     "effect": "55%【AP】，每次施放技能+2%【AP】"
+     "effect": "55%【AP】，每次施放技能+2%【AP】",
+     "effect_tokens": [
+      {
+       "type": "text",
+       "value": "55%"
+      },
+      {
+       "type": "stat",
+       "stat": "ability_power",
+       "kind": "ap",
+       "label": "法术加成",
+       "source_label": "AP",
+       "icon": "ap",
+       "fallback": "AP"
+      },
+      {
+       "type": "text",
+       "value": "，每次施放技能+2%"
+      },
+      {
+       "type": "stat",
+       "stat": "ability_power",
+       "kind": "ap",
+       "label": "法术加成",
+       "source_label": "AP",
+       "icon": "ap",
+       "fallback": "AP"
+      }
+     ]
     }
    ]
   },
@@ -2075,25 +4958,29 @@
    "name": "适应者",
    "category": "class",
    "description": "固有能力：【魔战士】的技能将根据其物理加成和法术加成中较高的属性转换形态。\n【魔战士】们获得法术加成或物理加成，取决于两种加成中哪一者更高。",
+   "description_tokens": null,
    "image": "assets/optimized/s18__pbe/traits/job_2.webp",
    "breakpoints": [
     {
      "min_units": 2,
      "max_units": 2,
      "style": "bronze",
-     "effect": "20%或"
+     "effect": "20%或",
+     "effect_tokens": null
     },
     {
      "min_units": 3,
      "max_units": 3,
      "style": "silver",
-     "effect": "30%或"
+     "effect": "30%或",
+     "effect_tokens": null
     },
     {
      "min_units": 4,
      "max_units": null,
      "style": "gold",
-     "effect": "50%或"
+     "effect": "50%或",
+     "effect_tokens": null
     }
    ]
   },
@@ -2102,25 +4989,29 @@
    "name": "劫掠梦魇",
    "category": "class",
    "description": "【劫掠梦魇】们获得10%全能吸血。此外，【劫掠梦魇】们造成额外伤害，对低于50%生命值的单位们翻倍。",
+   "description_tokens": null,
    "image": "assets/optimized/s18__pbe/traits/job_3.webp",
    "breakpoints": [
     {
      "min_units": 2,
      "max_units": 3,
      "style": "bronze",
-     "effect": "12%额外伤害"
+     "effect": "12%额外伤害",
+     "effect_tokens": null
     },
     {
      "min_units": 4,
      "max_units": 5,
      "style": "silver",
-     "effect": "25%额外伤害"
+     "effect": "25%额外伤害",
+     "effect_tokens": null
     },
     {
      "min_units": 6,
      "max_units": null,
      "style": "gold",
-     "effect": "40%额外伤害"
+     "effect": "40%额外伤害",
+     "effect_tokens": null
     }
    ]
   },
@@ -2129,25 +5020,71 @@
    "name": "斗士",
    "category": "class",
    "description": "你的队伍获得120最大生命值。【斗士】们获得更多。",
+   "description_tokens": null,
    "image": "assets/optimized/s18__pbe/traits/job_4.webp",
    "breakpoints": [
     {
      "min_units": 2,
      "max_units": 3,
      "style": "bronze",
-     "effect": "25%【HP】"
+     "effect": "25%【HP】",
+     "effect_tokens": [
+      {
+       "type": "text",
+       "value": "25%"
+      },
+      {
+       "type": "stat",
+       "stat": "health",
+       "kind": "health",
+       "label": "生命值",
+       "source_label": "HP",
+       "icon": "hp",
+       "fallback": "HP"
+      }
+     ]
     },
     {
      "min_units": 4,
      "max_units": 5,
      "style": "silver",
-     "effect": "40%【HP】"
+     "effect": "40%【HP】",
+     "effect_tokens": [
+      {
+       "type": "text",
+       "value": "40%"
+      },
+      {
+       "type": "stat",
+       "stat": "health",
+       "kind": "health",
+       "label": "生命值",
+       "source_label": "HP",
+       "icon": "hp",
+       "fallback": "HP"
+      }
+     ]
     },
     {
      "min_units": 6,
      "max_units": null,
      "style": "gold",
-     "effect": "65%【HP】"
+     "effect": "65%【HP】",
+     "effect_tokens": [
+      {
+       "type": "text",
+       "value": "65%"
+      },
+      {
+       "type": "stat",
+       "stat": "health",
+       "kind": "health",
+       "label": "生命值",
+       "source_label": "HP",
+       "icon": "hp",
+       "fallback": "HP"
+      }
+     ]
     }
    ]
   },
@@ -2156,31 +5093,92 @@
    "name": "迅捷射手",
    "category": "class",
    "description": "你的队伍获得10%攻击速度。【迅捷射手】弈子们每次攻击还会获得额外攻击速度，至多叠加10层。",
+   "description_tokens": null,
    "image": "assets/optimized/s18__pbe/traits/job_5.webp",
    "breakpoints": [
     {
      "min_units": 2,
      "max_units": 2,
      "style": "bronze",
-     "effect": "每次攻击+3%【AS】"
+     "effect": "每次攻击+3%【AS】",
+     "effect_tokens": [
+      {
+       "type": "text",
+       "value": "每次攻击+3%"
+      },
+      {
+       "type": "stat",
+       "stat": "attack_speed",
+       "kind": "attack-speed",
+       "label": "攻击速度",
+       "source_label": "AS",
+       "icon": "as",
+       "fallback": "AS"
+      }
+     ]
     },
     {
      "min_units": 3,
      "max_units": 3,
      "style": "silver",
-     "effect": "每次攻击+5%【AS】"
+     "effect": "每次攻击+5%【AS】",
+     "effect_tokens": [
+      {
+       "type": "text",
+       "value": "每次攻击+5%"
+      },
+      {
+       "type": "stat",
+       "stat": "attack_speed",
+       "kind": "attack-speed",
+       "label": "攻击速度",
+       "source_label": "AS",
+       "icon": "as",
+       "fallback": "AS"
+      }
+     ]
     },
     {
      "min_units": 4,
      "max_units": 4,
      "style": "silver",
-     "effect": "每次攻击+9%【AS】"
+     "effect": "每次攻击+9%【AS】",
+     "effect_tokens": [
+      {
+       "type": "text",
+       "value": "每次攻击+9%"
+      },
+      {
+       "type": "stat",
+       "stat": "attack_speed",
+       "kind": "attack-speed",
+       "label": "攻击速度",
+       "source_label": "AS",
+       "icon": "as",
+       "fallback": "AS"
+      }
+     ]
     },
     {
      "min_units": 5,
      "max_units": null,
      "style": "gold",
-     "effect": "每次攻击+15%【AS】"
+     "effect": "每次攻击+15%【AS】",
+     "effect_tokens": [
+      {
+       "type": "text",
+       "value": "每次攻击+15%"
+      },
+      {
+       "type": "stat",
+       "stat": "attack_speed",
+       "kind": "attack-speed",
+       "label": "攻击速度",
+       "source_label": "AS",
+       "icon": "as",
+       "fallback": "AS"
+      }
+     ]
     }
    ]
   },
@@ -2189,31 +5187,92 @@
    "name": "猎手",
    "category": "class",
    "description": "【猎手】们获得物理加成。如果1个【猎手】在4秒内没有切换过目标，他们获得10%伤害增幅。",
+   "description_tokens": null,
    "image": "assets/optimized/s18__pbe/traits/job_6.webp",
    "breakpoints": [
     {
      "min_units": 2,
      "max_units": 2,
      "style": "bronze",
-     "effect": "15%【AD】"
+     "effect": "15%【AD】",
+     "effect_tokens": [
+      {
+       "type": "text",
+       "value": "15%"
+      },
+      {
+       "type": "stat",
+       "stat": "attack_damage",
+       "kind": "ad",
+       "label": "物理加成",
+       "source_label": "AD",
+       "icon": "ad",
+       "fallback": "AD"
+      }
+     ]
     },
     {
      "min_units": 3,
      "max_units": 3,
      "style": "silver",
-     "effect": "25%【AD】"
+     "effect": "25%【AD】",
+     "effect_tokens": [
+      {
+       "type": "text",
+       "value": "25%"
+      },
+      {
+       "type": "stat",
+       "stat": "attack_damage",
+       "kind": "ad",
+       "label": "物理加成",
+       "source_label": "AD",
+       "icon": "ad",
+       "fallback": "AD"
+      }
+     ]
     },
     {
      "min_units": 4,
      "max_units": 4,
      "style": "silver",
-     "effect": "40%【AD】"
+     "effect": "40%【AD】",
+     "effect_tokens": [
+      {
+       "type": "text",
+       "value": "40%"
+      },
+      {
+       "type": "stat",
+       "stat": "attack_damage",
+       "kind": "ad",
+       "label": "物理加成",
+       "source_label": "AD",
+       "icon": "ad",
+       "fallback": "AD"
+      }
+     ]
     },
     {
      "min_units": 5,
      "max_units": null,
      "style": "gold",
-     "effect": "60%【AD】"
+     "effect": "60%【AD】",
+     "effect_tokens": [
+      {
+       "type": "text",
+       "value": "60%"
+      },
+      {
+       "type": "stat",
+       "stat": "attack_damage",
+       "kind": "ad",
+       "label": "物理加成",
+       "source_label": "AD",
+       "icon": "ad",
+       "fallback": "AD"
+      }
+     ]
     }
    ]
   },
@@ -2222,25 +5281,47 @@
    "name": "裁决使",
    "category": "class",
    "description": "",
+   "description_tokens": null,
    "image": "assets/optimized/s18__pbe/traits/job_7.webp",
    "breakpoints": [
     {
      "min_units": 2,
      "max_units": 2,
      "style": "bronze",
-     "effect": "【裁决使】们获得【技能暴击】和15%暴击几率。"
+     "effect": "【裁决使】们获得【技能暴击】和15%暴击几率。",
+     "effect_tokens": [
+      {
+       "type": "text",
+       "value": "【裁决使】们获得"
+      },
+      {
+       "type": "stat",
+       "stat": "skill_critical_strike",
+       "kind": "skill-crit",
+       "label": "技能暴击",
+       "source_label": "技能暴击",
+       "icon": "crit",
+       "fallback": "CRIT"
+      },
+      {
+       "type": "text",
+       "value": "和15%暴击几率。"
+      }
+     ]
     },
     {
      "min_units": 3,
      "max_units": 3,
      "style": "silver",
-     "effect": "此外，敌人会被施加流血效果，在3秒内持续受到30%额外真实伤害。"
+     "effect": "此外，敌人会被施加流血效果，在3秒内持续受到30%额外真实伤害。",
+     "effect_tokens": null
     },
     {
      "min_units": 4,
      "max_units": null,
      "style": "gold",
-     "effect": "流血效果造成的伤害提升50%。"
+     "effect": "流血效果造成的伤害提升50%。",
+     "effect_tokens": null
     }
    ]
   },
@@ -2249,19 +5330,22 @@
    "name": "召唤使",
    "category": "class",
    "description": "【召唤师】们会以不同的方式强化其召唤物。\n【约里克】：+30%生命值\n【阿兹尔】：+45%伤害\n【锋喙鸟】：+45%伤害\n【婕拉】：+4植物攻击次数",
+   "description_tokens": null,
    "image": "assets/optimized/s18__pbe/traits/job_8.webp",
    "breakpoints": [
     {
      "min_units": 2,
      "max_units": 2,
      "style": "bronze",
-     "effect": "强化召唤物"
+     "effect": "强化召唤物",
+     "effect_tokens": null
     },
     {
      "min_units": 3,
      "max_units": null,
      "style": "gold",
-     "effect": "每种效果加成提升50%"
+     "effect": "每种效果加成提升50%",
+     "effect_tokens": null
     }
    ]
   },
@@ -2270,25 +5354,29 @@
    "name": "重装战士",
    "category": "class",
    "description": "战斗开始时及降至50%生命值时，【前卫】们获得持续10秒的最大生命值护盾。",
+   "description_tokens": null,
    "image": "assets/optimized/s18__pbe/traits/job_9.webp",
    "breakpoints": [
     {
      "min_units": 2,
      "max_units": 3,
      "style": "bronze",
-     "effect": "18%最大生命值"
+     "effect": "18%最大生命值",
+     "effect_tokens": null
     },
     {
      "min_units": 4,
      "max_units": 5,
      "style": "silver",
-     "effect": "35%最大生命值"
+     "effect": "35%最大生命值",
+     "effect_tokens": null
     },
     {
      "min_units": 6,
      "max_units": null,
      "style": "gold",
-     "effect": "45%最大生命值。在拥有护盾时获得8%伤害减免。"
+     "effect": "45%最大生命值。在拥有护盾时获得8%伤害减免。",
+     "effect_tokens": null
     }
    ]
   },
@@ -2297,25 +5385,29 @@
    "name": "护卫",
    "category": "class",
    "description": "你的队伍获得12护甲和魔法抗性。【护卫】获得更多。",
+   "description_tokens": null,
    "image": "assets/optimized/s18__pbe/traits/job_10.webp",
    "breakpoints": [
     {
      "min_units": 2,
      "max_units": 3,
      "style": "bronze",
-     "effect": "25"
+     "effect": "25",
+     "effect_tokens": null
     },
     {
      "min_units": 4,
      "max_units": 5,
      "style": "silver",
-     "effect": "55"
+     "effect": "55",
+     "effect_tokens": null
     },
     {
      "min_units": 6,
      "max_units": null,
      "style": "gold",
-     "effect": "110"
+     "effect": "110",
+     "effect_tokens": null
     }
    ]
   },
@@ -2324,25 +5416,110 @@
    "name": "主宰",
    "category": "class",
    "description": "你的队伍获得伤害减免。【主宰】们获得更多。",
+   "description_tokens": null,
    "image": "assets/optimized/s18__pbe/traits/job_11.webp",
    "breakpoints": [
     {
      "min_units": 2,
      "max_units": 3,
      "style": "bronze",
-     "effect": "4%【DR】或20%【DR】"
+     "effect": "4%【DR】或20%【DR】",
+     "effect_tokens": [
+      {
+       "type": "text",
+       "value": "4%"
+      },
+      {
+       "type": "stat",
+       "stat": "damage_reduction",
+       "kind": "damage-reduction",
+       "label": "伤害减免",
+       "source_label": "DR",
+       "icon": null,
+       "fallback": "减伤"
+      },
+      {
+       "type": "text",
+       "value": "或20%"
+      },
+      {
+       "type": "stat",
+       "stat": "damage_reduction",
+       "kind": "damage-reduction",
+       "label": "伤害减免",
+       "source_label": "DR",
+       "icon": null,
+       "fallback": "减伤"
+      }
+     ]
     },
     {
      "min_units": 4,
      "max_units": 5,
      "style": "silver",
-     "effect": "6%【DR】或28%【DR】"
+     "effect": "6%【DR】或28%【DR】",
+     "effect_tokens": [
+      {
+       "type": "text",
+       "value": "6%"
+      },
+      {
+       "type": "stat",
+       "stat": "damage_reduction",
+       "kind": "damage-reduction",
+       "label": "伤害减免",
+       "source_label": "DR",
+       "icon": null,
+       "fallback": "减伤"
+      },
+      {
+       "type": "text",
+       "value": "或28%"
+      },
+      {
+       "type": "stat",
+       "stat": "damage_reduction",
+       "kind": "damage-reduction",
+       "label": "伤害减免",
+       "source_label": "DR",
+       "icon": null,
+       "fallback": "减伤"
+      }
+     ]
     },
     {
      "min_units": 6,
      "max_units": null,
      "style": "gold",
-     "effect": "8%【DR】或34%【DR】"
+     "effect": "8%【DR】或34%【DR】",
+     "effect_tokens": [
+      {
+       "type": "text",
+       "value": "8%"
+      },
+      {
+       "type": "stat",
+       "stat": "damage_reduction",
+       "kind": "damage-reduction",
+       "label": "伤害减免",
+       "source_label": "DR",
+       "icon": null,
+       "fallback": "减伤"
+      },
+      {
+       "type": "text",
+       "value": "或34%"
+      },
+      {
+       "type": "stat",
+       "stat": "damage_reduction",
+       "kind": "damage-reduction",
+       "label": "伤害减免",
+       "source_label": "DR",
+       "icon": null,
+       "fallback": "减伤"
+      }
+     ]
     }
    ]
   },
@@ -2351,31 +5528,36 @@
    "name": "神谕者",
    "category": "class",
    "description": "你的队伍获得法力回复，【神谕】获得更多。",
+   "description_tokens": null,
    "image": "assets/optimized/s18__pbe/traits/job_12.webp",
    "breakpoints": [
     {
      "min_units": 2,
      "max_units": 2,
      "style": "bronze",
-     "effect": "1【MANAREGEN】|2【MANAREGEN】"
+     "effect": "1【MANAREGEN】|2【MANAREGEN】",
+     "effect_tokens": null
     },
     {
      "min_units": 3,
      "max_units": 3,
      "style": "silver",
-     "effect": "1【MANAREGEN】|3【MANAREGEN】"
+     "effect": "1【MANAREGEN】|3【MANAREGEN】",
+     "effect_tokens": null
     },
     {
      "min_units": 4,
      "max_units": 4,
      "style": "silver",
-     "effect": "2【MANAREGEN】|5【MANAREGEN】"
+     "effect": "2【MANAREGEN】|5【MANAREGEN】",
+     "effect_tokens": null
     },
     {
      "min_units": 5,
      "max_units": null,
      "style": "gold",
-     "effect": "2【MANAREGEN】|8【MANAREGEN】"
+     "effect": "2【MANAREGEN】|8【MANAREGEN】",
+     "effect_tokens": null
     }
    ]
   }
@@ -2391,6 +5573,7 @@
      "id": "da_18_allones",
      "name": "全1费商店",
      "description": "刷新你的商店，使其充满1费弈子。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/shop_tier1.png",
      "data": {
       "key": "DA_18_AllOnes",
@@ -2414,6 +5597,7 @@
      "id": "da_18_earlyfix",
      "name": "防微杜渐",
      "description": "获得1个【装备重铸器】。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/misc_tier1.png",
      "data": {
       "key": "DA_18_EarlyFix",
@@ -2437,6 +5621,7 @@
      "id": "da_18_forestmage",
      "name": "森林魔法师",
      "description": "用【自然仙灵】填满你的商店。但是你只能购买1个！",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/misc_tier1.png",
      "data": {
       "key": "DA_18_ForestMage",
@@ -2462,6 +5647,7 @@
      "id": "da_18_lifedebt",
      "name": "以命为注",
      "description": "每失去10玩家生命值，获得1金币。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/goldxp_tier2.png",
      "data": {
       "key": "DA_18_LifeDebt",
@@ -2487,6 +5673,7 @@
      "id": "da_18_prolificpower",
      "name": "元气满满",
      "description": "你的弈子们获得8%物理加成和法术加成。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/combat_tier1.png",
      "data": {
       "key": "DA_18_ProlificPower",
@@ -2512,6 +5699,7 @@
      "id": "da_18_ultraascension",
      "name": "终极飞升",
      "description": "在25秒后，友军获得300%伤害增幅。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/combat_tier1.png",
      "data": {
       "key": "DA_18_UltraAscension",
@@ -2538,6 +5726,7 @@
      "id": "da_18_verdantvitality",
      "name": "绿意盎然",
      "description": "你的弈子们获得100生命值。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/combat_tier1.png",
      "data": {
       "key": "DA_18_VerdantVitality",
@@ -2563,6 +5752,7 @@
      "id": "da_abandonship18",
      "name": "弃船",
      "description": "出售你棋盘上和备战席的所有弈子，获得6金币，@XP@经验值和10次刷新。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/risky_tier3.png",
      "data": {
       "key": "DA_AbandonShip18",
@@ -2591,6 +5781,7 @@
      "id": "da_artifactinate18",
      "name": "神器化",
      "description": "失去3件基础装备，包括已合成为成装的基础装备。获得1个【神器锻造器】。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/item_tier2.png",
      "data": {
       "key": "DA_Artifactinate18",
@@ -2616,6 +5807,7 @@
      "id": "da_coinflip18",
      "name": "抛硬币",
      "description": "抛掷1枚硬币，如果硬币正面朝上，获得1金币。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/goldxp_tier1.png",
      "data": {
       "key": "DA_CoinFlip18",
@@ -2639,6 +5831,7 @@
      "id": "da_salvager18",
      "name": "打捞术",
      "description": "你备战席的任何弈子都会被移除装备，且这些装备会被拆解。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/misc_tier1.png",
      "data": {
       "key": "DA_Salvager18",
@@ -2659,6 +5852,7 @@
      "id": "da_salvagerupgrade18",
      "name": "打捞术",
      "description": "你备战席的任何弈子都会被移除装备，且这些装备会被拆解。获得2金币。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/misc_tier1.png",
      "data": {
       "key": "DA_SalvagerUpgrade18",
@@ -2679,6 +5873,7 @@
      "id": "da_peddler18",
      "name": "小贩",
      "description": "开启1个随机装备商店。随机装备的价值在0到14金币之间。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/item_tier2.png",
      "data": {
       "key": "DA_Peddler18",
@@ -2702,6 +5897,7 @@
      "id": "da_curiocart18",
      "name": "珍品摆摊车",
      "description": "开启1个装备商店。装备的价值在0到22金币之间。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/item_tier2.png",
      "data": {
       "key": "DA_CurioCart18",
@@ -2727,6 +5923,7 @@
      "id": "da_18_hummingbird",
      "name": "蜂鸟",
      "description": "你攻击速度最高的那个单位变小，获得20%攻击速度。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/combat_tier1.png",
      "data": {
       "key": "DA_18_Hummingbird",
@@ -2753,6 +5950,7 @@
      "id": "da_18_tatteredarmor",
      "name": "衣衫褴褛",
      "description": "对敌人施加30%魔抗击碎与护甲击碎，持续10秒。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/combat_tier1.png",
      "data": {
       "key": "DA_18_TatteredArmor",
@@ -2781,6 +5979,7 @@
      "id": "da_hugify18",
      "name": "巨大化",
      "description": "你生命值最高的那个单位成长，获得350生命值。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/combat_tier1.png",
      "data": {
       "key": "DA_Hugify18",
@@ -2807,6 +6006,7 @@
      "id": "da_18_alltwos",
      "name": "全2费商店",
      "description": "刷新你的商店，使其充满2费弈子。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/shop_tier1.png",
      "data": {
       "key": "DA_18_AllTwos",
@@ -2830,6 +6030,7 @@
      "id": "da_18_barkarmor",
      "name": "树皮护甲",
      "description": "你的弈子们获得150护盾值，持续10秒。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/combat_tier1.png",
      "data": {
       "key": "DA_18_BarkArmor",
@@ -2853,6 +6054,7 @@
      "id": "da_18_experienced",
      "name": "老练",
      "description": "获得2经验值。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/goldxp_tier1.png",
      "data": {
       "key": "DA_18_Experienced",
@@ -2876,6 +6078,7 @@
      "id": "da_18_fertilize",
      "name": "肥料",
      "description": "每有1名阵亡的敌人，获得1经验值。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/risky_tier1.png",
      "data": {
       "key": "DA_18_Fertilize",
@@ -2899,6 +6102,7 @@
      "id": "da_18_majorpolymorph",
      "name": "高阶变形术",
      "description": "你拥有的1个4费弈子永久变形为1个5费。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/risky_tier2.png",
      "data": {
       "key": "DA_18_MajorPolymorph",
@@ -2924,6 +6128,7 @@
      "id": "da_18_minorpolymorph",
      "name": "低阶变形术",
      "description": "你拥有的1个1费弈子永久变形为1个2费。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/risky_tier1.png",
      "data": {
       "key": "DA_18_MinorPolymorph",
@@ -2949,6 +6154,7 @@
      "id": "da_18_mitosis",
      "name": "有丝分裂",
      "description": "获得1个【微型英雄复制器】。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/champion_tier1.png",
      "data": {
       "key": "DA_18_Mitosis",
@@ -2972,6 +6178,7 @@
      "id": "da_18_pocketchange",
      "name": "零花钱",
      "description": "你的1星弈子们在阵亡时掉落1金币。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/goldxp_tier1.png",
      "data": {
       "key": "DA_18_PocketChange",
@@ -2997,6 +6204,7 @@
      "id": "da_18_polymorph",
      "name": "变形术",
      "description": "你拥有的2个1费弈子永久变形为1个3费。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/risky_tier1.png",
      "data": {
       "key": "DA_18_Polymorph",
@@ -3022,6 +6230,7 @@
      "id": "da_18_starfall",
      "name": "星落",
      "description": "你在这回合的最先6次刷新商店，会使费用最低的那个弈子会变为2星。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/shop_tier1.png",
      "data": {
       "key": "DA_18_Starfall",
@@ -3045,6 +6254,7 @@
      "id": "da_barter18",
      "name": "以物易物",
      "description": "在本回合内，你下次出售的弈子将以200%金币卖出。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/goldxp_tier1.png",
      "data": {
       "key": "DA_Barter18",
@@ -3068,6 +6278,7 @@
      "id": "da_bigboom18",
      "name": "大爆炸",
      "description": "第一名阵亡的友军会产生爆炸，造成25%最大生命值魔法伤害。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/combat_tier1.png",
      "data": {
       "key": "DA_BigBoom18",
@@ -3091,6 +6302,7 @@
      "id": "da_blastpotion18_charm",
      "name": "爆炸药水",
      "description": "获得1个临时的、可装备的【爆炸药水】。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/misc_tier1.png",
      "data": {
       "key": "DA_BlastPotion18_Charm",
@@ -3111,6 +6323,7 @@
      "id": "da_blastpotion18_upgrade_charm",
      "name": "爆炸药水",
      "description": "获得1个临时的、可装备的【光明版爆炸药水】。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/misc_tier1.png",
      "data": {
       "key": "DA_BlastPotion18_Upgrade_Charm",
@@ -3131,6 +6344,7 @@
      "id": "da_borrowedgear18",
      "name": "借来的装备",
      "description": "1个弈子获得1件临时推荐装备。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/combat_tier1.png",
      "data": {
       "key": "DA_BorrowedGear18",
@@ -3154,6 +6368,7 @@
      "id": "da_crystalball18",
      "name": "占卜水晶球",
      "description": "揭示你的下一个对手。你的队伍获得12%攻击速度。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/combat_tier1.png",
      "data": {
       "key": "DA_CrystalBall18",
@@ -3179,6 +6394,7 @@
      "id": "da_doodadjar18",
      "name": "小玩具罐",
      "description": "获得1个随机消耗品，其能提供双抗或生命值。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/misc_tier1.png",
      "data": {
       "key": "DA_DoodadJar18",
@@ -3202,6 +6418,7 @@
      "id": "da_essencetheft18",
      "name": "精粹掠夺者",
      "description": "本场对战额外获得50%【女巫精粹】。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/risky_tier1.png",
      "data": {
       "key": "DA_EssenceTheft18",
@@ -3227,6 +6444,7 @@
      "id": "da_flipfrenzy18",
      "name": "疯狂掷币人",
      "description": "抛掷1枚硬币，如果硬币正面朝上，获得1金币。重复抛掷，直至你抛掷的硬币反面朝上。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/risky_tier2.png",
      "data": {
       "key": "DA_FlipFrenzy18",
@@ -3250,6 +6468,7 @@
      "id": "da_foundfriend18",
      "name": "找个朋友",
      "description": "获得1个临时的携带着【巨人腰带】的【训练假人】。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/combat_tier1.png",
      "data": {
       "key": "DA_FoundFriend18",
@@ -3273,6 +6492,7 @@
      "id": "da_goldengoose18",
      "name": "招财猫",
      "description": "你造成伤害最高的那名友军，每造成1500伤害，获得1金币。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/goldxp_tier2.png",
      "data": {
       "key": "DA_GoldenGoose18",
@@ -3293,6 +6513,7 @@
      "id": "da_goldengooseupgrade18",
      "name": "招财猫",
      "description": "你造成伤害最高的那名友军，每造成900伤害，获得1金币。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/goldxp_tier2.png",
      "data": {
       "key": "DA_GoldenGooseUpgrade18",
@@ -3313,6 +6534,7 @@
      "id": "da_healthpotion18_charm",
      "name": "生命药水",
      "description": "获得1个临时的、可装备的【生命药水】。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/misc_tier1.png",
      "data": {
       "key": "DA_HealthPotion18_Charm",
@@ -3333,6 +6555,7 @@
      "id": "da_healthpotion18_upgrade_charm",
      "name": "生命药水",
      "description": "获得1个临时的、可装备的【光明版生命药水】。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/misc_tier1.png",
      "data": {
       "key": "DA_HealthPotion18_Upgrade_Charm",
@@ -3353,6 +6576,7 @@
      "id": "da_knickknackjar18",
      "name": "小饰品罐",
      "description": "获得1个随机消耗品，其能提供物理加成或法术加成。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/misc_tier1.png",
      "data": {
       "key": "DA_KnickKnackJar18",
@@ -3376,6 +6600,7 @@
      "id": "da_lesserchaos18",
      "name": "拼一把小的！",
      "description": "随机施放1个【自然仙灵】。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/misc_tier1.png",
      "data": {
       "key": "DA_LesserChaos18",
@@ -3399,6 +6624,7 @@
      "id": "da_manapotion18_charm",
      "name": "法力药水",
      "description": "获得1个临时的、可装备的【法力药水】。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/misc_tier1.png",
      "data": {
       "key": "DA_ManaPotion18_Charm",
@@ -3419,6 +6645,7 @@
      "id": "da_manapotion18_upgrade_charm",
      "name": "法力药水",
      "description": "获得1个临时的、可装备的【光明版法力药水】。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/misc_tier1.png",
      "data": {
       "key": "DA_ManaPotion18_Upgrade_Charm",
@@ -3439,6 +6666,7 @@
      "id": "da_rain18",
      "name": "泪雨",
      "description": "你的队伍获得1法力回复。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/combat_tier1.png",
      "data": {
       "key": "DA_Rain18",
@@ -3462,6 +6690,7 @@
      "id": "da_stealthy18",
      "name": "鬼鬼祟祟",
      "description": "你最强大的2个【战士】或【刺客】获得持续6秒的不可被选取效果。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/combat_tier1.png",
      "data": {
       "key": "DA_Stealthy18",
@@ -3485,6 +6714,7 @@
      "id": "da_thingamajigjar18",
      "name": "小装置罐",
      "description": "获得1个随机消耗品，其能提供法术加成或法力回复。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/misc_tier1.png",
      "data": {
       "key": "DA_ThingamajigJar18",
@@ -3508,6 +6738,7 @@
      "id": "da_18_counterspell",
      "name": "法术反制",
      "description": "使所有敌人的最大法力值提高15，直至敌人下一次施放技能。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/combat_tier2.png",
      "data": {
       "key": "DA_18_Counterspell",
@@ -3534,6 +6765,7 @@
      "id": "da_downpour18",
      "name": "倾盆大雨",
      "description": "你的队伍获得2法力回复。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/combat_tier2.png",
      "data": {
       "key": "DA_Downpour18",
@@ -3560,6 +6792,7 @@
      "id": "da_phantomarmor18",
      "name": "幻影护甲",
      "description": "获得1个临时的【狂徒铠甲】。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/combat_tier2.png",
      "data": {
       "key": "DA_PhantomArmor18",
@@ -3586,6 +6819,7 @@
      "id": "da_18_aftershock",
      "name": "余震",
      "description": "在8秒后，晕眩所有敌人1.5秒。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/combat_tier2.png",
      "data": {
       "key": "DA_18_AfterShock",
@@ -3609,6 +6843,7 @@
      "id": "da_18_allthrees",
      "name": "全3费商店",
      "description": "刷新你的商店，使其充满3费弈子。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/shop_tier1.png",
      "data": {
       "key": "DA_18_AllThrees",
@@ -3632,6 +6867,7 @@
      "id": "da_18_bloodmoney",
      "name": "染血之币",
      "description": "每击杀1个弈子，获得1金币。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/goldxp_tier1.png",
      "data": {
       "key": "DA_18_BloodMoney",
@@ -3655,6 +6891,7 @@
      "id": "da_18_freeroller",
      "name": "免费刷新术",
      "description": "获得2次刷新。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/shop_tier1.png",
      "data": {
       "key": "DA_18_Freeroller",
@@ -3678,6 +6915,7 @@
      "id": "da_18_lightningstrike",
      "name": "闪电打击",
      "description": "对所有敌人造成10%最大生命值真实伤害。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/combat_tier1.png",
      "data": {
       "key": "DA_18_LightningStrike",
@@ -3701,6 +6939,7 @@
      "id": "da_18_moonrise",
      "name": "皓月当空",
      "description": "在8秒后，提升100%【月蚀骑士】羁绊效果。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/combat_tier1.png",
      "data": {
       "key": "DA_18_Moonrise",
@@ -3723,6 +6962,7 @@
      "id": "da_18_moonriseupgrade",
      "name": "皓月当空",
      "description": "在8秒后，提升175%【月蚀骑士】羁绊效果。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/combat_tier1.png",
      "data": {
       "key": "DA_18_MoonriseUpgrade",
@@ -3743,6 +6983,7 @@
      "id": "da_18_preppers",
      "name": "未雨绸缪",
      "description": "你的叠层型装备在下次战斗开始时，拥有部分初始层数。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/combat_tier2.png",
      "data": {
       "key": "DA_18_Preppers",
@@ -3766,6 +7007,7 @@
      "id": "da_18_propagate",
      "name": "繁殖",
      "description": "获得第1个阵亡的友军的1个复制体。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/champion_tier2.png",
      "data": {
       "key": "DA_18_Propagate",
@@ -3789,6 +7031,7 @@
      "id": "da_18_resistant",
      "name": "抵抗",
      "description": "【坦克】使即将到来的每段伤害减少15。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/combat_tier1.png",
      "data": {
       "key": "DA_18_Resistant",
@@ -3812,6 +7055,7 @@
      "id": "da_18_sunfiresorcery",
      "name": "日炎巫术",
      "description": "对敌人施加持续10秒的灼烧和重伤效果。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/combat_tier1.png",
      "data": {
       "key": "DA_18_SunfireSorcery",
@@ -3837,6 +7081,7 @@
      "id": "da_bunchobelts18",
      "name": "腰带批发",
      "description": "你的友军获得7 个无法移除的临时【巨人腰带】。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/combat_tier1.png",
      "data": {
       "key": "DA_BunchOBelts18",
@@ -3857,6 +7102,7 @@
      "id": "da_bunchobeltsupgrade18",
      "name": "腰带批发",
      "description": "你的友军获得10 个无法移除的临时【巨人腰带】。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/combat_tier1.png",
      "data": {
       "key": "DA_BunchOBeltsUpgrade18",
@@ -3877,6 +7123,7 @@
      "id": "da_cutpurse18",
      "name": "梁上君子",
      "description": "每过5秒，你的弈子们就有15%几率掉落1金币。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/risky_tier2.png",
      "data": {
       "key": "DA_Cutpurse18",
@@ -3900,6 +7147,7 @@
      "id": "da_dieroll18",
      "name": "掷骰子",
      "description": "投掷1个6面体骰子。获得相当于结果点数的金币。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/goldxp_tier1.png",
      "data": {
       "key": "DA_DieRoll18",
@@ -3923,6 +7171,7 @@
      "id": "da_doodadbag18",
      "name": "小玩具包",
      "description": "获得2个随机消耗品，其能提供双抗或生命值。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/misc_tier1.png",
      "data": {
       "key": "DA_DoodadBag18",
@@ -3946,6 +7195,7 @@
      "id": "da_flashfire18",
      "name": "爆燃",
      "description": "刷新你的商店。【地狱火】引燃2个商店栏位，将其升级。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/shop_tier1.png",
      "data": {
       "key": "DA_FlashFire18",
@@ -3971,6 +7221,7 @@
      "id": "da_flow18",
      "name": "行云流水",
      "description": "你的弈子们获得持续10秒的不可阻挡效果和15%攻击速度。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/combat_tier1.png",
      "data": {
       "key": "DA_Flow18",
@@ -3994,6 +7245,7 @@
      "id": "da_homingfireflies18",
      "name": "萤火虫之家",
      "description": "你的【术师】每消耗20法力值，召唤1只萤火虫。每只萤火虫造成150魔法伤害。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/combat_tier2.png",
      "data": {
       "key": "DA_HomingFireflies18",
@@ -4019,6 +7271,7 @@
      "id": "da_improvedreach18",
      "name": "瞄准镜",
      "description": "你的【战士】获得+1攻击距离。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/combat_tier2.png",
      "data": {
       "key": "DA_ImprovedReach18",
@@ -4045,6 +7298,7 @@
      "id": "da_ironcore18",
      "name": "钢铁核心",
      "description": "每有1个位于前排的单位，你前排中心的那个弈子就会获得4%最大生命值。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/combat_tier2.png",
      "data": {
       "key": "DA_IronCore18",
@@ -4068,6 +7322,7 @@
      "id": "da_killersregret18",
      "name": "侩子手的悔恨",
      "description": "你最先阵亡的3个弈子会将其击杀者晕眩1秒。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/combat_tier3.png",
      "data": {
       "key": "DA_KillersRegret18",
@@ -4088,6 +7343,7 @@
      "id": "da_killersregretupgrade18",
      "name": "侩子手的悔恨",
      "description": "你最先阵亡的4个弈子会将其击杀者晕眩1.25秒。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/combat_tier3.png",
      "data": {
       "key": "DA_KillersRegretUpgrade18",
@@ -4108,6 +7364,7 @@
      "id": "da_knickknackbag18",
      "name": "小饰品包",
      "description": "获得2个随机消耗品，其能提供物理加成或法术加成。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/misc_tier1.png",
      "data": {
       "key": "DA_KnickKnackBag18",
@@ -4131,6 +7388,7 @@
      "id": "da_livingsoil18",
      "name": "活体土壤",
      "description": "每过4秒，根须会晕眩1名敌人1秒。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/combat_tier2.png",
      "data": {
       "key": "DA_LivingSoil18",
@@ -4154,6 +7412,7 @@
      "id": "da_marksmensgale18",
      "name": "射手狂风",
      "description": "你的【射手】在攻击时获得3%可叠加的攻击速度。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/combat_tier2.png",
      "data": {
       "key": "DA_MarksmensGale18",
@@ -4180,6 +7439,7 @@
      "id": "da_moonlightritual18",
      "name": "月光仪式",
      "description": "在战斗期间，你最低星级的那个1费或2费弈子将会升星。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/combat_tier2.png",
      "data": {
       "key": "DA_MoonlightRitual18",
@@ -4202,6 +7462,7 @@
      "id": "da_moonlightritualupgrade18",
      "name": "月光仪式",
      "description": "在战斗期间，你最低星级的2个1费或2费弈子将会升星。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/combat_tier2.png",
      "data": {
       "key": "DA_MoonlightRitualUpgrade18",
@@ -4222,6 +7483,7 @@
      "id": "da_naturesally18",
      "name": "自然之友",
      "description": "每有3名友军阵亡，召唤1个随机【峡谷野兽】。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/combat_tier2.png",
      "data": {
       "key": "DA_NaturesAlly18",
@@ -4245,6 +7507,7 @@
      "id": "da_petrifieddummy18",
      "name": "石化术",
      "description": "你第1个阵亡的弈子在阵亡时，会转化为1个拥有其防御属性和900生命值的【训练假人】。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/combat_tier1.png",
      "data": {
       "key": "DA_PetrifiedDummy18",
@@ -4268,6 +7531,7 @@
      "id": "da_petrifyshields18",
      "name": "破盾秘法",
      "description": "使敌人减速10%，并将其护盾值削减20%，持续10秒。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/combat_tier1.png",
      "data": {
       "key": "DA_PetrifyShields18",
@@ -4292,6 +7556,7 @@
      "id": "da_phantomemblemupgrade18",
      "name": "幻影纹章",
      "description": "获得1个你层级最高羁绊的临时的纹章。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/combat_tier3.png",
      "data": {
       "key": "DA_PhantomEmblemUpgrade18",
@@ -4312,6 +7577,7 @@
      "id": "da_phantomsplash18",
      "name": "幻影浪花",
      "description": "战斗开始时：至多有2个未激活的羁绊会以最低等级激活。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/combat_tier2.png",
      "data": {
       "key": "DA_PhantomSplash18",
@@ -4332,6 +7598,7 @@
      "id": "da_phantomsplashupgrade18",
      "name": "幻影浪花",
      "description": "战斗开始时：至多有4个未激活的羁绊会以最低等级激活。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/combat_tier2.png",
      "data": {
       "key": "DA_PhantomSplashUpgrade18",
@@ -4352,6 +7619,7 @@
      "id": "da_phantomvest18",
      "name": "幻影背心",
      "description": "获得1个临时的【棘刺背心】。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/combat_tier2.png",
      "data": {
       "key": "DA_PhantomVest18",
@@ -4375,6 +7643,7 @@
      "id": "da_platedshields18",
      "name": "镀板护盾",
      "description": "护盾强度提升15%。友军获得150护盾值，持续10秒。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/combat_tier2.png",
      "data": {
       "key": "DA_PlatedShields18",
@@ -4398,6 +7667,7 @@
      "id": "da_pottedlifebloom18",
      "name": "盆栽生命花",
      "description": "获得1株临时的【生命花】。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/combat_tier2.png",
      "data": {
       "key": "DA_PottedLifebloom18",
@@ -4423,6 +7693,7 @@
      "id": "da_pottedstonebark18",
      "name": "盆栽石皮树",
      "description": "获得1颗临时的【石皮树】。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/combat_tier2.png",
      "data": {
       "key": "DA_PottedStonebark18",
@@ -4448,6 +7719,7 @@
      "id": "da_regeneration18",
      "name": "再生",
      "description": "你的队伍每秒治疗1%最大生命值。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/combat_tier2.png",
      "data": {
       "key": "DA_Regeneration18",
@@ -4471,6 +7743,7 @@
      "id": "da_terraforming18",
      "name": "生态改造",
      "description": "战斗开始时，获得5颗种子。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/misc_tier1.png",
      "data": {
       "key": "DA_Terraforming18",
@@ -4496,6 +7769,7 @@
      "id": "da_thingamajigbag18",
      "name": "小装置包",
      "description": "获得2个随机消耗品，其能提供法术加成或法力回复。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/misc_tier1.png",
      "data": {
       "key": "DA_ThingamajigBag18",
@@ -4519,6 +7793,7 @@
      "id": "da_trophyhunter18",
      "name": "猎手的黄金之路",
      "description": "【宿敌】额外获得@TrophyAmountIncreaseTooltip*100@%参与击杀数。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/risky_tier1.png",
      "data": {
       "key": "DA_TrophyHunter18",
@@ -4544,6 +7819,7 @@
      "id": "da_wrappedinthorns18",
      "name": "荆棘环身",
      "description": "你的【坦克】每4秒将所受伤害的12%反射给邻格的敌人。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/combat_tier1.png",
      "data": {
       "key": "DA_WrappedInThorns18",
@@ -4567,6 +7843,7 @@
      "id": "da_standalone18",
      "name": "孤身站场",
      "description": "独自处于所在排的弈子们获得15%生命值和15%伤害增幅。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/combat_tier2.png",
      "data": {
       "key": "DA_StandAlone18",
@@ -4597,6 +7874,7 @@
      "id": "da_18_bronzespoon",
      "name": "铜汤匙",
      "description": "获得4经验值。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/goldxp_tier2.png",
      "data": {
       "key": "DA_18_BronzeSpoon",
@@ -4620,6 +7898,7 @@
      "id": "da_18_heatedrivalry",
      "name": "鏖战不休",
      "description": "获得1个【雷恩加尔】或1个【卡兹克】。其获得+3参与击杀数。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/champion_tier1.png",
      "data": {
       "key": "DA_18_HeatedRivalry",
@@ -4643,6 +7922,7 @@
      "id": "da_18_killingfrenzy",
      "name": "屠戮狂暴",
      "description": "【战士】会处决生命值低于10%的目标。在击杀时，他们获得15%攻击速度。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/combat_tier2.png",
      "data": {
       "key": "DA_18_KillingFrenzy",
@@ -4668,6 +7948,7 @@
      "id": "da_18_losttravelers",
      "name": "迷路的游客",
      "description": "获得总价值3金币的随机弈子。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/champion_tier1.png",
      "data": {
       "key": "DA_18_LostTravelers",
@@ -4691,6 +7972,7 @@
      "id": "da_18_mercenaryforce",
      "name": "金钱之力",
      "description": "每拥有10金币，获得3%伤害增幅。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/combat_tier2.png",
      "data": {
       "key": "DA_18_MercenaryForce",
@@ -4716,6 +7998,7 @@
      "id": "da_18_payday",
      "name": "庆功宴",
      "description": "每有1个己方弈子在战斗中存活，获得2金币。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/risky_tier2.png",
      "data": {
       "key": "DA_18_Payday",
@@ -4736,6 +8019,7 @@
      "id": "da_18_paydayupgrade",
      "name": "庆功宴",
      "description": "每有1个己方弈子在战斗中存活，获得3金币。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/risky_tier2.png",
      "data": {
       "key": "DA_18_PaydayUpgrade",
@@ -4756,6 +8040,25 @@
      "id": "da_18_supercritical",
      "name": "超级暴击",
      "description": "拥有【技能暴击】的友军获得25%暴击伤害。",
+     "description_tokens": [
+      {
+       "type": "text",
+       "value": "拥有"
+      },
+      {
+       "type": "stat",
+       "stat": "skill_critical_strike",
+       "kind": "skill-crit",
+       "label": "技能暴击",
+       "source_label": "技能暴击",
+       "icon": "crit",
+       "fallback": "CRIT"
+      },
+      {
+       "type": "text",
+       "value": "的友军获得25%暴击伤害。"
+      }
+     ],
      "image": "assets/mechanics/charms/combat_tier2.png",
      "data": {
       "key": "DA_18_Supercritical",
@@ -4778,6 +8081,25 @@
      "id": "da_18_supercriticalupgrade",
      "name": "超级暴击",
      "description": "拥有【技能暴击】的友军获得40%暴击伤害。",
+     "description_tokens": [
+      {
+       "type": "text",
+       "value": "拥有"
+      },
+      {
+       "type": "stat",
+       "stat": "skill_critical_strike",
+       "kind": "skill-crit",
+       "label": "技能暴击",
+       "source_label": "技能暴击",
+       "icon": "crit",
+       "fallback": "CRIT"
+      },
+      {
+       "type": "text",
+       "value": "的友军获得40%暴击伤害。"
+      }
+     ],
      "image": "assets/mechanics/charms/combat_tier2.png",
      "data": {
       "key": "DA_18_SupercriticalUpgrade",
@@ -4798,6 +8120,7 @@
      "id": "da_18_yordlespirit",
      "name": "约德尔之灵",
      "description": "友军有99%几率闪避攻击，持续4秒。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/combat_tier2.png",
      "data": {
       "key": "DA_18_YordleSpirit",
@@ -4821,6 +8144,7 @@
      "id": "da_apprentice18",
      "name": "学徒",
      "description": "获得1个随机2星1费弈子。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/champion_tier2.png",
      "data": {
       "key": "DA_Apprentice18",
@@ -4844,6 +8168,7 @@
      "id": "da_bearsvisit18",
      "name": "蛮熊降临",
      "description": "本场对战获得【野兽之灵】的【蛮熊】增益。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/combat_tier2.png",
      "data": {
       "key": "DA_BearsVisit18",
@@ -4869,6 +8194,7 @@
      "id": "da_bloodandiron18",
      "name": "鲜血与铁",
      "description": "在20个弈子阵亡后，获得1个【基础装备锻造器】。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/item_tier2.png",
      "data": {
       "key": "DA_BloodAndIron18",
@@ -4892,6 +8218,7 @@
      "id": "da_bulwark18",
      "name": "壁垒",
      "description": "你的【坦克】在生命值降至50%时，会获得20%最大生命值护盾。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/combat_tier2.png",
      "data": {
       "key": "DA_Bulwark18",
@@ -4917,6 +8244,7 @@
      "id": "da_doodadsack18",
      "name": "小玩具袋",
      "description": "获得3个随机消耗品，其能提供双抗或生命值。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/misc_tier2.png",
      "data": {
       "key": "DA_DoodadSack18",
@@ -4940,6 +8268,7 @@
      "id": "da_ironwood18",
      "name": "坚硬木材",
      "description": "敌人攻击你生命值最高的那个弈子时，造成的伤害降低10%。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/combat_tier2.png",
      "data": {
       "key": "DA_Ironwood18",
@@ -4963,6 +8292,7 @@
      "id": "da_knickknacksack18",
      "name": "小饰品袋",
      "description": "获得3个随机消耗品，其能提供物理加成或法术加成。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/misc_tier2.png",
      "data": {
       "key": "DA_KnickKnackSack18",
@@ -4986,6 +8316,7 @@
      "id": "da_manarichsoil18",
      "name": "富魔之壤",
      "description": "你的【术师】最大法力值减少15%",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/combat_tier2.png",
      "data": {
       "key": "DA_ManaRichSoil18",
@@ -5012,6 +8343,7 @@
      "id": "da_marksmensmarks18",
      "name": "射手印记",
      "description": "你的【射手】有25%几率双重攻击。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/combat_tier2.png",
      "data": {
       "key": "DA_MarksmensMarks18",
@@ -5038,6 +8370,7 @@
      "id": "da_memorialdummy18",
      "name": "衣冠冢",
      "description": "你最先阵亡的携带着装备的那个坦克，在阵亡时会召唤1个携带着其装备的【训练假人】。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/combat_tier2.png",
      "data": {
       "key": "DA_MemorialDummy18",
@@ -5061,6 +8394,7 @@
      "id": "da_phantomgloves18",
      "name": "幻影手套",
      "description": "获得1个临时的【窃贼手套】。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/combat_tier2.png",
      "data": {
       "key": "DA_PhantomGloves18",
@@ -5084,6 +8418,7 @@
      "id": "da_potioncraft18",
      "name": "药学博士",
      "description": "获得3个临时的、可装备的【药水】。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/misc_tier2.png",
      "data": {
       "key": "DA_Potioncraft18",
@@ -5107,6 +8442,7 @@
      "id": "da_quicken18",
      "name": "加速",
      "description": "施放技能时，你的弈子们获得25%攻击速度，持续3秒。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/combat_tier1.png",
      "data": {
       "key": "DA_Quicken18",
@@ -5129,6 +8465,7 @@
      "id": "da_quickenupgrade18",
      "name": "加速",
      "description": "施放技能时，你的弈子们获得30%攻击速度，持续4秒。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/combat_tier1.png",
      "data": {
       "key": "DA_QuickenUpgrade18",
@@ -5149,6 +8486,7 @@
      "id": "da_revenge18",
      "name": "复仇",
      "description": "每当1名友军阵亡时，你的弈子们获得4%可叠加的伤害增幅。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/combat_tier2.png",
      "data": {
       "key": "DA_Revenge18",
@@ -5169,6 +8507,7 @@
      "id": "da_revengeupgrade18",
      "name": "复仇",
      "description": "每当1名友军阵亡时，你的弈子们获得6%可叠加的伤害增幅。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/combat_tier2.png",
      "data": {
       "key": "DA_RevengeUpgrade18",
@@ -5189,6 +8528,7 @@
      "id": "da_ridethewave18",
      "name": "顺流而下",
      "description": "在本回合内，在上场对战中登场的2+个弈子会出现在你的下2次刷新的商店中。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/shop_tier3.png",
      "data": {
       "key": "DA_RideTheWave18",
@@ -5212,6 +8552,7 @@
      "id": "da_ridethewaveupgrade18",
      "name": "顺流而下",
      "description": "在本回合内，在上场对战中登场的2+个弈子会出现在你的下3次刷新的商店中。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/shop_tier3.png",
      "data": {
       "key": "DA_RideTheWaveUpgrade18",
@@ -5232,6 +8573,7 @@
      "id": "da_rollingbones18",
      "name": "骨头滚滚",
      "description": "每获得1次击杀，你都有50%几率获得1次免费刷新。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/shop_tier2.png",
      "data": {
       "key": "DA_RollingBones18",
@@ -5255,6 +8597,7 @@
      "id": "da_rolypolys18",
      "name": "不倒翁",
      "description": "在18秒时，每有1名存活的友军，获得1次刷新。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/shop_tier2.png",
      "data": {
       "key": "DA_RolyPolys18",
@@ -5275,6 +8618,7 @@
      "id": "da_rolypolysupgrade18",
      "name": "不倒翁",
      "description": "在15秒时，每有1名存活的友军，获得1次刷新。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/shop_tier2.png",
      "data": {
       "key": "DA_RolyPolysUpgrade18",
@@ -5295,6 +8639,7 @@
      "id": "da_scrappy18",
      "name": "零碎",
      "description": "战斗开始时：未携带任何装备的2个弈子会获得1件临时的推荐装备。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/combat_tier2.png",
      "data": {
       "key": "DA_Scrappy18",
@@ -5318,6 +8663,7 @@
      "id": "da_searchparty18",
      "name": "搜查队",
      "description": "在本回合内，你每次刷新商店都会出现1个4费弈子，直到你购买其中一名为止。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/shop_tier1.png",
      "data": {
       "key": "DA_SearchParty18",
@@ -5341,6 +8687,7 @@
      "id": "da_slowstudy18",
      "name": "慢速学习",
      "description": "在15秒时，每有1名存活的友军，获得2经验值。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/goldxp_tier2.png",
      "data": {
       "key": "DA_SlowStudy18",
@@ -5361,6 +8708,7 @@
      "id": "da_slowstudyupgrade18",
      "name": "慢速学习",
      "description": "在12秒时，每有1名存活的友军，获得2经验值。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/goldxp_tier2.png",
      "data": {
       "key": "DA_SlowStudyUpgrade18",
@@ -5381,6 +8729,7 @@
      "id": "da_snacktime18",
      "name": "点心时间到！",
      "description": "【毛茸茸大朋友】会吃掉最大生命值低于12%且受过其伤害的敌人。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/combat_tier2.png",
      "data": {
       "key": "DA_Snacktime18",
@@ -5406,6 +8755,7 @@
      "id": "da_solitudescloak18",
      "name": "独行斗篷",
      "description": "邻格无友军的弈子们获得10%最大生命值和10%伤害增幅。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/combat_tier2.png",
      "data": {
       "key": "DA_SolitudesCloak18",
@@ -5426,6 +8776,7 @@
      "id": "da_solitudescloakupgrade18",
      "name": "独行斗篷",
      "description": "邻格无友军的弈子们获得15%最大生命值和15%伤害增幅。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/combat_tier2.png",
      "data": {
       "key": "DA_SolitudesCloakUpgrade18",
@@ -5446,6 +8797,7 @@
      "id": "da_thingamajigsack18",
      "name": "小装置袋",
      "description": "获得3个随机消耗品，其能提供法术加成或法力回复。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/misc_tier2.png",
      "data": {
       "key": "DA_ThingamajigSack18",
@@ -5469,6 +8821,7 @@
      "id": "da_tigersvisit18_wisp",
      "name": "战马降临",
      "description": "本场对战获得【野兽之灵】的【战马】增益。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/combat_tier2.png",
      "data": {
       "key": "DA_TigersVisit18_Wisp",
@@ -5494,6 +8847,7 @@
      "id": "da_trainingyard18",
      "name": "训练场",
      "description": "获得2个携带着1件随机坦克装备的【训练假人】。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/combat_tier2.png",
      "data": {
       "key": "DA_TrainingYard18",
@@ -5517,6 +8871,7 @@
      "id": "da_turtlesvisit18",
      "name": "灵龟降临",
      "description": "本场对战获得【野兽之灵】的【灵龟】增益。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/combat_tier2.png",
      "data": {
       "key": "DA_TurtlesVisit18",
@@ -5542,6 +8897,7 @@
      "id": "da_diversified18",
      "name": "多样化",
      "description": "每有1个已激活的非唯一羁绊，你的队伍获得30生命值。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/combat_tier2.png",
      "data": {
       "key": "DA_Diversified18",
@@ -5564,6 +8920,7 @@
      "id": "da_diversifiedupgrade18",
      "name": "多样化",
      "description": "每有1个已激活的非唯一羁绊，你的队伍获得45生命值。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/combat_tier2.png",
      "data": {
       "key": "DA_DiversifiedUpgrade18",
@@ -5584,6 +8941,7 @@
      "id": "da_startingtown18",
      "name": "新手村",
      "description": "刷新你的商店，使其充满2星1费弈子。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/shop_tier3.png",
      "data": {
       "key": "DA_StartingTown18",
@@ -5607,6 +8965,7 @@
      "id": "da_18_tremors",
      "name": "地动山摇",
      "description": "每8秒，晕眩敌人1秒。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/combat_tier3.png",
      "data": {
       "key": "DA_18_Tremors",
@@ -5633,6 +8992,7 @@
      "id": "da_18_allfours",
      "name": "全4费商店",
      "description": "刷新你的商店，使其充满4费弈子。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/shop_tier1.png",
      "data": {
       "key": "DA_18_AllFours",
@@ -5656,6 +9016,7 @@
      "id": "da_18_backrowstar",
      "name": "后排之星",
      "description": "1个随机后排弈子获得75%攻击速度，持续7秒。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/combat_tier2.png",
      "data": {
       "key": "DA_18_BackrowStar",
@@ -5679,6 +9040,7 @@
      "id": "da_18_fellowship",
      "name": "贴贴",
      "description": "每有1名相邻的友军，弈子们就会获得4%最大生命值护盾和4%伤害增幅。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/combat_tier2.png",
      "data": {
       "key": "DA_18_Fellowship",
@@ -5702,6 +9064,7 @@
      "id": "da_18_giantgrowth",
      "name": "巨型增长",
      "description": "你生命值最高的那个单位成长，获得600生命值。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/combat_tier3.png",
      "data": {
       "key": "DA_18_GiantGrowth",
@@ -5725,6 +9088,7 @@
      "id": "da_boostershot18",
      "name": "强化激素",
      "description": "至多2个1星弈子会在战斗期间暂时升星。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/combat_tier2.png",
      "data": {
       "key": "DA_BoosterShot18",
@@ -5750,6 +9114,7 @@
      "id": "da_foresttwins18",
      "name": "森林多胞胎",
      "description": "获得2个相同的弈子，他们是其中一个你尚未拥有的2费弈子的复制体。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/champion_tier2.png",
      "data": {
       "key": "DA_ForestTwins18",
@@ -5770,6 +9135,7 @@
      "id": "da_foresttwinsupgrade18",
      "name": "森林多胞胎",
      "description": "获得3个相同的弈子，他们是其中一个你尚未拥有的2费弈子的复制体。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/champion_tier2.png",
      "data": {
       "key": "DA_ForestTwinsUpgrade18",
@@ -5790,6 +9156,7 @@
      "id": "da_greaterchaos18",
      "name": "拼一把大的！",
      "description": "随机施放2个【自然仙灵】。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/misc_tier3.png",
      "data": {
       "key": "DA_GreaterChaos18",
@@ -5813,6 +9180,7 @@
      "id": "da_herosentrance18",
      "name": "英雄登场",
      "description": "在8秒后，备战席最左侧的弈子加入战斗，并获得2件推荐装备。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/combat_tier3.png",
      "data": {
       "key": "DA_HerosEntrance18",
@@ -5835,6 +9203,7 @@
      "id": "da_herosentranceupgrade18",
      "name": "英雄登场",
      "description": "在5秒后，备战席最左侧的弈子加入战斗，并获得2。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/combat_tier3.png",
      "data": {
       "key": "DA_HerosEntranceUpgrade18",
@@ -5855,6 +9224,7 @@
      "id": "da_idlecraftsman18",
      "name": "闲散工匠",
      "description": "将你备战席的1件基础装备转化为它可合成的1件成装。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/item_tier2.png",
      "data": {
       "key": "DA_IdleCraftsman18",
@@ -5880,6 +9250,7 @@
      "id": "da_jungling18",
      "name": "野区",
      "description": "让【峡谷野兽】占据你的商店。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/shop_tier2.png",
      "data": {
       "key": "DA_Jungling18",
@@ -5905,6 +9276,7 @@
      "id": "da_phantomemblem18",
      "name": "幻影纹章",
      "description": "获得1个你层级最高羁绊的临时的纹章。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/combat_tier3.png",
      "data": {
       "key": "DA_PhantomEmblem18",
@@ -5925,6 +9297,7 @@
      "id": "da_18_lightningstorm",
      "name": "闪电风暴",
      "description": "每过1秒，对1名敌人造成5%最大生命值真实伤害。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/combat_tier3.png",
      "data": {
       "key": "DA_18_LightningStorm",
@@ -5951,6 +9324,7 @@
      "id": "da_barrier18",
      "name": "屏障",
      "description": "友军获得1000护盾值，在5秒内持续衰减。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/combat_tier2.png",
      "data": {
       "key": "DA_Barrier18",
@@ -5977,6 +9351,7 @@
      "id": "da_blaze18",
      "name": "炽焰",
      "description": "火焰席卷整个棋盘，对敌人造成真实伤害。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/combat_tier3.png",
      "data": {
       "key": "DA_Blaze18",
@@ -6003,6 +9378,7 @@
      "id": "da_clonecompanion18",
      "name": "复制同伴",
      "description": "复制你伤害最高的那个弈子。复制体造成20%伤害。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/combat_tier3.png",
      "data": {
       "key": "DA_CloneCompanion18",
@@ -6026,6 +9402,7 @@
      "id": "da_combust18",
      "name": "易燃物",
      "description": "你的弈子们在阵亡时产生爆炸，造成15%最大生命值魔法伤害。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/combat_tier3.png",
      "data": {
       "key": "DA_Combust18",
@@ -6052,6 +9429,7 @@
      "id": "da_giantsaura18",
      "name": "巨人光环",
      "description": "你生命值最高的那名友军，每秒在一片区域内造成2%最大生命值伤害。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/combat_tier3.png",
      "data": {
       "key": "DA_GiantsAura18",
@@ -6078,6 +9456,7 @@
      "id": "da_hireling18",
      "name": "雇佣兵",
      "description": "1个临时的、携带着1件推荐装备的1星5费弈子加入你的队伍。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/combat_tier3.png",
      "data": {
       "key": "DA_Hireling18",
@@ -6104,6 +9483,7 @@
      "id": "da_treetoparchers",
      "name": "树顶弓箭手",
      "description": "弓箭手自林间放箭，每3秒造成500物理伤害。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/combat_tier3.png",
      "data": {
       "key": "DA_TreetopArchers",
@@ -6130,6 +9510,7 @@
      "id": "da_18_heroicsacrifice",
      "name": "英勇就义",
      "description": "你最强大的3个弈子获得史！诗！级！强！化！，但其他友军将会牺牲。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/combat_tier3.png",
      "data": {
       "key": "DA_18_HeroicSacrifice",
@@ -6156,6 +9537,7 @@
      "id": "da_18_infliction",
      "name": "折磨",
      "description": "对所有敌人施加持续8秒的减速、灼烧、魔抗击碎与护甲击碎效果。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/combat_tier3.png",
      "data": {
       "key": "DA_18_Infliction",
@@ -6182,6 +9564,7 @@
      "id": "da_clonecompanionupgrade18",
      "name": "复制同伴",
      "description": "复制你伤害最高的那个弈子。复制体造成30%伤害。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/combat_tier3.png",
      "data": {
       "key": "DA_CloneCompanionUpgrade18",
@@ -6202,6 +9585,7 @@
      "id": "da_forestguide18",
      "name": "森林向导",
      "description": "获得1个随机4费弈子。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/champion_tier3.png",
      "data": {
       "key": "DA_ForestGuide18",
@@ -6225,6 +9609,7 @@
      "id": "da_solargift18",
      "name": "日蚀之礼",
      "description": "获得1个【蕾欧娜】、1个【瑟庄妮】和1个【凯尔】。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/champion_tier2.png",
      "data": {
       "key": "DA_SolarGift18",
@@ -6250,6 +9635,7 @@
      "id": "da_latebloomer18",
      "name": "大器晚成",
      "description": "1个临时的、携带着1件推荐装备的3星1费弈子加入你的队伍。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/combat_tier3.png",
      "data": {
       "key": "DA_LateBloomer18",
@@ -6276,6 +9662,7 @@
      "id": "da_18_radiantize",
      "name": "光明化",
      "description": "在12秒后，1件被携带着的随机装备暂时变为光明版。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/combat_tier3.png",
      "data": {
       "key": "DA_18_Radiantize",
@@ -6299,6 +9686,7 @@
      "id": "da_bordervillage18",
      "name": "边境村庄",
      "description": "刷新你的商店，使其充满2星2费弈子。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/shop_tier3.png",
      "data": {
       "key": "DA_BorderVillage18",
@@ -6322,6 +9710,7 @@
      "id": "da_handofbaron18",
      "name": "男爵之手",
      "description": "你的队伍获得【纳什男爵】增益，提升他们的属性。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/combat_tier3.png",
      "data": {
       "key": "DA_HandOfBaron18",
@@ -6347,6 +9736,7 @@
      "id": "da_journeyman18",
      "name": "旅行者",
      "description": "获得1个随机2星2费弈子。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/champion_tier2.png",
      "data": {
       "key": "DA_Journeyman18",
@@ -6370,6 +9760,7 @@
      "id": "da_middlepath18",
      "name": "中央大道",
      "description": "刷新你的商店，使其充满2星3费弈子。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/shop_tier2.png",
      "data": {
       "key": "DA_MiddlePath18",
@@ -6393,6 +9784,7 @@
      "id": "da_natureswrath18",
      "name": "自然之怒",
      "description": "在8秒后，将所有未携带装备的单位击杀。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/combat_tier3.png",
      "data": {
       "key": "DA_NaturesWrath18",
@@ -6418,6 +9810,7 @@
      "id": "da_refreshinglight18",
      "name": "焕新之光",
      "description": "你的【日蚀骑士】弈子每有1星级(相同弈子不重复计数)，获得1次免费重随。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/shop_tier2.png",
      "data": {
       "key": "DA_RefreshingLight18",
@@ -6443,6 +9836,7 @@
      "id": "da_lucky718",
      "name": "幸运7",
      "description": "获得7次商店刷新。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/shop_tier2.png",
      "data": {
       "key": "DA_Lucky718",
@@ -6469,6 +9863,7 @@
      "id": "da_smurfing18",
      "name": "炸鱼行为",
      "description": "获得1个随机5费弈子。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/champion_tier3.png",
      "data": {
       "key": "DA_Smurfing18",
@@ -6492,6 +9887,7 @@
      "id": "da_18_fieldofmice",
      "name": "小人国",
      "description": "上回合每登场1个不同的1费弈子，获得1个【微型英雄复制器】。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/champion_tier2.png",
      "data": {
       "key": "DA_18_FieldofMice",
@@ -6517,6 +9913,7 @@
      "id": "da_animateshop18",
      "name": "活体商店",
      "description": "在20秒的持续时间内，你的商店每2秒免费刷新1次。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/shop_tier2.png",
      "data": {
       "key": "DA_AnimateShop18",
@@ -6540,6 +9937,7 @@
      "id": "da_bigguns18",
      "name": "大腕",
      "description": "获得2个随机1星4费弈子。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/champion_tier2.png",
      "data": {
       "key": "DA_BigGuns18",
@@ -6563,6 +9961,7 @@
      "id": "da_threeme18",
      "name": "对影成三",
      "description": "获得1个随机2星3费弈子。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/champion_tier2.png",
      "data": {
       "key": "DA_ThreeMe18",
@@ -6586,6 +9985,7 @@
      "id": "da_18_allfives",
      "name": "全5费商店",
      "description": "刷新你的商店，使其充满5费弈子。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/shop_tier3.png",
      "data": {
       "key": "DA_18_AllFives",
@@ -6609,6 +10009,7 @@
      "id": "da_growup18",
      "name": "长大",
      "description": "获得16经验值。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/goldxp_tier2.png",
      "data": {
       "key": "DA_GrowUp18",
@@ -6632,6 +10033,7 @@
      "id": "da_grandmaster18",
      "name": "奇境宗师",
      "description": "获得1个随机2星5费弈子。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/champion_tier3.png",
      "data": {
       "key": "DA_Grandmaster18",
@@ -6655,6 +10057,7 @@
      "id": "da_heroofprophecy18",
      "name": "预言之子",
      "description": "获得1个五费弈子。每回合都会再获得1个该弈子(永远！直至游戏结束)。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/champion_tier3.png",
      "data": {
       "key": "DA_HeroOfProphecy18",
@@ -6682,6 +10085,7 @@
      "id": "da_18_circleofelders",
      "name": "长者之环",
      "description": "获得每个5费弈子各1个。",
+     "description_tokens": null,
      "image": "assets/mechanics/charms/champion_tier3.png",
      "data": {
       "key": "DA_18_CircleofElders",
@@ -6703,5 +10107,6 @@
     }
    ]
   }
- ]
+ ],
+ "rich_text_version": 1
 }

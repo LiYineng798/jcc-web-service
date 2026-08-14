@@ -110,7 +110,39 @@
               "3": "按幸运几率随机抽取一张数值在1到9之间的卡牌，然后将其扔向目标。基于抽到的卡牌，造成460(【法术加成】)到1015(【法术加成】)魔法伤害。过量击败伤害将弹跳至相距最近的那个敌人。  3星加成：如果扔出一张9，则生成1金币。  幸运：进行两次判定，选择较优的结果。",
               "4": "按幸运几率随机抽取一张数值在1到9之间的卡牌，然后将其扔向目标。基于抽到的卡牌，造成800(【法术加成】)到1725(【法术加成】)魔法伤害。过量击败伤害将弹跳至相距最近的那个敌人。  3星加成：如果扔出一张9，则生成1金币。  幸运：进行两次判定，选择较优的结果。"
             }
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "按幸运几率随机抽取一张数值在1到9之间的卡牌，然后将其扔向目标。基于抽到的卡牌，造成205"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "到450"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "魔法伤害。过量击败伤害将弹跳至相距最近的那个敌人。  3星加成：如果扔出一张9，则生成1金币。  幸运：进行两次判定，选择较优的结果。"
+            }
+          ]
         }
       ],
       "images": {
@@ -261,7 +293,48 @@
               "3": "主动：对当前目标发射一道震波，造成412(【物理加成】【法术加成】)物理伤害。每参与击败7次，获得一架无人机，它会在施放技能时对当前目标造成18(【物理加成】)物理伤害。 (总参与击败数：0)",
               "4": "主动：对当前目标发射一道震波，造成704(【物理加成】【法术加成】)物理伤害。每参与击败7次，获得一架无人机，它会在施放技能时对当前目标造成30(【物理加成】)物理伤害。 (总参与击败数：0)"
             }
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "主动：对当前目标发射一道震波，造成184("
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "物理加成",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": ")物理伤害。每参与击败7次，获得一架无人机，它会在施放技能时对当前目标造成8"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "物理加成",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "text",
+              "value": "物理伤害。 (总参与击败数：0)"
+            }
+          ]
         }
       ],
       "images": {
@@ -401,7 +474,35 @@
               "3": "戳刺目标，使其受伤，在18秒内持续造成1235(【物理加成】【法术加成】)物理伤害。这次攻击之后，跳跃至3格内生命值百分比最高的那个敌人处。",
               "4": "戳刺目标，使其受伤，在18秒内持续造成2080(【物理加成】【法术加成】)物理伤害。这次攻击之后，跳跃至3格内生命值百分比最高的那个敌人处。"
             }
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "戳刺目标，使其受伤，在18秒内持续造成460("
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "物理加成",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": ")物理伤害。这次攻击之后，跳跃至3格内生命值百分比最高的那个敌人处。"
+            }
+          ]
         }
       ],
       "images": {
@@ -541,7 +642,35 @@
               "3": "变形6秒，临时获得600最大生命值、进入~太~空~律~动~状态、并且每秒对邻格的敌人们造成115(【生命上限】【法术加成】)魔法伤害。",
               "4": "变形6秒，临时获得800最大生命值、进入~太~空~律~动~状态、并且每秒对邻格的敌人们造成186(【生命上限】【法术加成】)魔法伤害。"
             }
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "变形6秒，临时获得300最大生命值、进入~太~空~律~动~状态、并且每秒对邻格的敌人们造成44("
+            },
+            {
+              "type": "stat",
+              "stat": "health",
+              "kind": "health",
+              "label": "生命值",
+              "source_label": "生命上限",
+              "icon": "hp",
+              "fallback": "HP"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": ")魔法伤害。"
+            }
+          ]
         }
       ],
       "images": {
@@ -703,7 +832,48 @@
               "3": "获得持续4秒的620(【法术加成】)护盾值。猛击当前目标，造成441(【护甲】【魔法抗性】)魔法伤害和2秒晕眩。",
               "4": "获得持续4秒的870(【法术加成】)护盾值。猛击当前目标，造成753(【护甲】【魔法抗性】)魔法伤害和2.25秒晕眩。"
             }
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "获得持续4秒的420"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "护盾值。猛击当前目标，造成196("
+            },
+            {
+              "type": "stat",
+              "stat": "armor",
+              "kind": "armor",
+              "label": "护甲",
+              "source_label": "护甲",
+              "icon": "armor",
+              "fallback": "AR"
+            },
+            {
+              "type": "stat",
+              "stat": "magic_resist",
+              "kind": "magic-resist",
+              "label": "魔法抗性",
+              "source_label": "魔法抗性",
+              "icon": "mr",
+              "fallback": "MR"
+            },
+            {
+              "type": "text",
+              "value": ")魔法伤害和1.75秒晕眩。"
+            }
+          ]
         }
       ],
       "images": {
@@ -843,7 +1013,48 @@
               "3": "回复407(【生命上限】【法术加成】)生命值，然后短暂击飞邻格敌人，造成180(【法术加成】)魔法伤害。",
               "4": "回复513(【生命上限】【法术加成】)生命值，然后短暂击飞邻格敌人，造成315(【法术加成】)魔法伤害。"
             }
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "回复246("
+            },
+            {
+              "type": "stat",
+              "stat": "health",
+              "kind": "health",
+              "label": "生命值",
+              "source_label": "生命上限",
+              "icon": "hp",
+              "fallback": "HP"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": ")生命值，然后短暂击飞邻格敌人，造成80"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "魔法伤害。"
+            }
+          ]
         }
       ],
       "images": {
@@ -983,7 +1194,79 @@
               "3": "被动：普攻有15%幸运几率打出一次强化【狙击】，造成585(【物理加成】【法术加成】)物理伤害。  【新星特攻队】特攻：标记所有敌人，使其承受的伤害提升10%。当标记目标生命值首次降至50%以下时，对其进行【狙击】，造成293(【物理加成】【法术加成】)物理伤害。  【新星特攻队】特攻：标记所有敌人，使其承受的伤害提升10%。当标记目标生命值首次降至50%以下时，对其进行【狙击】，造成293(【物理加成】【法术加成】)物理伤害。  幸运：进行两次判定，选择较优的结果。",
               "4": "被动：普攻有15%幸运几率打出一次强化【狙击】，造成1002(【物理加成】【法术加成】)物理伤害。  【新星特攻队】特攻：标记所有敌人，使其承受的伤害提升10%。当标记目标生命值首次降至50%以下时，对其进行【狙击】，造成501(【物理加成】【法术加成】)物理伤害。  【新星特攻队】特攻：标记所有敌人，使其承受的伤害提升10%。当标记目标生命值首次降至50%以下时，对其进行【狙击】，造成501(【物理加成】【法术加成】)物理伤害。  幸运：进行两次判定，选择较优的结果。"
             }
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "被动：普攻有15%幸运几率打出一次强化【狙击】，造成210("
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "物理加成",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": ")物理伤害。  【新星特攻队】特攻：标记所有敌人，使其承受的伤害提升10%。当标记目标生命值首次降至50%以下时，对其进行【狙击】，造成105("
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "物理加成",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": ")物理伤害。  【新星特攻队】特攻：标记所有敌人，使其承受的伤害提升10%。当标记目标生命值首次降至50%以下时，对其进行【狙击】，造成105("
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "物理加成",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": ")物理伤害。  幸运：进行两次判定，选择较优的结果。"
+            }
+          ]
         }
       ],
       "images": {
@@ -1124,7 +1407,39 @@
               "3": "向当前目标投掷一枚碎片，对命中的首个敌人造成600(【法术加成】)魔法伤害。在命中首个目标后或到达它的飞行终点时，匕首会爆炸，对附近的目标们造成115(【法术加成】)魔法伤害。",
               "4": "向当前目标投掷一枚碎片，对命中的首个敌人造成1020(【法术加成】)魔法伤害。在命中首个目标后或到达它的飞行终点时，匕首会爆炸，对附近的目标们造成195(【法术加成】)魔法伤害。"
             }
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "向当前目标投掷一枚碎片，对命中的首个敌人造成250"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "魔法伤害。在命中首个目标后或到达它的飞行终点时，匕首会爆炸，对附近的目标们造成50"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "魔法伤害。"
+            }
+          ]
         }
       ],
       "images": {
@@ -1275,7 +1590,92 @@
               "3": "回复650(【法术加成】)生命值，随后对当前目标造成362(【物理加成】【护甲】)物理伤害。  【新星特攻队】特攻：顺劈整个战场，短暂击飞所有敌人，并造成235(【物理加成】【护甲】)物理伤害。  【新星特攻队】特攻：顺劈整个战场，短暂击飞所有敌人，并造成235(【物理加成】【护甲】)物理伤害。",
               "4": "回复900(【法术加成】)生命值，随后对当前目标造成611(【物理加成】【护甲】)物理伤害。  【新星特攻队】特攻：顺劈整个战场，短暂击飞所有敌人，并造成397(【物理加成】【护甲】)物理伤害。  【新星特攻队】特攻：顺劈整个战场，短暂击飞所有敌人，并造成397(【物理加成】【护甲】)物理伤害。"
             }
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "回复325"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "生命值，随后对当前目标造成161("
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "物理加成",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "stat",
+              "stat": "armor",
+              "kind": "armor",
+              "label": "护甲",
+              "source_label": "护甲",
+              "icon": "armor",
+              "fallback": "AR"
+            },
+            {
+              "type": "text",
+              "value": ")物理伤害。  【新星特攻队】特攻：顺劈整个战场，短暂击飞所有敌人，并造成105("
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "物理加成",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "stat",
+              "stat": "armor",
+              "kind": "armor",
+              "label": "护甲",
+              "source_label": "护甲",
+              "icon": "armor",
+              "fallback": "AR"
+            },
+            {
+              "type": "text",
+              "value": ")物理伤害。  【新星特攻队】特攻：顺劈整个战场，短暂击飞所有敌人，并造成105("
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "物理加成",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "stat",
+              "stat": "armor",
+              "kind": "armor",
+              "label": "护甲",
+              "source_label": "护甲",
+              "icon": "armor",
+              "fallback": "AR"
+            },
+            {
+              "type": "text",
+              "value": ")物理伤害。"
+            }
+          ]
         }
       ],
       "images": {
@@ -1426,7 +1826,35 @@
               "3": "对距离内生命值最低的敌人造成601(【生命上限】【法术加成】)魔法伤害，并永久获得33最大生命值。如果这个技能击败了该敌人，则转而将其吞噬并永久获得70最大生命值。  (当前加成：+0生命值)",
               "4": "对距离内生命值最低的敌人造成977(【生命上限】【法术加成】)魔法伤害，并永久获得50最大生命值。如果这个技能击败了该敌人，则转而将其吞噬并永久获得115最大生命值。  (当前加成：+0生命值)"
             }
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "对距离内生命值最低的敌人造成266("
+            },
+            {
+              "type": "stat",
+              "stat": "health",
+              "kind": "health",
+              "label": "生命值",
+              "source_label": "生命上限",
+              "icon": "hp",
+              "fallback": "HP"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": ")魔法伤害，并永久获得12最大生命值。如果这个技能击败了该敌人，则转而将其吞噬并永久获得30最大生命值。  (当前加成：+0生命值)"
+            }
+          ]
         }
       ],
       "images": {
@@ -1566,7 +1994,39 @@
               "3": "被动：普攻造成100(【法术加成】)额外魔法伤害，并在6秒内持续造成额外的190(【法术加成】)可叠加魔法伤害。敌人的层数达到5或以上时，【提莫】进入~太~空~律~动~状态。  主动：获得150%攻击速度，持续3次普攻。",
               "4": "被动：普攻造成170(【法术加成】)额外魔法伤害，并在6秒内持续造成额外的325(【法术加成】)可叠加魔法伤害。敌人的层数达到5或以上时，【提莫】进入~太~空~律~动~状态。  主动：获得150%攻击速度，持续3次普攻。"
             }
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "被动：普攻造成30"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "额外魔法伤害，并在6秒内持续造成额外的70"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "可叠加魔法伤害。敌人的层数达到5或以上时，【提莫】进入~太~空~律~动~状态。  主动：获得150%攻击速度，持续3次普攻。"
+            }
+          ]
         }
       ],
       "images": {
@@ -1706,7 +2166,78 @@
               "3": "召唤一颗木灵流星落在目标上，造成750(【法术加成】)魔法伤害。  木灵加成：召唤额外0()个迷你木灵流星落在附近的目标上，每个造成70(【法术加成】)魔法伤害。木灵加成：召唤额外0()个迷你木灵流星落在附近的目标上，每个造成70(【法术加成】)魔法伤害。",
               "4": "召唤一颗木灵流星落在目标上，造成1200(【法术加成】)魔法伤害。  木灵加成：召唤额外0()个迷你木灵流星落在附近的目标上，每个造成130(【法术加成】)魔法伤害。木灵加成：召唤额外0()个迷你木灵流星落在附近的目标上，每个造成130(【法术加成】)魔法伤害。"
             }
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "召唤一颗木灵流星落在目标上，造成330"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "魔法伤害。  木灵加成：召唤额外0("
+            },
+            {
+              "type": "stat",
+              "stat": "wood_spirit_bonus",
+              "kind": "amp",
+              "label": "木灵加成",
+              "source_label": "木灵加成",
+              "icon": "amp",
+              "fallback": "木灵"
+            },
+            {
+              "type": "text",
+              "value": ")个迷你木灵流星落在附近的目标上，每个造成31"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "魔法伤害。木灵加成：召唤额外0("
+            },
+            {
+              "type": "stat",
+              "stat": "wood_spirit_bonus",
+              "kind": "amp",
+              "label": "木灵加成",
+              "source_label": "木灵加成",
+              "icon": "amp",
+              "fallback": "木灵"
+            },
+            {
+              "type": "text",
+              "value": ")个迷你木灵流星落在附近的目标上，每个造成31"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "魔法伤害。"
+            }
+          ]
         }
       ],
       "images": {
@@ -1857,7 +2388,91 @@
               "3": "获得575(【法术加成】)护盾值，持续4秒。持续期间，2格内的友军们获得60(【法术加成】)护甲和魔抗。  木灵加成： 木灵为相距最近的0()名友军提供持续4秒的210(【法术加成】)护盾值。木灵加成：木灵为相距最近的0()名友军提供持续4秒的210(【法术加成】)护盾值。",
               "4": "获得675(【法术加成】)护盾值，持续4秒。持续期间，2格内的友军们获得100(【法术加成】)护甲和魔抗。  木灵加成： 木灵为相距最近的0()名友军提供持续4秒的260(【法术加成】)护盾值。木灵加成：木灵为相距最近的0()名友军提供持续4秒的260(【法术加成】)护盾值。"
             }
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "获得400"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "护盾值，持续4秒。持续期间，2格内的友军们获得15"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "护甲和魔抗。  木灵加成： 木灵为相距最近的0("
+            },
+            {
+              "type": "stat",
+              "stat": "wood_spirit_bonus",
+              "kind": "amp",
+              "label": "木灵加成",
+              "source_label": "木灵加成",
+              "icon": "amp",
+              "fallback": "木灵"
+            },
+            {
+              "type": "text",
+              "value": ")名友军提供持续4秒的125"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "护盾值。木灵加成：木灵为相距最近的0("
+            },
+            {
+              "type": "stat",
+              "stat": "wood_spirit_bonus",
+              "kind": "amp",
+              "label": "木灵加成",
+              "source_label": "木灵加成",
+              "icon": "amp",
+              "fallback": "木灵"
+            },
+            {
+              "type": "text",
+              "value": ")名友军提供持续4秒的125"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "护盾值。"
+            }
+          ]
         }
       ],
       "images": {
@@ -1998,7 +2613,39 @@
               "3": "被动：每损失1%生命值，获得2.5%(【法术加成】)攻击速度。  主动：对目标造成285(【物理加成】)物理伤害，如果目标是坦克，则此伤害提升50%。",
               "4": "被动：每损失1%生命值，获得2.5%(【法术加成】)攻击速度。  主动：对目标造成485(【物理加成】)物理伤害，如果目标是坦克，则此伤害提升50%。"
             }
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "被动：每损失1%生命值，获得2.0%"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "攻击速度。  主动：对目标造成120"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "物理加成",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "text",
+              "value": "物理伤害，如果目标是坦克，则此伤害提升50%。"
+            }
+          ]
         }
       ],
       "images": {
@@ -2139,7 +2786,105 @@
               "3": "被动：每第5次攻击，向目标投掷一个会折返的回力镖，在命中首个敌人后继续向前穿透2格。它造成605(【物理加成】【法术加成】)物理伤害，每命中一个敌人减少75%。  木灵加成：0()个木灵会伴随【纳尔】进行攻击，每秒造成25(【物理加成】【攻击速度】)物理伤害。木灵加成：0()个木灵会伴随【纳尔】进行攻击，每秒造成25(【物理加成】【攻击速度】)物理伤害。",
               "4": "被动：每第5次攻击，向目标投掷一个会折返的回力镖，在命中首个敌人后继续向前穿透2格。它造成935(【物理加成】【法术加成】)物理伤害，每命中一个敌人减少75%。  木灵加成：0()个木灵会伴随【纳尔】进行攻击，每秒造成33(【物理加成】【攻击速度】)物理伤害。木灵加成：0()个木灵会伴随【纳尔】进行攻击，每秒造成33(【物理加成】【攻击速度】)物理伤害。"
             }
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "被动：每第5次攻击，向目标投掷一个会折返的回力镖，在命中首个敌人后继续向前穿透2格。它造成245("
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "物理加成",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": ")物理伤害，每命中一个敌人减少75%。  木灵加成：0("
+            },
+            {
+              "type": "stat",
+              "stat": "wood_spirit_bonus",
+              "kind": "amp",
+              "label": "木灵加成",
+              "source_label": "木灵加成",
+              "icon": "amp",
+              "fallback": "木灵"
+            },
+            {
+              "type": "text",
+              "value": ")个木灵会伴随【纳尔】进行攻击，每秒造成11("
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "物理加成",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_speed",
+              "kind": "attack-speed",
+              "label": "攻击速度",
+              "source_label": "攻击速度",
+              "icon": "as",
+              "fallback": "AS"
+            },
+            {
+              "type": "text",
+              "value": ")物理伤害。木灵加成：0("
+            },
+            {
+              "type": "stat",
+              "stat": "wood_spirit_bonus",
+              "kind": "amp",
+              "label": "木灵加成",
+              "source_label": "木灵加成",
+              "icon": "amp",
+              "fallback": "木灵"
+            },
+            {
+              "type": "text",
+              "value": ")个木灵会伴随【纳尔】进行攻击，每秒造成11("
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "物理加成",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_speed",
+              "kind": "attack-speed",
+              "label": "攻击速度",
+              "source_label": "攻击速度",
+              "icon": "as",
+              "fallback": "AS"
+            },
+            {
+              "type": "text",
+              "value": ")物理伤害。"
+            }
+          ]
         }
       ],
       "images": {
@@ -2279,7 +3024,39 @@
               "3": "被动：普攻造成魔法伤害。格温在瞄准一个40%生命值以下的敌人时处于~太~空~律~动~状态。  主动：冲刺至一个附近的格子，剪击生命值百分比最低的那个敌人，对其造成410(【法术加成】)魔法伤害，并对一个锥形范围内的敌人们造成215(【法术加成】)魔法伤害。若此技能击败了一名敌人，则冲刺并再次剪击，造成65%伤害！",
               "4": "被动：普攻造成魔法伤害。格温在瞄准一个40%生命值以下的敌人时处于~太~空~律~动~状态。  主动：冲刺至一个附近的格子，剪击生命值百分比最低的那个敌人，对其造成700(【法术加成】)魔法伤害，并对一个锥形范围内的敌人们造成365(【法术加成】)魔法伤害。若此技能击败了一名敌人，则冲刺并再次剪击，造成65%伤害！"
             }
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "被动：普攻造成魔法伤害。格温在瞄准一个40%生命值以下的敌人时处于~太~空~律~动~状态。  主动：冲刺至一个附近的格子，剪击生命值百分比最低的那个敌人，对其造成150"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "魔法伤害，并对一个锥形范围内的敌人们造成75"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "魔法伤害。若此技能击败了一名敌人，则冲刺并再次剪击，造成65%伤害！"
+            }
+          ]
         }
       ],
       "images": {
@@ -2430,7 +3207,52 @@
               "3": "重新走位至多1格，朝最远的敌人投掷一个鱼叉。鱼叉会将命中的首名敌人向前拖拽1格，并造成135(【法术加成】)物理伤害。随后传送到目标身后并进行顺劈，对其造成720(【物理加成】)物理伤害并对附近的敌人们造成360(【物理加成】)物理伤害。",
               "4": "重新走位至多1格，朝最远的敌人投掷一个鱼叉。鱼叉会将命中的首名敌人向前拖拽1格，并造成230(【法术加成】)物理伤害。随后传送到目标身后并进行顺劈，对其造成1225(【物理加成】)物理伤害并对附近的敌人们造成615(【物理加成】)物理伤害。"
             }
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "重新走位至多1格，朝最远的敌人投掷一个鱼叉。鱼叉会将命中的首名敌人向前拖拽1格，并造成60"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "物理伤害。随后传送到目标身后并进行顺劈，对其造成210"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "物理加成",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "text",
+              "value": "物理伤害并对附近的敌人们造成120"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "物理加成",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "text",
+              "value": "物理伤害。"
+            }
+          ]
         }
       ],
       "images": {
@@ -2570,7 +3392,39 @@
               "3": "对当前目标发射一颗飞星，对命中的首个目标造成180(【法术加成】)魔法伤害，并对途经的其他敌人造成88(【法术加成】)魔法伤害。飞星到达目的地时，会转向至一个远处的敌人，同时提升飞星的速度并重复造成该伤害。此转向效果可重复544次。",
               "4": "对当前目标发射一颗飞星，对命中的首个目标造成260(【法术加成】)魔法伤害，并对途经的其他敌人造成130(【法术加成】)魔法伤害。飞星到达目的地时，会转向至一个远处的敌人，同时提升飞星的速度并重复造成该伤害。此转向效果可重复544次。"
             }
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "对当前目标发射一颗飞星，对命中的首个目标造成68"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "魔法伤害，并对途经的其他敌人造成36"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "魔法伤害。飞星到达目的地时，会转向至一个远处的敌人，同时提升飞星的速度并重复造成该伤害。此转向效果可重复544次。"
+            }
+          ]
         }
       ],
       "images": {
@@ -2711,7 +3565,48 @@
               "3": "在2秒里持续对当前目标进行共12(【攻击速度】)次斩击，每击造成57(【物理加成】【法术加成】)物理伤害。",
               "4": "在2秒里持续对当前目标进行共12(【攻击速度】)次斩击，每击造成97(【物理加成】【法术加成】)物理伤害。"
             }
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "在2秒里持续对当前目标进行共12"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_speed",
+              "kind": "attack-speed",
+              "label": "攻击速度",
+              "source_label": "攻击速度",
+              "icon": "as",
+              "fallback": "AS"
+            },
+            {
+              "type": "text",
+              "value": "次斩击，每击造成25("
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "物理加成",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": ")物理伤害。"
+            }
+          ]
         }
       ],
       "images": {
@@ -2851,7 +3746,48 @@
               "3": "2秒内持续回复892(【生命上限】【法术加成】)生命值。然后，对目标和目标邻格的敌人们造成450(【法术加成】)魔法伤害和持续2秒的30%减速效果。  减速：降低攻击速度",
               "4": "2秒内持续回复1168(【生命上限】【法术加成】)生命值。然后，对目标和目标邻格的敌人们造成765(【法术加成】)魔法伤害和持续2秒的30%减速效果。  减速：降低攻击速度"
             }
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "2秒内持续回复496("
+            },
+            {
+              "type": "stat",
+              "stat": "health",
+              "kind": "health",
+              "label": "生命值",
+              "source_label": "生命上限",
+              "icon": "hp",
+              "fallback": "HP"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": ")生命值。然后，对目标和目标邻格的敌人们造成200"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "魔法伤害和持续2秒的30%减速效果。  减速：降低攻击速度"
+            }
+          ]
         }
       ],
       "images": {
@@ -2991,7 +3927,39 @@
               "3": "朝当前目标踢出一个球，造成575(【法术加成】)魔法伤害。产生碰撞时，这个球有100%几率幸运弹跳至一个新目标，造成190(【法术加成】)魔法伤害。这些弹跳还可以触发更多弹跳，但每次弹跳的几率减半。  幸运：进行两次判定，选择较优的结果。",
               "4": "朝当前目标踢出一个球，造成975(【法术加成】)魔法伤害。产生碰撞时，这个球有100%几率幸运弹跳至一个新目标，造成325(【法术加成】)魔法伤害。这些弹跳还可以触发更多弹跳，但每次弹跳的几率减半。  幸运：进行两次判定，选择较优的结果。"
             }
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "朝当前目标踢出一个球，造成255"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "魔法伤害。产生碰撞时，这个球有100%几率幸运弹跳至一个新目标，造成85"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "魔法伤害。这些弹跳还可以触发更多弹跳，但每次弹跳的几率减半。  幸运：进行两次判定，选择较优的结果。"
+            }
+          ]
         }
       ],
       "images": {
@@ -3143,7 +4111,52 @@
               "3": "获得625(【法术加成】)护盾值。接下来的644秒内，每秒获得115(【法术加成】)额外护盾值，并对所有邻格敌人造成100(【法术加成】)魔法伤害。当这个技能结束时，消耗剩余所有护盾值然后回复相当于40%该数值的生命值。",
               "4": "获得800(【法术加成】)护盾值。接下来的644秒内，每秒获得130(【法术加成】)额外护盾值，并对所有邻格敌人造成170(【法术加成】)魔法伤害。当这个技能结束时，消耗剩余所有护盾值然后回复相当于40%该数值的生命值。"
             }
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "获得350"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "护盾值。接下来的644秒内，每秒获得75"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "额外护盾值，并对所有邻格敌人造成45"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "魔法伤害。当这个技能结束时，消耗剩余所有护盾值然后回复相当于40%该数值的生命值。"
+            }
+          ]
         }
       ],
       "images": {
@@ -3283,7 +4296,39 @@
               "3": "在一个锥形范围内发射一道由15(【攻击速度】)颗火箭组成的弹幕，每颗火箭对命中的第一个目标造成77(【物理加成】)物理伤害。",
               "4": "在一个锥形范围内发射一道由15(【攻击速度】)颗火箭组成的弹幕，每颗火箭对命中的第一个目标造成122(【物理加成】)物理伤害。"
             }
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "在一个锥形范围内发射一道由15"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_speed",
+              "kind": "attack-speed",
+              "label": "攻击速度",
+              "source_label": "攻击速度",
+              "icon": "as",
+              "fallback": "AS"
+            },
+            {
+              "type": "text",
+              "value": "颗火箭组成的弹幕，每颗火箭对命中的第一个目标造成32"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "物理加成",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "text",
+              "value": "物理伤害。"
+            }
+          ]
         }
       ],
       "images": {
@@ -3424,7 +4469,48 @@
               "3": "获得675(【生命上限】【法术加成】)护盾值与15%伤害减免，持续4秒。在此期间，每秒对锥形范围内的敌人造成70(【物理加成】)物理伤害。",
               "4": "获得953(【生命上限】【法术加成】)护盾值与15%伤害减免，持续4秒。在此期间，每秒对锥形范围内的敌人造成120(【物理加成】)物理伤害。"
             }
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "获得329("
+            },
+            {
+              "type": "stat",
+              "stat": "health",
+              "kind": "health",
+              "label": "生命值",
+              "source_label": "生命上限",
+              "icon": "hp",
+              "fallback": "HP"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": ")护盾值与15%伤害减免，持续4秒。在此期间，每秒对锥形范围内的敌人造成30"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "物理加成",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "text",
+              "value": "物理伤害。"
+            }
+          ]
         }
       ],
       "images": {
@@ -3576,7 +4662,74 @@
               "3": "3秒内持续回复846(【生命上限】【法术加成】)生命值。猛击目标，造成360(【法术加成】)魔法伤害和2.00秒击飞。这个冲击会生成木灵波纹，对目标所在的那一排施加50%的上述效果。  木灵加成：木灵将浇灌【小木灵】的花朵，使所有即将到来的治疗和护盾效果提升0%()。木灵加成：木灵将浇灌【小木灵】的花朵，使所有即将到来的治疗和护盾效果提升0%()。",
               "4": "3秒内持续回复1126(【生命上限】【法术加成】)生命值。猛击目标，造成600(【法术加成】)魔法伤害和2.25秒击飞。这个冲击会生成木灵波纹，对目标所在的那一排施加50%的上述效果。  木灵加成：木灵将浇灌【小木灵】的花朵，使所有即将到来的治疗和护盾效果提升0%()。木灵加成：木灵将浇灌【小木灵】的花朵，使所有即将到来的治疗和护盾效果提升0%()。"
             }
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "3秒内持续回复456("
+            },
+            {
+              "type": "stat",
+              "stat": "health",
+              "kind": "health",
+              "label": "生命值",
+              "source_label": "生命上限",
+              "icon": "hp",
+              "fallback": "HP"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": ")生命值。猛击目标，造成160"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "魔法伤害和1.50秒击飞。这个冲击会生成木灵波纹，对目标所在的那一排施加50%的上述效果。  木灵加成：木灵将浇灌【小木灵】的花朵，使所有即将到来的治疗和护盾效果提升0%("
+            },
+            {
+              "type": "stat",
+              "stat": "wood_spirit_bonus",
+              "kind": "amp",
+              "label": "木灵加成",
+              "source_label": "木灵加成",
+              "icon": "amp",
+              "fallback": "木灵"
+            },
+            {
+              "type": "text",
+              "value": ")。木灵加成：木灵将浇灌【小木灵】的花朵，使所有即将到来的治疗和护盾效果提升0%("
+            },
+            {
+              "type": "stat",
+              "stat": "wood_spirit_bonus",
+              "kind": "amp",
+              "label": "木灵加成",
+              "source_label": "木灵加成",
+              "icon": "amp",
+              "fallback": "木灵"
+            },
+            {
+              "type": "text",
+              "value": ")。"
+            }
+          ]
         }
       ],
       "images": {
@@ -3727,7 +4880,65 @@
               "3": "重新定位至目标附近，以打击最多的敌人。随后投掷5枚透体苦无，每枚对首个命中的敌人造成97(【物理加成】)物理伤害，后续目标伤害降低至39(【物理加成】)。苦无削减1护甲，这个数额在暴击时提升至2。  【新星特攻队】特攻：斩击所有敌人，对其施加重伤和受伤效果，每秒造成25(【物理加成】)物理伤害，持续至战斗结束。苦无使该受伤效果的伤害提升12%。  【新星特攻队】特攻：斩击所有敌人，对其施加重伤和受伤效果，每秒造成25(【物理加成】)物理伤害，持续至战斗结束。苦无使该受伤效果的伤害提升12%。",
               "4": "重新定位至目标附近，以打击最多的敌人。随后投掷5枚透体苦无，每枚对首个命中的敌人造成162(【物理加成】)物理伤害，后续目标伤害降低至65(【物理加成】)。苦无削减1护甲，这个数额在暴击时提升至2。  【新星特攻队】特攻：斩击所有敌人，对其施加重伤和受伤效果，每秒造成34(【物理加成】)物理伤害，持续至战斗结束。苦无使该受伤效果的伤害提升12%。  【新星特攻队】特攻：斩击所有敌人，对其施加重伤和受伤效果，每秒造成34(【物理加成】)物理伤害，持续至战斗结束。苦无使该受伤效果的伤害提升12%。"
             }
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "重新定位至目标附近，以打击最多的敌人。随后投掷5枚透体苦无，每枚对首个命中的敌人造成43"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "物理加成",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "text",
+              "value": "物理伤害，后续目标伤害降低至17"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "物理加成",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "text",
+              "value": "。苦无削减1护甲，这个数额在暴击时提升至2。  【新星特攻队】特攻：斩击所有敌人，对其施加重伤和受伤效果，每秒造成14"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "物理加成",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "text",
+              "value": "物理伤害，持续至战斗结束。苦无使该受伤效果的伤害提升12%。  【新星特攻队】特攻：斩击所有敌人，对其施加重伤和受伤效果，每秒造成14"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "物理加成",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "text",
+              "value": "物理伤害，持续至战斗结束。苦无使该受伤效果的伤害提升12%。"
+            }
+          ]
         }
       ],
       "images": {
@@ -3889,7 +5100,48 @@
               "3": "进入3秒的防御姿态，令即将到来的伤害降低30，并获得500(【法术加成】)护盾值。姿态结束时，打击附近所有敌人，造成153(【护甲】【魔法抗性】)魔法伤害和1.50秒晕眩效果。",
               "4": "进入3秒的防御姿态，令即将到来的伤害降低35，并获得630(【法术加成】)护盾值。姿态结束时，打击附近所有敌人，造成261(【护甲】【魔法抗性】)魔法伤害和1.75秒晕眩效果。"
             }
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "进入3秒的防御姿态，令即将到来的伤害降低20，并获得400"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "护盾值。姿态结束时，打击附近所有敌人，造成68("
+            },
+            {
+              "type": "stat",
+              "stat": "armor",
+              "kind": "armor",
+              "label": "护甲",
+              "source_label": "护甲",
+              "icon": "armor",
+              "fallback": "AR"
+            },
+            {
+              "type": "stat",
+              "stat": "magic_resist",
+              "kind": "magic-resist",
+              "label": "魔法抗性",
+              "source_label": "魔法抗性",
+              "icon": "mr",
+              "fallback": "MR"
+            },
+            {
+              "type": "text",
+              "value": ")魔法伤害和1.00秒晕眩效果。"
+            }
+          ]
         }
       ],
       "images": {
@@ -4018,7 +5270,26 @@
               "3": "被动：参与击败后，获得10法力值。  主动：对当前目标附近的一个半径2格的范围发射16颗飞弹，每颗造成79(【物理加成】)物理伤害。",
               "4": "被动：参与击败后，获得10法力值。  主动：对当前目标附近的一个半径2格的范围发射16颗飞弹，每颗造成149(【物理加成】)物理伤害。"
             }
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "被动：参与击败后，获得10法力值。  主动：对当前目标附近的一个半径2格的范围发射16颗飞弹，每颗造成33"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "物理加成",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "text",
+              "value": "物理伤害。"
+            }
+          ]
         }
       ],
       "images": {
@@ -4159,7 +5430,52 @@
               "3": "被动-感应轰击：当有敌人进入半径2(【攻击范围】)格内时，以锥形范围向最近的相邻格子射出一道轰击，造成200(【物理加成】)物理伤害，这个伤害每相距1格衰减30%。每个相邻格子各有5秒冷却时间，并且在战斗开始时处于未冷却状态。  主动：获得持续3秒的200(【法术加成】)护盾值并进行至多一格的走位，以最大化【感应轰击】半径内的目标数量。重置【感应轰击】的冷却时间。",
               "4": "被动-感应轰击：当有敌人进入半径2(【攻击范围】)格内时，以锥形范围向最近的相邻格子射出一道轰击，造成275(【物理加成】)物理伤害，这个伤害每相距1格衰减30%。每个相邻格子各有5秒冷却时间，并且在战斗开始时处于未冷却状态。  主动：获得持续3秒的225(【法术加成】)护盾值并进行至多一格的走位，以最大化【感应轰击】半径内的目标数量。重置【感应轰击】的冷却时间。"
             }
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "被动-感应轰击：当有敌人进入半径2"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_range",
+              "kind": "range",
+              "label": "攻击范围",
+              "source_label": "攻击范围",
+              "icon": "range",
+              "fallback": "RNG"
+            },
+            {
+              "type": "text",
+              "value": "格内时，以锥形范围向最近的相邻格子射出一道轰击，造成85"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "物理加成",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "text",
+              "value": "物理伤害，这个伤害每相距1格衰减30%。每个相邻格子各有5秒冷却时间，并且在战斗开始时处于未冷却状态。  主动：获得持续3秒的150"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "护盾值并进行至多一格的走位，以最大化【感应轰击】半径内的目标数量。重置【感应轰击】的冷却时间。"
+            }
+          ]
         }
       ],
       "images": {
@@ -4288,7 +5604,26 @@
               "3": "在战场上引导一个半径1格的灵能风暴跟随敌人4秒。每秒，它会变得更大并且对其中的敌人们造成530(【法术加成】)魔法伤害，这个伤害每与中心相距1格就会衰减60%。",
               "4": "在战场上引导一个半径1格的灵能风暴跟随敌人4秒。每秒，它会变得更大并且对其中的敌人们造成975(【法术加成】)魔法伤害，这个伤害每与中心相距1格就会衰减60%。"
             }
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "在战场上引导一个半径1格的灵能风暴跟随敌人544秒。每秒，它会变得更大并且对其中的敌人们造成200"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "魔法伤害，这个伤害每与中心相距1格就会衰减60%。"
+            }
+          ]
         }
       ],
       "images": {
@@ -4428,7 +5763,39 @@
               "3": "被动：对战开始时，锻造一件临时成装。如果已经装备了3件装备，则转而将一件随机成装升为光明版，持续到战斗环节结束。  主动：获得500(【法术加成】)护盾值，持续3秒。随后呈锥形喷吐火焰，造成430(【法术加成】)魔法伤害。在身上的任意护盾失效之后，【奥恩】进入~太~空~律~动~状态，持续2.5秒。",
               "4": "被动：对战开始时，锻造一件临时成装。如果已经装备了3件装备，则转而将一件随机成装升为光明版，持续到战斗环节结束。  主动：获得1025(【法术加成】)护盾值，持续3秒。随后呈锥形喷吐火焰，造成590(【法术加成】)魔法伤害。在身上的任意护盾失效之后，【奥恩】进入~太~空~律~动~状态，持续2.5秒。"
             }
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "被动：对战开始时，锻造一件临时成装。如果已经装备了3件装备，则转而将一件随机成装升为光明版，持续到战斗环节结束。  主动：获得125"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "护盾值，持续3秒。随后呈锥形喷吐火焰，造成180"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "魔法伤害。在身上的任意护盾失效之后，【奥恩】进入~太~空~律~动~状态，持续2.5秒。"
+            }
+          ]
         }
       ],
       "images": {
@@ -4579,7 +5946,91 @@
               "3": "冲刺穿过当前目标，造成310(【法术加成】)魔法伤害。每第三次施放还会在短暂延迟后召唤一个究极木灵，以短暂击飞目标并造成445(【法术加成】)魔法伤害。邻格的敌人们受到50%伤害。  木灵加成：朝诱饵再派出0()个木灵，以使究极木灵伤害提升180(【法术加成】)。木灵加成：朝诱饵再派出0()个木灵，以使究极木灵伤害提升180(【法术加成】)。",
               "4": "冲刺穿过当前目标，造成500(【法术加成】)魔法伤害。每第三次施放还会在短暂延迟后召唤一个究极木灵，以短暂击飞目标并造成785(【法术加成】)魔法伤害。邻格的敌人们受到50%伤害。  木灵加成：朝诱饵再派出0()个木灵，以使究极木灵伤害提升320(【法术加成】)。木灵加成：朝诱饵再派出0()个木灵，以使究极木灵伤害提升320(【法术加成】)。"
             }
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "冲刺穿过当前目标，造成140"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "魔法伤害。每第三次施放还会在短暂延迟后召唤一个究极木灵，以短暂击飞目标并造成185"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "魔法伤害。邻格的敌人们受到50%伤害。  木灵加成：朝诱饵再派出0("
+            },
+            {
+              "type": "stat",
+              "stat": "wood_spirit_bonus",
+              "kind": "amp",
+              "label": "木灵加成",
+              "source_label": "木灵加成",
+              "icon": "amp",
+              "fallback": "木灵"
+            },
+            {
+              "type": "text",
+              "value": ")个木灵，以使究极木灵伤害提升0"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "。木灵加成：朝诱饵再派出0("
+            },
+            {
+              "type": "stat",
+              "stat": "wood_spirit_bonus",
+              "kind": "amp",
+              "label": "木灵加成",
+              "source_label": "木灵加成",
+              "icon": "amp",
+              "fallback": "木灵"
+            },
+            {
+              "type": "text",
+              "value": ")个木灵，以使究极木灵伤害提升0"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "。"
+            }
+          ]
         }
       ],
       "images": {
@@ -4730,7 +6181,52 @@
               "3": "被动：从所有来源获得50%额外最大生命值。  主动：在目标处汇聚一个X形藤蔓，对每个命中敌人造成225(【法术加成】)魔法伤害并使其晕眩1.75秒。  【新星特攻队】特攻：向前派出一波龙潮，使所有敌人晕眩1.75秒。战斗结束前，【茂凯】的普攻造成285(【生命上限】)额外物理伤害。  【新星特攻队】特攻：向前派出一波龙潮，使所有敌人晕眩1.75秒。战斗结束前，【茂凯】的普攻造成285(【生命上限】)额外物理伤害。",
               "4": "被动：从所有来源获得50%额外最大生命值。  主动：在目标处汇聚一个X形藤蔓，对每个命中敌人造成300(【法术加成】)魔法伤害并使其晕眩2.00秒。  【新星特攻队】特攻：向前派出一波龙潮，使所有敌人晕眩2.00秒。战斗结束前，【茂凯】的普攻造成412(【生命上限】)额外物理伤害。  【新星特攻队】特攻：向前派出一波龙潮，使所有敌人晕眩2.00秒。战斗结束前，【茂凯】的普攻造成412(【生命上限】)额外物理伤害。"
             }
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "被动：从所有来源获得50%额外最大生命值。  主动：在目标处汇聚一个X形藤蔓，对每个命中敌人造成100"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "魔法伤害并使其晕眩1.50秒。  【新星特攻队】特攻：向前派出一波龙潮，使所有敌人晕眩1.50秒。战斗结束前，【茂凯】的普攻造成88"
+            },
+            {
+              "type": "stat",
+              "stat": "health",
+              "kind": "health",
+              "label": "生命值",
+              "source_label": "生命上限",
+              "icon": "hp",
+              "fallback": "HP"
+            },
+            {
+              "type": "text",
+              "value": "额外物理伤害。  【新星特攻队】特攻：向前派出一波龙潮，使所有敌人晕眩1.50秒。战斗结束前，【茂凯】的普攻造成88"
+            },
+            {
+              "type": "stat",
+              "stat": "health",
+              "kind": "health",
+              "label": "生命值",
+              "source_label": "生命上限",
+              "icon": "hp",
+              "fallback": "HP"
+            },
+            {
+              "type": "text",
+              "value": "额外物理伤害。"
+            }
+          ]
         }
       ],
       "images": {
@@ -4881,7 +6377,52 @@
               "3": "被动：普攻造成135(【法术加成】)额外魔法伤害。  主动：获得450(【法术加成】)护盾并召唤3颗环绕法球，持续3秒。法球穿过敌人时造成160(【法术加成】)魔法伤害，并根据攻击速度加速旋转。",
               "4": "被动：普攻造成220(【法术加成】)额外魔法伤害。  主动：获得525(【法术加成】)护盾并召唤3颗环绕法球，持续3秒。法球穿过敌人时造成190(【法术加成】)魔法伤害，并根据攻击速度加速旋转。"
             }
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "被动：普攻造成52"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "额外魔法伤害。  主动：获得230"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "护盾并召唤3颗环绕法球，持续3秒。法球穿过敌人时造成60"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "魔法伤害，并根据攻击速度加速旋转。"
+            }
+          ]
         }
       ],
       "images": {
@@ -5020,7 +6561,39 @@
               "3": "获得持续2秒的20%伤害减免，持续期间回复650(【法术加成】)生命值。随后，向前斩击一个直线范围，对命中的敌人们造成300(【物理加成】)物理伤害和1秒击飞。",
               "4": "获得持续2秒的20%伤害减免，持续期间回复850(【法术加成】)生命值。随后，向前斩击一个直线范围，对命中的敌人们造成510(【物理加成】)物理伤害和1秒击飞。"
             }
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "获得持续2秒的20%伤害减免，持续期间回复500"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "生命值。随后，向前斩击一个直线范围，对命中的敌人们造成120"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "物理加成",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "text",
+              "value": "物理伤害和1秒击飞。"
+            }
+          ]
         }
       ],
       "images": {
@@ -5172,7 +6745,52 @@
               "3": "获得持续3秒的650(【法术加成】)护盾值。在持续期间，从相距最近的3名敌人身上吸取130(【法术加成】)生命值。然后向下猛击，对半径2格内的所有敌人造成180(【法术加成】)魔法伤害。",
               "4": "获得持续3秒的775(【法术加成】)护盾值。在持续期间，从相距最近的3名敌人身上吸取175(【法术加成】)生命值。然后向下猛击，对半径2格内的所有敌人造成240(【法术加成】)魔法伤害。"
             }
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "获得持续3秒的450"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "护盾值。在持续期间，从相距最近的3名敌人身上吸取55"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "生命值。然后向下猛击，对半径2格内的所有敌人造成80"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "魔法伤害。"
+            }
+          ]
         }
       ],
       "images": {
@@ -5323,7 +6941,48 @@
               "3": "被动：每当一个敌人被击飞时，对其射击，造成140(【物理加成】【法术加成】)物理伤害并进入~太~空~律~动~状态3秒。  主动：对目标发射一连串子弹，造成900(【物理加成】)物理伤害和0.75秒击飞。",
               "4": "被动：每当一个敌人被击飞时，对其射击，造成255(【物理加成】【法术加成】)物理伤害并进入~太~空~律~动~状态3秒。  主动：对目标发射一连串子弹，造成1555(【物理加成】)物理伤害和0.75秒击飞。"
             }
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "被动：每当一个敌人被击飞时，对其射击，造成55("
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "物理加成",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": ")物理伤害并进入~太~空~律~动~状态3秒。  主动：对目标发射一连串子弹，造成375"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "物理加成",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "text",
+              "value": "物理伤害和0.75秒击飞。"
+            }
+          ]
         }
       ],
       "images": {
@@ -5463,7 +7122,39 @@
               "3": "开启一个2格的裂隙，将目标困于其中，对裂隙内的敌人进行4秒黑客攻击，对每个敌人造成190(【法术加成】)魔法伤害，并额外造成由被命中的敌人们分摊的960(【法术加成】)魔法伤害。  被黑客攻击的敌人将存储其承受伤害的10%。黑客攻击结束时，目标将承受等同于已存储伤害的真实伤害。黑客攻击会在能够击败目标时提前结束。",
               "4": "开启一个2格的裂隙，将目标困于其中，对裂隙内的敌人进行4秒黑客攻击，对每个敌人造成340(【法术加成】)魔法伤害，并额外造成由被命中的敌人们分摊的1650(【法术加成】)魔法伤害。  被黑客攻击的敌人将存储其承受伤害的10%。黑客攻击结束时，目标将承受等同于已存储伤害的真实伤害。黑客攻击会在能够击败目标时提前结束。"
             }
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "开启一个2格的裂隙，将目标困于其中，对裂隙内的敌人进行4秒黑客攻击，对每个敌人造成80"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "魔法伤害，并额外造成由被命中的敌人们分摊的400"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "魔法伤害。  被黑客攻击的敌人将存储其承受伤害的10%。黑客攻击结束时，目标将承受等同于已存储伤害的真实伤害。黑客攻击会在能够击败目标时提前结束。"
+            }
+          ]
         }
       ],
       "images": {
@@ -5603,7 +7294,35 @@
               "3": "朝最近的两名敌人引导一连串子弹，持续3.252.52.5秒，每颗子弹每秒造成250（【物理加成】【法术加成】）物理伤害。",
               "4": "朝最近的两名敌人引导一连串子弹，持续3.252.52.5秒，每颗子弹每秒造成293（【物理加成】【法术加成】）物理伤害。"
             }
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "朝最近的两名敌人引导一连串子弹，持续3.252.52.5秒，每颗子弹每秒造成100（"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "物理加成",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "）物理伤害。"
+            }
+          ]
         }
       ],
       "images": {
@@ -5743,7 +7462,35 @@
               "3": "朝目标发射一枚子弹，造成345(【物理加成】【法术加成】)物理伤害并弹射至一名附近的敌人，并将两者都标记。被弹射子弹击中的敌人受到35%该伤害。  该技能对被标记的敌人额外造成50%伤害。",
               "4": "朝目标发射一枚子弹，造成561(【物理加成】【法术加成】)物理伤害并弹射至一名附近的敌人，并将两者都标记。被弹射子弹击中的敌人受到35%该伤害。  该技能对被标记的敌人额外造成50%伤害。"
             }
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "朝目标发射一枚子弹，造成142("
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "物理加成",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": ")物理伤害并弹射至一名附近的敌人，并将两者都标记。被弹射子弹击中的敌人受到35%该伤害。  该技能对被标记的敌人额外造成50%伤害。"
+            }
+          ]
         }
       ],
       "images": {
@@ -5883,7 +7630,35 @@
               "3": "向一条直线上的敌人疯狂倾泻子弹，对敌人造成745(【物理加成】【法术加成】)物理伤害，每穿过一个敌人，伤害降低30%。",
               "4": "向一条直线上的敌人疯狂倾泻子弹，对敌人造成1185(【物理加成】【法术加成】)物理伤害，每穿过一个敌人，伤害降低30%。"
             }
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "向一条直线上的敌人疯狂倾泻子弹，对敌人造成330("
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "物理加成",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": ")物理伤害，每穿过一个敌人，伤害降低30%。"
+            }
+          ]
         }
       ],
       "images": {
@@ -6012,7 +7787,26 @@
               "3": "被动：每局游戏都会获得一个不同的次要效果，基于【观星者】的星座。  主动：从天空中召唤图腾，对3名附近敌人造成400(【法术加成】)魔法伤害，并且对其施加持续2秒的减速。  减速：降低30%攻击速度",
               "4": "被动：每局游戏都会获得一个不同的次要效果，基于【观星者】的星座。  主动：从天空中召唤图腾，对3名附近敌人造成640(【法术加成】)魔法伤害，并且对其施加持续2秒的减速。  减速：降低30%攻击速度"
             }
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "被动：每局游戏都会获得一个不同的次要效果，基于【观星者】的星座。  主动：从天空中召唤图腾，对3名附近敌人造成160"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "魔法伤害，并且对其施加持续2秒的减速。  减速：降低30%攻击速度"
+            }
+          ]
         }
       ],
       "images": {
@@ -6152,7 +7946,26 @@
               "3": "被动：每局游戏都会获得一个不同的次要效果，基于【观星者】的星座。  主动：从天空中召唤硬币，对3名附近敌人造成400(【法术加成】)魔法伤害，并且每施放6次，掉落5金币。(剩余施放次数：6)  (已获取的金币总和：0)",
               "4": "被动：每局游戏都会获得一个不同的次要效果，基于【观星者】的星座。  主动：从天空中召唤硬币，对3名附近敌人造成680(【法术加成】)魔法伤害，并且每施放6次，掉落11金币。(剩余施放次数：6)  (已获取的金币总和：0)"
             }
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "被动：每局游戏都会获得一个不同的次要效果，基于【观星者】的星座。  主动：从天空中召唤硬币，对3名附近敌人造成160"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "魔法伤害，并且每施放6次，掉落1金币。(剩余施放次数：6)  (已获取的金币总和：0)"
+            }
+          ]
         }
       ],
       "images": {
@@ -6292,7 +8105,39 @@
               "3": "被动：每局游戏都会获得一个不同的次要效果，基于【观星者】的星座。  主动：从天空中召唤岩石，对3名附近敌人造成400(【法术加成】)魔法伤害，短暂晕眩他们并造成50(【法术加成】)额外真实伤害。",
               "4": "被动：每局游戏都会获得一个不同的次要效果，基于【观星者】的星座。  主动：从天空中召唤岩石，对3名附近敌人造成680(【法术加成】)魔法伤害，短暂晕眩他们并造成71(【法术加成】)额外真实伤害。"
             }
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "被动：每局游戏都会获得一个不同的次要效果，基于【观星者】的星座。  主动：从天空中召唤岩石，对3名附近敌人造成160"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "魔法伤害，短暂晕眩他们并造成20"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "额外真实伤害。"
+            }
+          ]
         }
       ],
       "images": {
@@ -6432,7 +8277,26 @@
               "3": "被动：每局游戏都会获得一个不同的次要效果，基于【观星者】的星座。  主动：从天空中召唤药瓶，对3名附近敌人造成360(【法术加成】)魔法伤害，并且使各目标的半径1格范围内的敌人们降低8魔抗。",
               "4": "被动：每局游戏都会获得一个不同的次要效果，基于【观星者】的星座。  主动：从天空中召唤药瓶，对3名附近敌人造成640(【法术加成】)魔法伤害，并且使各目标的半径1格范围内的敌人们降低13魔抗。"
             }
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "被动：每局游戏都会获得一个不同的次要效果，基于【观星者】的星座。  主动：从天空中召唤药瓶，对3名附近敌人造成150"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "魔法伤害，并且使各目标的半径1格范围内的敌人们降低4魔抗。"
+            }
+          ]
         }
       ],
       "images": {
@@ -6572,7 +8436,26 @@
               "3": "被动：每局游戏都会获得一个不同的次要效果，基于【观星者】的星座。  主动：从天空中召唤飞箭，对3名附近敌人造成360(【法术加成】)魔法伤害，施加33%重伤并使敌人受到10%额外伤害，持续5秒。  重伤：降低受到的治疗效果。",
               "4": "被动：每局游戏都会获得一个不同的次要效果，基于【观星者】的星座。  主动：从天空中召唤飞箭，对3名附近敌人造成540(【法术加成】)魔法伤害，施加33%重伤并使敌人受到10%额外伤害，持续5秒。  重伤：降低受到的治疗效果。"
             }
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "被动：每局游戏都会获得一个不同的次要效果，基于【观星者】的星座。  主动：从天空中召唤飞箭，对3名附近敌人造成145"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "魔法伤害，施加33%重伤并使敌人受到10%额外伤害，持续5秒。  重伤：降低受到的治疗效果。"
+            }
+          ]
         }
       ],
       "images": {
@@ -6712,7 +8595,39 @@
               "3": "被动：每局游戏都会获得一个不同的次要效果，基于【观星者】的星座。  主动：从天空中召唤鱼群，对3名附近敌人造成375(【法术加成】)魔法伤害，并且对3个其他敌人造成125(【法术加成】)额外魔法伤害。",
               "4": "被动：每局游戏都会获得一个不同的次要效果，基于【观星者】的星座。  主动：从天空中召唤鱼群，对3名附近敌人造成640(【法术加成】)魔法伤害，并且对3个其他敌人造成215(【法术加成】)额外魔法伤害。"
             }
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "被动：每局游戏都会获得一个不同的次要效果，基于【观星者】的星座。  主动：从天空中召唤鱼群，对3名附近敌人造成150"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "魔法伤害，并且对3个其他敌人造成50"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "额外魔法伤害。"
+            }
+          ]
         }
       ],
       "images": {
@@ -6852,7 +8767,39 @@
               "3": "被动：每局游戏都会获得一个不同的次要效果，基于【观星者】的星座。  主动：从天空中召唤牛排，对3名附近敌人造成375(【法术加成】)魔法伤害并且为3个友军治疗50(【法术加成】)生命值。",
               "4": "被动：每局游戏都会获得一个不同的次要效果，基于【观星者】的星座。  主动：从天空中召唤牛排，对3名附近敌人造成640(【法术加成】)魔法伤害并且为3个友军治疗100(【法术加成】)生命值。"
             }
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "被动：每局游戏都会获得一个不同的次要效果，基于【观星者】的星座。  主动：从天空中召唤牛排，对3名附近敌人造成150"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "魔法伤害并且为3个友军治疗30"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "生命值。"
+            }
+          ]
         }
       ],
       "images": {
@@ -7003,7 +8950,48 @@
               "3": "被动：每第三次攻击是一次双连斩，造成550(【物理加成】)额外物理伤害。  主动：在短暂的冥想之后，进入一个持续5秒的灵能状态，从而获得10%全能汲取、70%攻击速度、以及额外移动速度。每秒两次，发射一道灵能投影至附近的一个随机敌人，造成800(【物理加成】【法术加成】)物理伤害。",
               "4": "被动：每第三次攻击是一次双连斩，造成720(【物理加成】)额外物理伤害。  主动：在短暂的冥想之后，进入一个持续5秒的灵能状态，从而获得10%全能汲取、70%攻击速度、以及额外移动速度。每秒两次，发射一道灵能投影至附近的一个随机敌人，造成1080(【物理加成】【法术加成】)物理伤害。"
             }
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "被动：每第三次攻击是一次双连斩，造成77"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "物理加成",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "text",
+              "value": "额外物理伤害。  主动：在短暂的冥想之后，进入一个持续5秒的灵能状态，从而获得10%全能汲取、70%攻击速度、以及额外移动速度。每秒两次，发射一道灵能投影至附近的一个随机敌人，造成75("
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "物理加成",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": ")物理伤害。"
+            }
+          ]
         }
       ],
       "images": {
@@ -7165,7 +9153,52 @@
               "3": "获得持续4秒的2000(【法术加成】)护盾值。召唤一个星盘并砸落到一个附近的格子上，对2格内的敌人们造成2000(【法术加成】)魔法伤害。随后，将星盘推向战场尽头，造成2000(【法术加成】)魔法伤害。所有被星盘命中的敌人会被击飞8.00秒。",
               "4": "获得持续4秒的4000(【法术加成】)护盾值。召唤一个星盘并砸落到一个附近的格子上，对2格内的敌人们造成4000(【法术加成】)魔法伤害。随后，将星盘推向战场尽头，造成3000(【法术加成】)魔法伤害。所有被星盘命中的敌人会被击飞16.00秒。"
             }
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "获得持续4秒的475"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "护盾值。召唤一个星盘并砸落到一个附近的格子上，对2格内的敌人们造成120"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "魔法伤害。随后，将星盘推向战场尽头，造成100"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "魔法伤害。所有被星盘命中的敌人会被击飞1.50秒。"
+            }
+          ]
         }
       ],
       "images": {
@@ -7316,7 +9349,91 @@
               "3": "扫射至一个附近位置，释放21枚导弹，由目标与半径2格内的全体敌人分摊。导弹造成304(【物理加成】)物理伤害，有20%幸运几率发射一个究极导弹，转而造成1064(【物理加成】)伤害。  木灵加成：每8.0()秒，对目标发射一个爆炸木灵，碰撞时在半径1格内造成900(【物理加成】)物理伤害。木灵加成：每8.0()秒，对目标发射一个爆炸木灵，碰撞时在半径1格内造成900(【物理加成】)物理伤害。  幸运：进行两次判定，选择较优的结果。",
               "4": "扫射至一个附近位置，释放21枚导弹，由目标与半径2格内的全体敌人分摊。导弹造成516(【物理加成】)物理伤害，有20%幸运几率发射一个究极导弹，转而造成1806(【物理加成】)伤害。  木灵加成：每8.0()秒，对目标发射一个爆炸木灵，碰撞时在半径1格内造成1200(【物理加成】)物理伤害。木灵加成：每8.0()秒，对目标发射一个爆炸木灵，碰撞时在半径1格内造成1200(【物理加成】)物理伤害。  幸运：进行两次判定，选择较优的结果。"
             }
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "扫射至一个附近位置，释放21枚导弹，由目标与半径2格内的全体敌人分摊。导弹造成35"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "物理加成",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "text",
+              "value": "物理伤害，有20%幸运几率发射一个究极导弹，转而造成123"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "物理加成",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "text",
+              "value": "伤害。  木灵加成：每8.0("
+            },
+            {
+              "type": "stat",
+              "stat": "wood_spirit_bonus",
+              "kind": "amp",
+              "label": "木灵加成",
+              "source_label": "木灵加成",
+              "icon": "amp",
+              "fallback": "木灵"
+            },
+            {
+              "type": "text",
+              "value": ")秒，对目标发射一个爆炸木灵，碰撞时在半径1格内造成120"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "物理加成",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "text",
+              "value": "物理伤害。木灵加成：每8.0("
+            },
+            {
+              "type": "stat",
+              "stat": "wood_spirit_bonus",
+              "kind": "amp",
+              "label": "木灵加成",
+              "source_label": "木灵加成",
+              "icon": "amp",
+              "fallback": "木灵"
+            },
+            {
+              "type": "text",
+              "value": ")秒，对目标发射一个爆炸木灵，碰撞时在半径1格内造成120"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "物理加成",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "text",
+              "value": "物理伤害。  幸运：进行两次判定，选择较优的结果。"
+            }
+          ]
         }
       ],
       "images": {
@@ -7466,7 +9583,39 @@
               "3": "召集黑洞之力，造成5000(【法术加成】)魔法伤害，由目标及与其相距最近的4名敌人分摊。该目标受到额外的1000(【法术加成】)魔法伤害。",
               "4": "召集黑洞之力，造成6000(【法术加成】)魔法伤害，由目标及与其相距最近的0名敌人分摊。该目标受到额外的1320(【法术加成】)魔法伤害。"
             }
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "召集黑洞之力，造成630"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "魔法伤害，由目标及与其相距最近的2名敌人分摊。该目标受到额外的180"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "魔法伤害。"
+            }
+          ]
         }
       ],
       "images": {
@@ -7628,7 +9777,48 @@
               "3": "被动：普攻和技能会标记目标。当一个敌人身上的标记达到3个时，狼灵消耗所有标记以造成1000(【物理加成】【法术加成】)物理伤害。  主动：跳跃至多1格，并朝相距最近的5个目标发射箭矢，每支箭矢造成600(【物理加成】)物理伤害。  新星特攻：获得15%伤害增幅。现在以及之后的每4.5秒，添加一个标记至所有敌人。  新星特攻：获得15%伤害增幅。现在以及之后的每4.5秒，添加一个标记至所有敌人。",
               "4": "被动：普攻和技能会标记目标。当一个敌人身上的标记达到3个时，狼灵消耗所有标记以造成1700(【物理加成】【法术加成】)物理伤害。  主动：跳跃至多1格，并朝相距最近的5个目标发射箭矢，每支箭矢造成1000(【物理加成】)物理伤害。  新星特攻：获得15%伤害增幅。现在以及之后的每4.5秒，添加一个标记至所有敌人。  新星特攻：获得15%伤害增幅。现在以及之后的每4.5秒，添加一个标记至所有敌人。"
             }
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "被动：普攻和技能会标记目标。当一个敌人身上的标记达到3个时，狼灵消耗所有标记以造成125("
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "物理加成",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": ")物理伤害。  主动：跳跃至多1格，并朝相距最近的3个目标发射箭矢，每支箭矢造成75"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "物理加成",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "text",
+              "value": "物理伤害。  新星特攻：获得15%伤害增幅。现在以及之后的每4.5秒，添加一个标记至所有敌人。  新星特攻：获得15%伤害增幅。现在以及之后的每4.5秒，添加一个标记至所有敌人。"
+            }
+          ]
         }
       ],
       "images": {
@@ -7790,7 +9980,91 @@
               "3": "被动：此技能的伤害类型会基于物理加成或法术加成进行适应，取较高一项。普攻造成300(【法术加成】)魔法伤害。<active:compare_adrate_ap>0>被动：此技能的伤害类型会基于物理加成或法术加成进行适应，取较高一项。普攻造成300(【物理加成】)物理伤害。  主动：冲向附近一个格子，获得持续2秒的1200护盾值，并斩击邻格敌人们，造成1000(【法术加成】)魔法伤害，每三次施放，跳到空中，发射一道能量波，对一条直线上的敌人造成2000(【法术加成】)魔法伤害。<active:compare_adrate_ap>0>主动：冲向附近一个格子，获得持续2秒的1200护盾值，并斩击邻格敌人们，造成1000(【物理加成】)物理伤害。每三次施放，跳到空中，发射一道能量波，对一条直线上的敌人造成2000(【物理加成】)物理伤害。",
               "4": "被动：此技能的伤害类型会基于物理加成或法术加成进行适应，取较高一项。普攻造成400(【法术加成】)魔法伤害。<active:compare_adrate_ap>0>被动：此技能的伤害类型会基于物理加成或法术加成进行适应，取较高一项。普攻造成400(【物理加成】)物理伤害。  主动：冲向附近一个格子，获得持续2秒的2000护盾值，并斩击邻格敌人们，造成1250(【法术加成】)魔法伤害，每三次施放，跳到空中，发射一道能量波，对一条直线上的敌人造成3400(【法术加成】)魔法伤害。<active:compare_adrate_ap>0>主动：冲向附近一个格子，获得持续2秒的2000护盾值，并斩击邻格敌人们，造成1250(【物理加成】)物理伤害。每三次施放，跳到空中，发射一道能量波，对一条直线上的敌人造成3400(【物理加成】)物理伤害。"
             }
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "被动：此技能的伤害类型会基于物理加成或法术加成进行适应，取较高一项。普攻造成75"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "魔法伤害。<active:compare_adrate_ap>0>被动：此技能的伤害类型会基于物理加成或法术加成进行适应，取较高一项。普攻造成75"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "物理加成",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "text",
+              "value": "物理伤害。  主动：冲向附近一个格子，获得持续2秒的100护盾值，并斩击邻格敌人们，造成100"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "魔法伤害，每三次施放，跳到空中，发射一道能量波，对一条直线上的敌人造成180"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "魔法伤害。<active:compare_adrate_ap>0>主动：冲向附近一个格子，获得持续2秒的100护盾值，并斩击邻格敌人们，造成100"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "物理加成",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "text",
+              "value": "物理伤害。每三次施放，跳到空中，发射一道能量波，对一条直线上的敌人造成180"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "物理加成",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "text",
+              "value": "物理伤害。"
+            }
+          ]
         }
       ],
       "images": {
@@ -7952,7 +10226,100 @@
               "3": "获得2000(【法术加成】)护盾值，持续4秒。随后，打击一条有最多敌人的3格直线，造成1360(【法术加成】【护甲】)魔法伤害。  木灵加成：令即将到来的攻击降低0()伤害。受到20次攻击后，在一个半径2格的范围内造成0(【护甲】)魔法伤害。木灵加成：令即将到来的攻击降低0()伤害。受到20次攻击后，在一个半径2格的范围内造成0(【护甲】)魔法伤害。",
               "4": "获得2500(【法术加成】)护盾值，持续4秒。随后，打击一条有最多敌人的3格直线，造成1920(【法术加成】【护甲】)魔法伤害。  木灵加成：令即将到来的攻击降低0()伤害。受到20次攻击后，在一个半径2格的范围内造成0(【护甲】)魔法伤害。木灵加成：令即将到来的攻击降低0()伤害。受到20次攻击后，在一个半径2格的范围内造成0(【护甲】)魔法伤害。"
             }
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "获得675"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "护盾值，持续4秒。随后，打击一条有最多敌人的3格直线，造成80("
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "stat",
+              "stat": "armor",
+              "kind": "armor",
+              "label": "护甲",
+              "source_label": "护甲",
+              "icon": "armor",
+              "fallback": "AR"
+            },
+            {
+              "type": "text",
+              "value": ")魔法伤害。  木灵加成：令即将到来的攻击降低0("
+            },
+            {
+              "type": "stat",
+              "stat": "wood_spirit_bonus",
+              "kind": "amp",
+              "label": "木灵加成",
+              "source_label": "木灵加成",
+              "icon": "amp",
+              "fallback": "木灵"
+            },
+            {
+              "type": "text",
+              "value": ")伤害。受到20次攻击后，在一个半径2格的范围内造成0"
+            },
+            {
+              "type": "stat",
+              "stat": "armor",
+              "kind": "armor",
+              "label": "护甲",
+              "source_label": "护甲",
+              "icon": "armor",
+              "fallback": "AR"
+            },
+            {
+              "type": "text",
+              "value": "魔法伤害。木灵加成：令即将到来的攻击降低0("
+            },
+            {
+              "type": "stat",
+              "stat": "wood_spirit_bonus",
+              "kind": "amp",
+              "label": "木灵加成",
+              "source_label": "木灵加成",
+              "icon": "amp",
+              "fallback": "木灵"
+            },
+            {
+              "type": "text",
+              "value": ")伤害。受到20次攻击后，在一个半径2格的范围内造成0"
+            },
+            {
+              "type": "stat",
+              "stat": "armor",
+              "kind": "armor",
+              "label": "护甲",
+              "source_label": "护甲",
+              "icon": "armor",
+              "fallback": "AR"
+            },
+            {
+              "type": "text",
+              "value": "魔法伤害。"
+            }
+          ]
         }
       ],
       "images": {
@@ -8092,7 +10459,39 @@
               "3": "朝目标投掷一个迪斯科泡泡，造成5000(【法术加成】)伤害，由半径1格内的敌人们分摊。这个爆炸会朝附近的敌人们射出3团黏液，黏液造成1000(【法术加成】)魔法伤害。施放技能时，娜美进入~太~空~律~动~状态，持续3秒。",
               "4": "朝目标投掷一个迪斯科泡泡，造成5000(【法术加成】)伤害，由半径1格内的敌人们分摊。这个爆炸会朝附近的敌人们射出3团黏液，黏液造成1000(【法术加成】)魔法伤害。施放技能时，娜美进入~太~空~律~动~状态，持续3秒。"
             }
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "朝目标投掷一个迪斯科泡泡，造成460"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "伤害，由半径1格内的敌人们分摊。这个爆炸会朝附近的敌人们射出3团黏液，黏液造成125"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "魔法伤害。施放技能时，娜美进入~太~空~律~动~状态，持续3秒。"
+            }
+          ]
         }
       ],
       "images": {
@@ -8231,7 +10630,57 @@
               "3": "被动：每场战斗一次，在跌下35%生命值时，获得持续4秒的护盾，护盾值相当于40%本场战斗受到的治疗值。  主动：回复1943(【生命上限】【法术加成】)生命值，然后用舌头鞭笞两格内的所有敌人，造成1604(【法术加成】【生命上限】)魔法伤害。",
               "4": "被动：每场战斗一次，在跌下35%生命值时，获得持续4秒的护盾，护盾值相当于40%本场战斗受到的治疗值。  主动：回复3102(【生命上限】【法术加成】)生命值，然后用舌头鞭笞两格内的所有敌人，造成2692(【法术加成】【生命上限】)魔法伤害。"
             }
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "被动：每场战斗一次，在跌下35%生命值时，获得持续4秒的护盾，护盾值相当于40%本场战斗受到的治疗值。  主动：回复411("
+            },
+            {
+              "type": "stat",
+              "stat": "health",
+              "kind": "health",
+              "label": "生命值",
+              "source_label": "生命上限",
+              "icon": "hp",
+              "fallback": "HP"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": ")生命值，然后用舌头鞭笞两格内的所有敌人，造成71("
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "stat",
+              "stat": "health",
+              "kind": "health",
+              "label": "生命值",
+              "source_label": "生命上限",
+              "icon": "hp",
+              "fallback": "HP"
+            },
+            {
+              "type": "text",
+              "value": ")魔法伤害。"
+            }
+          ]
         }
       ],
       "images": {
@@ -8373,7 +10822,48 @@
               "3": "进入持续4秒的防御姿态，从而获得60%伤害减免。处于防御姿态时，吸引附近的敌方投射物并持续回复3000(【法术加成】)生命值。当这个效果结束时，释放一道冲击波，在一个半径2格的范围内造成3600(【护甲】【魔法抗性】)物理伤害。",
               "4": "进入持续4秒的防御姿态，从而获得60%伤害减免。处于防御姿态时，吸引附近的敌方投射物并持续回复5000(【法术加成】)生命值。当这个效果结束时，释放一道冲击波，在一个半径2格的范围内造成3600(【护甲】【魔法抗性】)物理伤害。"
             }
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "进入持续4秒的防御姿态，从而获得20%伤害减免。处于防御姿态时，吸引附近的敌方投射物并持续回复900"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "生命值。当这个效果结束时，释放一道冲击波，在一个半径2格的范围内造成96("
+            },
+            {
+              "type": "stat",
+              "stat": "armor",
+              "kind": "armor",
+              "label": "护甲",
+              "source_label": "护甲",
+              "icon": "armor",
+              "fallback": "AR"
+            },
+            {
+              "type": "stat",
+              "stat": "magic_resist",
+              "kind": "magic-resist",
+              "label": "魔法抗性",
+              "source_label": "魔法抗性",
+              "icon": "mr",
+              "fallback": "MR"
+            },
+            {
+              "type": "text",
+              "value": ")物理伤害。"
+            }
+          ]
         }
       ],
       "images": {
@@ -8524,7 +11014,39 @@
               "3": "被动：普攻转而造成250(【法术加成】)魔法伤害。  主动：召唤5个复制体，伴随攻击5次，从而造成150%伤害。发动最终攻击时，复制体发射一枚飞弹，造成750(【法术加成】)魔法伤害。",
               "4": "被动：普攻转而造成450(【法术加成】)魔法伤害。  主动：召唤5个复制体，伴随攻击5次，从而造成150%伤害。发动最终攻击时，复制体发射一枚飞弹，造成750(【法术加成】)魔法伤害。"
             }
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "被动：普攻转而造成66"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "魔法伤害。  主动：召唤5个复制体，伴随攻击5次，从而造成25%伤害。发动最终攻击时，复制体发射一枚飞弹，造成95"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "魔法伤害。"
+            }
+          ]
         }
       ],
       "images": {
@@ -8697,7 +11219,39 @@
               "3": "被动：普攻会造成弹跳，打击5次，每命中一次目标造成的伤害降低30%，并在最终目标处留下一柄羽刃。  主动：获得75%攻击速度，持续下6次攻击。最终，从相距最近的3名敌人处召回所有羽刃，每支羽刃造成960(【物理加成】)物理伤害。每支羽刃对霞的当前目标造成200(【物理加成】)额外物理伤害。",
               "4": "被动：普攻会造成弹跳，打击5次，每命中一次目标造成的伤害降低30%，并在最终目标处留下一柄羽刃。  主动：获得75%攻击速度，持续下6次攻击。最终，从相距最近的3名敌人处召回所有羽刃，每支羽刃造成1630(【物理加成】)物理伤害。每支羽刃对霞的当前目标造成340(【物理加成】)额外物理伤害。"
             }
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "被动：普攻会造成弹跳，打击3次，每命中一次目标造成的伤害降低60%，并在最终目标处留下一柄羽刃。  主动：获得75%攻击速度，持续下6次攻击。最终，从相距最近的3名敌人处召回所有羽刃，每支羽刃造成51"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "物理加成",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "text",
+              "value": "物理伤害。每支羽刃对霞的当前目标造成25"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "物理加成",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "text",
+              "value": "额外物理伤害。"
+            }
+          ]
         }
       ],
       "images": {
@@ -8826,7 +11380,26 @@
               "3": "朝当前目标沿直线引导一道究极射线，持续433秒。射线每秒造成2000(【法术加成】)魔法伤害，每穿过一名敌人，伤害降低80%。究极射线无视敌人30%的魔抗。",
               "4": "朝当前目标沿直线引导一道究极射线，持续433秒。射线每秒造成2000(【法术加成】)魔法伤害，每穿过一名敌人，伤害降低80%。究极射线无视敌人30%的魔抗。"
             }
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "朝当前目标沿直线引导一道究极射线，持续433秒。射线每秒造成320"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "魔法伤害，每穿过一名敌人，伤害降低80%。究极射线无视敌人30%的魔抗。"
+            }
+          ]
         }
       ],
       "images": {
@@ -8977,7 +11550,65 @@
               "3": "在当前目标头上召唤一个持续544秒的飞碟。每秒，它对该目标造成3000(【法术加成】)魔法伤害，外加由半径1格内的所有敌人们分摊的1500(【法术加成】)魔法伤害。飞碟对坦克造成30%额外伤害。  如果飞碟下方的一个敌人倒下，那么【巴德】有100%几率吸引这个敌人并在你的备战席上生成该敌人的一个1星版本。  木灵加成：在对战开始时，为相距最近的0()个【木灵族】提供一个额外的木灵。  已吸引的朋友数量：0木灵加成：在对战开始时，为相距最近的0()个【木灵族】提供一个额外的木灵。  已吸引的朋友数量：0",
               "4": "在当前目标头上召唤一个持续544秒的飞碟。每秒，它对该目标造成5000(【法术加成】)魔法伤害，外加由半径1格内的所有敌人们分摊的2500(【法术加成】)魔法伤害。飞碟对坦克造成30%额外伤害。  如果飞碟下方的一个敌人倒下，那么【巴德】有100%几率吸引这个敌人并在你的备战席上生成该敌人的一个1星版本。  木灵加成：在对战开始时，为相距最近的0()个【木灵族】提供一个额外的木灵。  已吸引的朋友数量：0木灵加成：在对战开始时，为相距最近的0()个【木灵族】提供一个额外的木灵。  已吸引的朋友数量：0"
             }
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "在当前目标头上召唤一个持续544秒的飞碟。每秒，它对该目标造成240"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "魔法伤害，外加由半径1格内的所有敌人们分摊的135"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "魔法伤害。飞碟对坦克造成30%额外伤害。  如果飞碟下方的一个敌人倒下，那么【巴德】有15%几率吸引这个敌人并在你的备战席上生成该敌人的一个1星版本。  木灵加成：在对战开始时，为相距最近的0("
+            },
+            {
+              "type": "stat",
+              "stat": "wood_spirit_bonus",
+              "kind": "amp",
+              "label": "木灵加成",
+              "source_label": "木灵加成",
+              "icon": "amp",
+              "fallback": "木灵"
+            },
+            {
+              "type": "text",
+              "value": ")个【木灵族】提供一个额外的木灵。  已吸引的朋友数量：0木灵加成：在对战开始时，为相距最近的0("
+            },
+            {
+              "type": "stat",
+              "stat": "wood_spirit_bonus",
+              "kind": "amp",
+              "label": "木灵加成",
+              "source_label": "木灵加成",
+              "icon": "amp",
+              "fallback": "木灵"
+            },
+            {
+              "type": "text",
+              "value": ")个【木灵族】提供一个额外的木灵。  已吸引的朋友数量：0"
+            }
+          ]
         }
       ],
       "images": {
@@ -9129,7 +11760,52 @@
               "3": "被动：每1秒，在生命值最高的那个敌人上空召唤一道雷电，以造成150(【法术加成】)魔法伤害。  主动：在最大的敌群上空召唤一个迪斯科球，然后以上勾拳打击当前目标，造成999(【法术加成】)魔法伤害并将其击飞。该敌人将撞到迪斯科球，在一个半径3格的范围内造成5000(【法术加成】)魔法伤害。进入~太~空~律~动~状态，每命中一个敌人都会提供1秒持续时长。",
               "4": "被动：每1秒，在生命值最高的那个敌人上空召唤一道雷电，以造成150(【法术加成】)魔法伤害。  主动：在最大的敌群上空召唤一个迪斯科球，然后以上勾拳打击当前目标，造成2000(【法术加成】)魔法伤害并将其击飞。该敌人将撞到迪斯科球，在一个半径3格的范围内造成5000(【法术加成】)魔法伤害。进入~太~空~律~动~状态，每命中一个敌人都会提供1秒持续时长。"
             }
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "被动：每2秒，在生命值最高的那个敌人上空召唤一道雷电，以造成60"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "魔法伤害。  主动：在最大的敌群上空召唤一个迪斯科灯球，然后以上勾拳打击当前目标，造成150"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "魔法伤害并将其击飞。该敌人将撞到迪斯科灯球，在一个半径3格的范围内造成175"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "魔法伤害。进入~太~空~律~动~状态，每命中一个敌人都会提供1秒持续时长。"
+            }
+          ]
         }
       ],
       "images": {
@@ -9269,7 +11945,39 @@
               "3": "被动：【薇古丝】每次攻击时，【黑影】就会打击一个附近的敌人，造成250(【法术加成】)魔法伤害。每当一个敌人被【黑影】击中5次时，【黑影】就会再次打击这个敌人。  主动：【黑影】进行3次强化打击，转而造成1000(【法术加成】)魔法伤害。",
               "4": "被动：【薇古丝】每次攻击时，【黑影】就会打击一个附近的敌人，造成1000(【法术加成】)魔法伤害。每当一个敌人被【黑影】击中5次时，【黑影】就会再次打击这个敌人。  主动：【黑影】进行3次强化打击，转而造成9999(【法术加成】)魔法伤害。"
             }
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "被动：【薇古丝】每次攻击时，【黑影】就会打击一个附近的敌人，造成27"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "魔法伤害。每当一个敌人被【黑影】击中5次时，【黑影】就会再次打击这个敌人。  主动：【黑影】进行3次强化打击，转而造成130"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "魔法伤害。"
+            }
+          ]
         }
       ],
       "images": {
@@ -9419,7 +12127,61 @@
               "3": "被动：普攻会在锥形范围内发射5枚飞弹，每枚造成45(【攻击力】)物理伤害。  主动：发射一枚爆弹，对目标造成5555(【物理加成】)物理伤害，并对半径一格内的所有敌人造成4110【物理加成】【法术加成】)物理伤害。",
               "4": "被动：普攻会在锥形范围内发射5枚飞弹，每枚造成59(【攻击力】)物理伤害。  主动：发射一枚爆弹，对目标造成5555(【物理加成】)物理伤害，并对半径一格内的所有敌人造成4110【物理加成】【法术加成】)物理伤害。"
             }
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "被动：普攻会在锥形范围内发射5枚飞弹，每枚造成20"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "攻击力",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "text",
+              "value": "物理伤害。  主动：发射一枚爆弹，对目标造成390"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "物理加成",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "text",
+              "value": "物理伤害，并对半径一格内的所有敌人造成165"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "物理加成",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": ")物理伤害。"
+            }
+          ]
         }
       ],
       "images": {
@@ -9560,7 +12322,57 @@
               "3": "被动：施放时，攻击获得859(【生命上限】【法术加成】)可叠加的额外魔法伤害。从第三次施放开始，转而获得真实伤害。  主动：获得持续3秒的4688(【生命上限】【法术加成】)护盾值，然后在最大弈子群的上方切割开一条裂隙，对其中的所有敌人造成被动的额外伤害。敌人被减缓999%攻击速度同时友军获得999%攻击速度，两个效果都会在3秒里急速衰减。慎在此期间总会获得他的裂隙的全额加成。",
               "4": "被动：施放时，攻击获得938(【生命上限】【法术加成】)可叠加的额外魔法伤害。从第三次施放开始，转而获得真实伤害。  主动：获得持续3秒的5869(【生命上限】【法术加成】)护盾值，然后在最大弈子群的上方切割开一条裂隙，对其中的所有敌人造成被动的额外伤害。敌人被减缓999%攻击速度同时友军获得999%攻击速度，两个效果都会在3秒里急速衰减。慎在此期间总会获得他的裂隙的全额加成。"
             }
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "被动：施放时，攻击获得38("
+            },
+            {
+              "type": "stat",
+              "stat": "health",
+              "kind": "health",
+              "label": "生命值",
+              "source_label": "生命上限",
+              "icon": "hp",
+              "fallback": "HP"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": ")可叠加的额外魔法伤害。从第三次施放开始，转而获得真实伤害。  主动：获得持续3秒的395("
+            },
+            {
+              "type": "stat",
+              "stat": "health",
+              "kind": "health",
+              "label": "生命值",
+              "source_label": "生命上限",
+              "icon": "hp",
+              "fallback": "HP"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": ")护盾值，然后在最大弈子群的上方切割开一条裂隙，对其中的所有敌人造成被动的额外伤害。敌人被减缓50%攻击速度同时友军获得80%攻击速度，两个效果都会在3秒里急速衰减。慎在此期间总会获得他的裂隙的全额加成。"
+            }
+          ]
         }
       ],
       "images": {
@@ -9712,7 +12524,52 @@
               "3": "对距离最近且没有磁性残片的目标投掷一大块残片，造成999(【法术加成】)魔法伤害并将它附着在其身上。如果带有残片的敌人倒下，则会把残片传递给相距最近且没有残片的敌人。  每5次施放，转而将所有残片撕扯下来，造成999(【法术加成】)魔法伤害，然后将所有残片碾向目标，造成9999(【法术加成】)魔法伤害，并将其短暂晕眩。",
               "4": "对距离最近且没有磁性残片的目标投掷一大块残片，造成999(【法术加成】)魔法伤害并将它附着在其身上。如果带有残片的敌人倒下，则会把残片传递给相距最近且没有残片的敌人。  每5次施放，转而将所有残片撕扯下来，造成2000(【法术加成】)魔法伤害，然后将所有残片碾向目标，造成9999(【法术加成】)魔法伤害，并将其短暂晕眩。"
             }
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "对距离最近且没有磁性残片的目标投掷一大块残片，造成300"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "魔法伤害并将它附着在其身上。如果带有残片的敌人倒下，则会把残片传递给相距最近且没有残片的敌人。  每5次施放，转而将所有残片撕扯下来，造成120"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "魔法伤害，然后将所有残片碾向目标，造成720"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "魔法伤害，并将其短暂晕眩。"
+            }
+          ]
         }
       ],
       "images": {
@@ -9853,7 +12710,39 @@
               "3": "被动：每2次普攻，显露目标的一个破绽。如果存在一个破绽，则冲刺并攻击该破绽以造成777(【物理加成】)额外真实伤害，并回复相当于15%造成伤害的生命值。  主动：显露目标的6个破绽，并迅速攻击所有破绽。若目标倒下，则剩余破绽将传递给相距最近的那个敌人。在攻击最后一个破绽时，创造一个半径2格的光环，为其中的友军回复999(【法术加成】)生命值，持续5秒。",
               "4": "被动：每2次普攻，显露目标的一个破绽。如果存在一个破绽，则冲刺并攻击该破绽以造成777(【物理加成】)额外真实伤害，并回复相当于15%造成伤害的生命值。  主动：显露目标的6个破绽，并迅速攻击所有破绽。若目标倒下，则剩余破绽将传递给相距最近的那个敌人。在攻击最后一个破绽时，创造一个半径2格的光环，为其中的友军回复999(【法术加成】)生命值，持续5秒。"
             }
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "被动：每2次普攻，显露目标的一个破绽。如果存在一个破绽，则冲刺并攻击该破绽以造成37"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "物理加成",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "text",
+              "value": "额外真实伤害，并回复相当于15%造成伤害的生命值。  主动：显露目标的6个破绽，并迅速攻击所有破绽。若目标倒下，则剩余破绽将传递给相距最近的那个敌人。在攻击最后一个破绽时，创造一个半径2格的光环，为其中的友军回复200"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "生命值，持续5秒。"
+            }
+          ]
         }
       ],
       "images": {
@@ -10005,7 +12894,26 @@
               "3": "被动：【烬】的攻击速度固定为1.4，并将每1%额外攻击速度转化为0.75额外物理加成。  主动：召唤4个幽魂之手，在接下来4次攻击与【烬】一同射击。每个幽魂之手每次射击造成688(【物理加成】)物理伤害。最后一击造成244%额外伤害，并穿透敌人最多的那一条直线，每命中一个目标，这个伤害就衰减44%。",
               "4": "被动：【烬】的攻击速度固定为1.4，并将每1%额外攻击速度转化为0.75额外物理加成。  主动：召唤4个幽魂之手，在接下来4次攻击与【烬】一同射击。每个幽魂之手每次射击造成1170(【物理加成】)物理伤害。最后一击造成244%额外伤害，并穿透敌人最多的那一条直线，每命中一个目标，这个伤害就衰减44%。"
             }
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "被动：【烬】的攻击速度固定为0.9，并将每1%额外攻击速度转化为0.75额外物理加成。  主动：召唤4个幽魂之手，在接下来4次攻击与【烬】一同射击。每个幽魂之手每次射击造成45"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "物理加成",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "text",
+              "value": "物理伤害。最后一击造成244%额外伤害，并穿透敌人最多的那一条直线，每命中一个目标，这个伤害就衰减44%。"
+            }
+          ]
         }
       ],
       "images": {
@@ -10284,7 +13192,61 @@
               "3": "变形3秒，从而获得4944(【法术加成】【生命上限】)生命值并与附近的弈子们生成灵链。在持续期间，对相距最近的3个敌人造成3000(【法术加成】)魔法伤害并为相距最近的2个受伤友军回复3000(【法术加成】)生命值。",
               "4": "变形3秒，从而获得7558(【法术加成】【生命上限】)生命值并与附近的弈子们生成灵链。在持续期间，对相距最近的3个敌人造成5100(【法术加成】)魔法伤害并为相距最近的2个受伤友军回复5100(【法术加成】)生命值。"
             }
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "变形3秒，从而获得730("
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "stat",
+              "stat": "health",
+              "kind": "health",
+              "label": "生命值",
+              "source_label": "生命上限",
+              "icon": "hp",
+              "fallback": "HP"
+            },
+            {
+              "type": "text",
+              "value": ")生命值并与附近的弈子们生成灵链。在持续期间，对相距最近的3个敌人造成100"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "魔法伤害并为相距最近的2个受伤友军回复125"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "生命值。"
+            }
+          ]
         }
       ],
       "images": {
@@ -10316,5 +13278,6 @@
         "official_unresolved_trait_ids": []
       }
     }
-  ]
+  ],
+  "rich_text_version": 1
 }

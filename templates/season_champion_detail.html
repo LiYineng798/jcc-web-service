@@ -61,7 +61,14 @@
 {% if champion.availability.type == 'unlock' and champion.availability.description %}
           <section class="champion-detail-panel" aria-label="解锁条件">
             <h3>解锁条件</h3>
-            <p>{{ champion.availability.description }}</p>
+            <p>{{ champion.availability_description_html }}</p>
+          </section>
+{% endif %}
+
+{% if champion.availability.type == 'special' and champion.availability.description %}
+          <section class="champion-detail-panel" aria-label="特殊获取方式">
+            <h3>特殊获取</h3>
+            <p>{{ champion.availability_description_html }}</p>
           </section>
 {% endif %}
 

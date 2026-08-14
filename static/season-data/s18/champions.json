@@ -77,7 +77,39 @@
             "source_url": "https://static.datatft.com/images/skill/918007.jpg",
             "alt": "乐芙兰技能图标",
             "optimized_local_path": "assets/optimized/s18__pbe/skills/918007_skill.webp"
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "被动：在玩家对战结束后，你最强的【乐芙兰】有10%/15%/40%/100%的几率生成一个不超过3费的友军的1星复制品。\n主动：向当前目标发射镜像，造成250/375/565/955 "
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "AP",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "魔法伤害，并对邻格的敌人造成85/130/190/325 "
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "AP",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "魔法伤害。"
+            }
+          ]
         }
       ],
       "images": {
@@ -171,7 +203,39 @@
             "source_url": "https://static.datatft.com/images/skill/918009.jpg",
             "alt": "费德提克技能图标",
             "optimized_local_path": "assets/optimized/s18__pbe/skills/918009_skill.webp"
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "在锥形范围内挥击，移除命中敌人的10魔抗并对其造成70/105/170/300 "
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "AP",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "魔法伤害。回复425/500/850/1200 "
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "AP",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "生命值，且每命中一名敌人额外回复。"
+            }
+          ]
         }
       ],
       "images": {
@@ -274,7 +338,39 @@
             "source_url": "https://static.datatft.com/images/skill/918010.jpg",
             "alt": "凯尔技能图标",
             "optimized_local_path": "assets/optimized/s18__pbe/skills/918010_skill.webp"
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "被动：凯尔基于其星级获得飞升，并获得可叠加的增益。\n第1次飞升： 普攻造成56/84/98/112 "
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "AP",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "额外魔法伤害。\n第2次飞升： 普攻对命中的敌人施加20%魔抗击碎，持续2秒。\n第3次飞升： 普攻发射冲击波，对命中的所有其他弈子造成40/50 "
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "AP",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "魔法伤害。\n魔抗击碎：降低魔抗"
+            }
+          ]
         }
       ],
       "images": {
@@ -470,7 +566,61 @@
             "source_url": "https://static.datatft.com/images/skill/918012.jpg",
             "alt": "阿利斯塔技能图标",
             "optimized_local_path": "assets/optimized/s18__pbe/skills/918012_skill.webp"
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "怒吼，回复276/336/396/456 ("
+            },
+            {
+              "type": "stat",
+              "stat": "health",
+              "kind": "health",
+              "label": "生命值",
+              "source_label": "HP",
+              "icon": "hp",
+              "fallback": "HP"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "AP",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": ")生命值，净化控制效果，并为生命值最低的两名友军回复80/105/130/155 "
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "AP",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "生命值。然后猛击当前目标，造成100/150/225/385 "
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "AP",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "魔法伤害并令其眩晕1.5秒。"
+            }
+          ]
         }
       ],
       "images": {
@@ -562,7 +712,57 @@
             "source_url": "https://static.datatft.com/images/skill/918015.jpg",
             "alt": "希维尔技能图标",
             "optimized_local_path": "assets/optimized/s18__pbe/skills/918015_skill.webp"
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "投掷一把巨大的十字刃，它会对当前敌人造成170/255/1150/2250 ("
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "AD",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "AP",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": ")物理伤害，并在附近敌人之间弹跳8次，每次弹跳造成34/51/575/2250 ("
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "AD",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "AP",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": ")物理伤害。当这个技能击杀了一个敌人，它会额外弹跳一次。"
+            }
+          ]
         }
       ],
       "images": {
@@ -654,7 +854,39 @@
             "source_url": "https://static.datatft.com/images/skill/918016.jpg",
             "alt": "索拉卡技能图标",
             "optimized_local_path": "assets/optimized/s18__pbe/skills/918016_skill.webp"
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "召唤一颗星星落在当前目标身上，造成190/285/1000/2200 "
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "AP",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "魔法伤害。如果此前曾有一颗星星落至其上，则额外召唤3颗星星，每颗造成100/150/1000/1150 "
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "AP",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "魔法伤害。"
+            }
+          ]
         }
       ],
       "images": {
@@ -755,7 +987,26 @@
             "source_url": "https://static.datatft.com/images/skill/918017.jpg",
             "alt": "提莫技能图标",
             "optimized_local_path": "assets/optimized/s18__pbe/skills/918017_skill.webp"
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "投掷簇蘑菇，对附近3名敌人造成60/90/135/230 "
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "AP",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "魔法伤害。偶尔会采集到额外的蘑菇，食用后可获得加成效果。\n红色：1次刷新\n绿色：1小小英雄生命值\n黄色：2经验值"
+            }
+          ]
         }
       ],
       "images": {
@@ -848,7 +1099,52 @@
             "source_url": "https://static.datatft.com/images/skill/918018.jpg",
             "alt": "崔丝塔娜技能图标",
             "optimized_local_path": "assets/optimized/s18__pbe/skills/918018_skill.webp"
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "向目标投掷一个炸药包，持续4秒。生效期间，获得无限射程和0.6 "
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "AP",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "攻击速度。持续时间结束后，炸药包爆炸并在2格内的所有敌人间分摊伤害，造成200/300/480/850 "
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "AD",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "text",
+              "value": "物理伤害+施放期间每次攻击提供额外10/15/25/42 "
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "AD",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "text",
+              "value": "物理伤害。\n如果携带炸药包的敌人阵亡，炸药包会转移至崔丝塔娜的新目标。"
+            }
+          ]
         }
       ],
       "images": {
@@ -951,7 +1247,26 @@
             "source_url": "https://static.datatft.com/images/skill/918019.jpg",
             "alt": "沃里克技能图标",
             "optimized_local_path": "assets/optimized/s18__pbe/skills/918019_skill.webp"
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "对当前目标造成180/270/405/690 "
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "AD",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "text",
+              "value": "物理伤害，并回复相当于0.2%造成伤害的生命值。获得可叠加的攻击速度，持续至战斗环节结束。"
+            }
+          ]
         }
       ],
       "images": {
@@ -1043,7 +1358,48 @@
             "source_url": "https://static.datatft.com/images/skill/918022.jpg",
             "alt": "艾希技能图标",
             "optimized_local_path": "assets/optimized/s18__pbe/skills/918022_skill.webp"
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "朝距离最远的敌人射出一支箭矢，对沿途经过的每个敌人造成260/400/1000 "
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "AD",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "text",
+              "value": "物理伤害。箭矢每穿过一名敌人，箭矢的伤害便降低40%（最低伤害为20%）。这支箭矢会撕开一道持续4/20秒的裂缝，对其中的敌人每秒造成25/38/220 ("
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "AD",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "AP",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": ")物理伤害，并施加20%冰冷效果。\n如果裂缝中仅存一名敌人，则会将其直接处决并关闭裂缝。\n冰冷：降低攻击速度"
+            }
+          ]
         }
       ],
       "images": {
@@ -1133,7 +1489,52 @@
             "source_url": "https://static.datatft.com/images/skill/918025.jpg",
             "alt": "莫甘娜技能图标",
             "optimized_local_path": "assets/optimized/s18__pbe/skills/918025_skill.webp"
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "向附近敌人发射3个黑暗祷言，造成60/90/500/375 "
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "AP",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "魔法伤害并诅咒他们4秒。在此期间内，召唤一个格大小的枯萎区域，并获得25%全能吸血。每秒该区域会对其中的敌人造成33/50/500/800 "
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "AP",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "伤害，他们身上每带有1个诅咒便使该伤害提升18/27/240/400 "
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "AP",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "。"
+            }
+          ]
         }
       ],
       "images": {
@@ -1225,7 +1626,61 @@
             "source_url": "https://static.datatft.com/images/skill/918032.jpg",
             "alt": "阿木木技能图标",
             "optimized_local_path": "assets/optimized/s18__pbe/skills/918032_skill.webp"
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "被动：每1秒回复31.68/31.8/33.6 ("
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "AP",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "stat",
+              "stat": "health",
+              "kind": "health",
+              "label": "生命值",
+              "source_label": "HP",
+              "icon": "hp",
+              "fallback": "HP"
+            },
+            {
+              "type": "text",
+              "value": ")生命值并对1格内的敌人们造成12/18/150/300 "
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "AP",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "魔法伤害。\n主动：对2格内的敌人造成100/150/2000/1000 "
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "AP",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "魔法伤害并眩晕他们1/6秒，如果目标处于灼烧状态则延长至2.5/12.5秒。\n灼烧：每秒造成目标一部分最大生命值的真实伤害。"
+            }
+          ]
         }
       ],
       "images": {
@@ -1317,7 +1772,48 @@
             "source_url": "https://static.datatft.com/images/skill/918033.jpg",
             "alt": "拉莫斯技能图标",
             "optimized_local_path": "assets/optimized/s18__pbe/skills/918033_skill.webp"
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "强迫附近的敌人攻击该弈子。获得持续4秒的350/450/550/650 "
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "AP",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "护盾值和60护甲与魔抗。\n护盾被打破时，对2格内的敌人造成40/60/100/170 ("
+            },
+            {
+              "type": "stat",
+              "stat": "armor",
+              "kind": "armor",
+              "label": "护甲",
+              "source_label": "ARMOR",
+              "icon": "armor",
+              "fallback": "AR"
+            },
+            {
+              "type": "stat",
+              "stat": "magic_resist",
+              "kind": "magic-resist",
+              "label": "魔法抗性",
+              "source_label": "MR",
+              "icon": "mr",
+              "fallback": "MR"
+            },
+            {
+              "type": "text",
+              "value": ")物理伤害。"
+            }
+          ]
         }
       ],
       "images": {
@@ -1420,7 +1916,39 @@
             "source_url": "https://static.datatft.com/images/skill/918043.jpg",
             "alt": "卡尔玛技能图标",
             "optimized_local_path": "assets/optimized/s18__pbe/skills/918043_skill.webp"
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "拴住当前目标，在1.5秒内造成260/390/585/995 "
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "AP",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "魔法伤害，随后在其周围释放能量爆裂，对1格半径内的所有敌人造成110/165/250/420 "
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "AP",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "魔法伤害，并施加30%的减速效果，持续2秒。\n减速：降低攻击速度"
+            }
+          ]
         }
       ],
       "images": {
@@ -1512,7 +2040,52 @@
             "source_url": "https://static.datatft.com/images/skill/918044.jpg",
             "alt": "塔里克技能图标",
             "optimized_local_path": "assets/optimized/s18__pbe/skills/918044_skill.webp"
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "被动：塔里克与其配对友军在生命值首次降至50%以下时，双方均会释放翡翠能量，为3格内的友军提供406/656/11300 "
+            },
+            {
+              "type": "stat",
+              "stat": "health",
+              "kind": "health",
+              "label": "生命值",
+              "source_label": "HP",
+              "icon": "hp",
+              "fallback": "HP"
+            },
+            {
+              "type": "text",
+              "value": "护盾值，持续3/99秒。\n主动：回复225/325/3000/9000 "
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "AP",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "生命值，塔里克及其配对友军在接下来的2次攻击中获得100/150/1000 "
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "AP",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "额外魔法伤害。"
+            }
+          ]
         }
       ],
       "images": {
@@ -1616,7 +2189,39 @@
             "source_url": "https://static.datatft.com/images/skill/918045.jpg",
             "alt": "维迦技能图标",
             "optimized_local_path": "assets/optimized/s18__pbe/skills/918045_skill.webp"
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "向目标发射一记巨大冲击波，造成175/265/395/670 "
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "AP",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "魔法伤害，若其生命值低于最大生命值的30%，则提升至265/400/595/1015 "
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "AP",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "。\n若目标阵亡，永久获得1.5%法术强度。（当前：% ）"
+            }
+          ]
         }
       ],
       "images": {
@@ -1719,7 +2324,57 @@
             "source_url": "https://static.datatft.com/images/skill/918051.jpg",
             "alt": "凯特琳技能图标",
             "optimized_local_path": "assets/optimized/s18__pbe/skills/918051_skill.webp"
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "下一次攻击会转为爆头，造成210/315/495/840 ("
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "AD",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "AP",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": ")物理伤害，在本次战斗中，每进行一次爆头，该伤害均会提升0 ("
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "AD",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "AP",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": ")。\n（下次爆头伤害：）"
+            }
+          ]
         }
       ],
       "images": {
@@ -1811,7 +2466,75 @@
             "source_url": "https://static.datatft.com/images/skill/918054.jpg",
             "alt": "墨菲特技能图标",
             "optimized_local_path": "assets/optimized/s18__pbe/skills/918054_skill.webp"
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "获得700/850/2000/3500 ("
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "AP",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "stat",
+              "stat": "armor",
+              "kind": "armor",
+              "label": "护甲",
+              "source_label": "ARMOR",
+              "icon": "armor",
+              "fallback": "AR"
+            },
+            {
+              "type": "stat",
+              "stat": "magic_resist",
+              "kind": "magic-resist",
+              "label": "魔法抗性",
+              "source_label": "MR",
+              "icon": "mr",
+              "fallback": "MR"
+            },
+            {
+              "type": "text",
+              "value": ")护盾值，持续4秒，并进入石化状态。护盾被打破时，释放一道黑暗能量波，对2/3格内的敌人造成82/123/3398.6/6400 ("
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "AP",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "stat",
+              "stat": "armor",
+              "kind": "armor",
+              "label": "护甲",
+              "source_label": "ARMOR",
+              "icon": "armor",
+              "fallback": "AR"
+            },
+            {
+              "type": "stat",
+              "stat": "magic_resist",
+              "kind": "magic-resist",
+              "label": "魔法抗性",
+              "source_label": "MR",
+              "icon": "mr",
+              "fallback": "MR"
+            },
+            {
+              "type": "text",
+              "value": ")魔法伤害。"
+            }
+          ]
         }
       ],
       "images": {
@@ -2006,7 +2729,39 @@
             "source_url": "https://static.datatft.com/images/skill/918060.jpg",
             "alt": "伊莉丝技能图标",
             "optimized_local_path": "assets/optimized/s18__pbe/skills/918060_skill.webp"
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "变身为蜘蛛，并获得最大生命值。处于蜘蛛形态时的攻击造成55/85/130/215 "
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "AP",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "额外魔法伤害，并回复65/100/185/275 "
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "AP",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "生命值。后续施放提供攻击速度，在秒内持续衰减。"
+            }
+          ]
         }
       ],
       "images": {
@@ -2098,7 +2853,26 @@
             "source_url": "https://static.datatft.com/images/skill/918069.jpg",
             "alt": "卡西奥佩娅技能图标",
             "optimized_local_path": "assets/optimized/s18__pbe/skills/918069_skill.webp"
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "向距离最近未中毒的敌人投毒，15秒内造成400/600/960/1530 "
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "AP",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "魔法伤害。"
+            }
+          ]
         }
       ],
       "images": {
@@ -2190,7 +2964,39 @@
             "source_url": "https://static.datatft.com/images/skill/918076.jpg",
             "alt": "奈德丽技能图标",
             "optimized_local_path": "assets/optimized/s18__pbe/skills/918076_skill.webp"
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "【适应者】：奈德丽可在人类与美洲狮形态间自由切换，其技能将根据法术强度或攻击力孰高而改变。\n【适应者】：设下陷阱困住当前目标和相距最远的敌人，造成250/375/3000/5000 "
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "AP",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "魔法伤害并对其施加追踪。被追踪的敌人每秒受到魔法伤害。\n如果场上有敌人处于被【捕猎】状态，则转而向生命值最低的被【追踪】敌人投掷标枪，造成135/205/2000/3000 "
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "AP",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "魔法伤害，外加基于其被追踪时长而递增的额外魔法伤害。\n【适应者】：化身美洲狮形态，在战场中来回跃击并挥击敌人。非常适合用来压制敌方后排并赢下持久战。"
+            }
+          ]
         }
       ],
       "images": {
@@ -2282,7 +3088,52 @@
             "source_url": "https://static.datatft.com/images/skill/918081.jpg",
             "alt": "伊泽瑞尔技能图标",
             "optimized_local_path": "assets/optimized/s18__pbe/skills/918081_skill.webp"
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "闪烁远离当前目标，对其造成225/340/900/1530 "
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "AD",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "text",
+              "value": "物理伤害，并获得0.25/1 "
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "AP",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "攻击速度。\n每第五次施放时，会消耗来自【自然之怒】的攻击速度，并释放一次冲击，对一条直线上的所有敌人造成385/580/2500/5000 "
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "AD",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "text",
+              "value": " 物理伤害。"
+            }
+          ]
         }
       ],
       "images": {
@@ -2386,7 +3237,52 @@
             "source_url": "https://static.datatft.com/images/skill/918083.jpg",
             "alt": "约里克技能图标",
             "optimized_local_path": "assets/optimized/s18__pbe/skills/918083_skill.webp"
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "被动：阵亡时，生成一个拥有330/530/830/1130 "
+            },
+            {
+              "type": "stat",
+              "stat": "health",
+              "kind": "health",
+              "label": "生命值",
+              "source_label": "HP",
+              "icon": "hp",
+              "fallback": "HP"
+            },
+            {
+              "type": "text",
+              "value": "最大生命值和基础攻击力的灵魂行者。\n主动：回复280/325/410/495 "
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "AP",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "生命值并打击目标，造成150/225/340/575 "
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "AD",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "text",
+              "value": "物理伤害。"
+            }
+          ]
         }
       ],
       "images": {
@@ -2490,7 +3386,39 @@
             "source_url": "https://static.datatft.com/images/skill/918084.jpg",
             "alt": "阿卡丽技能图标",
             "optimized_local_path": "assets/optimized/s18__pbe/skills/918084_skill.webp"
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "【适应者】：此技能将根据法术强度或攻击力孰高而改变。\n【适应者】：向目标投掷一连串苦无，造成140/210/320/540 "
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "AD",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "text",
+              "value": "物理伤害。如果目标处于灼烧状态，则额外造成30/45/68/115 "
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "AD",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "text",
+              "value": "伤害。\n【适应者】：若该技能完成击杀，则再次施放它。在阿卡丽是你的主要输出时非常适合。"
+            }
+          ]
         }
       ],
       "images": {
@@ -2580,7 +3508,52 @@
             "source_url": "https://static.datatft.com/images/skill/918085.jpg",
             "alt": "凯南技能图标",
             "optimized_local_path": "assets/optimized/s18__pbe/skills/918085_skill.webp"
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "蓄力，每有一名被灼烧的敌人便获得15%法术强度。随后冲过附近的一群敌人，对途经的敌人造成50/75/300/600 "
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "AP",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "魔法伤害。冲刺后，获得225/300/3000/1000 "
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "AP",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "护盾值，并释放一场2格大小的火焰风暴，在2秒内持续造成共计550/825/2000/3000 "
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "AP",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "魔法伤害，由所有被命中的敌人均摊。"
+            }
+          ]
         }
       ],
       "images": {
@@ -2684,7 +3657,39 @@
             "source_url": "https://static.datatft.com/images/skill/918089.jpg",
             "alt": "蕾欧娜技能图标",
             "optimized_local_path": "assets/optimized/s18__pbe/skills/918089_skill.webp"
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "被动：在战斗开始时获得60/70/80/100 "
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "AP",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "额外护甲和魔抗，在10秒内持续衰减。\n主动：猛击当前目标，造成60/108/162/320 "
+            },
+            {
+              "type": "stat",
+              "stat": "armor",
+              "kind": "armor",
+              "label": "护甲",
+              "source_label": "ARMOR",
+              "icon": "armor",
+              "fallback": "AR"
+            },
+            {
+              "type": "text",
+              "value": "魔法伤害并令其眩晕1.5秒。"
+            }
+          ]
         }
       ],
       "images": {
@@ -2777,7 +3782,26 @@
             "source_url": "https://static.datatft.com/images/skill/918096.jpg",
             "alt": "克格莫技能图标",
             "optimized_local_path": "assets/optimized/s18__pbe/skills/918096_skill.webp"
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "【适应者】：此技能将根据法术强度或攻击力孰高而改变。\n【适应者】：向两名距离最近的敌人喷射酸液，造成175/265/450/765 "
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "AD",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "text",
+              "value": "物理伤害。对生命值低于的敌人造成额外伤害。\n【适应者】：对敌人持续造成伤害。非常适合用来扩散伤害并延长魔抗击碎与护甲击碎。"
+            }
+          ]
         }
       ],
       "images": {
@@ -2878,7 +3902,39 @@
             "source_url": "https://static.datatft.com/images/skill/918098.jpg",
             "alt": "慎技能图标",
             "optimized_local_path": "assets/optimized/s18__pbe/skills/918098_skill.webp"
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "为自己和附近一名受伤的队友提供325/400/500/600 "
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "AP",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "护盾值，持续4秒。两者接下来的3次攻击获得40%攻击速度并造成35/55/80/135 "
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "AP",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "额外魔法伤害。"
+            }
+          ]
         }
       ],
       "images": {
@@ -2969,7 +4025,39 @@
             "source_url": "https://static.datatft.com/images/skill/918099.jpg",
             "alt": "拉克丝技能图标",
             "optimized_local_path": "assets/optimized/s18__pbe/skills/918099_skill.webp"
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "被动：施放时，所有与【拉克丝】拥有同一羁绊的己方弈子获得3/100/999 "
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "AP",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "法力值。\n主动：向最大敌群发射一道激光，造成370/580/5000/9999 "
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "AP",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "魔法伤害，每命中一个敌人伤害减少25%/10%。"
+            }
+          ]
         }
       ],
       "images": {
@@ -3061,7 +4149,26 @@
             "source_url": "https://static.datatft.com/images/skill/918103.jpg",
             "alt": "阿狸技能图标",
             "optimized_local_path": "assets/optimized/s18__pbe/skills/918103_skill.webp"
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "1.75秒间将能量注入灵魄炸弹，随后将其投向一大群敌人。对3格半径内的敌人造成485/735/3500/5000 "
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "AP",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "魔法伤害，与中心的距离每增加1格，伤害衰减20%（最低为20%）。"
+            }
+          ]
         }
       ],
       "images": {
@@ -3152,7 +4259,39 @@
             "source_url": "https://static.datatft.com/images/skill/918107.jpg",
             "alt": "雷恩加尔技能图标",
             "optimized_local_path": "assets/optimized/s18__pbe/skills/918107_skill.webp"
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "跳向3格内生命值最低的敌人并刺击，造成295/445/710/1255 "
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "AD",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "text",
+              "value": "物理伤害。然后回复相当于其已损失生命值80/200 "
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "AP",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "的生命值。"
+            }
+          ]
         }
       ],
       "images": {
@@ -3253,7 +4392,35 @@
             "source_url": "https://static.datatft.com/images/skill/918110.jpg",
             "alt": "韦鲁斯技能图标",
             "optimized_local_path": "assets/optimized/s18__pbe/skills/918110_skill.webp"
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "蓄力，然后向敌人最多的一条直线射出箭矢。对命中的敌人造成380/570/860/1455 ("
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "AD",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "AP",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": ")物理伤害，每穿过一个敌人，伤害降低40%（最低40%）。"
+            }
+          ]
         }
       ],
       "images": {
@@ -3356,7 +4523,48 @@
             "source_url": "https://static.datatft.com/images/skill/918113.jpg",
             "alt": "瑟庄妮技能图标",
             "optimized_local_path": "assets/optimized/s18__pbe/skills/918113_skill.webp"
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "获得315/340/365/390 ("
+            },
+            {
+              "type": "stat",
+              "stat": "health",
+              "kind": "health",
+              "label": "生命值",
+              "source_label": "HP",
+              "icon": "hp",
+              "fallback": "HP"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "AP",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": ")护盾值，持续4秒。然后，在锥形范围内顺劈并沿直线打击，二者分别对命中的敌人造成40/60/90/155 "
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "AP",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "魔法伤害。"
+            }
+          ]
         }
       ],
       "images": {
@@ -3447,7 +4655,52 @@
             "source_url": "https://static.datatft.com/images/skill/918119.jpg",
             "alt": "德莱文技能图标",
             "optimized_local_path": "assets/optimized/s18__pbe/skills/918119_skill.webp"
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "被动：攻击范围内的随机敌人并对其施加流血效果，在12秒里持续造成共150/225/1000/2000 "
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "AD",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "text",
+              "value": "物理伤害。攻击还有0.12 "
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "AP",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "几率施加2层流血效果并造成60/400物理伤害。\n主动：朝流血层数最多的敌人投掷两把巨斧。对命中的敌人造成180/270/500/9999 "
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "AD",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "text",
+              "value": "物理伤害，并立即结算其身上所有的流血伤害。"
+            }
+          ]
         }
       ],
       "images": {
@@ -3539,7 +4792,26 @@
             "source_url": "https://static.datatft.com/images/skill/918120.jpg",
             "alt": "赫卡里姆技能图标",
             "optimized_local_path": "assets/optimized/s18__pbe/skills/918120_skill.webp"
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "被动：从所有来源获得的护甲和魔抗额外提升。\n主动：召唤幽灵骑士向距离最近的3名敌人冲锋，造成80/120/195/265 "
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "AP",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "魔法伤害和1.5/1.75/3秒晕眩。"
+            }
+          ]
         }
       ],
       "images": {
@@ -3723,7 +4995,26 @@
             "source_url": "https://static.datatft.com/images/skill/918131.jpg",
             "alt": "黛安娜技能图标",
             "optimized_local_path": "assets/optimized/s18__pbe/skills/918131_skill.webp"
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "向距离最近的3名敌人发射一个月光法球，造成125/190/300/530 "
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "AP",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "魔法伤害。随后法球返回，为黛安娜提供持续2秒的护盾，护盾值相当于它们对目标所造成伤害的40%。"
+            }
+          ]
         }
       ],
       "images": {
@@ -3813,7 +5104,26 @@
             "source_url": "https://static.datatft.com/images/skill/918143.jpg",
             "alt": "婕拉技能图标",
             "optimized_local_path": "assets/optimized/s18__pbe/skills/918143_skill.webp"
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "在战场周围生成2/4株植物，它们会攻击最近的敌人，持续秒。它们每秒造成33/50/225/425 "
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "AP",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "魔法伤害。"
+            }
+          ]
         }
       ],
       "images": {
@@ -3904,7 +5214,65 @@
             "source_url": "https://static.datatft.com/images/skill/918150.jpg",
             "alt": "纳尔技能图标",
             "optimized_local_path": "assets/optimized/s18__pbe/skills/918150_skill.webp"
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "被动：每秒获得5/50/10怒气，每次攻击提供5怒气。达到最大怒气时，变形并跃向3格内人数最多的敌群中。然后，对2/10格内的敌人造成150/225/1500 "
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "AD",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "text",
+              "value": "物理伤害，将其护甲和魔抗降低15/20/100 "
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "AP",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "，并令其眩晕1/5秒。巨型纳尔获得400/600/10000生命值，并将其技能替换为“抓投”。\n抓投：抓住目标并将其投向距离最远的敌人，对主要目标造成380/570/9000/90000 "
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "AD",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "text",
+              "value": "物理伤害，并对途经的敌人造成135/205/4500/9001 "
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "AD",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "text",
+              "value": "物理伤害。如果目标是最后存活的1名敌人，则转而将其抛出战场。"
+            }
+          ]
         }
       ],
       "images": {
@@ -4005,7 +5373,35 @@
             "source_url": "https://static.datatft.com/images/skill/918164.jpg",
             "alt": "卡蜜尔技能图标",
             "optimized_local_path": "assets/optimized/s18__pbe/skills/918164_skill.webp"
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "斩击目标造成170/255/385/650 ("
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "AD",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "AP",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": ")物理伤害，并获得60/85/120/155护盾值，持续2秒。"
+            }
+          ]
         }
       ],
       "images": {
@@ -4095,7 +5491,26 @@
             "source_url": "https://static.datatft.com/images/skill/918254.jpg",
             "alt": "蔚技能图标",
             "optimized_local_path": "assets/optimized/s18__pbe/skills/918254_skill.webp"
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "被动：攻击时，回复生命值，在蔚的技能激活期间翻倍。\n主动：发出一声原始怒吼，回复200/250/350/450 "
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "AP",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "生命值。然后获得185%/200%/225%攻击速度、15%伤害减免和控制免疫效果，持续3秒。"
+            }
+          ]
         }
       ],
       "images": {
@@ -4188,7 +5603,26 @@
             "source_url": "https://static.datatft.com/images/skill/918268.jpg",
             "alt": "阿兹尔技能图标",
             "optimized_local_path": "assets/optimized/s18__pbe/skills/918268_skill.webp"
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "召唤2名士兵，持续秒，在阿兹尔攻击其目标时一同攻击，各造成48/72/115/205 "
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "AP",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "魔法伤害。"
+            }
+          ]
         }
       ],
       "images": {
@@ -4291,7 +5725,39 @@
             "source_url": "https://static.datatft.com/images/skill/918421.jpg",
             "alt": "雷克塞技能图标",
             "optimized_local_path": "assets/optimized/s18__pbe/skills/918421_skill.webp"
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "被动：每秒回复16/19/22/25 "
+            },
+            {
+              "type": "stat",
+              "stat": "health",
+              "kind": "health",
+              "label": "生命值",
+              "source_label": "HP",
+              "icon": "hp",
+              "fallback": "HP"
+            },
+            {
+              "type": "text",
+              "value": "生命值，施放技能后的3秒内该效果变为3倍。\n主动：冲出地面，使邻格的敌人眩晕1秒并对其造成70/105/160/270 "
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "AP",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "魔法伤害。"
+            }
+          ]
         }
       ],
       "images": {
@@ -4482,7 +5948,39 @@
             "source_url": "https://static.datatft.com/images/skill/918497.jpg",
             "alt": "洛技能图标",
             "optimized_local_path": "assets/optimized/s18__pbe/skills/918497_skill.webp"
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "获得4秒的250/300/375/450 "
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "AP",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "护盾，随后使伤害最高的友军获得1.9/2/2.3/2.6 "
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "AP",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "衰减的攻击速度，持续4秒。"
+            }
+          ]
         }
       ],
       "images": {
@@ -4584,7 +6082,39 @@
             "source_url": "https://static.datatft.com/images/skill/918498.jpg",
             "alt": "霞技能图标",
             "optimized_local_path": "assets/optimized/s18__pbe/skills/918498_skill.webp"
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "接下来的5次攻击会转为发射羽毛，造成72/108/165/280 "
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "AD",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "text",
+              "value": "物理伤害并削减2 "
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "AP",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "护甲。"
+            }
+          ]
         }
       ],
       "images": {
@@ -4685,7 +6215,39 @@
             "source_url": "https://static.datatft.com/images/skill/918516.jpg",
             "alt": "奥恩技能图标",
             "optimized_local_path": "assets/optimized/s18__pbe/skills/918516_skill.webp"
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "被动：在玩家战斗期间，奥恩会将格挡的伤害转化为【锻造之力】进行储存，3星时储存量翻倍。【锻造之力】首次达到90000时，获得1件【神器锻造器】！（锻造之力： / 90000）\n主动：获得400/480/600/720 "
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "AP",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "护盾值，持续4秒，并对锥形范围内的敌人造成200/300/450/765 "
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "AP",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "魔法伤害。"
+            }
+          ]
         }
       ],
       "images": {
@@ -4777,7 +6339,48 @@
             "source_url": "https://static.datatft.com/images/skill/918523.jpg",
             "alt": "厄斐琉斯技能图标",
             "optimized_local_path": "assets/optimized/s18__pbe/skills/918523_skill.webp"
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "装备断魄，并在2秒内对目标连续挥击次，每次造成70/105/1100/1500 "
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "AD",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "text",
+              "value": " + 最大生命值0%的物理伤害。\n攻势结束后，发射一道月光，造成490/735/5225/9376 ("
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "AD",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "AP",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": ")物理伤害，在2格半径内的所有敌人间分摊。"
+            }
+          ]
         }
       ],
       "images": {
@@ -4878,7 +6481,57 @@
             "source_url": "https://static.datatft.com/images/skill/918804.jpg",
             "alt": "芸阿娜技能图标",
             "optimized_local_path": "assets/optimized/s18__pbe/skills/918804_skill.webp"
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "冲刺并向当前目标发射一颗法球，造成180/270/425/720 ("
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "AD",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "AP",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": ")物理伤害并分裂，对附近的2名敌人造成63/94.5/148.75/252 ("
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "AD",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "AP",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": ")物理伤害。"
+            }
+          ]
         }
       ],
       "images": {
@@ -4970,7 +6623,57 @@
             "source_url": "https://static.datatft.com/images/skill/918875.jpg",
             "alt": "瑟提技能图标",
             "optimized_local_path": "assets/optimized/s18__pbe/skills/918875_skill.webp"
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "被动：每场战斗中首次跌至最大生命值的40%以下时，获得100法力值。\n主动：蓄力打出一记重拳，快速回复369/419/2144/2644 ("
+            },
+            {
+              "type": "stat",
+              "stat": "health",
+              "kind": "health",
+              "label": "生命值",
+              "source_label": "HP",
+              "icon": "hp",
+              "fallback": "HP"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "AP",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": ")生命值，随后在大型锥形范围内造成222/297/5072/9072 ("
+            },
+            {
+              "type": "stat",
+              "stat": "health",
+              "kind": "health",
+              "label": "生命值",
+              "source_label": "HP",
+              "icon": "hp",
+              "fallback": "HP"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "AD",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "text",
+              "value": ")物理伤害。"
+            }
+          ]
         }
       ],
       "images": {
@@ -5060,7 +6763,39 @@
             "source_url": "https://static.datatft.com/images/skill/918876.jpg",
             "alt": "莉莉娅技能图标",
             "optimized_local_path": "assets/optimized/s18__pbe/skills/918876_skill.webp"
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "回复250/325/600/3800 "
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "AP",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "生命值，并向附近的敌人们放出4只蝴蝶。在命中敌人时造成90/135/2000/5000 "
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "AP",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "魔法伤害并施加昏睡1.5/1.75/8/20秒。如果目标受到的伤害达到1000，则会醒来并额外受到魔法伤害。"
+            }
+          ]
         }
       ],
       "images": {
@@ -5164,7 +6899,39 @@
             "source_url": "https://static.datatft.com/images/skill/918954.jpg",
             "alt": "可酷伯技能图标",
             "optimized_local_path": "assets/optimized/s18__pbe/skills/918954_skill.webp"
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "在299/349/549 "
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "AP",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "秒里持续回复共2生命值。下一次攻击被替换为猛击，造成140/175/220/70 "
+            },
+            {
+              "type": "stat",
+              "stat": "health",
+              "kind": "health",
+              "label": "生命值",
+              "source_label": "HP",
+              "icon": "hp",
+              "fallback": "HP"
+            },
+            {
+              "type": "text",
+              "value": "魔法伤害。"
+            }
+          ]
         }
       ],
       "images": {
@@ -5255,7 +7022,39 @@
             "source_url": "https://static.datatft.com/images/skill/918955.jpg",
             "alt": "拉露恩技能图标",
             "optimized_local_path": "assets/optimized/s18__pbe/skills/918955_skill.webp"
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "向3个最近的敌人降下9枚月光碎片，每枚造成50/75/500/9999 "
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "AP",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "魔法伤害。\n满月时，月曜降临，对所有敌人分摊造成2200/3400/6500/7600 "
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "AP",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "魔法伤害，并将其击飞秒。"
+            }
+          ]
         }
       ],
       "images": {
@@ -5356,7 +7155,26 @@
             "source_url": "https://static.datatft.com/images/skill/918989.jpg",
             "alt": "驻灵技能图标",
             "optimized_local_path": "assets/optimized/s18__pbe/skills/918989_skill.webp"
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "开始每秒消耗35%最大法力值，并对目标引导一道激光。引导期间，每秒对其造成160/240/360/615 "
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "AP",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "魔法伤害，并使其魔法抗性降低3。\n青色增益：友军获得法力回复。驻灵每次施放技能时，都会额外获得法力回复。"
+            }
+          ]
         }
       ],
       "images": {
@@ -5457,7 +7275,26 @@
             "source_url": "https://static.datatft.com/images/skill/918990.jpg",
             "alt": "绯红树怪技能图标",
             "optimized_local_path": "assets/optimized/s18__pbe/skills/918990_skill.webp"
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "召唤五片锋利如剃刀的叶子，朝当前目标聚拢，造成总计300/450/680/1150 "
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "AD",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "text",
+              "value": "物理伤害，并施加20%重伤效果和1%灼烧效果，持续4秒。\n重伤：降低受到的治疗效果。\n灼烧：每秒造成目标一部分最大生命值的真实伤害。\n猩红增益：己方弈子对被施加【重伤】的敌人造成10%额外伤害，并且所受来自这些敌人的伤害降低10%。"
+            }
+          ]
         }
       ],
       "images": {
@@ -5558,7 +7395,91 @@
             "source_url": "https://static.datatft.com/images/skill/918991.jpg",
             "alt": "魔沼蛙技能图标",
             "optimized_local_path": "assets/optimized/s18__pbe/skills/918991_skill.webp"
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "【适应者】：此技能将根据法术强度或攻击力孰高而改变。\n【适应者】：向当前目标吐出一团毒泡泡，在命中第一名敌人时爆炸，造成250/375/565/960 "
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "AP",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "魔法伤害。目标及1格半径范围内的敌人将在3秒里持续受到共100/240/360/610 "
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "AP",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "魔法伤害。\n【适应者】：大幅减速目标。非常适合集火并逐一击破单个敌人。\n紫色增益：友军获得8% "
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "AD",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "text",
+              "value": "或8% "
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "AP",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "（取决于魔沼蛙哪项属性更高）。每5秒，魔沼蛙获得25% "
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "AD",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "text",
+              "value": "或25% "
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "AP",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "。"
+            }
+          ]
         }
       ],
       "images": {
@@ -5659,7 +7580,48 @@
             "source_url": "https://static.datatft.com/images/skill/918992.jpg",
             "alt": "暗影狼技能图标",
             "optimized_local_path": "assets/optimized/s18__pbe/skills/918992_skill.webp"
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "跳向3格内生命值最低的敌人，造成500/1050/2250/6005 ("
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "AD",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "AP",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": ")物理伤害。接下来的2次攻击造成60/90/135/230 "
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "AD",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "text",
+              "value": "额外物理伤害。如果这次跃击或强化攻击击杀了一名敌人，则额外强化2次攻击。\n灰色增益：友军获得1.1攻击速度。参与击杀时，【暗影狼】获得1.25攻击速度。"
+            }
+          ]
         }
       ],
       "images": {
@@ -5749,7 +7711,61 @@
             "source_url": "https://static.datatft.com/images/skill/918993.jpg",
             "alt": "石甲虫技能图标",
             "optimized_local_path": "assets/optimized/s18__pbe/skills/918993_skill.webp"
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "被动：阵亡时，分裂成两个【小型石甲虫】，每个拥有224/264/334/454 "
+            },
+            {
+              "type": "stat",
+              "stat": "health",
+              "kind": "health",
+              "label": "生命值",
+              "source_label": "HP",
+              "icon": "hp",
+              "fallback": "HP"
+            },
+            {
+              "type": "text",
+              "value": "生命值。\n主动：获得175/225/350/475 "
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "AP",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "最大生命值。随后滚向目标，造成245/310/445/610 ("
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "AD",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "stat",
+              "stat": "health",
+              "kind": "health",
+              "label": "生命值",
+              "source_label": "HP",
+              "icon": "hp",
+              "fallback": "HP"
+            },
+            {
+              "type": "text",
+              "value": ")伤害并将其击退1格，同时将其眩晕1.5秒。\n米色增益：己方弈子获得10%最大生命值。"
+            }
+          ]
         }
       ],
       "images": {
@@ -5850,7 +7866,39 @@
             "source_url": "https://static.datatft.com/images/skill/918994.jpg",
             "alt": "迅捷蟹技能图标",
             "optimized_local_path": "assets/optimized/s18__pbe/skills/918994_skill.webp"
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "被动： 舞动攻击！用舞蹈发动攻击，对所有相邻敌人造成50/75/112.5/168.75 "
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "AD",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "text",
+              "value": "物理伤害。\n主动：钻入地下，获得15%伤害减免，持续3秒，并在持续期间回复250/325/525/725 "
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "AP",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "生命值。\n绿色增益：友军获得+10%治疗和护盾。当生命值降至50%时，回复30%最大生命值，冲刺穿过目标并嘲讽附近敌人。"
+            }
+          ]
         }
       ],
       "images": {
@@ -5941,7 +7989,39 @@
             "source_url": "https://static.datatft.com/images/skill/918995.jpg",
             "alt": "锋喙鸟技能图标",
             "optimized_local_path": "assets/optimized/s18__pbe/skills/918995_skill.webp"
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "在附近召唤4只不可被选取的【小锋喙鸟】，持续5 "
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "AP",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "秒。每次【锋喙鸟】攻击时，【小锋喙鸟】也会攻击同一敌人，造成25/38/60/95 "
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "AD",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "text",
+              "value": "物理伤害。\n橙色增益：对一个敌人造成物理伤害，可削减其2护甲。该效果每削减敌人10护甲，额外造成X物理伤害。"
+            }
+          ]
         }
       ],
       "images": {
@@ -6031,7 +8111,39 @@
             "source_url": "https://static.datatft.com/images/skill/918996.jpg",
             "alt": "绯红印记树怪技能图标",
             "optimized_local_path": "assets/optimized/s18__pbe/skills/918996_skill.webp"
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "进入烈焰狂暴状态，持续到战斗环节结束。获得控制免疫、80%/280%/400%攻击力，并无视0.3 "
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "AP",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "护甲。\n在改变目标时，跃向该目标，造成170/255/600/1500 "
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "AD",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "text",
+              "value": "物理伤害。\n红色增益：【印记树怪】的攻击会灼烧敌人。己方弈子对被施加【灼烧】的敌人造成10%额外伤害，并且所受来自这些敌人的伤害降低10%。"
+            }
+          ]
         }
       ],
       "images": {
@@ -6122,7 +8234,48 @@
             "source_url": "https://static.datatft.com/images/skill/918997.jpg",
             "alt": "苍蓝雕纹魔像技能图标",
             "optimized_local_path": "assets/optimized/s18__pbe/skills/918997_skill.webp"
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "获得一个持续4秒的530/630/2130/5130 ("
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "AP",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "stat",
+              "stat": "health",
+              "kind": "health",
+              "label": "生命值",
+              "source_label": "HP",
+              "icon": "hp",
+              "fallback": "HP"
+            },
+            {
+              "type": "text",
+              "value": ")护盾。猛击地面，向敌人最密集的方向发出一道裂隙。被命中的敌人会被短暂击飞，受到100/150/3500/9999 "
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "AP",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "魔法伤害并被施加%破法。\n破法：提升下一次技能施放的法力消耗。\n蓝色增益：【魔像】获得5法力回复，持续至其首次施放技能。每次施放技能时，友军获得2法力回复。"
+            }
+          ]
         }
       ],
       "images": {
@@ -6212,7 +8365,26 @@
             "source_url": "https://static.datatft.com/images/skill/918998.jpg",
             "alt": "远古巨龙技能图标",
             "optimized_local_path": "assets/optimized/s18__pbe/skills/918998_skill.webp"
-          }
+          },
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "向当前目标及其1格内的敌人喷射一团火焰，造成物理伤害和魔法伤害。\n他们脚下的地面将持续燃烧秒。敌人们在火中每停留一秒，便会受到相当于其最大生命值260/390/7200/50300 "
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "AD",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "text",
+              "value": "的伤害，并被削减护甲。\n火焰翻滚席卷战场，点燃途经的敌人秒。被点燃的敌人每秒受到相当于其最大生命值的魔法伤害，并被削减魔抗。\n【远古巨龙】增益：对生命值低于自身最大生命值12%的敌人造成伤害，会直接将其处决。每5秒，获得额外属性（护甲、魔抗、暴击几率、暴击伤害、全能吸血）"
+            }
+          ]
         }
       ],
       "images": {
@@ -6240,5 +8412,6 @@
         "pinyin": "yuangujulong"
       }
     }
-  ]
+  ],
+  "rich_text_version": 1
 }

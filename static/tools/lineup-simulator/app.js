@@ -8,6 +8,29 @@ const MAX_POSTER_TRAITS = 9;
 const POSTER_WIDTH = 1200;
 const POSTER_HEIGHT = 1600;
 const POSTER_DEFAULT_TITLE = "我的阵容";
+const FORMATION_CODE_PREFIX = "JCC2-";
+const FORMATION_SLOT_BYTES = 8;
+const FORMATION_HEADER_BYTES = 9;
+const FORMATION_CHECKSUM_BYTES = 4;
+const FORMATION_TOTAL_BYTES = FORMATION_HEADER_BYTES + (28 * FORMATION_SLOT_BYTES) + FORMATION_CHECKSUM_BYTES;
+const FORMATION_PAYLOAD_LENGTH = (FORMATION_TOTAL_BYTES / 3) * 4;
+const FORMATION_CODE_LENGTH = FORMATION_CODE_PREFIX.length + FORMATION_PAYLOAD_LENGTH;
+const FORMATION_FLAG_SHOW_NAMES = 1;
+const STAT_MARKERS = {
+  AD: ["ad", "ad", "物理加成", "AD"], 物理加成: ["ad", "ad", "物理加成", "AD"], 攻击力: ["ad", "ad", "物理加成", "AD"],
+  AP: ["ap", "ap", "法术加成", "AP"], 法术加成: ["ap", "ap", "法术加成", "AP"], 法强: ["ap", "ap", "法术加成", "AP"],
+  AS: ["attack-speed", "as", "攻击速度", "AS"], 攻击速度: ["attack-speed", "as", "攻击速度", "AS"], 攻速: ["attack-speed", "as", "攻击速度", "AS"],
+  HP: ["health", "hp", "生命值", "HP"], 生命上限: ["health", "hp", "生命值", "HP"], 最大生命值: ["health", "hp", "生命值", "HP"],
+  MR: ["magic-resist", "mr", "魔法抗性", "MR"], 魔法抗性: ["magic-resist", "mr", "魔法抗性", "MR"], 魔抗: ["magic-resist", "mr", "魔法抗性", "MR"],
+  护甲: ["armor", "armor", "护甲", "AR"], ARMOR: ["armor", "armor", "护甲", "AR"], 攻击范围: ["range", "range", "攻击范围", "RNG"], RANGE: ["range", "range", "攻击范围", "RNG"], 射程: ["range", "range", "攻击范围", "RNG"],
+  暴击率: ["crit", "crit", "暴击率", "CRIT"], 暴击几率: ["crit", "crit", "暴击率", "CRIT"], CRIT: ["crit", "crit", "暴击率", "CRIT"], 暴击倍率: ["crit-multiplier", "crit", "暴击伤害", "CRIT"],
+  法力值: ["mana", "mana", "法力值", "MP"], MANA: ["mana", "mana", "法力值", "MP"], MP: ["mana", "mana", "法力值", "MP"], 法力回复: ["mana-regen", "mana", "法力回复", "MP"], 全能吸血: ["omnivamp", null, "全能吸血", "吸"], OMNIVAMP: ["omnivamp", null, "全能吸血", "吸"],
+  伤害加成: ["damage-amplification", "amp", "伤害增幅", "增伤"], AMP: ["damage-amplification", "amp", "伤害增幅", "增伤"], DA: ["damage-amplification", "amp", "伤害增幅", "增伤"],
+  伤害增幅: ["damage-amplification", "amp", "伤害增幅", "增伤"], 木灵加成: ["amp", "amp", "木灵加成", "木灵"],
+  DR: ["damage-reduction", null, "伤害减免", "减伤"], 伤害减免: ["damage-reduction", null, "伤害减免", "减伤"],
+  技能暴击: ["skill-crit", "crit", "技能暴击", "CRIT"],
+};
+const STAT_MARKER_RE = new RegExp(`\\(?【(${Object.keys(STAT_MARKERS).filter((key) => key !== "木灵加成").join("|")})】\\)?|\\(\\)`, "g");
 const ITEM_CATEGORIES = [
   { id: "normal", label: "普通", source: ["completed"] },
   { id: "component", label: "散件", source: ["component"] },
@@ -93,12 +116,17 @@ const elements = {
   posterChampionPicker: document.querySelector("#posterChampionPicker"),
   posterPreview: document.querySelector("#posterPreview"),
   confirmExportPoster: document.querySelector("#confirmExportPosterButton"),
+  exportProgress: document.querySelector("#exportProgress"),
+  exportProgressTitle: document.querySelector("#exportProgressTitle"),
+  exportProgressStage: document.querySelector("#exportProgressStage"),
+  exportProgressBar: document.querySelector("#exportProgressBar"),
 };
 
 const state = {
   catalog: [],
   season: null,
   champions: [],
+  boardUnits: [],
   traits: [],
   items: [],
   championById: new Map(),
@@ -155,6 +183,66 @@ function normalizeChampion(raw) {
     splash: seasonAsset(raw.images?.splash?.local_path || raw.images?.icon?.local_path),
     skill: raw.skills?.[0] || null,
     stats: raw.stats_by_star?.["1"] || {},
+    isBoardUnit: false,
+    canEquip: true,
+  };
+}
+
+function fallbackRichTextTokens(text) {
+  const value = String(text || "");
+  const tokens = [];
+  let cursor = 0;
+  for (const match of value.matchAll(STAT_MARKER_RE)) {
+    const woodSpiritPlaceholder = !match[1]
+      && value.includes("木灵加成")
+      && match.index > 0
+      && /[0-9%]/.test(value[match.index - 1]);
+    if (!match[1] && !woodSpiritPlaceholder) continue;
+    const markerStart = woodSpiritPlaceholder ? match.index + 1 : match.index;
+    const markerEnd = woodSpiritPlaceholder ? markerStart : match.index + match[0].length;
+    if (markerStart > cursor) tokens.push({ type: "text", value: value.slice(cursor, markerStart) });
+    const sourceLabel = woodSpiritPlaceholder ? "木灵加成" : match[1];
+    const [kind, icon, label, fallback] = STAT_MARKERS[sourceLabel];
+    tokens.push({ type: "stat", kind, icon, label, fallback, source_label: sourceLabel });
+    cursor = markerEnd;
+  }
+  if (cursor < value.length) tokens.push({ type: "text", value: value.slice(cursor) });
+  return tokens;
+}
+
+function richTextHtml(text, importedTokens = null) {
+  const tokens = Array.isArray(importedTokens) && importedTokens.some((token) => token.type === "stat")
+    ? importedTokens
+    : fallbackRichTextTokens(text);
+  if (!tokens.some((token) => token.type === "stat")) return escapeHtml(text);
+  return tokens.map((token) => {
+    if (token.type === "text") return escapeHtml(token.value);
+    const label = token.label || token.source_label || token.stat || "属性加成";
+    const kind = token.kind || String(token.stat || "stat").replaceAll("_", "-");
+    const content = token.icon
+      ? `<img src="/static/season-stats/${encodeURIComponent(token.icon)}.png" alt="" aria-hidden="true" />`
+      : `<span aria-hidden="true">${escapeHtml(token.fallback || token.source_label || label)}</span>`;
+    return `<span class="scale-chip scale-chip-${escapeHtml(kind)}" role="img" aria-label="${escapeHtml(label)}" title="${escapeHtml(label)}">${content}</span>`;
+  }).join("");
+}
+
+function normalizeBoardUnit(raw) {
+  return {
+    id: String(raw.id),
+    name: raw.name || "未知棋盘对象",
+    aliases: raw.aliases || [],
+    cost: 0,
+    traitIds: [],
+    boardUnitTraitIds: (raw.trait_ids || []).map(String),
+    availability: { type: "trait_object", description: null, rules: raw.placement_rules || [] },
+    placementRules: raw.placement_rules || [],
+    icon: seasonAsset(raw.image?.optimized_local_path || raw.image?.local_path),
+    posterIcon: seasonAsset(raw.image?.local_path || raw.image?.optimized_local_path),
+    splash: seasonAsset(raw.image?.local_path || raw.image?.optimized_local_path),
+    skill: raw.skill || null,
+    stats: raw.stats || {},
+    isBoardUnit: true,
+    canEquip: raw.can_equip === true,
   };
 }
 
@@ -164,6 +252,7 @@ function normalizeTrait(raw) {
     name: raw.name || "未知羁绊",
     category: raw.category || "other",
     description: raw.description || "",
+    descriptionTokens: raw.description_tokens || null,
     breakpoints: [...(raw.breakpoints || [])].sort((a, b) => Number(a.min_units) - Number(b.min_units)),
     icon: seasonAsset(raw.image?.optimized_local_path || raw.image?.local_path),
     tags: raw.tags || [],
@@ -179,6 +268,7 @@ function normalizeItem(raw) {
     name: raw.name || "未知装备",
     category: raw.category || "other",
     description: raw.description || "",
+    descriptionTokens: raw.description_tokens || null,
     stats: raw.stats?.raw || "",
     effects: raw.effects || [],
     unique: Boolean(raw.unique),
@@ -229,22 +319,30 @@ async function loadSeason(seasonId, importedPayload = null) {
   setLoading(true);
   try {
     const stamp = encodeURIComponent(`${season.version_id}-${DATA_VERSION}`);
-    const [championData, traitData, itemData] = await Promise.all([
+    const [championData, traitData, itemData, boardUnitData] = await Promise.all([
       fetchJson(`${DATA_ROOT}/${encodeURIComponent(seasonId)}/champions.json?v=${stamp}`),
       fetchJson(`${DATA_ROOT}/${encodeURIComponent(seasonId)}/traits.json?v=${stamp}`),
       fetchJson(`${DATA_ROOT}/${encodeURIComponent(seasonId)}/items.json?v=${stamp}`),
+      fetchJson(`${DATA_ROOT}/${encodeURIComponent(seasonId)}/board_units.json?v=${stamp}`),
     ]);
-    state.champions = (championData.champions || []).map(normalizeChampion).sort((a, b) => a.cost - b.cost || a.name.localeCompare(b.name, "zh-CN"));
+    state.champions = (championData.champions || [])
+      .filter((raw) => raw.extensions?.simulator_visible !== false)
+      .map(normalizeChampion)
+      .sort((a, b) => a.cost - b.cost || a.name.localeCompare(b.name, "zh-CN"));
+    state.boardUnits = (boardUnitData.board_units || []).map(normalizeBoardUnit).sort((a, b) => a.name.localeCompare(b.name, "zh-CN"));
     state.traits = (traitData.traits || []).map(normalizeTrait).sort((a, b) => a.category.localeCompare(b.category) || a.name.localeCompare(b.name, "zh-CN"));
     state.items = (itemData.items || []).map(normalizeItem);
     const availableCategories = availableItemCategories();
     if (!availableCategories.some((category) => category.id === state.itemCategory)) {
       state.itemCategory = availableCategories[0]?.id || "normal";
     }
-    state.championById = new Map(state.champions.map((item) => [item.id, item]));
+    state.championById = new Map([...state.champions, ...state.boardUnits].map((item) => [item.id, item]));
     state.traitById = new Map(state.traits.map((item) => [item.id, item]));
     state.itemById = new Map(state.items.map((item) => [item.id, item]));
-    const payload = importedPayload?.season === seasonId ? importedPayload : readStoredFormation(seasonId);
+    let payload = readStoredFormation(seasonId);
+    if (importedPayload?.season === seasonId) {
+      payload = importedPayload.format === "JCC2" ? decodePayload(importedPayload.code) : importedPayload;
+    }
     state.board = hydrateBoard(payload?.board);
     state.showNames = payload?.showNames !== false;
     elements.showNames.checked = state.showNames;
@@ -293,7 +391,8 @@ function renderSeasonSwitcher() {
       ${season.status === "draft" ? "<small>预览</small>" : ""}
     </button>`).join("");
   if (state.season) {
-    elements.seasonMeta.textContent = `${state.season.display_name} · ${state.season.game_version} · ${state.champions.length} 名弈子`;
+    const boardUnitText = state.boardUnits.length ? ` · ${state.boardUnits.length} 个棋盘对象` : "";
+    elements.seasonMeta.textContent = `${state.season.display_name} · ${state.season.game_version} · ${state.champions.length} 名弈子${boardUnitText}`;
   }
 }
 
@@ -343,7 +442,7 @@ function renderFilters() {
 function renderHeroes() {
   const query = normalizeText(state.heroSearch);
   const costs = [...new Set(state.champions.map((hero) => hero.cost))].sort((a, b) => a - b);
-  const groups = costs.map((cost) => {
+  const championGroups = costs.map((cost) => {
     if (state.costFilter !== "all" && Number(state.costFilter) !== cost) return "";
     const heroes = state.champions.filter((hero) => hero.cost === cost && (!query || normalizeText([hero.name, ...hero.aliases].join(" ")).includes(query)));
     if (!heroes.length) return "";
@@ -352,16 +451,31 @@ function renderHeroes() {
       <div class="hero-grid">${heroes.map(heroButtonHtml).join("")}</div>
     </section>`;
   }).join("");
+  const boardUnits = state.costFilter === "all"
+    ? state.boardUnits.filter((unit) => !query || normalizeText([unit.name, ...unit.aliases].join(" ")).includes(query))
+    : [];
+  const specialGroup = boardUnits.length ? `<section class="hero-cost-group special-group" aria-label="特殊棋盘对象">
+    <div class="cost-heading"><span class="cost-dot"></span><span><strong>特殊</strong>单位</span></div>
+    <div class="hero-grid">${boardUnits.map(heroButtonHtml).join("")}</div>
+  </section>` : "";
+  const groups = `${championGroups}${specialGroup}`;
   elements.heroGroups.innerHTML = groups || '<div class="empty-state">没有符合条件的弈子</div>';
 }
 
 function heroButtonHtml(hero) {
-  const traitMismatch = state.traitFilters.size > 0 && ![...state.traitFilters].every((id) => hero.traitIds.includes(id));
+  const filterTraitIds = hero.isBoardUnit ? hero.boardUnitTraitIds : hero.traitIds;
+  const traitMismatch = state.traitFilters.size > 0 && ![...state.traitFilters].every((id) => filterTraitIds.includes(id));
   const unlocked = hero.availability?.type === "unlock";
-  return `<button class="hero-button ${traitMismatch ? "is-dimmed" : ""}" type="button" draggable="true" data-hero-id="${escapeHtml(hero.id)}" style="--hero-color:${costColor(hero.cost)}" aria-label="上阵 ${escapeHtml(hero.name)}"${traitMismatch ? ' title="不属于当前筛选羁绊"' : ""}>
+  const allowance = hero.isBoardUnit ? boardUnitAllowance(hero) : null;
+  const placed = hero.isBoardUnit ? countPlacedUnit(hero.id) : 0;
+  const locked = hero.isBoardUnit && placed >= allowance;
+  const requirement = hero.isBoardUnit ? boardUnitRequirementText(hero) : "";
+  const title = traitMismatch ? "不属于当前筛选羁绊" : locked ? requirement : "";
+  return `<button class="hero-button ${hero.isBoardUnit ? "is-special" : ""} ${traitMismatch ? "is-dimmed" : ""} ${locked ? "is-locked" : ""}" type="button" draggable="${!locked}" data-hero-id="${escapeHtml(hero.id)}" data-locked="${locked}" style="--hero-color:${hero.isBoardUnit ? "#4fc6b1" : costColor(hero.cost)}" aria-label="上阵 ${escapeHtml(hero.name)}" aria-disabled="${locked}"${title ? ` title="${escapeHtml(title)}"` : ""}>
     <img src="${escapeHtml(hero.icon)}" alt="" loading="lazy" decoding="async" />
     <span>${escapeHtml(hero.name)}</span>
     ${unlocked ? `<img class="hero-unlock" src="${UI_ROOT}/unlock.png" alt="解锁弈子" />` : ""}
+    ${hero.isBoardUnit ? `<b class="hero-special-mark">${allowance ? `${placed}/${allowance}` : "锁"}</b>` : ""}
   </button>`;
 }
 
@@ -385,7 +499,10 @@ function renderBoard() {
   const units = state.board.filter(Boolean);
   elements.unitCount.textContent = String(units.length);
   elements.totalCost.textContent = String(units.reduce((total, slot) => total + (state.championById.get(slot.championId)?.cost || 0), 0));
-  elements.boardStatus.textContent = units.length ? `${units.length} 名弈子已上阵` : "阵容未配置";
+  const invalidSpecials = state.board.filter((slot, index) => slot && !specialPlacementIsValid(slot.championId, index)).length;
+  elements.boardStatus.textContent = invalidSpecials
+    ? `${invalidSpecials} 个特殊单位未满足羁绊条件`
+    : units.length ? `${units.length} 个单位已上阵` : "阵容未配置";
   renderTraitSummary();
   renderComponentSummary();
   elements.undo.disabled = state.historyIndex <= 0;
@@ -401,7 +518,8 @@ function boardSlotHtml(slot, index) {
     const item = state.itemById.get(itemId);
     return item ? `<span class="unit-item" data-item-id="${escapeHtml(item.id)}" data-slot-index="${index}" data-item-index="${itemIndex}"><img src="${escapeHtml(item.icon)}" alt="${escapeHtml(item.name)}" /></span>` : "";
   }).join("");
-  return `<button class="hex-cell has-unit ${items ? "has-items" : ""}" type="button" role="gridcell" draggable="true" data-slot-index="${index}" data-hero-id="${escapeHtml(hero.id)}" aria-label="${escapeHtml(hero.name)}">
+  const validSpecial = !hero.isBoardUnit || specialPlacementIsValid(hero.id, index);
+  return `<button class="hex-cell has-unit ${items ? "has-items" : ""} ${hero.isBoardUnit ? "is-special" : ""} ${validSpecial ? "" : "is-invalid-special"}" type="button" role="gridcell" draggable="true" data-slot-index="${index}" data-hero-id="${escapeHtml(hero.id)}" aria-label="${escapeHtml(hero.name)}">
     <span class="hex-floor"></span>
     <span class="unit-portrait" style="--unit-color:${costColor(hero.cost)}"><img class="unit-portrait-image" src="${escapeHtml(hero.icon)}" alt="" /></span>
     <span class="unit-items">${items}</span>
@@ -496,8 +614,38 @@ function firstEmptySlot() {
   return state.board.findIndex((slot) => slot === null);
 }
 
-function addChampion(championId) {
-  const index = firstEmptySlot();
+function countPlacedUnit(unitId, beforeIndex = state.board.length) {
+  return state.board.slice(0, beforeIndex).filter((slot) => slot?.championId === unitId).length;
+}
+
+function boardUnitAllowance(unit) {
+  if (!unit?.isBoardUnit) return Infinity;
+  const traitCounts = getTraitCounts();
+  return unit.placementRules.reduce((maximum, rule) => {
+    const count = traitCounts.get(String(rule.trait_id)) || 0;
+    return count >= Number(rule.min_units || 1) ? Math.max(maximum, Number(rule.max_count || 1)) : maximum;
+  }, 0);
+}
+
+function boardUnitRequirementText(unit) {
+  const first = [...(unit.placementRules || [])].sort((a, b) => Number(a.min_units) - Number(b.min_units))[0];
+  const trait = first ? state.traitById.get(String(first.trait_id)) : null;
+  return first && trait ? `需要 ${first.min_units} ${trait.name}` : "当前羁绊未解锁该棋盘对象";
+}
+
+function specialPlacementIsValid(unitId, index) {
+  const unit = state.championById.get(unitId);
+  if (!unit?.isBoardUnit) return true;
+  return countPlacedUnit(unitId, index + 1) <= boardUnitAllowance(unit);
+}
+
+function addChampion(championId, requestedIndex = null) {
+  const hero = state.championById.get(championId);
+  if (!hero) return;
+  if (hero.isBoardUnit && countPlacedUnit(hero.id) >= boardUnitAllowance(hero)) {
+    return showToast(boardUnitRequirementText(hero));
+  }
+  const index = requestedIndex ?? firstEmptySlot();
   if (index < 0) return showToast("棋盘已满");
   mutate(() => { state.board[index] = { championId, items: [] }; });
 }
@@ -505,6 +653,7 @@ function addChampion(championId) {
 function equipItem(slotIndex, itemId) {
   const slot = state.board[slotIndex];
   if (!slot) return showToast("请先在该位置上阵弈子");
+  if (state.championById.get(slot.championId)?.canEquip === false) return showToast("棋盘对象不能携带装备");
   if (slot.items.length >= 3) return showToast("每名弈子最多携带 3 件装备");
   mutate(() => { slot.items.push(itemId); });
 }
@@ -522,6 +671,7 @@ function mutate(callback) {
   callback();
   pushHistory();
   renderBoard();
+  renderHeroes();
   persist();
 }
 
@@ -546,6 +696,7 @@ function applyHistory(index) {
   state.showNames = value.showNames !== false;
   elements.showNames.checked = state.showNames;
   renderBoard();
+  renderHeroes();
   persist();
 }
 
@@ -563,24 +714,142 @@ function readStoredFormation(seasonId) {
   catch { return null; }
 }
 
-function encodePayload(payload) {
-  const bytes = new TextEncoder().encode(JSON.stringify(payload));
+function fnv1a32(value) {
+  const bytes = typeof value === "string" ? new TextEncoder().encode(value) : value;
+  let hash = 0x811c9dc5;
+  bytes.forEach((byte) => {
+    hash ^= byte;
+    hash = Math.imul(hash, 0x01000193) >>> 0;
+  });
+  return hash >>> 0;
+}
+
+function formationCodebook() {
+  const units = [...state.champions, ...state.boardUnits].sort((a, b) => String(a.id).localeCompare(String(b.id), undefined, { numeric: true }));
+  const items = [...state.items].sort((a, b) => String(a.id).localeCompare(String(b.id), undefined, { numeric: true }));
+  const unitIds = units.map((unit) => unit.id);
+  const itemIds = items.map((item) => item.id);
+  return {
+    units,
+    items,
+    unitIndexes: new Map(unitIds.map((id, index) => [id, index + 1])),
+    itemIndexes: new Map(itemIds.map((id, index) => [id, index + 1])),
+    hash: fnv1a32(`JCC2|${state.season.season_id}|U:${unitIds.join(",")}|I:${itemIds.join(",")}`),
+  };
+}
+
+function bytesToBase64Url(bytes) {
   let binary = "";
   bytes.forEach((byte) => { binary += String.fromCharCode(byte); });
   return btoa(binary).replaceAll("+", "-").replaceAll("/", "_").replaceAll("=", "");
 }
 
-function decodePayload(code) {
-  const normalized = code.trim().replace(/^.*#lineup=/, "").replaceAll("-", "+").replaceAll("_", "/");
+function base64UrlToBytes(value) {
+  const normalized = value.replaceAll("-", "+").replaceAll("_", "/");
   const binary = atob(normalized.padEnd(Math.ceil(normalized.length / 4) * 4, "="));
-  const bytes = Uint8Array.from(binary, (character) => character.charCodeAt(0));
+  return Uint8Array.from(binary, (character) => character.charCodeAt(0));
+}
+
+function normalizeFormationCode(value) {
+  const text = String(value || "").trim();
+  const hashMatch = text.match(/#lineup=([^&#\s]+)/);
+  return hashMatch ? hashMatch[1] : text;
+}
+
+function encodePayload(payload = formationPayload()) {
+  const codebook = formationCodebook();
+  const bytes = new Uint8Array(FORMATION_TOTAL_BYTES);
+  const view = new DataView(bytes.buffer);
+  view.setUint8(0, payload.showNames === false ? 0 : FORMATION_FLAG_SHOW_NAMES);
+  view.setUint32(1, fnv1a32(payload.season));
+  view.setUint32(5, codebook.hash);
+  (payload.board || []).slice(0, 28).forEach((slot, slotIndex) => {
+    const offset = FORMATION_HEADER_BYTES + (slotIndex * FORMATION_SLOT_BYTES);
+    if (!slot) return;
+    const unitIndex = codebook.unitIndexes.get(String(slot.championId));
+    if (!unitIndex) throw new Error("阵容包含当前赛季不支持的弈子");
+    view.setUint16(offset, unitIndex);
+    (slot.items || []).slice(0, 3).forEach((itemId, itemIndex) => {
+      const itemCode = codebook.itemIndexes.get(String(itemId));
+      if (!itemCode) throw new Error("阵容包含当前赛季不支持的装备");
+      view.setUint16(offset + 2 + (itemIndex * 2), itemCode);
+    });
+  });
+  view.setUint32(FORMATION_TOTAL_BYTES - FORMATION_CHECKSUM_BYTES, fnv1a32(bytes.slice(0, -FORMATION_CHECKSUM_BYTES)));
+  const code = `${FORMATION_CODE_PREFIX}${bytesToBase64Url(bytes)}`;
+  if (code.length !== FORMATION_CODE_LENGTH) throw new Error("阵容码生成长度异常");
+  return code;
+}
+
+function inspectFixedFormation(code) {
+  if (!code.startsWith(FORMATION_CODE_PREFIX) || code.length !== FORMATION_CODE_LENGTH) throw new Error("阵容码长度无效");
+  const bytes = base64UrlToBytes(code.slice(FORMATION_CODE_PREFIX.length));
+  if (bytes.length !== FORMATION_TOTAL_BYTES) throw new Error("阵容码数据无效");
+  const view = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength);
+  const expectedChecksum = view.getUint32(FORMATION_TOTAL_BYTES - FORMATION_CHECKSUM_BYTES);
+  const actualChecksum = fnv1a32(bytes.slice(0, -FORMATION_CHECKSUM_BYTES));
+  if (expectedChecksum !== actualChecksum) throw new Error("阵容码校验失败");
+  const seasonHash = view.getUint32(1);
+  const season = state.catalog.find((candidate) => fnv1a32(candidate.season_id) === seasonHash)?.season_id || null;
+  if (!season) throw new Error("阵容码赛季不受支持");
+  return { format: "JCC2", code, season, bytes };
+}
+
+function decodeFixedFormation(code) {
+  const inspected = inspectFixedFormation(code);
+  if (inspected.season !== state.season?.season_id) throw new Error("请先切换到阵容码对应赛季");
+  const view = new DataView(inspected.bytes.buffer, inspected.bytes.byteOffset, inspected.bytes.byteLength);
+  const codebook = formationCodebook();
+  if (view.getUint32(5) !== codebook.hash) throw new Error("阵容码与当前赛季资料版本不兼容");
+  const board = Array(28).fill(null);
+  for (let slotIndex = 0; slotIndex < 28; slotIndex += 1) {
+    const offset = FORMATION_HEADER_BYTES + (slotIndex * FORMATION_SLOT_BYTES);
+    const unitCode = view.getUint16(offset);
+    const itemCodes = [view.getUint16(offset + 2), view.getUint16(offset + 4), view.getUint16(offset + 6)];
+    if (!unitCode) {
+      if (itemCodes.some(Boolean)) throw new Error("空棋格包含装备数据");
+      continue;
+    }
+    const unit = codebook.units[unitCode - 1];
+    if (!unit) throw new Error("阵容码包含未知弈子");
+    const items = itemCodes.filter(Boolean).map((itemCode) => {
+      const item = codebook.items[itemCode - 1];
+      if (!item) throw new Error("阵容码包含未知装备");
+      return item.id;
+    });
+    if (unit.canEquip === false && items.length) throw new Error("棋盘对象不能携带装备");
+    board[slotIndex] = { championId: unit.id, items };
+  }
+  return {
+    version: 2,
+    season: inspected.season,
+    showNames: Boolean(view.getUint8(0) & FORMATION_FLAG_SHOW_NAMES),
+    board,
+  };
+}
+
+function decodeLegacyPayload(code) {
+  const bytes = base64UrlToBytes(code);
   return JSON.parse(new TextDecoder().decode(bytes));
+}
+
+function inspectFormationCode(value) {
+  const code = normalizeFormationCode(value);
+  if (code.startsWith(FORMATION_CODE_PREFIX)) return inspectFixedFormation(code);
+  const payload = decodeLegacyPayload(code);
+  if (!payload?.season || !Array.isArray(payload.board)) throw new Error("旧版阵容码无效");
+  return payload;
+}
+
+function decodePayload(value) {
+  const code = normalizeFormationCode(value);
+  return code.startsWith(FORMATION_CODE_PREFIX) ? decodeFixedFormation(code) : decodeLegacyPayload(code);
 }
 
 function readHashPayload() {
   const match = location.hash.match(/^#lineup=(.+)$/);
   if (!match) return null;
-  try { return decodePayload(match[1]); }
+  try { return inspectFormationCode(match[1]); }
   catch { return null; }
 }
 
@@ -603,10 +872,10 @@ async function handleCodeConfirm() {
     return showToast("阵容码已复制");
   }
   try {
-    const payload = decodePayload(elements.code.value);
-    if (!payload.season || !Array.isArray(payload.board)) throw new Error();
-    if (payload.season !== state.season.season_id) await loadSeason(payload.season, payload);
+    const inspected = inspectFormationCode(elements.code.value);
+    if (inspected.season !== state.season.season_id) await loadSeason(inspected.season, inspected);
     else {
+      const payload = inspected.format === "JCC2" ? decodePayload(inspected.code) : inspected;
       state.board = hydrateBoard(payload.board);
       state.showNames = payload.showNames !== false;
       elements.showNames.checked = state.showNames;
@@ -638,6 +907,38 @@ async function shareFormation() {
   showToast("阵容链接已复制");
 }
 
+function waitForPaint() {
+  return new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+}
+
+function delay(milliseconds) {
+  return new Promise((resolve) => setTimeout(resolve, milliseconds));
+}
+
+function beginExportProgress(title) {
+  elements.exportProgressTitle.textContent = title;
+  elements.exportProgressStage.textContent = "正在整理棋盘";
+  elements.exportProgressBar.style.width = "10%";
+  elements.exportProgress.hidden = false;
+  elements.exportProgress.setAttribute("aria-hidden", "false");
+  document.body.classList.add("export-running");
+  return performance.now();
+}
+
+async function updateExportProgress(stage, percent) {
+  elements.exportProgressStage.textContent = stage;
+  elements.exportProgressBar.style.width = `${Math.max(10, Math.min(100, percent))}%`;
+  await waitForPaint();
+}
+
+async function finishExportProgress(startedAt) {
+  const remaining = Math.max(0, 1100 - (performance.now() - startedAt));
+  if (remaining) await delay(remaining);
+  elements.exportProgress.hidden = true;
+  elements.exportProgress.setAttribute("aria-hidden", "true");
+  document.body.classList.remove("export-running");
+}
+
 function buildImageCapture(includeTraits, transparentBackground) {
   const capture = document.createElement("div");
   capture.className = `lineup-image-capture ${includeTraits ? "with-traits" : "board-only"}`;
@@ -663,28 +964,35 @@ function buildImageCapture(includeTraits, transparentBackground) {
 
 async function exportBoardImage(includeTraits = true, transparentBackground = false) {
   if (!window.htmlToImage?.toPng || !elements.boardCapture) throw new Error("图片导出组件未加载");
+  elements.exportImageDialog.close();
   elements.exportImage.disabled = true;
   elements.confirmExportImage.disabled = true;
-  showToast("正在生成阵容图...");
-  const capture = buildImageCapture(includeTraits, transparentBackground);
+  const startedAt = beginExportProgress("图片正在导出");
+  let capture = null;
   try {
+    await updateExportProgress("正在整理棋盘与羁绊", 22);
+    capture = buildImageCapture(includeTraits, transparentBackground);
+    await updateExportProgress("正在加载字体与图像", 42);
     await document.fonts?.ready;
+    await updateExportProgress("正在绘制高清阵容图", 68);
     const dataUrl = await window.htmlToImage.toPng(capture, {
       backgroundColor: transparentBackground ? "transparent" : "#0d101a",
       cacheBust: true,
       pixelRatio: 2,
       style: { position: "static", left: "auto", top: "auto", zIndex: "auto" },
     });
+    await updateExportProgress("正在准备下载", 92);
     const link = document.createElement("a");
     link.download = `${state.season.season_id}-lineup.png`;
     link.href = dataUrl;
     link.click();
-    elements.exportImageDialog.close();
+    await updateExportProgress("导出完成", 100);
     showToast("阵容图已保存");
   } finally {
-    capture.remove();
+    capture?.remove();
     elements.exportImage.disabled = false;
     elements.confirmExportImage.disabled = false;
+    await finishExportProgress(startedAt);
   }
 }
 
@@ -693,7 +1001,7 @@ function posterChampionCandidates() {
   return state.board.flatMap((slot, index) => {
     if (!slot || seen.has(slot.championId)) return [];
     const hero = state.championById.get(slot.championId);
-    if (!hero) return [];
+    if (!hero || hero.isBoardUnit) return [];
     seen.add(slot.championId);
     return [{ hero, index }];
   });
@@ -776,7 +1084,7 @@ function buildPosterCapture(title, championId) {
     <header class="lineup-poster-header">
       <div class="lineup-poster-season"><span>${escapeHtml(state.season.display_name)}</span><b>${escapeHtml(state.season.game_version || "")}</b></div>
       <h1 class="${posterTitleClass(title)}">${escapeHtml(title)}</h1>
-      <div class="lineup-poster-summary"><span>${units.length} 名弈子</span><i></i><span>${posterTraitRows().length} 个激活羁绊</span></div>
+      <div class="lineup-poster-summary"><span>${units.length} 个单位</span><i></i><span>${posterTraitRows().length} 个激活羁绊</span></div>
     </header>
     <div class="lineup-poster-board-panel"><div class="lineup-poster-board-slot"></div></div>
     <section class="lineup-poster-traits-panel">
@@ -889,17 +1197,22 @@ async function rasterizePosterTitle(poster) {
 
 async function exportPortraitPoster() {
   if (!window.htmlToImage?.toPng) throw new Error("图片导出组件未加载");
-  const title = normalizedPosterTitle();
-  const poster = buildPosterCapture(title, state.posterChampionId);
-  poster.classList.add("is-exporting");
-  document.body.append(poster);
+  elements.posterExportDialog.close();
+  const startedAt = beginExportProgress("海报正在导出");
+  let poster = null;
   elements.exportPoster.disabled = true;
   elements.confirmExportPoster.disabled = true;
-  showToast("正在生成 3:4 阵容海报...");
   try {
+    const title = normalizedPosterTitle();
+    poster = buildPosterCapture(title, state.posterChampionId);
+    poster.classList.add("is-exporting");
+    document.body.append(poster);
+    await updateExportProgress("正在排版阵容海报", 20);
     await document.fonts?.ready;
+    await updateExportProgress("正在绘制标题与背景", 42);
     await rasterizePosterTitle(poster);
     await preparePosterImages(poster);
+    await updateExportProgress("正在合成高清海报", 68);
     const dataUrl = await window.htmlToImage.toPng(poster, {
       backgroundColor: "#0b0d12",
       cacheBust: true,
@@ -909,16 +1222,18 @@ async function exportPortraitPoster() {
       height: POSTER_HEIGHT,
       style: { position: "static", left: "auto", top: "auto", zIndex: "auto", transform: "none" },
     });
+    await updateExportProgress("正在准备下载", 92);
     const link = document.createElement("a");
     link.download = `${state.season.season_id}-${safePosterFilename(title)}-poster.png`;
     link.href = dataUrl;
     link.click();
-    elements.posterExportDialog.close();
+    await updateExportProgress("导出完成", 100);
     showToast("3:4 阵容海报已保存");
   } finally {
-    poster.remove();
+    poster?.remove();
     elements.exportPoster.disabled = !state.board.some(Boolean);
     elements.confirmExportPoster.disabled = false;
+    await finishExportProgress(startedAt);
   }
 }
 
@@ -936,7 +1251,7 @@ function showHeroPopover(heroId, anchor) {
     </div>
     <div class="hero-detail-body">
       ${skill ? `<div class="skill-heading">${skill.image?.optimized_local_path || skill.image?.local_path ? `<img src="${escapeHtml(seasonAsset(skill.image.optimized_local_path || skill.image.local_path))}" alt="" />` : "<span></span>"}<strong>${escapeHtml(skill.name)}</strong><span class="mana">${stats.initial_mana ?? 0} / ${stats.max_mana ?? 0}</span></div>
-      <p class="skill-description">${escapeHtml(skill.description)}</p>
+      <p class="skill-description">${richTextHtml(skill.description, skill.description_tokens)}</p>
       <div class="skill-values">${(skill.variables || []).map((variable) => `<div class="skill-value"><span>${escapeHtml(variable.label)}</span><span>${escapeHtml(Object.values(variable.values || {}).join(" / "))}</span></div>`).join("")}</div>` : '<p class="skill-description">暂无技能资料</p>'}
       ${hero.availability?.type === "unlock" ? `<div class="unlock-box"><img src="${UI_ROOT}/unlock.png" alt="" /><div><strong>解锁条件</strong><p>${escapeHtml(hero.availability.description || "满足赛季解锁条件")}</p></div></div>` : ""}
     </div>`;
@@ -947,11 +1262,15 @@ function showItemPopover(itemId, anchor) {
   const item = state.itemById.get(itemId);
   if (!item) return;
   const components = (item.recipe?.component_ids || []).map((id) => state.itemById.get(String(id))).filter(Boolean);
-  const effects = item.effects.map((effect) => typeof effect === "string" ? effect : effect.description || effect.text || "").filter(Boolean);
+  const effects = item.effects.map((effect) => {
+    if (typeof effect === "string") return richTextHtml(effect);
+    const text = effect.description || effect.text || "";
+    return text ? richTextHtml(text, effect.description_tokens || effect.text_tokens) : "";
+  }).filter(Boolean);
   elements.popover.innerHTML = `<div class="item-detail">
     <div class="item-detail-heading"><img src="${escapeHtml(item.icon)}" alt="" /><div><h3>${escapeHtml(item.name)}</h3>${components.length ? `<div class="item-recipe">${components.map((component, index) => `${index ? "<b>+</b>" : ""}<img src="${escapeHtml(component.icon)}" alt="${escapeHtml(component.name)}" />`).join("")}</div>` : ""}</div></div>
     ${item.stats ? `<p class="item-stats">${escapeHtml(item.stats)}</p>` : ""}
-    <p class="item-description">${escapeHtml([item.description, ...effects].filter(Boolean).join("\n")) || "暂无装备说明"}</p>
+    <p class="item-description">${[richTextHtml(item.description, item.descriptionTokens), ...effects].filter(Boolean).join("<br>") || "暂无装备说明"}</p>
   </div>`;
   showPopover(anchor);
 }
@@ -968,11 +1287,11 @@ function showTraitPopover(traitId, anchor) {
       <div><span class="trait-detail-kicker">羁绊详情</span><h3>${escapeHtml(trait.name)}</h3></div>
       <strong class="trait-detail-count">${count}</strong>
     </div>
-    ${trait.description ? `<p class="trait-detail-description">${escapeHtml(trait.description)}</p>` : ""}
+    ${trait.description ? `<p class="trait-detail-description">${richTextHtml(trait.description, trait.descriptionTokens)}</p>` : ""}
     <div class="trait-detail-tiers">${breakpoints.length ? breakpoints.map((point) => {
       const active = Number(point.min_units) <= count;
       return `<div class="trait-detail-tier ${active ? "is-active" : ""}">
-        <strong>${escapeHtml(point.min_units)} 人</strong><span>${escapeHtml(point.effect || point.description || "")}</span>
+        <strong>${escapeHtml(point.min_units)} 人</strong><span>${richTextHtml(point.effect || point.description || "", point.effect_tokens || point.description_tokens)}</span>
       </div>`;
     }).join("") : `<p class="muted">独特羁绊 · ${status.active ? "已激活" : "未激活"}</p>`}</div>
   </div>`;
@@ -1007,6 +1326,9 @@ elements.seasonSwitcher.addEventListener("click", async (event) => {
   if (!button || button.dataset.seasonId === state.season?.season_id) return;
   try {
     const seasonId = button.dataset.seasonId;
+    if (location.hash.startsWith("#lineup=")) {
+      history.replaceState(null, "", `${location.pathname}${location.search}`);
+    }
     await refreshCatalog();
     await loadSeason(seasonId);
   }
@@ -1064,7 +1386,10 @@ elements.itemTabs.addEventListener("click", (event) => {
 
 elements.heroSearch.addEventListener("input", () => { state.heroSearch = elements.heroSearch.value; renderHeroes(); });
 elements.itemSearch.addEventListener("input", () => { state.itemSearch = elements.itemSearch.value; renderItems(); });
-elements.heroGroups.addEventListener("click", (event) => { const button = event.target.closest("[data-hero-id]"); if (button) addChampion(button.dataset.heroId); });
+elements.heroGroups.addEventListener("click", (event) => {
+  const button = event.target.closest("[data-hero-id]");
+  if (button) addChampion(button.dataset.heroId);
+});
 elements.itemGrid.addEventListener("click", (event) => {
   const button = event.target.closest("[data-item-id]");
   if (!button) return;
@@ -1099,7 +1424,7 @@ document.addEventListener("dragstart", (event) => {
   const hero = event.target.closest(".hero-button");
   const item = event.target.closest(".item-button");
   const unit = event.target.closest(".hex-cell.has-unit");
-  if (hero) state.dragging = { type: "hero", id: hero.dataset.heroId };
+  if (hero && hero.dataset.locked !== "true") state.dragging = { type: "hero", id: hero.dataset.heroId };
   else if (item) state.dragging = { type: "item", id: item.dataset.itemId };
   else if (unit) state.dragging = { type: "unit", index: Number(unit.dataset.slotIndex) };
   if (state.dragging) event.dataTransfer?.setData("text/plain", JSON.stringify(state.dragging));
@@ -1115,7 +1440,7 @@ elements.board.addEventListener("drop", (event) => {
   const target = Number(cell.dataset.slotIndex);
   if (state.dragging.type === "hero") {
     if (state.board[target]) return showToast("该棋格已有弈子");
-    mutate(() => { state.board[target] = { championId: state.dragging.id, items: [] }; });
+    addChampion(state.dragging.id, target);
   } else if (state.dragging.type === "item") equipItem(target, state.dragging.id);
   else if (state.dragging.type === "unit") moveUnit(state.dragging.index, target);
 });

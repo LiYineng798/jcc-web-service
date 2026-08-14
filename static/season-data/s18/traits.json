@@ -13,35 +13,155 @@
           "max_units": 4,
           "style": "bronze",
           "effect": "【自然仙灵】得到升级，12%【AD】【AP】",
-          "values": {}
+          "values": {},
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "【自然仙灵】得到升级，12%"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "AD",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "AP",
+              "icon": "ap",
+              "fallback": "AP"
+            }
+          ]
         },
         {
           "min_units": 5,
           "max_units": 6,
           "style": "silver",
           "effect": "商店每次都会刷新出【自然仙灵】，30%【AD】【AP】",
-          "values": {}
+          "values": {},
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "商店每次都会刷新出【自然仙灵】，30%"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "AD",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "AP",
+              "icon": "ap",
+              "fallback": "AP"
+            }
+          ]
         },
         {
           "min_units": 7,
           "max_units": 8,
           "style": "gold",
           "effect": "在购买1个【自然仙灵】后，获得5金币，45%【AD】【AP】",
-          "values": {}
+          "values": {},
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "在购买1个【自然仙灵】后，获得5金币，45%"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "AD",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "AP",
+              "icon": "ap",
+              "fallback": "AP"
+            }
+          ]
         },
         {
           "min_units": 9,
           "max_units": 10,
           "style": "gold",
           "effect": "每回合你可以购买2个【自然仙灵】，60%【AD】【AP】",
-          "values": {}
+          "values": {},
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "每回合你可以购买2个【自然仙灵】，60%"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "AD",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "AP",
+              "icon": "ap",
+              "fallback": "AP"
+            }
+          ]
         },
         {
           "min_units": 11,
           "max_units": null,
           "style": "prismatic",
           "effect": "【自然仙灵】的力量满溢而出，100%【AD】【AP】",
-          "values": {}
+          "values": {},
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "【自然仙灵】的力量满溢而出，100%"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "AD",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "AP",
+              "icon": "ap",
+              "fallback": "AP"
+            }
+          ]
         }
       ],
       "image": {
@@ -138,21 +258,113 @@
           "max_units": 4,
           "style": "bronze",
           "effect": "【骑乘者】获得\n15%【HP】和15%【AS】",
-          "values": {}
+          "values": {},
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "【骑乘者】获得\n15%"
+            },
+            {
+              "type": "stat",
+              "stat": "health",
+              "kind": "health",
+              "label": "生命值",
+              "source_label": "HP",
+              "icon": "hp",
+              "fallback": "HP"
+            },
+            {
+              "type": "text",
+              "value": "和15%"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_speed",
+              "kind": "attack-speed",
+              "label": "攻击速度",
+              "source_label": "AS",
+              "icon": "as",
+              "fallback": "AS"
+            }
+          ]
         },
         {
           "min_units": 5,
           "max_units": 6,
           "style": "silver",
           "effect": "25%【HP】25%【AS】，【毛茸茸大朋友】50%的技能加成作用于你的【小精灵】弈子们",
-          "values": {}
+          "values": {},
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "25%"
+            },
+            {
+              "type": "stat",
+              "stat": "health",
+              "kind": "health",
+              "label": "生命值",
+              "source_label": "HP",
+              "icon": "hp",
+              "fallback": "HP"
+            },
+            {
+              "type": "text",
+              "value": "25%"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_speed",
+              "kind": "attack-speed",
+              "label": "攻击速度",
+              "source_label": "AS",
+              "icon": "as",
+              "fallback": "AS"
+            },
+            {
+              "type": "text",
+              "value": "，【毛茸茸大朋友】50%的技能加成作用于你的【小精灵】弈子们"
+            }
+          ]
         },
         {
           "min_units": 7,
           "max_units": null,
           "style": "gold",
           "effect": "35%【HP】35%【AS】，【毛茸茸大朋友】100%的技能加成作用于你的【小精灵】弈子们。",
-          "values": {}
+          "values": {},
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "35%"
+            },
+            {
+              "type": "stat",
+              "stat": "health",
+              "kind": "health",
+              "label": "生命值",
+              "source_label": "HP",
+              "icon": "hp",
+              "fallback": "HP"
+            },
+            {
+              "type": "text",
+              "value": "35%"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_speed",
+              "kind": "attack-speed",
+              "label": "攻击速度",
+              "source_label": "AS",
+              "icon": "as",
+              "fallback": "AS"
+            },
+            {
+              "type": "text",
+              "value": "，【毛茸茸大朋友】100%的技能加成作用于你的【小精灵】弈子们。"
+            }
+          ]
         }
       ],
       "image": {
@@ -256,21 +468,144 @@
           "max_units": 3,
           "style": "bronze",
           "effect": "175【HP】",
-          "values": {}
+          "values": {},
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "175"
+            },
+            {
+              "type": "stat",
+              "stat": "health",
+              "kind": "health",
+              "label": "生命值",
+              "source_label": "HP",
+              "icon": "hp",
+              "fallback": "HP"
+            }
+          ]
         },
         {
           "min_units": 4,
           "max_units": 5,
           "style": "silver",
           "effect": "300【HP】；额外加成再提升25%",
-          "values": {}
+          "values": {},
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "300"
+            },
+            {
+              "type": "stat",
+              "stat": "health",
+              "kind": "health",
+              "label": "生命值",
+              "source_label": "HP",
+              "icon": "hp",
+              "fallback": "HP"
+            },
+            {
+              "type": "text",
+              "value": "；额外加成再提升25%"
+            }
+          ]
         },
         {
           "min_units": 6,
           "max_units": null,
           "style": "gold",
           "effect": "350【HP】；献祭不再造成阵亡。【祭品】还会获得：30%【AD】【AP】，\n30%【AS】，20【ARMOR】【MR】，250【HP】，10%",
-          "values": {}
+          "values": {},
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "350"
+            },
+            {
+              "type": "stat",
+              "stat": "health",
+              "kind": "health",
+              "label": "生命值",
+              "source_label": "HP",
+              "icon": "hp",
+              "fallback": "HP"
+            },
+            {
+              "type": "text",
+              "value": "；献祭不再造成阵亡。【祭品】还会获得：30%"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "AD",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "AP",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "，\n30%"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_speed",
+              "kind": "attack-speed",
+              "label": "攻击速度",
+              "source_label": "AS",
+              "icon": "as",
+              "fallback": "AS"
+            },
+            {
+              "type": "text",
+              "value": "，20"
+            },
+            {
+              "type": "stat",
+              "stat": "armor",
+              "kind": "armor",
+              "label": "护甲",
+              "source_label": "ARMOR",
+              "icon": "armor",
+              "fallback": "AR"
+            },
+            {
+              "type": "stat",
+              "stat": "magic_resist",
+              "kind": "magic-resist",
+              "label": "魔法抗性",
+              "source_label": "MR",
+              "icon": "mr",
+              "fallback": "MR"
+            },
+            {
+              "type": "text",
+              "value": "，250"
+            },
+            {
+              "type": "stat",
+              "stat": "health",
+              "kind": "health",
+              "label": "生命值",
+              "source_label": "HP",
+              "icon": "hp",
+              "fallback": "HP"
+            },
+            {
+              "type": "text",
+              "value": "，10%"
+            }
+          ]
         }
       ],
       "image": {
@@ -379,7 +714,91 @@
           "max_units": 9,
           "style": "gold",
           "effect": "战斗开始时及之后每5秒，【峡谷野兽】们成长并获得\n6%【AD】6%【AP】6%【AS】\n+6【ARMOR】+6【MR】+60【HP】+1【MANAREGEN】",
-          "values": {}
+          "values": {},
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "战斗开始时及之后每5秒，【峡谷野兽】们成长并获得\n6%"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "AD",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "text",
+              "value": "6%"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "AP",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "6%"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_speed",
+              "kind": "attack-speed",
+              "label": "攻击速度",
+              "source_label": "AS",
+              "icon": "as",
+              "fallback": "AS"
+            },
+            {
+              "type": "text",
+              "value": "\n+6"
+            },
+            {
+              "type": "stat",
+              "stat": "armor",
+              "kind": "armor",
+              "label": "护甲",
+              "source_label": "ARMOR",
+              "icon": "armor",
+              "fallback": "AR"
+            },
+            {
+              "type": "text",
+              "value": "+6"
+            },
+            {
+              "type": "stat",
+              "stat": "magic_resist",
+              "kind": "magic-resist",
+              "label": "魔法抗性",
+              "source_label": "MR",
+              "icon": "mr",
+              "fallback": "MR"
+            },
+            {
+              "type": "text",
+              "value": "+60"
+            },
+            {
+              "type": "stat",
+              "stat": "health",
+              "kind": "health",
+              "label": "生命值",
+              "source_label": "HP",
+              "icon": "hp",
+              "fallback": "HP"
+            },
+            {
+              "type": "text",
+              "value": "+1【MANAREGEN】"
+            }
+          ]
         },
         {
           "min_units": 10,
@@ -592,7 +1011,48 @@
           "max_units": null,
           "style": "gold",
           "effect": "你的弈子们获得5%最大生命值护盾，并造成7%额外魔法伤害。每有1个不同的3星弈子，获得额外加成：\n1：每有1个3星弈子，提升2.5%护盾值和魔法伤害。\n3：25%【AS】和15【ARMOR】【MR】\n5：将50%额外魔法伤害转换为真实伤害。\n8：在战斗期间内每过1秒，1个3星弈子飞升至4星。",
-          "values": {}
+          "values": {},
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "你的弈子们获得5%最大生命值护盾，并造成7%额外魔法伤害。每有1个不同的3星弈子，获得额外加成：\n1：每有1个3星弈子，提升2.5%护盾值和魔法伤害。\n3：25%"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_speed",
+              "kind": "attack-speed",
+              "label": "攻击速度",
+              "source_label": "AS",
+              "icon": "as",
+              "fallback": "AS"
+            },
+            {
+              "type": "text",
+              "value": "和15"
+            },
+            {
+              "type": "stat",
+              "stat": "armor",
+              "kind": "armor",
+              "label": "护甲",
+              "source_label": "ARMOR",
+              "icon": "armor",
+              "fallback": "AR"
+            },
+            {
+              "type": "stat",
+              "stat": "magic_resist",
+              "kind": "magic-resist",
+              "label": "魔法抗性",
+              "source_label": "MR",
+              "icon": "mr",
+              "fallback": "MR"
+            },
+            {
+              "type": "text",
+              "value": "\n5：将50%额外魔法伤害转换为真实伤害。\n8：在战斗期间内每过1秒，1个3星弈子飞升至4星。"
+            }
+          ]
         }
       ],
       "image": {
@@ -627,28 +1087,140 @@
           "max_units": 2,
           "style": "bronze",
           "effect": "7%【AS】，7%【AP】",
-          "values": {}
+          "values": {},
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "7%"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_speed",
+              "kind": "attack-speed",
+              "label": "攻击速度",
+              "source_label": "AS",
+              "icon": "as",
+              "fallback": "AS"
+            },
+            {
+              "type": "text",
+              "value": "，7%"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "AP",
+              "icon": "ap",
+              "fallback": "AP"
+            }
+          ]
         },
         {
           "min_units": 3,
           "max_units": 3,
           "style": "silver",
           "effect": "10%【AS】，10%【AP】",
-          "values": {}
+          "values": {},
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "10%"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_speed",
+              "kind": "attack-speed",
+              "label": "攻击速度",
+              "source_label": "AS",
+              "icon": "as",
+              "fallback": "AS"
+            },
+            {
+              "type": "text",
+              "value": "，10%"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "AP",
+              "icon": "ap",
+              "fallback": "AP"
+            }
+          ]
         },
         {
           "min_units": 4,
           "max_units": 4,
           "style": "silver",
           "effect": "15%【AS】，15%【AP】",
-          "values": {}
+          "values": {},
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "15%"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_speed",
+              "kind": "attack-speed",
+              "label": "攻击速度",
+              "source_label": "AS",
+              "icon": "as",
+              "fallback": "AS"
+            },
+            {
+              "type": "text",
+              "value": "，15%"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "AP",
+              "icon": "ap",
+              "fallback": "AP"
+            }
+          ]
         },
         {
           "min_units": 5,
           "max_units": null,
           "style": "gold",
           "effect": "20%【AS】，20%【AP】",
-          "values": {}
+          "values": {},
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "20%"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_speed",
+              "kind": "attack-speed",
+              "label": "攻击速度",
+              "source_label": "AS",
+              "icon": "as",
+              "fallback": "AS"
+            },
+            {
+              "type": "text",
+              "value": "，20%"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "AP",
+              "icon": "ap",
+              "fallback": "AP"
+            }
+          ]
         }
       ],
       "image": {
@@ -1041,21 +1613,96 @@
           "max_units": 3,
           "style": "bronze",
           "effect": "10%【AP】，每次施放技能+1%",
-          "values": {}
+          "values": {},
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "10%"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "AP",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "，每次施放技能+1%"
+            }
+          ]
         },
         {
           "min_units": 4,
           "max_units": 5,
           "style": "silver",
           "effect": "30%【AP】，每次施放技能+1%【AP】",
-          "values": {}
+          "values": {},
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "30%"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "AP",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "，每次施放技能+1%"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "AP",
+              "icon": "ap",
+              "fallback": "AP"
+            }
+          ]
         },
         {
           "min_units": 6,
           "max_units": null,
           "style": "gold",
           "effect": "55%【AP】，每次施放技能+2%【AP】",
-          "values": {}
+          "values": {},
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "55%"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "AP",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "，每次施放技能+2%"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "AP",
+              "icon": "ap",
+              "fallback": "AP"
+            }
+          ]
         }
       ],
       "image": {
@@ -1194,21 +1841,66 @@
           "max_units": 3,
           "style": "bronze",
           "effect": "25%【HP】",
-          "values": {}
+          "values": {},
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "25%"
+            },
+            {
+              "type": "stat",
+              "stat": "health",
+              "kind": "health",
+              "label": "生命值",
+              "source_label": "HP",
+              "icon": "hp",
+              "fallback": "HP"
+            }
+          ]
         },
         {
           "min_units": 4,
           "max_units": 5,
           "style": "silver",
           "effect": "40%【HP】",
-          "values": {}
+          "values": {},
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "40%"
+            },
+            {
+              "type": "stat",
+              "stat": "health",
+              "kind": "health",
+              "label": "生命值",
+              "source_label": "HP",
+              "icon": "hp",
+              "fallback": "HP"
+            }
+          ]
         },
         {
           "min_units": 6,
           "max_units": null,
           "style": "gold",
           "effect": "65%【HP】",
-          "values": {}
+          "values": {},
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "65%"
+            },
+            {
+              "type": "stat",
+              "stat": "health",
+              "kind": "health",
+              "label": "生命值",
+              "source_label": "HP",
+              "icon": "hp",
+              "fallback": "HP"
+            }
+          ]
         }
       ],
       "image": {
@@ -1245,28 +1937,88 @@
           "max_units": 2,
           "style": "bronze",
           "effect": "每次攻击+3%【AS】",
-          "values": {}
+          "values": {},
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "每次攻击+3%"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_speed",
+              "kind": "attack-speed",
+              "label": "攻击速度",
+              "source_label": "AS",
+              "icon": "as",
+              "fallback": "AS"
+            }
+          ]
         },
         {
           "min_units": 3,
           "max_units": 3,
           "style": "silver",
           "effect": "每次攻击+5%【AS】",
-          "values": {}
+          "values": {},
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "每次攻击+5%"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_speed",
+              "kind": "attack-speed",
+              "label": "攻击速度",
+              "source_label": "AS",
+              "icon": "as",
+              "fallback": "AS"
+            }
+          ]
         },
         {
           "min_units": 4,
           "max_units": 4,
           "style": "silver",
           "effect": "每次攻击+9%【AS】",
-          "values": {}
+          "values": {},
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "每次攻击+9%"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_speed",
+              "kind": "attack-speed",
+              "label": "攻击速度",
+              "source_label": "AS",
+              "icon": "as",
+              "fallback": "AS"
+            }
+          ]
         },
         {
           "min_units": 5,
           "max_units": null,
           "style": "gold",
           "effect": "每次攻击+15%【AS】",
-          "values": {}
+          "values": {},
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "每次攻击+15%"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_speed",
+              "kind": "attack-speed",
+              "label": "攻击速度",
+              "source_label": "AS",
+              "icon": "as",
+              "fallback": "AS"
+            }
+          ]
         }
       ],
       "image": {
@@ -1302,28 +2054,88 @@
           "max_units": 2,
           "style": "bronze",
           "effect": "15%【AD】",
-          "values": {}
+          "values": {},
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "15%"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "AD",
+              "icon": "ad",
+              "fallback": "AD"
+            }
+          ]
         },
         {
           "min_units": 3,
           "max_units": 3,
           "style": "silver",
           "effect": "25%【AD】",
-          "values": {}
+          "values": {},
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "25%"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "AD",
+              "icon": "ad",
+              "fallback": "AD"
+            }
+          ]
         },
         {
           "min_units": 4,
           "max_units": 4,
           "style": "silver",
           "effect": "40%【AD】",
-          "values": {}
+          "values": {},
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "40%"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "AD",
+              "icon": "ad",
+              "fallback": "AD"
+            }
+          ]
         },
         {
           "min_units": 5,
           "max_units": null,
           "style": "gold",
           "effect": "60%【AD】",
-          "values": {}
+          "values": {},
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "60%"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "AD",
+              "icon": "ad",
+              "fallback": "AD"
+            }
+          ]
         }
       ],
       "image": {
@@ -1359,7 +2171,26 @@
           "max_units": 2,
           "style": "bronze",
           "effect": "【裁决使】们获得【技能暴击】和15%暴击几率。",
-          "values": {}
+          "values": {},
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "【裁决使】们获得"
+            },
+            {
+              "type": "stat",
+              "stat": "skill_critical_strike",
+              "kind": "skill-crit",
+              "label": "技能暴击",
+              "source_label": "技能暴击",
+              "icon": "crit",
+              "fallback": "CRIT"
+            },
+            {
+              "type": "text",
+              "value": "和15%暴击几率。"
+            }
+          ]
         },
         {
           "min_units": 3,
@@ -1553,21 +2384,105 @@
           "max_units": 3,
           "style": "bronze",
           "effect": "4%【DR】或20%【DR】",
-          "values": {}
+          "values": {},
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "4%"
+            },
+            {
+              "type": "stat",
+              "stat": "damage_reduction",
+              "kind": "damage-reduction",
+              "label": "伤害减免",
+              "source_label": "DR",
+              "icon": null,
+              "fallback": "减伤"
+            },
+            {
+              "type": "text",
+              "value": "或20%"
+            },
+            {
+              "type": "stat",
+              "stat": "damage_reduction",
+              "kind": "damage-reduction",
+              "label": "伤害减免",
+              "source_label": "DR",
+              "icon": null,
+              "fallback": "减伤"
+            }
+          ]
         },
         {
           "min_units": 4,
           "max_units": 5,
           "style": "silver",
           "effect": "6%【DR】或28%【DR】",
-          "values": {}
+          "values": {},
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "6%"
+            },
+            {
+              "type": "stat",
+              "stat": "damage_reduction",
+              "kind": "damage-reduction",
+              "label": "伤害减免",
+              "source_label": "DR",
+              "icon": null,
+              "fallback": "减伤"
+            },
+            {
+              "type": "text",
+              "value": "或28%"
+            },
+            {
+              "type": "stat",
+              "stat": "damage_reduction",
+              "kind": "damage-reduction",
+              "label": "伤害减免",
+              "source_label": "DR",
+              "icon": null,
+              "fallback": "减伤"
+            }
+          ]
         },
         {
           "min_units": 6,
           "max_units": null,
           "style": "gold",
           "effect": "8%【DR】或34%【DR】",
-          "values": {}
+          "values": {},
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "8%"
+            },
+            {
+              "type": "stat",
+              "stat": "damage_reduction",
+              "kind": "damage-reduction",
+              "label": "伤害减免",
+              "source_label": "DR",
+              "icon": null,
+              "fallback": "减伤"
+            },
+            {
+              "type": "text",
+              "value": "或34%"
+            },
+            {
+              "type": "stat",
+              "stat": "damage_reduction",
+              "kind": "damage-reduction",
+              "label": "伤害减免",
+              "source_label": "DR",
+              "icon": null,
+              "fallback": "减伤"
+            }
+          ]
         }
       ],
       "image": {
@@ -1651,5 +2566,6 @@
         ]
       }
     }
-  ]
+  ],
+  "rich_text_version": 1
 }

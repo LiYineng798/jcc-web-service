@@ -466,7 +466,39 @@
         {
           "id": "2001_effect",
           "description": "获得【技能暴击】。  技能暴击：技能伤害可产生暴击。额外的【技能暴击】提供10%暴击伤害。",
-          "values": {}
+          "values": {},
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "获得"
+            },
+            {
+              "type": "stat",
+              "stat": "skill_critical_strike",
+              "kind": "skill-crit",
+              "label": "技能暴击",
+              "source_label": "技能暴击",
+              "icon": "crit",
+              "fallback": "CRIT"
+            },
+            {
+              "type": "text",
+              "value": "。  技能暴击：技能伤害可产生暴击。额外的"
+            },
+            {
+              "type": "stat",
+              "stat": "skill_critical_strike",
+              "kind": "skill-crit",
+              "label": "技能暴击",
+              "source_label": "技能暴击",
+              "icon": "crit",
+              "fallback": "CRIT"
+            },
+            {
+              "type": "text",
+              "value": "提供10%暴击伤害。"
+            }
+          ]
         }
       ],
       "recipe": {
@@ -497,7 +529,39 @@
         "fetter_id": null,
         "plan_id": "17",
         "sort": "0"
-      }
+      },
+      "description_tokens": [
+        {
+          "type": "text",
+          "value": "+35物理加成 +35%暴击率 获得"
+        },
+        {
+          "type": "stat",
+          "stat": "skill_critical_strike",
+          "kind": "skill-crit",
+          "label": "技能暴击",
+          "source_label": "技能暴击",
+          "icon": "crit",
+          "fallback": "CRIT"
+        },
+        {
+          "type": "text",
+          "value": "。  技能暴击：技能伤害可产生暴击。额外的"
+        },
+        {
+          "type": "stat",
+          "stat": "skill_critical_strike",
+          "kind": "skill-crit",
+          "label": "技能暴击",
+          "source_label": "技能暴击",
+          "icon": "crit",
+          "fallback": "CRIT"
+        },
+        {
+          "type": "text",
+          "value": "提供10%暴击伤害。"
+        }
+      ]
     },
     {
       "id": "2003",
@@ -2260,7 +2324,39 @@
         {
           "id": "2038_effect",
           "description": "获得【技能暴击】。  技能暴击：技能伤害可产生暴击。额外的【技能暴击】提供10%暴击伤害。",
-          "values": {}
+          "values": {},
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "获得"
+            },
+            {
+              "type": "stat",
+              "stat": "skill_critical_strike",
+              "kind": "skill-crit",
+              "label": "技能暴击",
+              "source_label": "技能暴击",
+              "icon": "crit",
+              "fallback": "CRIT"
+            },
+            {
+              "type": "text",
+              "value": "。  技能暴击：技能伤害可产生暴击。额外的"
+            },
+            {
+              "type": "stat",
+              "stat": "skill_critical_strike",
+              "kind": "skill-crit",
+              "label": "技能暴击",
+              "source_label": "技能暴击",
+              "icon": "crit",
+              "fallback": "CRIT"
+            },
+            {
+              "type": "text",
+              "value": "提供10%暴击伤害。"
+            }
+          ]
         }
       ],
       "recipe": {
@@ -2291,7 +2387,39 @@
         "fetter_id": null,
         "plan_id": "17",
         "sort": "0"
-      }
+      },
+      "description_tokens": [
+        {
+          "type": "text",
+          "value": "+35%暴击率 +35法术加成 获得"
+        },
+        {
+          "type": "stat",
+          "stat": "skill_critical_strike",
+          "kind": "skill-crit",
+          "label": "技能暴击",
+          "source_label": "技能暴击",
+          "icon": "crit",
+          "fallback": "CRIT"
+        },
+        {
+          "type": "text",
+          "value": "。  技能暴击：技能伤害可产生暴击。额外的"
+        },
+        {
+          "type": "stat",
+          "stat": "skill_critical_strike",
+          "kind": "skill-crit",
+          "label": "技能暴击",
+          "source_label": "技能暴击",
+          "icon": "crit",
+          "fallback": "CRIT"
+        },
+        {
+          "type": "text",
+          "value": "提供10%暴击伤害。"
+        }
+      ]
     },
     {
       "id": "2039",
@@ -2903,7 +3031,39 @@
         {
           "id": "2059_effect",
           "description": "获得【技能暴击】。  技能暴击：技能伤害可产生暴击。额外的【技能暴击】提供10%暴击伤害。",
-          "values": {}
+          "values": {},
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "获得"
+            },
+            {
+              "type": "stat",
+              "stat": "skill_critical_strike",
+              "kind": "skill-crit",
+              "label": "技能暴击",
+              "source_label": "技能暴击",
+              "icon": "crit",
+              "fallback": "CRIT"
+            },
+            {
+              "type": "text",
+              "value": "。  技能暴击：技能伤害可产生暴击。额外的"
+            },
+            {
+              "type": "stat",
+              "stat": "skill_critical_strike",
+              "kind": "skill-crit",
+              "label": "技能暴击",
+              "source_label": "技能暴击",
+              "icon": "crit",
+              "fallback": "CRIT"
+            },
+            {
+              "type": "text",
+              "value": "提供10%暴击伤害。"
+            }
+          ]
         }
       ],
       "recipe": {
@@ -2931,7 +3091,39 @@
         "fetter_id": null,
         "plan_id": "17",
         "sort": "0"
-      }
+      },
+      "description_tokens": [
+        {
+          "type": "text",
+          "value": "+75物理加成 +75%暴击率 获得"
+        },
+        {
+          "type": "stat",
+          "stat": "skill_critical_strike",
+          "kind": "skill-crit",
+          "label": "技能暴击",
+          "source_label": "技能暴击",
+          "icon": "crit",
+          "fallback": "CRIT"
+        },
+        {
+          "type": "text",
+          "value": "。  技能暴击：技能伤害可产生暴击。额外的"
+        },
+        {
+          "type": "stat",
+          "stat": "skill_critical_strike",
+          "kind": "skill-crit",
+          "label": "技能暴击",
+          "source_label": "技能暴击",
+          "icon": "crit",
+          "fallback": "CRIT"
+        },
+        {
+          "type": "text",
+          "value": "提供10%暴击伤害。"
+        }
+      ]
     },
     {
       "id": "2060",
@@ -4567,7 +4759,39 @@
         {
           "id": "2087_effect",
           "description": "获得【技能暴击】。  技能暴击：技能伤害可产生暴击。额外的【技能暴击】提供10%暴击伤害。",
-          "values": {}
+          "values": {},
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "获得"
+            },
+            {
+              "type": "stat",
+              "stat": "skill_critical_strike",
+              "kind": "skill-crit",
+              "label": "技能暴击",
+              "source_label": "技能暴击",
+              "icon": "crit",
+              "fallback": "CRIT"
+            },
+            {
+              "type": "text",
+              "value": "。  技能暴击：技能伤害可产生暴击。额外的"
+            },
+            {
+              "type": "stat",
+              "stat": "skill_critical_strike",
+              "kind": "skill-crit",
+              "label": "技能暴击",
+              "source_label": "技能暴击",
+              "icon": "crit",
+              "fallback": "CRIT"
+            },
+            {
+              "type": "text",
+              "value": "提供10%暴击伤害。"
+            }
+          ]
         }
       ],
       "recipe": {
@@ -4595,7 +4819,39 @@
         "fetter_id": null,
         "plan_id": "17",
         "sort": "0"
-      }
+      },
+      "description_tokens": [
+        {
+          "type": "text",
+          "value": "+75法术加成 +75%暴击率 获得"
+        },
+        {
+          "type": "stat",
+          "stat": "skill_critical_strike",
+          "kind": "skill-crit",
+          "label": "技能暴击",
+          "source_label": "技能暴击",
+          "icon": "crit",
+          "fallback": "CRIT"
+        },
+        {
+          "type": "text",
+          "value": "。  技能暴击：技能伤害可产生暴击。额外的"
+        },
+        {
+          "type": "stat",
+          "stat": "skill_critical_strike",
+          "kind": "skill-crit",
+          "label": "技能暴击",
+          "source_label": "技能暴击",
+          "icon": "crit",
+          "fallback": "CRIT"
+        },
+        {
+          "type": "text",
+          "value": "提供10%暴击伤害。"
+        }
+      ]
     },
     {
       "id": "2088",
@@ -5964,7 +6220,26 @@
         {
           "id": "6065_effect",
           "description": "获得【攻击速度】1%x你的【金币】金币存款的攻击速度(在【金币】30金币时达到最大值)。  每次攻击有6%几率掉落【金币】1金币。  [唯一-每位英雄仅限1件]",
-          "values": {}
+          "values": {},
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "获得"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_speed",
+              "kind": "attack-speed",
+              "label": "攻击速度",
+              "source_label": "攻击速度",
+              "icon": "as",
+              "fallback": "AS"
+            },
+            {
+              "type": "text",
+              "value": "1%x你的【金币】金币存款的攻击速度(在【金币】30金币时达到最大值)。  每次攻击有6%几率掉落【金币】1金币。  [唯一-每位英雄仅限1件]"
+            }
+          ]
         }
       ],
       "recipe": {
@@ -5992,7 +6267,26 @@
         "fetter_id": null,
         "plan_id": "17",
         "sort": "0"
-      }
+      },
+      "description_tokens": [
+        {
+          "type": "text",
+          "value": "+55%攻击速度 获得"
+        },
+        {
+          "type": "stat",
+          "stat": "attack_speed",
+          "kind": "attack-speed",
+          "label": "攻击速度",
+          "source_label": "攻击速度",
+          "icon": "as",
+          "fallback": "AS"
+        },
+        {
+          "type": "text",
+          "value": "1%x你的【金币】金币存款的攻击速度(在【金币】30金币时达到最大值)。  每次攻击有6%几率掉落【金币】1金币。  [唯一-每位英雄仅限1件]"
+        }
+      ]
     },
     {
       "id": "6067",
@@ -7442,7 +7736,26 @@
         {
           "id": "6107_effect",
           "description": "携带者被3团狐火环绕。每团狐火造成50(【法术加成】)魔法伤害，并且环绕轨道会扩展以命中携带者的当前目标。  携带者每消耗20法力值，狐火移动速度就会加快5%，持续至战斗结束。",
-          "values": {}
+          "values": {},
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "携带者被3团狐火环绕。每团狐火造成50"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法术加成",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "魔法伤害，并且环绕轨道会扩展以命中携带者的当前目标。  携带者每消耗20法力值，狐火移动速度就会加快5%，持续至战斗结束。"
+            }
+          ]
         }
       ],
       "recipe": {
@@ -7470,7 +7783,26 @@
         "fetter_id": null,
         "plan_id": "17",
         "sort": "0"
-      }
+      },
+      "description_tokens": [
+        {
+          "type": "text",
+          "value": "+20法术加成 +4法力回复 携带者被3团狐火环绕。每团狐火造成50"
+        },
+        {
+          "type": "stat",
+          "stat": "ability_power",
+          "kind": "ap",
+          "label": "法术加成",
+          "source_label": "法术加成",
+          "icon": "ap",
+          "fallback": "AP"
+        },
+        {
+          "type": "text",
+          "value": "魔法伤害，并且环绕轨道会扩展以命中携带者的当前目标。  携带者每消耗20法力值，狐火移动速度就会加快5%，持续至战斗结束。"
+        }
+      ]
     },
     {
       "id": "6108",
@@ -8182,7 +8514,26 @@
         {
           "id": "9252_effect",
           "description": "物理弈子：对一个敌人造成物理伤害时会将该目标的护甲降低2。 魔法弈子：对一个敌人造成魔法伤害时会将该目标的魔抗降低2。  在(4)层级时：如果携带者是【灵能特工】，则每第3次攻击发动顺劈，对附近敌人造成100(【物理加成】)物理伤害。  推荐使用者：【易】和【派克】。 技能伤害冷却时间：0.75秒。",
-          "values": {}
+          "values": {},
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "物理弈子：对一个敌人造成物理伤害时会将该目标的护甲降低2。 魔法弈子：对一个敌人造成魔法伤害时会将该目标的魔抗降低2。  在(4)层级时：如果携带者是【灵能特工】，则每第3次攻击发动顺劈，对附近敌人造成100"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "物理加成",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "text",
+              "value": "物理伤害。  推荐使用者：【易】和【派克】。 技能伤害冷却时间：0.75秒。"
+            }
+          ]
         }
       ],
       "recipe": {
@@ -8210,7 +8561,26 @@
         "fetter_id": null,
         "plan_id": "17",
         "sort": "0"
-      }
+      },
+      "description_tokens": [
+        {
+          "type": "text",
+          "value": "+15%伤害增幅 +15%攻击速度 +10%全能吸血 物理弈子：对一个敌人造成物理伤害时会将该目标的护甲降低2。 魔法弈子：对一个敌人造成魔法伤害时会将该目标的魔抗降低2。  在(4)层级时：如果携带者是【灵能特工】，则每第3次攻击发动顺劈，对附近敌人造成100"
+        },
+        {
+          "type": "stat",
+          "stat": "attack_damage",
+          "kind": "ad",
+          "label": "物理加成",
+          "source_label": "物理加成",
+          "icon": "ad",
+          "fallback": "AD"
+        },
+        {
+          "type": "text",
+          "value": "物理伤害。  推荐使用者：【易】和【派克】。 技能伤害冷却时间：0.75秒。"
+        }
+      ]
     },
     {
       "id": "9253",
@@ -10076,7 +10446,26 @@
         {
           "id": "9308_effect",
           "description": "获得技能暴击，并且技能伤害提升5%。  技能暴击：技能伤害可产生暴击。额外的【技能暴击】提供10%暴击伤害。",
-          "values": {}
+          "values": {},
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "获得技能暴击，并且技能伤害提升5%。  技能暴击：技能伤害可产生暴击。额外的"
+            },
+            {
+              "type": "stat",
+              "stat": "skill_critical_strike",
+              "kind": "skill-crit",
+              "label": "技能暴击",
+              "source_label": "技能暴击",
+              "icon": "crit",
+              "fallback": "CRIT"
+            },
+            {
+              "type": "text",
+              "value": "提供10%暴击伤害。"
+            }
+          ]
         }
       ],
       "recipe": {
@@ -10104,7 +10493,26 @@
         "fetter_id": null,
         "plan_id": "17",
         "sort": "0"
-      }
+      },
+      "description_tokens": [
+        {
+          "type": "text",
+          "value": "获得技能暴击，并且技能伤害提升5%。  技能暴击：技能伤害可产生暴击。额外的"
+        },
+        {
+          "type": "stat",
+          "stat": "skill_critical_strike",
+          "kind": "skill-crit",
+          "label": "技能暴击",
+          "source_label": "技能暴击",
+          "icon": "crit",
+          "fallback": "CRIT"
+        },
+        {
+          "type": "text",
+          "value": "提供10%暴击伤害。"
+        }
+      ]
     },
     {
       "id": "9309",
@@ -11296,7 +11704,39 @@
         {
           "id": "9337_effect",
           "description": "获得技能暴击。  每4次暴击，朝目标发射5个可以暴击的透体飞箭。每个造成80%【攻击力】物理伤害。  技能暴击：技能伤害可产生暴击。额外的【技能暴击】提供10%暴击伤害。 每次技能施放至多3层。 推荐角色定位：物理射手或物理战士",
-          "values": {}
+          "values": {},
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "获得技能暴击。  每4次暴击，朝目标发射5个可以暴击的透体飞箭。每个造成80%"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "攻击力",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "text",
+              "value": "物理伤害。  技能暴击：技能伤害可产生暴击。额外的"
+            },
+            {
+              "type": "stat",
+              "stat": "skill_critical_strike",
+              "kind": "skill-crit",
+              "label": "技能暴击",
+              "source_label": "技能暴击",
+              "icon": "crit",
+              "fallback": "CRIT"
+            },
+            {
+              "type": "text",
+              "value": "提供10%暴击伤害。 每次技能施放至多3层。 推荐角色定位：物理射手或物理战士"
+            }
+          ]
         }
       ],
       "recipe": {
@@ -11324,7 +11764,39 @@
         "fetter_id": null,
         "plan_id": "17",
         "sort": "0"
-      }
+      },
+      "description_tokens": [
+        {
+          "type": "text",
+          "value": "+20物理加成 +25%攻击速度 +35%暴击率 获得技能暴击。  每4次暴击，朝目标发射5个可以暴击的透体飞箭。每个造成80%"
+        },
+        {
+          "type": "stat",
+          "stat": "attack_damage",
+          "kind": "ad",
+          "label": "物理加成",
+          "source_label": "攻击力",
+          "icon": "ad",
+          "fallback": "AD"
+        },
+        {
+          "type": "text",
+          "value": "物理伤害。  技能暴击：技能伤害可产生暴击。额外的"
+        },
+        {
+          "type": "stat",
+          "stat": "skill_critical_strike",
+          "kind": "skill-crit",
+          "label": "技能暴击",
+          "source_label": "技能暴击",
+          "icon": "crit",
+          "fallback": "CRIT"
+        },
+        {
+          "type": "text",
+          "value": "提供10%暴击伤害。 每次技能施放至多3层。 推荐角色定位：物理射手或物理战士"
+        }
+      ]
     },
     {
       "id": "9338",
@@ -11352,7 +11824,26 @@
         {
           "id": "9338_effect",
           "description": "每消耗30法力值，对目标发射一连串的4个火箭，每个造成30%【攻击力】物理伤害。  【金克丝】加成：如果该装备由【金克丝】携带，则将所有技能子弹替换为造成40%额外伤害的火箭。  【金克丝】加成：如果该装备由【金克丝】携带，则将所有技能子弹替换为造成40%额外伤害的火箭。",
-          "values": {}
+          "values": {},
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "每消耗30法力值，对目标发射一连串的4个火箭，每个造成30%"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "攻击力",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "text",
+              "value": "物理伤害。  【金克丝】加成：如果该装备由【金克丝】携带，则将所有技能子弹替换为造成40%额外伤害的火箭。  【金克丝】加成：如果该装备由【金克丝】携带，则将所有技能子弹替换为造成40%额外伤害的火箭。"
+            }
+          ]
         }
       ],
       "recipe": {
@@ -11380,7 +11871,26 @@
         "fetter_id": null,
         "plan_id": "17",
         "sort": "0"
-      }
+      },
+      "description_tokens": [
+        {
+          "type": "text",
+          "value": "+15物理加成 +3法力回复 每消耗30法力值，对目标发射一连串的4个火箭，每个造成30%"
+        },
+        {
+          "type": "stat",
+          "stat": "attack_damage",
+          "kind": "ad",
+          "label": "物理加成",
+          "source_label": "攻击力",
+          "icon": "ad",
+          "fallback": "AD"
+        },
+        {
+          "type": "text",
+          "value": "物理伤害。  【金克丝】加成：如果该装备由【金克丝】携带，则将所有技能子弹替换为造成40%额外伤害的火箭。  【金克丝】加成：如果该装备由【金克丝】携带，则将所有技能子弹替换为造成40%额外伤害的火箭。"
+        }
+      ]
     },
     {
       "id": "9339",
@@ -11694,7 +12204,26 @@
         {
           "id": "9344_effect",
           "description": "每3次攻击，发射10个蝙蝠战刃，由相距最近的3名敌人分摊。每个战刃造成50%【攻击力】物理伤害。  推荐角色定位：物理射手",
-          "values": {}
+          "values": {},
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "每3次攻击，发射10个蝙蝠战刃，由相距最近的3名敌人分摊。每个战刃造成50%"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "攻击力",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "text",
+              "value": "物理伤害。  推荐角色定位：物理射手"
+            }
+          ]
         }
       ],
       "recipe": {
@@ -11722,7 +12251,26 @@
         "fetter_id": null,
         "plan_id": "17",
         "sort": "0"
-      }
+      },
+      "description_tokens": [
+        {
+          "type": "text",
+          "value": "+20物理加成 +20%攻击速度 每3次攻击，发射10个蝙蝠战刃，由相距最近的3名敌人分摊。每个战刃造成50%"
+        },
+        {
+          "type": "stat",
+          "stat": "attack_damage",
+          "kind": "ad",
+          "label": "物理加成",
+          "source_label": "攻击力",
+          "icon": "ad",
+          "fallback": "AD"
+        },
+        {
+          "type": "text",
+          "value": "物理伤害。  推荐角色定位：物理射手"
+        }
+      ]
     },
     {
       "id": "9345",
@@ -11998,7 +12546,39 @@
         {
           "id": "9349_effect",
           "description": "获得技能暴击。  每3次暴击，朝目标发射6个可以暴击的透体飞箭。每个造成100%【攻击力】物理伤害。  参与击败时，从目标处发射一连串的12个飞箭。  技能暴击：技能伤害可产生暴击。额外的【技能暴击】提供10%暴击伤害。 每次技能施放至多3层。 推荐角色定位：物理射手或物理战士",
-          "values": {}
+          "values": {},
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "获得技能暴击。  每3次暴击，朝目标发射6个可以暴击的透体飞箭。每个造成100%"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "攻击力",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "text",
+              "value": "物理伤害。  参与击败时，从目标处发射一连串的12个飞箭。  技能暴击：技能伤害可产生暴击。额外的"
+            },
+            {
+              "type": "stat",
+              "stat": "skill_critical_strike",
+              "kind": "skill-crit",
+              "label": "技能暴击",
+              "source_label": "技能暴击",
+              "icon": "crit",
+              "fallback": "CRIT"
+            },
+            {
+              "type": "text",
+              "value": "提供10%暴击伤害。 每次技能施放至多3层。 推荐角色定位：物理射手或物理战士"
+            }
+          ]
         }
       ],
       "recipe": {
@@ -12026,7 +12606,39 @@
         "fetter_id": null,
         "plan_id": "17",
         "sort": "0"
-      }
+      },
+      "description_tokens": [
+        {
+          "type": "text",
+          "value": "+30物理加成 +50%攻击速度 +50%暴击率 获得技能暴击。  每3次暴击，朝目标发射6个可以暴击的透体飞箭。每个造成100%"
+        },
+        {
+          "type": "stat",
+          "stat": "attack_damage",
+          "kind": "ad",
+          "label": "物理加成",
+          "source_label": "攻击力",
+          "icon": "ad",
+          "fallback": "AD"
+        },
+        {
+          "type": "text",
+          "value": "物理伤害。  参与击败时，从目标处发射一连串的12个飞箭。  技能暴击：技能伤害可产生暴击。额外的"
+        },
+        {
+          "type": "stat",
+          "stat": "skill_critical_strike",
+          "kind": "skill-crit",
+          "label": "技能暴击",
+          "source_label": "技能暴击",
+          "icon": "crit",
+          "fallback": "CRIT"
+        },
+        {
+          "type": "text",
+          "value": "提供10%暴击伤害。 每次技能施放至多3层。 推荐角色定位：物理射手或物理战士"
+        }
+      ]
     },
     {
       "id": "9350",
@@ -12172,7 +12784,26 @@
         {
           "id": "9352_effect",
           "description": "每5次攻击，发射30个炫彩战刃，由所有敌人分摊。每个战刃造成50%【攻击力】物理伤害。  推荐角色定位：物理射手",
-          "values": {}
+          "values": {},
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "每5次攻击，发射30个炫彩战刃，由所有敌人分摊。每个战刃造成50%"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "攻击力",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "text",
+              "value": "物理伤害。  推荐角色定位：物理射手"
+            }
+          ]
         }
       ],
       "recipe": {
@@ -12200,7 +12831,26 @@
         "fetter_id": null,
         "plan_id": "17",
         "sort": "0"
-      }
+      },
+      "description_tokens": [
+        {
+          "type": "text",
+          "value": "+30物理加成 +50%攻击速度 每5次攻击，发射30个炫彩战刃，由所有敌人分摊。每个战刃造成50%"
+        },
+        {
+          "type": "stat",
+          "stat": "attack_damage",
+          "kind": "ad",
+          "label": "物理加成",
+          "source_label": "攻击力",
+          "icon": "ad",
+          "fallback": "AD"
+        },
+        {
+          "type": "text",
+          "value": "物理伤害。  推荐角色定位：物理射手"
+        }
+      ]
     },
     {
       "id": "9353",
@@ -13981,5 +14631,6 @@
         "sort": "0"
       }
     }
-  ]
+  ],
+  "rich_text_version": 1
 }

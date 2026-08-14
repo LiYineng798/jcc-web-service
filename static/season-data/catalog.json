@@ -15,7 +15,8 @@
    "counts": {
     "champions": 63,
     "traits": 27,
-    "mechanics": 19
+    "mechanics": 19,
+    "board_units": 1
    }
   },
   {
@@ -30,9 +31,10 @@
    "effective_at": "2026-08-05 20:59:09",
    "path": "s16_5/index.json",
    "counts": {
-    "champions": 114,
+    "champions": 115,
     "traits": 60,
-    "mechanics": 0
+    "mechanics": 0,
+    "board_units": 4
    }
   },
   {
@@ -49,7 +51,8 @@
    "counts": {
     "champions": 71,
     "traits": 34,
-    "mechanics": 9
+    "mechanics": 9,
+    "board_units": 2
    }
   },
   {
@@ -66,7 +69,8 @@
    "counts": {
     "champions": 65,
     "traits": 36,
-    "mechanics": 186
+    "mechanics": 186,
+    "board_units": 0
    }
   }
  ]

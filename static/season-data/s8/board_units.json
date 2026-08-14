@@ -1,0 +1,72 @@
+{
+  "version_id": "s8__17_17_7",
+  "rich_text_version": 1,
+  "board_units": [
+    {
+      "id": "board_8022",
+      "name": "黑客里姆",
+      "kind": "trait_object",
+      "aliases": [],
+      "trait_ids": [
+        "121"
+      ],
+      "placement_rules": [
+        {
+          "trait_id": "121",
+          "min_units": 3,
+          "max_units": 3,
+          "max_count": 1
+        },
+        {
+          "trait_id": "121",
+          "min_units": 4,
+          "max_units": 4,
+          "max_count": 1
+        },
+        {
+          "trait_id": "121",
+          "min_units": 5,
+          "max_units": null,
+          "max_count": 1
+        }
+      ],
+      "can_equip": false,
+      "stats": {
+        "health": 250.0,
+        "attack_damage": 0.0,
+        "armor": 0.0,
+        "magic_resist": 0.0,
+        "attack_speed": 0.0,
+        "attack_range": 0.0,
+        "initial_mana": 0.0,
+        "max_mana": 0.0,
+        "critical_strike_chance": 25.0,
+        "sell_price": -1.0
+      },
+      "skill": {
+        "name": "入侵",
+        "description": "战斗开始时，【黑客里姆】携带骑兵格中的友军冲入敌方的最后一排。",
+        "image": null
+      },
+      "image": {
+        "local_path": "assets/board-units/8022.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode8s18/hero/s8_hecarim.png",
+        "alt": "黑客里姆图标",
+        "optimized_local_path": "assets/optimized/s8__17_17_7/board-units/board_8022.webp"
+      },
+      "source_ids": {
+        "official_ids": [
+          "8022"
+        ],
+        "record_ids": [
+          "18022"
+        ],
+        "hero_paint": "s8_hecarim"
+      },
+      "extensions": {
+        "library_visible": false,
+        "simulator_visible": true
+      }
+    }
+  ]
+}

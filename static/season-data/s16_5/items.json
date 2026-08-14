@@ -466,7 +466,39 @@
         {
           "id": "2001_effect",
           "description": "获得【技能暴击】。  技能暴击：技能伤害可产生暴击。额外的【技能暴击】提供10%暴击伤害。",
-          "values": {}
+          "values": {},
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "获得"
+            },
+            {
+              "type": "stat",
+              "stat": "skill_critical_strike",
+              "kind": "skill-crit",
+              "label": "技能暴击",
+              "source_label": "技能暴击",
+              "icon": "crit",
+              "fallback": "CRIT"
+            },
+            {
+              "type": "text",
+              "value": "。  技能暴击：技能伤害可产生暴击。额外的"
+            },
+            {
+              "type": "stat",
+              "stat": "skill_critical_strike",
+              "kind": "skill-crit",
+              "label": "技能暴击",
+              "source_label": "技能暴击",
+              "icon": "crit",
+              "fallback": "CRIT"
+            },
+            {
+              "type": "text",
+              "value": "提供10%暴击伤害。"
+            }
+          ]
         }
       ],
       "recipe": {
@@ -497,7 +529,39 @@
         "fetter_id": null,
         "plan_id": "16",
         "sort": "0"
-      }
+      },
+      "description_tokens": [
+        {
+          "type": "text",
+          "value": "+35物理加成 +35%暴击率 获得"
+        },
+        {
+          "type": "stat",
+          "stat": "skill_critical_strike",
+          "kind": "skill-crit",
+          "label": "技能暴击",
+          "source_label": "技能暴击",
+          "icon": "crit",
+          "fallback": "CRIT"
+        },
+        {
+          "type": "text",
+          "value": "。  技能暴击：技能伤害可产生暴击。额外的"
+        },
+        {
+          "type": "stat",
+          "stat": "skill_critical_strike",
+          "kind": "skill-crit",
+          "label": "技能暴击",
+          "source_label": "技能暴击",
+          "icon": "crit",
+          "fallback": "CRIT"
+        },
+        {
+          "type": "text",
+          "value": "提供10%暴击伤害。"
+        }
+      ]
     },
     {
       "id": "2003",
@@ -2260,7 +2324,39 @@
         {
           "id": "2038_effect",
           "description": "获得【技能暴击】。  技能暴击：技能伤害可产生暴击。额外的【技能暴击】提供10%暴击伤害。",
-          "values": {}
+          "values": {},
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "获得"
+            },
+            {
+              "type": "stat",
+              "stat": "skill_critical_strike",
+              "kind": "skill-crit",
+              "label": "技能暴击",
+              "source_label": "技能暴击",
+              "icon": "crit",
+              "fallback": "CRIT"
+            },
+            {
+              "type": "text",
+              "value": "。  技能暴击：技能伤害可产生暴击。额外的"
+            },
+            {
+              "type": "stat",
+              "stat": "skill_critical_strike",
+              "kind": "skill-crit",
+              "label": "技能暴击",
+              "source_label": "技能暴击",
+              "icon": "crit",
+              "fallback": "CRIT"
+            },
+            {
+              "type": "text",
+              "value": "提供10%暴击伤害。"
+            }
+          ]
         }
       ],
       "recipe": {
@@ -2291,7 +2387,39 @@
         "fetter_id": null,
         "plan_id": "16",
         "sort": "0"
-      }
+      },
+      "description_tokens": [
+        {
+          "type": "text",
+          "value": "+35%暴击率 +35法术加成 获得"
+        },
+        {
+          "type": "stat",
+          "stat": "skill_critical_strike",
+          "kind": "skill-crit",
+          "label": "技能暴击",
+          "source_label": "技能暴击",
+          "icon": "crit",
+          "fallback": "CRIT"
+        },
+        {
+          "type": "text",
+          "value": "。  技能暴击：技能伤害可产生暴击。额外的"
+        },
+        {
+          "type": "stat",
+          "stat": "skill_critical_strike",
+          "kind": "skill-crit",
+          "label": "技能暴击",
+          "source_label": "技能暴击",
+          "icon": "crit",
+          "fallback": "CRIT"
+        },
+        {
+          "type": "text",
+          "value": "提供10%暴击伤害。"
+        }
+      ]
     },
     {
       "id": "2039",
@@ -2860,7 +2988,39 @@
         {
           "id": "2059_effect",
           "description": "获得【技能暴击】。  技能暴击：技能伤害可产生暴击。额外的【技能暴击】提供10%暴击伤害。",
-          "values": {}
+          "values": {},
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "获得"
+            },
+            {
+              "type": "stat",
+              "stat": "skill_critical_strike",
+              "kind": "skill-crit",
+              "label": "技能暴击",
+              "source_label": "技能暴击",
+              "icon": "crit",
+              "fallback": "CRIT"
+            },
+            {
+              "type": "text",
+              "value": "。  技能暴击：技能伤害可产生暴击。额外的"
+            },
+            {
+              "type": "stat",
+              "stat": "skill_critical_strike",
+              "kind": "skill-crit",
+              "label": "技能暴击",
+              "source_label": "技能暴击",
+              "icon": "crit",
+              "fallback": "CRIT"
+            },
+            {
+              "type": "text",
+              "value": "提供10%暴击伤害。"
+            }
+          ]
         }
       ],
       "recipe": {
@@ -2888,7 +3048,39 @@
         "fetter_id": null,
         "plan_id": "16",
         "sort": "0"
-      }
+      },
+      "description_tokens": [
+        {
+          "type": "text",
+          "value": "+75物理加成 +75%暴击率 获得"
+        },
+        {
+          "type": "stat",
+          "stat": "skill_critical_strike",
+          "kind": "skill-crit",
+          "label": "技能暴击",
+          "source_label": "技能暴击",
+          "icon": "crit",
+          "fallback": "CRIT"
+        },
+        {
+          "type": "text",
+          "value": "。  技能暴击：技能伤害可产生暴击。额外的"
+        },
+        {
+          "type": "stat",
+          "stat": "skill_critical_strike",
+          "kind": "skill-crit",
+          "label": "技能暴击",
+          "source_label": "技能暴击",
+          "icon": "crit",
+          "fallback": "CRIT"
+        },
+        {
+          "type": "text",
+          "value": "提供10%暴击伤害。"
+        }
+      ]
     },
     {
       "id": "2060",
@@ -4524,7 +4716,39 @@
         {
           "id": "2087_effect",
           "description": "获得【技能暴击】。  技能暴击：技能伤害可产生暴击。额外的【技能暴击】提供10%暴击伤害。",
-          "values": {}
+          "values": {},
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "获得"
+            },
+            {
+              "type": "stat",
+              "stat": "skill_critical_strike",
+              "kind": "skill-crit",
+              "label": "技能暴击",
+              "source_label": "技能暴击",
+              "icon": "crit",
+              "fallback": "CRIT"
+            },
+            {
+              "type": "text",
+              "value": "。  技能暴击：技能伤害可产生暴击。额外的"
+            },
+            {
+              "type": "stat",
+              "stat": "skill_critical_strike",
+              "kind": "skill-crit",
+              "label": "技能暴击",
+              "source_label": "技能暴击",
+              "icon": "crit",
+              "fallback": "CRIT"
+            },
+            {
+              "type": "text",
+              "value": "提供10%暴击伤害。"
+            }
+          ]
         }
       ],
       "recipe": {
@@ -4552,7 +4776,39 @@
         "fetter_id": null,
         "plan_id": "16",
         "sort": "0"
-      }
+      },
+      "description_tokens": [
+        {
+          "type": "text",
+          "value": "+75法术加成 +75%暴击率 获得"
+        },
+        {
+          "type": "stat",
+          "stat": "skill_critical_strike",
+          "kind": "skill-crit",
+          "label": "技能暴击",
+          "source_label": "技能暴击",
+          "icon": "crit",
+          "fallback": "CRIT"
+        },
+        {
+          "type": "text",
+          "value": "。  技能暴击：技能伤害可产生暴击。额外的"
+        },
+        {
+          "type": "stat",
+          "stat": "skill_critical_strike",
+          "kind": "skill-crit",
+          "label": "技能暴击",
+          "source_label": "技能暴击",
+          "icon": "crit",
+          "fallback": "CRIT"
+        },
+        {
+          "type": "text",
+          "value": "提供10%暴击伤害。"
+        }
+      ]
     },
     {
       "id": "2088",
@@ -5337,7 +5593,26 @@
         {
           "id": "6065_effect",
           "description": "获得【攻击速度】1%x你的【金币】金币存款的攻击速度(在【金币】30金币时达到最大值)。  每次攻击有6%几率掉落【金币】1金币。  [唯一-每位英雄仅限1件]",
-          "values": {}
+          "values": {},
+          "description_tokens": [
+            {
+              "type": "text",
+              "value": "获得"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_speed",
+              "kind": "attack-speed",
+              "label": "攻击速度",
+              "source_label": "攻击速度",
+              "icon": "as",
+              "fallback": "AS"
+            },
+            {
+              "type": "text",
+              "value": "1%x你的【金币】金币存款的攻击速度(在【金币】30金币时达到最大值)。  每次攻击有6%几率掉落【金币】1金币。  [唯一-每位英雄仅限1件]"
+            }
+          ]
         }
       ],
       "recipe": {
@@ -5365,7 +5640,26 @@
         "fetter_id": null,
         "plan_id": "16",
         "sort": "0"
-      }
+      },
+      "description_tokens": [
+        {
+          "type": "text",
+          "value": "+55%攻击速度 获得"
+        },
+        {
+          "type": "stat",
+          "stat": "attack_speed",
+          "kind": "attack-speed",
+          "label": "攻击速度",
+          "source_label": "攻击速度",
+          "icon": "as",
+          "fallback": "AS"
+        },
+        {
+          "type": "text",
+          "value": "1%x你的【金币】金币存款的攻击速度(在【金币】30金币时达到最大值)。  每次攻击有6%几率掉落【金币】1金币。  [唯一-每位英雄仅限1件]"
+        }
+      ]
     },
     {
       "id": "6067",
@@ -11196,5 +11490,6 @@
         "sort": "0"
       }
     }
-  ]
+  ],
+  "rich_text_version": 1
 }

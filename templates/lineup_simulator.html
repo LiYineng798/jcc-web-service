@@ -113,6 +113,18 @@
 
     <div class="detail-popover" id="detailPopover" role="tooltip" hidden></div>
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <div class="export-progress" id="exportProgress" role="status" aria-live="polite" aria-hidden="true" hidden>
+      <div class="export-progress-panel">
+        <div class="export-progress-board" aria-hidden="true">
+          <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <div class="export-progress-copy">
+          <strong id="exportProgressTitle">图片正在导出</strong>
+          <span id="exportProgressStage">正在整理棋盘</span>
+        </div>
+        <div class="export-progress-track" aria-hidden="true"><span id="exportProgressBar"></span></div>
+      </div>
+    </div>
 
     <dialog class="code-dialog" id="codeDialog">
       <form method="dialog">
