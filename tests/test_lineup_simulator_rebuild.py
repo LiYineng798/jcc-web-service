@@ -279,7 +279,8 @@ def test_simulator_exports_a_separate_fixed_portrait_poster():
     assert 'width: POSTER_WIDTH' in javascript
     assert 'height: POSTER_HEIGHT' in javascript
     assert 'pixelRatio: 1' in javascript
-    assert 'POSTER_SITE_URL = "jcc.np5.top"' in javascript
+    assert 'jcc.np5.top' not in javascript
+    assert '<strong>金铲铲阵容库</strong>' in javascript
     assert 'src="${UI_ROOT}/poster-brand.png"' in javascript
     poster_builder = javascript.split('function buildPosterCapture(title, championId)', 1)[1].split('function ', 1)[0]
     assert '总费用' not in poster_builder
@@ -297,6 +298,17 @@ def test_simulator_exports_a_separate_fixed_portrait_poster():
     assert 'background: transparent' in brand_icon_rule
     assert 'padding: 0' in brand_icon_rule
     assert 'exportBoardImage(' in javascript
+
+
+def test_simulator_poster_omits_domain_and_exposes_hover_details_toggle():
+    html = Path('templates/lineup_simulator.html').read_text(encoding='utf-8')
+    javascript = (SIMULATOR_ROOT / 'app.js').read_text(encoding='utf-8')
+
+    assert 'id="hoverDetailsToggle"' in html
+    assert 'hoverDetails: document.querySelector("#hoverDetailsToggle")' in javascript
+    assert 'if (!state.hoverDetails) return' in javascript
+    assert 'elements.hoverDetails.addEventListener("change"' in javascript
+    assert 'hover-details' in javascript
 
 
 def test_simulator_bundles_poster_font_and_license(client):

@@ -8,7 +8,6 @@ const MAX_POSTER_TRAITS = 9;
 const POSTER_WIDTH = 1200;
 const POSTER_HEIGHT = 1600;
 const POSTER_DEFAULT_TITLE = "我的阵容";
-const POSTER_SITE_URL = "jcc.np5.top";
 const ITEM_CATEGORIES = [
   { id: "normal", label: "普通", source: ["completed"] },
   { id: "component", label: "散件", source: ["component"] },
@@ -67,6 +66,7 @@ const elements = {
   traitFilterClear: document.querySelector("#traitFilterClear"),
   heroGroups: document.querySelector("#heroGroups"),
   showNames: document.querySelector("#showNamesToggle"),
+  hoverDetails: document.querySelector("#hoverDetailsToggle"),
   undo: document.querySelector("#undoButton"),
   redo: document.querySelector("#redoButton"),
   reset: document.querySelector("#resetButton"),
@@ -112,6 +112,7 @@ const state = {
   costFilter: "all",
   traitFilters: new Set(),
   showNames: true,
+  hoverDetails: true,
   history: [],
   historyIndex: -1,
   dragging: null,
@@ -784,7 +785,7 @@ function buildPosterCapture(title, championId) {
     </section>
     <footer class="lineup-poster-footer">
       <div class="lineup-poster-footer-line"></div>
-      <div class="lineup-poster-brand"><img src="${UI_ROOT}/poster-brand.png" alt="" /><span><strong>金铲铲阵容库</strong><small>${POSTER_SITE_URL}</small></span></div>
+      <div class="lineup-poster-brand"><img src="${UI_ROOT}/poster-brand.png" alt="" /><span><strong>金铲铲阵容库</strong></span></div>
     </footer>`;
   poster.querySelector(".lineup-poster-board-slot").append(posterBoardClone());
   return poster;
@@ -1120,6 +1121,7 @@ elements.board.addEventListener("drop", (event) => {
 });
 
 document.addEventListener("pointerover", (event) => {
+  if (!state.hoverDetails) return;
   const hero = event.target.closest("[data-hero-id]");
   const item = event.target.closest("[data-item-id]");
   const trait = event.target.closest("[data-trait-id]");
@@ -1139,6 +1141,11 @@ elements.showNames.addEventListener("change", () => {
   pushHistory();
   renderBoard();
   persist();
+});
+elements.hoverDetails.addEventListener("change", () => {
+  state.hoverDetails = elements.hoverDetails.checked;
+  if (!state.hoverDetails) hidePopover();
+  localStorage.setItem(`${STORAGE_PREFIX}hover-details`, elements.hoverDetails.checked ? "on" : "off");
 });
 elements.undo.addEventListener("click", () => applyHistory(state.historyIndex - 1));
 elements.redo.addEventListener("click", () => applyHistory(state.historyIndex + 1));
@@ -1175,6 +1182,8 @@ document.addEventListener("keydown", (event) => {
   if (event.key === "Escape") { state.selectedItemId = null; setTraitFilterMenu(false); renderItems(); hidePopover(); }
 });
 
+state.hoverDetails = localStorage.getItem(`${STORAGE_PREFIX}hover-details`) !== "off";
+elements.hoverDetails.checked = state.hoverDetails;
 window.lucide?.createIcons();
 loadCatalog().catch((error) => {
   elements.seasonMeta.textContent = error.message;
