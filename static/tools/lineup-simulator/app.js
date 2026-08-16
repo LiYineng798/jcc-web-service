@@ -521,11 +521,12 @@ function boardSlotHtml(slot, index) {
     return item ? `<span class="unit-item" data-item-id="${escapeHtml(item.id)}" data-slot-index="${index}" data-item-index="${itemIndex}"><img src="${escapeHtml(item.icon)}" alt="${escapeHtml(item.name)}" /></span>` : "";
   }).join("");
   const validSpecial = !hero.isBoardUnit || specialPlacementIsValid(hero.id, index);
+  const longNameClass = [...hero.name].length > 7 ? " is-long" : "";
   return `<button class="hex-cell has-unit ${items ? "has-items" : ""} ${hero.isBoardUnit ? "is-special" : ""} ${validSpecial ? "" : "is-invalid-special"}" type="button" role="gridcell" draggable="true" data-slot-index="${index}" data-hero-id="${escapeHtml(hero.id)}" aria-label="${escapeHtml(hero.name)}">
     <span class="hex-floor"></span>
     <span class="unit-portrait" style="--unit-color:${costColor(hero.cost)}"><img class="unit-portrait-image" src="${escapeHtml(hero.icon)}" alt="" /></span>
     <span class="unit-items">${items}</span>
-    <span class="unit-name">${escapeHtml(hero.name)}</span>
+    <span class="unit-name${longNameClass}">${escapeHtml(hero.name)}</span>
     ${hero.availability?.type === "unlock" ? `<span class="unlock-mark" title="解锁弈子"><img src="${UI_ROOT}/unlock.png" alt="" /></span>` : ""}
   </button>`;
 }

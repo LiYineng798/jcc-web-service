@@ -159,6 +159,7 @@ button:focus-visible, input:focus-visible, textarea:focus-visible { outline: 2px
 .unit-portrait-image { position: absolute; inset: 3px; width: calc(100% - 6px); height: calc(100% - 6px); clip-path: inherit; object-fit: cover; }
 .unit-portrait::after { content: ""; position: absolute; z-index: 1; inset: 3px; clip-path: inherit; background: linear-gradient(transparent 42%, rgba(0,0,0,.82)); }
 .unit-name { position: absolute; z-index: 3; left: 12px; right: 12px; bottom: 12px; overflow: hidden; color: #fff; font-size: 11px; font-weight: 700; text-align: center; text-shadow: 0 1px 3px #000; white-space: nowrap; text-overflow: ellipsis; }
+.unit-name.is-long { left: 8px; right: 8px; bottom: 7px; max-height: 2.1em; font-size: 9px; line-height: 1.05; white-space: normal; text-overflow: clip; overflow-wrap: anywhere; }
 .hex-board.hide-names .unit-name { display: none; }
 .unit-items { position: absolute; z-index: 40; top: 10px; left: 50%; display: flex; gap: 2px; transform: translateX(-50%); pointer-events: auto; }
 .unit-item { width: 25px; height: 25px; padding: 0; border: 1px solid #c6a84f; border-radius: 3px; background: #111; overflow: hidden; cursor: help; box-shadow: 0 2px 5px #000; }
@@ -366,6 +367,7 @@ body.export-running { overflow: hidden; }
 .lineup-image-board { width: 1098px; min-height: 534px; display: grid; place-items: center; }
 .lineup-image-board .hex-board { --hex-w: 140px; --hex-h: calc(var(--hex-w) * 1.14); --hex-gap: 8px; }
 .lineup-image-board .unit-name { bottom: 15px; font-size: 15px; }
+.lineup-image-board .unit-name.is-long { bottom: 10px; max-height: 2.1em; font-size: 13px; }
 .lineup-image-board .unit-item { width: 30px; height: 30px; }
 .lineup-image-board .unit-items { top: 14px; }
 .lineup-image-board .unlock-mark { right: -1px; bottom: 23px; width: 23px; height: 23px; }
@@ -419,6 +421,7 @@ body.export-running { overflow: hidden; }
 .lineup-poster-hex-board .unit-portrait-image { inset: 4px; width: calc(100% - 8px); height: calc(100% - 8px); }
 .lineup-poster-hex-board .unit-portrait::after { inset: 4px; background: linear-gradient(transparent 38%, rgba(0,0,0,.9)); }
 .lineup-poster-hex-board .unit-name { left: 10px; right: 10px; bottom: 15px; font-size: 17px; text-shadow: 0 2px 5px #000; }
+.lineup-poster-hex-board .unit-name.is-long { bottom: 10px; max-height: 2.1em; font-size: 14px; }
 .lineup-poster-hex-board .unit-items { top: 8px; gap: 3px; }
 .lineup-poster-hex-board .unit-item { width: 34px; height: 34px; border-width: 2px; border-radius: 3px; box-shadow: 0 3px 7px #000; }
 .lineup-poster-hex-board .unlock-mark { right: -2px; bottom: 23px; width: 25px; height: 25px; }
@@ -494,6 +497,7 @@ body.export-running { overflow: hidden; }
   .board-hint { display: none; }
   .hex-board { flex: 0 0 auto; }
   .unit-name { left: 7px; right: 7px; bottom: 7px; font-size: 8px; }
+  .unit-name.is-long { left: 4px; right: 4px; bottom: 4px; font-size: 7px; }
   .unit-items { top: 4px; gap: 1px; }
   .unit-item { width: 17px; height: 17px; }
   .unlock-mark { right: -1px; bottom: 9px; width: 14px; height: 14px; }

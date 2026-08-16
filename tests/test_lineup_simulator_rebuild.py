@@ -261,6 +261,19 @@ def test_simulator_exports_the_rendered_board_and_keeps_items_inside_units():
     assert '.lineup-image-board .hex-board' in css
 
 
+def test_simulator_wraps_long_board_unit_names_without_clipping_exports():
+    javascript = (SIMULATOR_ROOT / 'app.js').read_text(encoding='utf-8')
+    css = (SIMULATOR_ROOT / 'style.css').read_text(encoding='utf-8')
+
+    assert '[...hero.name].length > 7 ? " is-long" : ""' in javascript
+    assert 'class="unit-name${longNameClass}"' in javascript
+    assert '.unit-name.is-long {' in css
+    assert 'white-space: normal' in css
+    assert 'overflow-wrap: anywhere' in css
+    assert '.lineup-image-board .unit-name.is-long' in css
+    assert '.lineup-poster-hex-board .unit-name.is-long' in css
+
+
 def test_simulator_shows_animated_export_progress_for_both_image_formats():
     html = Path('templates/lineup_simulator.html').read_text(encoding='utf-8')
     javascript = (SIMULATOR_ROOT / 'app.js').read_text(encoding='utf-8')
