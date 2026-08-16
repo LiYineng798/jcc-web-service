@@ -336,8 +336,20 @@ def test_s16_5_supplements_galio_and_trait_created_towers(client):
     assert any(rule['min_units'] == 3 and rule['max_count'] == 1 for rule in rules)
     assert all(rule['max_count'] == (1 if rule['min_units'] == 3 else 2) for rule in rules)
     tibbers = next(unit for unit in board_units if unit['name'] == '提伯斯')
+    forge = next(unit for unit in board_units if unit['name'] == '海克斯科技锻炉')
     rock = next(unit for unit in board_units if unit['name'] == '岩石')
     assert tibbers['can_equip'] is True
+    assert tibbers['trait_ids'] == ['355']
+    assert tibbers['contribution_trait_ids'] == ['300']
+    assert tibbers['extensions']['discovery_sources'] == [
+        {'type': 'trait', 'id': '355', 'name': '黑暗之女'},
+    ]
+    assert forge['placement_rules'] == [
+        {'champion_id': '5402', 'min_units': 1, 'max_units': None, 'max_count': 1},
+    ]
+    assert forge['extensions']['discovery_sources'] == [
+        {'type': 'champion_skill', 'id': '5402', 'name': '杰斯'},
+    ]
     assert rock['can_equip'] is False
     assert rock['placement_rules'][0]['max_count'] == 2
     public_names = {
@@ -350,9 +362,31 @@ def test_s16_5_supplements_galio_and_trait_created_towers(client):
 def test_s17_emits_relic_and_black_hole_as_simulator_only_board_units():
     board_units = json.loads((DATA_ROOT / 's17' / 'board_units.json').read_text(encoding='utf-8'))['board_units']
     by_name = {unit['name']: unit for unit in board_units}
-    assert {'圣物', '迷你黑洞'} <= set(by_name)
+    assert {'圣物', '羊咩咩 & 咩咩羊', '迷你黑洞'} <= set(by_name)
+    shepherd_summon = by_name['羊咩咩 & 咩咩羊']
+    assert shepherd_summon['source_ids']['official_ids'] == ['8407', '8408', '8422']
+    assert shepherd_summon['placement_rules'] == [
+        {'trait_id': '319', 'min_units': 3, 'max_units': 4, 'max_count': 1},
+        {'trait_id': '319', 'min_units': 5, 'max_units': 6, 'max_count': 1},
+        {'trait_id': '319', 'min_units': 7, 'max_units': None, 'max_count': 1},
+    ]
+    assert shepherd_summon['extensions']['discovery_sources'] == [
+        {'type': 'trait', 'id': '319', 'name': '牧羊人'},
+    ]
     assert all(unit['extensions']['library_visible'] is False for unit in by_name.values())
     assert all(unit['extensions']['simulator_visible'] is True for unit in by_name.values())
+
+
+def test_board_unit_discovery_audit_excludes_unreleased_s18_rules():
+    for season_id in ('s8', 's16_5', 's17'):
+        payload = json.loads((DATA_ROOT / season_id / 'board_units.json').read_text(encoding='utf-8'))
+        audit = payload.get('discovery_audit') or {}
+        assert audit['strategy_version'] == 2
+        assert audit['candidate_count'] == audit['included_count'] + audit['review_count']
+        assert all(candidate['status'] in {'included', 'review'} for candidate in audit['candidates'])
+
+    s18_payload = json.loads((DATA_ROOT / 's18' / 'board_units.json').read_text(encoding='utf-8'))
+    assert not s18_payload.get('discovery_audit')
 
 
 def test_s16_5_new_champion_tags_render_from_data():

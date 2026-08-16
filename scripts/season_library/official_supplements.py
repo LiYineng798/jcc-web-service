@@ -57,6 +57,10 @@ def _normalize_reference(value):
 def _name_aliases(name):
     normalized = _normalize_reference(name)
     aliases = {normalized}
+    for part in re.split(r'\s*(?:&|＆|/|、)\s*', str(name or '')):
+        part = _normalize_reference(part)
+        if part:
+            aliases.add(part)
     for prefix in ('迷你', '小型', '巨型'):
         if normalized.startswith(prefix) and len(normalized) > len(prefix) + 1:
             aliases.add(normalized[len(prefix):])
@@ -87,6 +91,23 @@ def _matching_traits(name, traits):
         for trait in traits
         if any(alias in _normalize_reference(_trait_text(trait)) for alias in aliases)
     ]
+
+
+def _skill_places_unit(name, skill_text):
+    """Return true only for pre-combat/placeable summons, not combat effects."""
+    normalized = _normalize_reference(skill_text)
+    if not normalized or not any(alias in normalized for alias in _name_aliases(name)):
+        return False
+    return any(marker in normalized for marker in ('可放置', '备战区', '备战席'))
+
+
+def _matching_champions(name, champions):
+    matched = []
+    for champion in champions:
+        skill_text = ' '.join(skill.get('description') or '' for skill in champion.get('skills') or [])
+        if _skill_places_unit(name, skill_text):
+            matched.append(champion)
+    return matched
 
 
 def _reference_position(text, aliases):
@@ -142,6 +163,18 @@ def _activation_rules(name, traits):
         if current_count and not trait.get('breakpoints'):
             rules.append({'trait_id': str(trait['id']), 'min_units': 1, 'max_units': None, 'max_count': current_count})
     return rules
+
+
+def _champion_activation_rules(champions):
+    return [
+        {
+            'champion_id': str(champion['id']),
+            'min_units': 1,
+            'max_units': None,
+            'max_count': 1,
+        }
+        for champion in champions
+    ]
 
 
 def _can_equip(name, traits):
@@ -299,22 +332,28 @@ def _board_unit_groups(groups, champions_doc, traits_doc):
         if int(base.get('price') or 0) > 0 and str(base.get('heroType')) != '1':
             continue
         matching_traits = _matching_traits(base.get('name') or '', traits)
-        if matching_traits and base.get('picture'):
-            matched.append((base_id, stars, matching_traits))
+        matching_champions = _matching_champions(base.get('name') or '', champions_doc.get('champions') or [])
+        if (matching_traits or matching_champions) and base.get('picture'):
+            matched.append((base_id, stars, matching_traits, matching_champions))
 
     merged = {}
-    for base_id, stars, matching_traits in matched:
+    for base_id, stars, matching_traits, matching_champions in matched:
         base = stars[0]
-        key = (base.get('name'), base.get('heroPaint') or base.get('picture'))
-        entry = merged.setdefault(key, {'base_ids': [], 'stars': [], 'traits': {}})
+        # Composite tier variants can have different art but still occupy one
+        # board slot. Preserve separate same-name objects in all other cases.
+        name = base.get('name')
+        key = (name,) if re.search(r'[&＆/、]', str(name or '')) else (name, base.get('heroPaint') or base.get('picture'))
+        entry = merged.setdefault(key, {'base_ids': [], 'stars': [], 'traits': {}, 'champions': {}})
         entry['base_ids'].append(base_id)
         entry['stars'].extend(stars)
         entry['traits'].update({str(trait['id']): trait for trait in matching_traits})
+        entry['champions'].update({str(champion['id']): champion for champion in matching_champions})
     return list(merged.values())
 
 
 def _build_board_units(groups, champions_doc, traits_doc, target_dir):
     units = []
+    known_trait_ids = {str(trait['id']) for trait in traits_doc.get('traits') or []}
     for entry in _board_unit_groups(groups, champions_doc, traits_doc):
         entry['stars'].sort(key=_star)
         base = entry['stars'][0]
@@ -324,13 +363,19 @@ def _build_board_units(groups, champions_doc, traits_doc, target_dir):
         if not _download(icon_url, target_dir / icon_path):
             continue
         traits = list(entry['traits'].values())
+        source_champions = list(entry['champions'].values())
+        official_trait_ids = _split_trait_ids(base.get('species')) + _split_trait_ids(base.get('class'))
+        contribution_trait_ids = [trait_id for trait_id in official_trait_ids if trait_id in known_trait_ids]
+        placement_rules = _activation_rules(base.get('name') or '', traits)
+        placement_rules.extend(_champion_activation_rules(source_champions))
         units.append({
             'id': f'board_{primary_id}',
             'name': base.get('name') or primary_id,
             'kind': 'trait_object',
             'aliases': [],
             'trait_ids': [str(trait['id']) for trait in traits],
-            'placement_rules': _activation_rules(base.get('name') or '', traits),
+            'contribution_trait_ids': contribution_trait_ids,
+            'placement_rules': placement_rules,
             'can_equip': _can_equip(base.get('name') or '', traits),
             'stats': _stats(base),
             'skill': {
@@ -344,9 +389,71 @@ def _build_board_units(groups, champions_doc, traits_doc, target_dir):
                 'record_ids': sorted({str(record.get('id')) for record in entry['stars']}),
                 'hero_paint': base.get('heroPaint'),
             },
-            'extensions': {'library_visible': False, 'simulator_visible': True},
+            'extensions': {
+                'library_visible': False,
+                'simulator_visible': True,
+                'discovery_sources': [
+                    *[{'type': 'trait', 'id': str(trait['id']), 'name': trait.get('name')} for trait in traits],
+                    *[{'type': 'champion_skill', 'id': str(champion['id']), 'name': champion.get('name')} for champion in source_champions],
+                ],
+            },
         })
     return units
+
+
+def _board_unit_discovery_audit(groups, champions_doc, traits_doc, units):
+    champion_names = {champion.get('name') for champion in champions_doc.get('champions') or []}
+    included_ids = {
+        official_id
+        for unit in units
+        for official_id in (unit.get('source_ids') or {}).get('official_ids') or []
+    }
+    inventory = {}
+    for base_id, stars in groups.items():
+        base = stars[0]
+        if base.get('name') in champion_names:
+            continue
+        if int(base.get('price') or 0) > 0 and str(base.get('heroType')) != '1':
+            continue
+        if not base.get('picture'):
+            continue
+        traits = _matching_traits(base.get('name') or '', traits_doc.get('traits') or [])
+        champions = _matching_champions(base.get('name') or '', champions_doc.get('champions') or [])
+        name = base.get('name') or base_id
+        candidate = inventory.setdefault(name, {
+            'official_ids': [],
+            'name': name,
+            'status': 'review',
+            'official_trait_ids': [],
+            'matched_sources': [],
+        })
+        candidate['official_ids'].append(base_id)
+        if base_id in included_ids:
+            candidate['status'] = 'included'
+        candidate['official_trait_ids'] = sorted(set([
+            *candidate['official_trait_ids'],
+            *_split_trait_ids(base.get('species')),
+            *_split_trait_ids(base.get('class')),
+        ]))
+        sources = [
+            *[{'type': 'trait', 'id': str(trait['id']), 'name': trait.get('name')} for trait in traits],
+            *[{'type': 'champion_skill', 'id': str(champion['id']), 'name': champion.get('name')} for champion in champions],
+        ]
+        known_sources = {(item['type'], item['id']) for item in candidate['matched_sources']}
+        candidate['matched_sources'].extend(
+            source for source in sources if (source['type'], source['id']) not in known_sources
+        )
+    candidates = list(inventory.values())
+    for candidate in candidates:
+        candidate['official_ids'].sort(key=lambda value: (len(value), value))
+    candidates.sort(key=lambda item: (item['status'] != 'included', item['name'], item['official_ids'][0]))
+    return {
+        'strategy_version': 2,
+        'candidate_count': len(candidates),
+        'included_count': sum(item['status'] == 'included' for item in candidates),
+        'review_count': sum(item['status'] == 'review' for item in candidates),
+        'candidates': candidates,
+    }
 
 
 def apply_official_supplements(version_dir, target_dir, season, champions_doc, traits_doc, load_json):
@@ -364,4 +471,5 @@ def apply_official_supplements(version_dir, target_dir, season, champions_doc, t
     groups = _group_records(records, mode)
     added_champions = _supplement_champions(groups, champions_doc, traits_doc, mode, target_dir)
     board_units = _build_board_units(groups, champions_doc, traits_doc, target_dir)
-    return {'champions': added_champions, 'board_units': board_units}
+    discovery_audit = _board_unit_discovery_audit(groups, champions_doc, traits_doc, board_units)
+    return {'champions': added_champions, 'board_units': board_units, 'discovery_audit': discovery_audit}

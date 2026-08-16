@@ -10,6 +10,7 @@
       "trait_ids": [
         "121"
       ],
+      "contribution_trait_ids": [],
       "placement_rules": [
         {
           "trait_id": "121",
@@ -65,8 +66,236 @@
       },
       "extensions": {
         "library_visible": false,
-        "simulator_visible": true
+        "simulator_visible": true,
+        "discovery_sources": [
+          {
+            "type": "trait",
+            "id": "121",
+            "name": "黑客"
+          }
+        ]
       }
     }
-  ]
+  ],
+  "discovery_audit": {
+    "strategy_version": 2,
+    "candidate_count": 22,
+    "included_count": 1,
+    "review_count": 21,
+    "candidates": [
+      {
+        "official_ids": [
+          "8022"
+        ],
+        "name": "黑客里姆",
+        "status": "included",
+        "official_trait_ids": [],
+        "matched_sources": [
+          {
+            "type": "trait",
+            "id": "121",
+            "name": "黑客"
+          }
+        ]
+      },
+      {
+        "official_ids": [
+          "8994"
+        ],
+        "name": "五费刷新道具",
+        "status": "review",
+        "official_trait_ids": [],
+        "matched_sources": []
+      },
+      {
+        "official_ids": [
+          "8993"
+        ],
+        "name": "传承之物",
+        "status": "review",
+        "official_trait_ids": [],
+        "matched_sources": []
+      },
+      {
+        "official_ids": [
+          "8995"
+        ],
+        "name": "免费刷新道具",
+        "status": "review",
+        "official_trait_ids": [],
+        "matched_sources": []
+      },
+      {
+        "official_ids": [
+          "8987"
+        ],
+        "name": "古代装备锻造器",
+        "status": "review",
+        "official_trait_ids": [],
+        "matched_sources": []
+      },
+      {
+        "official_ids": [
+          "9100",
+          "9102",
+          "9103"
+        ],
+        "name": "已腐蚀的蛋",
+        "status": "review",
+        "official_trait_ids": [],
+        "matched_sources": []
+      },
+      {
+        "official_ids": [
+          "8977",
+          "8997"
+        ],
+        "name": "成装锻造器",
+        "status": "review",
+        "official_trait_ids": [],
+        "matched_sources": []
+      },
+      {
+        "official_ids": [
+          "8992"
+        ],
+        "name": "战利品",
+        "status": "review",
+        "official_trait_ids": [],
+        "matched_sources": [
+          {
+            "type": "trait",
+            "id": "169",
+            "name": "地下魔盗团"
+          }
+        ]
+      },
+      {
+        "official_ids": [
+          "8996"
+        ],
+        "name": "散件锻造器",
+        "status": "review",
+        "official_trait_ids": [],
+        "matched_sources": []
+      },
+      {
+        "official_ids": [
+          "8441"
+        ],
+        "name": "敲钟牛",
+        "status": "review",
+        "official_trait_ids": [],
+        "matched_sources": []
+      },
+      {
+        "official_ids": [
+          "1166"
+        ],
+        "name": "木桩假人",
+        "status": "review",
+        "official_trait_ids": [],
+        "matched_sources": []
+      },
+      {
+        "official_ids": [
+          "8028"
+        ],
+        "name": "木桩假人-调皮鬼用假人",
+        "status": "review",
+        "official_trait_ids": [],
+        "matched_sources": []
+      },
+      {
+        "official_ids": [
+          "8985"
+        ],
+        "name": "皮城装备锻造器",
+        "status": "review",
+        "official_trait_ids": [],
+        "matched_sources": []
+      },
+      {
+        "official_ids": [
+          "8986"
+        ],
+        "name": "祖安装备锻造器",
+        "status": "review",
+        "official_trait_ids": [],
+        "matched_sources": []
+      },
+      {
+        "official_ids": [
+          "8998"
+        ],
+        "name": "神器锻造器",
+        "status": "review",
+        "official_trait_ids": [],
+        "matched_sources": []
+      },
+      {
+        "official_ids": [
+          "1990"
+        ],
+        "name": "虚空生物",
+        "status": "review",
+        "official_trait_ids": [],
+        "matched_sources": []
+      },
+      {
+        "official_ids": [
+          "8988"
+        ],
+        "name": "说书人_章节1",
+        "status": "review",
+        "official_trait_ids": [],
+        "matched_sources": []
+      },
+      {
+        "official_ids": [
+          "8989"
+        ],
+        "name": "说书人_章节2",
+        "status": "review",
+        "official_trait_ids": [],
+        "matched_sources": []
+      },
+      {
+        "official_ids": [
+          "8990"
+        ],
+        "name": "说书人_章节3",
+        "status": "review",
+        "official_trait_ids": [],
+        "matched_sources": []
+      },
+      {
+        "official_ids": [
+          "8991"
+        ],
+        "name": "说书人_章节4",
+        "status": "review",
+        "official_trait_ids": [],
+        "matched_sources": []
+      },
+      {
+        "official_ids": [
+          "8999"
+        ],
+        "name": "辅助装备锻造器",
+        "status": "review",
+        "official_trait_ids": [],
+        "matched_sources": []
+      },
+      {
+        "official_ids": [
+          "9000"
+        ],
+        "name": "金币神器锻造器",
+        "status": "review",
+        "official_trait_ids": [],
+        "matched_sources": []
+      }
+    ]
+  }
 }

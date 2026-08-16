@@ -31,7 +31,11 @@ static/season-data/
 
 导入器会读取每个版本已经归档的官方 `source-snapshots/chess.json`，补全被常规商店筛选遗漏、但被公开羁绊文本引用的解锁弈子。S16.5 的加里奥属于此类：它进入 `champions.json`、资料库和模拟器 5 费弈子池，使用统一的“解锁”标记并保留官方解锁条件。
 
-羁绊文本引用的非阵容对象，例如 S16.5 提伯斯、厄塔汗、冰封塔楼和岩石，以及 S17 圣物和迷你黑洞，会进入独立的 `board_units.json`。对象记录包含关联羁绊、`placement_rules`（激活人数与最大上场数量）、`can_equip`、属性、技能和本地图标；`extensions.library_visible=false` 保证资料库不展示，`extensions.simulator_visible=true` 允许模拟器按当前羁绊计数解锁和限量上场。棋盘对象不贡献羁绊、没有费用并默认不能携带装备；只有官方羁绊文本明确说明可携带装备的对象（如提伯斯）才设置 `can_equip=true`。推导规则以官方对象名称是否出现在羁绊描述/档位效果中为准，避免把未被玩法规则引用的训练假人或内部召唤物带入模拟器。
+官方快照中由羁绊或弈子技能产生的布阵期对象，例如 S16.5 提伯斯、厄塔汗、冰封塔楼、岩石、杰斯的海克斯科技锻炉，以及 S17 圣物、迷你黑洞和牧羊人的群星誓约，会进入独立的 `board_units.json`。导入器同时扫描羁绊文本、英雄技能文本和官方棋子结构字段；技能侧只接受“可放置”“备战区/备战席”等布阵期信号，避免把普通战斗技能召唤物误放进模拟器。组合名称会按 `&`、`＆`、`/`、`、` 拆成引用别名，减少官方展示名与羁绊文案不同造成的漏项。
+
+对象记录使用 `trait_ids` 表示解锁或筛选关联，使用 `contribution_trait_ids` 表示其官方棋子字段明确声明、实际应计数的羁绊；两者不可混用。例如提伯斯由“黑暗之女”解锁，但只为“法师”贡献计数。`placement_rules` 支持 `trait_id` 或 `champion_id` 来源，并统一描述激活人数与最大上场数量；`can_equip`、属性、技能和本地图标仍来自官方快照。`extensions.discovery_sources` 记录每个对象是由羁绊还是英雄技能发现，便于版本更新审计。`extensions.library_visible=false` 保证资料库不展示，`extensions.simulator_visible=true` 允许模拟器动态解锁。对象没有费用且默认不能携带装备；只有官方文本明确说明可携带装备的对象（如提伯斯）才设置 `can_equip=true`。
+
+每个 `board_units.json` 还包含 `discovery_audit`：它清点官方快照里所有零费用或 `heroType=1` 且带图片的非商店候选，标记为 `included` 或 `review`，并记录命中的羁绊/英雄技能来源。赛季资料更新后必须查看 `review` 清单；它用于暴露训练假人、纯战斗期召唤物和新增但尚未分类的对象，而不是静默丢弃这些记录。
 
 `import_from_archive.py` 本身不会请求 DataTFT。它只读本地归档快照；当官方快照引用的棋盘对象图片尚未落地时，允许从腾讯官方 CDN 补一张并立即生成版本化 WebP。测试只使用生成后的本地文件，不执行任何远程拉取。未来赛季应先更新档案库快照再重导入，站点会动态发现新弈子和被羁绊引用的棋盘对象，通常无需修改 Web 代码。
 
@@ -118,6 +122,6 @@ python -m pytest -q tests/test_season_reference.py tests/test_lineup_simulator_r
 - **弈子 URL 用 id 不用名字**（存在同名弈子，如 s17 的多形态厄运小姐）。旧的 S18 名字 URL 会 301 到 id URL。
 - **“新弈子”徽章**：档案库中弈子 `tags` 含 `"new"` 时展示，导入后自动生效（S16.5 的 14 个新增弈子已打标）。
 - **机制 tab**：档案库 `mechanics/` 中注册的每种玩法在页面上是一个独立 tab。`kind=charm` 使用仙灵卡片，支持搜索、分类、本地图标和可切换的升级/棱彩效果；`kind=wand` 仅保留给历史快照；god、monster 等使用通用机制卡片。
-- **模拟器特殊能力**：模拟器按 schema 做能力检测。弈子的 `availability.type=unlock` 会自动展示解锁标记和条件；装备的 `recipe.component_ids` 会自动进入散件需求统计；`category=emblem` 的装备会按 `extensions.trait_id` 或 `extensions.fetter_id` 为持有弈子提供对应羁绊；`board_units.json` 的 `placement_rules` 控制羁绊棋盘对象的解锁与数量。未来赛季应优先扩展公共 schema，不要在模拟器中按赛季 id 写死分支。
+- **模拟器特殊能力**：模拟器按 schema 做能力检测。弈子的 `availability.type=unlock` 会自动展示解锁标记和条件；装备的 `recipe.component_ids` 会自动进入散件需求统计；`category=emblem` 的装备会按 `extensions.trait_id` 或 `extensions.fetter_id` 为持有弈子提供对应羁绊；`board_units.json` 的 `placement_rules` 可按羁绊人数或指定英雄在场控制解锁与数量，`contribution_trait_ids` 控制特殊单位本身贡献的羁绊。未来赛季应先运行官方快照导入并检查 `extensions.discovery_sources`，再用版本间结构化 diff、官方羁绊/技能文本和至少一个独立公开资料源交叉验证；不要在模拟器中按赛季 id 写死分支。未上线赛季不得作为已验证规则来源。
 - **缓存**：列表页对 `index.json` 的请求带 `?v=<version_id>`，档案库版本号变化即自然失效。服务端 `season_reference_service` 用 `lru_cache` 缓存，重导入数据后需重启进程（测试可调 `clear_caches()`）。
 - 通用页面的 CSS 类名保留历史 `s18-` 前缀（`season-reference.css`），避免大规模改名回归；新增样式请用中性命名。

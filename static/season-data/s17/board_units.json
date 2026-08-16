@@ -10,6 +10,7 @@
       "trait_ids": [
         "416"
       ],
+      "contribution_trait_ids": [],
       "placement_rules": [
         {
           "trait_id": "416",
@@ -53,7 +54,124 @@
       },
       "extensions": {
         "library_visible": false,
-        "simulator_visible": true
+        "simulator_visible": true,
+        "discovery_sources": [
+          {
+            "type": "trait",
+            "id": "416",
+            "name": "暮光铁壁"
+          }
+        ]
+      }
+    },
+    {
+      "id": "board_8407",
+      "name": "羊咩咩 & 咩咩羊",
+      "kind": "trait_object",
+      "aliases": [],
+      "trait_ids": [
+        "319"
+      ],
+      "contribution_trait_ids": [],
+      "placement_rules": [
+        {
+          "trait_id": "319",
+          "min_units": 3,
+          "max_units": 4,
+          "max_count": 1
+        },
+        {
+          "trait_id": "319",
+          "min_units": 5,
+          "max_units": 6,
+          "max_count": 1
+        },
+        {
+          "trait_id": "319",
+          "min_units": 7,
+          "max_units": null,
+          "max_count": 1
+        }
+      ],
+      "can_equip": false,
+      "stats": {
+        "health": 320.0,
+        "attack_damage": 20.0,
+        "armor": 45.0,
+        "magic_resist": 45.0,
+        "attack_speed": 0.6,
+        "attack_range": 1.0,
+        "initial_mana": 0.0,
+        "max_mana": 50.0,
+        "critical_strike_chance": 25.0,
+        "sell_price": 0.0
+      },
+      "skill": {
+        "name": "尖啸",
+        "description": "被动：普攻造成50(【法术加成】)额外魔法伤害。  主动：获得持续4秒的100(【法术加成】)护盾值，并为友军提供持续至战斗结束的15%法术加成。",
+        "image": null,
+        "description_tokens": [
+          {
+            "type": "text",
+            "value": "被动：普攻造成50"
+          },
+          {
+            "type": "stat",
+            "stat": "ability_power",
+            "kind": "ap",
+            "label": "法术加成",
+            "source_label": "法术加成",
+            "icon": "ap",
+            "fallback": "AP"
+          },
+          {
+            "type": "text",
+            "value": "额外魔法伤害。  主动：获得持续4秒的100"
+          },
+          {
+            "type": "stat",
+            "stat": "ability_power",
+            "kind": "ap",
+            "label": "法术加成",
+            "source_label": "法术加成",
+            "icon": "ap",
+            "fallback": "AP"
+          },
+          {
+            "type": "text",
+            "value": "护盾值，并为友军提供持续至战斗结束的15%法术加成。"
+          }
+        ]
+      },
+      "image": {
+        "local_path": "assets/board-units/8407.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode17s18/hero/s17_head_bia.png",
+        "alt": "羊咩咩 & 咩咩羊图标",
+        "optimized_local_path": "assets/optimized/s17__17_17_8/board-units/board_8407.webp"
+      },
+      "source_ids": {
+        "official_ids": [
+          "8407",
+          "8408",
+          "8422"
+        ],
+        "record_ids": [
+          "18407",
+          "18408",
+          "18422"
+        ],
+        "hero_paint": "s17_bia"
+      },
+      "extensions": {
+        "library_visible": false,
+        "simulator_visible": true,
+        "discovery_sources": [
+          {
+            "type": "trait",
+            "id": "319",
+            "name": "牧羊人"
+          }
+        ]
       }
     },
     {
@@ -64,6 +182,7 @@
       "trait_ids": [
         "403"
       ],
+      "contribution_trait_ids": [],
       "placement_rules": [
         {
           "trait_id": "403",
@@ -126,8 +245,157 @@
       },
       "extensions": {
         "library_visible": false,
-        "simulator_visible": true
+        "simulator_visible": true,
+        "discovery_sources": [
+          {
+            "type": "trait",
+            "id": "403",
+            "name": "暗星"
+          }
+        ]
       }
     }
-  ]
+  ],
+  "discovery_audit": {
+    "strategy_version": 2,
+    "candidate_count": 11,
+    "included_count": 3,
+    "review_count": 8,
+    "candidates": [
+      {
+        "official_ids": [
+          "8406"
+        ],
+        "name": "圣物",
+        "status": "included",
+        "official_trait_ids": [],
+        "matched_sources": [
+          {
+            "type": "trait",
+            "id": "416",
+            "name": "暮光铁壁"
+          }
+        ]
+      },
+      {
+        "official_ids": [
+          "8407",
+          "8408",
+          "8422"
+        ],
+        "name": "羊咩咩 & 咩咩羊",
+        "status": "included",
+        "official_trait_ids": [],
+        "matched_sources": [
+          {
+            "type": "trait",
+            "id": "319",
+            "name": "牧羊人"
+          }
+        ]
+      },
+      {
+        "official_ids": [
+          "8428"
+        ],
+        "name": "迷你黑洞",
+        "status": "included",
+        "official_trait_ids": [],
+        "matched_sources": [
+          {
+            "type": "trait",
+            "id": "403",
+            "name": "暗星"
+          }
+        ]
+      },
+      {
+        "official_ids": [
+          "8429",
+          "8430",
+          "8431",
+          "8432"
+        ],
+        "name": "0",
+        "status": "review",
+        "official_trait_ids": [],
+        "matched_sources": []
+      },
+      {
+        "official_ids": [
+          "0166",
+          "0167",
+          "0170",
+          "0171",
+          "1166",
+          "8196",
+          "8197",
+          "8198",
+          "8427"
+        ],
+        "name": "木桩假人",
+        "status": "review",
+        "official_trait_ids": [],
+        "matched_sources": []
+      },
+      {
+        "official_ids": [
+          "8401",
+          "8402",
+          "8403",
+          "8404"
+        ],
+        "name": "狂潮虫伤害",
+        "status": "review",
+        "official_trait_ids": [],
+        "matched_sources": []
+      },
+      {
+        "official_ids": [
+          "8423"
+        ],
+        "name": "纳尔召唤物a",
+        "status": "review",
+        "official_trait_ids": [],
+        "matched_sources": []
+      },
+      {
+        "official_ids": [
+          "8424"
+        ],
+        "name": "纳尔召唤物b",
+        "status": "review",
+        "official_trait_ids": [],
+        "matched_sources": []
+      },
+      {
+        "official_ids": [
+          "8425"
+        ],
+        "name": "纳尔召唤物c",
+        "status": "review",
+        "official_trait_ids": [],
+        "matched_sources": []
+      },
+      {
+        "official_ids": [
+          "8426"
+        ],
+        "name": "纳尔召唤物d",
+        "status": "review",
+        "official_trait_ids": [],
+        "matched_sources": []
+      },
+      {
+        "official_ids": [
+          "8101",
+          "8347"
+        ],
+        "name": "雕纹魔像",
+        "status": "review",
+        "official_trait_ids": [],
+        "matched_sources": []
+      }
+    ]
+  }
 }

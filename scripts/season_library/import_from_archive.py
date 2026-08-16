@@ -325,6 +325,7 @@ def import_season(source_root: Path, catalog_entry: dict) -> dict:
         "version_id": version_meta["version_id"],
         "rich_text_version": 1,
         "board_units": supplements["board_units"],
+        "discovery_audit": supplements.get("discovery_audit") or {},
     }
     for document in (champions_doc, traits_doc, items_doc, board_units_doc):
         document["rich_text_version"] = 1
@@ -347,6 +348,10 @@ def import_season(source_root: Path, catalog_entry: dict) -> dict:
         print(f"  官方补全弈子: {', '.join(supplements['champions'])}")
     if supplements["board_units"]:
         print(f"  模拟器棋盘对象: {', '.join(unit['name'] for unit in supplements['board_units'])}")
+    audit = supplements.get("discovery_audit") or {}
+    review_names = [item["name"] for item in audit.get("candidates") or [] if item.get("status") == "review"]
+    if review_names:
+        print(f"  待复核特殊单位候选: {', '.join(review_names)}")
     if optimized_missing:
         print(f"  警告: {season_id} 有 {len(optimized_missing)} 个模拟器小图缺少源文件")
 

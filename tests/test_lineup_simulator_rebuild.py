@@ -114,6 +114,11 @@ def test_simulator_implements_board_and_equipment_rules():
     assert 'localStorage.setItem' in javascript
     assert 'exportBoardImage' in javascript
     assert 'function boardUnitAllowance(unit)' in javascript
+    assert 'const contributionTraitIds = (raw.contribution_trait_ids || []).map(String)' in javascript
+    assert 'traitIds: contributionTraitIds' in javascript
+    assert 'rule.champion_id' in javascript
+    assert 'countPlacedUnit(String(rule.champion_id))' in javascript
+    assert '需要先上阵 ${champion.name}' in javascript
     assert 'countPlacedUnit(hero.id) >= boardUnitAllowance(hero)' in javascript
     assert 'specialPlacementIsValid' in javascript
     assert 'if (itemChip) {\n    event.preventDefault();\n    hidePopover();' in javascript

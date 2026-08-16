@@ -227,13 +227,15 @@ function richTextHtml(text, importedTokens = null) {
 }
 
 function normalizeBoardUnit(raw) {
+  const contributionTraitIds = (raw.contribution_trait_ids || []).map(String);
+  const relatedTraitIds = (raw.trait_ids || []).map(String);
   return {
     id: String(raw.id),
     name: raw.name || "未知棋盘对象",
     aliases: raw.aliases || [],
     cost: 0,
-    traitIds: [],
-    boardUnitTraitIds: (raw.trait_ids || []).map(String),
+    traitIds: contributionTraitIds,
+    boardUnitTraitIds: [...new Set([...relatedTraitIds, ...contributionTraitIds])],
     availability: { type: "trait_object", description: null, rules: raw.placement_rules || [] },
     placementRules: raw.placement_rules || [],
     icon: seasonAsset(raw.image?.optimized_local_path || raw.image?.local_path),
@@ -501,7 +503,7 @@ function renderBoard() {
   elements.totalCost.textContent = String(units.reduce((total, slot) => total + (state.championById.get(slot.championId)?.cost || 0), 0));
   const invalidSpecials = state.board.filter((slot, index) => slot && !specialPlacementIsValid(slot.championId, index)).length;
   elements.boardStatus.textContent = invalidSpecials
-    ? `${invalidSpecials} 个特殊单位未满足羁绊条件`
+    ? `${invalidSpecials} 个特殊单位未满足解锁条件`
     : units.length ? `${units.length} 个单位已上阵` : "阵容未配置";
   renderTraitSummary();
   renderComponentSummary();
@@ -622,7 +624,9 @@ function boardUnitAllowance(unit) {
   if (!unit?.isBoardUnit) return Infinity;
   const traitCounts = getTraitCounts();
   return unit.placementRules.reduce((maximum, rule) => {
-    const count = traitCounts.get(String(rule.trait_id)) || 0;
+    const count = rule.champion_id
+      ? countPlacedUnit(String(rule.champion_id))
+      : traitCounts.get(String(rule.trait_id)) || 0;
     return count >= Number(rule.min_units || 1) ? Math.max(maximum, Number(rule.max_count || 1)) : maximum;
   }, 0);
 }
@@ -630,7 +634,10 @@ function boardUnitAllowance(unit) {
 function boardUnitRequirementText(unit) {
   const first = [...(unit.placementRules || [])].sort((a, b) => Number(a.min_units) - Number(b.min_units))[0];
   const trait = first ? state.traitById.get(String(first.trait_id)) : null;
-  return first && trait ? `需要 ${first.min_units} ${trait.name}` : "当前羁绊未解锁该棋盘对象";
+  const champion = first ? state.championById.get(String(first.champion_id)) : null;
+  if (trait) return `需要 ${first.min_units} ${trait.name}`;
+  if (champion) return `需要先上阵 ${champion.name}`;
+  return "当前阵容未解锁该棋盘对象";
 }
 
 function specialPlacementIsValid(unitId, index) {

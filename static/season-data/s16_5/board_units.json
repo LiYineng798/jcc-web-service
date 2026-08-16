@@ -10,6 +10,9 @@
       "trait_ids": [
         "355"
       ],
+      "contribution_trait_ids": [
+        "300"
+      ],
       "placement_rules": [
         {
           "trait_id": "355",
@@ -88,7 +91,14 @@
       },
       "extensions": {
         "library_visible": false,
-        "simulator_visible": true
+        "simulator_visible": true,
+        "discovery_sources": [
+          {
+            "type": "trait",
+            "id": "355",
+            "name": "黑暗之女"
+          }
+        ]
       }
     },
     {
@@ -99,6 +109,7 @@
       "trait_ids": [
         "345"
       ],
+      "contribution_trait_ids": [],
       "placement_rules": [
         {
           "trait_id": "345",
@@ -187,7 +198,14 @@
       },
       "extensions": {
         "library_visible": false,
-        "simulator_visible": true
+        "simulator_visible": true,
+        "discovery_sources": [
+          {
+            "type": "trait",
+            "id": "345",
+            "name": "诺克萨斯"
+          }
+        ]
       }
     },
     {
@@ -198,6 +216,7 @@
       "trait_ids": [
         "342"
       ],
+      "contribution_trait_ids": [],
       "placement_rules": [
         {
           "trait_id": "342",
@@ -258,7 +277,14 @@
       },
       "extensions": {
         "library_visible": false,
-        "simulator_visible": true
+        "simulator_visible": true,
+        "discovery_sources": [
+          {
+            "type": "trait",
+            "id": "342",
+            "name": "弗雷尔卓德"
+          }
+        ]
       }
     },
     {
@@ -269,6 +295,7 @@
       "trait_ids": [
         "398"
       ],
+      "contribution_trait_ids": [],
       "placement_rules": [
         {
           "trait_id": "398",
@@ -312,8 +339,274 @@
       },
       "extensions": {
         "library_visible": false,
-        "simulator_visible": true
+        "simulator_visible": true,
+        "discovery_sources": [
+          {
+            "type": "trait",
+            "id": "398",
+            "name": "熔岩巨兽"
+          }
+        ]
+      }
+    },
+    {
+      "id": "board_8453",
+      "name": "海克斯科技锻炉",
+      "kind": "trait_object",
+      "aliases": [],
+      "trait_ids": [],
+      "contribution_trait_ids": [],
+      "placement_rules": [
+        {
+          "champion_id": "5402",
+          "min_units": 1,
+          "max_units": null,
+          "max_count": 1
+        }
+      ],
+      "can_equip": false,
+      "stats": {
+        "health": 800.0,
+        "attack_damage": 0.0,
+        "armor": 60.0,
+        "magic_resist": 60.0,
+        "attack_speed": 0.5,
+        "attack_range": 5.0,
+        "initial_mana": 0.0,
+        "max_mana": 0.0,
+        "critical_strike_chance": 25.0,
+        "sell_price": 0.0
+      },
+      "skill": {
+        "name": "",
+        "description": "",
+        "image": null
+      },
+      "image": {
+        "local_path": "assets/board-units/8453.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s18/hero/s16_head_portal.png",
+        "alt": "海克斯科技锻炉图标",
+        "optimized_local_path": "assets/optimized/s16_5__17_17_8b/board-units/board_8453.webp"
+      },
+      "source_ids": {
+        "official_ids": [
+          "8453"
+        ],
+        "record_ids": [
+          "18453",
+          "28453",
+          "38453"
+        ],
+        "hero_paint": "s16_portal"
+      },
+      "extensions": {
+        "library_visible": false,
+        "simulator_visible": true,
+        "discovery_sources": [
+          {
+            "type": "champion_skill",
+            "id": "5402",
+            "name": "杰斯"
+          }
+        ]
       }
     }
-  ]
+  ],
+  "discovery_audit": {
+    "strategy_version": 2,
+    "candidate_count": 16,
+    "included_count": 5,
+    "review_count": 11,
+    "candidates": [
+      {
+        "official_ids": [
+          "8346",
+          "8360"
+        ],
+        "name": "冰封塔楼",
+        "status": "included",
+        "official_trait_ids": [],
+        "matched_sources": [
+          {
+            "type": "trait",
+            "id": "342",
+            "name": "弗雷尔卓德"
+          }
+        ]
+      },
+      {
+        "official_ids": [
+          "8337",
+          "8338"
+        ],
+        "name": "厄塔汗",
+        "status": "included",
+        "official_trait_ids": [],
+        "matched_sources": [
+          {
+            "type": "trait",
+            "id": "345",
+            "name": "诺克萨斯"
+          }
+        ]
+      },
+      {
+        "official_ids": [
+          "8452"
+        ],
+        "name": "岩石",
+        "status": "included",
+        "official_trait_ids": [],
+        "matched_sources": [
+          {
+            "type": "trait",
+            "id": "398",
+            "name": "熔岩巨兽"
+          }
+        ]
+      },
+      {
+        "official_ids": [
+          "8336"
+        ],
+        "name": "提伯斯",
+        "status": "included",
+        "official_trait_ids": [
+          "300"
+        ],
+        "matched_sources": [
+          {
+            "type": "trait",
+            "id": "355",
+            "name": "黑暗之女"
+          }
+        ]
+      },
+      {
+        "official_ids": [
+          "8453"
+        ],
+        "name": "海克斯科技锻炉",
+        "status": "included",
+        "official_trait_ids": [],
+        "matched_sources": [
+          {
+            "type": "champion_skill",
+            "id": "5402",
+            "name": "杰斯"
+          }
+        ]
+      },
+      {
+        "official_ids": [
+          "8343"
+        ],
+        "name": "以绪塔尔探险追踪器",
+        "status": "review",
+        "official_trait_ids": [],
+        "matched_sources": []
+      },
+      {
+        "official_ids": [
+          "8330"
+        ],
+        "name": "悠米",
+        "status": "review",
+        "official_trait_ids": [],
+        "matched_sources": []
+      },
+      {
+        "official_ids": [
+          "8353"
+        ],
+        "name": "提莫蘑菇",
+        "status": "review",
+        "official_trait_ids": [],
+        "matched_sources": []
+      },
+      {
+        "official_ids": [
+          "0166",
+          "0167",
+          "1166",
+          "8196",
+          "8197",
+          "8198"
+        ],
+        "name": "木桩假人",
+        "status": "review",
+        "official_trait_ids": [],
+        "matched_sources": []
+      },
+      {
+        "official_ids": [
+          "8344"
+        ],
+        "name": "皇室外壳",
+        "status": "review",
+        "official_trait_ids": [],
+        "matched_sources": []
+      },
+      {
+        "official_ids": [
+          "8339",
+          "8345"
+        ],
+        "name": "皇帝的卫兵",
+        "status": "review",
+        "official_trait_ids": [],
+        "matched_sources": []
+      },
+      {
+        "official_ids": [
+          "8340",
+          "8341",
+          "8342"
+        ],
+        "name": "皮尔特沃夫发明",
+        "status": "review",
+        "official_trait_ids": [],
+        "matched_sources": []
+      },
+      {
+        "official_ids": [
+          "8352"
+        ],
+        "name": "盛宴塔姆",
+        "status": "review",
+        "official_trait_ids": [],
+        "matched_sources": []
+      },
+      {
+        "official_ids": [
+          "8450",
+          "8451"
+        ],
+        "name": "虚空鱼群",
+        "status": "review",
+        "official_trait_ids": [],
+        "matched_sources": []
+      },
+      {
+        "official_ids": [
+          "8354"
+        ],
+        "name": "迅捷蟹",
+        "status": "review",
+        "official_trait_ids": [],
+        "matched_sources": []
+      },
+      {
+        "official_ids": [
+          "8101",
+          "8347",
+          "8601"
+        ],
+        "name": "雕纹魔像",
+        "status": "review",
+        "official_trait_ids": [],
+        "matched_sources": []
+      }
+    ]
+  }
 }
