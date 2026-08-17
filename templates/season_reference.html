@@ -1,7 +1,7 @@
 <!doctype html>
 {% from "theme_toggle.html" import theme_toggle %}
 {% from "seo_head.html" import seo_head %}
-{% set tab_count = 2 + mechanics|length %}
+{% set tab_count = 2 + mechanics|length + (1 if has_augments else 0) %}
 <html lang="zh-CN">
   <head>
 {{ seo_head(seo) }}
@@ -33,6 +33,9 @@
       <div class="s18-main-tabs" role="tablist" aria-label="{{ season.display_name }}资料分类" style="--tab-count: {{ tab_count }}">
         <button class="s18-main-tab active" type="button" data-view="champions" role="tab" aria-selected="true" aria-controls="championsPanel">弈子</button>
         <button class="s18-main-tab" type="button" data-view="traits" role="tab" aria-selected="false" aria-controls="traitsPanel">羁绊</button>
+{% if has_augments %}
+        <button class="s18-main-tab" type="button" data-view="augments" role="tab" aria-selected="false" aria-controls="augmentsPanel">强化符文</button>
+{% endif %}
 {% for mechanic in mechanics %}
         <button class="s18-main-tab" type="button" data-view="mechanic-{{ mechanic.id }}" role="tab" aria-selected="false" aria-controls="mechanicPanel-{{ mechanic.id }}">{{ mechanic.display_name }}</button>
 {% endfor %}
@@ -88,6 +91,24 @@
           </div>
           <div class="trait-grid" id="traitGrid"></div>
         </section>
+
+{% if has_augments %}
+        <section class="s18-view-panel" id="augmentsPanel" data-panel="augments" role="tabpanel" hidden>
+          <div class="augment-toolbar">
+            <label class="augment-search" for="augmentSearch">
+              <span class="sr-only">搜索强化符文</span>
+              <input id="augmentSearch" type="search" autocomplete="off" placeholder="搜索强化符文名称或效果" />
+            </label>
+            <div class="augment-filter-bar" aria-label="强化符文筛选；再次点击已选条件可清除该组筛选">
+              <div class="augment-filter-group" id="augmentTierFilters" role="group" aria-label="强化符文等级"></div>
+              <div class="augment-filter-group" id="augmentStageFilters" role="group" aria-label="强化符文时机"></div>
+              <div class="augment-filter-group" id="augmentCategoryFilters" role="group" aria-label="强化符文分类"></div>
+            </div>
+          </div>
+          <div class="augment-grid" id="augmentGrid"></div>
+          <div class="s18-empty-state hidden" id="augmentEmpty"><strong>没有找到强化符文</strong><span>调整搜索词或筛选条件后再试。</span></div>
+        </section>
+{% endif %}
 
 {% for mechanic in mechanics %}
         <section class="s18-view-panel" id="mechanicPanel-{{ mechanic.id }}" data-panel="mechanic-{{ mechanic.id }}" data-mechanic-id="{{ mechanic.id }}" role="tabpanel" hidden>

@@ -156,6 +156,7 @@ def season_page_context(season_id):
     if entry is None:
         return None
     index = _season_index(entry['season_id'])
+    augments = index.get('augments') or []
     return {
         'season': entry,
         'mechanics': [
@@ -163,6 +164,8 @@ def season_page_context(season_id):
             for mechanic in index.get('mechanics') or []
         ],
         'champion_count': len(index.get('champions') or []),
+        'augment_count': len(augments),
+        'has_augments': bool(augments),
         'data_url': f"/static/season-data/{entry['season_id']}/index.json?v={entry.get('version_id', '')}",
         'asset_root': f"/static/season-data/{entry['season_id']}",
     }

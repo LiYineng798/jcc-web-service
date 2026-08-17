@@ -1,0 +1,6749 @@
+{
+  "code": 200,
+  "success": true,
+  "message": "success",
+  "data": [
+    {
+      "hexId": 3093,
+      "name": "便携锻炉",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/portableforge2.png",
+      "sampleCount": 13106,
+      "playRate": 0.71,
+      "avgPlacement": 4.4,
+      "top4Rate": 52.57,
+      "topRate": 11.04,
+      "rounds": [
+        "2-1",
+        "3-2",
+        "4-2"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 4405,
+          "playRate": 0.24,
+          "avgPlacement": 4.36,
+          "top4Rate": 53.92,
+          "topRate": 9.81
+        },
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 3389,
+          "playRate": 0.18,
+          "avgPlacement": 4.42,
+          "top4Rate": 51.76,
+          "topRate": 11.89
+        },
+        {
+          "round": 2,
+          "roundLabel": "4-2",
+          "sampleCount": 5312,
+          "playRate": 0.29,
+          "avgPlacement": 4.42,
+          "top4Rate": 51.98,
+          "topRate": 11.52
+        }
+      ]
+    },
+    {
+      "hexId": 20141,
+      "name": "专属定制",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/exclusivecustomization2.png",
+      "sampleCount": 8787,
+      "playRate": 0.48,
+      "avgPlacement": 4.4,
+      "top4Rate": 52.4,
+      "topRate": 12.19,
+      "rounds": [
+        "3-2",
+        "4-2"
+      ],
+      "roundStats": [
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 2877,
+          "playRate": 0.16,
+          "avgPlacement": 4.26,
+          "top4Rate": 55.86,
+          "topRate": 12.65
+        },
+        {
+          "round": 2,
+          "roundLabel": "4-2",
+          "sampleCount": 5885,
+          "playRate": 0.32,
+          "avgPlacement": 4.47,
+          "top4Rate": 50.69,
+          "topRate": 11.93
+        }
+      ]
+    },
+    {
+      "hexId": 30668,
+      "name": "厨神阿福",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/ultrarapidfire2.png",
+      "sampleCount": 8730,
+      "playRate": 0.48,
+      "avgPlacement": 4.4,
+      "top4Rate": 51.76,
+      "topRate": 12.53,
+      "rounds": [
+        "2-1",
+        "3-2",
+        "4-2"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 4271,
+          "playRate": 0.23,
+          "avgPlacement": 4.4,
+          "top4Rate": 52.21,
+          "topRate": 11.54
+        },
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 2030,
+          "playRate": 0.11,
+          "avgPlacement": 4.42,
+          "top4Rate": 51.13,
+          "topRate": 13.1
+        },
+        {
+          "round": 2,
+          "roundLabel": "4-2",
+          "sampleCount": 2429,
+          "playRate": 0.13,
+          "avgPlacement": 4.38,
+          "top4Rate": 51.5,
+          "topRate": 13.79
+        }
+      ]
+    },
+    {
+      "hexId": 2184,
+      "name": "大百宝袋",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/grabbag2.png",
+      "sampleCount": 8234,
+      "playRate": 0.45,
+      "avgPlacement": 4.39,
+      "top4Rate": 52.26,
+      "topRate": 11.62,
+      "rounds": [
+        "3-2",
+        "4-2"
+      ],
+      "roundStats": [
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 2632,
+          "playRate": 0.14,
+          "avgPlacement": 4.35,
+          "top4Rate": 52.96,
+          "topRate": 11.66
+        },
+        {
+          "round": 2,
+          "roundLabel": "4-2",
+          "sampleCount": 5591,
+          "playRate": 0.3,
+          "avgPlacement": 4.41,
+          "top4Rate": 51.94,
+          "topRate": 11.63
+        }
+      ]
+    },
+    {
+      "hexId": 20725,
+      "name": "神赐锻炉",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/jobsdone2.png",
+      "sampleCount": 8048,
+      "playRate": 0.44,
+      "avgPlacement": 4.4,
+      "top4Rate": 52.42,
+      "topRate": 10.52,
+      "rounds": [
+        "2-1",
+        "3-2",
+        "4-2"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 2405,
+          "playRate": 0.13,
+          "avgPlacement": 4.44,
+          "top4Rate": 51.81,
+          "topRate": 7.73
+        },
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 2134,
+          "playRate": 0.12,
+          "avgPlacement": 4.35,
+          "top4Rate": 53.47,
+          "topRate": 11.9
+        },
+        {
+          "round": 2,
+          "roundLabel": "4-2",
+          "sampleCount": 3509,
+          "playRate": 0.19,
+          "avgPlacement": 4.4,
+          "top4Rate": 52.21,
+          "topRate": 11.6
+        }
+      ]
+    },
+    {
+      "hexId": 20619,
+      "name": "双城赢家",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/arcaneviktory2.png",
+      "sampleCount": 7638,
+      "playRate": 0.42,
+      "avgPlacement": 4.54,
+      "top4Rate": 48.73,
+      "topRate": 11.32,
+      "rounds": [
+        "3-2",
+        "4-2"
+      ],
+      "roundStats": [
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 2203,
+          "playRate": 0.12,
+          "avgPlacement": 4.69,
+          "top4Rate": 47.03,
+          "topRate": 9.62
+        },
+        {
+          "round": 2,
+          "roundLabel": "4-2",
+          "sampleCount": 5429,
+          "playRate": 0.3,
+          "avgPlacement": 4.48,
+          "top4Rate": 49.44,
+          "topRate": 12.01
+        }
+      ]
+    },
+    {
+      "hexId": 30731,
+      "name": "扩展包++",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/boosterpack2.png",
+      "sampleCount": 6393,
+      "playRate": 0.35,
+      "avgPlacement": 4.51,
+      "top4Rate": 49.52,
+      "topRate": 13.31,
+      "rounds": [
+        "4-2"
+      ],
+      "roundStats": [
+        {
+          "round": 2,
+          "roundLabel": "4-2",
+          "sampleCount": 6349,
+          "playRate": 0.35,
+          "avgPlacement": 4.52,
+          "top4Rate": 49.5,
+          "topRate": 13.32
+        }
+      ]
+    },
+    {
+      "hexId": 20633,
+      "name": "蔓延之根",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/spreadingroots2.png",
+      "sampleCount": 5897,
+      "playRate": 0.32,
+      "avgPlacement": 4.04,
+      "top4Rate": 57.71,
+      "topRate": 18.96,
+      "rounds": [
+        "2-1"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 5897,
+          "playRate": 0.32,
+          "avgPlacement": 4.04,
+          "top4Rate": 57.71,
+          "topRate": 18.96
+        }
+      ]
+    },
+    {
+      "hexId": 1895,
+      "name": "四费增援",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/reinfourcement2.png",
+      "sampleCount": 5628,
+      "playRate": 0.31,
+      "avgPlacement": 4.83,
+      "top4Rate": 42.45,
+      "topRate": 11.51,
+      "rounds": [
+        "4-2"
+      ],
+      "roundStats": [
+        {
+          "round": 2,
+          "roundLabel": "4-2",
+          "sampleCount": 5591,
+          "playRate": 0.3,
+          "avgPlacement": 4.83,
+          "top4Rate": 42.5,
+          "topRate": 11.5
+        }
+      ]
+    },
+    {
+      "hexId": 20041,
+      "name": "双排",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/douqueue2.png",
+      "sampleCount": 5585,
+      "playRate": 0.3,
+      "avgPlacement": 4.52,
+      "top4Rate": 49.22,
+      "topRate": 14.32,
+      "rounds": [
+        "4-2"
+      ],
+      "roundStats": [
+        {
+          "round": 2,
+          "roundLabel": "4-2",
+          "sampleCount": 5534,
+          "playRate": 0.3,
+          "avgPlacement": 4.52,
+          "top4Rate": 49.26,
+          "topRate": 14.4
+        }
+      ]
+    },
+    {
+      "hexId": 3851,
+      "name": "混沌召唤",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/calltochaos3.png",
+      "sampleCount": 5379,
+      "playRate": 0.29,
+      "avgPlacement": 4.47,
+      "top4Rate": 49.69,
+      "topRate": 14.45,
+      "rounds": [
+        "4-2"
+      ],
+      "roundStats": [
+        {
+          "round": 2,
+          "roundLabel": "4-2",
+          "sampleCount": 5297,
+          "playRate": 0.29,
+          "avgPlacement": 4.47,
+          "top4Rate": 49.71,
+          "topRate": 14.48
+        }
+      ]
+    },
+    {
+      "hexId": 30617,
+      "name": "男爵幻域",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/thebaronslair3.png",
+      "sampleCount": 5100,
+      "playRate": 0.28,
+      "avgPlacement": 4.43,
+      "top4Rate": 51.51,
+      "topRate": 9.92,
+      "rounds": [
+        "3-2",
+        "4-2"
+      ],
+      "roundStats": [
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 2205,
+          "playRate": 0.12,
+          "avgPlacement": 4.45,
+          "top4Rate": 50.48,
+          "topRate": 9.16
+        },
+        {
+          "round": 2,
+          "roundLabel": "4-2",
+          "sampleCount": 2889,
+          "playRate": 0.16,
+          "avgPlacement": 4.42,
+          "top4Rate": 52.37,
+          "topRate": 10.52
+        }
+      ]
+    },
+    {
+      "hexId": 20201,
+      "name": "火爆甩卖",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/firesale1.png",
+      "sampleCount": 4932,
+      "playRate": 0.27,
+      "avgPlacement": 4.26,
+      "top4Rate": 53.73,
+      "topRate": 17.62,
+      "rounds": [
+        "3-2"
+      ],
+      "roundStats": [
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 4882,
+          "playRate": 0.27,
+          "avgPlacement": 4.26,
+          "top4Rate": 53.79,
+          "topRate": 17.66
+        }
+      ]
+    },
+    {
+      "hexId": 20253,
+      "name": "玻璃大炮 II",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/glasscannon2.png",
+      "sampleCount": 4814,
+      "playRate": 0.26,
+      "avgPlacement": 4.2,
+      "top4Rate": 55.63,
+      "topRate": 13.9,
+      "rounds": [
+        "3-2",
+        "4-2"
+      ],
+      "roundStats": [
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 1591,
+          "playRate": 0.09,
+          "avgPlacement": 4.36,
+          "top4Rate": 53.11,
+          "topRate": 13.64
+        },
+        {
+          "round": 2,
+          "roundLabel": "4-2",
+          "sampleCount": 3214,
+          "playRate": 0.18,
+          "avgPlacement": 4.12,
+          "top4Rate": 56.88,
+          "topRate": 14.03
+        }
+      ]
+    },
+    {
+      "hexId": 1134,
+      "name": "D个痛快！ I",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/rollingfordays1.png",
+      "sampleCount": 4620,
+      "playRate": 0.25,
+      "avgPlacement": 4.49,
+      "top4Rate": 50.87,
+      "topRate": 11.9,
+      "rounds": [
+        "3-2",
+        "4-2"
+      ],
+      "roundStats": [
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 3513,
+          "playRate": 0.19,
+          "avgPlacement": 4.47,
+          "top4Rate": 51.35,
+          "topRate": 12.41
+        },
+        {
+          "round": 2,
+          "roundLabel": "4-2",
+          "sampleCount": 1077,
+          "playRate": 0.06,
+          "avgPlacement": 4.55,
+          "top4Rate": 49.49,
+          "topRate": 10.4
+        }
+      ]
+    },
+    {
+      "hexId": 20517,
+      "name": "寻宝",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/treasurehunt2.png",
+      "sampleCount": 4372,
+      "playRate": 0.24,
+      "avgPlacement": 4.05,
+      "top4Rate": 60.04,
+      "topRate": 15.05,
+      "rounds": [
+        "2-1"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 4372,
+          "playRate": 0.24,
+          "avgPlacement": 4.05,
+          "top4Rate": 60.04,
+          "topRate": 15.05
+        }
+      ]
+    },
+    {
+      "hexId": 30656,
+      "name": "贸易中心",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/trade3.png",
+      "sampleCount": 4283,
+      "playRate": 0.23,
+      "avgPlacement": 4.48,
+      "top4Rate": 48.82,
+      "topRate": 16.67,
+      "rounds": [
+        "4-2"
+      ],
+      "roundStats": [
+        {
+          "round": 2,
+          "roundLabel": "4-2",
+          "sampleCount": 4239,
+          "playRate": 0.23,
+          "avgPlacement": 4.48,
+          "top4Rate": 48.9,
+          "topRate": 16.75
+        }
+      ]
+    },
+    {
+      "hexId": 20224,
+      "name": "强化之能量",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/powerup1.png",
+      "sampleCount": 4274,
+      "playRate": 0.23,
+      "avgPlacement": 4.75,
+      "top4Rate": 45.18,
+      "topRate": 12.56,
+      "rounds": [
+        "2-1",
+        "3-2"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 1572,
+          "playRate": 0.09,
+          "avgPlacement": 4.86,
+          "top4Rate": 42.81,
+          "topRate": 12.02
+        },
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 2702,
+          "playRate": 0.15,
+          "avgPlacement": 4.68,
+          "top4Rate": 46.56,
+          "topRate": 12.88
+        }
+      ]
+    },
+    {
+      "hexId": 20698,
+      "name": "镀金钢铁",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/gildedsteel2.png",
+      "sampleCount": 4179,
+      "playRate": 0.23,
+      "avgPlacement": 4.69,
+      "top4Rate": 45.75,
+      "topRate": 14.12,
+      "rounds": [
+        "4-2"
+      ],
+      "roundStats": [
+        {
+          "round": 2,
+          "roundLabel": "4-2",
+          "sampleCount": 4143,
+          "playRate": 0.23,
+          "avgPlacement": 4.68,
+          "top4Rate": 45.93,
+          "topRate": 14.19
+        }
+      ]
+    },
+    {
+      "hexId": 10631,
+      "name": "小小福袋",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/smallgrabbag1.png",
+      "sampleCount": 3975,
+      "playRate": 0.22,
+      "avgPlacement": 4.46,
+      "top4Rate": 51.12,
+      "topRate": 10.74,
+      "rounds": [
+        "3-2",
+        "4-2"
+      ],
+      "roundStats": [
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 3065,
+          "playRate": 0.17,
+          "avgPlacement": 4.44,
+          "top4Rate": 51.29,
+          "topRate": 10.83
+        },
+        {
+          "round": 2,
+          "roundLabel": "4-2",
+          "sampleCount": 884,
+          "playRate": 0.05,
+          "avgPlacement": 4.51,
+          "top4Rate": 51.02,
+          "topRate": 10.63
+        }
+      ]
+    },
+    {
+      "hexId": 4804,
+      "name": "英勇福袋++",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/heroicgrabbag2.png",
+      "sampleCount": 3955,
+      "playRate": 0.22,
+      "avgPlacement": 4.17,
+      "top4Rate": 56.99,
+      "topRate": 12.34,
+      "rounds": [
+        "4-2"
+      ],
+      "roundStats": [
+        {
+          "round": 2,
+          "roundLabel": "4-2",
+          "sampleCount": 3936,
+          "playRate": 0.21,
+          "avgPlacement": 4.17,
+          "top4Rate": 57.04,
+          "topRate": 12.37
+        }
+      ]
+    },
+    {
+      "hexId": 2021,
+      "name": "飞升",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/finalascension2.png",
+      "sampleCount": 3913,
+      "playRate": 0.21,
+      "avgPlacement": 4.31,
+      "top4Rate": 54.08,
+      "topRate": 13.24,
+      "rounds": [
+        "3-2",
+        "4-2"
+      ],
+      "roundStats": [
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 1300,
+          "playRate": 0.07,
+          "avgPlacement": 4.43,
+          "top4Rate": 52,
+          "topRate": 11.77
+        },
+        {
+          "round": 2,
+          "roundLabel": "4-2",
+          "sampleCount": 2602,
+          "playRate": 0.14,
+          "avgPlacement": 4.25,
+          "top4Rate": 55.19,
+          "topRate": 13.99
+        }
+      ]
+    },
+    {
+      "hexId": 30682,
+      "name": "羁绊树+",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/thetraittree3.png",
+      "sampleCount": 3543,
+      "playRate": 0.19,
+      "avgPlacement": 4.4,
+      "top4Rate": 51.28,
+      "topRate": 15.1,
+      "rounds": [
+        "3-2"
+      ],
+      "roundStats": [
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 3529,
+          "playRate": 0.19,
+          "avgPlacement": 4.4,
+          "top4Rate": 51.35,
+          "topRate": 15.13
+        }
+      ]
+    },
+    {
+      "hexId": 1646,
+      "name": "团队建设",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/buildinganarmy1.png",
+      "sampleCount": 3490,
+      "playRate": 0.19,
+      "avgPlacement": 4.33,
+      "top4Rate": 54.24,
+      "topRate": 9.54,
+      "rounds": [
+        "2-1",
+        "3-2"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 1336,
+          "playRate": 0.07,
+          "avgPlacement": 4.38,
+          "top4Rate": 53.29,
+          "topRate": 8.16
+        },
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 2154,
+          "playRate": 0.12,
+          "avgPlacement": 4.3,
+          "top4Rate": 54.83,
+          "topRate": 10.4
+        }
+      ]
+    },
+    {
+      "hexId": 1002,
+      "name": "存心失利",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/calculatedloss2.png",
+      "sampleCount": 3377,
+      "playRate": 0.18,
+      "avgPlacement": 4.5,
+      "top4Rate": 50.93,
+      "topRate": 15.96,
+      "rounds": [
+        "2-1"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 3377,
+          "playRate": 0.18,
+          "avgPlacement": 4.5,
+          "top4Rate": 50.93,
+          "topRate": 15.96
+        }
+      ]
+    },
+    {
+      "hexId": 20681,
+      "name": "蔓延之根+",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/spreadingroots2.png",
+      "sampleCount": 3351,
+      "playRate": 0.18,
+      "avgPlacement": 4.29,
+      "top4Rate": 53.09,
+      "topRate": 16.38,
+      "rounds": [
+        "3-2"
+      ],
+      "roundStats": [
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 3332,
+          "playRate": 0.18,
+          "avgPlacement": 4.29,
+          "top4Rate": 53.03,
+          "topRate": 16.48
+        }
+      ]
+    },
+    {
+      "hexId": 10559,
+      "name": "轻量魔法投掷",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/slightlymagicroll1.png",
+      "sampleCount": 3282,
+      "playRate": 0.18,
+      "avgPlacement": 4.48,
+      "top4Rate": 50.49,
+      "topRate": 11.18,
+      "rounds": [
+        "2-1"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 3282,
+          "playRate": 0.18,
+          "avgPlacement": 4.48,
+          "top4Rate": 50.49,
+          "topRate": 11.18
+        }
+      ]
+    },
+    {
+      "hexId": 20629,
+      "name": "杖之工匠",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/rodsmith2.png",
+      "sampleCount": 3278,
+      "playRate": 0.18,
+      "avgPlacement": 4.39,
+      "top4Rate": 52.47,
+      "topRate": 11.81,
+      "rounds": [
+        "4-2"
+      ],
+      "roundStats": [
+        {
+          "round": 2,
+          "roundLabel": "4-2",
+          "sampleCount": 3258,
+          "playRate": 0.18,
+          "avgPlacement": 4.39,
+          "top4Rate": 52.49,
+          "topRate": 11.76
+        }
+      ]
+    },
+    {
+      "hexId": 30665,
+      "name": "甜点",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/sweettreats3.png",
+      "sampleCount": 3235,
+      "playRate": 0.18,
+      "avgPlacement": 4.48,
+      "top4Rate": 51.31,
+      "topRate": 10.82,
+      "rounds": [
+        "3-2",
+        "4-2"
+      ],
+      "roundStats": [
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 1581,
+          "playRate": 0.09,
+          "avgPlacement": 4.51,
+          "top4Rate": 50.73,
+          "topRate": 10.5
+        },
+        {
+          "round": 2,
+          "roundLabel": "4-2",
+          "sampleCount": 1650,
+          "playRate": 0.09,
+          "avgPlacement": 4.45,
+          "top4Rate": 52,
+          "topRate": 11.15
+        }
+      ]
+    },
+    {
+      "hexId": 20015,
+      "name": "反响",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/replication2.png",
+      "sampleCount": 3217,
+      "playRate": 0.18,
+      "avgPlacement": 4.43,
+      "top4Rate": 50.85,
+      "topRate": 9.39,
+      "rounds": [
+        "2-1",
+        "3-2"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 1713,
+          "playRate": 0.09,
+          "avgPlacement": 4.36,
+          "top4Rate": 52.48,
+          "topRate": 9.4
+        },
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 1504,
+          "playRate": 0.08,
+          "avgPlacement": 4.51,
+          "top4Rate": 49,
+          "topRate": 9.38
+        }
+      ]
+    },
+    {
+      "hexId": 20723,
+      "name": "黄金赌约++",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/goldengamble3.png",
+      "sampleCount": 3213,
+      "playRate": 0.18,
+      "avgPlacement": 4.31,
+      "top4Rate": 54.09,
+      "topRate": 12.51,
+      "rounds": [
+        "4-2"
+      ],
+      "roundStats": [
+        {
+          "round": 2,
+          "roundLabel": "4-2",
+          "sampleCount": 3185,
+          "playRate": 0.17,
+          "avgPlacement": 4.31,
+          "top4Rate": 54.25,
+          "topRate": 12.53
+        }
+      ]
+    },
+    {
+      "hexId": 2069,
+      "name": "DD街区",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/trade2.png",
+      "sampleCount": 3201,
+      "playRate": 0.17,
+      "avgPlacement": 4.53,
+      "top4Rate": 50.14,
+      "topRate": 11.31,
+      "rounds": [
+        "2-1"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 3201,
+          "playRate": 0.17,
+          "avgPlacement": 4.53,
+          "top4Rate": 50.14,
+          "topRate": 11.31
+        }
+      ]
+    },
+    {
+      "hexId": 30634,
+      "name": "羁绊树",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/thetraittree3.png",
+      "sampleCount": 3166,
+      "playRate": 0.17,
+      "avgPlacement": 4.37,
+      "top4Rate": 51.39,
+      "topRate": 14.4,
+      "rounds": [
+        "2-1"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 3166,
+          "playRate": 0.17,
+          "avgPlacement": 4.37,
+          "top4Rate": 51.39,
+          "topRate": 14.4
+        }
+      ]
+    },
+    {
+      "hexId": 20009,
+      "name": "投资+",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/invested3.png",
+      "sampleCount": 3155,
+      "playRate": 0.17,
+      "avgPlacement": 4.61,
+      "top4Rate": 47.89,
+      "topRate": 14.48,
+      "rounds": [
+        "3-2"
+      ],
+      "roundStats": [
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 3120,
+          "playRate": 0.17,
+          "avgPlacement": 4.6,
+          "top4Rate": 48.01,
+          "topRate": 14.62
+        }
+      ]
+    },
+    {
+      "hexId": 20459,
+      "name": "王冠之重",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/heavyisthecrown2.png",
+      "sampleCount": 3080,
+      "playRate": 0.17,
+      "avgPlacement": 4.07,
+      "top4Rate": 54.9,
+      "topRate": 19.74,
+      "rounds": [
+        "2-1",
+        "3-2"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 2664,
+          "playRate": 0.15,
+          "avgPlacement": 4.04,
+          "top4Rate": 55.71,
+          "topRate": 20.01
+        },
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 416,
+          "playRate": 0.02,
+          "avgPlacement": 4.27,
+          "top4Rate": 49.76,
+          "topRate": 18.03
+        }
+      ]
+    },
+    {
+      "hexId": 20205,
+      "name": "魔法投掷",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/amagicalroll2.png",
+      "sampleCount": 3067,
+      "playRate": 0.17,
+      "avgPlacement": 4.39,
+      "top4Rate": 51.22,
+      "topRate": 13.07,
+      "rounds": [
+        "3-2"
+      ],
+      "roundStats": [
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 3045,
+          "playRate": 0.17,
+          "avgPlacement": 4.39,
+          "top4Rate": 51.23,
+          "topRate": 13.17
+        }
+      ]
+    },
+    {
+      "hexId": 4158,
+      "name": "节外生枝+",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/branchingout1.png",
+      "sampleCount": 3046,
+      "playRate": 0.17,
+      "avgPlacement": 4.56,
+      "top4Rate": 49.02,
+      "topRate": 12.11,
+      "rounds": [
+        "3-2"
+      ],
+      "roundStats": [
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 3018,
+          "playRate": 0.16,
+          "avgPlacement": 4.56,
+          "top4Rate": 49.11,
+          "topRate": 12.09
+        }
+      ]
+    },
+    {
+      "hexId": 1158,
+      "name": "节外生枝",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/branchingout1.png",
+      "sampleCount": 2942,
+      "playRate": 0.16,
+      "avgPlacement": 4.32,
+      "top4Rate": 52.89,
+      "topRate": 15.02,
+      "rounds": [
+        "2-1"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 2942,
+          "playRate": 0.16,
+          "avgPlacement": 4.32,
+          "top4Rate": 52.89,
+          "topRate": 15.02
+        }
+      ]
+    },
+    {
+      "hexId": 20661,
+      "name": "后期收益",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/lategamescaling2.png",
+      "sampleCount": 2941,
+      "playRate": 0.16,
+      "avgPlacement": 4.65,
+      "top4Rate": 46.24,
+      "topRate": 22.58,
+      "rounds": [
+        "2-1"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 2941,
+          "playRate": 0.16,
+          "avgPlacement": 4.65,
+          "top4Rate": 46.24,
+          "topRate": 22.58
+        }
+      ]
+    },
+    {
+      "hexId": 20624,
+      "name": "生日聚会",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/birthdayreunion2.png",
+      "sampleCount": 2918,
+      "playRate": 0.16,
+      "avgPlacement": 4.54,
+      "top4Rate": 49.45,
+      "topRate": 17.03,
+      "rounds": [
+        "2-1"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 2918,
+          "playRate": 0.16,
+          "avgPlacement": 4.54,
+          "top4Rate": 49.45,
+          "topRate": 17.03
+        }
+      ]
+    },
+    {
+      "hexId": 20630,
+      "name": "剑之工匠",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/swordsmith2.png",
+      "sampleCount": 2904,
+      "playRate": 0.16,
+      "avgPlacement": 4.37,
+      "top4Rate": 53.72,
+      "topRate": 13.22,
+      "rounds": [
+        "4-2"
+      ],
+      "roundStats": [
+        {
+          "round": 2,
+          "roundLabel": "4-2",
+          "sampleCount": 2881,
+          "playRate": 0.16,
+          "avgPlacement": 4.37,
+          "top4Rate": 53.66,
+          "topRate": 13.22
+        }
+      ]
+    },
+    {
+      "hexId": 20722,
+      "name": "黄金赌约+",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/goldengamble3.png",
+      "sampleCount": 2878,
+      "playRate": 0.16,
+      "avgPlacement": 4.33,
+      "top4Rate": 53.82,
+      "topRate": 10.25,
+      "rounds": [
+        "3-2"
+      ],
+      "roundStats": [
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 2867,
+          "playRate": 0.16,
+          "avgPlacement": 4.33,
+          "top4Rate": 53.85,
+          "topRate": 10.29
+        }
+      ]
+    },
+    {
+      "hexId": 20628,
+      "name": "三幻神",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/legionofthrees2.png",
+      "sampleCount": 2841,
+      "playRate": 0.15,
+      "avgPlacement": 4.45,
+      "top4Rate": 49.88,
+      "topRate": 12.95,
+      "rounds": [
+        "2-1"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 2841,
+          "playRate": 0.15,
+          "avgPlacement": 4.45,
+          "top4Rate": 49.88,
+          "topRate": 12.95
+        }
+      ]
+    },
+    {
+      "hexId": 1004,
+      "name": "明智消费",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/wisespending3.png",
+      "sampleCount": 2810,
+      "playRate": 0.15,
+      "avgPlacement": 4.24,
+      "top4Rate": 55.12,
+      "topRate": 15.52,
+      "rounds": [
+        "2-1",
+        "3-2"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 1293,
+          "playRate": 0.07,
+          "avgPlacement": 4.37,
+          "top4Rate": 53.29,
+          "topRate": 12.61
+        },
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 1517,
+          "playRate": 0.08,
+          "avgPlacement": 4.13,
+          "top4Rate": 56.69,
+          "topRate": 18
+        }
+      ]
+    },
+    {
+      "hexId": 30141,
+      "name": "专属定制 II",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/exclusivecustomization3.png",
+      "sampleCount": 2804,
+      "playRate": 0.15,
+      "avgPlacement": 4.5,
+      "top4Rate": 50.21,
+      "topRate": 10.13,
+      "rounds": [
+        "4-2"
+      ],
+      "roundStats": [
+        {
+          "round": 2,
+          "roundLabel": "4-2",
+          "sampleCount": 2768,
+          "playRate": 0.15,
+          "avgPlacement": 4.5,
+          "top4Rate": 50.22,
+          "topRate": 10.22
+        }
+      ]
+    },
+    {
+      "hexId": 20213,
+      "name": "前瞻思维",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/forwardthinking2.png",
+      "sampleCount": 2792,
+      "playRate": 0.15,
+      "avgPlacement": 4.79,
+      "top4Rate": 44.91,
+      "topRate": 16.15,
+      "rounds": [
+        "3-2"
+      ],
+      "roundStats": [
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 2766,
+          "playRate": 0.15,
+          "avgPlacement": 4.79,
+          "top4Rate": 44.97,
+          "topRate": 16.2
+        }
+      ]
+    },
+    {
+      "hexId": 20626,
+      "name": "8级D干的传说",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/epicrolldown2.png",
+      "sampleCount": 2732,
+      "playRate": 0.15,
+      "avgPlacement": 4.51,
+      "top4Rate": 49.89,
+      "topRate": 14.53,
+      "rounds": [
+        "3-2"
+      ],
+      "roundStats": [
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 2703,
+          "playRate": 0.15,
+          "avgPlacement": 4.51,
+          "top4Rate": 49.98,
+          "topRate": 14.58
+        }
+      ]
+    },
+    {
+      "hexId": 10614,
+      "name": "手气不错",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/feelinglucky1.png",
+      "sampleCount": 2694,
+      "playRate": 0.15,
+      "avgPlacement": 4.65,
+      "top4Rate": 47.4,
+      "topRate": 11.88,
+      "rounds": [
+        "3-2"
+      ],
+      "roundStats": [
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 2661,
+          "playRate": 0.15,
+          "avgPlacement": 4.66,
+          "top4Rate": 47.16,
+          "topRate": 11.84
+        }
+      ]
+    },
+    {
+      "hexId": 3185,
+      "name": "阿福的百宝袋",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/urfsgrabbag33.png",
+      "sampleCount": 2672,
+      "playRate": 0.15,
+      "avgPlacement": 4.45,
+      "top4Rate": 51.91,
+      "topRate": 11.26,
+      "rounds": [
+        "4-2"
+      ],
+      "roundStats": [
+        {
+          "round": 2,
+          "roundLabel": "4-2",
+          "sampleCount": 2649,
+          "playRate": 0.14,
+          "avgPlacement": 4.45,
+          "top4Rate": 51.91,
+          "topRate": 11.25
+        }
+      ]
+    },
+    {
+      "hexId": 2007,
+      "name": "潘朵拉的装备 II",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/pandora2.png",
+      "sampleCount": 2666,
+      "playRate": 0.15,
+      "avgPlacement": 4.62,
+      "top4Rate": 47.71,
+      "topRate": 8.85,
+      "rounds": [
+        "2-1",
+        "3-2",
+        "4-2"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 677,
+          "playRate": 0.04,
+          "avgPlacement": 4.62,
+          "top4Rate": 46.97,
+          "topRate": 7.68
+        },
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 822,
+          "playRate": 0.04,
+          "avgPlacement": 4.48,
+          "top4Rate": 50.73,
+          "topRate": 10.46
+        },
+        {
+          "round": 2,
+          "roundLabel": "4-2",
+          "sampleCount": 1167,
+          "playRate": 0.06,
+          "avgPlacement": 4.7,
+          "top4Rate": 46.02,
+          "topRate": 8.4
+        }
+      ]
+    },
+    {
+      "hexId": 30009,
+      "name": "投资++",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/invested3.png",
+      "sampleCount": 2657,
+      "playRate": 0.14,
+      "avgPlacement": 4.75,
+      "top4Rate": 44.64,
+      "topRate": 13.25,
+      "rounds": [
+        "4-2"
+      ],
+      "roundStats": [
+        {
+          "round": 2,
+          "roundLabel": "4-2",
+          "sampleCount": 2612,
+          "playRate": 0.14,
+          "avgPlacement": 4.74,
+          "top4Rate": 44.64,
+          "topRate": 13.4
+        }
+      ]
+    },
+    {
+      "hexId": 20593,
+      "name": "单身板甲",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/soloplate2.png",
+      "sampleCount": 2621,
+      "playRate": 0.14,
+      "avgPlacement": 4.29,
+      "top4Rate": 53.99,
+      "topRate": 9.39,
+      "rounds": [
+        "2-1",
+        "3-2"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 1491,
+          "playRate": 0.08,
+          "avgPlacement": 4.42,
+          "top4Rate": 52.05,
+          "topRate": 6.98
+        },
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 1130,
+          "playRate": 0.06,
+          "avgPlacement": 4.12,
+          "top4Rate": 56.55,
+          "topRate": 12.57
+        }
+      ]
+    },
+    {
+      "hexId": 10253,
+      "name": "玻璃大炮 I",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/glasscannon1.png",
+      "sampleCount": 2583,
+      "playRate": 0.14,
+      "avgPlacement": 4.31,
+      "top4Rate": 53.77,
+      "topRate": 12.54,
+      "rounds": [
+        "3-2",
+        "4-2"
+      ],
+      "roundStats": [
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 1922,
+          "playRate": 0.1,
+          "avgPlacement": 4.33,
+          "top4Rate": 53.17,
+          "topRate": 12.43
+        },
+        {
+          "round": 2,
+          "roundLabel": "4-2",
+          "sampleCount": 645,
+          "playRate": 0.04,
+          "avgPlacement": 4.25,
+          "top4Rate": 55.66,
+          "topRate": 12.87
+        }
+      ]
+    },
+    {
+      "hexId": 20642,
+      "name": "摇钱树",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/money-monsoon3.png",
+      "sampleCount": 2582,
+      "playRate": 0.14,
+      "avgPlacement": 4.95,
+      "top4Rate": 40.36,
+      "topRate": 13.09,
+      "rounds": [
+        "4-2"
+      ],
+      "roundStats": [
+        {
+          "round": 2,
+          "roundLabel": "4-2",
+          "sampleCount": 2549,
+          "playRate": 0.14,
+          "avgPlacement": 4.95,
+          "top4Rate": 40.41,
+          "topRate": 13.18
+        }
+      ]
+    },
+    {
+      "hexId": 1021,
+      "name": "部分飞升",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/ascension1.png",
+      "sampleCount": 2567,
+      "playRate": 0.14,
+      "avgPlacement": 4.45,
+      "top4Rate": 50.92,
+      "topRate": 10.44,
+      "rounds": [
+        "3-2",
+        "4-2"
+      ],
+      "roundStats": [
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 1880,
+          "playRate": 0.1,
+          "avgPlacement": 4.5,
+          "top4Rate": 49.84,
+          "topRate": 9.95
+        },
+        {
+          "round": 2,
+          "roundLabel": "4-2",
+          "sampleCount": 678,
+          "playRate": 0.04,
+          "avgPlacement": 4.3,
+          "top4Rate": 53.98,
+          "topRate": 11.95
+        }
+      ]
+    },
+    {
+      "hexId": 3007,
+      "name": "潘朵拉的装备 III",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/pandora3.png",
+      "sampleCount": 2561,
+      "playRate": 0.14,
+      "avgPlacement": 4.41,
+      "top4Rate": 52.01,
+      "topRate": 10.74,
+      "rounds": [
+        "2-1",
+        "3-2",
+        "4-2"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 575,
+          "playRate": 0.03,
+          "avgPlacement": 4.53,
+          "top4Rate": 51.83,
+          "topRate": 6.61
+        },
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 1232,
+          "playRate": 0.07,
+          "avgPlacement": 4.29,
+          "top4Rate": 53.98,
+          "topRate": 12.58
+        },
+        {
+          "round": 2,
+          "roundLabel": "4-2",
+          "sampleCount": 754,
+          "playRate": 0.04,
+          "avgPlacement": 4.54,
+          "top4Rate": 48.94,
+          "topRate": 10.88
+        }
+      ]
+    },
+    {
+      "hexId": 20560,
+      "name": "储蓄账户",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/savingsaccount2.png",
+      "sampleCount": 2560,
+      "playRate": 0.14,
+      "avgPlacement": 4.79,
+      "top4Rate": 44.3,
+      "topRate": 15.2,
+      "rounds": [
+        "2-1"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 2560,
+          "playRate": 0.14,
+          "avgPlacement": 4.79,
+          "top4Rate": 44.3,
+          "topRate": 15.2
+        }
+      ]
+    },
+    {
+      "hexId": 30599,
+      "name": "灵魂唤醒",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/awakenedsoul3.png",
+      "sampleCount": 2545,
+      "playRate": 0.14,
+      "avgPlacement": 4.57,
+      "top4Rate": 48.92,
+      "topRate": 10.06,
+      "rounds": [
+        "3-2",
+        "4-2"
+      ],
+      "roundStats": [
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 957,
+          "playRate": 0.05,
+          "avgPlacement": 4.8,
+          "top4Rate": 43.99,
+          "topRate": 8.67
+        },
+        {
+          "round": 2,
+          "roundLabel": "4-2",
+          "sampleCount": 1587,
+          "playRate": 0.09,
+          "avgPlacement": 4.44,
+          "top4Rate": 51.86,
+          "topRate": 10.9
+        }
+      ]
+    },
+    {
+      "hexId": 20683,
+      "name": "猛将的荣耀",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/unforgotten2.png",
+      "sampleCount": 2515,
+      "playRate": 0.14,
+      "avgPlacement": 4.16,
+      "top4Rate": 56.62,
+      "topRate": 11.69,
+      "rounds": [
+        "2-1",
+        "3-2"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 1092,
+          "playRate": 0.06,
+          "avgPlacement": 4.31,
+          "top4Rate": 53.57,
+          "topRate": 8.88
+        },
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 1423,
+          "playRate": 0.08,
+          "avgPlacement": 4.04,
+          "top4Rate": 58.96,
+          "topRate": 13.84
+        }
+      ]
+    },
+    {
+      "hexId": 1093,
+      "name": "休眠锻炉",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/longtimecrafting1.png",
+      "sampleCount": 2472,
+      "playRate": 0.13,
+      "avgPlacement": 4.32,
+      "top4Rate": 53.68,
+      "topRate": 13.23,
+      "rounds": [
+        "2-1"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 2472,
+          "playRate": 0.13,
+          "avgPlacement": 4.32,
+          "top4Rate": 53.68,
+          "topRate": 13.23
+        }
+      ]
+    },
+    {
+      "hexId": 20502,
+      "name": "更要命的帽子",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/deadliercaps3.png",
+      "sampleCount": 2469,
+      "playRate": 0.13,
+      "avgPlacement": 3.73,
+      "top4Rate": 64.68,
+      "topRate": 20.29,
+      "rounds": [
+        "2-1"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 2469,
+          "playRate": 0.13,
+          "avgPlacement": 3.73,
+          "top4Rate": 64.68,
+          "topRate": 20.29
+        }
+      ]
+    },
+    {
+      "hexId": 30027,
+      "name": "爆炸式增长+",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/explosivegrowth2.png",
+      "sampleCount": 2415,
+      "playRate": 0.13,
+      "avgPlacement": 4.58,
+      "top4Rate": 48.94,
+      "topRate": 13.75,
+      "rounds": [
+        "4-2"
+      ],
+      "roundStats": [
+        {
+          "round": 2,
+          "roundLabel": "4-2",
+          "sampleCount": 2400,
+          "playRate": 0.13,
+          "avgPlacement": 4.58,
+          "top4Rate": 49.04,
+          "topRate": 13.71
+        }
+      ]
+    },
+    {
+      "hexId": 20503,
+      "name": "更要命的战刃",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/deadlierblades3.png",
+      "sampleCount": 2406,
+      "playRate": 0.13,
+      "avgPlacement": 3.91,
+      "top4Rate": 58.81,
+      "topRate": 19.99,
+      "rounds": [
+        "2-1"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 2406,
+          "playRate": 0.13,
+          "avgPlacement": 3.91,
+          "top4Rate": 58.81,
+          "topRate": 19.99
+        }
+      ]
+    },
+    {
+      "hexId": 2128,
+      "name": "珠光莲花 I",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/jeweledlotus2.png",
+      "sampleCount": 2358,
+      "playRate": 0.13,
+      "avgPlacement": 4.54,
+      "top4Rate": 48.98,
+      "topRate": 11.41,
+      "rounds": [
+        "3-2",
+        "4-2"
+      ],
+      "roundStats": [
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 837,
+          "playRate": 0.05,
+          "avgPlacement": 4.65,
+          "top4Rate": 46.36,
+          "topRate": 10.51
+        },
+        {
+          "round": 2,
+          "roundLabel": "4-2",
+          "sampleCount": 1518,
+          "playRate": 0.08,
+          "avgPlacement": 4.48,
+          "top4Rate": 50.53,
+          "topRate": 11.92
+        }
+      ]
+    },
+    {
+      "hexId": 30180,
+      "name": "腰带溢流",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/beltoverflow3.png",
+      "sampleCount": 2352,
+      "playRate": 0.13,
+      "avgPlacement": 4.49,
+      "top4Rate": 50.94,
+      "topRate": 9.44,
+      "rounds": [
+        "3-2",
+        "4-2"
+      ],
+      "roundStats": [
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 1171,
+          "playRate": 0.06,
+          "avgPlacement": 4.42,
+          "top4Rate": 51.49,
+          "topRate": 9.91
+        },
+        {
+          "round": 2,
+          "roundLabel": "4-2",
+          "sampleCount": 1179,
+          "playRate": 0.06,
+          "avgPlacement": 4.56,
+          "top4Rate": 50.38,
+          "topRate": 8.99
+        }
+      ]
+    },
+    {
+      "hexId": 2189,
+      "name": "纷乱头脑",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/dizzy2.png",
+      "sampleCount": 2300,
+      "playRate": 0.13,
+      "avgPlacement": 4.63,
+      "top4Rate": 47.22,
+      "topRate": 13.61,
+      "rounds": [
+        "2-1"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 2300,
+          "playRate": 0.13,
+          "avgPlacement": 4.63,
+          "top4Rate": 47.22,
+          "topRate": 13.61
+        }
+      ]
+    },
+    {
+      "hexId": 20731,
+      "name": "扩展包+",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/boosterpack2.png",
+      "sampleCount": 2261,
+      "playRate": 0.12,
+      "avgPlacement": 4.75,
+      "top4Rate": 44.32,
+      "topRate": 9.82,
+      "rounds": [
+        "3-2"
+      ],
+      "roundStats": [
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 2248,
+          "playRate": 0.12,
+          "avgPlacement": 4.75,
+          "top4Rate": 44.31,
+          "topRate": 9.83
+        }
+      ]
+    },
+    {
+      "hexId": 1625,
+      "name": "别再错过",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/missedconnections1.png",
+      "sampleCount": 2254,
+      "playRate": 0.12,
+      "avgPlacement": 4.51,
+      "top4Rate": 50.04,
+      "topRate": 12.47,
+      "rounds": [
+        "3-2",
+        "4-2"
+      ],
+      "roundStats": [
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 1873,
+          "playRate": 0.1,
+          "avgPlacement": 4.44,
+          "top4Rate": 51.31,
+          "topRate": 12.65
+        },
+        {
+          "round": 2,
+          "roundLabel": "4-2",
+          "sampleCount": 351,
+          "playRate": 0.02,
+          "avgPlacement": 4.92,
+          "top4Rate": 42.45,
+          "topRate": 11.11
+        }
+      ]
+    },
+    {
+      "hexId": 2116,
+      "name": "复苏之风 II",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/secondwind2.png",
+      "sampleCount": 2248,
+      "playRate": 0.12,
+      "avgPlacement": 4.62,
+      "top4Rate": 47.11,
+      "topRate": 11.34,
+      "rounds": [
+        "3-2",
+        "4-2"
+      ],
+      "roundStats": [
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 618,
+          "playRate": 0.03,
+          "avgPlacement": 4.78,
+          "top4Rate": 44.01,
+          "topRate": 11
+        },
+        {
+          "round": 2,
+          "roundLabel": "4-2",
+          "sampleCount": 1629,
+          "playRate": 0.09,
+          "avgPlacement": 4.56,
+          "top4Rate": 48.25,
+          "topRate": 11.48
+        }
+      ]
+    },
+    {
+      "hexId": 20654,
+      "name": "获得21金币",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/windfall2.png",
+      "sampleCount": 2248,
+      "playRate": 0.12,
+      "avgPlacement": 4.75,
+      "top4Rate": 44.57,
+      "topRate": 11.34,
+      "rounds": [
+        "3-2"
+      ],
+      "roundStats": [
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 2231,
+          "playRate": 0.12,
+          "avgPlacement": 4.75,
+          "top4Rate": 44.64,
+          "topRate": 11.39
+        }
+      ]
+    },
+    {
+      "hexId": 20027,
+      "name": "爆炸式增长",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/explosivegrowth2.png",
+      "sampleCount": 2237,
+      "playRate": 0.12,
+      "avgPlacement": 4.58,
+      "top4Rate": 48.1,
+      "topRate": 13.72,
+      "rounds": [
+        "3-2"
+      ],
+      "roundStats": [
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 2215,
+          "playRate": 0.12,
+          "avgPlacement": 4.58,
+          "top4Rate": 48.08,
+          "topRate": 13.77
+        }
+      ]
+    },
+    {
+      "hexId": 20702,
+      "name": "尺寸至上",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/sizematters1.png",
+      "sampleCount": 2169,
+      "playRate": 0.12,
+      "avgPlacement": 4.39,
+      "top4Rate": 52.88,
+      "topRate": 11.66,
+      "rounds": [
+        "3-2"
+      ],
+      "roundStats": [
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 2158,
+          "playRate": 0.12,
+          "avgPlacement": 4.38,
+          "top4Rate": 53.01,
+          "topRate": 11.68
+        }
+      ]
+    },
+    {
+      "hexId": 20675,
+      "name": "一波带走俩",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/speedydoublekill2.png",
+      "sampleCount": 2086,
+      "playRate": 0.11,
+      "avgPlacement": 4.54,
+      "top4Rate": 50.19,
+      "topRate": 11.55,
+      "rounds": [
+        "2-1"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 2086,
+          "playRate": 0.11,
+          "avgPlacement": 4.54,
+          "top4Rate": 50.19,
+          "topRate": 11.55
+        }
+      ]
+    },
+    {
+      "hexId": 2480,
+      "name": "天生二星",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/starsareborn2.png",
+      "sampleCount": 2085,
+      "playRate": 0.11,
+      "avgPlacement": 4.49,
+      "top4Rate": 50.36,
+      "topRate": 7.29,
+      "rounds": [
+        "2-1"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 2085,
+          "playRate": 0.11,
+          "avgPlacement": 4.49,
+          "top4Rate": 50.36,
+          "topRate": 7.29
+        }
+      ]
+    },
+    {
+      "hexId": 20208,
+      "name": "征战之路",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/warpath2.png",
+      "sampleCount": 2055,
+      "playRate": 0.11,
+      "avgPlacement": 4.24,
+      "top4Rate": 52.99,
+      "topRate": 17.81,
+      "rounds": [
+        "2-1"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 2055,
+          "playRate": 0.11,
+          "avgPlacement": 4.24,
+          "top4Rate": 52.99,
+          "topRate": 17.81
+        }
+      ]
+    },
+    {
+      "hexId": 20611,
+      "name": "无差别攻击",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/indiscriminateslayer2.png",
+      "sampleCount": 2029,
+      "playRate": 0.11,
+      "avgPlacement": 4.47,
+      "top4Rate": 50.67,
+      "topRate": 10.1,
+      "rounds": [
+        "3-2",
+        "4-2"
+      ],
+      "roundStats": [
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 617,
+          "playRate": 0.03,
+          "avgPlacement": 4.3,
+          "top4Rate": 54.78,
+          "topRate": 9.72
+        },
+        {
+          "round": 2,
+          "roundLabel": "4-2",
+          "sampleCount": 1409,
+          "playRate": 0.08,
+          "avgPlacement": 4.54,
+          "top4Rate": 48.9,
+          "topRate": 10.29
+        }
+      ]
+    },
+    {
+      "hexId": 3158,
+      "name": "耐心学习",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/learningfromexperience2.png",
+      "sampleCount": 2028,
+      "playRate": 0.11,
+      "avgPlacement": 4.74,
+      "top4Rate": 44.97,
+      "topRate": 13.02,
+      "rounds": [
+        "2-1"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 2028,
+          "playRate": 0.11,
+          "avgPlacement": 4.74,
+          "top4Rate": 44.97,
+          "topRate": 13.02
+        }
+      ]
+    },
+    {
+      "hexId": 30182,
+      "name": "大剑溢流",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/bladeoverflow3.png",
+      "sampleCount": 2025,
+      "playRate": 0.11,
+      "avgPlacement": 4.05,
+      "top4Rate": 60.25,
+      "topRate": 10.42,
+      "rounds": [
+        "3-2",
+        "4-2"
+      ],
+      "roundStats": [
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 1134,
+          "playRate": 0.06,
+          "avgPlacement": 4.02,
+          "top4Rate": 60.23,
+          "topRate": 9.96
+        },
+        {
+          "round": 2,
+          "roundLabel": "4-2",
+          "sampleCount": 887,
+          "playRate": 0.05,
+          "avgPlacement": 4.08,
+          "top4Rate": 60.32,
+          "topRate": 10.94
+        }
+      ]
+    },
+    {
+      "hexId": 2640,
+      "name": "了解你的敌人",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/knowyourenemy2.png",
+      "sampleCount": 1991,
+      "playRate": 0.11,
+      "avgPlacement": 4.46,
+      "top4Rate": 51.88,
+      "topRate": 12.51,
+      "rounds": [
+        "3-2",
+        "4-2"
+      ],
+      "roundStats": [
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 575,
+          "playRate": 0.03,
+          "avgPlacement": 4.68,
+          "top4Rate": 47.65,
+          "topRate": 12.52
+        },
+        {
+          "round": 2,
+          "roundLabel": "4-2",
+          "sampleCount": 1412,
+          "playRate": 0.08,
+          "avgPlacement": 4.38,
+          "top4Rate": 53.61,
+          "topRate": 12.54
+        }
+      ]
+    },
+    {
+      "hexId": 2634,
+      "name": "治疗法球 II",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/healingorbs2.png",
+      "sampleCount": 1986,
+      "playRate": 0.11,
+      "avgPlacement": 4.52,
+      "top4Rate": 49.35,
+      "topRate": 10.37,
+      "rounds": [
+        "3-2",
+        "4-2"
+      ],
+      "roundStats": [
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 609,
+          "playRate": 0.03,
+          "avgPlacement": 4.73,
+          "top4Rate": 46.47,
+          "topRate": 7.88
+        },
+        {
+          "round": 2,
+          "roundLabel": "4-2",
+          "sampleCount": 1376,
+          "playRate": 0.07,
+          "avgPlacement": 4.42,
+          "top4Rate": 50.65,
+          "topRate": 11.48
+        }
+      ]
+    },
+    {
+      "hexId": 20676,
+      "name": "海牛阿福的锅铲战术",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/urfsgambit2.png",
+      "sampleCount": 1973,
+      "playRate": 0.11,
+      "avgPlacement": 4.39,
+      "top4Rate": 52.91,
+      "topRate": 11.66,
+      "rounds": [
+        "3-2"
+      ],
+      "roundStats": [
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 1964,
+          "playRate": 0.11,
+          "avgPlacement": 4.39,
+          "top4Rate": 52.8,
+          "topRate": 11.56
+        }
+      ]
+    },
+    {
+      "hexId": 30521,
+      "name": "坚守防线",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/holdtheline3.png",
+      "sampleCount": 1964,
+      "playRate": 0.11,
+      "avgPlacement": 4.27,
+      "top4Rate": 55.04,
+      "topRate": 12.42,
+      "rounds": [
+        "3-2",
+        "4-2"
+      ],
+      "roundStats": [
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 727,
+          "playRate": 0.04,
+          "avgPlacement": 4.38,
+          "top4Rate": 52.96,
+          "topRate": 11.83
+        },
+        {
+          "round": 2,
+          "roundLabel": "4-2",
+          "sampleCount": 1236,
+          "playRate": 0.07,
+          "avgPlacement": 4.2,
+          "top4Rate": 56.23,
+          "topRate": 12.7
+        }
+      ]
+    },
+    {
+      "hexId": 2917,
+      "name": "物尽其用",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/slammin2.png",
+      "sampleCount": 1944,
+      "playRate": 0.11,
+      "avgPlacement": 4.64,
+      "top4Rate": 46.4,
+      "topRate": 10.85,
+      "rounds": [
+        "2-1"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 1944,
+          "playRate": 0.11,
+          "avgPlacement": 4.64,
+          "top4Rate": 46.4,
+          "topRate": 10.85
+        }
+      ]
+    },
+    {
+      "hexId": 1007,
+      "name": "潘朵拉的装备",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/pandora1.png",
+      "sampleCount": 1940,
+      "playRate": 0.11,
+      "avgPlacement": 4.48,
+      "top4Rate": 50.93,
+      "topRate": 11.65,
+      "rounds": [
+        "2-1",
+        "3-2",
+        "4-2"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 553,
+          "playRate": 0.03,
+          "avgPlacement": 4.47,
+          "top4Rate": 51.72,
+          "topRate": 10.31
+        },
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 1145,
+          "playRate": 0.06,
+          "avgPlacement": 4.49,
+          "top4Rate": 50.57,
+          "topRate": 11.79
+        },
+        {
+          "round": 2,
+          "roundLabel": "4-2",
+          "sampleCount": 242,
+          "playRate": 0.01,
+          "avgPlacement": 4.45,
+          "top4Rate": 50.83,
+          "topRate": 14.05
+        }
+      ]
+    },
+    {
+      "hexId": 10707,
+      "name": "远征",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/expedition1.png",
+      "sampleCount": 1938,
+      "playRate": 0.11,
+      "avgPlacement": 4.73,
+      "top4Rate": 46.03,
+      "topRate": 14.4,
+      "rounds": [
+        "2-1"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 1938,
+          "playRate": 0.11,
+          "avgPlacement": 4.73,
+          "top4Rate": 46.03,
+          "topRate": 14.4
+        }
+      ]
+    },
+    {
+      "hexId": 1006,
+      "name": "装备百宝袋 I",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/itemgrabbag1.png",
+      "sampleCount": 1935,
+      "playRate": 0.11,
+      "avgPlacement": 4.58,
+      "top4Rate": 47.86,
+      "topRate": 9.46,
+      "rounds": [
+        "2-1",
+        "3-2",
+        "4-2"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 597,
+          "playRate": 0.03,
+          "avgPlacement": 4.44,
+          "top4Rate": 50.59,
+          "topRate": 8.71
+        },
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 1018,
+          "playRate": 0.06,
+          "avgPlacement": 4.58,
+          "top4Rate": 47.45,
+          "topRate": 9.72
+        },
+        {
+          "round": 2,
+          "roundLabel": "4-2",
+          "sampleCount": 320,
+          "playRate": 0.02,
+          "avgPlacement": 4.81,
+          "top4Rate": 44.06,
+          "topRate": 10
+        }
+      ]
+    },
+    {
+      "hexId": 30045,
+      "name": "金鳞精粹",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/shimmerscaleessence3.png",
+      "sampleCount": 1916,
+      "playRate": 0.1,
+      "avgPlacement": 4.56,
+      "top4Rate": 49.01,
+      "topRate": 11.43,
+      "rounds": [
+        "2-1"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 1916,
+          "playRate": 0.1,
+          "avgPlacement": 4.56,
+          "top4Rate": 49.01,
+          "topRate": 11.43
+        }
+      ]
+    },
+    {
+      "hexId": 4009,
+      "name": "最小巨人",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/tiniesttitanlegend3.png",
+      "sampleCount": 1894,
+      "playRate": 0.1,
+      "avgPlacement": 4.64,
+      "top4Rate": 47.62,
+      "topRate": 14.94,
+      "rounds": [
+        "3-2"
+      ],
+      "roundStats": [
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 1872,
+          "playRate": 0.1,
+          "avgPlacement": 4.64,
+          "top4Rate": 47.65,
+          "topRate": 15.12
+        }
+      ]
+    },
+    {
+      "hexId": 30627,
+      "name": "神力天铸",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/forgedinstrength3.png",
+      "sampleCount": 1894,
+      "playRate": 0.1,
+      "avgPlacement": 4.75,
+      "top4Rate": 44.98,
+      "topRate": 11.46,
+      "rounds": [
+        "2-1"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 1894,
+          "playRate": 0.1,
+          "avgPlacement": 4.75,
+          "top4Rate": 44.98,
+          "topRate": 11.46
+        }
+      ]
+    },
+    {
+      "hexId": 3128,
+      "name": "珠光莲花 II",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/jeweledlotus3.png",
+      "sampleCount": 1882,
+      "playRate": 0.1,
+      "avgPlacement": 4.34,
+      "top4Rate": 52.39,
+      "topRate": 13.76,
+      "rounds": [
+        "3-2",
+        "4-2"
+      ],
+      "roundStats": [
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 842,
+          "playRate": 0.05,
+          "avgPlacement": 4.43,
+          "top4Rate": 50.48,
+          "topRate": 13.06
+        },
+        {
+          "round": 2,
+          "roundLabel": "4-2",
+          "sampleCount": 1038,
+          "playRate": 0.06,
+          "avgPlacement": 4.27,
+          "top4Rate": 54.05,
+          "topRate": 14.35
+        }
+      ]
+    },
+    {
+      "hexId": 3804,
+      "name": "英勇福袋+",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/heroicgrabbag2.png",
+      "sampleCount": 1880,
+      "playRate": 0.1,
+      "avgPlacement": 4.41,
+      "top4Rate": 52.34,
+      "topRate": 9.26,
+      "rounds": [
+        "3-2"
+      ],
+      "roundStats": [
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 1868,
+          "playRate": 0.1,
+          "avgPlacement": 4.41,
+          "top4Rate": 52.41,
+          "topRate": 9.26
+        }
+      ]
+    },
+    {
+      "hexId": 30186,
+      "name": "1个霸符，2个霸符",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/onebufftwobuff3.png",
+      "sampleCount": 1880,
+      "playRate": 0.1,
+      "avgPlacement": 4.66,
+      "top4Rate": 45.69,
+      "topRate": 13.88,
+      "rounds": [
+        "3-2",
+        "4-2"
+      ],
+      "roundStats": [
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 833,
+          "playRate": 0.05,
+          "avgPlacement": 4.76,
+          "top4Rate": 42.86,
+          "topRate": 14.29
+        },
+        {
+          "round": 2,
+          "roundLabel": "4-2",
+          "sampleCount": 1041,
+          "playRate": 0.06,
+          "avgPlacement": 4.59,
+          "top4Rate": 47.93,
+          "topRate": 13.54
+        }
+      ]
+    },
+    {
+      "hexId": 30181,
+      "name": "法杖溢流",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/wandoverflow3.png",
+      "sampleCount": 1873,
+      "playRate": 0.1,
+      "avgPlacement": 4.19,
+      "top4Rate": 57.02,
+      "topRate": 9.13,
+      "rounds": [
+        "3-2",
+        "4-2"
+      ],
+      "roundStats": [
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 960,
+          "playRate": 0.05,
+          "avgPlacement": 4.13,
+          "top4Rate": 57.92,
+          "topRate": 9.69
+        },
+        {
+          "round": 2,
+          "roundLabel": "4-2",
+          "sampleCount": 912,
+          "playRate": 0.05,
+          "avgPlacement": 4.26,
+          "top4Rate": 56.14,
+          "topRate": 8.55
+        }
+      ]
+    },
+    {
+      "hexId": 2764,
+      "name": "碰撞测试假人",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/crashtestdummies2.png",
+      "sampleCount": 1828,
+      "playRate": 0.1,
+      "avgPlacement": 4.73,
+      "top4Rate": 44.15,
+      "topRate": 11.87,
+      "rounds": [
+        "3-2",
+        "4-2"
+      ],
+      "roundStats": [
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 487,
+          "playRate": 0.03,
+          "avgPlacement": 4.7,
+          "top4Rate": 44.15,
+          "topRate": 12.53
+        },
+        {
+          "round": 2,
+          "roundLabel": "4-2",
+          "sampleCount": 1336,
+          "playRate": 0.07,
+          "avgPlacement": 4.75,
+          "top4Rate": 44.01,
+          "topRate": 11.68
+        }
+      ]
+    },
+    {
+      "hexId": 1476,
+      "name": "成群结队",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/teamingup1.png",
+      "sampleCount": 1810,
+      "playRate": 0.1,
+      "avgPlacement": 4.51,
+      "top4Rate": 48.84,
+      "topRate": 11.71,
+      "rounds": [
+        "3-2",
+        "4-2"
+      ],
+      "roundStats": [
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 1441,
+          "playRate": 0.08,
+          "avgPlacement": 4.45,
+          "top4Rate": 50.24,
+          "topRate": 12.07
+        },
+        {
+          "round": 2,
+          "roundLabel": "4-2",
+          "sampleCount": 356,
+          "playRate": 0.02,
+          "avgPlacement": 4.76,
+          "top4Rate": 44.1,
+          "topRate": 10.39
+        }
+      ]
+    },
+    {
+      "hexId": 2008,
+      "name": "打捞桶+",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/salvage2.png",
+      "sampleCount": 1801,
+      "playRate": 0.1,
+      "avgPlacement": 4.54,
+      "top4Rate": 49.47,
+      "topRate": 10.88,
+      "rounds": [
+        "3-2",
+        "4-2"
+      ],
+      "roundStats": [
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 699,
+          "playRate": 0.04,
+          "avgPlacement": 4.36,
+          "top4Rate": 52.79,
+          "topRate": 11.59
+        },
+        {
+          "round": 2,
+          "roundLabel": "4-2",
+          "sampleCount": 1095,
+          "playRate": 0.06,
+          "avgPlacement": 4.64,
+          "top4Rate": 47.49,
+          "topRate": 10.5
+        }
+      ]
+    },
+    {
+      "hexId": 1116,
+      "name": "复苏之风",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/secondwind1.png",
+      "sampleCount": 1789,
+      "playRate": 0.1,
+      "avgPlacement": 4.51,
+      "top4Rate": 49.97,
+      "topRate": 10.79,
+      "rounds": [
+        "3-2",
+        "4-2"
+      ],
+      "roundStats": [
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 1256,
+          "playRate": 0.07,
+          "avgPlacement": 4.52,
+          "top4Rate": 50.16,
+          "topRate": 10.35
+        },
+        {
+          "round": 2,
+          "roundLabel": "4-2",
+          "sampleCount": 521,
+          "playRate": 0.03,
+          "avgPlacement": 4.47,
+          "top4Rate": 49.52,
+          "topRate": 11.71
+        }
+      ]
+    },
+    {
+      "hexId": 20706,
+      "name": "前线地基",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/frontlinefoundation2.png",
+      "sampleCount": 1788,
+      "playRate": 0.1,
+      "avgPlacement": 4.73,
+      "top4Rate": 45.81,
+      "topRate": 8.11,
+      "rounds": [
+        "2-1"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 1788,
+          "playRate": 0.1,
+          "avgPlacement": 4.73,
+          "top4Rate": 45.81,
+          "topRate": 8.11
+        }
+      ]
+    },
+    {
+      "hexId": 20584,
+      "name": "高级贷款+",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/advancedloanplus2.png",
+      "sampleCount": 1768,
+      "playRate": 0.1,
+      "avgPlacement": 4.57,
+      "top4Rate": 48.47,
+      "topRate": 12.73,
+      "rounds": [
+        "3-2"
+      ],
+      "roundStats": [
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 1759,
+          "playRate": 0.1,
+          "avgPlacement": 4.56,
+          "top4Rate": 48.55,
+          "topRate": 12.73
+        }
+      ]
+    },
+    {
+      "hexId": 20475,
+      "name": "低调炫耀",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/aurafarming2.png",
+      "sampleCount": 1746,
+      "playRate": 0.1,
+      "avgPlacement": 4.95,
+      "top4Rate": 42.73,
+      "topRate": 10.02,
+      "rounds": [
+        "2-1"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 1746,
+          "playRate": 0.1,
+          "avgPlacement": 4.95,
+          "top4Rate": 42.73,
+          "topRate": 10.02
+        }
+      ]
+    },
+    {
+      "hexId": 3917,
+      "name": "物尽其用+",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/slammin2.png",
+      "sampleCount": 1712,
+      "playRate": 0.09,
+      "avgPlacement": 4.68,
+      "top4Rate": 45.33,
+      "topRate": 12.73,
+      "rounds": [
+        "3-2"
+      ],
+      "roundStats": [
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 1698,
+          "playRate": 0.09,
+          "avgPlacement": 4.67,
+          "top4Rate": 45.41,
+          "topRate": 12.78
+        }
+      ]
+    },
+    {
+      "hexId": 20727,
+      "name": "摘星之志",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/reachforthestars2.png",
+      "sampleCount": 1695,
+      "playRate": 0.09,
+      "avgPlacement": 4.31,
+      "top4Rate": 56.22,
+      "topRate": 8.14,
+      "rounds": [
+        "2-1"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 1695,
+          "playRate": 0.09,
+          "avgPlacement": 4.31,
+          "top4Rate": 56.22,
+          "topRate": 8.14
+        }
+      ]
+    },
+    {
+      "hexId": 20709,
+      "name": "异类",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/misfits2.png",
+      "sampleCount": 1633,
+      "playRate": 0.09,
+      "avgPlacement": 4.66,
+      "top4Rate": 46.42,
+      "topRate": 16.78,
+      "rounds": [
+        "2-1",
+        "3-2"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 911,
+          "playRate": 0.05,
+          "avgPlacement": 4.81,
+          "top4Rate": 44.13,
+          "topRate": 14.27
+        },
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 722,
+          "playRate": 0.04,
+          "avgPlacement": 4.47,
+          "top4Rate": 49.31,
+          "topRate": 19.94
+        }
+      ]
+    },
+    {
+      "hexId": 4713,
+      "name": "对冲基金+",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/richgetricher3.png",
+      "sampleCount": 1615,
+      "playRate": 0.09,
+      "avgPlacement": 4.7,
+      "top4Rate": 46.01,
+      "topRate": 14.74,
+      "rounds": [
+        "3-2"
+      ],
+      "roundStats": [
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 1602,
+          "playRate": 0.09,
+          "avgPlacement": 4.69,
+          "top4Rate": 46.07,
+          "topRate": 14.79
+        }
+      ]
+    },
+    {
+      "hexId": 3065,
+      "name": "棱彩门票",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/goldenticket3.png",
+      "sampleCount": 1609,
+      "playRate": 0.09,
+      "avgPlacement": 4.67,
+      "top4Rate": 46.86,
+      "topRate": 10.75,
+      "rounds": [
+        "2-1",
+        "3-2"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 387,
+          "playRate": 0.02,
+          "avgPlacement": 4.93,
+          "top4Rate": 40.57,
+          "topRate": 8.27
+        },
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 1222,
+          "playRate": 0.07,
+          "avgPlacement": 4.58,
+          "top4Rate": 48.85,
+          "topRate": 11.54
+        }
+      ]
+    },
+    {
+      "hexId": 3270,
+      "name": "活体锻炉",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/livingforge3.png",
+      "sampleCount": 1590,
+      "playRate": 0.09,
+      "avgPlacement": 4.6,
+      "top4Rate": 48.11,
+      "topRate": 8.93,
+      "rounds": [
+        "2-1"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 1590,
+          "playRate": 0.09,
+          "avgPlacement": 4.6,
+          "top4Rate": 48.11,
+          "topRate": 8.93
+        }
+      ]
+    },
+    {
+      "hexId": 3008,
+      "name": "升级咯！",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/levelup3.png",
+      "sampleCount": 1586,
+      "playRate": 0.09,
+      "avgPlacement": 5.11,
+      "top4Rate": 38.59,
+      "topRate": 11.1,
+      "rounds": [
+        "2-1"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 1586,
+          "playRate": 0.09,
+          "avgPlacement": 5.11,
+          "top4Rate": 38.59,
+          "topRate": 11.1
+        }
+      ]
+    },
+    {
+      "hexId": 2804,
+      "name": "英勇福袋",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/heroicgrabbag2.png",
+      "sampleCount": 1565,
+      "playRate": 0.09,
+      "avgPlacement": 4.68,
+      "top4Rate": 47.03,
+      "topRate": 6.2,
+      "rounds": [
+        "2-1"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 1565,
+          "playRate": 0.09,
+          "avgPlacement": 4.68,
+          "top4Rate": 47.03,
+          "topRate": 6.2
+        }
+      ]
+    },
+    {
+      "hexId": 20258,
+      "name": "恶意货币化",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/mirroredmonetization2.png",
+      "sampleCount": 1560,
+      "playRate": 0.09,
+      "avgPlacement": 4.45,
+      "top4Rate": 50.45,
+      "topRate": 13.97,
+      "rounds": [
+        "4-2"
+      ],
+      "roundStats": [
+        {
+          "round": 2,
+          "roundLabel": "4-2",
+          "sampleCount": 1550,
+          "playRate": 0.08,
+          "avgPlacement": 4.45,
+          "top4Rate": 50.52,
+          "topRate": 14
+        }
+      ]
+    },
+    {
+      "hexId": 10616,
+      "name": "拥抱 II",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/grouphugii2.png",
+      "sampleCount": 1525,
+      "playRate": 0.08,
+      "avgPlacement": 4.46,
+      "top4Rate": 49.97,
+      "topRate": 17.31,
+      "rounds": [
+        "2-1",
+        "3-2",
+        "4-2"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 162,
+          "playRate": 0.01,
+          "avgPlacement": 5.09,
+          "top4Rate": 38.89,
+          "topRate": 8.64
+        },
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 406,
+          "playRate": 0.02,
+          "avgPlacement": 4.51,
+          "top4Rate": 48.77,
+          "topRate": 17.49
+        },
+        {
+          "round": 2,
+          "roundLabel": "4-2",
+          "sampleCount": 957,
+          "playRate": 0.05,
+          "avgPlacement": 4.33,
+          "top4Rate": 52.35,
+          "topRate": 18.7
+        }
+      ]
+    },
+    {
+      "hexId": 10589,
+      "name": "充能转移 II",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/chargetransferii2.png",
+      "sampleCount": 1524,
+      "playRate": 0.08,
+      "avgPlacement": 4.63,
+      "top4Rate": 47.31,
+      "topRate": 10.56,
+      "rounds": [
+        "3-2",
+        "4-2"
+      ],
+      "roundStats": [
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 465,
+          "playRate": 0.03,
+          "avgPlacement": 4.69,
+          "top4Rate": 46.02,
+          "topRate": 10.11
+        },
+        {
+          "round": 2,
+          "roundLabel": "4-2",
+          "sampleCount": 1057,
+          "playRate": 0.06,
+          "avgPlacement": 4.6,
+          "top4Rate": 47.97,
+          "topRate": 10.79
+        }
+      ]
+    },
+    {
+      "hexId": 10731,
+      "name": "扩展包",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/boosterpack2.png",
+      "sampleCount": 1492,
+      "playRate": 0.08,
+      "avgPlacement": 4.83,
+      "top4Rate": 43.83,
+      "topRate": 9.32,
+      "rounds": [
+        "2-1"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 1492,
+          "playRate": 0.08,
+          "avgPlacement": 4.83,
+          "top4Rate": 43.83,
+          "topRate": 9.32
+        }
+      ]
+    },
+    {
+      "hexId": 2087,
+      "name": "日炎棋盘",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/sunfireboard2.png",
+      "sampleCount": 1480,
+      "playRate": 0.08,
+      "avgPlacement": 4.71,
+      "top4Rate": 47.36,
+      "topRate": 9.59,
+      "rounds": [
+        "3-2",
+        "4-2"
+      ],
+      "roundStats": [
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 487,
+          "playRate": 0.03,
+          "avgPlacement": 4.69,
+          "top4Rate": 47.43,
+          "topRate": 9.86
+        },
+        {
+          "round": 2,
+          "roundLabel": "4-2",
+          "sampleCount": 991,
+          "playRate": 0.05,
+          "avgPlacement": 4.72,
+          "top4Rate": 47.33,
+          "topRate": 9.38
+        }
+      ]
+    },
+    {
+      "hexId": 10048,
+      "name": "C位的觉悟",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/findyourcenter1.png",
+      "sampleCount": 1459,
+      "playRate": 0.08,
+      "avgPlacement": 4.19,
+      "top4Rate": 56.27,
+      "topRate": 15.35,
+      "rounds": [
+        "3-2",
+        "4-2"
+      ],
+      "roundStats": [
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 1075,
+          "playRate": 0.06,
+          "avgPlacement": 4.21,
+          "top4Rate": 56.09,
+          "topRate": 15.35
+        },
+        {
+          "round": 2,
+          "roundLabel": "4-2",
+          "sampleCount": 380,
+          "playRate": 0.02,
+          "avgPlacement": 4.11,
+          "top4Rate": 56.84,
+          "topRate": 15.53
+        }
+      ]
+    },
+    {
+      "hexId": 2018,
+      "name": "源计划植入",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/cybernetic2.png",
+      "sampleCount": 1454,
+      "playRate": 0.08,
+      "avgPlacement": 4.06,
+      "top4Rate": 60.32,
+      "topRate": 10.66,
+      "rounds": [
+        "3-2",
+        "4-2"
+      ],
+      "roundStats": [
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 515,
+          "playRate": 0.03,
+          "avgPlacement": 4.06,
+          "top4Rate": 61.55,
+          "topRate": 10.29
+        },
+        {
+          "round": 2,
+          "roundLabel": "4-2",
+          "sampleCount": 938,
+          "playRate": 0.05,
+          "avgPlacement": 4.06,
+          "top4Rate": 59.59,
+          "topRate": 10.77
+        }
+      ]
+    },
+    {
+      "hexId": 20703,
+      "name": "幻灵指挥官",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/animacommander2.png",
+      "sampleCount": 1451,
+      "playRate": 0.08,
+      "avgPlacement": 4.9,
+      "top4Rate": 43.35,
+      "topRate": 19.3,
+      "rounds": [
+        "2-1"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 1451,
+          "playRate": 0.08,
+          "avgPlacement": 4.9,
+          "top4Rate": 43.35,
+          "topRate": 19.3
+        }
+      ]
+    },
+    {
+      "hexId": 30621,
+      "name": "四费小组",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/fourscore1.png",
+      "sampleCount": 1449,
+      "playRate": 0.08,
+      "avgPlacement": 4.35,
+      "top4Rate": 53,
+      "topRate": 14.42,
+      "rounds": [
+        "4-2"
+      ],
+      "roundStats": [
+        {
+          "round": 2,
+          "roundLabel": "4-2",
+          "sampleCount": 1447,
+          "playRate": 0.08,
+          "avgPlacement": 4.34,
+          "top4Rate": 53.08,
+          "topRate": 14.44
+        }
+      ]
+    },
+    {
+      "hexId": 10011,
+      "name": "耐心是一种美德",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/patienceisavirtue1.png",
+      "sampleCount": 1445,
+      "playRate": 0.08,
+      "avgPlacement": 4.49,
+      "top4Rate": 50.66,
+      "topRate": 13.15,
+      "rounds": [
+        "2-1"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 1445,
+          "playRate": 0.08,
+          "avgPlacement": 4.49,
+          "top4Rate": 50.66,
+          "topRate": 13.15
+        }
+      ]
+    },
+    {
+      "hexId": 10585,
+      "name": "认知税+",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/cognitivetax1.png",
+      "sampleCount": 1416,
+      "playRate": 0.08,
+      "avgPlacement": 4.78,
+      "top4Rate": 44.28,
+      "topRate": 11.16,
+      "rounds": [
+        "3-2"
+      ],
+      "roundStats": [
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 1390,
+          "playRate": 0.08,
+          "avgPlacement": 4.77,
+          "top4Rate": 44.53,
+          "topRate": 11.22
+        }
+      ]
+    },
+    {
+      "hexId": 20737,
+      "name": "聚精会神",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/concentration2.png",
+      "sampleCount": 1401,
+      "playRate": 0.08,
+      "avgPlacement": 3.98,
+      "top4Rate": 60.96,
+      "topRate": 12.28,
+      "rounds": [
+        "2-1",
+        "3-2",
+        "4-2"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 484,
+          "playRate": 0.03,
+          "avgPlacement": 4.04,
+          "top4Rate": 61.98,
+          "topRate": 8.68
+        },
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 171,
+          "playRate": 0.01,
+          "avgPlacement": 3.89,
+          "top4Rate": 61.99,
+          "topRate": 14.04
+        },
+        {
+          "round": 2,
+          "roundLabel": "4-2",
+          "sampleCount": 746,
+          "playRate": 0.04,
+          "avgPlacement": 3.97,
+          "top4Rate": 60.05,
+          "topRate": 14.21
+        }
+      ]
+    },
+    {
+      "hexId": 30637,
+      "name": "可大可小",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/minmax3.png",
+      "sampleCount": 1400,
+      "playRate": 0.08,
+      "avgPlacement": 4.6,
+      "top4Rate": 48.5,
+      "topRate": 8.5,
+      "rounds": [
+        "3-2"
+      ],
+      "roundStats": [
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 1394,
+          "playRate": 0.08,
+          "avgPlacement": 4.59,
+          "top4Rate": 48.64,
+          "topRate": 8.54
+        }
+      ]
+    },
+    {
+      "hexId": 30680,
+      "name": "奢侈品订购",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/luxurysubscription3.png",
+      "sampleCount": 1388,
+      "playRate": 0.08,
+      "avgPlacement": 5,
+      "top4Rate": 40.35,
+      "topRate": 11.24,
+      "rounds": [
+        "3-2"
+      ],
+      "roundStats": [
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 1375,
+          "playRate": 0.07,
+          "avgPlacement": 5,
+          "top4Rate": 40.29,
+          "topRate": 11.2
+        }
+      ]
+    },
+    {
+      "hexId": 1147,
+      "name": "后期专家",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/lategamespecialist1.png",
+      "sampleCount": 1383,
+      "playRate": 0.08,
+      "avgPlacement": 4.74,
+      "top4Rate": 45.99,
+      "topRate": 17.06,
+      "rounds": [
+        "3-2"
+      ],
+      "roundStats": [
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 1355,
+          "playRate": 0.07,
+          "avgPlacement": 4.72,
+          "top4Rate": 45.98,
+          "topRate": 17.42
+        }
+      ]
+    },
+    {
+      "hexId": 20621,
+      "name": "愿四费与你同在",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/maythefoursbewithyou2.png",
+      "sampleCount": 1379,
+      "playRate": 0.08,
+      "avgPlacement": 4.24,
+      "top4Rate": 55.55,
+      "topRate": 12.55,
+      "rounds": [
+        "4-2"
+      ],
+      "roundStats": [
+        {
+          "round": 2,
+          "roundLabel": "4-2",
+          "sampleCount": 1377,
+          "playRate": 0.08,
+          "avgPlacement": 4.24,
+          "top4Rate": 55.48,
+          "topRate": 12.56
+        }
+      ]
+    },
+    {
+      "hexId": 20021,
+      "name": "值得等待",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/worththewait2.png",
+      "sampleCount": 1359,
+      "playRate": 0.07,
+      "avgPlacement": 4.9,
+      "top4Rate": 40.77,
+      "topRate": 9.79,
+      "rounds": [
+        "2-1"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 1359,
+          "playRate": 0.07,
+          "avgPlacement": 4.9,
+          "top4Rate": 40.77,
+          "topRate": 9.79
+        }
+      ]
+    },
+    {
+      "hexId": 20705,
+      "name": "后排蓝图",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/backlineblueprint2.png",
+      "sampleCount": 1350,
+      "playRate": 0.07,
+      "avgPlacement": 4.82,
+      "top4Rate": 44.44,
+      "topRate": 7.19,
+      "rounds": [
+        "2-1"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 1350,
+          "playRate": 0.07,
+          "avgPlacement": 4.82,
+          "top4Rate": 44.44,
+          "topRate": 7.19
+        }
+      ]
+    },
+    {
+      "hexId": 20720,
+      "name": "副作用",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/sideeffects2.png",
+      "sampleCount": 1326,
+      "playRate": 0.07,
+      "avgPlacement": 4.47,
+      "top4Rate": 48.72,
+      "topRate": 17.42,
+      "rounds": [
+        "3-2",
+        "4-2"
+      ],
+      "roundStats": [
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 399,
+          "playRate": 0.02,
+          "avgPlacement": 4.73,
+          "top4Rate": 41.85,
+          "topRate": 15.04
+        },
+        {
+          "round": 2,
+          "roundLabel": "4-2",
+          "sampleCount": 921,
+          "playRate": 0.05,
+          "avgPlacement": 4.35,
+          "top4Rate": 52.01,
+          "topRate": 18.57
+        }
+      ]
+    },
+    {
+      "hexId": 10586,
+      "name": "博弈开启",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/kickstart1.png",
+      "sampleCount": 1321,
+      "playRate": 0.07,
+      "avgPlacement": 4.57,
+      "top4Rate": 48.6,
+      "topRate": 10.37,
+      "rounds": [
+        "2-1"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 1321,
+          "playRate": 0.07,
+          "avgPlacement": 4.57,
+          "top4Rate": 48.6,
+          "topRate": 10.37
+        }
+      ]
+    },
+    {
+      "hexId": 20209,
+      "name": "崇高冒险",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/exaltedadventure3.png",
+      "sampleCount": 1283,
+      "playRate": 0.07,
+      "avgPlacement": 4.12,
+      "top4Rate": 59.86,
+      "topRate": 9.12,
+      "rounds": [
+        "2-1"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 1283,
+          "playRate": 0.07,
+          "avgPlacement": 4.12,
+          "top4Rate": 59.86,
+          "topRate": 9.12
+        }
+      ]
+    },
+    {
+      "hexId": 10582,
+      "name": "战时补给：暴风大剑",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/carveapath1.png",
+      "sampleCount": 1201,
+      "playRate": 0.07,
+      "avgPlacement": 3.97,
+      "top4Rate": 61.12,
+      "topRate": 13.49,
+      "rounds": [
+        "2-1"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 1201,
+          "playRate": 0.07,
+          "avgPlacement": 3.97,
+          "top4Rate": 61.12,
+          "topRate": 13.49
+        }
+      ]
+    },
+    {
+      "hexId": 10632,
+      "name": "双子守护神",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/twinguardians1.png",
+      "sampleCount": 1195,
+      "playRate": 0.07,
+      "avgPlacement": 4.53,
+      "top4Rate": 48.95,
+      "topRate": 13.64,
+      "rounds": [
+        "3-2",
+        "4-2"
+      ],
+      "roundStats": [
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 914,
+          "playRate": 0.05,
+          "avgPlacement": 4.53,
+          "top4Rate": 49.12,
+          "topRate": 13.35
+        },
+        {
+          "round": 2,
+          "roundLabel": "4-2",
+          "sampleCount": 275,
+          "playRate": 0.01,
+          "avgPlacement": 4.5,
+          "top4Rate": 49.09,
+          "topRate": 14.91
+        }
+      ]
+    },
+    {
+      "hexId": 20739,
+      "name": "战利品奇点",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/whitehole2.png",
+      "sampleCount": 1167,
+      "playRate": 0.06,
+      "avgPlacement": 4.27,
+      "top4Rate": 52.7,
+      "topRate": 14.14,
+      "rounds": [
+        "2-1"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 1167,
+          "playRate": 0.06,
+          "avgPlacement": 4.27,
+          "top4Rate": 52.7,
+          "topRate": 14.14
+        }
+      ]
+    },
+    {
+      "hexId": 30205,
+      "name": "意料之中的意外",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/addictedtorolling3.png",
+      "sampleCount": 1155,
+      "playRate": 0.06,
+      "avgPlacement": 4.54,
+      "top4Rate": 50.39,
+      "topRate": 7.27,
+      "rounds": [
+        "2-1"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 1155,
+          "playRate": 0.06,
+          "avgPlacement": 4.54,
+          "top4Rate": 50.39,
+          "topRate": 7.27
+        }
+      ]
+    },
+    {
+      "hexId": 30187,
+      "name": "锅铲厨房",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/tacticianskitchen3.png",
+      "sampleCount": 1117,
+      "playRate": 0.06,
+      "avgPlacement": 4.67,
+      "top4Rate": 46.64,
+      "topRate": 9.4,
+      "rounds": [
+        "2-1"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 1117,
+          "playRate": 0.06,
+          "avgPlacement": 4.67,
+          "top4Rate": 46.64,
+          "topRate": 9.4
+        }
+      ]
+    },
+    {
+      "hexId": 20701,
+      "name": "贪财",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/moneyhungry2.png",
+      "sampleCount": 1097,
+      "playRate": 0.06,
+      "avgPlacement": 4.83,
+      "top4Rate": 44.39,
+      "topRate": 11.3,
+      "rounds": [
+        "2-1"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 1097,
+          "playRate": 0.06,
+          "avgPlacement": 4.83,
+          "top4Rate": 44.39,
+          "topRate": 11.3
+        }
+      ]
+    },
+    {
+      "hexId": 1479,
+      "name": "一，二，三",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/onetwothree1.png",
+      "sampleCount": 1088,
+      "playRate": 0.06,
+      "avgPlacement": 4.73,
+      "top4Rate": 45.4,
+      "topRate": 9.74,
+      "rounds": [
+        "2-1"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 1088,
+          "playRate": 0.06,
+          "avgPlacement": 4.73,
+          "top4Rate": 45.4,
+          "topRate": 9.74
+        }
+      ]
+    },
+    {
+      "hexId": 20613,
+      "name": "认知过载",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/cognitiveoverload2.png",
+      "sampleCount": 1064,
+      "playRate": 0.06,
+      "avgPlacement": 4.76,
+      "top4Rate": 45.21,
+      "topRate": 10.24,
+      "rounds": [
+        "3-2"
+      ],
+      "roundStats": [
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 1056,
+          "playRate": 0.06,
+          "avgPlacement": 4.77,
+          "top4Rate": 45.17,
+          "topRate": 10.13
+        }
+      ]
+    },
+    {
+      "hexId": 20233,
+      "name": "权杖意志",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/guardbreaker_sspirit2.png",
+      "sampleCount": 1058,
+      "playRate": 0.06,
+      "avgPlacement": 4.55,
+      "top4Rate": 48.3,
+      "topRate": 11.53,
+      "rounds": [
+        "3-2",
+        "4-2"
+      ],
+      "roundStats": [
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 363,
+          "playRate": 0.02,
+          "avgPlacement": 4.68,
+          "top4Rate": 46.56,
+          "topRate": 9.09
+        },
+        {
+          "round": 2,
+          "roundLabel": "4-2",
+          "sampleCount": 692,
+          "playRate": 0.04,
+          "avgPlacement": 4.47,
+          "top4Rate": 49.28,
+          "topRate": 12.72
+        }
+      ]
+    },
+    {
+      "hexId": 10495,
+      "name": "人生切片",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/sliceoflife1.png",
+      "sampleCount": 1053,
+      "playRate": 0.06,
+      "avgPlacement": 4.47,
+      "top4Rate": 50.05,
+      "topRate": 15.86,
+      "rounds": [
+        "2-1"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 1053,
+          "playRate": 0.06,
+          "avgPlacement": 4.47,
+          "top4Rate": 50.05,
+          "topRate": 15.86
+        }
+      ]
+    },
+    {
+      "hexId": 2916,
+      "name": "赏金战士",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/prizefighter2.png",
+      "sampleCount": 1025,
+      "playRate": 0.06,
+      "avgPlacement": 4.38,
+      "top4Rate": 52.29,
+      "topRate": 8.1,
+      "rounds": [
+        "2-1"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 1025,
+          "playRate": 0.06,
+          "avgPlacement": 4.38,
+          "top4Rate": 52.29,
+          "topRate": 8.1
+        }
+      ]
+    },
+    {
+      "hexId": 1068,
+      "name": "秘法帮派",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/bandthieves1.png",
+      "sampleCount": 1017,
+      "playRate": 0.06,
+      "avgPlacement": 4.69,
+      "top4Rate": 45.33,
+      "topRate": 13.57,
+      "rounds": [
+        "2-1",
+        "3-2",
+        "4-2"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 171,
+          "playRate": 0.01,
+          "avgPlacement": 4.46,
+          "top4Rate": 52.63,
+          "topRate": 15.2
+        },
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 597,
+          "playRate": 0.03,
+          "avgPlacement": 4.74,
+          "top4Rate": 43.55,
+          "topRate": 12.9
+        },
+        {
+          "round": 2,
+          "roundLabel": "4-2",
+          "sampleCount": 249,
+          "playRate": 0.01,
+          "avgPlacement": 4.71,
+          "top4Rate": 44.58,
+          "topRate": 14.06
+        }
+      ]
+    },
+    {
+      "hexId": 30028,
+      "name": "上进心",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/upwardmobility3.png",
+      "sampleCount": 1005,
+      "playRate": 0.05,
+      "avgPlacement": 5.08,
+      "top4Rate": 38.31,
+      "topRate": 13.93,
+      "rounds": [
+        "2-1"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 1005,
+          "playRate": 0.05,
+          "avgPlacement": 5.08,
+          "top4Rate": 38.31,
+          "topRate": 13.93
+        }
+      ]
+    },
+    {
+      "hexId": 20569,
+      "name": "火上浇油",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/feedtheflames2.png",
+      "sampleCount": 991,
+      "playRate": 0.05,
+      "avgPlacement": 4.48,
+      "top4Rate": 52.88,
+      "topRate": 6.96,
+      "rounds": [
+        "2-1",
+        "3-2"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 482,
+          "playRate": 0.03,
+          "avgPlacement": 4.58,
+          "top4Rate": 52.07,
+          "topRate": 6.43
+        },
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 509,
+          "playRate": 0.03,
+          "avgPlacement": 4.39,
+          "top4Rate": 53.63,
+          "topRate": 7.47
+        }
+      ]
+    },
+    {
+      "hexId": 2662,
+      "name": "吾弓听命于您",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/youhavemybow2.png",
+      "sampleCount": 990,
+      "playRate": 0.05,
+      "avgPlacement": 4.82,
+      "top4Rate": 42.12,
+      "topRate": 9.6,
+      "rounds": [
+        "3-2",
+        "4-2"
+      ],
+      "roundStats": [
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 371,
+          "playRate": 0.02,
+          "avgPlacement": 4.92,
+          "top4Rate": 40.7,
+          "topRate": 9.43
+        },
+        {
+          "round": 2,
+          "roundLabel": "4-2",
+          "sampleCount": 616,
+          "playRate": 0.03,
+          "avgPlacement": 4.77,
+          "top4Rate": 42.86,
+          "topRate": 9.58
+        }
+      ]
+    },
+    {
+      "hexId": 3276,
+      "name": "幸运手套+",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/luckygloves3.png",
+      "sampleCount": 988,
+      "playRate": 0.05,
+      "avgPlacement": 4.76,
+      "top4Rate": 44.84,
+      "topRate": 10.32,
+      "rounds": [
+        "3-2",
+        "4-2"
+      ],
+      "roundStats": [
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 403,
+          "playRate": 0.02,
+          "avgPlacement": 4.78,
+          "top4Rate": 45.16,
+          "topRate": 9.93
+        },
+        {
+          "round": 2,
+          "roundLabel": "4-2",
+          "sampleCount": 574,
+          "playRate": 0.03,
+          "avgPlacement": 4.72,
+          "top4Rate": 44.77,
+          "topRate": 10.63
+        }
+      ]
+    },
+    {
+      "hexId": 20489,
+      "name": "应急护盾",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/plotarmor2.png",
+      "sampleCount": 976,
+      "playRate": 0.05,
+      "avgPlacement": 4.57,
+      "top4Rate": 49.28,
+      "topRate": 12.09,
+      "rounds": [
+        "3-2",
+        "4-2"
+      ],
+      "roundStats": [
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 260,
+          "playRate": 0.01,
+          "avgPlacement": 4.69,
+          "top4Rate": 48.08,
+          "topRate": 6.92
+        },
+        {
+          "round": 2,
+          "roundLabel": "4-2",
+          "sampleCount": 715,
+          "playRate": 0.04,
+          "avgPlacement": 4.52,
+          "top4Rate": 49.79,
+          "topRate": 13.99
+        }
+      ]
+    },
+    {
+      "hexId": 20673,
+      "name": "纺织魔法",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/wovenmagicthevidalion2.png",
+      "sampleCount": 974,
+      "playRate": 0.05,
+      "avgPlacement": 4.74,
+      "top4Rate": 46,
+      "topRate": 7.19,
+      "rounds": [
+        "2-1"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 974,
+          "playRate": 0.05,
+          "avgPlacement": 4.74,
+          "top4Rate": 46,
+          "topRate": 7.19
+        }
+      ]
+    },
+    {
+      "hexId": 3136,
+      "name": "小巨人",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/tinytitans1.png",
+      "sampleCount": 974,
+      "playRate": 0.05,
+      "avgPlacement": 5.1,
+      "top4Rate": 38.3,
+      "topRate": 14.48,
+      "rounds": [
+        "2-1"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 974,
+          "playRate": 0.05,
+          "avgPlacement": 5.1,
+          "top4Rate": 38.3,
+          "topRate": 14.48
+        }
+      ]
+    },
+    {
+      "hexId": 3896,
+      "name": "新纪元+",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/epoch2.png",
+      "sampleCount": 966,
+      "playRate": 0.05,
+      "avgPlacement": 4.72,
+      "top4Rate": 46.07,
+      "topRate": 14.29,
+      "rounds": [
+        "3-2"
+      ],
+      "roundStats": [
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 955,
+          "playRate": 0.05,
+          "avgPlacement": 4.72,
+          "top4Rate": 45.97,
+          "topRate": 14.24
+        }
+      ]
+    },
+    {
+      "hexId": 30571,
+      "name": "挑个好伙计！",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/constructacompanion2.png",
+      "sampleCount": 947,
+      "playRate": 0.05,
+      "avgPlacement": 4.28,
+      "top4Rate": 55.54,
+      "topRate": 13.83,
+      "rounds": [
+        "3-2"
+      ],
+      "roundStats": [
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 947,
+          "playRate": 0.05,
+          "avgPlacement": 4.28,
+          "top4Rate": 55.54,
+          "topRate": 13.83
+        }
+      ]
+    },
+    {
+      "hexId": 10583,
+      "name": "战时补给：反曲之弓",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/recurvewrecker1.png",
+      "sampleCount": 941,
+      "playRate": 0.05,
+      "avgPlacement": 4.66,
+      "top4Rate": 47.4,
+      "topRate": 12.96,
+      "rounds": [
+        "2-1"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 941,
+          "playRate": 0.05,
+          "avgPlacement": 4.66,
+          "top4Rate": 47.4,
+          "topRate": 12.96
+        }
+      ]
+    },
+    {
+      "hexId": 10579,
+      "name": "战时补给：巨人腰带",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/extrabuckles1.png",
+      "sampleCount": 935,
+      "playRate": 0.05,
+      "avgPlacement": 4.23,
+      "top4Rate": 54.97,
+      "topRate": 14.12,
+      "rounds": [
+        "2-1"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 935,
+          "playRate": 0.05,
+          "avgPlacement": 4.23,
+          "top4Rate": 54.97,
+          "topRate": 14.12
+        }
+      ]
+    },
+    {
+      "hexId": 20721,
+      "name": "黄金赌约",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/goldengamble3.png",
+      "sampleCount": 934,
+      "playRate": 0.05,
+      "avgPlacement": 4.64,
+      "top4Rate": 49.89,
+      "topRate": 5.25,
+      "rounds": [
+        "2-1"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 934,
+          "playRate": 0.05,
+          "avgPlacement": 4.64,
+          "top4Rate": 49.89,
+          "topRate": 5.25
+        }
+      ]
+    },
+    {
+      "hexId": 10580,
+      "name": "战时补给：无用大棒",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/hyperbolicrodextender1.png",
+      "sampleCount": 929,
+      "playRate": 0.05,
+      "avgPlacement": 4.01,
+      "top4Rate": 61.36,
+      "topRate": 10.33,
+      "rounds": [
+        "2-1"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 929,
+          "playRate": 0.05,
+          "avgPlacement": 4.01,
+          "top4Rate": 61.36,
+          "topRate": 10.33
+        }
+      ]
+    },
+    {
+      "hexId": 30584,
+      "name": "高级贷款",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/advancedloan2.png",
+      "sampleCount": 923,
+      "playRate": 0.05,
+      "avgPlacement": 5.21,
+      "top4Rate": 36.51,
+      "topRate": 8.45,
+      "rounds": [
+        "2-1"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 923,
+          "playRate": 0.05,
+          "avgPlacement": 5.21,
+          "top4Rate": 36.51,
+          "topRate": 8.45
+        }
+      ]
+    },
+    {
+      "hexId": 20508,
+      "name": "关爱包裹",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/carepackage2.png",
+      "sampleCount": 919,
+      "playRate": 0.05,
+      "avgPlacement": 4.96,
+      "top4Rate": 41.02,
+      "topRate": 9.36,
+      "rounds": [
+        "3-2"
+      ],
+      "roundStats": [
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 915,
+          "playRate": 0.05,
+          "avgPlacement": 4.97,
+          "top4Rate": 40.98,
+          "topRate": 9.29
+        }
+      ]
+    },
+    {
+      "hexId": 1478,
+      "name": "游神的盟友",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/caretakerschosenlegend1.png",
+      "sampleCount": 907,
+      "playRate": 0.05,
+      "avgPlacement": 4.34,
+      "top4Rate": 53.8,
+      "topRate": 11.91,
+      "rounds": [
+        "2-1"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 907,
+          "playRate": 0.05,
+          "avgPlacement": 4.34,
+          "top4Rate": 53.8,
+          "topRate": 11.91
+        }
+      ]
+    },
+    {
+      "hexId": 1011,
+      "name": "清晰头脑",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/clearmind2.png",
+      "sampleCount": 899,
+      "playRate": 0.05,
+      "avgPlacement": 4.78,
+      "top4Rate": 44.38,
+      "topRate": 14.79,
+      "rounds": [
+        "2-1"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 899,
+          "playRate": 0.05,
+          "avgPlacement": 4.78,
+          "top4Rate": 44.38,
+          "topRate": 14.79
+        }
+      ]
+    },
+    {
+      "hexId": 30034,
+      "name": "大而有力",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/giantandmighty3.png",
+      "sampleCount": 895,
+      "playRate": 0.05,
+      "avgPlacement": 4.58,
+      "top4Rate": 47.04,
+      "topRate": 12.07,
+      "rounds": [
+        "3-2",
+        "4-2"
+      ],
+      "roundStats": [
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 289,
+          "playRate": 0.02,
+          "avgPlacement": 4.76,
+          "top4Rate": 43.94,
+          "topRate": 10.38
+        },
+        {
+          "round": 2,
+          "roundLabel": "4-2",
+          "sampleCount": 605,
+          "playRate": 0.03,
+          "avgPlacement": 4.49,
+          "top4Rate": 48.6,
+          "topRate": 12.89
+        }
+      ]
+    },
+    {
+      "hexId": 1714,
+      "name": "银汤匙",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/silverspoon1.png",
+      "sampleCount": 893,
+      "playRate": 0.05,
+      "avgPlacement": 4.5,
+      "top4Rate": 49.27,
+      "topRate": 11.42,
+      "rounds": [
+        "2-1"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 893,
+          "playRate": 0.05,
+          "avgPlacement": 4.5,
+          "top4Rate": 49.27,
+          "topRate": 11.42
+        }
+      ]
+    },
+    {
+      "hexId": 3066,
+      "name": "新人入队",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/newrecruit3.png",
+      "sampleCount": 866,
+      "playRate": 0.05,
+      "avgPlacement": 4.63,
+      "top4Rate": 46.19,
+      "topRate": 11.2,
+      "rounds": [
+        "3-2"
+      ],
+      "roundStats": [
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 863,
+          "playRate": 0.05,
+          "avgPlacement": 4.63,
+          "top4Rate": 46.23,
+          "topRate": 11.12
+        }
+      ]
+    },
+    {
+      "hexId": 30622,
+      "name": "登上最高峰",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/winout3.png",
+      "sampleCount": 857,
+      "playRate": 0.05,
+      "avgPlacement": 4.3,
+      "top4Rate": 53.56,
+      "topRate": 23.45,
+      "rounds": [
+        "3-2"
+      ],
+      "roundStats": [
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 836,
+          "playRate": 0.05,
+          "avgPlacement": 4.31,
+          "top4Rate": 53.23,
+          "topRate": 23.68
+        }
+      ]
+    },
+    {
+      "hexId": 20216,
+      "name": "不侦察，不变阵",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/noscoutnopivot2.png",
+      "sampleCount": 845,
+      "playRate": 0.05,
+      "avgPlacement": 4.46,
+      "top4Rate": 48.76,
+      "topRate": 11.48,
+      "rounds": [
+        "2-1"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 845,
+          "playRate": 0.05,
+          "avgPlacement": 4.46,
+          "top4Rate": 48.76,
+          "topRate": 11.48
+        }
+      ]
+    },
+    {
+      "hexId": 2896,
+      "name": "新纪元",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/epoch2.png",
+      "sampleCount": 834,
+      "playRate": 0.05,
+      "avgPlacement": 4.69,
+      "top4Rate": 45.56,
+      "topRate": 12.59,
+      "rounds": [
+        "2-1"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 834,
+          "playRate": 0.05,
+          "avgPlacement": 4.69,
+          "top4Rate": 45.56,
+          "topRate": 12.59
+        }
+      ]
+    },
+    {
+      "hexId": 30006,
+      "name": "灵活摇摆",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/flexible3.png",
+      "sampleCount": 824,
+      "playRate": 0.04,
+      "avgPlacement": 4.63,
+      "top4Rate": 46.6,
+      "topRate": 14.56,
+      "rounds": [
+        "2-1"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 824,
+          "playRate": 0.04,
+          "avgPlacement": 4.63,
+          "top4Rate": 46.6,
+          "topRate": 14.56
+        }
+      ]
+    },
+    {
+      "hexId": 10588,
+      "name": "充能转移 I",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/chargetransferi1.png",
+      "sampleCount": 817,
+      "playRate": 0.04,
+      "avgPlacement": 4.53,
+      "top4Rate": 48.84,
+      "topRate": 13.22,
+      "rounds": [
+        "3-2",
+        "4-2"
+      ],
+      "roundStats": [
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 618,
+          "playRate": 0.03,
+          "avgPlacement": 4.54,
+          "top4Rate": 49.35,
+          "topRate": 12.46
+        },
+        {
+          "round": 2,
+          "roundLabel": "4-2",
+          "sampleCount": 196,
+          "playRate": 0.01,
+          "avgPlacement": 4.49,
+          "top4Rate": 47.45,
+          "topRate": 15.82
+        }
+      ]
+    },
+    {
+      "hexId": 20234,
+      "name": "三项赛 I",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/trifecta2.png",
+      "sampleCount": 813,
+      "playRate": 0.04,
+      "avgPlacement": 4.09,
+      "top4Rate": 57.93,
+      "topRate": 16.85,
+      "rounds": [
+        "4-2"
+      ],
+      "roundStats": [
+        {
+          "round": 2,
+          "roundLabel": "4-2",
+          "sampleCount": 813,
+          "playRate": 0.04,
+          "avgPlacement": 4.09,
+          "top4Rate": 57.93,
+          "topRate": 16.85
+        }
+      ]
+    },
+    {
+      "hexId": 20732,
+      "name": "天煞灭影：劫",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/invaderzed2.png",
+      "sampleCount": 812,
+      "playRate": 0.04,
+      "avgPlacement": 4.41,
+      "top4Rate": 50.49,
+      "topRate": 20.2,
+      "rounds": [
+        "3-2"
+      ],
+      "roundStats": [
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 803,
+          "playRate": 0.04,
+          "avgPlacement": 4.42,
+          "top4Rate": 50.31,
+          "topRate": 20.42
+        }
+      ]
+    },
+    {
+      "hexId": 1008,
+      "name": "打捞桶",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/salvage2.png",
+      "sampleCount": 804,
+      "playRate": 0.04,
+      "avgPlacement": 4.5,
+      "top4Rate": 50,
+      "topRate": 9.58,
+      "rounds": [
+        "2-1"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 804,
+          "playRate": 0.04,
+          "avgPlacement": 4.5,
+          "top4Rate": 50,
+          "topRate": 9.58
+        }
+      ]
+    },
+    {
+      "hexId": 10615,
+      "name": "拥抱 I",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/grouphugi1.png",
+      "sampleCount": 802,
+      "playRate": 0.04,
+      "avgPlacement": 4.51,
+      "top4Rate": 49.75,
+      "topRate": 15.59,
+      "rounds": [
+        "3-2",
+        "4-2"
+      ],
+      "roundStats": [
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 499,
+          "playRate": 0.03,
+          "avgPlacement": 4.61,
+          "top4Rate": 48.3,
+          "topRate": 14.83
+        },
+        {
+          "round": 2,
+          "roundLabel": "4-2",
+          "sampleCount": 217,
+          "playRate": 0.01,
+          "avgPlacement": 4.07,
+          "top4Rate": 57.14,
+          "topRate": 21.66
+        }
+      ]
+    },
+    {
+      "hexId": 1149,
+      "name": "开摆",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/afk1.png",
+      "sampleCount": 800,
+      "playRate": 0.04,
+      "avgPlacement": 4.86,
+      "top4Rate": 42,
+      "topRate": 13.13,
+      "rounds": [
+        "2-1"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 800,
+          "playRate": 0.04,
+          "avgPlacement": 4.86,
+          "top4Rate": 42,
+          "topRate": 13.13
+        }
+      ]
+    },
+    {
+      "hexId": 1650,
+      "name": "一，二，五！",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/onetwofive1.png",
+      "sampleCount": 791,
+      "playRate": 0.04,
+      "avgPlacement": 4.81,
+      "top4Rate": 42.48,
+      "topRate": 12.64,
+      "rounds": [
+        "4-2"
+      ],
+      "roundStats": [
+        {
+          "round": 2,
+          "roundLabel": "4-2",
+          "sampleCount": 790,
+          "playRate": 0.04,
+          "avgPlacement": 4.82,
+          "top4Rate": 42.41,
+          "topRate": 12.53
+        }
+      ]
+    },
+    {
+      "hexId": 2110,
+      "name": "源计划上行链路",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/cyberneticuplink2.png",
+      "sampleCount": 778,
+      "playRate": 0.04,
+      "avgPlacement": 4.35,
+      "top4Rate": 50.51,
+      "topRate": 15.17,
+      "rounds": [
+        "3-2",
+        "4-2"
+      ],
+      "roundStats": [
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 259,
+          "playRate": 0.01,
+          "avgPlacement": 4.36,
+          "top4Rate": 53.67,
+          "topRate": 13.51
+        },
+        {
+          "round": 2,
+          "roundLabel": "4-2",
+          "sampleCount": 518,
+          "playRate": 0.03,
+          "avgPlacement": 4.35,
+          "top4Rate": 49.03,
+          "topRate": 16.02
+        }
+      ]
+    },
+    {
+      "hexId": 1713,
+      "name": "对冲基金",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/richgetricher3.png",
+      "sampleCount": 774,
+      "playRate": 0.04,
+      "avgPlacement": 4.76,
+      "top4Rate": 48.06,
+      "topRate": 14.34,
+      "rounds": [
+        "2-1"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 774,
+          "playRate": 0.04,
+          "avgPlacement": 4.76,
+          "top4Rate": 48.06,
+          "topRate": 14.34
+        }
+      ]
+    },
+    {
+      "hexId": 1634,
+      "name": "治疗法球 I",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/healingorbs1.png",
+      "sampleCount": 735,
+      "playRate": 0.04,
+      "avgPlacement": 4.5,
+      "top4Rate": 49.52,
+      "topRate": 11.43,
+      "rounds": [
+        "3-2",
+        "4-2"
+      ],
+      "roundStats": [
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 533,
+          "playRate": 0.03,
+          "avgPlacement": 4.57,
+          "top4Rate": 48.97,
+          "topRate": 10.32
+        },
+        {
+          "round": 2,
+          "roundLabel": "4-2",
+          "sampleCount": 200,
+          "playRate": 0.01,
+          "avgPlacement": 4.36,
+          "top4Rate": 50.5,
+          "topRate": 13.5
+        }
+      ]
+    },
+    {
+      "hexId": 10016,
+      "name": "重启任务",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/restartmission1.png",
+      "sampleCount": 727,
+      "playRate": 0.04,
+      "avgPlacement": 4.96,
+      "top4Rate": 41.27,
+      "topRate": 6.74,
+      "rounds": [
+        "3-2"
+      ],
+      "roundStats": [
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 720,
+          "playRate": 0.04,
+          "avgPlacement": 4.95,
+          "top4Rate": 41.39,
+          "topRate": 6.67
+        }
+      ]
+    },
+    {
+      "hexId": 3627,
+      "name": "交给运气",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/rollthedice3.png",
+      "sampleCount": 704,
+      "playRate": 0.04,
+      "avgPlacement": 4.69,
+      "top4Rate": 47.16,
+      "topRate": 11.22,
+      "rounds": [
+        "3-2",
+        "4-2"
+      ],
+      "roundStats": [
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 256,
+          "playRate": 0.01,
+          "avgPlacement": 4.73,
+          "top4Rate": 48.83,
+          "topRate": 8.98
+        },
+        {
+          "round": 2,
+          "roundLabel": "4-2",
+          "sampleCount": 439,
+          "playRate": 0.02,
+          "avgPlacement": 4.67,
+          "top4Rate": 46.24,
+          "topRate": 12.53
+        }
+      ]
+    },
+    {
+      "hexId": 1701,
+      "name": "黑铁资产",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/ironassets1.png",
+      "sampleCount": 699,
+      "playRate": 0.04,
+      "avgPlacement": 4.52,
+      "top4Rate": 49.21,
+      "topRate": 10.87,
+      "rounds": [
+        "2-1"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 699,
+          "playRate": 0.04,
+          "avgPlacement": 4.52,
+          "top4Rate": 49.21,
+          "topRate": 10.87
+        }
+      ]
+    },
+    {
+      "hexId": 20013,
+      "name": "挖角",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/pilfer2.png",
+      "sampleCount": 699,
+      "playRate": 0.04,
+      "avgPlacement": 4.59,
+      "top4Rate": 48.35,
+      "topRate": 15.74,
+      "rounds": [
+        "3-2"
+      ],
+      "roundStats": [
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 694,
+          "playRate": 0.04,
+          "avgPlacement": 4.59,
+          "top4Rate": 48.27,
+          "topRate": 15.71
+        }
+      ]
+    },
+    {
+      "hexId": 4069,
+      "name": "大买特买",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/trade3.png",
+      "sampleCount": 664,
+      "playRate": 0.04,
+      "avgPlacement": 4.95,
+      "top4Rate": 43.07,
+      "topRate": 13.25,
+      "rounds": [
+        "2-1"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 664,
+          "playRate": 0.04,
+          "avgPlacement": 4.95,
+          "top4Rate": 43.07,
+          "topRate": 13.25
+        }
+      ]
+    },
+    {
+      "hexId": 20575,
+      "name": "救赎盔甲",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/spiritofredemption2.png",
+      "sampleCount": 651,
+      "playRate": 0.04,
+      "avgPlacement": 4.73,
+      "top4Rate": 45.78,
+      "topRate": 6.76,
+      "rounds": [
+        "2-1",
+        "3-2"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 326,
+          "playRate": 0.02,
+          "avgPlacement": 4.85,
+          "top4Rate": 43.25,
+          "topRate": 5.83
+        },
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 325,
+          "playRate": 0.02,
+          "avgPlacement": 4.61,
+          "top4Rate": 48.31,
+          "topRate": 7.69
+        }
+      ]
+    },
+    {
+      "hexId": 30018,
+      "name": "订阅服务",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/subscriptionservice3.png",
+      "sampleCount": 644,
+      "playRate": 0.04,
+      "avgPlacement": 4.67,
+      "top4Rate": 45.81,
+      "topRate": 9.01,
+      "rounds": [
+        "2-1"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 644,
+          "playRate": 0.04,
+          "avgPlacement": 4.67,
+          "top4Rate": 45.81,
+          "topRate": 9.01
+        }
+      ]
+    },
+    {
+      "hexId": 10242,
+      "name": "终身黄铜 I",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/bronzeforlifei2.png",
+      "sampleCount": 640,
+      "playRate": 0.03,
+      "avgPlacement": 4.76,
+      "top4Rate": 45.16,
+      "topRate": 8.59,
+      "rounds": [
+        "3-2",
+        "4-2"
+      ],
+      "roundStats": [
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 198,
+          "playRate": 0.01,
+          "avgPlacement": 4.86,
+          "top4Rate": 42.42,
+          "topRate": 10.1
+        },
+        {
+          "round": 2,
+          "roundLabel": "4-2",
+          "sampleCount": 441,
+          "playRate": 0.02,
+          "avgPlacement": 4.72,
+          "top4Rate": 46.49,
+          "topRate": 7.94
+        }
+      ]
+    },
+    {
+      "hexId": 20616,
+      "name": "利落保镖",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/bodyguardstraining2.png",
+      "sampleCount": 623,
+      "playRate": 0.03,
+      "avgPlacement": 4.37,
+      "top4Rate": 51.52,
+      "topRate": 11.72,
+      "rounds": [
+        "2-1"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 623,
+          "playRate": 0.03,
+          "avgPlacement": 4.37,
+          "top4Rate": 51.52,
+          "topRate": 11.72
+        }
+      ]
+    },
+    {
+      "hexId": 1900,
+      "name": "午餐钱",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/bloodbank1.png",
+      "sampleCount": 592,
+      "playRate": 0.03,
+      "avgPlacement": 4.37,
+      "top4Rate": 51.01,
+      "topRate": 12.67,
+      "rounds": [
+        "2-1",
+        "3-2"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 139,
+          "playRate": 0.01,
+          "avgPlacement": 4.45,
+          "top4Rate": 51.08,
+          "topRate": 13.67
+        },
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 453,
+          "playRate": 0.02,
+          "avgPlacement": 4.35,
+          "top4Rate": 50.99,
+          "topRate": 12.36
+        }
+      ]
+    },
+    {
+      "hexId": 20039,
+      "name": "坦度成双",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/twotanky2.png",
+      "sampleCount": 590,
+      "playRate": 0.03,
+      "avgPlacement": 5.39,
+      "top4Rate": 32.03,
+      "topRate": 3.05,
+      "rounds": [
+        "2-1",
+        "3-2"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 458,
+          "playRate": 0.02,
+          "avgPlacement": 5.37,
+          "top4Rate": 32.75,
+          "topRate": 2.4
+        },
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 132,
+          "playRate": 0.01,
+          "avgPlacement": 5.45,
+          "top4Rate": 29.55,
+          "topRate": 5.3
+        }
+      ]
+    },
+    {
+      "hexId": 20734,
+      "name": "时间流",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/timestream2.png",
+      "sampleCount": 552,
+      "playRate": 0.03,
+      "avgPlacement": 4.72,
+      "top4Rate": 43.12,
+      "topRate": 9.78,
+      "rounds": [
+        "2-1"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 552,
+          "playRate": 0.03,
+          "avgPlacement": 4.72,
+          "top4Rate": 43.12,
+          "topRate": 9.78
+        }
+      ]
+    },
+    {
+      "hexId": 20625,
+      "name": "宝宝学院",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/earlylearning2.png",
+      "sampleCount": 520,
+      "playRate": 0.03,
+      "avgPlacement": 4.74,
+      "top4Rate": 43.08,
+      "topRate": 10.77,
+      "rounds": [
+        "2-1"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 520,
+          "playRate": 0.03,
+          "avgPlacement": 4.74,
+          "top4Rate": 43.08,
+          "topRate": 10.77
+        }
+      ]
+    },
+    {
+      "hexId": 2152,
+      "name": "最佳好友II",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/bestfriends2.png",
+      "sampleCount": 512,
+      "playRate": 0.03,
+      "avgPlacement": 4.38,
+      "top4Rate": 50.78,
+      "topRate": 13.09,
+      "rounds": [
+        "3-2",
+        "4-2"
+      ],
+      "roundStats": [
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 168,
+          "playRate": 0.01,
+          "avgPlacement": 4.38,
+          "top4Rate": 51.19,
+          "topRate": 12.5
+        },
+        {
+          "round": 2,
+          "roundLabel": "4-2",
+          "sampleCount": 343,
+          "playRate": 0.02,
+          "avgPlacement": 4.37,
+          "top4Rate": 50.73,
+          "topRate": 13.41
+        }
+      ]
+    },
+    {
+      "hexId": 20496,
+      "name": "独自升级",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/sololeveling2.png",
+      "sampleCount": 510,
+      "playRate": 0.03,
+      "avgPlacement": 4.65,
+      "top4Rate": 48.82,
+      "topRate": 9.22,
+      "rounds": [
+        "2-1"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 510,
+          "playRate": 0.03,
+          "avgPlacement": 4.65,
+          "top4Rate": 48.82,
+          "topRate": 9.22
+        }
+      ]
+    },
+    {
+      "hexId": 1789,
+      "name": "有用之材 I",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/goodforsomething1.png",
+      "sampleCount": 506,
+      "playRate": 0.03,
+      "avgPlacement": 4.71,
+      "top4Rate": 45.26,
+      "topRate": 15.22,
+      "rounds": [
+        "2-1"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 506,
+          "playRate": 0.03,
+          "avgPlacement": 4.71,
+          "top4Rate": 45.26,
+          "topRate": 15.22
+        }
+      ]
+    },
+    {
+      "hexId": 20586,
+      "name": "炽天使之拥",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/seraphimsstaff2.png",
+      "sampleCount": 498,
+      "playRate": 0.03,
+      "avgPlacement": 4.75,
+      "top4Rate": 46.59,
+      "topRate": 5.42,
+      "rounds": [
+        "2-1",
+        "3-2"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 311,
+          "playRate": 0.02,
+          "avgPlacement": 4.75,
+          "top4Rate": 46.3,
+          "topRate": 4.18
+        },
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 187,
+          "playRate": 0.01,
+          "avgPlacement": 4.76,
+          "top4Rate": 47.06,
+          "topRate": 7.49
+        }
+      ]
+    },
+    {
+      "hexId": 20242,
+      "name": "终身黄铜 II",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/bronzeforlifei3.png",
+      "sampleCount": 485,
+      "playRate": 0.03,
+      "avgPlacement": 4.43,
+      "top4Rate": 52.37,
+      "topRate": 8.87,
+      "rounds": [
+        "3-2",
+        "4-2"
+      ],
+      "roundStats": [
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 185,
+          "playRate": 0.01,
+          "avgPlacement": 4.37,
+          "top4Rate": 55.68,
+          "topRate": 8.11
+        },
+        {
+          "round": 2,
+          "roundLabel": "4-2",
+          "sampleCount": 300,
+          "playRate": 0.02,
+          "avgPlacement": 4.47,
+          "top4Rate": 50.33,
+          "topRate": 9.33
+        }
+      ]
+    },
+    {
+      "hexId": 20031,
+      "name": "发条增速器",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/clockworkaccelerator2.png",
+      "sampleCount": 480,
+      "playRate": 0.03,
+      "avgPlacement": 4.64,
+      "top4Rate": 46.67,
+      "topRate": 12.5,
+      "rounds": [
+        "3-2",
+        "4-2"
+      ],
+      "roundStats": [
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 162,
+          "playRate": 0.01,
+          "avgPlacement": 4.72,
+          "top4Rate": 45.68,
+          "topRate": 10.49
+        },
+        {
+          "round": 2,
+          "roundLabel": "4-2",
+          "sampleCount": 317,
+          "playRate": 0.02,
+          "avgPlacement": 4.61,
+          "top4Rate": 47,
+          "topRate": 13.56
+        }
+      ]
+    },
+    {
+      "hexId": 2127,
+      "name": "变形重组器",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/recombobulator1.png",
+      "sampleCount": 466,
+      "playRate": 0.03,
+      "avgPlacement": 4.73,
+      "top4Rate": 43.35,
+      "topRate": 10.52,
+      "rounds": [
+        "3-2"
+      ],
+      "roundStats": [
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 460,
+          "playRate": 0.03,
+          "avgPlacement": 4.74,
+          "top4Rate": 43.48,
+          "topRate": 10.43
+        }
+      ]
+    },
+    {
+      "hexId": 10212,
+      "name": "幸存者",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/survivor1.png",
+      "sampleCount": 443,
+      "playRate": 0.02,
+      "avgPlacement": 4.83,
+      "top4Rate": 40.41,
+      "topRate": 18.06,
+      "rounds": [
+        "2-1"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 443,
+          "playRate": 0.02,
+          "avgPlacement": 4.83,
+          "top4Rate": 40.41,
+          "topRate": 18.06
+        }
+      ]
+    },
+    {
+      "hexId": 2993,
+      "name": "高压电",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/highvoltage2.png",
+      "sampleCount": 442,
+      "playRate": 0.02,
+      "avgPlacement": 4.32,
+      "top4Rate": 54.3,
+      "topRate": 9.73,
+      "rounds": [
+        "2-1",
+        "3-2"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 211,
+          "playRate": 0.01,
+          "avgPlacement": 4.41,
+          "top4Rate": 50.71,
+          "topRate": 9.48
+        },
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 231,
+          "playRate": 0.01,
+          "avgPlacement": 4.24,
+          "top4Rate": 57.58,
+          "topRate": 9.96
+        }
+      ]
+    },
+    {
+      "hexId": 2012,
+      "name": "浪人 II",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/exiles2.png",
+      "sampleCount": 438,
+      "playRate": 0.02,
+      "avgPlacement": 4.68,
+      "top4Rate": 45.89,
+      "topRate": 11.87,
+      "rounds": [
+        "3-2",
+        "4-2"
+      ],
+      "roundStats": [
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 110,
+          "playRate": 0.01,
+          "avgPlacement": 4.44,
+          "top4Rate": 52.73,
+          "topRate": 13.64
+        },
+        {
+          "round": 2,
+          "roundLabel": "4-2",
+          "sampleCount": 254,
+          "playRate": 0.01,
+          "avgPlacement": 4.7,
+          "top4Rate": 44.09,
+          "topRate": 12.99
+        }
+      ]
+    },
+    {
+      "hexId": 1003,
+      "name": "花到上头",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/hyperroll2.png",
+      "sampleCount": 436,
+      "playRate": 0.02,
+      "avgPlacement": 4.42,
+      "top4Rate": 52.98,
+      "topRate": 6.65,
+      "rounds": [
+        "2-1"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 436,
+          "playRate": 0.02,
+          "avgPlacement": 4.42,
+          "top4Rate": 52.98,
+          "topRate": 6.65
+        }
+      ]
+    },
+    {
+      "hexId": 10587,
+      "name": "高塔",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/thetower1.png",
+      "sampleCount": 430,
+      "playRate": 0.02,
+      "avgPlacement": 4.2,
+      "top4Rate": 54.42,
+      "topRate": 16.28,
+      "rounds": [
+        "3-2"
+      ],
+      "roundStats": [
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 266,
+          "playRate": 0.01,
+          "avgPlacement": 4.23,
+          "top4Rate": 53.38,
+          "topRate": 14.66
+        }
+      ]
+    },
+    {
+      "hexId": 20471,
+      "name": "泪流成河",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/crymeariver2.png",
+      "sampleCount": 423,
+      "playRate": 0.02,
+      "avgPlacement": 4.86,
+      "top4Rate": 42.08,
+      "topRate": 8.75,
+      "rounds": [
+        "2-1",
+        "3-2"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 203,
+          "playRate": 0.01,
+          "avgPlacement": 4.95,
+          "top4Rate": 40.89,
+          "topRate": 6.9
+        },
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 220,
+          "playRate": 0.01,
+          "avgPlacement": 4.78,
+          "top4Rate": 43.18,
+          "topRate": 10.45
+        }
+      ]
+    },
+    {
+      "hexId": 20563,
+      "name": "秘传奥义",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/furiousblows2.png",
+      "sampleCount": 415,
+      "playRate": 0.02,
+      "avgPlacement": 4.78,
+      "top4Rate": 44.34,
+      "topRate": 6.27,
+      "rounds": [
+        "3-2",
+        "4-2"
+      ],
+      "roundStats": [
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 94,
+          "playRate": 0.01,
+          "avgPlacement": 4.87,
+          "top4Rate": 43.62,
+          "topRate": 5.32
+        },
+        {
+          "round": 2,
+          "roundLabel": "4-2",
+          "sampleCount": 262,
+          "playRate": 0.01,
+          "avgPlacement": 4.66,
+          "top4Rate": 46.18,
+          "topRate": 7.25
+        }
+      ]
+    },
+    {
+      "hexId": 3269,
+      "name": "诅咒冠冕",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/cursedcrown3.png",
+      "sampleCount": 411,
+      "playRate": 0.02,
+      "avgPlacement": 4.31,
+      "top4Rate": 52.07,
+      "topRate": 19.22,
+      "rounds": [
+        "3-2"
+      ],
+      "roundStats": [
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 333,
+          "playRate": 0.02,
+          "avgPlacement": 4.2,
+          "top4Rate": 52.55,
+          "topRate": 21.62
+        }
+      ]
+    },
+    {
+      "hexId": 10573,
+      "name": "拳击课程",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/boxinglessons1.png",
+      "sampleCount": 408,
+      "playRate": 0.02,
+      "avgPlacement": 4.28,
+      "top4Rate": 54.17,
+      "topRate": 11.76,
+      "rounds": [
+        "3-2",
+        "4-2"
+      ],
+      "roundStats": [
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 286,
+          "playRate": 0.02,
+          "avgPlacement": 4.18,
+          "top4Rate": 56.64,
+          "topRate": 11.19
+        },
+        {
+          "round": 2,
+          "roundLabel": "4-2",
+          "sampleCount": 120,
+          "playRate": 0.01,
+          "avgPlacement": 4.5,
+          "top4Rate": 49.17,
+          "topRate": 13.33
+        }
+      ]
+    },
+    {
+      "hexId": 20255,
+      "name": "攀登天梯 II",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/climbtheladder2.png",
+      "sampleCount": 401,
+      "playRate": 0.02,
+      "avgPlacement": 4.79,
+      "top4Rate": 45.39,
+      "topRate": 11.47,
+      "rounds": [
+        "3-2",
+        "4-2"
+      ],
+      "roundStats": [
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 136,
+          "playRate": 0.01,
+          "avgPlacement": 4.83,
+          "top4Rate": 47.06,
+          "topRate": 9.56
+        },
+        {
+          "round": 2,
+          "roundLabel": "4-2",
+          "sampleCount": 263,
+          "playRate": 0.01,
+          "avgPlacement": 4.76,
+          "top4Rate": 44.87,
+          "topRate": 12.55
+        }
+      ]
+    },
+    {
+      "hexId": 10203,
+      "name": "汲取生命力 I",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/dhampyr1.png",
+      "sampleCount": 371,
+      "playRate": 0.02,
+      "avgPlacement": 4.46,
+      "top4Rate": 49.87,
+      "topRate": 14.82,
+      "rounds": [
+        "3-2",
+        "4-2"
+      ],
+      "roundStats": [
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 255,
+          "playRate": 0.01,
+          "avgPlacement": 4.39,
+          "top4Rate": 50.59,
+          "topRate": 15.69
+        },
+        {
+          "round": 2,
+          "roundLabel": "4-2",
+          "sampleCount": 114,
+          "playRate": 0.01,
+          "avgPlacement": 4.59,
+          "top4Rate": 48.25,
+          "topRate": 13.16
+        }
+      ]
+    },
+    {
+      "hexId": 30234,
+      "name": "三项赛 II",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/trifecta3.png",
+      "sampleCount": 370,
+      "playRate": 0.02,
+      "avgPlacement": 4.44,
+      "top4Rate": 50.54,
+      "topRate": 12.16,
+      "rounds": [
+        "4-2"
+      ],
+      "roundStats": [
+        {
+          "round": 2,
+          "roundLabel": "4-2",
+          "sampleCount": 368,
+          "playRate": 0.02,
+          "avgPlacement": 4.45,
+          "top4Rate": 50.27,
+          "topRate": 11.96
+        }
+      ]
+    },
+    {
+      "hexId": 3137,
+      "name": "金蛋",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/thegoldenegg3.png",
+      "sampleCount": 359,
+      "playRate": 0.02,
+      "avgPlacement": 3.48,
+      "top4Rate": 64.62,
+      "topRate": 26.74,
+      "rounds": [
+        "4-2"
+      ],
+      "roundStats": [
+        {
+          "round": 2,
+          "roundLabel": "4-2",
+          "sampleCount": 356,
+          "playRate": 0.02,
+          "avgPlacement": 3.46,
+          "top4Rate": 65.17,
+          "topRate": 26.97
+        }
+      ]
+    },
+    {
+      "hexId": 20568,
+      "name": "鲜血祭品",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/trailofblood2.png",
+      "sampleCount": 335,
+      "playRate": 0.02,
+      "avgPlacement": 4.53,
+      "top4Rate": 51.64,
+      "topRate": 11.64,
+      "rounds": [
+        "2-1",
+        "3-2"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 151,
+          "playRate": 0.01,
+          "avgPlacement": 4.66,
+          "top4Rate": 50.99,
+          "topRate": 7.95
+        },
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 184,
+          "playRate": 0.01,
+          "avgPlacement": 4.43,
+          "top4Rate": 52.17,
+          "topRate": 14.67
+        }
+      ]
+    },
+    {
+      "hexId": 30679,
+      "name": "秘法帮派 II++",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/bandthieves3.png",
+      "sampleCount": 334,
+      "playRate": 0.02,
+      "avgPlacement": 4.49,
+      "top4Rate": 48.8,
+      "topRate": 16.47,
+      "rounds": [
+        "4-2"
+      ],
+      "roundStats": [
+        {
+          "round": 2,
+          "roundLabel": "4-2",
+          "sampleCount": 322,
+          "playRate": 0.02,
+          "avgPlacement": 4.51,
+          "top4Rate": 48.76,
+          "topRate": 16.46
+        }
+      ]
+    },
+    {
+      "hexId": 20708,
+      "name": "电火花 II",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/electrocharging2.png",
+      "sampleCount": 330,
+      "playRate": 0.02,
+      "avgPlacement": 4.88,
+      "top4Rate": 43.03,
+      "topRate": 7.88,
+      "rounds": [
+        "4-2"
+      ],
+      "roundStats": [
+        {
+          "round": 2,
+          "roundLabel": "4-2",
+          "sampleCount": 193,
+          "playRate": 0.01,
+          "avgPlacement": 4.73,
+          "top4Rate": 47.15,
+          "topRate": 10.88
+        }
+      ]
+    },
+    {
+      "hexId": 20578,
+      "name": "心之钢",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/healthygains2.png",
+      "sampleCount": 319,
+      "playRate": 0.02,
+      "avgPlacement": 4.82,
+      "top4Rate": 43.57,
+      "topRate": 6.58,
+      "rounds": [
+        "2-1"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 319,
+          "playRate": 0.02,
+          "avgPlacement": 4.82,
+          "top4Rate": 43.57,
+          "topRate": 6.58
+        }
+      ]
+    },
+    {
+      "hexId": 2781,
+      "name": "小伙伴",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/tinybutmighty2.png",
+      "sampleCount": 308,
+      "playRate": 0.02,
+      "avgPlacement": 4.57,
+      "top4Rate": 49.03,
+      "topRate": 11.69,
+      "rounds": [
+        "4-2"
+      ],
+      "roundStats": [
+        {
+          "round": 2,
+          "roundLabel": "4-2",
+          "sampleCount": 233,
+          "playRate": 0.01,
+          "avgPlacement": 4.47,
+          "top4Rate": 50.21,
+          "topRate": 12.02
+        }
+      ]
+    },
+    {
+      "hexId": 3852,
+      "name": "来个好伙计！",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/buildabud3.png",
+      "sampleCount": 306,
+      "playRate": 0.02,
+      "avgPlacement": 4.75,
+      "top4Rate": 42.81,
+      "topRate": 7.84,
+      "rounds": [
+        "2-1"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 306,
+          "playRate": 0.02,
+          "avgPlacement": 4.75,
+          "top4Rate": 42.81,
+          "topRate": 7.84
+        }
+      ]
+    },
+    {
+      "hexId": 1019,
+      "name": "并肩作战 I",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/standunited1.png",
+      "sampleCount": 289,
+      "playRate": 0.02,
+      "avgPlacement": 4.44,
+      "top4Rate": 51.21,
+      "topRate": 11.42,
+      "rounds": [
+        "3-2"
+      ],
+      "roundStats": [
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 205,
+          "playRate": 0.01,
+          "avgPlacement": 4.7,
+          "top4Rate": 45.37,
+          "topRate": 9.76
+        }
+      ]
+    },
+    {
+      "hexId": 20736,
+      "name": "神律新令",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/divineammendment2.png",
+      "sampleCount": 279,
+      "playRate": 0.02,
+      "avgPlacement": 4.04,
+      "top4Rate": 56.27,
+      "topRate": 19.35,
+      "rounds": [
+        "3-2"
+      ],
+      "roundStats": [
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 279,
+          "playRate": 0.02,
+          "avgPlacement": 4.04,
+          "top4Rate": 56.27,
+          "topRate": 19.35
+        }
+      ]
+    },
+    {
+      "hexId": 30678,
+      "name": "秘法帮派 II+",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/bandthieves3.png",
+      "sampleCount": 270,
+      "playRate": 0.01,
+      "avgPlacement": 4.66,
+      "top4Rate": 48.52,
+      "topRate": 12.22,
+      "rounds": [
+        "3-2"
+      ],
+      "roundStats": [
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 264,
+          "playRate": 0.01,
+          "avgPlacement": 4.68,
+          "top4Rate": 48.48,
+          "topRate": 12.12
+        }
+      ]
+    },
+    {
+      "hexId": 10584,
+      "name": "认知税",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/cognitivetax1.png",
+      "sampleCount": 270,
+      "playRate": 0.01,
+      "avgPlacement": 5.01,
+      "top4Rate": 38.52,
+      "topRate": 8.89,
+      "rounds": [
+        "2-1"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 270,
+          "playRate": 0.01,
+          "avgPlacement": 5.01,
+          "top4Rate": 38.52,
+          "topRate": 8.89
+        }
+      ]
+    },
+    {
+      "hexId": 2705,
+      "name": "成吨的属性！",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/tonsofstats2.png",
+      "sampleCount": 264,
+      "playRate": 0.01,
+      "avgPlacement": 5,
+      "top4Rate": 42.05,
+      "topRate": 9.85,
+      "rounds": [
+        "4-2"
+      ],
+      "roundStats": [
+        {
+          "round": 2,
+          "roundLabel": "4-2",
+          "sampleCount": 185,
+          "playRate": 0.01,
+          "avgPlacement": 5.04,
+          "top4Rate": 41.08,
+          "topRate": 10.27
+        }
+      ]
+    },
+    {
+      "hexId": 1012,
+      "name": "浪人 I",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/exiles1.png",
+      "sampleCount": 239,
+      "playRate": 0.01,
+      "avgPlacement": 4.5,
+      "top4Rate": 49.79,
+      "topRate": 9.62,
+      "rounds": [
+        "3-2"
+      ],
+      "roundStats": [
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 136,
+          "playRate": 0.01,
+          "avgPlacement": 4.38,
+          "top4Rate": 52.94,
+          "topRate": 11.03
+        }
+      ]
+    },
+    {
+      "hexId": 10255,
+      "name": "攀登天梯 I",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/climbtheladder1.png",
+      "sampleCount": 236,
+      "playRate": 0.01,
+      "avgPlacement": 4.89,
+      "top4Rate": 41.1,
+      "topRate": 11.02,
+      "rounds": [
+        "3-2"
+      ],
+      "roundStats": [
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 171,
+          "playRate": 0.01,
+          "avgPlacement": 4.85,
+          "top4Rate": 42.69,
+          "topRate": 11.11
+        }
+      ]
+    },
+    {
+      "hexId": 3904,
+      "name": "不计代价",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/atwhatcost3.png",
+      "sampleCount": 217,
+      "playRate": 0.01,
+      "avgPlacement": 4.35,
+      "top4Rate": 51.61,
+      "topRate": 9.68,
+      "rounds": [
+        "2-1"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 217,
+          "playRate": 0.01,
+          "avgPlacement": 4.35,
+          "top4Rate": 51.61,
+          "topRate": 9.68
+        }
+      ]
+    },
+    {
+      "hexId": 1023,
+      "name": "应急护甲 I",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/makeshift1.png",
+      "sampleCount": 215,
+      "playRate": 0.01,
+      "avgPlacement": 4.57,
+      "top4Rate": 47.91,
+      "topRate": 9.77,
+      "rounds": [
+        "3-2"
+      ],
+      "roundStats": [
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 165,
+          "playRate": 0.01,
+          "avgPlacement": 4.67,
+          "top4Rate": 46.67,
+          "topRate": 9.7
+        }
+      ]
+    },
+    {
+      "hexId": 2023,
+      "name": "应急护甲 II",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/makeshift2.png",
+      "sampleCount": 213,
+      "playRate": 0.01,
+      "avgPlacement": 4.59,
+      "top4Rate": 46.95,
+      "topRate": 9.86,
+      "rounds": [
+        "2-1",
+        "3-2"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 94,
+          "playRate": 0.01,
+          "avgPlacement": 4.79,
+          "top4Rate": 43.62,
+          "topRate": 9.57
+        },
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 119,
+          "playRate": 0.01,
+          "avgPlacement": 4.44,
+          "top4Rate": 49.58,
+          "topRate": 10.08
+        }
+      ]
+    },
+    {
+      "hexId": 10214,
+      "name": "精心打造",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/craftedcrafting1.png",
+      "sampleCount": 211,
+      "playRate": 0.01,
+      "avgPlacement": 4.36,
+      "top4Rate": 53.08,
+      "topRate": 13.74,
+      "rounds": [
+        "2-1"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 211,
+          "playRate": 0.01,
+          "avgPlacement": 4.36,
+          "top4Rate": 53.08,
+          "topRate": 13.74
+        }
+      ]
+    },
+    {
+      "hexId": 1152,
+      "name": "最佳好友I",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/bestfriends1.png",
+      "sampleCount": 207,
+      "playRate": 0.01,
+      "avgPlacement": 4.6,
+      "top4Rate": 47.83,
+      "topRate": 7.73,
+      "rounds": [
+        "3-2"
+      ],
+      "roundStats": [
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 146,
+          "playRate": 0.01,
+          "avgPlacement": 4.64,
+          "top4Rate": 46.58,
+          "topRate": 6.85
+        }
+      ]
+    },
+    {
+      "hexId": 3899,
+      "name": "小而致命",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/tinybutdeadly3.png",
+      "sampleCount": 205,
+      "playRate": 0.01,
+      "avgPlacement": 4.91,
+      "top4Rate": 42.44,
+      "topRate": 6.34,
+      "rounds": [
+        "4-2"
+      ],
+      "roundStats": [
+        {
+          "round": 2,
+          "roundLabel": "4-2",
+          "sampleCount": 124,
+          "playRate": 0.01,
+          "avgPlacement": 4.68,
+          "top4Rate": 45.16,
+          "topRate": 7.26
+        }
+      ]
+    },
+    {
+      "hexId": 20733,
+      "name": "水乳交融",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/westicktogeter3.png",
+      "sampleCount": 201,
+      "playRate": 0.01,
+      "avgPlacement": 4.66,
+      "top4Rate": 46.27,
+      "topRate": 8.46,
+      "rounds": [
+        "2-1"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 201,
+          "playRate": 0.01,
+          "avgPlacement": 4.66,
+          "top4Rate": 46.27,
+          "topRate": 8.46
+        }
+      ]
+    },
+    {
+      "hexId": 30021,
+      "name": "值得等待 II",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/worththewait3.png",
+      "sampleCount": 192,
+      "playRate": 0.01,
+      "avgPlacement": 4.72,
+      "top4Rate": 46.35,
+      "topRate": 5.21,
+      "rounds": [
+        "2-1"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 192,
+          "playRate": 0.01,
+          "avgPlacement": 4.72,
+          "top4Rate": 46.35,
+          "topRate": 5.21
+        }
+      ]
+    },
+    {
+      "hexId": 10264,
+      "name": "列队",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/lineup1.png",
+      "sampleCount": 187,
+      "playRate": 0.01,
+      "avgPlacement": 4.48,
+      "top4Rate": 47.59,
+      "topRate": 10.16,
+      "rounds": [
+        "3-2"
+      ],
+      "roundStats": [
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 127,
+          "playRate": 0.01,
+          "avgPlacement": 4.61,
+          "top4Rate": 44.09,
+          "topRate": 8.66
+        }
+      ]
+    },
+    {
+      "hexId": 30007,
+      "name": "硬性承诺",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/hardcommit3.png",
+      "sampleCount": 182,
+      "playRate": 0.01,
+      "avgPlacement": 4.75,
+      "top4Rate": 46.15,
+      "topRate": 9.34,
+      "rounds": [
+        "2-1"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 182,
+          "playRate": 0.01,
+          "avgPlacement": 4.75,
+          "top4Rate": 46.15,
+          "topRate": 9.34
+        }
+      ]
+    },
+    {
+      "hexId": 30730,
+      "name": "狂潮之心",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/heartoftheswarm3.png",
+      "sampleCount": 181,
+      "playRate": 0.01,
+      "avgPlacement": 5.43,
+      "top4Rate": 30.94,
+      "topRate": 16.02,
+      "rounds": [
+        "2-1"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 181,
+          "playRate": 0.01,
+          "avgPlacement": 5.43,
+          "top4Rate": 30.94,
+          "topRate": 16.02
+        }
+      ]
+    },
+    {
+      "hexId": 20612,
+      "name": "三相庇护",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/infinityprotection2.png",
+      "sampleCount": 179,
+      "playRate": 0.01,
+      "avgPlacement": 4.59,
+      "top4Rate": 50.84,
+      "topRate": 7.82,
+      "rounds": [
+        "2-1"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 179,
+          "playRate": 0.01,
+          "avgPlacement": 4.59,
+          "top4Rate": 50.84,
+          "topRate": 7.82
+        }
+      ]
+    },
+    {
+      "hexId": 10581,
+      "name": "战时补给：女神之泪",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/griefofthegreatgoddess1.png",
+      "sampleCount": 168,
+      "playRate": 0.01,
+      "avgPlacement": 4.36,
+      "top4Rate": 50.6,
+      "topRate": 14.88,
+      "rounds": [
+        "2-1"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 168,
+          "playRate": 0.01,
+          "avgPlacement": 4.36,
+          "top4Rate": 50.6,
+          "topRate": 14.88
+        }
+      ]
+    },
+    {
+      "hexId": 3486,
+      "name": "珍藏财宝",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/buriedtreasureslegend3.png",
+      "sampleCount": 159,
+      "playRate": 0.01,
+      "avgPlacement": 4.53,
+      "top4Rate": 48.43,
+      "topRate": 8.18,
+      "rounds": [
+        "2-1"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 159,
+          "playRate": 0.01,
+          "avgPlacement": 4.53,
+          "top4Rate": 48.43,
+          "topRate": 8.18
+        }
+      ]
+    },
+    {
+      "hexId": 10252,
+      "name": "腐蚀",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/corrosion1.png",
+      "sampleCount": 152,
+      "playRate": 0.01,
+      "avgPlacement": 4.59,
+      "top4Rate": 47.37,
+      "topRate": 11.84,
+      "rounds": [
+        "3-2"
+      ],
+      "roundStats": [
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 128,
+          "playRate": 0.01,
+          "avgPlacement": 4.65,
+          "top4Rate": 46.09,
+          "topRate": 10.94
+        }
+      ]
+    },
+    {
+      "hexId": 3809,
+      "name": "遥遥领先",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/goinglong3.png",
+      "sampleCount": 141,
+      "playRate": 0.01,
+      "avgPlacement": 4.67,
+      "top4Rate": 44.68,
+      "topRate": 6.38,
+      "rounds": [
+        "2-1"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 141,
+          "playRate": 0.01,
+          "avgPlacement": 4.67,
+          "top4Rate": 44.68,
+          "topRate": 6.38
+        }
+      ]
+    },
+    {
+      "hexId": 10708,
+      "name": "电火花 I",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/electrocharging1.png",
+      "sampleCount": 140,
+      "playRate": 0.01,
+      "avgPlacement": 4.58,
+      "top4Rate": 45,
+      "topRate": 12.86,
+      "rounds": [
+        "3-2"
+      ],
+      "roundStats": [
+        {
+          "round": 1,
+          "roundLabel": "3-2",
+          "sampleCount": 94,
+          "playRate": 0.01,
+          "avgPlacement": 4.5,
+          "top4Rate": 46.81,
+          "topRate": 13.83
+        }
+      ]
+    },
+    {
+      "hexId": 1647,
+      "name": "冒险举动",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/riskymoves1.png",
+      "sampleCount": 130,
+      "playRate": 0.01,
+      "avgPlacement": 4.52,
+      "top4Rate": 51.54,
+      "topRate": 13.85,
+      "rounds": [
+        "2-1"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 130,
+          "playRate": 0.01,
+          "avgPlacement": 4.52,
+          "top4Rate": 51.54,
+          "topRate": 13.85
+        }
+      ]
+    },
+    {
+      "hexId": 20729,
+      "name": "热寂",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/starconqueror2.png",
+      "sampleCount": 126,
+      "playRate": 0.01,
+      "avgPlacement": 4.25,
+      "top4Rate": 54.76,
+      "topRate": 5.56,
+      "rounds": [
+        "2-1"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 126,
+          "playRate": 0.01,
+          "avgPlacement": 4.25,
+          "top4Rate": 54.76,
+          "topRate": 5.56
+        }
+      ]
+    },
+    {
+      "hexId": 20643,
+      "name": "绝境反击",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/comebackstory3.png",
+      "sampleCount": 126,
+      "playRate": 0.01,
+      "avgPlacement": 5.52,
+      "top4Rate": 26.19,
+      "topRate": 7.94,
+      "rounds": [
+        "2-1"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 126,
+          "playRate": 0.01,
+          "avgPlacement": 5.52,
+          "top4Rate": 26.19,
+          "topRate": 7.94
+        }
+      ]
+    },
+    {
+      "hexId": 10724,
+      "name": "星界连招",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/aatroxhero1.png",
+      "sampleCount": 107,
+      "playRate": 0.01,
+      "avgPlacement": 4.3,
+      "top4Rate": 57.94,
+      "topRate": 6.54,
+      "rounds": [
+        "2-1"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 107,
+          "playRate": 0.01,
+          "avgPlacement": 4.3,
+          "top4Rate": 57.94,
+          "topRate": 6.54
+        }
+      ]
+    },
+    {
+      "hexId": 20700,
+      "name": "自我毁灭",
+      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/selfdestruct2.png",
+      "sampleCount": 101,
+      "playRate": 0.01,
+      "avgPlacement": 4.83,
+      "top4Rate": 40.59,
+      "topRate": 1.98,
+      "rounds": [
+        "2-1"
+      ],
+      "roundStats": [
+        {
+          "round": 0,
+          "roundLabel": "2-1",
+          "sampleCount": 101,
+          "playRate": 0.01,
+          "avgPlacement": 4.83,
+          "top4Rate": 40.59,
+          "topRate": 1.98
+        }
+      ]
+    }
+  ]
+}

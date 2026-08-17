@@ -16,7 +16,8 @@
     "champions": 63,
     "traits": 27,
     "mechanics": 19,
-    "board_units": 1
+    "board_units": 1,
+    "augments": 322
    }
   },
   {
@@ -34,7 +35,8 @@
     "champions": 115,
     "traits": 60,
     "mechanics": 0,
-    "board_units": 5
+    "board_units": 5,
+    "augments": 298
    }
   },
   {
@@ -52,7 +54,8 @@
     "champions": 71,
     "traits": 34,
     "mechanics": 9,
-    "board_units": 3
+    "board_units": 3,
+    "augments": 277
    }
   },
   {

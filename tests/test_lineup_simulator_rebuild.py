@@ -29,6 +29,37 @@ def test_simulator_page_uses_new_tool_workspace(client):
     assert 'local-data.js' not in html
 
 
+def test_simulator_exposes_augment_library_selection_and_poster_recommendations(client):
+    html = client.get('/tools/lineup-simulator').get_data(as_text=True)
+    javascript = (SIMULATOR_ROOT / 'app.js').read_text(encoding='utf-8')
+    stylesheet = (SIMULATOR_ROOT / 'style.css').read_text(encoding='utf-8')
+
+    assert 'id="augmentLibraryTab"' in html
+    assert 'id="augmentGroups"' in html
+    assert 'id="selectedAugmentList"' in html
+    assert 'class="augment-filter-bar"' in html
+    assert '强化符文推荐' in html
+    assert 'const MAX_SELECTED_AUGMENTS = 6;' in javascript
+    assert 'augmentIds: state.selectedAugmentIds' in javascript
+    assert 'function posterAugmentHtml()' in javascript
+    assert 'lineup-poster-augments-panel' in javascript
+    assert '.selected-augment-list' in stylesheet
+    assert '.lineup-poster-insights' in stylesheet
+    assert '.lineup-poster-augment' in stylesheet
+    assert 'state[key] = state[key] === value ? "all" : value;' in javascript
+    assert 'const AUGMENT_STAGE_ORDER = ["2-1", "3-2", "4-2"];' in javascript
+    assert 'const AUGMENT_CATEGORY_ORDER = ["economy", "combat", "equipment", "trait", "exclusive", "other"];' in javascript
+    assert '全部等级' not in javascript
+    assert '全部时机' not in javascript
+    assert '全部分类' not in javascript
+
+    filter_rule = stylesheet.split('.augment-library-filters {', 1)[1].split('}', 1)[0]
+    assert 'overflow-x' not in filter_rule
+    poster_rule = stylesheet.split('.lineup-poster-augment {', 1)[1].split('}', 1)[0]
+    assert 'background:' not in poster_rule
+    assert 'border:' not in poster_rule
+
+
 def test_simulator_loads_every_season_from_catalog():
     javascript = (SIMULATOR_ROOT / 'app.js').read_text(encoding='utf-8')
     catalog = json.loads((SEASON_ROOT / 'catalog.json').read_text(encoding='utf-8'))
@@ -373,7 +404,8 @@ def test_simulator_exports_a_separate_fixed_portrait_poster():
     assert '.lineup-poster-capture {' in css
     assert '.lineup-poster-background-art {' in css
     assert 'object-fit: contain' in css
-    assert 'grid-template-rows: 292px 760px 350px 198px' in css
+    assert 'grid-template-rows: 250px 650px 520px 180px' in css
+    assert '强化符文推荐' in poster_builder
     assert '"Source Han Serif SC Poster"' in css
     assert '.lineup-poster-brand' in css
     trait_rule = css.split('.lineup-poster-trait {', 1)[1].split('}', 1)[0]

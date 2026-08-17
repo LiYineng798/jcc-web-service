@@ -5,6 +5,7 @@ const STORAGE_PREFIX = "jcc-simulator-v2:";
 const MAX_HISTORY = 40;
 const MAX_EXPORT_TRAITS = 8;
 const MAX_POSTER_TRAITS = 9;
+const MAX_SELECTED_AUGMENTS = 6;
 const POSTER_WIDTH = 1200;
 const POSTER_HEIGHT = 1600;
 const POSTER_DEFAULT_TITLE = "我的阵容";
@@ -41,6 +42,15 @@ const ITEM_CATEGORIES = [
   { id: "consumable", label: "消耗", source: ["consumable"] },
   { id: "other", label: "其他", source: ["other"] },
 ];
+const AUGMENT_TIER_LABELS = {
+  silver: "白银",
+  gold: "黄金",
+  prismatic: "棱彩",
+  hero: "英雄强化",
+  special: "特殊强化",
+};
+const AUGMENT_STAGE_ORDER = ["2-1", "3-2", "4-2"];
+const AUGMENT_CATEGORY_ORDER = ["economy", "combat", "equipment", "trait", "exclusive", "other"];
 
 function availableItemCategories() {
   const populated = new Set(state.items.map((item) => item.category));
@@ -88,6 +98,19 @@ const elements = {
   traitFilterMenu: document.querySelector("#traitFilterMenu"),
   traitFilterClear: document.querySelector("#traitFilterClear"),
   heroGroups: document.querySelector("#heroGroups"),
+  libraryModeTabs: Array.from(document.querySelectorAll("[data-library-mode]")),
+  championLibraryTab: document.querySelector("#championLibraryTab"),
+  augmentLibraryTab: document.querySelector("#augmentLibraryTab"),
+  championLibraryControls: document.querySelector("#championLibraryControls"),
+  augmentLibraryControls: document.querySelector("#augmentLibraryControls"),
+  augmentSearch: document.querySelector("#augmentSearch"),
+  augmentTierFilters: document.querySelector("#augmentTierFilters"),
+  augmentStageFilters: document.querySelector("#augmentStageFilters"),
+  augmentCategoryFilters: document.querySelector("#augmentCategoryFilters"),
+  augmentGroups: document.querySelector("#augmentGroups"),
+  selectedAugmentsPanel: document.querySelector("#selectedAugmentsPanel"),
+  selectedAugmentCount: document.querySelector("#selectedAugmentCount"),
+  selectedAugmentList: document.querySelector("#selectedAugmentList"),
   showNames: document.querySelector("#showNamesToggle"),
   hoverDetails: document.querySelector("#hoverDetailsToggle"),
   undo: document.querySelector("#undoButton"),
@@ -129,14 +152,22 @@ const state = {
   boardUnits: [],
   traits: [],
   items: [],
+  augments: [],
   championById: new Map(),
   traitById: new Map(),
   itemById: new Map(),
+  augmentById: new Map(),
   board: Array(28).fill(null),
   selectedItemId: null,
+  selectedAugmentIds: [],
+  libraryMode: "champions",
   itemCategory: "normal",
   heroSearch: "",
   itemSearch: "",
+  augmentSearch: "",
+  augmentTier: "all",
+  augmentStage: "all",
+  augmentCategory: "all",
   costFilter: "all",
   traitFilters: new Set(),
   showNames: true,
@@ -280,6 +311,25 @@ function normalizeItem(raw) {
   };
 }
 
+function normalizeAugment(raw) {
+  return {
+    id: String(raw.id),
+    name: raw.name || "未知强化符文",
+    description: raw.description || "",
+    descriptionTokens: raw.description_tokens || null,
+    tier: raw.tier || "other",
+    tierLabel: raw.tier_label || AUGMENT_TIER_LABELS[raw.tier] || "强化符文",
+    tierOrder: Number(raw.tier_order) || 99,
+    augmentType: raw.augment_type || "standard",
+    category: raw.category || "other",
+    categoryLabel: raw.category_label || "其他",
+    appearanceStages: raw.appearance_stages || [],
+    stageDataStatus: raw.extensions?.appearance_stage_evidence?.status || "unavailable",
+    icon: seasonAsset(raw.image?.optimized_local_path || raw.image?.local_path),
+    posterIcon: seasonAsset(raw.image?.local_path || raw.image?.optimized_local_path),
+  };
+}
+
 async function fetchJson(path) {
   const response = await fetch(path, {
     cache: "no-cache",
@@ -316,16 +366,26 @@ async function loadSeason(seasonId, importedPayload = null) {
   state.itemSearch = "";
   state.costFilter = "all";
   state.itemCategory = "normal";
+  state.libraryMode = "champions";
+  state.augmentSearch = "";
+  state.augmentTier = "all";
+  state.augmentStage = "all";
+  state.augmentCategory = "all";
   elements.heroSearch.value = "";
   elements.itemSearch.value = "";
+  elements.augmentSearch.value = "";
   setLoading(true);
   try {
     const stamp = encodeURIComponent(`${season.version_id}-${DATA_VERSION}`);
-    const [championData, traitData, itemData, boardUnitData] = await Promise.all([
+    const augmentRequest = Number(season.counts?.augments || 0) > 0
+      ? fetchJson(`${DATA_ROOT}/${encodeURIComponent(seasonId)}/augments.json?v=${stamp}`)
+      : Promise.resolve({ augments: [] });
+    const [championData, traitData, itemData, boardUnitData, augmentData] = await Promise.all([
       fetchJson(`${DATA_ROOT}/${encodeURIComponent(seasonId)}/champions.json?v=${stamp}`),
       fetchJson(`${DATA_ROOT}/${encodeURIComponent(seasonId)}/traits.json?v=${stamp}`),
       fetchJson(`${DATA_ROOT}/${encodeURIComponent(seasonId)}/items.json?v=${stamp}`),
       fetchJson(`${DATA_ROOT}/${encodeURIComponent(seasonId)}/board_units.json?v=${stamp}`),
+      augmentRequest,
     ]);
     state.champions = (championData.champions || [])
       .filter((raw) => raw.extensions?.simulator_visible !== false)
@@ -334,6 +394,8 @@ async function loadSeason(seasonId, importedPayload = null) {
     state.boardUnits = (boardUnitData.board_units || []).map(normalizeBoardUnit).sort((a, b) => a.name.localeCompare(b.name, "zh-CN"));
     state.traits = (traitData.traits || []).map(normalizeTrait).sort((a, b) => a.category.localeCompare(b.category) || a.name.localeCompare(b.name, "zh-CN"));
     state.items = (itemData.items || []).map(normalizeItem);
+    state.augments = (augmentData.augments || []).map(normalizeAugment)
+      .sort((a, b) => a.tierOrder - b.tierOrder || a.category.localeCompare(b.category) || a.name.localeCompare(b.name, "zh-CN"));
     const availableCategories = availableItemCategories();
     if (!availableCategories.some((category) => category.id === state.itemCategory)) {
       state.itemCategory = availableCategories[0]?.id || "normal";
@@ -341,11 +403,13 @@ async function loadSeason(seasonId, importedPayload = null) {
     state.championById = new Map([...state.champions, ...state.boardUnits].map((item) => [item.id, item]));
     state.traitById = new Map(state.traits.map((item) => [item.id, item]));
     state.itemById = new Map(state.items.map((item) => [item.id, item]));
+    state.augmentById = new Map(state.augments.map((item) => [item.id, item]));
     let payload = readStoredFormation(seasonId);
     if (importedPayload?.season === seasonId) {
       payload = importedPayload.format === "JCC2" ? decodePayload(importedPayload.code) : importedPayload;
     }
     state.board = hydrateBoard(payload?.board);
+    state.selectedAugmentIds = hydrateAugmentIds(payload?.augmentIds);
     state.showNames = payload?.showNames !== false;
     elements.showNames.checked = state.showNames;
     state.history = [];
@@ -371,6 +435,11 @@ function hydrateBoard(rawBoard) {
   return board;
 }
 
+function hydrateAugmentIds(rawIds) {
+  if (!Array.isArray(rawIds)) return [];
+  return [...new Set(rawIds.map(String).filter((id) => state.augmentById.has(id)))].slice(0, MAX_SELECTED_AUGMENTS);
+}
+
 function setLoading(isLoading) {
   elements.root.toggleAttribute("aria-busy", isLoading);
   if (isLoading) elements.seasonMeta.textContent = "正在加载赛季资料...";
@@ -381,6 +450,9 @@ function renderAll() {
   renderFilters();
   renderHeroes();
   renderItems();
+  renderAugments();
+  renderSelectedAugments();
+  renderLibraryMode();
   renderBoard();
   persist();
   window.lucide?.createIcons();
@@ -493,6 +565,99 @@ function renderItems() {
       <img src="${escapeHtml(item.icon)}" alt="" loading="lazy" decoding="async" />
     </button>`).join("") : '<div class="empty-state">该分类暂无装备</div>';
   updateSelectedItemStatus();
+}
+
+function renderLibraryMode() {
+  if (!state.augments.length) state.libraryMode = "champions";
+  elements.augmentLibraryTab.hidden = state.augments.length === 0;
+  elements.libraryModeTabs.forEach((button) => {
+    const active = button.dataset.libraryMode === state.libraryMode;
+    button.classList.toggle("is-active", active);
+    button.setAttribute("aria-selected", String(active));
+  });
+  const showingChampions = state.libraryMode === "champions";
+  elements.championLibraryControls.hidden = !showingChampions;
+  elements.augmentLibraryControls.hidden = showingChampions;
+  elements.heroGroups.hidden = !showingChampions;
+  elements.augmentGroups.hidden = showingChampions;
+}
+
+function augmentFilterOptions() {
+  const tiers = [...new Map(state.augments.map((augment) => [augment.tier, augment])).values()]
+    .sort((a, b) => a.tierOrder - b.tierOrder)
+    .map((augment) => ({ id: augment.tier, label: AUGMENT_TIER_LABELS[augment.tier] || augment.tierLabel }));
+  const availableStages = new Set(state.augments.flatMap((augment) => augment.appearanceStages));
+  const stages = AUGMENT_STAGE_ORDER.filter((stage) => availableStages.has(stage));
+  const categoryLabels = new Map(state.augments.map((augment) => [augment.category, augment.categoryLabel]));
+  const categoryIds = [
+    ...AUGMENT_CATEGORY_ORDER.filter((id) => categoryLabels.has(id)),
+    ...[...categoryLabels.keys()].filter((id) => !AUGMENT_CATEGORY_ORDER.includes(id)),
+  ];
+  const categories = categoryIds.map((id) => ({ id, label: categoryLabels.get(id) }));
+  return {
+    tiers,
+    stages: stages.map((stage) => ({ id: stage, label: stage })),
+    categories,
+  };
+}
+
+function augmentFilterHtml(options, key) {
+  return options.map((option) => {
+    const active = state[key] === option.id;
+    return `<button class="${active ? "is-active" : ""}" type="button" data-augment-filter-key="${key}" data-augment-filter-value="${escapeHtml(option.id)}" aria-pressed="${active}" title="${active ? "再次点击清除此筛选" : `筛选：${escapeHtml(option.label)}`}">${escapeHtml(option.label)}</button>`;
+  }).join("");
+}
+
+function filteredAugments() {
+  const query = normalizeText(state.augmentSearch);
+  return state.augments.filter((augment) => {
+    if (state.augmentTier !== "all" && augment.tier !== state.augmentTier) return false;
+    if (state.augmentStage !== "all" && !augment.appearanceStages.includes(state.augmentStage)) return false;
+    if (state.augmentCategory !== "all" && augment.category !== state.augmentCategory) return false;
+    return !query || normalizeText([augment.name, augment.description, augment.categoryLabel, augment.tierLabel].join(" ")).includes(query);
+  });
+}
+
+function renderAugments() {
+  const options = augmentFilterOptions();
+  elements.augmentTierFilters.innerHTML = augmentFilterHtml(options.tiers, "augmentTier");
+  elements.augmentStageFilters.innerHTML = augmentFilterHtml(options.stages, "augmentStage");
+  elements.augmentCategoryFilters.innerHTML = augmentFilterHtml(options.categories, "augmentCategory");
+  const augments = filteredAugments();
+  elements.augmentGroups.innerHTML = augments.length ? augments.map((augment) => {
+    const selected = state.selectedAugmentIds.includes(augment.id);
+    return `<button class="augment-library-card augment-tier-${escapeHtml(augment.tier)} ${selected ? "is-selected" : ""}" type="button" data-augment-id="${escapeHtml(augment.id)}" aria-pressed="${selected}" aria-label="${selected ? "移除" : "选择"} ${escapeHtml(augment.name)}">
+      <img src="${escapeHtml(augment.icon)}" alt="" loading="lazy" decoding="async" />
+      <span><small>${escapeHtml(AUGMENT_TIER_LABELS[augment.tier] || augment.tierLabel)}</small><strong>${escapeHtml(augment.name)}</strong><em>${escapeHtml(augment.categoryLabel)}</em></span>
+    </button>`;
+  }).join("") : '<div class="empty-state">没有符合条件的强化符文</div>';
+}
+
+function renderSelectedAugments() {
+  const augments = state.selectedAugmentIds.map((id) => state.augmentById.get(id)).filter(Boolean);
+  elements.selectedAugmentsPanel.hidden = augments.length === 0;
+  elements.selectedAugmentCount.textContent = `${augments.length} / ${MAX_SELECTED_AUGMENTS}`;
+  elements.selectedAugmentList.innerHTML = augments.map((augment) => `
+    <article class="selected-augment-chip augment-tier-${escapeHtml(augment.tier)}" data-augment-id="${escapeHtml(augment.id)}">
+      <img src="${escapeHtml(augment.icon)}" alt="" />
+      <span><small>${escapeHtml(AUGMENT_TIER_LABELS[augment.tier] || augment.tierLabel)}</small><strong>${escapeHtml(augment.name)}</strong></span>
+      <button type="button" data-remove-augment-id="${escapeHtml(augment.id)}" title="移除 ${escapeHtml(augment.name)}" aria-label="移除 ${escapeHtml(augment.name)}"><i data-lucide="x"></i></button>
+    </article>`).join("");
+  window.lucide?.createIcons();
+}
+
+function toggleAugment(augmentId) {
+  if (!state.augmentById.has(augmentId)) return;
+  const selected = state.selectedAugmentIds.includes(augmentId);
+  if (!selected && state.selectedAugmentIds.length >= MAX_SELECTED_AUGMENTS) {
+    showToast(`最多选择 ${MAX_SELECTED_AUGMENTS} 个强化符文`);
+    return;
+  }
+  mutate(() => {
+    state.selectedAugmentIds = selected
+      ? state.selectedAugmentIds.filter((id) => id !== augmentId)
+      : [...state.selectedAugmentIds, augmentId];
+  });
 }
 
 function renderBoard() {
@@ -680,11 +845,13 @@ function mutate(callback) {
   pushHistory();
   renderBoard();
   renderHeroes();
+  renderAugments();
+  renderSelectedAugments();
   persist();
 }
 
 function snapshot() {
-  return JSON.stringify({ board: state.board, showNames: state.showNames });
+  return JSON.stringify({ board: state.board, augmentIds: state.selectedAugmentIds, showNames: state.showNames });
 }
 
 function pushHistory() {
@@ -701,15 +868,18 @@ function applyHistory(index) {
   state.historyIndex = index;
   const value = JSON.parse(state.history[index]);
   state.board = hydrateBoard(value.board);
+  state.selectedAugmentIds = hydrateAugmentIds(value.augmentIds);
   state.showNames = value.showNames !== false;
   elements.showNames.checked = state.showNames;
   renderBoard();
   renderHeroes();
+  renderAugments();
+  renderSelectedAugments();
   persist();
 }
 
 function formationPayload() {
-  return { version: 2, season: state.season.season_id, showNames: state.showNames, board: state.board };
+  return { version: 2, season: state.season.season_id, showNames: state.showNames, board: state.board, augmentIds: state.selectedAugmentIds };
 }
 
 function persist() {
@@ -1054,6 +1224,19 @@ function posterTraitHtml() {
   }).join("")}${overflow > 0 ? `<div class="lineup-poster-trait lineup-poster-trait-more"><b>+${overflow}</b><strong>个羁绊</strong></div>` : ""}`;
 }
 
+function posterAugmentHtml() {
+  const augments = state.selectedAugmentIds
+    .map((id) => state.augmentById.get(id))
+    .filter(Boolean)
+    .slice(0, MAX_SELECTED_AUGMENTS);
+  if (!augments.length) return '<div class="lineup-poster-augments-empty">未选择强化符文</div>';
+  return augments.map((augment) => `
+    <div class="lineup-poster-augment augment-tier-${escapeHtml(augment.tier)}">
+      <img src="${escapeHtml(augment.posterIcon || augment.icon)}" alt="" data-fallback-src="${escapeHtml(augment.icon)}" />
+      <span><small>${escapeHtml(AUGMENT_TIER_LABELS[augment.tier] || augment.tierLabel)}</small><strong>${escapeHtml(augment.name)}</strong></span>
+    </div>`).join("");
+}
+
 function posterBoardClone() {
   const board = elements.board.cloneNode(true);
   board.removeAttribute("id");
@@ -1078,6 +1261,7 @@ function posterBoardClone() {
 function buildPosterCapture(title, championId) {
   const hero = state.championById.get(championId) || state.championById.get(defaultPosterChampionId());
   const units = state.board.filter(Boolean);
+  const selectedAugmentCount = state.selectedAugmentIds.filter((id) => state.augmentById.has(id)).length;
   const poster = document.createElement("section");
   poster.className = "lineup-poster-capture";
   poster.style.setProperty("--poster-width", `${POSTER_WIDTH}px`);
@@ -1092,12 +1276,18 @@ function buildPosterCapture(title, championId) {
     <header class="lineup-poster-header">
       <div class="lineup-poster-season"><span>${escapeHtml(state.season.display_name)}</span><b>${escapeHtml(state.season.game_version || "")}</b></div>
       <h1 class="${posterTitleClass(title)}">${escapeHtml(title)}</h1>
-      <div class="lineup-poster-summary"><span>${units.length} 个单位</span><i></i><span>${posterTraitRows().length} 个激活羁绊</span></div>
+      <div class="lineup-poster-summary"><span>${units.length} 个单位</span><i></i><span>${posterTraitRows().length} 个激活羁绊</span><i></i><span>${selectedAugmentCount} 个强化符文</span></div>
     </header>
     <div class="lineup-poster-board-panel"><div class="lineup-poster-board-slot"></div></div>
-    <section class="lineup-poster-traits-panel">
-      <div class="lineup-poster-section-title"><span>SYNERGIES</span><strong>阵容羁绊</strong></div>
-      <div class="lineup-poster-traits">${posterTraitHtml()}</div>
+    <section class="lineup-poster-insights">
+      <section class="lineup-poster-traits-panel">
+        <div class="lineup-poster-section-title"><span>SYNERGIES</span><strong>阵容羁绊</strong></div>
+        <div class="lineup-poster-traits">${posterTraitHtml()}</div>
+      </section>
+      <section class="lineup-poster-augments-panel">
+        <div class="lineup-poster-section-title"><span>AUGMENTS</span><strong>强化符文推荐</strong></div>
+        <div class="lineup-poster-augments">${posterAugmentHtml()}</div>
+      </section>
     </section>
     <footer class="lineup-poster-footer">
       <div class="lineup-poster-footer-line"></div>
@@ -1182,11 +1372,11 @@ async function rasterizePosterTitle(poster) {
   const heading = poster.querySelector(".lineup-poster-header h1");
   if (!heading) return;
   const title = heading.textContent || POSTER_DEFAULT_TITLE;
-  const fontSize = heading.classList.contains("is-very-long") ? 55 : heading.classList.contains("is-long") ? 68 : 82;
+  const fontSize = heading.classList.contains("is-very-long") ? 50 : heading.classList.contains("is-long") ? 61 : 72;
   await document.fonts?.load(`${fontSize}px "Source Han Serif SC Poster"`, title);
   const canvas = document.createElement("canvas");
-  canvas.width = 1020;
-  canvas.height = 150;
+  canvas.width = 1040;
+  canvas.height = 122;
   const context = canvas.getContext("2d");
   context.font = `850 ${fontSize}px "Source Han Serif SC Poster", "Noto Serif SC", serif`;
   context.fillStyle = "#f6e3ad";
@@ -1195,7 +1385,7 @@ async function rasterizePosterTitle(poster) {
   context.shadowBlur = 20;
   context.shadowOffsetY = 5;
   const lineHeight = fontSize * 1.12;
-  posterTitleLines(context, title, 1000).forEach((line, index) => context.fillText(line, 0, index * lineHeight, 1000));
+  posterTitleLines(context, title, 1020).forEach((line, index) => context.fillText(line, 0, index * lineHeight, 1020));
   const image = document.createElement("img");
   image.className = "lineup-poster-title-image";
   image.src = canvas.toDataURL("image/png");
@@ -1279,6 +1469,19 @@ function showItemPopover(itemId, anchor) {
     <div class="item-detail-heading"><img src="${escapeHtml(item.icon)}" alt="" /><div><h3>${escapeHtml(item.name)}</h3>${components.length ? `<div class="item-recipe">${components.map((component, index) => `${index ? "<b>+</b>" : ""}<img src="${escapeHtml(component.icon)}" alt="${escapeHtml(component.name)}" />`).join("")}</div>` : ""}</div></div>
     ${item.stats ? `<p class="item-stats">${escapeHtml(item.stats)}</p>` : ""}
     <p class="item-description">${[richTextHtml(item.description, item.descriptionTokens), ...effects].filter(Boolean).join("<br>") || "暂无装备说明"}</p>
+  </div>`;
+  showPopover(anchor);
+}
+
+function showAugmentPopover(augmentId, anchor) {
+  const augment = state.augmentById.get(augmentId);
+  if (!augment) return;
+  elements.popover.innerHTML = `<div class="augment-detail augment-tier-${escapeHtml(augment.tier)}">
+    <div class="augment-detail-heading"><img src="${escapeHtml(augment.icon)}" alt="" /><div><span>${escapeHtml(AUGMENT_TIER_LABELS[augment.tier] || augment.tierLabel)}</span><h3>${escapeHtml(augment.name)}</h3></div><b>${escapeHtml(augment.categoryLabel)}</b></div>
+    <p>${richTextHtml(augment.description, augment.descriptionTokens)}</p>
+    ${augment.appearanceStages.length
+      ? `<div class="augment-detail-stages">${augment.appearanceStages.map((stage) => `<span>${escapeHtml(stage)}</span>`).join("")}</div>`
+      : (augment.stageDataStatus === "unavailable" ? '<div class="augment-detail-stages is-unavailable">暂无可信出现时机数据</div>' : "")}
   </div>`;
   showPopover(anchor);
 }
@@ -1392,8 +1595,24 @@ elements.itemTabs.addEventListener("click", (event) => {
   renderItems();
 });
 
+elements.libraryModeTabs.forEach((button) => button.addEventListener("click", () => {
+  if (button.dataset.libraryMode === "augments" && !state.augments.length) return;
+  state.libraryMode = button.dataset.libraryMode;
+  renderLibraryMode();
+}));
+
+elements.augmentLibraryControls.addEventListener("click", (event) => {
+  const button = event.target.closest("[data-augment-filter-key]");
+  if (!button) return;
+  const key = button.dataset.augmentFilterKey;
+  const value = button.dataset.augmentFilterValue;
+  state[key] = state[key] === value ? "all" : value;
+  renderAugments();
+});
+
 elements.heroSearch.addEventListener("input", () => { state.heroSearch = elements.heroSearch.value; renderHeroes(); });
 elements.itemSearch.addEventListener("input", () => { state.itemSearch = elements.itemSearch.value; renderItems(); });
+elements.augmentSearch.addEventListener("input", () => { state.augmentSearch = elements.augmentSearch.value; renderAugments(); });
 elements.heroGroups.addEventListener("click", (event) => {
   const button = event.target.closest("[data-hero-id]");
   if (button) addChampion(button.dataset.heroId);
@@ -1403,6 +1622,14 @@ elements.itemGrid.addEventListener("click", (event) => {
   if (!button) return;
   state.selectedItemId = state.selectedItemId === button.dataset.itemId ? null : button.dataset.itemId;
   renderItems();
+});
+elements.augmentGroups.addEventListener("click", (event) => {
+  const button = event.target.closest("[data-augment-id]");
+  if (button) toggleAugment(button.dataset.augmentId);
+});
+elements.selectedAugmentList.addEventListener("click", (event) => {
+  const button = event.target.closest("[data-remove-augment-id]");
+  if (button) toggleAugment(button.dataset.removeAugmentId);
 });
 
 elements.board.addEventListener("click", (event) => {
@@ -1458,14 +1685,16 @@ document.addEventListener("pointerover", (event) => {
   const hero = event.target.closest("[data-hero-id]");
   const item = event.target.closest("[data-item-id]");
   const trait = event.target.closest("[data-trait-id]");
+  const augment = event.target.closest("[data-augment-id]");
   if (item) showItemPopover(item.dataset.itemId, item);
   else if (hero) showHeroPopover(hero.dataset.heroId, hero);
+  else if (augment) showAugmentPopover(augment.dataset.augmentId, augment);
   else if (trait) showTraitPopover(trait.dataset.traitId, trait);
 });
 document.addEventListener("pointerout", (event) => {
-  if (!event.target.closest("[data-hero-id], [data-item-id], [data-trait-id]")) return;
+  if (!event.target.closest("[data-hero-id], [data-item-id], [data-trait-id], [data-augment-id]")) return;
   const related = event.relatedTarget;
-  if (related instanceof Element && related.closest("[data-hero-id], [data-item-id], [data-trait-id]") === event.target.closest("[data-hero-id], [data-item-id], [data-trait-id]")) return;
+  if (related instanceof Element && related.closest("[data-hero-id], [data-item-id], [data-trait-id], [data-augment-id]") === event.target.closest("[data-hero-id], [data-item-id], [data-trait-id], [data-augment-id]")) return;
   hidePopover();
 });
 
@@ -1482,7 +1711,10 @@ elements.hoverDetails.addEventListener("change", () => {
 });
 elements.undo.addEventListener("click", () => applyHistory(state.historyIndex - 1));
 elements.redo.addEventListener("click", () => applyHistory(state.historyIndex + 1));
-elements.reset.addEventListener("click", () => { if (state.board.some(Boolean) && !confirm("确认清空当前棋盘？")) return; mutate(() => { state.board = Array(28).fill(null); }); });
+elements.reset.addEventListener("click", () => {
+  if ((state.board.some(Boolean) || state.selectedAugmentIds.length) && !confirm("确认清空当前阵容？")) return;
+  mutate(() => { state.board = Array(28).fill(null); state.selectedAugmentIds = []; });
+});
 elements.import.addEventListener("click", () => openCodeDialog("import"));
 elements.export.addEventListener("click", () => openCodeDialog("export"));
 elements.confirmCode.addEventListener("click", handleCodeConfirm);

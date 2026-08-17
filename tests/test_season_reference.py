@@ -90,7 +90,7 @@ def test_season_reference_pages_render_for_every_catalog_season(client):
         context = season_page_context(season['season_id'])
         for mechanic in context['mechanics']:
             assert mechanic['display_name'] in html
-        assert f'style="--tab-count: {2 + len(context["mechanics"])}"' in html
+        assert f'style="--tab-count: {2 + len(context["mechanics"]) + int(context["has_augments"])}"' in html
 
 
 def test_s18_pbe_replaces_wands_with_filterable_charms(client):
@@ -438,3 +438,104 @@ def test_season_data_static_files_served(client):
     assert client.get('/static/season-reference.js').status_code == 200
     assert client.get('/static/season-champion-ui.js').status_code == 200
     assert client.get('/static/season-gold.png').status_code == 200
+
+
+def test_released_seasons_publish_official_augments_with_local_images():
+    expected_counts = {'s8': 322, 's16_5': 298, 's17': 277}
+    expected_observed_counts = {'s8': 0, 's16_5': 265, 's17': 243}
+    allowed_categories = {'economy', 'combat', 'equipment', 'trait', 'exclusive', 'other'}
+    for season_id, expected_count in expected_counts.items():
+        season_root = DATA_ROOT / season_id
+        document = json.loads((season_root / 'augments.json').read_text(encoding='utf-8'))
+        assert len(document['augments']) == expected_count
+        assert document['source']['type'] == 'official_jkzlk_hex'
+        assert document['source']['url'].startswith('https://game.gtimg.cn/')
+        assert 'datatft' not in document['source']['url'].lower()
+        assert document['stage_options'] == ['2-1', '3-2', '4-2']
+        assert document['stage_source']['type'] == 'dataj_observed_match_rounds'
+        assert document['stage_source']['record_count'] == expected_observed_counts[season_id]
+        assert document['stage_source']['provenance_note'] == '版本化实战样本观察结果，并非腾讯官方逐条配置'
+        assert (season_root / document['stage_source']['snapshot_path']).is_file()
+        for augment in document['augments']:
+            assert augment['category'] in allowed_categories
+            assert augment['name'] and augment['description']
+            assert augment['image']['source_url'].startswith('https://game.gtimg.cn/')
+            assert (season_root / augment['image']['local_path']).is_file()
+            assert (season_root / augment['image']['optimized_local_path']).is_file()
+            assert set(augment['appearance_stages']) <= {'2-1', '3-2', '4-2'}
+
+    s8 = json.loads((DATA_ROOT / 's8' / 'augments.json').read_text(encoding='utf-8'))['augments']
+    assert sum(augment['augment_type'] == 'hero' for augment in s8) == 122
+    assert all(augment['category'] == 'exclusive' for augment in s8 if augment['augment_type'] == 'hero')
+    s16 = json.loads((DATA_ROOT / 's16_5' / 'augments.json').read_text(encoding='utf-8'))
+    assert s16['source']['requested_version'] == '17.17.8b'
+    assert s16['source']['resolved_version'] == '17.17.8'
+    assert s16['source']['used_base_patch_fallback'] is True
+
+    s17 = json.loads((DATA_ROOT / 's17' / 'augments.json').read_text(encoding='utf-8'))['augments']
+    stages_by_name = {augment['name']: augment['appearance_stages'] for augment in s17}
+    assert stages_by_name['蔓延之根'] == ['2-1']
+    assert stages_by_name['四费增援'] == ['4-2']
+    assert stages_by_name['专属定制'] == ['3-2', '4-2']
+    assert stages_by_name['便携锻炉'] == ['2-1', '3-2', '4-2']
+    assert stages_by_name['玻璃大炮 I'] == ['3-2', '4-2']
+    assert len({tuple(stages) for stages in stages_by_name.values()}) > 4
+
+    s8_unavailable = [
+        augment for augment in s8
+        if augment['extensions']['appearance_stage_source'] == 'stage_data_unavailable'
+    ]
+    assert len(s8_unavailable) == len(s8)
+    assert all(not augment['appearance_stages'] for augment in s8_unavailable)
+
+
+def test_s18_does_not_publish_an_augment_tab(client):
+    assert not (DATA_ROOT / 's18' / 'augments.json').exists()
+    html = client.get('/tools/seasons/s18').get_data(as_text=True)
+    assert 'data-view="augments"' not in html
+    assert 'id="augmentGrid"' not in html
+
+
+def test_released_season_reference_pages_render_augment_filters(client):
+    javascript = (ROOT / 'static' / 'season-reference.js').read_text(encoding='utf-8')
+    stylesheet = (ROOT / 'static' / 'season-reference.css').read_text(encoding='utf-8')
+    for season_id in ('s8', 's16_5', 's17'):
+        html = client.get(f'/tools/seasons/{season_id}').get_data(as_text=True)
+        assert 'data-view="augments"' in html
+        assert 'id="augmentSearch"' in html
+        assert 'class="augment-filter-bar"' in html
+        assert 'id="augmentTierFilters"' in html
+        assert 'id="augmentStageFilters"' in html
+        assert 'id="augmentCategoryFilters"' in html
+        assert 'id="augmentGrid"' in html
+
+    assert "state[stateKey] = state[stateKey] === option.value ? 'all' : option.value;" in javascript
+    assert "const AUGMENT_STAGE_ORDER = ['2-1', '3-2', '4-2'];" in javascript
+    assert "const AUGMENT_CATEGORY_ORDER = ['economy', 'combat', 'equipment', 'trait', 'exclusive', 'other'];" in javascript
+    assert 'container.hidden = options.length === 0;' in javascript
+    assert '全部等级' not in javascript
+    assert '全部时机' not in javascript
+    assert '全部分类' not in javascript
+    filter_rule = stylesheet.split('.augment-filter-group {', 1)[1].split('}', 1)[0]
+    assert 'overflow-x' not in filter_rule
+
+
+def test_augment_classifier_keeps_inference_rules_explicit():
+    from scripts.season_library.official_augments import _observed_game_version, build_change_report, classify_augment
+
+    assert classify_augment({'name': '明智消费', 'desc': '刷新商店时获得经验值'}, 'standard') == 'economy'
+    assert classify_augment({'name': '便携锻炉', 'desc': '获得一个神器锻造器'}, 'standard') == 'equipment'
+    assert classify_augment({'name': '斗士之徽', 'desc': '获得一个斗士纹章'}, 'standard') == 'trait'
+    assert classify_augment({'name': '叠上叠', 'desc': '提供一个内瑟斯'}, 'hero') == 'exclusive'
+    assert classify_augment({'name': '三阶段强化', 'desc': '强化符文改变出现阶段'}, 'special') == 'other'
+    assert _observed_game_version('17.17.8') == '17.8'
+    assert _observed_game_version('17.17.8b') == '17.8b'
+
+    previous = {'version_id': 'v1', 'augments': [{'id': '1', 'name': '测试', 'image': {
+        'local_path': 'assets/augments/1.png', 'source_url': 'https://game.gtimg.cn/1.png',
+        'alt': '测试', 'optimized_local_path': 'assets/optimized/v1/augments/1.webp',
+    }}]}
+    current = {'version_id': 'v1', 'augments': [{'id': '1', 'name': '测试', 'image': {
+        'local_path': 'assets/augments/1.png', 'source_url': 'https://game.gtimg.cn/1.png', 'alt': '测试',
+    }}]}
+    assert build_change_report(previous, current)['summary']['changed'] == 0

@@ -14,6 +14,15 @@ const CHARM_CATEGORY_LABELS = {
   gold_xp: '金币经验',
   other: '其他',
 };
+const AUGMENT_TIER_LABELS = {
+  silver: '一级 · 银色',
+  gold: '二级 · 金色',
+  prismatic: '三级 · 彩色',
+  hero: '英雄强化',
+  special: '特殊强化',
+};
+const AUGMENT_STAGE_ORDER = ['2-1', '3-2', '4-2'];
+const AUGMENT_CATEGORY_ORDER = ['economy', 'combat', 'equipment', 'trait', 'exclusive', 'other'];
 const mobileQuery = window.matchMedia('(max-width: 640px)');
 
 const content = document.querySelector('#seasonContent');
@@ -28,6 +37,7 @@ const state = {
   champions: [],
   traits: [],
   mechanics: [],
+  augments: [],
   traitsById: new Map(),
   costs: [],
   activeView: 'champions',
@@ -39,6 +49,10 @@ const state = {
   showSkills: !mobileQuery.matches,
   mobileFiltersExpanded: false,
   mechanicFilters: new Map(),
+  augmentQuery: '',
+  augmentTier: 'all',
+  augmentStage: 'all',
+  augmentCategory: 'all',
 };
 
 const elements = {
@@ -59,6 +73,12 @@ const elements = {
   championEmpty: document.querySelector('#championEmpty'),
   traitTypeButtons: Array.from(document.querySelectorAll('[data-trait-type]')),
   traitGrid: document.querySelector('#traitGrid'),
+  augmentSearch: document.querySelector('#augmentSearch'),
+  augmentTierFilters: document.querySelector('#augmentTierFilters'),
+  augmentStageFilters: document.querySelector('#augmentStageFilters'),
+  augmentCategoryFilters: document.querySelector('#augmentCategoryFilters'),
+  augmentGrid: document.querySelector('#augmentGrid'),
+  augmentEmpty: document.querySelector('#augmentEmpty'),
   loading: document.querySelector('#seasonLoading'),
   loadError: document.querySelector('#seasonLoadError'),
 };
@@ -148,6 +168,10 @@ function updateCount() {
   }
   if (state.activeView === 'traits') {
     elements.previewCount.textContent = `${filteredTraits().length} 个羁绊`;
+    return;
+  }
+  if (state.activeView === 'augments') {
+    elements.previewCount.textContent = `${filteredAugments().length} 个强化符文`;
     return;
   }
   const mechanic = mechanicById(state.activeView.replace(/^mechanic-/, ''));
@@ -554,6 +578,121 @@ elements.traitTypeButtons.forEach((button) => {
   });
 });
 
+function filteredAugments() {
+  const query = state.augmentQuery.trim().toLocaleLowerCase('zh-CN');
+  return state.augments.filter((augment) => {
+    if (state.augmentTier !== 'all' && augment.tier !== state.augmentTier) return false;
+    if (state.augmentStage !== 'all' && !(augment.appearance_stages || []).includes(state.augmentStage)) return false;
+    if (state.augmentCategory !== 'all' && augment.category !== state.augmentCategory) return false;
+    if (!query) return true;
+    return [augment.name, augment.description, augment.tier_label, augment.category_label]
+      .filter(Boolean)
+      .join(' ')
+      .toLocaleLowerCase('zh-CN')
+      .includes(query);
+  });
+}
+
+function augmentFilterOptions() {
+  const tiers = [...new Map(state.augments.map((augment) => [augment.tier, {
+    value: augment.tier,
+    label: AUGMENT_TIER_LABELS[augment.tier] || augment.tier_label || augment.tier,
+    order: Number(augment.tier_order) || 99,
+  }])).values()].sort((a, b) => a.order - b.order);
+  const availableStages = new Set(state.augments.flatMap((augment) => augment.appearance_stages || []));
+  const stageOptions = AUGMENT_STAGE_ORDER.filter((stage) => availableStages.has(stage));
+  const categoryLabels = new Map(state.augments.map((augment) => [augment.category, augment.category_label || augment.category]));
+  const categoryValues = [
+    ...AUGMENT_CATEGORY_ORDER.filter((value) => categoryLabels.has(value)),
+    ...[...categoryLabels.keys()].filter((value) => !AUGMENT_CATEGORY_ORDER.includes(value)),
+  ];
+  const categories = categoryValues.map((value) => ({value, label: categoryLabels.get(value)}));
+  return {
+    tiers,
+    stages: stageOptions.map((stage) => ({value: stage, label: stage})),
+    categories,
+  };
+}
+
+function renderAugmentFilterGroup(container, options, stateKey) {
+  if (!container) return;
+  container.hidden = options.length === 0;
+  container.replaceChildren(...options.map((option) => {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.dataset.augmentFilterValue = option.value;
+    const isActive = state[stateKey] === option.value;
+    button.className = isActive ? 'is-active' : '';
+    button.ariaPressed = String(isActive);
+    button.textContent = option.label;
+    button.addEventListener('click', () => {
+      state[stateKey] = state[stateKey] === option.value ? 'all' : option.value;
+      renderAugments();
+    });
+    return button;
+  }));
+}
+
+function createAugmentCard(augment, index) {
+  const card = document.createElement('article');
+  card.className = `augment-card augment-tier-${augment.tier || 'other'}`;
+  card.style.setProperty('--delay', `${Math.min(index, 14) * 22}ms`);
+  const header = document.createElement('div');
+  header.className = 'augment-card-header';
+  if (augment.image) header.append(createImage(assetUrl(augment.image), '', 'augment-icon'));
+  const titleWrap = document.createElement('div');
+  titleWrap.className = 'augment-title-wrap';
+  const tier = document.createElement('span');
+  tier.className = 'augment-tier-label';
+  tier.textContent = AUGMENT_TIER_LABELS[augment.tier] || augment.tier_label || '强化符文';
+  const title = document.createElement('h2');
+  title.textContent = augment.name || '';
+  titleWrap.append(tier, title);
+  const category = document.createElement('span');
+  category.className = 'augment-category-label';
+  category.textContent = augment.category_label || '其他';
+  header.append(titleWrap, category);
+
+  const description = document.createElement('p');
+  description.className = 'augment-description';
+  window.JccSeasonChampionUi.appendSkillDescription(description, augment.description, augment.description_tokens);
+  card.append(header, description);
+
+  if ((augment.appearance_stages || []).length) {
+    const stages = document.createElement('div');
+    stages.className = 'augment-stage-list';
+    (augment.appearance_stages || []).forEach((stage) => {
+      const chip = document.createElement('span');
+      chip.textContent = stage;
+      stages.append(chip);
+    });
+    card.append(stages);
+  } else if (augment.extensions?.appearance_stage_evidence?.status === 'unavailable') {
+    const unavailable = document.createElement('div');
+    unavailable.className = 'augment-stage-list is-unavailable';
+    unavailable.textContent = '暂无可信出现时机数据';
+    card.append(unavailable);
+  }
+  return card;
+}
+
+function renderAugments() {
+  if (!elements.augmentGrid) return;
+  const options = augmentFilterOptions();
+  renderAugmentFilterGroup(elements.augmentTierFilters, options.tiers, 'augmentTier');
+  renderAugmentFilterGroup(elements.augmentStageFilters, options.stages, 'augmentStage');
+  renderAugmentFilterGroup(elements.augmentCategoryFilters, options.categories, 'augmentCategory');
+  const augments = filteredAugments();
+  elements.augmentGrid.replaceChildren(...augments.map(createAugmentCard));
+  elements.augmentEmpty?.classList.toggle('hidden', augments.length > 0);
+  if (state.activeView === 'augments') updateCount();
+}
+
+elements.augmentSearch?.addEventListener('input', (event) => {
+  state.augmentQuery = event.target.value || '';
+  renderAugments();
+});
+
 function createWandCard(entry, index) {
   const card = document.createElement('article');
   card.className = `wand-card${index < 18 ? ' animate-in' : ''}`;
@@ -754,6 +893,7 @@ async function loadData() {
     state.champions = data.champions || [];
     state.traits = data.traits || [];
     state.mechanics = data.mechanics || [];
+    state.augments = data.augments || [];
     bindCharmControls();
     state.traitsById = new Map(state.traits.map((trait) => [trait.id, trait]));
     state.costs = [...new Set(state.champions.map((champion) => champion.cost).filter((cost) => cost !== null))].sort((a, b) => a - b);
@@ -779,6 +919,7 @@ async function loadData() {
     );
     renderChampions();
     renderTraits();
+    renderAugments();
     renderMechanics();
     setActiveView('champions');
     elements.loading.classList.add('hidden');

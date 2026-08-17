@@ -13,6 +13,7 @@ outside the repo:
             champions.json        full snapshot (server-side detail pages)
             traits.json           full snapshot
             items.json            full snapshot (simulator runtime data)
+            augments.json         official augment snapshot for released seasons
             assets/...            original images plus versioned WebP images
 
 Usage (run from the repository root)::
@@ -43,6 +44,7 @@ if str(REPO_ROOT) not in sys.path:
 from season_rich_text import enrich_rich_text_fields  # noqa: E402
 
 from official_supplements import apply_official_supplements  # noqa: E402
+from official_augments import collect_official_augments  # noqa: E402
 
 ARCHIVE_DIR_NAMES = (
     os.path.join("ccmax资料", "数据模板"),
@@ -171,6 +173,7 @@ def generate_optimized_images(
     traits_doc: dict,
     items_doc: dict,
     board_units_doc: dict,
+    augments_doc: dict,
 ) -> tuple[int, list[str]]:
     root = f"assets/optimized/{version_id}"
     built = 0
@@ -204,6 +207,12 @@ def generate_optimized_images(
             built += 1
         else:
             missing.append(f"board-unit:{unit_id}")
+    for augment in augments_doc.get("augments") or []:
+        augment_id = str(augment["id"])
+        if add_optimized_image(augment.get("image"), target_dir, f"{root}/augments/{augment_id}.webp"):
+            built += 1
+        else:
+            missing.append(f"augment:{augment_id}")
     return built, missing
 
 
@@ -255,6 +264,24 @@ def compact_trait(trait: dict) -> dict:
     }
 
 
+def compact_augment(augment: dict) -> dict:
+    return {
+        "id": augment["id"],
+        "name": augment.get("name"),
+        "description": augment.get("description"),
+        "description_tokens": augment.get("description_tokens"),
+        "tier": augment.get("tier"),
+        "tier_label": augment.get("tier_label"),
+        "tier_order": augment.get("tier_order"),
+        "augment_type": augment.get("augment_type"),
+        "category": augment.get("category"),
+        "category_label": augment.get("category_label"),
+        "appearance_stages": augment.get("appearance_stages") or [],
+        "image": image_path(augment.get("image"), prefer_optimized=True),
+        "extensions": augment.get("extensions") or {},
+    }
+
+
 def compact_mechanics(version_dir: Path) -> list[dict]:
     index_path = version_dir / "mechanics" / "index.json"
     if not index_path.is_file():
@@ -300,6 +327,8 @@ def import_season(source_root: Path, catalog_entry: dict) -> dict:
     version_meta = load_json(season_dir / version_ref["path"])
 
     target_dir = TARGET_ROOT / season_id
+    previous_augments_path = target_dir / "augments.json"
+    previous_augments = load_json(previous_augments_path) if previous_augments_path.is_file() else None
     if target_dir.exists():
         shutil.rmtree(target_dir)
     target_dir.mkdir(parents=True)
@@ -327,7 +356,14 @@ def import_season(source_root: Path, catalog_entry: dict) -> dict:
         "board_units": supplements["board_units"],
         "discovery_audit": supplements.get("discovery_audit") or {},
     }
-    for document in (champions_doc, traits_doc, items_doc, board_units_doc):
+    augments_doc, augment_changes = collect_official_augments(
+        version_dir,
+        target_dir,
+        season_id,
+        version_meta["version_id"],
+        previous_augments,
+    )
+    for document in (champions_doc, traits_doc, items_doc, board_units_doc, augments_doc):
         document["rich_text_version"] = 1
         enrich_rich_text_fields(document)
 
@@ -338,11 +374,14 @@ def import_season(source_root: Path, catalog_entry: dict) -> dict:
         traits_doc,
         items_doc,
         board_units_doc,
+        augments_doc,
     )
     dump_json(target_dir / "champions.json", champions_doc, indent=2)
     dump_json(target_dir / "traits.json", traits_doc, indent=2)
     dump_json(target_dir / "items.json", items_doc, indent=2)
     dump_json(target_dir / "board_units.json", board_units_doc, indent=2)
+    dump_json(target_dir / "augments.json", augments_doc, indent=2)
+    dump_json(target_dir / "augment-changes.json", augment_changes, indent=2)
     print(f"  WebP: 已生成 {optimized_count} 张 96px 版本化小图")
     if supplements["champions"]:
         print(f"  官方补全弈子: {', '.join(supplements['champions'])}")
@@ -370,6 +409,7 @@ def import_season(source_root: Path, catalog_entry: dict) -> dict:
     if card_failures:
         print(f"  警告: {season_id} 有 {card_failures} 张卡片缩图未生成（需要 Pillow）")
     traits = [compact_trait(item) for item in traits_doc.get("traits") or []]
+    augments = [compact_augment(item) for item in augments_doc.get("augments") or []]
     mechanics = compact_mechanics(version_dir)
 
     index_payload = {
@@ -384,6 +424,13 @@ def import_season(source_root: Path, catalog_entry: dict) -> dict:
         "effective_at": version_meta.get("effective_at"),
         "champions": champions,
         "traits": traits,
+        "augments": augments,
+        "augment_meta": {
+            "category_labels": augments_doc.get("category_labels") or {},
+            "stage_options": augments_doc.get("stage_options") or [],
+            "source": augments_doc.get("source"),
+            "stage_source": augments_doc.get("stage_source"),
+        },
         "mechanics": mechanics,
         "rich_text_version": 1,
     }
@@ -409,6 +456,7 @@ def import_season(source_root: Path, catalog_entry: dict) -> dict:
             "traits": len(traits),
             "mechanics": sum(len(m["entries"]) for m in mechanics),
             "board_units": len(board_units_doc["board_units"]),
+            "augments": len(augments),
         },
     }
 

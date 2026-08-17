@@ -64,6 +64,13 @@
           <div class="hex-board-wrap">
             <div class="hex-board" id="boardGrid" role="grid" aria-label="4 行 7 列阵容棋盘"></div>
           </div>
+          <section class="selected-augments-panel" id="selectedAugmentsPanel" aria-label="已选强化符文" hidden>
+            <div class="selected-augments-heading">
+              <span>强化符文推荐</span>
+              <strong id="selectedAugmentCount">0 / 6</strong>
+            </div>
+            <div class="selected-augment-list" id="selectedAugmentList"></div>
+          </section>
           <div class="board-footer">
             <div class="component-summary-wrap">
               <span class="footer-label">散件需求</span>
@@ -89,25 +96,42 @@
       <section class="roster-panel tool-panel">
         <div class="roster-toolbar">
           <div>
-            <span class="panel-kicker">CHAMPIONS</span>
-            <h2>弈子库</h2>
+            <span class="panel-kicker">LIBRARY</span>
+            <div class="library-mode-switch" role="tablist" aria-label="资料库类型">
+              <button class="is-active" id="championLibraryTab" type="button" role="tab" aria-selected="true" data-library-mode="champions"><i data-lucide="users"></i>弈子库</button>
+              <button id="augmentLibraryTab" type="button" role="tab" aria-selected="false" data-library-mode="augments"><i data-lucide="sparkles"></i>强化符文</button>
+            </div>
           </div>
-          <label class="search-field hero-search">
-            <i data-lucide="search"></i>
-            <input id="heroSearch" type="search" placeholder="搜索弈子名称" autocomplete="off" />
-          </label>
-          <div class="trait-picker" id="traitFilterPicker">
-            <button class="trait-picker-trigger" id="traitFilterButton" type="button" aria-haspopup="listbox" aria-expanded="false" aria-controls="traitFilterMenu">
-              <span class="trait-filter-current-icon" id="traitFilterIcon"><i data-lucide="shapes"></i></span>
-              <span class="trait-filter-current-label" id="traitFilterLabel">全部羁绊</span>
-              <i class="trait-picker-chevron" data-lucide="chevron-down"></i>
-            </button>
-            <button id="traitFilterClear" class="trait-filter-clear" type="button" title="清除羁绊筛选" aria-label="清除羁绊筛选" hidden><i data-lucide="x"></i></button>
-            <div class="trait-filter-menu" id="traitFilterMenu" role="listbox" aria-label="羁绊筛选" hidden></div>
+          <div class="roster-mode-controls" id="championLibraryControls">
+            <label class="search-field hero-search">
+              <i data-lucide="search"></i>
+              <input id="heroSearch" type="search" placeholder="搜索弈子名称" autocomplete="off" />
+            </label>
+            <div class="trait-picker" id="traitFilterPicker">
+              <button class="trait-picker-trigger" id="traitFilterButton" type="button" aria-haspopup="listbox" aria-expanded="false" aria-controls="traitFilterMenu">
+                <span class="trait-filter-current-icon" id="traitFilterIcon"><i data-lucide="shapes"></i></span>
+                <span class="trait-filter-current-label" id="traitFilterLabel">全部羁绊</span>
+                <i class="trait-picker-chevron" data-lucide="chevron-down"></i>
+              </button>
+              <button id="traitFilterClear" class="trait-filter-clear" type="button" title="清除羁绊筛选" aria-label="清除羁绊筛选" hidden><i data-lucide="x"></i></button>
+              <div class="trait-filter-menu" id="traitFilterMenu" role="listbox" aria-label="羁绊筛选" hidden></div>
+            </div>
+            <div class="cost-filters" id="costFilters" aria-label="费用筛选"></div>
           </div>
-          <div class="cost-filters" id="costFilters" aria-label="费用筛选"></div>
+          <div class="roster-mode-controls augment-library-controls" id="augmentLibraryControls" hidden>
+            <label class="search-field hero-search">
+              <i data-lucide="search"></i>
+              <input id="augmentSearch" type="search" placeholder="搜索强化符文" autocomplete="off" />
+            </label>
+            <div class="augment-filter-bar" aria-label="强化符文筛选；再次点击已选条件可清除该组筛选">
+              <div class="augment-library-filters" id="augmentTierFilters" role="group" aria-label="强化符文等级"></div>
+              <div class="augment-library-filters" id="augmentStageFilters" role="group" aria-label="强化符文时机"></div>
+              <div class="augment-library-filters" id="augmentCategoryFilters" role="group" aria-label="强化符文分类"></div>
+            </div>
+          </div>
         </div>
         <div class="hero-groups" id="heroGroups" aria-live="polite"></div>
+        <div class="augment-library-grid" id="augmentGroups" aria-live="polite" hidden></div>
       </section>
     </main>
 
@@ -181,7 +205,7 @@
               <legend>背景弈子</legend>
               <div class="poster-champion-picker" id="posterChampionPicker"></div>
             </fieldset>
-            <p class="poster-export-note">固定导出 1200 × 1600 PNG，包含棋盘、装备和精简羁绊。</p>
+            <p class="poster-export-note">固定导出 1200 × 1600 PNG，包含棋盘、装备、羁绊和最多 6 个强化符文推荐。</p>
           </div>
           <div class="poster-preview-shell" aria-label="阵容海报预览">
             <div class="poster-preview" id="posterPreview"></div>

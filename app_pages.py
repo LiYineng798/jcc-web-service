@@ -267,7 +267,8 @@ def register_page_routes(app):
             return redirect(f'/tools/seasons/{normalized}', 301)
         season = context['season']
         mechanic_names = '、'.join(item['display_name'] for item in context['mechanics'] if item.get('display_name'))
-        section_text = f"弈子、羁绊{'与' + mechanic_names if mechanic_names else ''}"
+        extra_sections = [name for name in ('强化符文' if context.get('has_augments') else '', mechanic_names) if name]
+        section_text = f"弈子、羁绊{'与' + '、'.join(extra_sections) if extra_sections else ''}"
         return tracked_template_response(
             'season_reference.html',
             'season_reference',
