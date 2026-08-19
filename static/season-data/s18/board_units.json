@@ -45,7 +45,7 @@
         "sell_price": 0.0
       },
       "skill": {
-        "name": "<active:herorecord100==1>恐惧咆哮</active><active:herorecord100!=1>大闹奇境</active>",
+        "name": "恐惧咆哮 / 大闹奇境",
         "description": "咆哮，治疗【骑乘者】一定百分比最大生命值。跳舞，为【骑乘者】提供持续到战斗环节结束的物理加成和法术加成。",
         "image": null
       },

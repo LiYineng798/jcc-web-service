@@ -88,7 +88,7 @@ python scripts/import_existing_seasons.py --season s18
 python scripts/validate.py data/seasons/s18
 ```
 
-该命令保留旧 PBE/预览快照并把 `18.18.1` 设为默认版本。S18 官方数据没有仙灵/法杖等机制；多形态 5 费拉克丝按 9 个皮肤形态各保存一条记录（官方 `showHeroTag=0`，导入器对 `species` 含大元素使 469 的记录放行），技能图与立绘走 `mode18s19` CDN 路径（立绘基址由版本入口的 season 代码推导，不再硬编码 `s18`）。随后在 Web 仓库运行 `python scripts/season_library/import_from_archive.py --season s18`，资料页和模拟器会同时切换到新数据。
+该命令保留旧 PBE/预览快照并把 `18.18.1` 设为默认版本。S18 官方数据没有法杖等旧机制，但**仙灵在官方 `adventure.js` 里**（版本入口 `adventureurl`）：同一标题的多个价格变体按 基础/升级/棱彩 合并为一张仙灵卡，分类与档位由站点描述规则推断（官方未提供分类/回合/需求字段）。多形态 5 费拉克丝按 9 个皮肤形态各保存一条记录（官方 `showHeroTag=0`，导入器对 `species` 含大元素使 469 的记录放行），技能图与立绘走 `mode18s19` CDN 路径（立绘基址由版本入口的 season 代码推导，不再硬编码 `s18`）。随后在 Web 仓库运行 `python scripts/season_library/import_from_archive.py --season s18`，资料页和模拟器会同时切换到新数据。
 
 旧 PBE 合并 JSON 路径仍保留：`python scripts/import_existing_seasons.py --season s18 --s18-json "..\data-cn-CJkaeodq.S18.json"` 用于重建含仙灵的 `PBE` 快照，但它不再是默认版本。
 

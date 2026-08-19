@@ -47,6 +47,22 @@ def _split_trait_ids(value):
     return [part for part in str(value or '').split('|') if part and part not in {'-1', '0'}]
 
 
+def clean_active_markup(value):
+    """Strip official <active:...> conditional tags from skill text.
+
+    Tencent embeds conditional skill names/descriptions such as
+    ``<active:herorecord100==1>恐惧咆哮</active><active:herorecord100!=1>大闹奇境</active>``;
+    join the branches with `` / `` for display instead of leaking the markup.
+    """
+    text = str(value or '')
+    if '<active:' not in text:
+        return text
+    branches = [part.strip() for part in re.findall(r'>([^<]+)<', text) if part.strip()]
+    if branches:
+        return ' / '.join(branches)
+    return re.sub(r'</?active:[^>]*>', '', text).strip()
+
+
 def _normalize_reference(value):
     text = unicodedata.normalize('NFKC', str(value or '')).lower()
     text = re.sub(r'[\s【】\[\]（）()·,.，。:：;；!！?？、&+\-/|]', '', text)
@@ -316,8 +332,8 @@ def _supplement_champions(groups, champions_doc, traits_doc, mode, target_dir, s
             'stats_by_star': {str(_star(record)): _stats(record) for record in stars},
             'skills': [{
                 'id': f'{champion_id}_skill',
-                'name': base.get('skillName') or '',
-                'description': base.get('skillDesc') or '',
+                'name': clean_active_markup(base.get('skillName') or ''),
+                'description': clean_active_markup(base.get('skillDesc') or ''),
                 'variables': [],
                 'raw_values': stars[-1].get('skillValueDesc') or base.get('skillValueDesc') or None,
                 'image': assets['skill'],
@@ -400,8 +416,8 @@ def _build_board_units(groups, champions_doc, traits_doc, target_dir):
             'can_equip': _can_equip(base.get('name') or '', traits),
             'stats': _stats(base),
             'skill': {
-                'name': base.get('skillName') or '',
-                'description': base.get('skillDesc') or '',
+                'name': clean_active_markup(base.get('skillName') or ''),
+                'description': clean_active_markup(base.get('skillDesc') or ''),
                 'image': None,
             },
             'image': _image(icon_path, icon_url, f"{base.get('name') or primary_id}图标"),

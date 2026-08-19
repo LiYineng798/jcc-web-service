@@ -99,14 +99,38 @@ def test_s18_official_snapshot_supplants_pbe_mechanics(client):
     assert payload['version_id'] == 's18__18_18_1'
     assert payload['display_name'] == 'S18 自然之力'
     assert payload['status'] == 'active'
-    assert payload['mechanics'] == []
+    assert len(payload['mechanics']) == 1
+    assert payload['mechanics'][0]['kind'] == 'charm'
+    assert payload['mechanics'][0]['display_name'] == '仙灵'
+    assert len(payload['mechanics'][0]['entries']) == 172
     assert len(payload['champions']) == 74
     assert len(payload['augments']) == 186
 
     html = client.get('/tools/seasons/s18').get_data(as_text=True)
     assert 'data-view="augments"' in html
-    assert '>仙灵<' not in html
-    assert 'data-charm-search="charms"' not in html
+    assert '>仙灵<' in html
+    assert 'data-charm-search="charms"' in html
+
+
+def test_s18_official_charms_use_site_categories_with_upgrade_layers():
+    payload = json.loads((DATA_ROOT / 's18' / 'index.json').read_text(encoding='utf-8'))
+    charm = payload['mechanics'][0]
+    assert charm['kind'] == 'charm'
+    assert len(charm['entries']) == 172
+    categories = {entry['data']['category'] for entry in charm['entries']}
+    assert categories == {'champion', 'item', 'shop', 'combat', 'gold_xp', 'other'}
+    for entry in charm['entries']:
+        assert entry['name']
+        assert entry['description']
+        assert entry['image']
+        assert (DATA_ROOT / 's18' / entry['image']).is_file()
+        assert entry['data']['category_label']
+        assert entry['data']['tier'] in {1, 2, 3}
+        assert entry['data']['cost'] is not None
+    assert sum(entry['data']['upgrade'] is not None for entry in charm['entries']) == 171
+    assert sum(entry['data']['prismatic'] is not None for entry in charm['entries']) == 11
+    barrier = next(entry for entry in charm['entries'] if entry['name'] == '屏障')
+    assert barrier['data']['prismatic']['effect'] == '友军获得7500护盾值，在30秒内持续衰减。'
 
 
 def test_s18_champion_detail_and_hover_use_large_splash_art(client):
@@ -379,6 +403,8 @@ def test_board_unit_discovery_audit_includes_released_s18_objects():
     assert by_name['威朗普']['placement_rules'][0] == {'trait_id': '456', 'min_units': 3, 'max_units': 4, 'max_count': 1}
     assert by_name['石皮树']['placement_rules'][0] == {'trait_id': '450', 'min_units': 3, 'max_units': 4, 'max_count': 1}
     assert by_name['深林守卫']['placement_rules'][0]['min_units'] == 7
+    assert by_name['威朗普']['skill']['name'] == '恐惧咆哮 / 大闹奇境'
+    assert '<active:' not in by_name['威朗普']['skill']['name']
     review_names = {
         candidate['name'] for candidate in s18['discovery_audit']['candidates']
         if candidate['status'] == 'review'

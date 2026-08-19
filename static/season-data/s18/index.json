@@ -12071,6 +12071,3866 @@
    ]
   }
  },
- "mechanics": [],
+ "mechanics": [
+  {
+   "id": "charms",
+   "kind": "charm",
+   "display_name": "仙灵",
+   "has_images": true,
+   "entries": [
+    {
+     "id": "adv_181000",
+     "name": "余震",
+     "description": "在8秒后，晕眩所有敌人1.5秒。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181000.png",
+     "data": {
+      "key": "181000",
+      "category": "combat",
+      "category_label": "战斗",
+      "source_category": null,
+      "tier": 1,
+      "cost": 2,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 2,
+       "effect": "在8和18秒后，晕眩所有敌人1.5秒。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181002",
+     "name": "染血之币",
+     "description": "每击败1个弈子，获得1金币。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181002.png",
+     "data": {
+      "key": "181002",
+      "category": "gold_xp",
+      "category_label": "金币经验",
+      "source_category": null,
+      "tier": 1,
+      "cost": 2,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 1,
+       "effect": "每击败1个弈子，获得1金币。获得1金币。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181004",
+     "name": "血祭",
+     "description": "失去10玩家生命值。获得1个【英雄复制器】。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181004.png",
+     "data": {
+      "key": "181004",
+      "category": "item",
+      "category_label": "装备",
+      "source_category": null,
+      "tier": 2,
+      "cost": 6,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 6,
+       "effect": "失去6玩家生命值。获得1个【英雄复制器】。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181006",
+     "name": "铜汤匙",
+     "description": "获得4经验值。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181006.png",
+     "data": {
+      "key": "181006",
+      "category": "gold_xp",
+      "category_label": "金币经验",
+      "source_category": null,
+      "tier": 2,
+      "cost": 3,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 3,
+       "effect": "获得6经验值。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181008",
+     "name": "抛硬币",
+     "description": "抛掷1枚硬币，如果硬币正面朝上，获得1金币。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181008.png",
+     "data": {
+      "key": "181008",
+      "category": "gold_xp",
+      "category_label": "金币经验",
+      "source_category": null,
+      "tier": 1,
+      "cost": 0,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 0,
+       "effect": "抛掷2枚硬币，如果硬币正面朝上，获得1金币。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181010",
+     "name": "肥料",
+     "description": "每有1名倒下的敌人，获得1经验值。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181010.png",
+     "data": {
+      "key": "181010",
+      "category": "gold_xp",
+      "category_label": "金币经验",
+      "source_category": null,
+      "tier": 1,
+      "cost": 1,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 1,
+       "effect": "每有1名倒下的敌人，获得1经验值。获得2经验值。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181012",
+     "name": "倾盆大雨",
+     "description": "你的队伍获得2法力回复。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181012.png",
+     "data": {
+      "key": "181012",
+      "category": "combat",
+      "category_label": "战斗",
+      "source_category": null,
+      "tier": 2,
+      "cost": 3,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 3,
+       "effect": "你的队伍获得3法力回复。"
+      },
+      "prismatic": {
+       "cost": 0,
+       "effect": "你的队伍获得15法力回复。"
+      }
+     }
+    },
+    {
+     "id": "adv_181014",
+     "name": "防微杜渐",
+     "description": "获得1个【装备重铸器】。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181014.png",
+     "data": {
+      "key": "181014",
+      "category": "item",
+      "category_label": "装备",
+      "source_category": null,
+      "tier": 1,
+      "cost": 0,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 0,
+       "effect": "获得2个【装备重铸器】。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181016",
+     "name": "老练",
+     "description": "获得2经验值。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181016.png",
+     "data": {
+      "key": "181016",
+      "category": "gold_xp",
+      "category_label": "金币经验",
+      "source_category": null,
+      "tier": 1,
+      "cost": 1,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 1,
+       "effect": "获得4经验值。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181018",
+     "name": "森林向导",
+     "description": "获得1个随机4费弈子。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181018.png",
+     "data": {
+      "key": "181018",
+      "category": "champion",
+      "category_label": "弈子",
+      "source_category": null,
+      "tier": 2,
+      "cost": 5,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 4,
+       "effect": "获得1个随机4费弈子。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181020",
+     "name": "免费刷新术",
+     "description": "获得2次刷新。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181020.png",
+     "data": {
+      "key": "181020",
+      "category": "shop",
+      "category_label": "商店",
+      "source_category": null,
+      "tier": 1,
+      "cost": 2,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 2,
+       "effect": "获得3次刷新。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181022",
+     "name": "长大",
+     "description": "获得10经验值。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181022.png",
+     "data": {
+      "key": "181022",
+      "category": "gold_xp",
+      "category_label": "金币经验",
+      "source_category": null,
+      "tier": 3,
+      "cost": 7,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 7,
+       "effect": "获得12经验值。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181024",
+     "name": "治疗池",
+     "description": "获得5玩家生命值。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181024.png",
+     "data": {
+      "key": "181024",
+      "category": "combat",
+      "category_label": "战斗",
+      "source_category": null,
+      "tier": 1,
+      "cost": 2,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 2,
+       "effect": "获得9玩家生命值。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181026",
+     "name": "奇境宗师",
+     "description": "获得1个随机2星5费弈子。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181026.png",
+     "data": {
+      "key": "181026",
+      "category": "champion",
+      "category_label": "弈子",
+      "source_category": null,
+      "tier": 3,
+      "cost": 18,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 14,
+       "effect": "获得1个随机2星5费弈子。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181028",
+     "name": "迷路的游客",
+     "description": "获得总价值3金币的随机弈子。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181028.png",
+     "data": {
+      "key": "181028",
+      "category": "gold_xp",
+      "category_label": "金币经验",
+      "source_category": null,
+      "tier": 2,
+      "cost": 3,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 3,
+       "effect": "获得总价值4金币的随机弈子。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181030",
+     "name": "高阶胜负手",
+     "description": "如果你赢得下一场玩家对战，获得8金币。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181030.png",
+     "data": {
+      "key": "181030",
+      "category": "gold_xp",
+      "category_label": "金币经验",
+      "source_category": null,
+      "tier": 2,
+      "cost": 3,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 3,
+       "effect": "如果你赢得下一场对战，获得10金币。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181032",
+     "name": "高阶变形术",
+     "description": "你拥有的1个随机4费弈子会永久变形为1个5费弈子。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181032.png",
+     "data": {
+      "key": "181032",
+      "category": "champion",
+      "category_label": "弈子",
+      "source_category": null,
+      "tier": 1,
+      "cost": 0,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 0,
+       "effect": "你拥有的那个星级最高的4费弈子永久变形为1个5费弈子。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181034",
+     "name": "小型血祭",
+     "description": "失去3玩家生命值。获得1个【次级英雄复制器】。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181034.png",
+     "data": {
+      "key": "181034",
+      "category": "item",
+      "category_label": "装备",
+      "source_category": null,
+      "tier": 2,
+      "cost": 3,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 3,
+       "effect": "失去1玩家生命值。获得1个【次级英雄复制器】。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181036",
+     "name": "低阶变形术",
+     "description": "你拥有的1个随机1费弈子永久变形为1个2费弈子。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181036.png",
+     "data": {
+      "key": "181036",
+      "category": "champion",
+      "category_label": "弈子",
+      "source_category": null,
+      "tier": 1,
+      "cost": 0,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 0,
+       "effect": "你拥有的那个星级最高的1费弈子永久变形为1个2费弈子。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181038",
+     "name": "有丝分裂",
+     "description": "获得1个【微型英雄复制器】。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181038.png",
+     "data": {
+      "key": "181038",
+      "category": "item",
+      "category_label": "装备",
+      "source_category": null,
+      "tier": 1,
+      "cost": 1,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 0,
+       "effect": "获得1个【微型英雄复制器】。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181040",
+     "name": "大腕",
+     "description": "获得2个随机1星4费弈子。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181040.png",
+     "data": {
+      "key": "181040",
+      "category": "champion",
+      "category_label": "弈子",
+      "source_category": null,
+      "tier": 3,
+      "cost": 8,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 6,
+       "effect": "获得2个随机1星4费弈子。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181042",
+     "name": "变形术",
+     "description": "你拥有的1个随机2费弈子会永久变形为1个3费弈子。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181042.png",
+     "data": {
+      "key": "181042",
+      "category": "champion",
+      "category_label": "弈子",
+      "source_category": null,
+      "tier": 1,
+      "cost": 0,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 0,
+       "effect": "你拥有的那个星级最高的2费弈子永久变形为1个3费弈子。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181044",
+     "name": "泪雨",
+     "description": "你的队伍获得1法力回复。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181044.png",
+     "data": {
+      "key": "181044",
+      "category": "combat",
+      "category_label": "战斗",
+      "source_category": null,
+      "tier": 1,
+      "cost": 1,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 1,
+       "effect": "你的队伍获得2法力回复。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181046",
+     "name": "幸运7",
+     "description": "获得7次商店刷新。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181046.png",
+     "data": {
+      "key": "181046",
+      "category": "shop",
+      "category_label": "商店",
+      "source_category": null,
+      "tier": 3,
+      "cost": 7,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 7,
+       "effect": "获得10次商店刷新。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181048",
+     "name": "不祥交易",
+     "description": "失去4玩家生命值。获得2金币。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181048.png",
+     "data": {
+      "key": "181048",
+      "category": "gold_xp",
+      "category_label": "金币经验",
+      "source_category": null,
+      "tier": 1,
+      "cost": 0,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 0,
+       "effect": "失去3玩家生命值。获得3金币。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181050",
+     "name": "炸鱼行为",
+     "description": "获得1个随机5费弈子。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181050.png",
+     "data": {
+      "key": "181050",
+      "category": "champion",
+      "category_label": "弈子",
+      "source_category": null,
+      "tier": 3,
+      "cost": 7,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 5,
+       "effect": "获得1个随机5费弈子。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181052",
+     "name": "学徒",
+     "description": "获得1个随机2星1费弈子。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181052.png",
+     "data": {
+      "key": "181052",
+      "category": "champion",
+      "category_label": "弈子",
+      "source_category": null,
+      "tier": 2,
+      "cost": 3,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 2,
+       "effect": "获得1个随机2星1费弈子。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181054",
+     "name": "对影成三",
+     "description": "获得1个随机2星3费弈子。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181054.png",
+     "data": {
+      "key": "181054",
+      "category": "champion",
+      "category_label": "弈子",
+      "source_category": null,
+      "tier": 3,
+      "cost": 9,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 7,
+       "effect": "获得1个随机2星3费弈子。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181056",
+     "name": "地动山摇",
+     "description": "每8秒，晕眩敌人1秒。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181056.png",
+     "data": {
+      "key": "181056",
+      "category": "combat",
+      "category_label": "战斗",
+      "source_category": null,
+      "tier": 2,
+      "cost": 4,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 4,
+       "effect": "每8秒，晕眩敌人1.5秒。"
+      },
+      "prismatic": {
+       "cost": 0,
+       "effect": "每3秒，晕眩敌人1.5秒。"
+      }
+     }
+    },
+    {
+     "id": "adv_181058",
+     "name": "旅行者",
+     "description": "获得1个随机2星2费弈子。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181058.png",
+     "data": {
+      "key": "181058",
+      "category": "champion",
+      "category_label": "弈子",
+      "source_category": null,
+      "tier": 2,
+      "cost": 6,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 5,
+       "effect": "获得1个随机2星2费弈子。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181060",
+     "name": "终极飞升",
+     "description": "在25秒后，友军获得300%伤害增幅。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181060.png",
+     "data": {
+      "key": "181060",
+      "category": "combat",
+      "category_label": "战斗",
+      "source_category": null,
+      "tier": 1,
+      "cost": 1,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 1,
+       "effect": "在23秒后，友军获得300%伤害增幅。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181062",
+     "name": "全4费商店",
+     "description": "刷新你的商店，使其充满4费弈子。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181062.png",
+     "data": {
+      "key": "181062",
+      "category": "shop",
+      "category_label": "商店",
+      "source_category": null,
+      "tier": 2,
+      "cost": 4,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 4,
+       "effect": "刷新你的商店，使其充满4费弈子。获得4金币。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181064",
+     "name": "全5费商店",
+     "description": "刷新你的商店，使其充满5费弈子。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181064.png",
+     "data": {
+      "key": "181064",
+      "category": "shop",
+      "category_label": "商店",
+      "source_category": null,
+      "tier": 3,
+      "cost": 10,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 10,
+       "effect": "刷新你的商店，使其充满5费弈子。获得5金币。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181066",
+     "name": "全1费商店",
+     "description": "刷新你的商店，使其充满1费弈子。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181066.png",
+     "data": {
+      "key": "181066",
+      "category": "shop",
+      "category_label": "商店",
+      "source_category": null,
+      "tier": 1,
+      "cost": 0,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 0,
+       "effect": "刷新你的商店，使其充满1费弈子。获得1金币。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181068",
+     "name": "全3费商店",
+     "description": "刷新你的商店，使其充满3费弈子。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181068.png",
+     "data": {
+      "key": "181068",
+      "category": "shop",
+      "category_label": "商店",
+      "source_category": null,
+      "tier": 1,
+      "cost": 2,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 2,
+       "effect": "刷新你的商店，使其充满3费弈子。获得3金币。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181070",
+     "name": "全2费商店",
+     "description": "刷新你的商店，使其充满2费弈子。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181070.png",
+     "data": {
+      "key": "181070",
+      "category": "shop",
+      "category_label": "商店",
+      "source_category": null,
+      "tier": 1,
+      "cost": 1,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 1,
+       "effect": "刷新你的商店，使其充满2费弈子。获得2金币。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181072",
+     "name": "活体商店",
+     "description": "在18秒的持续时间内，你的商店每2秒免费刷新1次。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181072.png",
+     "data": {
+      "key": "181072",
+      "category": "shop",
+      "category_label": "商店",
+      "source_category": null,
+      "tier": 3,
+      "cost": 8,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 8,
+       "effect": "在26秒的持续时间里，你的商店每2秒免费刷新一次。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181074",
+     "name": "后排之星",
+     "description": "1个随机后排弈子获得75%攻击速度，持续7秒。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181074.png",
+     "data": {
+      "key": "181074",
+      "category": "champion",
+      "category_label": "弈子",
+      "source_category": null,
+      "tier": 2,
+      "cost": 4,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 4,
+       "effect": "个随机后排弈子获得100%攻击速度，持续8秒。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181076",
+     "name": "屏障",
+     "description": "友军获得1250护盾值，在6秒内持续衰减。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181076.png",
+     "data": {
+      "key": "181076",
+      "category": "combat",
+      "category_label": "战斗",
+      "source_category": null,
+      "tier": 2,
+      "cost": 4,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 4,
+       "effect": "友军获得1250护盾值，在9秒内持续衰减。"
+      },
+      "prismatic": {
+       "cost": 0,
+       "effect": "友军获得7500护盾值，在30秒内持续衰减。"
+      }
+     }
+    },
+    {
+     "id": "adv_181082",
+     "name": "腰带批发",
+     "description": "你的友军获得7个无法移除的临时【巨人腰带】。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181082.png",
+     "data": {
+      "key": "181082",
+      "category": "other",
+      "category_label": "其他",
+      "source_category": null,
+      "tier": 1,
+      "cost": 2,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 2,
+       "effect": "你的友军获得10个无法移除的临时【巨人腰带】。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181084",
+     "name": "法术反制",
+     "description": "使所有敌人的最大法力值提高15，直至敌人下一次施放技能。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181084.png",
+     "data": {
+      "key": "181084",
+      "category": "combat",
+      "category_label": "战斗",
+      "source_category": null,
+      "tier": 1,
+      "cost": 2,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 2,
+       "effect": "使所有敌人的最大法力值提高22，直至敌人下一次施放技能。"
+      },
+      "prismatic": {
+       "cost": 0,
+       "effect": "使所有敌人的最大法力值提高150，直至敌人下一次施放技能。"
+      }
+     }
+    },
+    {
+     "id": "adv_181088",
+     "name": "掷骰子",
+     "description": "投掷1个6面体骰子。获得相当于结果点数的金币。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181088.png",
+     "data": {
+      "key": "181088",
+      "category": "gold_xp",
+      "category_label": "金币经验",
+      "source_category": null,
+      "tier": 1,
+      "cost": 2,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 2,
+       "effect": "投掷2个6面体骰子。获得相当于结果点数的金币。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181090",
+     "name": "衣衫褴褛",
+     "description": "对敌人施加30%魔抗击碎与护甲击碎，持续10秒。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181090.png",
+     "data": {
+      "key": "181090",
+      "category": "combat",
+      "category_label": "战斗",
+      "source_category": null,
+      "tier": 1,
+      "cost": 1,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 1,
+       "effect": "对敌人施加30%魔抗击碎与护甲击碎，持续15秒。"
+      },
+      "prismatic": {
+       "cost": 0,
+       "effect": "对敌人施加90%魔抗击碎与护甲击碎，持续45秒。"
+      }
+     }
+    },
+    {
+     "id": "adv_181094",
+     "name": "英雄登场",
+     "description": "在8秒后，备战席最左侧的弈子加入战斗，并获得0件推荐装备。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181094.png",
+     "data": {
+      "key": "181094",
+      "category": "item",
+      "category_label": "装备",
+      "source_category": null,
+      "tier": 2,
+      "cost": 4,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 4,
+       "effect": "在5秒后，备战席最左侧的弈子加入战斗，并获得2件推荐装备。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181096",
+     "name": "大爆炸",
+     "description": "第一名倒下的友军会产生爆炸，造成25%最大生命值魔法伤害。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181096.png",
+     "data": {
+      "key": "181096",
+      "category": "combat",
+      "category_label": "战斗",
+      "source_category": null,
+      "tier": 1,
+      "cost": 1,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 1,
+       "effect": "最先倒下的2名友军会产生爆炸，造成25%最大生命值魔法伤害。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181098",
+     "name": "巨大化",
+     "description": "你生命值最高的那个单位成长，获得350生命值。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181098.png",
+     "data": {
+      "key": "181098",
+      "category": "combat",
+      "category_label": "战斗",
+      "source_category": null,
+      "tier": 1,
+      "cost": 1,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 1,
+       "effect": "你生命值最高的那个单位成长，获得600生命值。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181100",
+     "name": "折磨",
+     "description": "对所有敌人施加持续8秒的缓速、灼烧、魔抗击碎与护甲击碎效果。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181100.png",
+     "data": {
+      "key": "181100",
+      "category": "combat",
+      "category_label": "战斗",
+      "source_category": null,
+      "tier": 2,
+      "cost": 6,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 6,
+       "effect": "对所有敌人施加持续12秒的缓速、灼烧、魔抗击碎与护甲击碎效果。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181102",
+     "name": "闪电打击",
+     "description": "对所有敌人造成10%最大生命值真实伤害。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181102.png",
+     "data": {
+      "key": "181102",
+      "category": "combat",
+      "category_label": "战斗",
+      "source_category": null,
+      "tier": 1,
+      "cost": 2,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 2,
+       "effect": "对所有敌人造成18%最大生命值真实伤害。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181104",
+     "name": "低阶胜负手",
+     "description": "如果你赢得下一场玩家对战，获得2金币。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181104.png",
+     "data": {
+      "key": "181104",
+      "category": "gold_xp",
+      "category_label": "金币经验",
+      "source_category": null,
+      "tier": 1,
+      "cost": 1,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 1,
+       "effect": "如果你赢得下一场玩家对战，获得3金币。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181106",
+     "name": "月光仪式",
+     "description": "在战斗期间，你最低星级的那个1费或2费弈子将会升星。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181106.png",
+     "data": {
+      "key": "181106",
+      "category": "champion",
+      "category_label": "弈子",
+      "source_category": null,
+      "tier": 1,
+      "cost": 2,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 2,
+       "effect": "在战斗期间，你最低星级的2个1费或2费弈子将会升星。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181110",
+     "name": "幻影护甲",
+     "description": "获得1个临时的【狂徒铠甲】。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181110.png",
+     "data": {
+      "key": "181110",
+      "category": "other",
+      "category_label": "其他",
+      "source_category": null,
+      "tier": 1,
+      "cost": 2,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 2,
+       "effect": "获得1个临时的【顽强不屈】。"
+      },
+      "prismatic": {
+       "cost": 0,
+       "effect": "获得6个临时的【光明版狂徒铠甲】和5个【装备拆卸器】。"
+      }
+     }
+    },
+    {
+     "id": "adv_181112",
+     "name": "幻影纹章",
+     "description": "获得1个你层级最高特质/职业的临时的纹章。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181112.png",
+     "data": {
+      "key": "181112",
+      "category": "other",
+      "category_label": "其他",
+      "source_category": null,
+      "tier": 2,
+      "cost": 3,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 1,
+       "effect": "获得1个你层级最高特质/职业的临时的纹章。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181114",
+     "name": "幻影手套",
+     "description": "获得1个临时的【窃贼手套】。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181114.png",
+     "data": {
+      "key": "181114",
+      "category": "item",
+      "category_label": "装备",
+      "source_category": null,
+      "tier": 2,
+      "cost": 3,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 3,
+       "effect": "获得1个临时的【连指手套】。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181116",
+     "name": "幻影背心",
+     "description": "获得1个临时的【棘刺背心】。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181116.png",
+     "data": {
+      "key": "181116",
+      "category": "other",
+      "category_label": "其他",
+      "source_category": null,
+      "tier": 1,
+      "cost": 2,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 2,
+       "effect": "获得1个临时的【黎明圣盾】。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181118",
+     "name": "散件赏金",
+     "description": "如果你赢得下一个玩家对战回合，获得1个【基础装备锻造器】。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181118.png",
+     "data": {
+      "key": "181118",
+      "category": "item",
+      "category_label": "装备",
+      "source_category": null,
+      "tier": 2,
+      "cost": 4,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 2,
+       "effect": "如果你赢得下一个玩家对战回合，获得1个【基础装备锻造器】。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181120",
+     "name": "光明化",
+     "description": "在10秒后，1件被携带着的随机装备暂时变为光明版。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181120.png",
+     "data": {
+      "key": "181120",
+      "category": "item",
+      "category_label": "装备",
+      "source_category": null,
+      "tier": 2,
+      "cost": 5,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 5,
+       "effect": "在7秒后，1件被携带着的随机装备暂时变为光明版。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181122",
+     "name": "打捞术",
+     "description": "你备战席的任何弈子都会被移除装备，且这些装备会被拆解。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181122.png",
+     "data": {
+      "key": "181122",
+      "category": "item",
+      "category_label": "装备",
+      "source_category": null,
+      "tier": 1,
+      "cost": 0,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 0,
+       "effect": "你备战席的任何弈子都会被移除装备，且这些装备会被拆解。获得2金币。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181124",
+     "name": "零碎",
+     "description": "战斗开始时:未携带任何装备的2个弈子会获得1件临时的推荐装备。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181124.png",
+     "data": {
+      "key": "181124",
+      "category": "item",
+      "category_label": "装备",
+      "source_category": null,
+      "tier": 2,
+      "cost": 3,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 3,
+       "effect": "战斗开始时:未携带任何装备的3个弈子会获得1件临时的推荐装备。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181126",
+     "name": "蜂鸟",
+     "description": "你攻击速度最高的那个单位变小，获得20%攻击速度。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181126.png",
+     "data": {
+      "key": "181126",
+      "category": "combat",
+      "category_label": "战斗",
+      "source_category": null,
+      "tier": 1,
+      "cost": 1,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 1,
+       "effect": "你攻击速度最高的那个单位变小，获得35%攻击速度。"
+      },
+      "prismatic": {
+       "cost": 0,
+       "effect": "你攻击速度最高的10个单位变小，获得100%攻击速度。"
+      }
+     }
+    },
+    {
+     "id": "adv_181128",
+     "name": "行云流水",
+     "description": "你的弈子们获得持续10秒的不可阻挡效果和15%攻击速度。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181128.png",
+     "data": {
+      "key": "181128",
+      "category": "champion",
+      "category_label": "弈子",
+      "source_category": null,
+      "tier": 2,
+      "cost": 3,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 3,
+       "effect": "你的弈子们获得持续15秒的不可阻挡效果和15%攻击速度。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181132",
+     "name": "鬼鬼祟祟",
+     "description": "你最强大的2个【战士】或【突袭者】获得持续6秒的不可被选取效果。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181132.png",
+     "data": {
+      "key": "181132",
+      "category": "other",
+      "category_label": "其他",
+      "source_category": null,
+      "tier": 1,
+      "cost": 1,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 1,
+       "effect": "你最强大的2个【战士】或【突袭者】获得持续10秒的不可被选取效果。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181134",
+     "name": "日炎巫术",
+     "description": "对敌人施加持续10秒的灼烧和重伤效果。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181134.png",
+     "data": {
+      "key": "181134",
+      "category": "combat",
+      "category_label": "战斗",
+      "source_category": null,
+      "tier": 1,
+      "cost": 2,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 2,
+       "effect": "对敌人施加持续15秒的灼烧和重伤效果。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181136",
+     "name": "休战",
+     "description": "获得1金币。你的对手获得1金币。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181136.png",
+     "data": {
+      "key": "181136",
+      "category": "gold_xp",
+      "category_label": "金币经验",
+      "source_category": null,
+      "tier": 1,
+      "cost": 0,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 0,
+       "effect": "获得2金币。你的对手获得1金币。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181138",
+     "name": "约德尔之灵",
+     "description": "友军有99%几率闪避攻击，持续4秒。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181138.png",
+     "data": {
+      "key": "181138",
+      "category": "combat",
+      "category_label": "战斗",
+      "source_category": null,
+      "tier": 2,
+      "cost": 3,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 3,
+       "effect": "友军有99%几率闪避攻击，持续5秒。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181144",
+     "name": "射手狂风",
+     "description": "你【射手】的攻击提供3%可叠加的攻击速度。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181144.png",
+     "data": {
+      "key": "181144",
+      "category": "combat",
+      "category_label": "战斗",
+      "source_category": null,
+      "tier": 1,
+      "cost": 2,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 2,
+       "effect": "你【射手】的攻击提供5%可叠加的攻击速度。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181146",
+     "name": "树皮护甲",
+     "description": "你的弈子们获得150护盾值，持续10秒。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181146.png",
+     "data": {
+      "key": "181146",
+      "category": "champion",
+      "category_label": "弈子",
+      "source_category": null,
+      "tier": 1,
+      "cost": 0,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 0,
+       "effect": "你的弈子们获得225护盾值，持续10秒。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181148",
+     "name": "庆功宴",
+     "description": "每有1个己方弈子在战斗中存活，获得2金币。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181148.png",
+     "data": {
+      "key": "181148",
+      "category": "gold_xp",
+      "category_label": "金币经验",
+      "source_category": null,
+      "tier": 2,
+      "cost": 4,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 4,
+       "effect": "每有1个己方弈子在战斗中存活，获得3金币。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181150",
+     "name": "以命为注",
+     "description": "每失去12玩家生命值，获得1金币。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181150.png",
+     "data": {
+      "key": "181150",
+      "category": "gold_xp",
+      "category_label": "金币经验",
+      "source_category": null,
+      "tier": 1,
+      "cost": 0,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 0,
+       "effect": "每失去12玩家生命值，获得1金币。然后治疗3生命值。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181152",
+     "name": "多样化",
+     "description": "每有1个已激活的非唯一特质/职业，你的队伍获得30生命值。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181152.png",
+     "data": {
+      "key": "181152",
+      "category": "combat",
+      "category_label": "战斗",
+      "source_category": null,
+      "tier": 2,
+      "cost": 3,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 3,
+       "effect": "每有1个已激活的非唯一特质/职业，你的队伍获得45生命值。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181154",
+     "name": "找个朋友",
+     "description": "获得1个携带着1个【巨人腰带】的【训练假人】。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181154.png",
+     "data": {
+      "key": "181154",
+      "category": "other",
+      "category_label": "其他",
+      "source_category": null,
+      "tier": 1,
+      "cost": 0,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 0,
+       "effect": "获得1个携带着1个【日炎斗篷】的【训练假人】。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181156",
+     "name": "训练场",
+     "description": "获得2个携带着1件随机坦克装备的【训练假人】。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181156.png",
+     "data": {
+      "key": "181156",
+      "category": "item",
+      "category_label": "装备",
+      "source_category": null,
+      "tier": 2,
+      "cost": 3,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 0,
+       "effect": "获得3个携带着1件随机坦克装备的【训练假人】。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181158",
+     "name": "瞄准镜",
+     "description": "你的【战士】获得+1攻击距离。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181158.png",
+     "data": {
+      "key": "181158",
+      "category": "combat",
+      "category_label": "战斗",
+      "source_category": null,
+      "tier": 1,
+      "cost": 2,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 2,
+       "effect": "你的【战士】获得+2攻击距离。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181160",
+     "name": "射手标记",
+     "description": "你的【射手】有30%几率双重攻击。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181160.png",
+     "data": {
+      "key": "181160",
+      "category": "combat",
+      "category_label": "战斗",
+      "source_category": null,
+      "tier": 2,
+      "cost": 3,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 3,
+       "effect": "你的【射手】有45%几率双重攻击。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181162",
+     "name": "金钱之力",
+     "description": "每拥有10金币，获得3%伤害增幅。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181162.png",
+     "data": {
+      "key": "181162",
+      "category": "gold_xp",
+      "category_label": "金币经验",
+      "source_category": null,
+      "tier": 2,
+      "cost": 3,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 3,
+       "effect": "每拥有10金币，获得4.5%伤害增幅。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181164",
+     "name": "回复",
+     "description": "你的队伍每秒治疗1%最大生命值。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181164.png",
+     "data": {
+      "key": "181164",
+      "category": "combat",
+      "category_label": "战斗",
+      "source_category": null,
+      "tier": 2,
+      "cost": 3,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 3,
+       "effect": "你的队伍每秒治疗2%最大生命值。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181166",
+     "name": "抵抗",
+     "description": "【坦克】使即将到来的每段伤害减少10。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181166.png",
+     "data": {
+      "key": "181166",
+      "category": "combat",
+      "category_label": "战斗",
+      "source_category": null,
+      "tier": 1,
+      "cost": 2,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 2,
+       "effect": "【坦克】使即将到来的每段伤害减少18。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181168",
+     "name": "复仇",
+     "description": "每当1名友军倒下时，你的弈子们获得4%可叠加的伤害增幅。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181168.png",
+     "data": {
+      "key": "181168",
+      "category": "champion",
+      "category_label": "弈子",
+      "source_category": null,
+      "tier": 2,
+      "cost": 3,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 3,
+       "effect": "每当1名友军倒下时，你的弈子们获得6%可叠加的伤害增幅。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181170",
+     "name": "神器化",
+     "description": "失去3个基础装备，包括已合成为成装的基础装备。获得1个【神器锻造器】。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181170.png",
+     "data": {
+      "key": "181170",
+      "category": "item",
+      "category_label": "装备",
+      "source_category": null,
+      "tier": 1,
+      "cost": 0,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 0,
+       "effect": "失去2个基础装备，包括已合成为成装的基础装备。获得1个【神器锻造器】和1个【装备重铸器】。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181172",
+     "name": "以物易物",
+     "description": "在本回合内，你下次出售的弈子将以200%金币卖出。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181172.png",
+     "data": {
+      "key": "181172",
+      "category": "gold_xp",
+      "category_label": "金币经验",
+      "source_category": null,
+      "tier": 1,
+      "cost": 2,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 2,
+       "effect": "在本回合内，你下次出售的弈子将以300%金币卖出。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181174",
+     "name": "借来的装备",
+     "description": "1个弈子获得1件临时推荐装备。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181174.png",
+     "data": {
+      "key": "181174",
+      "category": "item",
+      "category_label": "装备",
+      "source_category": null,
+      "tier": 1,
+      "cost": 1,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 1,
+       "effect": "1个弈子获得1件临时推荐装备和250生命值。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181176",
+     "name": "闲散工匠",
+     "description": "将你备战席的1件基础装备转化为它可合成的1件成装。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181176.png",
+     "data": {
+      "key": "181176",
+      "category": "item",
+      "category_label": "装备",
+      "source_category": null,
+      "tier": 2,
+      "cost": 4,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 2,
+       "effect": "将你备战席的1件基础装备转化为它可合成的1件成装。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181178",
+     "name": "森林魔法师",
+     "description": "用【自然仙灵】填满你的商店。但你只能购买1个。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181178.png",
+     "data": {
+      "key": "181178",
+      "category": "shop",
+      "category_label": "商店",
+      "source_category": null,
+      "tier": 1,
+      "cost": 0,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 0,
+       "effect": "用升级后的【自然仙灵】填满你的商店。但你只能购买1个。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181180",
+     "name": "拼一把大的!",
+     "description": "随机施放2个【自然仙灵】。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181180.png",
+     "data": {
+      "key": "181180",
+      "category": "other",
+      "category_label": "其他",
+      "source_category": null,
+      "tier": 2,
+      "cost": 4,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 4,
+       "effect": "随机施放2个价值在2或以上金币的【自然仙灵】。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181182",
+     "name": "小人国",
+     "description": "上回合每登场1个不同的1费弈子，获得1个【微型英雄复制器】。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181182.png",
+     "data": {
+      "key": "181182",
+      "category": "item",
+      "category_label": "装备",
+      "source_category": null,
+      "tier": 3,
+      "cost": 8,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 8,
+       "effect": "上回合每登场1个不同的1费弈子，获得1个【微型英雄复制器】和1金币。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181184",
+     "name": "星落",
+     "description": "这回合你前6次刷新商店时，会使费用最低的那个弈子会变为2星。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181184.png",
+     "data": {
+      "key": "181184",
+      "category": "shop",
+      "category_label": "商店",
+      "source_category": null,
+      "tier": 1,
+      "cost": 1,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 0,
+       "effect": "这回合你前8次刷新商店时，会使费用最低的那个弈子会变为2星。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181186",
+     "name": "绿意盎然",
+     "description": "你的弈子们获得100生命值。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181186.png",
+     "data": {
+      "key": "181186",
+      "category": "champion",
+      "category_label": "弈子",
+      "source_category": null,
+      "tier": 1,
+      "cost": 0,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 0,
+       "effect": "你的弈子们获得175生命值。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181188",
+     "name": "元气满满",
+     "description": "你的弈子们获得8%物理加成和法术加成。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181188.png",
+     "data": {
+      "key": "181188",
+      "category": "champion",
+      "category_label": "弈子",
+      "source_category": null,
+      "tier": 1,
+      "cost": 0,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 0,
+       "effect": "你的弈子们获得15%物理加成和法术加成。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181190",
+     "name": "小装置袋",
+     "description": "获得3个消耗品，其能提供永久的法术加成或法力回复。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181190.png",
+     "data": {
+      "key": "181190",
+      "category": "combat",
+      "category_label": "战斗",
+      "source_category": null,
+      "tier": 2,
+      "cost": 3,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 3,
+       "effect": "获得4个消耗品，其能提供永久的法术加成或法力回复。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181191",
+     "name": "小装置包",
+     "description": "获得2个消耗品，其能提供永久的法术加成或法力回复。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181191.png",
+     "data": {
+      "key": "181191",
+      "category": "combat",
+      "category_label": "战斗",
+      "source_category": null,
+      "tier": 1,
+      "cost": 1,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 1,
+       "effect": "获得3个消耗品，其能提供永久的法术加成或法力回复。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181192",
+     "name": "小玩意罐",
+     "description": "获得1个随机消耗品，其能提供永久的法术加成或法力回复",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181192.png",
+     "data": {
+      "key": "181192",
+      "category": "combat",
+      "category_label": "战斗",
+      "source_category": null,
+      "tier": 1,
+      "cost": 0,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 0,
+       "effect": "获得2个随机消耗品，其能提供永久的法术加成或法力回复"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181193",
+     "name": "小玩具包",
+     "description": "获得2个消耗品，其能提供永久的护甲与魔抗或生命值。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181193.png",
+     "data": {
+      "key": "181193",
+      "category": "combat",
+      "category_label": "战斗",
+      "source_category": null,
+      "tier": 1,
+      "cost": 1,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 1,
+       "effect": "获得3个消耗品，其能提供永久的护甲与魔抗或生命值。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181195",
+     "name": "小玩具罐",
+     "description": "获得1个消耗品，其能提供永久的护甲与魔抗或生命值。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181195.png",
+     "data": {
+      "key": "181195",
+      "category": "combat",
+      "category_label": "战斗",
+      "source_category": null,
+      "tier": 1,
+      "cost": 0,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 0,
+       "effect": "获得2个消耗品，其能提供永久的护甲与魔抗或生命值。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181197",
+     "name": "小玩具袋",
+     "description": "获得3个消耗品，其能提供永久的护甲与魔抗或生命值。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181197.png",
+     "data": {
+      "key": "181197",
+      "category": "combat",
+      "category_label": "战斗",
+      "source_category": null,
+      "tier": 2,
+      "cost": 3,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 3,
+       "effect": "获得4个消耗品，其能提供永久的护甲与魔抗或生命值。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181199",
+     "name": "小饰品包",
+     "description": "获得2个消耗品，其能提供永久的物理加成或攻击速度。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181199.png",
+     "data": {
+      "key": "181199",
+      "category": "combat",
+      "category_label": "战斗",
+      "source_category": null,
+      "tier": 1,
+      "cost": 1,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 1,
+       "effect": "获得3个消耗品，其能提供永久的物理加成或攻击速度。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181201",
+     "name": "小饰品罐",
+     "description": "获得1个消耗品，其能提供永久的物理加成或攻击速度。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181201.png",
+     "data": {
+      "key": "181201",
+      "category": "combat",
+      "category_label": "战斗",
+      "source_category": null,
+      "tier": 1,
+      "cost": 0,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 0,
+       "effect": "获得2个消耗品，其能提供永久的物理加成或攻击速度。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181203",
+     "name": "小饰品袋",
+     "description": "获得3个消耗品，其能提供永久的物理加成或攻击速度。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181203.png",
+     "data": {
+      "key": "181203",
+      "category": "combat",
+      "category_label": "战斗",
+      "source_category": null,
+      "tier": 2,
+      "cost": 3,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 3,
+       "effect": "获得4个消耗品，其能提供永久的物理加成或攻击速度。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181208",
+     "name": "英勇就义",
+     "description": "你最强大的3个弈子获得史！诗！级！强！化！，但其他友军将会牺牲。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181208.png",
+     "data": {
+      "key": "181208",
+      "category": "champion",
+      "category_label": "弈子",
+      "source_category": null,
+      "tier": 2,
+      "cost": 5,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 5,
+       "effect": "你最强大的3个弈子获得史！诗！级！强！化！，但其他友军将会牺牲。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181210",
+     "name": "自然之怒",
+     "description": "在10秒后，将所有未携带装备的单位击败。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181210.png",
+     "data": {
+      "key": "181210",
+      "category": "item",
+      "category_label": "装备",
+      "source_category": null,
+      "tier": 1,
+      "cost": 1,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 1,
+       "effect": "在8秒后，将所有未携带装备的单位击败。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181212",
+     "name": "孤身站场",
+     "description": "独自处于所在排的弈子们获得15%生命值和15%伤害增幅。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181212.png",
+     "data": {
+      "key": "181212",
+      "category": "champion",
+      "category_label": "弈子",
+      "source_category": null,
+      "tier": 2,
+      "cost": 3,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 3,
+       "effect": "独自处于所在排的弈子们获得22%生命值和22%伤害增幅。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181214",
+     "name": "荆棘环身",
+     "description": "你的【坦克】每4秒将承受伤害的12%反射给邻格的敌人。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181214.png",
+     "data": {
+      "key": "181214",
+      "category": "combat",
+      "category_label": "战斗",
+      "source_category": null,
+      "tier": 1,
+      "cost": 2,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 2,
+       "effect": "你的【坦克】每4秒将所受伤害的18%反射给邻格的敌人。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181216",
+     "name": "壁垒",
+     "description": "你的【坦克】在生命值降至50%时，会获得20%最大生命值护盾。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181216.png",
+     "data": {
+      "key": "181216",
+      "category": "combat",
+      "category_label": "战斗",
+      "source_category": null,
+      "tier": 2,
+      "cost": 3,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 3,
+       "effect": "你的【坦克】在生命值降至50%时，会获得30%最大生命值护盾。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181218",
+     "name": "超级暴击",
+     "description": "拥有【技能暴击】的友军获得25%暴击伤害。",
+     "description_tokens": [
+      {
+       "type": "text",
+       "value": "拥有"
+      },
+      {
+       "type": "stat",
+       "stat": "skill_critical_strike",
+       "kind": "skill-crit",
+       "label": "技能暴击",
+       "source_label": "技能暴击",
+       "icon": "crit",
+       "fallback": "CRIT"
+      },
+      {
+       "type": "text",
+       "value": "的友军获得25%暴击伤害。"
+      }
+     ],
+     "image": "assets/mechanics/charms/adv_181218.png",
+     "data": {
+      "key": "181218",
+      "category": "combat",
+      "category_label": "战斗",
+      "source_category": null,
+      "tier": 2,
+      "cost": 3,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 3,
+       "effect": "拥有【技能暴击】的友军获得40%暴击伤害。",
+       "effect_tokens": [
+        {
+         "type": "text",
+         "value": "拥有"
+        },
+        {
+         "type": "stat",
+         "stat": "skill_critical_strike",
+         "kind": "skill-crit",
+         "label": "技能暴击",
+         "source_label": "技能暴击",
+         "icon": "crit",
+         "fallback": "CRIT"
+        },
+        {
+         "type": "text",
+         "value": "的友军获得40%暴击伤害。"
+        }
+       ]
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181220",
+     "name": "贴贴",
+     "description": "每有1名相邻的友军，弈子们就会获得4%最大生命值护盾和4%伤害增幅。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181220.png",
+     "data": {
+      "key": "181220",
+      "category": "champion",
+      "category_label": "弈子",
+      "source_category": null,
+      "tier": 2,
+      "cost": 4,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 4,
+       "effect": "每有1名相邻的友军，弈子们就会获得6%最大生命值护盾和6%伤害增幅。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181222",
+     "name": "易燃物",
+     "description": "你的弈子们在倒下时产生爆炸，造成15%最大生命值魔法伤害。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181222.png",
+     "data": {
+      "key": "181222",
+      "category": "champion",
+      "category_label": "弈子",
+      "source_category": null,
+      "tier": 2,
+      "cost": 5,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 5,
+       "effect": "你的弈子们在倒下时产生爆炸，造成22%最大生命值魔法伤害。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181224",
+     "name": "巨型增长",
+     "description": "你生命值最高的那个单位成长，获得700生命值。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181224.png",
+     "data": {
+      "key": "181224",
+      "category": "combat",
+      "category_label": "战斗",
+      "source_category": null,
+      "tier": 2,
+      "cost": 4,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 4,
+       "effect": "你生命值最高的2个单位成长，获得700生命值。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181226",
+     "name": "药学博士",
+     "description": "获得3个临时的、可装备的【药水】。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181226.png",
+     "data": {
+      "key": "181226",
+      "category": "item",
+      "category_label": "装备",
+      "source_category": null,
+      "tier": 2,
+      "cost": 3,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 3,
+       "effect": "获得3个临时的、可装备的【光明版药水】。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181228",
+     "name": "独行斗篷",
+     "description": "邻格无友军的弈子们获得10%最大生命值和10%伤害增幅。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181228.png",
+     "data": {
+      "key": "181228",
+      "category": "champion",
+      "category_label": "弈子",
+      "source_category": null,
+      "tier": 2,
+      "cost": 3,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 3,
+       "effect": "邻格无友军的弈子们获得15%最大生命值和15%伤害增幅。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181230",
+     "name": "中央大道",
+     "description": "刷新你的商店，使其充满2星3费弈子。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181230.png",
+     "data": {
+      "key": "181230",
+      "category": "shop",
+      "category_label": "商店",
+      "source_category": null,
+      "tier": 2,
+      "cost": 6,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 4,
+       "effect": "刷新你的商店，使其充满2星3费弈子。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181232",
+     "name": "钢铁核心",
+     "description": "每有1个位于前排的单位，你前排中心的那个弈子就会获得4%最大生命值。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181232.png",
+     "data": {
+      "key": "181232",
+      "category": "champion",
+      "category_label": "弈子",
+      "source_category": null,
+      "tier": 1,
+      "cost": 2,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 2,
+       "effect": "每有1个位于前排的单位，你前排中心的那个弈子就会获得6%最大生命值。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181234",
+     "name": "爆炸药水",
+     "description": "获得1个临时的、可装备的【爆炸药水】。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181234.png",
+     "data": {
+      "key": "181234",
+      "category": "item",
+      "category_label": "装备",
+      "source_category": null,
+      "tier": 1,
+      "cost": 1,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 1,
+       "effect": "获得1个临时的、可装备的【光明版爆炸药水】。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181236",
+     "name": "生命药水",
+     "description": "获得1个临时的、可装备的【生命药水】。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181236.png",
+     "data": {
+      "key": "181236",
+      "category": "item",
+      "category_label": "装备",
+      "source_category": null,
+      "tier": 1,
+      "cost": 1,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 1,
+       "effect": "获得1个临时的、可装备的【光明版生命药水】。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181238",
+     "name": "法力药水",
+     "description": "获得1个临时的、可装备的【法力药水】。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181238.png",
+     "data": {
+      "key": "181238",
+      "category": "item",
+      "category_label": "装备",
+      "source_category": null,
+      "tier": 1,
+      "cost": 1,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 1,
+       "effect": "获得1个临时的、可装备的【光明版法力药水】。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181240",
+     "name": "骨头滚滚",
+     "description": "每获得1次击败，你都有50%几率获得1次免费刷新。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181240.png",
+     "data": {
+      "key": "181240",
+      "category": "shop",
+      "category_label": "商店",
+      "source_category": null,
+      "tier": 2,
+      "cost": 3,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 3,
+       "effect": "每获得1次击败，你都有65%几率获得1次刷新，如果获胜额外获得1次。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181242",
+     "name": "加速",
+     "description": "施放技能时，你的弈子们获得30%攻击速度，持续4秒。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181242.png",
+     "data": {
+      "key": "181242",
+      "category": "champion",
+      "category_label": "弈子",
+      "source_category": null,
+      "tier": 1,
+      "cost": 2,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 2,
+       "effect": "施放技能时，你的弈子们获得40%攻击速度，持续5秒。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181244",
+     "name": "拼一把小的!",
+     "description": "随机施放1个【自然仙灵】。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181244.png",
+     "data": {
+      "key": "181244",
+      "category": "other",
+      "category_label": "其他",
+      "source_category": null,
+      "tier": 1,
+      "cost": 1,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 1,
+       "effect": "随机施放1个价值在2或以上金币的【自然仙灵】。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181246",
+     "name": "洪涝",
+     "description": "你的连胜数加2。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181246.png",
+     "data": {
+      "key": "181246",
+      "category": "other",
+      "category_label": "其他",
+      "source_category": null,
+      "tier": 1,
+      "cost": 1,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 1,
+       "effect": "你的连胜数加3。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181248",
+     "name": "小贩",
+     "description": "开启1个随机装备商店。随机装备的费用在0到14金币之间。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181248.png",
+     "data": {
+      "key": "181248",
+      "category": "shop",
+      "category_label": "商店",
+      "source_category": null,
+      "tier": 1,
+      "cost": 0,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 0,
+       "effect": "开启1个随机装备商店。装备的费用在0到14金币之间。获得2金币。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181250",
+     "name": "自然之友",
+     "description": "每有3名友军倒下，召唤1个随机【峡谷野怪】。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181250.png",
+     "data": {
+      "key": "181250",
+      "category": "other",
+      "category_label": "其他",
+      "source_category": null,
+      "tier": 1,
+      "cost": 2,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 2,
+       "effect": "每有3名友军倒下，召唤1个随机【峡谷野怪】有时会召唤出2星的版本。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181252",
+     "name": "点心时间到!",
+     "description": "【毛茸茸大朋友】会吃掉最大生命值低于15%且受过其伤害的敌人。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181252.png",
+     "data": {
+      "key": "181252",
+      "category": "combat",
+      "category_label": "战斗",
+      "source_category": null,
+      "tier": 2,
+      "cost": 3,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 3,
+       "effect": "【毛茸茸大朋友】会吃掉最大生命值低于20%且受过其伤害的敌人。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181254",
+     "name": "生态改造",
+     "description": "战斗开始时，获得5颗种子。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181254.png",
+     "data": {
+      "key": "181254",
+      "category": "other",
+      "category_label": "其他",
+      "source_category": null,
+      "tier": 1,
+      "cost": 2,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 2,
+       "effect": "战斗开始时，获得9颗种子。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181256",
+     "name": "男爵之手",
+     "description": "你的队伍获得【纳什男爵】增益，提升他们的属性。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181256.png",
+     "data": {
+      "key": "181256",
+      "category": "combat",
+      "category_label": "战斗",
+      "source_category": null,
+      "tier": 2,
+      "cost": 6,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 6,
+       "effect": "你的队伍获得【纳什男爵】增益，极大提升他们的属性。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181258",
+     "name": "践踏奔袭",
+     "description": "开启一个峡谷兽商店。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181258.png",
+     "data": {
+      "key": "181258",
+      "category": "shop",
+      "category_label": "商店",
+      "source_category": null,
+      "tier": 2,
+      "cost": 4,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 3,
+       "effect": "开启一个峡谷兽商店。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181260",
+     "name": "猛虎降临",
+     "description": "本场对战获得【野兽之灵】的【猛虎】增益。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181260.png",
+     "data": {
+      "key": "181260",
+      "category": "combat",
+      "category_label": "战斗",
+      "source_category": null,
+      "tier": 2,
+      "cost": 4,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 3,
+       "effect": "本场对战获得【野兽之灵】的【猛虎】增益。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181262",
+     "name": "爆燃",
+     "description": "刷新你的商店。【地狱火】引燃2个商店栏位，将其升级。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181262.png",
+     "data": {
+      "key": "181262",
+      "category": "shop",
+      "category_label": "商店",
+      "source_category": null,
+      "tier": 1,
+      "cost": 2,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 2,
+       "effect": "刷新你的商店。【地狱火】引燃3个商店栏位，将其升级。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181266",
+     "name": "蛮熊降临",
+     "description": "本场对战获得【野兽之灵】的【蛮熊】增益。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181266.png",
+     "data": {
+      "key": "181266",
+      "category": "combat",
+      "category_label": "战斗",
+      "source_category": null,
+      "tier": 2,
+      "cost": 3,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 2,
+       "effect": "本场对战获得【野兽之灵】的【蛮熊】增益。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181268",
+     "name": "灵龟降临",
+     "description": "本场对战获得【野兽之灵】的【灵龟】增益。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181268.png",
+     "data": {
+      "key": "181268",
+      "category": "combat",
+      "category_label": "战斗",
+      "source_category": null,
+      "tier": 2,
+      "cost": 3,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 2,
+       "effect": "本场对战获得【野兽之灵】的【灵龟】增益。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181272",
+     "name": "猎手的黄金之路",
+     "description": "下一场玩家对战，你的【宿敌】获得双倍参与击败数。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181272.png",
+     "data": {
+      "key": "181272",
+      "category": "other",
+      "category_label": "其他",
+      "source_category": null,
+      "tier": 1,
+      "cost": 2,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 0,
+       "effect": "下一场玩家对战，你的【宿敌】获得双倍参与击败数。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181278",
+     "name": "摄魂夺魄",
+     "description": "本场对战额外获得50%【女巫精粹】。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181278.png",
+     "data": {
+      "key": "181278",
+      "category": "other",
+      "category_label": "其他",
+      "source_category": null,
+      "tier": 1,
+      "cost": 1,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 0,
+       "effect": "本场对战额外获得90%【女巫精粹】。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181282",
+     "name": "鏖战不休",
+     "description": "获得1个【雷恩加尔】或1个【卡兹克】。其获得+3参与击败数。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181282.png",
+     "data": {
+      "key": "181282",
+      "category": "other",
+      "category_label": "其他",
+      "source_category": null,
+      "tier": 2,
+      "cost": 3,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 3,
+       "effect": "获得1个【雷恩加尔】或1个【卡兹克】。其获得+7参与击败数。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181284",
+     "name": "森林多胞胎",
+     "description": "获得2个相同的弈子，他们是你尚未拥有的2费弈子的其中一个的复制体。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181284.png",
+     "data": {
+      "key": "181284",
+      "category": "champion",
+      "category_label": "弈子",
+      "source_category": null,
+      "tier": 2,
+      "cost": 4,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 4,
+       "effect": "获得3个相同的弈子，他们是你尚未拥有的2费弈子的其中一个的复制体。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181286",
+     "name": "疯狂掷币人",
+     "description": "抛掷1枚硬币，如果硬币正面朝上，获得1金币。重复抛掷，直至你抛掷的硬币反面朝上。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181286.png",
+     "data": {
+      "key": "181286",
+      "category": "gold_xp",
+      "category_label": "金币经验",
+      "source_category": null,
+      "tier": 1,
+      "cost": 1,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 0,
+       "effect": "抛掷1枚硬币，如果硬币正面朝上，获得1金币。重复抛掷，直至你抛掷的硬币反面朝上。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181288",
+     "name": "慢速学习",
+     "description": "在15秒时，每有1名存活的友军，获得2经验值。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181288.png",
+     "data": {
+      "key": "181288",
+      "category": "gold_xp",
+      "category_label": "金币经验",
+      "source_category": null,
+      "tier": 2,
+      "cost": 4,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 4,
+       "effect": "在12秒时，每有1名存活的友军，获得2经验值。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181290",
+     "name": "侩子手的悔恨",
+     "description": "你最先倒下的3个弈子会将其击败者晕眩1.25秒。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181290.png",
+     "data": {
+      "key": "181290",
+      "category": "champion",
+      "category_label": "弈子",
+      "source_category": null,
+      "tier": 1,
+      "cost": 2,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 2,
+       "effect": "你最先倒下的4个弈子会将其击败者晕眩1.5秒。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181292",
+     "name": "长者之环",
+     "description": "获得每个5费弈子各1个。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181292.png",
+     "data": {
+      "key": "181292",
+      "category": "champion",
+      "category_label": "弈子",
+      "source_category": null,
+      "tier": 3,
+      "cost": 45,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 40,
+       "effect": "获得每个5费弈子各1个。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181294",
+     "name": "克隆弈子",
+     "description": "复制你伤害最高的弈子。复制体造成20%伤害。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181294.png",
+     "data": {
+      "key": "181294",
+      "category": "champion",
+      "category_label": "弈子",
+      "source_category": null,
+      "tier": 2,
+      "cost": 5,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 5,
+       "effect": "复制你伤害最高的英雄。复制体造成30%伤害。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181296",
+     "name": "破盾秘法",
+     "description": "使敌人缓速10%，并将其护盾值削减20%，持续10秒。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181296.png",
+     "data": {
+      "key": "181296",
+      "category": "combat",
+      "category_label": "战斗",
+      "source_category": null,
+      "tier": 1,
+      "cost": 2,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 2,
+       "effect": "使敌人缓速10%，并将其护盾值削减30%，持续10秒。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181298",
+     "name": "衣冠冢",
+     "description": "你最先倒下的携带着装备的那个坦克，在倒下时会召唤1个携带着其装备的【训练假人】。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181298.png",
+     "data": {
+      "key": "181298",
+      "category": "item",
+      "category_label": "装备",
+      "source_category": null,
+      "tier": 2,
+      "cost": 3,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 3,
+       "effect": "你最先倒下的2个坦克，在倒下时会召唤1个携带着其装备的【训练假人】。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181300",
+     "name": "强化激素",
+     "description": "至多2个1星弈子会在战斗期间暂时升星。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181300.png",
+     "data": {
+      "key": "181300",
+      "category": "champion",
+      "category_label": "弈子",
+      "source_category": null,
+      "tier": 2,
+      "cost": 6,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 6,
+       "effect": "至多3个1星弈子会在战斗期间暂时升星。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181302",
+     "name": "镀板护盾",
+     "description": "护盾强度提升15%。友军获得持续10秒的150护盾值。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181302.png",
+     "data": {
+      "key": "181302",
+      "category": "combat",
+      "category_label": "战斗",
+      "source_category": null,
+      "tier": 1,
+      "cost": 2,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 2,
+       "effect": "护盾强度提升20%。友军获得持续10秒的300护盾值。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181304",
+     "name": "富魔之壤",
+     "description": "你的【术师】最大法力值减少18%。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181304.png",
+     "data": {
+      "key": "181304",
+      "category": "combat",
+      "category_label": "战斗",
+      "source_category": null,
+      "tier": 2,
+      "cost": 3,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 3,
+       "effect": "你的【术师】最大法力值减少25%。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181306",
+     "name": "屠戮狂暴",
+     "description": "【战士】会终结生命值低于12%的目标。他们在完成击败时获得15%攻击速度。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181306.png",
+     "data": {
+      "key": "181306",
+      "category": "combat",
+      "category_label": "战斗",
+      "source_category": null,
+      "tier": 2,
+      "cost": 3,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 3,
+       "effect": "【战士】会终结生命值低于15%的目标。他们在完成击败时获得20%攻击速度。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181308",
+     "name": "招财猫",
+     "description": "你造成伤害最高的那个弈子，每造成1700伤害，获得1金币。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181308.png",
+     "data": {
+      "key": "181308",
+      "category": "gold_xp",
+      "category_label": "金币经验",
+      "source_category": null,
+      "tier": 1,
+      "cost": 1,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 1,
+       "effect": "你造成伤害最高的那个弈子，每造成1000伤害，获得1金币。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181310",
+     "name": "活体土壤",
+     "description": "每过4秒，根须会晕眩1名敌人1秒。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181310.png",
+     "data": {
+      "key": "181310",
+      "category": "combat",
+      "category_label": "战斗",
+      "source_category": null,
+      "tier": 1,
+      "cost": 2,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 2,
+       "effect": "每过4秒，根须会晕眩2名敌人1秒。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181312",
+     "name": "梁上君子",
+     "description": "每过5秒，你的弈子们就有15%几率掉落1金币。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181312.png",
+     "data": {
+      "key": "181312",
+      "category": "gold_xp",
+      "category_label": "金币经验",
+      "source_category": null,
+      "tier": 2,
+      "cost": 3,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 3,
+       "effect": "每过4秒，你的弈子们就有15%几率掉落1金币。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181314",
+     "name": "日蚀之礼",
+     "description": "获得1个【蕾欧娜】、1个【瑟庄妮】和1个【凯尔】。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181314.png",
+     "data": {
+      "key": "181314",
+      "category": "other",
+      "category_label": "其他",
+      "source_category": null,
+      "tier": 1,
+      "cost": 2,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 2,
+       "effect": "获得1个【蕾欧娜】、1个【瑟庄妮】和1个【凯尔】。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181316",
+     "name": "焕新之光",
+     "description": "你的【日蚀骑士】弈子每有1星级(相同弈子不重复计数)，获得1次免费重随。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181316.png",
+     "data": {
+      "key": "181316",
+      "category": "shop",
+      "category_label": "商店",
+      "source_category": null,
+      "tier": 2,
+      "cost": 6,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 5,
+       "effect": "你的【日蚀骑士】弈子每有1星级(相同弈子不重复计数)，获得1次免费重随。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181318",
+     "name": "皓月当空",
+     "description": "在8秒后，提升100%【月蚀骑士】特质/职业效果。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181318.png",
+     "data": {
+      "key": "181318",
+      "category": "other",
+      "category_label": "其他",
+      "source_category": null,
+      "tier": 1,
+      "cost": 2,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 2,
+       "effect": "在8秒后，提升175%【月蚀骑士】特质/职业效果。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181320",
+     "name": "石化术",
+     "description": "你第1个倒下的弈子在倒下时，会转化为1个拥有其防御属性和900生命值的【训练假人】。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181320.png",
+     "data": {
+      "key": "181320",
+      "category": "champion",
+      "category_label": "弈子",
+      "source_category": null,
+      "tier": 1,
+      "cost": 2,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 2,
+       "effect": "你第1个倒下的弈子在倒下时，会转化为1个拥有其防御属性和1350生命值的【训练假人】。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181322",
+     "name": "搜查队",
+     "description": "在本回合内，你每次刷新商店都会出现1个4费弈子，直到你购买其中一名为止。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181322.png",
+     "data": {
+      "key": "181322",
+      "category": "shop",
+      "category_label": "商店",
+      "source_category": null,
+      "tier": 2,
+      "cost": 3,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 2,
+       "effect": "战斗开始时:至多有1个未激活的特质/职业会以最低层级激活。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181324",
+     "name": "幻影浪花",
+     "description": "战斗开始时:至多有2个未激活的特质/职业会以最低层级激活。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181324.png",
+     "data": {
+      "key": "181324",
+      "category": "other",
+      "category_label": "其他",
+      "source_category": null,
+      "tier": 1,
+      "cost": 2,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 2,
+       "effect": "战斗开始时:至多有4个未激活的特质/职业会以最低层级激活。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181326",
+     "name": "不倒翁",
+     "description": "在18秒时，每有1名存活的友军，获得1次刷新。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181326.png",
+     "data": {
+      "key": "181326",
+      "category": "shop",
+      "category_label": "商店",
+      "source_category": null,
+      "tier": 2,
+      "cost": 4,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 4,
+       "effect": "在15秒时，每有1名存活的友军，获得1次刷新。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181328",
+     "name": "零花钱",
+     "description": "你的1星弈子们在倒下时掉落1金币。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181328.png",
+     "data": {
+      "key": "181328",
+      "category": "gold_xp",
+      "category_label": "金币经验",
+      "source_category": null,
+      "tier": 1,
+      "cost": 1,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 1,
+       "effect": "你的1星弈子们在倒下时掉落1金币。获得1金币。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181330",
+     "name": "边境村庄",
+     "description": "刷新你的商店，使其充满2星2费弈子。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181330.png",
+     "data": {
+      "key": "181330",
+      "category": "shop",
+      "category_label": "商店",
+      "source_category": null,
+      "tier": 2,
+      "cost": 6,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 4,
+       "effect": "刷新你的商店，使其充满2星2费弈子。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181332",
+     "name": "新手村",
+     "description": "刷新你的商店，使其充满2星1费弈子。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181332.png",
+     "data": {
+      "key": "181332",
+      "category": "shop",
+      "category_label": "商店",
+      "source_category": null,
+      "tier": 2,
+      "cost": 3,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 2,
+       "effect": "刷新你的商店，使其充满2星1费弈子。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181334",
+     "name": "干旱",
+     "description": "你的连败数加2。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181334.png",
+     "data": {
+      "key": "181334",
+      "category": "other",
+      "category_label": "其他",
+      "source_category": null,
+      "tier": 1,
+      "cost": 1,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 1,
+       "effect": "你的连败数加3。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181336",
+     "name": "坚硬木材",
+     "description": "敌人攻击你生命值最高的那个弈子时，造成的伤害降低12%。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181336.png",
+     "data": {
+      "key": "181336",
+      "category": "champion",
+      "category_label": "弈子",
+      "source_category": null,
+      "tier": 2,
+      "cost": 3,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 3,
+       "effect": "敌人攻击你生命值最高的那个弈子时，造成的伤害降低18%。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181338",
+     "name": "巨人光环",
+     "description": "你生命值最高的那名友军，每秒在一片区域内造成2%最大生命值伤害。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181338.png",
+     "data": {
+      "key": "181338",
+      "category": "combat",
+      "category_label": "战斗",
+      "source_category": null,
+      "tier": 2,
+      "cost": 5,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 5,
+       "effect": "你生命值最高的那名友军，每秒在一片区域内造成3%最大生命值伤害。"
+      },
+      "prismatic": {
+       "cost": 0,
+       "effect": "你生命值最高的那名友军，成为了一名极其危险的人物。"
+      }
+     }
+    },
+    {
+     "id": "adv_181340",
+     "name": "大器晚成",
+     "description": "一个临时的3星1费弈子加入你的队伍。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181340.png",
+     "data": {
+      "key": "181340",
+      "category": "champion",
+      "category_label": "弈子",
+      "source_category": null,
+      "tier": 2,
+      "cost": 6,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 6,
+       "effect": "以一名携带着1件推荐装备的临时3星1费弈子加入己方队伍。"
+      },
+      "prismatic": {
+       "cost": 0,
+       "effect": "一队（包含5个）临时的4星1费弈子加入你的队伍。"
+      }
+     }
+    },
+    {
+     "id": "adv_181342",
+     "name": "顺流而下",
+     "description": "在本回合内，在上场对战中登场的2+个弈子会出现在你的下2次刷新的商店中。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181342.png",
+     "data": {
+      "key": "181342",
+      "category": "shop",
+      "category_label": "商店",
+      "source_category": null,
+      "tier": 2,
+      "cost": 3,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 3,
+       "effect": "在本回合内，在上场对战中登场的2+个弈子会出现在你的下3次刷新的商店中。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181344",
+     "name": "带一个走",
+     "description": "如果你失败但至少击败了1名敌人，获得4经验值。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181344.png",
+     "data": {
+      "key": "181344",
+      "category": "gold_xp",
+      "category_label": "金币经验",
+      "source_category": null,
+      "tier": 1,
+      "cost": 1,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 1,
+       "effect": "如果你失败但至少击败了1名敌人，获得6经验值。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181346",
+     "name": "黄金之路",
+     "description": "在3场玩家对战回合后，每次胜利获得2金币。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181346.png",
+     "data": {
+      "key": "181346",
+      "category": "gold_xp",
+      "category_label": "金币经验",
+      "source_category": null,
+      "tier": 1,
+      "cost": 2,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 2,
+       "effect": "在3场玩家对战回合后，每次胜利获得2金币，外加1金币。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181348",
+     "name": "输得漂亮",
+     "description": "如果你输掉接下来3场玩家对战回合，则获得4经验值。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181348.png",
+     "data": {
+      "key": "181348",
+      "category": "gold_xp",
+      "category_label": "金币经验",
+      "source_category": null,
+      "tier": 2,
+      "cost": 5,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 5,
+       "effect": "如果你输掉接下来3场玩家对战回合，则获得6经验值。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181350",
+     "name": "鲜血与铁",
+     "description": "在20个弈子倒下后，获得1个【基础装备锻造器】。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181350.png",
+     "data": {
+      "key": "181350",
+      "category": "item",
+      "category_label": "装备",
+      "source_category": null,
+      "tier": 2,
+      "cost": 3,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 3,
+       "effect": "在14次英雄倒下后获得1个【基础装备锻造器】。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181352",
+     "name": "闪电风暴",
+     "description": "每过1秒，对1名敌人造成5%最大生命值真实伤害。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181352.png",
+     "data": {
+      "key": "181352",
+      "category": "combat",
+      "category_label": "战斗",
+      "source_category": null,
+      "tier": 2,
+      "cost": 5,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 5,
+       "effect": "每过1秒，对1名敌人造成7%最大生命值真实伤害。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181354",
+     "name": "萤火虫之家",
+     "description": "你的【术师】每消耗20法力值，召唤1只萤火虫。每只造成110魔法伤害。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181354.png",
+     "data": {
+      "key": "181354",
+      "category": "combat",
+      "category_label": "战斗",
+      "source_category": null,
+      "tier": 1,
+      "cost": 2,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 2,
+       "effect": "你的【术师】每消耗15法力值，召唤1只萤火虫。每只造成110魔法伤害。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181356",
+     "name": "炽焰",
+     "description": "火焰席卷整个棋盘，对敌人造成持续递增的真实伤害。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181356.png",
+     "data": {
+      "key": "181356",
+      "category": "combat",
+      "category_label": "战斗",
+      "source_category": null,
+      "tier": 2,
+      "cost": 5,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 5,
+       "effect": "火焰席卷整个棋盘，对敌人造成更高的真实伤害。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181358",
+     "name": "树顶弓箭手",
+     "description": "弓箭手自林间放箭，每3秒造成500物理伤害。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181358.png",
+     "data": {
+      "key": "181358",
+      "category": "combat",
+      "category_label": "战斗",
+      "source_category": null,
+      "tier": 2,
+      "cost": 5,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 5,
+       "effect": "弓箭手自林间放箭，每3秒造成900物理伤害。"
+      },
+      "prismatic": {
+       "cost": 0,
+       "effect": "数量多到难以置信的弓箭手自林间放箭。"
+      }
+     }
+    },
+    {
+     "id": "adv_181360",
+     "name": "雇佣兵",
+     "description": "1个携带着1件推荐装备的临时1星5费弈子加入你的队伍。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181360.png",
+     "data": {
+      "key": "181360",
+      "category": "item",
+      "category_label": "装备",
+      "source_category": null,
+      "tier": 2,
+      "cost": 5,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 5,
+       "effect": "1个携带着2件推荐装备的临时1星5费弈子加入你的队伍。"
+      },
+      "prismatic": {
+       "cost": 0,
+       "effect": "3个临时的、携带着2件推荐装备的2星5费弈子加入你的队伍。"
+      }
+     }
+    },
+    {
+     "id": "adv_181362",
+     "name": "繁殖",
+     "description": "获得第1名倒下的友军的1个复制体。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181362.png",
+     "data": {
+      "key": "181362",
+      "category": "other",
+      "category_label": "其他",
+      "source_category": null,
+      "tier": 1,
+      "cost": 2,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 1,
+       "effect": "获得第1个倒下的友军的1个复制体。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181364",
+     "name": "珍品摆摊车",
+     "description": "开启1个装备商店。装备的费用在0到15金币之间。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181364.png",
+     "data": {
+      "key": "181364",
+      "category": "shop",
+      "category_label": "商店",
+      "source_category": null,
+      "tier": 1,
+      "cost": 0,
+      "rounds": [],
+      "requires": [],
+      "upgrade": null,
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181366",
+     "name": "未雨绸缪",
+     "description": "你的叠层型装备在下次战斗开始时，拥有部分初始层数。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181366.png",
+     "data": {
+      "key": "181366",
+      "category": "item",
+      "category_label": "装备",
+      "source_category": null,
+      "tier": 1,
+      "cost": 2,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 2,
+       "effect": "你的叠层型装备在下次战斗开始时，拥有额外初始层数。"
+      },
+      "prismatic": null
+     }
+    },
+    {
+     "id": "adv_181368",
+     "name": "预言之子",
+     "description": "获得1个5费弈子。每回合都会再获得1个该弈子(永远!直至游戏结束)。",
+     "description_tokens": null,
+     "image": "assets/mechanics/charms/adv_181368.png",
+     "data": {
+      "key": "181368",
+      "category": "champion",
+      "category_label": "弈子",
+      "source_category": null,
+      "tier": 3,
+      "cost": 35,
+      "rounds": [],
+      "requires": [],
+      "upgrade": {
+       "cost": 33,
+       "effect": "获得1个5费弈子。每回合都会再获得1个该弈子(永远!直至游戏结束)。"
+      },
+      "prismatic": null
+     }
+    }
+   ]
+  }
+ ],
  "rich_text_version": 1
 }
