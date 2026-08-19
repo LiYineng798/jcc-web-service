@@ -7,27 +7,38 @@ static/season-data/catalog.json
 static/season-data/<season_id>/champions.json
 static/season-data/<season_id>/traits.json
 static/season-data/<season_id>/items.json
+static/season-data/<season_id>/board_units.json
+static/season-data/<season_id>/augments.json   # 已上线赛季
 ```
 
 不要手工修改 `static/tools/lineup-simulator/data/`，也不要再运行旧的 `scripts/build_simulator_data.py` 或把 `local-data.js` 当作数据源。上述目录是旧模拟器的兼容存档，不参与当前页面加载。
 
-## 更新流程
+## 更新流程（新版本 / 新赛季上线）
 
-1. 在外部档案库 `ccmax资料/数据模板` 抓取或维护新的完整版本。S18 PBE 合并 JSON 先运行 `python scripts/import_existing_seasons.py --season s18 --s18-json "..\data-cn-CJkaeodq.S18.json"`。
-2. 在档案库执行 `python scripts/validate.py --all`。
-3. 在 Web 仓库根目录导入单个赛季：
+1. **确认官方版本**：抓 `https://game.gtimg.cn/images/lol/act/jkzlk/js/config/versiondataconfig.js`，看目标 mode 的 `is_newest_version` 与版本条目。官方数据源总览、命名对应表与踩坑清单见档案库 **`ccmax资料/数据模板/docs/官方数据源与版本更新指南.md`**。
+2. **档案库导入**（在 `ccmax资料/数据模板` 执行）：`python scripts/import_existing_seasons.py --season s18 [--version X.Y.Z]`（S18 默认走官方接口；带 `--s18-json` 才重建 PBE 快照）。
+3. **档案库校验**：`python scripts/validate.py --all` → 0 错误。
+4. **Web 仓库导入单个赛季**：
 
    ```powershell
-   python scripts/season_library/import_from_archive.py --season s17
+   python scripts/season_library/import_from_archive.py --season s18
    ```
 
-   找不到档案库时，通过 `--source "D:\...\ccmax资料\数据模板"` 或 `JCC_SEASON_ARCHIVE` 指定。
-4. 检查 `static/season-data/catalog.json` 和对应赛季 `index.json` 的 `version_id`，确认 WebP 生成没有警告。
-5. 运行：
+   找不到档案库时，通过 `--source "D:\...\ccmax资料\数据模板"` 或 `JCC_SEASON_ARCHIVE` 指定。资料库与模拟器共用 `static/season-data/`，一次导入两边生效。
+
+5. **核对清单**：
+   - `catalog.json` 与 `index.json` 的 `version_id` / `game_version` / `status` 正确。
+   - 控制台没有缺图警告，`optimized_local_path` WebP 全部生成。
+   - `board_units.json`：期望的羁绊棋盘对象（如 S18 的威朗普/石皮树/生命花/深林守卫）都在 `included`；`discovery_audit` 无意外的新增 `review` 项。
+   - 多形态弈子（如 S18 拉克丝 9 皮肤形态）按形态逐条出现在 `champions.json`，各自带正确 `trait_ids`。
+   - 装备分类是数据驱动的：某分类（如消耗品）本赛季没有装备就不显示，属正常。
+6. **测试**：
 
    ```powershell
    python -m pytest -q tests/test_season_reference.py tests/test_lineup_simulator_rebuild.py
    ```
+
+7. **部署**：JSON 与图片作为同一批静态资源上传，重启 Web 进程（清 `lru_cache`），冒烟检查资料页与模拟器。
 
 完整的数据结构、图片规则、缓存、部署和回滚说明见 `docs/season-library.md`。
 
