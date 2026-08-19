@@ -261,9 +261,6 @@ def collect_official_augments(
         "stage_options": STANDARD_AUGMENT_STAGES,
         "augments": [],
     }
-    if season_id == "s18":
-        return empty, build_change_report(previous, empty)
-
     version_entry_path = version_dir / "source-snapshots" / "version-entry.json"
     if not version_entry_path.is_file():
         return empty, build_change_report(previous, empty)
@@ -278,7 +275,13 @@ def collect_official_augments(
     snapshot_path.parent.mkdir(parents=True, exist_ok=True)
     snapshot_path.write_text(json.dumps(document, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
-    stage_document, stage_source = _request_stage_document(season_id, requested_version)
+    # Observed-match stage stats are best-effort: a brand-new season may not
+    # have a versioned DataJ snapshot yet, so degrade to empty stage lists
+    # instead of failing the whole import.
+    try:
+        stage_document, stage_source = _request_stage_document(season_id, requested_version)
+    except Exception:  # noqa: BLE001 - stage evidence is non-authoritative
+        stage_document, stage_source = None, None
     if stage_document is not None:
         stage_snapshot_path = target_dir / "source-snapshots" / "augment-stage-stats.json"
         stage_snapshot_path.write_text(json.dumps(stage_document, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")

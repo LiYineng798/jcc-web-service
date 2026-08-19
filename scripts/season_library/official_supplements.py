@@ -54,6 +54,14 @@ def _normalize_reference(value):
     return text
 
 
+# Tencent's chess.js names some trait objects differently from the trait text.
+# The Yordle rideable unit is 威朗普 in chess.js but 毛茸茸大朋友 (Fluffy Big
+# Friend) in the trait copy; bridge the two so the board object is discovered.
+CURATED_ALIASES = {
+    '威朗普': ['毛茸茸大朋友'],
+}
+
+
 def _name_aliases(name):
     normalized = _normalize_reference(name)
     aliases = {normalized}
@@ -61,6 +69,10 @@ def _name_aliases(name):
         part = _normalize_reference(part)
         if part:
             aliases.add(part)
+    for alias in CURATED_ALIASES.get(str(name or ''), []):
+        normalized_alias = _normalize_reference(alias)
+        if normalized_alias:
+            aliases.add(normalized_alias)
     for prefix in ('迷你', '小型', '巨型'):
         if normalized.startswith(prefix) and len(normalized) > len(prefix) + 1:
             aliases.add(normalized[len(prefix):])
@@ -235,11 +247,20 @@ def _group_records(records, mode):
     return groups
 
 
-def _ensure_champion_assets(base_id, base, mode, target_dir):
+def _season_code(version_dir, load_json, fallback='s18'):
+    """Derive the official splash CDN token (e.g. mode18s19) from the archive."""
+    path = version_dir / 'source-snapshots' / 'version-entry.json'
+    try:
+        return str(load_json(path).get('season') or fallback).lower()
+    except Exception:  # noqa: BLE001 - fall back to the historical token
+        return fallback
+
+
+def _ensure_champion_assets(base_id, base, target_dir, splash_token):
     icon_url = base.get('picture')
     skill_url = base.get('skillIcon')
     splash_url = (
-        f"https://game.gtimg.cn/images/jk/jkimg/mode{mode}s18/1624x750/{base.get('heroPaint')}.jpg"
+        f"https://game.gtimg.cn/images/jk/jkimg/{splash_token}/1624x750/{base.get('heroPaint')}.jpg"
         if base.get('heroPaint')
         else None
     )
@@ -256,7 +277,7 @@ def _ensure_champion_assets(base_id, base, mode, target_dir):
     }
 
 
-def _supplement_champions(groups, champions_doc, traits_doc, mode, target_dir):
+def _supplement_champions(groups, champions_doc, traits_doc, mode, target_dir, splash_token):
     champions = champions_doc.get('champions') or []
     traits = traits_doc.get('traits') or []
     known_names = {champion.get('name') for champion in champions}
@@ -275,7 +296,7 @@ def _supplement_champions(groups, champions_doc, traits_doc, mode, target_dir):
             or not any(trait_id in known_trait_ids for trait_id in official_trait_ids)
         ):
             continue
-        assets = _ensure_champion_assets(champion_id, base, mode, target_dir)
+        assets = _ensure_champion_assets(champion_id, base, target_dir, splash_token)
         if not assets['icon']:
             continue
         descriptions = {}
@@ -469,7 +490,8 @@ def apply_official_supplements(version_dir, target_dir, season, champions_doc, t
         return {'champions': [], 'board_units': []}
     records = data_records(load_json(snapshot_path))
     groups = _group_records(records, mode)
-    added_champions = _supplement_champions(groups, champions_doc, traits_doc, mode, target_dir)
+    splash_token = f"mode{mode}s{_season_code(version_dir, load_json)}"
+    added_champions = _supplement_champions(groups, champions_doc, traits_doc, mode, target_dir, splash_token)
     board_units = _build_board_units(groups, champions_doc, traits_doc, target_dir)
     discovery_audit = _board_unit_discovery_audit(groups, champions_doc, traits_doc, board_units)
     return {'champions': added_champions, 'board_units': board_units, 'discovery_audit': discovery_audit}

@@ -1,5 +1,457 @@
 {
-  "version_id": "s18__pbe",
+  "version_id": "s18__18_18_1",
   "rich_text_version": 1,
-  "board_units": []
+  "board_units": [
+    {
+      "id": "board_8703",
+      "name": "威朗普",
+      "kind": "trait_object",
+      "aliases": [],
+      "trait_ids": [
+        "456"
+      ],
+      "contribution_trait_ids": [],
+      "placement_rules": [
+        {
+          "trait_id": "456",
+          "min_units": 3,
+          "max_units": 4,
+          "max_count": 1
+        },
+        {
+          "trait_id": "456",
+          "min_units": 5,
+          "max_units": 6,
+          "max_count": 1
+        },
+        {
+          "trait_id": "456",
+          "min_units": 7,
+          "max_units": null,
+          "max_count": 1
+        }
+      ],
+      "can_equip": false,
+      "stats": {
+        "health": 1100.0,
+        "attack_damage": 50.0,
+        "armor": 40.0,
+        "magic_resist": 40.0,
+        "attack_speed": 0.75,
+        "attack_range": 1.0,
+        "initial_mana": 0.0,
+        "max_mana": 40.0,
+        "critical_strike_chance": 25.0,
+        "sell_price": 0.0
+      },
+      "skill": {
+        "name": "<active:herorecord100==1>恐惧咆哮</active><active:herorecord100!=1>大闹奇境</active>",
+        "description": "咆哮，治疗【骑乘者】一定百分比最大生命值。跳舞，为【骑乘者】提供持续到战斗环节结束的物理加成和法术加成。",
+        "image": null
+      },
+      "image": {
+        "local_path": "assets/board-units/8703.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/hero/s18_head_willump.png",
+        "alt": "威朗普图标",
+        "optimized_local_path": "assets/optimized/s18__18_18_1/board-units/board_8703.webp"
+      },
+      "source_ids": {
+        "official_ids": [
+          "8703"
+        ],
+        "record_ids": [
+          "18703",
+          "28703",
+          "38703",
+          "48703"
+        ],
+        "hero_paint": "s18_willump"
+      },
+      "extensions": {
+        "library_visible": false,
+        "simulator_visible": true,
+        "discovery_sources": [
+          {
+            "type": "trait",
+            "id": "456",
+            "name": "约德尔人"
+          }
+        ]
+      }
+    },
+    {
+      "id": "board_8704",
+      "name": "石皮树",
+      "kind": "trait_object",
+      "aliases": [],
+      "trait_ids": [
+        "450"
+      ],
+      "contribution_trait_ids": [],
+      "placement_rules": [
+        {
+          "trait_id": "450",
+          "min_units": 3,
+          "max_units": 4,
+          "max_count": 1
+        },
+        {
+          "trait_id": "450",
+          "min_units": 5,
+          "max_units": 6,
+          "max_count": 1
+        },
+        {
+          "trait_id": "450",
+          "min_units": 7,
+          "max_units": 8,
+          "max_count": 1
+        },
+        {
+          "trait_id": "450",
+          "min_units": 9,
+          "max_units": 10,
+          "max_count": 1
+        },
+        {
+          "trait_id": "450",
+          "min_units": 11,
+          "max_units": null,
+          "max_count": 1
+        }
+      ],
+      "can_equip": false,
+      "stats": {
+        "health": 300.0,
+        "attack_damage": 0.0,
+        "armor": 40.0,
+        "magic_resist": 40.0,
+        "attack_speed": 0.0,
+        "attack_range": 0.0,
+        "initial_mana": 0.0,
+        "max_mana": 0.0,
+        "critical_strike_chance": 0.0,
+        "sell_price": 0.0
+      },
+      "skill": {
+        "name": "森林的庇护",
+        "description": "被动：倒下时，晕眩最近的2名敌人1.50秒。",
+        "image": null
+      },
+      "image": {
+        "local_path": "assets/board-units/8704.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/hero/s18_head_stonebarktree.png",
+        "alt": "石皮树图标",
+        "optimized_local_path": "assets/optimized/s18__18_18_1/board-units/board_8704.webp"
+      },
+      "source_ids": {
+        "official_ids": [
+          "8704"
+        ],
+        "record_ids": [
+          "18704",
+          "28704",
+          "38704"
+        ],
+        "hero_paint": "s18_stonebarktree"
+      },
+      "extensions": {
+        "library_visible": false,
+        "simulator_visible": true,
+        "discovery_sources": [
+          {
+            "type": "trait",
+            "id": "450",
+            "name": "永恒之森"
+          }
+        ]
+      }
+    },
+    {
+      "id": "board_8705",
+      "name": "生命花",
+      "kind": "trait_object",
+      "aliases": [],
+      "trait_ids": [
+        "450"
+      ],
+      "contribution_trait_ids": [],
+      "placement_rules": [
+        {
+          "trait_id": "450",
+          "min_units": 3,
+          "max_units": 4,
+          "max_count": 1
+        },
+        {
+          "trait_id": "450",
+          "min_units": 5,
+          "max_units": 6,
+          "max_count": 1
+        },
+        {
+          "trait_id": "450",
+          "min_units": 7,
+          "max_units": 8,
+          "max_count": 1
+        },
+        {
+          "trait_id": "450",
+          "min_units": 9,
+          "max_units": 10,
+          "max_count": 1
+        },
+        {
+          "trait_id": "450",
+          "min_units": 11,
+          "max_units": null,
+          "max_count": 1
+        }
+      ],
+      "can_equip": false,
+      "stats": {
+        "health": 100.0,
+        "attack_damage": 0.0,
+        "armor": 20.0,
+        "magic_resist": 20.0,
+        "attack_speed": 0.0,
+        "attack_range": 4.0,
+        "initial_mana": 0.0,
+        "max_mana": 0.0,
+        "critical_strike_chance": 0.0,
+        "sell_price": 0.0
+      },
+      "skill": {
+        "name": "森林的赐福",
+        "description": "被动：战斗4秒后，为【永恒之森】友军提供10物理加成和法术加成。此后每过4秒，额外提供3物理加成和3法术加成。",
+        "image": null
+      },
+      "image": {
+        "local_path": "assets/board-units/8705.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/hero/s18_head_lifeblossom.png",
+        "alt": "生命花图标",
+        "optimized_local_path": "assets/optimized/s18__18_18_1/board-units/board_8705.webp"
+      },
+      "source_ids": {
+        "official_ids": [
+          "8705"
+        ],
+        "record_ids": [
+          "18705",
+          "28705",
+          "38705"
+        ],
+        "hero_paint": "s18_lifeblossom"
+      },
+      "extensions": {
+        "library_visible": false,
+        "simulator_visible": true,
+        "discovery_sources": [
+          {
+            "type": "trait",
+            "id": "450",
+            "name": "永恒之森"
+          }
+        ]
+      }
+    },
+    {
+      "id": "board_8706",
+      "name": "深林守卫",
+      "kind": "trait_object",
+      "aliases": [],
+      "trait_ids": [
+        "450"
+      ],
+      "contribution_trait_ids": [],
+      "placement_rules": [
+        {
+          "trait_id": "450",
+          "min_units": 7,
+          "max_units": 8,
+          "max_count": 1
+        },
+        {
+          "trait_id": "450",
+          "min_units": 9,
+          "max_units": 10,
+          "max_count": 1
+        },
+        {
+          "trait_id": "450",
+          "min_units": 11,
+          "max_units": null,
+          "max_count": 1
+        }
+      ],
+      "can_equip": false,
+      "stats": {
+        "health": 400.0,
+        "attack_damage": 50.0,
+        "armor": 65.0,
+        "magic_resist": 65.0,
+        "attack_speed": 0.7,
+        "attack_range": 1.0,
+        "initial_mana": 20.0,
+        "max_mana": 70.0,
+        "critical_strike_chance": 25.0,
+        "sell_price": 0.0
+      },
+      "skill": {
+        "name": "森林猛击！",
+        "description": "被动：当1个【永恒之森】单位倒下时，治疗40(【生命上限】)生命值并获得持续3秒的80%攻击速度。  主动：猛击地面，对目标造成445(【法术加成】)魔法伤害，并对2格内的敌人造成220(【法术加成】)魔法伤害。击飞并晕眩目标0.50秒。",
+        "image": null,
+        "description_tokens": [
+          {
+            "type": "text",
+            "value": "被动：当1个【永恒之森】单位倒下时，治疗40"
+          },
+          {
+            "type": "stat",
+            "stat": "health",
+            "kind": "health",
+            "label": "生命值",
+            "source_label": "生命上限",
+            "icon": "hp",
+            "fallback": "HP"
+          },
+          {
+            "type": "text",
+            "value": "生命值并获得持续3秒的80%攻击速度。  主动：猛击地面，对目标造成445"
+          },
+          {
+            "type": "stat",
+            "stat": "ability_power",
+            "kind": "ap",
+            "label": "法术加成",
+            "source_label": "法术加成",
+            "icon": "ap",
+            "fallback": "AP"
+          },
+          {
+            "type": "text",
+            "value": "魔法伤害，并对2格内的敌人造成220"
+          },
+          {
+            "type": "stat",
+            "stat": "ability_power",
+            "kind": "ap",
+            "label": "法术加成",
+            "source_label": "法术加成",
+            "icon": "ap",
+            "fallback": "AP"
+          },
+          {
+            "type": "text",
+            "value": "魔法伤害。击飞并晕眩目标0.50秒。"
+          }
+        ]
+      },
+      "image": {
+        "local_path": "assets/board-units/8706.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/hero/s18_head_deepwoodprotector.png",
+        "alt": "深林守卫图标",
+        "optimized_local_path": "assets/optimized/s18__18_18_1/board-units/board_8706.webp"
+      },
+      "source_ids": {
+        "official_ids": [
+          "8706"
+        ],
+        "record_ids": [
+          "18706",
+          "28706",
+          "38706"
+        ],
+        "hero_paint": "s18_deepwoodprotector"
+      },
+      "extensions": {
+        "library_visible": false,
+        "simulator_visible": true,
+        "discovery_sources": [
+          {
+            "type": "trait",
+            "id": "450",
+            "name": "永恒之森"
+          }
+        ]
+      }
+    }
+  ],
+  "discovery_audit": {
+    "strategy_version": 2,
+    "candidate_count": 5,
+    "included_count": 4,
+    "review_count": 1,
+    "candidates": [
+      {
+        "official_ids": [
+          "8703"
+        ],
+        "name": "威朗普",
+        "status": "included",
+        "official_trait_ids": [],
+        "matched_sources": [
+          {
+            "type": "trait",
+            "id": "456",
+            "name": "约德尔人"
+          }
+        ]
+      },
+      {
+        "official_ids": [
+          "8706"
+        ],
+        "name": "深林守卫",
+        "status": "included",
+        "official_trait_ids": [],
+        "matched_sources": [
+          {
+            "type": "trait",
+            "id": "450",
+            "name": "永恒之森"
+          }
+        ]
+      },
+      {
+        "official_ids": [
+          "8705"
+        ],
+        "name": "生命花",
+        "status": "included",
+        "official_trait_ids": [],
+        "matched_sources": [
+          {
+            "type": "trait",
+            "id": "450",
+            "name": "永恒之森"
+          }
+        ]
+      },
+      {
+        "official_ids": [
+          "8704"
+        ],
+        "name": "石皮树",
+        "status": "included",
+        "official_trait_ids": [],
+        "matched_sources": [
+          {
+            "type": "trait",
+            "id": "450",
+            "name": "永恒之森"
+          }
+        ]
+      },
+      {
+        "official_ids": [
+          "8710"
+        ],
+        "name": "木桩假人",
+        "status": "review",
+        "official_trait_ids": [],
+        "matched_sources": []
+      }
+    ]
+  }
 }

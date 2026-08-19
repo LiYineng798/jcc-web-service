@@ -60,20 +60,21 @@
   },
   {
    "season_id": "s18",
-   "display_name": "S18 PBE",
+   "display_name": "S18 自然之力",
    "set_number": "18",
    "set_variant": null,
-   "theme": null,
-   "status": "draft",
-   "game_version": "PBE",
-   "version_id": "s18__pbe",
-   "effective_at": "2026-08-03T14:23:38+00:00",
+   "theme": "自然之力",
+   "status": "active",
+   "game_version": "18.18.1",
+   "version_id": "s18__18_18_1",
+   "effective_at": "2026-08-20",
    "path": "s18/index.json",
    "counts": {
-    "champions": 65,
+    "champions": 74,
     "traits": 36,
-    "mechanics": 186,
-    "board_units": 0
+    "mechanics": 0,
+    "board_units": 4,
+    "augments": 186
    }
   }
  ]

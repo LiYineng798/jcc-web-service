@@ -226,11 +226,14 @@ def test_simulator_only_renders_item_categories_populated_by_the_current_season(
         )
         categories_by_season[season['season_id']] = {item['category'] for item in payload['items']}
 
-    assert 'consumable' in categories_by_season['s18']
+    shared_categories = {'component', 'completed', 'emblem', 'artifact', 'radiant', 'support', 'consumable', 'other'}
+    assert all(
+        categories and categories <= shared_categories
+        for categories in categories_by_season.values()
+    )
     assert all(
         'consumable' not in categories
-        for season_id, categories in categories_by_season.items()
-        if season_id != 's18'
+        for categories in categories_by_season.values()
     )
 
 

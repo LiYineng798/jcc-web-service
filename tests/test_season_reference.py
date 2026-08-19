@@ -93,30 +93,20 @@ def test_season_reference_pages_render_for_every_catalog_season(client):
         assert f'style="--tab-count: {2 + len(context["mechanics"]) + int(context["has_augments"])}"' in html
 
 
-def test_s18_pbe_replaces_wands_with_filterable_charms(client):
+def test_s18_official_snapshot_supplants_pbe_mechanics(client):
     payload = json.loads((DATA_ROOT / 's18' / 'index.json').read_text(encoding='utf-8'))
-    assert payload['game_version'] == 'PBE'
-    assert payload['display_name'] == 'S18 PBE'
-    assert len(payload['mechanics']) == 1
-    mechanic = payload['mechanics'][0]
-    assert mechanic['kind'] == 'charm'
-    assert mechanic['display_name'] == '仙灵'
-    assert len(mechanic['entries']) == 186
-    assert {entry['data']['category'] for entry in mechanic['entries']} == {
-        'champion', 'item', 'shop', 'combat', 'gold_xp', 'other',
-    }
-    assert sum(bool(entry['data'].get('upgrade')) for entry in mechanic['entries']) == 140
-    assert sum(bool(entry['data'].get('prismatic')) for entry in mechanic['entries']) == 19
-    for entry in mechanic['entries']:
-        assert entry['image']
-        assert (DATA_ROOT / 's18' / entry['image']).is_file()
+    assert payload['game_version'] == '18.18.1'
+    assert payload['version_id'] == 's18__18_18_1'
+    assert payload['display_name'] == 'S18 自然之力'
+    assert payload['status'] == 'active'
+    assert payload['mechanics'] == []
+    assert len(payload['champions']) == 74
+    assert len(payload['augments']) == 186
 
     html = client.get('/tools/seasons/s18').get_data(as_text=True)
-    assert 'data-charm-search="charms"' in html
-    assert 'data-charm-upgrades="charms"' in html
-    assert 'data-charm-category="gold_xp"' in html
-    assert '>仙灵<' in html
-    assert '>法杖<' not in html
+    assert 'data-view="augments"' in html
+    assert '>仙灵<' not in html
+    assert 'data-charm-search="charms"' not in html
 
 
 def test_s18_champion_detail_and_hover_use_large_splash_art(client):
@@ -138,12 +128,12 @@ def test_s18_champion_detail_and_hover_use_large_splash_art(client):
 
 def test_every_s18_champion_has_a_local_optimized_skill_icon():
     payload = json.loads((DATA_ROOT / 's18' / 'champions.json').read_text(encoding='utf-8'))
-    assert len(payload['champions']) == 65
+    assert len(payload['champions']) == 74
     for champion in payload['champions']:
         skill = champion['skills'][0]
         image = skill['image']
         assert image, champion['name']
-        assert image['source_url'] == f"https://static.datatft.com/images/skill/{champion['id']}.jpg"
+        assert 'datatft' not in image['source_url'].lower(), champion['name']
         assert (DATA_ROOT / 's18' / image['local_path']).is_file(), champion['name']
         assert (DATA_ROOT / 's18' / image['optimized_local_path']).is_file(), champion['name']
 
@@ -151,20 +141,14 @@ def test_every_s18_champion_has_a_local_optimized_skill_icon():
             assert optimized.width > 0 and optimized.height > 0, champion['name']
 
 
-def test_every_s18_consumable_has_a_local_image_with_explicit_fallbacks():
+def test_every_s18_item_has_a_local_optimized_image():
     payload = json.loads((DATA_ROOT / 's18' / 'items.json').read_text(encoding='utf-8'))
-    consumables = [item for item in payload['items'] if item['category'] == 'consumable']
-    assert len(consumables) == 17
-    for item in consumables:
+    assert len(payload['items']) == 157
+    assert not any(item['category'] == 'consumable' for item in payload['items'])
+    for item in payload['items']:
         assert item['image'], item['name']
         assert (DATA_ROOT / 's18' / item['image']['local_path']).is_file(), item['name']
         assert (DATA_ROOT / 's18' / item['image']['optimized_local_path']).is_file(), item['name']
-
-    fallbacks = {item['id']: item for item in consumables if item['extensions'].get('image_fallback_reason')}
-    assert set(fallbacks) == {'33037', '33045', '33047', '33048', '33049', '33050', '33052'}
-    assert fallbacks['33045']['extensions']['image_fallback_item_id'] == '33053'
-    assert fallbacks['33047']['extensions']['image_fallback_item_id'] == '33044'
-    assert fallbacks['33048']['extensions']['image_fallback_item_id'] == '33055'
 
 
 def test_s18_charm_cards_render_conditions_costs_and_upgrade_layers():
@@ -377,16 +361,29 @@ def test_s17_emits_relic_and_black_hole_as_simulator_only_board_units():
     assert all(unit['extensions']['simulator_visible'] is True for unit in by_name.values())
 
 
-def test_board_unit_discovery_audit_excludes_unreleased_s18_rules():
-    for season_id in ('s8', 's16_5', 's17'):
+def test_board_unit_discovery_audit_includes_released_s18_objects():
+    for season_id in ('s8', 's16_5', 's17', 's18'):
         payload = json.loads((DATA_ROOT / season_id / 'board_units.json').read_text(encoding='utf-8'))
         audit = payload.get('discovery_audit') or {}
         assert audit['strategy_version'] == 2
         assert audit['candidate_count'] == audit['included_count'] + audit['review_count']
         assert all(candidate['status'] in {'included', 'review'} for candidate in audit['candidates'])
 
-    s18_payload = json.loads((DATA_ROOT / 's18' / 'board_units.json').read_text(encoding='utf-8'))
-    assert not s18_payload.get('discovery_audit')
+    s18 = json.loads((DATA_ROOT / 's18' / 'board_units.json').read_text(encoding='utf-8'))
+    by_name = {unit['name']: unit for unit in s18['board_units']}
+    assert set(by_name) == {'威朗普', '石皮树', '生命花', '深林守卫'}
+    assert by_name['威朗普']['trait_ids'] == ['456']
+    assert by_name['石皮树']['trait_ids'] == ['450']
+    assert by_name['生命花']['trait_ids'] == ['450']
+    assert by_name['深林守卫']['trait_ids'] == ['450']
+    assert by_name['威朗普']['placement_rules'][0] == {'trait_id': '456', 'min_units': 3, 'max_units': 4, 'max_count': 1}
+    assert by_name['石皮树']['placement_rules'][0] == {'trait_id': '450', 'min_units': 3, 'max_units': 4, 'max_count': 1}
+    assert by_name['深林守卫']['placement_rules'][0]['min_units'] == 7
+    review_names = {
+        candidate['name'] for candidate in s18['discovery_audit']['candidates']
+        if candidate['status'] == 'review'
+    }
+    assert review_names == {'木桩假人'}
 
 
 def test_s16_5_new_champion_tags_render_from_data():
@@ -441,8 +438,8 @@ def test_season_data_static_files_served(client):
 
 
 def test_released_seasons_publish_official_augments_with_local_images():
-    expected_counts = {'s8': 322, 's16_5': 298, 's17': 277}
-    expected_observed_counts = {'s8': 0, 's16_5': 265, 's17': 243}
+    expected_counts = {'s8': 322, 's16_5': 298, 's17': 277, 's18': 186}
+    expected_observed_counts = {'s8': 0, 's16_5': 265, 's17': 243, 's18': 0}
     allowed_categories = {'economy', 'combat', 'equipment', 'trait', 'exclusive', 'other'}
     for season_id, expected_count in expected_counts.items():
         season_root = DATA_ROOT / season_id
@@ -488,18 +485,30 @@ def test_released_seasons_publish_official_augments_with_local_images():
     assert len(s8_unavailable) == len(s8)
     assert all(not augment['appearance_stages'] for augment in s8_unavailable)
 
+    s18 = json.loads((DATA_ROOT / 's18' / 'augments.json').read_text(encoding='utf-8'))
+    assert s18['source']['requested_version'] == '18.18.1'
+    assert s18['source']['resolved_version'] == '18.18.1'
+    assert s18['source']['used_base_patch_fallback'] is False
+    assert s18['source']['url'].startswith('https://game.gtimg.cn/')
+    assert len(s18['augments']) == 186
+    assert all(not augment['appearance_stages'] for augment in s18['augments'])
+    assert all(
+        augment['extensions']['appearance_stage_source'] == 'stage_data_unavailable'
+        for augment in s18['augments']
+    )
 
-def test_s18_does_not_publish_an_augment_tab(client):
-    assert not (DATA_ROOT / 's18' / 'augments.json').exists()
+
+def test_s18_publishes_official_augments_tab_after_release(client):
+    assert (DATA_ROOT / 's18' / 'augments.json').is_file()
     html = client.get('/tools/seasons/s18').get_data(as_text=True)
-    assert 'data-view="augments"' not in html
-    assert 'id="augmentGrid"' not in html
+    assert 'data-view="augments"' in html
+    assert 'id="augmentGrid"' in html
 
 
 def test_released_season_reference_pages_render_augment_filters(client):
     javascript = (ROOT / 'static' / 'season-reference.js').read_text(encoding='utf-8')
     stylesheet = (ROOT / 'static' / 'season-reference.css').read_text(encoding='utf-8')
-    for season_id in ('s8', 's16_5', 's17'):
+    for season_id in ('s8', 's16_5', 's17', 's18'):
         html = client.get(f'/tools/seasons/{season_id}').get_data(as_text=True)
         assert 'data-view="augments"' in html
         assert 'id="augmentSearch"' in html
