@@ -1,0 +1,14 @@
+<!doctype html>
+{% from "seo_head.html" import seo_head %}
+<html lang="zh-CN"><head>
+{{ seo_head(seo) }}
+<link rel="stylesheet" href="{{ static_v('live-comp-detail.css') }}" />
+</head><body>
+<header class="detail-topbar"><a href="/">← 返回实时阵容</a><span>阵容站位</span></header>
+<main class="detail-shell" id="liveCompDetail" data-season-id="{{ season_id }}" data-live-comp-id="{{ live_comp_id }}">
+  <section class="detail-heading"><p>{{ item.tier }} TIER</p><h1>{{ item.title }}</h1><span id="detailSeason">正在加载阵容资料...</span></section>
+  <section class="board-panel" aria-label="阵容棋盘"><div class="formation-board" id="formationBoard" role="grid" aria-label="4 行 7 列阵容棋盘"></div></section>
+</main>
+<div class="detail-toast" id="detailToast" role="status"></div>
+<script src="{{ static_v('live-comp-detail.js') }}" defer></script>
+</body></html>

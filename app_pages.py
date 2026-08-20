@@ -1,7 +1,7 @@
 import os
 from time import monotonic
 
-from flask import Response, abort, jsonify, redirect, send_from_directory
+from flask import Response, abort, jsonify, redirect, request, send_from_directory
 
 from auth import current_user, login_required
 from db import get_db
@@ -32,6 +32,7 @@ from season_reference_service import (
     season_page_context,
     strip_scaling_tokens,
 )
+from season_visibility import get_season, public_seasons
 from settings_service import get_setting
 from visits import tracked_template_response
 
@@ -84,6 +85,12 @@ _sitemap_cache = {'built_at': 0.0, 'xml': None}
 
 
 def register_page_routes(app):
+    @app.get('/api/season-catalog')
+    def public_season_catalog():
+        surface = request.args.get('surface', 'library')
+        if surface not in ('library', 'simulator'):
+            return jsonify({'error': '展示类型无效'}), 400
+        return jsonify({'seasons': public_seasons(surface)})
     _sitemap_cache['xml'] = None
 
     @app.get('/robots.txt')
@@ -227,10 +234,32 @@ def register_page_routes(app):
     def lineup_simulator_page():
         if get_setting(get_db(), 'simulator_enabled', 'true') != 'true':
             abort(404)
+        if not public_seasons('simulator'):
+            abort(404)
         return tracked_template_response(
             'lineup_simulator.html',
             'lineup_simulator',
             seo=make_seo(title='阵容模拟器', description='在线搭配金铲铲阵容棋盘、弈子、装备和羁绊。', path='/tools/lineup-simulator'),
+        )
+
+    @app.get('/live-comps/<season_id>/<live_comp_id>')
+    def live_comp_detail_page(season_id, live_comp_id):
+        from live_comps_helpers import find_live_comp, load_live_comps_manifest, public_live_comps_manifest, read_live_comps_payload_for_season
+        manifest = public_live_comps_manifest(load_live_comps_manifest())
+        if not any(item['id'] == season_id for item in manifest['seasons']):
+            abort(404)
+        payload, _, _, _, _ = read_live_comps_payload_for_season(season_id)
+        item = find_live_comp(payload, live_comp_id)
+        if not item or not item.get('hasFormationDetails'):
+            abort(404)
+        title = str(item.get('title') or '实时阵容站位')
+        return tracked_template_response(
+            'live_comp_detail.html',
+            'live_comp_detail',
+            item=item,
+            season_id=season_id,
+            live_comp_id=live_comp_id,
+            seo=make_seo(title=f'{title}站位详情', description=f'查看{title}的弈子站位、装备与星级。', path=f'/live-comps/{season_id}/{live_comp_id}'),
         )
 
     @app.get('/tools/special-mechanics')
@@ -260,6 +289,8 @@ def register_page_routes(app):
     @app.get('/tools/seasons/<season_id>')
     def season_reference_page(season_id):
         normalized = normalize_season_id(season_id)
+        if get_season('library', normalized) is None:
+            abort(404)
         context = season_page_context(normalized)
         if context is None:
             abort(404)

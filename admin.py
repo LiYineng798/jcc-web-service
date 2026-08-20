@@ -51,8 +51,27 @@ from patch_note_service import create_patch_note, hide_patch_note, list_admin_pa
 from scoring import score_map
 from settings_service import get_settings, save_settings
 from visits import tracked_template_response
+from season_visibility import admin_payload, update_season
 
 admin_bp = Blueprint('admin', __name__)
+
+@admin_bp.get('/api/admin/season-display/<kind>')
+def admin_season_display(kind):
+    admin, error = admin_required()
+    if error:
+        return error
+    if kind not in ('simulator', 'library'):
+        return jsonify({'error': '展示类型无效'}), 400
+    return jsonify({'items': admin_payload(kind)})
+
+
+@admin_bp.put('/api/admin/season-display/<kind>/<season_id>')
+def admin_update_season_display(kind, season_id):
+    admin, error = admin_required()
+    if error:
+        return error
+    result, service_error, status_code = update_season(admin['id'], kind, season_id, request.get_json(silent=True) or {})
+    return respond_service_result(result, service_error, status_code)
 
 
 def _parse_page():

@@ -903,6 +903,15 @@ function renderLiveCompCard(item) {
   actions.append(item.jccCode
     ? button('复制阵容码', () => copyLiveCompCode(item))
     : button('暂无阵容码', () => {}, '', true));
+  if (item.hasFormationDetails) {
+    const detail = document.createElement('a');
+    detail.className = 'live-comp-detail-link';
+    detail.href = `/live-comps/${encodeURIComponent(state.selectedLiveCompSeasonId)}/${encodeURIComponent(item.id)}`;
+    detail.textContent = '→';
+    detail.title = '查看阵容站位';
+    detail.setAttribute('aria-label', `查看${item.title}的阵容站位`);
+    actions.append(detail);
+  }
 
   if (state.imageMode === 'image') {
     const header = document.createElement('div');

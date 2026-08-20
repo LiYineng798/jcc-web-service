@@ -214,6 +214,8 @@ function normalizeChampion(raw) {
     splash: seasonAsset(raw.images?.splash?.local_path || raw.images?.icon?.local_path),
     skill: raw.skills?.[0] || null,
     stats: raw.stats_by_star?.["1"] || {},
+    attackRange: Number(raw.stats_by_star?.["1"]?.attack_range || 0),
+    tftCode: String(raw.tft_code || raw.tftCode || ""),
     isBoardUnit: false,
     canEquip: true,
   };
@@ -352,8 +354,8 @@ async function loadCatalog() {
 }
 
 async function refreshCatalog() {
-  const catalog = await fetchJson(`${DATA_ROOT}/catalog.json?v=${encodeURIComponent(DATA_VERSION)}`);
-  state.catalog = [...(catalog.seasons || [])].sort(compareSeasons);
+  const catalog = await fetchJson(`/api/season-catalog?surface=simulator&v=${encodeURIComponent(DATA_VERSION)}`);
+  state.catalog = [...(catalog.seasons || [])].sort((a, b) => Number(a.order || 999) - Number(b.order || 999));
 }
 
 async function loadSeason(seasonId, importedPayload = null) {
@@ -404,6 +406,11 @@ async function loadSeason(seasonId, importedPayload = null) {
     state.traitById = new Map(state.traits.map((item) => [item.id, item]));
     state.itemById = new Map(state.items.map((item) => [item.id, item]));
     state.augmentById = new Map(state.augments.map((item) => [item.id, item]));
+    state.tftCodeMap = {};
+    try {
+      const codebook = await fetchJson(`${DATA_ROOT}/${encodeURIComponent(seasonId)}/tft-codebook.json?v=${stamp}`);
+      state.tftCodeMap = codebook.codes || {};
+    } catch { /* A season can be used before a TFT codebook is available. */ }
     let payload = readStoredFormation(seasonId);
     if (importedPayload?.season === seasonId) {
       payload = importedPayload.format === "JCC2" ? decodePayload(importedPayload.code) : importedPayload;
@@ -782,6 +789,21 @@ function firstEmptySlot() {
   return state.board.findIndex((slot) => slot === null);
 }
 
+function placementStart(hero) {
+  const range = Number(hero?.attackRange || hero?.stats?.attack_range || 0);
+  if (range <= 2) return 0;
+  if (range === 3) return 7;
+  if (range >= 4) return 21;
+  return 0;
+}
+
+function automaticSlot(hero) {
+  const start = placementStart(hero);
+  for (let index = start; index < state.board.length; index += 1) if (!state.board[index]) return index;
+  if (start) for (let index = 0; index < start; index += 1) if (!state.board[index]) return index;
+  return -1;
+}
+
 function countPlacedUnit(unitId, beforeIndex = state.board.length) {
   return state.board.slice(0, beforeIndex).filter((slot) => slot?.championId === unitId).length;
 }
@@ -818,7 +840,7 @@ function addChampion(championId, requestedIndex = null) {
   if (hero.isBoardUnit && countPlacedUnit(hero.id) >= boardUnitAllowance(hero)) {
     return showToast(boardUnitRequirementText(hero));
   }
-  const index = requestedIndex ?? firstEmptySlot();
+  const index = requestedIndex ?? automaticSlot(hero);
   if (index < 0) return showToast("棋盘已满");
   mutate(() => { state.board[index] = { championId, items: [] }; });
 }
@@ -1024,6 +1046,35 @@ function decodePayload(value) {
   return code.startsWith(FORMATION_CODE_PREFIX) ? decodeFixedFormation(code) : decodeLegacyPayload(code);
 }
 
+function isTftTeamCode(value) {
+  return /^(?:01|02)[0-9a-fA-F]+TFTSet[0-9A-Za-z._]+$/.test(String(value || "").trim());
+}
+
+function decodeTftTeamCode(value) {
+  const match = String(value || "").trim().match(/^(01|02)([0-9a-fA-F]+)TFTSet/);
+  if (!match) throw new Error("云顶阵容码格式无效");
+  const width = match[1] === "01" ? 2 : 3;
+  const board = Array(28).fill(null);
+  const originalBoard = state.board;
+  state.board = board;
+  try {
+    for (let offset = 0; offset + width <= match[2].length && offset / width < 10; offset += width) {
+      const token = match[2].slice(offset, offset + width).toLowerCase();
+      if (/^0+$/.test(token)) continue;
+      const championId = state.tftCodeMap?.[token];
+      const hero = state.championById.get(String(championId));
+      if (!hero) continue;
+      const index = automaticSlot(hero);
+      if (index < 0) break;
+      board[index] = { championId: String(championId), items: [] };
+    }
+  } finally {
+    state.board = originalBoard;
+  }
+  if (!board.some(Boolean)) throw new Error("云顶阵容码未匹配到当前赛季弈子");
+  return { version: 2, season: state.season.season_id, showNames: true, board, augmentIds: [] };
+}
+
 function readHashPayload() {
   const match = location.hash.match(/^#lineup=(.+)$/);
   if (!match) return null;
@@ -1050,6 +1101,19 @@ async function handleCodeConfirm() {
     return showToast("阵容码已复制");
   }
   try {
+    const rawCode = normalizeFormationCode(elements.code.value);
+    if (isTftTeamCode(rawCode)) {
+      const seasonMatch = rawCode.match(/TFTSet([0-9]+(?:\.[0-9]+)?)/i);
+      const targetSeason = seasonMatch ? ({ "16.5": "s16_5", "16": "s16_5", "17": "s17", "18": "s18" }[seasonMatch[1]] || state.season.season_id) : state.season.season_id;
+      if (targetSeason !== state.season.season_id && state.catalog.some((item) => item.season_id === targetSeason)) await loadSeason(targetSeason);
+      const payload = decodeTftTeamCode(rawCode);
+      state.board = payload.board;
+      state.selectedAugmentIds = [];
+      pushHistory();
+      renderAll();
+      elements.dialog.close();
+      return showToast("云顶阵容码已导入并自动排位");
+    }
     const inspected = inspectFormationCode(elements.code.value);
     if (inspected.season !== state.season.season_id) await loadSeason(inspected.season, inspected);
     else {

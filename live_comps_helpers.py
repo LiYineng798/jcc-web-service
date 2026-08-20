@@ -60,6 +60,27 @@ def validate_live_comps_payload(payload):
                 raise ValueError('缺少字段 jccCode')
             if not isinstance(item['heroImages'], list):
                 raise ValueError('heroImages 必须是数组')
+            details = item.get('formationDetails')
+            if details is not None and not isinstance(details, dict):
+                raise ValueError('formationDetails 必须是对象')
+            if isinstance(details, dict):
+                units = details.get('units')
+                if units is not None and not isinstance(units, list):
+                    raise ValueError('formationDetails.units 必须是数组')
+                for unit in units or []:
+                    if not isinstance(unit, dict):
+                        raise ValueError('formationDetails.units 中的弈子必须是对象')
+                    if not (unit.get('champion_id') or unit.get('source_champion_id')):
+                        raise ValueError('站位弈子缺少 champion_id 或 source_champion_id')
+                    try:
+                        position = int(unit.get('position'))
+                        star = int(unit.get('star', 1))
+                    except (TypeError, ValueError):
+                        raise ValueError('站位 position 或 star 无效')
+                    if not 0 <= position < 28 or not 1 <= star <= 4:
+                        raise ValueError('站位 position 或 star 超出范围')
+                    if not isinstance(unit.get('items', []), list) or len(unit.get('items', [])) > 3:
+                        raise ValueError('站位装备必须是不超过三件的数组')
             normalized_code = extract_lineup_code(item.get('jccCode'))
             if str(item.get('jccCode') or '').strip() and not normalized_code:
                 raise ValueError('jccCode 无法解析')
@@ -75,6 +96,12 @@ def normalize_live_comps_payload(payload):
         for item in payload.get('tiers', {}).get(tier, []):
             normalized_item = dict(item)
             normalized_item['jccCode'] = extract_lineup_code(item.get('jccCode')) or ''
+            normalized_item['tftCode'] = str(item.get('tftCode') or '').strip()
+            details = item.get('formationDetails')
+            normalized_item['formationDetails'] = details if isinstance(details, dict) else None
+            normalized_item['hasFormationDetails'] = bool(
+                isinstance(details, dict) and isinstance(details.get('units'), list) and details.get('units')
+            )
             normalized_items.append(normalized_item)
         normalized['tiers'][tier] = normalized_items
     return normalized
@@ -438,6 +465,25 @@ def find_live_comp(payload, live_comp_id):
         if str(item.get('id')) == str(live_comp_id):
             return item
     return None
+
+
+def public_live_comp_item(item):
+    """Strip hidden provider codes while exposing the optional detail affordance."""
+    result = dict(item)
+    result.pop('tftCode', None)
+    result.pop('formationDetails', None)
+    return result
+
+
+def public_live_comp_details(item):
+    details = item.get('formationDetails') if isinstance(item, dict) else None
+    if not isinstance(details, dict):
+        return None
+    return {
+        'version': details.get('version', 1),
+        'units': [unit for unit in details.get('units', []) if isinstance(unit, dict)][:28],
+        'season_id': details.get('season_id'),
+    }
 
 
 def load_live_comp_global_stats():

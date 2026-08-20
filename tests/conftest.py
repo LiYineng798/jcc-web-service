@@ -20,7 +20,8 @@ def app():
     live_comps_manifest_path = ROOT / 'test-live-comps-seasons.json'
     live_comps_season_dir = ROOT / 'test-live-comps-seasons'
     live_comps_manual_code_dir = ROOT / 'test-live-comps-manual-codes'
-    for path in [db_path, live_comps_path, live_comps_backup_path, live_comps_manifest_path]:
+    season_visibility_path = ROOT / 'test-season-visibility.json'
+    for path in [db_path, live_comps_path, live_comps_backup_path, live_comps_manifest_path, season_visibility_path]:
         if path.exists():
             path.unlink()
     for directory in [live_comps_asset_dir, live_comps_season_dir, live_comps_manual_code_dir]:
@@ -47,9 +48,10 @@ def app():
         'LIVE_COMPS_PAGE_SIZE': 6,
         'LIVE_COMPS_UPLOAD_TOKEN': 'upload-secret',
         'LIVE_COMPS_ASSET_DIR': str(live_comps_asset_dir),
+        'SEASON_VISIBILITY_PATH': str(season_visibility_path),
     })
     yield app
-    for path in [db_path, live_comps_path, live_comps_backup_path, live_comps_manifest_path]:
+    for path in [db_path, live_comps_path, live_comps_backup_path, live_comps_manifest_path, season_visibility_path]:
         if path.exists():
             path.unlink()
     for directory in [live_comps_asset_dir, live_comps_season_dir, live_comps_manual_code_dir]:

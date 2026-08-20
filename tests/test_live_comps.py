@@ -291,6 +291,41 @@ def test_live_comps_upload_allows_items_without_jcc_code(client):
     assert listing['items'][0]['jccCode'] == ''
 
 
+def test_live_comp_details_are_opt_in_and_hidden_code_is_not_public(client):
+    payload = sample_live_comps_payload()
+    item = payload['tiers']['S'][0]
+    item['tftCode'] = '0241040a3eb42e4333f03ed407000000TFTSet18'
+    item['formationDetails'] = {
+        'version': 1,
+        'season_id': 's18',
+        'units': [{'source_champion_id': '918076', 'position': 21, 'items': [], 'star': 2}],
+    }
+    write_live_comps_seed(client, payload)
+
+    listing = client.get('/api/live-comps').get_json()
+    public_item = listing['items'][0]
+    assert public_item['hasFormationDetails'] is True
+    assert 'tftCode' not in public_item
+    assert 'formationDetails' not in public_item
+
+    details = client.get(f"/api/live-comps/{item['id']}/details?season=s17-star-god")
+    assert details.status_code == 200
+    assert details.get_json()['season_data_id'] == 's18'
+    assert details.get_json()['units'][0]['position'] == 21
+    assert 'tftCode' not in details.get_json()
+    assert client.get(f"/live-comps/s17-star-god/{item['id']}").status_code == 200
+
+
+def test_live_comp_details_reject_invalid_positions(client):
+    payload = sample_live_comps_payload()
+    payload['tiers']['S'][0]['formationDetails'] = {
+        'season_id': 's18',
+        'units': [{'champion_id': '4507', 'position': 28, 'items': [], 'star': 2}],
+    }
+    response = client.post('/api/live-comps/upload', json=payload, headers={'X-Upload-Token': 'upload-secret'})
+    assert response.status_code == 400
+
+
 def test_live_comps_upload_requires_valid_token(client):
     response = client.post('/api/live-comps/upload', json={'tiers': {}})
     assert response.status_code == 401

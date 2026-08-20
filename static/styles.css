@@ -1227,6 +1227,24 @@ textarea:focus {
   gap: 8px;
 }
 
+.live-comp-detail-link {
+  display: inline-grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--text);
+  text-decoration: none;
+  font-size: 1.25rem;
+  transition: border-color 160ms ease, background 160ms ease;
+}
+
+.live-comp-detail-link:hover {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
 .live-comp-card-text-only {
   border-left: 4px solid var(--tier-color);
   padding: 15px 16px;

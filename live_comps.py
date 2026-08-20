@@ -39,6 +39,8 @@ from live_comps_helpers import (
     normalize_live_comps_payload,
     parse_positive_int,
     public_live_comps_manifest,
+    public_live_comp_details,
+    public_live_comp_item,
     read_live_comps_payload,
     read_live_comps_payload_for_season,
     read_raw_live_comps_payload_for_season,
@@ -56,6 +58,12 @@ from live_comps_helpers import (
 from seasons import canonical_season_id
 
 live_comps_bp = Blueprint('live_comps', __name__)
+
+
+def _public_live_season_id(requested_id=None):
+    manifest = public_live_comps_manifest(load_live_comps_manifest())
+    selected = canonical_season_id(requested_id) if requested_id else manifest.get('default_season_id')
+    return selected if selected in {item['id'] for item in manifest['seasons']} else None
 
 
 @live_comps_bp.get(f'{LIVE_COMP_ASSET_ROUTE}/<path:filename>')
@@ -88,7 +96,9 @@ def live_comps_seasons():
 
 @live_comps_bp.get('/api/live-comps/summary')
 def live_comps_summary():
-    season_id = request.args.get('season')
+    season_id = _public_live_season_id(request.args.get('season'))
+    if not season_id:
+        return jsonify({'error': '赛季当前不可访问'}), 404
     payload, updated_at, is_valid, manifest, season = read_live_comps_payload_for_season(season_id)
     return jsonify(build_live_comps_summary(payload, updated_at, is_valid, season=season, manifest=manifest))
 
@@ -97,20 +107,45 @@ def live_comps_summary():
 def live_comps_list():
     page = parse_positive_int(request.args.get('page'), 1)
     page_size = int(current_app.config['LIVE_COMPS_PAGE_SIZE'])
-    season_id = request.args.get('season')
+    season_id = _public_live_season_id(request.args.get('season'))
+    if not season_id:
+        return jsonify({'error': '赛季当前不可访问'}), 404
     payload, _, _, _, _ = read_live_comps_payload_for_season(season_id)
     tier = request.args.get('tier')
     if tier:
         tier = tier.upper()
         if tier not in TIER_ORDER:
             return jsonify({'error': '无效段位'}), 400
-        return jsonify(get_live_comps_page(payload, tier, page, page_size))
-    return jsonify(get_combined_live_comps_page(payload, page, page_size))
+        result = get_live_comps_page(payload, tier, page, page_size)
+    else:
+        result = get_combined_live_comps_page(payload, page, page_size)
+    result['items'] = [public_live_comp_item(item) for item in result['items']]
+    return jsonify(result)
+
+
+@live_comps_bp.get('/api/live-comps/<live_comp_id>/details')
+def live_comp_details(live_comp_id):
+    season_id = _public_live_season_id(request.args.get('season'))
+    if not season_id:
+        return jsonify({'error': '赛季当前不可访问'}), 404
+    payload, _, _, _, season = read_live_comps_payload_for_season(season_id)
+    item = find_live_comp(payload, live_comp_id)
+    details = public_live_comp_details(item) if item else None
+    if not item:
+        return jsonify({'error': '实时阵容不存在'}), 404
+    if not details:
+        return jsonify({'error': '当前阵容暂无站位详情'}), 404
+    details['title'] = item.get('title')
+    details['season_data_id'] = details.pop('season_id', None)
+    details['live_comp_season_id'] = season.get('id') if season else season_id
+    return jsonify(details)
 
 
 @live_comps_bp.post('/api/live-comps/<live_comp_id>/copy')
 def copy_live_comp(live_comp_id):
-    season_id = request.args.get('season')
+    season_id = _public_live_season_id(request.args.get('season'))
+    if not season_id:
+        return jsonify({'error': '赛季当前不可访问'}), 404
     payload, _, _, _, season = read_live_comps_payload_for_season(season_id)
     item = find_live_comp(payload, live_comp_id)
     if not item:

@@ -117,9 +117,9 @@ def _catalog_doc():
 
 
 def catalog_seasons():
-    """All seasons, newest first (reverse of archive/catalog order)."""
-    seasons = list(_catalog_doc().get('seasons') or [])
-    seasons.reverse()
+    """Public reference seasons in the administrator-controlled order."""
+    from season_visibility import public_seasons
+    seasons = public_seasons('library')
     return [
         {**season, 'status_label': SEASON_STATUS_LABELS.get(season.get('status'), '')}
         for season in seasons
