@@ -298,7 +298,7 @@ def test_live_comp_details_are_opt_in_and_hidden_code_is_not_public(client):
     item['formationDetails'] = {
         'version': 1,
         'season_id': 's18',
-        'units': [{'source_champion_id': '918076', 'position': 21, 'items': [], 'star': 2}],
+        'units': [{'source_champion_id': '918076', 'position': 21, 'items': [], 'source_item_ids': ['1', '2'], 'star': 2}],
     }
     write_live_comps_seed(client, payload)
 
@@ -312,6 +312,7 @@ def test_live_comp_details_are_opt_in_and_hidden_code_is_not_public(client):
     assert details.status_code == 200
     assert details.get_json()['season_data_id'] == 's18'
     assert details.get_json()['units'][0]['position'] == 21
+    assert details.get_json()['units'][0]['source_item_ids'] == ['1', '2']
     assert 'tftCode' not in details.get_json()
     assert client.get(f"/live-comps/s17-star-god/{item['id']}").status_code == 200
 

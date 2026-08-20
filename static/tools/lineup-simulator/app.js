@@ -147,6 +147,7 @@ const elements = {
 
 const state = {
   catalog: [],
+  defaultSeasonId: "",
   season: null,
   champions: [],
   boardUnits: [],
@@ -345,8 +346,10 @@ async function loadCatalog() {
   await refreshCatalog();
   renderSeasonSwitcher();
   const hashPayload = readHashPayload();
-  const requestedId = hashPayload?.season || localStorage.getItem(`${STORAGE_PREFIX}season`);
-  const initial = state.catalog.find((season) => season.season_id === requestedId)
+  const persistedId = localStorage.getItem(`${STORAGE_PREFIX}season`);
+  const initial = state.catalog.find((season) => season.season_id === hashPayload?.season)
+    || state.catalog.find((season) => season.season_id === persistedId)
+    || state.catalog.find((season) => season.season_id === state.defaultSeasonId)
     || state.catalog.find((season) => season.status === "active")
     || state.catalog[0];
   if (!initial) throw new Error("资料库中没有可用赛季");
@@ -356,6 +359,7 @@ async function loadCatalog() {
 async function refreshCatalog() {
   const catalog = await fetchJson(`/api/season-catalog?surface=simulator&v=${encodeURIComponent(DATA_VERSION)}`);
   state.catalog = [...(catalog.seasons || [])].sort((a, b) => Number(a.order || 999) - Number(b.order || 999));
+  state.defaultSeasonId = catalog.default_season_id || '';
 }
 
 async function loadSeason(seasonId, importedPayload = null) {

@@ -32,7 +32,7 @@ from season_reference_service import (
     season_page_context,
     strip_scaling_tokens,
 )
-from season_visibility import get_season, public_seasons
+from season_visibility import default_season_id, get_season, public_seasons
 from settings_service import get_setting
 from visits import tracked_template_response
 
@@ -90,7 +90,10 @@ def register_page_routes(app):
         surface = request.args.get('surface', 'library')
         if surface not in ('library', 'simulator'):
             return jsonify({'error': '展示类型无效'}), 400
-        return jsonify({'seasons': public_seasons(surface)})
+        payload = {'seasons': public_seasons(surface)}
+        if surface == 'simulator':
+            payload['default_season_id'] = default_season_id(surface)
+        return jsonify(payload)
     _sitemap_cache['xml'] = None
 
     @app.get('/robots.txt')

@@ -31,8 +31,10 @@ def _library_catalog() -> list[dict]:
 def _default_policy() -> dict:
     seasons = _library_catalog()
     ordered = list(reversed(seasons))
+    simulator = {str(item.get("season_id")): {"status": "active", "order": i + 1} for i, item in enumerate(ordered) if item.get("season_id")}
     return {
-        "simulator": {str(item.get("season_id")): {"status": "active", "order": i + 1} for i, item in enumerate(ordered) if item.get("season_id")},
+        "simulator_default_season_id": next(iter(simulator), None),
+        "simulator": simulator,
         "library": {str(item.get("season_id")): {"status": "active", "order": i + 1} for i, item in enumerate(ordered) if item.get("season_id")},
     }
 
@@ -55,6 +57,18 @@ def load_policy() -> dict:
                 base[kind][season_id]["order"] = max(1, int(value.get("order")))
             except (TypeError, ValueError):
                 pass
+    requested_default = str(saved.get("simulator_default_season_id") or "")
+    public_simulator_ids = [
+        season_id
+        for season_id, setting in sorted(
+            base["simulator"].items(),
+            key=lambda pair: (int(pair[1].get("order") or 999), pair[0]),
+        )
+        if setting.get("status") in PUBLIC_STATUSES
+    ]
+    base["simulator_default_season_id"] = (
+        requested_default if requested_default in public_simulator_ids else (public_simulator_ids[0] if public_simulator_ids else None)
+    )
     return base
 
 
@@ -79,6 +93,12 @@ def public_seasons(kind: str) -> list[dict]:
 
 def get_season(kind: str, season_id: str) -> dict | None:
     return next((item for item in public_seasons(kind) if item.get("season_id") == str(season_id)), None)
+
+
+def default_season_id(kind: str) -> str | None:
+    if kind != "simulator":
+        return None
+    return load_policy().get("simulator_default_season_id")
 
 
 def admin_payload(kind: str) -> list[dict]:
@@ -116,6 +136,26 @@ def update_season(admin_id: int, kind: str, season_id: str, data: dict):
             value["order"] = index
             policy[kind][sid] = value
     policy[kind][season_id] = entry
+    if data.get("is_default"):
+        if kind != "simulator":
+            return None, "只有阵容模拟器可以设置默认赛季", 400
+        if entry.get("status") not in PUBLIC_STATUSES:
+            return None, "默认赛季必须处于展示或归档状态", 400
+        policy["simulator_default_season_id"] = season_id
+    if kind == "simulator" and policy.get("simulator_default_season_id") == season_id and entry.get("status") not in PUBLIC_STATUSES:
+        policy["simulator_default_season_id"] = next(
+            (
+                sid for sid, value in sorted(
+                    policy["simulator"].items(),
+                    key=lambda pair: (int(pair[1].get("order") or 999), pair[0]),
+                ) if value.get("status") in PUBLIC_STATUSES
+            ),
+            None,
+        )
     save_policy(policy)
     write_audit(admin_id, f"update_{kind}_season_visibility", "season", season_id, before=before, after=entry)
-    return {"items": admin_payload(kind), "season": next(item for item in admin_payload(kind) if item["season_id"] == season_id)}, None, 200
+    return {
+        "items": admin_payload(kind),
+        "season": next(item for item in admin_payload(kind) if item["season_id"] == season_id),
+        "default_season_id": policy.get("simulator_default_season_id") if kind == "simulator" else None,
+    }, None, 200

@@ -42,8 +42,8 @@
     navExpanded: { lineups: false, 'live-comps': false },
     liveCompsSeasons: { seasons: [], default_season_id: '', loadedAt: 0 },
     seasonDisplays: {
-      simulator: { items: [], loadedAt: 0 },
-      library: { items: [], loadedAt: 0 },
+      simulator: { items: [], default_season_id: '', loadedAt: 0 },
+      library: { items: [], default_season_id: '', loadedAt: 0 },
     },
     copyRank: { date: '', items: [], loadedAt: 0 },
     dailyReports: { items: [], selectedDate: '', report: null, loadedAt: 0 },
@@ -299,7 +299,11 @@
     const current = state.seasonDisplays[kind];
     if (!force && isFresh(current.loadedAt)) return;
     const payload = await api(`/api/admin/season-display/${kind}`);
-    state.seasonDisplays[kind] = { items: payload.items || [], loadedAt: Date.now() };
+    state.seasonDisplays[kind] = {
+      items: payload.items || [],
+      default_season_id: payload.default_season_id || '',
+      loadedAt: Date.now(),
+    };
   }
 
   async function loadPatchNotes({ force = false } = {}) {
@@ -745,13 +749,14 @@
     );
     const body = panel.querySelector('.admin-workspace-body');
     const items = state.seasonDisplays[kind].items || [];
+    const defaultSeasonId = state.seasonDisplays[kind].default_season_id || '';
     const list = el('div', 'admin-season-list');
     items.forEach((season, index) => {
       const card = el('article', 'admin-season-card');
       const info = el('div', 'admin-season-info');
       info.append(
         el('strong', '', season.display_name || season.season_id),
-        el('p', 'admin-meta', `顺序 ${season.order || index + 1} · ${season.season_id} · ${statusText[season.status] || season.status}`),
+        el('p', 'admin-meta', `顺序 ${season.order || index + 1} · ${season.season_id} · ${statusText[season.status] || season.status}${isSimulator && season.season_id === defaultSeasonId ? ' · 默认展示' : ''}`),
       );
       const controls = el('div', 'admin-season-controls');
       controls.append(
@@ -759,6 +764,15 @@
         button('下移', () => mutateSeasonDisplay(kind, season, { order: index + 2 }), 'small-button', index === items.length - 1),
       );
       liveSeasonStatusOptions.forEach(([status, label]) => controls.append(button(label, () => mutateSeasonDisplay(kind, season, { status }), `small-button${season.status === status ? ' is-active' : ''}`)));
+      if (isSimulator) {
+        const isPublic = season.status === 'active' || season.status === 'archived';
+        controls.append(button(
+          season.season_id === defaultSeasonId ? '当前默认' : '设为默认',
+          () => mutateSeasonDisplay(kind, season, { is_default: true }),
+          `small-button${season.season_id === defaultSeasonId ? ' is-active' : ''}`,
+          !isPublic || season.season_id === defaultSeasonId,
+        ));
+      }
       card.append(info, controls);
       list.append(card);
     });

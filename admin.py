@@ -51,7 +51,7 @@ from patch_note_service import create_patch_note, hide_patch_note, list_admin_pa
 from scoring import score_map
 from settings_service import get_settings, save_settings
 from visits import tracked_template_response
-from season_visibility import admin_payload, update_season
+from season_visibility import admin_payload, default_season_id, update_season
 
 admin_bp = Blueprint('admin', __name__)
 
@@ -62,7 +62,10 @@ def admin_season_display(kind):
         return error
     if kind not in ('simulator', 'library'):
         return jsonify({'error': '展示类型无效'}), 400
-    return jsonify({'items': admin_payload(kind)})
+    return jsonify({
+        'items': admin_payload(kind),
+        'default_season_id': default_season_id(kind),
+    })
 
 
 @admin_bp.put('/api/admin/season-display/<kind>/<season_id>')

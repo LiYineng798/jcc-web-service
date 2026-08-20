@@ -17,16 +17,17 @@ ROOT = Path(__file__).resolve().parents[1]
 DATA_ROOT = ROOT / 'static' / 'season-data'
 
 
-def test_catalog_lists_seasons_newest_first():
-    seasons = catalog_seasons()
-    assert len(seasons) >= 4
-    season_ids = [season['season_id'] for season in seasons]
-    assert season_ids[0] == 's18'
-    assert {'s8', 's16_5', 's17', 's18'} <= set(season_ids)
-    for season in seasons:
-        assert season['counts']['champions'] > 0
-        assert season['counts']['traits'] > 0
-        assert (DATA_ROOT / season['path']).is_file()
+def test_catalog_lists_seasons_newest_first(app):
+    with app.app_context():
+        seasons = catalog_seasons()
+        assert len(seasons) >= 4
+        season_ids = [season['season_id'] for season in seasons]
+        assert season_ids[0] == 's18'
+        assert {'s8', 's16_5', 's17', 's18'} <= set(season_ids)
+        for season in seasons:
+            assert season['counts']['champions'] > 0
+            assert season['counts']['traits'] > 0
+            assert (DATA_ROOT / season['path']).is_file()
 
 
 def test_normalize_season_id_accepts_aliases():

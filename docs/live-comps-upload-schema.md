@@ -28,6 +28,7 @@
               "source_champion_id": "918076",
               "position": 21,
               "items": ["1234", "5678"],
+              "source_item_ids": ["har-equip-id-1", "har-equip-id-2"],
               "star": 2
             }
           ]
@@ -48,6 +49,8 @@
   `source_champion_id`，详情页会通过随赛季发布的 codebook 映射；两者都有时优先使用
   `champion_id`。
 - `position` 为 `0..27`，按四行七列从左到右编号。
-- `items` 使用该赛季 `items.json` 的装备 ID，最多三件。
+- `items` 使用该赛季 `items.json` 的装备 ID，最多三件。采集器只有 HAR 原始装备 ID
+  时可改传 `source_item_ids`；详情页会同时匹配装备的 `official_id`、`tft_equip_id`
+  和 `map_id`。两者都有时优先使用 `items`。
 - `star` 建议使用 `1..3`。没有 `formationDetails.units` 时，首页不显示详情入口。
 - 首页头像和弈子条继续使用上传并缓存后的 `mainAvatar`、`heroImages`；详情棋盘使用资料库本地资源。

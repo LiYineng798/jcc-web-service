@@ -81,6 +81,8 @@ def validate_live_comps_payload(payload):
                         raise ValueError('站位 position 或 star 超出范围')
                     if not isinstance(unit.get('items', []), list) or len(unit.get('items', [])) > 3:
                         raise ValueError('站位装备必须是不超过三件的数组')
+                    if not isinstance(unit.get('source_item_ids', []), list) or len(unit.get('source_item_ids', [])) > 3:
+                        raise ValueError('站位原始装备必须是不超过三件的数组')
             normalized_code = extract_lineup_code(item.get('jccCode'))
             if str(item.get('jccCode') or '').strip() and not normalized_code:
                 raise ValueError('jccCode 无法解析')
