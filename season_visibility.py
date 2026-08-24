@@ -7,7 +7,7 @@ from pathlib import Path
 
 from flask import current_app, has_app_context
 
-from audit import write_audit
+from audit import write_audit_best_effort
 DATA_ROOT = Path(__file__).resolve().parent / "static" / "season-data"
 
 STATUSES = {"active", "archived", "hidden", "disabled"}
@@ -153,7 +153,14 @@ def update_season(admin_id: int, kind: str, season_id: str, data: dict):
             None,
         )
     save_policy(policy)
-    write_audit(admin_id, f"update_{kind}_season_visibility", "season", season_id, before=before, after=entry)
+    write_audit_best_effort(
+        admin_id,
+        f"update_{kind}_season_visibility",
+        "season",
+        before=before,
+        after=entry,
+        target_key=season_id,
+    )
     return {
         "items": admin_payload(kind),
         "season": next(item for item in admin_payload(kind) if item["season_id"] == season_id),

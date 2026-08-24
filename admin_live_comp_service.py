@@ -2,7 +2,7 @@ import re
 
 from flask import current_app
 
-from audit import write_audit
+from audit import write_audit_best_effort
 from db import now_text
 from live_comp_manual_codes import set_manual_code_overlay_value
 from live_comps import (
@@ -50,11 +50,11 @@ def add_admin_live_comp_manual_code(admin_id, season_id, live_comp_id, data):
     )
     merged_payload, _, _, _, _ = read_live_comps_payload_for_season(season['id'])
     merged_item = find_live_comp(merged_payload, live_comp_id)
-    write_audit(
+    write_audit_best_effort(
         admin_id,
         'admin_add_live_comp_manual_code',
         'live_comp',
-        f'{season["id"]}:{live_comp_id}',
+        target_key=f'{season["id"]}:{live_comp_id}',
         before={'jccCode': '', 'resolvedJccCode': ''},
         after={
             'season_id': season['id'],
@@ -103,11 +103,11 @@ def create_admin_live_comps_season(admin_id, data):
         'default_season_id': manifest.get('default_season_id'),
         'seasons': seasons,
     })
-    write_audit(
+    write_audit_best_effort(
         admin_id,
         'create_live_comps_season',
         'live_comp_season',
-        season_id,
+        target_key=season_id,
         before=None,
         after={'id': season_id, 'name': name, 'status': status, 'description': description},
     )
@@ -118,11 +118,11 @@ def touch_admin_live_comps_season(admin_id, season_id):
     updated_at, season, error = touch_live_comps_season_data(season_id)
     if error:
         return None, error, 404 if error == '赛季不存在' else 400
-    write_audit(
+    write_audit_best_effort(
         admin_id,
         'touch_live_comps_season_updated_at',
         'live_comp_season',
-        season['id'],
+        target_key=season['id'],
         before=None,
         after={'updated_at': updated_at},
     )
@@ -170,5 +170,12 @@ def update_admin_live_comps_season(admin_id, season_id, data):
         'default_season_id': default_season_id,
         'seasons': seasons,
     })
-    write_audit(admin_id, 'update_live_comps_season', 'live_comp_season', season_id, before=manifest, after=updated_manifest)
+    write_audit_best_effort(
+        admin_id,
+        'update_live_comps_season',
+        'live_comp_season',
+        before=manifest,
+        after=updated_manifest,
+        target_key=season_id,
+    )
     return updated_manifest, None, 200

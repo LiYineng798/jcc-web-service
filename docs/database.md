@@ -39,7 +39,7 @@ config.py -> DATABASE
 | `recent_lineup_copies` | 最近复制 |
 | `login_events` | 登录事件 |
 | `visit_events` | 每日 UV |
-| `audit_logs` | 管理员审计日志 |
+| `audit_logs` | 管理员审计日志；数字对象使用 `target_id`，赛季/日期/UUID/复合标识使用文本 `target_key` |
 | `rate_limits` | 接口限流状态 |
 | `growth_events` | 增长漏斗事件 |
 | `live_comp_global_stats` | 实时阵容累计复制 |

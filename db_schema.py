@@ -197,6 +197,7 @@ CREATE TABLE IF NOT EXISTS audit_logs (
     action TEXT NOT NULL,
     target_type TEXT NOT NULL,
     target_id INTEGER,
+    target_key TEXT,
     before_json TEXT,
     after_json TEXT,
     created_at TEXT NOT NULL
@@ -449,6 +450,7 @@ EXTRA_INDEX_STATEMENTS = (
     'CREATE INDEX IF NOT EXISTS idx_visit_events_visitor_date ON visit_events (visitor_key, visit_date)',
     'CREATE INDEX IF NOT EXISTS idx_login_events_created_at ON login_events (created_at)',
     'CREATE INDEX IF NOT EXISTS idx_audit_logs_created_at ON audit_logs (created_at)',
+    'CREATE INDEX IF NOT EXISTS idx_audit_logs_target_key ON audit_logs (target_type, target_key, created_at DESC)',
     'CREATE INDEX IF NOT EXISTS idx_reports_status ON reports (status)',
     'CREATE INDEX IF NOT EXISTS idx_users_created_at ON users (created_at)',
     'CREATE INDEX IF NOT EXISTS idx_recent_lineup_views_user_updated ON recent_lineup_views (user_id, updated_at DESC, id DESC)',

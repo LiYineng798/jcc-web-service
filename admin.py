@@ -29,7 +29,7 @@ from admin_lineup_service import (
 from admin_pagination import paginate_rows, parse_page, parse_page_size
 from admin_report_service import build_report_list_query, resolve_report
 from admin_user_service import build_user_list_query, create_user, disable_user, update_user
-from audit import write_audit
+from audit import write_audit_best_effort
 from auth import admin_required
 from db import get_db
 from daily_report_service import (
@@ -417,11 +417,11 @@ def admin_generate_daily_report(date):
         report = get_daily_report(date)
     if report is None:
         return jsonify({'error': '报告生成失败，请稍后重试'}), 500
-    write_audit(
+    write_audit_best_effort(
         admin['id'],
         'generate_daily_report',
         'daily_report',
-        target_id=date,
+        target_key=date,
         after={'report_date': report['report_date']},
     )
     return jsonify(report)
