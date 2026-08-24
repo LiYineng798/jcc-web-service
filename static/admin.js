@@ -783,7 +783,7 @@
     const panel = el('div', 'live-upload-workspace');
     const intro = el('p', 'admin-meta', '上传新的实时阵容 JSON。系统会先计算差异和历史复制影响，确认后再缓存图片并原子替换线上文件。');
     const form = el('form', 'live-upload-form');
-    const seasonLabel = el('label', 'live-upload-field');
+    const seasonLabel = el('div', 'live-upload-field');
     seasonLabel.append(el('span', '', '目标赛季'));
     const seasonData = liveUploadSeasonOptions();
     const seasonWrap = el('div', 'season-menu-wrap live-upload-season-wrap');
@@ -1762,25 +1762,56 @@
   }
 
   function setupLiveUploadSeasonDropdown() {
+    const wrap = document.getElementById('liveUploadSeasonWrap');
+    const toggle = document.getElementById('liveUploadSeasonToggle');
+    const menu = document.getElementById('liveUploadSeasonMenu');
+    const input = document.getElementById('liveUploadSeasonInput');
+    const textNode = document.getElementById('liveUploadSeasonText');
+    if (!wrap || !toggle || !menu || !input || !textNode) return;
     const selected = state.liveUpload.seasonId || state.liveCompsSeasons.default_season_id || '';
-    const items = (state.liveCompsSeasons.seasons || []).map((season) => ({
-      value: season.id,
-      label: season.name || season.id,
-    }));
-    setupJumpDropdown(
-      'liveUploadSeasonWrap',
-      'liveUploadSeasonToggle',
-      'liveUploadSeasonMenu',
-      'liveUploadSeasonInput',
-      items,
-      selected,
-      '请选择赛季',
-      (value) => {
-        state.liveUpload.seasonId = value;
+    const items = state.liveCompsSeasons.seasons || [];
+    const closeMenu = () => {
+      menu.classList.add('hidden');
+      toggle.classList.remove('is-open');
+      toggle.setAttribute('aria-expanded', 'false');
+    };
+    toggle.addEventListener('click', (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      if (menu.classList.contains('hidden')) {
+        menu.classList.remove('hidden');
+        toggle.classList.add('is-open');
+        toggle.setAttribute('aria-expanded', 'true');
+      } else {
+        closeMenu();
+      }
+    });
+    menu.replaceChildren();
+    if (!items.length) {
+      const emptyOption = el('span', 'account-menu-item is-disabled', '暂无可用赛季');
+      menu.append(emptyOption);
+    }
+    items.forEach((season) => {
+      const option = el('button', `account-menu-item${season.id === selected ? ' is-active' : ''}`, season.name || season.id);
+      option.type = 'button';
+      option.addEventListener('click', (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        state.liveUpload.seasonId = season.id;
         state.liveUpload.job = null;
+        input.value = season.id;
+        textNode.textContent = season.name || season.id;
+        closeMenu();
         render();
-      },
-    );
+      });
+      menu.append(option);
+    });
+    document.addEventListener('click', (event) => {
+      if (!wrap.contains(event.target)) closeMenu();
+    });
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') closeMenu();
+    });
   }
 
   function setupJumpTabDropdown(form, item) {
