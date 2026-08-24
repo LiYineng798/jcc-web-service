@@ -1,6 +1,6 @@
 import sqlite3
 
-from db_migrations import ensure_indexes, migrate_lineups_table, migrate_schema
+from db_migrations import ensure_indexes, migrate_audit_logs_table, migrate_lineups_table, migrate_schema
 from db_schema import table_columns
 
 
@@ -67,3 +67,26 @@ def test_migrate_schema_handles_missing_legacy_live_comp_stats_table():
 
     columns = table_columns(db, 'lineups')
     assert 'season_id' in columns
+
+
+def test_migrate_audit_logs_table_adds_text_target_key_for_existing_sqlite_db():
+    db = sqlite3.connect(':memory:')
+    db.row_factory = sqlite3.Row
+    db.execute(
+        '''CREATE TABLE audit_logs (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            actor_user_id INTEGER,
+            action TEXT NOT NULL,
+            target_type TEXT NOT NULL,
+            target_id INTEGER,
+            before_json TEXT,
+            after_json TEXT,
+            created_at TEXT NOT NULL
+        )'''
+    )
+
+    migrate_audit_logs_table(db)
+
+    assert 'target_key' in table_columns(db, 'audit_logs')
+    indexes = {row['name'] for row in db.execute("SELECT name FROM sqlite_master WHERE type='index'")}
+    assert 'idx_audit_logs_target_key' in indexes

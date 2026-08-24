@@ -11,7 +11,7 @@ from pathlib import Path
 
 from flask import current_app
 
-from audit import write_audit
+from audit import write_audit_best_effort
 from db import get_db, now_text
 from live_comps_helpers import (
     TIER_ORDER,
@@ -203,14 +203,13 @@ def start_upload_job(admin_id, job_id):
     db.commit()
     if not cursor.rowcount:
         return None, '该上传任务已经开始或已结束'
-    write_audit(
+    write_audit_best_effort(
         admin_id,
         'queue_live_comp_upload',
         'live_comp_upload_job',
-        str(job_id),
+        target_key=str(job_id),
         after={'season_id': row['season_id'], 'filename': row['filename']},
     )
-    db.commit()
     return get_upload_job(job_id), None
 
 
@@ -374,14 +373,13 @@ def _process_job(app, job):
             }, ensure_ascii=False),
             finished_at=now_text(),
         )
-        write_audit(
+        write_audit_best_effort(
             job.get('created_by'),
             'complete_live_comp_upload',
             'live_comp_upload_job',
-            job_id,
+            target_key=str(job_id),
             after={'season_id': job['season_id'], 'item_total': item_total},
         )
-        get_db().commit()
     except Exception as exc:
         app.logger.exception('live comp upload job failed: %s', job_id)
         _update_job(
@@ -392,14 +390,13 @@ def _process_job(app, job):
             error_message=str(exc)[:1000],
             finished_at=now_text(),
         )
-        write_audit(
+        write_audit_best_effort(
             job.get('created_by'),
             'fail_live_comp_upload',
             'live_comp_upload_job',
-            job_id,
+            target_key=str(job_id),
             after={'season_id': job.get('season_id'), 'error': str(exc)[:500]},
         )
-        get_db().commit()
 
 
 def start_live_comp_upload_worker(app):

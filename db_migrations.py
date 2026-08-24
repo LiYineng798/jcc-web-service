@@ -10,6 +10,7 @@ def migrate_schema(db, admin_id, now_text_func):
     migrate_site_notices_table(db, now_text_func)
     migrate_daily_admin_reports_table(db, now_text_func)
     migrate_live_comp_upload_jobs_table(db)
+    migrate_audit_logs_table(db)
 
 
 def migrate_legacy_live_comp_stats(db, now_text_func):
@@ -225,6 +226,21 @@ def migrate_live_comp_upload_jobs_table(db):
         '''
         CREATE INDEX IF NOT EXISTS idx_live_comp_upload_jobs_created_by_created_at
         ON live_comp_upload_jobs (created_by, created_at DESC)
+        '''
+    )
+
+
+def migrate_audit_logs_table(db):
+    """Add the text identifier used by seasons, dates, UUID jobs, and keys."""
+    columns = table_columns(db, 'audit_logs')
+    if not columns:
+        return
+    if 'target_key' not in columns:
+        db.execute('ALTER TABLE audit_logs ADD COLUMN target_key TEXT')
+    db.execute(
+        '''
+        CREATE INDEX IF NOT EXISTS idx_audit_logs_target_key
+        ON audit_logs (target_type, target_key, created_at DESC)
         '''
     )
 

@@ -1439,7 +1439,8 @@
     } else {
       state.audit.items.forEach((log) => {
         const item = el('div', 'admin-log-item');
-        item.append(el('strong', '', log.action), el('span', '', `${log.target_type} #${log.target_id || '-'} · ${log.created_at}`));
+        const target = log.target_key || log.target_id || '-';
+        item.append(el('strong', '', log.action), el('span', '', `${log.target_type} #${target} · ${log.created_at}`));
         list.append(item);
       });
     }
