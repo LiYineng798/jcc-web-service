@@ -1,4 +1,8 @@
-from flask import Blueprint, jsonify, request
+import json
+
+import json
+
+from flask import Blueprint, current_app, jsonify, request
 
 from admin_audit_service import list_admin_audit_logs
 from admin_dashboard_service import (
@@ -35,6 +39,7 @@ from daily_report_service import (
     normalize_report_date,
 )
 from lineups_serialization import serialize_lineup_row
+from live_comp_upload_service import create_preview_job, get_upload_job, start_upload_job
 from route_response import respond_service_result
 from seo import make_seo
 from notice_service import (
@@ -216,6 +221,59 @@ def admin_live_comps():
         page=_parse_page(),
         page_size=_parse_page_size(default=20, maximum=100),
     ))
+
+
+@admin_bp.post('/api/admin/live-comps/uploads/preview')
+def admin_preview_live_comps_upload():
+    admin, error = admin_required()
+    if error:
+        return error
+    max_bytes = int(current_app.config['LIVE_COMPS_MAX_UPLOAD_BYTES'])
+    # Multipart framing adds a small amount of overhead; enforce the actual
+    # JSON byte limit again after reading the file below.
+    if request.content_length and request.content_length > max_bytes + 64 * 1024:
+        return jsonify({'error': '上传文件过大'}), 413
+    upload = request.files.get('file')
+    if upload is None:
+        return jsonify({'error': '请选择 JSON 文件'}), 400
+    raw_bytes = upload.read(max_bytes + 1)
+    if len(raw_bytes) > max_bytes:
+        return jsonify({'error': '上传文件过大'}), 413
+    try:
+        payload = json.loads(raw_bytes.decode('utf-8'))
+    except (UnicodeDecodeError, json.JSONDecodeError):
+        return jsonify({'error': '文件必须是 UTF-8 编码的有效 JSON'}), 400
+    season_id = str(request.form.get('season_id') or (payload.get('season') if isinstance(payload, dict) else '') or '').strip()
+    if not season_id:
+        return jsonify({'error': '请选择实时阵容赛季'}), 400
+    try:
+        result = create_preview_job(admin['id'], season_id, upload.filename, raw_bytes, payload)
+    except ValueError as exc:
+        return jsonify({'error': str(exc)}), 400
+    return jsonify(result), 201
+
+
+@admin_bp.post('/api/admin/live-comps/uploads/<job_id>/start')
+def admin_start_live_comps_upload(job_id):
+    admin, error = admin_required()
+    if error:
+        return error
+    result, service_error = start_upload_job(admin['id'], job_id)
+    if service_error:
+        status = 404 if service_error == '上传任务不存在' else 409
+        return jsonify({'error': service_error}), status
+    return jsonify(result)
+
+
+@admin_bp.get('/api/admin/live-comps/uploads/<job_id>')
+def admin_live_comps_upload_status(job_id):
+    admin, error = admin_required()
+    if error:
+        return error
+    result = get_upload_job(job_id)
+    if result is None:
+        return jsonify({'error': '上传任务不存在'}), 404
+    return jsonify(result)
 
 
 @admin_bp.post('/api/admin/live-comps/<season_id>/<live_comp_id>/manual-code')

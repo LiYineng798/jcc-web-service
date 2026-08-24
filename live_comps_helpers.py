@@ -429,12 +429,41 @@ def write_live_comp_asset(filename, data):
     return f'{LIVE_COMP_ASSET_ROUTE}/{filename}'
 
 
-def cache_live_comps_payload_images(payload):
+def cache_live_comps_payload_images(payload, progress_callback=None):
     payload = normalize_live_comps_payload(payload)
+    total_images = sum(
+        1 + len(item.get('heroImages', []))
+        for tier in TIER_ORDER
+        for item in payload['tiers'].get(tier, [])
+    )
+    image_done = 0
+    item_done = 0
+    item_total = sum(len(payload['tiers'].get(tier, [])) for tier in TIER_ORDER)
     for tier in TIER_ORDER:
         for item in payload['tiers'].get(tier, []):
             item['mainAvatar'] = cache_live_comp_image(item.get('mainAvatar'))
+            image_done += 1
+            if progress_callback:
+                progress_callback({
+                    'stage': 'downloading_images',
+                    'image_done': image_done,
+                    'image_total': total_images,
+                    'item_done': item_done,
+                    'item_total': item_total,
+                    'current_item': item.get('title') or str(item.get('id') or ''),
+                })
             item['heroImages'] = [cache_live_comp_image(src) for src in item.get('heroImages', [])]
+            image_done += len(item.get('heroImages', []))
+            item_done += 1
+            if progress_callback:
+                progress_callback({
+                    'stage': 'downloading_images',
+                    'image_done': image_done,
+                    'image_total': total_images,
+                    'item_done': item_done,
+                    'item_total': item_total,
+                    'current_item': item.get('title') or str(item.get('id') or ''),
+                })
     return payload
 
 
@@ -611,14 +640,15 @@ def write_live_comps_payload(payload):
     write_live_comps_payload_for_season(DEFAULT_LIVE_COMPS_SEASON_ID, payload)
 
 
-def write_live_comps_payload_for_season(season_id, payload):
+def write_live_comps_payload_for_season(season_id, payload, progress_callback=None, backup_path=None):
     validate_live_comps_payload(payload)
-    payload = cache_live_comps_payload_images(payload)
+    payload = cache_live_comps_payload_images(payload, progress_callback=progress_callback)
     safe_season_id = canonical_season_id(season_id) or DEFAULT_LIVE_COMPS_SEASON_ID
     ensure_live_comps_season(safe_season_id)
     data_path = season_data_path(safe_season_id)
-    backup_path = Path(current_app.config['LIVE_COMPS_BACKUP_PATH'])
+    backup_path = Path(backup_path or current_app.config['LIVE_COMPS_BACKUP_PATH'])
     data_path.parent.mkdir(parents=True, exist_ok=True)
+    backup_path.parent.mkdir(parents=True, exist_ok=True)
     temp_path = data_path.with_suffix('.tmp')
     temp_path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding='utf-8')
     json.loads(temp_path.read_text(encoding='utf-8'))

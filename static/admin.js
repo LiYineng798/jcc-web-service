@@ -39,6 +39,7 @@
     lineupBulkImport: { season_id: '', raw_text: '', result: null, preview_raw_text: '', preview_season_id: '' },
     liveComps: { items: [], total: 0, page: 1, page_size: 10, total_pages: 1, query: '', updated_at: null, source_meta: null, selectedSeasonId: '', loadedAt: 0 },
     liveCompsWorkspace: 'codes',
+    liveUpload: { seasonId: '', selectedFile: null, selectedFileName: '', uploadPercent: 0, job: null, pollTimer: null },
     navExpanded: { lineups: false, 'live-comps': false },
     liveCompsSeasons: { seasons: [], default_season_id: '', loadedAt: 0 },
     seasonDisplays: {
@@ -203,7 +204,7 @@
     if (tabKey === 'lineups' && ['list', 'import'].includes(workspaceKey)) {
       state.lineupWorkspace = workspaceKey;
     }
-    if (tabKey === 'live-comps' && ['codes', 'seasons'].includes(workspaceKey)) {
+    if (tabKey === 'live-comps' && ['codes', 'upload', 'seasons'].includes(workspaceKey)) {
       state.liveCompsWorkspace = workspaceKey;
     }
     Object.keys(state.navExpanded).forEach((key) => { state.navExpanded[key] = false; });
@@ -462,6 +463,8 @@
     if (state.activeTab === 'live-comps') {
       [title, subtitle] = state.liveCompsWorkspace === 'seasons'
         ? ['实时阵容 · 赛季管理', '调整赛季状态、顺序与默认赛季']
+        : state.liveCompsWorkspace === 'upload'
+          ? ['实时阵容 · 数据上传', '预览变更、缓存图片并观察发布进度']
         : ['实时阵容 · 阵容码维护', '按赛季检查并补充实时阵容码'];
     }
     if (elements.pageTitle) elements.pageTitle.textContent = title;
@@ -715,15 +718,194 @@
     }[status] || status || '未知';
   }
 
+  function liveUploadSeasonOptions() {
+    const seasons = state.liveCompsSeasons.seasons || [];
+    const selected = state.liveUpload.seasonId || state.liveCompsSeasons.default_season_id || seasons[0]?.id || '';
+    state.liveUpload.seasonId = selected;
+    return seasons.map((season) => `<option value="${escapeAttribute(season.id)}"${season.id === selected ? ' selected' : ''}>${escapeHtml(season.name || season.id)}</option>`).join('');
+  }
+
+  function renderLiveUploadProgressNode(job = state.liveUpload.job) {
+    const wrap = el('div', 'live-upload-progress');
+    const isPreview = job?.status === 'preview';
+    const percent = isPreview ? Number(state.liveUpload.uploadPercent || 0) : job ? Number(job.percent || 0) : Number(state.liveUpload.uploadPercent || 0);
+    const label = job
+      ? `${job.status === 'completed' ? '发布完成' : job.status === 'failed' ? '发布失败' : isPreview ? '文件已上传，等待确认' : (job.message || job.stage || '处理中')} · ${percent}%`
+      : `上传文件 · ${percent}%`;
+    const track = el('div', 'live-upload-progress-track');
+    const fill = el('div', 'live-upload-progress-fill');
+    fill.style.width = `${Math.max(0, Math.min(100, percent))}%`;
+    track.append(fill);
+    wrap.append(track, el('p', 'live-upload-progress-label', label));
+    if (job) {
+      wrap.append(el('p', 'admin-meta', `阵容 ${job.item_done || 0}/${job.item_total || 0} · 图片 ${job.image_done || 0}/${job.image_total || 0}${job.current_item ? ` · 当前：${job.current_item}` : ''}`));
+      if (job.error) wrap.append(el('p', 'live-upload-error', job.error));
+      if (job.result?.backup_file) wrap.append(el('p', 'live-upload-success', `旧版本备份：${job.result.backup_file}`));
+    }
+    return wrap;
+  }
+
+  function renderLiveCompUploadPreview(preview) {
+    const wrap = el('div', 'live-upload-preview');
+    if (!preview) return wrap;
+    const metrics = el('div', 'traffic-grid');
+    metrics.append(
+      trafficMetric('新阵容总数', preview.total || 0, '本次文件将发布的阵容数量'),
+      trafficMetric('新增 ID', (preview.added_ids || []).length, '线上没有、本次新增'),
+      trafficMetric('移除 ID', (preview.removed_ids || []).length, '线上存在、本次移除'),
+      trafficMetric('复制受影响', Object.values(preview.copy_counts || {}).reduce((sum, value) => sum + Number(value || 0), 0), '历史复制记录仍会保留'),
+    );
+    wrap.append(metrics);
+    const lists = [
+      ['新增阵容 ID', preview.added_ids],
+      ['移除阵容 ID', preview.removed_ids],
+      ['阵容码变化 ID', preview.code_changed_ids],
+      ['缺少阵容码 ID', preview.missing_code_ids],
+    ];
+    lists.forEach(([title, items]) => {
+      if (!(items || []).length) return;
+      const section = el('div', 'live-upload-change-list');
+      section.append(el('strong', '', `${title}（${items.length}）`), el('p', 'admin-meta', items.join('、')));
+      wrap.append(section);
+    });
+    (preview.warnings || []).forEach((warning) => wrap.append(el('p', 'live-upload-warning', `提示：${warning}`)));
+    return wrap;
+  }
+
+  function updateLiveUploadProgressDom() {
+    const node = document.querySelector('#liveUploadProgress');
+    if (!node) return;
+    const next = renderLiveUploadProgressNode(state.liveUpload.job);
+    node.replaceWith(Object.assign(next, { id: 'liveUploadProgress' }));
+  }
+
+  function renderLiveCompUploadWorkspace() {
+    const panel = el('div', 'live-upload-workspace');
+    const intro = el('p', 'admin-meta', '上传新的实时阵容 JSON。系统会先计算差异和历史复制影响，确认后再缓存图片并原子替换线上文件。');
+    const form = el('form', 'live-upload-form');
+    const seasonLabel = el('label', 'live-upload-field');
+    seasonLabel.append(el('span', '', '目标赛季'));
+    const seasonSelect = el('select');
+    seasonSelect.innerHTML = liveUploadSeasonOptions();
+    seasonSelect.addEventListener('change', () => {
+      state.liveUpload.seasonId = seasonSelect.value;
+      state.liveUpload.job = null;
+    });
+    seasonLabel.append(seasonSelect);
+    const fileLabel = el('label', 'live-upload-dropzone');
+    fileLabel.append(el('strong', '', state.liveUpload.selectedFileName || '选择实时阵容 JSON 文件'), el('span', '', '支持 UTF-8 JSON，单文件最大 5 MB'));
+    const fileInput = el('input');
+    fileInput.type = 'file';
+    fileInput.accept = 'application/json,.json';
+    fileInput.addEventListener('change', () => {
+      const file = fileInput.files?.[0] || null;
+      state.liveUpload.selectedFile = file;
+      state.liveUpload.selectedFileName = file?.name || '';
+      render();
+    });
+    fileLabel.append(fileInput);
+    const actions = el('div', 'card-actions');
+    const previewButton = el('button', 'small-button is-active', '解析并预览');
+    previewButton.type = 'submit';
+    previewButton.disabled = !state.liveUpload.selectedFile || !state.liveUpload.seasonId;
+    actions.append(previewButton);
+    if (state.liveUpload.job?.status === 'preview') {
+      actions.append(button('确认并发布', async (event, node) => startLiveCompUpload(node), 'small-button'));
+    }
+    form.append(seasonLabel, fileLabel, actions);
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      await previewLiveCompUpload(previewButton);
+    });
+    panel.append(intro, form, Object.assign(renderLiveUploadProgressNode(), { id: 'liveUploadProgress' }));
+    if (state.liveUpload.job?.preview) panel.append(renderLiveCompUploadPreview(state.liveUpload.job.preview));
+    return panel;
+  }
+
+  async function previewLiveCompUpload(buttonNode) {
+    const file = state.liveUpload.selectedFile;
+    if (!file) return setNotice('请先选择 JSON 文件');
+    buttonNode.disabled = true;
+    state.liveUpload.uploadPercent = 0;
+    updateLiveUploadProgressDom();
+    const formData = new FormData();
+    formData.append('season_id', state.liveUpload.seasonId);
+    formData.append('file', file, file.name);
+    try {
+      const result = await new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', '/api/admin/live-comps/uploads/preview');
+        xhr.setRequestHeader('X-CSRF-Token', state.csrfToken);
+        xhr.upload.onprogress = (event) => {
+          if (!event.lengthComputable) return;
+          state.liveUpload.uploadPercent = Math.round(event.loaded * 100 / event.total);
+          updateLiveUploadProgressDom();
+        };
+        xhr.onload = () => {
+          let data = {};
+          try { data = JSON.parse(xhr.responseText || '{}'); } catch (_) { /* handled below */ }
+          if (xhr.status >= 200 && xhr.status < 300) resolve(data);
+          else reject(new Error(data.error || '上传预览失败'));
+        };
+        xhr.onerror = () => reject(new Error('上传网络错误'));
+        xhr.send(formData);
+      });
+      state.liveUpload.uploadPercent = 100;
+      state.liveUpload.job = result;
+      setNotice('文件解析完成，请检查变更后确认发布');
+    } catch (error) {
+      setNotice(error.message || '上传预览失败');
+    } finally {
+      render();
+    }
+  }
+
+  async function startLiveCompUpload(buttonNode) {
+    const job = state.liveUpload.job;
+    if (!job?.job_id) return;
+    buttonNode.disabled = true;
+    try {
+      state.liveUpload.job = await api(`/api/admin/live-comps/uploads/${encodeURIComponent(job.job_id)}/start`, { method: 'POST' });
+      setNotice('已进入后台处理队列');
+      pollLiveCompUpload();
+    } catch (error) {
+      setNotice(error.message || '无法启动上传任务');
+      buttonNode.disabled = false;
+    }
+    render();
+  }
+
+  function pollLiveCompUpload() {
+    const jobId = state.liveUpload.job?.job_id;
+    if (!jobId) return;
+    clearTimeout(state.liveUpload.pollTimer);
+    state.liveUpload.pollTimer = setTimeout(async () => {
+      try {
+        const job = await api(`/api/admin/live-comps/uploads/${encodeURIComponent(jobId)}`);
+        state.liveUpload.job = job;
+        updateLiveUploadProgressDom();
+        if (!['completed', 'failed'].includes(job.status)) pollLiveCompUpload();
+        else render();
+      } catch (error) {
+        setNotice(error.message || '读取上传进度失败');
+      }
+    }, 1000);
+  }
+
   function renderLiveCompsWorkspace() {
     const isSeasonManagement = state.liveCompsWorkspace === 'seasons';
+    const isUpload = state.liveCompsWorkspace === 'upload';
     const panel = workbenchPanel(
-      isSeasonManagement ? '赛季管理' : '阵容码维护',
-      isSeasonManagement ? '调整赛季展示状态、顺序和默认项' : '按赛季查看实时阵容并为缺码条目补码',
+      isSeasonManagement ? '赛季管理' : isUpload ? '数据上传' : '阵容码维护',
+      isSeasonManagement ? '调整赛季展示状态、顺序和默认项' : isUpload ? '先预览差异，再异步缓存图片并原子发布' : '按赛季查看实时阵容并为缺码条目补码',
     );
     const body = panel.querySelector('.admin-workspace-body');
     if (isSeasonManagement) {
       body.append(renderLiveCompSeasonManager());
+      return panel;
+    }
+    if (isUpload) {
+      body.append(renderLiveCompUploadWorkspace());
       return panel;
     }
     body.append(renderLiveCompSeasonPicker());
