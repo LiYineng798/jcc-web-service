@@ -228,6 +228,17 @@ def test_admin_js_contains_lineup_bulk_import_workspace():
     assert '确认导入' in js
 
 
+def test_admin_js_contains_custom_live_comp_upload_controls():
+    with open('static/admin.js', 'r', encoding='utf-8') as file:
+        js = file.read()
+
+    assert 'liveUploadSeasonToggle' in js
+    assert 'setupLiveUploadSeasonDropdown' in js
+    assert 'live-upload-dropzone' in js
+    assert 'live-upload-file-input' in js
+    assert 'dataTransfer' in js
+
+
 def test_index_page_contains_account_value_copy_and_favorites_tab(client):
     html = client.get('/').get_data(as_text=True)
     assert 'id="favoritesTab"' in html

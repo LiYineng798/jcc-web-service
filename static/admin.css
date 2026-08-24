@@ -1408,16 +1408,18 @@ body.admin-page {
   color: var(--admin-muted, var(--muted));
 }
 
-.admin-page .live-upload-field select {
+.admin-page .live-upload-season-wrap,
+.admin-page .live-upload-season-wrap .season-toggle {
+  width: min(100%, 420px);
+}
+
+.admin-page .live-upload-season-wrap .season-toggle {
+  justify-content: space-between;
   min-height: 38px;
-  padding: 0 10px;
-  border: 1px solid var(--admin-border, var(--border));
-  border-radius: 9px;
-  background: var(--admin-surface, var(--surface));
-  color: inherit;
 }
 
 .admin-page .live-upload-dropzone {
+  position: relative;
   display: grid;
   gap: 4px;
   width: min(100%, 560px);
@@ -1425,6 +1427,15 @@ body.admin-page {
   border: 1px dashed var(--admin-accent, var(--accent));
   border-radius: 12px;
   cursor: pointer;
+  transition: border-color .2s ease, background-color .2s ease;
+}
+
+.admin-page .live-upload-dropzone:hover,
+.admin-page .live-upload-dropzone:focus-visible,
+.admin-page .live-upload-dropzone.is-dragging {
+  outline: none;
+  border-color: var(--admin-accent, var(--accent));
+  background: color-mix(in srgb, var(--admin-accent, var(--accent)) 8%, transparent);
 }
 
 .admin-page .live-upload-dropzone span {
@@ -1432,8 +1443,20 @@ body.admin-page {
   font-size: 12px;
 }
 
-.admin-page .live-upload-dropzone input {
-  margin-top: 7px;
+.admin-page .live-upload-file-input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.admin-page .live-upload-file-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .admin-page .live-upload-progress {

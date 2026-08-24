@@ -722,7 +722,7 @@
     const seasons = state.liveCompsSeasons.seasons || [];
     const selected = state.liveUpload.seasonId || state.liveCompsSeasons.default_season_id || seasons[0]?.id || '';
     state.liveUpload.seasonId = selected;
-    return seasons.map((season) => `<option value="${escapeAttribute(season.id)}"${season.id === selected ? ' selected' : ''}>${escapeHtml(season.name || season.id)}</option>`).join('');
+    return { seasons, selected };
   }
 
   function renderLiveUploadProgressNode(job = state.liveUpload.job) {
@@ -785,25 +785,56 @@
     const form = el('form', 'live-upload-form');
     const seasonLabel = el('label', 'live-upload-field');
     seasonLabel.append(el('span', '', '目标赛季'));
-    const seasonSelect = el('select');
-    seasonSelect.innerHTML = liveUploadSeasonOptions();
-    seasonSelect.addEventListener('change', () => {
-      state.liveUpload.seasonId = seasonSelect.value;
-      state.liveUpload.job = null;
-    });
-    seasonLabel.append(seasonSelect);
-    const fileLabel = el('label', 'live-upload-dropzone');
-    fileLabel.append(el('strong', '', state.liveUpload.selectedFileName || '选择实时阵容 JSON 文件'), el('span', '', '支持 UTF-8 JSON，单文件最大 5 MB'));
+    const seasonData = liveUploadSeasonOptions();
+    const seasonWrap = el('div', 'season-menu-wrap live-upload-season-wrap');
+    seasonWrap.id = 'liveUploadSeasonWrap';
+    seasonWrap.innerHTML = `
+      <button class="account-toggle season-toggle" id="liveUploadSeasonToggle" type="button" aria-haspopup="menu" aria-expanded="false">
+        <span id="liveUploadSeasonText">${escapeHtml((seasonData.seasons.find((season) => season.id === seasonData.selected)?.name) || seasonData.selected || '请选择赛季')}</span>
+        <i class="account-chevron" data-lucide="chevron-down" aria-hidden="true"></i>
+      </button>
+      <div class="account-menu hidden season-menu" id="liveUploadSeasonMenu" role="menu"></div>
+      <input type="hidden" id="liveUploadSeasonInput" value="${escapeAttribute(seasonData.selected)}" />
+    `;
+    seasonLabel.append(seasonWrap);
+    const fileZone = el('div', 'live-upload-dropzone');
+    fileZone.setAttribute('role', 'button');
+    fileZone.setAttribute('tabindex', '0');
+    fileZone.setAttribute('aria-label', '选择实时阵容 JSON 文件');
+    fileZone.append(el('strong', 'live-upload-file-name', state.liveUpload.selectedFileName || '选择实时阵容 JSON 文件'), el('span', 'live-upload-file-hint', '点击选择，或将 JSON 文件拖到这里 · UTF-8 · 最大 5 MB'));
     const fileInput = el('input');
+    fileInput.className = 'live-upload-file-input';
     fileInput.type = 'file';
     fileInput.accept = 'application/json,.json';
-    fileInput.addEventListener('change', () => {
-      const file = fileInput.files?.[0] || null;
+    const setSelectedFile = (file) => {
+      if (!file) return;
       state.liveUpload.selectedFile = file;
-      state.liveUpload.selectedFileName = file?.name || '';
+      state.liveUpload.selectedFileName = file.name || '';
+      state.liveUpload.job = null;
+      state.liveUpload.uploadPercent = 0;
       render();
+    };
+    fileInput.addEventListener('change', () => setSelectedFile(fileInput.files?.[0] || null));
+    fileZone.addEventListener('click', (event) => {
+      if (event.target !== fileInput) fileInput.click();
     });
-    fileLabel.append(fileInput);
+    fileZone.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        fileInput.click();
+      }
+    });
+    fileZone.addEventListener('dragover', (event) => {
+      event.preventDefault();
+      fileZone.classList.add('is-dragging');
+    });
+    fileZone.addEventListener('dragleave', () => fileZone.classList.remove('is-dragging'));
+    fileZone.addEventListener('drop', (event) => {
+      event.preventDefault();
+      fileZone.classList.remove('is-dragging');
+      setSelectedFile(event.dataTransfer?.files?.[0] || null);
+    });
+    fileZone.append(fileInput);
     const actions = el('div', 'card-actions');
     const previewButton = el('button', 'small-button is-active', '解析并预览');
     previewButton.type = 'submit';
@@ -812,13 +843,14 @@
     if (state.liveUpload.job?.status === 'preview') {
       actions.append(button('确认并发布', async (event, node) => startLiveCompUpload(node), 'small-button'));
     }
-    form.append(seasonLabel, fileLabel, actions);
+    form.append(seasonLabel, fileZone, actions);
     form.addEventListener('submit', async (event) => {
       event.preventDefault();
       await previewLiveCompUpload(previewButton);
     });
     panel.append(intro, form, Object.assign(renderLiveUploadProgressNode(), { id: 'liveUploadProgress' }));
     if (state.liveUpload.job?.preview) panel.append(renderLiveCompUploadPreview(state.liveUpload.job.preview));
+    setTimeout(setupLiveUploadSeasonDropdown, 0);
     return panel;
   }
 
@@ -1724,6 +1756,28 @@
         state.lineupBulkImport.result = null;
         state.lineupBulkImport.preview_raw_text = '';
         state.lineupBulkImport.preview_season_id = '';
+        render();
+      },
+    );
+  }
+
+  function setupLiveUploadSeasonDropdown() {
+    const selected = state.liveUpload.seasonId || state.liveCompsSeasons.default_season_id || '';
+    const items = (state.liveCompsSeasons.seasons || []).map((season) => ({
+      value: season.id,
+      label: season.name || season.id,
+    }));
+    setupJumpDropdown(
+      'liveUploadSeasonWrap',
+      'liveUploadSeasonToggle',
+      'liveUploadSeasonMenu',
+      'liveUploadSeasonInput',
+      items,
+      selected,
+      '请选择赛季',
+      (value) => {
+        state.liveUpload.seasonId = value;
+        state.liveUpload.job = null;
         render();
       },
     );
