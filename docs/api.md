@@ -115,6 +115,9 @@ X-Upload-Token: <JCC_LIVE_COMPS_UPLOAD_TOKEN>
 | DELETE | `/api/admin/users/<id>` | 删除用户 |
 | GET | `/api/admin/lineups` | 阵容列表，包含隐藏阵容，支持搜索 |
 | GET | `/api/admin/live-comps` | 实时阵容统计数据 |
+| POST | `/api/admin/live-comps/uploads/preview` | 管理员上传 JSON 并预览赛季差异（Session + CSRF） |
+| POST | `/api/admin/live-comps/uploads/<job_id>/start` | 确认并启动实时阵容异步发布 |
+| GET | `/api/admin/live-comps/uploads/<job_id>` | 查询实时阵容发布及图片缓存进度 |
 | PUT | `/api/admin/lineups/<id>` | 管理员修改阵容 |
 | POST | `/api/admin/lineups/<id>/adjust-score` | 管理员调整点赞数/复制数修正值 |
 | GET | `/api/admin/stats` | 管理基础统计 |

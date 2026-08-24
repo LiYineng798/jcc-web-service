@@ -7,6 +7,7 @@ from assets_version import register_asset_helpers
 from config import apply_config
 from db import close_db, init_db, table_names
 from daily_report_worker import start_daily_report_worker
+from live_comp_upload_service import start_live_comp_upload_worker
 from seo import make_seo
 
 
@@ -78,6 +79,7 @@ def create_app(test_config=None):
 
     register_test_helpers(app, get_table_names_for_tests, lookup_captcha_answer_for_tests_wrapper)
     start_daily_report_worker(app)
+    start_live_comp_upload_worker(app)
     return app
 
 
