@@ -328,6 +328,11 @@ def test_live_comp_detail_uses_simulator_cost_colors_and_stable_mobile_portraits
     assert "2: 'rgb(28, 195, 152)'" in javascript
     assert 'trait-panel' in css
     assert 'traitContributors' in javascript
+    trait_icon_rule = css.split('.trait-badge-icon {', 1)[1].split('}', 1)[0]
+    assert 'width: 16px;' in trait_icon_rule
+    assert 'height: 16px;' in trait_icon_rule
+    assert 'filter: brightness(0);' in trait_icon_rule
+    assert 'opacity: .76;' in trait_icon_rule
 
 
 def test_live_comp_details_reject_invalid_positions(client):

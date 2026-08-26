@@ -60,6 +60,8 @@
   flex: 0 0 32px;
   width: 32px;
   height: 32px;
+  display: grid;
+  place-items: center;
 }
 
 .trait-badge-frame {
@@ -70,11 +72,13 @@
 }
 
 .trait-badge-icon {
-  position: absolute;
-  inset: 4px;
-  width: calc(100% - 8px);
-  height: calc(100% - 8px);
+  position: relative;
+  z-index: 1;
+  width: 16px;
+  height: 16px;
   object-fit: contain;
+  filter: brightness(0);
+  opacity: .76;
 }
 
 .trait-copy {
