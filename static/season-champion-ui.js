@@ -52,9 +52,16 @@
     技能暴击: ['skill_critical_strike', 'skill-crit', 'crit', '技能暴击', 'CRIT'],
     灵魂: ['soul', 'soul', 'soul', '灵魂', '魂'], SOUL: ['soul', 'soul', 'soul', '灵魂', '魂'],
     银蛇币: ['serpent', 'serpent', 'serpent', '银蛇币', '币'], SERPENT: ['serpent', 'serpent', 'serpent', '银蛇币', '币'],
-    太阳碎片: ['ixtal', 'ixtal', 'ixtal', '太阳碎片', '碎片'], IXTAL: ['ixtal', 'ixtal', 'ixtal', '太阳碎片', '碎片'],
+    太阳碎片: ['ixtal', 'ixtal', 'ixtal.svg', '太阳碎片', '碎片'], IXTAL: ['ixtal', 'ixtal', 'ixtal.svg', '太阳碎片', '碎片'],
   };
   const SCALE_TOKEN_RE = new RegExp(`\\(?【(${Object.keys(SCALE_MARKERS).filter((key) => key !== '木灵加成').join('|')})】\\)?|\\(\\)`, 'g');
+  const STAT_ICON_OVERRIDES = {
+    critical_strike_damage: 'critmult',
+    mana_regeneration: 'manaregen',
+    omnivamp: 'sv',
+    damage_amplification: 'da',
+    damage_reduction: 'dr',
+  };
 
   function fallbackDescriptionTokens(text) {
     const value = String(text || '');
@@ -93,8 +100,10 @@
       chip.setAttribute('role', 'img');
       chip.setAttribute('aria-label', label);
       chip.title = label;
-      if (token.icon) {
-        const icon = image(`/static/season-stats/${encodeURIComponent(token.icon)}.png`, '');
+      const iconName = STAT_ICON_OVERRIDES[token.stat] || token.icon;
+      if (iconName) {
+        const filename = /\.[a-z0-9]+$/i.test(iconName) ? iconName : `${iconName}.png`;
+        const icon = image(`/static/season-stats/${encodeURIComponent(filename)}`, '');
         icon.setAttribute('aria-hidden', 'true');
         chip.append(icon);
       } else {

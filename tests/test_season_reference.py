@@ -11,7 +11,7 @@ from season_reference_service import (
     normalize_season_id,
     season_page_context,
 )
-from season_rich_text import parse_rich_text
+from season_rich_text import parse_rich_text, render_rich_text
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA_ROOT = ROOT / 'static' / 'season-data'
@@ -284,11 +284,25 @@ def test_rich_text_normalizes_s18_and_chinese_stat_markers():
 
 
 def test_stat_marker_images_are_local_and_background_free():
-    for icon in ('ap', 'amp'):
+    for icon in ('ap', 'amp', 'critmult', 'da', 'dr', 'manaregen', 'serpent', 'soul', 'sv'):
         path = ROOT / 'static' / 'season-stats' / f'{icon}.png'
         assert path.is_file()
         with Image.open(path) as image:
             assert image.format == 'PNG'
+
+    ixtal_path = ROOT / 'static' / 'season-stats' / 'ixtal.svg'
+    assert ixtal_path.is_file()
+    assert '<svg' in ixtal_path.read_text(encoding='utf-8')
+
+    javascript = (ROOT / 'static' / 'season-champion-ui.js').read_text(encoding='utf-8')
+    assert "'ixtal.svg', '太阳碎片'" in javascript
+    assert r"/\.[a-z0-9]+$/i.test(iconName)" in javascript
+
+    rendered = str(render_rich_text(
+        '【暴击伤害】【法力回复】【全能吸血】【伤害增幅】【伤害减免】【灵魂】【银蛇币】【太阳碎片】'
+    ))
+    for filename in ('critmult.png', 'manaregen.png', 'sv.png', 'da.png', 'dr.png', 'soul.png', 'serpent.png', 'ixtal.svg'):
+        assert f'/static/season-stats/{filename}' in rendered
 
     css = (ROOT / 'static' / 'season-reference.css').read_text(encoding='utf-8')
     assert '.scale-chip {' in css

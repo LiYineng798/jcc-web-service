@@ -368,7 +368,9 @@ def test_simulator_renders_imported_stat_tokens_in_popovers():
     assert 'richTextHtml(skill.description, skill.description_tokens)' in javascript
     assert 'richTextHtml(trait.description, trait.descriptionTokens)' in javascript
     assert 'point.effect_tokens || point.description_tokens' in javascript
-    assert '/static/season-stats/${encodeURIComponent(token.icon)}.png' in javascript
+    assert '/static/season-stats/${encodeURIComponent(iconFilename)}' in javascript
+    assert 'critical_strike_damage: "critmult"' in javascript
+    assert '太阳碎片: ["ixtal", "ixtal.svg"' in javascript
     assert '.scale-chip' in css
     assert '木灵加成: ["amp", "amp", "木灵加成", "木灵"]' in javascript
     assert 'const woodSpiritPlaceholder = !match[1]' in javascript

@@ -23,14 +23,17 @@ STAT_PRESENTATION = {
     'magic_resist': {'kind': 'magic-resist', 'label': '魔法抗性', 'icon': 'mr', 'fallback': 'MR'},
     'health': {'kind': 'health', 'label': '生命值', 'icon': 'hp', 'fallback': 'HP'},
     'critical_strike_chance': {'kind': 'crit', 'label': '暴击率', 'icon': 'crit', 'fallback': 'CRIT'},
-    'critical_strike_damage': {'kind': 'crit-multiplier', 'label': '暴击伤害', 'icon': 'crit', 'fallback': 'CRIT'},
+    'critical_strike_damage': {'kind': 'crit-multiplier', 'label': '暴击伤害', 'icon': 'critmult', 'fallback': 'CRIT'},
     'mana': {'kind': 'mana', 'label': '法力值', 'icon': 'mana', 'fallback': 'MP'},
-    'mana_regeneration': {'kind': 'mana-regen', 'label': '法力回复', 'icon': 'mana', 'fallback': 'MP'},
-    'omnivamp': {'kind': 'omnivamp', 'label': '全能吸血', 'icon': None, 'fallback': '吸'},
-    'damage_amplification': {'kind': 'damage-amplification', 'label': '伤害增幅', 'icon': 'amp', 'fallback': '增伤'},
-    'damage_reduction': {'kind': 'damage-reduction', 'label': '伤害减免', 'icon': None, 'fallback': '减伤'},
+    'mana_regeneration': {'kind': 'mana-regen', 'label': '法力回复', 'icon': 'manaregen', 'fallback': 'MP'},
+    'omnivamp': {'kind': 'omnivamp', 'label': '全能吸血', 'icon': 'sv', 'fallback': '吸'},
+    'damage_amplification': {'kind': 'damage-amplification', 'label': '伤害增幅', 'icon': 'da', 'fallback': '增伤'},
+    'damage_reduction': {'kind': 'damage-reduction', 'label': '伤害减免', 'icon': 'dr', 'fallback': '减伤'},
     'skill_critical_strike': {'kind': 'skill-crit', 'label': '技能暴击', 'icon': 'crit', 'fallback': 'CRIT'},
     'wood_spirit_bonus': {'kind': 'amp', 'label': '木灵加成', 'icon': 'amp', 'fallback': '木灵'},
+    'soul': {'kind': 'soul', 'label': '灵魂', 'icon': 'soul', 'fallback': '魂'},
+    'serpent': {'kind': 'serpent', 'label': '银蛇币', 'icon': 'serpent', 'fallback': '币'},
+    'ixtal': {'kind': 'ixtal', 'label': '太阳碎片', 'icon': 'ixtal.svg', 'fallback': '碎片'},
 }
 
 STAT_ALIASES = {
@@ -49,6 +52,9 @@ STAT_ALIASES = {
     'damage_amplification': ('AMP', 'DA', '伤害加成', '伤害增幅'),
     'damage_reduction': ('DR', '伤害减免'),
     'skill_critical_strike': ('技能暴击',),
+    'soul': ('SOUL', '灵魂'),
+    'serpent': ('SERPENT', '银蛇币'),
+    'ixtal': ('IXTAL', '太阳碎片'),
 }
 
 RICH_TEXT_FIELDS = frozenset({'description', 'effect'})
@@ -144,12 +150,14 @@ def render_rich_text(text, tokens=None):
             rendered.append(str(escape(token.get('value') or '')))
             continue
         stat = token.get('stat') or 'unknown'
-        kind = token.get('kind') or stat.replace('_', '-')
-        label = token.get('label') or token.get('source_label') or stat
-        icon = token.get('icon')
+        presentation = STAT_PRESENTATION.get(stat) or {}
+        kind = presentation.get('kind') or token.get('kind') or stat.replace('_', '-')
+        label = presentation.get('label') or token.get('label') or token.get('source_label') or stat
+        icon = presentation.get('icon', token.get('icon'))
         if icon:
+            filename = icon if re.search(r'\.[a-z0-9]+$', icon, flags=re.IGNORECASE) else f'{icon}.png'
             content = (
-                f'<img src="/static/season-stats/{escape(icon)}.png" alt="" '
+                f'<img src="/static/season-stats/{escape(filename)}" alt="" '
                 'aria-hidden="true" />'
             )
         else:
