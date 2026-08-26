@@ -44,12 +44,15 @@
     HP: ['health', 'health', 'hp', '生命值', 'HP'], 生命上限: ['health', 'health', 'hp', '生命值', 'HP'], 最大生命值: ['health', 'health', 'hp', '生命值', 'HP'],
     MR: ['magic_resist', 'magic-resist', 'mr', '魔法抗性', 'MR'], 魔法抗性: ['magic_resist', 'magic-resist', 'mr', '魔法抗性', 'MR'], 魔抗: ['magic_resist', 'magic-resist', 'mr', '魔法抗性', 'MR'],
     护甲: ['armor', 'armor', 'armor', '护甲', 'AR'], ARMOR: ['armor', 'armor', 'armor', '护甲', 'AR'], 攻击范围: ['attack_range', 'range', 'range', '攻击范围', 'RNG'], RANGE: ['attack_range', 'range', 'range', '攻击范围', 'RNG'], 射程: ['attack_range', 'range', 'range', '攻击范围', 'RNG'],
-    暴击率: ['critical_strike_chance', 'crit', 'crit', '暴击率', 'CRIT'], 暴击几率: ['critical_strike_chance', 'crit', 'crit', '暴击率', 'CRIT'], CRIT: ['critical_strike_chance', 'crit', 'crit', '暴击率', 'CRIT'], 暴击倍率: ['critical_strike_damage', 'crit-multiplier', 'crit', '暴击伤害', 'CRIT'],
-    法力值: ['mana', 'mana', 'mana', '法力值', 'MP'], MANA: ['mana', 'mana', 'mana', '法力值', 'MP'], MP: ['mana', 'mana', 'mana', '法力值', 'MP'], 法力回复: ['mana_regeneration', 'mana-regen', 'mana', '法力回复', 'MP'], 全能吸血: ['omnivamp', 'omnivamp', null, '全能吸血', '吸'], OMNIVAMP: ['omnivamp', 'omnivamp', null, '全能吸血', '吸'],
-    伤害加成: ['damage_amplification', 'damage-amplification', 'amp', '伤害增幅', '增伤'], AMP: ['damage_amplification', 'damage-amplification', 'amp', '伤害增幅', '增伤'], DA: ['damage_amplification', 'damage-amplification', 'amp', '伤害增幅', '增伤'], 伤害增幅: ['damage_amplification', 'damage-amplification', 'amp', '伤害增幅', '增伤'],
+    暴击率: ['critical_strike_chance', 'crit', 'crit', '暴击率', 'CRIT'], 暴击几率: ['critical_strike_chance', 'crit', 'crit', '暴击率', 'CRIT'], CRIT: ['critical_strike_chance', 'crit', 'crit', '暴击率', 'CRIT'], 暴击伤害: ['critical_strike_damage', 'crit-multiplier', 'critmult', '暴击伤害', 'CRIT'], 暴击倍率: ['critical_strike_damage', 'crit-multiplier', 'critmult', '暴击伤害', 'CRIT'],
+    法力值: ['mana', 'mana', 'mana', '法力值', 'MP'], MANA: ['mana', 'mana', 'mana', '法力值', 'MP'], MP: ['mana', 'mana', 'mana', '法力值', 'MP'], 法力回复: ['mana_regeneration', 'mana-regen', 'manaregen', '法力回复', 'MP'], 全能吸血: ['omnivamp', 'omnivamp', 'sv', '全能吸血', '吸'], OMNIVAMP: ['omnivamp', 'omnivamp', 'sv', '全能吸血', '吸'],
+    伤害加成: ['damage_amplification', 'damage-amplification', 'da', '伤害加成', '增伤'], AMP: ['damage_amplification', 'damage-amplification', 'da', '伤害加成', '增伤'], DA: ['damage_amplification', 'damage-amplification', 'da', '伤害加成', '增伤'], 伤害增幅: ['damage_amplification', 'damage-amplification', 'da', '伤害加成', '增伤'],
     木灵加成: ['wood_spirit_bonus', 'amp', 'amp', '木灵加成', '木灵'],
-    DR: ['damage_reduction', 'damage-reduction', null, '伤害减免', '减伤'], 伤害减免: ['damage_reduction', 'damage-reduction', null, '伤害减免', '减伤'],
+    DR: ['damage_reduction', 'damage-reduction', 'dr', '伤害减免', '减伤'], 伤害减免: ['damage_reduction', 'damage-reduction', 'dr', '伤害减免', '减伤'],
     技能暴击: ['skill_critical_strike', 'skill-crit', 'crit', '技能暴击', 'CRIT'],
+    灵魂: ['soul', 'soul', 'soul', '灵魂', '魂'], SOUL: ['soul', 'soul', 'soul', '灵魂', '魂'],
+    银蛇币: ['serpent', 'serpent', 'serpent', '银蛇币', '币'], SERPENT: ['serpent', 'serpent', 'serpent', '银蛇币', '币'],
+    太阳碎片: ['ixtal', 'ixtal', 'ixtal', '太阳碎片', '碎片'], IXTAL: ['ixtal', 'ixtal', 'ixtal', '太阳碎片', '碎片'],
   };
   const SCALE_TOKEN_RE = new RegExp(`\\(?【(${Object.keys(SCALE_MARKERS).filter((key) => key !== '木灵加成').join('|')})】\\)?|\\(\\)`, 'g');
 

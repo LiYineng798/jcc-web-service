@@ -31,6 +31,84 @@
   overflow: hidden;
 }
 
+.board-container {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+.trait-panel {
+  flex: 0 0 auto;
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.trait-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--trait-color) 8%, transparent);
+  border: 1px solid color-mix(in srgb, var(--trait-color) 20%, transparent);
+}
+
+.trait-badge {
+  position: relative;
+  flex: 0 0 32px;
+  width: 32px;
+  height: 32px;
+}
+
+.trait-badge-frame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.trait-badge-icon {
+  position: absolute;
+  inset: 4px;
+  width: calc(100% - 8px);
+  height: calc(100% - 8px);
+  object-fit: contain;
+}
+
+.trait-copy {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.trait-copy strong {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.trait-copy small {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.trait-count {
+  flex: 0 0 auto;
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--trait-color);
+}
+
+.formation-board-wrapper {
+  flex: 1 1 0;
+  min-width: 0;
+  container-type: inline-size;
+}
+
 .formation-board {
   --hex-w: min(110px, calc(13.333cqw - 7px));
   --hex-h: calc(var(--hex-w) * 1.14);
@@ -77,8 +155,9 @@
 .formation-portrait {
   inset: 0;
   padding: 3px;
-  background: var(--accent);
+  background: var(--unit-cost-color, var(--accent));
   filter: drop-shadow(0 5px 8px rgba(0, 0, 0, .28));
+  overflow: hidden;
 }
 .formation-portrait img {
   position: absolute;
@@ -87,6 +166,8 @@
   height: calc(100% - 6px);
   clip-path: inherit;
   object-fit: cover;
+  object-position: 50% 50%;
+  transform: translateZ(0);
 }
 .formation-portrait::after {
   content: "";
@@ -148,9 +229,18 @@
   .detail-topbar { min-height: 52px; }
   .detail-shell { margin-top: 22px; }
   .board-panel { padding: 10px 8px; }
+  .board-container { flex-direction: column; }
+  .trait-panel { width: 100%; order: 2; }
+  .formation-board-wrapper { order: 1; width: 100%; }
   .formation-board { --hex-gap: 3px; --hex-w: min(110px, calc(13.333cqw - 2.6px)); }
   .formation-name { right: 7%; bottom: 7%; left: 7%; font-size: 7px; }
   .formation-star { top: 2%; font-size: 7px; }
   .formation-items { top: 21%; gap: 1px; }
   .formation-items img { width: clamp(10px, 2.7cqw, 25px); height: clamp(10px, 2.7cqw, 25px); }
+}
+
+@media (max-width: 900px) and (min-width: 601px) {
+  .trait-panel { width: 160px; }
+  .trait-copy strong { font-size: 12px; }
+  .trait-copy small { font-size: 10px; }
 }

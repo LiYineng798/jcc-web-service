@@ -70,6 +70,23 @@ CREATE TABLE IF NOT EXISTS copy_action_events (
     FOREIGN KEY(lineup_id) REFERENCES lineups(id)
 );
 
+CREATE TABLE IF NOT EXISTS live_comp_copy_events (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    season_id TEXT NOT NULL,
+    live_comp_id TEXT NOT NULL,
+    user_id INTEGER,
+    ip_address TEXT,
+    copy_key TEXT NOT NULL,
+    bucket_start TEXT NOT NULL,
+    counted INTEGER NOT NULL DEFAULT 1,
+    created_at TEXT NOT NULL,
+    UNIQUE(season_id, live_comp_id, copy_key, bucket_start),
+    FOREIGN KEY(user_id) REFERENCES users(id)
+);
+
+CREATE INDEX IF NOT EXISTS idx_live_comp_copy_events_target_created_at
+ON live_comp_copy_events (season_id, live_comp_id, created_at);
+
 CREATE TABLE IF NOT EXISTS live_comp_global_stats (
     stats_key TEXT PRIMARY KEY,
     total_copy_count INTEGER NOT NULL DEFAULT 0,

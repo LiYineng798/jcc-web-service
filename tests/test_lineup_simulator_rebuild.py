@@ -154,6 +154,21 @@ def test_simulator_implements_board_and_equipment_rules():
     assert 'specialPlacementIsValid' in javascript
     assert 'if (itemChip) {\n    event.preventDefault();\n    hidePopover();' in javascript
     assert 'if (!cell) return;\n  event.preventDefault();\n  hidePopover();\n  mutate(() => { state.board' in javascript
+    assert 'function expandChampionTraitChoices(raw, traitByName)' in javascript
+    assert 'parseCompositeActivation(raw.description)' in javascript
+    assert 'trait.activationRules' in javascript
+    assert 'const traitText = (raw.trait_ids || [])' in javascript
+    assert 'traitChoiceNames(raw, traitByName)' in javascript
+
+
+def test_s18_khazix_choice_traits_are_present_in_trait_description():
+    champions = json.loads((SEASON_ROOT / 's18' / 'champions.json').read_text(encoding='utf-8'))['champions']
+    traits = json.loads((SEASON_ROOT / 's18' / 'traits.json').read_text(encoding='utf-8'))['traits']
+    khazix = next(champion for champion in champions if champion['name'] == '卡兹克')
+    trait_by_id = {str(trait['id']): trait for trait in traits}
+    text = ' '.join(trait_by_id[str(trait_id)].get('description', '') for trait_id in khazix['trait_ids'])
+
+    assert '从【裁决使】、【迅捷射手】、【狂战士】或【法师】中选择' in text
 
 
 def test_every_simulator_emblem_maps_to_a_known_trait():

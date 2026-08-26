@@ -985,15 +985,14 @@ async function copyLiveCompCode(item) {
     showMessage('复制失败，请长按阵容码手动复制');
     return;
   }
+  showToast('✓ 阵容码已复制');
   try {
     const seasonQuery = state.selectedLiveCompSeasonId ? `?season=${encodeURIComponent(state.selectedLiveCompSeasonId)}` : '';
     const separator = seasonQuery ? '&' : '?';
     await api(`/api/live-comps/${encodeURIComponent(item.id)}/copy${seasonQuery}${separator}source=home`, { method: 'POST' });
   } catch (_) {
-    showMessage('阵容码已复制，但次数统计失败');
-    return;
+    // Silent fail on stats recording - user already has the code
   }
-  showToast('阵容码已复制');
 }
 
 function button(label, handler, extraClass = '', disabled = false) {
@@ -1362,7 +1361,7 @@ function showToast(text) {
   clearTimeout(showToast.timer);
   showToast.timer = setTimeout(() => {
     elements.toast.classList.remove('is-visible');
-  }, 2200);
+  }, 3000);
 }
 
 function setTheme(theme) {

@@ -4,7 +4,8 @@ from flask import Blueprint, current_app, jsonify, request, send_from_directory
 
 from auth import current_user, get_client_ip
 from copy_action_service import record_copy_action
-from db import get_db
+from db import db_kind, get_db, now_text
+from db_adapter import insert_ignore_sql
 from live_comps_helpers import (
     ALLOWED_IMAGE_EXTENSIONS,
     CONTENT_TYPE_EXTENSIONS,
@@ -56,6 +57,7 @@ from live_comps_helpers import (
     write_live_comps_payload_for_season,
 )
 from seasons import canonical_season_id
+from lineups_utils import bucket_start
 
 live_comps_bp = Blueprint('live_comps', __name__)
 
@@ -64,6 +66,30 @@ def _public_live_season_id(requested_id=None):
     manifest = public_live_comps_manifest(load_live_comps_manifest())
     selected = canonical_season_id(requested_id) if requested_id else manifest.get('default_season_id')
     return selected if selected in {item['id'] for item in manifest['seasons']} else None
+
+
+def count_live_comp_copy(season_id, live_comp_id, user, ip_address):
+    """Claim one effective copy per actor, target, season, and 5-minute bucket."""
+    copy_key = f'user:{user["id"]}' if user else f'ip:{ip_address}'
+    cursor = get_db().execute(
+        insert_ignore_sql(
+            'live_comp_copy_events',
+            ['season_id', 'live_comp_id', 'user_id', 'ip_address', 'copy_key', 'bucket_start', 'counted', 'created_at'],
+            ['season_id', 'live_comp_id', 'copy_key', 'bucket_start'],
+            db_kind(),
+        ),
+        (
+            str(season_id),
+            str(live_comp_id),
+            user['id'] if user else None,
+            ip_address,
+            copy_key,
+            bucket_start(),
+            1,
+            now_text(),
+        ),
+    )
+    return bool(cursor.rowcount)
 
 
 @live_comps_bp.get(f'{LIVE_COMP_ASSET_ROUTE}/<path:filename>')
@@ -152,21 +178,26 @@ def copy_live_comp(live_comp_id):
         return jsonify({'error': '实时阵容不存在'}), 404
     if not str(item.get('jccCode') or '').strip():
         return jsonify({'error': '当前阵容暂无可复制的阵容码'}), 400
-    stat = increment_live_comp_global_copy_count()
+    user = current_user()
+    ip_address = get_client_ip()
+    effective_season_id = season.get('id') if season else season_id
+    counted = count_live_comp_copy(effective_season_id, live_comp_id, user, ip_address)
+    stat = increment_live_comp_global_copy_count() if counted else load_live_comp_global_stats()
     record_copy_action(
         target_type='live_comp',
         target_id=live_comp_id,
-        user=current_user(),
-        ip_address=get_client_ip(),
+        user=user,
+        ip_address=ip_address,
         source_page=request.args.get('source', ''),
         success=True,
-        counted=True,
-        season_id=season.get('id') if season else season_id,
+        counted=counted,
+        season_id=effective_season_id,
     )
     get_db().commit()
     return jsonify({
         'ok': True,
         'live_comp_id': str(live_comp_id),
+        'counted': counted,
         'today_copy_count': int(stat.get('today_copy_count') or 0),
         'total_copy_count': int(stat.get('total_copy_count') or 0),
     })

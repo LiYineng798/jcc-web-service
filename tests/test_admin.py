@@ -499,15 +499,17 @@ def test_admin_audit_logs_support_pagination_without_filters(client):
 def test_admin_can_view_global_live_comp_copy_counts(client):
     write_live_comps_seed(client, sample_live_comps_payload())
     csrf = client.get('/api/me').get_json()['csrf_token']
-    client.post('/api/live-comps/a-02/copy', headers={'X-CSRF-Token': csrf})
-    client.post('/api/live-comps/a-02/copy', headers={'X-CSRF-Token': csrf})
+    first = client.post('/api/live-comps/a-02/copy', headers={'X-CSRF-Token': csrf})
+    duplicate = client.post('/api/live-comps/a-02/copy', headers={'X-CSRF-Token': csrf})
     client.post('/api/live-comps/s-01/copy', headers={'X-CSRF-Token': csrf})
 
     headers = login_admin(client)
     payload = client.get('/api/admin/live-comps', headers=headers).get_json()
 
-    assert payload['today_copy_count'] == 3
-    assert payload['total_copy_count'] == 3
+    assert first.get_json()['counted'] is True
+    assert duplicate.get_json()['counted'] is False
+    assert payload['today_copy_count'] == 2
+    assert payload['total_copy_count'] == 2
     assert payload['items'] == []
     assert payload['total'] == 0
     assert payload['season']['id'] == 's17-star-god'

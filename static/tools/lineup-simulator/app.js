@@ -202,6 +202,37 @@ function normalizeText(value) {
   return String(value || "").trim().toLocaleLowerCase("zh-CN");
 }
 
+function traitChoiceNames(raw, traitByName = null) {
+  const traitText = (raw.trait_ids || [])
+    .map((traitId) => traitByName?.get(String(traitId)))
+    .map((trait) => trait?.description || "")
+    .filter(Boolean);
+  const text = [...(raw.skills || []).map((skill) => skill?.description || ""), ...traitText].join(" ");
+  const names = [];
+  for (const match of text.matchAll(/从([^。]{0,120})中选择/g)) {
+    const choices = [...match[1].matchAll(/【([^】]+)】/g)].map((item) => item[1].trim()).filter(Boolean);
+    if (choices.length >= 2) names.push(...choices);
+  }
+  return [...new Set(names)];
+}
+
+function expandChampionTraitChoices(raw, traitByName) {
+  const base = normalizeChampion(raw);
+  const choices = traitChoiceNames(raw, traitByName)
+    .map((name) => traitByName.get(name))
+    .filter(Boolean);
+  if (choices.length < 2) return [base];
+  return choices.map((trait, index) => ({
+    ...base,
+    id: index === 0 ? base.id : `${base.id}~choice-${trait.id}`,
+    name: `${base.name} · ${trait.name}`,
+    aliases: [...base.aliases, base.name],
+    traitIds: [...new Set([...base.traitIds, trait.id])],
+    choiceTraitId: trait.id,
+    choiceTraitName: trait.name,
+  }));
+}
+
 function normalizeChampion(raw) {
   return {
     id: String(raw.id),
@@ -220,6 +251,14 @@ function normalizeChampion(raw) {
     isBoardUnit: false,
     canEquip: true,
   };
+}
+
+function parseCompositeActivation(text) {
+  const match = String(text || "").match(/登场\s*(\d+)\s*个【([^】]+)】和\s*(\d+)\s*个【([^】]+)】弈子以激活/);
+  if (!match) return [];
+  return [{
+    source: [{ name: match[2], min: Number(match[1]) }, { name: match[4], min: Number(match[3]) }],
+  }];
 }
 
 function fallbackRichTextTokens(text) {
@@ -283,6 +322,12 @@ function normalizeBoardUnit(raw) {
 }
 
 function normalizeTrait(raw) {
+  const activationRules = parseCompositeActivation(raw.description);
+  if (!activationRules.length && raw.name === "日月双蚀") {
+    activationRules.push({
+      source: [{ name: "日蚀骑士", min: 3 }, { name: "月蚀骑士", min: 3 }],
+    });
+  }
   return {
     id: String(raw.id),
     name: raw.name || "未知羁绊",
@@ -292,6 +337,7 @@ function normalizeTrait(raw) {
     breakpoints: [...(raw.breakpoints || [])].sort((a, b) => Number(a.min_units) - Number(b.min_units)),
     icon: seasonAsset(raw.image?.optimized_local_path || raw.image?.local_path),
     tags: raw.tags || [],
+    activationRules,
   };
 }
 
@@ -393,12 +439,14 @@ async function loadSeason(seasonId, importedPayload = null) {
       fetchJson(`${DATA_ROOT}/${encodeURIComponent(seasonId)}/board_units.json?v=${stamp}`),
       augmentRequest,
     ]);
+    state.traits = (traitData.traits || []).map(normalizeTrait)
+      .sort((a, b) => a.category.localeCompare(b.category) || a.name.localeCompare(b.name, "zh-CN"));
+    const traitByName = new Map(state.traits.flatMap((trait) => [[trait.name, trait], [String(trait.id), trait]]));
     state.champions = (championData.champions || [])
       .filter((raw) => raw.extensions?.simulator_visible !== false)
-      .map(normalizeChampion)
+      .flatMap((raw) => expandChampionTraitChoices(raw, traitByName))
       .sort((a, b) => a.cost - b.cost || a.name.localeCompare(b.name, "zh-CN"));
     state.boardUnits = (boardUnitData.board_units || []).map(normalizeBoardUnit).sort((a, b) => a.name.localeCompare(b.name, "zh-CN"));
-    state.traits = (traitData.traits || []).map(normalizeTrait).sort((a, b) => a.category.localeCompare(b.category) || a.name.localeCompare(b.name, "zh-CN"));
     state.items = (itemData.items || []).map(normalizeItem);
     state.augments = (augmentData.augments || []).map(normalizeAugment)
       .sort((a, b) => a.tierOrder - b.tierOrder || a.category.localeCompare(b.category) || a.name.localeCompare(b.name, "zh-CN"));
@@ -722,6 +770,23 @@ function getTraitCounts() {
       contributors.get(traitId).add(hero.id);
     });
   });
+
+  // Composite traits declare their source thresholds in the imported trait
+  // text. This covers S18 日月双蚀 without coupling the simulator to IDs.
+  const traitsByName = new Map(state.traits.map((trait) => [trait.name, trait]));
+  state.traits.forEach((trait) => {
+    (trait.activationRules || []).forEach((rule) => {
+      const sourceContributors = rule.source.map((source) => ({
+        contributors: contributors.get(traitsByName.get(source.name)?.id) || new Set(),
+        min: source.min,
+      }));
+      if (sourceContributors.some((source) => source.contributors.size < source.min)) return;
+      const composite = contributors.get(trait.id) || new Set();
+      sourceContributors.forEach((source) => source.contributors.forEach((heroId) => composite.add(heroId)));
+      contributors.set(trait.id, composite);
+    });
+  });
+
   return new Map([...contributors].map(([traitId, heroIds]) => [traitId, heroIds.size]));
 }
 

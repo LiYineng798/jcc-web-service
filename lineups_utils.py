@@ -41,8 +41,12 @@ def lineup_season_manifest():
 
 
 def bucket_start():
+    """
+    Returns a 5-minute bucket timestamp for copy event deduplication.
+    Shorter window reduces false duplicate counting while still preventing spam.
+    """
     now = datetime.now()
-    minute = (now.minute // 10) * 10
+    minute = (now.minute // 5) * 5
     return now.replace(minute=minute, second=0, microsecond=0).strftime('%Y-%m-%d %H:%M:%S')
 
 

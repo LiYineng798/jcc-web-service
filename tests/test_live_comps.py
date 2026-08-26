@@ -7,6 +7,7 @@ from db import get_db
 import live_comps
 import live_comps_helpers
 from live_comp_manual_codes import set_manual_code_overlay_value
+from test_auth import register_user
 
 
 def sample_live_comps_payload():
@@ -307,7 +308,6 @@ def test_live_comp_details_are_opt_in_and_hidden_code_is_not_public(client):
     assert public_item['hasFormationDetails'] is True
     assert 'tftCode' not in public_item
     assert 'formationDetails' not in public_item
-
     details = client.get(f"/api/live-comps/{item['id']}/details?season=s17-star-god")
     assert details.status_code == 200
     assert details.get_json()['season_data_id'] == 's18'
@@ -315,6 +315,19 @@ def test_live_comp_details_are_opt_in_and_hidden_code_is_not_public(client):
     assert details.get_json()['units'][0]['source_item_ids'] == ['1', '2']
     assert 'tftCode' not in details.get_json()
     assert client.get(f"/live-comps/s17-star-god/{item['id']}").status_code == 200
+
+
+def test_live_comp_detail_uses_simulator_cost_colors_and_stable_mobile_portraits():
+    css = Path('static/live-comp-detail.css').read_text(encoding='utf-8')
+    javascript = Path('static/live-comp-detail.js').read_text(encoding='utf-8')
+
+    assert 'position: absolute;' in css
+    assert 'object-position: 50% 50%;' in css
+    assert 'container-type: inline-size;' in css
+    assert "1: 'rgb(175, 175, 175)'" in javascript
+    assert "2: 'rgb(28, 195, 152)'" in javascript
+    assert 'trait-panel' in css
+    assert 'traitContributors' in javascript
 
 
 def test_live_comp_details_reject_invalid_positions(client):
@@ -564,6 +577,43 @@ def test_live_comp_copy_endpoint_increments_copy_count(client):
     assert second.status_code == 200
     assert second.get_json()['today_copy_count'] == 2
     assert second.get_json()['total_copy_count'] == 2
+
+
+def test_live_comp_copy_deduplicates_same_ip_for_five_minute_bucket(client):
+    write_live_comps_seed(client, sample_live_comps_payload())
+    csrf = client.get('/api/me').get_json()['csrf_token']
+    headers = {'X-CSRF-Token': csrf, 'X-Forwarded-For': '8.8.8.8'}
+
+    first = client.post('/api/live-comps/s-01/copy', headers=headers).get_json()
+    second = client.post('/api/live-comps/s-01/copy', headers=headers).get_json()
+
+    assert first['counted'] is True
+    assert second['counted'] is False
+    assert first['today_copy_count'] == second['today_copy_count'] == 1
+    assert first['total_copy_count'] == second['total_copy_count'] == 1
+    with client.application.app_context():
+        rows = get_db().execute(
+            'SELECT counted FROM live_comp_copy_events ORDER BY id'
+        ).fetchall()
+    assert [row['counted'] for row in rows] == [1]
+
+
+def test_live_comp_copy_deduplicates_same_user_even_when_ip_changes(client):
+    registration = register_user(client, username='live_copy_user', email='live-copy-user@example.com')
+    assert registration.status_code == 201
+    write_live_comps_seed(client, sample_live_comps_payload())
+    csrf = client.get('/api/me').get_json()['csrf_token']
+    first = client.post(
+        '/api/live-comps/s-01/copy',
+        headers={'X-CSRF-Token': csrf, 'X-Forwarded-For': '8.8.8.8'},
+    ).get_json()
+    second = client.post(
+        '/api/live-comps/s-01/copy',
+        headers={'X-CSRF-Token': csrf, 'X-Forwarded-For': '1.1.1.1'},
+    ).get_json()
+
+    assert first['counted'] is True
+    assert second['counted'] is False
 
 
 def test_live_comp_copy_records_raw_copy_action_with_season(client):
