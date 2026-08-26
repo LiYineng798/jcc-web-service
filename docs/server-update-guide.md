@@ -56,6 +56,7 @@ psql "$JCC_DATABASE_URL" -c 'SELECT version, applied_at FROM schema_migrations O
 cd /opt/jcc/jcc-web-service
 git -c safe.directory=/opt/jcc/jcc-web-service pull origin main
 chown -R jcc:jcc /opt/jcc/jcc-web-service        # root 拉取后归还属主
+chmod -R a+rX /opt/jcc/jcc-web-service/static    # 严格 umask 下确保 Nginx 可读取静态资源
 sudo -u jcc .venv/bin/pip install -r requirements.txt -q
 git log --oneline -1                              # 确认到达预期提交
 ```
