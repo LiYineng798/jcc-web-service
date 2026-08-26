@@ -157,6 +157,7 @@ def test_simulator_implements_board_and_equipment_rules():
     assert 'function expandChampionTraitChoices(raw, traitByName)' in javascript
     assert 'parseCompositeActivation(raw.description)' in javascript
     assert 'trait.activationRules' in javascript
+    assert 'rule.source.every((source) => source.name !== raw.name)' in javascript
     assert 'const traitText = (raw.trait_ids || [])' in javascript
     assert 'traitChoiceNames(raw, traitByName)' in javascript
 

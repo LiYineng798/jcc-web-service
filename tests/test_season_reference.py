@@ -94,6 +94,15 @@ def test_season_reference_pages_render_for_every_catalog_season(client):
         assert f'style="--tab-count: {2 + len(context["mechanics"]) + int(context["has_augments"])}"' in html
 
 
+def test_season_reference_images_wake_on_tab_switch_and_have_fallbacks():
+    javascript = Path('static/season-reference.js').read_text(encoding='utf-8')
+
+    assert 'function createImageWithFallback(paths, alt, className = \'\')' in javascript
+    assert 'function wakePanelImages(panel)' in javascript
+    assert 'wakePanelImages(panel)' in javascript
+    assert '[champion.card, champion.splash, champion.icon].map(assetUrl)' in javascript
+
+
 def test_s18_official_snapshot_supplants_pbe_mechanics(client):
     payload = json.loads((DATA_ROOT / 's18' / 'index.json').read_text(encoding='utf-8'))
     assert payload['game_version'] == '18.18.1'

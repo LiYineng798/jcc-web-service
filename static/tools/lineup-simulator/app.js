@@ -322,7 +322,9 @@ function normalizeBoardUnit(raw) {
 }
 
 function normalizeTrait(raw) {
-  const activationRules = parseCompositeActivation(raw.description);
+  const activationRules = parseCompositeActivation(raw.description).filter((rule) => (
+    rule.source.every((source) => source.name !== raw.name)
+  ));
   if (!activationRules.length && raw.name === "日月双蚀") {
     activationRules.push({
       source: [{ name: "日蚀骑士", min: 3 }, { name: "月蚀骑士", min: 3 }],

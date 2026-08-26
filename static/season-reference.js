@@ -118,6 +118,33 @@ function createImage(src, alt, className = '') {
   return image;
 }
 
+function createImageWithFallback(paths, alt, className = '') {
+  const candidates = [...new Set(paths.filter(Boolean))];
+  if (!candidates.length) return null;
+  const image = document.createElement('img');
+  image.alt = alt;
+  image.loading = 'lazy';
+  image.decoding = 'async';
+  if (className) image.className = className;
+  let index = 0;
+  image.addEventListener('error', () => {
+    if (index >= candidates.length) {
+      image.removeAttribute('src');
+      image.classList.add('is-missing');
+      return;
+    }
+    image.src = candidates[index++];
+  });
+  image.src = candidates[index++];
+  return image;
+}
+
+function wakePanelImages(panel) {
+  panel?.querySelectorAll('img[loading="lazy"]').forEach((image) => {
+    image.loading = 'eager';
+  });
+}
+
 function costStyle(cost) {
   return COST_COLORS[cost] || 'var(--accent)';
 }
@@ -198,7 +225,10 @@ function setActiveView(view) {
     const active = panel.dataset.panel === view;
     panel.classList.remove('active');
     panel.hidden = !active;
-    if (active) requestAnimationFrame(() => panel.classList.add('active'));
+    if (active) requestAnimationFrame(() => {
+      panel.classList.add('active');
+      wakePanelImages(panel);
+    });
   });
   updateCount();
 }
@@ -403,8 +433,11 @@ function createChampionCard(champion, index) {
   const isNew = (champion.tags || []).includes('new');
   const art = document.createElement('div');
   art.className = `champion-art${isNew ? ' has-new' : ''}`;
-  const artPath = champion.card || champion.splash || champion.icon;
-  if (artPath) art.append(createImage(assetUrl(artPath), champion.name));
+  const artImage = createImageWithFallback(
+    [champion.card, champion.splash, champion.icon].map(assetUrl),
+    champion.name,
+  );
+  if (artImage) art.append(artImage);
   if (isNew) {
     const badge = document.createElement('span');
     badge.className = 'champion-new-badge';
