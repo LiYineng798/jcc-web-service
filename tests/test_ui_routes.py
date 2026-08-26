@@ -1008,6 +1008,9 @@ def test_styles_include_live_comps_sections_and_cards():
     assert '.tier-b' in css
     assert '.tier-c' in css
     assert '.tier-d' in css
+    assert '.live-comp-actions {\n  display: flex;' in css
+    assert 'align-self: start;' in css
+    assert 'height: 38px;' in css
 
 
 

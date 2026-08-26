@@ -24,14 +24,24 @@ const STAT_MARKERS = {
   HP: ["health", "hp", "生命值", "HP"], 生命上限: ["health", "hp", "生命值", "HP"], 最大生命值: ["health", "hp", "生命值", "HP"],
   MR: ["magic-resist", "mr", "魔法抗性", "MR"], 魔法抗性: ["magic-resist", "mr", "魔法抗性", "MR"], 魔抗: ["magic-resist", "mr", "魔法抗性", "MR"],
   护甲: ["armor", "armor", "护甲", "AR"], ARMOR: ["armor", "armor", "护甲", "AR"], 攻击范围: ["range", "range", "攻击范围", "RNG"], RANGE: ["range", "range", "攻击范围", "RNG"], 射程: ["range", "range", "攻击范围", "RNG"],
-  暴击率: ["crit", "crit", "暴击率", "CRIT"], 暴击几率: ["crit", "crit", "暴击率", "CRIT"], CRIT: ["crit", "crit", "暴击率", "CRIT"], 暴击倍率: ["crit-multiplier", "crit", "暴击伤害", "CRIT"],
-  法力值: ["mana", "mana", "法力值", "MP"], MANA: ["mana", "mana", "法力值", "MP"], MP: ["mana", "mana", "法力值", "MP"], 法力回复: ["mana-regen", "mana", "法力回复", "MP"], 全能吸血: ["omnivamp", null, "全能吸血", "吸"], OMNIVAMP: ["omnivamp", null, "全能吸血", "吸"],
-  伤害加成: ["damage-amplification", "amp", "伤害增幅", "增伤"], AMP: ["damage-amplification", "amp", "伤害增幅", "增伤"], DA: ["damage-amplification", "amp", "伤害增幅", "增伤"],
-  伤害增幅: ["damage-amplification", "amp", "伤害增幅", "增伤"], 木灵加成: ["amp", "amp", "木灵加成", "木灵"],
-  DR: ["damage-reduction", null, "伤害减免", "减伤"], 伤害减免: ["damage-reduction", null, "伤害减免", "减伤"],
+  暴击率: ["crit", "crit", "暴击率", "CRIT"], 暴击几率: ["crit", "crit", "暴击率", "CRIT"], CRIT: ["crit", "crit", "暴击率", "CRIT"], 暴击伤害: ["crit-multiplier", "critmult", "暴击伤害", "CRIT"], 暴击倍率: ["crit-multiplier", "critmult", "暴击伤害", "CRIT"],
+  法力值: ["mana", "mana", "法力值", "MP"], MANA: ["mana", "mana", "法力值", "MP"], MP: ["mana", "mana", "法力值", "MP"], 法力回复: ["mana-regen", "manaregen", "法力回复", "MP"], 全能吸血: ["omnivamp", "sv", "全能吸血", "吸"], OMNIVAMP: ["omnivamp", "sv", "全能吸血", "吸"],
+  伤害加成: ["damage-amplification", "da", "伤害增幅", "增伤"], AMP: ["damage-amplification", "da", "伤害增幅", "增伤"], DA: ["damage-amplification", "da", "伤害增幅", "增伤"],
+  伤害增幅: ["damage-amplification", "da", "伤害增幅", "增伤"], 木灵加成: ["amp", "amp", "木灵加成", "木灵"],
+  DR: ["damage-reduction", "dr", "伤害减免", "减伤"], 伤害减免: ["damage-reduction", "dr", "伤害减免", "减伤"],
   技能暴击: ["skill-crit", "crit", "技能暴击", "CRIT"],
+  灵魂: ["soul", "soul", "灵魂", "魂"], SOUL: ["soul", "soul", "灵魂", "魂"],
+  银蛇币: ["serpent", "serpent", "银蛇币", "币"], SERPENT: ["serpent", "serpent", "银蛇币", "币"],
+  太阳碎片: ["ixtal", "ixtal.svg", "太阳碎片", "碎片"], IXTAL: ["ixtal", "ixtal.svg", "太阳碎片", "碎片"],
 };
 const STAT_MARKER_RE = new RegExp(`\\(?【(${Object.keys(STAT_MARKERS).filter((key) => key !== "木灵加成").join("|")})】\\)?|\\(\\)`, "g");
+const STAT_ICON_OVERRIDES = {
+  critical_strike_damage: "critmult",
+  mana_regeneration: "manaregen",
+  omnivamp: "sv",
+  damage_amplification: "da",
+  damage_reduction: "dr",
+};
 const ITEM_CATEGORIES = [
   { id: "normal", label: "普通", source: ["completed"] },
   { id: "component", label: "散件", source: ["component"] },
@@ -202,6 +212,37 @@ function normalizeText(value) {
   return String(value || "").trim().toLocaleLowerCase("zh-CN");
 }
 
+function traitChoiceNames(raw, traitByName = null) {
+  const traitText = (raw.trait_ids || [])
+    .map((traitId) => traitByName?.get(String(traitId)))
+    .map((trait) => trait?.description || "")
+    .filter(Boolean);
+  const text = [...(raw.skills || []).map((skill) => skill?.description || ""), ...traitText].join(" ");
+  const names = [];
+  for (const match of text.matchAll(/从([^。]{0,120})中选择/g)) {
+    const choices = [...match[1].matchAll(/【([^】]+)】/g)].map((item) => item[1].trim()).filter(Boolean);
+    if (choices.length >= 2) names.push(...choices);
+  }
+  return [...new Set(names)];
+}
+
+function expandChampionTraitChoices(raw, traitByName) {
+  const base = normalizeChampion(raw);
+  const choices = traitChoiceNames(raw, traitByName)
+    .map((name) => traitByName.get(name))
+    .filter(Boolean);
+  if (choices.length < 2) return [base];
+  return choices.map((trait, index) => ({
+    ...base,
+    id: index === 0 ? base.id : `${base.id}~choice-${trait.id}`,
+    name: `${base.name} · ${trait.name}`,
+    aliases: [...base.aliases, base.name],
+    traitIds: [...new Set([...base.traitIds, trait.id])],
+    choiceTraitId: trait.id,
+    choiceTraitName: trait.name,
+  }));
+}
+
 function normalizeChampion(raw) {
   return {
     id: String(raw.id),
@@ -220,6 +261,14 @@ function normalizeChampion(raw) {
     isBoardUnit: false,
     canEquip: true,
   };
+}
+
+function parseCompositeActivation(text) {
+  const match = String(text || "").match(/登场\s*(\d+)\s*个【([^】]+)】和\s*(\d+)\s*个【([^】]+)】弈子以激活/);
+  if (!match) return [];
+  return [{
+    source: [{ name: match[2], min: Number(match[1]) }, { name: match[4], min: Number(match[3]) }],
+  }];
 }
 
 function fallbackRichTextTokens(text) {
@@ -253,8 +302,10 @@ function richTextHtml(text, importedTokens = null) {
     if (token.type === "text") return escapeHtml(token.value);
     const label = token.label || token.source_label || token.stat || "属性加成";
     const kind = token.kind || String(token.stat || "stat").replaceAll("_", "-");
-    const content = token.icon
-      ? `<img src="/static/season-stats/${encodeURIComponent(token.icon)}.png" alt="" aria-hidden="true" />`
+    const iconName = STAT_ICON_OVERRIDES[token.stat] || token.icon;
+    const iconFilename = iconName && (/\.[a-z0-9]+$/i.test(iconName) ? iconName : `${iconName}.png`);
+    const content = iconFilename
+      ? `<img src="/static/season-stats/${encodeURIComponent(iconFilename)}" alt="" aria-hidden="true" />`
       : `<span aria-hidden="true">${escapeHtml(token.fallback || token.source_label || label)}</span>`;
     return `<span class="scale-chip scale-chip-${escapeHtml(kind)}" role="img" aria-label="${escapeHtml(label)}" title="${escapeHtml(label)}">${content}</span>`;
   }).join("");
@@ -283,6 +334,14 @@ function normalizeBoardUnit(raw) {
 }
 
 function normalizeTrait(raw) {
+  const activationRules = parseCompositeActivation(raw.description).filter((rule) => (
+    rule.source.every((source) => source.name !== raw.name)
+  ));
+  if (!activationRules.length && raw.name === "日月双蚀") {
+    activationRules.push({
+      source: [{ name: "日蚀骑士", min: 3 }, { name: "月蚀骑士", min: 3 }],
+    });
+  }
   return {
     id: String(raw.id),
     name: raw.name || "未知羁绊",
@@ -292,6 +351,7 @@ function normalizeTrait(raw) {
     breakpoints: [...(raw.breakpoints || [])].sort((a, b) => Number(a.min_units) - Number(b.min_units)),
     icon: seasonAsset(raw.image?.optimized_local_path || raw.image?.local_path),
     tags: raw.tags || [],
+    activationRules,
   };
 }
 
@@ -393,12 +453,14 @@ async function loadSeason(seasonId, importedPayload = null) {
       fetchJson(`${DATA_ROOT}/${encodeURIComponent(seasonId)}/board_units.json?v=${stamp}`),
       augmentRequest,
     ]);
+    state.traits = (traitData.traits || []).map(normalizeTrait)
+      .sort((a, b) => a.category.localeCompare(b.category) || a.name.localeCompare(b.name, "zh-CN"));
+    const traitByName = new Map(state.traits.flatMap((trait) => [[trait.name, trait], [String(trait.id), trait]]));
     state.champions = (championData.champions || [])
       .filter((raw) => raw.extensions?.simulator_visible !== false)
-      .map(normalizeChampion)
+      .flatMap((raw) => expandChampionTraitChoices(raw, traitByName))
       .sort((a, b) => a.cost - b.cost || a.name.localeCompare(b.name, "zh-CN"));
     state.boardUnits = (boardUnitData.board_units || []).map(normalizeBoardUnit).sort((a, b) => a.name.localeCompare(b.name, "zh-CN"));
-    state.traits = (traitData.traits || []).map(normalizeTrait).sort((a, b) => a.category.localeCompare(b.category) || a.name.localeCompare(b.name, "zh-CN"));
     state.items = (itemData.items || []).map(normalizeItem);
     state.augments = (augmentData.augments || []).map(normalizeAugment)
       .sort((a, b) => a.tierOrder - b.tierOrder || a.category.localeCompare(b.category) || a.name.localeCompare(b.name, "zh-CN"));
@@ -722,6 +784,23 @@ function getTraitCounts() {
       contributors.get(traitId).add(hero.id);
     });
   });
+
+  // Composite traits declare their source thresholds in the imported trait
+  // text. This covers S18 日月双蚀 without coupling the simulator to IDs.
+  const traitsByName = new Map(state.traits.map((trait) => [trait.name, trait]));
+  state.traits.forEach((trait) => {
+    (trait.activationRules || []).forEach((rule) => {
+      const sourceContributors = rule.source.map((source) => ({
+        contributors: contributors.get(traitsByName.get(source.name)?.id) || new Set(),
+        min: source.min,
+      }));
+      if (sourceContributors.some((source) => source.contributors.size < source.min)) return;
+      const composite = contributors.get(trait.id) || new Set();
+      sourceContributors.forEach((source) => source.contributors.forEach((heroId) => composite.add(heroId)));
+      contributors.set(trait.id, composite);
+    });
+  });
+
   return new Map([...contributors].map(([traitId, heroIds]) => [traitId, heroIds.size]));
 }
 

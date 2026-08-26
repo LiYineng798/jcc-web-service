@@ -154,6 +154,22 @@ def test_simulator_implements_board_and_equipment_rules():
     assert 'specialPlacementIsValid' in javascript
     assert 'if (itemChip) {\n    event.preventDefault();\n    hidePopover();' in javascript
     assert 'if (!cell) return;\n  event.preventDefault();\n  hidePopover();\n  mutate(() => { state.board' in javascript
+    assert 'function expandChampionTraitChoices(raw, traitByName)' in javascript
+    assert 'parseCompositeActivation(raw.description)' in javascript
+    assert 'trait.activationRules' in javascript
+    assert 'rule.source.every((source) => source.name !== raw.name)' in javascript
+    assert 'const traitText = (raw.trait_ids || [])' in javascript
+    assert 'traitChoiceNames(raw, traitByName)' in javascript
+
+
+def test_s18_khazix_choice_traits_are_present_in_trait_description():
+    champions = json.loads((SEASON_ROOT / 's18' / 'champions.json').read_text(encoding='utf-8'))['champions']
+    traits = json.loads((SEASON_ROOT / 's18' / 'traits.json').read_text(encoding='utf-8'))['traits']
+    khazix = next(champion for champion in champions if champion['name'] == '卡兹克')
+    trait_by_id = {str(trait['id']): trait for trait in traits}
+    text = ' '.join(trait_by_id[str(trait_id)].get('description', '') for trait_id in khazix['trait_ids'])
+
+    assert '从【裁决使】、【迅捷射手】、【狂战士】或【法师】中选择' in text
 
 
 def test_every_simulator_emblem_maps_to_a_known_trait():
@@ -352,7 +368,9 @@ def test_simulator_renders_imported_stat_tokens_in_popovers():
     assert 'richTextHtml(skill.description, skill.description_tokens)' in javascript
     assert 'richTextHtml(trait.description, trait.descriptionTokens)' in javascript
     assert 'point.effect_tokens || point.description_tokens' in javascript
-    assert '/static/season-stats/${encodeURIComponent(token.icon)}.png' in javascript
+    assert '/static/season-stats/${encodeURIComponent(iconFilename)}' in javascript
+    assert 'critical_strike_damage: "critmult"' in javascript
+    assert '太阳碎片: ["ixtal", "ixtal.svg"' in javascript
     assert '.scale-chip' in css
     assert '木灵加成: ["amp", "amp", "木灵加成", "木灵"]' in javascript
     assert 'const woodSpiritPlaceholder = !match[1]' in javascript
