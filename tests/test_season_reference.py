@@ -105,8 +105,8 @@ def test_season_reference_images_wake_on_tab_switch_and_have_fallbacks():
 
 def test_s18_official_snapshot_supplants_pbe_mechanics(client):
     payload = json.loads((DATA_ROOT / 's18' / 'index.json').read_text(encoding='utf-8'))
-    assert payload['game_version'] == '18.18.1'
-    assert payload['version_id'] == 's18__18_18_1'
+    assert payload['game_version'] == '18.18.1b'
+    assert payload['version_id'] == 's18__18_18_1b'
     assert payload['display_name'] == 'S18 自然之力'
     assert payload['status'] == 'active'
     assert len(payload['mechanics']) == 1
@@ -114,7 +114,7 @@ def test_s18_official_snapshot_supplants_pbe_mechanics(client):
     assert payload['mechanics'][0]['display_name'] == '仙灵'
     assert len(payload['mechanics'][0]['entries']) == 172
     assert len(payload['champions']) == 74
-    assert len(payload['augments']) == 186
+    assert len(payload['augments']) == 258
 
     html = client.get('/tools/seasons/s18').get_data(as_text=True)
     assert 'data-view="augments"' in html
@@ -488,7 +488,7 @@ def test_season_data_static_files_served(client):
 
 
 def test_released_seasons_publish_official_augments_with_local_images():
-    expected_counts = {'s8': 322, 's16_5': 298, 's17': 277, 's18': 186}
+    expected_counts = {'s8': 322, 's16_5': 298, 's17': 277, 's18': 258}
     expected_observed_counts = {'s8': 0, 's16_5': 265, 's17': 243, 's18': 0}
     allowed_categories = {'economy', 'combat', 'equipment', 'trait', 'exclusive', 'other'}
     for season_id, expected_count in expected_counts.items():
@@ -536,11 +536,11 @@ def test_released_seasons_publish_official_augments_with_local_images():
     assert all(not augment['appearance_stages'] for augment in s8_unavailable)
 
     s18 = json.loads((DATA_ROOT / 's18' / 'augments.json').read_text(encoding='utf-8'))
-    assert s18['source']['requested_version'] == '18.18.1'
-    assert s18['source']['resolved_version'] == '18.18.1'
+    assert s18['source']['requested_version'] == '18.18.1b'
+    assert s18['source']['resolved_version'] == '18.18.1b'
     assert s18['source']['used_base_patch_fallback'] is False
     assert s18['source']['url'].startswith('https://game.gtimg.cn/')
-    assert len(s18['augments']) == 186
+    assert len(s18['augments']) == 258
     assert all(not augment['appearance_stages'] for augment in s18['augments'])
     assert all(
         augment['extensions']['appearance_stage_source'] == 'stage_data_unavailable'

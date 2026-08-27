@@ -1,5 +1,5 @@
 {
-  "version_id": "s18__18_18_1",
+  "version_id": "s18__18_18_1b",
   "rich_text_version": 1,
   "board_units": [
     {
@@ -53,7 +53,7 @@
         "local_path": "assets/board-units/8703.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/hero/s18_head_willump.png",
         "alt": "威朗普图标",
-        "optimized_local_path": "assets/optimized/s18__18_18_1/board-units/board_8703.webp"
+        "optimized_local_path": "assets/optimized/s18__18_18_1b/board-units/board_8703.webp"
       },
       "source_ids": {
         "official_ids": [
@@ -142,7 +142,7 @@
         "local_path": "assets/board-units/8704.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/hero/s18_head_stonebarktree.png",
         "alt": "石皮树图标",
-        "optimized_local_path": "assets/optimized/s18__18_18_1/board-units/board_8704.webp"
+        "optimized_local_path": "assets/optimized/s18__18_18_1b/board-units/board_8704.webp"
       },
       "source_ids": {
         "official_ids": [
@@ -230,7 +230,7 @@
         "local_path": "assets/board-units/8705.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/hero/s18_head_lifeblossom.png",
         "alt": "生命花图标",
-        "optimized_local_path": "assets/optimized/s18__18_18_1/board-units/board_8705.webp"
+        "optimized_local_path": "assets/optimized/s18__18_18_1b/board-units/board_8705.webp"
       },
       "source_ids": {
         "official_ids": [
@@ -286,7 +286,7 @@
       ],
       "can_equip": false,
       "stats": {
-        "health": 400.0,
+        "health": 450.0,
         "attack_damage": 50.0,
         "armor": 65.0,
         "magic_resist": 65.0,
@@ -299,12 +299,12 @@
       },
       "skill": {
         "name": "森林猛击！",
-        "description": "被动：当1个【永恒之森】单位倒下时，治疗40(【生命上限】)生命值并获得持续3秒的80%攻击速度。  主动：猛击地面，对目标造成445(【法术加成】)魔法伤害，并对2格内的敌人造成220(【法术加成】)魔法伤害。击飞并晕眩目标0.50秒。",
+        "description": "被动：当1个【永恒之森】单位倒下时，治疗54(【生命上限】)生命值并获得持续3秒的80%攻击速度。  主动：猛击地面，对目标造成500(【法术加成】)魔法伤害，并对2格内的敌人造成250(【法术加成】)魔法伤害。击飞并晕眩目标0.50秒。",
         "image": null,
         "description_tokens": [
           {
             "type": "text",
-            "value": "被动：当1个【永恒之森】单位倒下时，治疗40"
+            "value": "被动：当1个【永恒之森】单位倒下时，治疗54"
           },
           {
             "type": "stat",
@@ -317,7 +317,7 @@
           },
           {
             "type": "text",
-            "value": "生命值并获得持续3秒的80%攻击速度。  主动：猛击地面，对目标造成445"
+            "value": "生命值并获得持续3秒的80%攻击速度。  主动：猛击地面，对目标造成500"
           },
           {
             "type": "stat",
@@ -330,7 +330,7 @@
           },
           {
             "type": "text",
-            "value": "魔法伤害，并对2格内的敌人造成220"
+            "value": "魔法伤害，并对2格内的敌人造成250"
           },
           {
             "type": "stat",
@@ -351,7 +351,7 @@
         "local_path": "assets/board-units/8706.png",
         "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/hero/s18_head_deepwoodprotector.png",
         "alt": "深林守卫图标",
-        "optimized_local_path": "assets/optimized/s18__18_18_1/board-units/board_8706.webp"
+        "optimized_local_path": "assets/optimized/s18__18_18_1b/board-units/board_8706.webp"
       },
       "source_ids": {
         "official_ids": [
