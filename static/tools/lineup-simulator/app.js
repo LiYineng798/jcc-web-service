@@ -227,7 +227,7 @@ function traitChoiceNames(raw, traitByName = null) {
 }
 
 function expandChampionTraitChoices(raw, traitByName) {
-  const base = normalizeChampion(raw);
+  const base = normalizeChampion(raw, traitByName);
   const choices = traitChoiceNames(raw, traitByName)
     .map((name) => traitByName.get(name))
     .filter(Boolean);
@@ -243,7 +243,32 @@ function expandChampionTraitChoices(raw, traitByName) {
   }));
 }
 
-function normalizeChampion(raw) {
+function escapeRegExp(value) {
+  return String(value || "").replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+function simulatorChampionRules(raw, traitsByName) {
+  const traitDescriptions = (raw.trait_ids || [])
+    .map((traitId) => traitsByName.get(String(traitId))?.description || "")
+    .filter(Boolean);
+  const championName = escapeRegExp(raw.name);
+  const slotPattern = new RegExp(`【${championName}】\\s*占用\\s*(\\d+)\\s*个(?:弈子|队伍)栏位`);
+  const slotMatch = traitDescriptions.map((description) => description.match(slotPattern)).find(Boolean);
+  const traitContributions = [];
+  traitDescriptions.forEach((description) => {
+    for (const match of description.matchAll(/提供\s*[+＋]\s*(\d+)\s*【([^】]+)】(?:特质|羁绊|职业)/g)) {
+      const trait = traitsByName.get(match[2]);
+      if (trait) traitContributions.push({ traitId: trait.id, count: Number(match[1]) });
+    }
+  });
+  return {
+    unitSlots: Math.max(1, Number(slotMatch?.[1]) || 1),
+    traitContributions,
+  };
+}
+
+function normalizeChampion(raw, traitsByName) {
+  const simulatorRules = simulatorChampionRules(raw, traitsByName);
   return {
     id: String(raw.id),
     name: raw.name || "未知弈子",
@@ -257,6 +282,8 @@ function normalizeChampion(raw) {
     skill: raw.skills?.[0] || null,
     stats: raw.stats_by_star?.["1"] || {},
     attackRange: Number(raw.stats_by_star?.["1"]?.attack_range || 0),
+    unitSlots: simulatorRules.unitSlots,
+    traitContributions: simulatorRules.traitContributions,
     tftCode: String(raw.tft_code || raw.tftCode || ""),
     isBoardUnit: false,
     canEquip: true,
@@ -640,6 +667,36 @@ function renderItems() {
   updateSelectedItemStatus();
 }
 
+function syncLibrarySelectionState() {
+  elements.itemGrid.querySelectorAll("[data-item-id]").forEach((button) => {
+    const selected = button.dataset.itemId === state.selectedItemId;
+    button.classList.toggle("is-selected", selected);
+    button.setAttribute("aria-pressed", String(selected));
+  });
+  elements.augmentGroups.querySelectorAll("[data-augment-id]").forEach((button) => {
+    const selected = state.selectedAugmentIds.includes(button.dataset.augmentId);
+    button.classList.toggle("is-selected", selected);
+    button.setAttribute("aria-pressed", String(selected));
+    const augment = state.augmentById.get(button.dataset.augmentId);
+    if (augment) button.setAttribute("aria-label", `${selected ? "移除" : "选择"} ${augment.name}`);
+  });
+  elements.heroGroups.querySelectorAll("[data-hero-id]").forEach((button) => {
+    const hero = state.championById.get(button.dataset.heroId);
+    if (!hero?.isBoardUnit) return;
+    const allowance = boardUnitAllowance(hero);
+    const placed = countPlacedUnit(hero.id);
+    const locked = placed >= allowance;
+    button.classList.toggle("is-locked", locked);
+    button.dataset.locked = String(locked);
+    button.draggable = !locked;
+    button.setAttribute("aria-disabled", String(locked));
+    button.title = locked ? boardUnitRequirementText(hero) : "";
+    const mark = button.querySelector(".hero-special-mark");
+    if (mark) mark.textContent = allowance ? `${placed}/${allowance}` : "锁";
+  });
+  updateSelectedItemStatus();
+}
+
 function renderLibraryMode() {
   if (!state.augments.length) state.libraryMode = "champions";
   elements.augmentLibraryTab.hidden = state.augments.length === 0;
@@ -737,12 +794,15 @@ function renderBoard() {
   elements.board.classList.toggle("hide-names", !state.showNames);
   elements.board.innerHTML = state.board.map((slot, index) => boardSlotHtml(slot, index)).join("");
   const units = state.board.filter(Boolean);
-  elements.unitCount.textContent = String(units.length);
+  const population = totalPopulation();
+  elements.unitCount.textContent = String(population);
   elements.totalCost.textContent = String(units.reduce((total, slot) => total + (state.championById.get(slot.championId)?.cost || 0), 0));
   const invalidSpecials = state.board.filter((slot, index) => slot && !specialPlacementIsValid(slot.championId, index)).length;
-  elements.boardStatus.textContent = invalidSpecials
+  elements.boardStatus.textContent = population > state.board.length
+    ? `阵容超出 ${population - state.board.length} 人口，请调整后再使用`
+    : invalidSpecials
     ? `${invalidSpecials} 个特殊单位未满足解锁条件`
-    : units.length ? `${units.length} 个单位已上阵` : "阵容未配置";
+    : units.length ? `${population} 人口 · ${units.length} 个单位已上阵` : "阵容未配置";
   renderTraitSummary();
   renderComponentSummary();
   elements.undo.disabled = state.historyIndex <= 0;
@@ -771,17 +831,21 @@ function boardSlotHtml(slot, index) {
 
 function getTraitCounts() {
   const contributors = new Map();
+  const addContributor = (traitId, unitId, count = 1) => {
+    if (!state.traitById.has(traitId)) return;
+    if (!contributors.has(traitId)) contributors.set(traitId, new Map());
+    const traitContributors = contributors.get(traitId);
+    traitContributors.set(unitId, Math.max(traitContributors.get(unitId) || 0, count));
+  };
+  const countContributors = (traitContributors) => [...traitContributors.values()]
+    .reduce((total, count) => total + count, 0);
   state.board.filter(Boolean).forEach((slot) => {
     const hero = state.championById.get(slot.championId);
-    hero?.traitIds.forEach((traitId) => {
-      if (!contributors.has(traitId)) contributors.set(traitId, new Set());
-      contributors.get(traitId).add(hero.id);
-    });
+    hero?.traitIds.forEach((traitId) => addContributor(traitId, hero.id));
+    hero?.traitContributions.forEach(({ traitId, count }) => addContributor(traitId, hero.id, count));
     slot.items.forEach((itemId) => {
       const traitId = state.itemById.get(itemId)?.grantedTraitId;
-      if (!traitId || !state.traitById.has(traitId)) return;
-      if (!contributors.has(traitId)) contributors.set(traitId, new Set());
-      contributors.get(traitId).add(hero.id);
+      if (traitId) addContributor(traitId, hero.id);
     });
   });
 
@@ -791,17 +855,19 @@ function getTraitCounts() {
   state.traits.forEach((trait) => {
     (trait.activationRules || []).forEach((rule) => {
       const sourceContributors = rule.source.map((source) => ({
-        contributors: contributors.get(traitsByName.get(source.name)?.id) || new Set(),
+        contributors: contributors.get(traitsByName.get(source.name)?.id) || new Map(),
         min: source.min,
       }));
-      if (sourceContributors.some((source) => source.contributors.size < source.min)) return;
-      const composite = contributors.get(trait.id) || new Set();
-      sourceContributors.forEach((source) => source.contributors.forEach((heroId) => composite.add(heroId)));
+      if (sourceContributors.some((source) => countContributors(source.contributors) < source.min)) return;
+      const composite = contributors.get(trait.id) || new Map();
+      sourceContributors.forEach((source) => source.contributors.forEach((count, heroId) => {
+        composite.set(heroId, Math.max(composite.get(heroId) || 0, count));
+      }));
       contributors.set(trait.id, composite);
     });
   });
 
-  return new Map([...contributors].map(([traitId, heroIds]) => [traitId, heroIds.size]));
+  return new Map([...contributors].map(([traitId, traitContributors]) => [traitId, countContributors(traitContributors)]));
 }
 
 function traitState(trait, count) {
@@ -872,6 +938,12 @@ function firstEmptySlot() {
   return state.board.findIndex((slot) => slot === null);
 }
 
+function totalPopulation(board = state.board) {
+  return board.filter(Boolean).reduce((total, slot) => (
+    total + (state.championById.get(slot.championId)?.unitSlots || 1)
+  ), 0);
+}
+
 function placementStart(hero) {
   const range = Number(hero?.attackRange || hero?.stats?.attack_range || 0);
   if (range <= 2) return 0;
@@ -920,6 +992,9 @@ function specialPlacementIsValid(unitId, index) {
 function addChampion(championId, requestedIndex = null) {
   const hero = state.championById.get(championId);
   if (!hero) return;
+  if (totalPopulation() + hero.unitSlots > state.board.length) {
+    return showToast("阵容人口已满");
+  }
   if (hero.isBoardUnit && countPlacedUnit(hero.id) >= boardUnitAllowance(hero)) {
     return showToast(boardUnitRequirementText(hero));
   }
@@ -949,8 +1024,7 @@ function mutate(callback) {
   callback();
   pushHistory();
   renderBoard();
-  renderHeroes();
-  renderAugments();
+  syncLibrarySelectionState();
   renderSelectedAugments();
   persist();
 }
@@ -977,8 +1051,7 @@ function applyHistory(index) {
   state.showNames = value.showNames !== false;
   elements.showNames.checked = state.showNames;
   renderBoard();
-  renderHeroes();
-  renderAugments();
+  syncLibrarySelectionState();
   renderSelectedAugments();
   persist();
 }
@@ -1768,7 +1841,7 @@ elements.itemGrid.addEventListener("click", (event) => {
   const button = event.target.closest("[data-item-id]");
   if (!button) return;
   state.selectedItemId = state.selectedItemId === button.dataset.itemId ? null : button.dataset.itemId;
-  renderItems();
+  syncLibrarySelectionState();
 });
 elements.augmentGroups.addEventListener("click", (event) => {
   const button = event.target.closest("[data-augment-id]");
@@ -1829,6 +1902,7 @@ elements.board.addEventListener("drop", (event) => {
 
 document.addEventListener("pointerover", (event) => {
   if (!state.hoverDetails) return;
+  if (event.pointerType === "touch" || window.matchMedia("(hover: none)").matches) return;
   const hero = event.target.closest("[data-hero-id]");
   const item = event.target.closest("[data-item-id]");
   const trait = event.target.closest("[data-trait-id]");
@@ -1891,7 +1965,7 @@ window.addEventListener("resize", () => {
 document.addEventListener("keydown", (event) => {
   if (event.key === "/" && !event.ctrlKey && !event.metaKey && !/INPUT|TEXTAREA/.test(document.activeElement?.tagName)) { event.preventDefault(); elements.heroSearch.focus(); }
   if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "z") { event.preventDefault(); applyHistory(state.historyIndex + (event.shiftKey ? 1 : -1)); }
-  if (event.key === "Escape") { state.selectedItemId = null; setTraitFilterMenu(false); renderItems(); hidePopover(); }
+  if (event.key === "Escape") { state.selectedItemId = null; setTraitFilterMenu(false); syncLibrarySelectionState(); hidePopover(); }
 });
 
 state.hoverDetails = localStorage.getItem(`${STORAGE_PREFIX}hover-details`) !== "off";

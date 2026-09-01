@@ -184,6 +184,39 @@ def test_notice_appears_on_index_when_enabled(client):
     }, headers=headers)
 
 
+def test_notice_guestbook_link_opens_in_the_current_page():
+    with open('templates/index.html', 'r', encoding='utf-8') as file:
+        html = file.read()
+    with open('static/admin.js', 'r', encoding='utf-8') as file:
+        javascript = file.read()
+
+    assert "notice.link_url.startswith('/')" in html
+    assert "notice.link_url == '/#guestbook'" in html
+    assert "'/#guestbook'" in javascript
+    assert 'noticeGuestbookLinkButton' in javascript
+
+
+def test_guestbook_notice_clears_stale_lineup_jump_and_renders_a_direct_action(client):
+    headers = login_admin(client)
+    created = client.post('/api/admin/notices', json={
+        'title': '反馈入口',
+        'message': '欢迎留言',
+        'link_url': '/#guestbook',
+        'link_text': '去留言',
+        'jump_season_id': 's18',
+        'jump_tab': 'live',
+    }, headers=headers)
+    assert created.status_code == 201
+    notice = created.get_json()
+    assert notice['jump_season_id'] == ''
+    assert notice['jump_tab'] == ''
+
+    assert client.post(f"/api/admin/notices/{notice['id']}/activate", headers=headers).status_code == 200
+    html = client.get('/').get_data(as_text=True)
+    assert 'site-notice-guestbook' in html
+    assert 'href="#guestbook"' in html
+
+
 def test_notice_marquee_styles_bounce_between_visible_edges():
     with open('static/styles.css', 'r', encoding='utf-8') as file:
         css = file.read()

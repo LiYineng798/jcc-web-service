@@ -1449,7 +1449,7 @@
   }
 
   function renderPatchNotesWorkspace() {
-    const panel = workbenchPanel('更新公告', '维护游戏官网更新公告、精简版和原文归档');
+    const panel = workbenchPanel('更新公告', '同步官方更新公告，维护版本重点与官方原文链接');
     const body = panel.querySelector('.admin-workspace-body');
     const actions = el('div', 'card-actions');
     actions.append(button('新增公告', () => {
@@ -2205,6 +2205,10 @@
         <span>链接文字</span>
         <input id="noticeLinkTextInput" name="link_text" type="text" placeholder="可选，例如 查看公告" value="${escapeAttribute(item.link_text || '')}" />
       </label>
+      <div class="field notice-guestbook-shortcut">
+        <span>快捷链接</span>
+        <button class="small-button" id="noticeGuestbookLinkButton" type="button">跳转到留言板</button>
+      </div>
       <div class="field visibility-toggle">
         <div class="visibility-copy">
           <span>滚动播放</span>
@@ -2237,6 +2241,18 @@
     // 设置自定义下拉框（必须在 form 挂载到 DOM 后再初始化，因为使用 document.getElementById）
     setupJumpSeasonDropdown(form, item);
     setupJumpTabDropdown(form, item);
+
+    form.querySelector('#noticeGuestbookLinkButton').addEventListener('click', () => {
+      form.querySelector('#noticeLinkUrlInput').value = '/#guestbook';
+      const linkText = form.querySelector('#noticeLinkTextInput');
+      if (!linkText.value.trim()) linkText.value = '去留言';
+      form.querySelector('#noticeJumpSeasonInput').value = '';
+      form.querySelector('#noticeJumpTabInput').value = '';
+      const seasonText = form.querySelector('#noticeJumpSeasonText');
+      const tabText = form.querySelector('#noticeJumpTabText');
+      if (seasonText) seasonText.textContent = '不跳转';
+      if (tabText) tabText.textContent = '不跳转';
+    });
 
     // 滚动开关状态同步
     var marqueeCheckbox = document.getElementById('noticeMarqueeCheckbox');

@@ -134,7 +134,14 @@ def test_simulator_implements_board_and_equipment_rules():
     assert 'Array(28).fill(null)' in javascript
     assert 'if (slot.items.length >= 3)' in javascript
     assert 'if (state.championById.get(slot.championId)?.canEquip === false)' in javascript
-    assert 'contributors.get(traitId).add(hero.id)' in javascript
+    assert 'function simulatorChampionRules(raw, traitsByName)' in javascript
+    assert 'unitSlots: simulatorRules.unitSlots' in javascript
+    assert 'hero?.traitContributions.forEach' in javascript
+    assert 'function totalPopulation(board = state.board)' in javascript
+    assert 'if (totalPopulation() + hero.unitSlots > state.board.length)' in javascript
+    assert 'syncLibrarySelectionState();' in javascript
+    assert 'event.pointerType === "touch"' in javascript
+    assert 'window.matchMedia("(hover: none)").matches' in javascript
     assert 'raw.extensions?.trait_id ?? raw.extensions?.fetter_id' in javascript
     assert 'grantedTraitId: rawGrantedTraitId == null' in javascript
     assert 'state.itemById.get(itemId)?.grantedTraitId' in javascript
@@ -160,6 +167,16 @@ def test_simulator_implements_board_and_equipment_rules():
     assert 'rule.source.every((source) => source.name !== raw.name)' in javascript
     assert 'const traitText = (raw.trait_ids || [])' in javascript
     assert 'traitChoiceNames(raw, traitByName)' in javascript
+
+
+def test_simulator_derives_elder_dragon_population_and_trait_contribution_from_official_text():
+    champions = json.loads((SEASON_ROOT / 's18' / 'champions.json').read_text(encoding='utf-8'))['champions']
+    traits = json.loads((SEASON_ROOT / 's18' / 'traits.json').read_text(encoding='utf-8'))['traits']
+    dragon = next(champion for champion in champions if champion['name'] == '远古巨龙')
+    dragon_trait = next(trait for trait in traits if trait['id'] in dragon['trait_ids'] and trait['name'] == '顶级掠食者')
+
+    assert '占用2个弈子栏位' in dragon_trait['description']
+    assert '+2【峡谷野怪】' in dragon_trait['description']
 
 
 def test_s18_khazix_choice_traits_are_present_in_trait_description():

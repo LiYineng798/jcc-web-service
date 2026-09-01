@@ -3486,8 +3486,72 @@ textarea:focus {
 
 /* ---- guestbook dialog ---- */
 
+.guestbook-dialog {
+  width: min(100% - 32px, 520px);
+  border-color: color-mix(in srgb, var(--accent) 34%, var(--line));
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.guestbook-dialog .modal-header {
+  align-items: flex-start;
+  gap: 18px;
+  padding: 22px 24px 18px;
+  border-bottom: 1px solid var(--line);
+  background: linear-gradient(120deg, color-mix(in srgb, var(--accent) 9%, var(--surface-solid)), var(--surface-solid));
+}
+
+.guestbook-dialog .modal-form {
+  gap: 0;
+  padding: 22px 24px 24px;
+}
+
+.guestbook-eyebrow {
+  margin: 0 0 6px;
+  color: var(--accent);
+  font-size: 0.69rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.guestbook-dialog h2 {
+  margin: 0;
+  color: var(--text);
+  font-size: 1.34rem;
+}
+
+.guestbook-dialog .auth-prompt-copy {
+  margin: 7px 0 0;
+  max-width: 390px;
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.65;
+}
+
+.guestbook-close {
+  flex: 0 0 auto;
+  display: grid;
+  width: 32px;
+  height: 32px;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  color: var(--muted);
+  background: transparent;
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: color 160ms ease, border-color 160ms ease, background 160ms ease;
+}
+
+.guestbook-close:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-soft);
+}
+
 .guestbook-dialog .field {
-  margin-bottom: 14px;
+  margin-bottom: 16px;
 }
 
 .guestbook-dialog label {
@@ -3501,9 +3565,9 @@ textarea:focus {
 .guestbook-dialog input,
 .guestbook-dialog textarea {
   width: 100%;
-  border: 1px solid var(--line);
-  border-radius: var(--radius-md);
-  background: var(--surface-solid);
+  border: 1px solid color-mix(in srgb, var(--line) 92%, transparent);
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--surface-solid) 88%, var(--page));
   color: var(--text);
   outline: none;
   transition: border-color 160ms ease, box-shadow 160ms ease;
@@ -3516,7 +3580,7 @@ textarea:focus {
 
 .guestbook-dialog textarea {
   resize: vertical;
-  min-height: 100px;
+  min-height: 124px;
   padding: 12px 14px;
   line-height: 1.6;
 }
@@ -3525,6 +3589,19 @@ textarea:focus {
 .guestbook-dialog textarea:focus {
   border-color: rgba(201, 100, 66, 0.78);
   box-shadow: 0 0 0 4px var(--accent-soft);
+}
+
+.guestbook-character-count {
+  margin: -6px 0 18px;
+  color: var(--muted);
+  font-size: 0.75rem;
+  text-align: right;
+}
+
+.guestbook-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 4px;
 }
 
 .guestbook-dialog .guestbook-submit {
@@ -3547,6 +3624,13 @@ textarea:focus {
 .guestbook-dialog .guestbook-submit:disabled {
   opacity: 0.5;
   pointer-events: none;
+}
+
+@media (max-width: 600px) {
+  .guestbook-dialog { width: min(100% - 20px, 520px); }
+  .guestbook-dialog .modal-header { padding: 18px 18px 16px; }
+  .guestbook-dialog .modal-form { padding: 18px; }
+  .guestbook-dialog textarea { min-height: 116px; }
 }
 
 /* ---------- 更新公告 ---------- */

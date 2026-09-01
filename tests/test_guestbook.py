@@ -1,4 +1,5 @@
 import pytest
+from pathlib import Path
 
 
 def _register(client, username, email, nickname, password):
@@ -109,3 +110,16 @@ def test_csrf_protects_guestbook_post(client):
         sess['csrf_token'] = ''
     resp = client.post('/api/guestbook', json={'nickname': 'x', 'content': 'test'})
     assert resp.status_code == 403
+
+
+def test_guestbook_dialog_supports_notice_hash_and_single_close_control():
+    javascript = Path('static/app.js').read_text(encoding='utf-8')
+    stylesheet = Path('static/styles.css').read_text(encoding='utf-8')
+
+    assert "location.hash === '#guestbook'" in javascript
+    assert "site-notice-guestbook" in javascript
+    assert 'showGuestbookDialog();' in javascript
+    assert "guestbook-close" in javascript
+    assert "const cancelBtn = button('取消'" not in javascript
+    assert '.guestbook-dialog {' in stylesheet
+    assert '.guestbook-character-count' in stylesheet

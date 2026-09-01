@@ -1433,6 +1433,15 @@ function debounce(callback, delay) {
           lineupList.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
       });
+      });
+  }
+
+  var guestbookLink = banner.querySelector('.site-notice-guestbook');
+  if (guestbookLink) {
+    guestbookLink.addEventListener('click', function (event) {
+      event.preventDefault();
+      history.replaceState(null, '', `${location.pathname}${location.search}#guestbook`);
+      showGuestbookDialog();
     });
   }
 })();
@@ -1448,6 +1457,10 @@ function renderGuestbookTrigger() {
   const trigger = document.getElementById('guestbookTrigger');
   if (!trigger) return;
   trigger.querySelector('button').addEventListener('click', showGuestbookDialog);
+  if (location.hash === '#guestbook') {
+    history.replaceState(null, '', `${location.pathname}${location.search}`);
+    requestAnimationFrame(showGuestbookDialog);
+  }
 }
 
 function showGuestbookDialog() {
@@ -1461,17 +1474,28 @@ function showGuestbookDialog() {
 
   const card = document.createElement('section');
   card.className = 'modal-card guestbook-dialog';
+  card.setAttribute('role', 'dialog');
+  card.setAttribute('aria-modal', 'true');
+  card.setAttribute('aria-labelledby', 'guestbookDialogTitle');
 
   const header = document.createElement('div');
   header.className = 'modal-header';
   const headerCopy = document.createElement('div');
+  const eyebrow = el('p', 'guestbook-eyebrow', 'PLAYER FEEDBACK');
   const title = document.createElement('h2');
+  title.id = 'guestbookDialogTitle';
   title.textContent = '给站长留言';
   const desc = document.createElement('p');
   desc.className = 'auth-prompt-copy';
   desc.textContent = '有任何建议或想法？欢迎留言，站长会尽快查看。';
-  headerCopy.append(title, desc);
-  const closeBtn = button('关闭', closeGuestbookDialog);
+  headerCopy.append(eyebrow, title, desc);
+  const closeBtn = document.createElement('button');
+  closeBtn.type = 'button';
+  closeBtn.className = 'guestbook-close';
+  closeBtn.setAttribute('aria-label', '关闭留言窗口');
+  closeBtn.title = '关闭';
+  closeBtn.textContent = '×';
+  closeBtn.addEventListener('click', closeGuestbookDialog);
   header.append(headerCopy, closeBtn);
 
   const form = document.createElement('form');
@@ -1500,19 +1524,23 @@ function showGuestbookDialog() {
   contentInput.rows = 4;
   contentField.append(contentLabel, contentInput);
 
+  const characterCount = el('p', 'guestbook-character-count', '0 / 500');
+  contentInput.addEventListener('input', () => {
+    characterCount.textContent = `${contentInput.value.length} / 500`;
+  });
+
   const inlineMessage = document.createElement('div');
   inlineMessage.className = 'message';
 
   const actions = document.createElement('div');
-  actions.className = 'auth-prompt-actions';
-  const cancelBtn = button('取消', closeGuestbookDialog);
+  actions.className = 'guestbook-actions';
   const submitBtn = document.createElement('button');
   submitBtn.type = 'submit';
   submitBtn.className = 'primary-button auth-prompt-confirm';
   submitBtn.textContent = '提交留言';
-  actions.append(cancelBtn, submitBtn);
+  actions.append(submitBtn);
 
-  form.append(nicknameField, contentField, inlineMessage, actions);
+  form.append(nicknameField, contentField, characterCount, inlineMessage, actions);
   form.addEventListener('submit', async (event) => {
     event.preventDefault();
     const nickname = nicknameInput.value.trim();
@@ -1537,6 +1565,7 @@ function showGuestbookDialog() {
   card.append(header, form);
   backdrop.append(card);
   document.getElementById('authPromptRoot').append(backdrop);
+  contentInput.focus();
 }
 
 function closeGuestbookDialog() {

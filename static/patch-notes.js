@@ -54,7 +54,7 @@ function renderPatchNoteList(items) {
 function renderPatchNoteDetail(item) {
   patchDetailRoot.replaceChildren();
   const stack = el('div', 'detail-stack patch-note-detail');
-  stack.append(el('p', 'section-kicker', 'Patch Notes'));
+  stack.append(el('p', 'section-kicker', 'Official Patch Notes'));
   stack.append(el('h1', 'detail-title', item.title));
   stack.append(el('p', 'hero-description', `${item.version || '版本公告'} · ${item.published_at}`));
   if (item.source_url) {

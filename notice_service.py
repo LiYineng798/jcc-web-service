@@ -80,6 +80,11 @@ def _validate_notice_payload(data, existing=None):
         return None, '内容不能为空'
     if values['jump_tab'] not in VALID_JUMP_TABS:
         return None, '无效的跳转目标'
+    if values['link_url'] == '/#guestbook':
+        # Feedback is a homepage action, so stale lineup targets must not
+        # take precedence when an administrator reuses an existing notice.
+        values['jump_season_id'] = ''
+        values['jump_tab'] = ''
     return values, None
 
 
