@@ -1440,7 +1440,6 @@ function debounce(callback, delay) {
   if (guestbookLink) {
     guestbookLink.addEventListener('click', function (event) {
       event.preventDefault();
-      history.replaceState(null, '', `${location.pathname}${location.search}#guestbook`);
       showGuestbookDialog();
     });
   }

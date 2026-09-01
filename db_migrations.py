@@ -12,6 +12,30 @@ def migrate_schema(db, admin_id, now_text_func):
     migrate_live_comp_upload_jobs_table(db)
     migrate_live_comp_copy_events_table(db)
     migrate_audit_logs_table(db)
+    migrate_password_reset_requests_table(db)
+
+
+def migrate_password_reset_requests_table(db):
+    db.execute(
+        '''
+        CREATE TABLE IF NOT EXISTS password_reset_requests (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            user_id INTEGER,
+            email TEXT NOT NULL,
+            code_hash TEXT NOT NULL,
+            expires_at TEXT NOT NULL,
+            consumed_at TEXT,
+            attempts INTEGER NOT NULL DEFAULT 0,
+            ip_address TEXT NOT NULL,
+            provider_id TEXT NOT NULL DEFAULT '',
+            status TEXT NOT NULL DEFAULT 'sent',
+            created_at TEXT NOT NULL,
+            FOREIGN KEY(user_id) REFERENCES users(id)
+        )
+        '''
+    )
+    db.execute('CREATE INDEX IF NOT EXISTS idx_password_reset_requests_created_at ON password_reset_requests (created_at DESC)')
+    db.execute('CREATE INDEX IF NOT EXISTS idx_password_reset_requests_email_created_at ON password_reset_requests (email, created_at DESC)')
 
 
 def migrate_legacy_live_comp_stats(db, now_text_func):
