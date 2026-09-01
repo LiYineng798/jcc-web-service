@@ -12,6 +12,27 @@ CREATE TABLE IF NOT EXISTS users (
     last_login_at TEXT
 );
 
+CREATE TABLE IF NOT EXISTS password_reset_requests (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER,
+    email TEXT NOT NULL,
+    code_hash TEXT NOT NULL,
+    expires_at TEXT NOT NULL,
+    consumed_at TEXT,
+    attempts INTEGER NOT NULL DEFAULT 0,
+    ip_address TEXT NOT NULL,
+    provider_id TEXT NOT NULL DEFAULT '',
+    status TEXT NOT NULL DEFAULT 'sent',
+    created_at TEXT NOT NULL,
+    FOREIGN KEY(user_id) REFERENCES users(id)
+);
+
+CREATE INDEX IF NOT EXISTS idx_password_reset_requests_created_at
+ON password_reset_requests (created_at DESC);
+
+CREATE INDEX IF NOT EXISTS idx_password_reset_requests_email_created_at
+ON password_reset_requests (email, created_at DESC);
+
 CREATE TABLE IF NOT EXISTS lineups (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     user_id INTEGER NOT NULL,

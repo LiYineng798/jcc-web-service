@@ -56,6 +56,7 @@
     settings: { data: {}, loadedAt: 0 },
     noticeData: { data: null, loadedAt: 0 },
     guestbook: { items: [], total: 0, page: 1, page_size: 20, total_pages: 1, loadedAt: 0 },
+    passwordResetEmails: { date: '', items: [], total: 0, loadedAt: 0 },
     controllers: {},
     cacheTtlMs: 30000,
     notice: '',
@@ -226,6 +227,7 @@
     if (tabKey === 'audit') await loadAudit();
     if (tabKey === 'guestbook') await loadGuestbook();
     if (tabKey === 'settings') await Promise.all([loadSettings(), loadNotice()]);
+    if (tabKey === 'settings') await loadPasswordResetEmails();
     render();
   }
 
@@ -405,6 +407,12 @@
     });
     const payload = await api(`/api/guestbook?${query.toString()}`);
     state.guestbook = { ...state.guestbook, ...payload, loadedAt: Date.now() };
+  }
+
+  async function loadPasswordResetEmails({ force = false } = {}) {
+    if (!force && isFresh(state.passwordResetEmails.loadedAt)) return;
+    const payload = await api('/api/admin/password-reset-emails');
+    state.passwordResetEmails = { ...payload, loadedAt: Date.now() };
   }
 
   function render() {
@@ -1915,6 +1923,25 @@
     }
     noticeBody.append(list);
     body.append(noticePanel);
+
+    const emailPanel = workbenchPanel('今日密码找回邮件', '仅展示当天由系统发出的密码找回验证码邮件');
+    const emailBody = emailPanel.querySelector('.admin-workspace-body');
+    const emailData = state.passwordResetEmails;
+    emailBody.append(el('p', 'admin-meta', `${emailData.date || '今天'} · 共 ${emailData.total || 0} 封`));
+    const emailList = el('div', 'admin-list');
+    if (!emailData.items?.length) {
+      emailList.append(empty('今天暂无密码找回邮件'));
+    } else {
+      emailData.items.forEach((item) => {
+        const row = el('article', 'admin-row-card');
+        const info = el('div');
+        info.append(el('strong', '', item.email), el('p', 'admin-meta', `${item.created_at} · ${item.purpose} · ${item.status === 'sent' ? '已发送' : item.status}`));
+        row.append(info);
+        emailList.append(row);
+      });
+    }
+    emailBody.append(emailList);
+    body.append(emailPanel);
     return panel;
   }
 

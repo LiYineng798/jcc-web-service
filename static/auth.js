@@ -3,7 +3,7 @@ const $ = (selector) => document.querySelector(selector);
 const elements = {
   authStatus: $('#authStatus'), authForms: $('#authForms'), loginForm: $('#loginForm'), registerForm: $('#registerForm'), logoutButton: $('#logoutButton'), adminLink: $('#adminLink'),
   loginAccount: $('#loginAccount'), loginPassword: $('#loginPassword'), registerUsername: $('#registerUsername'), registerEmail: $('#registerEmail'), registerNickname: $('#registerNickname'), registerPassword: $('#registerPassword'), captchaImage: $('#captchaImage'), captchaAnswer: $('#captchaAnswer'), refreshCaptcha: $('#refreshCaptcha'), message: $('#message'),
-  themeToggle: $('#themeToggle'), themeIcon: $('#themeIcon'), themeText: $('#themeText'),
+  themeToggle: $('#themeToggle'), themeIcon: $('#themeIcon'), themeText: $('#themeText'), resetRequestForm: $('#resetRequestForm'), resetConfirmForm: $('#resetConfirmForm'), forgotPasswordButton: $('#forgotPasswordButton'), resetBackButton: $('#resetBackButton'), resetEmail: $('#resetEmail'), resetCode: $('#resetCode'), resetPassword: $('#resetPassword'),
   passwordToggles: document.querySelectorAll('[data-password-toggle]'),
 };
 
@@ -15,6 +15,11 @@ elements.themeToggle.addEventListener('click', () => setTheme(document.documentE
 elements.refreshCaptcha?.addEventListener('click', loadCaptcha);
 elements.loginForm?.addEventListener('submit', login);
 elements.registerForm?.addEventListener('submit', register);
+elements.forgotPasswordButton?.addEventListener('click', showResetRequest);
+elements.resetBackButton?.addEventListener('click', showLogin);
+document.querySelectorAll('.auth-reset-back').forEach((button) => button.addEventListener('click', showLogin));
+elements.resetRequestForm?.addEventListener('submit', requestPasswordReset);
+elements.resetConfirmForm?.addEventListener('submit', confirmPasswordReset);
 elements.logoutButton.addEventListener('click', logout);
 
 async function boot() {
@@ -70,6 +75,42 @@ function renderAuth() {
   elements.authStatus.textContent = loggedIn
     ? `已登录：${state.user.nickname}（${state.user.role === 'admin' ? '管理员' : '用户'}）`
     : '未登录：请选择登录或注册';
+}
+
+function showResetRequest() {
+  elements.loginForm?.classList.add('hidden');
+  elements.resetConfirmForm?.classList.add('hidden');
+  elements.resetRequestForm?.classList.remove('hidden');
+  elements.resetEmail?.focus();
+}
+
+function showLogin() {
+  elements.resetRequestForm?.classList.add('hidden');
+  elements.resetConfirmForm?.classList.add('hidden');
+  elements.loginForm?.classList.remove('hidden');
+  elements.loginAccount?.focus();
+}
+
+async function requestPasswordReset(event) {
+  event.preventDefault();
+  try {
+    await api('/api/password-reset/request', { method: 'POST', body: JSON.stringify({ email: elements.resetEmail.value.trim() }) });
+    elements.resetRequestForm.classList.add('hidden');
+    elements.resetConfirmForm.classList.remove('hidden');
+    showMessage('如果邮箱已注册，验证码已发送，请查收邮件');
+    elements.resetCode.focus();
+  } catch (error) { showMessage(error.message); }
+}
+
+async function confirmPasswordReset(event) {
+  event.preventDefault();
+  try {
+    await api('/api/password-reset/confirm', { method: 'POST', body: JSON.stringify({ email: elements.resetEmail.value.trim(), code: elements.resetCode.value.trim(), password: elements.resetPassword.value }) });
+    showLogin();
+    elements.loginAccount.value = elements.resetEmail.value.trim();
+    elements.loginPassword.value = '';
+    showMessage('密码已重置，请使用新密码登录');
+  } catch (error) { showMessage(error.message); }
 }
 
 function setupPasswordVisibilityToggles() {

@@ -56,6 +56,7 @@ from patch_note_service import create_patch_note, hide_patch_note, list_admin_pa
 from scoring import score_map
 from settings_service import get_settings, save_settings
 from visits import tracked_template_response
+from password_reset_service import list_today_requests
 from season_visibility import admin_payload, default_season_id, update_season
 
 admin_bp = Blueprint('admin', __name__)
@@ -459,6 +460,14 @@ def admin_settings():
     if error:
         return error
     return jsonify(get_settings(get_db()))
+
+
+@admin_bp.get('/api/admin/password-reset-emails')
+def admin_password_reset_emails():
+    admin, error = admin_required()
+    if error:
+        return error
+    return jsonify(list_today_requests(get_db()))
 
 
 @admin_bp.put('/api/admin/settings')

@@ -110,10 +110,28 @@
 
             <button class="primary-button auth-submit-button" type="submit">登录</button>
 
+            <button class="auth-card-link auth-forgot-link" id="forgotPasswordButton" type="button">忘记密码？</button>
+
             <div class="auth-separator"><span>还没有账号？</span></div>
             <a class="auth-card-link" href="/auth/register">创建新账号</a>
           </form>
 {% endif %}
+          <form id="resetRequestForm" class="auth-card auth-reset-card hidden">
+            <header class="auth-card-header">
+              <div class="auth-card-logo" aria-hidden="true">阵</div>
+              <div><h2>找回密码</h2><p>输入注册邮箱，获取一次性验证码。</p></div>
+            </header>
+            <div class="auth-field"><label for="resetEmail">注册邮箱</label><input id="resetEmail" type="email" autocomplete="email" placeholder="请输入注册时使用的邮箱" required /></div>
+            <button class="primary-button auth-submit-button" type="submit">发送验证码</button>
+            <div class="auth-card-footer"><button class="auth-inline-link auth-reset-back" id="resetBackButton" type="button">返回登录</button></div>
+          </form>
+          <form id="resetConfirmForm" class="auth-card auth-reset-card hidden">
+            <header class="auth-card-header"><div class="auth-card-logo" aria-hidden="true">阵</div><div><h2>设置新密码</h2><p>验证码有效期 {{ config.PASSWORD_RESET_CODE_TTL_MINUTES }} 分钟，验证成功后立即生效。</p></div></header>
+            <div class="auth-field"><label for="resetCode">验证码</label><input id="resetCode" inputmode="numeric" autocomplete="one-time-code" placeholder="6 位验证码" maxlength="6" required /></div>
+            <div class="auth-field"><label for="resetPassword">新密码</label><input id="resetPassword" type="password" autocomplete="new-password" placeholder="大于5位，含字母和数字" required /></div>
+            <button class="primary-button auth-submit-button" type="submit">重置密码</button>
+            <div class="auth-card-footer"><button class="auth-inline-link auth-reset-back" type="button">返回登录</button></div>
+          </form>
         </section>
 
         <div class="auth-page-status" id="authStatus">正在检查登录状态...</div>

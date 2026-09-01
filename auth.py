@@ -9,6 +9,7 @@ from captcha import is_captcha_verified, lookup_answer_for_tests, verify_captcha
 from db import db_kind, get_db, now_text
 from db_adapter import insert_returning_id_sql, last_insert_id
 from rate_limit import hit_limit
+from password_reset_service import confirm_reset, request_reset
 
 auth_bp = Blueprint('auth', __name__)
 
@@ -48,7 +49,7 @@ def csrf_token():
 
 def require_csrf():
     if request.method in {'POST', 'PUT', 'DELETE'} and request.endpoint not in {
-        'auth.login', 'auth.register', 'auth.logout', 'captcha.captcha_verify'
+        'auth.login', 'auth.register', 'auth.logout', 'auth.password_reset_request', 'auth.password_reset_confirm', 'captcha.captcha_verify'
     }:
         if request.headers.get('X-CSRF-Token') != session.get('csrf_token'):
             return jsonify({'error': 'CSRF 校验失败'}), 403
@@ -231,5 +232,23 @@ def login():
 def logout():
     session.clear()
     return jsonify({'ok': True})
+
+
+@auth_bp.post('/api/password-reset/request')
+def password_reset_request():
+    data = request.get_json(silent=True) or {}
+    result, error, status_code = request_reset(data.get('email'), get_client_ip())
+    if error:
+        return jsonify({'error': error}), status_code
+    return jsonify(result), status_code
+
+
+@auth_bp.post('/api/password-reset/confirm')
+def password_reset_confirm():
+    data = request.get_json(silent=True) or {}
+    result, error, status_code = confirm_reset(data.get('email'), data.get('code'), data.get('password'))
+    if error:
+        return jsonify({'error': error}), status_code
+    return jsonify(result), status_code
 
 
