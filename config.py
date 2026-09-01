@@ -33,6 +33,7 @@ def apply_config(app, test_config=None):
         RESEND_API_KEY=os.environ.get('RESEND_API_KEY', ''),
         RESEND_FROM_EMAIL=os.environ.get('RESEND_FROM_EMAIL', '阵容库 <no-reply@mail.np5.top>'),
         PASSWORD_RESET_CODE_TTL_MINUTES=int(os.environ.get('JCC_PASSWORD_RESET_CODE_TTL_MINUTES', '10')),
+        PASSWORD_RESET_COOLDOWN_SECONDS=int(os.environ.get('JCC_PASSWORD_RESET_COOLDOWN_SECONDS', '60')),
     )
     if test_config:
         app.config.update(test_config)

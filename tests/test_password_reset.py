@@ -15,6 +15,9 @@ def test_password_reset_request_and_confirm(monkeypatch, client):
     assert response.status_code == 200
     assert '验证码将在几分钟内发送' in response.get_json()['message']
     assert sent['email'] == 'reset@example.com'
+    second = client.post('/api/password-reset/request', json={'email': 'reset@example.com'})
+    assert second.status_code == 200
+    assert sent['request_id'] == 1
 
     wrong = client.post('/api/password-reset/confirm', json={'email': sent['email'], 'code': '000000', 'password': 'new123'})
     assert wrong.status_code == 400

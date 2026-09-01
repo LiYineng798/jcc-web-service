@@ -55,19 +55,33 @@ def request_reset(email, ip_address):
         return generic, None, 200
 
     db = get_db()
+    now = datetime.now()
+    cooldown_seconds = int(current_app.config.get('PASSWORD_RESET_COOLDOWN_SECONDS', 60))
+    latest_sent = db.execute(
+        '''SELECT created_at FROM password_reset_requests
+           WHERE email = ? AND status IN ('pending', 'sent')
+           ORDER BY id DESC LIMIT 1''',
+        (email,),
+    ).fetchone() if email else None
+    if latest_sent:
+        try:
+            sent_at = datetime.strptime(latest_sent['created_at'], '%Y-%m-%d %H:%M:%S')
+            if (now - sent_at).total_seconds() < cooldown_seconds:
+                return generic, None, 200
+        except (TypeError, ValueError):
+            pass
     user = db.execute('SELECT id FROM users WHERE email = ? AND status = \'active\'', (email,)).fetchone() if email else None
     if not user:
         return generic, None, 200
 
-    now = datetime.now()
     now_value = now.strftime('%Y-%m-%d %H:%M:%S')
     expires_value = (now + timedelta(minutes=current_app.config['PASSWORD_RESET_CODE_TTL_MINUTES'])).strftime('%Y-%m-%d %H:%M:%S')
     code = f'{secrets.randbelow(1000000):06d}'
     cursor = db.execute(
         insert_returning_id_sql(
             '''INSERT INTO password_reset_requests
-               (user_id, email, code_hash, expires_at, ip_address, created_at)
-               VALUES (?, ?, ?, ?, ?, ?)''',
+               (user_id, email, code_hash, expires_at, ip_address, created_at, status)
+               VALUES (?, ?, ?, ?, ?, ?, 'pending')''',
             db_kind(),
         ),
         (user['id'], email, _hash_code(code), expires_value, ip_address, now_value),
@@ -82,7 +96,7 @@ def request_reset(email, ip_address):
         return None, '邮件发送失败，请稍后再试', 503
 
     provider_id = str(result.get('id', '') if isinstance(result, dict) else getattr(result, 'id', ''))
-    db.execute('UPDATE password_reset_requests SET provider_id = ? WHERE id = ?', (provider_id, request_id))
+    db.execute("UPDATE password_reset_requests SET provider_id = ?, status = 'sent' WHERE id = ?", (provider_id, request_id))
     db.commit()
     return generic, None, 200
 
