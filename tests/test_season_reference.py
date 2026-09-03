@@ -105,14 +105,14 @@ def test_season_reference_images_wake_on_tab_switch_and_have_fallbacks():
 
 def test_s18_official_snapshot_supplants_pbe_mechanics(client):
     payload = json.loads((DATA_ROOT / 's18' / 'index.json').read_text(encoding='utf-8'))
-    assert payload['game_version'] == '18.18.1b'
-    assert payload['version_id'] == 's18__18_18_1b'
+    assert payload['game_version'] == '18.18.1c'
+    assert payload['version_id'] == 's18__18_18_1c'
     assert payload['display_name'] == 'S18 自然之力'
     assert payload['status'] == 'active'
     assert len(payload['mechanics']) == 1
     assert payload['mechanics'][0]['kind'] == 'charm'
     assert payload['mechanics'][0]['display_name'] == '仙灵'
-    assert len(payload['mechanics'][0]['entries']) == 172
+    assert len(payload['mechanics'][0]['entries']) == 170
     assert len(payload['champions']) == 74
     assert len(payload['augments']) == 258
 
@@ -126,7 +126,7 @@ def test_s18_official_charms_use_site_categories_with_upgrade_layers():
     payload = json.loads((DATA_ROOT / 's18' / 'index.json').read_text(encoding='utf-8'))
     charm = payload['mechanics'][0]
     assert charm['kind'] == 'charm'
-    assert len(charm['entries']) == 172
+    assert len(charm['entries']) == 170
     categories = {entry['data']['category'] for entry in charm['entries']}
     assert categories == {'champion', 'item', 'shop', 'combat', 'gold_xp', 'other'}
     for entry in charm['entries']:
@@ -137,7 +137,7 @@ def test_s18_official_charms_use_site_categories_with_upgrade_layers():
         assert entry['data']['category_label']
         assert entry['data']['tier'] in {1, 2, 3}
         assert entry['data']['cost'] is not None
-    assert sum(entry['data']['upgrade'] is not None for entry in charm['entries']) == 171
+    assert sum(entry['data']['upgrade'] is not None for entry in charm['entries']) == 169
     assert sum(entry['data']['prismatic'] is not None for entry in charm['entries']) == 11
     barrier = next(entry for entry in charm['entries'] if entry['name'] == '屏障')
     assert barrier['data']['prismatic']['effect'] == '友军获得7500护盾值，在30秒内持续衰减。'
@@ -177,7 +177,7 @@ def test_every_s18_champion_has_a_local_optimized_skill_icon():
 
 def test_every_s18_item_has_a_local_optimized_image():
     payload = json.loads((DATA_ROOT / 's18' / 'items.json').read_text(encoding='utf-8'))
-    assert len(payload['items']) == 157
+    assert len(payload['items']) == 156
     assert not any(item['category'] == 'consumable' for item in payload['items'])
     for item in payload['items']:
         assert item['image'], item['name']
@@ -536,8 +536,8 @@ def test_released_seasons_publish_official_augments_with_local_images():
     assert all(not augment['appearance_stages'] for augment in s8_unavailable)
 
     s18 = json.loads((DATA_ROOT / 's18' / 'augments.json').read_text(encoding='utf-8'))
-    assert s18['source']['requested_version'] == '18.18.1b'
-    assert s18['source']['resolved_version'] == '18.18.1b'
+    assert s18['source']['requested_version'] == '18.18.1c'
+    assert s18['source']['resolved_version'] == '18.18.1c'
     assert s18['source']['used_base_patch_fallback'] is False
     assert s18['source']['url'].startswith('https://game.gtimg.cn/')
     assert len(s18['augments']) == 258
