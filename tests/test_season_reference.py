@@ -143,6 +143,18 @@ def test_s18_official_charms_use_site_categories_with_upgrade_layers():
     assert barrier['data']['prismatic']['effect'] == '友军获得7500护盾值，在30秒内持续衰减。'
 
 
+def test_s18_charms_populate_rounds_and_requires():
+    payload = json.loads((DATA_ROOT / 's18' / 'index.json').read_text(encoding='utf-8'))
+    charm = payload['mechanics'][0]
+    assert charm['kind'] == 'charm'
+    assert len(charm['entries']) == 170
+    assert sum(bool(entry['data'].get('rounds')) for entry in charm['entries']) == 170
+    assert sum(bool(entry['data'].get('requires')) for entry in charm['entries']) == 55
+    forest = next(entry for entry in charm['entries'] if entry['name'] == '森林魔法师')
+    assert forest['data']['rounds'] == ['3-5 ~ 10-1']
+    assert forest['data']['requires'] == ['准备阶段的前8秒内']
+
+
 def test_s18_champion_detail_and_hover_use_large_splash_art(client):
     payload = json.loads((DATA_ROOT / 's18' / 'index.json').read_text(encoding='utf-8'))
     for champion in payload['champions']:
