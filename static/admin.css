@@ -244,6 +244,23 @@ body.admin-page {
   font-size: 10px;
 }
 
+.guestbook-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.guestbook-admin-heading {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.guestbook-admin-heading .admin-pill {
+  flex: 0 0 auto;
+}
+
 .admin-nav-item.is-active .admin-nav-count {
   background: var(--accent);
   color: #fff;

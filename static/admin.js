@@ -55,7 +55,7 @@
     audit: { items: [], total: 0, page: 1, page_size: 30, total_pages: 1, loadedAt: 0 },
     settings: { data: {}, loadedAt: 0 },
     noticeData: { data: null, loadedAt: 0 },
-    guestbook: { items: [], total: 0, page: 1, page_size: 20, total_pages: 1, loadedAt: 0 },
+    guestbook: { items: [], total: 0, unread_total: 0, status: 'active', page: 1, page_size: 20, total_pages: 1, loadedAt: 0 },
     passwordResetEmails: { date: '', items: [], total: 0, loadedAt: 0 },
     controllers: {},
     cacheTtlMs: 30000,
@@ -76,6 +76,8 @@
     deleted: '已删除',
     active: '正常',
     archived: '已归档',
+    unread: '未读',
+    read: '已读',
     disabled: '已禁用',
   };
   const liveSeasonStatusOptions = [
@@ -97,6 +99,7 @@
     audit: ['审计日志', '追踪管理员关键操作记录'],
     'daily-reports': ['每日报告', '昨日运营快照与历史数据'],
     guestbook: ['留言管理', '处理访客提交的站点反馈'],
+    'password-reset-emails': ['找回邮件', '查看今日密码找回验证码发送记录'],
     settings: ['系统设置', '管理功能开关与全站通知'],
   };
   const PATCH_NOTE_TEMPLATE = `## 英雄调整
@@ -168,6 +171,7 @@
       loadCopyRank({ force: true }),
       loadAdminLiveCompsSeasons({ force: true }),
     ]);
+    await loadGuestbook({ force: true });
     render();
   }
 
@@ -226,8 +230,8 @@
     if (tabKey === 'daily-reports') await loadDailyReports();
     if (tabKey === 'audit') await loadAudit();
     if (tabKey === 'guestbook') await loadGuestbook();
+    if (tabKey === 'password-reset-emails') await loadPasswordResetEmails();
     if (tabKey === 'settings') await Promise.all([loadSettings(), loadNotice()]);
-    if (tabKey === 'settings') await loadPasswordResetEmails();
     render();
   }
 
@@ -404,6 +408,7 @@
     const query = new URLSearchParams({
       page: String(state.guestbook.page),
       page_size: String(state.guestbook.page_size),
+      status: state.guestbook.status,
     });
     const payload = await api(`/api/guestbook?${query.toString()}`);
     state.guestbook = { ...state.guestbook, ...payload, loadedAt: Date.now() };
@@ -453,6 +458,7 @@
     }
     if (state.activeTab === 'audit') root.append(renderAuditWorkspace());
     if (state.activeTab === 'guestbook') root.append(renderGuestbookWorkspace());
+    if (state.activeTab === 'password-reset-emails') root.append(renderPasswordResetEmailsWorkspace());
     if (state.activeTab === 'settings') root.append(renderSettingsWorkspace());
     renderDialogs();
     refreshIcons();
@@ -480,6 +486,11 @@
     if (elements.pendingReportCount) {
       elements.pendingReportCount.textContent = String(state.overview?.stats?.pending_reports_count || 0);
     }
+    const unread = String(state.guestbook?.unread_total || 0);
+    document.querySelectorAll('#guestbookUnreadCount, #guestbookUnreadCountMobile').forEach((node) => {
+      node.textContent = unread;
+      node.hidden = unread === '0';
+    });
   }
 
   function syncTabs() {
@@ -1924,30 +1935,44 @@
     noticeBody.append(list);
     body.append(noticePanel);
 
-    const emailPanel = workbenchPanel('今日密码找回邮件', '仅展示当天由系统发出的密码找回验证码邮件');
-    const emailBody = emailPanel.querySelector('.admin-workspace-body');
+    return panel;
+  }
+
+  function renderPasswordResetEmailsWorkspace() {
+    const panel = workbenchPanel('今日密码找回邮件', '仅展示当天由系统发出的密码找回验证码邮件');
+    const body = panel.querySelector('.admin-workspace-body');
     const emailData = state.passwordResetEmails;
-    emailBody.append(el('p', 'admin-meta', `${emailData.date || '今天'} · 共 ${emailData.total || 0} 封`));
-    const emailList = el('div', 'admin-list');
+    body.append(el('p', 'admin-meta', `${emailData.date || '今天'} · 共 ${emailData.total || 0} 封`));
+    const list = el('div', 'admin-list');
     if (!emailData.items?.length) {
-      emailList.append(empty('今天暂无密码找回邮件'));
+      list.append(empty('今天暂无密码找回邮件'));
     } else {
       emailData.items.forEach((item) => {
         const row = el('article', 'admin-row-card');
         const info = el('div');
         info.append(el('strong', '', item.email), el('p', 'admin-meta', `${item.created_at} · ${item.purpose} · ${item.status === 'sent' ? '已发送' : item.status}`));
         row.append(info);
-        emailList.append(row);
+        list.append(row);
       });
     }
-    emailBody.append(emailList);
-    body.append(emailPanel);
+    body.append(list);
     return panel;
   }
 
   function renderGuestbookWorkspace() {
-    const panel = workbenchPanel('留言管理', '');
+    const panel = workbenchPanel('留言管理', '先标记已读，再归档已处理留言');
     const body = panel.querySelector('.admin-workspace-body');
+    const filters = el('div', 'admin-segmented guestbook-filters');
+    [['active', '待处理'], ['unread', '未读'], ['read', '已读'], ['archived', '已归档'], ['all', '全部']].forEach(([value, label]) => {
+      filters.append(button(label, async () => {
+        if (state.guestbook.status === value) return;
+        state.guestbook.status = value;
+        state.guestbook.page = 1;
+        await loadGuestbook({ force: true });
+        render();
+      }, `small-button${state.guestbook.status === value ? ' is-active' : ''}`));
+    });
+    body.append(filters);
     const list = el('div', 'admin-list');
     if (!state.guestbook.items.length) {
       list.append(empty('暂无留言'));
@@ -1961,10 +1986,16 @@
   function guestbookCard(msg) {
     const card = el('article', 'admin-card admin-card-tight');
     const head = el('div', 'admin-card-head');
-    head.append(el('h3', '', msg.nickname));
+    const heading = el('div', 'guestbook-admin-heading');
+    heading.append(el('h3', '', msg.nickname), pill(statusText[msg.status] || msg.status || '未读'));
+    head.append(heading);
     const meta = el('p', 'admin-meta', `${msg.created_at} · IP: ${msg.ip_address}`);
     const content = el('p', 'admin-reason', msg.content);
     const actions = el('div', 'card-actions');
+    const statusActions = [];
+    if (msg.status === 'unread') statusActions.push(button('标记已读', () => updateGuestbookStatus(msg, 'read'), 'small-button is-active'));
+    if (msg.status === 'read') statusActions.push(button('归档', () => updateGuestbookStatus(msg, 'archived'), 'small-button'));
+    if (msg.status === 'archived') statusActions.push(button('恢复待处理', () => updateGuestbookStatus(msg, 'read'), 'small-button'));
     const delBtn = button('删除留言', async () => {
       if (!confirm('确定要删除这条留言吗？')) return;
       await api(`/api/guestbook/${msg.id}`, { method: 'DELETE' });
@@ -1972,9 +2003,19 @@
       render();
       setNotice('留言已删除');
     }, 'small-button danger-button');
-    actions.append(delBtn);
+    actions.append(...statusActions, delBtn);
     card.append(head, meta, content, actions);
     return card;
+  }
+
+  async function updateGuestbookStatus(msg, status) {
+    await api(`/api/guestbook/${msg.id}/status`, {
+      method: 'PUT',
+      body: JSON.stringify({ status }),
+    });
+    await loadGuestbook({ force: true });
+    render();
+    setNotice(status === 'archived' ? '留言已归档' : status === 'read' ? '留言已标记为已读' : '留言已恢复');
   }
 
   function renderPagination(kind) {

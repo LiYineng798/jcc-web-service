@@ -3503,23 +3503,38 @@ textarea:focus {
 /* ---- guestbook dialog ---- */
 
 .guestbook-dialog {
-  width: min(100% - 32px, 520px);
+  width: min(100% - 32px, 560px);
   border-color: color-mix(in srgb, var(--accent) 34%, var(--line));
-  border-radius: 8px;
+  border-radius: 12px;
   overflow: hidden;
+  box-shadow: 0 24px 70px rgba(14, 18, 25, .24);
 }
 
 .guestbook-dialog .modal-header {
   align-items: flex-start;
-  gap: 18px;
-  padding: 22px 24px 18px;
+  gap: 12px;
+  padding: 24px 26px 20px;
   border-bottom: 1px solid var(--line);
-  background: linear-gradient(120deg, color-mix(in srgb, var(--accent) 9%, var(--surface-solid)), var(--surface-solid));
+  background: color-mix(in srgb, var(--accent) 8%, var(--surface-solid));
 }
+
+.guestbook-header-icon {
+  flex: 0 0 42px;
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border: 1px solid color-mix(in srgb, var(--accent) 32%, var(--line));
+  border-radius: 10px;
+  color: var(--accent-strong);
+  background: var(--surface-solid);
+}
+
+.guestbook-header-icon svg { width: 21px; height: 21px; }
 
 .guestbook-dialog .modal-form {
   gap: 0;
-  padding: 22px 24px 24px;
+  padding: 24px 26px 26px;
 }
 
 .guestbook-eyebrow {
@@ -3567,12 +3582,13 @@ textarea:focus {
 }
 
 .guestbook-dialog .field {
-  margin-bottom: 16px;
+  margin-bottom: 18px;
 }
+
+.guestbook-field { display: grid; gap: 7px; }
 
 .guestbook-dialog label {
   display: block;
-  margin-bottom: 5px;
   color: var(--muted);
   font-size: 0.88rem;
   font-weight: 600;
@@ -3582,22 +3598,23 @@ textarea:focus {
 .guestbook-dialog textarea {
   width: 100%;
   border: 1px solid color-mix(in srgb, var(--line) 92%, transparent);
-  border-radius: 6px;
-  background: color-mix(in srgb, var(--surface-solid) 88%, var(--page));
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--surface-solid) 92%, var(--page));
   color: var(--text);
   outline: none;
   transition: border-color 160ms ease, box-shadow 160ms ease;
 }
 
 .guestbook-dialog input {
-  height: 44px;
-  padding: 0 14px;
+  height: 46px;
+  padding: 0 13px;
 }
 
 .guestbook-dialog textarea {
-  resize: vertical;
-  min-height: 124px;
-  padding: 12px 14px;
+  resize: none;
+  min-height: 132px;
+  max-height: 220px;
+  padding: 13px 14px;
   line-height: 1.6;
 }
 
@@ -3608,7 +3625,7 @@ textarea:focus {
 }
 
 .guestbook-character-count {
-  margin: -6px 0 18px;
+  margin: -8px 0 14px;
   color: var(--muted);
   font-size: 0.75rem;
   text-align: right;
@@ -3616,11 +3633,12 @@ textarea:focus {
 
 .guestbook-actions {
   display: flex;
-  justify-content: flex-end;
-  margin-top: 4px;
+  justify-content: stretch;
+  margin-top: 6px;
 }
 
-.guestbook-dialog .guestbook-submit {
+.guestbook-dialog .guestbook-submit,
+.guestbook-dialog .auth-prompt-confirm {
   width: 100%;
   border: 0;
   border-radius: var(--radius-md);
@@ -3632,21 +3650,45 @@ textarea:focus {
   transition: transform 160ms ease, background 160ms ease;
 }
 
-.guestbook-dialog .guestbook-submit:hover {
+.guestbook-dialog .guestbook-submit:hover,
+.guestbook-dialog .auth-prompt-confirm:hover {
   background: var(--accent-strong);
   transform: translateY(-1px);
 }
 
-.guestbook-dialog .guestbook-submit:disabled {
+.guestbook-dialog .guestbook-submit:disabled,
+.guestbook-dialog .auth-prompt-confirm:disabled {
   opacity: 0.5;
   pointer-events: none;
 }
 
+.guestbook-helper {
+  margin: 0;
+  color: var(--muted);
+  font-size: .76rem;
+  line-height: 1.55;
+}
+
 @media (max-width: 600px) {
-  .guestbook-dialog { width: min(100% - 20px, 520px); }
-  .guestbook-dialog .modal-header { padding: 18px 18px 16px; }
-  .guestbook-dialog .modal-form { padding: 18px; }
+  .guestbook-dialog { width: min(100% - 20px, 560px); max-height: calc(100dvh - 20px); }
+  .guestbook-dialog .modal-header {
+    position: relative;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 18px 18px 16px;
+  }
+  .guestbook-dialog .modal-header > div:not(.guestbook-header-icon) {
+    min-width: 0;
+    flex: 1 1 auto;
+  }
+  .guestbook-dialog .guestbook-close {
+    position: relative;
+    z-index: 1;
+    margin-left: auto;
+  }
+  .guestbook-dialog .modal-form { padding: 18px; overflow-y: auto; }
   .guestbook-dialog textarea { min-height: 116px; }
+  .guestbook-header-icon { flex-basis: 36px; width: 36px; height: 36px; }
 }
 
 /* ---------- 更新公告 ---------- */

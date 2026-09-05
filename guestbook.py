@@ -3,7 +3,7 @@ from flask import Blueprint, jsonify, request
 from admin_pagination import parse_page, parse_page_size
 from auth import admin_required, current_user, get_client_ip
 from db import get_db
-from guestbook_service import create_message, delete_message, list_messages
+from guestbook_service import create_message, delete_message, list_messages, update_message_status
 from route_response import respond_service_result
 
 guestbook_bp = Blueprint('guestbook', __name__)
@@ -24,7 +24,7 @@ def get_messages():
         return error
     page = parse_page(request.args)
     page_size = parse_page_size(request.args, default=20, maximum=100)
-    return jsonify(list_messages(get_db(), page, page_size))
+    return jsonify(list_messages(get_db(), page, page_size, request.args.get('status', 'active')))
 
 
 @guestbook_bp.delete('/api/guestbook/<int:message_id>')
@@ -33,4 +33,16 @@ def delete_single_message(message_id):
     if error:
         return error
     result, service_error, status_code = delete_message(get_db(), message_id)
+    return respond_service_result(result, service_error, status_code)
+
+
+@guestbook_bp.put('/api/guestbook/<int:message_id>/status')
+def update_single_message_status(message_id):
+    admin, error = admin_required()
+    if error:
+        return error
+    payload = request.get_json(silent=True) or {}
+    result, service_error, status_code = update_message_status(
+        get_db(), message_id, payload.get('status'), admin['id'],
+    )
     return respond_service_result(result, service_error, status_code)

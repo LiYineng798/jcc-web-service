@@ -1478,15 +1478,17 @@ function showGuestbookDialog() {
   card.setAttribute('aria-labelledby', 'guestbookDialogTitle');
 
   const header = document.createElement('div');
-  header.className = 'modal-header';
+  header.className = 'modal-header guestbook-header';
   const headerCopy = document.createElement('div');
+  const icon = el('span', 'guestbook-header-icon');
+  icon.innerHTML = '<i data-lucide="message-circle-heart"></i>';
   const eyebrow = el('p', 'guestbook-eyebrow', 'PLAYER FEEDBACK');
   const title = document.createElement('h2');
   title.id = 'guestbookDialogTitle';
   title.textContent = '给站长留言';
   const desc = document.createElement('p');
   desc.className = 'auth-prompt-copy';
-  desc.textContent = '有任何建议或想法？欢迎留言，站长会尽快查看。';
+  desc.textContent = '告诉我们你的体验、建议或想看的内容。';
   headerCopy.append(eyebrow, title, desc);
   const closeBtn = document.createElement('button');
   closeBtn.type = 'button';
@@ -1495,7 +1497,7 @@ function showGuestbookDialog() {
   closeBtn.title = '关闭';
   closeBtn.textContent = '×';
   closeBtn.addEventListener('click', closeGuestbookDialog);
-  header.append(headerCopy, closeBtn);
+  header.append(icon, headerCopy, closeBtn);
 
   const form = document.createElement('form');
   form.className = 'modal-form';
@@ -1512,6 +1514,7 @@ function showGuestbookDialog() {
     nicknameInput.readOnly = true;
     nicknameLabel.textContent = '昵称（已登录）';
   }
+  nicknameField.classList.add('guestbook-field');
   nicknameField.append(nicknameLabel, nicknameInput);
 
   const contentField = el('div', 'field');
@@ -1521,11 +1524,14 @@ function showGuestbookDialog() {
   contentInput.maxLength = 500;
   contentInput.required = true;
   contentInput.rows = 4;
+  contentField.classList.add('guestbook-field', 'guestbook-content-field');
   contentField.append(contentLabel, contentInput);
 
   const characterCount = el('p', 'guestbook-character-count', '0 / 500');
   contentInput.addEventListener('input', () => {
     characterCount.textContent = `${contentInput.value.length} / 500`;
+    contentInput.style.height = 'auto';
+    contentInput.style.height = `${Math.min(contentInput.scrollHeight, 220)}px`;
   });
 
   const inlineMessage = document.createElement('div');
@@ -1539,7 +1545,8 @@ function showGuestbookDialog() {
   submitBtn.textContent = '提交留言';
   actions.append(submitBtn);
 
-  form.append(nicknameField, contentField, characterCount, inlineMessage, actions);
+  const helper = el('p', 'guestbook-helper', '留言会进入站长的处理队列，我们会认真阅读每一条反馈。');
+  form.append(nicknameField, contentField, characterCount, inlineMessage, helper, actions);
   form.addEventListener('submit', async (event) => {
     event.preventDefault();
     const nickname = nicknameInput.value.trim();
@@ -1564,6 +1571,10 @@ function showGuestbookDialog() {
   card.append(header, form);
   backdrop.append(card);
   document.getElementById('authPromptRoot').append(backdrop);
+  window.lucide?.createIcons();
+  backdrop.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') closeGuestbookDialog();
+  });
   contentInput.focus();
 }
 

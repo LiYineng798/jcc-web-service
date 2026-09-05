@@ -13,6 +13,7 @@ def migrate_schema(db, admin_id, now_text_func):
     migrate_live_comp_copy_events_table(db)
     migrate_audit_logs_table(db)
     migrate_password_reset_requests_table(db)
+    migrate_guestbook_messages_table(db)
 
 
 def migrate_password_reset_requests_table(db):
@@ -36,6 +37,23 @@ def migrate_password_reset_requests_table(db):
     )
     db.execute('CREATE INDEX IF NOT EXISTS idx_password_reset_requests_created_at ON password_reset_requests (created_at DESC)')
     db.execute('CREATE INDEX IF NOT EXISTS idx_password_reset_requests_email_created_at ON password_reset_requests (email, created_at DESC)')
+
+
+def migrate_guestbook_messages_table(db):
+    columns = table_columns(db, 'guestbook_messages')
+    if not columns:
+        return
+    if 'status' not in columns:
+        db.execute("ALTER TABLE guestbook_messages ADD COLUMN status TEXT NOT NULL DEFAULT 'unread'")
+    if 'read_at' not in columns:
+        db.execute('ALTER TABLE guestbook_messages ADD COLUMN read_at TEXT')
+    if 'read_by' not in columns:
+        db.execute('ALTER TABLE guestbook_messages ADD COLUMN read_by INTEGER')
+    if 'archived_at' not in columns:
+        db.execute('ALTER TABLE guestbook_messages ADD COLUMN archived_at TEXT')
+    if 'archived_by' not in columns:
+        db.execute('ALTER TABLE guestbook_messages ADD COLUMN archived_by INTEGER')
+    db.execute('CREATE INDEX IF NOT EXISTS idx_guestbook_messages_status_created_at ON guestbook_messages (status, created_at DESC)')
 
 
 def migrate_legacy_live_comp_stats(db, now_text_func):

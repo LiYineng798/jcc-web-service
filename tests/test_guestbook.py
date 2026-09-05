@@ -104,6 +104,22 @@ def test_admin_can_delete_message(client):
     assert all(item['id'] != msg_id for item in list_resp2.get_json()['items'])
 
 
+def test_admin_can_mark_read_and_archive_message(client):
+    client.post('/api/guestbook', json={'nickname': 'u1', 'content': '处理状态测试'})
+    client.post('/api/login', json={'account': 'adminxlx', 'password': 'Admin1234'})
+    csrf = client.get('/api/me').get_json()['csrf_token']
+    message = client.get('/api/guestbook?status=unread').get_json()['items'][0]
+
+    read = client.put(f"/api/guestbook/{message['id']}/status", json={'status': 'read'}, headers={'X-CSRF-Token': csrf})
+    assert read.status_code == 200
+    assert read.get_json()['status'] == 'read'
+
+    archived = client.put(f"/api/guestbook/{message['id']}/status", json={'status': 'archived'}, headers={'X-CSRF-Token': csrf})
+    assert archived.status_code == 200
+    assert archived.get_json()['status'] == 'archived'
+    assert client.get('/api/guestbook?status=active').get_json()['total'] == 0
+
+
 def test_csrf_protects_guestbook_post(client):
     _register(client, 'csrfuser', 'csrf@test.com', 'csrf', 'abc123')
     with client.session_transaction() as sess:
@@ -123,3 +139,6 @@ def test_guestbook_dialog_supports_notice_hash_and_single_close_control():
     assert "const cancelBtn = button('取消'" not in javascript
     assert '.guestbook-dialog {' in stylesheet
     assert '.guestbook-character-count' in stylesheet
+    assert 'flex-direction: row;' in stylesheet.split('@media (max-width: 600px)', 1)[1]
+    assert '.guestbook-dialog .guestbook-close' in stylesheet
+    assert "vendor/lucide/lucide.min.js" in Path('templates/index.html').read_text(encoding='utf-8')

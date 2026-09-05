@@ -400,8 +400,16 @@ CREATE TABLE IF NOT EXISTS guestbook_messages (
     content TEXT NOT NULL,
     ip_address TEXT NOT NULL,
     created_at TEXT NOT NULL,
+    status TEXT NOT NULL DEFAULT 'unread',
+    read_at TEXT,
+    read_by INTEGER,
+    archived_at TEXT,
+    archived_by INTEGER,
     FOREIGN KEY(user_id) REFERENCES users(id)
 );
+
+CREATE INDEX IF NOT EXISTS idx_guestbook_messages_status_created_at
+ON guestbook_messages (status, created_at DESC);
 
 CREATE TABLE IF NOT EXISTS patch_notes (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
