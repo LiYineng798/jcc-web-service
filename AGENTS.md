@@ -1,5 +1,7 @@
 # Repository Guidelines
 
+Simulator and live-comp board portraits use a dedicated non-replaced inner crop wrapper (`unit-portrait-crop` / `formation-portrait-crop`) for both the image and name gradient. Keep images as ordinary full-size `<img>` elements without their own clip-path, 3D transforms, or ancestor drop-shadow filters: iPhone Safari can misalign separately composited clipped images. The normal crop inset is 3px and the portrait poster inset is 4px. Invalid board units retain their warning badge and border color without a filter on the portrait. Verify both boards and wide/portrait image exports when changing this structure.
+
 The account-center `#accountApp` uses the shared `account-grid` layout with 20px between its dashboard/history/reports/mine sections (16px on screens up to 640px). Account subtitles have 8px separation, consecutive metadata rows have 6px, and history action buttons have 12px above them.
 
 Avatars retain transparent backgrounds on every surface, including dark mode and editor previews. Regular lineup cards leave 12px between the code preview and its immediately following action row.

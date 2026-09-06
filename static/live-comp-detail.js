@@ -133,7 +133,10 @@
       const portraitImage = document.createElement('img');
       portraitImage.src = asset(champion.images?.icon?.optimized_local_path || champion.images?.icon?.local_path);
       portraitImage.alt = champion.name;
-      portrait.append(portraitImage);
+      const portraitCrop = document.createElement('span');
+      portraitCrop.className = 'formation-portrait-crop';
+      portraitCrop.append(portraitImage);
+      portrait.append(portraitCrop);
       const name = document.createElement('span');
       name.className = 'formation-name';
       name.textContent = champion.name;

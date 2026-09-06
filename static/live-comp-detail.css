@@ -158,28 +158,31 @@
 .formation-unit { position: absolute; inset: 0; z-index: 2; }
 .formation-portrait {
   inset: 0;
-  padding: 3px;
   background: var(--unit-cost-color, var(--accent));
-  filter: drop-shadow(0 5px 8px rgba(0, 0, 0, .28));
+}
+/* Keep image, crop and gradient in one non-transformed paint space on Safari. */
+.formation-portrait-crop {
+  position: absolute;
+  inset: 3px;
+  clip-path: inherit;
   overflow: hidden;
+  background: #11151c;
 }
 .formation-portrait img {
   position: absolute;
-  inset: 3px;
-  width: calc(100% - 6px);
-  height: calc(100% - 6px);
-  clip-path: inherit;
+  inset: 0;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
   object-position: 50% 50%;
-  transform: translateZ(0);
   display: block;
 }
-.formation-portrait::after {
+.formation-portrait-crop::after {
   content: "";
   position: absolute;
-  inset: 3px;
+  inset: 0;
   z-index: 1;
-  clip-path: inherit;
+  pointer-events: none;
   background: linear-gradient(transparent 48%, rgba(0, 0, 0, .76));
 }
 .formation-name {

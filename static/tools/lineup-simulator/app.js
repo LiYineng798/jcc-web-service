@@ -822,7 +822,7 @@ function boardSlotHtml(slot, index) {
   const longNameClass = [...hero.name].length > 7 ? " is-long" : "";
   return `<button class="hex-cell has-unit ${items ? "has-items" : ""} ${hero.isBoardUnit ? "is-special" : ""} ${validSpecial ? "" : "is-invalid-special"}" type="button" role="gridcell" draggable="true" data-slot-index="${index}" data-hero-id="${escapeHtml(hero.id)}" aria-label="${escapeHtml(hero.name)}">
     <span class="hex-floor"></span>
-    <span class="unit-portrait" style="--unit-color:${costColor(hero.cost)}"><img class="unit-portrait-image" src="${escapeHtml(hero.icon)}" alt="" /></span>
+    <span class="unit-portrait" style="--unit-color:${costColor(hero.cost)}"><span class="unit-portrait-crop"><img class="unit-portrait-image" src="${escapeHtml(hero.icon)}" alt="" /></span></span>
     <span class="unit-items">${items}</span>
     <span class="unit-name${longNameClass}">${escapeHtml(hero.name)}</span>
     ${hero.availability?.type === "unlock" ? `<span class="unlock-mark" title="解锁弈子"><img src="${UI_ROOT}/unlock.png" alt="" /></span>` : ""}
