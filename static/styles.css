@@ -2535,6 +2535,28 @@ textarea:focus {
   gap: 18px;
 }
 
+#accountApp {
+  gap: 20px;
+}
+
+#accountApp .account-subtitle {
+  margin-top: 8px;
+}
+
+#accountApp .account-row-meta + .account-row-meta {
+  margin-top: 6px;
+}
+
+#accountApp .history-card > .card-actions {
+  margin-top: 12px;
+}
+
+@media (max-width: 640px) {
+  #accountApp {
+    gap: 16px;
+  }
+}
+
 .author-profile,
 .author-lineups {
   display: grid;
