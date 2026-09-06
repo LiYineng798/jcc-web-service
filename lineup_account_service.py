@@ -4,7 +4,7 @@ from lineups_serialization import serialize_lineup_row
 
 def build_author_profile_payload(username, viewer, scores):
     author = get_db().execute(
-        "SELECT id, username, nickname, role, created_at FROM users WHERE username = ? AND role != 'admin'",
+        "SELECT id, username, nickname, avatar_color, role, created_at FROM users WHERE username = ? AND role != 'admin'",
         (username,),
     ).fetchone()
     if not author:
@@ -16,7 +16,8 @@ def build_author_profile_payload(username, viewer, scores):
             l.*,
             users.username AS owner_username,
             users.nickname AS owner_nickname_raw,
-            users.role AS owner_role
+            users.role AS owner_role,
+            users.avatar_color AS owner_avatar_color
         FROM lineups l
         JOIN users ON users.id = l.user_id
         WHERE l.user_id = ? AND l.status = 'normal'
@@ -29,6 +30,7 @@ def build_author_profile_payload(username, viewer, scores):
         'profile': {
             'username': author['username'],
             'nickname': author['nickname'],
+            'avatar_color': author['avatar_color'],
             'created_at': author['created_at'],
         },
         'summary': {

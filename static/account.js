@@ -34,6 +34,7 @@ let accountCsrfToken = '';
   ]);
 
   accountCsrfToken = me.csrf_token || '';
+  if (me.user) window.jccAvatarEditor.mount(me.user, accountCsrfToken);
   const lineups = minePayload.items || [];
   root.replaceChildren(
     renderSummaryCards(me.user, dashboard),

@@ -9,11 +9,13 @@ from lineups_utils import row_value
 def serialize_lineup_row(row, scores, user=None, admin=False, db=None):
     db = db or get_db()
     score = scores.get(row['id'], {'rank_level': 'B', 'like_count': 0, 'copy_count': 0, 'score': 0})
+    owner_color = row_value(row, 'owner_avatar_color')
     owner_role = row_value(row, 'owner_role')
     owner_username = row_value(row, 'owner_username')
     owner_nickname = row_value(row, 'owner_nickname_raw')
     if owner_role is None and owner_nickname is None and owner_username is None:
-        owner = db.execute('SELECT id, username, nickname, role FROM users WHERE id = ?', (row['user_id'],)).fetchone()
+        owner = db.execute('SELECT id, username, nickname, avatar_color, role FROM users WHERE id = ?', (row['user_id'],)).fetchone()
+        owner_color = owner['avatar_color'] if owner else None
         owner_role = owner['role'] if owner else None
         owner_username = owner['username'] if owner else None
         owner_nickname = owner['nickname'] if owner else None
@@ -52,6 +54,7 @@ def serialize_lineup_row(row, scores, user=None, admin=False, db=None):
         'status': row['status'],
         'owner_nickname': owner_name,
         'owner_username': owner_username,
+        'owner_avatar_color': owner_color or '#0021ed',
         'rank_level': score['rank_level'],
         'like_count': score['like_count'],
         'copy_count': score['copy_count'],

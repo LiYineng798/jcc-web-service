@@ -4,6 +4,7 @@ import secrets
 from flask import Blueprint, g, jsonify, request, session
 from werkzeug.security import check_password_hash, generate_password_hash
 
+from avatar_service import avatar_color, random_avatar_color, COLOR_RE
 from analytics import record_growth_event
 from captcha import is_captcha_verified, lookup_answer_for_tests, verify_captcha_answer
 from db import db_kind, get_db, now_text
@@ -32,7 +33,7 @@ def current_user():
     if cached is not None and cached[0] == user_id:
         return cached[1]
     row = get_db().execute(
-        'SELECT id, username, email, nickname, role, status, created_at, updated_at, last_login_at FROM users WHERE id = ?',
+        'SELECT id, username, email, nickname, avatar_color, role, status, created_at, updated_at, last_login_at FROM users WHERE id = ?',
         (user_id,),
     ).fetchone()
     g._current_user_cache = (user_id, row)
@@ -81,6 +82,7 @@ def public_user_payload(user):
         'id': user['id'],
         'username': user['username'],
         'nickname': user['nickname'],
+        'avatar_color': avatar_color(user),
         'role': user['role'],
     }
 
@@ -158,11 +160,11 @@ def register():
     now = now_text()
     cursor = db.execute(
         insert_returning_id_sql(
-            '''INSERT INTO users (username, email, nickname, password_hash, role, status, created_at, updated_at)
-               VALUES (?, ?, ?, ?, 'user', 'active', ?, ?)''',
+            '''INSERT INTO users (username, email, nickname, password_hash, role, status, created_at, updated_at, avatar_color)
+               VALUES (?, ?, ?, ?, 'user', 'active', ?, ?, ?)''',
             db_kind(),
         ),
-        (payload['username'], payload['email'], payload['nickname'], generate_password_hash(payload['password']), now, now),
+        (payload['username'], payload['email'], payload['nickname'], generate_password_hash(payload['password']), now, now, random_avatar_color()),
     )
     user_id = last_insert_id(cursor, db_kind())
     db.commit()
@@ -252,3 +254,24 @@ def password_reset_confirm():
     return jsonify(result), status_code
 
 
+
+@auth_bp.put('/api/me/avatar')
+def update_avatar():
+    user, error = login_required()
+    if error:
+        return error
+    data = request.get_json(silent=True)
+    if not isinstance(data, dict) or set(data) != {'color'}:
+        return jsonify({'error': '仅支持修改头像颜色'}), 400
+    color = data.get('color')
+    if not isinstance(color, str) or not COLOR_RE.fullmatch(color):
+        return jsonify({'error': '请输入有效的六位十六进制颜色，例如 #7c3aed'}), 400
+    db = get_db()
+    db.execute('UPDATE users SET avatar_color = ?, updated_at = ? WHERE id = ?',
+               (color.lower(), now_text(), user['id']))
+    db.execute("UPDATE cache_state SET revision = revision + 1 WHERE cache_key = 'home'")
+    db.commit()
+    from lineup_cache import clear_lineup_query_caches
+    clear_lineup_query_caches()
+    g.pop('_current_user_cache', None)
+    return jsonify({'user': public_user_payload(current_user())})

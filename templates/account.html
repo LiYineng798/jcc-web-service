@@ -4,6 +4,8 @@
 <html lang="zh-CN">
   <head>
 {{ seo_head(seo) }}
+    <link rel="stylesheet" href="{{ static_v('avatar.css') }}" />
+    <script src="{{ static_v('avatar.js') }}" defer></script>
   </head>
   <body>
     <main class="page-shell account-page-shell">
@@ -25,6 +27,7 @@
     </main>
     <script src="{{ static_v('history-store.js') }}" defer></script>
     <script src="{{ static_v('theme-toggle.js') }}" defer></script>
+    <script src="{{ static_v('avatar-editor.js') }}" defer></script>
     <script src="{{ static_v('account.js') }}" defer></script>
   </body>
 </html>

@@ -83,6 +83,7 @@ function renderAuthor(payload) {
     </div>
   `;
 
+  profile.prepend(window.jccAvatar.image(payload.profile.avatar_color, 88, '作者头像'));
   const summary = document.createElement('div');
   summary.className = 'account-summary-grid';
   [
@@ -133,7 +134,10 @@ function renderAuthorLineup(lineup) {
   actions.append(actionButton(lineup.is_liked_today ? '今日已赞' : '点赞', () => likeLineup(lineup), '', Boolean(authorState.user && lineup.is_liked_today)));
   actions.append(actionButton(lineup.is_favorited ? '取消收藏' : '收藏', () => favoriteLineup(lineup)));
   actions.append(actionButton('举报', () => reportLineup(lineup)));
-  card.append(title, meta, code, actions);
+  const identity = document.createElement('div');
+  identity.className = 'lineup-byline';
+  identity.append(window.jccAvatar.image(lineup.owner_avatar_color, 32), lineup.owner_nickname);
+  card.append(title, identity, meta, code, actions);
   return card;
 }
 

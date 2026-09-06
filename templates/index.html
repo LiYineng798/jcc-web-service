@@ -4,6 +4,8 @@
 <html lang="zh-CN">
   <head>
 {{ seo_head(seo) }}
+    <link rel="stylesheet" href="{{ static_v('avatar.css') }}" />
+    <script src="{{ static_v('avatar.js') }}" defer></script>
   </head>
   <body>
     <div class="page-shell">
@@ -65,6 +67,7 @@
               <div class="account-menu hidden" id="accountMenu" role="menu">
                 <a class="account-menu-item" id="menuAuthLink" href="/auth" role="menuitem">登录 / 注册</a>
                 <a class="account-menu-item hidden" id="menuAccountLink" href="/me" role="menuitem">个人中心</a>
+                <a class="account-menu-item hidden" id="menuAvatarLink" href="/me#avatar" role="menuitem">调整头像</a>
                 <a class="account-menu-item hidden" id="menuCreateLineupLink" href="/lineup/new" role="menuitem">新增阵容</a>
                 <a class="account-menu-item hidden" id="menuAdminLink" href="/admin" role="menuitem">后台管理</a>
                 <button class="account-menu-item account-menu-danger hidden" id="menuLogoutButton" type="button" role="menuitem">退出登录</button>

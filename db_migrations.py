@@ -4,6 +4,7 @@ from db_schema import EXTRA_INDEX_STATEMENTS, LINEUP_COLUMN_MIGRATIONS, table_co
 
 
 def migrate_schema(db, admin_id, now_text_func):
+    migrate_user_avatars(db)
     migrate_lineups_table(db, admin_id)
     migrate_legacy_live_comp_stats(db, now_text_func)
     migrate_patch_notes_table(db)
@@ -322,3 +323,14 @@ def ensure_indexes(db):
         except sqlite3.OperationalError as exc:
             if 'no such table' not in str(exc):
                 raise
+
+def migrate_user_avatars(db):
+    from avatar_service import random_avatar_color
+    columns = table_columns(db, 'users')
+    if not columns:
+        return
+    if 'avatar_color' not in columns:
+        db.execute('ALTER TABLE users ADD COLUMN avatar_color TEXT')
+    rows = db.execute('SELECT id FROM users WHERE avatar_color IS NULL').fetchall()
+    for row in rows:
+        db.execute('UPDATE users SET avatar_color = ? WHERE id = ?', (random_avatar_color(), row['id']))

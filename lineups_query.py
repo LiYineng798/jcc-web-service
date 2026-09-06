@@ -52,6 +52,7 @@ def fetch_lineup_rows(db, clauses, params, user=None, order_by='l.updated_at DES
         'owner.username AS owner_username',
         'owner.nickname AS owner_nickname_raw',
         'owner.role AS owner_role',
+        'owner.avatar_color AS owner_avatar_color',
     ]
     join_params = []
     if user:

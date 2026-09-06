@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from werkzeug.security import generate_password_hash
 
+from avatar_service import random_avatar_color
 from audit import write_audit
 from auth import validate_password
 from db import db_kind, now_text
@@ -47,8 +48,8 @@ def create_user(db, admin_id, data):
     try:
         cursor = db.execute(
             insert_returning_id_sql(
-                '''INSERT INTO users (username, email, nickname, password_hash, role, status, created_at, updated_at)
-                   VALUES (?, ?, ?, ?, ?, 'active', ?, ?)''',
+                '''INSERT INTO users (username, email, nickname, password_hash, role, status, created_at, updated_at, avatar_color)
+                   VALUES (?, ?, ?, ?, ?, 'active', ?, ?, ?)''',
                 db_kind(),
             ),
             (
@@ -59,6 +60,7 @@ def create_user(db, admin_id, data):
                 payload['role'],
                 payload['created_at'],
                 payload['updated_at'],
+                random_avatar_color(),
             ),
         )
         user_id = last_insert_id(cursor, db_kind())

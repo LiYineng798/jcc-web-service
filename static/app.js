@@ -440,6 +440,9 @@ function renderAuth() {
   const isAdmin = Boolean(state.user && state.user.role === 'admin');
   elements.mineTab.classList.toggle('hidden', !loggedIn);
   elements.favoritesTab.classList.remove('hidden');
+  elements.accountToggle.querySelector('.user-avatar')?.remove();
+  document.querySelector('#menuAvatarLink').classList.toggle('hidden', !loggedIn);
+  if (loggedIn) elements.accountToggle.prepend(window.jccAvatar.image(state.user.avatar_color, 30));
   elements.accountToggleText.textContent = loggedIn ? `${isAdmin ? '管理员' : '已登录'} · ${nickname}` : '登录 / 注册';
   elements.menuAuthLink.classList.add('hidden');
   elements.menuAccountLink.classList.toggle('hidden', !loggedIn);
@@ -660,12 +663,16 @@ function createLineupCard(lineup) {
   title.textContent = `${lineup.name} · ${lineup.rank_level}`;
   const meta = document.createElement('div');
   meta.className = 'card-time';
-  meta.append('由 ');
+  meta.classList.add('lineup-byline');
   const authorLink = document.createElement('a');
   authorLink.className = 'author-link';
   authorLink.href = `/author/${encodeURIComponent(lineup.owner_username || '')}`;
   authorLink.textContent = lineup.owner_nickname;
-  meta.append(authorLink, ` 上传 · 赞 ${lineup.like_count} · 复制 ${lineup.copy_count} · ${lineup.updated_at}`);
+  authorLink.prepend(window.jccAvatar.image(lineup.owner_avatar_color, 34));
+  const details = document.createElement('span');
+  details.className = 'lineup-byline-stats';
+  details.textContent = `赞 ${lineup.like_count} · 复制 ${lineup.copy_count} · ${lineup.updated_at}`;
+  meta.append(authorLink, details);
   const code = document.createElement('pre');
   code.className = 'code-preview';
   code.textContent = lineup.code;

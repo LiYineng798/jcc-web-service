@@ -40,6 +40,7 @@ def _history_rows(table_name, user_id, limit=20, user=None):
             l.*,
             owner.nickname AS owner_nickname_raw,
             owner.role AS owner_role,
+            owner.avatar_color AS owner_avatar_color,
             history.updated_at AS history_at
         FROM {table_name} history
         JOIN lineups l ON l.id = history.lineup_id

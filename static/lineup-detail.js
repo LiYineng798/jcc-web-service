@@ -36,6 +36,7 @@ function renderDetail(lineup) {
       <pre class="code-preview">${escapeHtml(lineup.code)}</pre>
     </div>
   `;
+  detailRoot.querySelector('.hero-description').prepend(window.jccAvatar.image(lineup.owner_avatar_color, 36));
 }
 
 function setDetailTheme(theme) {
