@@ -1492,6 +1492,10 @@ textarea:focus {
   gap: 8px;
 }
 
+.lineup-card > .code-preview + .card-actions {
+  margin-top: 12px;
+}
+
 .admin-section-head {
   display: flex;
   align-items: center;

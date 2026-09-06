@@ -1,4 +1,4 @@
-.user-avatar { display: inline-block; flex: 0 0 auto; vertical-align: middle; object-fit: contain; border-radius: 50%; background: #fffdf8; padding: 3px; }
+.user-avatar { display: inline-block; flex: 0 0 auto; vertical-align: middle; object-fit: contain; border-radius: 50%; background: transparent; padding: 3px; }
 .account-toggle .user-avatar { padding: 2px; }
 .lineup-byline { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; }
 .lineup-byline .author-link { display: inline-flex; align-items: center; gap: 9px; color: var(--text); text-decoration: none; font-weight: 600; }

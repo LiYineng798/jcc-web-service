@@ -1,5 +1,7 @@
 # Repository Guidelines
 
+Avatars retain transparent backgrounds on every surface, including dark mode and editor previews. Regular lineup cards leave 12px between the code preview and its immediately following action row.
+
 User avatars use the fixed striped-sphere SVG supplied in the local `yangshi` reference, copied into `static/avatar.js` with no external runtime dependency. Only a six-digit `users.avatar_color` is persisted; registration/admin creation randomly choose a system color, and SQLite legacy migration backfills missing colors without changing existing choices. `PUT /api/me/avatar` accepts exactly `{color: "#RRGGBB"}`, requires an active session and CSRF, updates only the current user, and invalidates the shared homepage cache revision. Keep this schema aligned with DB migration `0014_user_avatars.sql`, deployed before Web. Account payloads expose `avatar_color`; lineup payloads expose `owner_avatar_color` through existing joins. `static/avatar-editor.js` and `static/avatar.css` own the account-center editor, preset/custom color preview, cancel/save behavior, and responsive themes. The homepage account menu links to `/me#avatar`, guests have no header avatar, and regular cards, author profiles, and lineup details show the shared avatar. Do not accept uploads, arbitrary SVG, geometry, or external image URLs.
 
 This is the Web service repository for the JCC workspace. Make Web/API/UI changes here and commit them in this repository.
