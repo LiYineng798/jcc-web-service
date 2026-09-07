@@ -677,15 +677,14 @@ function createLineupCard(lineup) {
   code.className = 'code-preview';
   code.textContent = lineup.code;
   const actions = document.createElement('div');
-  actions.className = 'card-actions';
+  actions.className = 'card-actions lineup-card-actions';
   actions.append(button('复制阵容码', () => copyLineup(lineup)));
   actions.append(button('查看', () => openLineupDetail(lineup.id)));
   actions.append(button(lineup.is_liked_today ? '今日已赞' : '点赞', () => likeLineup(lineup), '', Boolean(state.user && lineup.is_liked_today)));
   actions.append(button(lineup.is_favorited ? '取消收藏' : '收藏', () => favoriteLineup(lineup)));
-  actions.append(button('举报', () => reportLineup(lineup)));
+  actions.append(button('失效反馈', () => reportLineup(lineup)));
   if (lineup.can_hide) actions.append(button('隐藏阵容', () => hideLineup(lineup), 'danger-button'));
   if (lineup.can_edit) actions.append(button('编辑', () => openEditor(lineup.id)));
-  if (lineup.can_delete) actions.append(button('删除', () => deleteLineup(lineup), 'danger-button'));
   card.append(title, meta, code, actions);
   return card;
 }
@@ -1190,7 +1189,7 @@ async function favoriteLineup(lineup) {
 
 async function reportLineup(lineup) {
   if (!state.user) trackGrowth('guest_click_report', { source: 'lineup-card', lineupId: lineup.id });
-  if (requireAuthIntent({ type: 'report_lineup', lineupId: lineup.id }, '登录后可举报问题阵容并保留处理记录')) return;
+  if (requireAuthIntent({ type: 'report_lineup', lineupId: lineup.id }, '登录后可反馈失效阵容码并查看处理进度')) return;
   showReportDialog(lineup);
 }
 
@@ -1209,10 +1208,10 @@ function showReportDialog(lineup) {
   header.className = 'modal-header';
   const headerCopy = document.createElement('div');
   const title = document.createElement('h2');
-  title.textContent = '举报阵容';
+  title.textContent = '阵容码失效反馈';
   const desc = document.createElement('p');
   desc.className = 'auth-prompt-copy';
-  desc.textContent = `请填写举报原因，管理员会处理「${lineup.name}」。`;
+  desc.textContent = `请填写失效反馈原因，管理员会核查「${lineup.name}」。`;
   headerCopy.append(title, desc);
   const closeButton = button('关闭', () => closeReportDialog());
   header.append(headerCopy, closeButton);
@@ -1222,11 +1221,11 @@ function showReportDialog(lineup) {
   const field = document.createElement('label');
   field.className = 'field';
   const label = document.createElement('span');
-  label.textContent = '举报原因';
+  label.textContent = '失效反馈原因';
   const textarea = document.createElement('textarea');
   textarea.rows = 5;
   textarea.maxLength = 300;
-  textarea.placeholder = '请简要说明问题，例如：阵容码无效、内容不实、违规信息等';
+  textarea.placeholder = '请简要说明问题，例如：阵容码无法导入、赛季不匹配、内容已过期等';
   field.append(label, textarea);
 
   const inlineMessage = document.createElement('div');
@@ -1238,14 +1237,14 @@ function showReportDialog(lineup) {
   const submitButton = document.createElement('button');
   submitButton.type = 'submit';
   submitButton.className = 'primary-button auth-prompt-confirm';
-  submitButton.textContent = '提交举报';
+  submitButton.textContent = '提交失效反馈';
   actions.append(cancelButton, submitButton);
   form.append(field, inlineMessage, actions);
   form.addEventListener('submit', async (event) => {
     event.preventDefault();
     const reason = textarea.value.trim();
     if (!reason) {
-      inlineMessage.textContent = '请输入举报原因';
+      inlineMessage.textContent = '请输入失效反馈原因';
       return;
     }
     submitButton.disabled = true;
@@ -1253,7 +1252,7 @@ function showReportDialog(lineup) {
     try {
       await api(`/api/lineups/${lineup.id}/report`, { method: 'POST', body: JSON.stringify({ reason }) });
       closeReportDialog();
-      showMessage('举报已提交');
+      showMessage('失效反馈已提交');
     } catch (error) {
       inlineMessage.textContent = error.message;
     } finally {
@@ -1321,15 +1320,6 @@ async function consumePendingIntent() {
       showMessage(error.message);
     }
   }
-}
-
-async function deleteLineup(lineup) {
-  if (!confirm('确定删除这个阵容吗？')) return;
-  await api(`/api/lineups/${lineup.id}`, { method: 'DELETE' });
-  invalidateHomeViewCache('lineups');
-  showMessage('删除成功');
-  if (state.page > 1 && state.lineups.length === 1) state.page -= 1;
-  loadLineups();
 }
 
 function applySavedMessage() {

@@ -128,12 +128,12 @@ function renderAuthorLineup(lineup) {
   code.className = 'code-preview';
   code.textContent = lineup.code;
   const actions = document.createElement('div');
-  actions.className = 'card-actions';
+  actions.className = 'card-actions lineup-card-actions';
   actions.append(actionButton('复制阵容码', () => copyLineup(lineup)));
   actions.append(actionButton('查看', () => openLineupDetail(lineup.id)));
   actions.append(actionButton(lineup.is_liked_today ? '今日已赞' : '点赞', () => likeLineup(lineup), '', Boolean(authorState.user && lineup.is_liked_today)));
   actions.append(actionButton(lineup.is_favorited ? '取消收藏' : '收藏', () => favoriteLineup(lineup)));
-  actions.append(actionButton('举报', () => reportLineup(lineup)));
+  actions.append(actionButton('失效反馈', () => reportLineup(lineup)));
   const identity = document.createElement('div');
   identity.className = 'lineup-byline';
   identity.append(window.jccAvatar.image(lineup.owner_avatar_color, 32), lineup.owner_nickname);
@@ -196,7 +196,7 @@ async function favoriteLineup(lineup) {
 
 async function reportLineup(lineup) {
   if (!authorState.user) trackGrowth('guest_click_report', { source: 'author-lineup', lineupId: lineup.id });
-  if (requireAuthIntent({ type: 'report_lineup', lineupId: lineup.id }, '登录后可举报问题阵容并保留处理记录')) return;
+  if (requireAuthIntent({ type: 'report_lineup', lineupId: lineup.id }, '登录后可反馈失效阵容码并查看处理进度')) return;
   showReportDialog(lineup);
 }
 
@@ -266,10 +266,10 @@ function showReportDialog(lineup) {
   header.className = 'modal-header';
   const headerCopy = document.createElement('div');
   const title = document.createElement('h2');
-  title.textContent = '举报阵容';
+  title.textContent = '阵容码失效反馈';
   const desc = document.createElement('p');
   desc.className = 'auth-prompt-copy';
-  desc.textContent = `请填写举报原因，管理员会处理「${lineup.name}」。`;
+  desc.textContent = `请填写失效反馈原因，管理员会处理「${lineup.name}」。`;
   headerCopy.append(title, desc);
   header.append(headerCopy, actionButton('关闭', () => closeAuthorDialog(false)));
 
@@ -278,11 +278,11 @@ function showReportDialog(lineup) {
   const field = document.createElement('label');
   field.className = 'field';
   const fieldLabel = document.createElement('span');
-  fieldLabel.textContent = '举报原因';
+  fieldLabel.textContent = '失效反馈原因';
   const textarea = document.createElement('textarea');
   textarea.rows = 5;
   textarea.maxLength = 300;
-  textarea.placeholder = '请简要说明问题，例如：阵容码无效、内容不实、违规信息等';
+  textarea.placeholder = '请简要说明问题，例如：阵容码无法导入、赛季不匹配、内容已过期等';
   field.append(fieldLabel, textarea);
 
   const inlineMessage = document.createElement('div');
@@ -294,7 +294,7 @@ function showReportDialog(lineup) {
   const submitButton = document.createElement('button');
   submitButton.type = 'submit';
   submitButton.className = 'primary-button auth-prompt-confirm';
-  submitButton.textContent = '提交举报';
+  submitButton.textContent = '提交失效反馈';
   actions.append(submitButton);
 
   form.append(field, inlineMessage, actions);
@@ -302,7 +302,7 @@ function showReportDialog(lineup) {
     event.preventDefault();
     const reason = textarea.value.trim();
     if (!reason) {
-      inlineMessage.textContent = '请输入举报原因';
+      inlineMessage.textContent = '请输入失效反馈原因';
       return;
     }
     submitButton.disabled = true;
@@ -313,7 +313,7 @@ function showReportDialog(lineup) {
         body: JSON.stringify({ reason }),
       });
       closeAuthorDialog(false);
-      showToast('举报已提交');
+      showToast('失效反馈已提交');
     } catch (error) {
       inlineMessage.textContent = error.message || '提交失败';
     } finally {

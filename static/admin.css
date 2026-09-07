@@ -961,11 +961,19 @@ body.admin-page {
 
   .admin-main {
     display: block;
+    padding-top: calc(var(--admin-mobile-header-height) + env(safe-area-inset-top));
   }
 
   .admin-topbar {
-    min-height: var(--admin-mobile-header-height);
-    padding: 10px 14px;
+    /* Anchor to the viewport independently of sticky scroll containment and
+       Safari backdrop-filter compositing. Keep matching space in main. */
+    position: fixed;
+    inset: 0 0 auto;
+    height: calc(var(--admin-mobile-header-height) + env(safe-area-inset-top));
+    min-height: 0;
+    padding: calc(10px + env(safe-area-inset-top)) 14px 10px;
+    background: var(--bg);
+    backdrop-filter: none;
   }
 
   .admin-mobile-brand {

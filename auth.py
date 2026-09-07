@@ -1,7 +1,8 @@
 ﻿import re
 import secrets
+import hmac
 
-from flask import Blueprint, g, jsonify, request, session
+from flask import Blueprint, current_app, g, jsonify, request, session
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from avatar_service import avatar_color, random_avatar_color, COLOR_RE
@@ -33,11 +34,34 @@ def current_user():
     if cached is not None and cached[0] == user_id:
         return cached[1]
     row = get_db().execute(
-        'SELECT id, username, email, nickname, avatar_color, role, status, created_at, updated_at, last_login_at FROM users WHERE id = ?',
+        'SELECT id, username, email, nickname, avatar_color, role, status, created_at, updated_at, last_login_at, password_hash FROM users WHERE id = ?',
         (user_id,),
     ).fetchone()
+    if row is None or row['status'] != 'active' or not hmac.compare_digest(
+        str(session.get('auth_stamp', '')), _auth_stamp(row)
+    ):
+        if row is not None and row['status'] != 'active':
+            g._auth_disabled = True
+        session.clear()
+        g.pop('_current_user_cache', None)
+        return None
     g._current_user_cache = (user_id, row)
     return row
+
+
+def _auth_stamp(user):
+    # Bind the signed session to current credentials without exposing the hash.
+    return hmac.new(str(current_app.secret_key).encode(),
+                    f"{user['id']}:{user['password_hash']}".encode(), 'sha256').hexdigest()
+
+
+def start_user_session(user):
+    session.clear()
+    g.pop('_current_user_cache', None)
+    session['user_id'] = user['id']
+    session['auth_stamp'] = _auth_stamp(user)
+    session.permanent = True
+    csrf_token()
 
 
 def csrf_token():
@@ -59,6 +83,8 @@ def require_csrf():
 
 def login_required():
     user = current_user()
+    if g.get('_auth_disabled'):
+        return None, (jsonify({'error': '账号已禁用'}), 403)
     if user is None:
         return None, (jsonify({'error': '请先登录'}), 401)
     if user['status'] != 'active':
@@ -168,8 +194,7 @@ def register():
     )
     user_id = last_insert_id(cursor, db_kind())
     db.commit()
-    session['user_id'] = user_id
-    csrf_token()
+    start_user_session(db.execute('SELECT * FROM users WHERE id = ?', (user_id,)).fetchone())
     user = current_user()
     visitor_token, created = ensure_visitor_token()
     record_growth_event(
@@ -211,9 +236,7 @@ def login():
     now = now_text()
     db.execute('UPDATE users SET last_login_at = ?, updated_at = ? WHERE id = ?', (now, now, user['id']))
     db.commit()
-    session.clear()
-    session['user_id'] = user['id']
-    csrf_token()
+    start_user_session(user)
     visitor_token, created = ensure_visitor_token()
     if user['role'] == 'admin':
         _remove_admin_analytics_traces(db, user['id'], visitor_token)

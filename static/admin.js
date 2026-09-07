@@ -88,7 +88,7 @@
   ];
   const tabMeta = {
     overview: ['运营概览', '今日关键指标与待处理事项'],
-    reports: ['举报处理', '核查用户反馈并记录处理结果'],
+    reports: ['失效反馈处理', '核查用户反馈并记录处理结果'],
     lineups: ['阵容管理', '搜索、审核与维护普通阵容'],
     'live-comps': ['实时阵容', '维护赛季状态与阵容码'],
     'simulator-seasons': ['模拟器赛季', '控制模拟器赛季顺序与访问状态'],
@@ -524,13 +524,13 @@
   }
 
   function renderReportsWorkspace() {
-    const panel = workbenchPanel('用户举报', '进入该工作台后再加载数据；支持分页切换');
+    const panel = workbenchPanel('用户失效反馈', '进入该工作台后再加载数据；支持分页切换');
     const body = panel.querySelector('.admin-workspace-body');
     body.append(renderReportStatusTabs());
 
     const list = el('div', 'admin-list');
     if (!state.reports.items.length) {
-      list.append(empty(state.reports.status === 'pending' ? '暂无待处理举报' : '该状态下没有举报记录'));
+      list.append(empty(state.reports.status === 'pending' ? '暂无待处理失效反馈' : '该状态下没有失效反馈记录'));
     } else {
       state.reports.items.forEach((report) => list.append(reportCard(report)));
     }
@@ -560,7 +560,7 @@
     const card = el('article', 'admin-card is-alert');
     const head = el('div', 'admin-card-head');
     head.append(el('h3', '', `#${report.id} ${report.lineup_name || '阵容已删除'}`), pill(statusText[report.status] || report.status));
-    const meta = el('p', 'admin-meta', `举报人：${report.reporter_nickname || '-'} · 作者：${report.owner_nickname || '-'} · 提交：${report.created_at}`);
+    const meta = el('p', 'admin-meta', `反馈用户：${report.reporter_nickname || '-'} · 作者：${report.owner_nickname || '-'} · 提交：${report.created_at}`);
     const reason = el('p', 'admin-reason', report.reason);
     const code = el('pre', 'admin-code', report.lineup_code || '无阵容码');
     card.append(head, meta, reason, code);
@@ -569,7 +569,7 @@
       actions.append(
         button('处理并隐藏阵容', () => handleReport(report.id, 'resolved', true)),
         button('仅标记已处理', () => handleReport(report.id, 'resolved', false)),
-        button('驳回举报', () => handleReport(report.id, 'dismissed', false), 'small-button danger-button'),
+        button('驳回失效反馈', () => handleReport(report.id, 'dismissed', false), 'small-button danger-button'),
       );
       card.append(actions);
     }
@@ -577,14 +577,14 @@
   }
 
   async function handleReport(id, status, hideLineup) {
-    const actionText = hideLineup ? '处理举报并隐藏阵容' : (status === 'dismissed' ? '驳回举报' : '标记举报为已处理');
+    const actionText = hideLineup ? '处理失效反馈并隐藏阵容' : (status === 'dismissed' ? '驳回失效反馈' : '标记失效反馈为已处理');
     if (!confirm(`确定要${actionText}吗？`)) return;
     await api(`/api/admin/reports/${id}/resolve`, {
       method: 'POST',
       body: JSON.stringify({ status, hide_lineup: hideLineup }),
     });
     await Promise.all([loadReports({ force: true }), loadOverview({ force: true })]);
-    setNotice(hideLineup ? '举报已处理，阵容已隐藏' : '举报状态已更新');
+    setNotice(hideLineup ? '失效反馈已处理，阵容已隐藏' : '失效反馈状态已更新');
   }
 
   function renderLineupsWorkspace() {

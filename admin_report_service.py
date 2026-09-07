@@ -41,7 +41,7 @@ def normalize_report_resolution(data):
 def resolve_report(db, admin_id, report_id, data):
     before = db.execute('SELECT * FROM reports WHERE id = ?', (report_id,)).fetchone()
     if not before:
-        return None, '举报不存在', 404
+        return None, '失效反馈不存在', 404
     payload = normalize_report_resolution(data)
     now = now_text()
     db.execute(
