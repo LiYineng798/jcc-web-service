@@ -87,10 +87,11 @@
         ['访问次数 PV', summary.page_visits, 'page_visits', '记录的页面访问'],
         ['成功复制', summary.total_copies, 'total_copies', `阵容 ${summary.lineup_copies || 0} · 实时 ${summary.live_comp_copies || 0}`],
         ['新增注册', summary.new_registrations, 'new_registrations', '不含管理员'],
-        ['成功登录', summary.successful_logins, 'successful_logins', '去重登录用户'],
+        ['登录用户活跃', summary.authenticated_active_users ?? '—', 'authenticated_active_users', '含保持登录回访；按账号去重，不含管理员'],
+        ['主动登录', summary.successful_logins, 'successful_logins', '密码登录成功的去重用户，不含管理员'],
         ['新增阵容', summary.new_lineups, 'new_lineups', '当天发布'],
         ['公开留言', summary.guestbook_messages, 'guestbook_messages', '当天提交'],
-        ['收到举报', summary.reports_submitted, 'reports_submitted', '当天提交'],
+        ['收到失效反馈', summary.reports_submitted, 'reports_submitted', '当天提交'],
       ].forEach(([label, value, deltaKey, caption]) => {
         const card = el('article', 'daily-report-stat-card');
         card.append(

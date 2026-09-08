@@ -119,23 +119,29 @@ function getAvatarSvg(seed = '', options = {}) {
       ? rgb.map(v => (v-1+opacity)/opacity) : base;
     return `<stop offset="${((.15 + i*.0875)*100).toFixed(2)}%" stop-color="${rgbCss(ink)}" stop-opacity="${opacity.toFixed(6)}"/>`;
   }).join('');
-  const slits = Array.from({ length: 9 }, (_, i) =>
-    `<rect x="${((i-4)*pitch+phase-slitWidth/2).toFixed(4)}" y="-80" width="${slitWidth}" height="160" fill="black"/>`
-  ).join('');
+  // Draw real holes instead of a black/white luminance mask. SVG images in
+  // Avoid WebKit luminance-mask compatibility issues in SVG-as-image rendering.
+  // Intersect each slit with the inner circle, preserving the original rim.
+  const radians = angle * Math.PI / 180;
+  const point = (x, y) => `${cx + x*Math.cos(radians) - y*Math.sin(radians)} ${cy + x*Math.sin(radians) + y*Math.cos(radians)}`;
+  const holes = Array.from({ length: 9 }, (_, i) => {
+    const center = (i-4)*pitch + phase;
+    const left = Math.max(-innerRadius, center-slitWidth/2);
+    const right = Math.min(innerRadius, center+slitWidth/2);
+    if (left >= right) return '';
+    const topLeft = Math.sqrt(innerRadius**2-left**2);
+    const topRight = Math.sqrt(innerRadius**2-right**2);
+    return `M ${point(left, -topLeft)} A ${innerRadius} ${innerRadius} 0 0 1 ${point(right, -topRight)} L ${point(right, topRight)} A ${innerRadius} ${innerRadius} 0 0 1 ${point(left, topLeft)} Z`;
+  }).join(' ');
+  const outline = `M ${cx-outerRadius} ${cy} a ${outerRadius} ${outerRadius} 0 1 0 ${2*outerRadius} 0 a ${outerRadius} ${outerRadius} 0 1 0 ${-2*outerRadius} 0 Z`;
   const ga = 41.804 * Math.PI/180;
   const dx = 73.54*Math.cos(ga), dy = 73.54*Math.sin(ga);
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 104 104" fill="none">
 <defs>
-  <filter id="${id}_soft" x="-10%" y="-10%" width="120%" height="120%" color-interpolation-filters="sRGB"><feGaussianBlur stdDeviation="0.35"/></filter>
   <linearGradient id="${id}_g" gradientUnits="userSpaceOnUse" x1="${52-dx}" y1="${52-dy}" x2="${52+dx}" y2="${52+dy}">${stops}</linearGradient>
-  <clipPath id="${id}_i"><circle cx="${cx}" cy="${cy}" r="${innerRadius}"/></clipPath>
-  <mask id="${id}_m" maskUnits="userSpaceOnUse" x="0" y="0" width="104" height="104" style="mask-type:luminance">
-    <rect width="104" height="104" fill="white"/>
-    <g clip-path="url(#${id}_i)"><g transform="translate(${cx} ${cy}) rotate(${angle})">${slits}</g></g>
-  </mask>
 </defs>
 ${background === 'transparent' ? '' : `<rect width="104" height="104" fill="${background}"/>`}
-<g filter="url(#${id}_soft)"><circle cx="${cx}" cy="${cy}" r="${outerRadius}" fill="url(#${id}_g)" mask="url(#${id}_m)"/></g>
+<path d="${outline} ${holes}" fill="url(#${id}_g)" fill-rule="evenodd"/>
 </svg>`;
 }
 /** Safe to assign to an image src; no user input is interpolated as SVG markup. */

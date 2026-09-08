@@ -961,11 +961,21 @@ body.admin-page {
 
   .admin-main {
     display: block;
+    padding-top: calc(var(--admin-mobile-header-height) + env(safe-area-inset-top));
   }
 
   .admin-topbar {
-    min-height: var(--admin-mobile-header-height);
-    padding: 10px 14px;
+    /* Anchor to the viewport independently of sticky scroll containment and
+       Safari backdrop-filter compositing. Keep matching space in main. */
+    position: fixed;
+    inset: 0 0 auto;
+    height: calc(var(--admin-mobile-header-height) + env(safe-area-inset-top));
+    min-height: 0;
+    padding: calc(10px + env(safe-area-inset-top)) 14px 10px;
+    padding-left: max(14px, env(safe-area-inset-left));
+    padding-right: max(14px, env(safe-area-inset-right));
+    background: var(--bg);
+    backdrop-filter: none;
   }
 
   .admin-mobile-brand {
@@ -1010,6 +1020,8 @@ body.admin-page {
   .admin-content {
     width: 100%;
     padding: 14px 12px 20px;
+    padding-left: max(12px, env(safe-area-inset-left));
+    padding-right: max(12px, env(safe-area-inset-right));
   }
 
   .admin-mobile-nav {
@@ -1018,11 +1030,25 @@ body.admin-page {
     inset: auto 0 0;
     height: calc(var(--admin-mobile-nav-height) + env(safe-area-inset-bottom));
     padding-bottom: env(safe-area-inset-bottom);
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
     border-top: 1px solid var(--admin-border);
-    background: color-mix(in srgb, var(--admin-surface) 97%, transparent);
+    background: var(--admin-surface);
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     box-shadow: 0 -8px 24px rgba(55, 45, 31, 0.06);
+  }
+
+  .admin-mobile-nav::after {
+    /* Safari's collapsing toolbar can expose the area below a fixed bar.
+       Extend only its paint, not its hit area or the document scroll height.
+       A zero-height shadow starts exactly at the bar's bottom edge. */
+    content: "";
+    position: absolute;
+    inset: auto 0 0;
+    height: 0;
+    box-shadow: 0 50vh 0 50vh var(--admin-surface);
+    pointer-events: none;
   }
 
   .admin-mobile-nav-item {
@@ -1054,6 +1080,8 @@ body.admin-page {
     max-height: 78vh;
     margin: auto 0 0;
     padding: 8px 14px calc(18px + env(safe-area-inset-bottom));
+    padding-left: max(14px, env(safe-area-inset-left));
+    padding-right: max(14px, env(safe-area-inset-right));
     border: 0;
     border-top: 1px solid var(--admin-border);
     border-radius: 8px 8px 0 0;

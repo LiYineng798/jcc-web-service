@@ -2,6 +2,7 @@ from datetime import datetime, timedelta
 
 from analytics import growth_summary, _day_bounds
 from visits import daily_new_returning_visitors, last_7_days_uv
+from auth_activity import authenticated_active_users
 
 
 def _today_and_yesterday():
@@ -61,6 +62,7 @@ def build_admin_stats_payload(db):
         'total_users': total,
         'today_users': today_users,
         'today_logins': today_logins,
+        'today_authenticated_users': authenticated_active_users(db, today),
         'today_uv': traffic_by_date.get(today, 0),
         'today_lineup_copy_count': today_lineup_copy_count,
         'today_live_comp_copy_count': today_live_comp_copy_count,
@@ -113,6 +115,7 @@ def build_admin_overview_payload(db):
             'today_returning_visitors': today_visitor_mix['returning_visitors'],
             'today_users': today_users,
             'today_logins': today_logins,
+            'today_authenticated_users': authenticated_active_users(db, today),
             'today_lineup_copy_count': today_lineup_copy_count,
             'today_live_comp_copy_count': today_live_comp_copy_count,
             'today_total_copy_count': today_lineup_copy_count + today_live_comp_copy_count,

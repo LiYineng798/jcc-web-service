@@ -28,6 +28,7 @@ from datetime import datetime, timedelta
 from db import db_kind, get_db, now_text
 from db_adapter import insert_ignore_sql
 from visits import daily_new_returning_visitors
+from auth_activity import authenticated_active_users
 
 REPORT_DATE_FORMAT = '%Y-%m-%d'
 MAX_TOP_COPIED = 20
@@ -44,6 +45,7 @@ DELTA_KEYS = (
     'returning_7d',
     'new_registrations',
     'successful_logins',
+    'authenticated_active_users',
     'lineup_copies',
     'live_comp_copies',
     'total_copies',
@@ -474,6 +476,7 @@ def build_daily_report_payload(db, target_date):
         'returning_7d': _returning_window_count(target_date, 7),
         'new_registrations': _int(registrations),
         'successful_logins': _int(successful_logins),
+        'authenticated_active_users': authenticated_active_users(db, target_date),
         'lineup_copies': _int(copies_row['lineup_copies']),
         'live_comp_copies': _int(copies_row['live_comp_copies']),
         'total_copies': _int(copies_row['total_copies']),

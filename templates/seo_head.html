@@ -1,6 +1,6 @@
-{% macro seo_head(seo, include_site_assets=True) -%}
+{% macro seo_head(seo, include_site_assets=True, viewport_fit_cover=False) -%}
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1{% if viewport_fit_cover %}, viewport-fit=cover{% endif %}" />
     <script>
       try {
         const savedTheme = localStorage.getItem('theme');

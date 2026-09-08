@@ -83,8 +83,8 @@
         ['今日全站 UV', stats.today_uv || 0, '全站页面按自然日去重'],
         ['今日总复制', stats.today_total_copy_count || 0, `普通阵容 ${stats.today_lineup_copy_count || 0} · 实时阵容 ${stats.today_live_comp_copy_count || 0}`],
         ['今日注册', stats.today_users || 0, '新增用户数'],
-        ['今日登录', stats.today_logins || 0, '去重登录用户'],
-        ['待处理举报', stats.pending_reports_count || 0, '优先处理'],
+        ['登录用户活跃', stats.today_authenticated_users || 0, `含保持登录的回访用户 · 主动登录 ${stats.today_logins || 0} 人 · 均按账号去重，不含管理员`],
+        ['待处理失效反馈', stats.pending_reports_count || 0, '优先处理'],
         ['总用户', stats.total_users || 0, '不含管理员'],
       ].forEach(([label, value, caption]) => {
         const card = el('article', 'admin-stat-card');
@@ -303,7 +303,7 @@
       const todos = getOverview()?.todos || {};
       const list = el('div', 'admin-list compact');
       [
-        ['待处理举报', `${todos.pending_reports_count || 0} 条`, '需要人工判断与处理'],
+        ['待处理失效反馈', `${todos.pending_reports_count || 0} 条`, '需要人工判断与处理'],
         ['已隐藏阵容', `${todos.hidden_lineups_count || 0} 条`, '可去阵容管理复核'],
         ['今日后台操作', `${todos.recent_audit_count || 0} 次`, '建议关注异常频繁操作'],
       ].forEach(([label, value, caption]) => {

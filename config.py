@@ -1,4 +1,5 @@
-﻿import os
+import os
+from datetime import timedelta
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -27,7 +28,9 @@ def apply_config(app, test_config=None):
         SECRET_KEY=os.environ.get('JCC_SECRET_KEY', 'dev-secret-change-me'),
         SESSION_COOKIE_HTTPONLY=True,
         SESSION_COOKIE_SAMESITE='Lax',
-        SESSION_COOKIE_SECURE=False,
+        SESSION_COOKIE_SECURE=os.environ.get('JCC_SESSION_COOKIE_SECURE', '').lower() in {'1', 'true', 'yes'},
+        PERMANENT_SESSION_LIFETIME=timedelta(days=int(os.environ.get('JCC_SESSION_DAYS', '30'))),
+        SESSION_REFRESH_EACH_REQUEST=True,
         ADMIN_USERNAME=os.environ.get('JCC_ADMIN_USERNAME', 'adminxlx'),
         ADMIN_PASSWORD=os.environ.get('JCC_ADMIN_PASSWORD', 'Admin1234'),
         RESEND_API_KEY=os.environ.get('RESEND_API_KEY', ''),

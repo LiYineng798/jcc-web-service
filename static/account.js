@@ -74,8 +74,8 @@ function renderSummaryCards(user, dashboard) {
     ['收到点赞', dashboard.received_likes || 0],
     ['收到收藏', dashboard.received_favorites || 0],
     ['收到复制', dashboard.received_copies || 0],
-    ['发起举报', dashboard.submitted_reports || 0],
-    ['待处理举报', dashboard.pending_reports_on_my_lineups || 0],
+    ['发起失效反馈', dashboard.submitted_reports || 0],
+    ['待处理失效反馈', dashboard.pending_reports_on_my_lineups || 0],
   ].forEach(([label, value]) => {
     const card = document.createElement('article');
     card.className = 'account-stat-card';
@@ -144,11 +144,11 @@ function renderReportsSection(reports) {
   section.className = 'account-section';
   const head = document.createElement('div');
   head.className = 'account-section-head';
-  head.innerHTML = `<div><p class="section-kicker">Reports</p><h3>我的举报</h3></div>`;
+  head.innerHTML = `<div><p class="section-kicker">Reports</p><h3>我的失效反馈</h3></div>`;
   section.append(head);
 
   if (!reports.length) {
-    section.append(buildEmptyLine('你还没有提交过举报。'));
+    section.append(buildEmptyLine('你还没有提交过失效反馈。'));
     return section;
   }
 
@@ -163,7 +163,7 @@ function renderReportsSection(reports) {
         <span class="status-pill ${report.status}">${reportStatusText[report.status] || report.status}</span>
       </div>
       <p class="account-row-meta">阵容状态：${lineupStatusText[report.lineup_status] || report.lineup_status}</p>
-      <p class="account-row-meta">举报原因：${escapeAccountHtml(report.reason)}</p>
+      <p class="account-row-meta">失效反馈原因：${escapeAccountHtml(report.reason)}</p>
       <p class="account-row-meta">提交时间：${escapeAccountHtml(report.created_at || '')}${report.handled_at ? ` · 处理时间：${escapeAccountHtml(report.handled_at)}` : ''}</p>
     `;
     list.append(card);

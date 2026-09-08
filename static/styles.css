@@ -3986,3 +3986,20 @@ textarea:focus {
     padding: 14px 18px;
   }
 }
+
+/* Regular lineup actions wrap as whole labels, with stable mobile columns. */
+.lineup-card-actions > .small-button {
+  min-width: 0;
+  max-width: 100%;
+  white-space: nowrap;
+  justify-content: center;
+}
+@media (max-width: 520px) {
+  .lineup-card-actions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .lineup-card-actions > .small-button:first-child {
+    grid-column: 1 / -1;
+  }
+}

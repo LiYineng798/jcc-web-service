@@ -39,6 +39,18 @@ def test_admin_page_is_noindex(client):
     assert '<link rel="canonical" href="http://localhost/admin"' in html
 
 
+def test_admin_opts_into_safe_area_without_changing_public_viewports(client):
+    from test_admin import login_admin
+    import re
+
+    login_admin(client)
+    for route, cover in [('/admin', True), ('/', False), ('/auth', False)]:
+        html = client.get(route).get_data(as_text=True)
+        viewports = re.findall(r'<meta name="viewport" content="([^"]+)"', html)
+        assert len(viewports) == 1
+        assert ('viewport-fit=cover' in viewports[0]) is cover
+
+
 def test_auth_page_contains_login_and_register_forms(client):
     response = client.get('/auth')
     html = response.get_data(as_text=True)
@@ -740,7 +752,7 @@ def test_account_js_contains_dashboard_and_history_sections():
 
     assert '最近浏览' in js
     assert '最近复制' in js
-    assert '我的举报' in js
+    assert '我的失效反馈' in js
     assert '我的阵容' in js
 
 
@@ -799,7 +811,7 @@ def test_author_js_contains_copy_view_like_favorite_and_report_actions():
     assert '查看' in js
     assert '点赞' in js
     assert '收藏' in js
-    assert '举报' in js
+    assert '失效反馈' in js
     assert 'showAuthPrompt' in js
     assert 'showReportDialog' in js
 

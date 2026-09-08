@@ -88,7 +88,7 @@ def unfavorite_lineup_record(user, lineup_id):
 def report_lineup_record(user, lineup_id, reason):
     clean_reason = str(reason or '').strip()
     if not clean_reason or len(clean_reason) > 300:
-        return None, '请输入 1-300 字举报原因', 400
+        return None, '请输入 1-300 字失效反馈原因', 400
     row = lineup_row(lineup_id)
     if not lineup_is_visible_to_user(row, user):
         return None, '阵容不存在', 404
