@@ -39,6 +39,18 @@ def test_admin_page_is_noindex(client):
     assert '<link rel="canonical" href="http://localhost/admin"' in html
 
 
+def test_admin_opts_into_safe_area_without_changing_public_viewports(client):
+    from test_admin import login_admin
+    import re
+
+    login_admin(client)
+    for route, cover in [('/admin', True), ('/', False), ('/auth', False)]:
+        html = client.get(route).get_data(as_text=True)
+        viewports = re.findall(r'<meta name="viewport" content="([^"]+)"', html)
+        assert len(viewports) == 1
+        assert ('viewport-fit=cover' in viewports[0]) is cover
+
+
 def test_auth_page_contains_login_and_register_forms(client):
     response = client.get('/auth')
     html = response.get_data(as_text=True)
