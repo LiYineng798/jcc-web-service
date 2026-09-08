@@ -1,5 +1,6 @@
 import sqlite3
 from datetime import datetime
+from threading import Lock
 
 import psycopg
 from psycopg.rows import dict_row
@@ -86,6 +87,7 @@ class DriverSqlCursor:
 
 _pg_pool = None
 _pg_pool_url = None
+_pg_pool_lock = Lock()
 
 
 def _postgres_pool(url):
@@ -96,23 +98,30 @@ def _postgres_pool(url):
     is unavailable (dev environments installed before the pool dependency).
     """
     global _pg_pool, _pg_pool_url
-    if _pg_pool is None or _pg_pool_url != url:
-        try:
-            from psycopg_pool import ConnectionPool
-        except ImportError:
-            return None
-        if _pg_pool is not None:
-            _pg_pool.close()
-        _pg_pool = ConnectionPool(
-            url,
-            min_size=1,
-            max_size=4,
-            kwargs={'row_factory': dict_row},
-            open=True,
-            name='jcc-web',
-        )
-        _pg_pool_url = url
-    return _pg_pool
+    # Both background workers may arrive here before the first pool exists.
+    # Serialize creation and publication of the pool/URL pair, including the
+    # return; checkout itself stays outside this lock.
+    with _pg_pool_lock:
+        if _pg_pool is None or _pg_pool_url != url:
+            try:
+                from psycopg_pool import ConnectionPool
+            except ImportError:
+                return None
+            new_pool = ConnectionPool(
+                url,
+                min_size=1,
+                max_size=4,
+                kwargs={'row_factory': dict_row},
+                open=True,
+                name='jcc-web',
+            )
+            # Do not retire a usable pool if constructing its replacement fails.
+            old_pool = _pg_pool
+            _pg_pool = new_pool
+            _pg_pool_url = url
+            if old_pool is not None:
+                old_pool.close()
+        return _pg_pool
 
 
 def get_db():
@@ -125,7 +134,9 @@ def get_db():
             pool = None if current_app.config.get('TESTING') else _postgres_pool(url)
             if pool is not None:
                 connection = pool.getconn(timeout=10)
-                g.db_from_pool = True
+                # Remember the actual lender, not just a flag: the global pool
+                # may be replaced before this app context is torn down.
+                g.db_pool = pool
             else:
                 connection = psycopg.connect(url, row_factory=dict_row)
             db = DriverSqlConnection(connection, kind)
@@ -143,11 +154,12 @@ def get_db():
 
 def close_db(error=None):
     db = g.pop('db', None)
+    pool = g.pop('db_pool', None)
     if db is None:
         return
-    if g.pop('db_from_pool', False) and _pg_pool is not None:
+    if pool is not None:
         # putconn rolls back any open transaction before reuse.
-        _pg_pool.putconn(db.connection)
+        pool.putconn(db.connection)
     else:
         db.close()
 
