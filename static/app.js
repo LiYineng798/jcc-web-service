@@ -391,7 +391,11 @@ async function loadHomeStats() {
 
 function renderHomeStats() {
   if (!elements.lineupCount) return;
-  elements.lineupCount.textContent = state.homeStats.total_public_lineups;
+  if (window.jccHandwritingCount) {
+    window.jccHandwritingCount.render(elements.lineupCount, state.homeStats.total_public_lineups);
+  } else {
+    elements.lineupCount.textContent = state.homeStats.total_public_lineups;
+  }
 }
 
 async function loadLineupSeasons() {
