@@ -877,7 +877,7 @@ def test_admin_js_supports_daily_growth_filter_and_clear_labels():
     assert "state.lineupWorkspace = workspaceKey" in js
     assert "state.liveCompsWorkspace = workspaceKey" in js
     assert "state.activeTab === 'lineups' && state.lineupWorkspace === 'list'" in js
-    assert '默认显示最近用户，每页 10 条' in js
+    assert '管理账号与访问权限 · 按注册顺序展示最近用户' in js
     assert '阵容查找' in js
     assert '批量导入' in js
     assert '阵容码维护' in js

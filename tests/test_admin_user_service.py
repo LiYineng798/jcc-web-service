@@ -5,7 +5,7 @@ from db import get_db
 def test_build_user_list_query_without_search():
     base_sql, count_sql, params = build_user_list_query('')
 
-    assert base_sql == 'SELECT id, username, email, nickname, role, status, created_at, updated_at, last_login_at FROM users ORDER BY id DESC'
+    assert base_sql == 'SELECT id, username, email, nickname, role, status, created_at, updated_at, last_login_at, avatar_color FROM users ORDER BY id DESC'
     assert count_sql == 'SELECT COUNT(*) AS c FROM users'
     assert params == []
 
@@ -53,3 +53,16 @@ def test_create_user_uses_returning_id_for_insert(app, monkeypatch):
     assert status_code == 201
     assert payload['id']
     assert captured == {'insert_kind': 'postgres', 'last_insert_kind': 'postgres'}
+
+
+def test_admin_list_returns_persisted_avatar_color(client, app):
+    with app.app_context():
+        db = get_db()
+        db.execute("UPDATE users SET avatar_color = '#123abc' WHERE username = 'adminxlx'")
+        db.commit()
+    client.post('/api/login', json={'account': 'adminxlx', 'password': 'Admin1234'})
+    response = client.get('/api/admin/users?q=adminxlx')
+    assert response.status_code == 200
+    user = response.get_json()['items'][0]
+    assert user['avatar_color'] == '#123abc'
+    assert 'password_hash' not in user

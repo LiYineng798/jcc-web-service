@@ -1323,34 +1323,58 @@
   }
 
   function renderUsersWorkspace() {
-    const panel = workbenchPanel('用户管理', '默认显示最近用户，每页 10 条；搜索会保留分页');
+    const panel = workbenchPanel('用户管理', '管理账号与访问权限 · 按注册顺序展示最近用户');
+    panel.classList.add('admin-users-workspace');
     const body = panel.querySelector('.admin-workspace-body');
-    body.append(userSearchControls());
-    const list = el('div', 'admin-list compact');
+    const toolbar = el('div', 'admin-users-toolbar');
+    toolbar.append(userSearchControls(), el('span', 'admin-meta', `共 ${state.users.total} 位用户`));
+    body.append(toolbar);
     if (!state.users.items.length) {
-      list.append(empty('没有找到用户'));
-    } else {
-      state.users.items.forEach((user) => {
-        const card = el('article', 'admin-row-card');
-        const info = el('div');
-        info.append(
-          el('strong', '', `${user.nickname}（${user.username}）`),
-          el('p', 'admin-meta', `${user.email} · ${user.role} · ${statusText[user.status] || user.status} · 注册 ${user.created_at}`),
-        );
-        const actions = el('div', 'card-actions');
-        actions.append(button('修改密码', async () => {
-          openPasswordDialog(user);
-        }));
-        if (user.status !== 'disabled') {
-          actions.append(button('禁用', async () => {
-            await disableUser(user.id);
-          }, 'small-button danger-button'));
-        }
-        card.append(info, actions);
-        list.append(card);
-      });
+      body.append(empty('没有找到用户，请尝试其他用户名、昵称或邮箱'), renderPagination('users'));
+      return panel;
     }
-    body.append(list, renderPagination('users'));
+    const table = el('table', 'admin-users-table');
+    table.setAttribute('aria-label', '用户账号与权限');
+    const head = el('thead');
+    const headings = el('tr');
+    ['用户', '状态', '角色', '注册时间', '操作'].forEach(label => {
+      const th = el('th', '', label);
+      th.scope = 'col';
+      headings.append(th);
+    });
+    head.append(headings);
+    const rows = el('tbody');
+    state.users.items.forEach(user => {
+      const row = el('tr');
+      const identity = el('td', 'admin-user-identity');
+      const person = el('div', 'admin-user-person');
+      const avatar = window.jccAvatar.image(user.avatar_color, 38, '');
+      avatar.decoding = 'async';
+      const info = el('div', 'admin-user-info');
+      info.append(el('strong', '', user.nickname || user.username),
+        el('span', 'admin-user-handle', `@${user.username}`), el('span', 'admin-user-email', user.email || '未设置邮箱'));
+      person.append(avatar, info);
+      identity.append(person);
+      const status = el('td');
+      status.dataset.label = '状态';
+      status.append(el('span', `admin-user-status ${user.status === 'disabled' ? 'is-disabled' : 'is-active'}`, statusText[user.status] || user.status));
+      const role = el('td', 'admin-user-role', user.role === 'admin' ? '管理员' : '普通用户');
+      role.dataset.label = '角色';
+      const joined = el('td', 'admin-user-date');
+      joined.dataset.label = '注册时间';
+      const time = el('time', '', String(user.created_at || '').slice(0, 10) || '—');
+      time.title = user.created_at || '';
+      joined.append(time);
+      const actions = el('td', 'admin-user-actions');
+      actions.append(button('修改密码', () => openPasswordDialog(user)));
+      if (user.status !== 'disabled') {
+        actions.append(button('禁用', () => disableUser(user.id), 'small-button danger-button'));
+      }
+      row.append(identity, status, role, joined, actions);
+      rows.append(row);
+    });
+    table.append(head, rows);
+    body.append(table, renderPagination('users'));
     return panel;
   }
 
@@ -1359,6 +1383,7 @@
     const input = el('input');
     input.type = 'search';
     input.placeholder = '搜索用户名、邮箱或昵称';
+    input.setAttribute('aria-label', '搜索用户名、邮箱或昵称');
     input.value = state.users.query;
     const submit = el('button', 'small-button', '查找');
     submit.type = 'submit';

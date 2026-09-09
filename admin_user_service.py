@@ -16,7 +16,7 @@ def build_user_list_query(query):
     if query:
         from_sql += ' WHERE username LIKE ? OR email LIKE ? OR nickname LIKE ?'
         params = [f'%{query}%', f'%{query}%', f'%{query}%']
-    base_sql = 'SELECT id, username, email, nickname, role, status, created_at, updated_at, last_login_at ' + from_sql + ' ORDER BY id DESC'
+    base_sql = 'SELECT id, username, email, nickname, role, status, created_at, updated_at, last_login_at, avatar_color ' + from_sql + ' ORDER BY id DESC'
     count_sql = 'SELECT COUNT(*) AS c ' + from_sql
     return base_sql, count_sql, params
 
