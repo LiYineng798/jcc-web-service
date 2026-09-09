@@ -77,7 +77,8 @@
         savedImage.src = window.jccAvatar.getAvatarDataUrl('', {color: saved, size: 80});
         section.querySelector('.avatar-caption').textContent = '头像已更新，新的色彩已同步';
         dialog.close();
-      } catch (error) { feedback.textContent = error.message || '网络异常，请重试'; }
+        window.jccNotify.show('头像已更新，新的色彩已同步', { variant: 'success' });
+      } catch (error) { window.jccNotify.inline(feedback, error.message || '网络异常，请重试'); }
       finally { busy = false; controls.forEach(control => { control.disabled = false; }); save.disabled = draft === saved; }
     });
     if (location.hash === '#avatar') section.querySelector('#editAvatar').click();

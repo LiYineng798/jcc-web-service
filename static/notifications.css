@@ -1,0 +1,40 @@
+/* Shared transient notifications. Independent of site/simulator CSS and theme. */
+.jcc-notifications {
+  --notification-bg: #fffdf8; --notification-text: #211f1c; --notification-muted: #706b63; --notification-border: #ddd7ce;
+  position:fixed; inset:calc(86px + env(safe-area-inset-top, 0px) + var(--notification-offset, 0px)) max(20px, env(safe-area-inset-right, 0px)) auto auto;
+  box-sizing:border-box; width:min(380px, calc(100vw - 32px)); max-height:calc(var(--notification-height, 100dvh) - 110px);
+  margin:0; padding:0; border:0; background:transparent; color:var(--notification-text); overflow-y:auto;
+  display:flex; flex-direction:column; gap:10px; z-index:2147483647; pointer-events:none;
+  font-family:system-ui,-apple-system,"Segoe UI",sans-serif; color-scheme:light;
+}
+:root[data-theme="dark"] .jcc-notifications, body:has(.sim-topbar) .jcc-notifications {
+  --notification-bg:#24221f; --notification-text:#f3eee6; --notification-muted:#bbb4a9; --notification-border:#49443b; color-scheme:dark;
+}
+.jcc-notifications::backdrop { background:transparent; pointer-events:none; }
+.jcc-notification { box-sizing:border-box; display:flex; align-items:flex-start; flex-shrink:0; gap:12px; padding:16px 12px 16px 16px; border:1px solid var(--notification-border); border-radius:12px; background:var(--notification-bg); box-shadow:0 6px 20px #00000014; pointer-events:auto; animation:notification-enter .18s ease-out; }
+.jcc-notification-icon { width:21px; height:21px; margin-top:1px; flex:0 0 21px; color:var(--notification-text); }
+.jcc-notification-icon svg { width:100%; height:100%; display:block; }
+.jcc-notification.is-success .jcc-notification-icon { color:#287657; }
+.jcc-notification.is-warning .jcc-notification-icon { color:#986119; }
+.jcc-notification.is-error .jcc-notification-icon { color:#b83e36; }
+:root[data-theme="dark"] .jcc-notification.is-success .jcc-notification-icon, body:has(.sim-topbar) .is-success .jcc-notification-icon { color:#75d6a9; }
+:root[data-theme="dark"] .jcc-notification.is-warning .jcc-notification-icon, body:has(.sim-topbar) .is-warning .jcc-notification-icon { color:#ecc075; }
+:root[data-theme="dark"] .jcc-notification.is-error .jcc-notification-icon, body:has(.sim-topbar) .is-error .jcc-notification-icon { color:#ff9a91; }
+.jcc-notification-copy { min-width:0; flex:1; }
+.jcc-notification-copy strong { display:block; font-size:14px; font-weight:650; line-height:1.5; color:var(--notification-text); }
+.jcc-notification-copy p { margin:3px 0 0; font-size:12px; line-height:1.6; color:var(--notification-muted); overflow-wrap:anywhere; }
+.jcc-notification .jcc-notification-close { display:grid; place-items:center; flex:0 0 32px; width:32px; min-width:32px; height:32px; min-height:32px; margin:-6px -4px 0 0; padding:6px; border:0; border-radius:6px; background:transparent; box-shadow:none; color:var(--notification-muted); cursor:pointer; }
+.jcc-notification-close svg { width:18px; height:18px; }
+.jcc-notification-close:hover { background:var(--notification-border); }
+.jcc-notification-close:focus-visible { outline:2px solid var(--notification-text); outline-offset:-2px; }
+.jcc-inline-feedback:not(:empty) { padding:10px 12px; border-left:3px solid currentColor; background:var(--admin-surface-muted, #b83e3610); border-radius:6px; }
+@keyframes notification-enter { from { opacity:0; transform:translateY(-8px); } to { opacity:1; transform:translateY(0); } }
+@media (max-width:640px) {
+  .jcc-notifications { inset:calc(76px + env(safe-area-inset-top, 0px) + var(--notification-offset, 0px)) auto auto max(12px, env(safe-area-inset-left, 0px)); width:calc(100vw - max(12px, env(safe-area-inset-left, 0px)) - max(12px, env(safe-area-inset-right, 0px))); max-height:calc(var(--notification-height, 100dvh) - 100px); gap:8px; }
+  .jcc-notification { padding:14px 12px; gap:10px; }
+  .jcc-notification .jcc-notification-close { flex-basis:44px; width:44px; min-width:44px; height:44px; min-height:44px; margin:-9px -8px -8px 0; }
+}
+@media (prefers-reduced-motion:reduce) { .jcc-notification { animation:none; } }
+/* Success feedback must not intercept another copy underneath the stack. */
+.jcc-notification.is-success, .jcc-notification.is-info { pointer-events:none; }
+.jcc-notification .jcc-notification-close { pointer-events:auto; }

@@ -5,7 +5,8 @@ def test_index_uses_top_right_auth_link(client):
     assert 'id="registerForm"' not in html
     assert 'id="lineupForm"' not in html
     assert 'id="createLineupLink"' in html
-    assert 'id="toast"' in html
+    assert '/static/notifications.js?v=' in html
+    assert '/static/notifications.css?v=' in html
 
 
 def test_public_pages_include_seo_metadata(client):

@@ -4,7 +4,6 @@ const authorElements = {
   themeIcon: document.querySelector('#themeIcon'),
   themeText: document.querySelector('#themeText'),
   authPromptRoot: document.querySelector('#authPromptRoot'),
-  toast: document.querySelector('#toast'),
 };
 const authorState = {
   user: null,
@@ -151,7 +150,7 @@ function actionButton(label, handler, extraClass = '', disabled = false) {
     try {
       await handler(element);
     } catch (error) {
-      showToast(error.message || '操作失败，请稍后重试');
+      showToast(error.message || '操作失败，请稍后重试', 'error');
     }
   });
   return element;
@@ -164,13 +163,14 @@ function openLineupDetail(lineupId) {
 async function copyLineup(lineup) {
   const copied = await writeClipboard(lineup.code);
   if (!copied) {
-    showToast('复制失败，请长按阵容码手动复制');
+    showToast('复制失败，请长按阵容码手动复制', 'error');
     return;
   }
-  await api(`/api/lineups/${lineup.id}/copy?source=author`, { method: 'POST' });
+  showToast('阵容码已复制，可以返回游戏粘贴');
+  await api(`/api/lineups/${lineup.id}/copy?source=author`, { method: 'POST' }).catch(() => {});
   if (!authorState.user) window.jccHistoryStore?.pushLocalCopy(lineup);
-  showToast('复制成功！');
-  await loadAuthor();
+  clearTimeout(copyLineup.refreshTimer);
+  copyLineup.refreshTimer = setTimeout(() => loadAuthor().catch(() => {}), 500);
 }
 
 async function likeLineup(lineup) {
@@ -302,7 +302,7 @@ function showReportDialog(lineup) {
     event.preventDefault();
     const reason = textarea.value.trim();
     if (!reason) {
-      inlineMessage.textContent = '请输入失效反馈原因';
+      window.jccNotify.inline(inlineMessage, '请输入失效反馈原因');
       return;
     }
     submitButton.disabled = true;
@@ -315,7 +315,7 @@ function showReportDialog(lineup) {
       closeAuthorDialog(false);
       showToast('失效反馈已提交');
     } catch (error) {
-      inlineMessage.textContent = error.message || '提交失败';
+      window.jccNotify.inline(inlineMessage, error.message || '提交失败');
     } finally {
       submitButton.disabled = false;
     }
@@ -335,12 +335,12 @@ async function consumePendingIntent() {
   window.jccAuthIntent.clear();
   const lineup = findLineupById(intent.lineupId);
   if (intent.type === 'like_lineup' && lineup) {
-    await api(`/api/lineups/${lineup.id}/like`, { method: 'POST' }).catch((error) => showToast(error.message));
+    await api(`/api/lineups/${lineup.id}/like`, { method: 'POST' }).catch((error) => showToast(error.message, 'error'));
     await loadAuthor();
     return;
   }
   if (intent.type === 'favorite_lineup' && lineup) {
-    await api(`/api/lineups/${lineup.id}/favorite`, { method: 'POST' }).catch((error) => showToast(error.message));
+    await api(`/api/lineups/${lineup.id}/favorite`, { method: 'POST' }).catch((error) => showToast(error.message, 'error'));
     await loadAuthor();
     return;
   }
@@ -375,9 +375,9 @@ async function writeClipboard(text) {
   document.body.append(textarea);
   textarea.select();
   textarea.setSelectionRange(0, textarea.value.length);
-  const copied = document.execCommand('copy');
-  textarea.remove();
-  return copied;
+  try { return document.execCommand('copy'); }
+  catch (_) { return false; }
+  finally { textarea.remove(); }
 }
 
 function buildAuthorEmpty(text) {
@@ -387,14 +387,8 @@ function buildAuthorEmpty(text) {
   return empty;
 }
 
-function showToast(text) {
-  if (!authorElements.toast) return;
-  authorElements.toast.textContent = text;
-  authorElements.toast.classList.add('is-visible');
-  clearTimeout(showToast.timer);
-  showToast.timer = setTimeout(() => {
-    authorElements.toast.classList.remove('is-visible');
-  }, 2200);
+function showToast(text, variant = 'success') {
+  window.jccNotify.show(text, { variant, title: text.includes('复制') && variant === 'success' ? '复制成功' : undefined });
 }
 
 function stripResumeIntentFlag() {

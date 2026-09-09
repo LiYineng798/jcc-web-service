@@ -59,7 +59,6 @@
     passwordResetEmails: { date: '', items: [], total: 0, loadedAt: 0 },
     controllers: {},
     cacheTtlMs: 30000,
-    notice: '',
     passwordUser: null,
     passwordError: '',
     liveCompManualCodeTarget: null,
@@ -425,7 +424,6 @@
     syncTabs();
     root.classList.remove('admin-app-loading');
     root.replaceChildren();
-    if (state.notice) root.append(el('div', 'message admin-inline-message', state.notice));
     if (state.activeTab === 'overview') root.append(renderOverviewDashboardFromModule());
     if (state.activeTab === 'reports') root.append(renderReportsWorkspace());
     if (state.activeTab === 'lineups') root.append(renderLineupsWorkspace());
@@ -444,7 +442,7 @@
             await loadDailyReportDetail({ force: true });
           } catch (error) {
             state.dailyReports.report = null;
-            setNotice(error.message || '该日期还没有每日报告');
+            setNotice(error.message || '该日期还没有每日报告', 'error');
           }
           render();
         },
@@ -875,7 +873,7 @@
 
   async function previewLiveCompUpload(buttonNode) {
     const file = state.liveUpload.selectedFile;
-    if (!file) return setNotice('请先选择 JSON 文件');
+    if (!file) return setNotice('请先选择 JSON 文件', 'warning');
     buttonNode.disabled = true;
     state.liveUpload.uploadPercent = 0;
     updateLiveUploadProgressDom();
@@ -905,7 +903,7 @@
       state.liveUpload.job = result;
       setNotice('文件解析完成，请检查变更后确认发布');
     } catch (error) {
-      setNotice(error.message || '上传预览失败');
+      setNotice(error.message || '上传预览失败', 'error');
     } finally {
       render();
     }
@@ -920,7 +918,7 @@
       setNotice('已进入后台处理队列');
       pollLiveCompUpload();
     } catch (error) {
-      setNotice(error.message || '无法启动上传任务');
+      setNotice(error.message || '无法启动上传任务', 'error');
       buttonNode.disabled = false;
     }
     render();
@@ -938,7 +936,7 @@
         if (!['completed', 'failed'].includes(job.status)) pollLiveCompUpload();
         else render();
       } catch (error) {
-        setNotice(error.message || '读取上传进度失败');
+        setNotice(error.message || '读取上传进度失败', 'error');
       }
     }, 1000);
   }
@@ -1023,7 +1021,7 @@
       await loadSeasonDisplay(kind, { force: true });
       setNotice(`已更新「${season.display_name || season.season_id}」`);
     } catch (error) {
-      setNotice(error.message || '操作失败');
+      setNotice(error.message || '操作失败', 'error');
     }
     render();
   }
@@ -1168,7 +1166,7 @@
       }
       setNotice(successMessage);
     } catch (error) {
-      setNotice(error.message || '操作失败');
+      setNotice(error.message || '操作失败', 'error');
     }
     render();
   }
@@ -1246,7 +1244,7 @@
   async function previewLineupBulkImport(buttonNode) {
     const rawText = state.lineupBulkImport.raw_text.trim();
     if (!rawText) {
-      setNotice('请粘贴阵容码');
+      setNotice('请粘贴阵容码', 'warning');
       return;
     }
     if (buttonNode) buttonNode.disabled = true;
@@ -1264,7 +1262,7 @@
       setNotice(`解析完成：可导入 ${result.importable_count || 0} 条，错误 ${result.invalid_count || 0} 条`);
       render();
     } catch (error) {
-      alert(error.message || '解析失败，请检查内容后重试');
+      window.jccNotify.show(error.message || '解析失败，请检查内容后重试', { variant: 'error' });
       if (buttonNode) buttonNode.disabled = false;
     }
   }
@@ -1273,11 +1271,11 @@
     const rawText = document.querySelector('#lineupBulkImportRawText')?.value?.trim() || '';
     const seasonId = document.querySelector('#lineupBulkImportSeasonInput')?.value || '';
     if (!state.lineupBulkImport.result || !state.lineupBulkImport.preview_raw_text) {
-      setNotice('请先解析阵容码');
+      setNotice('请先解析阵容码', 'warning');
       return;
     }
     if (rawText !== state.lineupBulkImport.preview_raw_text || seasonId !== state.lineupBulkImport.preview_season_id) {
-      setNotice('阵容码文本或赛季已变化，请重新解析');
+      setNotice('阵容码文本或赛季已变化，请重新解析', 'warning');
       return;
     }
     if (!confirm(`确认导入 ${state.lineupBulkImport.result.importable_count || 0} 条阵容吗？`)) return;
@@ -1298,7 +1296,7 @@
       setNotice(`导入完成：新增 ${result.created_count || 0} 条，跳过 ${Number(result.duplicate_existing_count || 0) + Number(result.duplicate_in_upload_count || 0)} 条`);
       render();
     } catch (error) {
-      alert(error.message || '导入失败，请检查内容后重试');
+      window.jccNotify.show(error.message || '导入失败，请检查内容后重试', { variant: 'error' });
       if (buttonNode) buttonNode.disabled = false;
     }
   }
@@ -1661,7 +1659,7 @@
       setNotice(enabled ? '阵容模拟器已开启' : '阵容模拟器已关闭');
       render();
     } catch (error) {
-      alert(error.message || '保存失败');
+      window.jccNotify.show(error.message || '保存失败', { variant: 'error' });
     }
   }
 
@@ -2225,6 +2223,7 @@
       });
     } catch (error) {
       state.liveSeasonCreateError = error.message || '创建失败';
+      window.jccNotify.show(state.liveSeasonCreateError, { variant: 'error' });
       renderDialogs();
       return;
     }
@@ -2370,8 +2369,8 @@
       jump_tab: form.querySelector('#noticeJumpTabInput').value.trim(),
       marquee_enabled: form.querySelector('#noticeMarqueeCheckbox').checked ? '1' : '0',
     };
-    if (!payload.title) { alert('标题不能为空'); return; }
-    if (!payload.message) { alert('内容不能为空'); return; }
+    if (!payload.title) { window.jccNotify.show('标题不能为空', { variant: 'error' }); return; }
+    if (!payload.message) { window.jccNotify.show('内容不能为空', { variant: 'error' }); return; }
     await api(item.id ? `/api/admin/notices/${item.id}` : '/api/admin/notices', {
       method: item.id ? 'PUT' : 'POST',
       body: JSON.stringify(payload),
@@ -2433,18 +2432,26 @@
     const confirmPassword = form.querySelector('#confirmPasswordInput').value;
     if (!isValidPassword(password)) {
       state.passwordError = '密码需大于5位且包含字母和数字';
+      window.jccNotify.show(state.passwordError, { variant: 'error' });
       renderDialogs();
       return;
     }
     if (password !== confirmPassword) {
       state.passwordError = '两次输入的密码不一致';
+      window.jccNotify.show(state.passwordError, { variant: 'error' });
       renderDialogs();
       return;
     }
-    await api(`/api/admin/users/${state.passwordUser.id}`, {
-      method: 'PUT',
-      body: JSON.stringify({ password }),
-    });
+    try {
+      await api(`/api/admin/users/${state.passwordUser.id}`, {
+        method: 'PUT', body: JSON.stringify({ password }),
+      });
+    } catch (error) {
+      state.passwordError = error.message || '密码修改失败';
+      window.jccNotify.show(state.passwordError, { variant: 'error' });
+      renderDialogs();
+      return;
+    }
     const passwordUser = state.passwordUser;
     closePasswordDialog();
     await loadUsers({ force: true });
@@ -2501,6 +2508,7 @@
       });
     } catch (error) {
       state.liveCompManualCodeError = error.message || '保存失败';
+      window.jccNotify.show(state.liveCompManualCodeError, { variant: 'error' });
       renderDialogs();
       return;
     }
@@ -2522,14 +2530,9 @@
     setNotice('用户已禁用');
   }
 
-  function setNotice(text) {
-    state.notice = text;
+  function setNotice(text, variant = 'success') {
+    window.jccNotify.show(text, { variant });
     render();
-    clearTimeout(setNotice.timer);
-    setNotice.timer = setTimeout(() => {
-      state.notice = '';
-      render();
-    }, 2600);
   }
 
   function initTheme() {

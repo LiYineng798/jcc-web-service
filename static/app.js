@@ -53,7 +53,6 @@ const elements = {
   searchClearButton: $('#searchClearButton'),
   lineupList: $('#lineupList'),
   emptyState: $('#emptyState'),
-  message: $('#message'),
   lineupCount: $('#lineupCount'),
   currentDisplayCount: $('#currentDisplayCount'),
   seasonFilterToggle: $('#seasonFilterToggle'),
@@ -68,7 +67,6 @@ const elements = {
   themeToggle: $('#themeToggle'),
   themeIcon: $('#themeIcon'),
   themeText: $('#themeText'),
-  toast: $('#toast'),
   authPromptRoot: $('#authPromptRoot'),
   listTitle: $('#listTitle'),
   listHeading: $('#listHeading'),
@@ -987,12 +985,12 @@ function renderLiveCompCard(item) {
 
 async function copyLiveCompCode(item) {
   if (!item.jccCode) {
-    showMessage('当前阵容暂无可复制的阵容码');
+    showMessage('当前阵容暂无可复制的阵容码', 'warning');
     return;
   }
   const copied = await writeClipboard(item.jccCode);
   if (!copied) {
-    showMessage('复制失败，请长按阵容码手动复制');
+    showMessage('复制失败，请长按阵容码手动复制', 'error');
     return;
   }
   showToast('✓ 阵容码已复制');
@@ -1065,16 +1063,17 @@ function openLineupDetail(lineupId) {
 async function copyLineup(lineup) {
   const copied = await writeClipboard(lineup.code);
   if (!copied) {
-    showMessage('复制失败，请长按阵容码手动复制');
+    showMessage('复制失败，请长按阵容码手动复制', 'error');
     return;
   }
-  await api(`/api/lineups/${lineup.id}/copy?source=home`, { method: 'POST' });
+  showToast('阵容码已复制，可以返回游戏粘贴');
+  await api(`/api/lineups/${lineup.id}/copy?source=home`, { method: 'POST' }).catch(() => {});
   if (!state.user) {
     window.jccHistoryStore?.pushLocalCopy(lineup);
   }
   invalidateHomeViewCache('lineups');
-  showToast('复制成功！祝你把把吃鸡！');
-  loadLineups({ preserveContent: true });
+  clearTimeout(copyLineup.refreshTimer);
+  copyLineup.refreshTimer = setTimeout(() => loadLineups({ preserveContent: true }), 500);
 }
 
 async function writeClipboard(text) {
@@ -1094,9 +1093,9 @@ async function writeClipboard(text) {
   document.body.append(textarea);
   textarea.select();
   textarea.setSelectionRange(0, textarea.value.length);
-  const copied = document.execCommand('copy');
-  textarea.remove();
-  return copied;
+  try { return document.execCommand('copy'); }
+  catch (_) { return false; }
+  finally { textarea.remove(); }
 }
 
 function requireAuthIntent(intent, message) {
@@ -1169,7 +1168,7 @@ async function likeLineup(lineup) {
     showMessage('点赞成功');
     await loadLineups({ preserveContent: true });
   } catch (error) {
-    showMessage(error.message);
+    showMessage(error.message, 'error');
   }
 }
 
@@ -1187,7 +1186,7 @@ async function favoriteLineup(lineup) {
     invalidateHomeViewCache('lineups');
     await loadLineups({ preserveContent: true });
   } catch (error) {
-    showMessage(error.message);
+    showMessage(error.message, 'error');
   }
 }
 
@@ -1248,7 +1247,7 @@ function showReportDialog(lineup) {
     event.preventDefault();
     const reason = textarea.value.trim();
     if (!reason) {
-      inlineMessage.textContent = '请输入失效反馈原因';
+      window.jccNotify.inline(inlineMessage, '请输入失效反馈原因');
       return;
     }
     submitButton.disabled = true;
@@ -1258,7 +1257,7 @@ function showReportDialog(lineup) {
       closeReportDialog();
       showMessage('失效反馈已提交');
     } catch (error) {
-      inlineMessage.textContent = error.message;
+      window.jccNotify.inline(inlineMessage, error.message);
     } finally {
       submitButton.disabled = false;
     }
@@ -1300,7 +1299,7 @@ async function consumePendingIntent() {
       invalidateHomeViewCache('lineups');
       showMessage('已自动完成收藏');
     } catch (error) {
-      showMessage(error.message);
+      showMessage(error.message, 'error');
     }
     return;
   }
@@ -1310,7 +1309,7 @@ async function consumePendingIntent() {
       invalidateHomeViewCache('lineups');
       showMessage('已自动完成点赞');
     } catch (error) {
-      showMessage(error.message);
+      showMessage(error.message, 'error');
     }
     return;
   }
@@ -1321,7 +1320,7 @@ async function consumePendingIntent() {
       if (!response.ok) throw new Error(data?.error || '阵容不存在');
       showReportDialog(data);
     } catch (error) {
-      showMessage(error.message);
+      showMessage(error.message, 'error');
     }
   }
 }
@@ -1344,25 +1343,12 @@ function stripResumeIntentFlag() {
   history.replaceState({}, '', `${window.location.pathname}${nextQuery ? `?${nextQuery}` : ''}`);
 }
 
-function showMessage(text) {
-  elements.message.textContent = text;
-  clearTimeout(showMessage.timer);
-  showMessage.timer = setTimeout(() => {
-    elements.message.textContent = '';
-  }, 2600);
+function showMessage(text, variant = 'success') {
+  window.jccNotify.show(text, { variant });
 }
 
-function showToast(text) {
-  if (!elements.toast) {
-    showMessage(text);
-    return;
-  }
-  elements.toast.textContent = text;
-  elements.toast.classList.add('is-visible');
-  clearTimeout(showToast.timer);
-  showToast.timer = setTimeout(() => {
-    elements.toast.classList.remove('is-visible');
-  }, 3000);
+function showToast(text, variant = 'success') {
+  window.jccNotify.show(text, { variant, title: text.includes('复制') && variant === 'success' ? '复制成功' : undefined });
 }
 
 function setTheme(theme) {
@@ -1552,8 +1538,8 @@ function showGuestbookDialog() {
     event.preventDefault();
     const nickname = nicknameInput.value.trim();
     const content = contentInput.value.trim();
-    if (!nickname) { inlineMessage.textContent = '请填写昵称'; return; }
-    if (!content) { inlineMessage.textContent = '请填写留言内容'; return; }
+    if (!nickname) { window.jccNotify.inline(inlineMessage, '请填写昵称'); return; }
+    if (!content) { window.jccNotify.inline(inlineMessage, '请填写留言内容'); return; }
     submitBtn.disabled = true;
     inlineMessage.textContent = '';
     try {
@@ -1563,7 +1549,7 @@ function showGuestbookDialog() {
       closeGuestbookDialog();
       showToast('感谢留言，站长会尽快查看');
     } catch (err) {
-      inlineMessage.textContent = err.message || '留言失败，请稍后再试';
+      window.jccNotify.inline(inlineMessage, err.message || '留言失败，请稍后再试');
     } finally {
       submitBtn.disabled = false;
     }

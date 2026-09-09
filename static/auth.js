@@ -2,7 +2,7 @@ const state = { user: null, csrfToken: '', captchaToken: '' };
 const $ = (selector) => document.querySelector(selector);
 const elements = {
   authStatus: $('#authStatus'), authForms: $('#authForms'), loginForm: $('#loginForm'), registerForm: $('#registerForm'), logoutButton: $('#logoutButton'), adminLink: $('#adminLink'),
-  loginAccount: $('#loginAccount'), loginPassword: $('#loginPassword'), registerUsername: $('#registerUsername'), registerEmail: $('#registerEmail'), registerNickname: $('#registerNickname'), registerPassword: $('#registerPassword'), captchaImage: $('#captchaImage'), captchaAnswer: $('#captchaAnswer'), refreshCaptcha: $('#refreshCaptcha'), message: $('#message'),
+  loginAccount: $('#loginAccount'), loginPassword: $('#loginPassword'), registerUsername: $('#registerUsername'), registerEmail: $('#registerEmail'), registerNickname: $('#registerNickname'), registerPassword: $('#registerPassword'), captchaImage: $('#captchaImage'), captchaAnswer: $('#captchaAnswer'), refreshCaptcha: $('#refreshCaptcha'),
   themeToggle: $('#themeToggle'), themeIcon: $('#themeIcon'), themeText: $('#themeText'), resetRequestForm: $('#resetRequestForm'), resetConfirmForm: $('#resetConfirmForm'), forgotPasswordButton: $('#forgotPasswordButton'), resetBackButton: $('#resetBackButton'), resetEmail: $('#resetEmail'), resetCode: $('#resetCode'), resetPassword: $('#resetPassword'),
   passwordToggles: document.querySelectorAll('[data-password-toggle]'),
 };
@@ -99,7 +99,7 @@ async function requestPasswordReset(event) {
     elements.resetConfirmForm.classList.remove('hidden');
     showMessage('如果邮箱已注册，验证码已发送，请查收邮件');
     elements.resetCode.focus();
-  } catch (error) { showMessage(error.message); }
+  } catch (error) { showMessage(error.message, 'error'); }
 }
 
 async function confirmPasswordReset(event) {
@@ -110,7 +110,7 @@ async function confirmPasswordReset(event) {
     elements.loginAccount.value = elements.resetEmail.value.trim();
     elements.loginPassword.value = '';
     showMessage('密码已重置，请使用新密码登录');
-  } catch (error) { showMessage(error.message); }
+  } catch (error) { showMessage(error.message, 'error'); }
 }
 
 function setupPasswordVisibilityToggles() {
@@ -133,10 +133,11 @@ async function login(event) {
     state.user = data.user;
     state.csrfToken = data.csrf_token;
     await window.jccHistoryStore?.syncToAccount(state.csrfToken);
+    window.jccNotify.afterNavigation('登录成功，欢迎回来');
     showMessage('登录成功，正在返回阵容库...');
     window.setTimeout(() => { window.location.href = resolvePostLoginRedirect(); }, 500);
   } catch (error) {
-    showMessage(error.message);
+    showMessage(error.message, 'error');
   }
 }
 
@@ -147,10 +148,11 @@ async function register(event) {
     state.user = data.user;
     state.csrfToken = data.csrf_token;
     await window.jccHistoryStore?.syncToAccount(state.csrfToken);
+    window.jccNotify.afterNavigation('注册成功，欢迎加入阵容库');
     showMessage('注册成功，正在返回阵容库...');
     window.setTimeout(() => { window.location.href = resolvePostLoginRedirect(); }, 500);
   } catch (error) {
-    showMessage(error.message);
+    showMessage(error.message, 'error');
     if (elements.captchaImage) loadCaptcha();
   }
 }
@@ -163,10 +165,8 @@ async function logout() {
   if (elements.captchaImage) loadCaptcha();
 }
 
-function showMessage(text) {
-  elements.message.textContent = text;
-  clearTimeout(showMessage.timer);
-  showMessage.timer = setTimeout(() => { elements.message.textContent = ''; }, 2600);
+function showMessage(text, variant = 'success') {
+  window.jccNotify.show(text, { variant });
 }
 
 function resolvePostLoginRedirect() {

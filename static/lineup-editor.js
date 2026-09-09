@@ -4,7 +4,6 @@ const lineupId = root?.dataset.lineupId || '';
 const $ = (selector) => document.querySelector(selector);
 const elements = {
   form: $('#editorForm'),
-  message: $('#editorMessage'),
   lineupId: $('#lineupId'),
   lineupVersion: $('#lineupVersion'),
   nameInput: $('#nameInput'),
@@ -39,7 +38,7 @@ document.addEventListener('keydown', closeEditorSeasonMenuOnEscape);
 async function boot() {
   await loadMe();
   if (!state.user) {
-    showMessage('请先登录后再新增或编辑阵容');
+    showMessage('请先登录后再新增或编辑阵容', 'warning');
     elements.submitButton.disabled = true;
     return;
   }
@@ -138,7 +137,7 @@ async function loadLineup() {
     elements.description.textContent = `正在修改「${lineup.name}」，保存后返回阵容列表。`;
   } catch (error) {
     elements.submitButton.disabled = true;
-    showMessage(error.message);
+    showMessage(error.message, 'error');
   }
 }
 
@@ -147,11 +146,11 @@ async function saveLineup(event) {
   if (!state.user) return;
   const normalizedCode = extractLineupCode(elements.codeInput.value);
   if (!normalizedCode) {
-    showMessage('阵容码无法解析，请改成以 # 开头的阵容码后再提交');
+    showMessage('阵容码无法解析，请改成以 # 开头的阵容码后再提交', 'warning');
     return;
   }
   if (!elements.seasonSelect.value) {
-    showMessage('请选择所属赛季');
+    showMessage('请选择所属赛季', 'warning');
     return;
   }
   elements.codeInput.value = normalizedCode;
@@ -170,12 +169,12 @@ async function saveLineup(event) {
     });
     window.location.href = `/?saved=${isEdit ? 'edit' : 'create'}`;
   } catch (error) {
-    showMessage(error.message);
+    showMessage(error.message, 'error');
   }
 }
 
-function showMessage(text) {
-  elements.message.textContent = text;
+function showMessage(text, variant = 'success') {
+  window.jccNotify.show(text, { variant });
 }
 
 function syncStatusSummary() {

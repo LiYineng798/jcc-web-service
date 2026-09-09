@@ -1,0 +1,104 @@
+const { chromium, webkit, request } = require('playwright');
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const base = process.env.PREVIEW_URL || 'http://127.0.0.1:5092';
+(async () => {
+ fs.mkdirSync('instance/notification-checks', {recursive:true});
+ const auth = await request.newContext();
+ assert.equal((await auth.post(base+'/api/login',{data:{account:'previewadmin',password:'Preview1234'}})).status(),200);
+ const storageState=await auth.storageState();
+ const adminMe=await (await auth.get(base+'/api/me')).json();
+ await auth.put(base+'/api/admin/settings',{headers:{'X-CSRF-Token':adminMe.csrf_token},data:{simulator_enabled:'true'}});
+ const regular=await request.newContext();
+ assert.equal((await regular.post(base+'/api/login',{data:{account:'player01',password:'Preview1234'}})).status(),200);
+ const regularState=await regular.storageState();
+ const me = await (await regular.get(base+'/api/me')).json();
+ const created = await regular.post(base+'/api/lineups',{headers:{'X-CSRF-Token':me.csrf_token},data:{name:'通知验收阵容',code:'#NOTIFY123',season_id:'s17-star-god'}});
+ console.log('seed',created.status());
+ for (const [name,engine] of [['edge',chromium],['webkit',webkit]]) {
+  const browser=await engine.launch(name==='edge'?{channel:'msedge'}:{});
+  const context=await browser.newContext({viewport:{width:1440,height:900}});
+  await context.addInitScript(()=>Object.defineProperty(navigator,'clipboard',{value:{writeText:async()=>{}},configurable:true}));
+  context.setDefaultTimeout(15000);
+  const page=await context.newPage(); const errors=[];page.on('pageerror',e=>errors.push(e.message));
+  await page.goto(base+'/auth');
+  await page.locator('#loginAccount').fill('wrong-account'); await page.locator('#loginPassword').fill('wrong123');
+  await page.route('**/api/login',r=>r.fulfill({status:401,contentType:'application/json',body:JSON.stringify({error:'账号或密码错误'})}));
+  await page.locator('#loginForm button[type=submit]').click();
+  await page.locator('.jcc-notification.is-error').waitFor();
+  assert.match(await page.locator('.jcc-notification').textContent(),/账号或密码错误/);
+  for (const theme of ['light','dark']) for (const width of [320,390,768,1440]) {
+   await page.setViewportSize({width,height:900});
+   await page.evaluate(theme=>{document.documentElement.dataset.theme=theme;document.querySelectorAll('.jcc-notification-close').forEach(b=>b.click());window.jccNotify.show('账号或密码错误，请检查后重试',{variant:'error',duration:60000});},theme);
+   await page.waitForTimeout(300);
+   const bounds=await page.locator('.jcc-notification').boundingBox();assert(bounds.x>=0&&bounds.x+bounds.width<=width+1&&bounds.y>=0);
+   assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
+   await page.screenshot({path:`instance/notification-checks/${name}-auth-${theme}-${width}.png`});
+  }
+  // Never treat message text as HTML. Every identical event gets a new identity; DOM stays bounded.
+  await page.evaluate(()=>{document.querySelectorAll('.jcc-notification-close').forEach(b=>b.click());for(let i=0;i<100;i++)window.jccNotify.show('<img src=x onerror=alert(1)>',{variant:'success',duration:800});});
+  assert.equal(await page.locator('.jcc-notification').count(),4);
+  assert.equal(await page.locator('.jcc-notification img').count(),0);
+  await page.mouse.move(0,0); await page.waitForTimeout(1100); assert.equal(await page.locator('.jcc-notification').count(),0);
+  // Native dialog must not obscure notices or make their close button inert.
+  await page.evaluate(()=>{const d=document.createElement('dialog');d.id='testDialog';d.innerHTML='<button>Dialog button</button>';document.body.append(d);d.showModal();window.jccNotify.show('弹窗内保存失败',{variant:'error'});});
+  await page.getByRole('button',{name:'关闭通知',exact:true}).click();
+  assert.equal(await page.locator('.jcc-notification').count(),0);
+  await page.evaluate(()=>{window.jccNotify.show('弹窗保存完成',{variant:'success'});document.querySelector('#testDialog').close();});
+  await page.getByRole('button',{name:'关闭通知',exact:true}).click();
+  await page.unroute('**/api/login');
+  await page.goto(base+'/auth');
+  await page.locator('#loginAccount').fill('player01');await page.locator('#loginPassword').fill('Preview1234');
+  await page.locator('#loginForm button[type=submit]').click();
+  await page.waitForURL(base+'/');
+  await page.getByText('登录成功，欢迎回来',{exact:true}).waitFor();
+  await context.close();
+  const logged=await browser.newContext({storageState,viewport:{width:1440,height:900}});
+  await logged.addInitScript(()=>Object.defineProperty(navigator,'clipboard',{value:{writeText:async()=>{}},configurable:true}));
+  logged.setDefaultTimeout(15000);
+  const admin=await logged.newPage(); admin.on('pageerror',e=>errors.push(e.message));
+  await admin.goto(base+'/admin');
+  await admin.locator('.admin-sidebar [data-admin-tab="simulator-seasons"]').click();
+  await admin.getByRole('button',{name:'归档展示',exact:true}).first().click();
+  await admin.locator('.jcc-notification.is-success').waitFor();
+  assert.equal(await admin.locator('.admin-inline-message').count(),0);
+  await admin.waitForTimeout(250);
+  await admin.screenshot({path:`instance/notification-checks/${name}-admin-save.png`});
+  await admin.getByRole('button',{name:'启用展示',exact:true}).first().click();
+  await logged.clearCookies();await logged.addCookies(regularState.cookies);
+  await admin.goto(base+'/author/player01');
+  const copy=admin.getByRole('button',{name:'复制阵容码',exact:true}).first();await copy.waitFor();
+  await copy.click({clickCount:3,delay:30});
+  await admin.waitForFunction(()=>document.querySelectorAll('.jcc-notification.is-success').length===3);
+  assert.equal(new Set(await admin.locator('.jcc-notification').evaluateAll(nodes=>nodes.map(n=>n.dataset.notificationId))).size,3);
+  await admin.waitForTimeout(250);
+  await admin.screenshot({path:`instance/notification-checks/${name}-copy-stack.png`});
+  await admin.goto(base+'/me');
+  const accountCopy=admin.getByRole('button',{name:'复制阵容码',exact:true}).first();await accountCopy.waitFor();
+  await accountCopy.click({clickCount:3,delay:30});
+  await admin.waitForFunction(()=>document.querySelectorAll('.jcc-notification.is-success').length===3);
+  assert(await accountCopy.isEnabled());
+  await admin.setViewportSize({width:390,height:844});
+  await admin.evaluate(()=>document.querySelectorAll('.jcc-notification-close').forEach(b=>b.click()));
+  await accountCopy.click({clickCount:3,delay:30});
+  await admin.waitForFunction(()=>document.querySelectorAll('.jcc-notification').length===3);
+  await admin.waitForTimeout(250);
+  await admin.screenshot({path:`instance/notification-checks/${name}-mobile-copy-stack.png`});
+  await admin.evaluate(()=>{document.querySelectorAll('.jcc-notification-close').forEach(b=>b.click());Object.defineProperty(navigator,'clipboard',{value:{writeText:async()=>{throw new Error('denied');}},configurable:true});document.execCommand=()=>false;});
+  await accountCopy.click();await admin.locator('.jcc-notification.is-error').waitFor();
+  assert.equal(await admin.locator('.jcc-notification.is-success').count(),0);
+  await admin.goto(base+'/tools/lineup-simulator');
+  for (let i=0;i<3;i++) {
+   await admin.locator('#exportButton').click();
+   await admin.locator('#confirmCodeButton').click();
+   await admin.locator('#codeDialog').waitFor({state:'hidden'});
+  }
+  await admin.waitForFunction(()=>document.querySelectorAll('.jcc-notification.is-success').length===3);
+  await admin.getByRole('button',{name:'关闭通知',exact:true}).first().click();
+  assert.equal(await admin.locator('.jcc-notification').count(),2);
+  await admin.waitForTimeout(250);
+  await admin.screenshot({path:`instance/notification-checks/${name}-simulator-dialog.png`});
+  assert.deepEqual(errors,[]);await browser.close();console.log(name+' passed');
+ }
+ await auth.dispose();await regular.dispose();
+})().catch(e=>{console.error(e);process.exit(1);});

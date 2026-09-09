@@ -28,7 +28,7 @@
         await handler(event, node);
       } catch (error) {
         if (error?.name === 'AbortError') return;
-        alert(error.message || '操作失败，请刷新后重试');
+        window.jccNotify.show(error.message || '操作失败，请刷新后重试', { variant: 'error' });
       }
     });
     return node;

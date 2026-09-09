@@ -133,7 +133,6 @@ const elements = {
   export: document.querySelector("#exportButton"),
   boardCapture: document.querySelector("#boardCapture"),
   popover: document.querySelector("#detailPopover"),
-  toast: document.querySelector("#toast"),
   dialog: document.querySelector("#codeDialog"),
   dialogTitle: document.querySelector("#codeDialogTitle"),
   dialogHint: document.querySelector("#codeDialogHint"),
@@ -1254,7 +1253,7 @@ async function handleCodeConfirm() {
   if (state.dialogMode === "export") {
     await copyText(elements.code.value);
     elements.dialog.close();
-    return showToast("阵容码已复制");
+    return showToast("阵容码已复制", "success");
   }
   try {
     const rawCode = normalizeFormationCode(elements.code.value);
@@ -1268,7 +1267,7 @@ async function handleCodeConfirm() {
       pushHistory();
       renderAll();
       elements.dialog.close();
-      return showToast("云顶阵容码已导入并自动排位");
+      return showToast("云顶阵容码已导入并自动排位", "success");
     }
     const inspected = inspectFormationCode(elements.code.value);
     if (inspected.season !== state.season.season_id) await loadSeason(inspected.season, inspected);
@@ -1282,9 +1281,9 @@ async function handleCodeConfirm() {
       persist();
     }
     elements.dialog.close();
-    showToast("阵容已导入");
+    showToast("阵容已导入", "success");
   } catch {
-    showToast("阵容码无效或版本不受支持");
+    showToast("阵容码无效或版本不受支持", "error");
   }
 }
 
@@ -1292,17 +1291,19 @@ async function copyText(text) {
   if (navigator.clipboard?.writeText) return navigator.clipboard.writeText(text);
   const area = document.createElement("textarea");
   area.value = text;
-  document.body.append(area);
+  area.style.position = 'fixed';
+  area.style.opacity = '0';
+  (document.querySelector('dialog[open]') || document.body).append(area);
   area.select();
-  document.execCommand("copy");
-  area.remove();
+  try { if (!document.execCommand("copy")) throw new Error('复制失败'); }
+  finally { area.remove(); }
 }
 
 async function shareFormation() {
   const url = `${location.origin}${location.pathname}#lineup=${encodePayload(formationPayload())}`;
   await copyText(url);
   history.replaceState(null, "", url);
-  showToast("阵容链接已复制");
+  showToast("阵容链接已复制", "success");
 }
 
 function waitForPaint() {
@@ -1385,7 +1386,7 @@ async function exportBoardImage(includeTraits = true, transparentBackground = fa
     link.href = dataUrl;
     link.click();
     await updateExportProgress("导出完成", 100);
-    showToast("阵容图已保存");
+    showToast("阵容图已保存", "success");
   } finally {
     capture?.remove();
     elements.exportImage.disabled = false;
@@ -1646,7 +1647,7 @@ async function exportPortraitPoster() {
     link.href = dataUrl;
     link.click();
     await updateExportProgress("导出完成", 100);
-    showToast("3:4 阵容海报已保存");
+    showToast("3:4 阵容海报已保存", "success");
   } finally {
     poster?.remove();
     elements.exportPoster.disabled = !state.board.some(Boolean);
@@ -1744,12 +1745,8 @@ function showPopover(anchor) {
 
 function hidePopover() { elements.popover.hidden = true; }
 
-let toastTimer;
-function showToast(message) {
-  clearTimeout(toastTimer);
-  elements.toast.textContent = message;
-  elements.toast.classList.add("is-visible");
-  toastTimer = setTimeout(() => elements.toast.classList.remove("is-visible"), 1800);
+function showToast(message, variant = 'warning') {
+  window.jccNotify.show(message, { variant, title: message.includes('复制') && variant === 'success' ? '复制成功' : undefined });
 }
 
 elements.seasonSwitcher.addEventListener("click", async (event) => {
@@ -1763,7 +1760,7 @@ elements.seasonSwitcher.addEventListener("click", async (event) => {
     await refreshCatalog();
     await loadSeason(seasonId);
   }
-  catch (error) { showToast(error.message); }
+  catch (error) { showToast(error.message, "error"); }
 });
 
 elements.costFilters.addEventListener("click", (event) => {
@@ -1938,14 +1935,14 @@ elements.reset.addEventListener("click", () => {
 });
 elements.import.addEventListener("click", () => openCodeDialog("import"));
 elements.export.addEventListener("click", () => openCodeDialog("export"));
-elements.confirmCode.addEventListener("click", handleCodeConfirm);
-elements.share.addEventListener("click", () => shareFormation().catch(() => showToast("复制失败")));
+elements.confirmCode.addEventListener("click", () => handleCodeConfirm().catch(() => showToast("复制失败，请手动复制阵容码", "error")));
+elements.share.addEventListener("click", () => shareFormation().catch(() => showToast("复制失败", "error")));
 elements.exportImage.addEventListener("click", () => elements.exportImageDialog.showModal());
 elements.exportPoster.addEventListener("click", openPosterDialog);
 elements.confirmExportImage.addEventListener("click", () => exportBoardImage(
   elements.exportIncludeTraits.checked,
   elements.exportTransparentBackground.checked,
-).catch(() => showToast("图片生成失败")));
+).catch(() => showToast("图片生成失败", "error")));
 elements.posterTitle.addEventListener("input", renderPosterPreview);
 elements.posterChampionPicker.addEventListener("click", (event) => {
   const option = event.target.closest("[data-poster-champion-id]");
@@ -1954,7 +1951,7 @@ elements.posterChampionPicker.addEventListener("click", (event) => {
   renderPosterChampionPicker();
   renderPosterPreview();
 });
-elements.confirmExportPoster.addEventListener("click", () => exportPortraitPoster().catch(() => showToast("海报生成失败")));
+elements.confirmExportPoster.addEventListener("click", () => exportPortraitPoster().catch(() => showToast("海报生成失败", "error")));
 elements.posterExportDialog.addEventListener("close", () => {
   elements.posterPreview.replaceChildren();
   elements.posterPreview.style.height = "";
@@ -1974,5 +1971,5 @@ window.lucide?.createIcons();
 loadCatalog().catch((error) => {
   elements.seasonMeta.textContent = error.message;
   elements.heroGroups.innerHTML = `<div class="empty-state">${escapeHtml(error.message)}</div>`;
-  showToast(error.message);
+  showToast(error.message, "error");
 });

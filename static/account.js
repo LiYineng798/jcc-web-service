@@ -120,16 +120,14 @@ function renderHistorySection(title, items, emptyText, timeLabel) {
     copyButton.className = 'small-button';
     copyButton.textContent = '复制阵容码';
     copyButton.addEventListener('click', async () => {
-      const copied = await copyLineupCode(item.code);
-      if (!copied) return;
-      await recordLineupCopy(item.id, 'account');
-      const originalText = copyButton.textContent;
-      copyButton.textContent = '已复制';
-      copyButton.disabled = true;
-      window.setTimeout(() => {
-        copyButton.textContent = originalText;
-        copyButton.disabled = false;
-      }, 1400);
+      try {
+        const copied = await copyLineupCode(item.code);
+        if (!copied) throw new Error('复制失败，请手动复制阵容码');
+        window.jccNotify.show('阵容码已复制，可以返回游戏粘贴', { variant: 'success', title: '复制成功' });
+        await recordLineupCopy(item.id, 'account');
+      } catch (error) {
+        window.jccNotify.show(error.message || '复制失败，请重试', { variant: 'error' });
+      }
     });
     actions.append(copyButton);
     card.append(actions);
@@ -228,9 +226,9 @@ async function copyLineupCode(text) {
   document.body.append(textarea);
   textarea.select();
   textarea.setSelectionRange(0, textarea.value.length);
-  const copied = document.execCommand('copy');
-  textarea.remove();
-  return copied;
+  try { return document.execCommand('copy'); }
+  catch (_) { return false; }
+  finally { textarea.remove(); }
 }
 
 async function recordLineupCopy(lineupId, source) {
