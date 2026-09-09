@@ -1362,7 +1362,7 @@
       role.dataset.label = '角色';
       const joined = el('td', 'admin-user-date');
       joined.dataset.label = '注册时间';
-      const time = el('time', '', String(user.created_at || '').slice(0, 10) || '—');
+      const time = el('time', '', String(user.created_at || '').replace('T', ' ').slice(0, 19) || '—');
       time.title = user.created_at || '';
       joined.append(time);
       const actions = el('td', 'admin-user-actions');

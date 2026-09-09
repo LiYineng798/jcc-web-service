@@ -19,6 +19,7 @@ const fs=require('node:fs');
  await page.waitForTimeout(500);
  assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),`${name} ${width} overflow`);
  assert.equal(await page.locator('.admin-user-person img').count(),10);
+ assert.match(await page.locator('.admin-user-date time').first().textContent(), /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/);
  assert(await page.locator('.admin-user-person img').first().evaluate(img=>img.complete&&img.naturalWidth>0));
  await page.screenshot({path:`instance/users-checks/${name}-${theme}-${width}.png`,fullPage:false});
  }

@@ -17,3 +17,5 @@
 预览重启：在 worktree 根目录运行 `python instance/preview_users.py`（端口 5091）。局域网可尝试 http://10.0.134.101:5091/admin ，实际访问取决于本机网络与防火墙。
 
 最终验证：`python -m pytest -q` → 563 passed（145.60s）。`node tests/admin_users_rendering.cjs` → Edge / WebKit passed，包含分页往返验证。`git diff --check` 通过；预览 `/api/health` 返回 200。
+
+注册时间完整显示为 YYYY-MM-DD HH:mm:ss（例如 2026-09-09 21:00:57），保留接口的时间值，不做浏览器时区转换。
