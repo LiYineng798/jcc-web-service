@@ -1,6 +1,6 @@
 {
   "$schema": "../../../../../schemas/champions.schema.json",
-  "version_id": "s18__18_18_1c",
+  "version_id": "s18__18_18_2",
   "champions": [
     {
       "id": "1500",
@@ -101,7 +101,7 @@
             "local_path": "assets/skills/1500.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/skill/s18_ornn.png",
             "alt": "奥恩技能图标",
-            "optimized_local_path": "assets/optimized/s18__18_18_1c/skills/1500_skill.webp"
+            "optimized_local_path": "assets/optimized/s18__18_18_2/skills/1500_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -150,7 +150,7 @@
           "local_path": "assets/champions/1500.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/hero/s18_head_ornn.png",
           "alt": "奥恩头像",
-          "optimized_local_path": "assets/optimized/s18__18_18_1c/champions/1500.webp"
+          "optimized_local_path": "assets/optimized/s18__18_18_2/champions/1500.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/1500.jpg",
@@ -274,7 +274,7 @@
             "local_path": "assets/skills/1501.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/skill/s18_rakan.png",
             "alt": "洛技能图标",
-            "optimized_local_path": "assets/optimized/s18__18_18_1c/skills/1501_skill.webp"
+            "optimized_local_path": "assets/optimized/s18__18_18_2/skills/1501_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -323,7 +323,7 @@
           "local_path": "assets/champions/1501.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/hero/s18_head_rakan.png",
           "alt": "洛头像",
-          "optimized_local_path": "assets/optimized/s18__18_18_1c/champions/1501.webp"
+          "optimized_local_path": "assets/optimized/s18__18_18_2/champions/1501.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/1501.jpg",
@@ -370,8 +370,8 @@
           "magic_resist": 40.0,
           "attack_speed": 0.65,
           "attack_range": 1.0,
-          "initial_mana": 40.0,
-          "max_mana": 100.0,
+          "initial_mana": 30.0,
+          "max_mana": 90.0,
           "critical_strike_chance": 25.0,
           "sell_price": 1.0
         },
@@ -382,8 +382,8 @@
           "magic_resist": 40.0,
           "attack_speed": 0.65,
           "attack_range": 1.0,
-          "initial_mana": 40.0,
-          "max_mana": 100.0,
+          "initial_mana": 30.0,
+          "max_mana": 90.0,
           "critical_strike_chance": 25.0,
           "sell_price": 3.0
         },
@@ -394,8 +394,8 @@
           "magic_resist": 40.0,
           "attack_speed": 0.65,
           "attack_range": 1.0,
-          "initial_mana": 40.0,
-          "max_mana": 100.0,
+          "initial_mana": 30.0,
+          "max_mana": 90.0,
           "critical_strike_chance": 25.0,
           "sell_price": 9.0
         },
@@ -406,8 +406,8 @@
           "magic_resist": 40.0,
           "attack_speed": 0.65,
           "attack_range": 1.0,
-          "initial_mana": 40.0,
-          "max_mana": 100.0,
+          "initial_mana": 30.0,
+          "max_mana": 90.0,
           "critical_strike_chance": 25.0,
           "sell_price": 27.0
         }
@@ -424,9 +424,9 @@
               "unit": "raw",
               "values": {
                 "1": "60",
-                "2": "70",
-                "3": "80",
-                "4": "100"
+                "2": "80",
+                "3": "100",
+                "4": "130"
               }
             },
             {
@@ -441,19 +441,19 @@
               }
             }
           ],
-          "raw_values": "衰减抗性：100【法术加成】 60/70/80/100|伤害：320【护甲】 150%/270%/405%/800%",
+          "raw_values": "衰减抗性：130【法术加成】 60/80/100/130|伤害：320【护甲】 150%/270%/405%/800%",
           "image": {
             "local_path": "assets/skills/1502.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/skill/s18_leona.png",
             "alt": "蕾欧娜技能图标",
-            "optimized_local_path": "assets/optimized/s18__18_18_1c/skills/1502_skill.webp"
+            "optimized_local_path": "assets/optimized/s18__18_18_2/skills/1502_skill.webp"
           },
           "extensions": {
             "description_by_star": {
               "1": "被动：战斗开始时获得60(【法术加成】)额外护甲和魔抗，在12秒内逐渐衰减。  主动：猛击当前目标，造成60(【护甲】)魔法伤害，并使其眩晕1.5秒。",
-              "2": "被动：战斗开始时获得70(【法术加成】)额外护甲和魔抗，在12秒内逐渐衰减。  主动：猛击当前目标，造成108(【护甲】)魔法伤害，并使其眩晕1.5秒。",
-              "3": "被动：战斗开始时获得80(【法术加成】)额外护甲和魔抗，在12秒内逐渐衰减。  主动：猛击当前目标，造成162(【护甲】)魔法伤害，并使其眩晕1.5秒。",
-              "4": "被动：战斗开始时获得100(【法术加成】)额外护甲和魔抗，在12秒内逐渐衰减。  主动：猛击当前目标，造成320(【护甲】)魔法伤害，并使其眩晕1.5秒。"
+              "2": "被动：战斗开始时获得80(【法术加成】)额外护甲和魔抗，在12秒内逐渐衰减。  主动：猛击当前目标，造成108(【护甲】)魔法伤害，并使其眩晕1.5秒。",
+              "3": "被动：战斗开始时获得100(【法术加成】)额外护甲和魔抗，在12秒内逐渐衰减。  主动：猛击当前目标，造成162(【护甲】)魔法伤害，并使其眩晕1.5秒。",
+              "4": "被动：战斗开始时获得130(【法术加成】)额外护甲和魔抗，在12秒内逐渐衰减。  主动：猛击当前目标，造成320(【护甲】)魔法伤害，并使其眩晕1.5秒。"
             }
           },
           "description_tokens": [
@@ -495,7 +495,7 @@
           "local_path": "assets/champions/1502.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/hero/s18_head_leona.png",
           "alt": "蕾欧娜头像",
-          "optimized_local_path": "assets/optimized/s18__18_18_1c/champions/1502.webp"
+          "optimized_local_path": "assets/optimized/s18__18_18_2/champions/1502.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/1502.jpg",
@@ -618,7 +618,7 @@
             "local_path": "assets/skills/1503.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/skill/s18_kobuko.png",
             "alt": "可酷伯技能图标",
-            "optimized_local_path": "assets/optimized/s18__18_18_1c/skills/1503_skill.webp"
+            "optimized_local_path": "assets/optimized/s18__18_18_2/skills/1503_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -685,7 +685,7 @@
           "local_path": "assets/champions/1503.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/hero/s18_head_kobuko.png",
           "alt": "可酷伯头像",
-          "optimized_local_path": "assets/optimized/s18__18_18_1c/champions/1503.webp"
+          "optimized_local_path": "assets/optimized/s18__18_18_2/champions/1503.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/1503.jpg",
@@ -808,7 +808,7 @@
             "local_path": "assets/skills/1504.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/skill/s18_reksai.png",
             "alt": "雷克塞技能图标",
-            "optimized_local_path": "assets/optimized/s18__18_18_1c/skills/1504_skill.webp"
+            "optimized_local_path": "assets/optimized/s18__18_18_2/skills/1504_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -857,7 +857,7 @@
           "local_path": "assets/champions/1504.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/hero/s18_head_reksai.png",
           "alt": "雷克塞头像",
-          "optimized_local_path": "assets/optimized/s18__18_18_1c/champions/1504.webp"
+          "optimized_local_path": "assets/optimized/s18__18_18_2/champions/1504.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/1504.jpg",
@@ -980,25 +980,25 @@
               "unit": "raw",
               "values": {
                 "1": "60",
-                "2": "90",
-                "3": "200",
-                "4": "235"
+                "2": "100",
+                "3": "250",
+                "4": "310"
               }
             }
           ],
-          "raw_values": "伤害：【法术加成】 10/15/25/40|伤害：740 = 700(【物理加成】) + 40(【法术加成】) 160/240/410/700|护盾： 60/90/200/235",
+          "raw_values": "伤害：【法术加成】 10/15/25/40|伤害：740 = 700(【物理加成】) + 40(【法术加成】) 160/240/410/700|护盾： 60/100/250/310",
           "image": {
             "local_path": "assets/skills/1505.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/skill/s18_camille.png",
             "alt": "卡蜜尔技能图标",
-            "optimized_local_path": "assets/optimized/s18__18_18_1c/skills/1505_skill.webp"
+            "optimized_local_path": "assets/optimized/s18__18_18_2/skills/1505_skill.webp"
           },
           "extensions": {
             "description_by_star": {
               "1": "劈砍当前目标，造成170(【物理加成】【法术加成】)物理伤害，并获得60点护盾，持续2秒。",
-              "2": "劈砍当前目标，造成255(【物理加成】【法术加成】)物理伤害，并获得90点护盾，持续2秒。",
-              "3": "劈砍当前目标，造成435(【物理加成】【法术加成】)物理伤害，并获得200点护盾，持续2秒。",
-              "4": "劈砍当前目标，造成740(【物理加成】【法术加成】)物理伤害，并获得235点护盾，持续2秒。"
+              "2": "劈砍当前目标，造成255(【物理加成】【法术加成】)物理伤害，并获得100点护盾，持续2秒。",
+              "3": "劈砍当前目标，造成435(【物理加成】【法术加成】)物理伤害，并获得250点护盾，持续2秒。",
+              "4": "劈砍当前目标，造成740(【物理加成】【法术加成】)物理伤害，并获得310点护盾，持续2秒。"
             }
           },
           "description_tokens": [
@@ -1036,7 +1036,7 @@
           "local_path": "assets/champions/1505.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/hero/s18_head_camille.png",
           "alt": "卡蜜尔头像",
-          "optimized_local_path": "assets/optimized/s18__18_18_1c/champions/1505.webp"
+          "optimized_local_path": "assets/optimized/s18__18_18_2/champions/1505.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/1505.jpg",
@@ -1085,7 +1085,7 @@
           "attack_speed": 0.75,
           "attack_range": 1.0,
           "initial_mana": 0.0,
-          "max_mana": 30.0,
+          "max_mana": 25.0,
           "critical_strike_chance": 25.0,
           "sell_price": 1.0
         },
@@ -1097,7 +1097,7 @@
           "attack_speed": 0.75,
           "attack_range": 1.0,
           "initial_mana": 0.0,
-          "max_mana": 30.0,
+          "max_mana": 25.0,
           "critical_strike_chance": 25.0,
           "sell_price": 3.0
         },
@@ -1109,7 +1109,7 @@
           "attack_speed": 0.75,
           "attack_range": 1.0,
           "initial_mana": 0.0,
-          "max_mana": 30.0,
+          "max_mana": 25.0,
           "critical_strike_chance": 25.0,
           "sell_price": 9.0
         },
@@ -1121,7 +1121,7 @@
           "attack_speed": 0.75,
           "attack_range": 1.0,
           "initial_mana": 0.0,
-          "max_mana": 30.0,
+          "max_mana": 25.0,
           "critical_strike_chance": 25.0,
           "sell_price": 27.0
         }
@@ -1171,7 +1171,7 @@
             "local_path": "assets/skills/1506.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/skill/s18_akali.png",
             "alt": "阿卡丽技能图标",
-            "optimized_local_path": "assets/optimized/s18__18_18_1c/skills/1506_skill.webp"
+            "optimized_local_path": "assets/optimized/s18__18_18_2/skills/1506_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -1255,7 +1255,7 @@
           "local_path": "assets/champions/1506.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/hero/s18_head_akali.png",
           "alt": "阿卡丽头像",
-          "optimized_local_path": "assets/optimized/s18__18_18_1c/champions/1506.webp"
+          "optimized_local_path": "assets/optimized/s18__18_18_2/champions/1506.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/1506.jpg",
@@ -1348,7 +1348,7 @@
         {
           "id": "1507_skill",
           "name": "穿刺之箭",
-          "description": "蓄力，然后向目标所在且的敌人最多的一条直线射出箭矢。它对命中的敌人造成415(【物理加成】【法术加成】)物理伤害，每穿过一个敌人，该伤害降低40%（最低为40%）",
+          "description": "蓄力，然后向目标所在且敌人最多的一条直线射出箭矢。它对命中的敌人造成445(【物理加成】【法术加成】)物理伤害，每穿过一个敌人，该伤害降低40%（最低为40%）",
           "variables": [
             {
               "key": "value_1",
@@ -1363,35 +1363,35 @@
             },
             {
               "key": "value_2",
-              "label": "伤害:1505 = 1390(【物理加成】) + 115(【法术加成】) 385/580/925/1390",
+              "label": "伤害:1815 = 1700(【物理加成】) + 115(【法术加成】) 415/625/1000/1700",
               "unit": "raw",
               "values": {
-                "1": "385",
-                "2": "580",
-                "3": "925",
-                "4": "1390"
+                "1": "415",
+                "2": "625",
+                "3": "1000",
+                "4": "1700"
               }
             }
           ],
-          "raw_values": "伤害:(【法术加成】) 30/45/70/115|伤害:1505 = 1390(【物理加成】) + 115(【法术加成】) 385/580/925/1390",
+          "raw_values": "伤害:(【法术加成】) 30/45/70/115|伤害:1815 = 1700(【物理加成】) + 115(【法术加成】) 415/625/1000/1700",
           "image": {
             "local_path": "assets/skills/1507.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/skill/s18_varus.png",
             "alt": "韦鲁斯技能图标",
-            "optimized_local_path": "assets/optimized/s18__18_18_1c/skills/1507_skill.webp"
+            "optimized_local_path": "assets/optimized/s18__18_18_2/skills/1507_skill.webp"
           },
           "extensions": {
             "description_by_star": {
-              "1": "蓄力，然后向目标所在且的敌人最多的一条直线射出箭矢。它对命中的敌人造成415(【物理加成】【法术加成】)物理伤害，每穿过一个敌人，该伤害降低40%（最低为40%）",
-              "2": "蓄力，然后向目标所在且的敌人最多的一条直线射出箭矢。它对命中的敌人造成625(【物理加成】【法术加成】)物理伤害，每穿过一个敌人，该伤害降低40%（最低为40%）",
-              "3": "蓄力，然后向目标所在且的敌人最多的一条直线射出箭矢。它对命中的敌人造成995(【物理加成】【法术加成】)物理伤害，每穿过一个敌人，该伤害降低40%（最低为40%）",
-              "4": "蓄力，然后向目标所在且的敌人最多的一条直线射出箭矢。它对命中的敌人造成1505(【物理加成】【法术加成】)物理伤害，每穿过一个敌人，该伤害降低40%（最低为40%）"
+              "1": "蓄力，然后向目标所在且敌人最多的一条直线射出箭矢。它对命中的敌人造成445(【物理加成】【法术加成】)物理伤害，每穿过一个敌人，该伤害降低40%（最低为40%）",
+              "2": "蓄力，然后向目标所在且敌人最多的一条直线射出箭矢。它对命中的敌人造成670(【物理加成】【法术加成】)物理伤害，每穿过一个敌人，该伤害降低40%（最低为40%）",
+              "3": "蓄力，然后向目标所在且敌人最多的一条直线射出箭矢。它对命中的敌人造成1070(【物理加成】【法术加成】)物理伤害，每穿过一个敌人，该伤害降低40%（最低为40%）",
+              "4": "蓄力，然后向目标所在且敌人最多的一条直线射出箭矢。它对命中的敌人造成1815(【物理加成】【法术加成】)物理伤害，每穿过一个敌人，该伤害降低40%（最低为40%）"
             }
           },
           "description_tokens": [
             {
               "type": "text",
-              "value": "蓄力，然后向目标所在且的敌人最多的一条直线射出箭矢。它对命中的敌人造成415("
+              "value": "蓄力，然后向目标所在且敌人最多的一条直线射出箭矢。它对命中的敌人造成445("
             },
             {
               "type": "stat",
@@ -1423,7 +1423,7 @@
           "local_path": "assets/champions/1507.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/hero/s18_head_varus.png",
           "alt": "韦鲁斯头像",
-          "optimized_local_path": "assets/optimized/s18__18_18_1c/champions/1507.webp"
+          "optimized_local_path": "assets/optimized/s18__18_18_2/champions/1507.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/1507.jpg",
@@ -1546,7 +1546,7 @@
             "local_path": "assets/skills/1508.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/skill/s18_cinderling.png",
             "alt": "绯红树怪技能图标",
-            "optimized_local_path": "assets/optimized/s18__18_18_1c/skills/1508_skill.webp"
+            "optimized_local_path": "assets/optimized/s18__18_18_2/skills/1508_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -1591,7 +1591,7 @@
           "local_path": "assets/champions/1508.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/hero/s18_head_cinderling.png",
           "alt": "绯红树怪头像",
-          "optimized_local_path": "assets/optimized/s18__18_18_1c/champions/1508.webp"
+          "optimized_local_path": "assets/optimized/s18__18_18_2/champions/1508.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/1508.jpg",
@@ -1715,7 +1715,7 @@
             "local_path": "assets/skills/1509.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/skill/s18_xayah.png",
             "alt": "霞技能图标",
-            "optimized_local_path": "assets/optimized/s18__18_18_1c/skills/1509_skill.webp"
+            "optimized_local_path": "assets/optimized/s18__18_18_2/skills/1509_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -1764,7 +1764,7 @@
           "local_path": "assets/champions/1509.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/hero/s18_head_xayah.png",
           "alt": "霞头像",
-          "optimized_local_path": "assets/optimized/s18__18_18_1c/champions/1509.webp"
+          "optimized_local_path": "assets/optimized/s18__18_18_2/champions/1509.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/1509.jpg",
@@ -1887,7 +1887,7 @@
             "local_path": "assets/skills/1510.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/skill/s18_karma.png",
             "alt": "卡尔玛技能图标",
-            "optimized_local_path": "assets/optimized/s18__18_18_1c/skills/1510_skill.webp"
+            "optimized_local_path": "assets/optimized/s18__18_18_2/skills/1510_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -1936,7 +1936,7 @@
           "local_path": "assets/champions/1510.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/hero/s18_head_karma.png",
           "alt": "卡尔玛头像",
-          "optimized_local_path": "assets/optimized/s18__18_18_1c/champions/1510.webp"
+          "optimized_local_path": "assets/optimized/s18__18_18_2/champions/1510.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/1510.jpg",
@@ -2048,7 +2048,7 @@
             "local_path": "assets/skills/1511.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/skill/s18_sentry.png",
             "alt": "苍蓝哨戒技能图标",
-            "optimized_local_path": "assets/optimized/s18__18_18_1c/skills/1511_skill.webp"
+            "optimized_local_path": "assets/optimized/s18__18_18_2/skills/1511_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -2084,7 +2084,7 @@
           "local_path": "assets/champions/1511.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/hero/s18_head_sentry.png",
           "alt": "苍蓝哨戒头像",
-          "optimized_local_path": "assets/optimized/s18__18_18_1c/champions/1511.webp"
+          "optimized_local_path": "assets/optimized/s18__18_18_2/champions/1511.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/1511.jpg",
@@ -2178,7 +2178,7 @@
         {
           "id": "1512_skill",
           "name": "能量爆裂",
-          "description": "向目标发射一记巨大震波，造成175(【法术加成】)魔法伤害，若其生命值低于30%最大生命值，则提升至265(【法术加成】)。若目标倒下，则永久获得1.5%法术加成。  当前加成：0.0%【法术加成】",
+          "description": "向目标发射一记巨大震波，造成175(【法术加成】)魔法伤害，若其生命值低于30%最大生命值，则提升至265(【法术加成】)。若目标倒下，则永久获得3%法术加成。  当前加成：0%【法术加成】",
           "variables": [
             {
               "key": "value_1",
@@ -2208,14 +2208,14 @@
             "local_path": "assets/skills/1512.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/skill/s18_veigar.png",
             "alt": "维迦技能图标",
-            "optimized_local_path": "assets/optimized/s18__18_18_1c/skills/1512_skill.webp"
+            "optimized_local_path": "assets/optimized/s18__18_18_2/skills/1512_skill.webp"
           },
           "extensions": {
             "description_by_star": {
-              "1": "向目标发射一记巨大震波，造成175(【法术加成】)魔法伤害，若其生命值低于30%最大生命值，则提升至265(【法术加成】)。若目标倒下，则永久获得1.5%法术加成。  当前加成：0.0%【法术加成】",
-              "2": "向目标发射一记巨大震波，造成265(【法术加成】)魔法伤害，若其生命值低于30%最大生命值，则提升至400(【法术加成】)。若目标倒下，则永久获得1.5%法术加成。  当前加成：0.0%【法术加成】",
-              "3": "向目标发射一记巨大震波，造成395(【法术加成】)魔法伤害，若其生命值低于30%最大生命值，则提升至595(【法术加成】)。若目标倒下，则永久获得1.5%法术加成。  当前加成：0.0%【法术加成】",
-              "4": "向目标发射一记巨大震波，造成670(【法术加成】)魔法伤害，若其生命值低于30%最大生命值，则提升至1015(【法术加成】)。若目标倒下，则永久获得1.5%法术加成。  当前加成：0.0%【法术加成】"
+              "1": "向目标发射一记巨大震波，造成175(【法术加成】)魔法伤害，若其生命值低于30%最大生命值，则提升至265(【法术加成】)。若目标倒下，则永久获得3%法术加成。  当前加成：0%【法术加成】",
+              "2": "向目标发射一记巨大震波，造成265(【法术加成】)魔法伤害，若其生命值低于30%最大生命值，则提升至400(【法术加成】)。若目标倒下，则永久获得3%法术加成。  当前加成：0%【法术加成】",
+              "3": "向目标发射一记巨大震波，造成395(【法术加成】)魔法伤害，若其生命值低于30%最大生命值，则提升至595(【法术加成】)。若目标倒下，则永久获得3%法术加成。  当前加成：0%【法术加成】",
+              "4": "向目标发射一记巨大震波，造成670(【法术加成】)魔法伤害，若其生命值低于30%最大生命值，则提升至1015(【法术加成】)。若目标倒下，则永久获得3%法术加成。  当前加成：0%【法术加成】"
             }
           },
           "description_tokens": [
@@ -2247,7 +2247,7 @@
             },
             {
               "type": "text",
-              "value": "。若目标倒下，则永久获得1.5%法术加成。  当前加成：0.0%"
+              "value": "。若目标倒下，则永久获得3%法术加成。  当前加成：0%"
             },
             {
               "type": "stat",
@@ -2266,7 +2266,7 @@
           "local_path": "assets/champions/1512.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/hero/s18_head_veigar.png",
           "alt": "维迦头像",
-          "optimized_local_path": "assets/optimized/s18__18_18_1c/champions/1512.webp"
+          "optimized_local_path": "assets/optimized/s18__18_18_2/champions/1512.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/1512.jpg",
@@ -2389,7 +2389,7 @@
             "local_path": "assets/skills/2500.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/skill/s18_scuttlecrab.png",
             "alt": "峡谷迅捷蟹技能图标",
-            "optimized_local_path": "assets/optimized/s18__18_18_1c/skills/2500_skill.webp"
+            "optimized_local_path": "assets/optimized/s18__18_18_2/skills/2500_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -2438,7 +2438,7 @@
           "local_path": "assets/champions/2500.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/hero/s18_head_scuttle.png",
           "alt": "峡谷迅捷蟹头像",
-          "optimized_local_path": "assets/optimized/s18__18_18_1c/champions/2500.webp"
+          "optimized_local_path": "assets/optimized/s18__18_18_2/champions/2500.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/2500.jpg",
@@ -2572,7 +2572,7 @@
             "local_path": "assets/skills/2501.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/skill/s18_alistar.png",
             "alt": "阿利斯塔技能图标",
-            "optimized_local_path": "assets/optimized/s18__18_18_1c/skills/2501_skill.webp"
+            "optimized_local_path": "assets/optimized/s18__18_18_2/skills/2501_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -2643,7 +2643,7 @@
           "local_path": "assets/champions/2501.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/hero/s18_head_alistar.png",
           "alt": "阿利斯塔头像",
-          "optimized_local_path": "assets/optimized/s18__18_18_1c/champions/2501.webp"
+          "optimized_local_path": "assets/optimized/s18__18_18_2/champions/2501.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/2501.jpg",
@@ -2777,7 +2777,7 @@
             "local_path": "assets/skills/2502.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/skill/s18_sejuani.png",
             "alt": "瑟庄妮技能图标",
-            "optimized_local_path": "assets/optimized/s18__18_18_1c/skills/2502_skill.webp"
+            "optimized_local_path": "assets/optimized/s18__18_18_2/skills/2502_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -2848,7 +2848,7 @@
           "local_path": "assets/champions/2502.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/hero/s18_head_sejuani.png",
           "alt": "瑟庄妮头像",
-          "optimized_local_path": "assets/optimized/s18__18_18_1c/champions/2502.webp"
+          "optimized_local_path": "assets/optimized/s18__18_18_2/champions/2502.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/2502.jpg",
@@ -2982,7 +2982,7 @@
             "local_path": "assets/skills/2503.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/skill/s18_shen.png",
             "alt": "慎技能图标",
-            "optimized_local_path": "assets/optimized/s18__18_18_1c/skills/2503_skill.webp"
+            "optimized_local_path": "assets/optimized/s18__18_18_2/skills/2503_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -3044,7 +3044,7 @@
           "local_path": "assets/champions/2503.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/hero/s18_head_shen.png",
           "alt": "慎头像",
-          "optimized_local_path": "assets/optimized/s18__18_18_1c/champions/2503.webp"
+          "optimized_local_path": "assets/optimized/s18__18_18_2/champions/2503.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/2503.jpg",
@@ -3178,7 +3178,7 @@
             "local_path": "assets/skills/2504.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/skill/s18_elise.png",
             "alt": "伊莉丝技能图标",
-            "optimized_local_path": "assets/optimized/s18__18_18_1c/skills/2504_skill.webp"
+            "optimized_local_path": "assets/optimized/s18__18_18_2/skills/2504_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -3227,7 +3227,7 @@
           "local_path": "assets/champions/2504.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/hero/s18_head_elise.png",
           "alt": "伊莉丝头像",
-          "optimized_local_path": "assets/optimized/s18__18_18_1c/champions/2504.webp"
+          "optimized_local_path": "assets/optimized/s18__18_18_2/champions/2504.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/2504.jpg",
@@ -3362,7 +3362,7 @@
             "local_path": "assets/skills/2505.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/skill/s18_yorick.png",
             "alt": "约里克技能图标",
-            "optimized_local_path": "assets/optimized/s18__18_18_1c/skills/2505_skill.webp"
+            "optimized_local_path": "assets/optimized/s18__18_18_2/skills/2505_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -3424,7 +3424,7 @@
           "local_path": "assets/champions/2505.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/hero/s18_head_yorick.png",
           "alt": "约里克头像",
-          "optimized_local_path": "assets/optimized/s18__18_18_1c/champions/2505.webp"
+          "optimized_local_path": "assets/optimized/s18__18_18_2/champions/2505.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/2505.jpg",
@@ -3517,7 +3517,7 @@
         {
           "id": "2507_skill",
           "name": "撕裂之爪",
-          "description": "跳向3格内生命值最低的敌人，造成120(【物理加成】【法术加成】)物理伤害。接下来2次攻击获得50%攻击速度并造成60(【物理加成】)额外物理伤害。  灰霸符：暗影狼拥有精准和0%暴击率，基于已损失生命值最多提升至0%。灰霸符：暗影狼拥有精准和0%暴击率，基于已损失生命值最多提升至0%。",
+          "description": "跳向3格内生命值最低的敌人，造成120(【物理加成】【法术加成】)物理伤害。接下来2次攻击获得50%攻击速度并造成60(【物理加成】)额外物理伤害。  灰霸符：暗影狼拥有精准和25%暴击率，基于已损失生命值最多提升至75%。灰霸符：暗影狼拥有精准和25%暴击率，基于已损失生命值最多提升至75%。",
           "variables": [
             {
               "key": "value_1",
@@ -3558,14 +3558,14 @@
             "local_path": "assets/skills/2507.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/skill/s18_murkwolf.png",
             "alt": "暗影狼技能图标",
-            "optimized_local_path": "assets/optimized/s18__18_18_1c/skills/2507_skill.webp"
+            "optimized_local_path": "assets/optimized/s18__18_18_2/skills/2507_skill.webp"
           },
           "extensions": {
             "description_by_star": {
-              "1": "跳向3格内生命值最低的敌人，造成120(【物理加成】【法术加成】)物理伤害。接下来2次攻击获得50%攻击速度并造成60(【物理加成】)额外物理伤害。  灰霸符：暗影狼拥有精准和0%暴击率，基于已损失生命值最多提升至0%。灰霸符：暗影狼拥有精准和0%暴击率，基于已损失生命值最多提升至0%。",
-              "2": "跳向3格内生命值最低的敌人，造成180(【物理加成】【法术加成】)物理伤害。接下来2次攻击获得50%攻击速度并造成90(【物理加成】)额外物理伤害。  灰霸符：暗影狼拥有精准和0%暴击率，基于已损失生命值最多提升至0%。灰霸符：暗影狼拥有精准和0%暴击率，基于已损失生命值最多提升至0%。",
-              "3": "跳向3格内生命值最低的敌人，造成270(【物理加成】【法术加成】)物理伤害。接下来2次攻击获得50%攻击速度并造成135(【物理加成】)额外物理伤害。  灰霸符：暗影狼拥有精准和0%暴击率，基于已损失生命值最多提升至0%。灰霸符：暗影狼拥有精准和0%暴击率，基于已损失生命值最多提升至0%。",
-              "4": "跳向3格内生命值最低的敌人，造成455(【物理加成】【法术加成】)物理伤害。接下来2次攻击获得50%攻击速度并造成230(【物理加成】)额外物理伤害。  灰霸符：暗影狼拥有精准和0%暴击率，基于已损失生命值最多提升至0%。灰霸符：暗影狼拥有精准和0%暴击率，基于已损失生命值最多提升至0%。"
+              "1": "跳向3格内生命值最低的敌人，造成120(【物理加成】【法术加成】)物理伤害。接下来2次攻击获得50%攻击速度并造成60(【物理加成】)额外物理伤害。  灰霸符：暗影狼拥有精准和25%暴击率，基于已损失生命值最多提升至75%。灰霸符：暗影狼拥有精准和25%暴击率，基于已损失生命值最多提升至75%。",
+              "2": "跳向3格内生命值最低的敌人，造成180(【物理加成】【法术加成】)物理伤害。接下来2次攻击获得50%攻击速度并造成90(【物理加成】)额外物理伤害。  灰霸符：暗影狼拥有精准和25%暴击率，基于已损失生命值最多提升至75%。灰霸符：暗影狼拥有精准和25%暴击率，基于已损失生命值最多提升至75%。",
+              "3": "跳向3格内生命值最低的敌人，造成270(【物理加成】【法术加成】)物理伤害。接下来2次攻击获得50%攻击速度并造成135(【物理加成】)额外物理伤害。  灰霸符：暗影狼拥有精准和25%暴击率，基于已损失生命值最多提升至75%。灰霸符：暗影狼拥有精准和25%暴击率，基于已损失生命值最多提升至75%。",
+              "4": "跳向3格内生命值最低的敌人，造成455(【物理加成】【法术加成】)物理伤害。接下来2次攻击获得50%攻击速度并造成230(【物理加成】)额外物理伤害。  灰霸符：暗影狼拥有精准和25%暴击率，基于已损失生命值最多提升至75%。灰霸符：暗影狼拥有精准和25%暴击率，基于已损失生命值最多提升至75%。"
             }
           },
           "description_tokens": [
@@ -3606,7 +3606,7 @@
             },
             {
               "type": "text",
-              "value": "额外物理伤害。  灰霸符：暗影狼拥有精准和0%暴击率，基于已损失生命值最多提升至0%。灰霸符：暗影狼拥有精准和0%暴击率，基于已损失生命值最多提升至0%。"
+              "value": "额外物理伤害。  灰霸符：暗影狼拥有精准和25%暴击率，基于已损失生命值最多提升至75%。灰霸符：暗影狼拥有精准和25%暴击率，基于已损失生命值最多提升至75%。"
             }
           ]
         }
@@ -3616,7 +3616,7 @@
           "local_path": "assets/champions/2507.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/hero/s18_head_murkwolf.png",
           "alt": "暗影狼头像",
-          "optimized_local_path": "assets/optimized/s18__18_18_1c/champions/2507.webp"
+          "optimized_local_path": "assets/optimized/s18__18_18_2/champions/2507.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/2507.jpg",
@@ -3658,7 +3658,7 @@
       "stats_by_star": {
         "1": {
           "health": 750.0,
-          "attack_damage": 40.0,
+          "attack_damage": 45.0,
           "armor": 45.0,
           "magic_resist": 45.0,
           "attack_speed": 0.75,
@@ -3670,7 +3670,7 @@
         },
         "2": {
           "health": 1350.0,
-          "attack_damage": 60.0,
+          "attack_damage": 67.0,
           "armor": 45.0,
           "magic_resist": 45.0,
           "attack_speed": 0.75,
@@ -3682,7 +3682,7 @@
         },
         "3": {
           "health": 2430.0,
-          "attack_damage": 90.0,
+          "attack_damage": 100.0,
           "armor": 45.0,
           "magic_resist": 45.0,
           "attack_speed": 0.75,
@@ -3694,7 +3694,7 @@
         },
         "4": {
           "health": 3510.0,
-          "attack_damage": 135.0,
+          "attack_damage": 152.0,
           "armor": 45.0,
           "magic_resist": 45.0,
           "attack_speed": 0.75,
@@ -3739,7 +3739,7 @@
             "local_path": "assets/skills/2508.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/skill/s18_warwick.png",
             "alt": "沃里克技能图标",
-            "optimized_local_path": "assets/optimized/s18__18_18_1c/skills/2508_skill.webp"
+            "optimized_local_path": "assets/optimized/s18__18_18_2/skills/2508_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -3788,7 +3788,7 @@
           "local_path": "assets/champions/2508.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/hero/s18_head_warwick.png",
           "alt": "沃里克头像",
-          "optimized_local_path": "assets/optimized/s18__18_18_1c/champions/2508.webp"
+          "optimized_local_path": "assets/optimized/s18__18_18_2/champions/2508.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/2508.jpg",
@@ -3881,7 +3881,7 @@
         {
           "id": "2509_skill",
           "name": "灵蕴拳",
-          "description": "冲刺并向当前目标发射一颗法球，造成160(【物理加成】【法术加成】)物理伤害并分裂，对附近2名敌人造成56(【物理加成】【法术加成】)物理伤害。",
+          "description": "冲刺并向当前目标发射一颗法球，造成170(【物理加成】【法术加成】)物理伤害并分裂，对附近2名敌人造成59(【物理加成】【法术加成】)物理伤害。",
           "variables": [
             {
               "key": "value_1",
@@ -3899,32 +3899,32 @@
               "label": "伤害",
               "unit": "raw",
               "values": {
-                "1": "150",
-                "2": "225",
-                "3": "335",
-                "4": "705"
+                "1": "160",
+                "2": "240",
+                "3": "370",
+                "4": "630"
               }
             }
           ],
-          "raw_values": "伤害：【法术加成】 10/15/25/40|伤害：745=705(【物理加成】)+40(【法术加成】) 150/225/335/705|次级伤害：261=745的35%",
+          "raw_values": "伤害：【法术加成】 10/15/25/40|伤害：670=630(【物理加成】)+40(【法术加成】) 160/240/370/630|次级伤害：234=670的35%",
           "image": {
             "local_path": "assets/skills/2509.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/skill/s18_yunara.png",
             "alt": "芸阿娜技能图标",
-            "optimized_local_path": "assets/optimized/s18__18_18_1c/skills/2509_skill.webp"
+            "optimized_local_path": "assets/optimized/s18__18_18_2/skills/2509_skill.webp"
           },
           "extensions": {
             "description_by_star": {
-              "1": "冲刺并向当前目标发射一颗法球，造成160(【物理加成】【法术加成】)物理伤害并分裂，对附近2名敌人造成56(【物理加成】【法术加成】)物理伤害。",
-              "2": "冲刺并向当前目标发射一颗法球，造成240(【物理加成】【法术加成】)物理伤害并分裂，对附近2名敌人造成84(【物理加成】【法术加成】)物理伤害。",
-              "3": "冲刺并向当前目标发射一颗法球，造成360(【物理加成】【法术加成】)物理伤害并分裂，对附近2名敌人造成126(【物理加成】【法术加成】)物理伤害。",
-              "4": "冲刺并向当前目标发射一颗法球，造成745(【物理加成】【法术加成】)物理伤害并分裂，对附近2名敌人造成261(【物理加成】【法术加成】)物理伤害。"
+              "1": "冲刺并向当前目标发射一颗法球，造成170(【物理加成】【法术加成】)物理伤害并分裂，对附近2名敌人造成59(【物理加成】【法术加成】)物理伤害。",
+              "2": "冲刺并向当前目标发射一颗法球，造成255(【物理加成】【法术加成】)物理伤害并分裂，对附近2名敌人造成89(【物理加成】【法术加成】)物理伤害。",
+              "3": "冲刺并向当前目标发射一颗法球，造成395(【物理加成】【法术加成】)物理伤害并分裂，对附近2名敌人造成138(【物理加成】【法术加成】)物理伤害。",
+              "4": "冲刺并向当前目标发射一颗法球，造成670(【物理加成】【法术加成】)物理伤害并分裂，对附近2名敌人造成234(【物理加成】【法术加成】)物理伤害。"
             }
           },
           "description_tokens": [
             {
               "type": "text",
-              "value": "冲刺并向当前目标发射一颗法球，造成160("
+              "value": "冲刺并向当前目标发射一颗法球，造成170("
             },
             {
               "type": "stat",
@@ -3946,7 +3946,7 @@
             },
             {
               "type": "text",
-              "value": ")物理伤害并分裂，对附近2名敌人造成56("
+              "value": ")物理伤害并分裂，对附近2名敌人造成59("
             },
             {
               "type": "stat",
@@ -3978,7 +3978,7 @@
           "local_path": "assets/champions/2509.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/hero/s18_head_yunara.png",
           "alt": "芸阿娜头像",
-          "optimized_local_path": "assets/optimized/s18__18_18_1c/champions/2509.webp"
+          "optimized_local_path": "assets/optimized/s18__18_18_2/champions/2509.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/2509.jpg",
@@ -4101,7 +4101,7 @@
             "local_path": "assets/skills/2510.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/skill/s18_caitlyn.png",
             "alt": "凯特琳技能图标",
-            "optimized_local_path": "assets/optimized/s18__18_18_1c/skills/2510_skill.webp"
+            "optimized_local_path": "assets/optimized/s18__18_18_2/skills/2510_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -4146,7 +4146,7 @@
           "local_path": "assets/champions/2510.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/hero/s18_head_caitlyn.png",
           "alt": "凯特琳头像",
-          "optimized_local_path": "assets/optimized/s18__18_18_1c/champions/2510.webp"
+          "optimized_local_path": "assets/optimized/s18__18_18_2/champions/2510.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/2510.jpg",
@@ -4239,7 +4239,7 @@
         {
           "id": "2511_skill",
           "name": "镜花水月",
-          "description": "被动：在玩家对战结束后，你最强的那个【乐芙兰】有10%的几率生成你场上一个友军的1星复制品，每次参与击败后提升4%。   主动：向当前目标发射一个镜像，从而造成250(【法术加成】)魔法伤害，并对周围的敌人们造成85(【法术加成】)魔法伤害。",
+          "description": "被动：在玩家对战结束后，你最强的那个【乐芙兰】有10%的几率生成你场上一个友军的1星复制品，每次参与击败后提升4%。   主动：向当前目标发射一个镜像，从而造成260(【法术加成】)魔法伤害，并对周围的敌人们造成100(【法术加成】)魔法伤害。",
           "variables": [
             {
               "key": "value_1",
@@ -4257,10 +4257,10 @@
               "label": "伤害",
               "unit": "raw",
               "values": {
-                "1": "250",
-                "2": "375",
-                "3": "565",
-                "4": "955"
+                "1": "260",
+                "2": "390",
+                "3": "615",
+                "4": "1045"
               }
             },
             {
@@ -4268,32 +4268,32 @@
               "label": "次要伤害",
               "unit": "raw",
               "values": {
-                "1": "85",
-                "2": "130",
-                "3": "190",
-                "4": "325"
+                "1": "100",
+                "2": "150",
+                "3": "230",
+                "4": "390"
               }
             }
           ],
-          "raw_values": "复制几率：100%  10/15/40/100|伤害：955(【法术加成】)  250/375/565/955|次要伤害：325(【法术加成】) 85/130/190/325",
+          "raw_values": "复制几率：100%  10/15/40/100|伤害：1045(【法术加成】)  260/390/615/1045|次要伤害：390(【法术加成】) 100/150/230/390",
           "image": {
             "local_path": "assets/skills/2511.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/skill/s18_leblanc.png",
             "alt": "乐芙兰技能图标",
-            "optimized_local_path": "assets/optimized/s18__18_18_1c/skills/2511_skill.webp"
+            "optimized_local_path": "assets/optimized/s18__18_18_2/skills/2511_skill.webp"
           },
           "extensions": {
             "description_by_star": {
-              "1": "被动：在玩家对战结束后，你最强的那个【乐芙兰】有10%的几率生成你场上一个友军的1星复制品，每次参与击败后提升4%。   主动：向当前目标发射一个镜像，从而造成250(【法术加成】)魔法伤害，并对周围的敌人们造成85(【法术加成】)魔法伤害。",
-              "2": "被动：在玩家对战结束后，你最强的那个【乐芙兰】有15%的几率生成你场上一个友军的1星复制品，每次参与击败后提升4%。   主动：向当前目标发射一个镜像，从而造成375(【法术加成】)魔法伤害，并对周围的敌人们造成130(【法术加成】)魔法伤害。",
-              "3": "被动：在玩家对战结束后，你最强的那个【乐芙兰】有40%的几率生成你场上一个友军的1星复制品，每次参与击败后提升4%。   主动：向当前目标发射一个镜像，从而造成565(【法术加成】)魔法伤害，并对周围的敌人们造成190(【法术加成】)魔法伤害。",
-              "4": "被动：在玩家对战结束后，你最强的那个【乐芙兰】有100%的几率生成你场上一个友军的1星复制品，每次参与击败后提升4%。   主动：向当前目标发射一个镜像，从而造成955(【法术加成】)魔法伤害，并对周围的敌人们造成325(【法术加成】)魔法伤害。"
+              "1": "被动：在玩家对战结束后，你最强的那个【乐芙兰】有10%的几率生成你场上一个友军的1星复制品，每次参与击败后提升4%。   主动：向当前目标发射一个镜像，从而造成260(【法术加成】)魔法伤害，并对周围的敌人们造成100(【法术加成】)魔法伤害。",
+              "2": "被动：在玩家对战结束后，你最强的那个【乐芙兰】有15%的几率生成你场上一个友军的1星复制品，每次参与击败后提升4%。   主动：向当前目标发射一个镜像，从而造成390(【法术加成】)魔法伤害，并对周围的敌人们造成150(【法术加成】)魔法伤害。",
+              "3": "被动：在玩家对战结束后，你最强的那个【乐芙兰】有40%的几率生成你场上一个友军的1星复制品，每次参与击败后提升4%。   主动：向当前目标发射一个镜像，从而造成615(【法术加成】)魔法伤害，并对周围的敌人们造成230(【法术加成】)魔法伤害。",
+              "4": "被动：在玩家对战结束后，你最强的那个【乐芙兰】有100%的几率生成你场上一个友军的1星复制品，每次参与击败后提升4%。   主动：向当前目标发射一个镜像，从而造成1045(【法术加成】)魔法伤害，并对周围的敌人们造成390(【法术加成】)魔法伤害。"
             }
           },
           "description_tokens": [
             {
               "type": "text",
-              "value": "被动：在玩家对战结束后，你最强的那个【乐芙兰】有10%的几率生成你场上一个友军的1星复制品，每次参与击败后提升4%。   主动：向当前目标发射一个镜像，从而造成250"
+              "value": "被动：在玩家对战结束后，你最强的那个【乐芙兰】有10%的几率生成你场上一个友军的1星复制品，每次参与击败后提升4%。   主动：向当前目标发射一个镜像，从而造成260"
             },
             {
               "type": "stat",
@@ -4306,7 +4306,7 @@
             },
             {
               "type": "text",
-              "value": "魔法伤害，并对周围的敌人们造成85"
+              "value": "魔法伤害，并对周围的敌人们造成100"
             },
             {
               "type": "stat",
@@ -4329,7 +4329,7 @@
           "local_path": "assets/champions/2511.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/hero/s18_head_leblanc.png",
           "alt": "乐芙兰头像",
-          "optimized_local_path": "assets/optimized/s18__18_18_1c/champions/2511.webp"
+          "optimized_local_path": "assets/optimized/s18__18_18_2/champions/2511.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/2511.jpg",
@@ -4422,16 +4422,16 @@
         {
           "id": "2512_skill",
           "name": "太阳裁决",
-          "description": "被动：【凯尔】基于其星级获得飞升，并获得可叠加的增益。  第1次飞升：普攻造成56(【法术加成】)额外魔法伤害。 第2次飞升：普攻对命中的敌人施加持续2秒的20%魔抗击碎。 第3次飞升：普攻发射冲击波，对命中的所有其他弈子造成40(【法术加成】)魔法伤害。 第4次飞升：获得无限距离。每攻击3次焰浪变得更大。  魔抗击碎：降低魔法抗性。",
+          "description": "被动：【凯尔】基于其星级获得飞升，并获得可叠加的增益。  第1次飞升：普攻造成62(【法术加成】)额外魔法伤害。 第2次飞升：普攻对命中的敌人施加持续2秒的20%魔抗击碎。 第3次飞升：普攻发射冲击波，对命中的所有其他弈子造成40(【法术加成】)魔法伤害。 第4次飞升：获得无限距离。每攻击3次焰浪变得更大。  魔抗击碎：降低魔法抗性。",
           "variables": [
             {
               "key": "value_1",
               "label": "伤害",
               "unit": "raw",
               "values": {
-                "1": "56",
-                "2": "84",
-                "3": "98",
+                "1": "62",
+                "2": "92",
+                "3": "96",
                 "4": "112"
               }
             },
@@ -4447,25 +4447,25 @@
               }
             }
           ],
-          "raw_values": "伤害：112(【法术加成】) 56/84/98/112|次要伤害：50(【法术加成】) 40/40/40/50",
+          "raw_values": "伤害：112(【法术加成】) 62/92/96/112|次要伤害：50(【法术加成】) 40/40/40/50",
           "image": {
             "local_path": "assets/skills/2512.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/skill/s18_kayle.png",
             "alt": "凯尔技能图标",
-            "optimized_local_path": "assets/optimized/s18__18_18_1c/skills/2512_skill.webp"
+            "optimized_local_path": "assets/optimized/s18__18_18_2/skills/2512_skill.webp"
           },
           "extensions": {
             "description_by_star": {
-              "1": "被动：【凯尔】基于其星级获得飞升，并获得可叠加的增益。  第1次飞升：普攻造成56(【法术加成】)额外魔法伤害。 第2次飞升：普攻对命中的敌人施加持续2秒的20%魔抗击碎。 第3次飞升：普攻发射冲击波，对命中的所有其他弈子造成40(【法术加成】)魔法伤害。 第4次飞升：获得无限距离。每攻击3次焰浪变得更大。  魔抗击碎：降低魔法抗性。",
-              "2": "被动：【凯尔】基于其星级获得飞升，并获得可叠加的增益。  第1次飞升：普攻造成84(【法术加成】)额外魔法伤害。 第2次飞升：普攻对命中的敌人施加持续2秒的20%魔抗击碎。 第3次飞升：普攻发射冲击波，对命中的所有其他弈子造成40(【法术加成】)魔法伤害。 第4次飞升：获得无限距离。每攻击3次焰浪变得更大。  魔抗击碎：降低魔法抗性。",
-              "3": "被动：【凯尔】基于其星级获得飞升，并获得可叠加的增益。  第1次飞升：普攻造成98(【法术加成】)额外魔法伤害。 第2次飞升：普攻对命中的敌人施加持续2秒的20%魔抗击碎。 第3次飞升：普攻发射冲击波，对命中的所有其他弈子造成40(【法术加成】)魔法伤害。 第4次飞升：获得无限距离。每攻击3次焰浪变得更大。  魔抗击碎：降低魔法抗性。",
+              "1": "被动：【凯尔】基于其星级获得飞升，并获得可叠加的增益。  第1次飞升：普攻造成62(【法术加成】)额外魔法伤害。 第2次飞升：普攻对命中的敌人施加持续2秒的20%魔抗击碎。 第3次飞升：普攻发射冲击波，对命中的所有其他弈子造成40(【法术加成】)魔法伤害。 第4次飞升：获得无限距离。每攻击3次焰浪变得更大。  魔抗击碎：降低魔法抗性。",
+              "2": "被动：【凯尔】基于其星级获得飞升，并获得可叠加的增益。  第1次飞升：普攻造成92(【法术加成】)额外魔法伤害。 第2次飞升：普攻对命中的敌人施加持续2秒的20%魔抗击碎。 第3次飞升：普攻发射冲击波，对命中的所有其他弈子造成40(【法术加成】)魔法伤害。 第4次飞升：获得无限距离。每攻击3次焰浪变得更大。  魔抗击碎：降低魔法抗性。",
+              "3": "被动：【凯尔】基于其星级获得飞升，并获得可叠加的增益。  第1次飞升：普攻造成96(【法术加成】)额外魔法伤害。 第2次飞升：普攻对命中的敌人施加持续2秒的20%魔抗击碎。 第3次飞升：普攻发射冲击波，对命中的所有其他弈子造成40(【法术加成】)魔法伤害。 第4次飞升：获得无限距离。每攻击3次焰浪变得更大。  魔抗击碎：降低魔法抗性。",
               "4": "被动：【凯尔】基于其星级获得飞升，并获得可叠加的增益。  第1次飞升：普攻造成112(【法术加成】)额外魔法伤害。 第2次飞升：普攻对命中的敌人施加持续2秒的20%魔抗击碎。 第3次飞升：普攻发射冲击波，对命中的所有其他弈子造成50(【法术加成】)魔法伤害。 第4次飞升：获得无限距离。每攻击3次焰浪变得更大。  魔抗击碎：降低魔法抗性。"
             }
           },
           "description_tokens": [
             {
               "type": "text",
-              "value": "被动：【凯尔】基于其星级获得飞升，并获得可叠加的增益。  第1次飞升：普攻造成56"
+              "value": "被动：【凯尔】基于其星级获得飞升，并获得可叠加的增益。  第1次飞升：普攻造成62"
             },
             {
               "type": "stat",
@@ -4501,7 +4501,7 @@
           "local_path": "assets/champions/2512.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/hero/s18_head_kayle.png",
           "alt": "凯尔头像",
-          "optimized_local_path": "assets/optimized/s18__18_18_1c/champions/2512.webp"
+          "optimized_local_path": "assets/optimized/s18__18_18_2/champions/2512.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/2512.jpg",
@@ -4624,7 +4624,7 @@
             "local_path": "assets/skills/2513.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/skill/s18_gromp.png",
             "alt": "魔沼蛙技能图标",
-            "optimized_local_path": "assets/optimized/s18__18_18_1c/skills/2513_skill.webp"
+            "optimized_local_path": "assets/optimized/s18__18_18_2/skills/2513_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -4699,7 +4699,7 @@
           "local_path": "assets/champions/2513.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/hero/s18_head_gromp.png",
           "alt": "魔沼蛙头像",
-          "optimized_local_path": "assets/optimized/s18__18_18_1c/champions/2513.webp"
+          "optimized_local_path": "assets/optimized/s18__18_18_2/champions/2513.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/2513.jpg",
@@ -4833,7 +4833,7 @@
             "local_path": "assets/skills/2514.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/skill/s18_teemo.png",
             "alt": "提莫技能图标",
-            "optimized_local_path": "assets/optimized/s18__18_18_1c/skills/2514_skill.webp"
+            "optimized_local_path": "assets/optimized/s18__18_18_2/skills/2514_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -4882,7 +4882,7 @@
           "local_path": "assets/champions/2514.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/hero/s18_head_teemo.png",
           "alt": "提莫头像",
-          "optimized_local_path": "assets/optimized/s18__18_18_1c/champions/2514.webp"
+          "optimized_local_path": "assets/optimized/s18__18_18_2/champions/2514.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/2514.jpg",
@@ -5016,7 +5016,7 @@
             "local_path": "assets/skills/3500.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/skill/s18_hecarim.png",
             "alt": "赫卡里姆技能图标",
-            "optimized_local_path": "assets/optimized/s18__18_18_1c/skills/3500_skill.webp"
+            "optimized_local_path": "assets/optimized/s18__18_18_2/skills/3500_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -5065,7 +5065,7 @@
           "local_path": "assets/champions/3500.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/hero/s18_head_hecarim.png",
           "alt": "赫卡里姆头像",
-          "optimized_local_path": "assets/optimized/s18__18_18_1c/champions/3500.webp"
+          "optimized_local_path": "assets/optimized/s18__18_18_2/champions/3500.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/3500.jpg",
@@ -5199,7 +5199,7 @@
             "local_path": "assets/skills/3501.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/skill/s18_vi.png",
             "alt": "蔚技能图标",
-            "optimized_local_path": "assets/optimized/s18__18_18_1c/skills/3501_skill.webp"
+            "optimized_local_path": "assets/optimized/s18__18_18_2/skills/3501_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -5248,7 +5248,7 @@
           "local_path": "assets/champions/3501.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/hero/s18_head_vi.png",
           "alt": "蔚头像",
-          "optimized_local_path": "assets/optimized/s18__18_18_1c/champions/3501.webp"
+          "optimized_local_path": "assets/optimized/s18__18_18_2/champions/3501.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/3501.jpg",
@@ -5372,7 +5372,7 @@
             "local_path": "assets/skills/3502.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/skill/s18_fiddlesticks.png",
             "alt": "费德提克技能图标",
-            "optimized_local_path": "assets/optimized/s18__18_18_1c/skills/3502_skill.webp"
+            "optimized_local_path": "assets/optimized/s18__18_18_2/skills/3502_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -5421,7 +5421,7 @@
           "local_path": "assets/champions/3502.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/hero/s18_head_fiddlesticks.png",
           "alt": "费德提克头像",
-          "optimized_local_path": "assets/optimized/s18__18_18_1c/champions/3502.webp"
+          "optimized_local_path": "assets/optimized/s18__18_18_2/champions/3502.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/3502.jpg",
@@ -5555,7 +5555,7 @@
             "local_path": "assets/skills/3503.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/skill/s18_krug.png",
             "alt": "远古石甲虫技能图标",
-            "optimized_local_path": "assets/optimized/s18__18_18_1c/skills/3503_skill.webp"
+            "optimized_local_path": "assets/optimized/s18__18_18_2/skills/3503_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -5626,7 +5626,7 @@
           "local_path": "assets/champions/3503.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/hero/s18_head_krug.png",
           "alt": "远古石甲虫头像",
-          "optimized_local_path": "assets/optimized/s18__18_18_1c/champions/3503.webp"
+          "optimized_local_path": "assets/optimized/s18__18_18_2/champions/3503.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/3503.jpg",
@@ -5670,7 +5670,7 @@
           "attack_damage": 60.0,
           "armor": 55.0,
           "magic_resist": 55.0,
-          "attack_speed": 0.8,
+          "attack_speed": 0.75,
           "attack_range": 1.0,
           "initial_mana": 10.0,
           "max_mana": 50.0,
@@ -5682,7 +5682,7 @@
           "attack_damage": 90.0,
           "armor": 55.0,
           "magic_resist": 55.0,
-          "attack_speed": 0.8,
+          "attack_speed": 0.75,
           "attack_range": 1.0,
           "initial_mana": 10.0,
           "max_mana": 50.0,
@@ -5694,7 +5694,7 @@
           "attack_damage": 135.0,
           "armor": 55.0,
           "magic_resist": 55.0,
-          "attack_speed": 0.8,
+          "attack_speed": 0.75,
           "attack_range": 1.0,
           "initial_mana": 10.0,
           "max_mana": 50.0,
@@ -5706,7 +5706,7 @@
           "attack_damage": 203.0,
           "armor": 55.0,
           "magic_resist": 55.0,
-          "attack_speed": 0.8,
+          "attack_speed": 0.75,
           "attack_range": 1.0,
           "initial_mana": 10.0,
           "max_mana": 50.0,
@@ -5718,7 +5718,7 @@
         {
           "id": "3504_skill",
           "name": "无情",
-          "description": "跳向3格内生命值百分比最低的那个敌人并刺击，从而造成255(【物理加成】)物理伤害。然后治疗60(【法术加成】)生命值，治疗量基于已损失的生命值至多到120(【法术加成】)。  【世纪和解】加成：该技能50%治疗的生命值会提供给【卡兹克】。",
+          "description": "跳向3格内生命值百分比最低的那个敌人并刺击，从而造成255(【物理加成】)物理伤害。然后治疗60(【法术加成】)生命值，治疗量基于已损失的生命值至多到120(【法术加成】)。  【世纪和解】加成：该技能25%治疗的生命值会提供给【卡兹克】。",
           "variables": [
             {
               "key": "value_1",
@@ -5759,14 +5759,14 @@
             "local_path": "assets/skills/3504.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/skill/s18_rengar.png",
             "alt": "雷恩加尔技能图标",
-            "optimized_local_path": "assets/optimized/s18__18_18_1c/skills/3504_skill.webp"
+            "optimized_local_path": "assets/optimized/s18__18_18_2/skills/3504_skill.webp"
           },
           "extensions": {
             "description_by_star": {
-              "1": "跳向3格内生命值百分比最低的那个敌人并刺击，从而造成255(【物理加成】)物理伤害。然后治疗60(【法术加成】)生命值，治疗量基于已损失的生命值至多到120(【法术加成】)。  【世纪和解】加成：该技能50%治疗的生命值会提供给【卡兹克】。",
-              "2": "跳向3格内生命值百分比最低的那个敌人并刺击，从而造成385(【物理加成】)物理伤害。然后治疗90(【法术加成】)生命值，治疗量基于已损失的生命值至多到180(【法术加成】)。  【世纪和解】加成：该技能50%治疗的生命值会提供给【卡兹克】。",
-              "3": "跳向3格内生命值百分比最低的那个敌人并刺击，从而造成615(【物理加成】)物理伤害。然后治疗150(【法术加成】)生命值，治疗量基于已损失的生命值至多到300(【法术加成】)。  【世纪和解】加成：该技能50%治疗的生命值会提供给【卡兹克】。",
-              "4": "跳向3格内生命值百分比最低的那个敌人并刺击，从而造成1050(【物理加成】)物理伤害。然后治疗160(【法术加成】)生命值，治疗量基于已损失的生命值至多到380(【法术加成】)。  【世纪和解】加成：该技能50%治疗的生命值会提供给【卡兹克】。"
+              "1": "跳向3格内生命值百分比最低的那个敌人并刺击，从而造成255(【物理加成】)物理伤害。然后治疗60(【法术加成】)生命值，治疗量基于已损失的生命值至多到120(【法术加成】)。  【世纪和解】加成：该技能25%治疗的生命值会提供给【卡兹克】。",
+              "2": "跳向3格内生命值百分比最低的那个敌人并刺击，从而造成385(【物理加成】)物理伤害。然后治疗90(【法术加成】)生命值，治疗量基于已损失的生命值至多到180(【法术加成】)。  【世纪和解】加成：该技能25%治疗的生命值会提供给【卡兹克】。",
+              "3": "跳向3格内生命值百分比最低的那个敌人并刺击，从而造成615(【物理加成】)物理伤害。然后治疗150(【法术加成】)生命值，治疗量基于已损失的生命值至多到300(【法术加成】)。  【世纪和解】加成：该技能25%治疗的生命值会提供给【卡兹克】。",
+              "4": "跳向3格内生命值百分比最低的那个敌人并刺击，从而造成1050(【物理加成】)物理伤害。然后治疗160(【法术加成】)生命值，治疗量基于已损失的生命值至多到380(【法术加成】)。  【世纪和解】加成：该技能25%治疗的生命值会提供给【卡兹克】。"
             }
           },
           "description_tokens": [
@@ -5811,7 +5811,7 @@
             },
             {
               "type": "text",
-              "value": "。  【世纪和解】加成：该技能50%治疗的生命值会提供给【卡兹克】。"
+              "value": "。  【世纪和解】加成：该技能25%治疗的生命值会提供给【卡兹克】。"
             }
           ]
         }
@@ -5821,7 +5821,7 @@
           "local_path": "assets/champions/3504.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/hero/s18_head_rengar.png",
           "alt": "雷恩加尔头像",
-          "optimized_local_path": "assets/optimized/s18__18_18_1c/champions/3504.webp"
+          "optimized_local_path": "assets/optimized/s18__18_18_2/champions/3504.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/3504.jpg",
@@ -5864,7 +5864,7 @@
       "stats_by_star": {
         "1": {
           "health": 950.0,
-          "attack_damage": 30.0,
+          "attack_damage": 40.0,
           "armor": 55.0,
           "magic_resist": 55.0,
           "attack_speed": 0.85,
@@ -5876,7 +5876,7 @@
         },
         "2": {
           "health": 1710.0,
-          "attack_damage": 45.0,
+          "attack_damage": 60.0,
           "armor": 55.0,
           "magic_resist": 55.0,
           "attack_speed": 0.85,
@@ -5888,7 +5888,7 @@
         },
         "3": {
           "health": 3078.0,
-          "attack_damage": 67.0,
+          "attack_damage": 90.0,
           "armor": 55.0,
           "magic_resist": 55.0,
           "attack_speed": 0.85,
@@ -5915,7 +5915,7 @@
         {
           "id": "3505_skill",
           "name": "品尝恐惧",
-          "description": "跃向3格内最远的敌人，对其造成285(【法术加成】)魔法伤害。如果其邻格没有其友军，则转而造成310(【法术加成】)魔法伤害并获得7法力值。  【世纪和解】加成：通过技能获得的7点法力值会提供给【雷恩加尔】。",
+          "description": "跃向3格内最远的敌人，对其造成285(【法术加成】)魔法伤害。如果其邻格没有其友军，则转而造成310(【法术加成】)魔法伤害并获得10法力值。  【世纪和解】加成：通过技能获得的5.0点法力值会提供给【雷恩加尔】。",
           "variables": [
             {
               "key": "value_1",
@@ -5945,14 +5945,14 @@
             "local_path": "assets/skills/3505.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/skill/s18_khazix.png",
             "alt": "卡兹克技能图标",
-            "optimized_local_path": "assets/optimized/s18__18_18_1c/skills/3505_skill.webp"
+            "optimized_local_path": "assets/optimized/s18__18_18_2/skills/3505_skill.webp"
           },
           "extensions": {
             "description_by_star": {
-              "1": "跃向3格内最远的敌人，对其造成285(【法术加成】)魔法伤害。如果其邻格没有其友军，则转而造成310(【法术加成】)魔法伤害并获得7法力值。  【世纪和解】加成：通过技能获得的7点法力值会提供给【雷恩加尔】。",
-              "2": "跃向3格内最远的敌人，对其造成400(【法术加成】)魔法伤害。如果其邻格没有其友军，则转而造成445(【法术加成】)魔法伤害并获得7法力值。  【世纪和解】加成：通过技能获得的7点法力值会提供给【雷恩加尔】。",
-              "3": "跃向3格内最远的敌人，对其造成580(【法术加成】)魔法伤害。如果其邻格没有其友军，则转而造成660(【法术加成】)魔法伤害并获得7法力值。  【世纪和解】加成：通过技能获得的7点法力值会提供给【雷恩加尔】。",
-              "4": "跃向3格内最远的敌人，对其造成935(【法术加成】)魔法伤害。如果其邻格没有其友军，则转而造成1150(【法术加成】)魔法伤害并获得7法力值。  【世纪和解】加成：通过技能获得的7点法力值会提供给【雷恩加尔】。"
+              "1": "跃向3格内最远的敌人，对其造成285(【法术加成】)魔法伤害。如果其邻格没有其友军，则转而造成310(【法术加成】)魔法伤害并获得10法力值。  【世纪和解】加成：通过技能获得的5.0点法力值会提供给【雷恩加尔】。",
+              "2": "跃向3格内最远的敌人，对其造成400(【法术加成】)魔法伤害。如果其邻格没有其友军，则转而造成445(【法术加成】)魔法伤害并获得10法力值。  【世纪和解】加成：通过技能获得的5.0点法力值会提供给【雷恩加尔】。",
+              "3": "跃向3格内最远的敌人，对其造成580(【法术加成】)魔法伤害。如果其邻格没有其友军，则转而造成660(【法术加成】)魔法伤害并获得10法力值。  【世纪和解】加成：通过技能获得的5.0点法力值会提供给【雷恩加尔】。",
+              "4": "跃向3格内最远的敌人，对其造成935(【法术加成】)魔法伤害。如果其邻格没有其友军，则转而造成1150(【法术加成】)魔法伤害并获得10法力值。  【世纪和解】加成：通过技能获得的5.0点法力值会提供给【雷恩加尔】。"
             }
           },
           "description_tokens": [
@@ -5984,7 +5984,7 @@
             },
             {
               "type": "text",
-              "value": "魔法伤害并获得7法力值。  【世纪和解】加成：通过技能获得的7点法力值会提供给【雷恩加尔】。"
+              "value": "魔法伤害并获得10法力值。  【世纪和解】加成：通过技能获得的5.0点法力值会提供给【雷恩加尔】。"
             }
           ]
         }
@@ -5994,7 +5994,7 @@
           "local_path": "assets/champions/3505.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/hero/s18_head_khazix.png",
           "alt": "卡兹克头像",
-          "optimized_local_path": "assets/optimized/s18__18_18_1c/champions/3505.webp"
+          "optimized_local_path": "assets/optimized/s18__18_18_2/champions/3505.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/3505.jpg",
@@ -6045,7 +6045,7 @@
           "attack_speed": 0.8,
           "attack_range": 1.0,
           "initial_mana": 0.0,
-          "max_mana": 40.0,
+          "max_mana": 30.0,
           "critical_strike_chance": 25.0,
           "sell_price": 3.0
         },
@@ -6057,7 +6057,7 @@
           "attack_speed": 0.8,
           "attack_range": 1.0,
           "initial_mana": 0.0,
-          "max_mana": 40.0,
+          "max_mana": 30.0,
           "critical_strike_chance": 25.0,
           "sell_price": 8.0
         },
@@ -6069,7 +6069,7 @@
           "attack_speed": 0.8,
           "attack_range": 1.0,
           "initial_mana": 0.0,
-          "max_mana": 40.0,
+          "max_mana": 30.0,
           "critical_strike_chance": 25.0,
           "sell_price": 26.0
         },
@@ -6081,7 +6081,7 @@
           "attack_speed": 0.8,
           "attack_range": 1.0,
           "initial_mana": 0.0,
-          "max_mana": 40.0,
+          "max_mana": 30.0,
           "critical_strike_chance": 25.0,
           "sell_price": 80.0
         }
@@ -6090,17 +6090,17 @@
         {
           "id": "3506_skill",
           "name": "苍白屏障",
-          "description": "获得150(【法术加成】)护盾值，持续2秒，并放出6颗月光法球，由2格内的所有敌人分摊，每颗造成70(【法术加成】)魔法伤害。",
+          "description": "获得100(【法术加成】)护盾值，持续2秒，并放出6颗月光法球，由2格内的所有敌人分摊，每颗造成55(【法术加成】)魔法伤害。",
           "variables": [
             {
               "key": "value_1",
               "label": "伤害",
               "unit": "raw",
               "values": {
-                "1": "70",
-                "2": "105",
-                "3": "170",
-                "4": "290"
+                "1": "55",
+                "2": "85",
+                "3": "135",
+                "4": "230"
               }
             },
             {
@@ -6108,32 +6108,32 @@
               "label": "护盾值",
               "unit": "raw",
               "values": {
-                "1": "150",
-                "2": "275",
-                "3": "400",
+                "1": "100",
+                "2": "225",
+                "3": "375",
                 "4": "525"
               }
             }
           ],
-          "raw_values": "伤害：290(【法术加成】) 70/105/170/290|护盾值：525(【法术加成】) 150/275/400/525",
+          "raw_values": "伤害：230(【法术加成】) 55/85/135/230|护盾值：525(【法术加成】) 100/225/375/525",
           "image": {
             "local_path": "assets/skills/3506.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/skill/s18_diana.png",
             "alt": "黛安娜技能图标",
-            "optimized_local_path": "assets/optimized/s18__18_18_1c/skills/3506_skill.webp"
+            "optimized_local_path": "assets/optimized/s18__18_18_2/skills/3506_skill.webp"
           },
           "extensions": {
             "description_by_star": {
-              "1": "获得150(【法术加成】)护盾值，持续2秒，并放出6颗月光法球，由2格内的所有敌人分摊，每颗造成70(【法术加成】)魔法伤害。",
-              "2": "获得275(【法术加成】)护盾值，持续2秒，并放出6颗月光法球，由2格内的所有敌人分摊，每颗造成105(【法术加成】)魔法伤害。",
-              "3": "获得400(【法术加成】)护盾值，持续2秒，并放出6颗月光法球，由2格内的所有敌人分摊，每颗造成170(【法术加成】)魔法伤害。",
-              "4": "获得525(【法术加成】)护盾值，持续2秒，并放出6颗月光法球，由2格内的所有敌人分摊，每颗造成290(【法术加成】)魔法伤害。"
+              "1": "获得100(【法术加成】)护盾值，持续2秒，并放出6颗月光法球，由2格内的所有敌人分摊，每颗造成55(【法术加成】)魔法伤害。",
+              "2": "获得225(【法术加成】)护盾值，持续2秒，并放出6颗月光法球，由2格内的所有敌人分摊，每颗造成85(【法术加成】)魔法伤害。",
+              "3": "获得375(【法术加成】)护盾值，持续2秒，并放出6颗月光法球，由2格内的所有敌人分摊，每颗造成135(【法术加成】)魔法伤害。",
+              "4": "获得525(【法术加成】)护盾值，持续2秒，并放出6颗月光法球，由2格内的所有敌人分摊，每颗造成230(【法术加成】)魔法伤害。"
             }
           },
           "description_tokens": [
             {
               "type": "text",
-              "value": "获得150"
+              "value": "获得100"
             },
             {
               "type": "stat",
@@ -6146,7 +6146,7 @@
             },
             {
               "type": "text",
-              "value": "护盾值，持续2秒，并放出6颗月光法球，由2格内的所有敌人分摊，每颗造成70"
+              "value": "护盾值，持续2秒，并放出6颗月光法球，由2格内的所有敌人分摊，每颗造成55"
             },
             {
               "type": "stat",
@@ -6169,7 +6169,7 @@
           "local_path": "assets/champions/3506.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/hero/s18_head_diana.png",
           "alt": "黛安娜头像",
-          "optimized_local_path": "assets/optimized/s18__18_18_1c/champions/3506.webp"
+          "optimized_local_path": "assets/optimized/s18__18_18_2/champions/3506.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/3506.jpg",
@@ -6211,7 +6211,7 @@
       "stats_by_star": {
         "1": {
           "health": 850.0,
-          "attack_damage": 65.0,
+          "attack_damage": 62.0,
           "armor": 60.0,
           "magic_resist": 60.0,
           "attack_speed": 0.8,
@@ -6223,7 +6223,7 @@
         },
         "2": {
           "health": 1530.0,
-          "attack_damage": 97.0,
+          "attack_damage": 93.0,
           "armor": 60.0,
           "magic_resist": 60.0,
           "attack_speed": 0.8,
@@ -6235,7 +6235,7 @@
         },
         "3": {
           "health": 2754.0,
-          "attack_damage": 145.0,
+          "attack_damage": 139.0,
           "armor": 60.0,
           "magic_resist": 60.0,
           "attack_speed": 0.8,
@@ -6247,7 +6247,7 @@
         },
         "4": {
           "health": 3978.0,
-          "attack_damage": 219.0,
+          "attack_damage": 209.0,
           "armor": 60.0,
           "magic_resist": 60.0,
           "attack_speed": 0.8,
@@ -6281,7 +6281,7 @@
             "local_path": "assets/skills/3507.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/skill/s18_masteryi.png",
             "alt": "易技能图标",
-            "optimized_local_path": "assets/optimized/s18__18_18_1c/skills/3507_skill.webp"
+            "optimized_local_path": "assets/optimized/s18__18_18_2/skills/3507_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -6343,7 +6343,7 @@
           "local_path": "assets/champions/3507.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/hero/s18_head_masteryi.png",
           "alt": "易头像",
-          "optimized_local_path": "assets/optimized/s18__18_18_1c/champions/3507.webp"
+          "optimized_local_path": "assets/optimized/s18__18_18_2/champions/3507.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/3507.jpg",
@@ -6478,7 +6478,7 @@
             "local_path": "assets/skills/3508.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/skill/s18_tristana.png",
             "alt": "崔丝塔娜技能图标",
-            "optimized_local_path": "assets/optimized/s18__18_18_1c/skills/3508_skill.webp"
+            "optimized_local_path": "assets/optimized/s18__18_18_2/skills/3508_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -6540,7 +6540,7 @@
           "local_path": "assets/champions/3508.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/hero/s18_head_tristana.png",
           "alt": "崔丝塔娜头像",
-          "optimized_local_path": "assets/optimized/s18__18_18_1c/champions/3508.webp"
+          "optimized_local_path": "assets/optimized/s18__18_18_2/champions/3508.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/3508.jpg",
@@ -6583,7 +6583,7 @@
       "stats_by_star": {
         "1": {
           "health": 650.0,
-          "attack_damage": 50.0,
+          "attack_damage": 55.0,
           "armor": 35.0,
           "magic_resist": 35.0,
           "attack_speed": 0.75,
@@ -6595,7 +6595,7 @@
         },
         "2": {
           "health": 1170.0,
-          "attack_damage": 75.0,
+          "attack_damage": 82.0,
           "armor": 35.0,
           "magic_resist": 35.0,
           "attack_speed": 0.75,
@@ -6607,7 +6607,7 @@
         },
         "3": {
           "health": 2106.0,
-          "attack_damage": 112.0,
+          "attack_damage": 123.0,
           "armor": 35.0,
           "magic_resist": 35.0,
           "attack_speed": 0.75,
@@ -6619,7 +6619,7 @@
         },
         "4": {
           "health": 3042.0,
-          "attack_damage": 169.0,
+          "attack_damage": 186.0,
           "armor": 35.0,
           "magic_resist": 35.0,
           "attack_speed": 0.75,
@@ -6634,7 +6634,7 @@
         {
           "id": "3509_skill",
           "name": "鸟群之家",
-          "description": "在附近召唤4只不可被选取的【小锋喙鸟】，持续5.0(【法术加成】)秒。每次【深红锋喙鸟】攻击时，【小锋喙鸟】也会攻击同一敌人，造成20(【物理加成】)物理伤害。  橙霸符：造成物理伤害时会使敌人的护甲降低2。橙霸符：造成物理伤害时会使敌人的护甲降低2。",
+          "description": "在附近召唤4只不可被选取的【小锋喙鸟】，持续5.0(【法术加成】)秒。每次【深红锋喙鸟】攻击时，【小锋喙鸟】也会攻击同一敌人，造成22(【物理加成】)物理伤害。  橙霸符：造成物理伤害时会使敌人的护甲降低2。橙霸符：造成物理伤害时会使敌人的护甲降低2。",
           "variables": [
             {
               "key": "value_1",
@@ -6652,26 +6652,26 @@
               "label": "伤害",
               "unit": "raw",
               "values": {
-                "1": "20",
-                "2": "30",
+                "1": "22",
+                "2": "33",
                 "3": "48",
-                "4": "105"
+                "4": "82"
               }
             }
           ],
-          "raw_values": "持续时间：5.0(【法术加成】)秒 5/5/5/5|伤害：105(【物理加成】) 20/30/48/105",
+          "raw_values": "持续时间：5.0(【法术加成】)秒 5/5/5/5|伤害：82(【物理加成】) 22/33/48/82",
           "image": {
             "local_path": "assets/skills/3509.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/skill/s18_raptor.png",
             "alt": "深红锋喙鸟技能图标",
-            "optimized_local_path": "assets/optimized/s18__18_18_1c/skills/3509_skill.webp"
+            "optimized_local_path": "assets/optimized/s18__18_18_2/skills/3509_skill.webp"
           },
           "extensions": {
             "description_by_star": {
-              "1": "在附近召唤4只不可被选取的【小锋喙鸟】，持续5.0(【法术加成】)秒。每次【深红锋喙鸟】攻击时，【小锋喙鸟】也会攻击同一敌人，造成20(【物理加成】)物理伤害。  橙霸符：造成物理伤害时会使敌人的护甲降低2。橙霸符：造成物理伤害时会使敌人的护甲降低2。",
-              "2": "在附近召唤4只不可被选取的【小锋喙鸟】，持续5.0(【法术加成】)秒。每次【深红锋喙鸟】攻击时，【小锋喙鸟】也会攻击同一敌人，造成30(【物理加成】)物理伤害。  橙霸符：造成物理伤害时会使敌人的护甲降低2。橙霸符：造成物理伤害时会使敌人的护甲降低2。",
+              "1": "在附近召唤4只不可被选取的【小锋喙鸟】，持续5.0(【法术加成】)秒。每次【深红锋喙鸟】攻击时，【小锋喙鸟】也会攻击同一敌人，造成22(【物理加成】)物理伤害。  橙霸符：造成物理伤害时会使敌人的护甲降低2。橙霸符：造成物理伤害时会使敌人的护甲降低2。",
+              "2": "在附近召唤4只不可被选取的【小锋喙鸟】，持续5.0(【法术加成】)秒。每次【深红锋喙鸟】攻击时，【小锋喙鸟】也会攻击同一敌人，造成33(【物理加成】)物理伤害。  橙霸符：造成物理伤害时会使敌人的护甲降低2。橙霸符：造成物理伤害时会使敌人的护甲降低2。",
               "3": "在附近召唤4只不可被选取的【小锋喙鸟】，持续5.0(【法术加成】)秒。每次【深红锋喙鸟】攻击时，【小锋喙鸟】也会攻击同一敌人，造成48(【物理加成】)物理伤害。  橙霸符：造成物理伤害时会使敌人的护甲降低2。橙霸符：造成物理伤害时会使敌人的护甲降低2。",
-              "4": "在附近召唤4只不可被选取的【小锋喙鸟】，持续5.0(【法术加成】)秒。每次【深红锋喙鸟】攻击时，【小锋喙鸟】也会攻击同一敌人，造成105(【物理加成】)物理伤害。  橙霸符：造成物理伤害时会使敌人的护甲降低2。橙霸符：造成物理伤害时会使敌人的护甲降低2。"
+              "4": "在附近召唤4只不可被选取的【小锋喙鸟】，持续5.0(【法术加成】)秒。每次【深红锋喙鸟】攻击时，【小锋喙鸟】也会攻击同一敌人，造成82(【物理加成】)物理伤害。  橙霸符：造成物理伤害时会使敌人的护甲降低2。橙霸符：造成物理伤害时会使敌人的护甲降低2。"
             }
           },
           "description_tokens": [
@@ -6690,7 +6690,7 @@
             },
             {
               "type": "text",
-              "value": "秒。每次【深红锋喙鸟】攻击时，【小锋喙鸟】也会攻击同一敌人，造成20"
+              "value": "秒。每次【深红锋喙鸟】攻击时，【小锋喙鸟】也会攻击同一敌人，造成22"
             },
             {
               "type": "stat",
@@ -6713,7 +6713,7 @@
           "local_path": "assets/champions/3509.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/hero/s18_head_raptor.png",
           "alt": "深红锋喙鸟头像",
-          "optimized_local_path": "assets/optimized/s18__18_18_1c/champions/3509.webp"
+          "optimized_local_path": "assets/optimized/s18__18_18_2/champions/3509.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/3509.jpg",
@@ -6807,39 +6807,39 @@
         {
           "id": "3510_skill",
           "name": "沙兵现身",
-          "description": "接下来的6次攻击获得150%攻击速度并召唤2个士兵。这些攻击会被替换为指令，来命令每个士兵进行攻击，每次攻击造成40(【法术加成】)魔法伤害。",
+          "description": "接下来的6次攻击获得150%攻击速度并召唤2个士兵。这些攻击会被替换为指令，来命令每个士兵进行攻击，每次攻击造成43(【法术加成】)魔法伤害。",
           "variables": [
             {
               "key": "value_1",
               "label": "伤害",
               "unit": "raw",
               "values": {
-                "1": "40",
-                "2": "60",
-                "3": "96",
-                "4": "165"
+                "1": "43",
+                "2": "65",
+                "3": "103",
+                "4": "175"
               }
             }
           ],
-          "raw_values": "伤害：165(【法术加成】) 40/60/96/165",
+          "raw_values": "伤害：175(【法术加成】) 43/65/103/175",
           "image": {
             "local_path": "assets/skills/3510.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/skill/s18_azir.png",
             "alt": "阿兹尔技能图标",
-            "optimized_local_path": "assets/optimized/s18__18_18_1c/skills/3510_skill.webp"
+            "optimized_local_path": "assets/optimized/s18__18_18_2/skills/3510_skill.webp"
           },
           "extensions": {
             "description_by_star": {
-              "1": "接下来的6次攻击获得150%攻击速度并召唤2个士兵。这些攻击会被替换为指令，来命令每个士兵进行攻击，每次攻击造成40(【法术加成】)魔法伤害。",
-              "2": "接下来的6次攻击获得150%攻击速度并召唤2个士兵。这些攻击会被替换为指令，来命令每个士兵进行攻击，每次攻击造成60(【法术加成】)魔法伤害。",
-              "3": "接下来的6次攻击获得150%攻击速度并召唤2个士兵。这些攻击会被替换为指令，来命令每个士兵进行攻击，每次攻击造成96(【法术加成】)魔法伤害。",
-              "4": "接下来的6次攻击获得150%攻击速度并召唤2个士兵。这些攻击会被替换为指令，来命令每个士兵进行攻击，每次攻击造成165(【法术加成】)魔法伤害。"
+              "1": "接下来的6次攻击获得150%攻击速度并召唤2个士兵。这些攻击会被替换为指令，来命令每个士兵进行攻击，每次攻击造成43(【法术加成】)魔法伤害。",
+              "2": "接下来的6次攻击获得150%攻击速度并召唤2个士兵。这些攻击会被替换为指令，来命令每个士兵进行攻击，每次攻击造成65(【法术加成】)魔法伤害。",
+              "3": "接下来的6次攻击获得150%攻击速度并召唤2个士兵。这些攻击会被替换为指令，来命令每个士兵进行攻击，每次攻击造成103(【法术加成】)魔法伤害。",
+              "4": "接下来的6次攻击获得150%攻击速度并召唤2个士兵。这些攻击会被替换为指令，来命令每个士兵进行攻击，每次攻击造成175(【法术加成】)魔法伤害。"
             }
           },
           "description_tokens": [
             {
               "type": "text",
-              "value": "接下来的6次攻击获得150%攻击速度并召唤2个士兵。这些攻击会被替换为指令，来命令每个士兵进行攻击，每次攻击造成40"
+              "value": "接下来的6次攻击获得150%攻击速度并召唤2个士兵。这些攻击会被替换为指令，来命令每个士兵进行攻击，每次攻击造成43"
             },
             {
               "type": "stat",
@@ -6862,7 +6862,7 @@
           "local_path": "assets/champions/3510.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/hero/s18_head_azir.png",
           "alt": "阿兹尔头像",
-          "optimized_local_path": "assets/optimized/s18__18_18_1c/champions/3510.webp"
+          "optimized_local_path": "assets/optimized/s18__18_18_2/champions/3510.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/3510.jpg",
@@ -6974,7 +6974,7 @@
             "local_path": "assets/skills/3511.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/skill/s18_cassiopeia.png",
             "alt": "卡西奥佩娅技能图标",
-            "optimized_local_path": "assets/optimized/s18__18_18_1c/skills/3511_skill.webp"
+            "optimized_local_path": "assets/optimized/s18__18_18_2/skills/3511_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -7010,7 +7010,7 @@
           "local_path": "assets/champions/3511.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/hero/s18_head_cassiopeia.png",
           "alt": "卡西奥佩娅头像",
-          "optimized_local_path": "assets/optimized/s18__18_18_1c/champions/3511.webp"
+          "optimized_local_path": "assets/optimized/s18__18_18_2/champions/3511.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/3511.jpg",
@@ -7134,7 +7134,7 @@
             "local_path": "assets/skills/3512.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/skill/s18_kogmaw.png",
             "alt": "克格莫技能图标",
-            "optimized_local_path": "assets/optimized/s18__18_18_1c/skills/3512_skill.webp"
+            "optimized_local_path": "assets/optimized/s18__18_18_2/skills/3512_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -7227,7 +7227,7 @@
           "local_path": "assets/champions/3512.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/hero/s18_head_kogmaw.png",
           "alt": "克格莫头像",
-          "optimized_local_path": "assets/optimized/s18__18_18_1c/champions/3512.webp"
+          "optimized_local_path": "assets/optimized/s18__18_18_2/champions/3512.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/3512.jpg",
@@ -7350,7 +7350,7 @@
             "local_path": "assets/skills/3515.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/skill/s18_rammus.png",
             "alt": "拉莫斯技能图标",
-            "optimized_local_path": "assets/optimized/s18__18_18_1c/skills/3515_skill.webp"
+            "optimized_local_path": "assets/optimized/s18__18_18_2/skills/3515_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -7408,7 +7408,7 @@
           "local_path": "assets/champions/3515.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/hero/s18_head_rammus.png",
           "alt": "拉莫斯头像",
-          "optimized_local_path": "assets/optimized/s18__18_18_1c/champions/3515.webp"
+          "optimized_local_path": "assets/optimized/s18__18_18_2/champions/3515.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/3515.jpg",
@@ -7502,15 +7502,15 @@
         {
           "id": "4500_skill",
           "name": "蔚蓝冲击波",
-          "description": "获得持续4秒的530(【法术加成】【生命上限】)护盾值。猛击地面，向敌人最密集的方向发出一道裂隙。被命中的敌人会被短暂击飞，受到100(【法术加成】)魔法伤害和10破法。  蓝霸符：【苍蓝雕纹魔像】每次施放技能时，友军们就会获得2法力回复。蓝霸符：【苍蓝雕纹魔像】每次施放技能时，友军们就会获得2法力回复。  破法：提升下一次技能施放的法力消耗。",
+          "description": "获得持续4秒的460(【法术加成】【生命上限】)护盾值。猛击地面，向敌人最密集的方向发出一道裂隙。被命中的敌人会被短暂击飞，受到100(【法术加成】)魔法伤害和10破法。  蓝霸符：【苍蓝雕纹魔像】每次施放技能时，友军们就会获得2法力回复。蓝霸符：【苍蓝雕纹魔像】每次施放技能时，友军们就会获得2法力回复。  破法：提升下一次技能施放的法力消耗。",
           "variables": [
             {
               "key": "value_1",
               "label": "护盾值",
               "unit": "raw",
               "values": {
-                "1": "400",
-                "2": "500",
+                "1": "330",
+                "2": "430",
                 "3": "2000",
                 "4": "5000"
               }
@@ -7527,17 +7527,17 @@
               }
             }
           ],
-          "raw_values": "护盾值：5708 = 10%【生命上限】 + 5000(【法术加成】) 400/500/2000/5000|伤害：9999(【法术加成】) 100/150/3500/9999",
+          "raw_values": "护盾值：5708 = 10%【生命上限】 + 5000(【法术加成】) 330/430/2000/5000|伤害：9999(【法术加成】) 100/150/3500/9999",
           "image": {
             "local_path": "assets/skills/4500.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/skill/s18_sentinel.png",
             "alt": "苍蓝雕纹魔像技能图标",
-            "optimized_local_path": "assets/optimized/s18__18_18_1c/skills/4500_skill.webp"
+            "optimized_local_path": "assets/optimized/s18__18_18_2/skills/4500_skill.webp"
           },
           "extensions": {
             "description_by_star": {
-              "1": "获得持续4秒的530(【法术加成】【生命上限】)护盾值。猛击地面，向敌人最密集的方向发出一道裂隙。被命中的敌人会被短暂击飞，受到100(【法术加成】)魔法伤害和10破法。  蓝霸符：【苍蓝雕纹魔像】每次施放技能时，友军们就会获得2法力回复。蓝霸符：【苍蓝雕纹魔像】每次施放技能时，友军们就会获得2法力回复。  破法：提升下一次技能施放的法力消耗。",
-              "2": "获得持续4秒的734(【法术加成】【生命上限】)护盾值。猛击地面，向敌人最密集的方向发出一道裂隙。被命中的敌人会被短暂击飞，受到150(【法术加成】)魔法伤害和10破法。  蓝霸符：【苍蓝雕纹魔像】每次施放技能时，友军们就会获得2法力回复。蓝霸符：【苍蓝雕纹魔像】每次施放技能时，友军们就会获得2法力回复。  破法：提升下一次技能施放的法力消耗。",
+              "1": "获得持续4秒的460(【法术加成】【生命上限】)护盾值。猛击地面，向敌人最密集的方向发出一道裂隙。被命中的敌人会被短暂击飞，受到100(【法术加成】)魔法伤害和10破法。  蓝霸符：【苍蓝雕纹魔像】每次施放技能时，友军们就会获得2法力回复。蓝霸符：【苍蓝雕纹魔像】每次施放技能时，友军们就会获得2法力回复。  破法：提升下一次技能施放的法力消耗。",
+              "2": "获得持续4秒的664(【法术加成】【生命上限】)护盾值。猛击地面，向敌人最密集的方向发出一道裂隙。被命中的敌人会被短暂击飞，受到150(【法术加成】)魔法伤害和10破法。  蓝霸符：【苍蓝雕纹魔像】每次施放技能时，友军们就会获得2法力回复。蓝霸符：【苍蓝雕纹魔像】每次施放技能时，友军们就会获得2法力回复。  破法：提升下一次技能施放的法力消耗。",
               "3": "获得持续4秒的2521(【法术加成】【生命上限】)护盾值。猛击地面，向敌人最密集的方向发出一道裂隙。被命中的敌人会被短暂击飞，受到3500(【法术加成】)魔法伤害和10破法。  蓝霸符：【苍蓝雕纹魔像】每次施放技能时，友军们就会获得2法力回复。蓝霸符：【苍蓝雕纹魔像】每次施放技能时，友军们就会获得2法力回复。  破法：提升下一次技能施放的法力消耗。",
               "4": "获得持续4秒的5708(【法术加成】【生命上限】)护盾值。猛击地面，向敌人最密集的方向发出一道裂隙。被命中的敌人会被短暂击飞，受到9999(【法术加成】)魔法伤害和10破法。  蓝霸符：【苍蓝雕纹魔像】每次施放技能时，友军们就会获得2法力回复。蓝霸符：【苍蓝雕纹魔像】每次施放技能时，友军们就会获得2法力回复。  破法：提升下一次技能施放的法力消耗。"
             }
@@ -7545,7 +7545,7 @@
           "description_tokens": [
             {
               "type": "text",
-              "value": "获得持续4秒的530("
+              "value": "获得持续4秒的460("
             },
             {
               "type": "stat",
@@ -7590,7 +7590,7 @@
           "local_path": "assets/champions/4500.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/hero/s18_head_sentinel.png",
           "alt": "苍蓝雕纹魔像头像",
-          "optimized_local_path": "assets/optimized/s18__18_18_1c/champions/4500.webp"
+          "optimized_local_path": "assets/optimized/s18__18_18_2/champions/4500.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/4500.jpg",
@@ -7724,7 +7724,7 @@
             "local_path": "assets/skills/4501.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/skill/s18_morgana.png",
             "alt": "莫甘娜技能图标",
-            "optimized_local_path": "assets/optimized/s18__18_18_1c/skills/4501_skill.webp"
+            "optimized_local_path": "assets/optimized/s18__18_18_2/skills/4501_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -7786,7 +7786,7 @@
           "local_path": "assets/champions/4501.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/hero/s18_head_morgana.png",
           "alt": "莫甘娜头像",
-          "optimized_local_path": "assets/optimized/s18__18_18_1c/champions/4501.webp"
+          "optimized_local_path": "assets/optimized/s18__18_18_2/champions/4501.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/4501.jpg",
@@ -7920,7 +7920,7 @@
             "local_path": "assets/skills/4502.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/skill/s18_lillia.png",
             "alt": "莉莉娅技能图标",
-            "optimized_local_path": "assets/optimized/s18__18_18_1c/skills/4502_skill.webp"
+            "optimized_local_path": "assets/optimized/s18__18_18_2/skills/4502_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -7969,7 +7969,7 @@
           "local_path": "assets/champions/4502.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/hero/s18_head_lillia.png",
           "alt": "莉莉娅头像",
-          "optimized_local_path": "assets/optimized/s18__18_18_1c/champions/4502.webp"
+          "optimized_local_path": "assets/optimized/s18__18_18_2/champions/4502.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/4502.jpg",
@@ -8114,7 +8114,7 @@
             "local_path": "assets/skills/4503.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/skill/s18_amumu.png",
             "alt": "阿木木技能图标",
-            "optimized_local_path": "assets/optimized/s18__18_18_1c/skills/4503_skill.webp"
+            "optimized_local_path": "assets/optimized/s18__18_18_2/skills/4503_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -8185,7 +8185,7 @@
           "local_path": "assets/champions/4503.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/hero/s18_head_amumu.png",
           "alt": "阿木木头像",
-          "optimized_local_path": "assets/optimized/s18__18_18_1c/champions/4503.webp"
+          "optimized_local_path": "assets/optimized/s18__18_18_2/champions/4503.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/4503.jpg",
@@ -8319,7 +8319,7 @@
             "local_path": "assets/skills/4504.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/skill/s18_malphite.png",
             "alt": "墨菲特技能图标",
-            "optimized_local_path": "assets/optimized/s18__18_18_1c/skills/4504_skill.webp"
+            "optimized_local_path": "assets/optimized/s18__18_18_2/skills/4504_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -8386,7 +8386,7 @@
           "local_path": "assets/champions/4504.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/hero/s18_head_malphite.png",
           "alt": "墨菲特头像",
-          "optimized_local_path": "assets/optimized/s18__18_18_1c/champions/4504.webp"
+          "optimized_local_path": "assets/optimized/s18__18_18_2/champions/4504.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/4504.jpg",
@@ -8509,7 +8509,7 @@
             "local_path": "assets/skills/4505.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/skill/s18_sett.png",
             "alt": "瑟提技能图标",
-            "optimized_local_path": "assets/optimized/s18__18_18_1c/skills/4505_skill.webp"
+            "optimized_local_path": "assets/optimized/s18__18_18_2/skills/4505_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -8576,7 +8576,7 @@
           "local_path": "assets/champions/4505.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/hero/s18_head_sett.png",
           "alt": "瑟提头像",
-          "optimized_local_path": "assets/optimized/s18__18_18_1c/champions/4505.webp"
+          "optimized_local_path": "assets/optimized/s18__18_18_2/champions/4505.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/4505.jpg",
@@ -8678,7 +8678,7 @@
               "values": {
                 "1": "170",
                 "2": "255",
-                "3": "600",
+                "3": "1000",
                 "4": "1500"
               }
             },
@@ -8689,23 +8689,23 @@
               "values": {
                 "1": "80%",
                 "2": "80%",
-                "3": "280%",
+                "3": "300%",
                 "4": "400%"
               }
             }
           ],
-          "raw_values": "跃击伤害：1500(【物理加成】) 170/255/600/1500|额外攻击力：400% 80%/80%/280%/400%|护甲无视：90% = 10% + 80%(【法术加成】)",
+          "raw_values": "跃击伤害：1500(【物理加成】) 170/255/1000/1500|额外攻击力：400% 80%/80%/300%/400%|护甲无视：90% = 10% + 80%(【法术加成】)",
           "image": {
             "local_path": "assets/skills/4506.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/skill/s18_brambleback.png",
             "alt": "绯红印记树怪技能图标",
-            "optimized_local_path": "assets/optimized/s18__18_18_1c/skills/4506_skill.webp"
+            "optimized_local_path": "assets/optimized/s18__18_18_2/skills/4506_skill.webp"
           },
           "extensions": {
             "description_by_star": {
               "1": "被动：当目标倒下时，跃至下个目标，从而造成170(【物理加成】)物理伤害。  主动：获得持续8秒的80%物理加成。在此期间，无视40%(【法术加成】)护甲。  红霸符：攻击1%灼烧敌人并治疗【绯红印记树怪】4%最大生命值。红霸符：攻击1%灼烧敌人并治疗【绯红印记树怪】4%最大生命值。",
               "2": "被动：当目标倒下时，跃至下个目标，从而造成255(【物理加成】)物理伤害。  主动：获得持续8秒的80%物理加成。在此期间，无视40%(【法术加成】)护甲。  红霸符：攻击1%灼烧敌人并治疗【绯红印记树怪】4%最大生命值。红霸符：攻击1%灼烧敌人并治疗【绯红印记树怪】4%最大生命值。",
-              "3": "被动：当目标倒下时，跃至下个目标，从而造成600(【物理加成】)物理伤害。  主动：获得持续8秒的280%物理加成。在此期间，无视60%(【法术加成】)护甲。  红霸符：攻击1%灼烧敌人并治疗【绯红印记树怪】4%最大生命值。红霸符：攻击1%灼烧敌人并治疗【绯红印记树怪】4%最大生命值。",
+              "3": "被动：当目标倒下时，跃至下个目标，从而造成1000(【物理加成】)物理伤害。  主动：获得持续8秒的300%物理加成。在此期间，无视80%(【法术加成】)护甲。  红霸符：攻击1%灼烧敌人并治疗【绯红印记树怪】4%最大生命值。红霸符：攻击1%灼烧敌人并治疗【绯红印记树怪】4%最大生命值。",
               "4": "被动：当目标倒下时，跃至下个目标，从而造成1500(【物理加成】)物理伤害。  主动：获得持续8秒的400%物理加成。在此期间，无视90%(【法术加成】)护甲。  红霸符：攻击1%灼烧敌人并治疗【绯红印记树怪】4%最大生命值。红霸符：攻击1%灼烧敌人并治疗【绯红印记树怪】4%最大生命值。"
             }
           },
@@ -8748,7 +8748,7 @@
           "local_path": "assets/champions/4506.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/hero/s18_head_brambleback.png",
           "alt": "绯红印记树怪头像",
-          "optimized_local_path": "assets/optimized/s18__18_18_1c/champions/4506.webp"
+          "optimized_local_path": "assets/optimized/s18__18_18_2/champions/4506.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/4506.jpg",
@@ -8841,7 +8841,7 @@
         {
           "id": "4507_skill",
           "name": "标枪投掷",
-          "description": "【魔战士】(【法术加成】)：下3次攻击获得150%攻击速度。这些攻击被替换为标枪，造成170(【法术加成】)魔法伤害。第3次攻击转而瞄准相距最远且携带最少装备的那个敌人，并造成285(【法术加成】)魔法伤害。  【魔战士】(【物理加成】)：变形为一只近战美洲狮刺客来挥击敌人们。",
+          "description": "【魔战士】(【法术加成】)：下3次攻击获得150%攻击速度。这些攻击被替换为标枪，造成170(【法术加成】)魔法伤害。第3次攻击转而瞄准相距最远且携带最少装备的那个敌人，并造成300(【法术加成】)魔法伤害。  【魔战士】(【物理加成】)：变形为一只近战美洲狮刺客来挥击敌人们。",
           "variables": [
             {
               "key": "value_1",
@@ -8859,24 +8859,24 @@
               "label": "最终伤害",
               "unit": "raw",
               "values": {
-                "1": "285",
-                "2": "425",
+                "1": "300",
+                "2": "450",
                 "3": "3000",
                 "4": "5000"
               }
             }
           ],
-          "raw_values": "伤害：3000(【法术加成】) 170/255/2000/3000|最终伤害：5000(【法术加成】) 285/425/3000/5000",
+          "raw_values": "伤害：3000(【法术加成】) 170/255/2000/3000|最终伤害：5000(【法术加成】) 300/450/3000/5000",
           "image": {
             "local_path": "assets/skills/4507.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/skill/s18_nidalee.png",
             "alt": "奈德丽技能图标",
-            "optimized_local_path": "assets/optimized/s18__18_18_1c/skills/4507_skill.webp"
+            "optimized_local_path": "assets/optimized/s18__18_18_2/skills/4507_skill.webp"
           },
           "extensions": {
             "description_by_star": {
-              "1": "【魔战士】(【法术加成】)：下3次攻击获得150%攻击速度。这些攻击被替换为标枪，造成170(【法术加成】)魔法伤害。第3次攻击转而瞄准相距最远且携带最少装备的那个敌人，并造成285(【法术加成】)魔法伤害。  【魔战士】(【物理加成】)：变形为一只近战美洲狮刺客来挥击敌人们。",
-              "2": "【魔战士】(【法术加成】)：下3次攻击获得150%攻击速度。这些攻击被替换为标枪，造成255(【法术加成】)魔法伤害。第3次攻击转而瞄准相距最远且携带最少装备的那个敌人，并造成425(【法术加成】)魔法伤害。  【魔战士】(【物理加成】)：变形为一只近战美洲狮刺客来挥击敌人们。",
+              "1": "【魔战士】(【法术加成】)：下3次攻击获得150%攻击速度。这些攻击被替换为标枪，造成170(【法术加成】)魔法伤害。第3次攻击转而瞄准相距最远且携带最少装备的那个敌人，并造成300(【法术加成】)魔法伤害。  【魔战士】(【物理加成】)：变形为一只近战美洲狮刺客来挥击敌人们。",
+              "2": "【魔战士】(【法术加成】)：下3次攻击获得150%攻击速度。这些攻击被替换为标枪，造成255(【法术加成】)魔法伤害。第3次攻击转而瞄准相距最远且携带最少装备的那个敌人，并造成450(【法术加成】)魔法伤害。  【魔战士】(【物理加成】)：变形为一只近战美洲狮刺客来挥击敌人们。",
               "3": "【魔战士】(【法术加成】)：下3次攻击获得150%攻击速度。这些攻击被替换为标枪，造成2000(【法术加成】)魔法伤害。第3次攻击转而瞄准相距最远且携带最少装备的那个敌人，并造成3000(【法术加成】)魔法伤害。  【魔战士】(【物理加成】)：变形为一只近战美洲狮刺客来挥击敌人们。",
               "4": "【魔战士】(【法术加成】)：下99次攻击获得150%攻击速度。这些攻击被替换为标枪，造成3000(【法术加成】)魔法伤害。第3次攻击转而瞄准相距最远且携带最少装备的那个敌人，并造成5000(【法术加成】)魔法伤害。  【魔战士】(【物理加成】)：变形为一只近战美洲狮刺客来挥击敌人们。"
             }
@@ -8910,7 +8910,7 @@
             },
             {
               "type": "text",
-              "value": "魔法伤害。第3次攻击转而瞄准相距最远且携带最少装备的那个敌人，并造成285"
+              "value": "魔法伤害。第3次攻击转而瞄准相距最远且携带最少装备的那个敌人，并造成300"
             },
             {
               "type": "stat",
@@ -8946,7 +8946,7 @@
           "local_path": "assets/champions/4507.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/hero/s18_head_nidalee.png",
           "alt": "奈德丽头像",
-          "optimized_local_path": "assets/optimized/s18__18_18_1c/champions/4507.webp"
+          "optimized_local_path": "assets/optimized/s18__18_18_2/champions/4507.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/4507.jpg",
@@ -9039,15 +9039,15 @@
         {
           "id": "4508_skill",
           "name": "自然之怒",
-          "description": "闪烁远离当前目标，对其造成235(【物理加成】)物理伤害，并获得30%(【法术加成】)攻击速度。  每第四次施放时，会消耗来自【自然之怒】的攻击速度，并释放一道贯穿最大的敌群的震波来造成385(【物理加成】)点物理伤害；它每穿过一个敌人就会降低25%伤害（最低为50%）。",
+          "description": "闪烁远离当前目标，对其造成250(【物理加成】)物理伤害，并获得30%(【法术加成】)攻击速度。  每第四次施放时，会消耗来自【自然之怒】的攻击速度，并释放一道贯穿最大的敌群的震波来造成385(【物理加成】)点物理伤害；它每穿过一个敌人就会降低25%伤害（最低为50%）。",
           "variables": [
             {
               "key": "value_1",
               "label": "伤害",
               "unit": "raw",
               "values": {
-                "1": "235",
-                "2": "355",
+                "1": "250",
+                "2": "375",
                 "3": "1200",
                 "4": "1530"
               }
@@ -9075,17 +9075,17 @@
               }
             }
           ],
-          "raw_values": "伤害：1530(【物理加成】) 235/355/1200/1530|攻击速度：100%(【法术加成】) 30%/30%/100%/100%|强化伤害：5000(【物理加成】) 385/580/2500/5000",
+          "raw_values": "伤害：1530(【物理加成】) 250/375/1200/1530|攻击速度：100%(【法术加成】) 30%/30%/100%/100%|强化伤害：5000(【物理加成】) 385/580/2500/5000",
           "image": {
             "local_path": "assets/skills/4508.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/skill/s18_ezreal.png",
             "alt": "伊泽瑞尔技能图标",
-            "optimized_local_path": "assets/optimized/s18__18_18_1c/skills/4508_skill.webp"
+            "optimized_local_path": "assets/optimized/s18__18_18_2/skills/4508_skill.webp"
           },
           "extensions": {
             "description_by_star": {
-              "1": "闪烁远离当前目标，对其造成235(【物理加成】)物理伤害，并获得30%(【法术加成】)攻击速度。  每第四次施放时，会消耗来自【自然之怒】的攻击速度，并释放一道贯穿最大的敌群的震波来造成385(【物理加成】)点物理伤害；它每穿过一个敌人就会降低25%伤害（最低为50%）。",
-              "2": "闪烁远离当前目标，对其造成355(【物理加成】)物理伤害，并获得30%(【法术加成】)攻击速度。  每第四次施放时，会消耗来自【自然之怒】的攻击速度，并释放一道贯穿最大的敌群的震波来造成580(【物理加成】)点物理伤害；它每穿过一个敌人就会降低25%伤害（最低为50%）。",
+              "1": "闪烁远离当前目标，对其造成250(【物理加成】)物理伤害，并获得30%(【法术加成】)攻击速度。  每第四次施放时，会消耗来自【自然之怒】的攻击速度，并释放一道贯穿最大的敌群的震波来造成385(【物理加成】)点物理伤害；它每穿过一个敌人就会降低25%伤害（最低为50%）。",
+              "2": "闪烁远离当前目标，对其造成375(【物理加成】)物理伤害，并获得30%(【法术加成】)攻击速度。  每第四次施放时，会消耗来自【自然之怒】的攻击速度，并释放一道贯穿最大的敌群的震波来造成580(【物理加成】)点物理伤害；它每穿过一个敌人就会降低25%伤害（最低为50%）。",
               "3": "闪烁远离当前目标，对其造成1200(【物理加成】)物理伤害，并获得100%(【法术加成】)攻击速度。  每第四次施放时，会消耗来自【自然之怒】的攻击速度，并释放一道贯穿最大的敌群的震波来造成2500(【物理加成】)点物理伤害；它每穿过一个敌人就会降低25%伤害（最低为50%）。",
               "4": "闪烁远离当前目标，对其造成1530(【物理加成】)物理伤害，并获得100%(【法术加成】)攻击速度。  每第四次施放时，会消耗来自【自然之怒】的攻击速度，并释放一道贯穿最大的敌群的震波来造成5000(【物理加成】)点物理伤害；它每穿过一个敌人就会降低25%伤害（最低为50%）。"
             }
@@ -9093,7 +9093,7 @@
           "description_tokens": [
             {
               "type": "text",
-              "value": "闪烁远离当前目标，对其造成235"
+              "value": "闪烁远离当前目标，对其造成250"
             },
             {
               "type": "stat",
@@ -9142,7 +9142,7 @@
           "local_path": "assets/champions/4508.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/hero/s18_head_ezreal.png",
           "alt": "伊泽瑞尔头像",
-          "optimized_local_path": "assets/optimized/s18__18_18_1c/champions/4508.webp"
+          "optimized_local_path": "assets/optimized/s18__18_18_2/champions/4508.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/4508.jpg",
@@ -9287,7 +9287,7 @@
             "local_path": "assets/skills/4509.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/skill/s18_aphelios.png",
             "alt": "厄斐琉斯技能图标",
-            "optimized_local_path": "assets/optimized/s18__18_18_1c/skills/4509_skill.webp"
+            "optimized_local_path": "assets/optimized/s18__18_18_2/skills/4509_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -9358,7 +9358,7 @@
           "local_path": "assets/champions/4509.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/hero/s18_head_aphelios.png",
           "alt": "厄斐琉斯头像",
-          "optimized_local_path": "assets/optimized/s18__18_18_1c/champions/4509.webp"
+          "optimized_local_path": "assets/optimized/s18__18_18_2/champions/4509.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/4509.jpg",
@@ -9481,7 +9481,7 @@
             "local_path": "assets/skills/4510.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/skill/s18_sivir.png",
             "alt": "希维尔技能图标",
-            "optimized_local_path": "assets/optimized/s18__18_18_1c/skills/4510_skill.webp"
+            "optimized_local_path": "assets/optimized/s18__18_18_2/skills/4510_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -9548,7 +9548,7 @@
           "local_path": "assets/champions/4510.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/hero/s18_head_sivir.png",
           "alt": "希维尔头像",
-          "optimized_local_path": "assets/optimized/s18__18_18_1c/champions/4510.webp"
+          "optimized_local_path": "assets/optimized/s18__18_18_2/champions/4510.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/4510.jpg",
@@ -9660,7 +9660,7 @@
             "local_path": "assets/skills/4511.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/skill/s18_ahri.png",
             "alt": "阿狸技能图标",
-            "optimized_local_path": "assets/optimized/s18__18_18_1c/skills/4511_skill.webp"
+            "optimized_local_path": "assets/optimized/s18__18_18_2/skills/4511_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -9696,7 +9696,7 @@
           "local_path": "assets/champions/4511.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/hero/s18_head_ahri.png",
           "alt": "阿狸头像",
-          "optimized_local_path": "assets/optimized/s18__18_18_1c/champions/4511.webp"
+          "optimized_local_path": "assets/optimized/s18__18_18_2/champions/4511.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/4511.jpg",
@@ -9808,7 +9808,7 @@
             "local_path": "assets/skills/4512.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/skill/s18_zyra.png",
             "alt": "婕拉技能图标",
-            "optimized_local_path": "assets/optimized/s18__18_18_1c/skills/4512_skill.webp"
+            "optimized_local_path": "assets/optimized/s18__18_18_2/skills/4512_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -9844,7 +9844,7 @@
           "local_path": "assets/champions/4512.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/hero/s18_head_zyra.png",
           "alt": "婕拉头像",
-          "optimized_local_path": "assets/optimized/s18__18_18_1c/champions/4512.webp"
+          "optimized_local_path": "assets/optimized/s18__18_18_2/champions/4512.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/4512.jpg",
@@ -9967,7 +9967,7 @@
             "local_path": "assets/skills/4513.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/skill/s18_soraka.png",
             "alt": "索拉卡技能图标",
-            "optimized_local_path": "assets/optimized/s18__18_18_1c/skills/4513_skill.webp"
+            "optimized_local_path": "assets/optimized/s18__18_18_2/skills/4513_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -10016,7 +10016,7 @@
           "local_path": "assets/champions/4513.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/hero/s18_head_soraka.png",
           "alt": "索拉卡头像",
-          "optimized_local_path": "assets/optimized/s18__18_18_1c/champions/4513.webp"
+          "optimized_local_path": "assets/optimized/s18__18_18_2/champions/4513.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/4513.jpg",
@@ -10063,8 +10063,8 @@
           "magic_resist": 60.0,
           "attack_speed": 0.65,
           "attack_range": 1.0,
-          "initial_mana": 40.0,
-          "max_mana": 100.0,
+          "initial_mana": 30.0,
+          "max_mana": 90.0,
           "critical_strike_chance": 25.0,
           "sell_price": 5.0
         },
@@ -10075,8 +10075,8 @@
           "magic_resist": 60.0,
           "attack_speed": 0.65,
           "attack_range": 1.0,
-          "initial_mana": 40.0,
-          "max_mana": 100.0,
+          "initial_mana": 30.0,
+          "max_mana": 90.0,
           "critical_strike_chance": 25.0,
           "sell_price": 14.0
         },
@@ -10087,8 +10087,8 @@
           "magic_resist": 60.0,
           "attack_speed": 0.65,
           "attack_range": 1.0,
-          "initial_mana": 40.0,
-          "max_mana": 100.0,
+          "initial_mana": 30.0,
+          "max_mana": 90.0,
           "critical_strike_chance": 25.0,
           "sell_price": 44.0
         },
@@ -10099,8 +10099,8 @@
           "magic_resist": 60.0,
           "attack_speed": 0.65,
           "attack_range": 1.0,
-          "initial_mana": 40.0,
-          "max_mana": 100.0,
+          "initial_mana": 30.0,
+          "max_mana": 90.0,
           "critical_strike_chance": 25.0,
           "sell_price": 134.0
         }
@@ -10161,7 +10161,7 @@
             "local_path": "assets/skills/5450.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/skill/s18_maokai.png",
             "alt": "茂凯技能图标",
-            "optimized_local_path": "assets/optimized/s18__18_18_1c/skills/5450_skill.webp"
+            "optimized_local_path": "assets/optimized/s18__18_18_2/skills/5450_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -10223,7 +10223,7 @@
           "local_path": "assets/champions/5450.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/hero/s18_head_maokai.png",
           "alt": "茂凯头像",
-          "optimized_local_path": "assets/optimized/s18__18_18_1c/champions/5450.webp"
+          "optimized_local_path": "assets/optimized/s18__18_18_2/champions/5450.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/5450.jpg",
@@ -10316,15 +10316,15 @@
         {
           "id": "5451_skill",
           "name": "翡翠辉耀",
-          "description": "被动：【塔里克】或其绑定的友军首次跌到50%生命值以下时，两人身上会释放翡翠能量，为3格内的友军提供持续3秒的305(【生命上限】)护盾值。  主动：回复200(【法术加成】)生命值，【塔里克】和其绑定的友军的下2次攻击造成100(【法术加成】)额外魔法伤害。",
+          "description": "被动：【塔里克】或其绑定的友军首次跌到50%生命值以下时，两人身上会释放翡翠能量，为3格内的友军提供持续3秒的295(【生命上限】)护盾值。  主动：回复250(【法术加成】)生命值，【塔里克】和其绑定的友军的下2次攻击造成100(【法术加成】)额外魔法伤害。",
           "variables": [
             {
               "key": "value_1",
               "label": "护盾值",
               "unit": "raw",
               "values": {
-                "1": "175",
-                "2": "350",
+                "1": "100",
+                "2": "225",
                 "3": "10000",
                 "4": "10000"
               }
@@ -10334,8 +10334,8 @@
               "label": "治疗量",
               "unit": "raw",
               "values": {
-                "1": "200",
-                "2": "300",
+                "1": "250",
+                "2": "375",
                 "3": "3000",
                 "4": "9000"
               }
@@ -10352,17 +10352,17 @@
               }
             }
           ],
-          "raw_values": "护盾值：21084=100%【生命上限】+10000 175/350/10000/10000|治疗量：9000(【法术加成】) 200/300/3000/9000|伤害：1000(【法术加成】) 100/150/1000/1000",
+          "raw_values": "护盾值：21084=100%【生命上限】+10000 100/225/10000/10000|治疗量：9000(【法术加成】) 250/375/3000/9000|伤害：1000(【法术加成】) 100/150/1000/1000",
           "image": {
             "local_path": "assets/skills/5451.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/skill/s18_taric.png",
             "alt": "塔里克技能图标",
-            "optimized_local_path": "assets/optimized/s18__18_18_1c/skills/5451_skill.webp"
+            "optimized_local_path": "assets/optimized/s18__18_18_2/skills/5451_skill.webp"
           },
           "extensions": {
             "description_by_star": {
-              "1": "被动：【塔里克】或其绑定的友军首次跌到50%生命值以下时，两人身上会释放翡翠能量，为3格内的友军提供持续3秒的305(【生命上限】)护盾值。  主动：回复200(【法术加成】)生命值，【塔里克】和其绑定的友军的下2次攻击造成100(【法术加成】)额外魔法伤害。",
-              "2": "被动：【塔里克】或其绑定的友军首次跌到50%生命值以下时，两人身上会释放翡翠能量，为3格内的友军提供持续3秒的584(【生命上限】)护盾值。  主动：回复300(【法术加成】)生命值，【塔里克】和其绑定的友军的下2次攻击造成150(【法术加成】)额外魔法伤害。",
+              "1": "被动：【塔里克】或其绑定的友军首次跌到50%生命值以下时，两人身上会释放翡翠能量，为3格内的友军提供持续3秒的295(【生命上限】)护盾值。  主动：回复250(【法术加成】)生命值，【塔里克】和其绑定的友军的下2次攻击造成100(【法术加成】)额外魔法伤害。",
+              "2": "被动：【塔里克】或其绑定的友军首次跌到50%生命值以下时，两人身上会释放翡翠能量，为3格内的友军提供持续3秒的576(【生命上限】)护盾值。  主动：回复375(【法术加成】)生命值，【塔里克】和其绑定的友军的下2次攻击造成150(【法术加成】)额外魔法伤害。",
               "3": "被动：【塔里克】或其绑定的友军首次跌到50%生命值以下时，两人身上会释放翡翠能量，为3格内的友军提供持续99秒的19212(【生命上限】)护盾值。  主动：回复3000(【法术加成】)生命值，【塔里克】和其绑定的友军的下2次攻击造成1000(【法术加成】)额外魔法伤害。",
               "4": "被动：【塔里克】或其绑定的友军首次跌到50%生命值以下时，两人身上会释放翡翠能量，为3格内的友军提供持续99秒的21084(【生命上限】)护盾值。  主动：回复9000(【法术加成】)生命值，【塔里克】和其绑定的友军的下2次攻击造成1000(【法术加成】)额外魔法伤害。"
             }
@@ -10370,7 +10370,7 @@
           "description_tokens": [
             {
               "type": "text",
-              "value": "被动：【塔里克】或其绑定的友军首次跌到50%生命值以下时，两人身上会释放翡翠能量，为3格内的友军提供持续3秒的305"
+              "value": "被动：【塔里克】或其绑定的友军首次跌到50%生命值以下时，两人身上会释放翡翠能量，为3格内的友军提供持续3秒的295"
             },
             {
               "type": "stat",
@@ -10383,7 +10383,7 @@
             },
             {
               "type": "text",
-              "value": "护盾值。  主动：回复200"
+              "value": "护盾值。  主动：回复250"
             },
             {
               "type": "stat",
@@ -10419,7 +10419,7 @@
           "local_path": "assets/champions/5451.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/hero/s18_head_taric.png",
           "alt": "塔里克头像",
-          "optimized_local_path": "assets/optimized/s18__18_18_1c/champions/5451.webp"
+          "optimized_local_path": "assets/optimized/s18__18_18_2/champions/5451.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/5451.jpg",
@@ -10533,8 +10533,8 @@
               "values": {
                 "1": "15",
                 "2": "20",
-                "3": "100",
-                "4": "100"
+                "3": "250",
+                "4": "250"
               }
             },
             {
@@ -10544,8 +10544,8 @@
               "values": {
                 "1": "400",
                 "2": "600",
-                "3": "10000",
-                "4": "10000"
+                "3": "15000",
+                "4": "15000"
               }
             },
             {
@@ -10571,19 +10571,19 @@
               }
             }
           ],
-          "raw_values": "跳跃伤害：2000【物理加成】 100/150/2000/2000|降低双抗：100(【法术加成】) 15/20/100/100|变形生命：10000 400/600/10000/10000|抓投伤害：90000【物理加成】 380/570/9000/90000|次要伤害：9001【物理加成】 135/205/4500/9001",
+          "raw_values": "跳跃伤害：2000【物理加成】 100/150/2000/2000|降低双抗：250(【法术加成】) 15/20/250/250|变形生命：15000 400/600/15000/15000|抓投伤害：90000【物理加成】 380/570/9000/90000|次要伤害：9001【物理加成】 135/205/4500/9001",
           "image": {
             "local_path": "assets/skills/5452.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/skill/s18_gnar.png",
             "alt": "纳尔技能图标",
-            "optimized_local_path": "assets/optimized/s18__18_18_1c/skills/5452_skill.webp"
+            "optimized_local_path": "assets/optimized/s18__18_18_2/skills/5452_skill.webp"
           },
           "extensions": {
             "description_by_star": {
               "1": "被动：每秒获得5怒气并且每次攻击提供5怒气。  主动：变形为【巨型纳尔】并跃至3格内最大的敌群。然后，对2格内的敌人们造成100【物理加成】物理伤害，将其护甲和魔抗降低15(【法术加成】)，并令其晕眩1秒。【巨型纳尔】获得400生命值，并将其技能替换为“抓投”。  抓投：抓住目标并将其投向相距最远的那个敌人，对主要目标造成380【物理加成】物理伤害，并对途经的敌人造成135【物理加成】物理伤害。如果目标是最后存活的1名敌人，则转而将其抛出战场。",
               "2": "被动：每秒获得5怒气并且每次攻击提供5怒气。  主动：变形为【巨型纳尔】并跃至3格内最大的敌群。然后，对2格内的敌人们造成150【物理加成】物理伤害，将其护甲和魔抗降低20(【法术加成】)，并令其晕眩1秒。【巨型纳尔】获得600生命值，并将其技能替换为“抓投”。  抓投：抓住目标并将其投向相距最远的那个敌人，对主要目标造成570【物理加成】物理伤害，并对途经的敌人造成205【物理加成】物理伤害。如果目标是最后存活的1名敌人，则转而将其抛出战场。",
-              "3": "被动：每秒获得50怒气并且每次攻击提供5怒气。  主动：变形为【巨型纳尔】并跃至3格内最大的敌群。然后，对10格内的敌人们造成2000【物理加成】物理伤害，将其护甲和魔抗降低100(【法术加成】)，并令其晕眩15秒。【巨型纳尔】获得10000生命值，并将其技能替换为“抓投”。  抓投：抓住目标并将其投向相距最远的那个敌人，对主要目标造成9000【物理加成】物理伤害，并对途经的敌人造成4500【物理加成】物理伤害。如果目标是最后存活的1名敌人，则转而将其抛出战场。",
-              "4": "被动：每秒获得50怒气并且每次攻击提供5怒气。  主动：变形为【巨型纳尔】并跃至3格内最大的敌群。然后，对10格内的敌人们造成2000【物理加成】物理伤害，将其护甲和魔抗降低100(【法术加成】)，并令其晕眩15秒。【巨型纳尔】获得10000生命值，并将其技能替换为“抓投”。  抓投：抓住目标并将其投向相距最远的那个敌人，对主要目标造成90000【物理加成】物理伤害，并对途经的敌人造成9001【物理加成】物理伤害。如果目标是最后存活的1名敌人，则转而将其抛出战场。"
+              "3": "被动：每秒获得50怒气并且每次攻击提供20怒气。  主动：变形为【巨型纳尔】并跃至3格内最大的敌群。然后，对10格内的敌人们造成2000【物理加成】物理伤害，将其护甲和魔抗降低250(【法术加成】)，并令其晕眩15秒。【巨型纳尔】获得15000生命值，并将其技能替换为“抓投”。  抓投：抓住目标并将其投向相距最远的那个敌人，对主要目标造成9000【物理加成】物理伤害，并对途经的敌人造成4500【物理加成】物理伤害。如果目标是最后存活的1名敌人，则转而将其抛出战场。",
+              "4": "被动：每秒获得50怒气并且每次攻击提供20怒气。  主动：变形为【巨型纳尔】并跃至3格内最大的敌群。然后，对10格内的敌人们造成2000【物理加成】物理伤害，将其护甲和魔抗降低250(【法术加成】)，并令其晕眩15秒。【巨型纳尔】获得15000生命值，并将其技能替换为“抓投”。  抓投：抓住目标并将其投向相距最远的那个敌人，对主要目标造成90000【物理加成】物理伤害，并对途经的敌人造成9001【物理加成】物理伤害。如果目标是最后存活的1名敌人，则转而将其抛出战场。"
             }
           },
           "description_tokens": [
@@ -10651,7 +10651,7 @@
           "local_path": "assets/champions/5452.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/hero/s18_head_gnar.png",
           "alt": "纳尔头像",
-          "optimized_local_path": "assets/optimized/s18__18_18_1c/champions/5452.webp"
+          "optimized_local_path": "assets/optimized/s18__18_18_2/champions/5452.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/5452.jpg",
@@ -10785,7 +10785,7 @@
             "local_path": "assets/skills/5453.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/skill/s18_kennen.png",
             "alt": "凯南技能图标",
-            "optimized_local_path": "assets/optimized/s18__18_18_1c/skills/5453_skill.webp"
+            "optimized_local_path": "assets/optimized/s18__18_18_2/skills/5453_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -10847,7 +10847,7 @@
           "local_path": "assets/champions/5453.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/hero/s18_head_kennen.png",
           "alt": "凯南头像",
-          "optimized_local_path": "assets/optimized/s18__18_18_1c/champions/5453.webp"
+          "optimized_local_path": "assets/optimized/s18__18_18_2/champions/5453.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/5453.jpg",
@@ -10940,15 +10940,15 @@
         {
           "id": "5454_skill",
           "name": "灵魂裂隙",
-          "description": "沿敌人最多的那条直线发射一支箭矢，造成440(【物理加成】)物理伤害，这个伤害每命中一个敌人就会衰减80%(最低为20%)。  这支箭矢会留下一道持续4秒的痕迹，对其中的敌人每秒造成5(【物理加成】) + 2(【法术加成】) + 2%最大生命值的物理伤害，并施加20%缓速效果。  缓速：降低攻击速度。",
+          "description": "沿敌人最多的那条直线发射一支箭矢，造成465(【物理加成】)物理伤害，这个伤害每命中一个敌人就会衰减80%(最低为20%)。  这支箭矢会留下一道持续4秒的痕迹，对其中的敌人每秒造成5(【物理加成】) + 2(【法术加成】) + 2%最大生命值的物理伤害，并施加20%缓速效果。  缓速：降低攻击速度。",
           "variables": [
             {
               "key": "value_1",
               "label": "伤害",
               "unit": "raw",
               "values": {
-                "1": "440",
-                "2": "660",
+                "1": "465",
+                "2": "700",
                 "3": "1000",
                 "4": "1000"
               }
@@ -10987,17 +10987,17 @@
               }
             }
           ],
-          "raw_values": "伤害：1000【物理加成】 440/660/1000/1000|裂隙伤害：【法术加成】 2/3/20/20|裂隙伤害：220=200(【物理加成】)+20(【法术加成】) 5/8/200/200|裂隙最大生命值伤害：10% 2/3/10/10",
+          "raw_values": "伤害：1000【物理加成】 465/700/1000/1000|裂隙伤害：【法术加成】 2/3/20/20|裂隙伤害：220=200(【物理加成】)+20(【法术加成】) 5/8/200/200|裂隙最大生命值伤害：10% 2/3/10/10",
           "image": {
             "local_path": "assets/skills/5454.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/skill/s18_ashe.png",
             "alt": "艾希技能图标",
-            "optimized_local_path": "assets/optimized/s18__18_18_1c/skills/5454_skill.webp"
+            "optimized_local_path": "assets/optimized/s18__18_18_2/skills/5454_skill.webp"
           },
           "extensions": {
             "description_by_star": {
-              "1": "沿敌人最多的那条直线发射一支箭矢，造成440(【物理加成】)物理伤害，这个伤害每命中一个敌人就会衰减80%(最低为20%)。  这支箭矢会留下一道持续4秒的痕迹，对其中的敌人每秒造成5(【物理加成】) + 2(【法术加成】) + 2%最大生命值的物理伤害，并施加20%缓速效果。  缓速：降低攻击速度。",
-              "2": "沿敌人最多的那条直线发射一支箭矢，造成660(【物理加成】)物理伤害，这个伤害每命中一个敌人就会衰减80%(最低为20%)。  这支箭矢会留下一道持续4秒的痕迹，对其中的敌人每秒造成8(【物理加成】) + 3(【法术加成】) + 3%最大生命值的物理伤害，并施加20%缓速效果。  缓速：降低攻击速度。",
+              "1": "沿敌人最多的那条直线发射一支箭矢，造成465(【物理加成】)物理伤害，这个伤害每命中一个敌人就会衰减80%(最低为20%)。  这支箭矢会留下一道持续4秒的痕迹，对其中的敌人每秒造成5(【物理加成】) + 2(【法术加成】) + 2%最大生命值的物理伤害，并施加20%缓速效果。  缓速：降低攻击速度。",
+              "2": "沿敌人最多的那条直线发射一支箭矢，造成700(【物理加成】)物理伤害，这个伤害每命中一个敌人就会衰减80%(最低为20%)。  这支箭矢会留下一道持续4秒的痕迹，对其中的敌人每秒造成8(【物理加成】) + 3(【法术加成】) + 3%最大生命值的物理伤害，并施加20%缓速效果。  缓速：降低攻击速度。",
               "3": "沿敌人最多的那条直线发射一支箭矢，造成1000(【物理加成】)物理伤害，这个伤害每命中一个敌人就会衰减40%(最低为20%)。  这支箭矢会留下一道持续20秒的痕迹，对其中的敌人每秒造成200(【物理加成】) + 20(【法术加成】) + 10%最大生命值的物理伤害，并施加20%缓速效果。  缓速：降低攻击速度。",
               "4": "沿敌人最多的那条直线发射一支箭矢，造成1000(【物理加成】)物理伤害，这个伤害每命中一个敌人就会衰减40%(最低为20%)。  这支箭矢会留下一道持续20秒的痕迹，对其中的敌人每秒造成200(【物理加成】) + 20(【法术加成】) + 10%最大生命值的物理伤害，并施加20%缓速效果。  缓速：降低攻击速度。"
             }
@@ -11005,7 +11005,7 @@
           "description_tokens": [
             {
               "type": "text",
-              "value": "沿敌人最多的那条直线发射一支箭矢，造成440"
+              "value": "沿敌人最多的那条直线发射一支箭矢，造成465"
             },
             {
               "type": "stat",
@@ -11054,7 +11054,7 @@
           "local_path": "assets/champions/5454.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/hero/s18_head_ashe.png",
           "alt": "艾希头像",
-          "optimized_local_path": "assets/optimized/s18__18_18_1c/champions/5454.webp"
+          "optimized_local_path": "assets/optimized/s18__18_18_2/champions/5454.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/5454.jpg",
@@ -11155,7 +11155,7 @@
               "values": {
                 "1": "140",
                 "2": "210",
-                "3": "3000",
+                "3": "99999",
                 "4": "4000"
               }
             },
@@ -11182,18 +11182,18 @@
               }
             }
           ],
-          "raw_values": "受伤伤害：4000(【物理加成】) 140/210/3000/4000|往程巨斧伤害：9999(【物理加成】) 100/150/400/9999|返程巨斧伤害：9999(【物理加成】) 30/45/100/9999",
+          "raw_values": "受伤伤害：4000(【物理加成】) 140/210/99999/4000|往程巨斧伤害：9999(【物理加成】) 100/150/400/9999|返程巨斧伤害：9999(【物理加成】) 30/45/100/9999",
           "image": {
             "local_path": "assets/skills/5455.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/skill/s18_draven.png",
             "alt": "德莱文技能图标",
-            "optimized_local_path": "assets/optimized/s18__18_18_1c/skills/5455_skill.webp"
+            "optimized_local_path": "assets/optimized/s18__18_18_2/skills/5455_skill.webp"
           },
           "extensions": {
             "description_by_star": {
               "1": "被动：对距离内的随机敌人进行攻击并对其施加一层受伤效果，在12秒里持续造成共140(【物理加成】)物理伤害。每次攻击还有12%(【法术加成】)几率造成50%额外物理伤害并转而施加2层受伤效果。  主动：朝受伤层数最多的敌人投掷两把巨斧。对被命中的敌人造成100(【物理加成】)物理伤害并消耗他们的受伤效果，即刻造成剩余伤害。然后巨斧返回，对被命中的敌人造成30(【物理加成】)物理伤害。",
               "2": "被动：对距离内的随机敌人进行攻击并对其施加一层受伤效果，在12秒里持续造成共210(【物理加成】)物理伤害。每次攻击还有12%(【法术加成】)几率造成50%额外物理伤害并转而施加2层受伤效果。  主动：朝受伤层数最多的敌人投掷两把巨斧。对被命中的敌人造成150(【物理加成】)物理伤害并消耗他们的受伤效果，即刻造成剩余伤害。然后巨斧返回，对被命中的敌人造成45(【物理加成】)物理伤害。",
-              "3": "被动：对距离内的随机敌人进行攻击并对其施加一层受伤效果，在12秒里持续造成共3000(【物理加成】)物理伤害。每次攻击还有12%(【法术加成】)几率造成50%额外物理伤害并转而施加2层受伤效果。  主动：朝受伤层数最多的敌人投掷两把巨斧。对被命中的敌人造成400(【物理加成】)物理伤害并消耗他们的受伤效果，即刻造成剩余伤害。然后巨斧返回，对被命中的敌人造成100(【物理加成】)物理伤害。",
+              "3": "被动：对距离内的随机敌人进行攻击并对其施加一层受伤效果，在12秒里持续造成共99999(【物理加成】)物理伤害。每次攻击还有12%(【法术加成】)几率造成50%额外物理伤害并转而施加2层受伤效果。  主动：朝受伤层数最多的敌人投掷两把巨斧。对被命中的敌人造成400(【物理加成】)物理伤害并消耗他们的受伤效果，即刻造成剩余伤害。然后巨斧返回，对被命中的敌人造成100(【物理加成】)物理伤害。",
               "4": "被动：对距离内的随机敌人进行攻击并对其施加一层受伤效果，在12秒里持续造成共4000(【物理加成】)物理伤害。每次攻击还有12%(【法术加成】)几率造成50%额外物理伤害并转而施加2层受伤效果。  主动：朝受伤层数最多的敌人投掷两把巨斧。对被命中的敌人造成9999(【物理加成】)物理伤害并消耗他们的受伤效果，即刻造成剩余伤害。然后巨斧返回，对被命中的敌人造成9999(【物理加成】)物理伤害。"
             }
           },
@@ -11262,7 +11262,7 @@
           "local_path": "assets/champions/5455.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/hero/s18_head_draven.png",
           "alt": "德莱文头像",
-          "optimized_local_path": "assets/optimized/s18__18_18_1c/champions/5455.webp"
+          "optimized_local_path": "assets/optimized/s18__18_18_2/champions/5455.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/5455.jpg",
@@ -11386,7 +11386,7 @@
             "local_path": "assets/skills/5456.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/skill/s18_alune.png",
             "alt": "拉露恩技能图标",
-            "optimized_local_path": "assets/optimized/s18__18_18_1c/skills/5456_skill.webp"
+            "optimized_local_path": "assets/optimized/s18__18_18_2/skills/5456_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -11435,7 +11435,7 @@
           "local_path": "assets/champions/5456.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/hero/s18_head_alune.png",
           "alt": "拉露恩头像",
-          "optimized_local_path": "assets/optimized/s18__18_18_1c/champions/5456.webp"
+          "optimized_local_path": "assets/optimized/s18__18_18_2/champions/5456.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/5456.jpg",
@@ -11527,15 +11527,15 @@
         {
           "id": "5457_skill",
           "name": "种豆得瓜",
-          "description": "被动：来自这个技能的护盾值可以通过技能暴击来产生暴击。  主动：为2名友军提供0.0(【法术加成】【伤害加成】)护盾和10%伤害增幅，持续6秒。随后对其邻格的敌人造成140(【法术加成】)魔法伤害。施放6次后，该技能还会为目标提供100%可叠加的攻击速度。",
+          "description": "被动：来自这个技能的护盾值可以通过技能暴击来产生暴击。  主动：为2名友军提供0.0(【法术加成】【伤害加成】)护盾和10%伤害增幅，持续6秒。随后对其邻格的敌人造成155(【法术加成】)魔法伤害。施放6次后，该技能还会为目标提供100%可叠加的攻击速度。",
           "variables": [
             {
               "key": "value_1",
               "label": "护盾值",
               "unit": "raw",
               "values": {
-                "1": "165",
-                "2": "300",
+                "1": "185",
+                "2": "350",
                 "3": "3000",
                 "4": "9999"
               }
@@ -11556,24 +11556,24 @@
               "label": "伤害",
               "unit": "raw",
               "values": {
-                "1": "140",
-                "2": "210",
+                "1": "155",
+                "2": "235",
                 "3": "2000",
                 "4": "9999"
               }
             }
           ],
-          "raw_values": "护盾值：0.0(【法术加成】【伤害加成】) 165/300/3000/9999|伤害增幅： 10%/15%/100%/200%|伤害：9999(【法术加成】) 140/210/2000/9999",
+          "raw_values": "护盾值：0.0(【法术加成】【伤害加成】) 185/350/3000/9999|伤害增幅： 10%/15%/100%/200%|伤害：9999(【法术加成】) 155/235/2000/9999",
           "image": {
             "local_path": "assets/skills/5457.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/skill/s18_ivern.png",
             "alt": "艾翁技能图标",
-            "optimized_local_path": "assets/optimized/s18__18_18_1c/skills/5457_skill.webp"
+            "optimized_local_path": "assets/optimized/s18__18_18_2/skills/5457_skill.webp"
           },
           "extensions": {
             "description_by_star": {
-              "1": "被动：来自这个技能的护盾值可以通过技能暴击来产生暴击。  主动：为2名友军提供0.0(【法术加成】【伤害加成】)护盾和10%伤害增幅，持续6秒。随后对其邻格的敌人造成140(【法术加成】)魔法伤害。施放6次后，该技能还会为目标提供100%可叠加的攻击速度。",
-              "2": "被动：来自这个技能的护盾值可以通过技能暴击来产生暴击。  主动：为2名友军提供0.0(【法术加成】【伤害加成】)护盾和15%伤害增幅，持续6秒。随后对其邻格的敌人造成210(【法术加成】)魔法伤害。施放6次后，该技能还会为目标提供100%可叠加的攻击速度。",
+              "1": "被动：来自这个技能的护盾值可以通过技能暴击来产生暴击。  主动：为2名友军提供0.0(【法术加成】【伤害加成】)护盾和10%伤害增幅，持续6秒。随后对其邻格的敌人造成155(【法术加成】)魔法伤害。施放6次后，该技能还会为目标提供100%可叠加的攻击速度。",
+              "2": "被动：来自这个技能的护盾值可以通过技能暴击来产生暴击。  主动：为2名友军提供0.0(【法术加成】【伤害加成】)护盾和15%伤害增幅，持续6秒。随后对其邻格的敌人造成235(【法术加成】)魔法伤害。施放6次后，该技能还会为目标提供100%可叠加的攻击速度。",
               "3": "被动：来自这个技能的护盾值可以通过技能暴击来产生暴击。  主动：为10名友军提供0.0(【法术加成】【伤害加成】)护盾和100%伤害增幅，持续6秒。随后对其邻格的敌人造成2000(【法术加成】)魔法伤害。施放6次后，该技能还会为目标提供100%可叠加的攻击速度。",
               "4": "被动：来自这个技能的护盾值可以通过技能暴击来产生暴击。  主动：为10名友军提供0.0(【法术加成】【伤害加成】)护盾和100%伤害增幅，持续6秒。随后对其邻格的敌人造成9999(【法术加成】)魔法伤害。施放6次后，该技能还会为目标提供100%可叠加的攻击速度。"
             }
@@ -11603,7 +11603,7 @@
             },
             {
               "type": "text",
-              "value": ")护盾和10%伤害增幅，持续6秒。随后对其邻格的敌人造成140"
+              "value": ")护盾和10%伤害增幅，持续6秒。随后对其邻格的敌人造成155"
             },
             {
               "type": "stat",
@@ -11626,7 +11626,7 @@
           "local_path": "assets/champions/5457.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/hero/s18_head_ivern.png",
           "alt": "艾翁头像",
-          "optimized_local_path": "assets/optimized/s18__18_18_1c/champions/5457.webp"
+          "optimized_local_path": "assets/optimized/s18__18_18_2/champions/5457.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/5457.jpg",
@@ -11749,7 +11749,7 @@
             "local_path": "assets/skills/5458.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/skill/s18_elderdragon.png",
             "alt": "远古巨龙技能图标",
-            "optimized_local_path": "assets/optimized/s18__18_18_1c/skills/5458_skill.webp"
+            "optimized_local_path": "assets/optimized/s18__18_18_2/skills/5458_skill.webp"
           },
           "extensions": {
             "description_by_star": {
@@ -11785,7 +11785,7 @@
           "local_path": "assets/champions/5458.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/hero/s18_head_elderdragon.png",
           "alt": "远古巨龙头像",
-          "optimized_local_path": "assets/optimized/s18__18_18_1c/champions/5458.webp"
+          "optimized_local_path": "assets/optimized/s18__18_18_2/champions/5458.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/5458.jpg",
@@ -11881,28 +11881,28 @@
           "variables": [
             {
               "key": "value_1",
-              "label": "伤害: 9999(【法术加成】) 355/550/5000/9999",
+              "label": "伤害: 9999(【法术加成】) 355/550/6500/9999",
               "unit": "raw",
               "values": {
                 "1": "355",
                 "2": "550",
-                "3": "5000",
+                "3": "6500",
                 "4": "9999"
               }
             }
           ],
-          "raw_values": "伤害: 9999(【法术加成】) 355/550/5000/9999",
+          "raw_values": "伤害: 9999(【法术加成】) 355/550/6500/9999",
           "image": {
             "local_path": "assets/skills/5459.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/skill/s18_lux_base.png",
             "alt": "拉克丝技能图标",
-            "optimized_local_path": "assets/optimized/s18__18_18_1c/skills/5459_skill.webp"
+            "optimized_local_path": "assets/optimized/s18__18_18_2/skills/5459_skill.webp"
           },
           "extensions": {
             "description_by_star": {
               "1": "被动：施放时，所有与【拉克丝】拥有同一特质/职业的己方弈子获得3(【法术加成】)法力值。  主动：向最大的敌群发射一道激光，造成355(【法术加成】)魔法伤害，每命中一个敌人，该伤害衰减25%（最低为40%）。",
               "2": "被动：施放时，所有与【拉克丝】拥有同一特质/职业的己方弈子获得3(【法术加成】)法力值。  主动：向最大的敌群发射一道激光，造成550(【法术加成】)魔法伤害，每命中一个敌人，该伤害衰减25%（最低为40%）。",
-              "3": "被动：施放时，所有与【拉克丝】拥有同一特质/职业的己方弈子获得100(【法术加成】)法力值。  主动：向最大的敌群发射一道激光，造成5000(【法术加成】)魔法伤害，每命中一个敌人，该伤害衰减10%（最低为40%）。",
+              "3": "被动：施放时，所有与【拉克丝】拥有同一特质/职业的己方弈子获得100(【法术加成】)法力值。  主动：向最大的敌群发射一道激光，造成6500(【法术加成】)魔法伤害，每命中一个敌人，该伤害衰减10%（最低为40%）。",
               "4": "被动：施放时，所有与【拉克丝】拥有同一特质/职业的己方弈子获得999(【法术加成】)法力值。  主动：向最大的敌群发射一道激光，造成9999(【法术加成】)魔法伤害，每命中一个敌人，该伤害衰减10%（最低为40%）。"
             }
           },
@@ -11945,7 +11945,7 @@
           "local_path": "assets/champions/5459.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/hero/s18_head_lux_base.png",
           "alt": "拉克丝头像",
-          "optimized_local_path": "assets/optimized/s18__18_18_1c/champions/5459.webp"
+          "optimized_local_path": "assets/optimized/s18__18_18_2/champions/5459.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/5459.jpg",
@@ -12042,28 +12042,28 @@
           "variables": [
             {
               "key": "value_1",
-              "label": "伤害: 9999(【法术加成】) 355/550/5000/9999",
+              "label": "伤害: 9999(【法术加成】) 355/550/6500/9999",
               "unit": "raw",
               "values": {
                 "1": "355",
                 "2": "550",
-                "3": "5000",
+                "3": "6500",
                 "4": "9999"
               }
             }
           ],
-          "raw_values": "伤害: 9999(【法术加成】) 355/550/5000/9999",
+          "raw_values": "伤害: 9999(【法术加成】) 355/550/6500/9999",
           "image": {
             "local_path": "assets/skills/5461.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/skill/s18_lux_blackthorn.png",
             "alt": "拉克丝技能图标",
-            "optimized_local_path": "assets/optimized/s18__18_18_1c/skills/5461_skill.webp"
+            "optimized_local_path": "assets/optimized/s18__18_18_2/skills/5461_skill.webp"
           },
           "extensions": {
             "description_by_star": {
               "1": "被动：施放时，所有与【拉克丝】拥有同一特质/职业的己方弈子获得3(【法术加成】)法力值。  主动：向最大的敌群发射一道激光，造成355(【法术加成】)魔法伤害，每命中一个敌人，该伤害衰减25%（最低为40%）。  【黑荆棘】加成：对命中的目标们造成1秒晕眩。",
               "2": "被动：施放时，所有与【拉克丝】拥有同一特质/职业的己方弈子获得3(【法术加成】)法力值。  主动：向最大的敌群发射一道激光，造成550(【法术加成】)魔法伤害，每命中一个敌人，该伤害衰减25%（最低为40%）。  【黑荆棘】加成：对命中的目标们造成1秒晕眩。",
-              "3": "被动：施放时，所有与【拉克丝】拥有同一特质/职业的己方弈子获得100(【法术加成】)法力值。  主动：向最大的敌群发射一道激光，造成5000(【法术加成】)魔法伤害，每命中一个敌人，该伤害衰减10%（最低为40%）。  【黑荆棘】加成：对命中的目标们造成1秒晕眩。",
+              "3": "被动：施放时，所有与【拉克丝】拥有同一特质/职业的己方弈子获得100(【法术加成】)法力值。  主动：向最大的敌群发射一道激光，造成6500(【法术加成】)魔法伤害，每命中一个敌人，该伤害衰减10%（最低为40%）。  【黑荆棘】加成：对命中的目标们造成1秒晕眩。",
               "4": "被动：施放时，所有与【拉克丝】拥有同一特质/职业的己方弈子获得999(【法术加成】)法力值。  主动：向最大的敌群发射一道激光，造成9999(【法术加成】)魔法伤害，每命中一个敌人，该伤害衰减10%（最低为40%）。  【黑荆棘】加成：对命中的目标们造成1秒晕眩。"
             }
           },
@@ -12106,7 +12106,7 @@
           "local_path": "assets/champions/5461.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/hero/s18_head_lux_blackthorn.png",
           "alt": "拉克丝头像",
-          "optimized_local_path": "assets/optimized/s18__18_18_1c/champions/5461.webp"
+          "optimized_local_path": "assets/optimized/s18__18_18_2/champions/5461.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/5461.jpg",
@@ -12203,28 +12203,28 @@
           "variables": [
             {
               "key": "value_1",
-              "label": "伤害: 9999(【法术加成】) 355/550/5000/9999",
+              "label": "伤害: 9999(【法术加成】) 355/550/6500/9999",
               "unit": "raw",
               "values": {
                 "1": "355",
                 "2": "550",
-                "3": "5000",
+                "3": "6500",
                 "4": "9999"
               }
             }
           ],
-          "raw_values": "伤害: 9999(【法术加成】) 355/550/5000/9999",
+          "raw_values": "伤害: 9999(【法术加成】) 355/550/6500/9999",
           "image": {
             "local_path": "assets/skills/5462.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/skill/s18_lux_blossom.png",
             "alt": "拉克丝技能图标",
-            "optimized_local_path": "assets/optimized/s18__18_18_1c/skills/5462_skill.webp"
+            "optimized_local_path": "assets/optimized/s18__18_18_2/skills/5462_skill.webp"
           },
           "extensions": {
             "description_by_star": {
               "1": "被动：施放时，所有与【拉克丝】拥有同一特质/职业的己方弈子获得3(【法术加成】)法力值。  主动：向最大的敌群发射一道激光，造成355(【法术加成】)魔法伤害，每命中一个敌人，该伤害衰减25%（最低为40%）。  【灵魂莲华】加成：对命中的第一个目标造成10%额外伤害。",
               "2": "被动：施放时，所有与【拉克丝】拥有同一特质/职业的己方弈子获得3(【法术加成】)法力值。  主动：向最大的敌群发射一道激光，造成550(【法术加成】)魔法伤害，每命中一个敌人，该伤害衰减25%（最低为40%）。  【灵魂莲华】加成：对命中的第一个目标造成10%额外伤害。",
-              "3": "被动：施放时，所有与【拉克丝】拥有同一特质/职业的己方弈子获得100(【法术加成】)法力值。  主动：向最大的敌群发射一道激光，造成5000(【法术加成】)魔法伤害，每命中一个敌人，该伤害衰减10%（最低为40%）。  【灵魂莲华】加成：对命中的第一个目标造成10%额外伤害。",
+              "3": "被动：施放时，所有与【拉克丝】拥有同一特质/职业的己方弈子获得100(【法术加成】)法力值。  主动：向最大的敌群发射一道激光，造成6500(【法术加成】)魔法伤害，每命中一个敌人，该伤害衰减10%（最低为40%）。  【灵魂莲华】加成：对命中的第一个目标造成10%额外伤害。",
               "4": "被动：施放时，所有与【拉克丝】拥有同一特质/职业的己方弈子获得999(【法术加成】)法力值。  主动：向最大的敌群发射一道激光，造成9999(【法术加成】)魔法伤害，每命中一个敌人，该伤害衰减10%（最低为40%）。  【灵魂莲华】加成：对命中的第一个目标造成10%额外伤害。"
             }
           },
@@ -12267,7 +12267,7 @@
           "local_path": "assets/champions/5462.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/hero/s18_head_lux_blossom.png",
           "alt": "拉克丝头像",
-          "optimized_local_path": "assets/optimized/s18__18_18_1c/champions/5462.webp"
+          "optimized_local_path": "assets/optimized/s18__18_18_2/champions/5462.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/5462.jpg",
@@ -12364,28 +12364,28 @@
           "variables": [
             {
               "key": "value_1",
-              "label": "伤害: 9999(【法术加成】) 355/550/5000/9999",
+              "label": "伤害: 9999(【法术加成】) 355/550/6500/9999",
               "unit": "raw",
               "values": {
                 "1": "355",
                 "2": "550",
-                "3": "5000",
+                "3": "6500",
                 "4": "9999"
               }
             }
           ],
-          "raw_values": "伤害: 9999(【法术加成】) 355/550/5000/9999",
+          "raw_values": "伤害: 9999(【法术加成】) 355/550/6500/9999",
           "image": {
             "local_path": "assets/skills/5463.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/skill/s18_lux_coven.png",
             "alt": "拉克丝技能图标",
-            "optimized_local_path": "assets/optimized/s18__18_18_1c/skills/5463_skill.webp"
+            "optimized_local_path": "assets/optimized/s18__18_18_2/skills/5463_skill.webp"
           },
           "extensions": {
             "description_by_star": {
               "1": "被动：施放时，所有与【拉克丝】拥有同一特质/职业的己方弈子获得3(【法术加成】)法力值。  主动：向最大的敌群发射一道激光，造成355(【法术加成】)魔法伤害，每命中一个敌人，该伤害衰减25%（最低为40%）。  【魔女】加成：对命中的目标们造成持续至战斗结束的8护甲与魔抗削减。",
               "2": "被动：施放时，所有与【拉克丝】拥有同一特质/职业的己方弈子获得3(【法术加成】)法力值。  主动：向最大的敌群发射一道激光，造成550(【法术加成】)魔法伤害，每命中一个敌人，该伤害衰减25%（最低为40%）。  【魔女】加成：对命中的目标们造成持续至战斗结束的8护甲与魔抗削减。",
-              "3": "被动：施放时，所有与【拉克丝】拥有同一特质/职业的己方弈子获得100(【法术加成】)法力值。  主动：向最大的敌群发射一道激光，造成5000(【法术加成】)魔法伤害，每命中一个敌人，该伤害衰减10%（最低为40%）。  【魔女】加成：对命中的目标们造成持续至战斗结束的8护甲与魔抗削减。",
+              "3": "被动：施放时，所有与【拉克丝】拥有同一特质/职业的己方弈子获得100(【法术加成】)法力值。  主动：向最大的敌群发射一道激光，造成6500(【法术加成】)魔法伤害，每命中一个敌人，该伤害衰减10%（最低为40%）。  【魔女】加成：对命中的目标们造成持续至战斗结束的8护甲与魔抗削减。",
               "4": "被动：施放时，所有与【拉克丝】拥有同一特质/职业的己方弈子获得999(【法术加成】)法力值。  主动：向最大的敌群发射一道激光，造成9999(【法术加成】)魔法伤害，每命中一个敌人，该伤害衰减10%（最低为40%）。  【魔女】加成：对命中的目标们造成持续至战斗结束的8护甲与魔抗削减。"
             }
           },
@@ -12428,7 +12428,7 @@
           "local_path": "assets/champions/5463.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/hero/s18_head_lux_coven.png",
           "alt": "拉克丝头像",
-          "optimized_local_path": "assets/optimized/s18__18_18_1c/champions/5463.webp"
+          "optimized_local_path": "assets/optimized/s18__18_18_2/champions/5463.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/5463.jpg",
@@ -12525,28 +12525,28 @@
           "variables": [
             {
               "key": "value_1",
-              "label": "伤害: 9999(【法术加成】) 355/550/5000/9999",
+              "label": "伤害: 9999(【法术加成】) 355/550/6500/9999",
               "unit": "raw",
               "values": {
                 "1": "355",
                 "2": "550",
-                "3": "5000",
+                "3": "6500",
                 "4": "9999"
               }
             }
           ],
-          "raw_values": "伤害: 9999(【法术加成】) 355/550/5000/9999",
+          "raw_values": "伤害: 9999(【法术加成】) 355/550/6500/9999",
           "image": {
             "local_path": "assets/skills/5464.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/skill/s18_lux_elderwood.png",
             "alt": "拉克丝技能图标",
-            "optimized_local_path": "assets/optimized/s18__18_18_1c/skills/5464_skill.webp"
+            "optimized_local_path": "assets/optimized/s18__18_18_2/skills/5464_skill.webp"
           },
           "extensions": {
             "description_by_star": {
               "1": "被动：施放时，所有与【拉克丝】拥有同一特质/职业的己方弈子获得3(【法术加成】)法力值。  主动：向最大的敌群发射一道激光，造成355(【法术加成】)魔法伤害，每命中一个敌人，该伤害衰减25%（最低为40%）。  【永恒之森】加成：施放时为所有友军提供持续至战斗结束的2.5%最大生命值提升。",
               "2": "被动：施放时，所有与【拉克丝】拥有同一特质/职业的己方弈子获得3(【法术加成】)法力值。  主动：向最大的敌群发射一道激光，造成550(【法术加成】)魔法伤害，每命中一个敌人，该伤害衰减25%（最低为40%）。  【永恒之森】加成：施放时为所有友军提供持续至战斗结束的2.5%最大生命值提升。",
-              "3": "被动：施放时，所有与【拉克丝】拥有同一特质/职业的己方弈子获得100(【法术加成】)法力值。  主动：向最大的敌群发射一道激光，造成5000(【法术加成】)魔法伤害，每命中一个敌人，该伤害衰减10%（最低为40%）。  【永恒之森】加成：施放时为所有友军提供持续至战斗结束的2.5%最大生命值提升。",
+              "3": "被动：施放时，所有与【拉克丝】拥有同一特质/职业的己方弈子获得100(【法术加成】)法力值。  主动：向最大的敌群发射一道激光，造成6500(【法术加成】)魔法伤害，每命中一个敌人，该伤害衰减10%（最低为40%）。  【永恒之森】加成：施放时为所有友军提供持续至战斗结束的2.5%最大生命值提升。",
               "4": "被动：施放时，所有与【拉克丝】拥有同一特质/职业的己方弈子获得999(【法术加成】)法力值。  主动：向最大的敌群发射一道激光，造成9999(【法术加成】)魔法伤害，每命中一个敌人，该伤害衰减10%（最低为40%）。  【永恒之森】加成：施放时为所有友军提供持续至战斗结束的2.5%最大生命值提升。"
             }
           },
@@ -12589,7 +12589,7 @@
           "local_path": "assets/champions/5464.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/hero/s18_head_lux_elderwood.png",
           "alt": "拉克丝头像",
-          "optimized_local_path": "assets/optimized/s18__18_18_1c/champions/5464.webp"
+          "optimized_local_path": "assets/optimized/s18__18_18_2/champions/5464.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/5464.jpg",
@@ -12686,28 +12686,28 @@
           "variables": [
             {
               "key": "value_1",
-              "label": "伤害: 9999(【法术加成】) 355/550/5000/9999",
+              "label": "伤害: 9999(【法术加成】) 355/550/6500/9999",
               "unit": "raw",
               "values": {
                 "1": "355",
                 "2": "550",
-                "3": "5000",
+                "3": "6500",
                 "4": "9999"
               }
             }
           ],
-          "raw_values": "伤害: 9999(【法术加成】) 355/550/5000/9999",
+          "raw_values": "伤害: 9999(【法术加成】) 355/550/6500/9999",
           "image": {
             "local_path": "assets/skills/5465.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/skill/s18_lux_fae.png",
             "alt": "拉克丝技能图标",
-            "optimized_local_path": "assets/optimized/s18__18_18_1c/skills/5465_skill.webp"
+            "optimized_local_path": "assets/optimized/s18__18_18_2/skills/5465_skill.webp"
           },
           "extensions": {
             "description_by_star": {
               "1": "被动：施放时，所有与【拉克丝】拥有同一特质/职业的己方弈子获得3(【法术加成】)法力值。  主动：向最大的敌群发射一道激光，造成355(【法术加成】)魔法伤害，每命中一个敌人，该伤害衰减25%（最低为40%）。  【花仙子】加成：治疗生命值百分比最低的那个友军，数额相当于这个技能的18%造成伤害。",
               "2": "被动：施放时，所有与【拉克丝】拥有同一特质/职业的己方弈子获得3(【法术加成】)法力值。  主动：向最大的敌群发射一道激光，造成550(【法术加成】)魔法伤害，每命中一个敌人，该伤害衰减25%（最低为40%）。  【花仙子】加成：治疗生命值百分比最低的那个友军，数额相当于这个技能的18%造成伤害。",
-              "3": "被动：施放时，所有与【拉克丝】拥有同一特质/职业的己方弈子获得100(【法术加成】)法力值。  主动：向最大的敌群发射一道激光，造成5000(【法术加成】)魔法伤害，每命中一个敌人，该伤害衰减10%（最低为40%）。  【花仙子】加成：治疗生命值百分比最低的那个友军，数额相当于这个技能的18%造成伤害。",
+              "3": "被动：施放时，所有与【拉克丝】拥有同一特质/职业的己方弈子获得100(【法术加成】)法力值。  主动：向最大的敌群发射一道激光，造成6500(【法术加成】)魔法伤害，每命中一个敌人，该伤害衰减10%（最低为40%）。  【花仙子】加成：治疗生命值百分比最低的那个友军，数额相当于这个技能的18%造成伤害。",
               "4": "被动：施放时，所有与【拉克丝】拥有同一特质/职业的己方弈子获得999(【法术加成】)法力值。  主动：向最大的敌群发射一道激光，造成9999(【法术加成】)魔法伤害，每命中一个敌人，该伤害衰减10%（最低为40%）。  【花仙子】加成：治疗生命值百分比最低的那个友军，数额相当于这个技能的18%造成伤害。"
             }
           },
@@ -12750,7 +12750,7 @@
           "local_path": "assets/champions/5465.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/hero/s18_head_lux_fae.png",
           "alt": "拉克丝头像",
-          "optimized_local_path": "assets/optimized/s18__18_18_1c/champions/5465.webp"
+          "optimized_local_path": "assets/optimized/s18__18_18_2/champions/5465.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/5465.jpg",
@@ -12847,28 +12847,28 @@
           "variables": [
             {
               "key": "value_1",
-              "label": "伤害: 9999(【法术加成】) 355/550/5000/9999",
+              "label": "伤害: 9999(【法术加成】) 355/550/6500/9999",
               "unit": "raw",
               "values": {
                 "1": "355",
                 "2": "550",
-                "3": "5000",
+                "3": "6500",
                 "4": "9999"
               }
             }
           ],
-          "raw_values": "伤害: 9999(【法术加成】) 355/550/5000/9999",
+          "raw_values": "伤害: 9999(【法术加成】) 355/550/6500/9999",
           "image": {
             "local_path": "assets/skills/5466.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/skill/s18_lux_inferno.png",
             "alt": "拉克丝技能图标",
-            "optimized_local_path": "assets/optimized/s18__18_18_1c/skills/5466_skill.webp"
+            "optimized_local_path": "assets/optimized/s18__18_18_2/skills/5466_skill.webp"
           },
           "extensions": {
             "description_by_star": {
               "1": "被动：施放时，所有与【拉克丝】拥有同一特质/职业的己方弈子获得3(【法术加成】)法力值。  主动：向最大的敌群发射一道激光，造成355(【法术加成】)魔法伤害，每命中一个敌人，该伤害衰减25%（最低为40%）。  【地狱火】加成：每次参与击败回复10点法力值。",
               "2": "被动：施放时，所有与【拉克丝】拥有同一特质/职业的己方弈子获得3(【法术加成】)法力值。  主动：向最大的敌群发射一道激光，造成550(【法术加成】)魔法伤害，每命中一个敌人，该伤害衰减25%（最低为40%）。  【地狱火】加成：每次参与击败回复10点法力值。",
-              "3": "被动：施放时，所有与【拉克丝】拥有同一特质/职业的己方弈子获得100(【法术加成】)法力值。  主动：向最大的敌群发射一道激光，造成5000(【法术加成】)魔法伤害，每命中一个敌人，该伤害衰减10%（最低为40%）。  【地狱火】加成：每次参与击败回复10点法力值。",
+              "3": "被动：施放时，所有与【拉克丝】拥有同一特质/职业的己方弈子获得100(【法术加成】)法力值。  主动：向最大的敌群发射一道激光，造成6500(【法术加成】)魔法伤害，每命中一个敌人，该伤害衰减10%（最低为40%）。  【地狱火】加成：每次参与击败回复10点法力值。",
               "4": "被动：施放时，所有与【拉克丝】拥有同一特质/职业的己方弈子获得999(【法术加成】)法力值。  主动：向最大的敌群发射一道激光，造成9999(【法术加成】)魔法伤害，每命中一个敌人，该伤害衰减10%（最低为40%）。  【地狱火】加成：每次参与击败回复10点法力值。"
             }
           },
@@ -12911,7 +12911,7 @@
           "local_path": "assets/champions/5466.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/hero/s18_head_lux_inferno.png",
           "alt": "拉克丝头像",
-          "optimized_local_path": "assets/optimized/s18__18_18_1c/champions/5466.webp"
+          "optimized_local_path": "assets/optimized/s18__18_18_2/champions/5466.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/5466.jpg",
@@ -13008,28 +13008,28 @@
           "variables": [
             {
               "key": "value_1",
-              "label": "伤害: 9999(【法术加成】) 355/550/5000/9999",
+              "label": "伤害: 9999(【法术加成】) 355/550/6500/9999",
               "unit": "raw",
               "values": {
                 "1": "355",
                 "2": "550",
-                "3": "5000",
+                "3": "6500",
                 "4": "9999"
               }
             }
           ],
-          "raw_values": "伤害: 9999(【法术加成】) 355/550/5000/9999",
+          "raw_values": "伤害: 9999(【法术加成】) 355/550/6500/9999",
           "image": {
             "local_path": "assets/skills/5467.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/skill/s18_lux_moonbeam.png",
             "alt": "拉克丝技能图标",
-            "optimized_local_path": "assets/optimized/s18__18_18_1c/skills/5467_skill.webp"
+            "optimized_local_path": "assets/optimized/s18__18_18_2/skills/5467_skill.webp"
           },
           "extensions": {
             "description_by_star": {
               "1": "被动：施放时，所有与【拉克丝】拥有同一特质/职业的己方弈子获得3(【法术加成】)法力值。  主动：向最大的敌群发射一道激光，造成355(【法术加成】)魔法伤害，每命中一个敌人，该伤害衰减25%（最低为40%）。  【月蚀骑士】加成：对命中的敌人们施加持续4秒的8%易损。  易损：提升受到的伤害",
               "2": "被动：施放时，所有与【拉克丝】拥有同一特质/职业的己方弈子获得3(【法术加成】)法力值。  主动：向最大的敌群发射一道激光，造成550(【法术加成】)魔法伤害，每命中一个敌人，该伤害衰减25%（最低为40%）。  【月蚀骑士】加成：对命中的敌人们施加持续4秒的8%易损。  易损：提升受到的伤害",
-              "3": "被动：施放时，所有与【拉克丝】拥有同一特质/职业的己方弈子获得100(【法术加成】)法力值。  主动：向最大的敌群发射一道激光，造成5000(【法术加成】)魔法伤害，每命中一个敌人，该伤害衰减10%（最低为40%）。  【月蚀骑士】加成：对命中的敌人们施加持续4秒的8%易损。  易损：提升受到的伤害",
+              "3": "被动：施放时，所有与【拉克丝】拥有同一特质/职业的己方弈子获得100(【法术加成】)法力值。  主动：向最大的敌群发射一道激光，造成6500(【法术加成】)魔法伤害，每命中一个敌人，该伤害衰减10%（最低为40%）。  【月蚀骑士】加成：对命中的敌人们施加持续4秒的8%易损。  易损：提升受到的伤害",
               "4": "被动：施放时，所有与【拉克丝】拥有同一特质/职业的己方弈子获得999(【法术加成】)法力值。  主动：向最大的敌群发射一道激光，造成9999(【法术加成】)魔法伤害，每命中一个敌人，该伤害衰减10%（最低为40%）。  【月蚀骑士】加成：对命中的敌人们施加持续4秒的8%易损。  易损：提升受到的伤害"
             }
           },
@@ -13072,7 +13072,7 @@
           "local_path": "assets/champions/5467.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/hero/s18_head_lux_moonbeam.png",
           "alt": "拉克丝头像",
-          "optimized_local_path": "assets/optimized/s18__18_18_1c/champions/5467.webp"
+          "optimized_local_path": "assets/optimized/s18__18_18_2/champions/5467.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/5467.jpg",
@@ -13169,28 +13169,28 @@
           "variables": [
             {
               "key": "value_1",
-              "label": "伤害: 9999(【法术加成】) 355/550/5000/9999",
+              "label": "伤害: 9999(【法术加成】) 355/550/6500/9999",
               "unit": "raw",
               "values": {
                 "1": "355",
                 "2": "550",
-                "3": "5000",
+                "3": "6500",
                 "4": "9999"
               }
             }
           ],
-          "raw_values": "伤害: 9999(【法术加成】) 355/550/5000/9999",
+          "raw_values": "伤害: 9999(【法术加成】) 355/550/6500/9999",
           "image": {
             "local_path": "assets/skills/5468.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/skill/s18_lux_primal.png",
             "alt": "拉克丝技能图标",
-            "optimized_local_path": "assets/optimized/s18__18_18_1c/skills/5468_skill.webp"
+            "optimized_local_path": "assets/optimized/s18__18_18_2/skills/5468_skill.webp"
           },
           "extensions": {
             "description_by_star": {
               "1": "被动：施放时，所有与【拉克丝】拥有同一特质/职业的己方弈子获得3(【法术加成】)法力值。  主动：向最大的敌群发射一道激光，造成355(【法术加成】)魔法伤害，每命中一个敌人，该伤害衰减25%（最低为40%）。  【野兽之灵】加成：在技能施放后获得持续6秒的60%攻击速度。",
               "2": "被动：施放时，所有与【拉克丝】拥有同一特质/职业的己方弈子获得3(【法术加成】)法力值。  主动：向最大的敌群发射一道激光，造成550(【法术加成】)魔法伤害，每命中一个敌人，该伤害衰减25%（最低为40%）。  【野兽之灵】加成：在技能施放后获得持续6秒的60%攻击速度。",
-              "3": "被动：施放时，所有与【拉克丝】拥有同一特质/职业的己方弈子获得100(【法术加成】)法力值。  主动：向最大的敌群发射一道激光，造成5000(【法术加成】)魔法伤害，每命中一个敌人，该伤害衰减10%（最低为40%）。  【野兽之灵】加成：在技能施放后获得持续6秒的60%攻击速度。",
+              "3": "被动：施放时，所有与【拉克丝】拥有同一特质/职业的己方弈子获得100(【法术加成】)法力值。  主动：向最大的敌群发射一道激光，造成6500(【法术加成】)魔法伤害，每命中一个敌人，该伤害衰减10%（最低为40%）。  【野兽之灵】加成：在技能施放后获得持续6秒的60%攻击速度。",
               "4": "被动：施放时，所有与【拉克丝】拥有同一特质/职业的己方弈子获得999(【法术加成】)法力值。  主动：向最大的敌群发射一道激光，造成9999(【法术加成】)魔法伤害，每命中一个敌人，该伤害衰减10%（最低为40%）。  【野兽之灵】加成：在技能施放后获得持续6秒的60%攻击速度。"
             }
           },
@@ -13233,7 +13233,7 @@
           "local_path": "assets/champions/5468.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/hero/s18_head_lux_primal.png",
           "alt": "拉克丝头像",
-          "optimized_local_path": "assets/optimized/s18__18_18_1c/champions/5468.webp"
+          "optimized_local_path": "assets/optimized/s18__18_18_2/champions/5468.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/5468.jpg",
@@ -13330,28 +13330,28 @@
           "variables": [
             {
               "key": "value_1",
-              "label": "伤害: 9999(【法术加成】) 355/550/5000/9999",
+              "label": "伤害: 9999(【法术加成】) 355/550/6500/9999",
               "unit": "raw",
               "values": {
                 "1": "355",
                 "2": "550",
-                "3": "5000",
+                "3": "6500",
                 "4": "9999"
               }
             }
           ],
-          "raw_values": "伤害: 9999(【法术加成】) 355/550/5000/9999",
+          "raw_values": "伤害: 9999(【法术加成】) 355/550/6500/9999",
           "image": {
             "local_path": "assets/skills/5469.png",
             "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/skill/s18_lux_sunbeam.png",
             "alt": "拉克丝技能图标",
-            "optimized_local_path": "assets/optimized/s18__18_18_1c/skills/5469_skill.webp"
+            "optimized_local_path": "assets/optimized/s18__18_18_2/skills/5469_skill.webp"
           },
           "extensions": {
             "description_by_star": {
               "1": "被动：施放时，所有与【拉克丝】拥有同一特质/职业的己方弈子获得3(【法术加成】)法力值。  主动：向最大的敌群发射一道激光，造成355(【法术加成】)魔法伤害，每命中一个敌人，该伤害衰减25%（最低为40%）。  【日蚀骑士】加成：每登场1名不同的3星弈子，就会造成12%额外伤害。",
               "2": "被动：施放时，所有与【拉克丝】拥有同一特质/职业的己方弈子获得3(【法术加成】)法力值。  主动：向最大的敌群发射一道激光，造成550(【法术加成】)魔法伤害，每命中一个敌人，该伤害衰减25%（最低为40%）。  【日蚀骑士】加成：每登场1名不同的3星弈子，就会造成12%额外伤害。",
-              "3": "被动：施放时，所有与【拉克丝】拥有同一特质/职业的己方弈子获得100(【法术加成】)法力值。  主动：向最大的敌群发射一道激光，造成5000(【法术加成】)魔法伤害，每命中一个敌人，该伤害衰减10%（最低为40%）。  【日蚀骑士】加成：每登场1名不同的3星弈子，就会造成12%额外伤害。",
+              "3": "被动：施放时，所有与【拉克丝】拥有同一特质/职业的己方弈子获得100(【法术加成】)法力值。  主动：向最大的敌群发射一道激光，造成6500(【法术加成】)魔法伤害，每命中一个敌人，该伤害衰减10%（最低为40%）。  【日蚀骑士】加成：每登场1名不同的3星弈子，就会造成12%额外伤害。",
               "4": "被动：施放时，所有与【拉克丝】拥有同一特质/职业的己方弈子获得999(【法术加成】)法力值。  主动：向最大的敌群发射一道激光，造成9999(【法术加成】)魔法伤害，每命中一个敌人，该伤害衰减10%（最低为40%）。  【日蚀骑士】加成：每登场1名不同的3星弈子，就会造成12%额外伤害。"
             }
           },
@@ -13394,7 +13394,7 @@
           "local_path": "assets/champions/5469.png",
           "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode18s19/hero/s18_head_lux_sunbeam.png",
           "alt": "拉克丝头像",
-          "optimized_local_path": "assets/optimized/s18__18_18_1c/champions/5469.webp"
+          "optimized_local_path": "assets/optimized/s18__18_18_2/champions/5469.webp"
         },
         "splash": {
           "local_path": "assets/champions/splash/5469.jpg",

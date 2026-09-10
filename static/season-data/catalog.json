@@ -65,16 +65,16 @@
    "set_variant": null,
    "theme": "自然之力",
    "status": "active",
-   "game_version": "18.18.1c",
-   "version_id": "s18__18_18_1c",
-   "effective_at": "2026-09-03",
+   "game_version": "18.18.2",
+   "version_id": "s18__18_18_2",
+   "effective_at": "2026-09-10",
    "path": "s18/index.json",
    "counts": {
     "champions": 74,
     "traits": 36,
     "mechanics": 170,
     "board_units": 4,
-    "augments": 258
+    "augments": 257
    }
   }
  ]

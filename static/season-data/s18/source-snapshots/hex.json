@@ -1,8 +1,8 @@
 {
-  "version": "18.18.1c",
+  "version": "18.18.2",
   "season": "S19",
   "setId": "18",
-  "time": "2026-09-02 19:19:44",
+  "time": "2026-09-09 17:43:34",
   "data": {
     "1002": {
       "id": "1002",
@@ -688,7 +688,7 @@
     },
     "3269": {
       "id": "3269",
-      "desc": "提供+2最大队伍规模，并且你的队伍获得4%伤害减免，但你在输掉一场玩家对战回合后会承受2倍的玩家伤害。",
+      "desc": "提供+2最大队伍规模，但你在输掉一场玩家对战回合后会承受2倍的玩家伤害。",
       "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/cursedcrown3.png",
       "name": "诅咒冠冕",
       "level": "3",
@@ -941,7 +941,7 @@
     },
     "10236": {
       "id": "10236",
-      "desc": "失去你场上和备战席上的所有弈子。获得1个【训练假人】，其生命值为失去所有弈子的60%总生命值。这个假人每阶段获得1000生命值。获得1个非坦克的2星2费弈子。",
+      "desc": "失去你场上和备战席上的所有弈子。获得1个【训练假人】，其生命值为失去所有弈子的60%总生命值。这个假人每阶段获得1150生命值。获得1个非坦克的2星2费弈子。",
       "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/dummify1.png",
       "name": "假人化",
       "level": "1",
@@ -1546,7 +1546,7 @@
     },
     "20478": {
       "id": "20478",
-      "desc": "获得1个随机黄金阶强化符文和6金币。",
+      "desc": "获得1个随机黄金阶强化符文和5金币。",
       "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/silverdestinygoldendestinyprismaticdestiny2.png",
       "name": "黄金命运+",
       "level": "2",
@@ -1810,7 +1810,7 @@
     },
     "20633": {
       "id": "20633",
-      "desc": "获得2个随机纹章和1金币。",
+      "desc": "获得1个随机纹章。3回合后再获得1个随机纹章",
       "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/spreadingroots2.png",
       "name": "蔓延之根",
       "level": "2",
@@ -1843,7 +1843,7 @@
     },
     "20651": {
       "id": "20651",
-      "desc": "获得1个【大亨之铠】。携带【大亨之铠】的弈子占用2个弈子栏位，但获得600生命值和20%伤害减免。  【大亨之铠】提供金币，以及战斗力。 2022【巨龙之境】全球总决赛",
+      "desc": "获得1个【大亨之铠】。携带【大亨之铠】的弈子占用2个弈子栏位，但获得600生命值和15%伤害减免。  【大亨之铠】提供金币，以及战斗力。 2022【巨龙之境】全球总决赛",
       "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/thegoldendragon2.png",
       "name": "金霖龙",
       "level": "2",
@@ -1898,7 +1898,7 @@
     },
     "20681": {
       "id": "20681",
-      "desc": "获得2个随机纹章、一个【装备重铸器】和2金币。",
+      "desc": "获得2个随机纹章和2金币。",
       "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/spreadingroots2.png",
       "name": "蔓延之根+",
       "level": "2",
@@ -2041,7 +2041,7 @@
     },
     "20755": {
       "id": "20755",
-      "desc": "储存相当于你获得利息的金币。在3-3回合，获得相当于你125%已储存金币的金币。立刻获得2金币。  即将到来的金币：0",
+      "desc": "储存相当于你获得利息的金币。在3-3回合，获得相当于你125%已储存金币的金币。立刻获得3金币。  即将到来的金币：0",
       "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/capitalgains2.png",
       "name": "资本利得 II",
       "level": "2",
@@ -2074,7 +2074,7 @@
     },
     "20760": {
       "id": "20760",
-      "desc": "获得1个【绝命花妖纹章】。携带该纹章的弈子从【绝命花妖】羁绊中获得双倍增益。获得3金币。",
+      "desc": "获得1个【绝命花妖纹章】。携带该纹章的弈子通过【绝命花妖】获得150%额外加成。获得3金币。",
       "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/florafatalisaugment2.png",
       "name": "致命丽花",
       "level": "2",
@@ -2294,7 +2294,7 @@
     },
     "30045": {
       "id": "30045",
-      "desc": "获得1个【大亨之铠】。在7个玩家对战回合后，获得1个【投机者之刃】。这些装备会在提供战斗力的同时给予金币。",
+      "desc": "获得1个【大亨之铠】。在8个玩家对战回合后，获得1个【投机者之刃】。这些装备会在提供战斗力的同时给予金币。",
       "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/shimmerscaleessence3.png",
       "name": "金鳞精粹",
       "level": "3",
@@ -2382,7 +2382,7 @@
     },
     "30217": {
       "id": "30217",
-      "desc": "获得8金币。你每获得1利息，己方弈子们的最大生命值就永久提高9。你的最大利息增加2。",
+      "desc": "获得8金币。你每获得1利息，己方弈子们的最大生命值就永久提高10。你的最大利息增加2。",
       "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/investmentstrategy3.png",
       "name": "投资策略 II",
       "level": "3",
@@ -2415,7 +2415,7 @@
     },
     "30521": {
       "id": "30521",
-      "desc": "战斗开始时，你的前排每有一名己方弈子，后两排的己方弈子就会获得9%法术加成和8%物理加成。",
+      "desc": "战斗开始时，你的前排每有一名己方弈子，后两排的己方弈子就会获得10%法术加成和9%物理加成。",
       "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/holdtheline3.png",
       "name": "坚守防线",
       "level": "3",
@@ -2459,7 +2459,7 @@
     },
     "30617": {
       "id": "30617",
-      "desc": "获得一件随机坦克装备。在战斗开始8秒后，你的弈子们会在战斗环节的剩余时间里每秒获得5%额外物理加成和法术加成，持续至战斗环节结束。  2025云顶之弈巴黎公开赛",
+      "desc": "获得一件随机坦克装备。在战斗开始8秒后，你的弈子们会在战斗环节的剩余时间里每秒获得4%额外物理加成和法术加成，持续至战斗环节结束。  2025云顶之弈巴黎公开赛",
       "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/thebaronslair3.png",
       "name": "男爵幻域",
       "level": "3",
@@ -2492,7 +2492,7 @@
     },
     "30655": {
       "id": "30655",
-      "desc": "获得1个随机的棱彩阶强化符文和10金币。",
+      "desc": "获得1个随机的棱彩阶强化符文和7金币。",
       "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/silverdestinygoldendestinyprismaticdestiny3.png",
       "name": "棱彩命运+",
       "level": "3",
@@ -2679,7 +2679,7 @@
     },
     "30760": {
       "id": "30760",
-      "desc": "获得1个【绝命花妖纹章】。携带该纹章的弈子从【绝命花妖】羁绊中获得双倍增益。获得3金币。",
+      "desc": "获得1个【绝命花妖纹章】。携带该纹章的弈子通过【绝命花妖】获得150%额外加成。获得3金币。",
       "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/florafatalisaugment22.png",
       "name": "致命丽花",
       "level": "2",
@@ -2704,17 +2704,6 @@
       "desc": "你现在可以选择第二个被【阿尔法印记】标记的【峡谷野怪】。获得1个【峡谷迅捷蟹】、1个【绯红树怪】和1个【苍蓝哨戒】。",
       "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/riftbeastaugment22.png",
       "name": "欧米茄之怪",
-      "level": "2",
-      "is_legend": 0,
-      "hero_enhancement_type": "0",
-      "fetterId": "",
-      "fetterType": "0"
-    },
-    "30768": {
-      "id": "30768",
-      "desc": "战斗开始时：位于【永恒之森】植物邻格的弈子们获得15%攻击速度，并且每2秒治疗其3%最大生命值。获得1个【阿利斯塔】、1个【奥恩】和1个【霞】。",
-      "icon": "https://game.gtimg.cn/images/lol/act/jkzlk/gamedata/hex/elderwoodaugment2.png",
-      "name": "自然庇护所",
       "level": "2",
       "is_legend": 0,
       "hero_enhancement_type": "0",

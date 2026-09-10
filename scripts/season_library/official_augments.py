@@ -252,6 +252,8 @@ def collect_official_augments(
     season_id: str,
     version_id: str,
     previous: dict | None = None,
+    *,
+    official_only: bool = False,
 ) -> tuple[dict, dict]:
     """Fetch and normalize one released season's official augment snapshot."""
     empty = {
@@ -279,7 +281,7 @@ def collect_official_augments(
     # have a versioned DataJ snapshot yet, so degrade to empty stage lists
     # instead of failing the whole import.
     try:
-        stage_document, stage_source = _request_stage_document(season_id, requested_version)
+        stage_document, stage_source = (None, None) if official_only else _request_stage_document(season_id, requested_version)
     except Exception:  # noqa: BLE001 - stage evidence is non-authoritative
         stage_document, stage_source = None, None
     if stage_document is not None:

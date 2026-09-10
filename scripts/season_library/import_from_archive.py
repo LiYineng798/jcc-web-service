@@ -298,6 +298,7 @@ def compact_mechanics(version_dir: Path) -> list[dict]:
                 "description_tokens": record.get("description_tokens"),
                 "image": image_path(record.get("image")),
                 "data": strip_image_objects(record.get("data") or {}),
+                "extensions": record.get("extensions") or {},
             }
             for record in doc.get("records") or []
         ]
@@ -313,7 +314,7 @@ def compact_mechanics(version_dir: Path) -> list[dict]:
     return mechanics
 
 
-def import_season(source_root: Path, catalog_entry: dict) -> dict:
+def import_season(source_root: Path, catalog_entry: dict, *, official_only: bool = False) -> dict:
     season_id = catalog_entry["season_id"]
     season = load_json(source_root / "data" / catalog_entry["path"])
     version_ref = next(
@@ -362,6 +363,7 @@ def import_season(source_root: Path, catalog_entry: dict) -> dict:
         season_id,
         version_meta["version_id"],
         previous_augments,
+        official_only=official_only,
     )
     for document in (champions_doc, traits_doc, items_doc, board_units_doc, augments_doc):
         document["rich_text_version"] = 1
@@ -486,6 +488,7 @@ def main(argv=None) -> int:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--source", help="数据模版 目录路径")
     parser.add_argument("--season", help="只导入指定 season_id")
+    parser.add_argument("--official-only", action="store_true", help="只使用官方资料，不请求第三方强化符文回合统计")
     args = parser.parse_args(argv)
 
     source_root = resolve_source(args.source)
@@ -506,7 +509,7 @@ def main(argv=None) -> int:
 
     print(f"档案库: {source_root}")
     for entry in entries:
-        summary = import_season(source_root, entry)
+        summary = import_season(source_root, entry, official_only=args.official_only)
         existing[summary["season_id"]] = summary
         counts = summary["counts"]
         print(

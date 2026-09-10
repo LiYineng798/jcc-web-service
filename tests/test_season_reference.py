@@ -105,8 +105,8 @@ def test_season_reference_images_wake_on_tab_switch_and_have_fallbacks():
 
 def test_s18_official_snapshot_supplants_pbe_mechanics(client):
     payload = json.loads((DATA_ROOT / 's18' / 'index.json').read_text(encoding='utf-8'))
-    assert payload['game_version'] == '18.18.1c'
-    assert payload['version_id'] == 's18__18_18_1c'
+    assert payload['game_version'] == '18.18.2'
+    assert payload['version_id'] == 's18__18_18_2'
     assert payload['display_name'] == 'S18 自然之力'
     assert payload['status'] == 'active'
     assert len(payload['mechanics']) == 1
@@ -114,7 +114,7 @@ def test_s18_official_snapshot_supplants_pbe_mechanics(client):
     assert payload['mechanics'][0]['display_name'] == '仙灵'
     assert len(payload['mechanics'][0]['entries']) == 170
     assert len(payload['champions']) == 74
-    assert len(payload['augments']) == 258
+    assert len(payload['augments']) == 257
 
     html = client.get('/tools/seasons/s18').get_data(as_text=True)
     assert 'data-view="augments"' in html
@@ -143,16 +143,21 @@ def test_s18_official_charms_use_site_categories_with_upgrade_layers():
     assert barrier['data']['prismatic']['effect'] == '友军获得7500护盾值，在30秒内持续衰减。'
 
 
-def test_s18_charms_populate_rounds_and_requires():
+def test_s18_charms_preserve_archived_third_party_rules_with_provenance():
     payload = json.loads((DATA_ROOT / 's18' / 'index.json').read_text(encoding='utf-8'))
-    charm = payload['mechanics'][0]
-    assert charm['kind'] == 'charm'
-    assert len(charm['entries']) == 170
-    assert sum(bool(entry['data'].get('rounds')) for entry in charm['entries']) == 170
-    assert sum(bool(entry['data'].get('requires')) for entry in charm['entries']) == 55
-    forest = next(entry for entry in charm['entries'] if entry['name'] == '森林魔法师')
+    charms = payload['mechanics'][0]['entries']
+    assert len(charms) == 170
+    assert sum(bool(entry['data']['rounds']) for entry in charms) == 170
+    assert sum(bool(entry['data']['requires']) for entry in charms) == 55
+    forest = next(entry for entry in charms if entry['name'] == '森林魔法师')
     assert forest['data']['rounds'] == ['3-5 ~ 10-1']
     assert forest['data']['requires'] == ['准备阶段的前8秒内']
+    for entry in charms:
+        provenance = entry['extensions']['provenance']
+        assert provenance['source_type'] == 'datatft_har'
+        assert provenance['inherited_from_version'] == '18.18.1c'
+        assert provenance['applies_to'] == ['rounds', 'requires']
+        assert provenance['verified_for_current_patch'] is False
 
 
 def test_s18_champion_detail_and_hover_use_large_splash_art(client):
@@ -189,7 +194,7 @@ def test_every_s18_champion_has_a_local_optimized_skill_icon():
 
 def test_every_s18_item_has_a_local_optimized_image():
     payload = json.loads((DATA_ROOT / 's18' / 'items.json').read_text(encoding='utf-8'))
-    assert len(payload['items']) == 156
+    assert len(payload['items']) == 157
     assert not any(item['category'] == 'consumable' for item in payload['items'])
     for item in payload['items']:
         assert item['image'], item['name']
@@ -500,7 +505,7 @@ def test_season_data_static_files_served(client):
 
 
 def test_released_seasons_publish_official_augments_with_local_images():
-    expected_counts = {'s8': 322, 's16_5': 298, 's17': 277, 's18': 258}
+    expected_counts = {'s8': 322, 's16_5': 298, 's17': 277, 's18': 257}
     expected_observed_counts = {'s8': 0, 's16_5': 265, 's17': 243, 's18': 0}
     allowed_categories = {'economy', 'combat', 'equipment', 'trait', 'exclusive', 'other'}
     for season_id, expected_count in expected_counts.items():
@@ -511,10 +516,14 @@ def test_released_seasons_publish_official_augments_with_local_images():
         assert document['source']['url'].startswith('https://game.gtimg.cn/')
         assert 'datatft' not in document['source']['url'].lower()
         assert document['stage_options'] == ['2-1', '3-2', '4-2']
-        assert document['stage_source']['type'] == 'dataj_observed_match_rounds'
-        assert document['stage_source']['record_count'] == expected_observed_counts[season_id]
-        assert document['stage_source']['provenance_note'] == '版本化实战样本观察结果，并非腾讯官方逐条配置'
-        assert (season_root / document['stage_source']['snapshot_path']).is_file()
+        if season_id == 's18':
+            assert document['stage_source'] is None
+            assert not (season_root / 'source-snapshots' / 'augment-stage-stats.json').exists()
+        else:
+            assert document['stage_source']['type'] == 'dataj_observed_match_rounds'
+            assert document['stage_source']['record_count'] == expected_observed_counts[season_id]
+            assert document['stage_source']['provenance_note'] == '版本化实战样本观察结果，并非腾讯官方逐条配置'
+            assert (season_root / document['stage_source']['snapshot_path']).is_file()
         for augment in document['augments']:
             assert augment['category'] in allowed_categories
             assert augment['name'] and augment['description']
@@ -548,11 +557,11 @@ def test_released_seasons_publish_official_augments_with_local_images():
     assert all(not augment['appearance_stages'] for augment in s8_unavailable)
 
     s18 = json.loads((DATA_ROOT / 's18' / 'augments.json').read_text(encoding='utf-8'))
-    assert s18['source']['requested_version'] == '18.18.1c'
-    assert s18['source']['resolved_version'] == '18.18.1c'
+    assert s18['source']['requested_version'] == '18.18.2'
+    assert s18['source']['resolved_version'] == '18.18.2'
     assert s18['source']['used_base_patch_fallback'] is False
     assert s18['source']['url'].startswith('https://game.gtimg.cn/')
-    assert len(s18['augments']) == 258
+    assert len(s18['augments']) == 257
     assert all(not augment['appearance_stages'] for augment in s18['augments'])
     assert all(
         augment['extensions']['appearance_stage_source'] == 'stage_data_unavailable'

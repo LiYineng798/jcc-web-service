@@ -1,38 +1,110 @@
 {
-  "version_id": "s18__18_18_1c",
-  "previous_version_id": "s18__18_18_1b",
+  "version_id": "s18__18_18_2",
+  "previous_version_id": "s18__18_18_1c",
   "summary": {
     "added": 0,
-    "removed": 0,
-    "changed": 4
+    "removed": 1,
+    "changed": 14
   },
   "added_ids": [],
-  "removed_ids": [],
+  "removed_ids": [
+    "30768"
+  ],
   "changed": [
     {
-      "id": "20742",
-      "name": "四之力",
+      "id": "10236",
+      "name": "假人化",
       "fields": [
         "description"
       ]
     },
     {
-      "id": "20761",
-      "name": "装备提炼",
+      "id": "20478",
+      "name": "黄金命运+",
       "fields": [
         "description"
       ]
     },
     {
-      "id": "20777",
-      "name": "太阳的抉择",
+      "id": "20633",
+      "name": "蔓延之根",
       "fields": [
         "description"
       ]
     },
     {
-      "id": "20778",
-      "name": "黑暗仪式",
+      "id": "20651",
+      "name": "金霖龙",
+      "fields": [
+        "description"
+      ]
+    },
+    {
+      "id": "20681",
+      "name": "蔓延之根+",
+      "fields": [
+        "description"
+      ]
+    },
+    {
+      "id": "20755",
+      "name": "资本利得 II",
+      "fields": [
+        "description"
+      ]
+    },
+    {
+      "id": "20760",
+      "name": "致命丽花",
+      "fields": [
+        "description"
+      ]
+    },
+    {
+      "id": "30045",
+      "name": "金鳞精粹",
+      "fields": [
+        "description"
+      ]
+    },
+    {
+      "id": "30217",
+      "name": "投资策略 II",
+      "fields": [
+        "description"
+      ]
+    },
+    {
+      "id": "30521",
+      "name": "坚守防线",
+      "fields": [
+        "description"
+      ]
+    },
+    {
+      "id": "30617",
+      "name": "男爵幻域",
+      "fields": [
+        "description"
+      ]
+    },
+    {
+      "id": "30655",
+      "name": "棱彩命运+",
+      "fields": [
+        "description"
+      ]
+    },
+    {
+      "id": "30760",
+      "name": "致命丽花",
+      "fields": [
+        "description"
+      ]
+    },
+    {
+      "id": "3269",
+      "name": "诅咒冠冕",
       "fields": [
         "description"
       ]
