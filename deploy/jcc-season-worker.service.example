@@ -1,0 +1,25 @@
+[Unit]
+Description=JCC season upload validation worker
+After=network.target postgresql.service
+
+[Service]
+Type=simple
+User=jcc
+Group=jcc
+WorkingDirectory=/opt/jcc/jcc-web-service
+EnvironmentFile=/etc/jcc.env
+Environment=JCC_PROCESS_ROLE=season-worker
+ExecStart=/opt/jcc/jcc-web-service/.venv/bin/python season_package_worker.py
+Restart=on-failure
+RestartSec=5
+Nice=10
+MemoryMax=768M
+CPUQuota=75%
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ReadWritePaths=/opt/jcc/season-library /opt/jcc/jcc-web-service/instance
+UMask=0027
+
+[Install]
+WantedBy=multi-user.target

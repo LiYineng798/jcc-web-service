@@ -5,6 +5,7 @@
   <head>
 {{ seo_head(seo, viewport_fit_cover=True) }}
     <link rel="stylesheet" href="{{ static_v('admin.css') }}" />
+    <link rel="stylesheet" href="{{ static_v('admin/season-packages/app.css') }}" />
   </head>
   <body class="admin-page">
     <div class="admin-layout">
@@ -39,6 +40,7 @@
             <h2 id="adminNavContent">内容与用户</h2>
             <button class="admin-nav-item" data-admin-tab="simulator-seasons" type="button"><i data-lucide="layout-grid"></i><span>模拟器赛季</span></button>
             <button class="admin-nav-item" data-admin-tab="library-seasons" type="button"><i data-lucide="library"></i><span>资料库赛季</span></button>
+            <button class="admin-nav-item" data-admin-tab="season-packages" type="button"><i data-lucide="package-check"></i><span>赛季版本更新</span></button>
             <button class="admin-nav-item" data-admin-tab="patch-notes" type="button"><i data-lucide="notebook-tabs"></i><span>更新公告</span></button>
             <button class="admin-nav-item" data-admin-tab="users" type="button"><i data-lucide="users"></i><span>用户管理</span></button>
             <button class="admin-nav-item" data-admin-tab="guestbook" type="button"><i data-lucide="message-square-text"></i><span>留言管理</span><span class="admin-nav-count" id="guestbookUnreadCount">0</span></button>
@@ -113,6 +115,7 @@
         <div class="admin-more-grid">
           <button data-admin-tab="simulator-seasons" type="button"><i data-lucide="layout-grid"></i><span>模拟器赛季</span></button>
           <button data-admin-tab="library-seasons" type="button"><i data-lucide="library"></i><span>资料库赛季</span></button>
+          <button data-admin-tab="season-packages" type="button"><i data-lucide="package-check"></i><span>赛季版本更新</span></button>
           <button data-admin-tab="patch-notes" type="button"><i data-lucide="notebook-tabs"></i><span>更新公告</span></button>
           <button data-admin-tab="users" type="button"><i data-lucide="users"></i><span>用户管理</span></button>
           <button data-admin-tab="guestbook" type="button"><i data-lucide="message-square-text"></i><span>留言管理</span><span class="admin-nav-count" id="guestbookUnreadCountMobile">0</span></button>
@@ -131,6 +134,7 @@
     <script src="{{ static_v('admin/overview.js') }}" defer></script>
     <script src="{{ static_v('admin/daily-reports.js') }}" defer></script>
     <script src="{{ static_v('avatar.js') }}" defer></script>
+    <script src="{{ static_v('admin/season-packages/app.js') }}" defer></script>
     <script src="{{ static_v('admin.js') }}" defer></script>
   </body>
 </html>

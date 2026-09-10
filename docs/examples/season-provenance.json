@@ -1,0 +1,10 @@
+{
+  "sources": [
+    {
+      "id": "official-season-snapshot",
+      "type": "official",
+      "url": "https://game.gtimg.cn/images/lol/act/jkzlk/js/18/18.18.2-S19/",
+      "note": "示例：请按本地实际采集记录填写。该 URL 仅归档，上传服务不会访问。"
+    }
+  ]
+}

@@ -34,6 +34,7 @@ const config = {
 };
 
 const state = {
+  genericFilters: {},
   champions: [],
   traits: [],
   mechanics: [],
@@ -203,7 +204,8 @@ function updateCount() {
   }
   const mechanic = mechanicById(state.activeView.replace(/^mechanic-/, ''));
   if (mechanic) {
-    const count = mechanic.kind === 'charm' ? filteredCharmEntries(mechanic).length : mechanic.entries.length;
+    const count = mechanic.presentation && mechanic.presentation !== 'legacy.v1' ? filteredGenericEntries(mechanic).length
+      : mechanic.kind === 'charm' ? filteredCharmEntries(mechanic).length : mechanic.entries.length;
     elements.previewCount.textContent = `${count} 条${mechanic.display_name}`;
   }
 }
@@ -875,11 +877,70 @@ function createMechanicCard(entry, index) {
   return card;
 }
 
+function filteredGenericEntries(mechanic) {
+  const filter = state.genericFilters[mechanic.id] || { query: '', category: '' };
+  return mechanic.entries.filter(entry => (!filter.category || entry.data?.category === filter.category)
+    && (!filter.query || `${entry.name} ${entry.description || ''} ${JSON.stringify(entry.data || {})}`.toLocaleLowerCase('zh-CN').includes(filter.query)));
+}
+
+function bindGenericControls() {
+  document.querySelectorAll('[data-generic-toolbar]').forEach(toolbar => {
+    const id = toolbar.dataset.genericToolbar;
+    const mechanic = mechanicById(id);
+    if (!mechanic) return;
+    const filter = state.genericFilters[id] = { query: '', category: '' };
+    toolbar.querySelector('[data-generic-search]').addEventListener('input', event => {
+      filter.query = event.target.value.trim().toLocaleLowerCase('zh-CN'); renderMechanics();
+    });
+    const select = toolbar.querySelector('[data-generic-category]');
+    const categories = new Map(mechanic.entries.filter(e => e.data?.category).map(e => [e.data.category, e.data.category_label || e.data.category]));
+    for (const [value, label] of categories) { const option = document.createElement('option'); option.value = value; option.textContent = label; select.append(option); }
+    select.hidden = categories.size === 0;
+    select.addEventListener('change', () => { filter.category = select.value; renderMechanics(); });
+  });
+}
+
+function createGenericMechanicCard(entry) {
+  const card = document.createElement('article');
+  card.className = 'mechanic-card generic-mechanic-card';
+  const data = entry.data || {};
+  if (entry.image) card.append(createImage(assetUrl(entry.image), entry.name || '', 'generic-mechanic-icon'));
+  const title = document.createElement('h2'); title.textContent = entry.name; card.append(title);
+  const text = (value, className = '') => { const p = document.createElement('p'); p.className = className; p.textContent = value; return p; };
+  if (data.category_label || data.category) card.append(text(data.category_label || data.category, 'mechanic-category'));
+  if (entry.description) card.append(text(entry.description));
+  for (const value of [...(data.tags || []), ...(data.rounds || []), ...(data.requires || [])]) card.append(text(value, 'mechanic-condition'));
+  for (const variant of [...(data.variants || []), ...(data.stages || [])]) {
+    const section = document.createElement('section');
+    const label = document.createElement('h3'); label.textContent = variant.label;
+    section.append(label);
+    if (variant.cost != null) section.append(text(`费用：${variant.cost}`));
+    section.append(text(variant.effect));
+    for (const value of variant.requirements || []) section.append(text(value, 'mechanic-condition'));
+    card.append(section);
+  }
+  if (data.columns && data.rows) {
+    const wrap = document.createElement('div'); wrap.className = 'generic-mechanic-table';
+    const table = document.createElement('table'); const head = document.createElement('thead'); const tr = document.createElement('tr');
+    for (const col of data.columns) { const th = document.createElement('th'); th.scope = 'col'; th.textContent = col; tr.append(th); }
+    head.append(tr); table.append(head); const body = document.createElement('tbody');
+    for (const row of data.rows) { const tr = document.createElement('tr'); for (const cell of row) { const td = document.createElement('td'); td.textContent = String(cell); tr.append(td); } body.append(tr); }
+    table.append(body); wrap.append(table); card.append(wrap);
+  }
+  return card;
+}
+
 function renderMechanics() {
   state.mechanics.forEach((mechanic) => {
     const grid = document.querySelector(`[data-mechanic-grid="${CSS.escape(mechanic.id)}"]`);
     if (!grid) return;
     const empty = document.querySelector(`[data-mechanic-empty="${CSS.escape(mechanic.id)}"]`);
+    if (mechanic.presentation && mechanic.presentation !== 'legacy.v1') {
+      const entries = filteredGenericEntries(mechanic);
+      grid.replaceChildren(...entries.map(createGenericMechanicCard));
+      empty?.classList.toggle('hidden', entries.length > 0);
+      return;
+    }
     if (mechanic.kind === 'charm') {
       const filters = charmFilterState(mechanic.id);
       const entries = filteredCharmEntries(mechanic);
@@ -928,6 +989,7 @@ async function loadData() {
     state.mechanics = data.mechanics || [];
     state.augments = data.augments || [];
     bindCharmControls();
+    bindGenericControls();
     state.traitsById = new Map(state.traits.map((trait) => [trait.id, trait]));
     state.costs = [...new Set(state.champions.map((champion) => champion.cost).filter((cost) => cost !== null))].sort((a, b) => a - b);
     window.JccSeasonChampionUi.configure({

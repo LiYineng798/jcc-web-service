@@ -38,6 +38,9 @@ def create_app(test_config=None):
     app.register_blueprint(guestbook_bp)
     app.register_blueprint(patch_notes_bp)
 
+    from admin_season_packages import season_packages_bp, register_preview_context
+    app.register_blueprint(season_packages_bp)
+    register_preview_context(app)
     register_page_routes(app)
 
     @app.errorhandler(404)
@@ -78,8 +81,9 @@ def create_app(test_config=None):
             return lookup_answer_for_tests(token)
 
     register_test_helpers(app, get_table_names_for_tests, lookup_captcha_answer_for_tests_wrapper)
-    start_daily_report_worker(app)
-    start_live_comp_upload_worker(app)
+    if os.environ.get('JCC_PROCESS_ROLE') != 'season-worker':
+        start_daily_report_worker(app)
+        start_live_comp_upload_worker(app)
     return app
 
 

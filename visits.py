@@ -89,7 +89,7 @@ def tracked_template_response(template_name, page_key, **context):
     # and insert an uncollapsible row per page view. The first page view of
     # a genuine new visitor is uncounted; they count from the next request.
     should_record = user is not None or not created
-    if should_record and not is_bot_request():
+    if should_record and not request.args.get('preview_release') and not is_bot_request():
         record_page_visit(page_key, user=user, visitor_token=visitor_token, ip_address=get_client_ip())
     response = make_response(render_template(template_name, **context))
     return maybe_set_visitor_cookie(response, visitor_token, created)

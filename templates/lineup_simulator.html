@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="{{ static_v('tools/lineup-simulator/style.css') }}" />
   </head>
   <body>
+    {% if season_preview_id %}<div class="season-preview-banner" role="status">未发布预览 · {{ season_preview_id[:8] }} · <a href="/admin">返回管理后台</a></div>{% endif %}
     <header class="sim-topbar">
       <a class="sim-brand" href="/" aria-label="返回金铲铲阵容库">
         <span class="sim-brand-mark">阵</span>

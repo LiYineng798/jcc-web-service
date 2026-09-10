@@ -1945,3 +1945,13 @@
 :root[data-theme="dark"] .scale-chip-damage-reduction {
   color: #f4a6c9;
 }
+
+.season-preview-banner { padding: 10px 18px; background: #654925; color: #fff6e1; text-align: center; font-size: 13px; }
+.season-preview-banner a { color: inherit; text-decoration: underline; }
+
+.generic-mechanic-card { display: block; padding: 20px; overflow-wrap: anywhere; }
+.generic-mechanic-icon { width: 56px; height: 56px; object-fit: contain; }
+.generic-mechanic-card section { border-top: 1px solid var(--line); margin-top: 12px; padding-top: 8px; }
+.generic-mechanic-card p { line-height: 1.7; white-space: pre-wrap; }
+.generic-mechanic-table { overflow-x: auto; }
+.generic-mechanic-table td, .generic-mechanic-table th { padding: 8px; text-align: left; }

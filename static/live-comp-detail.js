@@ -13,11 +13,13 @@
   const season = (catalog.seasons || []).find((item) => item.season_id === librarySeason);
   if (!season) throw new Error('当前阵容的赛季资料不可用');
   const stamp = encodeURIComponent(season.version_id || '0');
+  const dataRoot = season.data_root || `/static/season-data/${encodeURIComponent(librarySeason)}`;
+  const assetRoot = season.asset_root || `/static/season-data/${encodeURIComponent(librarySeason)}`;
   const [championDoc, itemDoc, traitDoc, codebook] = await Promise.all([
-    fetch(`/static/season-data/${encodeURIComponent(librarySeason)}/champions.json?v=${stamp}`).then((value) => value.json()),
-    fetch(`/static/season-data/${encodeURIComponent(librarySeason)}/items.json?v=${stamp}`).then((value) => value.json()),
-    fetch(`/static/season-data/${encodeURIComponent(librarySeason)}/traits.json?v=${stamp}`).then((value) => value.json()),
-    fetch(`/static/season-data/${encodeURIComponent(librarySeason)}/tft-codebook.json?v=${stamp}`).then((value) => value.ok ? value.json() : ({ source_ids: {} })),
+    fetch(`${dataRoot}/champions.json?v=${stamp}`).then((value) => value.json()),
+    fetch(`${dataRoot}/items.json?v=${stamp}`).then((value) => value.json()),
+    fetch(`${dataRoot}/traits.json?v=${stamp}`).then((value) => value.json()),
+    fetch(`${dataRoot}/tft-codebook.json?v=${stamp}`).then((value) => value.ok ? value.json() : ({ source_ids: {} })),
   ]);
   const champions = new Map((championDoc.champions || []).map((item) => [String(item.id), item]));
   const traits = new Map((traitDoc.traits || []).map((item) => [String(item.id), item]));
@@ -29,7 +31,7 @@
   });
   (itemDoc.items || []).forEach((item) => items.set(String(item.id), item));
   const units = new Map((details.units || []).map((unit) => [Number(unit.position), unit]));
-  const asset = (path) => path ? `/static/season-data/${encodeURIComponent(librarySeason)}/${path}?v=${stamp}` : '';
+  const asset = (path) => path ? `${assetRoot}/${path}?v=${stamp}` : '';
 
   const COST_COLORS = {
     1: 'rgb(175, 175, 175)',

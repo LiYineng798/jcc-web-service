@@ -23,6 +23,7 @@ from seo import (
     website_json_ld,
 )
 from scoring import score_map
+from season_data_repository import asset_url
 from season_reference_service import (
     build_champion_detail as build_season_champion_detail,
     catalog_seasons,
@@ -336,12 +337,12 @@ def register_page_routes(app):
             'season_champion_detail.html',
             'season_champion_detail',
             detail=detail,
-            asset_root=f"/static/season-data/{season['season_id']}",
+            asset_root=asset_url(season['season_id']),
             seo=make_seo(
                 title=f"{champion['name']} - {season['display_name']}弈子详情 - 金铲铲阵容库",
                 description=description,
                 path=path,
-                image_path=f"/static/season-data/{season['season_id']}/{splash}" if splash else None,
+                image_path=f"{asset_url(season['season_id'])}/{splash}" if splash else None,
                 json_ld=[
                     webpage_json_ld(champion['name'], description, path),
                     breadcrumb_json_ld([
