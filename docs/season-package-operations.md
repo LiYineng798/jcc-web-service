@@ -1,5 +1,7 @@
 # 赛季资料包操作与部署手册
 
+新赛季创建、官方版本更新、同补丁资料修订以及两套赛季 ID 的关联，统一按 [赛季维护操作规程](season-maintenance-playbook.md) 执行。该规程包含 AI 交付要求与可重复的完整离线演练。
+
 协议见 [设计与实现](season-upload-package-design.md)。以下部署步骤是首次启用本功能所需；日常资料发布不执行部署命令。本次开发仅在 worktree 中完成，未更改服务器。
 
 ## 本地制作与后台发布
@@ -28,7 +30,7 @@ python scripts/season_library/build_upload_package.py --season s18 --source "D:/
 
 首次启用建议先把**当前线上静态快照**打包为 r1 并发布，再上传新数据 r2。这样最初资料也有独立历史快照；没有做此步骤时，「基准版本」表示当前代码自带数据，可能随后续代码部署改变。
 
-新赛季首次登记仍走代码部署；已登记赛季的无玩法/多玩法、新资料展示可由数据包表达。新模拟器行为需先增加对应网站能力，详见协议文档。
+新赛季首次登记仍走代码部署；首次导入可使用 `--season <id> --initial-status hidden --official-only` 使资料库/模拟器在没有运行时覆盖配置时保持隐藏，已有赛季不允许重复使用 `--initial-status`。已登记赛季的无玩法/多玩法、新资料展示可由数据包表达。新模拟器行为需先增加对应网站能力，详见协议文档。
 
 ## 本地运行与构建
 
@@ -84,6 +86,7 @@ systemctl status jcc-season-worker.service --no-pager
 
 6. Nginx 对上传地址保留现有代理、HTTPS 和请求头配置，将 `client_max_body_size` 设为 `257m`（256 MiB ZIP 加 multipart 开销）；`client_body_timeout` 可设 120 秒。确认 Nginx 请求体临时目录空间充足。发布/比较请求的 `proxy_read_timeout` 建议 120 秒，Gunicorn timeout 按实测同步调整。
 7. `/season-assets/` 必须代理到 Flask，不能映射为公共 alias，不在 CDN/代理缓存该前缀。候选包权限和赛季隐藏状态都由应用判断。
+8. 若 Nginx 直接服务 `/static/`，需要为 `/static/season-data/` 单独保留 Flask 代理才能执行静态基准赛季的隐藏控制。通过代理验证隐藏季 JSON/图片返回 404，不能仅检查页面隐藏。
 
 ## 部署验收
 

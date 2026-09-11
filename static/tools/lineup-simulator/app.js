@@ -433,8 +433,10 @@ async function loadCatalog() {
   await refreshCatalog();
   renderSeasonSwitcher();
   const hashPayload = readHashPayload();
+  const requestedId = new URLSearchParams(location.search).get("season_id");
   const persistedId = localStorage.getItem(`${STORAGE_PREFIX}season`);
   const initial = state.catalog.find((season) => season.season_id === hashPayload?.season)
+    || state.catalog.find((season) => season.season_id === requestedId)
     || state.catalog.find((season) => season.season_id === persistedId)
     || state.catalog.find((season) => season.season_id === state.defaultSeasonId)
     || state.catalog.find((season) => season.status === "active")

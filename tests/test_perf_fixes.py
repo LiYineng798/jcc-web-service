@@ -42,10 +42,21 @@ def test_live_comps_payload_cache_reuses_parsed_payload(app):
         assert first is second
 
 
-def test_sitemap_is_cached_with_public_cache_header(client):
+def test_sitemap_reuses_server_cache_but_requires_client_revalidation(client, monkeypatch):
+    import app_pages
+    original = app_pages._sitemap_entries
+    builds = []
+
+    def build():
+        builds.append(True)
+        return original()
+
+    monkeypatch.setattr(app_pages, '_sitemap_entries', build)
     response = client.get('/sitemap.xml')
     assert response.status_code == 200
-    assert response.headers['Cache-Control'] == 'public, max-age=3600'
+    assert response.headers['Cache-Control'] == 'public, max-age=0, must-revalidate'
+    assert client.get('/sitemap.xml').data == response.data
+    assert len(builds) == 1
 
 
 def test_homepage_assets_are_versioned(client):

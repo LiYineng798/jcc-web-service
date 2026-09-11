@@ -32,11 +32,20 @@ def _library_catalog() -> list[dict]:
 def _default_policy() -> dict:
     seasons = _library_catalog()
     ordered = list(reversed(seasons))
-    simulator = {str(item.get("season_id")): {"status": "active", "order": i + 1} for i, item in enumerate(ordered) if item.get("season_id")}
+    # A newly registered season may be staged as hidden before any runtime
+    # override exists. Preserve that intent for both public surfaces.
+    simulator = {
+        str(item['season_id']): {
+            'status': item.get('status') if item.get('status') in STATUSES else 'hidden',
+            'order': i + 1,
+        }
+        for i, item in enumerate(ordered) if item.get('season_id')
+    }
+    first_public = next((sid for sid, item in simulator.items() if item['status'] in PUBLIC_STATUSES), None)
     return {
-        "simulator_default_season_id": next(iter(simulator), None),
+        "simulator_default_season_id": first_public,
         "simulator": simulator,
-        "library": {str(item.get("season_id")): {"status": "active", "order": i + 1} for i, item in enumerate(ordered) if item.get("season_id")},
+        "library": deepcopy(simulator),
     }
 
 

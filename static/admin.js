@@ -1091,7 +1091,7 @@
     const seasonHeader = el('div', 'admin-subpanel-head');
     seasonHeader.append(el('h3', '', '赛季管理'));
     seasonHeader.append(button('新增赛季', () => {
-      state.liveSeasonCreating = { id: '', name: '', description: '', status: 'active' };
+      state.liveSeasonCreating = { id: '', name: '', description: '', status: 'hidden' };
       state.liveSeasonCreateError = '';
       renderDialogs();
     }));

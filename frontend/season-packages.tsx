@@ -178,7 +178,7 @@ function App({ csrfToken }: { csrfToken: string }) {
           <div className="sp-head" style={{ margin: 0 }}><h2 id="sp-review-title">{currentDetail ? '检查更新内容' : '版本审核'}</h2>{currentDetail && <span className="sp-tag">{isActive ? '当前线上' : text(currentDetail.state)}</span>}</div>
           {!selected ? <p className="sp-muted">选择一个更新包，查看处理结果、差异和预览。</p> : !currentDetail ? <p className="sp-muted">正在读取更新包…</p> : <>
             <div><h3 className="sp-break">{currentDetail.package_id}</h3><p className="sp-muted">{currentDetail.season_id.toUpperCase()} · 游戏版本 {currentDetail.game_version} · 资料修订 {currentDetail.data_revision}</p></div>
-            <div role="status"><p className={currentDetail.state === 'rejected' ? 'sp-error' : 'sp-muted'}>{currentDetail.job.message || '等待后台处理。离开页面后任务仍会继续。'}</p><progress className="sp-progress" value={currentDetail.job.progress} max={100} aria-label="服务端校验进度" /></div>
+            <div role="status"><p className={currentDetail.state === 'rejected' ? 'sp-error' : 'sp-muted'}>{isActive ? '已发布为当前资料版本。' : currentDetail.published_at ? '历史已发布版本，可用于回滚。' : currentDetail.job.message || '等待后台处理。离开页面后任务仍会继续。'}</p><progress className="sp-progress" value={currentDetail.job.progress} max={100} aria-label="服务端校验进度" /></div>
             <div className="sp-actions">
               {running(currentDetail.job.status) && <Button disabled={busy || !!currentDetail.job.cancel_requested} onClick={() => void action(`${BASE}/${selected}/cancel`, {}, '已请求取消校验。')}>{currentDetail.job.cancel_requested ? '正在取消…' : '取消校验'}</Button>}
               {['failed', 'cancelled'].includes(currentDetail.job.status) && <Button disabled={busy} onClick={() => void action(`${BASE}/${selected}/retry`, {}, '任务已重新排队。')}><RotateCcw size={14} />重试校验</Button>}

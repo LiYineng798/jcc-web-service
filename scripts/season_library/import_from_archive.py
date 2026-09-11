@@ -497,6 +497,8 @@ def main(argv=None) -> int:
     parser.add_argument("--season", help="只导入指定 season_id")
     parser.add_argument("--output-root", type=Path, help="输出已处理资料的根目录，允许在 Git 工作区外制作上传包")
     parser.add_argument("--official-only", action="store_true", help="只使用官方资料，不请求第三方强化符文回合统计")
+    parser.add_argument("--initial-status", choices=('hidden', 'disabled', 'active', 'archived'),
+                        help="首次登记新赛季的展示状态；只允许与 --season 一起使用，不改变已登记赛季")
     args = parser.parse_args(argv)
 
     source_root = resolve_source(args.source)
@@ -516,8 +518,13 @@ def main(argv=None) -> int:
             for entry in load_json(catalog_path).get("seasons") or []
         }
 
+    if args.initial_status and (not args.season or args.season in existing):
+        parser.error('--initial-status 仅适用于目标 catalog 尚未登记的单个新赛季')
+
     print(f"档案库: {source_root}")
     for entry in entries:
+        if args.initial_status:
+            entry = {**entry, 'status': args.initial_status}
         summary = import_season(source_root, entry, official_only=args.official_only, target_root=target_root)
         existing[summary["season_id"]] = summary
         counts = summary["counts"]
