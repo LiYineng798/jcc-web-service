@@ -1,6 +1,6 @@
 # 赛季上传功能验收记录
 
-在 `codex/season-package-upload` 的 Web 与 DB 独立 worktree 验证。未连接生产服务器，未推送 GitHub，未修改主工作区数据库。部署前仍需执行 [首次部署步骤](season-package-operations.md)。
+以下开发验收在 `codex/season-package-upload` 的 Web 与 DB 独立 worktree 完成，当时未连接生产、未修改主工作区数据库。随后已完成真实 PostgreSQL 和 HTTPS 部署验收，见 [生产部署记录](season-package-production-deployment.md)；新环境仍按 [首次部署步骤](season-package-operations.md) 操作。
 
 ## 自动测试
 

@@ -2,7 +2,7 @@
 
 新赛季创建、官方版本更新、同补丁资料修订以及两套赛季 ID 的关联，统一按 [赛季维护操作规程](season-maintenance-playbook.md) 执行。该规程包含 AI 交付要求与可重复的完整离线演练。
 
-协议见 [设计与实现](season-upload-package-design.md)。以下部署步骤是首次启用本功能所需；日常资料发布不执行部署命令。本次开发仅在 worktree 中完成，未更改服务器。
+协议见 [设计与实现](season-upload-package-design.md)。以下部署步骤是首次启用本功能所需；日常资料发布不执行部署命令。当前生产已于 2026-09-11 启用，配置和验收见 [生产部署记录](season-package-production-deployment.md)。
 
 ## 本地制作与后台发布
 

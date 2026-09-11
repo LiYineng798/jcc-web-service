@@ -2,6 +2,8 @@
 
 > 本手册基于 2026-07-26 实际部署验证过的流程编写。任何步骤与服务器实况不符时，**以服务器实际状态为准**，先查清再动手。
 
+2026-09-11 已首次启用后台赛季版本管理，新增独立 worker、持久资料目录及 Nginx 权限代理。当前配置和验收见 [生产部署记录](season-package-production-deployment.md)。更新共享 Python 代码、依赖或 `/etc/jcc.env` 时，须同时重启 `jcc` 和 `jcc-season-worker`，并检查两个服务；一致性备份也须包含 worker 和资料目录。
+
 ## 一、服务器信息速查
 
 | 项目 | 值 |
@@ -144,7 +146,7 @@ du -sh /opt/jcc/postgres-backups/    # 备份多了手动清旧的
 ## 七、已知注意事项
 
 - `/tools/lineup-simulator` 返回 404 不一定是故障：后台"设置"里有 `simulator_enabled` 开关（2026-07-04 起为关闭状态）。
-- 赛季资料数据更新不走服务器：在本地维护 `ccmax资料/数据模版` 档案库 → 本地跑 `scripts/season_library/import_from_archive.py` → 提交推送 → 服务器按本手册标准流程 pull 即可（见 `docs/season-library.md`）。
+- 已登记赛季的日常资料更新：本地处理完整资料 → 制作 ZIP → 后台上传、预览、发布，不再通过 Git 部署数据；新赛季首次登记及新代码能力仍需部署，见 [赛季维护操作规程](season-maintenance-playbook.md)。
 - 2G 内存的机器**不要**把 gunicorn worker 数往上调，需要更高并发就加 threads。
 - 修改 `/etc/jcc.env` 后需要 `systemctl restart jcc` 才生效。
 - 服务器密码若曾在聊天/工单中传输过，事后应更换；长期建议改用 SSH 密钥登录。
