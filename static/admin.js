@@ -424,6 +424,9 @@
     syncHeader();
     syncTabs();
     if (state.activeTab === 'season-packages') {
+      // Navigation is available while boot() is still loading the session.
+      // Mount once the token exists so the React island cannot retain an empty token.
+      if (!state.csrfToken) return;
       if (!document.getElementById('seasonPackageRoot')) {
         root.classList.remove('admin-app-loading');
         const packageRoot = document.createElement('div');

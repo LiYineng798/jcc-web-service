@@ -20,8 +20,14 @@ if (!packageFile) throw new Error('SEASON_PACKAGE_FILE is required');
       const page=await context.newPage();
       const errors=[];
       page.on('pageerror',e=>errors.push(e.message));
+      let releaseSession;
+      const sessionReady=new Promise(resolve=>{releaseSession=resolve;});
+      await page.route('**/api/me',async route=>{await sessionReady;await route.continue();});
       await page.goto(base+'/admin');
       await page.locator('.admin-sidebar [data-admin-tab="season-packages"]').click();
+      // Force navigation before boot() can obtain CSRF; no upload form may mount yet.
+      assert.equal(await page.locator('#seasonPackageRoot').count(),0);
+      releaseSession();
       const root=page.locator('#seasonPackageRoot');
       await root.getByText('将更新包拖到这里',{exact:true}).waitFor();
       await page.screenshot({path:`instance/season-package-checks/${name}-upload.png`,fullPage:true});

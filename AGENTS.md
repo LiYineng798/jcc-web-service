@@ -8,6 +8,8 @@ The admin new-live-season dialog defaults to hidden, matching its existing guida
 
 Package review displays current/historical publication status separately from the validator's completed message. Run only one pytest process per Web worktree: existing general fixtures share fixed test runtime paths; lifecycle browser servers use separate temporary paths.
 
+The season upload island waits for the administrator session's CSRF token before mounting. Navigation can occur before `/api/me` completes; never capture an empty token in React props. The browser regression deliberately holds `/api/me` until after opening this workspace.
+
 `tests/test_season_lifecycle.py` and `tests/season_lifecycle.browser.cjs` rehearse a complete new-season/update/hotfix/rollback flow using full S18 assets cloned as fictional S99, with temporary SQLite/catalog/files and real validators/workers. Browser tests start/stop their own loopback servers; manual preview is `python tests/serve_season_lifecycle.py`. Never publish rehearsal packages or claim these tests validate future game rules or a production PostgreSQL deployment. `/season-assets/` and guarded `/static/season-data/` must pass through Flask if hidden-season access control is required.
 
 Season package releases are implemented in the admin “赛季版本更新” workspace. Local prepared data is packaged by `scripts/season_library/build_upload_package.py`; `import_from_archive.py --output-root` can prepare data outside Git. The React/TypeScript upload island lives in `frontend/` and builds into committed `static/admin/season-packages/` assets (`npm ci --prefix frontend`, `npm run build --prefix frontend`); production needs no Node. Do not replace real XHR upload or persisted worker progress with demo timers.
