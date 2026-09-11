@@ -10,11 +10,12 @@
     <link rel="stylesheet" href="{{ static_v('season-champion-detail.css') }}" />
   </head>
   <body>
+    {% if season_preview_id %}<div class="season-preview-banner" role="status">未发布预览 · {{ season_preview_id[:8] }} · <a href="/admin">返回管理后台</a></div>{% endif %}
     <div class="page-shell s18-preview-page s18-champion-detail-page">
       <nav class="nav-bar s18-preview-nav" aria-label="页面工具">
         <a class="brand-mark brand-link" href="/" aria-label="返回首页">阵</a>
         <div class="nav-actions">
-          <a class="ghost-link nav-tool-link" href="/tools/seasons/{{ season.season_id }}">返回{{ season.display_name }}</a>
+          <a class="ghost-link nav-tool-link" href="/tools/seasons/{{ season.season_id }}{{ season_preview_suffix }}">返回{{ season.display_name }}</a>
           {{ theme_toggle("nav-icon-button") }}
         </div>
       </nav>
@@ -163,7 +164,7 @@
               <h3>所属弈子</h3>
               <div class="trait-champions">
 {% for member in trait.members %}
-                <a class="trait-champion" href="{{ url_for('season_champion_detail_page', season_id=season.season_id, champion_id=member.id) }}" data-champion-id="{{ member.id }}" style="--cost-color: var(--s18-cost-{{ member.cost }})" aria-label="查看{{ member.name }}详情">
+                <a class="trait-champion" href="{{ url_for('season_champion_detail_page', season_id=season.season_id, champion_id=member.id) }}{{ season_preview_suffix }}" data-champion-id="{{ member.id }}" style="--cost-color: var(--s18-cost-{{ member.cost }})" aria-label="查看{{ member.name }}详情">
 {% if member.icon %}
                   <img src="{{ asset_root }}/{{ member.icon }}?v={{ season.version_id }}" alt="{{ member.name }}" />
 {% endif %}

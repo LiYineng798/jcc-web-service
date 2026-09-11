@@ -13,7 +13,9 @@ static/season-data/<season_id>/augments.json   # 已上线赛季
 
 不要手工修改 `static/tools/lineup-simulator/data/`，也不要再运行旧的 `scripts/build_simulator_data.py` 或把 `local-data.js` 当作数据源。上述目录是旧模拟器的兼容存档，不参与当前页面加载。
 
-## 更新流程（新版本 / 新赛季上线）
+## 首次资料登记与静态基准部署
+
+日常新补丁与同补丁修订使用完整 ZIP 的后台发布流程，见 [赛季维护操作规程](season-maintenance-playbook.md)，不需要每次提交静态资料或重启服务。以下静态导入步骤仅用于首次登记或明确更新代码自带基准。
 
 1. **确认官方版本**：抓 `https://game.gtimg.cn/images/lol/act/jkzlk/js/config/versiondataconfig.js`，看目标 mode 的 `is_newest_version` 与版本条目。官方数据源总览、命名对应表与踩坑清单见档案库 **`ccmax资料/数据模板/docs/官方数据源与版本更新指南.md`**。
 2. **档案库导入**（在 `ccmax资料/数据模板` 执行）：`python scripts/import_existing_seasons.py --season s18 [--version X.Y.Z]`（S18 默认走官方接口；带 `--s18-json` 才重建 PBE 快照）。

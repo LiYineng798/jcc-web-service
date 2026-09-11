@@ -7,6 +7,9 @@ ROOT = Path(__file__).resolve().parents[2]
 TARGET = ROOT.parent / 'webApplication'
 
 INCLUDE_FILES = {
+    'admin_season_packages.py', 'season_package_format.py', 'season_package_schema.py',
+    'season_package_service.py', 'season_package_validation.py', 'season_package_worker.py',
+    'season_data_repository.py', 'season_reference_service.py', 'season_visibility.py', 'season_rich_text.py',
     '.gitignore', 'README.md', 'admin.py', 'admin_audit_service.py', 'admin_dashboard_service.py', 'admin_live_comp_service.py', 'admin_lineup_service.py', 'admin_pagination.py', 'admin_report_service.py', 'admin_user_service.py', 'analytics.py', 'app.py', 'app_pages.py', 'audit.py',
     'auth.py', 'captcha.py', 'captcha_manifest.json', 'config.py', 'db.py', 'db_migrations.py', 'db_schema.py',
     'history.py', 'lineup_account_service.py', 'lineup_bridge_service.py', 'lineup_interaction_service.py', 'lineup_read_service.py', 'lineup_write_service.py', 'lineups.py', 'lineups_query.py', 'lineups_serialization.py', 'lineups_utils.py', 'lineup_code.py', 'live_comps.py', 'live_comps_helpers.py', 'migrate.py',
@@ -14,7 +17,7 @@ INCLUDE_FILES = {
     'scoring.py', 'visits.py', '.env.example',
 }
 INCLUDE_DIRS = {'static', 'templates', 'tests', 'docs', 'deploy'}
-INCLUDE_PARTS = {'scripts/maintenance'}
+INCLUDE_PARTS = {'scripts/maintenance', 'scripts/season_library'}
 EXCLUDE_PARTS = {'instance', '__pycache__', '.pytest_cache', '.git', 'scripts/local'}
 EXCLUDE_SUFFIXES = {'.pyc', '.pyo', '.sqlite3', '.db', '.log', '.pem', '.key', '.crt'}
 EXCLUDE_FILES = {'tests/test_refresh_live_comps.py', 'tests/test_upload_live_comps.py'}
@@ -33,7 +36,7 @@ def should_copy(path: Path) -> bool:
         return True
     if rel.parts[0] in INCLUDE_DIRS:
         return True
-    return rel_text.startswith('scripts/maintenance/')
+    return any(rel_text.startswith(part + '/') for part in INCLUDE_PARTS)
 
 
 def clean_target() -> None:

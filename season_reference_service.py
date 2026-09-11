@@ -10,6 +10,7 @@ import json
 from functools import lru_cache
 from pathlib import Path
 
+from season_data_repository import data_directory, data_url, asset_url, preview_suffix
 from season_rich_text import render_rich_text, strip_rich_text_markers
 
 DATA_ROOT = Path(__file__).resolve().parent / 'static' / 'season-data'
@@ -134,20 +135,27 @@ def get_season_entry(season_id):
     return None
 
 
-@lru_cache(maxsize=16)
+@lru_cache(maxsize=32)
+def _index_at(directory):
+    return _load_json(Path(directory) / 'index.json')
+
 def _season_index(season_id):
-    return _load_json(DATA_ROOT / season_id / 'index.json')
+    return _index_at(str(data_directory(season_id)))
 
 
-@lru_cache(maxsize=16)
-def _season_full(season_id):
-    champions = _load_json(DATA_ROOT / season_id / 'champions.json').get('champions') or []
-    traits = _load_json(DATA_ROOT / season_id / 'traits.json').get('traits') or []
+@lru_cache(maxsize=32)
+def _full_at(directory):
+    champions = _load_json(Path(directory) / 'champions.json').get('champions') or []
+    traits = _load_json(Path(directory) / 'traits.json').get('traits') or []
     return {
         'champions': champions,
         'champions_by_id': {champion['id']: champion for champion in champions},
         'traits_by_id': {trait['id']: trait for trait in traits},
     }
+
+
+def _season_full(season_id):
+    return _full_at(str(data_directory(season_id)))
 
 
 def season_page_context(season_id):
@@ -160,14 +168,14 @@ def season_page_context(season_id):
     return {
         'season': entry,
         'mechanics': [
-            {'id': mechanic['id'], 'kind': mechanic.get('kind'), 'display_name': mechanic.get('display_name')}
+            {'id': mechanic['id'], 'kind': mechanic.get('kind'), 'display_name': mechanic.get('display_name'), 'presentation': mechanic.get('presentation')}
             for mechanic in index.get('mechanics') or []
         ],
         'champion_count': len(index.get('champions') or []),
         'augment_count': len(augments),
         'has_augments': bool(augments),
-        'data_url': f"/static/season-data/{entry['season_id']}/index.json?v={entry.get('version_id', '')}",
-        'asset_root': f"/static/season-data/{entry['season_id']}",
+        'data_url': f"{data_url(entry['season_id'])}/index.json?v={entry.get('version_id', '')}",
+        'asset_root': asset_url(entry['season_id']),
     }
 
 
@@ -290,5 +298,5 @@ def build_champion_detail(season_id, champion_id):
 
 def clear_caches():
     _catalog_doc.cache_clear()
-    _season_index.cache_clear()
-    _season_full.cache_clear()
+    _index_at.cache_clear()
+    _full_at.cache_clear()

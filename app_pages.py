@@ -23,6 +23,7 @@ from seo import (
     website_json_ld,
 )
 from scoring import score_map
+from season_data_repository import asset_url
 from season_reference_service import (
     build_champion_detail as build_season_champion_detail,
     catalog_seasons,
@@ -81,10 +82,10 @@ def _sitemap_entries():
 
 
 SITEMAP_CACHE_SECONDS = 3600
-_sitemap_cache = {'built_at': 0.0, 'xml': None}
 
 
 def register_page_routes(app):
+    sitemap_cache = {'built_at': 0.0, 'xml': None, 'key': None}
     @app.get('/api/season-catalog')
     def public_season_catalog():
         surface = request.args.get('surface', 'library')
@@ -94,7 +95,6 @@ def register_page_routes(app):
         if surface == 'simulator':
             payload['default_season_id'] = default_season_id(surface)
         return jsonify(payload)
-    _sitemap_cache['xml'] = None
 
     @app.get('/robots.txt')
     def robots():
@@ -102,14 +102,19 @@ def register_page_routes(app):
 
     @app.get('/sitemap.xml')
     def sitemap():
-        # Crawler-only endpoint that walks several full tables — rebuild at
-        # most once per hour instead of per request.
+        # Each worker observes release/visibility changes on its next request.
+        # Retain the TTL for unrelated business records without retaining a
+        # hidden season or a previous release's champion URLs for an hour.
+        key = (request.url_root, tuple(
+            (item['season_id'], item.get('release_id'), item.get('version_id'))
+            for item in catalog_seasons()
+        ), get_setting(get_db(), 'simulator_enabled', 'true'))
         now = monotonic()
-        if _sitemap_cache['xml'] is None or now - _sitemap_cache['built_at'] > SITEMAP_CACHE_SECONDS:
-            _sitemap_cache['xml'] = sitemap_xml(_sitemap_entries())
-            _sitemap_cache['built_at'] = now
-        response = Response(_sitemap_cache['xml'], mimetype='application/xml')
-        response.headers['Cache-Control'] = 'public, max-age=3600'
+        if sitemap_cache['xml'] is None or sitemap_cache['key'] != key or now - sitemap_cache['built_at'] > SITEMAP_CACHE_SECONDS:
+            sitemap_cache['xml'] = sitemap_xml(_sitemap_entries())
+            sitemap_cache.update(built_at=now, key=key)
+        response = Response(sitemap_cache['xml'], mimetype='application/xml')
+        response.headers['Cache-Control'] = 'public, max-age=0, must-revalidate'
         return response
 
     @app.get('/')
@@ -336,12 +341,12 @@ def register_page_routes(app):
             'season_champion_detail.html',
             'season_champion_detail',
             detail=detail,
-            asset_root=f"/static/season-data/{season['season_id']}",
+            asset_root=asset_url(season['season_id']),
             seo=make_seo(
                 title=f"{champion['name']} - {season['display_name']}弈子详情 - 金铲铲阵容库",
                 description=description,
                 path=path,
-                image_path=f"/static/season-data/{season['season_id']}/{splash}" if splash else None,
+                image_path=f"{asset_url(season['season_id'])}/{splash}" if splash else None,
                 json_ld=[
                     webpage_json_ld(champion['name'], description, path),
                     breadcrumb_json_ld([

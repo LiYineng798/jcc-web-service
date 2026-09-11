@@ -21,7 +21,8 @@
   }
 
   function championUrl(championId) {
-    return `/tools/seasons/${encodeURIComponent(seasonId)}/champions/${encodeURIComponent(championId)}`;
+    const preview = new URLSearchParams(location.search).get("preview_release");
+    return `/tools/seasons/${encodeURIComponent(seasonId)}/champions/${encodeURIComponent(championId)}${preview ? `?preview_release=${encodeURIComponent(preview)}` : ""}`;
   }
 
   function costStyle(cost) {

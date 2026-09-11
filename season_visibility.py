@@ -5,7 +5,7 @@ import json
 from copy import deepcopy
 from pathlib import Path
 
-from flask import current_app, has_app_context
+from flask import current_app, g, has_app_context
 
 from audit import write_audit_best_effort
 DATA_ROOT = Path(__file__).resolve().parent / "static" / "season-data"
@@ -25,17 +25,27 @@ def _library_catalog() -> list[dict]:
         payload = json.loads((DATA_ROOT / "catalog.json").read_text(encoding="utf-8"))
     except (OSError, ValueError):
         return []
-    return list(payload.get("seasons") or [])
+    from season_data_repository import catalog
+    return catalog(list(payload.get("seasons") or []))
 
 
 def _default_policy() -> dict:
     seasons = _library_catalog()
     ordered = list(reversed(seasons))
-    simulator = {str(item.get("season_id")): {"status": "active", "order": i + 1} for i, item in enumerate(ordered) if item.get("season_id")}
+    # A newly registered season may be staged as hidden before any runtime
+    # override exists. Preserve that intent for both public surfaces.
+    simulator = {
+        str(item['season_id']): {
+            'status': item.get('status') if item.get('status') in STATUSES else 'hidden',
+            'order': i + 1,
+        }
+        for i, item in enumerate(ordered) if item.get('season_id')
+    }
+    first_public = next((sid for sid, item in simulator.items() if item['status'] in PUBLIC_STATUSES), None)
     return {
-        "simulator_default_season_id": next(iter(simulator), None),
+        "simulator_default_season_id": first_public,
         "simulator": simulator,
-        "library": {str(item.get("season_id")): {"status": "active", "order": i + 1} for i, item in enumerate(ordered) if item.get("season_id")},
+        "library": deepcopy(simulator),
     }
 
 
@@ -85,7 +95,9 @@ def public_seasons(kind: str) -> list[dict]:
     for item in _library_catalog():
         season_id = str(item.get("season_id") or "")
         setting = policy.get(season_id, {})
-        if setting.get("status") not in PUBLIC_STATUSES:
+        from season_data_repository import selected_release
+        is_preview = has_app_context() and g.get('season_preview_id') and selected_release(season_id) == g.season_preview_id
+        if setting.get("status") not in PUBLIC_STATUSES and not is_preview:
             continue
         result.append({**item, "status": setting.get("status"), "order": setting.get("order", 999)})
     return sorted(result, key=lambda item: (int(item.get("order") or 999), item.get("season_id", "")))
@@ -98,6 +110,11 @@ def get_season(kind: str, season_id: str) -> dict | None:
 def default_season_id(kind: str) -> str | None:
     if kind != "simulator":
         return None
+    if has_app_context() and g.get('season_preview_id'):
+        from season_data_repository import selected_release
+        for item in _library_catalog():
+            if selected_release(item['season_id']) == g.season_preview_id:
+                return item['season_id']
     return load_policy().get("simulator_default_season_id")
 
 

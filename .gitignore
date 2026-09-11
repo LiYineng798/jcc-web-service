@@ -40,6 +40,8 @@ test-lineups.sqlite3
 smoke.sqlite3
 
 .worktrees/
+frontend/node_modules/
+frontend/*.tsbuildinfo
 
 # Local game data/source bundles not uploaded to GitHub
 scripts/local/S16/

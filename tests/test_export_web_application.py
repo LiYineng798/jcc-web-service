@@ -4,6 +4,9 @@
 def test_export_includes_maintenance_scripts():
     assert should_copy(ROOT / 'scripts' / 'maintenance' / 'backup_database.py')
     assert should_copy(ROOT / 'scripts' / 'maintenance' / 'check_deploy_safety.py')
+    assert should_copy(ROOT / 'scripts' / 'season_library' / 'import_from_archive.py')
+    assert should_copy(ROOT / 'season_package_worker.py')
+    assert should_copy(ROOT / 'season_package_validation.py')
 
 
 def test_export_excludes_local_uploader_scripts():

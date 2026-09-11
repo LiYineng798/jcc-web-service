@@ -1,0 +1,23 @@
+{
+  "id": "season-rewards",
+  "kind": "rewards",
+  "display_name": "赛季奖励",
+  "presentation": "stages.v1",
+  "entries": [
+    {
+      "id": "reward-one",
+      "name": "阶段奖励示例",
+      "description": "用于演示新赛季玩法的资料结构。",
+      "data": {
+        "category": "economy",
+        "category_label": "经济",
+        "tags": ["奖励"],
+        "rounds": ["2-1"],
+        "requires": ["完成指定条件"],
+        "stages": [
+          { "label": "阶段一", "effect": "获得奖励", "cost": 2, "requirements": ["条件完成"] }
+        ]
+      }
+    }
+  ]
+}

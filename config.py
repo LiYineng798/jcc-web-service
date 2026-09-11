@@ -9,6 +9,11 @@ def apply_config(app, test_config=None):
     default_database_url = 'sqlite:///' + default_sqlite_path.replace('\\', '/')
     database_url = os.environ.get('JCC_DATABASE_URL', default_database_url)
     app.config.from_mapping(
+        SEASON_PACKAGE_ROOT=os.environ.get("JCC_SEASON_PACKAGE_ROOT", os.path.join(app.instance_path, "season-packages")),
+        SEASON_PACKAGE_MAX_BYTES=256 * 1024 * 1024,
+        SEASON_PACKAGE_MAX_EXPANDED_BYTES=1024 * 1024 * 1024,
+        SEASON_PACKAGE_MAX_FILES=10000,
+        SEASON_PACKAGE_MAX_JSON_BYTES=32 * 1024 * 1024,
         DATABASE=default_sqlite_path,
         DATABASE_URL=database_url,
         LIVE_COMPS_DATA_PATH=os.path.join(app.instance_path, 'live-comps.json'),

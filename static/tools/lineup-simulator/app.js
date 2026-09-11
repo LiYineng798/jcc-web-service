@@ -1,7 +1,8 @@
 const DATA_ROOT = "/static/season-data";
+const PREVIEW_RELEASE = new URLSearchParams(location.search).get("preview_release");
 const DATA_VERSION = document.querySelector("#simulatorRoot")?.dataset.seasonDataVersion || "0";
 const UI_ROOT = "/static/tools/lineup-simulator/ui";
-const STORAGE_PREFIX = "jcc-simulator-v2:";
+const STORAGE_PREFIX = PREVIEW_RELEASE ? `jcc-simulator-preview:${PREVIEW_RELEASE}:` : "jcc-simulator-v2:";
 const MAX_HISTORY = 40;
 const MAX_EXPORT_TRAITS = 8;
 const MAX_POSTER_TRAITS = 9;
@@ -197,7 +198,7 @@ function escapeHtml(value) {
 
 function seasonAsset(path) {
   if (!path || !state.season) return "";
-  return `${DATA_ROOT}/${encodeURIComponent(state.season.season_id)}/${path}?v=${encodeURIComponent(state.season.version_id)}`;
+  return `${state.season.asset_root || `${DATA_ROOT}/${encodeURIComponent(state.season.season_id)}`}/${path}?v=${encodeURIComponent(state.season.version_id)}`;
 }
 
 function compareSeasons(a, b) {
@@ -432,8 +433,10 @@ async function loadCatalog() {
   await refreshCatalog();
   renderSeasonSwitcher();
   const hashPayload = readHashPayload();
+  const requestedId = new URLSearchParams(location.search).get("season_id");
   const persistedId = localStorage.getItem(`${STORAGE_PREFIX}season`);
   const initial = state.catalog.find((season) => season.season_id === hashPayload?.season)
+    || state.catalog.find((season) => season.season_id === requestedId)
     || state.catalog.find((season) => season.season_id === persistedId)
     || state.catalog.find((season) => season.season_id === state.defaultSeasonId)
     || state.catalog.find((season) => season.status === "active")
@@ -443,7 +446,7 @@ async function loadCatalog() {
 }
 
 async function refreshCatalog() {
-  const catalog = await fetchJson(`/api/season-catalog?surface=simulator&v=${encodeURIComponent(DATA_VERSION)}`);
+  const catalog = await fetchJson(`/api/season-catalog?surface=simulator&v=${encodeURIComponent(DATA_VERSION)}${PREVIEW_RELEASE ? `&preview_release=${encodeURIComponent(PREVIEW_RELEASE)}` : ""}`);
   state.catalog = [...(catalog.seasons || [])].sort((a, b) => Number(a.order || 999) - Number(b.order || 999));
   state.defaultSeasonId = catalog.default_season_id || '';
 }
@@ -469,14 +472,15 @@ async function loadSeason(seasonId, importedPayload = null) {
   setLoading(true);
   try {
     const stamp = encodeURIComponent(`${season.version_id}-${DATA_VERSION}`);
+    const seasonDataRoot = season.data_root || `${DATA_ROOT}/${encodeURIComponent(seasonId)}`;
     const augmentRequest = Number(season.counts?.augments || 0) > 0
-      ? fetchJson(`${DATA_ROOT}/${encodeURIComponent(seasonId)}/augments.json?v=${stamp}`)
+      ? fetchJson(`${seasonDataRoot}/augments.json?v=${stamp}`)
       : Promise.resolve({ augments: [] });
     const [championData, traitData, itemData, boardUnitData, augmentData] = await Promise.all([
-      fetchJson(`${DATA_ROOT}/${encodeURIComponent(seasonId)}/champions.json?v=${stamp}`),
-      fetchJson(`${DATA_ROOT}/${encodeURIComponent(seasonId)}/traits.json?v=${stamp}`),
-      fetchJson(`${DATA_ROOT}/${encodeURIComponent(seasonId)}/items.json?v=${stamp}`),
-      fetchJson(`${DATA_ROOT}/${encodeURIComponent(seasonId)}/board_units.json?v=${stamp}`),
+      fetchJson(`${seasonDataRoot}/champions.json?v=${stamp}`),
+      fetchJson(`${seasonDataRoot}/traits.json?v=${stamp}`),
+      fetchJson(`${seasonDataRoot}/items.json?v=${stamp}`),
+      fetchJson(`${seasonDataRoot}/board_units.json?v=${stamp}`),
       augmentRequest,
     ]);
     state.traits = (traitData.traits || []).map(normalizeTrait)
@@ -500,7 +504,7 @@ async function loadSeason(seasonId, importedPayload = null) {
     state.augmentById = new Map(state.augments.map((item) => [item.id, item]));
     state.tftCodeMap = {};
     try {
-      const codebook = await fetchJson(`${DATA_ROOT}/${encodeURIComponent(seasonId)}/tft-codebook.json?v=${stamp}`);
+      const codebook = await fetchJson(`${seasonDataRoot}/tft-codebook.json?v=${stamp}`);
       state.tftCodeMap = codebook.codes || {};
     } catch { /* A season can be used before a TFT codebook is available. */ }
     let payload = readStoredFormation(seasonId);

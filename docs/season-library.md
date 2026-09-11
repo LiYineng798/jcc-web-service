@@ -2,6 +2,8 @@
 
 # 赛季资料库（season library）
 
+当前新赛季创建、补丁和资料修订的执行入口为 [赛季维护操作规程](season-maintenance-playbook.md)。本文静态目录描述是首次登记与回退基准；已发布的后台资料包通过 `season_data_repository.py` 覆盖同一赛季的数据/图片路径。资料库与模拟器读取同一 release，分别管理可见性；日常包发布不需要代码部署。
+
 站内所有赛季资料页（`/tools/seasons/<season_id>`）、首页“资料库”菜单、sitemap 和阵容模拟器的数据，统一来自 `static/season-data/`。这个目录**由脚本生成，不要手工编辑**；数据源头是仓库外的赛季档案库 `ccmax资料/数据模板`（自包含的多赛季快照，含 schema 与校验脚本）。
 
 ## 数据流

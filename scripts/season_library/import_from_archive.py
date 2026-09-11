@@ -43,8 +43,12 @@ if str(REPO_ROOT) not in sys.path:
 
 from season_rich_text import enrich_rich_text_fields  # noqa: E402
 
-from official_supplements import apply_official_supplements  # noqa: E402
-from official_augments import collect_official_augments  # noqa: E402
+try:
+    from .official_supplements import apply_official_supplements
+    from .official_augments import collect_official_augments
+except ImportError:
+    from official_supplements import apply_official_supplements  # noqa: E402
+    from official_augments import collect_official_augments  # noqa: E402
 
 ARCHIVE_DIR_NAMES = (
     os.path.join("ccmax资料", "数据模板"),
@@ -314,7 +318,7 @@ def compact_mechanics(version_dir: Path) -> list[dict]:
     return mechanics
 
 
-def import_season(source_root: Path, catalog_entry: dict, *, official_only: bool = False) -> dict:
+def import_season(source_root: Path, catalog_entry: dict, *, official_only: bool = False, target_root: Path | None = None) -> dict:
     season_id = catalog_entry["season_id"]
     season = load_json(source_root / "data" / catalog_entry["path"])
     version_ref = next(
@@ -327,7 +331,10 @@ def import_season(source_root: Path, catalog_entry: dict, *, official_only: bool
     version_dir = (season_dir / version_ref["path"]).parent
     version_meta = load_json(season_dir / version_ref["path"])
 
-    target_dir = TARGET_ROOT / season_id
+    destination = (target_root or TARGET_ROOT).resolve()
+    target_dir = (destination / season_id).resolve()
+    if target_dir.parent != destination or target_dir == source_root.resolve() or source_root.resolve().is_relative_to(target_dir) or target_dir.is_relative_to(source_root.resolve()):
+        raise ValueError('输出目录必须位于目标根目录下且与源档案分开')
     previous_augments_path = target_dir / "augments.json"
     previous_augments = load_json(previous_augments_path) if previous_augments_path.is_file() else None
     if target_dir.exists():
@@ -488,7 +495,10 @@ def main(argv=None) -> int:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--source", help="数据模版 目录路径")
     parser.add_argument("--season", help="只导入指定 season_id")
+    parser.add_argument("--output-root", type=Path, help="输出已处理资料的根目录，允许在 Git 工作区外制作上传包")
     parser.add_argument("--official-only", action="store_true", help="只使用官方资料，不请求第三方强化符文回合统计")
+    parser.add_argument("--initial-status", choices=('hidden', 'disabled', 'active', 'archived'),
+                        help="首次登记新赛季的展示状态；只允许与 --season 一起使用，不改变已登记赛季")
     args = parser.parse_args(argv)
 
     source_root = resolve_source(args.source)
@@ -500,16 +510,22 @@ def main(argv=None) -> int:
             raise SystemExit(f"catalog 中没有 season_id={args.season}")
 
     existing = {}
-    catalog_path = TARGET_ROOT / "catalog.json"
+    target_root = args.output_root or TARGET_ROOT
+    catalog_path = target_root / "catalog.json"
     if catalog_path.is_file() and args.season:
         existing = {
             entry["season_id"]: entry
             for entry in load_json(catalog_path).get("seasons") or []
         }
 
+    if args.initial_status and (not args.season or args.season in existing):
+        parser.error('--initial-status 仅适用于目标 catalog 尚未登记的单个新赛季')
+
     print(f"档案库: {source_root}")
     for entry in entries:
-        summary = import_season(source_root, entry, official_only=args.official_only)
+        if args.initial_status:
+            entry = {**entry, 'status': args.initial_status}
+        summary = import_season(source_root, entry, official_only=args.official_only, target_root=target_root)
         existing[summary["season_id"]] = summary
         counts = summary["counts"]
         print(

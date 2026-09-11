@@ -541,3 +541,6 @@ def table_names(db):
         return {row['table_name'] for row in rows}
     rows = db.execute("SELECT name FROM sqlite_master WHERE type='table'").fetchall()
     return {row['name'] for row in rows}
+
+from season_package_schema import SEASON_PACKAGE_SCHEMA
+SCHEMA += SEASON_PACKAGE_SCHEMA

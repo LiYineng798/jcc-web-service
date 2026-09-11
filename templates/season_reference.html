@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="{{ static_v('season-reference.css') }}" />
   </head>
   <body>
+    {% if season_preview_id %}<div class="season-preview-banner" role="status">未发布预览 · {{ season_preview_id[:8] }} · <a href="/admin">返回管理后台</a></div>{% endif %}
     <div class="page-shell s18-preview-page">
       <nav class="nav-bar s18-preview-nav" aria-label="页面工具">
         <a class="brand-mark brand-link" href="/" aria-label="返回首页">阵</a>
@@ -112,7 +113,13 @@
 
 {% for mechanic in mechanics %}
         <section class="s18-view-panel" id="mechanicPanel-{{ mechanic.id }}" data-panel="mechanic-{{ mechanic.id }}" data-mechanic-id="{{ mechanic.id }}" role="tabpanel" hidden>
-{% if mechanic.kind == 'charm' %}
+{% if mechanic.presentation and mechanic.presentation != 'legacy.v1' %}
+          <div class="charm-toolbar" data-generic-toolbar="{{ mechanic.id }}">
+            <label class="charm-search"><span class="sr-only">搜索{{ mechanic.display_name }}</span><input type="search" placeholder="搜索名称、效果或条件" data-generic-search /></label>
+            <label><span class="sr-only">玩法分类</span><select aria-label="{{ mechanic.display_name }}分类" data-generic-category><option value="">全部分类</option></select></label>
+          </div>
+{% endif %}
+{% if mechanic.kind == 'charm' and mechanic.presentation in (none, 'legacy.v1') %}
           <div class="charm-toolbar" data-charm-toolbar="{{ mechanic.id }}">
             <label class="charm-search" for="charmSearch-{{ mechanic.id }}">
               <span class="sr-only">搜索仙灵</span>
@@ -134,8 +141,8 @@
             </div>
           </div>
 {% endif %}
-          <div class="{% if mechanic.kind == 'wand' %}wand-grid{% elif mechanic.kind == 'charm' %}charm-grid{% else %}mechanic-grid{% endif %}" data-mechanic-grid="{{ mechanic.id }}"></div>
-          <div class="s18-empty-state hidden" data-mechanic-empty="{{ mechanic.id }}"><strong>没有找到仙灵</strong><span>调整搜索词或分类后再试。</span></div>
+          <div class="{% if mechanic.presentation and mechanic.presentation != 'legacy.v1' %}mechanic-grid{% elif mechanic.kind == 'wand' %}wand-grid{% elif mechanic.kind == 'charm' %}charm-grid{% else %}mechanic-grid{% endif %}" data-mechanic-grid="{{ mechanic.id }}"></div>
+          <div class="s18-empty-state hidden" data-mechanic-empty="{{ mechanic.id }}"><strong>没有找到{{ mechanic.display_name }}</strong><span>调整搜索词或分类后再试。</span></div>
         </section>
 {% endfor %}
 

@@ -92,6 +92,7 @@
     'live-comps': ['实时阵容', '维护赛季状态与阵容码'],
     'simulator-seasons': ['模拟器赛季', '控制模拟器赛季顺序与访问状态'],
     'library-seasons': ['资料库赛季', '控制资料库赛季顺序与访问状态'],
+    'season-packages': ['赛季版本更新', '上传资料包，检查差异并发布版本'],
     'patch-notes': ['更新公告', '编辑版本内容与发布状态'],
     users: ['用户管理', '查询账号、权限和可用状态'],
     analytics: ['增长分析', '查看访问、注册与转化数据'],
@@ -422,6 +423,17 @@
   function render() {
     syncHeader();
     syncTabs();
+    if (state.activeTab === 'season-packages') {
+      if (!document.getElementById('seasonPackageRoot')) {
+        root.classList.remove('admin-app-loading');
+        const packageRoot = document.createElement('div');
+        packageRoot.id = 'seasonPackageRoot';
+        root.replaceChildren(packageRoot);
+        window.JccSeasonPackages.mount(packageRoot, { csrfToken: state.csrfToken });
+      }
+      return;
+    }
+    window.JccSeasonPackages?.unmount();
     root.classList.remove('admin-app-loading');
     root.replaceChildren();
     if (state.activeTab === 'overview') root.append(renderOverviewDashboardFromModule());
@@ -1079,7 +1091,7 @@
     const seasonHeader = el('div', 'admin-subpanel-head');
     seasonHeader.append(el('h3', '', '赛季管理'));
     seasonHeader.append(button('新增赛季', () => {
-      state.liveSeasonCreating = { id: '', name: '', description: '', status: 'active' };
+      state.liveSeasonCreating = { id: '', name: '', description: '', status: 'hidden' };
       state.liveSeasonCreateError = '';
       renderDialogs();
     }));
