@@ -179,6 +179,12 @@ def season_page_context(season_id):
     }
 
 
+def champion_summaries(season_id):
+    """Compact champion records from the currently public library release."""
+    entry = get_season_entry(season_id)
+    return _season_index(entry['season_id']).get('champions', []) if entry else []
+
+
 def champion_ids(season_id):
     entry = get_season_entry(season_id)
     if entry is None:

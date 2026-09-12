@@ -71,6 +71,7 @@ PAGE_KEY_LABELS = {
     'special_mechanics': '特殊机制',
     'artifact_guide': '神器指南',
     'returning_equipment': '回归装备',
+    'lucky_openings': 'S16.5 恭喜发财开局推荐',
 }
 
 

@@ -1,0 +1,61 @@
+<!doctype html>
+{% from "theme_toggle.html" import theme_toggle %}
+{% from "seo_head.html" import seo_head %}
+{% from "toolbox.html" import toolbox_menu %}
+<html lang="zh-CN">
+  <head>
+{{ seo_head(seo) }}
+    <link rel="stylesheet" href="{{ static_v('toolbox.css') }}" />
+    <link rel="stylesheet" href="{{ static_v('lucky-openings.css') }}" />
+    <script src="{{ static_v('toolbox.js') }}" defer></script>
+    <script src="{{ static_v('theme-toggle.js') }}" defer></script>
+    <script src="{{ static_v('lucky-openings.js') }}" defer></script>
+  </head>
+  <body>
+    <div class="page-shell openings-page">
+      <nav class="nav-bar openings-nav" aria-label="页面工具">
+        <a class="brand-mark brand-link" href="/" aria-label="返回首页">阵</a>
+        <div class="nav-actions">
+          <a class="ghost-link nav-tool-link openings-home" href="/">返回首页</a>
+          {{ toolbox_menu(False) }}
+          {{ theme_toggle("nav-icon-button") }}
+        </div>
+      </nav>
+      <main>
+        <header class="openings-hero">
+          <div class="openings-hero-copy">
+            <p class="openings-eyebrow"><span>S16.5</span> 英雄联盟传奇 · 恭喜发财</p>
+            <h1>好开局，<span>福气临门。</span></h1>
+            <p class="openings-subtitle">S16.5恭喜发财开局阵容码推荐</p>
+            <p class="openings-intro">选中你的开局弈子，读懂专属效果，一键复制阵容码。</p>
+          </div>
+          <div class="openings-seal" aria-hidden="true"><span>恭喜发财</span><strong>福</strong><span>五费开局 · 好运相随</span></div>
+          <div class="openings-rule"><span class="openings-rule-mark" aria-hidden="true">✦</span><p><strong>福气临门</strong><span>以下专属效果均在玩家对战回合中生效。</span></p><span class="openings-total">9 位弈子</span></div>
+        </header>
+
+        <div class="openings-section-heading"><h2>你的开局弈子</h2><span>专属效果 / 阵容码</span></div>
+        <section class="openings-grid" aria-label="九位弈子开局推荐">
+{% for opening in openings %}
+          <article class="opening-card" aria-labelledby="opening-title-{{ loop.index }}">
+            <div class="opening-portrait">
+{% if opening.art %}
+              <img src="{{ opening.art }}" alt="{{ opening.champion_name }}" width="500" height="255" loading="{{ 'eager' if loop.index <= 3 else 'lazy' }}" decoding="async" />
+{% endif %}
+              <span class="opening-cost" aria-label="五费弈子"><span aria-hidden="true">◆</span> 5</span>
+              <span class="opening-number" aria-hidden="true">{{ '%02d'|format(loop.index) }}</span>
+              <div class="opening-identity"><h3 id="opening-title-{{ loop.index }}">{{ opening.champion_name }}</h3><span>{{ opening.name }}</span></div>
+            </div>
+            <div class="opening-body">
+              <p class="opening-headline">{{ opening.headline }}</p>
+              <p class="opening-effect">{% for part in opening.effect_parts %}{% if part.highlight %}<strong>{{ part.text }}</strong>{% else %}{{ part.text }}{% endif %}{% endfor %}</p>
+              <button class="opening-copy" type="button" data-code="{{ opening.copy_code }}" data-name="{{ opening.name }}" aria-label="复制{{ opening.name }}阵容码"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="13" rx="2"/><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"/></svg><span>复制阵容码</span><span class="opening-copy-arrow" aria-hidden="true">↗</span></button>
+              <details class="opening-manual"><summary>查看阵容码</summary><label><span class="opening-code-label">{{ opening.name }} · 可长按复制</span><textarea readonly rows="3" spellcheck="false" aria-label="{{ opening.name }}阵容码">{{ opening.copy_code }}</textarea></label></details>
+            </div>
+          </article>
+{% endfor %}
+        </section>
+        <footer class="openings-footer"><p>机制说明整理自「福气临门」活动图文，具体效果以游戏内为准。</p>{% if library_available %}<a href="/tools/seasons/s16_5">浏览 S16.5 资料库 <span aria-hidden="true">↗</span></a>{% endif %}</footer>
+      </main>
+    </div>
+  </body>
+</html>
