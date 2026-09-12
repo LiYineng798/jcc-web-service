@@ -52,7 +52,6 @@
     liveSeasonCreateError: '',
     patchNotes: { items: [], loadedAt: 0 },
     users: { items: [], total: 0, page: 1, page_size: 10, total_pages: 1, query: '', loadedAt: 0 },
-    audit: { items: [], total: 0, page: 1, page_size: 30, total_pages: 1, loadedAt: 0 },
     settings: { data: {}, loadedAt: 0 },
     noticeData: { data: null, loadedAt: 0 },
     guestbook: { items: [], total: 0, unread_total: 0, status: 'active', page: 1, page_size: 20, total_pages: 1, loadedAt: 0 },
@@ -96,7 +95,7 @@
     'patch-notes': ['更新公告', '编辑版本内容与发布状态'],
     users: ['用户管理', '查询账号、权限和可用状态'],
     analytics: ['增长分析', '查看访问、注册与转化数据'],
-    audit: ['审计日志', '追踪管理员关键操作记录'],
+    audit: ['审计日志', '追溯操作来源，查看每一次关键变更'],
     'daily-reports': ['每日报告', '昨日运营快照与历史数据'],
     guestbook: ['留言管理', '处理访客提交的站点反馈'],
     'password-reset-emails': ['找回邮件', '查看今日密码找回验证码发送记录'],
@@ -228,7 +227,6 @@
     if (tabKey === 'users') await loadUsers();
     if (tabKey === 'analytics') await loadGrowth();
     if (tabKey === 'daily-reports') await loadDailyReports();
-    if (tabKey === 'audit') await loadAudit();
     if (tabKey === 'guestbook') await loadGuestbook();
     if (tabKey === 'password-reset-emails') await loadPasswordResetEmails();
     if (tabKey === 'settings') await Promise.all([loadSettings(), loadNotice()]);
@@ -332,15 +330,6 @@
     state.users = { ...state.users, ...payload, loadedAt: Date.now() };
   }
 
-  async function loadAudit({ force = false } = {}) {
-    if (!force && isFresh(state.audit.loadedAt)) return;
-    const query = new URLSearchParams({
-      page: String(state.audit.page),
-      page_size: String(state.audit.page_size),
-    });
-    const payload = await api(`/api/admin/audit-logs?${query.toString()}`);
-    state.audit = { ...state.audit, ...payload, loadedAt: Date.now() };
-  }
 
   async function loadGrowth({ force = false } = {}) {
     if (!force && state.growth && state.growth.date === state.growthDate && isFresh(state.growth.loadedAt)) return;
@@ -423,6 +412,20 @@
   function render() {
     syncHeader();
     syncTabs();
+    if (state.activeTab === 'audit') {
+      if (!state.me) return;
+      window.JccSeasonPackages?.unmount();
+      if (!document.getElementById('auditLogRoot')) {
+        root.classList.remove('admin-app-loading');
+        const auditRoot = document.createElement('div');
+        auditRoot.id = 'auditLogRoot';
+        root.replaceChildren(auditRoot);
+        window.JccAuditLogs.mount(auditRoot);
+      }
+      refreshIcons();
+      return;
+    }
+    window.JccAuditLogs?.unmount();
     if (state.activeTab === 'season-packages') {
       // Navigation is available while boot() is still loading the session.
       // Mount once the token exists so the React island cannot retain an empty token.
@@ -469,7 +472,6 @@
         yesterdayDate,
       }));
     }
-    if (state.activeTab === 'audit') root.append(renderAuditWorkspace());
     if (state.activeTab === 'guestbook') root.append(renderGuestbookWorkspace());
     if (state.activeTab === 'password-reset-emails') root.append(renderPasswordResetEmailsWorkspace());
     if (state.activeTab === 'settings') root.append(renderSettingsWorkspace());
@@ -1487,23 +1489,6 @@
     return wrap;
   }
 
-  function renderAuditWorkspace() {
-    const panel = workbenchPanel('审计日志', '进入该工作台后再加载，支持分页查看最近后台操作');
-    const body = panel.querySelector('.admin-workspace-body');
-    const list = el('div', 'admin-log-list');
-    if (!state.audit.items.length) {
-      list.append(empty('暂无审计日志'));
-    } else {
-      state.audit.items.forEach((log) => {
-        const item = el('div', 'admin-log-item');
-        const target = log.target_key || log.target_id || '-';
-        item.append(el('strong', '', log.action), el('span', '', `${log.target_type} #${target} · ${log.created_at}`));
-        list.append(item);
-      });
-    }
-    body.append(list, renderPagination('audit'));
-    return panel;
-  }
 
   function renderPatchNotesWorkspace() {
     const panel = workbenchPanel('更新公告', '同步官方更新公告，维护版本重点与官方原文链接');
@@ -2085,7 +2070,6 @@
     if (kind === 'lineups') await loadLineups({ force: true });
     if (kind === 'liveComps') await loadAdminLiveComps({ force: true });
     if (kind === 'users') await loadUsers({ force: true });
-    if (kind === 'audit') await loadAudit({ force: true });
     if (kind === 'guestbook') await loadGuestbook({ force: true });
   }
 
