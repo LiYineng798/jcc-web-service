@@ -4,7 +4,7 @@ import json
 
 from flask import Blueprint, current_app, jsonify, request
 
-from admin_audit_service import list_admin_audit_logs
+from admin_audit_service import get_admin_audit_log, list_admin_audit_logs
 from admin_dashboard_service import (
     build_admin_copy_rank_payload,
     build_admin_growth_payload,
@@ -433,7 +433,31 @@ def admin_audit_logs():
     admin, error = admin_required()
     if error:
         return error
-    return jsonify(list_admin_audit_logs(get_db(), page=_parse_page(), page_size=_parse_page_size(default=30)))
+    try:
+        payload = list_admin_audit_logs(
+            get_db(), page=_parse_page(), page_size=_parse_page_size(default=30),
+            query=request.args.get('q', ''), targets=request.args.getlist('target_type'),
+            kinds=request.args.getlist('kind'), start=request.args.get('start', ''),
+            end=request.args.get('end', ''),
+        )
+    except ValueError as exc:
+        return jsonify({'error': str(exc)}), 400
+    response = jsonify(payload)
+    response.headers['Cache-Control'] = 'private, no-store'
+    return response
+
+
+@admin_bp.get('/api/admin/audit-logs/<int:log_id>')
+def admin_audit_log_detail(log_id):
+    admin, error = admin_required()
+    if error:
+        return error
+    payload = get_admin_audit_log(get_db(), log_id)
+    if payload is None:
+        return jsonify({'error': '审计记录不存在'}), 404
+    response = jsonify(payload)
+    response.headers['Cache-Control'] = 'private, no-store'
+    return response
 
 
 @admin_bp.get('/api/admin/reports')
