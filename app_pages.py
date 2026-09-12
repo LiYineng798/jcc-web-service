@@ -8,6 +8,7 @@ from db import get_db
 from lineup_account_service import build_author_profile_payload
 from lineup_read_service import build_lineup_detail_payload
 from notice_service import get_active_notice
+from lucky_openings import build_lucky_openings
 from seo import (
     DEFAULT_DESCRIPTION,
     DEFAULT_TITLE,
@@ -46,6 +47,7 @@ def _sitemap_entries():
         {'loc': absolute_url('/tools/special-mechanics'), 'lastmod': None},
         {'loc': absolute_url('/tools/artifact-guide'), 'lastmod': None},
         {'loc': absolute_url('/tools/returning-equipment'), 'lastmod': None},
+        {'loc': absolute_url('/tools/s16-5-lucky-openings'), 'lastmod': None},
     ]
     for season in catalog_seasons():
         season_id = season['season_id']
@@ -135,6 +137,20 @@ def register_page_routes(app):
             notice=notice,
             reference_seasons=catalog_seasons(),
             seo=seo,
+        )
+
+    @app.get('/tools/s16-5-lucky-openings')
+    def lucky_openings_page():
+        title = 'S16.5恭喜发财开局阵容码推荐'
+        description = '查看九位五费弈子的福气临门专属效果，一键复制对应的恭喜发财开局阵容码。'
+        path = '/tools/s16-5-lucky-openings'
+        return tracked_template_response(
+            'lucky_openings.html', 'lucky_openings',
+            openings=build_lucky_openings(),
+            seo=make_seo(title=f'{title} - 金铲铲阵容库', description=description, path=path,
+                         json_ld=[webpage_json_ld(title, description, path), breadcrumb_json_ld([
+                             {'name': '首页', 'path': '/'}, {'name': title, 'path': path},
+                         ])]),
         )
 
     @app.get('/auth')

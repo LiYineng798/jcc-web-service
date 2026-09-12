@@ -1060,7 +1060,7 @@ def test_special_mechanics_page_exists_and_index_links_to_it(client):
     assert '<img class="nav-tool-icon special-mechanics-nav-icon"' in index_html
     assert 'src="/static/special-mechanics/s8-icon.png"' in index_html
     assert 'S8回归信息差' in index_html
-    assert 'class="returning-info-menu desktop-resource-entry"' in index_html
+    assert 'class="toolbox-menu desktop-resource-entry"' in index_html
     assert 'href="/tools/returning-equipment"' in index_html
     assert '回归装备' in index_html
     assert '12 件返场装备说明' in index_html
@@ -1093,7 +1093,7 @@ def test_home_mobile_resource_dialog_groups_content_entries(client):
     assert 'id="mobileResourceTrigger"' in index_html
     assert 'aria-controls="mobileResourceDialog"' in index_html
     assert '<dialog class="mobile-resource-dialog" id="mobileResourceDialog"' in index_html
-    assert 'id="mobileS8ResourceTitle"' in index_html
+    assert 'class="toolbox-group-label"' in index_html
     assert 'id="mobileLibraryResourceTitle"' in index_html
     assert 'class="mobile-resource-subitem" href="/tools/seasons/s16_5"' in index_html
     assert 'class="mobile-resource-subitem" href="/tools/seasons/s18"' in index_html

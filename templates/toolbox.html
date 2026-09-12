@@ -1,0 +1,21 @@
+{% macro toolbox_icon() -%}
+<svg class="toolbox-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 6V4h8v2M3 11h18M10 10v4h4v-4"/><rect x="3" y="6" width="18" height="14" rx="3"/></svg>
+{%- endmacro %}
+
+{% macro toolbox_links(item_class='returning-info-menu-item') -%}
+  <a class="{{ item_class }}" href="/tools/s16-5-lucky-openings" aria-label="S16.5恭喜发财开局阵容码推荐">
+    <strong>S16.5 恭喜发财开局推荐</strong>
+    <small>九位五费弈子 · 专属效果与阵容码</small>
+  </a>
+  <div class="toolbox-group-label"><img class="nav-tool-icon special-mechanics-nav-icon" src="{{ url_for('static', filename='special-mechanics/s8-icon.png') }}" alt="" aria-hidden="true" /><span>S8回归信息差</span></div>
+  <a class="{{ item_class }}" href="/tools/special-mechanics"><strong>特殊机制</strong><small>战力形态与经济形态</small></a>
+  <a class="{{ item_class }}" href="/tools/artifact-guide"><strong>神器搭配指南</strong><small>英雄与神器的实战搭配</small></a>
+  <a class="{{ item_class }}" href="/tools/returning-equipment"><strong>回归装备</strong><small>12 件返场装备说明</small></a>
+{%- endmacro %}
+
+{% macro toolbox_menu(desktop_only=True) -%}
+<details class="toolbox-menu{% if desktop_only %} desktop-resource-entry{% endif %}">
+  <summary class="ghost-link nav-tool-link toolbox-trigger">{{ toolbox_icon() }}<span>工具箱</span><span class="returning-info-chevron" aria-hidden="true">⌄</span></summary>
+  <nav class="toolbox-panel" aria-label="工具箱">{{ toolbox_links() }}</nav>
+</details>
+{%- endmacro %}
