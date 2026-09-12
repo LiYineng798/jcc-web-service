@@ -147,7 +147,6 @@ def register_page_routes(app):
         return tracked_template_response(
             'lucky_openings.html', 'lucky_openings',
             openings=build_lucky_openings(),
-            library_available=get_season('library', 's16_5') is not None,
             seo=make_seo(title=f'{title} - 金铲铲阵容库', description=description, path=path,
                          json_ld=[webpage_json_ld(title, description, path), breadcrumb_json_ld([
                              {'name': '首页', 'path': '/'}, {'name': title, 'path': path},

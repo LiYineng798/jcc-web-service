@@ -30,7 +30,8 @@ def test_guest_gets_all_nine_exact_normalized_codes_and_effects(client):
     assert len(set(expected_codes)) == 9
     assert html.count('class="opening-card"') == 9
     assert '羁绊' not in html
-    assert 'class="opening-manual"' in html
+    for removed in ('查看阵容码', 'opening-manual', '<textarea', 'openings-intro', 'openings-rule', 'openings-footer', '浏览 S16.5 资料库'):
+        assert removed not in html
     # Full effect text remains readable without JavaScript; formatting changes no numbers.
     text = re.sub(r'<[^>]+>', '', html)
     for opening in OPENINGS:
@@ -43,6 +44,10 @@ def test_home_toolbox_groups_both_features_without_loading_opening_cards(client)
     assert 'id="mobileToolsResourceTitle"' in html
     assert html.count(f'href="{PAGE}"') == 2
     assert 'S8回归信息差' in html
+    assert 'toolbox-featured' not in html
+    assert 'toolbox-badge' not in html
+    assert f'class="returning-info-menu-item" href="{PAGE}"' in html
+    assert f'class="mobile-resource-subitem" href="{PAGE}"' in html
     for path in ('special-mechanics', 'artifact-guide', 'returning-equipment'):
         assert html.count(f'href="/tools/{path}"') == 2
     assert 'opening-card' not in html

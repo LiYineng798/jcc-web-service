@@ -45,12 +45,7 @@
         window.jccNotify?.show(`${button.dataset.name}阵容码已复制`, { variant: 'success' });
         timer = setTimeout(() => { label.textContent = '复制阵容码'; }, 1800);
       } else {
-        const manual = button.parentElement.querySelector('.opening-manual');
-        manual.open = true;
-        const field = manual.querySelector('textarea');
-        field.focus({ preventScroll: true });
-        field.select();
-        window.jccNotify?.show('请长按或选中下方阵容码手动复制', { variant: 'warning' });
+        window.jccNotify?.show('复制失败，请允许浏览器访问剪贴板后重试', { variant: 'error' });
       }
     });
   });
