@@ -37,6 +37,12 @@ def main():
         (directory / 'visibility.json').write_text(json.dumps({
             'library': settings, 'simulator': simulator, 'simulator_default_season_id': 's18',
         }), encoding='utf-8')
+        from seasons import season_catalog
+        live_seasons = [{'id': 's18', 'name': 'S18 · 自然之力', 'status': 'active', 'order': 1, 'description': '当前赛季', 'data_file': 's18.json'}]
+        live_statuses = {'s17-star-god': 'disabled', 's16-5-legends': 'active', 's16-legends': 'disabled', 'lucky-lantern': 'hidden', 's8-monsters-attack': 'archived'}
+        for index, season in enumerate(season_catalog(), 2):
+            live_seasons.append({**season, 'order': index, 'status': live_statuses[season['id']]})
+        (directory / 'seasons.json').write_text(json.dumps({'default_season_id': 's18', 'seasons': live_seasons}), encoding='utf-8')
         app = create_app({
             'TESTING': True,
             'DATABASE': str(directory / 'preview.sqlite3'),

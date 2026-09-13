@@ -142,8 +142,8 @@ def public_live_comps_manifest(manifest):
     public_statuses = {'active', 'archived'}
     seasons = [season for season in manifest.get('seasons', []) if season.get('status') in public_statuses]
     default_season_id = manifest.get('default_season_id')
-    if not any(season['id'] == default_season_id for season in seasons) and seasons:
-        default_season_id = seasons[0]['id']
+    if not any(season['id'] == default_season_id for season in seasons):
+        default_season_id = seasons[0]['id'] if seasons else None
     return {
         'default_season_id': default_season_id,
         'seasons': seasons,
@@ -203,12 +203,19 @@ def normalize_live_comps_manifest(manifest):
     for base in season_catalog():
         if base['id'] not in seen_ids:
             normalized_seasons.append(base)
-    default_season_id = canonical_season_id(manifest.get('default_season_id')) or normalized_seasons[0]['id']
-    if not any(season['id'] == default_season_id for season in normalized_seasons):
-        default_season_id = normalized_seasons[0]['id']
+    ordered = sorted(normalized_seasons, key=lambda season: (season['order'], season['id']))
+    public = [season for season in ordered if season['status'] in {'active', 'archived'}]
+    private = [season for season in ordered if season['status'] not in {'active', 'archived'}]
+    for index, season in enumerate(public, 1):
+        season['order'] = index
+    for season in private:
+        season['order'] = None
+    default_season_id = canonical_season_id(manifest.get('default_season_id'))
+    if not any(season['id'] == default_season_id for season in public):
+        default_season_id = public[0]['id'] if public else None
     return {
         'default_season_id': default_season_id,
-        'seasons': sorted(normalized_seasons, key=lambda season: (season['order'], season['id'])),
+        'seasons': public + private,
     }
 
 
@@ -283,8 +290,8 @@ def _resolve_season_source(manifest, season_id=None):
     if season is None:
         season = manifest['seasons'][0]
     data_path = season_data_path(season['id'])
-    if not data_path.exists() and season['id'] == manifest['default_season_id']:
-        data_path = Path(current_app.config['LIVE_COMPS_DATA_PATH'])
+    # The legacy S17 path is resolved by season_data_path(). Changing the public
+    # default must never make another season serve S17's data as its own.
     return season, data_path
 
 

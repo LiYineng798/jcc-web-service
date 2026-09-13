@@ -20,7 +20,7 @@ def test_admin_can_create_live_comps_season(client):
     assert created['name'] == 'S19 · 新赛季'
     assert created['status'] == 'hidden'
     assert created['data_file'] == 's19-new-season.json'
-    assert created['order'] == max(int(season['order']) for season in manifest['seasons'])
+    assert created['order'] is None
 
     # 再次读取仍存在（写入了 manifest 文件）
     listed = client.get('/api/admin/live-comps/seasons', headers=headers).get_json()

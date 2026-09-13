@@ -2,8 +2,13 @@
   const { el, button } = global.JccAdminCore;
   const statuses = [['active', '启用展示'], ['archived', '归档展示'], ['hidden', '后台隐藏'], ['disabled', '停用']];
   const isPublic = (season) => ['active', 'archived'].includes(season.status);
+  const surfaces = {
+    library: { name: '资料库', icon: 'library', description: '控制首页资料菜单、赛季资料页与弈子详情。' },
+    simulator: { name: '模拟器', icon: 'layout-grid', description: '控制模拟器的赛季菜单与首次打开的默认赛季。', defaultLabel: '模拟器' },
+    live: { name: '实时阵容', icon: 'radio', description: '公开赛季按此顺序展示；默认标记表示首页优先打开的赛季。', defaultLabel: '实时阵容' },
+  };
 
-  function createRenderer({ getDisplay, getUi, isBusy, mutate, refresh, openVersions }) {
+  function createSurfaceRenderer({ getDisplay, getUi, isBusy, mutate, refresh }) {
     function renderRow(kind, season, index, total, defaultId) {
       const visible = isPublic(season);
       const name = season.display_name || season.season_id;
@@ -15,6 +20,7 @@
       nameLine.append(el('strong', '', name));
       if (visible && season.season_id === defaultId) nameLine.append(el('span', 'season-display-badge', '默认'));
       info.append(nameLine, el('p', 'admin-meta', `${season.season_id}${season.game_version ? ` · ${season.game_version}` : ''}`));
+      if (season.description) info.append(el('p', 'admin-meta', season.description));
       if (visible) row.append(el('span', 'season-display-rank', String(index + 1)));
       row.append(info);
 
@@ -44,10 +50,10 @@
           move.append(control);
         });
         actions.append(move);
-        if (kind === 'simulator' && season.season_id !== defaultId) {
+        if (surfaces[kind].defaultLabel && season.season_id !== defaultId) {
           const control = button('设为默认', () => mutate(kind, season, { is_default: true }), 'small-button', isBusy());
           control.id = `${key}-default`;
-          control.setAttribute('aria-label', `将${name}设为模拟器默认赛季`);
+          control.setAttribute('aria-label', `将${name}设为${surfaces[kind].defaultLabel}默认赛季`);
           actions.append(control);
         }
       } else {
@@ -61,24 +67,24 @@
     }
 
     function renderSurface(kind) {
-      const simulator = kind === 'simulator';
+      const config = surfaces[kind];
       const { items = [], default_season_id: defaultId, loadedAt } = getDisplay(kind);
       const ui = getUi(kind);
       const panel = el('section', 'season-display-panel');
       panel.dataset.seasonSurface = kind;
       panel.setAttribute('aria-labelledby', `season-${kind}-title`);
       const header = el('div', 'season-display-panel-head');
-      const title = el('h2', '', simulator ? '模拟器' : '资料库');
+      const title = el('h2', '', config.name);
       title.id = `season-${kind}-title`;
       title.tabIndex = -1;
       const glyph = el('i');
-      glyph.dataset.lucide = simulator ? 'layout-grid' : 'library';
+      glyph.dataset.lucide = config.icon;
       title.prepend(glyph);
       header.append(title);
       const visible = items.filter(isPublic);
       const inactive = items.filter((season) => !isPublic(season));
       if (loadedAt) header.append(el('span', 'season-display-count', `${visible.length} 个展示中`));
-      panel.append(header, el('p', 'season-display-description', simulator ? '控制模拟器的赛季菜单与首次打开的默认赛季。' : '控制首页资料菜单、赛季资料页与弈子详情。'));
+      panel.append(header, el('p', 'season-display-description', config.description));
       if (ui.error) {
         const error = el('div', 'season-display-empty');
         error.setAttribute('role', 'alert');
@@ -91,11 +97,11 @@
         return panel;
       }
       if (!items.length) {
-        panel.append(el('p', 'season-display-empty', '暂无已登记的资料赛季'));
+        panel.append(el('p', 'season-display-empty', '暂无已登记的赛季'));
         return panel;
       }
       const list = el('ol', 'season-display-public');
-      list.setAttribute('aria-label', `${simulator ? '模拟器' : '资料库'}展示顺序`);
+      list.setAttribute('aria-label', `${config.name}展示顺序`);
       visible.forEach((season, index) => list.append(renderRow(kind, season, index, visible.length, defaultId)));
       panel.append(list);
       if (!visible.length) panel.append(el('p', 'season-display-empty', '暂无展示中的赛季，可从下方重新展示。'));
@@ -110,7 +116,7 @@
         chevron.dataset.lucide = 'chevron-down';
         summary.append(chevron);
         const list = el('ul', 'season-display-inactive-list');
-        list.setAttribute('aria-label', `${simulator ? '模拟器' : '资料库'}未展示赛季`);
+        list.setAttribute('aria-label', `${config.name}未展示赛季`);
         inactive.forEach((season) => list.append(renderRow(kind, season, 0, 0, defaultId)));
         details.append(summary, el('p', 'season-display-inactive-hint', '不参与展示排序；重新展示后排在末尾。'), list);
         // A detached details element may queue an initial toggle. Only persist
@@ -120,7 +126,12 @@
       }
       return panel;
     }
+    return renderSurface;
+  }
 
+  function createRenderer(options) {
+    const { isBusy, openVersions } = options;
+    const renderSurface = createSurfaceRenderer(options);
     return function render() {
       const hub = el('div', 'admin-season-hub');
       hub.setAttribute('aria-busy', String(isBusy()));
@@ -135,5 +146,5 @@
       return hub;
     };
   }
-  global.JccAdminSeasonDisplay = Object.freeze({ createRenderer });
+  global.JccAdminSeasonDisplay = Object.freeze({ createRenderer, createSurfaceRenderer });
 })(window);

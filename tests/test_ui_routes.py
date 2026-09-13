@@ -1425,12 +1425,6 @@ def test_admin_dashboard_renders_uv_trend_as_line_chart():
     assert '.traffic-line-point-wrap:focus-visible .traffic-line-tooltip' in css
 
 
-def test_admin_live_comps_season_manager_supports_order_controls():
-    with open('static/admin.js', 'r', encoding='utf-8') as file:
-        js = file.read()
-
-    assert "button('上移'" in js
-    assert "button('下移'" in js
-    assert 'moveLiveCompSeason(season, -1)' in js
-    assert 'moveLiveCompSeason(season, 1)' in js
-    assert 'body: JSON.stringify({ order: nextOrder })' in js
+# Live-season ordering is exercised against real APIs in
+# test_admin_live_season_display.py and real browser controls in
+# season_display_rendering.cjs, rather than matching the old renderer's source.
