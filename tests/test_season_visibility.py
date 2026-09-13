@@ -8,7 +8,7 @@ def test_admin_controls_library_order_and_direct_access(client):
 
     response = client.put(
         f"/api/admin/season-display/library/{target['season_id']}",
-        json={'order': 1, 'status': 'hidden'},
+        json={'status': 'hidden'},
         headers=headers,
     )
     assert response.status_code == 200

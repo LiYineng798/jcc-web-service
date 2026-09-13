@@ -46,6 +46,8 @@
       simulator: { items: [], default_season_id: '', loadedAt: 0 },
       library: { items: [], default_season_id: '', loadedAt: 0 },
     },
+    seasonDisplayUi: { library: { expanded: false, error: '' }, simulator: { expanded: false, error: '' } },
+    seasonDisplayBusy: false,
     copyRank: { date: '', items: [], loadedAt: 0 },
     dailyReports: { items: [], selectedDate: '', report: null, loadedAt: 0 },
     liveSeasonCreating: null,
@@ -89,8 +91,7 @@
     reports: ['失效反馈处理', '核查用户反馈并记录处理结果'],
     lineups: ['阵容管理', '搜索、审核与维护普通阵容'],
     'live-comps': ['实时阵容', '维护赛季状态与阵容码'],
-    'simulator-seasons': ['模拟器赛季', '控制模拟器赛季顺序与访问状态'],
-    'library-seasons': ['资料库赛季', '控制资料库赛季顺序与访问状态'],
+    'season-display': ['资料赛季', '统一管理资料库与模拟器的赛季展示'],
     'season-packages': ['赛季版本更新', '上传资料包，检查差异并发布版本'],
     'patch-notes': ['更新公告', '编辑版本内容与发布状态'],
     users: ['用户管理', '查询账号、权限和可用状态'],
@@ -131,6 +132,14 @@
     workbenchPanel,
     empty,
     button,
+  });
+  const renderSeasonDisplayHub = window.JccAdminSeasonDisplay.createRenderer({
+    getDisplay: (kind) => state.seasonDisplays[kind],
+    getUi: (kind) => state.seasonDisplayUi[kind],
+    isBusy: () => state.seasonDisplayBusy || !state.csrfToken,
+    mutate: mutateSeasonDisplay,
+    refresh: async (kind) => { await loadSeasonDisplay(kind, { force: true }); render(); },
+    openVersions: () => activateTab('season-packages'),
   });
 
   initTheme();
@@ -221,8 +230,7 @@
     if (tabKey === 'lineups' && state.lineupWorkspace === 'import') await loadLineupSeasons();
     if (tabKey === 'live-comps' && state.liveCompsWorkspace === 'codes') await loadAdminLiveComps();
     if (tabKey === 'live-comps' && state.liveCompsWorkspace === 'seasons') await loadAdminLiveCompsSeasons();
-    if (tabKey === 'simulator-seasons') await loadSeasonDisplay('simulator');
-    if (tabKey === 'library-seasons') await loadSeasonDisplay('library');
+    if (tabKey === 'season-display') await Promise.all([loadSeasonDisplay('library'), loadSeasonDisplay('simulator')]);
     if (tabKey === 'patch-notes') await loadPatchNotes();
     if (tabKey === 'users') await loadUsers();
     if (tabKey === 'analytics') await loadGrowth();
@@ -303,12 +311,13 @@
   async function loadSeasonDisplay(kind, { force = false } = {}) {
     const current = state.seasonDisplays[kind];
     if (!force && isFresh(current.loadedAt)) return;
-    const payload = await api(`/api/admin/season-display/${kind}`);
-    state.seasonDisplays[kind] = {
-      items: payload.items || [],
-      default_season_id: payload.default_season_id || '',
-      loadedAt: Date.now(),
-    };
+    try {
+      const payload = await api(`/api/admin/season-display/${kind}`);
+      state.seasonDisplays[kind] = { ...payload, loadedAt: Date.now() };
+      state.seasonDisplayUi[kind].error = '';
+    } catch (error) {
+      state.seasonDisplayUi[kind].error = error.message || '赛季加载失败';
+    }
   }
 
   async function loadPatchNotes({ force = false } = {}) {
@@ -446,8 +455,7 @@
     if (state.activeTab === 'reports') root.append(renderReportsWorkspace());
     if (state.activeTab === 'lineups') root.append(renderLineupsWorkspace());
     if (state.activeTab === 'live-comps') root.append(renderLiveCompsWorkspace());
-    if (state.activeTab === 'simulator-seasons') root.append(renderSeasonDisplayWorkspace('simulator'));
-    if (state.activeTab === 'library-seasons') root.append(renderSeasonDisplayWorkspace('library'));
+    if (state.activeTab === 'season-display') root.append(renderSeasonDisplayHub());
     if (state.activeTab === 'patch-notes') root.append(renderPatchNotesWorkspace());
     if (state.activeTab === 'users') root.append(renderUsersWorkspace());
     if (state.activeTab === 'analytics') root.append(renderAnalyticsWorkspace());
@@ -989,58 +997,32 @@
     return panel;
   }
 
-  function renderSeasonDisplayWorkspace(kind) {
-    const isSimulator = kind === 'simulator';
-    const panel = workbenchPanel(
-      isSimulator ? '阵容模拟器赛季' : '资料库赛季',
-      '隐藏或停用后，赛季页面、详情页和数据文件均不可直接访问',
-    );
-    const body = panel.querySelector('.admin-workspace-body');
-    const items = state.seasonDisplays[kind].items || [];
-    const defaultSeasonId = state.seasonDisplays[kind].default_season_id || '';
-    const list = el('div', 'admin-season-list');
-    items.forEach((season, index) => {
-      const card = el('article', 'admin-season-card');
-      const info = el('div', 'admin-season-info');
-      info.append(
-        el('strong', '', season.display_name || season.season_id),
-        el('p', 'admin-meta', `顺序 ${season.order || index + 1} · ${season.season_id} · ${statusText[season.status] || season.status}${isSimulator && season.season_id === defaultSeasonId ? ' · 默认展示' : ''}`),
-      );
-      const controls = el('div', 'admin-season-controls');
-      controls.append(
-        button('上移', () => mutateSeasonDisplay(kind, season, { order: index }), 'small-button', index === 0),
-        button('下移', () => mutateSeasonDisplay(kind, season, { order: index + 2 }), 'small-button', index === items.length - 1),
-      );
-      liveSeasonStatusOptions.forEach(([status, label]) => controls.append(button(label, () => mutateSeasonDisplay(kind, season, { status }), `small-button${season.status === status ? ' is-active' : ''}`)));
-      if (isSimulator) {
-        const isPublic = season.status === 'active' || season.status === 'archived';
-        controls.append(button(
-          season.season_id === defaultSeasonId ? '当前默认' : '设为默认',
-          () => mutateSeasonDisplay(kind, season, { is_default: true }),
-          `small-button${season.season_id === defaultSeasonId ? ' is-active' : ''}`,
-          !isPublic || season.season_id === defaultSeasonId,
-        ));
-      }
-      card.append(info, controls);
-      list.append(card);
-    });
-    if (!items.length) list.append(empty('暂无可管理赛季'));
-    body.append(list);
-    return panel;
-  }
-
   async function mutateSeasonDisplay(kind, season, payload) {
+    if (state.seasonDisplayBusy || !state.csrfToken) return;
+    const focusId = document.activeElement?.id;
+    state.seasonDisplayBusy = true;
+    render();
     try {
-      await api(`/api/admin/season-display/${kind}/${encodeURIComponent(season.season_id)}`, {
+      const result = await api(`/api/admin/season-display/${kind}/${encodeURIComponent(season.season_id)}`, {
         method: 'PUT',
         body: JSON.stringify(payload),
       });
-      await loadSeasonDisplay(kind, { force: true });
-      setNotice(`已更新「${season.display_name || season.season_id}」`);
+      state.seasonDisplays[kind] = { ...result, loadedAt: Date.now() };
+      state.seasonDisplayUi[kind].error = '';
+      const label = kind === 'library' ? '资料库' : '模拟器';
+      setNotice(`已更新${label}中的「${season.display_name || season.season_id}」`);
     } catch (error) {
       setNotice(error.message || '操作失败', 'error');
+    } finally {
+      state.seasonDisplayBusy = false;
     }
     render();
+    if (state.activeTab === 'season-display') {
+      const previous = focusId && document.getElementById(focusId);
+      const target = previous && previous.getClientRects().length && !previous.disabled
+        ? previous : document.getElementById(`season-${kind}-title`);
+      target?.focus({ preventScroll: true });
+    }
   }
 
   function renderLiveCompSeasonPicker() {

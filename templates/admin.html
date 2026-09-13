@@ -39,8 +39,7 @@
           </section>
           <section class="admin-nav-group" aria-labelledby="adminNavContent">
             <h2 id="adminNavContent">内容与用户</h2>
-            <button class="admin-nav-item" data-admin-tab="simulator-seasons" type="button"><i data-lucide="layout-grid"></i><span>模拟器赛季</span></button>
-            <button class="admin-nav-item" data-admin-tab="library-seasons" type="button"><i data-lucide="library"></i><span>资料库赛季</span></button>
+            <button class="admin-nav-item" data-admin-tab="season-display" type="button"><i data-lucide="panels-top-left"></i><span>资料赛季</span></button>
             <button class="admin-nav-item" data-admin-tab="season-packages" type="button"><i data-lucide="package-check"></i><span>赛季版本更新</span></button>
             <button class="admin-nav-item" data-admin-tab="patch-notes" type="button"><i data-lucide="notebook-tabs"></i><span>更新公告</span></button>
             <button class="admin-nav-item" data-admin-tab="users" type="button"><i data-lucide="users"></i><span>用户管理</span></button>
@@ -114,8 +113,7 @@
       <section class="admin-more-section" aria-labelledby="adminMoreOther">
         <h3 id="adminMoreOther">其他工具</h3>
         <div class="admin-more-grid">
-          <button data-admin-tab="simulator-seasons" type="button"><i data-lucide="layout-grid"></i><span>模拟器赛季</span></button>
-          <button data-admin-tab="library-seasons" type="button"><i data-lucide="library"></i><span>资料库赛季</span></button>
+          <button data-admin-tab="season-display" type="button"><i data-lucide="panels-top-left"></i><span>资料赛季</span></button>
           <button data-admin-tab="season-packages" type="button"><i data-lucide="package-check"></i><span>赛季版本更新</span></button>
           <button data-admin-tab="patch-notes" type="button"><i data-lucide="notebook-tabs"></i><span>更新公告</span></button>
           <button data-admin-tab="users" type="button"><i data-lucide="users"></i><span>用户管理</span></button>
@@ -134,6 +132,7 @@
     <script src="{{ static_v('admin/core.js') }}" defer></script>
     <script src="{{ static_v('admin/overview.js') }}" defer></script>
     <script src="{{ static_v('admin/daily-reports.js') }}" defer></script>
+    <script src="{{ static_v('admin/season-display.js') }}" defer></script>
     <script src="{{ static_v('avatar.js') }}" defer></script>
     <script src="{{ static_v('admin/season-packages/app.js') }}" defer></script>
     <script src="{{ static_v('admin/audit-logs/app.js') }}" defer></script>
