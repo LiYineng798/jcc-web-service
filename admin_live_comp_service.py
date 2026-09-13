@@ -18,6 +18,7 @@ from seasons import SEASON_ALIASES, canonical_season_id
 
 SEASON_ID_RE = re.compile(r'^[a-z0-9][a-z0-9-]{1,39}$')
 SEASON_STATUSES = {'active', 'archived', 'hidden', 'disabled'}
+PUBLIC_SEASON_STATUSES = {'active', 'archived'}
 
 
 def build_admin_live_comps_payload(season_id, page, page_size):
@@ -130,10 +131,14 @@ def touch_admin_live_comps_season(admin_id, season_id):
 
 
 def _reorder_live_comps_seasons(seasons, target_season_id, target_order):
-    ordered = sorted(seasons, key=lambda season: (int(season.get('order') or 0), str(season.get('id') or '')))
+    private = [season for season in seasons if season.get('status') not in PUBLIC_SEASON_STATUSES]
+    ordered = sorted(
+        (season for season in seasons if season.get('status') in PUBLIC_SEASON_STATUSES),
+        key=lambda season: (int(season.get('order') or 0), str(season.get('id') or '')),
+    )
     target = next((season for season in ordered if str(season.get('id')) == str(target_season_id)), None)
     if target is None:
-        return ordered
+        return ordered + private
     ordered = [season for season in ordered if str(season.get('id')) != str(target_season_id)]
     try:
         next_index = int(target_order) - 1
@@ -143,10 +148,13 @@ def _reorder_live_comps_seasons(seasons, target_season_id, target_order):
     ordered.insert(next_index, target)
     for index, season in enumerate(ordered, start=1):
         season['order'] = index
-    return ordered
+    return ordered + private
 
 
 def update_admin_live_comps_season(admin_id, season_id, data):
+    data = data or {}
+    if 'status' in data and data['status'] not in SEASON_STATUSES:
+        return None, '赛季状态无效', 400
     manifest = load_live_comps_manifest()
     seasons = []
     found = False
@@ -155,17 +163,29 @@ def update_admin_live_comps_season(admin_id, season_id, data):
         updated = dict(season)
         if str(updated.get('id')) == str(season_id):
             found = True
+            status = data.get('status', season['status'])
+            if 'order' in data:
+                if status not in PUBLIC_SEASON_STATUSES:
+                    return None, '只有展示中的赛季可以排序', 400
+                try:
+                    int(data['order'])
+                except (TypeError, ValueError):
+                    return None, '展示顺序无效', 400
             for key in ['name', 'status', 'description', 'order']:
                 if key in (data or {}):
                     updated[key] = data[key]
+            if status in PUBLIC_SEASON_STATUSES and season['status'] not in PUBLIC_SEASON_STATUSES and not should_reorder:
+                updated['order'] = sum(s['status'] in PUBLIC_SEASON_STATUSES for s in manifest['seasons']) + 1
         seasons.append(updated)
     if not found:
         return None, '赛季不存在', 404
     if should_reorder:
         seasons = _reorder_live_comps_seasons(seasons, season_id, (data or {}).get('order'))
-    default_season_id = str((data or {}).get('default_season_id') or manifest.get('default_season_id') or season_id)
-    if not any(str(season.get('id')) == default_season_id for season in seasons):
-        default_season_id = season_id
+    default_season_id = manifest.get('default_season_id')
+    if 'default_season_id' in data:
+        default_season_id = canonical_season_id(data['default_season_id'])
+        if not any(season['id'] == default_season_id and season['status'] in PUBLIC_SEASON_STATUSES for season in seasons):
+            return None, '默认赛季必须处于展示或归档状态', 400
     updated_manifest = save_live_comps_manifest({
         'default_season_id': default_season_id,
         'seasons': seasons,

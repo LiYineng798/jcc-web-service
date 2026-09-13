@@ -49,6 +49,23 @@ def _default_policy() -> dict:
     }
 
 
+def _public_entries(entries: dict) -> list[tuple]:
+    return sorted(
+        ((sid, value) for sid, value in entries.items() if value.get('status') in PUBLIC_STATUSES),
+        key=lambda pair: (int(pair[1].get('order') or 999), pair[0]),
+    )
+
+
+def _normalize_order(entries: dict) -> None:
+    # Read old policies without rewriting them: non-public rows no longer take
+    # a display position, and existing public relative order remains intact.
+    for index, (_, value) in enumerate(_public_entries(entries), 1):
+        value['order'] = index
+    for value in entries.values():
+        if value.get('status') not in PUBLIC_STATUSES:
+            value['order'] = None
+
+
 def load_policy() -> dict:
     base = _default_policy()
     path = _path()
@@ -67,6 +84,7 @@ def load_policy() -> dict:
                 base[kind][season_id]["order"] = max(1, int(value.get("order")))
             except (TypeError, ValueError):
                 pass
+        _normalize_order(base[kind])
     requested_default = str(saved.get("simulator_default_season_id") or "")
     public_simulator_ids = [
         season_id
@@ -141,34 +159,32 @@ def update_season(admin_id: int, kind: str, season_id: str, data: dict):
         if data["status"] not in STATUSES:
             return None, "赛季状态无效", 400
         entry["status"] = data["status"]
+    if entry['status'] in PUBLIC_STATUSES and before.get('status') not in PUBLIC_STATUSES:
+        entry['order'] = len(_public_entries(policy[kind])) + 1
     if "order" in data:
+        if entry['status'] not in PUBLIC_STATUSES:
+            return None, "只有展示中的赛季可以排序", 400
         try:
             target = max(1, int(data["order"]))
         except (TypeError, ValueError):
             return None, "展示顺序无效", 400
-        ordered = sorted(policy[kind].items(), key=lambda pair: (int(pair[1].get("order") or 999), pair[0]))
+        ordered = _public_entries(policy[kind])
         ordered = [(sid, value) for sid, value in ordered if sid != season_id]
         ordered.insert(min(len(ordered), target - 1), (season_id, entry))
         for index, (sid, value) in enumerate(ordered, 1):
             value["order"] = index
             policy[kind][sid] = value
     policy[kind][season_id] = entry
+    _normalize_order(policy[kind])
     if data.get("is_default"):
         if kind != "simulator":
             return None, "只有阵容模拟器可以设置默认赛季", 400
         if entry.get("status") not in PUBLIC_STATUSES:
             return None, "默认赛季必须处于展示或归档状态", 400
         policy["simulator_default_season_id"] = season_id
-    if kind == "simulator" and policy.get("simulator_default_season_id") == season_id and entry.get("status") not in PUBLIC_STATUSES:
-        policy["simulator_default_season_id"] = next(
-            (
-                sid for sid, value in sorted(
-                    policy["simulator"].items(),
-                    key=lambda pair: (int(pair[1].get("order") or 999), pair[0]),
-                ) if value.get("status") in PUBLIC_STATUSES
-            ),
-            None,
-        )
+    simulator_ids = [sid for sid, _ in _public_entries(policy['simulator'])]
+    if policy.get('simulator_default_season_id') not in simulator_ids:
+        policy['simulator_default_season_id'] = simulator_ids[0] if simulator_ids else None
     save_policy(policy)
     write_audit_best_effort(
         admin_id,
