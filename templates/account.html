@@ -1,34 +1,20 @@
 <!doctype html>
-{% from "theme_toggle.html" import theme_toggle %}
 {% from "seo_head.html" import seo_head %}
 <html lang="zh-CN">
   <head>
 {{ seo_head(seo) }}
     <link rel="stylesheet" href="{{ static_v('avatar.css') }}" />
     <script src="{{ static_v('avatar.js') }}" defer></script>
-    <link rel="stylesheet" href="{{ static_v('moderation.css') }}" />
+    <link rel="stylesheet" href="{{ static_v('account-profile/app.css') }}" />
   </head>
-  <body>
-    <main class="page-shell account-page-shell">
-      <nav class="nav-bar" aria-label="页面工具">
-        <a class="ghost-link" href="/">返回阵容库</a>
-        {{ theme_toggle() }}
-      </nav>
-
-      <header class="hero">
-        <p class="eyebrow">Account Center</p>
-        <h1>个人中心</h1>
-        <p class="hero-description">管理我的阵容，查看收藏与浏览足迹。</p>
-      </header>
-
-      <section class="panel">
-        <div class="panel-heading"><h2>我的数据</h2><a class="ghost-link" href="/?notifications=open">查看通知</a></div>
-        <div id="accountApp" class="account-grid">个人中心加载中...</div>
-      </section>
+  <body class="account-profile-page">
+    <main class="account-page-shell">
+      <div id="accountApp"><div class="profile-boot" role="status"><span class="profile-boot-mark">阵</span><h1>个人中心</h1><p>正在整理我的数据…</p></div></div>
+      <noscript><p>请启用 JavaScript 以查看个人中心。</p><a href="/">返回阵容库</a></noscript>
     </main>
     <script src="{{ static_v('history-store.js') }}" defer></script>
-    <script src="{{ static_v('theme-toggle.js') }}" defer></script>
     <script src="{{ static_v('avatar-editor.js') }}" defer></script>
     <script src="{{ static_v('account.js') }}" defer></script>
+    <script src="{{ static_v('account-profile/app.js') }}" defer></script>
   </body>
 </html>

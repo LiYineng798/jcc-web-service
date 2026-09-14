@@ -1,5 +1,5 @@
 (() => {
-  function mount(user, csrfToken) {
+  function mount(user, csrfToken, options = {}) {
     const section = document.createElement('section');
     section.className = 'avatar-account panel';
     section.id = 'avatar';
@@ -7,7 +7,7 @@
     section.querySelector('#avatarNickname').textContent = user.nickname || user.username;
     const savedImage = window.jccAvatar.image(user.avatar_color, 80, '我的头像');
     section.querySelector('#savedAvatar').append(savedImage);
-    document.querySelector('.account-page-shell > .panel').before(section);
+    if (!options.trigger) document.querySelector('.account-page-shell > .panel').before(section);
 
     const dialog = document.createElement('dialog');
     dialog.className = 'avatar-dialog';
@@ -61,7 +61,9 @@
     dialog.querySelector('.avatar-close').addEventListener('click', close);
     dialog.querySelector('.avatar-cancel').addEventListener('click', close);
     dialog.addEventListener('cancel', event => { if (busy) event.preventDefault(); });
-    section.querySelector('#editAvatar').addEventListener('click', () => { update(saved); dialog.showModal(); });
+    const trigger = options.trigger || section.querySelector('#editAvatar');
+    const openEditor = () => { update(saved); if (!dialog.open) dialog.showModal(); };
+    trigger.addEventListener('click', openEditor);
     form.addEventListener('submit', async event => {
       event.preventDefault();
       if (busy || !form.reportValidity() || draft === saved) return;
@@ -76,12 +78,14 @@
         saved = payload.user.avatar_color;
         savedImage.src = window.jccAvatar.getAvatarDataUrl('', {color: saved, size: 80});
         section.querySelector('.avatar-caption').textContent = '头像已更新，新的色彩已同步';
+        options.onSave?.(saved);
         dialog.close();
         window.jccNotify.show('头像已更新，新的色彩已同步', { variant: 'success' });
       } catch (error) { window.jccNotify.inline(feedback, error.message || '网络异常，请重试'); }
       finally { busy = false; controls.forEach(control => { control.disabled = false; }); save.disabled = draft === saved; }
     });
-    if (location.hash === '#avatar') section.querySelector('#editAvatar').click();
+    if (location.hash === '#avatar') openEditor();
+    return () => { trigger.removeEventListener('click', openEditor); dialog.remove(); section.remove(); };
   }
   window.jccAvatarEditor = {mount};
 })();

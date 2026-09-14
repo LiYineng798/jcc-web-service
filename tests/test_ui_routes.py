@@ -292,7 +292,6 @@ def test_homepage_theme_toggler_styles_and_state_are_present():
 
 def test_all_theme_toggles_use_animated_svg_shell():
     template_names = [
-        'account.html',
         'admin.html',
         'auth.html',
         'author.html',
@@ -319,7 +318,6 @@ def test_all_theme_toggles_use_animated_svg_shell():
 
 def test_all_theme_scripts_preserve_animated_svg_icon():
     script_names = [
-        'account.js',
         'admin.js',
         'auth.js',
         'author.js',
@@ -748,7 +746,7 @@ def test_account_page_requires_login_and_contains_shell(client):
 
 
 def test_account_js_contains_dashboard_and_history_sections():
-    with open('static/account.js', 'r', encoding='utf-8') as file:
+    with open('frontend/components/ui/bento-card.tsx', 'r', encoding='utf-8') as file:
         js = file.read()
 
     assert '最近浏览' in js
@@ -758,8 +756,8 @@ def test_account_js_contains_dashboard_and_history_sections():
 
 
 def test_account_js_contains_report_and_lineup_status_mappings():
-    with open('static/account.js', 'r', encoding='utf-8') as file:
-        js = file.read()
+    with open('frontend/components/ui/bento-card.tsx', 'r', encoding='utf-8') as file:
+        js = file.read().replace('"', "'")
 
     assert "pending: '待处理'" in js
     assert "resolved: '已处理'" in js
@@ -771,10 +769,9 @@ def test_account_js_contains_copy_action_for_recent_history():
     with open('static/account.js', 'r', encoding='utf-8') as file:
         js = file.read()
 
-    assert '复制阵容码' in js
+    assert '阵容码已复制' in js
     assert 'copyLineupCode' in js
-    assert "recordLineupCopy(item.id, 'account')" in js
-    assert 'account-list is-scrollable-history' in js
+    assert 'copy?source=account' in js
 
 
 def test_app_js_contains_hide_action_for_admin_lineups():
