@@ -4,6 +4,8 @@
 
 2026-09-11 已首次启用后台赛季版本管理，新增独立 worker、持久资料目录及 Nginx 权限代理。当前配置和验收见 [生产部署记录](season-package-production-deployment.md)。更新共享 Python 代码、依赖或 `/etc/jcc.env` 时，须同时重启 `jcc` 和 `jcc-season-worker`，并检查两个服务；一致性备份也须包含 worker 和资料目录。
 
+2026-09-14 已部署阵容封禁、修改审核和主页通知，正式数据库已应用 `0016_lineup_moderation`。部署版本、真实 PostgreSQL 隔离验证、HTTPS 验收及恢复点见 [本次上线记录](lineup-moderation-production-deployment.md)。已有封禁数据时，不能单独回滚到缺少封禁保护的旧 Web。
+
 ## 一、服务器信息速查
 
 | 项目 | 值 |

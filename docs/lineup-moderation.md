@@ -83,4 +83,4 @@ UI 借鉴用户提供的表格示例：身份列、柔和状态标签、紧凑�
 
 先合并并部署 DB 的 `0016_lineup_moderation.sql`，然后部署 Web；Web 的 PostgreSQL 启动检查要求两个新表存在。无需新增生产环境变量或独立 worker。
 
-部署前按现有运维流程备份，之后执行 `/api/health`、关键 API 和 DB 完整性检查。此次仅做本地预览，迁移尚未在生产 PostgreSQL 执行；DB 单元测试执行可移植 SQL 约束并验证导入/完整性工具，不等于真实 PostgreSQL 上线验收。回滚需使用相互匹配的 Web/DB 备份并先停止写入，避免旧 Web 的通用编辑路径绕过已经生效的封禁。
+2026-09-14 已完成生产部署，正式 PostgreSQL 已应用 0016；真实 PostgreSQL 隔离流程、生产完整性与 HTTPS 检查均通过，详见 [上线记录](lineup-moderation-production-deployment.md)。本地 DB 单元测试仍只覆盖可移植 SQL 与工具，不能替代未来部署时的真实数据库验收。回滚需使用相互匹配的 Web/DB 备份并先停止写入，避免旧 Web 的通用编辑路径绕过已经生效的封禁。
