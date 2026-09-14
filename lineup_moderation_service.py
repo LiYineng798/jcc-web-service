@@ -176,14 +176,12 @@ def submit_revision(user, lineup_id, data):
 
 
 def list_notifications(user, args):
-    state = args.get('status', 'active')
-    if state not in {'active', 'unread', 'read', 'archived', 'all'}:
+    state = args.get('status', 'all')
+    if state not in {'unread', 'read', 'all'}:
         return None, '通知状态无效', 400
     from_sql = 'FROM lineup_moderation m JOIN lineups l ON l.id=m.lineup_id WHERE l.user_id=?'
     params = [user['id']]
-    if state == 'active':
-        from_sql += " AND m.notice_state != 'archived'"
-    elif state != 'all':
+    if state != 'all':
         from_sql += ' AND m.notice_state=?'
         params.append(state)
     result = paginate_rows(
@@ -200,7 +198,7 @@ def list_notifications(user, args):
 
 
 def update_notification(user, lineup_id, data):
-    if not isinstance(data, dict) or data.get('status') not in {'unread', 'read', 'archived'} or type(data.get('revision')) is not int:
+    if not isinstance(data, dict) or data.get('status') not in {'unread', 'read'} or type(data.get('revision')) is not int:
         return None, '通知状态或版本无效', 400
     cursor = get_db().execute(
         '''UPDATE lineup_moderation SET notice_state=? WHERE lineup_id=? AND revision=?

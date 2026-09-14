@@ -55,8 +55,6 @@ def serve():
                         result, error, _ = moderate_lineup(admin, i, 'reject', {'version': result['lineup']['version'], 'reason': '阵容码已修正，但所属赛季仍不匹配，请再次核对。'})
                     if i == 19:
                         result, error, _ = moderate_lineup(admin, i, 'approve', {'version': result['lineup']['version'], 'reason': '修改后的阵容码与赛季一致，已恢复原展示状态。'})
-                if i == 3:
-                    db.execute("UPDATE lineup_moderation SET notice_state='archived' WHERE lineup_id=?", (i,)); db.commit()
         port = int(os.environ.get('LINEUP_MODERATION_PREVIEW_PORT', '5112'))
         print(f'Moderation preview: http://127.0.0.1:{port}/admin | previewadmin / previewuser | Preview1234', flush=True)
         app.run(host='127.0.0.1', port=port, debug=False, use_reloader=False)

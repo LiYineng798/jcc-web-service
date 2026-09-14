@@ -104,7 +104,7 @@
           actions.append(button('封禁阵容', () => confirmAction('ban'), 'small-button lm-danger-button'));
         }
       } else if (lineup.status === 'banned' && m?.state !== 'pending') {
-        const link = el('a', 'small-button lm-primary', '修改并提交重审'); link.href = `/lineup/${lineupId}/edit`; actions.append(link);
+        const link = el('a', 'lm-notice-edit', '修改重审'); link.href = `/lineup/${lineupId}/edit`; actions.append(link);
       }
       footer.append(actions);
     }

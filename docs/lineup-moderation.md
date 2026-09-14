@@ -15,8 +15,8 @@ Web、DB 分别在独立 worktree 的 `codex/lineup-moderation` 分支实现。�
 3. **修改审核**：侧栏和手机 More 菜单均提供入口及待审数量。默认最早更新优先。原阵容和提交版本并排呈现，改变的字段高亮；手机纵向排列。审核支持通过或填写原因退回。
 4. **必要的恢复能力**：封禁/退回状态可填写原因解除封禁，按原内容恢复。待审核记录必须通过审核或退回，避免误把“解除封禁”当成采用新版本。
 5. **调分**：把连续浏览器 prompt 改成同一表单，集中填写点赞/复制修正总值，允许 -1000000 至 1000000 的整数。原始互动事件保留。
-6. **个人中心**：数据概览后是“阵容处理通知”，支持未归档、未读、已读、归档和全部筛选、分页、显式标记与移出归档。归档不改变封禁/审核状态。封禁、审核通过、退回和解除封禁均重新置为未读并移出归档。
-7. **用户修改**：“修改并提交重审”进入已有独立编辑页，可编辑名称、阵容码和赛季。退回后预填上次提交内容，原阵容直到通过审核才替换。待审时表单冻结，隐藏直接展示开关，提供返回处理通知的链接。
+6. **个人中心**：数据概览后是“阵容处理通知”，支持全部、未读、已读筛选和分页。时间旁的勾选图标切换已读状态；卡片底部保留淡色方角「修改重审」与轻量「处理记录」。已移除归档流程、重复说明和多排胶囊按钮。封禁、审核通过、退回和解除封禁均重新置为未读。
+7. **用户修改**：“修改重审”进入已有独立编辑页，可编辑名称、阵容码和赛季。退回后预填上次提交内容，原阵容直到通过审核才替换。待审时表单冻结，隐藏直接展示开关，提供返回处理通知的链接。
 8. **处理记录**：管理员和作者均可查看自己的对应记录，每次提交内容和处理原因保留。公开列表、非作者详情、作者公开主页和历史列表不会向其他用户开放封禁内容。
 
 UI 借鉴用户提供的表格示例：身份列、柔和状态标签、紧凑行内操作和响应式布局。使用项目现有 Flask/Jinja 与独立原生 JS 模块实现，主题、头像和通知复用现有组件。附件里的 React/shadcn 安装命令作为参考内容处理；本次没有增加 npm 或运行时依赖。
@@ -41,7 +41,9 @@ UI 借鉴用户提供的表格示例：身份列、柔和状态标签、紧凑�
 - `static/admin/lineups.js`：后台表格和调分弹窗；`static/lineup-moderation.js`：共享处理详情、版本对比、确认表单与历史。
 - `static/account-moderation.js`：个人中心通知；`static/moderation.css`：限定功能范围的响应式与深浅主题。
 
-所有审核操作必须提交整数 `version`，使用数据库条件更新锁定当前阵容版本。修改、状态变化、通知更新、处理事件和审计在同一事务内落库。重复审核、过期页面及并发旧编辑返回 409，不能覆盖新决定。读取/归档通知提交独立 `revision`，旧通知不能标记新审核结果为已读。
+所有审核操作必须提交整数 `version`，使用数据库条件更新锁定当前阵容版本。修改、状态变化、通知更新、处理事件和审计在同一事务内落库。重复审核、过期页面及并发旧编辑返回 409，不能覆盖新决定。标记通知已读状态提交独立 `revision`，旧通知不能标记新审核结果为已读。
+
+用户端没有归档操作，API 也拒绝 `archived` 状态。
 
 用户每次重审必须至少变更一项，待审核期间禁止重复提交。通过审核时重新校验赛季可用性；若赛季已经隐藏，管理员应退回，让用户选择可用赛季。原始互动数据、作者和阵容 ID 均保留。通知只在站内展示，没有邮件或外部消息发送。
 
@@ -57,8 +59,8 @@ UI 借鉴用户提供的表格示例：身份列、柔和状态标签、紧凑�
 | POST | `/api/admin/lineups/<id>/moderation/reject` | 退回，`version` + 必填 `reason` |
 | POST | `/api/admin/lineups/<id>/moderation/release` | 按原版本解除封禁，`version` + 必填 `reason` |
 | POST | `/api/lineups/<id>/revision` | 作者提交 `name/code/season_id/version` |
-| GET | `/api/me/lineup-notifications` | `status=active/unread/read/archived/all` 和分页 |
-| PUT | `/api/me/lineup-notifications/<id>` | `status=unread/read/archived` 与 `revision` |
+| GET | `/api/me/lineup-notifications` | `status=all/unread/read` 和分页 |
+| PUT | `/api/me/lineup-notifications/<id>` | `status=unread/read` 与 `revision` |
 
 ## 本地预览与验收
 
@@ -69,11 +71,11 @@ UI 借鉴用户提供的表格示例：身份列、柔和状态标签、紧凑�
 - 管理页 `/admin`，个人页 `/me#lineup-notifications`。可用不同浏览器/无痕窗口同时登录两种角色。
 - 预置正常、隐藏、封禁、待审、退回和审核通过记录；名称“灵能卡莎”可用于手工修改重审。
 
-验收建议：管理员封禁一条普通阵容 → 用户查看原因并标记/归档 → 用户修改三项内容后提交 → 管理员对比并退回 → 用户查看新的未读原因，再修改提交 → 管理员通过 → 用户看到通过通知及已恢复的内容。原先隐藏的记录应恢复隐藏。
+验收建议：管理员封禁一条普通阵容 → 用户查看原因并标记已读 → 用户修改三项内容后提交 → 管理员对比并退回 → 用户查看新的未读原因，再修改提交 → 管理员通过 → 用户看到通过通知及已恢复的内容。原先隐藏的记录应恢复隐藏。
 
-自动验证：Web `python -m pytest -q`；DB `python -m pytest -q`；启动独立预览后，以已配置 Playwright 的 `NODE_PATH` 执行 `node tests/lineup_moderation_rendering.cjs`。浏览器覆盖 Chromium/Edge 和 WebKit、320/390/768/1440px、深浅主题、模态窗、归档、调分及完整封禁重审链路，截图在 `instance/moderation-checks/`。真机 Safari 的系统工具栏/触控仍以设备验收为准。
+自动验证：Web `python -m pytest -q`；DB `python -m pytest -q`；启动独立预览后，以已配置 Playwright 的 `NODE_PATH` 执行 `node tests/lineup_moderation_rendering.cjs`。浏览器覆盖 Chromium/Edge 和 WebKit、320/390/768/1440px、深浅主题、模态窗、已读切换、调分及完整封禁重审链路，截图在 `instance/moderation-checks/`。真机 Safari 的系统工具栏/触控仍以设备验收为准。
 
-2026-09-14 本地最终结果：Web 全量 **660 passed**，DB 全量 **17 passed**，Chromium 与 WebKit 端到端均通过。最终预览已重置为初始虚构场景，保留后台进程供验收。`instance/moderation-preview.pid` 和对应 stdout/stderr 日志只属于本次本地预览，不提交。
+2026-09-14 本地最终结果：Web 全量 **661 passed**，DB 全量 **17 passed**，Chromium 与 WebKit 端到端均通过，包含归档移除、已读切换和新版通知卡片的验证。最终预览已重置为初始虚构场景，保留后台进程供验收。`instance/moderation-preview.pid` 和对应 stdout/stderr 日志只属于本次本地预览，不提交。
 
 效果截图：[后台表格](screenshots/lineup-moderation/admin-desktop.png)、[审核对比](screenshots/lineup-moderation/review-desktop.png)、[手机通知](screenshots/lineup-moderation/account-mobile.png)、[手机修改重审](screenshots/lineup-moderation/editor-mobile.png)。
 

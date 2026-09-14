@@ -89,13 +89,13 @@ def test_admin_legacy_update_score_report_and_delete_cannot_bypass_ban(actors):
     assert detail(owner, lineup)['lineup']['status'] == 'banned'
 
 
-def test_reject_resubmit_archive_and_new_unread_result(actors):
+def test_reject_resubmit_and_new_unread_result(actors):
     owner, admin, _, _ = actors
     lineup = create_lineup(owner).get_json(); banned = change(admin, lineup, 'ban').get_json()
     submitted = submit(owner, banned['lineup']).get_json()
     item = detail(owner, lineup)['moderation']
     notification_url = f"/api/me/lineup-notifications/{lineup['id']}"
-    assert owner.put(notification_url, json={'status': 'archived', 'revision': item['revision']}, headers=auth_headers(owner)).status_code == 200
+    assert owner.put(notification_url, json={'status': 'read', 'revision': item['revision']}, headers=auth_headers(owner)).status_code == 200
     rejected = change(admin, submitted['lineup'], 'reject', '请重新检查赛季').get_json()
     assert rejected['moderation']['notice_state'] == 'unread'
     assert rejected['moderation']['review_note'] == '请重新检查赛季'
@@ -243,7 +243,7 @@ def test_notice_toggle_preserves_review_version_and_owner_permissions(actors, ap
     lineup = create_lineup(owner).get_json()
     banned = change(admin, lineup, 'ban').get_json()
     url = f"/api/me/lineup-notifications/{lineup['id']}"
-    for state in ('read', 'unread', 'archived', 'read'):
+    for state in ('read', 'unread', 'read'):
         response = owner.put(url, json={'status': state, 'revision': banned['moderation']['revision']}, headers=auth_headers(owner))
         assert response.status_code == 200
         assert detail(owner, lineup)['lineup']['version'] == banned['lineup']['version']
@@ -265,3 +265,14 @@ def test_failed_audit_rolls_back_ban_and_notification(actors, app, monkeypatch):
     record = detail(owner, lineup)
     assert record['lineup']['status'] == 'normal'
     assert record['moderation'] is None and record['events'] == []
+
+
+def test_notification_archival_is_not_supported(actors):
+    owner, admin, _, _ = actors
+    lineup = create_lineup(owner).get_json()
+    banned = change(admin, lineup, 'ban').get_json()
+    assert owner.put(f"/api/me/lineup-notifications/{lineup['id']}", json={
+        'status': 'archived', 'revision': banned['moderation']['revision'],
+    }, headers=auth_headers(owner)).status_code == 400
+    assert owner.get('/api/me/lineup-notifications?status=archived').status_code == 400
+    assert owner.get('/api/me/lineup-notifications').get_json()['total'] == 1

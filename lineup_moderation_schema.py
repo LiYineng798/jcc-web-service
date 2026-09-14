@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS lineup_moderation (
     proposed_code TEXT,
     proposed_season_id TEXT,
     review_note TEXT NOT NULL DEFAULT '',
-    notice_state TEXT NOT NULL DEFAULT 'unread' CHECK (notice_state IN ('unread', 'read', 'archived')),
+    notice_state TEXT NOT NULL DEFAULT 'unread' CHECK (notice_state IN ('unread', 'read')),
     revision INTEGER NOT NULL DEFAULT 1,
     created_at TEXT NOT NULL,
     updated_at TEXT NOT NULL,

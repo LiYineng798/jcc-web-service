@@ -1,7 +1,7 @@
 (function () {
   const { el, button, badge, openRecord } = window.JccLineupModeration;
   function mount(root, csrfToken) {
-    let status = 'active', page = 1, sequence = 0;
+    let status = 'all', page = 1, sequence = 0;
     const section = el('section', 'account-section'); section.id = 'lineup-notifications'; root.append(section);
     async function api(url, options = {}) {
       const response = await fetch(url, { ...options, headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': csrfToken } });
@@ -13,13 +13,12 @@
       if (requestId !== sequence) return;
       page = data.page; section.replaceChildren();
       const head = el('div', 'account-section-head'); const heading = el('div');
-      heading.append(el('p', 'section-kicker', 'Lineup Updates'));
       const title = el('div', 'lm-notice-heading'); title.append(el('h3', '', '阵容处理通知'));
       if (data.counts.unread) title.append(el('span', 'lm-unread-label', `${data.counts.unread} 条未读`));
-      heading.append(title, el('p', 'account-subtitle', '查看封禁原因、修改重审和审核结果。归档只收起通知，不改变阵容状态。'));
+      heading.append(title);
       head.append(heading); section.append(head);
       const tabs = el('div', 'lm-tabs'); tabs.setAttribute('aria-label', '通知状态筛选');
-      for (const [value, label] of [['active', '未归档'], ['unread', '未读'], ['read', '已读'], ['archived', '已归档'], ['all', '全部']]) {
+      for (const [value, label] of [['all', '全部'], ['unread', '未读'], ['read', '已读']]) {
         const item = button(label, async () => { status = value; page = 1; await load(); }, `lm-tab${status === value ? ' is-active' : ''}`);
         item.setAttribute('aria-pressed', String(value === status)); tabs.append(item);
       }
@@ -29,25 +28,28 @@
       for (const item of data.items) {
         const card = el('article', `lm-notification${item.notice_state === 'unread' ? ' is-unread' : ''}`); card.dataset.lineupId = item.lineup_id;
         const header = el('div', 'account-row-main'); header.append(el('strong', '', item.name), badge(item.state));
-        if (item.notice_state === 'unread') header.append(el('span', 'lm-unread-label', '未读'));
-        card.append(header, el('p', 'account-row-meta', `#${item.lineup_id} · 更新于 ${item.updated_at}`));
-        const reason = el('div', 'lm-callout'); reason.append(el('strong', '', '封禁原因'), el('p', 'lm-reason', item.reason));
-        if (item.review_note) reason.append(el('strong', '', '处理说明'), el('p', 'lm-reason', item.review_note));
-        card.append(reason);
-        if (item.state === 'pending') card.append(el('p', 'account-row-meta', '修改已提交，等待管理员审核；审核期间保持封禁。'));
-        else if (item.lineup_status === 'banned') card.append(el('p', 'account-row-meta', '可修改名称、阵容码和赛季后提交重审；封禁期间不能删除。'));
-        else card.append(el('p', 'account-row-meta', item.lineup_status === 'hidden' ? '限制已解除，阵容恢复为隐藏状态。' : item.lineup_status === 'deleted' ? '阵容已删除，处理记录保留。' : '限制已解除，阵容已恢复展示。'));
-        const actions = el('div', 'lm-actions');
-        if (item.lineup_status === 'banned' && item.state !== 'pending') {
-          const edit = el('a', 'small-button lm-primary', '修改并提交重审'); edit.href = `/lineup/${item.lineup_id}/edit`; actions.append(edit);
-        }
-        actions.append(button(item.state === 'pending' ? '查看提交与记录' : '查看处理记录', () => openRecord({ api, lineupId: item.lineup_id })));
         async function update(next) {
           await api(`/api/me/lineup-notifications/${item.lineup_id}`, { method: 'PUT', body: JSON.stringify({ status: next, revision: item.revision }) });
           await load();
         }
-        if (item.notice_state === 'archived') actions.append(button('移出归档', () => update('read')));
-        else actions.append(button(item.notice_state === 'unread' ? '标记已读' : '标记未读', () => update(item.notice_state === 'unread' ? 'read' : 'unread')), button('归档', () => update('archived')));
+        const meta = el('div', 'lm-notice-meta');
+        meta.append(el('time', 'lm-muted', `#${item.lineup_id} · ${item.updated_at}`));
+        const readLabel = item.notice_state === 'unread' ? '标记已读' : '标记未读';
+        const read = button('', () => update(item.notice_state === 'unread' ? 'read' : 'unread'), `lm-read-toggle${item.notice_state === 'read' ? ' is-read' : ''}`);
+        read.setAttribute('aria-label', readLabel); read.title = readLabel;
+        const icon = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+        icon.setAttribute('viewBox', '0 0 24 24'); icon.setAttribute('aria-hidden', 'true');
+        icon.innerHTML = '<rect x="4" y="4" width="16" height="16" rx="4"/><path d="m8 12 3 3 5-6"/>';
+        read.append(icon); meta.append(read); card.append(header, meta);
+        const reason = el('div', 'lm-callout'); reason.append(el('strong', '', '封禁原因'), el('p', 'lm-reason', item.reason));
+        if (item.review_note) reason.append(el('strong', '', '处理说明'), el('p', 'lm-reason', item.review_note));
+        card.append(reason);
+        const actions = el('div', 'lm-notice-actions');
+        if (item.lineup_status === 'banned' && item.state !== 'pending') {
+          const edit = el('a', 'lm-notice-edit', '修改重审'); edit.href = `/lineup/${item.lineup_id}/edit`;
+          const arrow = el('span', '', '→'); arrow.setAttribute('aria-hidden', 'true'); edit.append(arrow); actions.append(edit);
+        }
+        actions.append(button(item.state === 'pending' ? '查看提交' : '处理记录', () => openRecord({ api, lineupId: item.lineup_id }), 'lm-notice-secondary'));
         card.append(actions); list.append(card);
       }
       section.append(list);
