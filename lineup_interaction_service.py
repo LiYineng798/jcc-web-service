@@ -12,6 +12,8 @@ def like_lineup_record(user, lineup_id):
     row = lineup_row(lineup_id)
     if not lineup_is_visible_to_user(row, user):
         return None, '阵容不存在', 404
+    if row['status'] == 'banned':
+        return None, '封禁阵容暂不可互动', 409
     today = datetime.now().strftime('%Y-%m-%d')
     db = get_db()
     count = db.execute('SELECT COUNT(*) AS c FROM likes WHERE user_id = ? AND like_date = ?', (user['id'], today)).fetchone()['c']
@@ -33,6 +35,8 @@ def copy_lineup_record(user, lineup_id, ip, source_page=''):
     row = lineup_row(lineup_id)
     if not lineup_is_visible_to_user(row, user):
         return None, '阵容不存在', 404
+    if row['status'] == 'banned':
+        return None, '封禁阵容暂不可复制', 409
     copy_key = f'user:{user["id"]}' if user else f'ip:{ip}'
     bucket = bucket_start()
     db = get_db()
@@ -65,6 +69,8 @@ def favorite_lineup_record(user, lineup_id):
     row = lineup_row(lineup_id)
     if not lineup_is_visible_to_user(row, user):
         return None, '阵容不存在', 404
+    if row['status'] == 'banned':
+        return None, '封禁阵容暂不可收藏', 409
     db = get_db()
     cursor = db.execute(
         insert_ignore_sql(
@@ -92,6 +98,8 @@ def report_lineup_record(user, lineup_id, reason):
     row = lineup_row(lineup_id)
     if not lineup_is_visible_to_user(row, user):
         return None, '阵容不存在', 404
+    if row['status'] == 'banned':
+        return None, '该阵容已封禁，无需重复反馈', 409
     cursor = get_db().execute(
         insert_returning_id_sql(
             'INSERT INTO reports (reporter_user_id, lineup_id, reason, status, created_at) VALUES (?, ?, ?, ?, ?)',

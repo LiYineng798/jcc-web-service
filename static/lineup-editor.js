@@ -23,7 +23,7 @@ const elements = {
   themeText: $('#themeText'),
 };
 
-const state = { user: null, csrfToken: '', seasons: [], defaultSeasonId: '' };
+const state = { user: null, csrfToken: '', seasons: [], defaultSeasonId: '', restricted: false, pending: false };
 
 setTheme(localStorage.getItem('theme') || 'light');
 boot();
@@ -84,7 +84,9 @@ function renderEditorSeasonMenu() {
     item.type = 'button';
     item.className = `account-menu-item${season.id === elements.seasonSelect.value ? ' is-active' : ''}`;
     item.textContent = season.name || season.id;
-    item.addEventListener('click', () => {
+    item.addEventListener('click', (event) => {
+      event.preventDefault();
+      event.stopPropagation();
       setEditorSeason(season.id);
       renderEditorSeasonMenu();
       closeEditorSeasonMenu();
@@ -135,6 +137,31 @@ async function loadLineup() {
     syncStatusSummary();
     elements.title.textContent = '编辑阵容';
     elements.description.textContent = `正在修改「${lineup.name}」，保存后返回阵容列表。`;
+    state.restricted = lineup.status === 'banned';
+    if (state.restricted) {
+      const moderation = lineup.moderation;
+      state.pending = moderation?.state === 'pending';
+      const proposal = moderation?.proposal;
+      elements.nameInput.value = proposal?.name || lineup.name;
+      elements.codeInput.value = proposal?.code || lineup.code;
+      const selectedSeason = proposal?.season_id || lineup.season_id;
+      if (state.seasons.some(season => season.id === selectedSeason)) setEditorSeason(selectedSeason);
+      else { elements.seasonSelect.value = ''; elements.editorSeasonText.textContent = '原赛季不可用，请重新选择'; }
+      renderEditorSeasonMenu();
+      elements.statusToggle.closest('.visibility-toggle').hidden = true;
+      document.querySelectorAll('a.ghost-link[href="/"]').forEach(link => { link.href = `/me/lineup-notifications/${lineup.id}`; link.textContent = '返回处理通知'; });
+      elements.title.textContent = state.pending ? '修改已提交' : '修改并提交重审';
+      elements.description.textContent = state.pending ? '管理员正在审核你的提交，审核期间不能再次修改。' : '修改名称、阵容码或赛季后提交；审核通过后才会替换原内容。';
+      const notice = document.createElement('section'); notice.className = 'lm-callout lm-editor-notice';
+      const title = document.createElement('strong'); title.textContent = '封禁原因';
+      const reason = document.createElement('p'); reason.className = 'lm-reason'; reason.textContent = moderation?.reason || '';
+      notice.append(title, reason);
+      if (moderation?.review_note) { const review = document.createElement('p'); review.className = 'lm-reason'; review.textContent = '退回说明：' + moderation.review_note; notice.append(review); }
+      elements.form.before(notice);
+      elements.submitButton.textContent = state.pending ? '等待管理员审核' : '提交修改并申请重审';
+      elements.submitButton.disabled = state.pending;
+      elements.nameInput.disabled = elements.codeInput.disabled = elements.editorSeasonToggle.disabled = state.pending;
+    }
   } catch (error) {
     elements.submitButton.disabled = true;
     showMessage(error.message, 'error');
@@ -143,7 +170,7 @@ async function loadLineup() {
 
 async function saveLineup(event) {
   event.preventDefault();
-  if (!state.user) return;
+  if (!state.user || state.pending || elements.submitButton.disabled) return;
   const normalizedCode = extractLineupCode(elements.codeInput.value);
   if (!normalizedCode) {
     showMessage('阵容码无法解析，请改成以 # 开头的阵容码后再提交', 'warning');
@@ -162,15 +189,17 @@ async function saveLineup(event) {
   };
   const isEdit = mode === 'edit' && elements.lineupId.value;
   if (elements.lineupVersion.value) body.version = Number(elements.lineupVersion.value);
+  if (state.restricted) delete body.status;
+  elements.submitButton.disabled = true;
   try {
-    await api(isEdit ? `/api/lineups/${elements.lineupId.value}` : '/api/lineups', {
-      method: isEdit ? 'PUT' : 'POST',
+    await api(state.restricted ? `/api/lineups/${elements.lineupId.value}/revision` : isEdit ? `/api/lineups/${elements.lineupId.value}` : '/api/lineups', {
+      method: state.restricted ? 'POST' : isEdit ? 'PUT' : 'POST',
       body: JSON.stringify(body),
     });
-    window.location.href = `/?saved=${isEdit ? 'edit' : 'create'}`;
+    window.location.href = state.restricted ? `/me/lineup-notifications/${elements.lineupId.value}` : `/?saved=${isEdit ? 'edit' : 'create'}`;
   } catch (error) {
     showMessage(error.message, 'error');
-  }
+  } finally { elements.submitButton.disabled = false; }
 }
 
 function showMessage(text, variant = 'success') {

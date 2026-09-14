@@ -485,6 +485,8 @@ LINEUP_COLUMN_MIGRATIONS = {
 
 
 EXTRA_INDEX_STATEMENTS = (
+    'CREATE INDEX IF NOT EXISTS idx_lineup_moderation_state_updated ON lineup_moderation (state, updated_at DESC, lineup_id DESC)',
+    'CREATE INDEX IF NOT EXISTS idx_lineup_moderation_events_lineup ON lineup_moderation_events (lineup_id, id DESC)',
     'CREATE INDEX IF NOT EXISTS idx_lineups_user_status_updated_at ON lineups (user_id, status, updated_at)',
     'CREATE INDEX IF NOT EXISTS idx_lineups_season_status_updated_at ON lineups (season_id, status, updated_at)',
     'CREATE INDEX IF NOT EXISTS idx_lineups_status_updated_id ON lineups (status, updated_at DESC, id DESC)',
@@ -544,3 +546,5 @@ def table_names(db):
 
 from season_package_schema import SEASON_PACKAGE_SCHEMA
 SCHEMA += SEASON_PACKAGE_SCHEMA
+from lineup_moderation_schema import LINEUP_MODERATION_SCHEMA
+SCHEMA += LINEUP_MODERATION_SCHEMA

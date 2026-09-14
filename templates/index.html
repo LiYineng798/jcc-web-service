@@ -9,6 +9,7 @@
     <script src="{{ static_v('toolbox.js') }}" defer></script>
     <link rel="stylesheet" href="{{ static_v('avatar.css') }}" />
     <link rel="stylesheet" href="{{ static_v('handwriting-count.css') }}" />
+    <link rel="stylesheet" href="{{ static_v('lineup-notifications.css') }}" />
     <script src="{{ static_v('avatar.js') }}" defer></script>
   </head>
   <body>
@@ -43,6 +44,18 @@
               <span id="imageModeText">无图</span>
             </button>
             {{ theme_toggle("nav-icon-button") }}
+            <div class="ln-wrap" id="lineupNotificationRoot" hidden>
+              <button class="ln-bell" id="lineupNotificationToggle" type="button" aria-label="通知" aria-haspopup="dialog" aria-expanded="false" aria-controls="lineupNotificationPanel">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></svg>
+                <span class="ln-count" id="lineupNotificationCount" hidden aria-hidden="true"></span>
+              </button>
+              <section class="ln-panel" id="lineupNotificationPanel" role="dialog" aria-labelledby="lineupNotificationTitle" hidden>
+                <header class="ln-head"><h2 id="lineupNotificationTitle">通知</h2><button class="ln-close" type="button" aria-label="关闭通知">×</button></header>
+                <div class="ln-filters" aria-label="通知状态筛选"></div>
+                <div class="ln-list" aria-live="polite"></div>
+                <footer class="ln-pagination"></footer>
+              </section>
+            </div>
             <div class="account-menu-wrap" id="accountMenuWrap">
               <button class="account-toggle" id="accountToggle" type="button" aria-haspopup="menu" aria-expanded="false">
                 <span id="accountToggleText">登录 / 注册</span>
@@ -184,6 +197,7 @@
     <script src="{{ static_v('home-transitions.js') }}" defer></script>
     <script src="{{ static_v('handwriting-digits.js') }}" defer></script>
     <script src="{{ static_v('handwriting-count.js') }}" defer></script>
+    <script src="{{ static_v('lineup-notifications.js') }}" defer></script>
     <script src="{{ static_v('app.js') }}" defer></script>
   </body>
 </html>

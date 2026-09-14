@@ -6,6 +6,7 @@
 {{ seo_head(seo) }}
     <link rel="stylesheet" href="{{ static_v('avatar.css') }}" />
     <script src="{{ static_v('avatar.js') }}" defer></script>
+    <link rel="stylesheet" href="{{ static_v('moderation.css') }}" />
   </head>
   <body>
     <main class="page-shell account-page-shell">
@@ -17,11 +18,11 @@
       <header class="hero">
         <p class="eyebrow">Account Center</p>
         <h1>个人中心</h1>
-        <p class="hero-description">查看我的数据、最近浏览、最近复制和举报处理结果。</p>
+        <p class="hero-description">管理我的阵容，查看收藏与浏览足迹。</p>
       </header>
 
       <section class="panel">
-        <h2>我的数据</h2>
+        <div class="panel-heading"><h2>我的数据</h2><a class="ghost-link" href="/?notifications=open">查看通知</a></div>
         <div id="accountApp" class="account-grid">个人中心加载中...</div>
       </section>
     </main>

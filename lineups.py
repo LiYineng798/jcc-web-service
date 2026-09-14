@@ -59,7 +59,10 @@ def list_lineups():
 @lineups_bp.get('/api/lineups/<int:lineup_id>')
 def get_lineup(lineup_id):
     payload, service_error, status_code = build_lineup_detail_payload(lineup_id, current_user())
-    return respond_service_result(payload, service_error, status_code)
+    response, status_code = respond_service_result(payload, service_error, status_code)
+    if payload and 'moderation' in payload:
+        response.headers['Cache-Control'] = 'private, no-store'
+    return response, status_code
 
 
 @lineups_bp.get('/api/authors/<username>')

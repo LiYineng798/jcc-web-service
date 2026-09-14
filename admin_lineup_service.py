@@ -15,7 +15,7 @@ BULK_NAME_SEPARATORS = ('-', '－', '–', '—')
 MAX_BULK_IMPORT_TEXT_LENGTH = 200000
 
 
-def build_admin_lineups_query(query):
+def build_admin_lineups_query(query, status='all', season='', order='newest'):
     query = str(query or '').strip()
     params = []
     from_sql = '''FROM lineups
@@ -26,13 +26,22 @@ def build_admin_lineups_query(query):
             lineups.name LIKE ? OR lineups.code LIKE ? OR users.username LIKE ? OR users.nickname LIKE ?
         )'''
         params.extend([f'%{query}%', f'%{query}%', f'%{query}%', f'%{query}%'])
+    if status in {'normal', 'hidden'}:
+        from_sql += ' AND lineups.status = ?'
+        params.append(status)
+    elif status in {'banned', 'pending'}:
+        from_sql += " AND lineups.status = 'banned' AND EXISTS (SELECT 1 FROM lineup_moderation m WHERE m.lineup_id=lineups.id AND "
+        from_sql += ("m.state='pending')" if status == 'pending' else "m.state IN ('banned','rejected'))")
+    if season:
+        from_sql += ' AND lineups.season_id = ?'
+        params.append(season)
     # Owner columns ride the existing join and the admin list renders no
     # like/favorite state — constant flags keep serialize_lineup_row from
     # issuing its three per-row fallback queries (was ~60 queries per page).
     base_sql = (
         'SELECT lineups.*, users.role AS owner_role, users.username AS owner_username, '
         'users.avatar_color AS owner_avatar_color, users.nickname AS owner_nickname_raw, 0 AS is_liked_today, 0 AS is_favorited '
-        + from_sql + ' ORDER BY lineups.id DESC'
+        + from_sql + (' ORDER BY lineups.updated_at ASC, lineups.id ASC' if order == 'oldest' else ' ORDER BY lineups.id DESC')
     )
     count_sql = 'SELECT COUNT(*) AS c ' + from_sql
     return base_sql, count_sql, params
@@ -219,15 +228,32 @@ def bulk_import_lineups(db, admin_id, data):
 
 def update_admin_lineup(db, admin_id, lineup_id, data):
     row = lineup_row(lineup_id)
-    if not row:
+    if not row or row['status'] == 'deleted':
         return None, '阵容不存在', 404
+    if row['status'] == 'banned':
+        return None, '请通过封禁审核操作处理该阵容', 409
+    if not isinstance(data, dict):
+        return None, '请求格式无效', 400
+    if 'status' in data and data['status'] not in {'normal', 'hidden'}:
+        return None, '阵容状态无效，请使用专门的管理操作', 400
+    if any(key in data for key in ('name', 'code', 'season_id')):
+        from lineup_write_service import validate_lineup_payload
+        merged = {key: data.get(key, row[key]) for key in ('name', 'code', 'season_id', 'status')}
+        payload, validation_error = validate_lineup_payload(merged)
+        if validation_error:
+            return None, validation_error, 400
+        data = {**data, **payload}
     fields, params = prepare_admin_lineup_update(data)
+    if 'season_id' in data:
+        fields.append('season_id = ?')
+        params.append(data['season_id'])
     if not fields:
         return None, '没有可更新字段', 400
-    fields.append('updated_at = ?')
-    fields.append('version = version + 1')
-    params.extend([now_text(), lineup_id])
-    db.execute(f'UPDATE lineups SET {", ".join(fields)} WHERE id = ?', params)
+    from lineup_moderation_service import claim_lineup
+    updates = {field.split(' =')[0]: value for field, value in zip(fields, params)}
+    if not claim_lineup(row, data, updates, require_version=False):
+        db.rollback()
+        return None, '阵容已被更新，请刷新后重试', 409
     write_audit(admin_id, 'admin_update_lineup', 'lineup', lineup_id, before=dict(row), after=data)
     db.commit()
     refreshed = lineup_row(lineup_id)
@@ -238,12 +264,18 @@ def adjust_admin_lineup_score(db, admin_id, lineup_id, data):
     row = lineup_row(lineup_id)
     if not row:
         return None, '阵容不存在', 404
-    like_adjustment = int(data.get('admin_like_adjustment', row['admin_like_adjustment']))
-    copy_adjustment = int(data.get('admin_copy_adjustment', row['admin_copy_adjustment']))
-    db.execute(
-        'UPDATE lineups SET admin_like_adjustment = ?, admin_copy_adjustment = ?, updated_at = ? WHERE id = ?',
-        (like_adjustment, copy_adjustment, now_text(), lineup_id),
-    )
+    if row['status'] in {'banned', 'deleted'}:
+        return None, '该阵容当前不能调整分数', 409
+    if not isinstance(data, dict):
+        return None, '请求格式无效', 400
+    like_adjustment = data.get('admin_like_adjustment', row['admin_like_adjustment'])
+    copy_adjustment = data.get('admin_copy_adjustment', row['admin_copy_adjustment'])
+    if any(type(value) is not int or abs(value) > 1000000 for value in (like_adjustment, copy_adjustment)):
+        return None, '修正数必须为 -1000000 至 1000000 的整数', 400
+    from lineup_moderation_service import claim_lineup
+    if not claim_lineup(row, data, {'admin_like_adjustment': like_adjustment, 'admin_copy_adjustment': copy_adjustment}, require_version=False):
+        db.rollback()
+        return None, '阵容已被更新，请刷新后重试', 409
     write_audit(
         admin_id,
         'adjust_score',

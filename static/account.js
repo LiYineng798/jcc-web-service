@@ -8,11 +8,13 @@ const lineupStatusText = {
   normal: '正常',
   hidden: '已隐藏',
   deleted: '已删除',
+  banned: '已封禁',
 };
 
 let accountCsrfToken = '';
 
 (async function () {
+  if (location.hash === '#lineup-notifications') { location.replace('/?notifications=open'); return; }
   const root = document.querySelector('#accountApp');
   const themeToggle = document.querySelector('#themeToggle');
   const themeIcon = document.querySelector('#themeIcon');
@@ -196,6 +198,11 @@ function renderMineSection(lineups) {
       <p class="account-row-meta">更新时间：${escapeAccountHtml(lineup.updated_at || '')}</p>
       <p class="account-row-meta">赞 ${lineup.like_count} · 复制 ${lineup.copy_count}</p>
     `;
+    const actions = document.createElement('div'); actions.className = 'lm-actions';
+    const edit = document.createElement('a'); edit.className = 'small-button';
+    edit.href = lineup.status === 'banned' ? `/me/lineup-notifications/${lineup.id}` : `/lineup/${lineup.id}/edit`;
+    edit.textContent = lineup.status === 'banned' ? '查看封禁与重审' : '编辑阵容';
+    actions.append(edit); card.append(actions);
     list.append(card);
   });
   section.append(list);

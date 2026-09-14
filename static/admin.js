@@ -33,7 +33,7 @@
     growth: null,
     growthDate: todayInputValue(),
     reports: { items: [], total: 0, page: 1, page_size: 20, total_pages: 1, status: 'pending', loadedAt: 0 },
-    lineups: { items: [], total: 0, page: 1, page_size: 10, total_pages: 1, query: '', loadedAt: 0 },
+    lineups: { status: 'all', season: '', order: 'newest', counts: {}, items: [], total: 0, page: 1, page_size: 10, total_pages: 1, query: '', loadedAt: 0 },
     lineupWorkspace: 'list',
     lineupSeasons: { seasons: [], default_season_id: '', loadedAt: 0 },
     lineupBulkImport: { season_id: '', raw_text: '', result: null, preview_raw_text: '', preview_season_id: '' },
@@ -146,6 +146,22 @@
     refresh: refreshLiveSeasons,
   });
 
+  const renderModeratedLineups = window.JccAdminLineups.createRenderer({
+    getState: () => state.lineups,
+    getSeasons: () => state.lineupSeasons.seasons,
+    api,
+    changeFilters: async (values) => {
+      Object.assign(state.lineups, values, { page: 1, loadedAt: 0 });
+      await loadLineups({ force: true }); render();
+    },
+    refresh: async () => { await loadLineups({ force: true }); render(); },
+    searchControls: lineupSearchControls,
+    pagination: () => renderPagination('lineups'),
+    updateStatus: async (lineup, status) => { await updateLineupStatus(lineup, status); render(); },
+    adjustScore: async (lineup) => { await adjustScore(lineup); render(); },
+  });
+
+
   initTheme();
   elements.themeToggle?.addEventListener('click', () => {
     setTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark');
@@ -182,6 +198,7 @@
       loadOverview({ force: true }),
       loadCopyRank({ force: true }),
       loadAdminLiveCompsSeasons({ force: true }),
+      loadModerationSummary(),
     ]);
     await loadGuestbook({ force: true });
     render();
@@ -218,6 +235,10 @@
   async function activateTab(tabKey, workspaceKey = '') {
     if (!tabKey) return;
     elements.moreDialog?.close();
+    if (tabKey === 'lineups' && workspaceKey === 'list') { state.lineups.status = 'all'; state.lineups.order = 'newest'; state.lineups.page = 1; state.lineups.loadedAt = 0; }
+    if (tabKey === 'lineups' && workspaceKey === 'review') {
+      workspaceKey = 'list'; state.lineups.status = 'pending'; state.lineups.order = 'oldest'; state.lineups.page = 1; state.lineups.loadedAt = 0;
+    }
     if (tabKey === 'lineups' && ['list', 'import'].includes(workspaceKey)) {
       state.lineupWorkspace = workspaceKey;
     }
@@ -230,7 +251,7 @@
     render();
     if (tabKey === 'overview') await Promise.all([loadOverview(), loadCopyRank()]);
     if (tabKey === 'reports') await loadReports();
-    if (tabKey === 'lineups' && state.lineupWorkspace === 'list') await loadLineups();
+    if (tabKey === 'lineups' && state.lineupWorkspace === 'list') await Promise.all([loadLineups(), loadLineupSeasons()]);
     if (tabKey === 'lineups' && state.lineupWorkspace === 'import') await loadLineupSeasons();
     if (tabKey === 'live-comps' && state.liveCompsWorkspace === 'codes') await loadAdminLiveComps();
     if (tabKey === 'live-comps' && state.liveCompsWorkspace === 'seasons') await refreshLiveSeasons();
@@ -268,17 +289,29 @@
     state.reports = { ...state.reports, ...payload, loadedAt: Date.now() };
   }
 
+  function showPendingModeration(count) {
+    document.querySelectorAll('[data-lineup-pending-count]').forEach(node => { node.textContent = count; node.hidden = !count; });
+  }
+  async function loadModerationSummary() {
+    const summary = await api('/api/admin/lineup-moderation-summary');
+    showPendingModeration(summary.pending);
+  }
+
   async function loadLineups({ force = false } = {}) {
     if (!force && isFresh(state.lineups.loadedAt)) return;
     abortRequest('lineups');
     state.controllers.lineups = new AbortController();
     const query = new URLSearchParams({
       q: state.lineups.query,
+      status: state.lineups.status,
+      season: state.lineups.season,
+      order: state.lineups.order,
       page: String(state.lineups.page),
       page_size: String(state.lineups.page_size),
     });
     const payload = await api(`/api/admin/lineups?${query.toString()}`, { signal: state.controllers.lineups.signal });
     state.lineups = { ...state.lineups, ...payload, loadedAt: Date.now() };
+    showPendingModeration(payload.counts?.pending || 0);
   }
 
   async function loadLineupSeasons({ force = false } = {}) {
@@ -500,7 +533,7 @@
     if (state.activeTab === 'lineups') {
       [title, subtitle] = state.lineupWorkspace === 'import'
         ? ['阵容管理 · 批量导入', '批量解析、预览并导入普通阵容码']
-        : ['阵容管理 · 阵容查找', '搜索、审核与维护普通阵容'];
+        : state.lineups.status === 'pending' ? ['阵容管理 · 修改审核', '按提交先后核对用户修改，记录审核结果'] : ['阵容管理 · 阵容查找', '搜索、审核与维护普通阵容'];
     }
     if (state.activeTab === 'live-comps') {
       [title, subtitle] = state.liveCompsWorkspace === 'seasons'
@@ -524,7 +557,7 @@
   function syncTabs() {
     document.querySelectorAll('[data-admin-tab]').forEach((node) => {
       const workspace = node.dataset.adminWorkspace || '';
-      const activeWorkspace = node.dataset.adminTab === 'lineups' ? state.lineupWorkspace
+      const activeWorkspace = node.dataset.adminTab === 'lineups' ? (state.lineupWorkspace === 'list' && state.lineups.status === 'pending' ? 'review' : state.lineupWorkspace)
         : node.dataset.adminTab === 'live-comps' ? state.liveCompsWorkspace : '';
       const isActive = node.dataset.adminTab === state.activeTab && (!workspace || workspace === activeWorkspace);
       node.classList.toggle('is-active', isActive);
@@ -615,45 +648,12 @@
     setNotice(hideLineup ? '失效反馈已处理，阵容已隐藏' : '失效反馈状态已更新');
   }
 
+
   function renderLineupsWorkspace() {
     const isImport = state.lineupWorkspace === 'import';
-    const panel = workbenchPanel(
-      isImport ? '批量导入' : '阵容查找',
-      isImport ? '解析、预览并批量写入普通阵容' : '默认显示最新阵容，支持搜索与分页维护',
-    );
-    const body = panel.querySelector('.admin-workspace-body');
-    if (isImport) {
-      body.append(renderLineupBulkImportPanel());
-      return panel;
-    }
-    body.append(lineupSearchControls());
-    const list = el('div', 'admin-list compact');
-    if (!state.lineups.items.length) {
-      list.append(empty('没有找到阵容'));
-    } else {
-      state.lineups.items.forEach((lineup) => {
-        const card = el('article', 'admin-row-card');
-        const info = el('div');
-        info.append(
-          el('strong', '', lineup.name),
-          el('p', 'admin-meta', `作者：${lineup.owner_nickname || '-'} · ${statusText[lineup.status] || lineup.status} · 赞 ${lineup.like_count} · 复制 ${lineup.copy_count} · 分 ${lineup.score}`),
-        );
-        const code = el('pre', 'admin-code', lineup.code || '无阵容码');
-        info.append(code);
-        const actions = el('div', 'card-actions');
-        actions.append(
-          button(lineup.status === 'hidden' ? '恢复' : '隐藏', async () => {
-            await updateLineupStatus(lineup, lineup.status === 'hidden' ? 'normal' : 'hidden');
-          }),
-          button('调整分数', async () => {
-            await adjustScore(lineup);
-          }),
-        );
-        card.append(info, actions);
-        list.append(card);
-      });
-    }
-    body.append(list, renderPagination('lineups'));
+    const panel = workbenchPanel(isImport ? '批量导入' : '阵容管理',
+      isImport ? '解析、预览并批量写入普通阵容' : '查看阵容状态，处理封禁与用户修改审核');
+    panel.querySelector('.admin-workspace-body').append(isImport ? renderLineupBulkImportPanel() : renderModeratedLineups());
     return panel;
   }
 
@@ -1291,22 +1291,13 @@
   }
 
   async function updateLineupStatus(lineup, status) {
-    await api(`/api/admin/lineups/${lineup.id}`, { method: 'PUT', body: JSON.stringify({ status }) });
+    await api(`/api/admin/lineups/${lineup.id}`, { method: 'PUT', body: JSON.stringify({ status, version: lineup.version }) });
     await Promise.all([loadLineups({ force: true }), loadOverview({ force: true })]);
     setNotice(status === 'hidden' ? '阵容已隐藏' : '阵容已恢复');
   }
 
   async function adjustScore(lineup) {
-    const likeValue = prompt('设置管理员点赞修正数', lineup.admin_like_adjustment || 0);
-    if (likeValue === null) return;
-    const copyValue = prompt('设置管理员复制修正数', lineup.admin_copy_adjustment || 0);
-    if (copyValue === null) return;
-    await api(`/api/admin/lineups/${lineup.id}/adjust-score`, {
-      method: 'POST',
-      body: JSON.stringify({ admin_like_adjustment: Number(likeValue), admin_copy_adjustment: Number(copyValue) }),
-    });
-    await loadLineups({ force: true });
-    setNotice('热度修正已保存');
+    window.JccAdminLineups.openScore({ api, lineup, afterChange: async () => { await loadLineups({ force: true }); render(); } });
   }
 
   function renderUsersWorkspace() {
