@@ -114,5 +114,5 @@
     dialog.showModal();
     if (mode === 'ban') confirmAction('ban');
   }
-  window.JccLineupModeration = { el, button, badge, labels, seasonName, openRecord };
+  window.JccLineupModeration = { el, button, badge, labels, seasonName, openRecord, contentBlock, timeline };
 })();

@@ -404,6 +404,25 @@ def register_page_routes(app):
             seo=make_seo(title='个人中心 - 金铲铲阵容库', description='金铲铲阵容库个人中心。', path='/me', noindex=True),
         )
 
+    @app.get('/me/lineup-notifications/<int:lineup_id>')
+    def lineup_notification_page(lineup_id):
+        user, error = login_required()
+        if error:
+            return error
+        owned = get_db().execute(
+            '''SELECT 1 FROM lineups l JOIN lineup_moderation m ON m.lineup_id=l.id
+               WHERE l.id=? AND l.user_id=?''', (lineup_id, user['id']),
+        ).fetchone()
+        if not owned:
+            abort(404)
+        response = tracked_template_response(
+            'lineup_notification.html', 'lineup_notification', lineup_id=lineup_id,
+            seo=make_seo(title='阵容处理通知 - 金铲铲阵容库', description='查看阵容处理结果并提交修改。',
+                         path=f'/me/lineup-notifications/{lineup_id}', noindex=True),
+        )
+        response.headers['Cache-Control'] = 'private, no-store'
+        return response
+
     @app.get('/api/site-config')
     def site_config():
         db = get_db()

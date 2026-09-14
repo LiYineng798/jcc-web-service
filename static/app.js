@@ -437,6 +437,7 @@ function closeSeasonMenuOnEscape(event) {
 }
 
 function renderAuth() {
+  window.JccLineupNotifications.setSession({ user: state.user, api, onOpen: closeAccountMenu });
   const loggedIn = Boolean(state.user);
   const nickname = state.user?.nickname || state.user?.username || '';
   const isAdmin = Boolean(state.user && state.user.role === 'admin');
@@ -478,6 +479,7 @@ function handleAccountToggle(event) {
 
 function toggleAccountMenu(event) {
   event.stopPropagation();
+  window.JccLineupNotifications.close();
   const willOpen = elements.accountMenu.classList.contains('hidden');
   elements.accountMenu.classList.toggle('hidden', !willOpen);
   elements.accountToggle.classList.toggle('is-open', willOpen);
@@ -689,7 +691,7 @@ function createLineupCard(lineup) {
   if (lineup.can_edit) actions.append(button('编辑', () => openEditor(lineup.id)));
   if (lineup.status === 'banned') {
     code.textContent = lineup.can_moderate ? '该阵容已封禁，请到管理后台处理。' : '该阵容已封禁，请到个人中心查看原因和提交修改。';
-    actions.replaceChildren(button('查看封禁与重审', () => { window.location.href = lineup.can_moderate ? '/admin' : '/me#lineup-notifications'; }));
+    actions.replaceChildren(button('查看封禁与重审', () => { window.location.href = lineup.can_moderate ? '/admin' : `/me/lineup-notifications/${lineup.id}`; }));
   }
   card.append(title, meta, code, actions);
   return card;

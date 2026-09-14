@@ -149,7 +149,7 @@ async function loadLineup() {
       else { elements.seasonSelect.value = ''; elements.editorSeasonText.textContent = '原赛季不可用，请重新选择'; }
       renderEditorSeasonMenu();
       elements.statusToggle.closest('.visibility-toggle').hidden = true;
-      document.querySelectorAll('a.ghost-link[href="/"]').forEach(link => { link.href = '/me#lineup-notifications'; link.textContent = '返回处理通知'; });
+      document.querySelectorAll('a.ghost-link[href="/"]').forEach(link => { link.href = `/me/lineup-notifications/${lineup.id}`; link.textContent = '返回处理通知'; });
       elements.title.textContent = state.pending ? '修改已提交' : '修改并提交重审';
       elements.description.textContent = state.pending ? '管理员正在审核你的提交，审核期间不能再次修改。' : '修改名称、阵容码或赛季后提交；审核通过后才会替换原内容。';
       const notice = document.createElement('section'); notice.className = 'lm-callout lm-editor-notice';
@@ -157,8 +157,6 @@ async function loadLineup() {
       const reason = document.createElement('p'); reason.className = 'lm-reason'; reason.textContent = moderation?.reason || '';
       notice.append(title, reason);
       if (moderation?.review_note) { const review = document.createElement('p'); review.className = 'lm-reason'; review.textContent = '退回说明：' + moderation.review_note; notice.append(review); }
-      const info = document.createElement('p'); info.textContent = '封禁期间无法删除阵容。处理结果会出现在个人中心的「阵容处理通知」。'; notice.append(info);
-      const back = document.createElement('a'); back.href = '/me#lineup-notifications'; back.className = 'ghost-link'; back.textContent = '返回阵容处理通知'; notice.append(back);
       elements.form.before(notice);
       elements.submitButton.textContent = state.pending ? '等待管理员审核' : '提交修改并申请重审';
       elements.submitButton.disabled = state.pending;
@@ -198,7 +196,7 @@ async function saveLineup(event) {
       method: state.restricted ? 'POST' : isEdit ? 'PUT' : 'POST',
       body: JSON.stringify(body),
     });
-    window.location.href = state.restricted ? '/me#lineup-notifications' : `/?saved=${isEdit ? 'edit' : 'create'}`;
+    window.location.href = state.restricted ? `/me/lineup-notifications/${elements.lineupId.value}` : `/?saved=${isEdit ? 'edit' : 'create'}`;
   } catch (error) {
     showMessage(error.message, 'error');
   } finally { elements.submitButton.disabled = false; }

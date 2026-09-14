@@ -66,6 +66,33 @@ def test_banned_detail_visibility(actors):
         assert response.get_json()['can_delete'] is False
 
 
+def test_notification_page_is_owner_only_private_and_get_does_not_mark_read(actors):
+    owner, admin, other, guest = actors
+    lineup = create_lineup(owner).get_json()
+    url = f"/me/lineup-notifications/{lineup['id']}"
+    assert owner.get(url).status_code == 404
+    change(admin, lineup, 'ban')
+    response = owner.get(url)
+    assert response.status_code == 200
+    assert response.headers['Cache-Control'] == 'private, no-store'
+    html = response.get_data(as_text=True)
+    assert 'noindex' in html and 'lineup-notification-detail.js' in html
+    assert detail(owner, lineup)['moderation']['notice_state'] == 'unread'
+    assert other.get(url).status_code == admin.get(url).status_code == 404
+    assert guest.get(url).status_code == 401
+    assert owner.get('/me/lineup-notifications/999999').status_code == 404
+
+
+def test_notification_history_page_survives_approved_lineup_deletion(actors):
+    owner, admin, _, _ = actors
+    lineup = create_lineup(owner).get_json()
+    banned = change(admin, lineup, 'ban').get_json()
+    change(admin, banned['lineup'], 'release')
+    assert owner.delete(f"/api/lineups/{lineup['id']}", headers=auth_headers(owner)).status_code == 204
+    assert owner.get(f"/me/lineup-notifications/{lineup['id']}").status_code == 200
+    assert detail(owner, lineup)['lineup']['status'] == 'deleted'
+
+
 @pytest.mark.parametrize('method,suffix', [('put',''), ('delete',''), ('post','/hide'), ('post','/copy'), ('post','/like'), ('post','/favorite'), ('post','/report')])
 def test_legacy_owner_routes_cannot_bypass_ban(actors, method, suffix):
     owner, admin, _, _ = actors

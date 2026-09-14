@@ -14,6 +14,7 @@ const lineupStatusText = {
 let accountCsrfToken = '';
 
 (async function () {
+  if (location.hash === '#lineup-notifications') { location.replace('/?notifications=open'); return; }
   const root = document.querySelector('#accountApp');
   const themeToggle = document.querySelector('#themeToggle');
   const themeIcon = document.querySelector('#themeIcon');
@@ -37,17 +38,13 @@ let accountCsrfToken = '';
   accountCsrfToken = me.csrf_token || '';
   if (me.user) window.jccAvatarEditor.mount(me.user, accountCsrfToken);
   const lineups = minePayload.items || [];
-  const moderationRoot = document.createElement('div');
-  moderationRoot.id = 'accountModeration';
   root.replaceChildren(
     renderSummaryCards(me.user, dashboard),
-    moderationRoot,
     renderHistorySection('最近浏览', views, '还没有最近浏览记录', '浏览时间'),
     renderHistorySection('最近复制', copies, '还没有最近复制记录', '复制时间'),
     renderReportsSection(reports),
     renderMineSection(lineups),
   );
-  window.JccAccountModeration.mount(moderationRoot, accountCsrfToken);
 })();
 
 function setAccountTheme(theme, themeIcon, themeText) {
@@ -203,7 +200,7 @@ function renderMineSection(lineups) {
     `;
     const actions = document.createElement('div'); actions.className = 'lm-actions';
     const edit = document.createElement('a'); edit.className = 'small-button';
-    edit.href = lineup.status === 'banned' ? '#lineup-notifications' : `/lineup/${lineup.id}/edit`;
+    edit.href = lineup.status === 'banned' ? `/me/lineup-notifications/${lineup.id}` : `/lineup/${lineup.id}/edit`;
     edit.textContent = lineup.status === 'banned' ? '查看封禁与重审' : '编辑阵容';
     actions.append(edit); card.append(actions);
     list.append(card);
