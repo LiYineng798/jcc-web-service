@@ -214,6 +214,7 @@ def register_page_routes(app):
             title=title,
             description=description,
             path=path,
+            noindex=payload['status'] != 'normal',
             json_ld=[
                 webpage_json_ld(payload['name'], description, path),
                 breadcrumb_json_ld([
@@ -222,7 +223,7 @@ def register_page_routes(app):
                 ]),
             ],
         )
-        return tracked_template_response(
+        response = tracked_template_response(
             'lineup_detail.html',
             'lineup_detail',
             lineup_id=lineup_id,
@@ -231,6 +232,9 @@ def register_page_routes(app):
             lineup_code_preview=code_preview(payload['code']),
             seo=seo,
         )
+        if payload['status'] != 'normal':
+            response.headers['Cache-Control'] = 'private, no-store'
+        return response
 
     @app.get('/author/<username>')
     def author_page(username):

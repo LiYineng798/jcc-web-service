@@ -36,6 +36,15 @@ function renderDetail(lineup) {
       <pre class="code-preview">${escapeHtml(lineup.code)}</pre>
     </div>
   `;
+  if (lineup.status === 'banned') {
+    const { el, badge } = window.JccLineupModeration;
+    const m = lineup.moderation;
+    const notice = el('div', 'lm-callout'); notice.append(badge(m?.state || 'banned'), el('p', 'lm-reason', m?.reason || ''));
+    if (m?.review_note) notice.append(el('p', 'lm-reason', '处理说明：' + m.review_note));
+    const link = el('a', 'ghost-link', lineup.can_moderate ? '前往管理后台审核' : '查看封禁通知与修改重审');
+    link.href = lineup.can_moderate ? '/admin' : '/me#lineup-notifications'; notice.append(link);
+    detailRoot.prepend(notice);
+  }
   detailRoot.querySelector('.hero-description').prepend(window.jccAvatar.image(lineup.owner_avatar_color, 36));
 }
 

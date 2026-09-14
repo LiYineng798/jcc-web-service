@@ -50,7 +50,7 @@ def resolve_report(db, admin_id, report_id, data):
     )
     if payload['hide_lineup']:
         db.execute(
-            "UPDATE lineups SET status = 'hidden', updated_at = ?, version = version + 1 WHERE id = ?",
+            "UPDATE lineups SET status = 'hidden', updated_at = ?, version = version + 1 WHERE id = ? AND status IN ('normal', 'hidden')",
             (now, before['lineup_id']),
         )
     write_audit(

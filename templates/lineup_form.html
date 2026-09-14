@@ -4,6 +4,7 @@
 <html lang="zh-CN">
   <head>
 {{ seo_head(seo) }}
+    <link rel="stylesheet" href="{{ static_v('moderation.css') }}" />
   </head>
   <body>
     <div class="page-shell editor-page-shell" data-page-mode="{{ page_mode }}" data-lineup-id="{{ lineup_id }}">
@@ -32,17 +33,17 @@
             <textarea id="codeInput" name="code" rows="12" placeholder="粘贴完整阵容码，支持长文本和换行"></textarea>
             <span class="field-hint">支持从分享文案中自动提取，保存时只保留以 `#` 开头的有效阵容码。</span>
           </label>
-          <label class="field">
-            <span>所属赛季</span>
+          <div class="field">
+            <span id="editorSeasonLabel">所属赛季</span>
             <input type="hidden" id="seasonSelect" name="season_id" />
             <div class="season-menu-wrap editor-season-wrap" id="editorSeasonMenuWrap">
-              <button class="account-toggle season-toggle editor-season-toggle" id="editorSeasonToggle" type="button" aria-haspopup="menu" aria-expanded="false">
+              <button class="account-toggle season-toggle editor-season-toggle" id="editorSeasonToggle" type="button" aria-haspopup="menu" aria-expanded="false" aria-labelledby="editorSeasonLabel editorSeasonText">
                 <span id="editorSeasonText">请选择赛季</span>
                 <span class="account-chevron" aria-hidden="true">⌄</span>
               </button>
               <div class="account-menu hidden season-menu editor-season-menu" id="editorSeasonMenu" role="menu"></div>
             </div>
-          </label>
+          </div>
           <div class="field visibility-toggle">
             <div class="visibility-copy">
               <span>发布状态</span>

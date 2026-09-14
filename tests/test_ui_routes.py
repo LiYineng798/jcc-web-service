@@ -898,7 +898,7 @@ def test_admin_boot_and_settings_load_independent_requests_in_parallel():
     with open('static/admin.js', 'r', encoding='utf-8') as file:
         js = file.read()
 
-    assert "await Promise.all([\n      loadOverview({ force: true }),\n      loadCopyRank({ force: true }),\n      loadAdminLiveCompsSeasons({ force: true }),\n    ])" in js
+    assert "await Promise.all([\n      loadOverview({ force: true }),\n      loadCopyRank({ force: true }),\n      loadAdminLiveCompsSeasons({ force: true }),\n      loadModerationSummary(),\n    ])" in js
     assert "if (tabKey === 'settings') await Promise.all([loadSettings(), loadNotice()]);" in js
 
 
@@ -948,7 +948,7 @@ def test_styles_support_history_scroll_and_visibility_toggle():
 
 
 def test_admin_js_renders_lineup_code_in_lineup_management():
-    with open('static/admin.js', 'r', encoding='utf-8') as file:
+    with open('static/admin/lineups.js', 'r', encoding='utf-8') as file:
         js = file.read()
 
     assert 'lineup.code' in js

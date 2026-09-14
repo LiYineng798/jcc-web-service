@@ -33,6 +33,8 @@ def create_app(test_config=None):
     app.register_blueprint(auth_bp)
     app.register_blueprint(captcha_bp)
     app.register_blueprint(lineups_bp)
+    from lineup_moderation import lineup_moderation_bp
+    app.register_blueprint(lineup_moderation_bp)
     app.register_blueprint(admin_bp)
     app.register_blueprint(live_comps_bp)
     app.register_blueprint(guestbook_bp)

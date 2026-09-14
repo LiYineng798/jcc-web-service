@@ -6,6 +6,7 @@
 {{ seo_head(seo) }}
     <link rel="stylesheet" href="{{ static_v('avatar.css') }}" />
     <script src="{{ static_v('avatar.js') }}" defer></script>
+    <link rel="stylesheet" href="{{ static_v('moderation.css') }}" />
   </head>
   <body>
     <main class="page-shell account-page-shell">
@@ -17,7 +18,7 @@
       <header class="hero">
         <p class="eyebrow">Account Center</p>
         <h1>个人中心</h1>
-        <p class="hero-description">查看我的数据、最近浏览、最近复制和举报处理结果。</p>
+        <p class="hero-description">查看阵容处理通知、修改审核结果与我的收藏足迹。</p>
       </header>
 
       <section class="panel">
@@ -28,6 +29,8 @@
     <script src="{{ static_v('history-store.js') }}" defer></script>
     <script src="{{ static_v('theme-toggle.js') }}" defer></script>
     <script src="{{ static_v('avatar-editor.js') }}" defer></script>
+    <script src="{{ static_v('lineup-moderation.js') }}" defer></script>
+    <script src="{{ static_v('account-moderation.js') }}" defer></script>
     <script src="{{ static_v('account.js') }}" defer></script>
   </body>
 </html>

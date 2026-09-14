@@ -687,6 +687,10 @@ function createLineupCard(lineup) {
   actions.append(button('失效反馈', () => reportLineup(lineup)));
   if (lineup.can_hide) actions.append(button('隐藏阵容', () => hideLineup(lineup), 'danger-button'));
   if (lineup.can_edit) actions.append(button('编辑', () => openEditor(lineup.id)));
+  if (lineup.status === 'banned') {
+    code.textContent = lineup.can_moderate ? '该阵容已封禁，请到管理后台处理。' : '该阵容已封禁，请到个人中心查看原因和提交修改。';
+    actions.replaceChildren(button('查看封禁与重审', () => { window.location.href = lineup.can_moderate ? '/admin' : '/me#lineup-notifications'; }));
+  }
   card.append(title, meta, code, actions);
   return card;
 }

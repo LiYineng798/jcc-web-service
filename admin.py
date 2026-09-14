@@ -26,6 +26,7 @@ from admin_lineup_service import (
     preview_bulk_import_lineups,
     update_admin_lineup,
 )
+from lineup_moderation_service import attach_admin_moderation
 from admin_pagination import paginate_rows, parse_page, parse_page_size
 from admin_report_service import build_report_list_query, resolve_report
 from admin_user_service import build_user_list_query, create_user, disable_user, update_user
@@ -148,15 +149,29 @@ def admin_lineups():
     admin, error = admin_required()
     if error:
         return error
-    base_sql, count_sql, params = build_admin_lineups_query(request.args.get('q', ''))
+    status = request.args.get('status', 'all')
+    order = request.args.get('order', 'newest')
+    if status not in {'all', 'normal', 'hidden', 'banned', 'pending'} or order not in {'newest', 'oldest'}:
+        return jsonify({'error': '筛选条件无效'}), 400
+    base_sql, count_sql, params = build_admin_lineups_query(request.args.get('q', ''), status, request.args.get('season', ''), order)
     scores = score_map()
-    return jsonify(_paginate_rows(
+    payload = _paginate_rows(
         base_sql,
         count_sql,
         params,
         serializer=lambda row: serialize_lineup_row(row, scores, user=admin, admin=True),
         default_page_size=20,
-    ))
+    )
+    counts = get_db().execute(
+        '''SELECT CASE WHEN l.status='banned' AND m.state='pending' THEN 'pending'
+                       ELSE l.status END AS state, COUNT(*) AS c
+           FROM lineups l LEFT JOIN lineup_moderation m ON m.lineup_id=l.id
+           WHERE l.status!='deleted' GROUP BY 1'''
+    ).fetchall()
+    payload['counts'] = {r['state']: r['c'] for r in counts}
+    response = jsonify(attach_admin_moderation(payload))
+    response.headers['Cache-Control'] = 'private, no-store'
+    return response
 
 
 @admin_bp.post('/api/admin/lineups/bulk-import')

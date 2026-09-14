@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="{{ static_v('admin.css') }}" />
     <link rel="stylesheet" href="{{ static_v('admin/season-packages/app.css') }}" />
     <link rel="stylesheet" href="{{ static_v('admin/audit-logs/app.css') }}" />
+    <link rel="stylesheet" href="{{ static_v('moderation.css') }}" />
   </head>
   <body class="admin-page">
     <div class="admin-layout">
@@ -25,6 +26,7 @@
               <button class="admin-nav-item admin-nav-parent" data-admin-nav-toggle="lineups" type="button" aria-expanded="false" aria-controls="adminLineupSubnav"><i data-lucide="swords"></i><span>阵容管理</span><i class="admin-nav-chevron" data-lucide="chevron-down"></i></button>
               <div class="admin-nav-submenu" id="adminLineupSubnav" hidden>
                 <button class="admin-nav-subitem" data-admin-tab="lineups" data-admin-workspace="list" type="button"><i data-lucide="search"></i><span>阵容查找</span></button>
+                <button class="admin-nav-subitem" data-admin-tab="lineups" data-admin-workspace="review" type="button"><i data-lucide="clipboard-check"></i><span>修改审核</span><span class="admin-nav-count" data-lineup-pending-count hidden>0</span></button>
                 <button class="admin-nav-subitem" data-admin-tab="lineups" data-admin-workspace="import" type="button"><i data-lucide="upload"></i><span>批量导入</span></button>
               </div>
             </div>
@@ -99,6 +101,7 @@
         <h3 id="adminMoreLineups">阵容管理</h3>
         <div class="admin-more-grid admin-more-grid-compact">
           <button data-admin-tab="lineups" data-admin-workspace="list" type="button"><i data-lucide="search"></i><span>阵容查找</span></button>
+          <button data-admin-tab="lineups" data-admin-workspace="review" type="button"><i data-lucide="clipboard-check"></i><span>修改审核</span><span data-lineup-pending-count hidden>0</span></button>
           <button data-admin-tab="lineups" data-admin-workspace="import" type="button"><i data-lucide="upload"></i><span>批量导入</span></button>
         </div>
       </section>
@@ -136,6 +139,8 @@
     <script src="{{ static_v('avatar.js') }}" defer></script>
     <script src="{{ static_v('admin/season-packages/app.js') }}" defer></script>
     <script src="{{ static_v('admin/audit-logs/app.js') }}" defer></script>
+    <script src="{{ static_v('lineup-moderation.js') }}" defer></script>
+    <script src="{{ static_v('admin/lineups.js') }}" defer></script>
     <script src="{{ static_v('admin.js') }}" defer></script>
   </body>
 </html>

@@ -12,9 +12,12 @@ from lineups_utils import (
     season_choice_map,
 )
 from scoring import score_map
+from lineup_moderation_service import claim_lineup, has_restricted_code
 
 
 def validate_lineup_payload(data, default_status='normal', default_season_id=None):
+    if not isinstance(data, dict):
+        return None, '请求格式无效'
     name = str(data.get('name', '')).strip()
     raw_code = str(data.get('code', '')).strip()
     status = normalize_lineup_status(data.get('status'), default=default_status)
@@ -45,6 +48,8 @@ def create_lineup_record(user, data):
     )
     if validation_error:
         return None, validation_error, 400
+    if has_restricted_code(user['id'], payload['code']):
+        return None, '该阵容码已被封禁，请在个人中心修改原阵容并提交重审', 409
     now = now_text()
     db = get_db()
     cursor = db.execute(
@@ -68,7 +73,11 @@ def update_lineup_record(user, lineup_id, data):
         return None, '阵容不存在', 404
     if row['user_id'] != user['id'] and user['role'] != 'admin':
         return None, '无权修改该阵容', 403
-    if 'version' in (data or {}) and int(data['version']) != row['version']:
+    if row['status'] == 'banned':
+        return None, '该阵容已封禁，请通过修改重审入口提交', 409
+    if not isinstance(data, dict):
+        return None, '请求格式无效', 400
+    if 'version' in data and (type(data['version']) is not int or data['version'] != row['version']):
         return None, '阵容已被更新，请刷新后重试', 409
     payload, validation_error = validate_lineup_payload(
         data or {},
@@ -77,10 +86,11 @@ def update_lineup_record(user, lineup_id, data):
     )
     if validation_error:
         return None, validation_error, 400
-    get_db().execute(
-        'UPDATE lineups SET name = ?, code = ?, season_id = ?, status = ?, updated_at = ?, version = version + 1 WHERE id = ?',
-        (payload['name'], payload['code'], payload['season_id'], payload['status'], now_text(), lineup_id),
-    )
+    if has_restricted_code(row['user_id'], payload['code'], lineup_id):
+        return None, '该阵容码已被封禁，请修改原阵容并提交重审', 409
+    if not claim_lineup(row, data, payload, require_version=False):
+        get_db().rollback()
+        return None, '阵容已被更新，请刷新后重试', 409
     write_audit(user['id'], 'update_lineup', 'lineup', lineup_id, before=dict(row), after=payload)
     get_db().commit()
     return serialize_lineup_row(lineup_row(lineup_id), score_map(), user=user, admin=user['role'] == 'admin'), None, 200
@@ -92,7 +102,11 @@ def delete_lineup_record(user, lineup_id):
         return None, '阵容不存在', 404
     if row['user_id'] != user['id'] and user['role'] != 'admin':
         return None, '无权删除该阵容', 403
-    get_db().execute("UPDATE lineups SET status = 'deleted', updated_at = ? WHERE id = ?", (now_text(), lineup_id))
+    if row['status'] == 'banned':
+        return None, '封禁及审核中的阵容不能删除', 409
+    if not claim_lineup(row, {}, {'status': 'deleted'}, require_version=False):
+        get_db().rollback()
+        return None, '阵容已被更新，请刷新后重试', 409
     write_audit(user['id'], 'delete_lineup', 'lineup', lineup_id, before=dict(row))
     get_db().commit()
     return None, None, 204
@@ -104,8 +118,12 @@ def hide_lineup_record(user, lineup_id):
         return None, '阵容不存在', 404
     if row['user_id'] != user['id'] and user['role'] != 'admin':
         return None, '无权隐藏该阵容', 403
+    if row['status'] == 'banned':
+        return None, '封禁及审核中的阵容不能修改展示状态', 409
     if row['status'] != 'hidden':
-        get_db().execute("UPDATE lineups SET status = 'hidden', updated_at = ? WHERE id = ?", (now_text(), lineup_id))
+        if not claim_lineup(row, {}, {'status': 'hidden'}, require_version=False):
+            get_db().rollback()
+            return None, '阵容已被更新，请刷新后重试', 409
         write_audit(user['id'], 'hide_lineup', 'lineup', lineup_id, before=dict(row), after={'status': 'hidden'})
         get_db().commit()
     return {'ok': True}, None, 200

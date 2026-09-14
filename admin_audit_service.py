@@ -6,6 +6,8 @@ from datetime import date, timedelta
 from admin_pagination import paginate_rows
 
 ACTION_LABELS = {
+    'lineup_ban': '封禁阵容', 'lineup_submit': '提交阵容重审', 'lineup_approve': '通过阵容重审',
+    'lineup_reject': '退回阵容修改', 'lineup_release': '解除阵容封禁',
     'create_user': '创建用户', 'update_user': '更新用户', 'disable_user': '禁用用户',
     'create_lineup': '创建阵容', 'update_lineup': '更新阵容', 'delete_lineup': '删除阵容',
     'hide_lineup': '隐藏阵容', 'admin_update_lineup': '管理员更新阵容',
@@ -38,6 +40,10 @@ KIND_LABELS = {'create': '新增', 'update': '修改', 'remove': '删除 / 停�
 
 
 def action_kind(action):
+    if action == 'lineup_ban':
+        return 'remove'
+    if action in {'lineup_submit', 'lineup_approve', 'lineup_reject', 'lineup_release'}:
+        return 'update'
     if action.startswith('fail_'):
         return 'error'
     if any(word in action for word in ('delete', 'disable', 'hide', 'cancel')):

@@ -8,6 +8,7 @@ const lineupStatusText = {
   normal: '正常',
   hidden: '已隐藏',
   deleted: '已删除',
+  banned: '已封禁',
 };
 
 let accountCsrfToken = '';
@@ -36,13 +37,17 @@ let accountCsrfToken = '';
   accountCsrfToken = me.csrf_token || '';
   if (me.user) window.jccAvatarEditor.mount(me.user, accountCsrfToken);
   const lineups = minePayload.items || [];
+  const moderationRoot = document.createElement('div');
+  moderationRoot.id = 'accountModeration';
   root.replaceChildren(
     renderSummaryCards(me.user, dashboard),
+    moderationRoot,
     renderHistorySection('最近浏览', views, '还没有最近浏览记录', '浏览时间'),
     renderHistorySection('最近复制', copies, '还没有最近复制记录', '复制时间'),
     renderReportsSection(reports),
     renderMineSection(lineups),
   );
+  window.JccAccountModeration.mount(moderationRoot, accountCsrfToken);
 })();
 
 function setAccountTheme(theme, themeIcon, themeText) {
@@ -196,6 +201,11 @@ function renderMineSection(lineups) {
       <p class="account-row-meta">更新时间：${escapeAccountHtml(lineup.updated_at || '')}</p>
       <p class="account-row-meta">赞 ${lineup.like_count} · 复制 ${lineup.copy_count}</p>
     `;
+    const actions = document.createElement('div'); actions.className = 'lm-actions';
+    const edit = document.createElement('a'); edit.className = 'small-button';
+    edit.href = lineup.status === 'banned' ? '#lineup-notifications' : `/lineup/${lineup.id}/edit`;
+    edit.textContent = lineup.status === 'banned' ? '查看封禁与重审' : '编辑阵容';
+    actions.append(edit); card.append(actions);
     list.append(card);
   });
   section.append(list);

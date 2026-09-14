@@ -137,4 +137,8 @@ def build_lineup_detail_payload(lineup_id, user):
     row = lineup_row(lineup_id)
     if not lineup_is_visible_to_user(row, user):
         return None, '阵容不存在', 404
-    return serialize_lineup_row(row, score_map(), user=user, admin=bool(user and user['role'] == 'admin')), None, 200
+    payload = serialize_lineup_row(row, score_map(), user=user, admin=bool(user and user['role'] == 'admin'))
+    if user and (user['id'] == row['user_id'] or user['role'] == 'admin'):
+        from lineup_moderation_service import moderation_payload, moderation_row
+        payload['moderation'] = moderation_payload(moderation_row(lineup_id))
+    return payload, None, 200

@@ -60,8 +60,10 @@ def serialize_lineup_row(row, scores, user=None, admin=False, db=None):
         'copy_count': score['copy_count'],
         'is_liked_today': liked,
         'is_favorited': favored,
-        'can_edit': is_owner or is_admin,
-        'can_delete': is_owner or is_admin,
+        'can_edit': is_owner or (is_admin and row['status'] != 'banned'),
+        'can_moderate': is_admin,
+        'can_delete': row['status'] != 'banned' and (is_owner or is_admin),
+        'can_interact': row['status'] != 'banned',
         'can_hide': row['status'] == 'normal' and (is_owner or is_admin),
     }
     if admin:
