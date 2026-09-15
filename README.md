@@ -1,47 +1,67 @@
-﻿# 金铲铲阵容库
+# 金铲铲阵容库 · Web
 
-多人在线 Flask + SQLite 单页网站，用于保存、搜索、复制、点赞、收藏和管理金铲铲阵容码。
+Flask/Jinja 网站与 JSON API：普通阵容分享、实时榜单、账号与审核后台，以及赛季资料库和阵容模拟器。
+本地默认 SQLite；生产使用 PostgreSQL。数据库迁移与运维工具在独立的 [DB 仓库](../jcc-db-service/README.md)。
 
-当前版本还包含：
+主要页面使用原生 JS/CSS；个人中心、审计日志和赛季版本上传使用三个 React 工作区。
+实时榜单 JSON 和赛季包仍存放在 Web 主机文件系统，数据库不是全部运行状态。
 
-- 作者主页：`/author/<username>`
-- 增长事件埋点：`POST /api/growth-events`
-- 后台增长漏斗：`GET /api/admin/growth`
-- 内容发现排序：`sort=rising`、`sort=recommended`
-- 增长事件表：`growth_events`
+## 本地启动
 
-## 本地运行
+在本仓库运行（PowerShell）：
 
-```bash
-pip install -r requirements.txt
-set JCC_SECRET_KEY=change-me
-set JCC_ADMIN_USERNAME=adminxlx
-set JCC_ADMIN_PASSWORD=your-secure-password
-python migrate.py
+```powershell
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install -r requirements.txt
+$env:JCC_SECRET_KEY='local-development-only'
+$env:JCC_ADMIN_USERNAME='admin'
+$env:JCC_ADMIN_PASSWORD='LocalDev1234'
 python run_server.py
 ```
 
-默认访问：`http://127.0.0.1:5000`
+访问 <http://127.0.0.1:5000>。启动会创建/升级本地 SQLite；通常不必另跑 `migrate.py`。
+默认数据库为 `instance/lineups.sqlite3`。配置参考 [.env.example](.env.example)；
+直接运行 Python **不会自动加载 .env**，请通过进程环境设置。
 
-## 实时阵容上传
+需要处理赛季 ZIP 时，在相同环境的第二个终端运行：
 
-新增了独立上传接口：`POST /api/live-comps/upload`
-
-本地上传命令：
-
-```bash
-python upload_live_comps.py --file team_codes_by_tier.verify.json --url https://jcc.np5.top/api/live-comps/upload --token YOUR_UPLOAD_TOKEN
+```powershell
+python season_package_worker.py
 ```
 
-## 账号与权限
+已有构建产物可直接运行网站。修改 React 源码时才需要：
 
-- 未登录用户：浏览、搜索、复制阵容码；复制会按 IP 在 10 分钟内计分一次。
-- 登录用户：新增阵容、编辑/删除自己的阵容、点赞、收藏、举报。
-- 管理员：访问 `/admin`，管理用户、阵容、举报、分数、增长漏斗和审计日志。
+```powershell
+npm ci --prefix frontend
+npm run build --prefix frontend
+```
 
-## 生产部署提醒
+## 验证
 
-- 不要使用 Flask debug server 对公网提供服务。
-- 建议使用 Nginx + Gunicorn/uWSGI，并启用 HTTPS。
-- `JCC_SECRET_KEY` 和管理员密码必须使用环境变量配置。
-- SQLite 数据库位于 `instance/lineups.sqlite3`，请定期备份。
+```powershell
+python -m pytest -q
+python scripts/maintenance/check_deploy_safety.py
+git diff --check
+```
+
+测试会导入应用并初始化默认 instance；已有运行数据时先使用干净副本。
+浏览器测试、构建边界和已知验证限制见 [开发与验证](docs/development.md)。
+
+## 按任务阅读
+
+| 任务 | 文档 |
+| --- | --- |
+| 找到代码入口、理解存储/任务/接口边界 | [架构](docs/architecture.md) |
+| 开发、测试、预览 | [开发与验证](docs/development.md)、[React 工程](frontend/README.md) |
+| 页面交互与兼容约束 | [前端维护](docs/ui.md) |
+| 部署、备份、恢复、缓存配置 | [运维](docs/operations.md) |
+| 查找已有生产恢复点 | [部署记录](docs/deployment-history.md) |
+| 新赛季、补丁、数据修订 | [赛季维护](docs/season-maintenance-playbook.md) |
+| 资料结构与模拟器规则 | [赛季资料](docs/season-library.md)、[ZIP 协议](docs/season-package-format.md) |
+| 实时榜单上传与图片 | [实时阵容](docs/live-comps.md) |
+| 封禁、修改重审、站内通知 | [阵容审核](docs/lineup-moderation.md) |
+| 运营指标与日报 | [统计口径](docs/daily-report.md) |
+| 编辑官方更新公告 | [公告格式](docs/patch-notes.md) |
+
+开发约束见 [AGENTS.md](AGENTS.md)。历史实施过程保存在 Git，不再维护重复计划和逐项接口目录。

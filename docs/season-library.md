@@ -1,138 +1,67 @@
-> S18 当前发布版本为 `18.18.2`。本次只使用官方资料，使用 `--official-only` 跳过第三方回合统计；详见 [18.2 更新记录](s18-18.2-update.md)。下文早期版本示例不代表当前默认版本。
+# 赛季资料与模拟器
 
-# 赛季资料库（season library）
+操作流程见 [赛季维护](season-maintenance-playbook.md)，上传约束见 [ZIP 协议](season-package-format.md)。
 
-当前新赛季创建、补丁和资料修订的执行入口为 [赛季维护操作规程](season-maintenance-playbook.md)。本文静态目录描述是首次登记与回退基准；已发布的后台资料包通过 `season_data_repository.py` 覆盖同一赛季的数据/图片路径。资料库与模拟器读取同一 release，分别管理可见性；日常包发布不需要代码部署。
+## 数据来源与读取
 
-站内所有赛季资料页（`/tools/seasons/<season_id>`）、首页“资料库”菜单、sitemap 和阵容模拟器的数据，统一来自 `static/season-data/`。这个目录**由脚本生成，不要手工编辑**；数据源头是仓库外的赛季档案库 `ccmax资料/数据模板`（自包含的多赛季快照，含 schema 与校验脚本）。
+外部 `ccmax资料/数据模板` 保存版本化源档案；`scripts/season_library/import_from_archive.py`
+转换为网站 JSON 与本地图片。默认输出 `static/season-data/`，也可指定独立制作目录。
+生成目录会被重建，不在其中保存手工维护文件。
 
-## 数据流
+`static/season-data/catalog.json` 负责初次登记。`season_data_repository.py` 为已发布赛季选择
+私有目录中的 release；未发布时回退到代码自带静态基准。资料页、弈子详情、模拟器及实时站位详情
+通过此读取层解析路径，不能绕开它硬写静态 URL。公开客户端目录是 `/api/season-catalog`。
 
-```
-ccmax资料/数据模板（档案库，源头）
-   │  python scripts/season_library/import_from_archive.py
-   ▼
-static/season-data/
-   ├── catalog.json          站点赛季索引（驱动导航/路由/sitemap）
-   └── <season_id>/
-       ├── index.json        紧凑载荷：列表页一次 fetch 全部渲染数据
-       ├── champions.json    完整快照：弈子详情页服务端渲染
-       ├── traits.json       完整快照
-       ├── items.json        完整快照：模拟器运行时装备数据
-       ├── board_units.json  羁绊生成的棋盘对象，仅供模拟器使用
-       ├── augments.json     已上线赛季的官方强化符文快照
-       ├── augment-changes.json  与上次站点快照的差异
-       └── assets/…          本地图片（路径与档案库一致）
-```
+| 文件 | 用途 |
+| --- | --- |
+| `index.json` | 列表用紧凑载荷，与完整文件保持一致 |
+| `champions.json / traits.json / items.json` | 弈子详情、羁绊和装备完整数据 |
+| `board_units.json` | 特殊可布阵对象、放置规则和发现审计 |
+| `augments.json` | 强化符文；可信时机缺失时明确留空 |
+| `tft-codebook.json` | 可选的外部 TFT 英雄/装备 ID 映射 |
+| `assets/` | 本地原图与版本化优化图片 |
 
-已上线赛季的强化符文根据归档版本入口中的 `hexurl` 从腾讯官方 `hex.js` 获取（S18 正式版 18.18.1 上线后同样生成；DataJ 对全新赛季可能还没有版本化样本，此时全部保存空数组并标记 `stage_data_unavailable`，不影响导入）。导入器保留名称、描述、官方等级、图片和关联字段，本地化原图并生成版本化 WebP。官方接口当前没有分类和逐条轮次限制字段，因此经济/战力/装备/羁绊/专属/其他分类仍以 `description_rule_v1` 标记为站点规则分类；出现时机则不能推断为全阶段，而是按赛季与补丁读取 DataJ 的金铲铲版本化实战统计，原始响应保存在 `source-snapshots/augment-stage-stats.json`。腾讯官方仍是符文内容来源，DataJ 只作为实战样本中的回合观察证据，不标作官方配置；没有样本或无法按官方 id 匹配的符文保存空数组并显示“暂无可信出现时机数据”。Riot 官方 [13.1 版本说明](https://teamfighttactics.leagueoflegends.com/en-us/news/game-updates/teamfight-tactics-patch-13-1-notes/) 和 [13.6 版本说明](https://teamfighttactics.leagueoflegends.com/en-us/news/game-updates/teamfight-tactics-patch-13-6-notes/) 仅用作“强化符文分布会按阶段和版本调整”的规则背景，不冒充当前金铲铲逐条配置来源。每次重导入都会重新抓取、写入来源 URL/版本/样本数，并让 `augment-changes.json` 对比回合变化；热修版本没有独立 `hex.js` 时会回退到同一基础补丁并记录请求版本与实际来源版本。整个流程不访问 DataTFT。
+资料库与模拟器共享同一 release，公开状态、排序独立，由 `season_visibility.py` 管理；
+只有 active/archived 公开，hidden/disabled 返回受保护结果，不能按旧 draft 规则推断可见性。
+公开资源在两个展示入口都不可用时拒绝访问。实时站位详情要求资料库公开。
 
-阵容模拟器在运行时读取 `catalog.json`，再按当前赛季加载 `champions.json`、`traits.json`、`items.json` 和 `board_units.json`。默认赛季按公开状态、生效日期和游戏版本动态选择最新项；赛季切换和图片缓存使用 `version_id`。羁绊下拉选项位于弈子搜索框旁，按资料分类生成并直接展示羁绊图标和弈子数量，未命中的弈子保持可见但变暗；阵容羁绊按独特、彩色、金色、银色、铜色、未激活灰色排序，档位的 `style=unique` 用于识别独特羁绊。纹章装备通过 `extensions.trait_id`（官方导入数据兼容 `extensions.fetter_id`）关联羁绊，装备后其持有弈子为该羁绊贡献一次计数。棋盘六边形尺寸由棋盘容器宽度驱动，在桌面双栏、中等宽度和移动端布局下均须完整显示 7 列。阵容图片使用专用宽屏 DOM 画布，可由用户决定是否在左侧渲染羁绊列表、是否输出透明背景，列表最多展示棋盘高度内可完整容纳的 8 项，并复用页面上的相同排序；宽图和 3:4 海报导出均显示分阶段进度遮罩。导出依赖的弈子头像和羁绊等级框必须使用真实图片节点，不能改回伪元素背景。模拟器不再依赖独立的构建产物。
+## 来源不能混淆
 
-## 描述富文本与属性标记
+先在源档案阅读 `docs/官方数据源与版本更新指南.md`，核对官方 mode、版本、客户端代号和映射。
+不以站内赛季数字推断官方编号，不把未上线资料当作正式规则。
 
-赛季原文中的 `【AP】`、`【HP】`、`【AS】`、`【DR】` 以及 `【法术加成】`、`【生命上限】`、`【攻击速度】`、`【伤害减免】` 等别名，在导入时由 `season_rich_text.py` 统一解析。脚本保留原始 `description`/`effect`，并在相邻的 `description_tokens`/`effect_tokens` 中写入规范化属性 id、展示类型、无障碍标签、图标或文字回退。资料列表、弈子详情和模拟器悬停面板只渲染经过转义的 token，不信任上游 HTML。
+- 正式弈子、装备、羁绊、仙灵及强化符文来自归档官方快照。Web 导入可补取缺少的官方资料/图片；打包和服务器校验离线执行。
+- 维护使用 `--official-only` 跳过第三方强化符文回合观察请求，不访问 DataTFT。
+- 官方缺少逐条出现时机时保留空列表与 unavailable 标记，不能推断全阶段；站点规则分类要保留规则来源。
+- 代码自带 S18 基准为 `18.18.2`，官方 mode 18 / client S19。仙灵来自 adventure，
+  170 个回合与 55 个条件字段沿用本地 18.18.1c 第三方档案，保留
+  `extensions.provenance`、继承版本和 `verified_for_current_patch=false`。
+  这些不是当前官方核验规则，覆盖源档案前须保留补充；不联网恢复第三方字段。
+- 多形态弈子按 ID 区分，不按名称合并。详情 URL 也使用 ID。
+- 上游文本先由 `season_rich_text.py` 解析为安全 token，保留原文，不执行上游 HTML。
 
-现有位图资源位于 `static/season-stats/`，包括 AD、AP、伤害增幅、攻速、生命值、护甲、魔抗、暴击、法力和射程。属性图标直接以内联图片展示，不添加芯片背景或边框；没有独立图片的减伤、全能吸血等属性才使用紧凑文字回退。S17 技能正文会保留“木灵加成”标签，并把其数值后空括号（如 `0()`、`0%()`）解析为 `0(amp图标)`、`0%(amp图标)`，而不是用图标替换标签文字。新增赛季只要沿用已注册标记即可自动展示；出现新标记时，应在 `season_rich_text.py` 的规范化映射中增加一次。
+## 特殊单位与能力
 
-## 官方补全与棋盘对象
+导入器根据官方羁绊文本、明确可放置/备战席技能和快照字段发现布阵对象；
+名称差异优先补 `official_supplements.CURATED_ALIASES`，不写赛季专用前端分支。
+每次更新查看 `board_units.discovery_audit` 的 review 项，区分可布阵单位和战斗召唤物。
 
-导入器会读取每个版本已经归档的官方 `source-snapshots/chess.json`，补全被常规商店筛选遗漏、但被公开羁绊文本引用的解锁弈子。S16.5 的加里奥属于此类：它进入 `champions.json`、资料库和模拟器 5 费弈子池，使用统一的“解锁”标记并保留官方解锁条件。
+- `trait_ids` 表示解锁/筛选关联；只有 `contribution_trait_ids` 决定对象贡献的羁绊，二者不可混用。
+- `placement_rules` 可按 trait_id 或 champion_id 解锁和限量；装备默认禁止，仅 can_equip=true 可装备。
+- `availability.type=unlock` 表示解锁弈子；装备 recipe 与 emblem 的 trait_id/fetter_id 驱动合成需求和羁绊贡献。
+- 新玩法展示优先用已支持模板；新模拟器行为仍需代码适配，不承诺任意未来赛季直接可用。
 
-官方快照中由羁绊或弈子技能产生的布阵期对象，例如 S16.5 提伯斯、厄塔汗、冰封塔楼、岩石、杰斯的海克斯科技锻炉，以及 S17 圣物、迷你黑洞和牧羊人的群星誓约，会进入独立的 `board_units.json`。导入器同时扫描羁绊文本、英雄技能文本和官方棋子结构字段；技能侧只接受“可放置”“备战区/备战席”等布阵期信号，避免把普通战斗技能召唤物误放进模拟器。组合名称会按 `&`、`＆`、`/`、`、` 拆成引用别名，减少官方展示名与羁绊文案不同造成的漏项。S18 由羁绊生成的布阵期对象是永恒之森的石皮树/生命花/深林守卫和约德尔人的威朗普；官方把威朗普写在 chess.js、羁绊文本却叫“毛茸茸大朋友”，因此 `official_supplements.py` 里维护了一张 `CURATED_ALIASES` 白名单桥接这类同名差异，新赛季遇到类似情况应优先补别名而不是写死赛季分支。
+## 图片与分享兼容
 
-对象记录使用 `trait_ids` 表示解锁或筛选关联，使用 `contribution_trait_ids` 表示其官方棋子字段明确声明、实际应计数的羁绊；两者不可混用。例如提伯斯由“黑暗之女”解锁，但只为“法师”贡献计数。`placement_rules` 支持 `trait_id` 或 `champion_id` 来源，并统一描述激活人数与最大上场数量；`can_equip`、属性、技能和本地图标仍来自官方快照。`extensions.discovery_sources` 记录每个对象是由羁绊还是英雄技能发现，便于版本更新审计。`extensions.library_visible=false` 保证资料库不展示，`extensions.simulator_visible=true` 允许模拟器动态解锁。对象没有费用且默认不能携带装备；只有官方文本明确说明可携带装备的对象（如提伯斯）才设置 `can_equip=true`。
+导入器通过 Pillow 生成弈子卡图及 `assets/optimized/<version_id>/` 小图。
+小图优先 optimized_local_path，详情和悬停用 splash；缺独立原图时保留可用回退与 provenance。
+JSON 和图片必须完整交付。缓存/代理设置见 [运维](operations.md)。
 
-每个 `board_units.json` 还包含 `discovery_audit`：它清点官方快照里所有零费用或 `heroType=1` 且带图片的非商店候选，标记为 `included` 或 `review`，并记录命中的羁绊/英雄技能来源。赛季资料更新后必须查看 `review` 清单；它用于暴露训练假人、纯战斗期召唤物和新增但尚未分类的对象，而不是静默丢弃这些记录。
+当前模拟器直接读取上述资料，不使用旧 `static/tools/lineup-simulator/data/` 构建产物。
+棋盘为 4×7；羁绊、人口、特殊对象和装备约束由资料能力驱动。
 
-`import_from_archive.py` 本身不会请求 DataTFT。它只读本地归档快照；当官方快照引用的棋盘对象图片尚未落地时，允许从腾讯官方 CDN 补一张并立即生成版本化 WebP。测试只使用生成后的本地文件，不执行任何远程拉取。未来赛季应先更新档案库快照再重导入，站点会动态发现新弈子和被羁绊引用的棋盘对象，通常无需修改 Web 代码。
+新分享码 `JCC2-` 固定 321 字符，含赛季/字典哈希与校验和；旧 Base64 JSON 只用于导入兼容。
+资料字典变化可能使旧码失效，必须检查样例。最多六个强化符文保存在本地、撤销/重做和海报中，
+不写入固定 JCC2 结构。JCC2 不是游戏内可直接使用的金铲铲阵容码。
 
-## 阵容码格式
-
-模拟器导出 `JCC2-` 前缀的固定长度阵容码。码体为 237 字节二进制数据的 Base64URL 表示，总长度固定为 321 字符：1 字节功能标志、4 字节赛季哈希、4 字节单位/装备字典哈希、28 个固定 8 字节棋格（弈子索引和 3 个装备索引），最后是 4 字节 FNV-1a 校验和。赛季哈希用于在打开分享链接时先加载正确赛季，字典哈希防止资料版本不匹配时静默导入错误单位，校验和用于识别截断或篡改。旧版 Base64 JSON 阵容码仍可导入，但新导出和分享链接只生成 `JCC2-` 格式。
-
-## 新增一个赛季（例：s19）
-
-1. 按档案库 `数据模板/README.md` 的教程把 s19 数据加进档案库并通过 `python scripts/validate.py --all`。
-2. 在 Web 仓库根目录执行：
-
-   ```powershell
-   python scripts/season_library/import_from_archive.py --season s19
-   ```
-
-   找不到档案库时用 `--source "D:\...\数据模板"` 或环境变量 `JCC_SEASON_ARCHIVE` 指定。
-3. 完成。首页“资料库”菜单、`/tools/seasons/s19`、弈子详情页、阵容模拟器和 sitemap 全部自动出现，无需改任何页面代码。
-4. 运行 `python -m pytest -q tests/test_season_reference.py tests/test_lineup_simulator_rebuild.py`（数据一致性与页面回归）。
-
-## 更新已有赛季版本
-
-资料库是源头，`static/season-data/` 是可重新生成的站点副本。更新已有赛季时不要覆盖旧版本目录。**官方数据源总览（versiondataconfig.js、各数据文件、命名对应表）、已知踩坑清单与版本更新流程见档案库 `ccmax资料/数据模板/docs/官方数据源与版本更新指南.md`**，以下为站点侧要点：
-
-1. 在档案库建立新的完整版本快照，通过单赛季和全库校验，并完成人工抽查。
-2. 保持旧 `default_version_id` 不变，先提交并备份新版本源数据。
-3. 在档案库切换 `season.json.default_version_id` 和 `catalog.json.latest_version_id`。
-4. 在 Web 仓库重新导入该赛季：
-
-   ```powershell
-   python scripts/season_library/import_from_archive.py --season s16_5
-   ```
-
-5. 确认控制台没有缺图警告，检查 `static/season-data/s16_5/index.json` 中的 `version_id`、数量和图片路径。
-6. 运行测试，重启 Web 进程以清除服务端缓存，再做资料页和模拟器冒烟检查。
-
-导入脚本目前只复制档案库的 `default_version_id`，并会先删除再生成对应的 `static/season-data/<season_id>/`。因此不要在该输出目录保存人工维护文件。单赛季导入会保留 catalog 中其他赛季；全量导入会按档案库 catalog 重建站点 catalog。
-
-### S18 正式版与 PBE 快照
-
-S18 正式版（客户端代号 S19、mode=18、版本 18.18.1）由官方接口导入：
-
-```powershell
-cd D:\1\codex\jcc-new\ccmax资料\数据模板
-python scripts/import_existing_seasons.py --season s18
-python scripts/validate.py data/seasons/s18
-```
-
-该命令保留旧 PBE/预览快照并把 `18.18.1` 设为默认版本。S18 官方数据没有法杖等旧机制，但**仙灵在官方 `adventure.js` 里**（版本入口 `adventureurl`）：同一标题的多个价格变体按 基础/升级/棱彩 合并为一张仙灵卡，分类与档位由站点描述规则推断（官方未提供分类/回合/需求字段）。多形态 5 费拉克丝按 9 个皮肤形态各保存一条记录（官方 `showHeroTag=0`，导入器对 `species` 含大元素使 469 的记录放行），技能图与立绘走 `mode18s19` CDN 路径（立绘基址由版本入口的 season 代码推导，不再硬编码 `s18`）。随后在 Web 仓库运行 `python scripts/season_library/import_from_archive.py --season s18`，资料页和模拟器会同时切换到新数据。
-
-旧 PBE 合并 JSON 路径仍保留：`python scripts/import_existing_seasons.py --season s18 --s18-json "..\data-cn-CJkaeodq.S18.json"` 用于重建含仙灵的 `PBE` 快照，但它不再是默认版本。
-
-## 图片与 WebP
-
-档案库保存原始图片，Web 导入脚本复制原图，并使用 Pillow 生成两类 WebP：
-
-```text
-static/season-data/<season_id>/assets/champions/card/<champion_id>.webp
-static/season-data/<season_id>/assets/optimized/<version_id>/{champions,skills,items,traits,augments}/<id>.webp
-```
-
-卡片图宽度不超过 500px、质量 75；模拟器小图限制在 96px、质量 82，并通过 `optimized_local_path` 优先加载。弈子悬浮卡片背景继续使用原始大图。优化路径包含 `version_id`，新补丁不会命中旧图缓存。Pillow 已列入 `requirements.txt`；导入前先执行 `python -m pip install -r requirements.txt`。若控制台出现“需要 Pillow”或 WebP 缺图警告，应修复运行环境后重新导入。不得手工逐张转换或把 WebP 写回档案库覆盖原图。
-
-当前站点输出目录按赛季隔离，但同一赛季只发布一个默认版本。若以后需要让多个补丁同时在线，必须先把输出升级为 `static/season-data/<season_id>/<version_id>/...`，并同步修改 catalog、路由、前端加载地址和缓存键；在这套改造完成前，不要声称站点能够同时托管同赛季多个版本。
-
-旧的 `build_simulator_from_library.py` 属于旧模拟器构建流程；重建后的模拟器直接读取 `static/season-data/`，日常更新不需要运行它，也不要继续向旧的全局 `static/tools/lineup-simulator/data/` 写新赛季数据。
-
-弈子列表使用生成后的 WebP 小图以控制加载量；详情页和羁绊成员悬停卡使用 `splash` 大图。来源没有独立装备图标时，导入数据必须提供可用的本地回退图片，并在 `extensions.image_fallback_*` 中记录依据。
-
-## 发布检查与回滚
-
-发布前至少完成：
-
-```powershell
-python -m pytest -q tests/test_season_reference.py tests/test_lineup_simulator_rebuild.py
-```
-
-并人工确认：新赛季/版本出现在资料库菜单；弈子、羁绊、装备数量合理；列表小图和悬浮大图可加载；模拟器能切换赛季、上场弈子、计算羁绊并装备物品；浏览器没有 404。
-
-生产发布时应将 JSON 和图片作为同一批静态资源上传，然后重启 `jcc.service`，最后检查 `/api/health` 和关键页面。不要只上传 catalog 或 `index.json`，否则客户端会提前引用尚未部署的资源。需要回滚时，先在档案库把默认版本指回上一个已验证快照，重新导入 Web 输出并重新部署；不要直接在生产服务器上修改生成文件。
-
-## 约定与注意事项
-
-- **顺序**：`catalog.json` 保持档案库顺序（旧→新），站点展示时反转为新→旧。想调整菜单顺序就调整档案库 catalog 顺序后重导入。
-- **状态**：`active` 正常展示；`draft` 显示“前瞻”标注；`archived` 显示“往期”。三种状态都会公开展示，想下线一个赛季就把它从档案库 catalog 移除后重导入。
-- **弈子 URL 用 id 不用名字**（存在同名弈子，如 s17 的多形态厄运小姐和 s18 的大元素使拉克丝 9 个皮肤形态）。旧的 S18 名字 URL 会 301 到 id URL。
-- **“新弈子”徽章**：档案库中弈子 `tags` 含 `"new"` 时展示，导入后自动生效（S16.5 的 14 个新增弈子已打标）。
-- **机制 tab**：档案库 `mechanics/` 中注册的每种玩法在页面上是一个独立 tab。`kind=charm` 使用仙灵卡片，支持搜索、分类、本地图标和可切换的升级/棱彩效果；`kind=wand` 仅保留给历史快照；god、monster 等使用通用机制卡片。
-- **模拟器特殊能力**：模拟器按 schema 做能力检测。弈子的 `availability.type=unlock` 会自动展示解锁标记和条件；装备的 `recipe.component_ids` 会自动进入散件需求统计；`category=emblem` 的装备会按 `extensions.trait_id` 或 `extensions.fetter_id` 为持有弈子提供对应羁绊；`board_units.json` 的 `placement_rules` 可按羁绊人数或指定英雄在场控制解锁与数量，`contribution_trait_ids` 控制特殊单位本身贡献的羁绊。未来赛季应先运行官方快照导入并检查 `extensions.discovery_sources`，再用版本间结构化 diff、官方羁绊/技能文本和至少一个独立公开资料源交叉验证；不要在模拟器中按赛季 id 写死分支。未上线赛季不得作为已验证规则来源。
-- **缓存**：列表页对 `index.json` 的请求带 `?v=<version_id>`，档案库版本号变化即自然失效。服务端 `season_reference_service` 用 `lru_cache` 缓存，重导入数据后需重启进程（测试可调 `clear_caches()`）。
-- 通用页面的 CSS 类名保留历史 `s18-` 前缀（`season-reference.css`），避免大规模改名回归；新增样式请用中性命名。
-- **强化符文**：资料库和模拟器都按等级、出现时机、分类的顺序使用同一类无横向滚动分组栏，不展示“全部”按钮，重复点击已激活按钮会清除该组条件；资料库在窄屏下让按钮和分组自然换行，缺少可信时机数据的赛季隐藏空时机组。模拟器按赛季可选加载 `augments.json`，弈子库与强化符文库同级切换，最多选择 6 个。选择进入撤销/重做、本地保存和 3:4 海报，但不写入固定 321 字符 JCC2 阵容码，以保持兼容。海报中的强化符文推荐使用无卡片背景、无外框的图标与文字排版。
+页面及图片导出兼容约束见 [前端维护](ui.md)。旧构建器仍保留供兼容核查，不用于日常更新。
