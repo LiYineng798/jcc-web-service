@@ -72,4 +72,4 @@ node tests/account_dialogs_rendering.cjs
 
 本地验证记录（2026-09-15）：`python -m pytest -q` 全量 **666 passed**（445.91 秒）；`npm run build --prefix frontend` 三个组件构建成功，最终浮窗调整后 `npm run build:account --prefix frontend` 也通过。`node tests/account_profile_rendering.cjs` 与 `node tests/account_dialogs_rendering.cjs` 的 Chromium/Edge 和 WebKit 均通过上述检查，包括已读请求失败重试及不可用赛季。后台已有静态 bundle 重建后无内容变化。演示截图为 `instance/profile-dialog-checks/preview-notifications.png`、`preview-moderation.png`、`preview-edit.png`。
 
-本次只有 Web 仓库变更。无需 PostgreSQL 迁移、环境变量或额外 worker。2026-09-15 已按用户确认将个人中心重设计与页内浮窗一并合并至本地 main；合并时仅补充验收记录，功能代码与上述已验证的分支一致。保留 worktree 预览，GitHub 推送由用户执行，本次未部署生产。未来发布沿用仓库既有备份、静态资源权限修复、健康检查流程。
+本次只有 Web 仓库变更。无需 PostgreSQL 迁移、环境变量或额外 worker。2026-09-15 已按用户确认将个人中心重设计与页内浮窗一并合并至本地 main；合并时仅补充验收记录，功能代码与上述已验证的分支一致。保留 worktree 预览；用户推送 GitHub 后，已于 2026-09-15 将 `2c82ed3` 部署至生产，备份及 35 项 HTTPS 验证见 [上线记录](account-profile-production-deployment.md)。GitHub 推送仍由用户执行。未来发布沿用仓库既有备份、静态资源权限修复、健康检查流程。
