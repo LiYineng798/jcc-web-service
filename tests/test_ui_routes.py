@@ -252,6 +252,18 @@ def test_admin_js_contains_custom_live_comp_upload_controls():
     assert 'dataTransfer' in js
 
 
+def test_admin_season_pickers_bind_after_mount_without_deferred_id_lookups(client):
+    client.post('/api/login', json={'account': 'adminxlx', 'password': 'Admin1234'})
+    html = client.get('/admin').get_data(as_text=True)
+    assert '/static/admin/season-picker.js?v=' in html
+    with open('static/admin.js', encoding='utf-8') as file:
+        js = file.read()
+    assert 'setTimeout(setupLiveUploadSeasonDropdown' not in js
+    assert 'setTimeout(setupLineupBulkImportSeasonDropdown' not in js
+    assert "const seasonField = el('label', 'lineup-bulk-import-field')" not in js
+    assert "seasonLabel.htmlFor = 'lineupBulkImportSeasonToggle'" in js
+
+
 def test_index_page_contains_account_value_copy_and_favorites_tab(client):
     html = client.get('/').get_data(as_text=True)
     assert 'id="favoritesTab"' in html

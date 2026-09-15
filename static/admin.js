@@ -24,6 +24,7 @@
     moreClose: document.querySelector('#adminMoreClose'),
   };
   if (!root) return;
+  let seasonDropdownCleanup = null;
 
   const state = {
     me: null,
@@ -254,6 +255,7 @@
     if (tabKey === 'lineups' && state.lineupWorkspace === 'list') await Promise.all([loadLineups(), loadLineupSeasons()]);
     if (tabKey === 'lineups' && state.lineupWorkspace === 'import') await loadLineupSeasons();
     if (tabKey === 'live-comps' && state.liveCompsWorkspace === 'codes') await loadAdminLiveComps();
+    if (tabKey === 'live-comps' && state.liveCompsWorkspace === 'upload') await loadAdminLiveCompsSeasons();
     if (tabKey === 'live-comps' && state.liveCompsWorkspace === 'seasons') await refreshLiveSeasons();
     if (tabKey === 'season-display') await Promise.all([loadSeasonDisplay('library'), loadSeasonDisplay('simulator')]);
     if (tabKey === 'patch-notes') await loadPatchNotes();
@@ -457,6 +459,8 @@
   }
 
   function render() {
+    seasonDropdownCleanup?.();
+    seasonDropdownCleanup = null;
     syncHeader();
     syncTabs();
     if (state.activeTab === 'audit') {
@@ -521,6 +525,10 @@
     if (state.activeTab === 'guestbook') root.append(renderGuestbookWorkspace());
     if (state.activeTab === 'password-reset-emails') root.append(renderPasswordResetEmailsWorkspace());
     if (state.activeTab === 'settings') root.append(renderSettingsWorkspace());
+    // Bind the mounted controls synchronously. Deferred ID lookups can bind the
+    // same final node twice when navigation/cache hits render twice in one tick.
+    setupLineupBulkImportSeasonDropdown();
+    setupLiveUploadSeasonDropdown();
     renderDialogs();
     refreshIcons();
   }
@@ -665,8 +673,10 @@
     head.append(title);
 
     const form = el('form', 'lineup-bulk-import-form');
-    const seasonField = el('label', 'lineup-bulk-import-field');
-    seasonField.append(el('span', '', '导入赛季'));
+    const seasonField = el('div', 'lineup-bulk-import-field');
+    const seasonLabel = el('label', '', '导入赛季');
+    seasonLabel.htmlFor = 'lineupBulkImportSeasonToggle';
+    seasonField.append(seasonLabel);
     seasonField.append(renderLineupBulkImportSeasonPicker());
 
     const codeField = el('label', 'lineup-bulk-import-field');
@@ -700,7 +710,6 @@
       await previewLineupBulkImport(submit);
     });
 
-    setTimeout(setupLineupBulkImportSeasonDropdown, 0);
     panel.append(head, form, renderLineupBulkImportResult());
     return panel;
   }
@@ -831,7 +840,9 @@
     const intro = el('p', 'admin-meta', '上传新的实时阵容 JSON。系统会先计算差异和历史复制影响，确认后再缓存图片并原子替换线上文件。');
     const form = el('form', 'live-upload-form');
     const seasonLabel = el('div', 'live-upload-field');
-    seasonLabel.append(el('span', '', '目标赛季'));
+    const caption = el('label', '', '目标赛季');
+    caption.htmlFor = 'liveUploadSeasonToggle';
+    seasonLabel.append(caption);
     const seasonData = liveUploadSeasonOptions();
     const seasonWrap = el('div', 'season-menu-wrap live-upload-season-wrap');
     seasonWrap.id = 'liveUploadSeasonWrap';
@@ -897,7 +908,6 @@
     });
     panel.append(intro, form, Object.assign(renderLiveUploadProgressNode(), { id: 'liveUploadProgress' }));
     if (state.liveUpload.job?.preview) panel.append(renderLiveCompUploadPreview(state.liveUpload.job.preview));
-    setTimeout(setupLiveUploadSeasonDropdown, 0);
     return panel;
   }
 
@@ -1744,19 +1754,12 @@
   }
 
   function setupLineupBulkImportSeasonDropdown() {
-    var selected = state.lineupBulkImport.season_id || state.lineupSeasons.default_season_id || '';
-    var items = (state.lineupSeasons.seasons || []).map(function (season) {
-      return { value: season.id, label: season.name || season.id };
-    });
-    setupJumpDropdown(
-      'lineupBulkImportSeasonWrap',
-      'lineupBulkImportSeasonToggle',
-      'lineupBulkImportSeasonMenu',
-      'lineupBulkImportSeasonInput',
-      items,
-      selected,
-      '请选择赛季',
-      function (value) {
+    const wrap = document.getElementById('lineupBulkImportSeasonWrap');
+    if (!wrap) return;
+    seasonDropdownCleanup = window.JccAdminSeasonPicker.mount(wrap, {
+      seasons: state.lineupSeasons.seasons || [],
+      selected: state.lineupBulkImport.season_id || state.lineupSeasons.default_season_id || '',
+      onSelect(value) {
         state.lineupBulkImport.raw_text = document.querySelector('#lineupBulkImportRawText')?.value || state.lineupBulkImport.raw_text;
         state.lineupBulkImport.season_id = value;
         state.lineupBulkImport.result = null;
@@ -1764,59 +1767,21 @@
         state.lineupBulkImport.preview_season_id = '';
         render();
       },
-    );
+    });
   }
 
   function setupLiveUploadSeasonDropdown() {
     const wrap = document.getElementById('liveUploadSeasonWrap');
-    const toggle = document.getElementById('liveUploadSeasonToggle');
-    const menu = document.getElementById('liveUploadSeasonMenu');
-    const input = document.getElementById('liveUploadSeasonInput');
-    const textNode = document.getElementById('liveUploadSeasonText');
-    if (!wrap || !toggle || !menu || !input || !textNode) return;
-    const selected = state.liveUpload.seasonId || state.liveCompsSeasons.default_season_id || '';
-    const items = state.liveCompsSeasons.seasons || [];
-    const closeMenu = () => {
-      menu.classList.add('hidden');
-      toggle.classList.remove('is-open');
-      toggle.setAttribute('aria-expanded', 'false');
-    };
-    toggle.addEventListener('click', (event) => {
-      event.preventDefault();
-      event.stopPropagation();
-      if (menu.classList.contains('hidden')) {
-        menu.classList.remove('hidden');
-        toggle.classList.add('is-open');
-        toggle.setAttribute('aria-expanded', 'true');
-      } else {
-        closeMenu();
-      }
-    });
-    menu.replaceChildren();
-    if (!items.length) {
-      const emptyOption = el('span', 'account-menu-item is-disabled', '暂无可用赛季');
-      menu.append(emptyOption);
-    }
-    items.forEach((season) => {
-      const option = el('button', `account-menu-item${season.id === selected ? ' is-active' : ''}`, season.name || season.id);
-      option.type = 'button';
-      option.addEventListener('click', (event) => {
-        event.preventDefault();
-        event.stopPropagation();
-        state.liveUpload.seasonId = season.id;
+    if (!wrap) return;
+    seasonDropdownCleanup = window.JccAdminSeasonPicker.mount(wrap, {
+      seasons: state.liveCompsSeasons.seasons || [],
+      selected: state.liveUpload.seasonId,
+      onSelect(value) {
+        state.liveUpload.seasonId = value;
         state.liveUpload.job = null;
-        input.value = season.id;
-        textNode.textContent = season.name || season.id;
-        closeMenu();
+        state.liveUpload.uploadPercent = 0;
         render();
-      });
-      menu.append(option);
-    });
-    document.addEventListener('click', (event) => {
-      if (!wrap.contains(event.target)) closeMenu();
-    });
-    document.addEventListener('keydown', (event) => {
-      if (event.key === 'Escape') closeMenu();
+      },
     });
   }
 

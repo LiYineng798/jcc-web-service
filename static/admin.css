@@ -1448,19 +1448,47 @@ body.admin-page {
   max-width: 420px;
 }
 
-.admin-page .live-upload-field > span {
+.admin-page .live-upload-field > label {
   font-size: 12px;
   color: var(--admin-muted, var(--muted));
 }
 
-.admin-page .live-upload-season-wrap,
-.admin-page .live-upload-season-wrap .season-toggle {
+.admin-page :is(.live-upload-season-wrap, .lineup-bulk-import-season-wrap) {
+  max-width: 100%;
   width: min(100%, 420px);
+}
+
+.admin-page :is(.live-upload-season-wrap, .lineup-bulk-import-season-wrap) .season-menu {
+  width: 100%;
+  min-width: 0;
+  max-height: min(320px, 50vh);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.admin-page :is(.live-upload-season-wrap, .lineup-bulk-import-season-wrap) .season-toggle {
+  max-width: 100%;
+  width: 100%;
+}
+
+.admin-page :is(.live-upload-season-wrap, .lineup-bulk-import-season-wrap) button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.admin-page :is(.live-upload-season-wrap, .lineup-bulk-import-season-wrap) .account-menu-item {
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 820px) {
+  .admin-page :is(.live-upload-season-wrap, .lineup-bulk-import-season-wrap) :is(.season-toggle, .account-menu-item) {
+    min-height: 44px;
+  }
 }
 
 .admin-page .live-upload-season-wrap .season-toggle {
   justify-content: space-between;
-  min-height: 38px;
+  min-height: 44px;
 }
 
 .admin-page .live-upload-dropzone {
