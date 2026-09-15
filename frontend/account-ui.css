@@ -1,0 +1,1312 @@
+@config "./account-tailwind.config.cjs";
+@tailwind utilities;
+
+/* The profile island inherits the site's palette, without a global CSS reset. */
+body.account-profile-page {
+  display: flow-root;
+  background:
+    radial-gradient(ellipse at 0 0, #e4d6c650, transparent 55%), var(--bg);
+}
+.account-profile-page .account-page-shell {
+  width: min(1480px, calc(100% - 48px));
+  margin: 24px auto;
+}
+#accountApp {
+  --pf-paper: var(--surface-solid);
+  --pf-panel: color-mix(in srgb, var(--surface-solid) 84%, var(--bg));
+  --pf-subtle: color-mix(in srgb, var(--muted) 6%, var(--surface-solid));
+  --pf-border: color-mix(in srgb, var(--line) 85%, transparent);
+  --pf-green: #53765e;
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.5;
+}
+:root[data-theme="dark"] #accountApp {
+  --pf-green: #a4c3ad;
+}
+#accountApp * {
+  box-sizing: border-box;
+}
+#accountApp h1,
+#accountApp h2,
+#accountApp h3,
+#accountApp p {
+  margin: 0;
+}
+#accountApp button,
+#accountApp input {
+  font: inherit;
+}
+#accountApp button {
+  cursor: pointer;
+}
+#accountApp a {
+  color: inherit;
+  text-decoration: none;
+}
+#accountApp svg {
+  flex-shrink: 0;
+  stroke-width: 1.7;
+}
+#accountApp button:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+#accountApp :is(button, a, input, [tabindex]):focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+#accountApp .pf-shell {
+  display: grid;
+  grid-template-columns: 226px minmax(0, 1fr);
+  height: calc(100dvh - 48px);
+  min-height: 520px;
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  overflow: hidden;
+  background: var(--pf-paper);
+  box-shadow:
+    0 18px 70px #3021130b,
+    0 2px 6px #30211304;
+}
+#accountApp .pf-sidebar {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow: auto;
+  padding: 28px 17px 18px;
+  border-right: 1px solid var(--pf-border);
+  background: var(--pf-panel);
+}
+#accountApp .pf-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 8px;
+  font-size: 14px;
+  font-weight: 650;
+  letter-spacing: 0.2px;
+}
+#accountApp .pf-brand-mark,
+.profile-boot-mark {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 40px;
+  border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+  border-radius: 11px;
+  color: var(--accent-strong);
+  background: var(--accent-soft);
+  font-family: serif;
+  font-size: 24px;
+}
+#accountApp .pf-brand small {
+  display: block;
+  margin-top: 3px;
+  font-size: 8px;
+  letter-spacing: 2.1px;
+  color: var(--muted);
+  font-weight: 500;
+}
+#accountApp .pf-side-identity {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin: 34px 3px 28px;
+  padding-bottom: 23px;
+  border-bottom: 1px solid var(--pf-border);
+}
+#accountApp .pf-side-identity > span {
+  min-width: 0;
+  flex: 1;
+}
+#accountApp .pf-side-identity strong,
+#accountApp .pf-side-identity small {
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+#accountApp .pf-side-identity strong {
+  font-size: 13px;
+  font-weight: 600;
+}
+#accountApp .pf-side-identity small {
+  color: var(--muted);
+  font-size: 11px;
+  margin-top: 3px;
+}
+#accountApp .pf-avatar {
+  display: block;
+  flex-shrink: 0;
+  object-fit: contain;
+  background: transparent;
+}
+#accountApp .pf-icon-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  min-width: 36px;
+  min-height: 36px;
+  padding: 8px;
+  border: 1px solid transparent;
+  border-radius: 9px;
+  background: transparent;
+  color: var(--muted);
+}
+#accountApp .pf-icon-button:hover:not(:disabled) {
+  background: var(--pf-subtle);
+  color: var(--text);
+}
+#accountApp .pf-nav-caption {
+  margin: 0 13px 12px;
+  color: var(--muted);
+  font-size: 10px;
+  letter-spacing: 1.5px;
+}
+#accountApp .pf-tabs {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+#accountApp .pf-tab {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  min-height: 44px;
+  padding: 11px 14px;
+  border: 0;
+  border-radius: 9px;
+  background: transparent;
+  color: var(--muted);
+  text-align: left;
+  font-size: 13px;
+}
+#accountApp .pf-tab > :not(.pf-tab-indicator) {
+  position: relative;
+  z-index: 1;
+}
+#accountApp .pf-tab:hover {
+  color: var(--text);
+  background: var(--pf-subtle);
+}
+#accountApp .pf-tab.is-active {
+  color: var(--accent-strong);
+  font-weight: 600;
+}
+#accountApp .pf-tab-indicator {
+  position: absolute;
+  inset: 0;
+  background: color-mix(in srgb, var(--accent) 9%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent) 9%, transparent);
+  border-radius: inherit;
+}
+#accountApp .pf-tab-indicator::before {
+  content: "";
+  position: absolute;
+  left: -1px;
+  top: 13px;
+  bottom: 13px;
+  width: 3px;
+  border-radius: 2px;
+  background: var(--accent);
+}
+#accountApp .pf-active-dot {
+  margin-left: auto;
+  width: 5px;
+  height: 5px;
+  background: var(--accent);
+  border-radius: 50%;
+}
+#accountApp .pf-sidebar-bottom {
+  margin-top: auto;
+  padding-top: 24px;
+}
+#accountApp .pf-side-note {
+  padding: 17px 13px;
+  margin: 0 2px 20px;
+  background: var(--pf-paper);
+  border: 1px solid var(--pf-border);
+  border-radius: 13px;
+  color: var(--accent-strong);
+}
+#accountApp .pf-side-note p {
+  color: var(--text);
+  font-size: 11px;
+  font-weight: 550;
+  margin-top: 10px;
+}
+#accountApp .pf-side-note small {
+  display: block;
+  color: var(--muted);
+  font-size: 10px;
+  line-height: 1.8;
+  margin-top: 4px;
+  font-weight: 400;
+}
+#accountApp .pf-side-note a {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 14px;
+  font-size: 11px;
+}
+#accountApp .pf-side-link {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 11px;
+  min-height: 39px;
+  padding: 8px 14px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--muted);
+  font-size: 12px;
+}
+#accountApp .pf-side-link:hover {
+  color: var(--text);
+  background: var(--pf-subtle);
+}
+#accountApp .pf-main {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+}
+#accountApp .pf-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  flex-shrink: 0;
+  min-height: 76px;
+  padding: 15px 34px;
+  border-bottom: 1px solid var(--pf-border);
+}
+#accountApp .pf-breadcrumb,
+#accountApp .pf-top-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+#accountApp .pf-breadcrumb {
+  color: var(--muted);
+  font-size: 11px;
+}
+#accountApp .pf-breadcrumb strong {
+  color: var(--text);
+  font-weight: 500;
+}
+#accountApp .pf-top-actions {
+  gap: 7px;
+}
+#accountApp .pf-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 35px;
+  padding: 7px 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--pf-paper);
+  color: var(--text);
+  font-size: 11px;
+  white-space: nowrap;
+  transition:
+    background 0.15s,
+    border-color 0.15s;
+}
+#accountApp .pf-button:hover:not(:disabled) {
+  background: var(--pf-subtle);
+  border-color: var(--muted);
+}
+#accountApp .pf-button.pf-primary {
+  margin-left: 7px;
+  background: var(--text);
+  border-color: var(--text);
+  color: var(--pf-paper);
+}
+#accountApp .pf-content {
+  padding: 28px 34px 16px;
+  overflow: auto;
+  min-height: 0;
+  flex: 1;
+  scrollbar-width: thin;
+  scrollbar-color: var(--line) transparent;
+  overscroll-behavior-y: contain;
+}
+#accountApp #profile-panel {
+  outline-offset: -2px;
+}
+#accountApp .pf-profile-banner {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  overflow: hidden;
+  border: 1px solid var(--pf-border);
+  border-radius: 17px;
+  background: linear-gradient(
+    112deg,
+    var(--pf-panel) 38%,
+    color-mix(in srgb, var(--accent) 11%, var(--pf-paper))
+  );
+  min-height: 204px;
+}
+#accountApp .pf-profile-copy {
+  padding: 24px 26px 22px;
+  position: relative;
+  z-index: 1;
+  min-width: 0;
+  flex: 1;
+}
+#accountApp .pf-eyebrow {
+  color: var(--accent-strong);
+  font-size: 9px;
+  letter-spacing: 2.6px;
+  font-weight: 600;
+}
+#accountApp .pf-profile-person {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-top: 18px;
+}
+#accountApp .pf-profile-person > div {
+  min-width: 0;
+}
+#accountApp .pf-avatar-button {
+  position: relative;
+  border: 0;
+  padding: 0;
+  background: none;
+  flex-shrink: 0;
+}
+#accountApp .pf-avatar-button > span {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 23px;
+  height: 23px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: var(--pf-paper);
+  color: var(--muted);
+}
+#accountApp .pf-profile-name {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+#accountApp .pf-profile-name h1 {
+  font-size: 29px;
+  font-weight: 650;
+  letter-spacing: -0.7px;
+  overflow-wrap: anywhere;
+  line-height: 1.3;
+}
+#accountApp .pf-role {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  border: 1px solid color-mix(in srgb, var(--pf-green) 20%, transparent);
+  padding: 3px 7px;
+  border-radius: 5px;
+  color: var(--pf-green);
+  font-size: 9px;
+  background: color-mix(in srgb, var(--pf-green) 5%, transparent);
+}
+#accountApp .pf-handle {
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 4px;
+  overflow-wrap: anywhere;
+}
+#accountApp .pf-motto {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 9px;
+}
+#accountApp .pf-profile-links {
+  display: flex;
+  gap: 21px;
+  margin: 19px 0 0 96px;
+}
+#accountApp .pf-profile-links :is(button, a) {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  font-size: 10px;
+  color: var(--muted);
+}
+#accountApp .pf-profile-links :is(button, a):hover {
+  color: var(--accent-strong);
+}
+#accountApp .pf-banner-art {
+  position: relative;
+  flex: 0 0 240px;
+  overflow: hidden;
+}
+#accountApp .pf-art-orbit {
+  width: 230px;
+  height: 230px;
+  border: 1px solid color-mix(in srgb, var(--accent) 13%, transparent);
+  border-radius: 50%;
+  position: absolute;
+  top: -65px;
+  right: -55px;
+  box-shadow:
+    0 0 0 27px color-mix(in srgb, var(--accent) 3%, transparent),
+    0 0 0 56px color-mix(in srgb, var(--accent) 3%, transparent);
+}
+#accountApp .pf-art-board {
+  display: grid;
+  grid-template-columns: repeat(3, 38px);
+  gap: 7px;
+  width: fit-content;
+  position: absolute;
+  top: 41px;
+  left: 52px;
+  transform: rotate(-28deg) skew(8deg, 8deg);
+}
+#accountApp .pf-art-board span {
+  height: 38px;
+  border: 1px solid color-mix(in srgb, var(--accent) 21%, transparent);
+  border-radius: 7px;
+  background: color-mix(in srgb, var(--pf-paper) 45%, transparent);
+  box-shadow: -4px 5px 0 color-mix(in srgb, var(--accent) 6%, transparent);
+}
+#accountApp .pf-art-board span:nth-child(2),
+#accountApp .pf-art-board span:nth-child(7) {
+  background: color-mix(in srgb, var(--accent) 18%, var(--pf-paper));
+}
+#accountApp .pf-art-board span:nth-child(5) {
+  background: var(--accent);
+  border-color: var(--accent);
+  transform: translate(6px, -9px);
+  box-shadow: -6px 8px 0 color-mix(in srgb, var(--accent) 24%, transparent);
+}
+#accountApp .pf-art-caption {
+  position: absolute;
+  bottom: 19px;
+  right: 22px;
+  font-size: 7px;
+  letter-spacing: 2px;
+  color: var(--accent-strong);
+  opacity: 0.65;
+}
+#accountApp .pf-section-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  margin: 23px 1px 12px;
+}
+#accountApp .pf-section-label h2 {
+  font-size: 13px;
+  font-weight: 600;
+}
+#accountApp .pf-section-label > span {
+  font-size: 10px;
+  color: var(--muted);
+}
+#accountApp .pf-stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 13px;
+}
+#accountApp .pf-stat {
+  position: relative;
+  border: 1px solid var(--pf-border);
+  border-radius: 13px;
+  padding: 17px 18px 15px;
+  background: var(--pf-paper);
+}
+#accountApp .pf-stat > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  align-items: center;
+  font-size: 12px;
+  color: var(--muted);
+}
+#accountApp .pf-stat > div svg {
+  opacity: 0.65;
+}
+#accountApp .pf-stat > strong {
+  display: block;
+  font-size: clamp(23px, 2.5vw, 33px);
+  line-height: 1.2;
+  font-weight: 550;
+  letter-spacing: -1px;
+  margin-top: 13px;
+  font-variant-numeric: tabular-nums;
+  overflow-wrap: anywhere;
+}
+#accountApp .pf-stat > small {
+  display: block;
+  margin-top: 8px;
+  font-size: 10px;
+  color: var(--muted);
+}
+#accountApp .pf-stat-link {
+  position: absolute;
+  right: 13px;
+  bottom: 14px;
+  width: 25px;
+  height: 25px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 6px;
+  color: var(--accent);
+  background: var(--pf-paper);
+}
+#accountApp .pf-bento-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  gap: 18px;
+  margin-top: 22px;
+}
+#accountApp .pf-card {
+  background: var(--pf-paper);
+  border: 1px solid var(--pf-border);
+  border-radius: 14px;
+  min-width: 0;
+}
+#accountApp .pf-card-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  padding: 20px 20px 16px;
+}
+#accountApp .pf-card-heading h2 {
+  font-size: 14px;
+  font-weight: 600;
+}
+#accountApp .pf-card-heading p {
+  margin-top: 5px;
+  font-size: 10px;
+  color: var(--muted);
+}
+#accountApp .pf-card-heading > svg {
+  color: var(--muted);
+}
+#accountApp .pf-text-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  flex-shrink: 0;
+  min-height: 34px;
+  padding: 4px 0 4px 5px;
+  border: 0;
+  background: none;
+  color: var(--muted);
+  font-size: 10px;
+}
+#accountApp .pf-text-button:hover {
+  color: var(--accent);
+}
+#accountApp .pf-recent-list {
+  padding: 0 20px 11px;
+}
+#accountApp .pf-recent-row {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  min-height: 63px;
+  border-top: 1px solid var(--pf-border);
+}
+#accountApp .pf-index {
+  font-size: 10px;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+  opacity: 0.65;
+}
+#accountApp .pf-recent-row > div {
+  flex: 1;
+  min-width: 0;
+}
+#accountApp .pf-recent-row a {
+  display: block;
+  font-size: 13px;
+  font-weight: 550;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+#accountApp .pf-recent-row p {
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 4px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+#accountApp .pf-copy-compact {
+  font-size: 10px;
+  min-height: 29px;
+  padding: 5px 8px;
+  color: var(--muted);
+}
+#accountApp .pf-notebook-lines {
+  padding: 0 20px;
+}
+#accountApp .pf-notebook-lines button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 0;
+  min-height: 43px;
+  width: 100%;
+  border: 0;
+  border-bottom: 1px solid var(--pf-border);
+  background: none;
+  color: var(--muted);
+  font-size: 11px;
+  text-align: left;
+}
+#accountApp .pf-notebook-lines button > span {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  gap: 9px;
+}
+#accountApp .pf-notebook-lines strong {
+  font-size: 12px;
+  color: var(--text);
+  font-weight: 550;
+}
+#accountApp .pf-notebook-lines button:hover {
+  color: var(--accent-strong);
+}
+#accountApp .pf-notebook-footer {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 14px 20px 16px;
+  font-size: 10px;
+  color: var(--accent-strong);
+}
+#accountApp .pf-notebook-footer span {
+  flex: 1;
+}
+#accountApp .pf-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 24px;
+  font-size: 9px;
+  letter-spacing: 0.4px;
+  color: var(--muted);
+  opacity: 0.7;
+}
+#accountApp .pf-workspace-heading {
+  padding: 5px 0 24px;
+}
+#accountApp .pf-workspace-heading h1 {
+  margin-top: 8px;
+  font-size: 27px;
+  letter-spacing: -0.6px;
+  font-weight: 600;
+}
+#accountApp .pf-workspace-heading > p:last-child {
+  color: var(--muted);
+  font-size: 12px;
+  margin-top: 8px;
+}
+#accountApp .pf-searchbar {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-bottom: 22px;
+}
+#accountApp .pf-search-input {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 10px 0 13px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: var(--pf-panel);
+  flex: 1;
+  min-width: 0;
+  color: var(--muted);
+}
+#accountApp .pf-search-input input {
+  min-width: 0;
+  width: 100%;
+  height: 40px;
+  padding: 5px 0;
+  border: 0;
+  outline: 0;
+  color: var(--text);
+  background: none;
+  font-size: 12px;
+}
+#accountApp .pf-search-input:focus-within {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+#accountApp .pf-search-input input:focus-visible {
+  outline: 0;
+}
+#accountApp .pf-search-input input::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+}
+#accountApp .pf-searchbar > .pf-button {
+  min-height: 42px;
+  padding-inline: 19px;
+}
+#accountApp .pf-collection-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+#accountApp .pf-lineup-card {
+  min-width: 0;
+  padding: 17px 18px 14px;
+  background: var(--pf-paper);
+  border: 1px solid var(--pf-border);
+  border-radius: 13px;
+}
+#accountApp .pf-lineup-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+#accountApp .pf-rank {
+  color: var(--accent-strong);
+  background: var(--accent-soft);
+  border-radius: 5px;
+  padding: 2px 8px;
+  font-size: 10px;
+  font-weight: 650;
+}
+#accountApp .pf-status {
+  color: var(--muted);
+  font-size: 9px;
+  max-width: 80%;
+  overflow-wrap: anywhere;
+}
+#accountApp .pf-status-normal,
+#accountApp .pf-status-resolved {
+  color: var(--pf-green);
+}
+#accountApp .pf-status-banned,
+#accountApp .pf-status-pending {
+  color: var(--accent-strong);
+}
+#accountApp .pf-lineup-card h2 {
+  font-size: 15px;
+  margin-top: 11px;
+  font-weight: 600;
+  line-height: 1.55;
+  overflow-wrap: anywhere;
+}
+#accountApp .pf-lineup-card h2 a:hover,
+#accountApp .pf-recent-row a:hover {
+  color: var(--accent-strong);
+}
+#accountApp .pf-lineup-meta {
+  color: var(--muted);
+  font-size: 11px;
+  overflow-wrap: anywhere;
+}
+#accountApp p.pf-lineup-meta {
+  margin-top: 5px;
+}
+#accountApp .pf-lineup-card-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 15px;
+  padding-top: 11px;
+  border-top: 1px solid var(--pf-border);
+}
+#accountApp .pf-interactions,
+#accountApp .pf-interactions > span,
+#accountApp .pf-card-actions {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+#accountApp .pf-interactions {
+  gap: 12px;
+  color: var(--muted);
+  font-size: 10px;
+  font-variant-numeric: tabular-nums;
+}
+#accountApp .pf-bookmarked {
+  color: var(--accent-strong);
+}
+#accountApp .pf-bookmarked svg {
+  fill: var(--accent-soft);
+}
+#accountApp .pf-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-top: 22px;
+  padding-top: 16px;
+  border-top: 1px solid var(--pf-border);
+  font-size: 11px;
+  color: var(--muted);
+}
+#accountApp .pf-pagination > div {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+#accountApp .pf-pagination .pf-icon-button {
+  border-color: var(--pf-border);
+}
+#accountApp .pf-history-note {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin: -7px 0 17px;
+  font-size: 10px;
+  color: var(--muted);
+}
+#accountApp .pf-filters {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin: -5px 0 18px;
+}
+#accountApp .pf-filters button {
+  min-height: 34px;
+  border: 1px solid transparent;
+  border-radius: 7px;
+  background: none;
+  color: var(--muted);
+  font-size: 11px;
+  padding: 6px 13px;
+}
+#accountApp .pf-filters button.is-active {
+  color: var(--accent-strong);
+  background: var(--accent-soft);
+}
+#accountApp .pf-report-reason {
+  margin-top: 12px;
+  font-size: 12px;
+  line-height: 1.8;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+}
+#accountApp .pf-report-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  font-size: 10px;
+  color: var(--muted);
+  margin-top: 15px;
+  padding-top: 12px;
+  border-top: 1px solid var(--pf-border);
+}
+#accountApp .pf-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 34px 20px;
+  min-height: 240px;
+  text-align: center;
+  color: var(--muted);
+}
+#accountApp .pf-empty > svg {
+  color: var(--accent);
+  opacity: 0.75;
+}
+#accountApp .pf-empty strong {
+  font-size: 14px;
+  color: var(--text);
+  font-weight: 550;
+}
+#accountApp .pf-empty p {
+  max-width: 380px;
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
+#accountApp .pf-empty .pf-button {
+  margin-top: 4px;
+}
+#accountApp .pf-recent .pf-empty {
+  min-height: 187px;
+  padding: 12px 20px 22px;
+  gap: 9px;
+}
+#accountApp .pf-recent .pf-empty > svg {
+  display: none;
+}
+#accountApp .pf-recent .pf-empty strong {
+  font-size: 12px;
+}
+#accountApp .pf-recent .pf-empty p {
+  font-size: 10px;
+}
+#accountApp .pf-loading {
+  display: grid;
+  gap: 13px;
+  padding: 20px 0;
+  min-height: 200px;
+}
+#accountApp .pf-loading span {
+  border-radius: 10px;
+  background: var(--pf-subtle);
+  animation: pf-pulse 1.2s ease-in-out infinite alternate;
+}
+#accountApp .pf-card .pf-loading {
+  padding: 0 20px 20px;
+}
+.profile-boot {
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  color: var(--muted);
+}
+.profile-boot h1 {
+  font-size: 24px;
+}
+.profile-boot .pf-loading {
+  width: 200px;
+  min-height: 130px;
+}
+@keyframes pf-pulse {
+  to {
+    opacity: 0.45;
+  }
+}
+@media (min-width: 1024px) and (max-height: 850px) {
+  #accountApp .pf-topbar {
+    min-height: 64px;
+  }
+  #accountApp .pf-content {
+    padding-top: 21px;
+  }
+  #accountApp .pf-profile-banner {
+    min-height: 182px;
+  }
+  #accountApp .pf-profile-copy {
+    padding-block: 18px;
+  }
+  #accountApp .pf-profile-person {
+    margin-top: 13px;
+  }
+  #accountApp .pf-profile-links {
+    margin-top: 12px;
+  }
+  #accountApp .pf-section-label {
+    margin-top: 17px;
+  }
+  #accountApp .pf-stat {
+    padding-block: 13px;
+  }
+  #accountApp .pf-stat > strong {
+    margin-top: 8px;
+  }
+  #accountApp .pf-bento-grid {
+    margin-top: 17px;
+  }
+  #accountApp .pf-card-heading {
+    padding-top: 16px;
+    padding-bottom: 12px;
+  }
+  #accountApp .pf-recent-row {
+    min-height: 55px;
+  }
+  #accountApp .pf-notebook-lines button {
+    min-height: 39px;
+    padding-block: 8px;
+  }
+  #accountApp .pf-footer {
+    margin-top: 18px;
+  }
+  #accountApp .pf-side-note {
+    display: none;
+  }
+}
+@media (max-width: 1100px) {
+  .account-profile-page .account-page-shell {
+    width: calc(100% - 28px);
+    margin: 14px auto;
+  }
+  #accountApp .pf-shell {
+    grid-template-columns: 198px minmax(0, 1fr);
+    height: calc(100dvh - 28px);
+  }
+  #accountApp .pf-sidebar {
+    padding-inline: 12px;
+  }
+  #accountApp .pf-topbar {
+    padding-inline: 24px;
+  }
+  #accountApp .pf-content {
+    padding-inline: 24px;
+  }
+  #accountApp .pf-banner-art {
+    flex-basis: 145px;
+  }
+  #accountApp .pf-art-board {
+    left: 5px;
+  }
+  #accountApp .pf-bento-grid {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+    gap: 13px;
+  }
+  #accountApp .pf-card-heading {
+    padding-inline: 16px;
+  }
+  #accountApp .pf-recent-list,
+  #accountApp .pf-notebook-lines {
+    padding-inline: 16px;
+  }
+  #accountApp .pf-stats {
+    gap: 10px;
+  }
+  #accountApp .pf-stat {
+    padding-inline: 13px;
+  }
+}
+@media (max-width: 900px) and (min-width: 761px) {
+  #accountApp .pf-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  #accountApp .pf-bento-grid,
+  #accountApp .pf-collection-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  #accountApp .pf-banner-art {
+    display: none;
+  }
+}
+@media (max-width: 760px) {
+  .account-profile-page .account-page-shell {
+    width: 100%;
+    margin: 0;
+  }
+  #accountApp .pf-shell {
+    height: auto;
+    min-height: 100dvh;
+    display: block;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
+  #accountApp .pf-sidebar {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    overflow: visible;
+    padding: 17px 16px 12px;
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+  #accountApp .pf-brand {
+    padding: 0;
+  }
+  #accountApp .pf-brand > span:last-child {
+    font-size: 12px;
+  }
+  #accountApp .pf-brand-mark {
+    width: 31px;
+    height: 35px;
+    font-size: 22px;
+  }
+  #accountApp .pf-brand small {
+    font-size: 7px;
+    letter-spacing: 1.3px;
+  }
+  #accountApp .pf-side-identity {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    gap: 2px;
+  }
+  #accountApp .pf-side-identity > span,
+  #accountApp .pf-nav-caption {
+    display: none;
+  }
+  #accountApp .pf-side-identity .pf-avatar {
+    width: 33px;
+    height: 33px;
+  }
+  #accountApp .pf-tabs {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 4px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 30;
+    padding: 9px 16px calc(9px + env(safe-area-inset-bottom, 0px));
+    background: var(--pf-paper);
+    border-top: 1px solid var(--line);
+    box-shadow: 0 -5px 24px #30211308;
+  }
+  #accountApp .pf-tab {
+    justify-content: center;
+    min-height: 42px;
+    padding: 10px 3px;
+    gap: 7px;
+    font-size: 11px;
+  }
+  #accountApp .pf-tab svg {
+    width: 15px;
+    height: 15px;
+  }
+  #accountApp .pf-active-dot,
+  #accountApp .pf-tab-indicator::before {
+    display: none;
+  }
+  #accountApp .pf-sidebar-bottom {
+    grid-column: 1 / -1;
+    padding: 0;
+    margin: 8px 0 0;
+    display: flex;
+    justify-content: space-between;
+  }
+  #accountApp .pf-side-note {
+    display: none;
+  }
+  #accountApp .pf-side-link {
+    width: auto;
+    min-height: 34px;
+    font-size: 10px;
+    padding: 5px 8px;
+    gap: 5px;
+  }
+  #accountApp .pf-side-link svg {
+    width: 13px;
+    height: 13px;
+  }
+  #accountApp .pf-topbar {
+    min-height: 60px;
+    padding: 10px 16px;
+  }
+  #accountApp .pf-breadcrumb {
+    gap: 7px;
+    font-size: 10px;
+  }
+  #accountApp .pf-breadcrumb > span,
+  #accountApp .pf-breadcrumb > svg {
+    display: none;
+  }
+  #accountApp .pf-top-actions {
+    gap: 2px;
+  }
+  #accountApp .pf-button.pf-primary {
+    margin-left: 4px;
+  }
+  #accountApp .pf-content {
+    padding: 18px 16px calc(126px + env(safe-area-inset-bottom, 0px));
+    overflow: visible;
+  }
+  #accountApp .pf-profile-banner {
+    min-height: 195px;
+  }
+  #accountApp .pf-profile-copy {
+    padding: 19px 18px;
+  }
+  #accountApp .pf-profile-person {
+    gap: 13px;
+    margin-top: 18px;
+  }
+  #accountApp .pf-profile-name h1 {
+    font-size: 23px;
+  }
+  #accountApp .pf-profile-name {
+    gap: 8px;
+  }
+  #accountApp .pf-profile-person .pf-avatar {
+    width: 62px;
+    height: 62px;
+  }
+  #accountApp .pf-motto {
+    font-size: 10px;
+  }
+  #accountApp .pf-profile-links {
+    margin-left: 75px;
+  }
+  #accountApp .pf-banner-art {
+    display: none;
+  }
+  #accountApp .pf-section-label {
+    margin-top: 22px;
+  }
+  #accountApp .pf-section-label > span {
+    font-size: 9px;
+  }
+  #accountApp .pf-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+  #accountApp .pf-stat {
+    padding: 15px;
+  }
+  #accountApp .pf-stat > strong {
+    font-size: 28px;
+    margin-top: 9px;
+  }
+  #accountApp .pf-stat > small {
+    font-size: 9px;
+  }
+  #accountApp .pf-bento-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+    margin-top: 18px;
+  }
+  #accountApp .pf-collection-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  #accountApp .pf-workspace-heading {
+    padding-top: 4px;
+  }
+  #accountApp .pf-workspace-heading h1 {
+    font-size: 24px;
+  }
+  #accountApp .pf-workspace-heading > p:last-child {
+    font-size: 11px;
+  }
+  #accountApp .pf-search-input input {
+    font-size: 16px;
+  }
+  #accountApp .pf-copy,
+  #accountApp .pf-lineup-card .pf-button,
+  #accountApp .pf-card-actions .pf-icon-button,
+  #accountApp .pf-pagination .pf-icon-button {
+    min-height: 40px;
+  }
+  #accountApp .pf-footer {
+    font-size: 8px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  #accountApp *,
+  #accountApp *::before,
+  #accountApp *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}

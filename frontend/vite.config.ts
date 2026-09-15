@@ -17,10 +17,10 @@ export default defineConfig(({ mode }) => ({
     this.emitFile({ type: 'asset', fileName: 'THIRD_PARTY_NOTICES.txt', source: notices.join('\n\n----\n\n') });
   } }],
   build: {
-    outDir: resolve(import.meta.dirname, mode === 'audit' ? '../static/admin/audit-logs' : '../static/admin/season-packages'),
+    outDir: resolve(import.meta.dirname, mode === 'account' ? '../static/account-profile' : mode === 'audit' ? '../static/admin/audit-logs' : '../static/admin/season-packages'),
     emptyOutDir: true,
     rollupOptions: { onwarn(warning, warn) { if (warning.code !== 'MODULE_LEVEL_DIRECTIVE') warn(warning); } },
-    lib: { entry: resolve(import.meta.dirname, mode === 'audit' ? 'audit-logs.tsx' : 'season-packages.tsx'), name: mode === 'audit' ? 'JccAuditLogs' : 'JccSeasonPackages', formats: ['iife'], fileName: () => 'app.js', cssFileName: 'app' },
+    lib: { entry: resolve(import.meta.dirname, mode === 'account' ? 'account-profile.tsx' : mode === 'audit' ? 'audit-logs.tsx' : 'season-packages.tsx'), name: mode === 'account' ? 'JccAccountProfile' : mode === 'audit' ? 'JccAuditLogs' : 'JccSeasonPackages', formats: ['iife'], fileName: () => 'app.js', cssFileName: 'app' },
   },
   define: { 'process.env.NODE_ENV': JSON.stringify('production') },
 }));

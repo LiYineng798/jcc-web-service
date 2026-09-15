@@ -4,8 +4,9 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "build": "tsc --noEmit && vite build && vite build --mode audit",
-    "build:audit": "tsc --noEmit && vite build --mode audit"
+    "build": "tsc --noEmit && vite build && vite build --mode audit && vite build --mode account",
+    "build:audit": "tsc --noEmit && vite build --mode audit",
+    "build:account": "tsc --noEmit && vite build --mode account"
   },
   "dependencies": {
     "clsx": "^2.1.1",
