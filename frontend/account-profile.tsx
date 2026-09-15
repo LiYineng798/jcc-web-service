@@ -4,5 +4,5 @@ import BentoCard from "@/components/ui/bento-card";
 import "./account-ui.css";
 
 const root = document.getElementById("accountApp");
-if (root && location.hash !== "#lineup-notifications")
+if (root)
   createRoot(root).render(<BentoCard />);

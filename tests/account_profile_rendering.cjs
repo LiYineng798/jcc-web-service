@@ -127,8 +127,8 @@ async function select(page, id) {
     do {
       await loaded(page);
       for (const href of await page
-        .locator(".pf-lineup-card h2 a")
-        .evaluateAll((nodes) => nodes.map((n) => n.getAttribute("href"))))
+        .locator(".pf-lineup-card")
+        .evaluateAll((nodes) => nodes.map((n) => n.dataset.lineupId)))
         ids.add(href);
       count++;
       if (
@@ -151,17 +151,18 @@ async function select(page, id) {
     await page.getByRole("button", { name: "清空搜索", exact: true }).click();
     await loaded(page);
     const banned = page
-      .getByRole("link", { name: "查看封禁与重审", exact: true })
+      .getByRole("button", { name: "查看封禁与重审", exact: true })
       .first();
     if (!(await banned.count())) {
       await page.getByRole("button", { name: "下一页", exact: true }).click();
       await loaded(page);
     }
-    assert(
-      (await banned.getAttribute("href")).startsWith(
-        "/me/lineup-notifications/",
-      ),
-    );
+    const mineUrl = page.url();
+    await banned.click();
+    await page.locator('.pf-moderation-detail').waitFor();
+    assert.equal(page.url(), mineUrl);
+    await page.getByRole('button', { name: '关闭浮窗', exact: true }).click();
+    assert.equal(await page.locator('dialog[open]').count(), 0);
     for (const viewport of [{ width: 1366, height: 768 }, { width: 1440, height: 900 }]) {
       await page.setViewportSize(viewport);
       const pagerBounds = await page.locator('.pf-pagination').boundingBox();

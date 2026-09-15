@@ -17,3 +17,5 @@
 FileUpload 使用受控状态和真实 XHR 进度；后台任务通过持久 API 轮询。没有使用示例里的虚拟计时器或演示文件。组件本身只需要 Lucide 图标，不需要装饰性照片。独立 Vite 岛无需 React Server Component 的 `use client` 指令。
 
 新增 shadcn 组件时，应从本目录运行组件 CLI，并保留现有配置与作用域。不要重新初始化覆盖已有后台主题或引入全站 CSS reset。
+
+个人中心的通知、封禁与重审详情、编辑均使用 `components/ui/account-dialogs.tsx` 的页内浮窗；`lib/account-api.ts` 负责请求取消、重试及保存后刷新。对应样式在 `components/ui/account-dialogs.css`，沿用账号页的作用域与主题变量，不影响主页的通知入口。

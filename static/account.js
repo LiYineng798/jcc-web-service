@@ -1,6 +1,5 @@
 // Browser integrations used by the /me React profile island.
 (() => {
-  if (location.hash === '#lineup-notifications') { location.replace('/?notifications=open'); return; }
   let leaving = false;
   window.addEventListener('pagehide', () => { leaving = true; });
   window.addEventListener('pageshow', () => { leaving = false; });

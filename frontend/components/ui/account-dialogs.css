@@ -1,0 +1,592 @@
+#accountApp .pf-notice-bell {
+  position: relative;
+}
+#accountApp .pf-notice-count {
+  position: absolute;
+  top: -3px;
+  right: -5px;
+  min-width: 16px;
+  padding: 1px 4px;
+  border-radius: 8px;
+  color: var(--pf-paper);
+  background: var(--accent-strong);
+  font-size: 9px;
+  line-height: 1.4;
+}
+#accountApp button.pf-notebook-footer {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+}
+#accountApp .pf-title-button {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  font-weight: inherit;
+  text-align: left;
+}
+#accountApp .pf-title-button:hover {
+  color: var(--accent-strong);
+}
+#accountApp .pf-dialog {
+  width: min(820px, calc(100vw - 40px));
+  max-width: none;
+  max-height: calc(100dvh - 48px);
+  padding: 0;
+  margin: auto;
+  border: 1px solid var(--line);
+  border-radius: 21px;
+  color: var(--text);
+  background: var(--pf-paper);
+  box-shadow: 0 30px 100px #17100c30;
+  overflow: hidden;
+}
+#accountApp .pf-dialog[open] {
+  display: flex;
+  flex-direction: column;
+}
+#accountApp .pf-dialog::backdrop {
+  background: #20181160;
+  backdrop-filter: blur(5px);
+}
+#accountApp .pf-dialog-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 25px 28px;
+  border-bottom: 1px solid var(--pf-border);
+  flex-shrink: 0;
+}
+#accountApp .pf-dialog-heading {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+}
+#accountApp .pf-dialog-symbol {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border: 1px solid color-mix(in srgb, var(--accent) 16%, transparent);
+  border-radius: 13px;
+  color: var(--accent-strong);
+  background: color-mix(in srgb, var(--accent) 7%, transparent);
+}
+#accountApp .pf-dialog .pf-dialog-title {
+  font-size: 21px;
+  line-height: 1.4;
+  font-weight: 600;
+  margin-top: 5px;
+  outline: none;
+}
+#accountApp .pf-dialog-body {
+  padding: 24px 28px 28px;
+  overflow: auto;
+  min-height: 0;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+}
+#accountApp .pf-dialog-intro {
+  font-size: 12px;
+  line-height: 1.8;
+  color: var(--muted);
+  margin-bottom: 20px;
+}
+#accountApp .pf-dialog-back {
+  padding: 9px 28px 0;
+  flex-shrink: 0;
+}
+#accountApp .pf-discard {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+  padding: 15px 28px;
+  background: var(--accent-soft);
+  border-bottom: 1px solid var(--line);
+  flex-shrink: 0;
+}
+#accountApp .pf-discard > div {
+  flex: 1 1 230px;
+}
+#accountApp .pf-discard strong {
+  font-size: 13px;
+}
+#accountApp .pf-discard p {
+  font-size: 11px;
+  margin-top: 4px;
+  color: var(--muted);
+}
+#accountApp .pf-inbox-filters {
+  display: flex;
+  gap: 8px;
+  padding-bottom: 18px;
+}
+#accountApp .pf-inbox-filters button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 37px;
+  padding: 8px 13px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  color: var(--muted);
+  background: transparent;
+  font-size: 12px;
+}
+#accountApp .pf-inbox-filters button[aria-pressed="true"] {
+  border-color: var(--line);
+  color: var(--accent-strong);
+  background: var(--accent-soft);
+}
+#accountApp .pf-inbox-filters button span {
+  font-size: 10px;
+  font-variant-numeric: tabular-nums;
+  opacity: 0.8;
+}
+#accountApp .pf-notice-list {
+  border: 1px solid var(--pf-border);
+  border-radius: 13px;
+  overflow: hidden;
+}
+#accountApp .pf-notice-row {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 0 13px 0 0;
+}
+#accountApp .pf-notice-row + .pf-notice-row {
+  border-top: 1px solid var(--pf-border);
+}
+#accountApp .pf-notice-row.is-unread {
+  background: color-mix(in srgb, var(--accent) 3%, var(--pf-paper));
+}
+#accountApp .pf-notice-open {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  min-width: 0;
+  gap: 14px;
+  padding: 18px;
+  text-align: left;
+  border: 0;
+  color: var(--text);
+  background: transparent;
+}
+#accountApp .pf-notice-open:hover {
+  background: var(--pf-subtle);
+}
+#accountApp .pf-notice-symbol {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 35px;
+  height: 35px;
+  border: 1px solid var(--pf-border);
+  border-radius: 10px;
+  color: var(--accent-strong);
+  background: var(--pf-paper);
+}
+#accountApp .pf-notice-text {
+  min-width: 0;
+  flex: 1;
+}
+#accountApp .pf-notice-text strong {
+  display: block;
+  font-size: 14px;
+  font-weight: 550;
+  overflow-wrap: anywhere;
+}
+#accountApp .pf-notice-text > span {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 6px 0;
+}
+#accountApp .pf-notice-text time {
+  font-size: 10px;
+  color: var(--muted);
+}
+#accountApp .pf-notice-text p {
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.8;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+#accountApp .pf-read-button {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 32px;
+  height: 36px;
+  border: 0;
+  border-radius: 8px;
+  background: none;
+}
+#accountApp .pf-read-button:hover {
+  background: var(--pf-subtle);
+}
+#accountApp .pf-read-button span {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  border: 1px solid var(--muted);
+}
+#accountApp .is-unread .pf-read-button span {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+#accountApp .pf-dialog-status {
+  display: inline-flex;
+  width: fit-content;
+  padding: 3px 7px;
+  border-radius: 5px;
+  color: var(--accent-strong);
+  background: var(--accent-soft);
+  font-size: 10px;
+  line-height: 1.5;
+}
+#accountApp .pf-dialog-status-approved,
+#accountApp .pf-dialog-status-released,
+#accountApp .pf-dialog-status-normal {
+  color: var(--pf-green);
+  background: color-mix(in srgb, var(--pf-green) 8%, transparent);
+}
+#accountApp .pf-dialog-status-pending {
+  color: var(--muted);
+  background: var(--pf-subtle);
+}
+#accountApp .pf-record-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 21px;
+}
+#accountApp .pf-record-heading > div {
+  min-width: 0;
+  flex: 1;
+}
+#accountApp .pf-record-heading h3 {
+  font-size: 22px;
+  font-weight: 600;
+  margin-top: 12px;
+  overflow-wrap: anywhere;
+}
+#accountApp .pf-record-heading p {
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 6px;
+}
+#accountApp .pf-moderation-reason {
+  padding: 17px 19px;
+  border: 1px solid color-mix(in srgb, var(--accent) 20%, var(--pf-border));
+  border-left: 3px solid var(--accent);
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--accent) 5%, var(--pf-paper));
+  margin-bottom: 20px;
+}
+#accountApp .pf-moderation-reason strong {
+  display: block;
+  font-size: 12px;
+  color: var(--accent-strong);
+}
+#accountApp .pf-moderation-reason p {
+  font-size: 13px;
+  line-height: 1.9;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  margin-top: 7px;
+}
+#accountApp .pf-moderation-reason p + strong {
+  margin-top: 14px;
+}
+#accountApp .pf-dialog-hint {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 12px 0 20px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.8;
+}
+#accountApp .pf-record-comparison {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 14px;
+}
+#accountApp .pf-record-content {
+  min-width: 0;
+  border: 1px solid var(--pf-border);
+  border-radius: 12px;
+  padding: 18px;
+}
+#accountApp .pf-record-content h3 {
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+#accountApp .pf-record-content > div + div {
+  margin-top: 15px;
+}
+#accountApp .pf-record-content small {
+  font-size: 10px;
+  color: var(--muted);
+}
+#accountApp .pf-record-content p,
+#accountApp .pf-record-content pre {
+  margin: 5px 0 0;
+  font-size: 12px;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+  line-height: 1.8;
+}
+#accountApp .pf-record-content pre {
+  padding: 11px;
+  border-radius: 7px;
+  background: var(--pf-subtle);
+  font-family: ui-monospace, Consolas, monospace;
+  max-height: 150px;
+  overflow: auto;
+}
+#accountApp .pf-record-content .is-changed small {
+  color: var(--accent-strong);
+}
+#accountApp .pf-record-history {
+  margin-top: 22px;
+  padding-top: 18px;
+  border-top: 1px solid var(--pf-border);
+}
+#accountApp .pf-record-history summary {
+  cursor: pointer;
+  font-size: 12px;
+  line-height: 1.8;
+  color: var(--muted);
+}
+#accountApp .pf-record-history > summary {
+  color: var(--text);
+  font-weight: 550;
+}
+#accountApp .pf-record-history summary span {
+  margin-left: 6px;
+  color: var(--muted);
+  font-size: 10px;
+}
+#accountApp .pf-record-history article {
+  margin-top: 16px;
+  border-left: 2px solid var(--line);
+  padding: 3px 0 8px 16px;
+}
+#accountApp .pf-record-history article > div:first-child {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 12px;
+}
+#accountApp .pf-record-history time {
+  font-size: 10px;
+  color: var(--muted);
+  flex-shrink: 0;
+}
+#accountApp .pf-record-history p {
+  font-size: 12px;
+  line-height: 1.8;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+  margin-top: 8px;
+}
+#accountApp .pf-record-history details {
+  margin-top: 10px;
+}
+#accountApp .pf-record-history .pf-record-content {
+  margin-top: 10px;
+}
+#accountApp .pf-edit-form fieldset {
+  padding: 0;
+  border: 0;
+  margin: 0;
+  min-width: 0;
+}
+#accountApp .pf-edit-field {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  min-width: 0;
+  font-size: 12px;
+  font-weight: 550;
+}
+#accountApp .pf-edit-field + .pf-edit-field,
+#accountApp .pf-edit-bottom {
+  margin-top: 19px;
+}
+#accountApp .pf-edit-field input,
+#accountApp .pf-edit-field textarea,
+#accountApp .pf-edit-field select {
+  width: 100%;
+  min-width: 0;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: var(--pf-panel);
+  color: var(--text);
+  padding: 11px 13px;
+  font: inherit;
+  font-weight: 400;
+  line-height: 1.7;
+}
+#accountApp .pf-edit-field textarea {
+  min-height: 130px;
+  resize: vertical;
+  max-height: 300px;
+  font-family: ui-monospace, Consolas, monospace;
+}
+#accountApp .pf-edit-field small {
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 400;
+}
+#accountApp .pf-edit-bottom {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 22px;
+  align-items: end;
+}
+#accountApp .pf-edit-visibility {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 11px 13px;
+  border: 1px solid var(--pf-border);
+  border-radius: 9px;
+}
+#accountApp .pf-edit-visibility > span {
+  flex: 1;
+  min-width: 0;
+}
+#accountApp .pf-edit-visibility strong {
+  display: block;
+  font-size: 12px;
+  font-weight: 500;
+}
+#accountApp .pf-edit-visibility small {
+  display: block;
+  margin-top: 4px;
+  font-size: 10px;
+  color: var(--muted);
+}
+#accountApp .pf-edit-visibility input {
+  width: 17px;
+  height: 17px;
+  accent-color: var(--accent);
+}
+#accountApp .pf-edit-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-top: 24px;
+  padding-top: 19px;
+  border-top: 1px solid var(--pf-border);
+}
+#accountApp .pf-edit-footer > span {
+  color: var(--muted);
+  font-size: 11px;
+}
+#accountApp .pf-edit-footer > div,
+#accountApp .pf-edit-actions {
+  display: flex;
+  gap: 8px;
+}
+#accountApp .pf-form-error {
+  width: 100%;
+  font-size: 12px;
+  line-height: 1.8;
+  color: var(--accent-strong);
+  margin-top: 15px;
+  padding: 12px 15px;
+  border-radius: 9px;
+  border: 1px solid var(--line);
+  overflow-wrap: anywhere;
+}
+#accountApp .pf-form-error .pf-text-button {
+  display: flex;
+  color: inherit;
+}
+@media (max-width: 760px) {
+  #accountApp .pf-dialog {
+    width: calc(100vw - 20px);
+    max-height: calc(100dvh - 24px);
+    border-radius: 16px;
+  }
+  #accountApp .pf-dialog-header {
+    padding: 18px;
+    gap: 10px;
+  }
+  #accountApp .pf-dialog-heading {
+    gap: 10px;
+  }
+  #accountApp .pf-dialog-symbol {
+    width: 38px;
+    height: 38px;
+  }
+  #accountApp .pf-dialog-title {
+    font-size: 18px;
+  }
+  #accountApp .pf-dialog-header .pf-eyebrow {
+    font-size: 8px;
+    letter-spacing: 1.5px;
+  }
+  #accountApp .pf-dialog-body {
+    padding: 19px 17px 22px;
+  }
+  #accountApp .pf-dialog-back {
+    padding-inline: 17px;
+  }
+  #accountApp .pf-discard {
+    padding: 14px 17px;
+  }
+  #accountApp .pf-record-comparison,
+  #accountApp .pf-edit-bottom {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  #accountApp .pf-dialog .pf-button,
+  #accountApp .pf-dialog .pf-icon-button,
+  #accountApp .pf-read-button {
+    min-height: 40px;
+  }
+  #accountApp .pf-notice-open {
+    padding: 15px 10px;
+    gap: 10px;
+  }
+  #accountApp .pf-notice-symbol {
+    display: none;
+  }
+  #accountApp .pf-notice-row {
+    padding-right: 6px;
+  }
+  #accountApp .pf-notice-text > span {
+    gap: 5px;
+  }
+  #accountApp .pf-edit-field input,
+  #accountApp .pf-edit-field textarea,
+  #accountApp .pf-edit-field select {
+    font-size: 16px;
+  }
+  #accountApp .pf-edit-footer > div {
+    margin-left: auto;
+  }
+  #accountApp .pf-record-heading h3 {
+    font-size: 19px;
+  }
+}

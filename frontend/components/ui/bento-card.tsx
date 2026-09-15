@@ -33,6 +33,11 @@ import {
   X,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useResource } from "@/lib/account-api";
+import {
+  AccountDialogsProvider,
+  useAccountDialogs,
+} from "@/components/ui/account-dialogs";
 
 type User = {
   id: number;
@@ -171,47 +176,6 @@ function resetContentScroll() {
   else document.querySelector(".pf-content")?.scrollTo(0, 0);
 }
 
-function useResource<T>(url: string) {
-  const [attempt, setAttempt] = useState(0);
-  const [state, setState] = useState<{
-    url: string;
-    data?: T;
-    error?: Failure;
-    loading: boolean;
-  }>({ url, loading: true });
-  useEffect(() => {
-    const restore = (event: PageTransitionEvent) => {
-      if (event.persisted) setAttempt((value) => value + 1);
-    };
-    window.addEventListener("pageshow", restore);
-    return () => window.removeEventListener("pageshow", restore);
-  }, []);
-  useEffect(() => {
-    const controller = new AbortController();
-    const abort = () => controller.abort();
-    window.addEventListener("pagehide", abort, { once: true });
-    setState({ url, loading: true });
-    window.JccAccount.request<T>(url, { signal: controller.signal })
-      .then((data) => {
-        if (!controller.signal.aborted) setState({ url, data, loading: false });
-      })
-      .catch((error: Failure) => {
-        if (!controller.signal.aborted && error.name !== "AbortError")
-          setState({ url, error, loading: false });
-      });
-    return () => {
-      abort();
-      window.removeEventListener("pagehide", abort);
-    };
-  }, [url, attempt]);
-  return {
-    ...(state.url === url
-      ? state
-      : { loading: true, data: undefined, error: undefined }),
-    retry: () => setAttempt((value) => value + 1),
-  };
-}
-
 function ErrorState({ error, retry }: { error: Failure; retry: () => void }) {
   return (
     <div className="pf-empty" role="alert">
@@ -302,15 +266,17 @@ export default function BentoCard() {
       />
     );
   return (
-    <Profile
+    <AccountDialogsProvider
       key={session.data.user.id}
-      user={session.data.user}
       token={session.data.csrf_token}
-    />
+    >
+      <Profile user={session.data.user} token={session.data.csrf_token} />
+    </AccountDialogsProvider>
   );
 }
 
 function Profile({ user: initialUser, token }: { user: User; token: string }) {
+  const dialogs = useAccountDialogs();
   const [user, setUser] = useState(initialUser);
   const [active, setActive] = useState<Tab>(tabFromHash);
   const [theme, setTheme] = useState(
@@ -332,12 +298,13 @@ function Profile({ user: initialUser, token }: { user: User; token: string }) {
   useEffect(() => {
     const change = () => {
       if (location.hash === "#lineup-notifications") {
-        location.replace("/?notifications=open");
+        dialogs.open({ kind: "notifications" });
         return;
       }
       if (location.hash === "#avatar") trigger.current?.click();
       setActive(tabFromHash());
     };
+    if (location.hash === "#lineup-notifications") change();
     window.addEventListener("hashchange", change);
     return () => window.removeEventListener("hashchange", change);
   }, []);
@@ -460,13 +427,29 @@ function Profile({ user: initialUser, token }: { user: User; token: string }) {
             <strong>{tab.label}</strong>
           </div>
           <div className="pf-top-actions">
-            <a
-              className="pf-icon-button"
-              href="/?notifications=open"
-              aria-label="查看通知"
+            <button
+              className="pf-icon-button pf-notice-bell"
+              onClick={(event) =>
+                dialogs.open({ kind: "notifications" }, event.currentTarget)
+              }
+              aria-label={
+                dialogs.unread
+                  ? `查看通知，${dialogs.unread} 条未读`
+                  : "查看通知"
+              }
+              title={
+                dialogs.countError
+                  ? "通知数量暂时不可用，点击重试"
+                  : "阵容处理通知"
+              }
             >
               <Bell size={18} />
-            </a>
+              {dialogs.unread > 0 && (
+                <span className="pf-notice-count">
+                  {dialogs.unread > 99 ? "99+" : dialogs.unread}
+                </span>
+              )}
+            </button>
             <button
               className="pf-icon-button"
               onClick={toggleTheme}
@@ -541,7 +524,11 @@ function Overview({
   navigate: (id: Tab) => void;
   editAvatar: () => void;
 }) {
-  const dashboard = useResource<Dashboard>("/api/me/dashboard");
+  const dialogs = useAccountDialogs();
+  const dashboard = useResource<Dashboard>(
+    "/api/me/dashboard",
+    dialogs.dataRevision,
+  );
   const views = useResource<Lineup[]>("/api/me/recent-views");
   const data = dashboard.data;
   return (
@@ -726,11 +713,16 @@ function Overview({
               <ChevronRight size={14} />
             </button>
           </div>
-          <a className="pf-notebook-footer" href="/?notifications=open">
+          <button
+            className="pf-notebook-footer"
+            onClick={(event) =>
+              dialogs.open({ kind: "notifications" }, event.currentTarget)
+            }
+          >
             <Bell size={15} />
             <span>查看阵容处理通知</span>
-            <ArrowUpRight size={15} />
-          </a>
+            <ChevronRight size={15} />
+          </button>
         </section>
       </div>
     </div>
@@ -828,7 +820,11 @@ function Collection({
     : kind === "reports"
       ? "/api/me/reports"
       : `/api/me/recent-${kind}`;
-  const result = useResource<Page | Lineup[] | Report[]>(url);
+  const dialogs = useAccountDialogs();
+  const result = useResource<Page | Lineup[] | Report[]>(
+    url,
+    dialogs.dataRevision,
+  );
   const payload = paginated ? (result.data as Page | undefined) : undefined;
   const all = paginated
     ? payload?.items || []
@@ -1005,8 +1001,9 @@ function LineupCard({
   refresh: () => void;
 }) {
   const [busy, setBusy] = useState(false);
+  const dialogs = useAccountDialogs();
   return (
-    <article className="pf-lineup-card">
+    <article className="pf-lineup-card" data-lineup-id={item.id}>
       <div className="pf-lineup-card-top">
         <span className="pf-rank">{item.rank_level || "阵容"}</span>
         <span className={cn("pf-status", `pf-status-${item.status}`)}>
@@ -1016,15 +1013,21 @@ function LineupCard({
         </span>
       </div>
       <h2>
-        <a
-          href={
-            item.status === "banned" && kind === "mine"
-              ? `/me/lineup-notifications/${item.id}`
-              : `/lineup/${item.id}`
-          }
-        >
-          {item.name}
-        </a>
+        {item.status === "banned" && kind === "mine" ? (
+          <button
+            className="pf-title-button"
+            onClick={(event) =>
+              dialogs.open(
+                { kind: "moderation", id: item.id },
+                event.currentTarget,
+              )
+            }
+          >
+            {item.name}
+          </button>
+        ) : (
+          <a href={`/lineup/${item.id}`}>{item.name}</a>
+        )}
       </h2>
       <p className="pf-lineup-meta">
         {kind === "mine" ? "更新于" : item.owner_nickname + " ·"}{" "}
@@ -1043,17 +1046,21 @@ function LineupCard({
         </span>
         <div className="pf-card-actions">
           {kind === "mine" ? (
-            <a
+            <button
               className="pf-button"
-              href={
-                item.status === "banned"
-                  ? `/me/lineup-notifications/${item.id}`
-                  : `/lineup/${item.id}/edit`
+              onClick={(event) =>
+                dialogs.open(
+                  {
+                    kind: item.status === "banned" ? "moderation" : "edit",
+                    id: item.id,
+                  },
+                  event.currentTarget,
+                )
               }
             >
               {item.status === "banned" ? "查看封禁与重审" : "编辑阵容"}
-              <ArrowUpRight size={13} />
-            </a>
+              <ChevronRight size={13} />
+            </button>
           ) : (
             <>
               {kind === "favorites" && (
