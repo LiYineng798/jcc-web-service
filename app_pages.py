@@ -148,6 +148,7 @@ def register_page_routes(app):
             abort(400, description='请选择有效的魔女层数档位。')
         return tracked_template_response(
             'witch_rewards.html', 'witch_rewards', tiers=reward_tiers(), selected=selected,
+            simulator_enabled=get_setting(get_db(), 'simulator_enabled', 'true') == 'true',
             seo=make_seo(title='S18 魔女层数奖励查询 - 金铲铲阵容库',
                          description='查询魔女各层数奖励概率、弈子星级、物品数量和预计价值。',
                          path='/tools/s18-witch-rewards'),
@@ -161,6 +162,7 @@ def register_page_routes(app):
         return tracked_template_response(
             'lucky_openings.html', 'lucky_openings',
             openings=build_lucky_openings(),
+            simulator_enabled=get_setting(get_db(), 'simulator_enabled', 'true') == 'true',
             seo=make_seo(title=f'{title} - 金铲铲阵容库', description=description, path=path,
                          json_ld=[webpage_json_ld(title, description, path), breadcrumb_json_ld([
                              {'name': '首页', 'path': '/'}, {'name': title, 'path': path},

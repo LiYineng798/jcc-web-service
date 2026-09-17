@@ -29,7 +29,8 @@ def test_guest_gets_all_nine_exact_normalized_codes_and_effects(client):
     assert re.findall(r'data-code="([^"]+)"', html) == expected_codes
     assert len(set(expected_codes)) == 9
     assert html.count('class="opening-card"') == 9
-    assert '羁绊' not in html
+    # The shared toolbox may describe simulator traits; opening content must not.
+    assert '羁绊' not in html.split('<main>', 1)[1]
     for removed in ('查看阵容码', 'opening-manual', '<textarea', 'openings-intro', 'openings-rule', 'openings-footer', '浏览 S16.5 资料库'):
         assert removed not in html
     # Full effect text remains readable without JavaScript; formatting changes no numbers.

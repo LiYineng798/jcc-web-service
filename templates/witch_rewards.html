@@ -15,14 +15,25 @@
 <div class="page-shell witch-page">
   <nav class="nav-bar" aria-label="页面工具">
     <a class="brand-mark brand-link" href="/" aria-label="返回首页">阵</a>
-    <div class="nav-actions">{{ toolbox_menu(False) }}{{ theme_toggle("nav-icon-button") }}</div>
+    <div class="nav-actions">{{ toolbox_menu(False, simulator_enabled) }}{{ theme_toggle("nav-icon-button") }}</div>
   </nav>
   <main>
     <header class="witch-hero">
       <div><p class="witch-eyebrow"><span>S18</span> 赛季工具 / 魔女</p>
       <h1>魔女层数<span>奖励查询</span></h1>
       <p class="witch-intro">每一层积累，都有值得期待的回报。</p></div>
-      <div class="witch-sigil" aria-hidden="true">☾<span>✦</span></div>
+      <div class="witch-sigil" aria-hidden="true">
+        <svg viewBox="0 0 180 180" fill="none" focusable="false">
+          <defs><linearGradient id="witch-mark-ink" x1="45" y1="25" x2="140" y2="155" gradientUnits="userSpaceOnUse"><stop stop-color="currentColor"/><stop offset="1" stop-color="currentColor" stop-opacity=".55"/></linearGradient></defs>
+          <path class="witch-sigil-frame" d="M90 6 174 90 90 174 6 90Z"/>
+          <path class="witch-sigil-frame" d="M90 17V25M155 90H163M90 155V163M17 90H25"/>
+          <g fill="url(#witch-mark-ink)">
+            <path d="M90 31 105 56 90 82 75 56Z"/>
+            <path d="M69 42C40 47 24 68 31 94 36 84 43 80 49 80 59 102 73 116 91 122 67 122 51 114 44 107 32 120 34 134 48 143 65 155 87 155 104 147 91 145 81 138 76 130 105 143 132 135 145 117 127 123 108 121 105 109 102 96 111 85 118 89 124 93 117 103 117 103 141 99 152 77 142 50 142 63 138 70 135 73 135 58 123 47 111 43 124 61 120 76 105 86 87 99 65 86 59 71 55 61 60 50 69 42Z"/>
+          </g>
+          <path d="M90 38 100 56 90 73" stroke="var(--surface-solid)" stroke-opacity=".5" stroke-width="1.3"/>
+        </svg>
+      </div>
     </header>
     <section class="witch-selector" aria-labelledby="stacks-title">
       <div class="witch-section-title"><h2 id="stacks-title">选择层数</h2><span>共 9 个奖励档位</span></div>
@@ -62,7 +73,7 @@
       </section>
     {% endfor %}
     </div>
-    <footer class="witch-notes"><p>每行是一组可能获得的奖励。星标表示弈子星级，× 表示物品数量。</p><p>来源：DataTFT 奖励资料快照 · 预计价值沿用来源口径；概率经四舍五入，合计可能略有偏差。版本调整请以游戏内为准。</p></footer>
+    <footer class="witch-notes"><p>每行是一组可能获得的奖励。星标表示弈子星级，× 表示物品数量。</p></footer>
   </main>
 </div>
 </body>

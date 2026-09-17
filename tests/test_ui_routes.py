@@ -1112,7 +1112,8 @@ def test_home_mobile_resource_dialog_groups_content_entries(client):
     assert 'class="mobile-resource-subitem" href="/tools/special-mechanics"' in index_html
     assert 'class="mobile-resource-subitem" href="/tools/artifact-guide"' in index_html
     assert 'class="mobile-resource-subitem" href="/tools/returning-equipment"' in index_html
-    assert index_html.count('desktop-resource-entry') == 4
+    # Simulator is now the first toolbox entry, rather than a separate nav item.
+    assert index_html.count('desktop-resource-entry') == 3
 
     mobile_css = css[css.index('@media (max-width: 520px)'):]
     assert '.nav-actions > .desktop-resource-entry {' in mobile_css

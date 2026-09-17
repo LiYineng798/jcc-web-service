@@ -54,3 +54,20 @@ def test_importer_rejects_missing_data_and_executable_literals():
                 'response': {'content': {'text': '魔女:[{label:evil()}],"6幻灵战队jcc"'}}}
     with pytest.raises(ValueError):
         extract({'log': {'entries': [captured]}})
+
+
+def test_toolbox_simulator_respects_site_switch(client, monkeypatch):
+    import app_pages
+    original = app_pages.get_setting
+    for enabled in ('true', 'false'):
+        monkeypatch.setattr(app_pages, 'get_setting',
+                            lambda db, key, default=None: enabled if key == 'simulator_enabled' else original(db, key, default))
+        for path in ('/', PAGE, '/tools/s16-5-lucky-openings'):
+            html = client.get(path).get_data(as_text=True)
+            menus = re.findall(r'<nav class="toolbox-panel".*?</nav>', html, re.S)
+            assert len(menus) == 1
+            links = re.findall(r'href="([^"]+)"', menus[0])
+            if enabled == 'true':
+                assert links[0] == '/tools/lineup-simulator'
+            else:
+                assert '/tools/lineup-simulator' not in links

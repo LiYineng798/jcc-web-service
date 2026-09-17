@@ -18,9 +18,6 @@
         <nav class="nav-bar" aria-label="页面工具">
           <div class="brand-mark" aria-hidden="true">阵</div>
           <div class="nav-actions">
-{% if simulator_enabled %}
-            <a class="ghost-link nav-tool-link desktop-resource-entry" href="/tools/lineup-simulator">阵容模拟器</a>
-{% endif %}
             <div class="returning-info-menu library-menu desktop-resource-entry">
               <button class="ghost-link nav-tool-link returning-info-trigger" type="button" aria-haspopup="true">
                 <span class="nav-tool-icon s18-preview-nav-icon" aria-hidden="true">资</span>
@@ -33,7 +30,7 @@
 {% endfor %}
               </div>
             </div>
-            {{ toolbox_menu() }}
+            {{ toolbox_menu(simulator_enabled=simulator_enabled) }}
             <a class="ghost-link nav-tool-link desktop-resource-entry" href="/patch-notes">更新公告</a>
             <button class="ghost-link nav-tool-link mobile-resource-trigger" id="mobileResourceTrigger" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="mobileResourceDialog">
               <span class="mobile-resource-trigger-icon" aria-hidden="true">≡</span>
@@ -105,8 +102,7 @@
             </section>
             <section class="mobile-resource-group" aria-labelledby="mobileToolsResourceTitle">
               <div class="mobile-resource-group-title" id="mobileToolsResourceTitle">{{ toolbox_icon() }}<span>工具箱</span></div>
-              {{ toolbox_links('mobile-resource-subitem') }}
-{% if simulator_enabled %}<a class="mobile-resource-subitem" href="/tools/lineup-simulator"><strong>阵容模拟器</strong><span>搭配弈子、装备与羁绊</span></a>{% endif %}
+              {{ toolbox_links('mobile-resource-subitem', simulator_enabled) }}
             </section>
             <section class="mobile-resource-group" aria-labelledby="mobileSiteResourceTitle">
               <div class="mobile-resource-group-title" id="mobileSiteResourceTitle"><span>站点</span></div>
