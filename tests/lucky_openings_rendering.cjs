@@ -25,7 +25,7 @@ fs.mkdirSync(output, { recursive: true });
       await page.keyboard.press('Escape');
       assert.equal(await page.locator('.toolbox-menu').getAttribute('open'), null);
       await page.locator('.toolbox-menu summary').press('Enter');
-      await page.locator('.toolbox-panel a').first().click();
+      await page.locator(`.toolbox-panel a[href="${route}"]`).click();
       await page.waitForURL(base + route);
       assert.equal(await page.locator('.opening-card').count(), 9);
       assert.equal(await page.locator('.opening-manual, .openings-intro, .openings-rule, .openings-footer, .toolbox-featured, .toolbox-badge').count(), 0);

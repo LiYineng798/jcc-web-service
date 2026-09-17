@@ -9,6 +9,7 @@ from lineup_account_service import build_author_profile_payload
 from lineup_read_service import build_lineup_detail_payload
 from notice_service import get_active_notice
 from lucky_openings import build_lucky_openings
+from witch_rewards_service import reward_tiers, select_reward_tier
 from seo import (
     DEFAULT_DESCRIPTION,
     DEFAULT_TITLE,
@@ -48,6 +49,7 @@ def _sitemap_entries():
         {'loc': absolute_url('/tools/artifact-guide'), 'lastmod': None},
         {'loc': absolute_url('/tools/returning-equipment'), 'lastmod': None},
         {'loc': absolute_url('/tools/s16-5-lucky-openings'), 'lastmod': None},
+        {'loc': absolute_url('/tools/s18-witch-rewards'), 'lastmod': None},
     ]
     for season in catalog_seasons():
         season_id = season['season_id']
@@ -137,6 +139,18 @@ def register_page_routes(app):
             notice=notice,
             reference_seasons=catalog_seasons(),
             seo=seo,
+        )
+
+    @app.get('/tools/s18-witch-rewards')
+    def witch_rewards_page():
+        selected = select_reward_tier(request.args.get('stacks', '365'))
+        if selected is None:
+            abort(400, description='请选择有效的魔女层数档位。')
+        return tracked_template_response(
+            'witch_rewards.html', 'witch_rewards', tiers=reward_tiers(), selected=selected,
+            seo=make_seo(title='S18 魔女层数奖励查询 - 金铲铲阵容库',
+                         description='查询魔女各层数奖励概率、弈子星级、物品数量和预计价值。',
+                         path='/tools/s18-witch-rewards'),
         )
 
     @app.get('/tools/s16-5-lucky-openings')

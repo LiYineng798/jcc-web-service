@@ -1,0 +1,1015 @@
+{
+  "season": "s18",
+  "source": "datatft.com",
+  "source_sha256": "ffa8ddcae04aaf42894fbda89edfe4cb6cc58dd1c82cee62ea18bbc432f1e3bf",
+  "patch": null,
+  "tiers": [
+    {
+      "estimatedValue": 4,
+      "label": "40",
+      "list": [
+        {
+          "percent": "33.3%",
+          "rewards": [
+            {
+              "title": "4金币",
+              "image": "witch-rewards/images/reward-gold.png",
+              "count": 1,
+              "tier": 0
+            }
+          ]
+        },
+        {
+          "percent": "33.3%",
+          "rewards": [
+            {
+              "count": 2,
+              "title": "2费卡",
+              "image": "witch-rewards/images/reward-2costunit.png",
+              "tier": 0
+            }
+          ]
+        },
+        {
+          "percent": "33.3%",
+          "rewards": [
+            {
+              "heroId": 918164,
+              "title": "卡蜜尔",
+              "type": "hero",
+              "image": "witch-rewards/images/heros-default-918164.jpg",
+              "count": 1,
+              "tier": 1
+            },
+            {
+              "heroId": 918069,
+              "title": "卡西奥佩娅",
+              "type": "hero",
+              "image": "witch-rewards/images/heros-default-918069.jpg",
+              "count": 1,
+              "tier": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "estimatedValue": 10,
+      "label": "85",
+      "list": [
+        {
+          "percent": "33.3%",
+          "rewards": [
+            {
+              "title": "散件",
+              "image": "witch-rewards/images/reward-sanjian.png",
+              "count": 1,
+              "tier": 0
+            },
+            {
+              "title": "2金币",
+              "image": "witch-rewards/images/reward-gold.png",
+              "count": 1,
+              "tier": 0
+            }
+          ]
+        },
+        {
+          "percent": "33.3%",
+          "rewards": [
+            {
+              "title": "10金币",
+              "image": "witch-rewards/images/reward-gold.png",
+              "count": 1,
+              "tier": 0
+            }
+          ]
+        },
+        {
+          "percent": "33.3%",
+          "rewards": [
+            {
+              "heroId": 918060,
+              "title": "伊莉丝",
+              "type": "hero",
+              "image": "witch-rewards/images/heros-default-918060.jpg",
+              "count": 1,
+              "tier": 1
+            },
+            {
+              "title": "散件",
+              "image": "witch-rewards/images/reward-sanjian.png",
+              "count": 1,
+              "tier": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "estimatedValue": 16,
+      "label": "130",
+      "list": [
+        {
+          "percent": "25%",
+          "rewards": [
+            {
+              "count": 2,
+              "title": "散件",
+              "image": "witch-rewards/images/reward-sanjian.png",
+              "tier": 0
+            }
+          ]
+        },
+        {
+          "percent": "25%",
+          "rewards": [
+            {
+              "tier": 2,
+              "heroId": 918060,
+              "title": "伊莉丝",
+              "type": "hero",
+              "image": "witch-rewards/images/heros-default-918060.jpg",
+              "count": 1
+            },
+            {
+              "heroId": 918069,
+              "title": "卡西奥佩娅",
+              "type": "hero",
+              "image": "witch-rewards/images/heros-default-918069.jpg",
+              "count": 1,
+              "tier": 1
+            },
+            {
+              "title": "散件",
+              "image": "witch-rewards/images/reward-sanjian.png",
+              "count": 1,
+              "tier": 0
+            }
+          ]
+        },
+        {
+          "percent": "25%",
+          "rewards": [
+            {
+              "title": "成装",
+              "image": "witch-rewards/images/reward-cz.png",
+              "count": 1,
+              "tier": 0
+            },
+            {
+              "title": "3金币",
+              "image": "witch-rewards/images/reward-gold.png",
+              "count": 1,
+              "tier": 0
+            }
+          ]
+        },
+        {
+          "percent": "25%",
+          "rewards": [
+            {
+              "tier": 2,
+              "heroId": 918051,
+              "title": "凯特琳",
+              "type": "hero",
+              "image": "witch-rewards/images/heros-default-918051.jpg",
+              "count": 1
+            },
+            {
+              "title": "散件",
+              "image": "witch-rewards/images/reward-sanjian.png",
+              "count": 1,
+              "tier": 0
+            },
+            {
+              "title": "3金币",
+              "image": "witch-rewards/images/reward-gold.png",
+              "count": 1,
+              "tier": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "estimatedValue": 24,
+      "label": "185",
+      "list": [
+        {
+          "percent": "25%",
+          "rewards": [
+            {
+              "title": "成装锻造器",
+              "image": "witch-rewards/images/reward-czdzq.png",
+              "count": 1,
+              "tier": 0
+            },
+            {
+              "title": "散件",
+              "image": "witch-rewards/images/reward-sanjian.png",
+              "count": 1,
+              "tier": 0
+            }
+          ]
+        },
+        {
+          "percent": "25%",
+          "rewards": [
+            {
+              "title": "成装锻造器",
+              "image": "witch-rewards/images/reward-czdzq.png",
+              "count": 1,
+              "tier": 0
+            },
+            {
+              "title": "10金币",
+              "image": "witch-rewards/images/reward-gold.png",
+              "count": 1,
+              "tier": 0
+            }
+          ]
+        },
+        {
+          "percent": "25%",
+          "rewards": [
+            {
+              "count": 2,
+              "title": "散件",
+              "image": "witch-rewards/images/reward-sanjian.png",
+              "tier": 0
+            },
+            {
+              "title": "10金币",
+              "image": "witch-rewards/images/reward-gold.png",
+              "count": 1,
+              "tier": 0
+            },
+            {
+              "title": "装备重铸器",
+              "image": "witch-rewards/images/reward-chongzhu.png",
+              "count": 1,
+              "tier": 0
+            }
+          ]
+        },
+        {
+          "percent": "25%",
+          "rewards": [
+            {
+              "title": "成装锻造器",
+              "image": "witch-rewards/images/reward-czdzq.png",
+              "count": 1,
+              "tier": 0
+            },
+            {
+              "tier": 2,
+              "heroId": 918051,
+              "title": "凯特琳",
+              "type": "hero",
+              "image": "witch-rewards/images/heros-default-918051.jpg",
+              "count": 1
+            },
+            {
+              "tier": 2,
+              "heroId": 918164,
+              "title": "卡蜜尔",
+              "type": "hero",
+              "image": "witch-rewards/images/heros-default-918164.jpg",
+              "count": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "estimatedValue": 40,
+      "label": "250",
+      "list": [
+        {
+          "percent": "20%",
+          "rewards": [
+            {
+              "count": 2,
+              "title": "成装锻造器",
+              "image": "witch-rewards/images/reward-czdzq.png",
+              "tier": 0
+            },
+            {
+              "title": "20金币",
+              "image": "witch-rewards/images/reward-gold.png",
+              "count": 1,
+              "tier": 0
+            }
+          ]
+        },
+        {
+          "percent": "20%",
+          "rewards": [
+            {
+              "tier": 2,
+              "heroId": 918025,
+              "title": "莫甘娜",
+              "type": "hero",
+              "image": "witch-rewards/images/heros-default-918025.jpg",
+              "count": 1
+            },
+            {
+              "equipId": 32311,
+              "title": "幸运装备宝箱",
+              "type": "equip",
+              "image": "witch-rewards/images/equips-32311.png",
+              "count": 1,
+              "tier": 0
+            },
+            {
+              "title": "成装",
+              "image": "witch-rewards/images/reward-cz.png",
+              "count": 1,
+              "tier": 0
+            },
+            {
+              "title": "5金币",
+              "image": "witch-rewards/images/reward-gold.png",
+              "count": 1,
+              "tier": 0
+            }
+          ]
+        },
+        {
+          "percent": "20%",
+          "rewards": [
+            {
+              "equipId": 32311,
+              "count": 2,
+              "title": "幸运装备宝箱",
+              "type": "equip",
+              "image": "witch-rewards/images/equips-32311.png",
+              "tier": 0
+            },
+            {
+              "title": "18金币",
+              "image": "witch-rewards/images/reward-gold.png",
+              "count": 1,
+              "tier": 0
+            },
+            {
+              "title": "装备重铸器",
+              "image": "witch-rewards/images/reward-chongzhu.png",
+              "count": 1,
+              "tier": 0
+            }
+          ]
+        },
+        {
+          "percent": "20%",
+          "rewards": [
+            {
+              "heroId": 918099,
+              "title": "魔女拉克丝",
+              "type": "hero",
+              "image": "witch-rewards/images/heros-default-918099.jpg",
+              "count": 1,
+              "tier": 1
+            },
+            {
+              "count": 2,
+              "title": "基础装备锻造器",
+              "image": "witch-rewards/images/reward-jczbdzq.png",
+              "tier": 0
+            },
+            {
+              "equipId": 32311,
+              "title": "幸运装备宝箱",
+              "type": "equip",
+              "image": "witch-rewards/images/equips-32311.png",
+              "count": 1,
+              "tier": 0
+            },
+            {
+              "title": "18金币",
+              "image": "witch-rewards/images/reward-gold.png",
+              "count": 1,
+              "tier": 0
+            }
+          ]
+        },
+        {
+          "percent": "20%",
+          "rewards": [
+            {
+              "title": "神器锻造器",
+              "image": "witch-rewards/images/reward-sqdzq.png",
+              "count": 1,
+              "tier": 0
+            },
+            {
+              "title": "成装锻造器",
+              "image": "witch-rewards/images/reward-czdzq.png",
+              "count": 1,
+              "tier": 0
+            },
+            {
+              "title": "18金币",
+              "image": "witch-rewards/images/reward-gold.png",
+              "count": 1,
+              "tier": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "estimatedValue": 76,
+      "label": "365",
+      "list": [
+        {
+          "percent": "16.7%",
+          "rewards": [
+            {
+              "count": 2,
+              "title": "光明武器",
+              "image": "witch-rewards/images/reward-gmwq.png",
+              "tier": 0
+            },
+            {
+              "title": "27金币",
+              "image": "witch-rewards/images/reward-gold.png",
+              "count": 1,
+              "tier": 0
+            },
+            {
+              "count": 2,
+              "title": "装备拆卸器",
+              "image": "witch-rewards/images/reward-chaixie.png",
+              "tier": 0
+            },
+            {
+              "count": 2,
+              "title": "装备重铸器",
+              "image": "witch-rewards/images/reward-chongzhu.png",
+              "tier": 0
+            }
+          ]
+        },
+        {
+          "percent": "16.7%",
+          "rewards": [
+            {
+              "tier": 2,
+              "heroId": 918025,
+              "title": "莫甘娜",
+              "type": "hero",
+              "image": "witch-rewards/images/heros-default-918025.jpg",
+              "count": 1
+            },
+            {
+              "tier": 2,
+              "heroId": 918997,
+              "title": "苍蓝雕纹魔像",
+              "type": "hero",
+              "image": "witch-rewards/images/heros-default-918997.jpg",
+              "count": 1
+            },
+            {
+              "equipId": 32312,
+              "title": "光明版幸运装备宝箱",
+              "type": "equip",
+              "image": "witch-rewards/images/equips-32312.png",
+              "count": 1,
+              "tier": 0
+            },
+            {
+              "equipId": 607,
+              "title": "窃贼手套",
+              "type": "equip",
+              "image": "witch-rewards/images/equips-607.png",
+              "count": 1,
+              "tier": 0
+            },
+            {
+              "title": "22金币",
+              "image": "witch-rewards/images/reward-gold.png",
+              "count": 1,
+              "tier": 0
+            }
+          ]
+        },
+        {
+          "percent": "16.7%",
+          "rewards": [
+            {
+              "equipId": 32312,
+              "title": "光明版幸运装备宝箱",
+              "type": "equip",
+              "image": "witch-rewards/images/equips-32312.png",
+              "count": 1,
+              "tier": 0
+            },
+            {
+              "title": "随机纹章",
+              "image": "witch-rewards/images/reward-emblem.png",
+              "count": 1,
+              "tier": 0
+            },
+            {
+              "count": 2,
+              "title": "成装锻造器",
+              "image": "witch-rewards/images/reward-czdzq.png",
+              "tier": 0
+            },
+            {
+              "title": "22金币",
+              "image": "witch-rewards/images/reward-gold.png",
+              "count": 1,
+              "tier": 0
+            }
+          ]
+        },
+        {
+          "percent": "16.7%",
+          "rewards": [
+            {
+              "equipId": 1607,
+              "count": 2,
+              "title": "光明版窃贼手套",
+              "type": "equip",
+              "image": "witch-rewards/images/equips-1607.png",
+              "tier": 0
+            },
+            {
+              "title": "15金币",
+              "image": "witch-rewards/images/reward-gold.png",
+              "count": 1,
+              "tier": 0
+            },
+            {
+              "tier": 2,
+              "heroId": 918085,
+              "title": "凯南",
+              "type": "hero",
+              "image": "witch-rewards/images/heros-default-918085.jpg",
+              "count": 1
+            },
+            {
+              "count": 3,
+              "title": "装备拆卸器",
+              "image": "witch-rewards/images/reward-chaixie.png",
+              "tier": 0
+            }
+          ]
+        },
+        {
+          "percent": "16.7%",
+          "rewards": [
+            {
+              "heroId": 918025,
+              "title": "莫甘娜",
+              "type": "hero",
+              "image": "witch-rewards/images/heros-default-918025.jpg",
+              "count": 1,
+              "tier": 1
+            },
+            {
+              "equipId": 32312,
+              "title": "光明版幸运装备宝箱",
+              "type": "equip",
+              "image": "witch-rewards/images/equips-32312.png",
+              "count": 1,
+              "tier": 0
+            },
+            {
+              "equipId": 33029,
+              "count": 2,
+              "title": "神谕纹章",
+              "type": "equip",
+              "image": "witch-rewards/images/equips-33029.png",
+              "tier": 0
+            },
+            {
+              "title": "22金币",
+              "image": "witch-rewards/images/reward-gold.png",
+              "count": 1,
+              "tier": 0
+            }
+          ]
+        },
+        {
+          "percent": "16.7%",
+          "rewards": [
+            {
+              "equipId": 32312,
+              "title": "光明版幸运装备宝箱",
+              "type": "equip",
+              "image": "witch-rewards/images/equips-32312.png",
+              "count": 1,
+              "tier": 0
+            },
+            {
+              "equipId": 608,
+              "title": "金铲铲冠冕",
+              "type": "equip",
+              "image": "witch-rewards/images/equips-608.png",
+              "count": 1,
+              "tier": 0
+            },
+            {
+              "tier": 2,
+              "heroId": 918119,
+              "title": "德莱文",
+              "type": "hero",
+              "image": "witch-rewards/images/heros-default-918119.jpg",
+              "count": 1
+            },
+            {
+              "title": "12金币",
+              "image": "witch-rewards/images/reward-gold.png",
+              "count": 1,
+              "tier": 0
+            },
+            {
+              "title": "金制装备拆卸器",
+              "image": "witch-rewards/images/reward-chaixiegold.png",
+              "count": 1,
+              "tier": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "estimatedValue": 100,
+      "label": "500",
+      "list": [
+        {
+          "percent": "20%",
+          "rewards": [
+            {
+              "count": 3,
+              "title": "光明武器",
+              "image": "witch-rewards/images/reward-gmwq.png",
+              "tier": 0
+            },
+            {
+              "count": 2,
+              "title": "成装锻造器",
+              "image": "witch-rewards/images/reward-czdzq.png",
+              "tier": 0
+            },
+            {
+              "count": 3,
+              "title": "装备拆卸器",
+              "image": "witch-rewards/images/reward-chaixie.png",
+              "tier": 0
+            },
+            {
+              "count": 3,
+              "title": "装备重铸器",
+              "image": "witch-rewards/images/reward-chongzhu.png",
+              "tier": 0
+            }
+          ]
+        },
+        {
+          "percent": "20%",
+          "rewards": [
+            {
+              "equipId": 32312,
+              "count": 2,
+              "title": "光明版幸运装备宝箱",
+              "type": "equip",
+              "image": "witch-rewards/images/equips-32312.png",
+              "tier": 0
+            },
+            {
+              "tier": 2,
+              "count": 2,
+              "title": "5费卡",
+              "image": "witch-rewards/images/reward-5costunit.png"
+            },
+            {
+              "count": 2,
+              "title": "成装",
+              "image": "witch-rewards/images/reward-cz.png",
+              "tier": 0
+            },
+            {
+              "count": 3,
+              "title": "装备拆卸器",
+              "image": "witch-rewards/images/reward-chaixie.png",
+              "tier": 0
+            }
+          ]
+        },
+        {
+          "percent": "20%",
+          "rewards": [
+            {
+              "equipId": 32312,
+              "count": 2,
+              "title": "光明版幸运装备宝箱",
+              "type": "equip",
+              "image": "witch-rewards/images/equips-32312.png",
+              "tier": 0
+            },
+            {
+              "count": 2,
+              "title": "神器锻造器",
+              "image": "witch-rewards/images/reward-sqdzq.png",
+              "tier": 0
+            },
+            {
+              "title": "20金币",
+              "image": "witch-rewards/images/reward-gold.png",
+              "count": 1,
+              "tier": 0
+            },
+            {
+              "count": 3,
+              "title": "装备拆卸器",
+              "image": "witch-rewards/images/reward-chaixie.png",
+              "tier": 0
+            }
+          ]
+        },
+        {
+          "percent": "20%",
+          "rewards": [
+            {
+              "equipId": 32312,
+              "count": 2,
+              "title": "光明版幸运装备宝箱",
+              "type": "equip",
+              "image": "witch-rewards/images/equips-32312.png",
+              "tier": 0
+            },
+            {
+              "count": 4,
+              "title": "随机纹章",
+              "image": "witch-rewards/images/reward-emblem.png",
+              "tier": 0
+            },
+            {
+              "title": "10金币",
+              "image": "witch-rewards/images/reward-gold.png",
+              "count": 1,
+              "tier": 0
+            },
+            {
+              "title": "金制装备拆卸器",
+              "image": "witch-rewards/images/reward-chaixiegold.png",
+              "count": 1,
+              "tier": 0
+            }
+          ]
+        },
+        {
+          "percent": "20%",
+          "rewards": [
+            {
+              "equipId": 32312,
+              "count": 2,
+              "title": "光明版幸运装备宝箱",
+              "type": "equip",
+              "image": "witch-rewards/images/equips-32312.png",
+              "tier": 0
+            },
+            {
+              "equipId": 31002,
+              "title": "金锅锅冠冕",
+              "type": "equip",
+              "image": "witch-rewards/images/equips-31002.png",
+              "count": 1,
+              "tier": 0
+            },
+            {
+              "tier": 2,
+              "heroId": 918085,
+              "title": "凯南",
+              "type": "hero",
+              "image": "witch-rewards/images/heros-default-918085.jpg",
+              "count": 1
+            },
+            {
+              "tier": 2,
+              "heroId": 918099,
+              "title": "魔女拉克丝",
+              "type": "hero",
+              "image": "witch-rewards/images/heros-default-918099.jpg",
+              "count": 1
+            },
+            {
+              "title": "15金币",
+              "image": "witch-rewards/images/reward-gold.png",
+              "count": 1,
+              "tier": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "estimatedValue": 200,
+      "label": "650",
+      "list": [
+        {
+          "percent": "33.3%",
+          "rewards": [
+            {
+              "count": 3,
+              "title": "光明武器",
+              "image": "witch-rewards/images/reward-gmwq.png",
+              "tier": 0
+            },
+            {
+              "title": "30金币",
+              "image": "witch-rewards/images/reward-gold.png",
+              "count": 1,
+              "tier": 0
+            },
+            {
+              "equipId": 31002,
+              "title": "金锅锅冠冕",
+              "type": "equip",
+              "image": "witch-rewards/images/equips-31002.png",
+              "count": 1,
+              "tier": 0
+            },
+            {
+              "tier": 2,
+              "count": 3,
+              "title": "5费卡",
+              "image": "witch-rewards/images/reward-5costunit.png"
+            },
+            {
+              "title": "金制装备拆卸器",
+              "image": "witch-rewards/images/reward-chaixiegold.png",
+              "count": 1,
+              "tier": 0
+            }
+          ]
+        },
+        {
+          "percent": "33.3%",
+          "rewards": [
+            {
+              "equipId": 32312,
+              "count": 3,
+              "title": "光明版幸运装备宝箱",
+              "type": "equip",
+              "image": "witch-rewards/images/equips-32312.png",
+              "tier": 0
+            },
+            {
+              "tier": 2,
+              "heroId": 918025,
+              "title": "莫甘娜",
+              "type": "hero",
+              "image": "witch-rewards/images/heros-default-918025.jpg",
+              "count": 1
+            },
+            {
+              "tier": 2,
+              "heroId": 918099,
+              "title": "魔女拉克丝",
+              "type": "hero",
+              "image": "witch-rewards/images/heros-default-918099.jpg",
+              "count": 1
+            },
+            {
+              "equipId": 31003,
+              "title": "金锅铲冠冕",
+              "type": "equip",
+              "image": "witch-rewards/images/equips-31003.png",
+              "count": 1,
+              "tier": 0
+            },
+            {
+              "title": "10金币",
+              "image": "witch-rewards/images/reward-gold.png",
+              "count": 1,
+              "tier": 0
+            },
+            {
+              "title": "金制装备拆卸器",
+              "image": "witch-rewards/images/reward-chaixiegold.png",
+              "count": 1,
+              "tier": 0
+            }
+          ]
+        },
+        {
+          "percent": "33.3%",
+          "rewards": [
+            {
+              "count": 3,
+              "title": "光明武器",
+              "image": "witch-rewards/images/reward-gmwq.png",
+              "tier": 0
+            },
+            {
+              "title": "40金币",
+              "image": "witch-rewards/images/reward-gold.png",
+              "count": 1,
+              "tier": 0
+            },
+            {
+              "equipId": 608,
+              "title": "金铲铲冠冕",
+              "type": "equip",
+              "image": "witch-rewards/images/equips-608.png",
+              "count": 1,
+              "tier": 0
+            },
+            {
+              "count": 3,
+              "title": "英雄复制器",
+              "image": "witch-rewards/images/reward-yxfzq.png",
+              "tier": 0
+            },
+            {
+              "count": 2,
+              "title": "装备重铸器",
+              "image": "witch-rewards/images/reward-chongzhu.png",
+              "tier": 0
+            },
+            {
+              "title": "金制装备拆卸器",
+              "image": "witch-rewards/images/reward-chaixiegold.png",
+              "count": 1,
+              "tier": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "estimatedValue": 500,
+      "label": "800",
+      "list": [
+        {
+          "percent": "50%",
+          "rewards": [
+            {
+              "title": "100金币",
+              "image": "witch-rewards/images/reward-gold.png",
+              "count": 1,
+              "tier": 0
+            },
+            {
+              "count": 6,
+              "title": "光明武器",
+              "image": "witch-rewards/images/reward-gmwq.png",
+              "tier": 0
+            },
+            {
+              "equipId": 31003,
+              "count": 3,
+              "title": "金锅铲冠冕",
+              "type": "equip",
+              "image": "witch-rewards/images/equips-31003.png",
+              "tier": 0
+            },
+            {
+              "title": "金制装备拆卸器",
+              "image": "witch-rewards/images/reward-chaixiegold.png",
+              "count": 1,
+              "tier": 0
+            }
+          ]
+        },
+        {
+          "percent": "50%",
+          "rewards": [
+            {
+              "title": "100金币",
+              "image": "witch-rewards/images/reward-gold.png",
+              "count": 1,
+              "tier": 0
+            },
+            {
+              "count": 6,
+              "title": "光明武器",
+              "image": "witch-rewards/images/reward-gmwq.png",
+              "tier": 0
+            },
+            {
+              "count": 6,
+              "title": "英雄复制器",
+              "image": "witch-rewards/images/reward-yxfzq.png",
+              "tier": 0
+            },
+            {
+              "equipId": 31002,
+              "title": "金锅锅冠冕",
+              "type": "equip",
+              "image": "witch-rewards/images/equips-31002.png",
+              "count": 1,
+              "tier": 0
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
