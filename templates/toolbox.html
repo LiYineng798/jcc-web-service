@@ -2,7 +2,13 @@
 <svg class="toolbox-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 6V4h8v2M3 11h18M10 10v4h4v-4"/><rect x="3" y="6" width="18" height="14" rx="3"/></svg>
 {%- endmacro %}
 
-{% macro toolbox_links(item_class='returning-info-menu-item') -%}
+{% macro toolbox_links(item_class='returning-info-menu-item', simulator_enabled=False) -%}
+  {% if simulator_enabled %}
+  <a class="{{ item_class }}" href="/tools/lineup-simulator"><strong>阵容模拟器</strong><small>搭配弈子、装备与羁绊 · 通用工具</small></a>
+  {% endif %}
+  <div class="toolbox-group-label"><span>S18 · 当季工具</span></div>
+  <a class="{{ item_class }}" href="/tools/s18-witch-rewards"><strong>魔女层数奖励查询</strong><small>9 档层数 · 概率、星级与预计价值</small></a>
+  <div class="toolbox-group-label"><span>S16.5 · 恭喜发财</span></div>
   <a class="{{ item_class }}" href="/tools/s16-5-lucky-openings" aria-label="S16.5恭喜发财开局阵容码推荐">
     <strong>S16.5 恭喜发财开局推荐</strong>
     <small>九位五费弈子 · 专属效果与阵容码</small>
@@ -13,9 +19,9 @@
   <a class="{{ item_class }}" href="/tools/returning-equipment"><strong>回归装备</strong><small>12 件返场装备说明</small></a>
 {%- endmacro %}
 
-{% macro toolbox_menu(desktop_only=True) -%}
+{% macro toolbox_menu(desktop_only=True, simulator_enabled=False) -%}
 <details class="toolbox-menu{% if desktop_only %} desktop-resource-entry{% endif %}">
   <summary class="ghost-link nav-tool-link toolbox-trigger">{{ toolbox_icon() }}<span>工具箱</span><span class="returning-info-chevron" aria-hidden="true">⌄</span></summary>
-  <nav class="toolbox-panel" aria-label="工具箱">{{ toolbox_links() }}</nav>
+  <nav class="toolbox-panel" aria-label="工具箱">{{ toolbox_links(simulator_enabled=simulator_enabled) }}</nav>
 </details>
 {%- endmacro %}

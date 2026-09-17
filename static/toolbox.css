@@ -10,3 +10,5 @@
 .toolbox-group-label { display: flex; gap: 7px; align-items: center; margin: 9px 4px 2px; padding-top: 12px; border-top: 1px solid var(--line); color: var(--muted); font-size: 12px; font-weight: 600; }
 .mobile-resource-group .toolbox-group-label { margin-bottom: 4px; }
 .mobile-resource-group small { color: var(--muted); font-size: 12px; }
+.toolbox-group-label:first-child { margin-top: 0; padding-top: 4px; border-top: 0; }
+.toolbox-panel { max-height: min(680px, calc(100dvh - 100px)); overflow-y: auto; }

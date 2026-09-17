@@ -1,0 +1,72 @@
+.witch-body { background: radial-gradient(ellipse at 80% 0%, #a58bc41a, transparent 42rem), var(--bg); }
+.witch-page { --witch-accent: #7951a1; --witch-soft: #7951a110; width: min(1060px, calc(100% - 40px)); }
+[data-theme="dark"] .witch-page { --witch-accent: #c1a1e2; --witch-soft: #c1a1e213; }
+.witch-hero { display: flex; justify-content: space-between; align-items: center; padding: 54px 0 40px; }
+.witch-eyebrow { display: flex; align-items: center; gap: 12px; font-size: 12px; letter-spacing: .1em; color: var(--muted); margin: 0 0 20px; }
+.witch-eyebrow span { background: var(--witch-soft); color: var(--witch-accent); border: 1px solid var(--witch-accent); border-radius: 5px; padding: 3px 8px; font-weight: 700; }
+.witch-hero h1 { font-size: clamp(28px, 4vw, 42px); letter-spacing: -.04em; margin: 0; font-weight: 750; }
+.witch-hero h1 span { color: var(--witch-accent); margin-left: .3em; }
+.witch-intro { color: var(--muted); font-size: 14px; margin: 16px 0 0; }
+.witch-page .nav-bar { align-items: center; }
+.witch-page .nav-actions { display: flex; flex: 0 0 auto; flex-wrap: nowrap; gap: 12px; }
+.witch-page .nav-actions > .animated-theme-toggle { width: 44px; height: 44px; flex: 0 0 44px; padding: 0; }
+.witch-page .toolbox-trigger { white-space: nowrap; }
+.witch-page .toolbox-panel { right: 0; max-width: calc(100vw - 90px); }
+.witch-sigil { width: 152px; height: 152px; flex: 0 0 auto; color: var(--witch-accent); background: radial-gradient(ellipse, var(--witch-soft), transparent 70%); }
+.witch-sigil svg { display: block; width: 100%; height: 100%; }
+.witch-sigil-frame { stroke: currentColor; stroke-opacity: .16; stroke-width: 1; }
+.witch-selector { margin-bottom: 26px; }
+.witch-section-title { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+.witch-section-title h2 { font-size: 14px; margin: 0; }
+.witch-section-title > span { font-size: 12px; color: var(--muted); }
+.witch-tiers { display: grid; grid-template-columns: repeat(9, 1fr); gap: 9px; }
+.witch-tiers a { display: flex; justify-content: center; align-items: baseline; gap: 6px; padding: 14px 4px; text-decoration: none; border: 1px solid var(--line); border-radius: 10px; color: var(--text); background: var(--surface); font-size: 19px; font-weight: 650; font-variant-numeric: tabular-nums; transition: border-color .15s, background .15s; }
+.witch-tiers small { font-size: 11px; font-weight: 400; color: var(--muted); }
+.witch-tiers a:hover { border-color: var(--witch-accent); }
+.witch-tiers a[aria-current] { color: var(--witch-accent); background: var(--witch-soft); border-color: var(--witch-accent); box-shadow: inset 0 -2px var(--witch-accent); }
+.witch-tiers a:focus-visible { outline: 2px solid var(--witch-accent); outline-offset: 3px; }
+.witch-result { border: 1px solid var(--line); border-radius: 18px; background: var(--surface-solid); overflow: hidden; }
+.witch-result[hidden] { display: none; }
+.witch-result-header { padding: 24px 28px; display: flex; justify-content: space-between; align-items: center; background: linear-gradient(110deg, var(--witch-soft), transparent); }
+.witch-kicker { color: var(--muted); font-size: 11px; letter-spacing: .12em; margin: 0 0 5px; }
+.witch-result-header h2 { font-size: 36px; color: var(--witch-accent); margin: 0; font-variant-numeric: tabular-nums; }
+.witch-result-header h2 span { font-size: 15px; font-weight: 500; color: var(--text); margin-left: 10px; }
+.witch-value { text-align: right; }
+.witch-value > span { font-size: 12px; color: var(--muted); }
+.witch-value strong { display: flex; gap: 8px; align-items: center; justify-content: flex-end; margin-top: 5px; font-size: 28px; font-variant-numeric: tabular-nums; }
+.witch-value img { object-fit: cover; border-radius: 50%; }
+.witch-table-head { display: grid; grid-template-columns: 130px 1fr; padding: 12px 28px; border-block: 1px solid var(--line); font-size: 12px; color: var(--muted); }
+.witch-table-head small { margin-left: 12px; opacity: .8; }
+.witch-outcomes, .witch-items { margin: 0; padding: 0; list-style: none; }
+.witch-outcome { display: grid; grid-template-columns: 130px 1fr; padding: 26px 28px 20px; align-items: center; }
+.witch-outcome + .witch-outcome { border-top: 1px solid var(--line); }
+.witch-outcome:nth-child(even) { background: var(--witch-soft); }
+.witch-probability strong { font-size: 21px; font-weight: 650; font-variant-numeric: tabular-nums; }
+.witch-probability > span { display: block; margin-top: 5px; color: var(--muted); font-size: 10px; }
+.witch-items { display: flex; gap: 16px; flex-wrap: wrap; align-items: flex-start; }
+.witch-item { width: 88px; text-align: center; }
+.witch-item-art { position: relative; width: 56px; height: 56px; margin: 0 auto 9px; }
+.witch-item-art > img { border-radius: 9px; object-fit: cover; display: block; border: 1px solid var(--line); }
+.witch-item-art.is-champion > img { border: 2px solid var(--witch-accent); }
+.witch-stars { position: absolute; top: -12px; z-index: 1; left: 0; right: 0; font-size: 13px; color: #e9dba5; text-shadow: 0 1px 3px #201326, 0 0 2px #201326; letter-spacing: 1px; }
+.witch-count { position: absolute; bottom: -3px; right: -5px; border-radius: 5px; background: #292132; color: #fff; border: 1px solid #a18aa9; padding: 1px 4px; font-size: 11px; font-weight: 700; }
+.witch-item-name { display: block; font-size: 12px; line-height: 1.6; overflow-wrap: anywhere; }
+.witch-notes { color: var(--muted); font-size: 11px; line-height: 1.8; padding-top: 18px; }
+.witch-notes p { margin: 4px 0; }
+@media (max-width: 650px) {
+  .witch-page { width: calc(100% - 28px); padding-top: 18px; }
+  .witch-hero { padding: 34px 0 28px; }
+  .witch-sigil { display: none; }
+  .witch-tiers { grid-template-columns: repeat(5, 1fr); gap: 7px; }
+  .witch-tiers a { font-size: 17px; padding: 11px 2px; }
+  .witch-result-header { padding: 20px 16px; }
+  .witch-table-head { padding: 11px 14px; grid-template-columns: 72px 1fr; }
+  .witch-outcome { grid-template-columns: 72px minmax(0, 1fr); padding: 25px 14px 18px; align-items: start; }
+  .witch-probability { padding-top: 15px; }
+  .witch-probability strong { font-size: 16px; }
+  .witch-items { gap: 22px 8px; }
+  .witch-item { width: 66px; }
+  .witch-item-name { font-size: 11px; }
+  .witch-hero h1 { font-size: 27px; }
+}
+@media (prefers-reduced-motion: reduce) { .witch-tiers a { transition: none; } }
