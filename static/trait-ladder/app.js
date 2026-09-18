@@ -38,12 +38,18 @@
   }
   function renderSummary() {
     $('pool-summary').textContent = `必选 ${locked.size} · 禁用 ${banned.size}`;
-    $('selected-summary').innerHTML = [...locked].map(id => `<button type="button" data-remove="${esc(id)}">${esc(heroes.get(id).name)} <span aria-hidden="true">×</span><span class="sr-only">移除必选</span></button>`).join('') + [...banned].map(id => `<button class="banned-chip" type="button" data-remove="${esc(id)}">禁用 ${esc(heroes.get(id).name)} <span aria-hidden="true">×</span><span class="sr-only">取消禁用</span></button>`).join('');
+    $('selected-count').textContent = `${locked.size} 位 · ${[...locked].reduce((n,id)=>n+heroes.get(id).slots,0)} 人口`;
+    $('selected-summary').innerHTML = [...locked].map(id => {
+      const hero = heroes.get(id);
+      return `<button class="selected-hero cost-${hero.cost}" type="button" data-remove="${esc(id)}" aria-label="移除${esc(hero.name)}" title="点击移除${esc(hero.name)}"><img src="${esc(hero.icon)}" alt=""/><span>${esc(hero.name)}</span><b aria-hidden="true">×</b></button>`;
+    }).join('') + (locked.size ? '<button type="button" class="clear-selected" data-clear-selected aria-label="清空已选弈子" title="清空已选弈子"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 6h16M9 6V3h6v3M6 6l1 15h10l1-15M10 10v7m4-7v7"/></svg><span>清空</span></button>' : '<p class="selection-empty">点击上方弈子，将你想保留的核心放在这里。</p>');
+    $('banned-summary').innerHTML = [...banned].map(id => `<button class="banned-chip" type="button" data-remove="${esc(id)}" aria-label="取消禁用${esc(heroes.get(id).name)}">禁用 ${esc(heroes.get(id).name)} <span aria-hidden="true">×</span></button>`).join('');
     $('emblem-selected').innerHTML = [...new Set(emblems)].map(id => `<button type="button" data-remove-emblem="${esc(id)}">${esc(traits.get(id).name)} <b>×${emblems.filter(t => t === id).length}</b> −<span class="sr-only">移除一枚</span></button>`).join('') || '<p class="setting-help">暂无转职。每枚纹章都会给出可用的携带者。</p>';
     document.querySelectorAll('[data-emblem]').forEach(b => {
       const n = emblems.filter(id => id === b.dataset.emblem).length;
       b.setAttribute('aria-label', `添加${traits.get(b.dataset.emblem).name}纹章，已选${n}枚`);
       b.querySelector('b').textContent = n || '';
+      b.classList.toggle('is-selected', n > 0);
     });
   }
   function removeHero(id) {
@@ -59,7 +65,15 @@
     changed(); renderPool();
     $('champion-pool').querySelector(`[data-hero="${id}"]`)?.focus({ preventScroll: true });
   });
-  $('selected-summary').addEventListener('click', e => { const b = e.target.closest('[data-remove]'); if (b) { removeHero(b.dataset.remove); changed(); renderPool(); } });
+  function removeSelected(e) {
+    if (e.target.closest('[data-clear-selected]')) {
+      [...locked].forEach(removeHero); changed(); renderPool(); return;
+    }
+    const b = e.target.closest('[data-remove]');
+    if (b) { removeHero(b.dataset.remove); changed(); renderPool(); }
+  }
+  $('selected-summary').addEventListener('click', removeSelected);
+  $('banned-summary').addEventListener('click', removeSelected);
   document.querySelectorAll('[data-mode]').forEach(b => b.addEventListener('click', () => {
     mode = b.dataset.mode; document.querySelectorAll('[data-mode]').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
   }));
@@ -104,7 +118,7 @@
       const inactive = r.rows.filter(t => !t.active && !t.unique);
       const special = r.rows.filter(t => t.active && t.unique);
       const chips = rows => rows.map(t => `<span class="trait-chip ${t.active ? 'active' : ''}" title="${esc(traits.get(t.id).name)}：${t.count}/${t.threshold}"><img src="${esc(traits.get(t.id).icon)}" alt=""/>${esc(traits.get(t.id).name)}<b>${t.count}${t.active ? '' : '/' + t.threshold}</b></span>`).join('');
-      return `<article class="result-card"><header><span class="rank">${String(i + 1).padStart(2, '0')}</span><span class="score-badge"><strong>${r.active}</strong> 有效羁绊</span><span class="team-meta">${r.population} 人口 · ${r.cost} 金币</span><button type="button" data-copy="${i}" class="text-button">复制阵容</button></header><div class="team-line">${names.map(c => portrait(c)).join('')}</div><div class="trait-line">${chips(active)}</div>${r.assignments.length ? `<div class="assignment"><span>纹章分配</span>${r.assignments.map(a => `<span>${esc(traits.get(a.trait).name)} → <b>${esc(heroes.get(a.hero).name)}</b></span>`).join('')}</div>` : ''}${$('lux').value && names.some(c => c.lux) ? `<p class="special-note">拉克丝 · ${esc(traits.get($('lux').value).name)}贡献 2</p>` : ''}${khazix.size && names.some(c => c.khazix) ? `<p class="special-note">螳螂进化 · ${[...khazix].map(id => esc(traits.get(id).name)).join(' / ')}</p>` : ''}<details class="trait-details"><summary>查看未激活与单档羁绊</summary><div class="trait-line">${chips(inactive) || '<span>无未激活羁绊</span>'}</div>${special.length ? `<p>单档 / 单档 / 独有羁绊（不计入天梯）</p><div class="trait-line">${chips(special)}</div>` : ''}</details><footer><span>达到 ${r.active} 羁绊档</span><button type="button" data-reward="${Math.min(14, Math.max(2, r.active))}">查看阶段奖励 ↗</button></footer></article>`;
+      return `<article class="result-card"><header><span class="rank">${String(i + 1).padStart(2, '0')}</span><span class="score-badge"><strong>${r.active}</strong> 有效羁绊</span><span class="team-meta">${r.population} 人口 · ${r.cost} 金币</span></header><div class="team-line">${names.map(c => portrait(c)).join('')}</div><div class="trait-line">${chips(active)}</div>${r.assignments.length ? `<div class="assignment"><span>纹章分配</span>${r.assignments.map(a => `<span>${esc(traits.get(a.trait).name)} → <b>${esc(heroes.get(a.hero).name)}</b></span>`).join('')}</div>` : ''}${$('lux').value && names.some(c => c.lux) ? `<p class="special-note">拉克丝 · ${esc(traits.get($('lux').value).name)}贡献 2</p>` : ''}${khazix.size && names.some(c => c.khazix) ? `<p class="special-note">螳螂进化 · ${[...khazix].map(id => esc(traits.get(id).name)).join(' / ')}</p>` : ''}<details class="trait-details"><summary>查看未激活与单档羁绊</summary><div class="trait-line">${chips(inactive) || '<span>无未激活羁绊</span>'}</div>${special.length ? `<p>单档 / 独有羁绊（不计入天梯）</p><div class="trait-line">${chips(special)}</div>` : ''}</details><footer><span>达到 ${r.active} 羁绊档</span><button type="button" data-reward="${Math.min(14, Math.max(2, r.active))}">查看阶段奖励 ↗</button></footer></article>`;
     }).join('') : '<div class="empty-result"><h3>本次搜索未找到满足条件的阵容</h3><p>试试增加人口、减少必选或转职，或放宽高费核心筛选。</p></div>';
   }
   $('calculate').onclick = () => {
@@ -126,18 +140,10 @@
       worker.postMessage({ data, options: options() });
     } catch (_) { stop(); $('status').textContent = '浏览器未能启动计算，请使用支持 Web Worker 的浏览器重试。'; $('result-count').textContent = '启动失败'; }
   };
-  $('results').addEventListener('click', async e => {
+  $('results').addEventListener('click', e => {
     const reward = e.target.closest('[data-reward]');
     if (reward) { document.querySelector('[data-view="rewards"]').click(); const card = $('reward-' + reward.dataset.reward); card.scrollIntoView({ block: 'center' }); card.classList.add('highlight'); setTimeout(() => card.classList.remove('highlight'), 1800); }
-    const button = e.target.closest('[data-copy]'); if (!button) return;
-    const r = results[Number(button.dataset.copy)]; if (!r) return;
-    const text = [`S18 羁绊天梯 · ${r.active}羁绊 / ${r.population}人口`, r.ids.map(id => heroes.get(id).name).join('、'),
-      r.rows.filter(t => t.active && !t.unique).map(t => `${t.count}${traits.get(t.id).name}`).join(' / '),
-      ...r.assignments.map(a => `${traits.get(a.trait).name}纹章 → ${heroes.get(a.hero).name}`),
-      ...($('lux').value ? [`拉克丝：${traits.get($('lux').value).name} ×2`] : []),
-      ...(khazix.size ? [`螳螂进化：${[...khazix].map(id => traits.get(id).name).join('、')}`] : [])].join('\n');
-    try { await navigator.clipboard.writeText(text); button.textContent = '已复制'; }
-    catch (_) { $('status').textContent = '剪贴板不可用，请选择阵容文字手动复制。'; }
+
   });
   window.addEventListener('pagehide', stop);
   renderPool(); renderKhazix(); renderSummary();

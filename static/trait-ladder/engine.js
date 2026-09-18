@@ -64,7 +64,7 @@
     return links.filter(l => l.edge.cap === 0).map(l => ({ hero: l.hero, trait: l.trait }));
   }
 
-  function metrics(ctx, counts) {
+  function metrics(ctx, counts, includeRows = true) {
     let active = 0, progress = 0;
     const rows = [];
     ctx.data.traits.forEach((t, i) => {
@@ -75,7 +75,7 @@
       const threshold = Math.max(1, t.threshold);
       const on = count >= threshold;
       if (!t.unique) { active += Number(on); progress += Math.min(count / threshold, 1); }
-      if (count) rows.push({ id: t.id, count, active: on, unique: t.unique, threshold });
+      if (includeRows && count) rows.push({ id: t.id, count, active: on, unique: t.unique, threshold });
     });
     return { active, progress, rows };
   }
@@ -101,7 +101,7 @@
     const forcedIds = ctx.forced.map(c => c.id);
     const counts = ctx.base.slice();
     ctx.forced.forEach(c => c.entries.forEach(([i, n]) => { counts[i] += n; }));
-    const initial = { ids: forcedIds, counts, pop: ctx.forced.reduce((n, c) => n + c.slots, 0),
+    const initial = { ids: forcedIds, key: forcedIds.slice().sort().join(','), active: metrics(ctx, counts, false).active, counts, pop: ctx.forced.reduce((n, c) => n + c.slots, 0),
       cost: ctx.forced.reduce((n, c) => n + c.cost, 0),
       tanks: ctx.forced.filter(c => c.role === 'tank').length,
       carries: ctx.forced.filter(c => c.role === 'carry').length };
@@ -124,13 +124,15 @@
           const pop = state.pop + hero.slots, tanks = state.tanks + Number(hero.role === 'tank');
           const carries = state.carries + Number(hero.role === 'carry');
           if (Math.max(0, ctx.minTank - tanks) + Math.max(0, ctx.minCarry - carries) > ctx.population - pop) continue;
-          const m = metrics(ctx, c), cost = state.cost + hero.cost;
+          // Candidate search needs scores only. Build display rows for the final
+          // legal teams; retain scores/keys so sort comparisons do no rule work.
+          const m = metrics(ctx, c, false), cost = state.cost + hero.cost;
           const score = m.active * 100 + m.progress * 35 + Math.min(tanks, ctx.minTank) * 25 + Math.min(carries, ctx.minCarry) * 25 - cost * .03;
-          next.set(key, { ids, counts: c, pop, tanks, carries, cost, score });
+          next.set(key, { ids, key, active: m.active, counts: c, pop, tanks, carries, cost, score });
           visited++;
         }
       }
-      const ranked = [...next.values()].sort((a, b) => b.score - a.score || a.cost - b.cost || a.ids.join().localeCompare(b.ids.join()));
+      const ranked = [...next.values()].sort((a, b) => b.score - a.score || a.cost - b.cost || a.key.localeCompare(b.key));
       // Keep several paths per contribution vector so cheap duplicates don't crowd out diversity.
       const signatures = new Map();
       beam = [];
@@ -144,10 +146,7 @@
       }
       report({ depth, visited });
     }
-    const ranked = [...completed.values()].sort((a, b) => {
-      const x = metrics(ctx, a.counts), y = metrics(ctx, b.counts);
-      return y.active - x.active || a.cost - b.cost || a.ids.join().localeCompare(b.ids.join());
-    });
+    const ranked = [...completed.values()].sort((a, b) => b.active - a.active || a.cost - b.cost || a.key.localeCompare(b.key));
     const results = [];
     for (const s of ranked) {
       const result = evaluate(ctx, s.ids);

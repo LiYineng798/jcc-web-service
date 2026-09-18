@@ -15,7 +15,7 @@
 <div class="page-shell ladder-page" id="ladder" data-worker="{{ static_v('trait-ladder/worker.js') }}&amp;engine={{ static_v('trait-ladder/engine.js')|urlencode }}">
   <nav class="nav-bar" aria-label="页面工具"><a class="brand-mark brand-link" href="/" aria-label="返回首页">阵</a><div class="nav-actions">{{ toolbox_menu(False, simulator_enabled) }}{{ theme_toggle('nav-icon-button') }}</div></nav>
   <main>
-    <header class="ladder-hero"><div><p class="eyebrow"><span>S18</span> 自然之力 · 策略实验室</p><h1>羁绊天梯<span>计算器</span></h1><p class="hero-copy">让每一个席位，点亮更多可能。</p><div class="hero-tags"><span>转职协同</span><span>螳螂进化</span><span>拉克丝 ×2</span></div></div><div class="ladder-art" aria-hidden="true"><i></i><i></i><i></i><i></i><span>TRAIT<br>LADDER</span></div></header>
+    <header class="ladder-hero"><div><p class="eyebrow"><span>S18</span> 自然之力 · 策略实验室</p><h1>羁绊天梯<span>计算器</span></h1><p class="hero-copy">让每一个席位，点亮更多可能。</p></div><div class="ladder-art" aria-hidden="true"><i></i><i></i><i></i><i></i><span>TRAIT<br>LADDER</span></div></header>
     <nav class="ladder-tabs" aria-label="工具视图"><button type="button" data-view="calculator" aria-pressed="true">阵容计算<span>01</span></button><button type="button" data-view="rewards" aria-pressed="false">阶段奖励<span>02</span></button></nav>
     <section id="calculator-view">
     {% if ladder_data %}
@@ -25,7 +25,6 @@
           <div class="pool-toolbar"><label class="search-label"><span class="sr-only">搜索弈子或羁绊</span><input type="search" id="search" placeholder="搜索弈子、别名或羁绊…" /></label><label><span class="sr-only">费用筛选</span><select id="cost"><option value="">全部费用</option>{% for n in range(1,6) %}<option value="{{ n }}">{{ n }} 费弈子</option>{% endfor %}</select></label></div>
           <div class="selection-mode" role="group" aria-label="弈子点击模式"><button type="button" data-mode="locked" aria-pressed="true">＋ 必须登场</button><button type="button" data-mode="banned" aria-pressed="false">－ 禁用弈子</button><span id="pool-summary">自由搭配，或先锁定核心</span></div>
           <div id="champion-pool" class="champion-pool"></div>
-          <div id="selected-summary" class="selected-summary" aria-live="polite"></div>
           <div class="emblem-header"><h3>转职纹章</h3><span>点击添加，可叠加数量</span></div><div id="emblem-pool" class="emblem-pool"></div><div id="emblem-selected" class="emblem-selected" aria-live="polite"></div>
         </section>
         <aside class="panel settings-panel" aria-labelledby="settings-title"><p class="eyebrow">CONSTRAINTS</p><h2 id="settings-title">计算条件</h2>
@@ -36,6 +35,7 @@
           <button id="calculate" class="calculate" type="button">开始计算 <span>↗</span></button><button id="cancel" class="text-button" type="button" hidden>取消搜索</button><p class="setting-help">按有效羁绊数优先，同分时优先低总费用。</p>
         </aside>
       </div>
+      <section class="selected-tray" aria-labelledby="selected-title"><header><h3 id="selected-title">已选弈子</h3><span id="selected-count" aria-live="polite">0 位</span></header><div id="selected-summary" class="selected-summary"></div><div id="banned-summary" class="banned-summary"></div></section>
       <section class="results-section" aria-labelledby="results-title"><header class="section-head"><div><p class="eyebrow">YOUR POSSIBILITIES</p><h2 id="results-title">推荐阵容</h2></div><span id="result-count" class="result-count">等待计算</span></header><p id="status" role="status">选好条件，探索更多羁绊组合。</p><div id="results"><div class="empty-result"><span aria-hidden="true">✧</span><h3>从一个核心，到完整阵容</h3><p>不选弈子也可以计算。锁定你已有的弈子，让推荐更贴近对局。</p></div></div></section>
       <details class="rules"><summary>计算规则与资料说明</summary><p>采用参考计算器的计分口径：只计已激活的多档羁绊，单档及独有羁绊单独展示、不计分。拉克丝选定形态计 2，其他纹章计 1；螳螂每种进化最多计 1。相同弈子只登场一次。日蚀骑士与月蚀骑士各达到 3 时激活日月双蚀（单档、不计分）。远古巨龙占 2 人口并贡献 2 个峡谷野怪。</p><p>每枚纹章均分配给不自带该羁绊的弈子，同一弈子最多携带 3 枚，不重复携带同羁绊纹章。这里的空装备栏供纹章使用，未模拟其他装备。</p><p>阵容使用本站当前 S18 资料 {{ ladder_data.version }}。搜索采用有限候选搜索，结果经过规则校验，但不保证全局最优；没有找到方案不代表数学上无解。高费核心定位为工具预设，不代表唯一实战定位。</p></details>
     {% else %}<div class="panel unavailable"><h2>S18 资料暂未开放</h2><p>计算器将在 S18 资料重新开放后可用。你仍可查看阶段奖励。</p></div>{% endif %}
