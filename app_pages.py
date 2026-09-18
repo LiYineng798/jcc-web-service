@@ -10,6 +10,7 @@ from lineup_read_service import build_lineup_detail_payload
 from notice_service import get_active_notice
 from lucky_openings import build_lucky_openings
 from witch_rewards_service import reward_tiers, select_reward_tier
+from trait_ladder_service import calculator_data, reward_tiers as ladder_reward_tiers
 from seo import (
     DEFAULT_DESCRIPTION,
     DEFAULT_TITLE,
@@ -50,6 +51,7 @@ def _sitemap_entries():
         {'loc': absolute_url('/tools/returning-equipment'), 'lastmod': None},
         {'loc': absolute_url('/tools/s16-5-lucky-openings'), 'lastmod': None},
         {'loc': absolute_url('/tools/s18-witch-rewards'), 'lastmod': None},
+        {'loc': absolute_url('/tools/s18-trait-ladder'), 'lastmod': None},
     ]
     for season in catalog_seasons():
         season_id = season['season_id']
@@ -139,6 +141,16 @@ def register_page_routes(app):
             notice=notice,
             reference_seasons=catalog_seasons(),
             seo=seo,
+        )
+
+    @app.get('/tools/s18-trait-ladder')
+    def trait_ladder_page():
+        return tracked_template_response(
+            'trait_ladder.html', 'trait_ladder', ladder_data=calculator_data(), tiers=ladder_reward_tiers(),
+            simulator_enabled=get_setting(get_db(), 'simulator_enabled', 'true') == 'true',
+            seo=make_seo(title='S18 羁绊天梯计算器 - 金铲铲阵容库',
+                         description='计算转职、拉克丝双倍贡献与螳螂进化下的多羁绊阵容，查询2至14羁绊阶段奖励。',
+                         path='/tools/s18-trait-ladder'),
         )
 
     @app.get('/tools/s18-witch-rewards')

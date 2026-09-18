@@ -1,0 +1,275 @@
+{
+  "source": "datatft.com · user supplied HAR",
+  "source_sha256": "91de70afbb5f223aa1f1f18e6839d2153cf35572380a3d2cfd9dc9e56f2ddf1c",
+  "captured_date": "2026-09-18",
+  "patch": null,
+  "tiers": [
+    {
+      "label": "2 Traits",
+      "list": [
+        {
+          "percent": "100%",
+          "rewards": [
+            {
+              "title": "1金币",
+              "count": 1
+            },
+            {
+              "title": "装备重铸器",
+              "count": 1
+            }
+          ]
+        }
+      ],
+      "threshold": 2
+    },
+    {
+      "label": "3 Traits",
+      "list": [
+        {
+          "percent": "100%",
+          "rewards": [
+            {
+              "title": "3金币",
+              "count": 1
+            }
+          ]
+        }
+      ],
+      "threshold": 3
+    },
+    {
+      "label": "4 Traits",
+      "list": [
+        {
+          "percent": "100%",
+          "rewards": [
+            {
+              "title": "6金币",
+              "count": 1
+            }
+          ]
+        }
+      ],
+      "threshold": 4
+    },
+    {
+      "label": "5 Traits",
+      "list": [
+        {
+          "percent": "100%",
+          "rewards": [
+            {
+              "title": "散件",
+              "count": 1
+            }
+          ]
+        }
+      ],
+      "threshold": 5
+    },
+    {
+      "label": "6 Traits",
+      "list": [
+        {
+          "percent": "50%",
+          "rewards": [
+            {
+              "title": "10金币",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "percent": "50%",
+          "rewards": [
+            {
+              "count": 3,
+              "title": "3费卡"
+            }
+          ]
+        }
+      ],
+      "threshold": 6
+    },
+    {
+      "label": "7 Traits",
+      "list": [
+        {
+          "percent": "100%",
+          "rewards": [
+            {
+              "title": "8金币",
+              "count": 1
+            }
+          ]
+        }
+      ],
+      "threshold": 7
+    },
+    {
+      "label": "8 Traits",
+      "list": [
+        {
+          "percent": "42.9%",
+          "rewards": [
+            {
+              "title": "成装锻造器",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "percent": "57.1%",
+          "rewards": [
+            {
+              "count": 2,
+              "title": "散件"
+            },
+            {
+              "title": "装备重铸器",
+              "count": 1
+            }
+          ]
+        }
+      ],
+      "threshold": 8
+    },
+    {
+      "label": "9 Traits",
+      "list": [
+        {
+          "percent": "100%",
+          "rewards": [
+            {
+              "count": 3,
+              "title": "5费卡"
+            },
+            {
+              "title": "2金币",
+              "count": 1
+            }
+          ]
+        }
+      ],
+      "threshold": 9
+    },
+    {
+      "label": "10 Traits",
+      "list": [
+        {
+          "percent": "100%",
+          "rewards": [
+            {
+              "title": "18金币",
+              "count": 1
+            }
+          ]
+        }
+      ],
+      "threshold": 10
+    },
+    {
+      "label": "11 Traits",
+      "list": [
+        {
+          "percent": "34%",
+          "rewards": [
+            {
+              "equipId": 31003,
+              "title": "金锅铲冠冕",
+              "type": "equip",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "percent": "33%",
+          "rewards": [
+            {
+              "equipId": 608,
+              "title": "金铲铲冠冕",
+              "type": "equip",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "percent": "33%",
+          "rewards": [
+            {
+              "equipId": 31002,
+              "title": "金锅锅冠冕",
+              "type": "equip",
+              "count": 1
+            }
+          ]
+        }
+      ],
+      "threshold": 11
+    },
+    {
+      "label": "12 Traits",
+      "list": [
+        {
+          "percent": "100%",
+          "rewards": [
+            {
+              "equipId": 32311,
+              "title": "幸运装备宝箱",
+              "type": "equip",
+              "count": 1
+            },
+            {
+              "count": 3,
+              "title": "4费卡"
+            }
+          ]
+        }
+      ],
+      "threshold": 12
+    },
+    {
+      "label": "13 Traits",
+      "list": [
+        {
+          "percent": "100%",
+          "rewards": [
+            {
+              "count": 4,
+              "title": "散件"
+            },
+            {
+              "title": "8金币",
+              "count": 1
+            },
+            {
+              "title": "装备拆卸器",
+              "count": 1
+            }
+          ]
+        }
+      ],
+      "threshold": 13
+    },
+    {
+      "label": "14 Traits",
+      "list": [
+        {
+          "percent": "100%",
+          "rewards": [
+            {
+              "title": "杰作升级",
+              "count": 1
+            },
+            {
+              "title": "10金币",
+              "count": 1
+            }
+          ]
+        }
+      ],
+      "threshold": 14
+    }
+  ]
+}

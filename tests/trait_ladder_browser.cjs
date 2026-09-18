@@ -1,0 +1,68 @@
+const { chromium, webkit } = require('playwright');
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const base = process.env.LADDER_PREVIEW_URL || 'http://127.0.0.1:5128';
+const output = 'instance/trait-ladder-checks'; fs.mkdirSync(output,{recursive:true});
+(async()=>{
+ for(const [name,engine] of [['chromium',chromium],['webkit',webkit]]){
+  const browser=await engine.launch();
+  try{
+   const page=await browser.newPage({viewport:{width:1440,height:1100},reducedMotion:'reduce'});
+   const errors=[],failures=[];
+   page.on('pageerror',e=>errors.push(e.message));
+   page.on('response',r=>{if(r.status()>=400)failures.push(r.url());});
+   await page.goto(base+'/tools/s18-trait-ladder');
+   await page.locator('[data-hero]').last().waitFor();
+   await page.waitForFunction(()=>[...document.querySelectorAll('#champion-pool img, #emblem-pool img')].every(i=>i.complete&&i.naturalWidth>0));
+   await page.screenshot({path:`${output}/${name}-light.png`,fullPage:true});
+   assert.equal(await page.locator('[data-hero]').count(),65);
+   assert(await page.evaluate(()=>getComputedStyle(document.querySelector('#ladder')).getPropertyValue('--accent')===getComputedStyle(document.documentElement).getPropertyValue('--accent')));
+   await page.locator('#calculate').click();
+   await page.locator('.result-card').first().waitFor({timeout:30000});
+   assert.equal(await page.locator('.result-card').count(),12);
+   await page.screenshot({path:`${output}/${name}-results.png`,fullPage:true});
+   await page.locator('[data-reward]').first().click();
+   assert(await page.locator('#rewards-view').isVisible());
+   assert.equal(await page.locator('.reward-card').count(),13);
+   await page.screenshot({path:`${output}/${name}-rewards.png`,fullPage:true});
+   await page.locator('[data-view="calculator"]').click();
+   await page.locator('#lux').selectOption('455');
+   await page.locator('[data-khazix="349"]').click();
+   await page.locator('[data-emblem="341"]').click();
+   await page.locator('#calculate').click();
+   await page.locator('.result-card').first().waitFor({timeout:30000});
+   assert((await page.locator('.result-card').first().innerText()).includes('贡献 2'));
+   assert((await page.locator('.result-card').first().innerText()).includes('纹章分配'));
+   await page.locator('#population').fill('2'); await page.locator('#population').dispatchEvent('change');
+   await page.locator('[data-hero="5458"]').click(); await page.locator('#calculate').click();
+   await page.waitForFunction(()=>document.querySelector('#status').textContent.includes('超过人口'));
+   assert.equal(await page.locator('.result-card').count(),0);
+   await page.locator('#reset').click();
+   await page.locator('#calculate').click(); await page.locator('#cancel').click();
+   assert((await page.locator('#status').innerText()).includes('取消'));
+   await page.locator('#search').fill('螳螂');assert.equal(await page.locator('[data-hero]').count(),1);
+   await page.locator('#search').fill('no-such-champion');assert(await page.locator('.pool-empty').isVisible());
+   await page.locator('#search').fill('');
+   await page.evaluate(()=>document.documentElement.dataset.theme='dark');
+   await page.waitForTimeout(250);
+   assert(await page.evaluate(()=>getComputedStyle(document.querySelector('#ladder')).getPropertyValue('--accent')===getComputedStyle(document.documentElement).getPropertyValue('--accent')));
+   await page.screenshot({path:`${output}/${name}-dark.png`,fullPage:true});
+   await page.setViewportSize({width:390,height:844});
+   await page.screenshot({path:`${output}/${name}-mobile-dark.png`,fullPage:true});
+   assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
+   await page.evaluate(()=>document.documentElement.dataset.theme='light');
+   await page.waitForTimeout(250);
+   await page.screenshot({path:`${output}/${name}-mobile-light.png`,fullPage:true});
+   await page.locator('[data-view="rewards"]').click();
+   assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
+   await page.screenshot({path:`${output}/${name}-mobile-rewards.png`,fullPage:true});
+   await page.setViewportSize({width:360,height:800});
+   assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
+   await page.locator('[data-view="calculator"]').click();
+   await page.locator('[data-mode="banned"]').focus(); await page.keyboard.press('Enter');
+   assert.equal(await page.locator('[data-mode="banned"]').getAttribute('aria-pressed'),'true');
+   assert.deepEqual(errors,[]);assert.deepEqual(failures,[]);
+   console.log(name+' desktop/mobile, themes, rules, errors, cancellation, rewards, keyboard passed');
+  } finally {await browser.close();}
+ }
+})().catch(e=>{console.error(e);process.exitCode=1;});
