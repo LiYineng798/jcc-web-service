@@ -12,11 +12,15 @@
           "rewards": [
             {
               "title": "1金币",
-              "count": 1
+              "count": 1,
+              "display_count": 1,
+              "image": "trait-ladder/images/reward-gold.png"
             },
             {
               "title": "装备重铸器",
-              "count": 1
+              "count": 1,
+              "display_count": 1,
+              "image": "trait-ladder/images/reward-chongzhu.png"
             }
           ]
         }
@@ -31,7 +35,9 @@
           "rewards": [
             {
               "title": "3金币",
-              "count": 1
+              "count": 1,
+              "display_count": 3,
+              "image": "trait-ladder/images/reward-gold.png"
             }
           ]
         }
@@ -46,7 +52,9 @@
           "rewards": [
             {
               "title": "6金币",
-              "count": 1
+              "count": 1,
+              "display_count": 6,
+              "image": "trait-ladder/images/reward-gold.png"
             }
           ]
         }
@@ -61,7 +69,9 @@
           "rewards": [
             {
               "title": "散件",
-              "count": 1
+              "count": 1,
+              "display_count": 1,
+              "image": "trait-ladder/images/reward-sanjian.png"
             }
           ]
         }
@@ -76,7 +86,9 @@
           "rewards": [
             {
               "title": "10金币",
-              "count": 1
+              "count": 1,
+              "display_count": 10,
+              "image": "trait-ladder/images/reward-gold.png"
             }
           ]
         },
@@ -85,7 +97,9 @@
           "rewards": [
             {
               "count": 3,
-              "title": "3费卡"
+              "title": "3费卡",
+              "display_count": 3,
+              "image": "trait-ladder/images/reward-3costunit.png"
             }
           ]
         }
@@ -100,7 +114,9 @@
           "rewards": [
             {
               "title": "8金币",
-              "count": 1
+              "count": 1,
+              "display_count": 8,
+              "image": "trait-ladder/images/reward-gold.png"
             }
           ]
         }
@@ -115,7 +131,9 @@
           "rewards": [
             {
               "title": "成装锻造器",
-              "count": 1
+              "count": 1,
+              "display_count": 1,
+              "image": "trait-ladder/images/reward-czdzq.png"
             }
           ]
         },
@@ -124,11 +142,15 @@
           "rewards": [
             {
               "count": 2,
-              "title": "散件"
+              "title": "散件",
+              "display_count": 2,
+              "image": "trait-ladder/images/reward-sanjian.png"
             },
             {
               "title": "装备重铸器",
-              "count": 1
+              "count": 1,
+              "display_count": 1,
+              "image": "trait-ladder/images/reward-chongzhu.png"
             }
           ]
         }
@@ -143,11 +165,15 @@
           "rewards": [
             {
               "count": 3,
-              "title": "5费卡"
+              "title": "5费卡",
+              "display_count": 3,
+              "image": "trait-ladder/images/reward-5costunit.png"
             },
             {
               "title": "2金币",
-              "count": 1
+              "count": 1,
+              "display_count": 2,
+              "image": "trait-ladder/images/reward-gold.png"
             }
           ]
         }
@@ -162,7 +188,9 @@
           "rewards": [
             {
               "title": "18金币",
-              "count": 1
+              "count": 1,
+              "display_count": 18,
+              "image": "trait-ladder/images/reward-gold.png"
             }
           ]
         }
@@ -179,7 +207,9 @@
               "equipId": 31003,
               "title": "金锅铲冠冕",
               "type": "equip",
-              "count": 1
+              "count": 1,
+              "display_count": 1,
+              "image": "trait-ladder/images/equips-31003.png"
             }
           ]
         },
@@ -190,7 +220,9 @@
               "equipId": 608,
               "title": "金铲铲冠冕",
               "type": "equip",
-              "count": 1
+              "count": 1,
+              "display_count": 1,
+              "image": "trait-ladder/images/equips-608.png"
             }
           ]
         },
@@ -201,7 +233,9 @@
               "equipId": 31002,
               "title": "金锅锅冠冕",
               "type": "equip",
-              "count": 1
+              "count": 1,
+              "display_count": 1,
+              "image": "trait-ladder/images/equips-31002.png"
             }
           ]
         }
@@ -218,11 +252,15 @@
               "equipId": 32311,
               "title": "幸运装备宝箱",
               "type": "equip",
-              "count": 1
+              "count": 1,
+              "display_count": 1,
+              "image": "trait-ladder/images/equips-32311.png"
             },
             {
               "count": 3,
-              "title": "4费卡"
+              "title": "4费卡",
+              "display_count": 3,
+              "image": "trait-ladder/images/reward-4costunit.png"
             }
           ]
         }
@@ -237,15 +275,21 @@
           "rewards": [
             {
               "count": 4,
-              "title": "散件"
+              "title": "散件",
+              "display_count": 4,
+              "image": "trait-ladder/images/reward-sanjian.png"
             },
             {
               "title": "8金币",
-              "count": 1
+              "count": 1,
+              "display_count": 8,
+              "image": "trait-ladder/images/reward-gold.png"
             },
             {
               "title": "装备拆卸器",
-              "count": 1
+              "count": 1,
+              "display_count": 1,
+              "image": "trait-ladder/images/reward-chaixie.png"
             }
           ]
         }
@@ -260,11 +304,15 @@
           "rewards": [
             {
               "title": "杰作升级",
-              "count": 1
+              "count": 1,
+              "display_count": 1,
+              "image": "trait-ladder/images/reward-jzsj.png"
             },
             {
               "title": "10金币",
-              "count": 1
+              "count": 1,
+              "display_count": 10,
+              "image": "trait-ladder/images/reward-gold.png"
             }
           ]
         }

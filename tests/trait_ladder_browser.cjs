@@ -24,6 +24,10 @@ const output = 'instance/trait-ladder-checks'; fs.mkdirSync(output,{recursive:tr
    await page.locator('[data-reward]').first().click();
    assert(await page.locator('#rewards-view').isVisible());
    assert.equal(await page.locator('.reward-card').count(),13);
+   await page.locator('#rewards-view img').evaluateAll(images => images.forEach(i => { i.loading = 'eager'; }));
+   await page.waitForFunction(()=>[...document.querySelectorAll('#rewards-view img')].every(i=>i.complete&&i.naturalWidth>0));
+   assert.deepEqual(await page.locator('#reward-9 .reward-quantity').allTextContents(), ['×3','×2']);
+   await page.locator('#reward-9').screenshot({path:`${output}/${name}-reward-9.png`});
    await page.screenshot({path:`${output}/${name}-rewards.png`,fullPage:true});
    await page.locator('[data-view="calculator"]').click();
    await page.locator('#lux').selectOption('455');

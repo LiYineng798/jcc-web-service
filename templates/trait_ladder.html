@@ -40,7 +40,35 @@
       <details class="rules"><summary>计算规则与资料说明</summary><p>采用参考计算器的计分口径：只计已激活的多档羁绊，单档及独有羁绊单独展示、不计分。拉克丝选定形态计 2，其他纹章计 1；螳螂每种进化最多计 1。相同弈子只登场一次。日蚀骑士与月蚀骑士各达到 3 时激活日月双蚀（单档、不计分）。远古巨龙占 2 人口并贡献 2 个峡谷野怪。</p><p>每枚纹章均分配给不自带该羁绊的弈子，同一弈子最多携带 3 枚，不重复携带同羁绊纹章。这里的空装备栏供纹章使用，未模拟其他装备。</p><p>阵容使用本站当前 S18 资料 {{ ladder_data.version }}。搜索采用有限候选搜索，结果经过规则校验，但不保证全局最优；没有找到方案不代表数学上无解。高费核心定位为工具预设，不代表唯一实战定位。</p></details>
     {% else %}<div class="panel unavailable"><h2>S18 资料暂未开放</h2><p>计算器将在 S18 资料重新开放后可用。你仍可查看阶段奖励。</p></div>{% endif %}
     </section>
-    <section id="rewards-view" hidden aria-labelledby="rewards-title"><header class="section-head"><div><p class="eyebrow">THE NEXT MILESTONE</p><h2 id="rewards-title">每一阶，都有回报</h2></div><span class="result-count">2 — 14 羁绊</span></header><p class="rewards-intro">在玩家对战中达到所需的非唯一羁绊数，逐档推进奖励。官方强化名称：拼盘天梯。</p><div class="reward-grid">{% for tier in tiers %}<article class="reward-card" id="reward-{{ tier.threshold }}"><header><span class="reward-step">{{ '%02d'|format(tier.threshold) }}</span><h3>个羁绊</h3></header>{% for row in tier.list %}<div class="reward-outcome"><span class="probability">{{ row.percent }}</span><p>{% for reward in row.rewards %}{{ reward.title }}{% if reward.count > 1 %} ×{{ reward.count }}{% endif %}{% if not loop.last %}<span class="reward-plus">＋</span>{% endif %}{% endfor %}</p></div>{% endfor %}</article>{% endfor %}</div><p class="reward-source">奖励来源：你提供的 DataTFT HAR，2026-09-18 提取。快照未标注游戏补丁，实际奖励以当前游戏为准。概率分支为同档可能结果，不是累加奖励。</p></section>
+    <section id="rewards-view" hidden aria-labelledby="rewards-title">
+      <header class="section-head"><div><p class="eyebrow">THE NEXT MILESTONE</p><h2 id="rewards-title">每一阶，都有回报</h2></div><span class="result-count">2 — 14 羁绊</span></header>
+      <p class="rewards-intro">在玩家对战中达到所需的非唯一羁绊数，逐档推进奖励。官方强化名称：拼盘天梯。</p>
+      <div class="reward-grid">
+      {% for tier in tiers %}
+        <article class="reward-card" id="reward-{{ tier.threshold }}">
+          <header><span class="reward-step">{{ '%02d'|format(tier.threshold) }}</span><h3>个羁绊</h3></header>
+          <div class="reward-table-head"><span>概率</span><span>奖励</span></div>
+          {% for row in tier.list %}
+          <div class="reward-outcome">
+            <span class="probability">{{ row.percent }}</span>
+            <ul class="reward-items">
+            {% for reward in row.rewards %}
+              <li class="reward-item">
+                <span class="reward-icon">
+                  <img src="{{ static_v(reward.image) }}" alt="" width="56" height="56" loading="lazy" />
+                  {% if reward.display_count > 1 %}<span class="reward-quantity" aria-label="数量 {{ reward.display_count }}">×{{ reward.display_count }}</span>{% endif %}
+                </span>
+                <span class="reward-name">{{ reward.title }}</span>
+              </li>
+            {% endfor %}
+            </ul>
+          </div>
+          {% endfor %}
+        </article>
+      {% endfor %}
+      </div>
+      <p class="reward-source">奖励来源：你提供的 DataTFT HAR，2026-09-18 提取。快照未标注游戏补丁，实际奖励以当前游戏为准。概率分支为同档可能结果，不是累加奖励。</p>
+    </section>
   </main>
   <footer class="ladder-footer"><span>JCC LAB / S18</span><span>更少的试错，更多的可能。</span></footer>
 </div>

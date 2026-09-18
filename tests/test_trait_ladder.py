@@ -13,6 +13,14 @@ def test_rewards_and_safe_import():
     assert [t['threshold'] for t in tiers] == list(range(2, 15))
     for tier in tiers:
         assert sum(float(r['percent'].rstrip('%')) for r in tier['list']) == pytest.approx(100)
+        for row in tier['list']:
+            for reward in row['rewards']:
+                from PIL import Image
+                image = Path(__file__).resolve().parents[1] / 'static' / reward['image']
+                with Image.open(image) as icon:
+                    icon.verify()
+    nine = next(t for t in tiers if t['threshold'] == 9)['list'][0]['rewards']
+    assert [r['display_count'] for r in nine] == [3, 2]
     assert [r['percent'] for r in tiers[6]['list']] == ['42.9%', '57.1%']
     for text in ['', '羁绊天梯:[{label:evil()}],幻灵战队jcc:']:
         raw = json.dumps({'log': {'entries': [{'response': {'content': {'text': text}}}]}}).encode()
@@ -25,6 +33,11 @@ def test_ladder_route_and_hidden_data(client, monkeypatch):
     response = client.get(page)
     assert response.status_code == 200
     assert 'reward-14' in response.text
+    assert 'trait-ladder/images/reward-5costunit.png' in response.text
+    for tier in reward_tiers():
+        for row in tier['list']:
+            for reward in row['rewards']:
+                assert client.get('/static/' + reward['image']).status_code == 200
     assert page in client.get('/').text
     assert page in client.get('/sitemap.xml').text
     monkeypatch.setattr('trait_ladder_service.get_season', lambda *a: None)

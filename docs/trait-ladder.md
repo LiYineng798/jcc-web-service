@@ -16,7 +16,7 @@
 
 本地解析到 `TraitTrackerS18View` 的预计算阵容、候选搜索、人口规则、拉克丝重复计数、螳螂进化、单档排除、纹章计数及 `/tracker/s18/solve` 请求协议。HAR 不包含该服务端求解器源码；本工具独立实现有限候选搜索，没有调用第三方接口，也没有复制整个页面脚本。
 
-阶段奖励来自 HAR 中 `bootstrap` 脚本的 `羁绊天梯` 字面量，含 2～14 羁绊共 13 档。用以下命令重新生成，不手改生成 JSON：
+阶段奖励来自 HAR 中 `bootstrap` 脚本的 `羁绊天梯` 字面量，含 2～14 羁绊共 13 档。图标从同一 HAR 的图片响应中提取为本地资源，展示名称及数量角标（金币角标表示金币总量）。用以下命令重新生成 JSON 与图片，不手改生成文件：
 
 ```powershell
 python scripts/season_library/import_trait_ladder.py <本地HAR路径>
