@@ -1,6 +1,15 @@
 (() => {
   'use strict';
   const $ = id => document.getElementById(id);
+  function applyTheme(theme) {
+    document.documentElement.dataset.theme = theme;
+    window.jccApplyThemeToggleState?.(theme, $('themeToggle'), $('themeIcon'), $('themeText'));
+    try { localStorage.setItem('theme', theme); } catch (_) { /* Switching still works without storage. */ }
+  }
+  applyTheme(document.documentElement.dataset.theme || 'light');
+  $('themeToggle')?.addEventListener('click', () => {
+    applyTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark');
+  });
   const data = JSON.parse($('ladder-data').textContent);
   const esc = value => String(value).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   document.querySelectorAll('[data-view]').forEach(button => button.addEventListener('click', () => {

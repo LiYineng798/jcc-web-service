@@ -90,10 +90,10 @@ button.champion:hover .portrait { box-shadow: 0 0 0 2px var(--accent-soft); tran
 .team-line { display: flex; flex-wrap: wrap; gap: 12px; padding: 22px 0; }.team-line .champion { width: 60px; }.team-line .portrait { width: 52px; height: 52px; }
 .trait-line { display: flex; flex-wrap: wrap; gap: 7px; }.trait-chip { display: inline-flex; align-items: center; gap: 5px; border: 1px solid var(--line); background: var(--bg); color: var(--muted); border-radius: 6px; padding: 5px 8px; font-size: 11px; }.trait-chip img { height: 15px; width: 15px; object-fit: contain; }.trait-chip.active { color: var(--text); }.trait-chip b { color: var(--accent); margin-left: 4px; font-variant-numeric: tabular-nums; }
 .assignment { display: flex; flex-wrap: wrap; gap: 8px 16px; font-size: 11px; margin-top: 16px; color: var(--muted); }.assignment b { font-weight: 500; color: var(--text); }.special-note { font-size: 11px; color: var(--accent); margin: 12px 0; }
-.ladder-page .trait-chip { background: #363029; color: #eee4d8; border-color: #51473c; }
-.ladder-page .trait-chip.active { background: #2c2721; color: #fff6eb; }
-.ladder-page .trait-chip img { width: 18px; height: 18px; }
-.ladder-page .trait-chip b { color: #f0b28f; }
+.ladder-page .trait-chip { background: #eee8df; color: #655b4f; border-color: #d8cfc2; }
+.ladder-page .trait-chip.active { background: #f5efe5; color: #30291f; }
+.ladder-page .trait-chip img { width: 18px; height: 18px; filter: brightness(0) saturate(100%); opacity: .78; }
+.ladder-page .trait-chip b { color: #994b30; }
 .trait-details { margin: 16px 0; font-size: 11px; color: var(--muted); }.trait-details summary { cursor: pointer; margin-bottom: 10px; }
 .result-card footer { display: flex; justify-content: space-between; align-items: center; padding: 13px 0; border-top: 1px solid var(--line); color: var(--muted); font-size: 11px; }.result-card footer button { color: var(--accent); background: none; border: none; padding: 4px 0; font-size: 11px; }
 .rules { padding: 16px 0; font-size: 12px; line-height: 1.9; color: var(--muted); }.rules summary { cursor: pointer; }.rules p { max-width: 980px; }
