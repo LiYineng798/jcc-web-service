@@ -669,7 +669,8 @@ def test_home_numbered_pagination_styles_are_present():
         '.pagination-direction-label {',
     ):
         assert selector in css
-    assert 'box-shadow: 3px 3px 0' in css
+    assert 'border: 1px solid var(--line)' in css
+    assert '--pagination-accent:' in css
     assert '@media (max-width: 520px)' in css
     assert '.pagination-direction-label' in css
     assert '.pagination-dot' not in css

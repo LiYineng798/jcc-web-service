@@ -1283,6 +1283,7 @@ textarea:focus {
   align-items: center;
   justify-content: center;
   min-width: 36px;
+  min-height: 36px;
   height: 36px;
   padding: 0 9px;
   border-radius: 999px;
@@ -1911,22 +1912,6 @@ textarea:focus {
     width: auto;
   }
 
-  .pagination-content {
-    gap: 4px;
-  }
-
-  .pagination-direction,
-  .pagination-page,
-  .pagination-ellipsis {
-    min-width: 40px;
-    width: 40px;
-    padding: 0;
-  }
-
-  .pagination-direction-label {
-    display: none;
-  }
-
   .toast {
     right: 12px;
     bottom: 12px;
@@ -2372,20 +2357,27 @@ textarea:focus {
 }
 
 .pagination {
+  --pagination-accent: #b9480b;
   display: flex;
   align-items: center;
   justify-content: center;
   margin-top: 24px;
   padding: 8px 0;
+  min-width: 0;
 }
 
 .pagination-content {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 7px;
+  gap: 4px;
+  flex-wrap: wrap;
+  max-width: 100%;
   margin: 0;
-  padding: 0;
+  padding: 4px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: color-mix(in srgb, var(--bg) 85%, var(--surface-solid));
   list-style: none;
 }
 
@@ -2397,21 +2389,22 @@ textarea:focus {
 .pagination-direction,
 .pagination-page {
   display: inline-grid;
-  min-width: 40px;
-  height: 40px;
+  min-width: 36px;
+  min-height: 36px;
+  height: 36px;
   padding: 0 12px;
-  border: 1px solid color-mix(in srgb, var(--accent-strong) 34%, var(--line));
-  border-radius: 8px;
+  border: 1px solid transparent;
+  border-radius: 12px;
   place-items: center;
-  background: var(--surface-solid);
-  box-shadow: 3px 3px 0 color-mix(in srgb, var(--accent) 28%, var(--line));
-  color: var(--text);
+  background: transparent;
+  box-shadow: none;
+  color: var(--muted);
   cursor: pointer;
   font-size: 0.9rem;
-  font-weight: 700;
+  font-weight: 600;
   line-height: 1;
   letter-spacing: 0;
-  transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease, color 160ms ease, opacity 160ms ease;
+  transition: background 160ms ease, color 160ms ease, border-color 160ms ease;
 }
 
 .pagination-direction {
@@ -2423,16 +2416,17 @@ textarea:focus {
 
 .pagination-direction:hover:not(:disabled),
 .pagination-page:hover:not(:disabled) {
-  background: var(--accent-soft);
-  color: var(--accent-strong);
-  box-shadow: 1px 1px 0 color-mix(in srgb, var(--accent) 22%, var(--line));
-  transform: translate(2px, 2px);
+  background: color-mix(in srgb, var(--text) 5%, transparent);
+  border-color: transparent;
+  color: var(--text);
+  box-shadow: none;
+  transform: none;
 }
 
 .pagination-direction:focus-visible,
 .pagination-page:focus-visible {
   outline: 2px solid var(--accent-strong);
-  outline-offset: 3px;
+  outline-offset: 1px;
 }
 
 .pagination-direction:disabled {
@@ -2443,14 +2437,14 @@ textarea:focus {
 }
 
 .pagination-page {
-  padding: 0;
+  padding: 0 6px;
 }
 
-.pagination-page.is-active {
-  border-color: var(--accent-strong);
-  background: var(--accent);
-  box-shadow: 2px 2px 0 color-mix(in srgb, var(--accent-strong) 55%, var(--line));
-  color: #fffaf5;
+.pagination .pagination-page.is-active {
+  border-color: color-mix(in srgb, var(--pagination-accent) 45%, transparent);
+  background: color-mix(in srgb, var(--pagination-accent) 16%, transparent);
+  box-shadow: none;
+  color: var(--pagination-accent);
 }
 
 .pagination-page.is-active:disabled {
@@ -2460,8 +2454,8 @@ textarea:focus {
 
 .pagination-ellipsis {
   display: inline-flex;
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 36px;
   align-items: center;
   justify-content: center;
   color: var(--muted);
@@ -2507,6 +2501,30 @@ textarea:focus {
 
 .pagination-direction-label {
   display: inline;
+}
+
+/* Keep responsive rules after the base styles so direction buttons stay compact. */
+:root[data-theme="dark"] .pagination {
+  --pagination-accent: #ff9a62;
+}
+
+@media (max-width: 520px) {
+  .pagination-content {
+    gap: 2px;
+  }
+
+  .pagination-direction,
+  .pagination-page,
+  .pagination-ellipsis {
+    min-width: 32px;
+    width: auto;
+    height: 40px;
+    padding: 0 4px;
+  }
+
+  .pagination-direction-label {
+    display: none;
+  }
 }
 
 .editor-page-shell {
