@@ -135,10 +135,10 @@ def test_simulator_implements_board_and_equipment_rules():
 
     assert 'Array(28).fill(null)' in javascript
     assert 'if (slot.items.length >= 3)' in javascript
-    assert 'if (state.championById.get(slot.championId)?.canEquip === false)' in javascript
+    assert 'if (hero.canEquip === false)' in javascript
     assert 'function simulatorChampionRules(raw, traitsByName)' in javascript
     assert 'unitSlots: simulatorRules.unitSlots' in javascript
-    assert 'hero?.traitContributions.forEach' in javascript
+    assert 'hero?.traitContributions?.forEach' in javascript
     assert 'function totalPopulation(board = state.board)' in javascript
     assert 'if (totalPopulation() + hero.unitSlots > state.board.length)' in javascript
     assert 'syncLibrarySelectionState();' in javascript

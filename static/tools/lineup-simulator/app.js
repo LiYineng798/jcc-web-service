@@ -530,10 +530,12 @@ function hydrateBoard(rawBoard) {
   if (!Array.isArray(rawBoard)) return board;
   rawBoard.slice(0, 28).forEach((slot, index) => {
     if (!slot || !state.championById.has(String(slot.championId))) return;
-    board[index] = {
-      championId: String(slot.championId),
-      items: (slot.items || []).map(String).filter((id) => state.itemById.has(id)).slice(0, 3),
-    };
+    const hydrated = { championId: String(slot.championId), items: [] };
+    const itemIds = Array.isArray(slot.items) ? slot.items : [];
+    itemIds.map(String).forEach((itemId) => {
+      if (!equipmentError(hydrated, itemId)) hydrated.items.push(itemId);
+    });
+    board[index] = hydrated;
   });
   return board;
 }
@@ -845,7 +847,7 @@ function getTraitCounts() {
   state.board.filter(Boolean).forEach((slot) => {
     const hero = state.championById.get(slot.championId);
     hero?.traitIds.forEach((traitId) => addContributor(traitId, hero.id));
-    hero?.traitContributions.forEach(({ traitId, count }) => addContributor(traitId, hero.id, count));
+    hero?.traitContributions?.forEach(({ traitId, count }) => addContributor(traitId, hero.id, count));
     slot.items.forEach((itemId) => {
       const traitId = state.itemById.get(itemId)?.grantedTraitId;
       if (traitId) addContributor(traitId, hero.id);
@@ -1006,11 +1008,31 @@ function addChampion(championId, requestedIndex = null) {
   mutate(() => { state.board[index] = { championId, items: [] }; });
 }
 
+function equipmentError(slot, itemId) {
+  const hero = state.championById.get(slot.championId);
+  const item = state.itemById.get(itemId);
+  if (!hero || !item) return "弈子或装备不存在";
+  if (hero.canEquip === false) return "棋盘对象不能携带装备";
+  if (item.category === "emblem") {
+    const traitId = item.grantedTraitId;
+    if (traitId && hero.traitIds.includes(traitId)) {
+      return "该弈子已拥有此羁绊，不能佩戴对应纹章";
+    }
+    if (slot.items.some((id) => id === itemId || (
+      traitId && state.itemById.get(id)?.grantedTraitId === traitId
+    ))) {
+      return "同一弈子只能佩戴一个相同羁绊的纹章";
+    }
+  }
+  if (slot.items.length >= 3) return "每名弈子最多携带 3 件装备";
+  return "";
+}
+
 function equipItem(slotIndex, itemId) {
   const slot = state.board[slotIndex];
   if (!slot) return showToast("请先在该位置上阵弈子");
-  if (state.championById.get(slot.championId)?.canEquip === false) return showToast("棋盘对象不能携带装备");
-  if (slot.items.length >= 3) return showToast("每名弈子最多携带 3 件装备");
+  const error = equipmentError(slot, itemId);
+  if (error) return showToast(error);
   mutate(() => { slot.items.push(itemId); });
 }
 
