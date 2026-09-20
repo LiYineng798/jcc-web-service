@@ -26,8 +26,19 @@ const output = 'instance/trait-ladder-checks'; fs.mkdirSync(output,{recursive:tr
    await page.screenshot({path:`${output}/${name}-light.png`,fullPage:true});
    assert.equal(await page.locator('[data-hero]').count(),65);
    assert.equal(await page.locator('.hero-tags').count(),0);
+   // Image identity and load events catch full-list rebuilds even with a warm HTTP cache.
+   await page.evaluate(() => {
+    window.poolImages = [...document.querySelectorAll('#champion-pool img')];
+    window.poolButtons = [...document.querySelectorAll('[data-hero]')];
+    window.poolImageLoads = 0;
+    document.querySelector('#champion-pool').addEventListener('load', () => window.poolImageLoads++, true);
+   });
    await page.locator('[data-hero="1501"]').click();
+   await page.evaluate(() => { window.firstSelectedImage = document.querySelector('.selected-hero img'); });
    await page.locator('[data-hero="1506"]').click();
+   assert(await page.evaluate(() => window.firstSelectedImage === document.querySelector('.selected-hero img')));
+   assert.equal(await page.locator('[data-hero="1506"]').getAttribute('aria-pressed'), 'true');
+   assert(await page.locator('[data-hero="1506"]').evaluate(node => document.activeElement === node));
    assert.equal(await page.locator('.selected-hero img').count(),2);
    await page.locator('[data-remove="1501"]').click();
    assert.equal(await page.locator('.selected-hero').count(),1);
@@ -81,9 +92,21 @@ const output = 'instance/trait-ladder-checks'; fs.mkdirSync(output,{recursive:tr
    await page.locator('#reset').click();
    await page.locator('#calculate').click(); await page.locator('#cancel').click();
    assert((await page.locator('#status').innerText()).includes('取消'));
-   await page.locator('#search').fill('螳螂');assert.equal(await page.locator('[data-hero]').count(),1);
+   await page.locator('#search').fill('螳螂');assert.equal(await page.locator('[data-hero]:visible').count(),1);
    await page.locator('#search').fill('no-such-champion');assert(await page.locator('.pool-empty').isVisible());
    await page.locator('#search').fill('');
+   await page.locator('#cost').selectOption('1');
+   assert(await page.locator('[data-hero]:visible').evaluateAll(nodes => nodes.every(n => n.classList.contains('cost-1'))));
+   await page.locator('#cost').selectOption('');
+   await page.locator('[data-mode="banned"]').click();
+   await page.locator('[data-hero="1501"]').focus(); await page.keyboard.press('Enter');
+   assert((await page.locator('[data-hero="1501"]').getAttribute('aria-label')).includes('已禁用'));
+   await page.locator('#reset').click();
+   assert.equal(await page.locator('[data-hero="1501"]').getAttribute('aria-pressed'), 'false');
+   assert(await page.evaluate(() => window.poolImages.every((img, i) => img === document.querySelectorAll('#champion-pool img')[i]) && window.poolButtons.every((node, i) => node === document.querySelectorAll('[data-hero]')[i])));
+   assert.equal(await page.evaluate(() => window.poolImageLoads), 0);
+   assert.equal(await page.locator('.reward-source').count(), 0);
+
    await page.locator('#themeToggle').click();
    assert.equal(await page.locator('html').getAttribute('data-theme'),'dark');
    await page.waitForTimeout(250);

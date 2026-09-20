@@ -40,18 +40,56 @@
     const title = `${c.name} · ${c.cost}费 · ${Object.keys(c.traits).map(id => traits.get(id)?.name).join(' / ')}${c.slots > 1 ? ' · 占2人口' : ''}${c.role ? ' · ' + (c.role === 'tank' ? '前排' : '输出') : ''}`;
     return `<${button ? 'button type="button"' : 'div'} class="champion cost-${c.cost} ${button ? state : ''}" ${button ? `data-hero="${esc(c.id)}" aria-pressed="${state ? 'true' : 'false'}" aria-label="${esc(title + (state === 'locked' ? '，已锁定' : state === 'banned' ? '，已禁用' : ''))}"` : ''} title="${esc(title)}"><span class="portrait"><img src="${esc(c.icon)}" alt="" loading="lazy"/>${button && state ? `<b class="selection-mark">${state === 'locked' ? '+' : '−'}</b>` : ''}<small>${c.cost}</small></span><span class="champion-name">${esc(c.name)}</span></${button ? 'button' : 'div'}>`;
   }
+  // Keep image-bearing nodes mounted: selection must not restart image loading.
+  function element(html) {
+    const template = document.createElement('template');
+    template.innerHTML = html;
+    return template.content.firstElementChild;
+  }
+  const poolNodes = new Map(data.champions.map(c => [c.id, element(portrait(c, true))]));
+  const poolEmpty = element('<p class="pool-empty" hidden>没有匹配的弈子，试试其他名称或费用。</p>');
+  $('champion-pool').append(...poolNodes.values(), poolEmpty);
+  const selectedNodes = new Map();
+  const clearSelected = element('<button type="button" class="clear-selected" data-clear-selected aria-label="清空已选弈子" title="清空已选弈子"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 6h16M9 6V3h6v3M6 6l1 15h10l1-15M10 10v7m4-7v7"/></svg><span>清空</span></button>');
+  const selectionEmpty = element('<p class="selection-empty">点击上方弈子，将你想保留的核心放在这里。</p>');
+  $('selected-summary').append(clearSelected, selectionEmpty);
   function renderPool() {
     const search = $('search').value.trim().toLowerCase(), cost = Number($('cost').value);
-    const list = data.champions.filter(c => (!cost || c.cost === cost) && [c.name, ...c.aliases, ...Object.keys(c.traits).map(id => traits.get(id)?.name || ''), ...(c.khazix ? ['螳螂'] : [])].join(' ').toLowerCase().includes(search));
-    $('champion-pool').innerHTML = list.length ? list.map(c => portrait(c, true)).join('') : '<p class="pool-empty">没有匹配的弈子，试试其他名称或费用。</p>';
+    let visible = 0;
+    data.champions.forEach(c => {
+      const node = poolNodes.get(c.id);
+      const matches = (!cost || c.cost === cost) && [c.name, ...c.aliases, ...Object.keys(c.traits).map(id => traits.get(id)?.name || ''), ...(c.khazix ? ['螳螂'] : [])].join(' ').toLowerCase().includes(search);
+      node.hidden = !matches;
+      if (matches) visible++;
+      const state = locked.has(c.id) ? 'locked' : banned.has(c.id) ? 'banned' : '';
+      node.classList.toggle('locked', state === 'locked');
+      node.classList.toggle('banned', state === 'banned');
+      node.setAttribute('aria-pressed', String(Boolean(state)));
+      node.setAttribute('aria-label', node.title + (state === 'locked' ? '，已锁定' : state === 'banned' ? '，已禁用' : ''));
+      let mark = node.querySelector('.selection-mark');
+      if (state) {
+        if (!mark) { mark = element('<b class="selection-mark"></b>'); node.querySelector('.portrait').append(mark); }
+        const symbol = state === 'locked' ? '+' : '−';
+        if (mark.textContent !== symbol) mark.textContent = symbol;
+      } else { mark?.remove(); }
+    });
+    poolEmpty.hidden = visible > 0;
   }
   function renderSummary() {
     $('pool-summary').textContent = `必选 ${locked.size} · 禁用 ${banned.size}`;
     $('selected-count').textContent = `${locked.size} 位 · ${[...locked].reduce((n,id)=>n+heroes.get(id).slots,0)} 人口`;
-    $('selected-summary').innerHTML = [...locked].map(id => {
+    for (const [id, node] of selectedNodes) {
+      if (!locked.has(id)) { node.remove(); selectedNodes.delete(id); }
+    }
+    for (const id of locked) {
+      if (selectedNodes.has(id)) continue;
       const hero = heroes.get(id);
-      return `<button class="selected-hero cost-${hero.cost}" type="button" data-remove="${esc(id)}" aria-label="移除${esc(hero.name)}" title="点击移除${esc(hero.name)}"><img src="${esc(hero.icon)}" alt=""/><span>${esc(hero.name)}</span><b aria-hidden="true">×</b></button>`;
-    }).join('') + (locked.size ? '<button type="button" class="clear-selected" data-clear-selected aria-label="清空已选弈子" title="清空已选弈子"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 6h16M9 6V3h6v3M6 6l1 15h10l1-15M10 10v7m4-7v7"/></svg><span>清空</span></button>' : '<p class="selection-empty">点击上方弈子，将你想保留的核心放在这里。</p>');
+      const node = element(`<button class="selected-hero cost-${hero.cost}" type="button" data-remove="${esc(id)}" aria-label="移除${esc(hero.name)}" title="点击移除${esc(hero.name)}"><img src="${esc(hero.icon)}" alt=""/><span>${esc(hero.name)}</span><b aria-hidden="true">×</b></button>`);
+      selectedNodes.set(id, node);
+      $('selected-summary').insertBefore(node, clearSelected);
+    }
+    clearSelected.hidden = !locked.size;
+    selectionEmpty.hidden = Boolean(locked.size);
     $('banned-summary').innerHTML = [...banned].map(id => `<button class="banned-chip" type="button" data-remove="${esc(id)}" aria-label="取消禁用${esc(heroes.get(id).name)}">禁用 ${esc(heroes.get(id).name)} <span aria-hidden="true">×</span></button>`).join('');
     $('emblem-selected').innerHTML = [...new Set(emblems)].map(id => `<button type="button" data-remove-emblem="${esc(id)}">${esc(traits.get(id).name)} <b>×${emblems.filter(t => t === id).length}</b> −<span class="sr-only">移除一枚</span></button>`).join('') || '<p class="setting-help">暂无转职。每枚纹章都会给出可用的携带者。</p>';
     document.querySelectorAll('[data-emblem]').forEach(b => {
