@@ -10,6 +10,7 @@ from lineup_read_service import build_lineup_detail_payload
 from notice_service import get_active_notice
 from lucky_openings import build_lucky_openings
 from witch_rewards_service import reward_tiers, select_reward_tier
+from golden_egg_service import golden_egg_rewards
 from trait_ladder_service import calculator_data, reward_tiers as ladder_reward_tiers
 from seo import (
     DEFAULT_DESCRIPTION,
@@ -51,6 +52,7 @@ def _sitemap_entries():
         {'loc': absolute_url('/tools/returning-equipment'), 'lastmod': None},
         {'loc': absolute_url('/tools/s16-5-lucky-openings'), 'lastmod': None},
         {'loc': absolute_url('/tools/s18-witch-rewards'), 'lastmod': None},
+        {'loc': absolute_url('/tools/golden-egg'), 'lastmod': None},
         {'loc': absolute_url('/tools/s18-trait-ladder'), 'lastmod': None},
     ]
     for season in catalog_seasons():
@@ -151,6 +153,16 @@ def register_page_routes(app):
             seo=make_seo(title='S18 羁绊天梯计算器 - 金铲铲阵容库',
                          description='计算转职、拉克丝双倍贡献与螳螂进化下的多羁绊阵容，查询2至14羁绊阶段奖励。',
                          path='/tools/s18-trait-ladder'),
+        )
+
+    @app.get('/tools/golden-egg')
+    def golden_egg_page():
+        return tracked_template_response(
+            'golden_egg.html', 'golden_egg', rewards=golden_egg_rewards(),
+            simulator_enabled=get_setting(get_db(), 'simulator_enabled', 'true') == 'true',
+            seo=make_seo(title='金蛋奖励 - 金铲铲阵容库',
+                         description='查看金蛋海克斯与8组奖励组合，包含概率、物品图片和数量。',
+                         path='/tools/golden-egg'),
         )
 
     @app.get('/tools/s18-witch-rewards')

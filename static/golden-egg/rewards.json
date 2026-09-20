@@ -1,0 +1,259 @@
+{
+  "augment_image": "golden-egg/images/hex2-TheGoldenEgg_3_.png",
+  "outcomes": [
+    {
+      "percent": "15%",
+      "rewards": [
+        {
+          "equipId": 608,
+          "title": "金铲铲冠冕",
+          "type": "equip",
+          "image": "golden-egg/images/equips-608.png",
+          "count": 1
+        },
+        {
+          "title": "金币",
+          "image": "golden-egg/images/reward-gold.png",
+          "count": 88
+        }
+      ]
+    },
+    {
+      "percent": "15%",
+      "rewards": [
+        {
+          "equipId": 608,
+          "title": "金铲铲冠冕",
+          "type": "equip",
+          "image": "golden-egg/images/equips-608.png",
+          "count": 2
+        },
+        {
+          "equipId": 607,
+          "title": "窃贼手套",
+          "type": "equip",
+          "image": "golden-egg/images/equips-607.png",
+          "count": 1
+        },
+        {
+          "title": "金币",
+          "image": "golden-egg/images/reward-gold.png",
+          "count": 30
+        }
+      ]
+    },
+    {
+      "percent": "15%",
+      "rewards": [
+        {
+          "equipId": 608,
+          "title": "金铲铲冠冕",
+          "type": "equip",
+          "image": "golden-egg/images/equips-608.png",
+          "count": 1
+        },
+        {
+          "equipId": 1607,
+          "title": "光明版窃贼手套",
+          "type": "equip",
+          "image": "golden-egg/images/equips-1607.png",
+          "count": 1
+        },
+        {
+          "equipId": 607,
+          "title": "窃贼手套",
+          "type": "equip",
+          "image": "golden-egg/images/equips-607.png",
+          "count": 1
+        },
+        {
+          "title": "金币",
+          "image": "golden-egg/images/reward-gold.png",
+          "count": 25
+        }
+      ]
+    },
+    {
+      "percent": "15%",
+      "rewards": [
+        {
+          "equipId": 608,
+          "title": "金铲铲冠冕",
+          "type": "equip",
+          "image": "golden-egg/images/equips-608.png",
+          "count": 1
+        },
+        {
+          "title": "光明武器",
+          "image": "golden-egg/images/reward-gmwq.png",
+          "count": 2
+        },
+        {
+          "title": "金币",
+          "image": "golden-egg/images/reward-gold.png",
+          "count": 10
+        }
+      ]
+    },
+    {
+      "percent": "10%",
+      "rewards": [
+        {
+          "equipId": 608,
+          "title": "金铲铲冠冕",
+          "type": "equip",
+          "image": "golden-egg/images/equips-608.png",
+          "count": 1
+        },
+        {
+          "count": 2,
+          "title": "英雄复制器",
+          "image": "golden-egg/images/reward-yxfzq.png"
+        },
+        {
+          "count": 4,
+          "title": "5费卡",
+          "image": "golden-egg/images/reward-5costunit.png"
+        },
+        {
+          "title": "金币",
+          "image": "golden-egg/images/reward-gold.png",
+          "count": 30
+        }
+      ]
+    },
+    {
+      "percent": "10%",
+      "rewards": [
+        {
+          "title": "英雄复制器",
+          "image": "golden-egg/images/reward-yxfzq.png",
+          "count": 1
+        },
+        {
+          "equipId": 20004,
+          "title": "三相之力",
+          "type": "equip",
+          "image": "golden-egg/images/equips-20004.png",
+          "count": 1
+        },
+        {
+          "equipId": 20010,
+          "title": "中娅悖论",
+          "type": "equip",
+          "image": "golden-egg/images/equips-20010.png",
+          "count": 1
+        },
+        {
+          "equipId": 31007,
+          "title": "顽强不屈",
+          "type": "equip",
+          "image": "golden-egg/images/equips-31007.png",
+          "count": 1
+        },
+        {
+          "title": "金币",
+          "image": "golden-egg/images/reward-gold.png",
+          "count": 25
+        },
+        {
+          "count": 2,
+          "title": "装备拆卸器",
+          "image": "golden-egg/images/reward-chaixie.png"
+        }
+      ]
+    },
+    {
+      "percent": "10%",
+      "rewards": [
+        {
+          "equipId": 608,
+          "title": "金铲铲冠冕",
+          "type": "equip",
+          "image": "golden-egg/images/equips-608.png",
+          "count": 1
+        },
+        {
+          "title": "神器",
+          "image": "golden-egg/images/reward-shenqi.png",
+          "count": 1
+        },
+        {
+          "title": "成装",
+          "image": "golden-egg/images/reward-cz.png",
+          "count": 1
+        },
+        {
+          "title": "金币",
+          "image": "golden-egg/images/reward-gold.png",
+          "count": 10
+        },
+        {
+          "title": "装备拆卸器",
+          "image": "golden-egg/images/reward-chaixie.png",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "percent": "10%",
+      "rewards": [
+        {
+          "equipId": 608,
+          "title": "金铲铲冠冕",
+          "type": "equip",
+          "image": "golden-egg/images/equips-608.png",
+          "count": 1
+        },
+        {
+          "equipId": 535,
+          "title": "无尽之刃",
+          "type": "equip",
+          "image": "golden-egg/images/equips-535.png",
+          "count": 1
+        },
+        {
+          "equipId": 565,
+          "title": "珠光护手",
+          "type": "equip",
+          "image": "golden-egg/images/equips-565.png",
+          "count": 1
+        },
+        {
+          "equipId": 617,
+          "title": "强袭者的链枷",
+          "type": "equip",
+          "image": "golden-egg/images/equips-617.png",
+          "count": 1
+        },
+        {
+          "equipId": 577,
+          "title": "正义之手",
+          "type": "equip",
+          "image": "golden-egg/images/equips-577.png",
+          "count": 1
+        },
+        {
+          "equipId": 595,
+          "title": "水银",
+          "type": "equip",
+          "image": "golden-egg/images/equips-595.png",
+          "count": 1
+        },
+        {
+          "title": "金币",
+          "image": "golden-egg/images/reward-gold.png",
+          "count": 10
+        },
+        {
+          "title": "装备拆卸器",
+          "image": "golden-egg/images/reward-chaixie.png",
+          "count": 1
+        }
+      ]
+    }
+  ],
+  "source": "datatft.com",
+  "source_sha256": "76b17003179f3b16380f14090621f982b75ffb9f02da330e9b2af3421f27b220",
+  "patch": null
+}

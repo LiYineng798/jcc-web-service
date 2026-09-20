@@ -1,0 +1,55 @@
+<!doctype html>
+{% from "theme_toggle.html" import theme_toggle %}
+{% from "seo_head.html" import seo_head %}
+{% from "toolbox.html" import toolbox_menu %}
+<html lang="zh-CN">
+<head>
+  {{ seo_head(seo) }}
+  <link rel="stylesheet" href="{{ static_v('toolbox.css') }}" />
+  <link rel="stylesheet" href="{{ static_v('golden-egg.css') }}" />
+  <script src="{{ static_v('toolbox.js') }}" defer></script>
+  <script src="{{ static_v('theme-toggle.js') }}" defer></script>
+  <script src="{{ static_v('golden-egg.js') }}" defer></script>
+</head>
+<body class="egg-body">
+<div class="page-shell egg-page">
+  <nav class="nav-bar" aria-label="页面工具">
+    <a class="brand-mark brand-link" href="/" aria-label="返回首页">阵</a>
+    <div class="nav-actions">{{ toolbox_menu(False, simulator_enabled) }}{{ theme_toggle('nav-icon-button') }}</div>
+  </nav>
+  <main>
+    <header class="egg-hero">
+      <div class="egg-heading"><p class="egg-eyebrow">工具箱 <span>/</span> 强化符文</p>
+        <h1>金蛋<span>奖励</span></h1>
+        <p class="egg-intro">等待之后，惊喜揭晓。<br />一览金蛋的每一种奖励可能。</p>
+        <div class="egg-summary"><span><strong>{{ rewards.outcomes|length }}</strong> 种奖励组合</span><i aria-hidden="true"></i><span><strong>100%</strong> 总概率</span></div>
+      </div>
+      <div class="egg-augment">
+        <div class="egg-orbit"><img src="{{ static_v(rewards.augment_image) }}" width="100" height="100" alt="金蛋海克斯图标" /></div>
+        <strong>金蛋</strong><span>棱彩强化符文</span>
+      </div>
+    </header>
+    <section class="egg-rewards" aria-labelledby="egg-rewards-title">
+      <header class="egg-section-heading"><h2 id="egg-rewards-title">奖励一览</h2><p>每行代表一整组可能获得的奖励</p></header>
+      <div class="egg-table-head" aria-hidden="true"><span>获得概率</span><span>奖励组合</span></div>
+      <ol class="egg-outcomes">
+      {% for outcome in rewards.outcomes %}
+        <li class="egg-outcome">
+          <div class="egg-probability"><span class="egg-index">{{ '%02d'|format(loop.index) }}</span><strong>{{ outcome.percent[:-1] }}<small>%</small></strong><span class="egg-probability-label">获得概率</span></div>
+          <ul class="egg-items">
+          {% for reward in outcome.rewards %}
+            <li class="egg-item"><div class="egg-item-art">
+              <img src="{{ static_v(reward.image) }}" width="52" height="52" alt="" loading="lazy" />
+              <span class="egg-count" aria-label="数量 {{ reward.count }}">×{{ reward.count }}</span>
+            </div><span class="egg-item-name">{{ reward.title }}</span></li>
+          {% endfor %}
+          </ul>
+        </li>
+      {% endfor %}
+      </ol>
+    </section>
+    <footer class="egg-notes"><p>× 表示物品数量 · 同组重复物品已合并展示</p></footer>
+  </main>
+</div>
+</body>
+</html>
