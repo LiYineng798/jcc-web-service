@@ -12,7 +12,8 @@ from test_admin import login_admin
 def test_remove_reorder_and_restore_public_season(client, kind, status):
     headers = login_admin(client)
     endpoint = f'/api/admin/season-display/{kind}'
-    original = client.get(endpoint).get_json()['items']
+    original = [s for s in client.get(endpoint).get_json()['items']
+                if s['status'] in {'active', 'archived'}]
     other_kind = 'simulator' if kind == 'library' else 'library'
     other = client.get(f'/api/admin/season-display/{other_kind}').get_json()
     target = original[1]['season_id']
@@ -30,7 +31,8 @@ def test_remove_reorder_and_restore_public_season(client, kind, status):
     restored = client.put(f'{endpoint}/{target}', headers=headers, json={'status': 'archived'})
     assert restored.status_code == 200
     assert restored.get_json()['season']['order'] == len(original)
-    assert client.get(endpoint).get_json()['items'][-1]['season_id'] == target
+    restored_public = client.get(f'/api/season-catalog?surface={kind}').get_json()['seasons']
+    assert restored_public[-1]['season_id'] == target
     assert client.get(f'/api/admin/season-display/{other_kind}').get_json() == other
 
 
@@ -56,7 +58,8 @@ def test_legacy_policy_compacts_without_writing_or_reexposing(client, app):
 def test_default_follows_remaining_public_seasons_and_first_restoration(client):
     headers = login_admin(client)
     endpoint = '/api/admin/season-display/simulator'
-    items = client.get(endpoint).get_json()['items']
+    items = [s for s in client.get(endpoint).get_json()['items']
+             if s['status'] in {'active', 'archived'}]
     for index, item in enumerate(items):
         response = client.put(f"{endpoint}/{item['season_id']}", headers=headers, json={'status': 'disabled'})
         assert response.status_code == 200

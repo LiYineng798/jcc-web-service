@@ -1,0 +1,208 @@
+{
+  "version_id": "s11__12_4_14",
+  "rich_text_version": 1,
+  "board_units": [
+    {
+      "id": "board_8084",
+      "name": "凯尔",
+      "kind": "trait_object",
+      "aliases": [],
+      "trait_ids": [
+        "238"
+      ],
+      "contribution_trait_ids": [],
+      "placement_rules": [
+        {
+          "trait_id": "238",
+          "min_units": 3,
+          "max_units": 4,
+          "max_count": 1
+        },
+        {
+          "trait_id": "238",
+          "min_units": 5,
+          "max_units": 6,
+          "max_count": 1
+        },
+        {
+          "trait_id": "238",
+          "min_units": 7,
+          "max_units": 9,
+          "max_count": 1
+        },
+        {
+          "trait_id": "238",
+          "min_units": 10,
+          "max_units": null,
+          "max_count": 1
+        }
+      ],
+      "can_equip": false,
+      "stats": {
+        "health": 450.0,
+        "attack_damage": 30.0,
+        "armor": 25.0,
+        "magic_resist": 25.0,
+        "attack_speed": 0.8,
+        "attack_range": 5.0,
+        "initial_mana": 0.0,
+        "max_mana": 100.0,
+        "critical_strike_chance": 25.0,
+        "sell_price": 0.0
+      },
+      "skill": {
+        "name": "登神耀焰",
+        "description": "被动：普攻造成18【法强】额外魔法伤害。主动：朝当前目标发射一道冲击波，对命中的所有敌人造成140【法强】魔法伤害。",
+        "image": null,
+        "description_tokens": [
+          {
+            "type": "text",
+            "value": "被动：普攻造成18"
+          },
+          {
+            "type": "stat",
+            "stat": "ability_power",
+            "kind": "ap",
+            "label": "法术加成",
+            "source_label": "法强",
+            "icon": "ap",
+            "fallback": "AP"
+          },
+          {
+            "type": "text",
+            "value": "额外魔法伤害。主动：朝当前目标发射一道冲击波，对命中的所有敌人造成140"
+          },
+          {
+            "type": "stat",
+            "stat": "ability_power",
+            "kind": "ap",
+            "label": "法术加成",
+            "source_label": "法强",
+            "icon": "ap",
+            "fallback": "AP"
+          },
+          {
+            "type": "text",
+            "value": "魔法伤害。"
+          }
+        ]
+      },
+      "image": {
+        "local_path": "assets/board-units/8084.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode11s12/hero/s11_head_kayle.png",
+        "alt": "凯尔图标",
+        "optimized_local_path": "assets/optimized/s11__12_4_14/board-units/board_8084.webp"
+      },
+      "source_ids": {
+        "official_ids": [
+          "8084"
+        ],
+        "record_ids": [
+          "18084",
+          "28084",
+          "38084",
+          "48084"
+        ],
+        "hero_paint": "s11_kayle"
+      },
+      "extensions": {
+        "library_visible": false,
+        "simulator_visible": true,
+        "discovery_sources": [
+          {
+            "type": "trait",
+            "id": "238",
+            "name": "剪纸仙灵"
+          }
+        ]
+      }
+    }
+  ],
+  "discovery_audit": {
+    "strategy_version": 2,
+    "candidate_count": 8,
+    "included_count": 1,
+    "review_count": 7,
+    "candidates": [
+      {
+        "official_ids": [
+          "8084"
+        ],
+        "name": "凯尔",
+        "status": "included",
+        "official_trait_ids": [],
+        "matched_sources": [
+          {
+            "type": "trait",
+            "id": "238",
+            "name": "剪纸仙灵"
+          }
+        ]
+      },
+      {
+        "official_ids": [
+          "8089"
+        ],
+        "name": "丽桑卓茶壶",
+        "status": "review",
+        "official_trait_ids": [],
+        "matched_sources": []
+      },
+      {
+        "official_ids": [
+          "8080"
+        ],
+        "name": "俄洛伊触手",
+        "status": "review",
+        "official_trait_ids": [],
+        "matched_sources": []
+      },
+      {
+        "official_ids": [
+          "8081"
+        ],
+        "name": "婕拉植物",
+        "status": "review",
+        "official_trait_ids": [],
+        "matched_sources": []
+      },
+      {
+        "official_ids": [
+          "8085",
+          "8091"
+        ],
+        "name": "招财树",
+        "status": "review",
+        "official_trait_ids": [],
+        "matched_sources": []
+      },
+      {
+        "official_ids": [
+          "1166"
+        ],
+        "name": "木桩假人",
+        "status": "review",
+        "official_trait_ids": [],
+        "matched_sources": []
+      },
+      {
+        "official_ids": [
+          "8090"
+        ],
+        "name": "沙兵",
+        "status": "review",
+        "official_trait_ids": [],
+        "matched_sources": []
+      },
+      {
+        "official_ids": [
+          "8101"
+        ],
+        "name": "雕纹魔像",
+        "status": "review",
+        "official_trait_ids": [],
+        "matched_sources": []
+      }
+    ]
+  }
+}

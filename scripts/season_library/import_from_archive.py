@@ -312,6 +312,7 @@ def compact_mechanics(version_dir: Path) -> list[dict]:
                 "kind": entry.get("kind"),
                 "display_name": entry.get("display_name"),
                 "has_images": bool(entry.get("has_images")),
+                **({"presentation": "cards.v1"} if entry.get("kind") == "encounter" else {}),
                 "entries": records,
             }
         )

@@ -21,6 +21,25 @@
    }
   },
   {
+   "season_id": "s11",
+   "display_name": "S11 画之灵",
+   "set_number": "11",
+   "set_variant": null,
+   "theme": "画之灵",
+   "status": "hidden",
+   "game_version": "12.4.14",
+   "version_id": "s11__12_4_14",
+   "effective_at": "2024-07-17 14:47:49",
+   "path": "s11/index.json",
+   "counts": {
+    "champions": 61,
+    "traits": 28,
+    "mechanics": 108,
+    "board_units": 1,
+    "augments": 232
+   }
+  },
+  {
    "season_id": "s16_5",
    "display_name": "S16.5 英雄联盟传奇",
    "set_number": "16",

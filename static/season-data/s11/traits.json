@@ -1,0 +1,2430 @@
+{
+  "$schema": "../../../../../schemas/traits.schema.json",
+  "version_id": "s11__12_4_14",
+  "traits": [
+    {
+      "id": "230",
+      "name": "灵魂莲华",
+      "category": "origin",
+      "description": "拖动【灵魂莲华】弈子到另一【灵魂莲华】弈子上，即可进行配对并解锁一个莲华加成。你的【灵魂莲华】组合获得20%【生命值】。",
+      "breakpoints": [
+        {
+          "min_units": 3,
+          "max_units": 4,
+          "style": "bronze",
+          "effect": "(3)该组合获得莲华加成。",
+          "values": {
+            "source_style": "1"
+          }
+        },
+        {
+          "min_units": 5,
+          "max_units": 6,
+          "style": "silver",
+          "effect": "(5)所有【灵魂莲华】弈子获得200%的莲华加成。",
+          "values": {
+            "source_style": "2"
+          }
+        },
+        {
+          "min_units": 7,
+          "max_units": 9,
+          "style": "gold",
+          "effect": "(7)所有【灵魂莲华】弈子获得300%的莲华加成。",
+          "values": {
+            "source_style": "3"
+          }
+        },
+        {
+          "min_units": 10,
+          "max_units": null,
+          "style": "prismatic",
+          "effect": "(10)(10)所有【灵魂莲华】弈子获得300%的每种莲华加成。",
+          "values": {
+            "source_style": "4"
+          }
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/230.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode11s12/trait/s11_trait_icon_fated.png",
+        "alt": "灵魂莲华羁绊图标",
+        "optimized_local_path": "assets/optimized/s11__12_4_14/traits/230.webp"
+      },
+      "source_ids": {
+        "official_id": "230",
+        "tft_spec_id": "10042",
+        "map_id": "1"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "1|2|3|4",
+        "raw_description": "(3)该组合获得莲华加成。|(5)所有【灵魂莲华】弈子获得200%的莲华加成。|(7)所有【灵魂莲华】弈子获得300%的莲华加成。|(10)(10)所有【灵魂莲华】弈子获得300%的每种莲华加成。"
+      },
+      "description_tokens": [
+        {
+          "type": "text",
+          "value": "拖动【灵魂莲华】弈子到另一【灵魂莲华】弈子上，即可进行配对并解锁一个莲华加成。你的【灵魂莲华】组合获得20%"
+        },
+        {
+          "type": "stat",
+          "stat": "health",
+          "kind": "health",
+          "label": "生命值",
+          "source_label": "生命值",
+          "icon": "hp",
+          "fallback": "HP"
+        },
+        {
+          "type": "text",
+          "value": "。"
+        }
+      ]
+    },
+    {
+      "id": "231",
+      "name": "天将",
+      "category": "origin",
+      "description": "【天将】弈子们会为你的队伍提供一个独特的属性，该加成会随着其星级和已登场的【天将】弈子数量而提升。",
+      "breakpoints": [
+        {
+          "min_units": 2,
+          "max_units": 2,
+          "style": "bronze",
+          "effect": "(2)100%加成。",
+          "values": {
+            "source_style": "1"
+          }
+        },
+        {
+          "min_units": 3,
+          "max_units": 3,
+          "style": "bronze",
+          "effect": "(3)110%加成。",
+          "values": {
+            "source_style": "1"
+          }
+        },
+        {
+          "min_units": 4,
+          "max_units": 4,
+          "style": "silver",
+          "effect": "(4)125%加成。",
+          "values": {
+            "source_style": "2"
+          }
+        },
+        {
+          "min_units": 5,
+          "max_units": 5,
+          "style": "silver",
+          "effect": "(5)145%加成。",
+          "values": {
+            "source_style": "2"
+          }
+        },
+        {
+          "min_units": 6,
+          "max_units": 6,
+          "style": "silver",
+          "effect": "(6)170%加成。",
+          "values": {
+            "source_style": "2"
+          }
+        },
+        {
+          "min_units": 7,
+          "max_units": null,
+          "style": "gold",
+          "effect": "(7)200%加成。",
+          "values": {
+            "source_style": "3"
+          }
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/231.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode11s12/trait/s11_trait_icon_heavenly.png",
+        "alt": "天将羁绊图标",
+        "optimized_local_path": "assets/optimized/s11__12_4_14/traits/231.webp"
+      },
+      "source_ids": {
+        "official_id": "231",
+        "tft_spec_id": "10041",
+        "map_id": "2"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "1|1|2|2|2|3",
+        "raw_description": "(2)100%加成。|(3)110%加成。|(4)125%加成。|(5)145%加成。|(6)170%加成。|(7)200%加成。"
+      }
+    },
+    {
+      "id": "232",
+      "name": "青花瓷",
+      "category": "origin",
+      "description": "施放技能后，【青花瓷】弈子们将沸腾，获得攻击速度和伤害减免，持续4秒。",
+      "breakpoints": [
+        {
+          "min_units": 2,
+          "max_units": 3,
+          "style": "bronze",
+          "effect": "(2)30%【攻速】；20%伤害减免",
+          "values": {
+            "source_style": "1"
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(2)30%"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_speed",
+              "kind": "attack-speed",
+              "label": "攻击速度",
+              "source_label": "攻速",
+              "icon": "as",
+              "fallback": "AS"
+            },
+            {
+              "type": "text",
+              "value": "；20%伤害减免"
+            }
+          ]
+        },
+        {
+          "min_units": 4,
+          "max_units": 5,
+          "style": "silver",
+          "effect": "(4)55%【攻速】；33%伤害减免",
+          "values": {
+            "source_style": "2"
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(4)55%"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_speed",
+              "kind": "attack-speed",
+              "label": "攻击速度",
+              "source_label": "攻速",
+              "icon": "as",
+              "fallback": "AS"
+            },
+            {
+              "type": "text",
+              "value": "；33%伤害减免"
+            }
+          ]
+        },
+        {
+          "min_units": 6,
+          "max_units": null,
+          "style": "gold",
+          "effect": "(6)100%【攻速】；50%伤害减免",
+          "values": {
+            "source_style": "3"
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(6)100%"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_speed",
+              "kind": "attack-speed",
+              "label": "攻击速度",
+              "source_label": "攻速",
+              "icon": "as",
+              "fallback": "AS"
+            },
+            {
+              "type": "text",
+              "value": "；50%伤害减免"
+            }
+          ]
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/232.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode11s12/trait/s11_trait_icon_porcelain.png",
+        "alt": "青花瓷羁绊图标",
+        "optimized_local_path": "assets/optimized/s11__12_4_14/traits/232.webp"
+      },
+      "source_ids": {
+        "official_id": "232",
+        "tft_spec_id": "10045",
+        "map_id": "3"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "1|2|3",
+        "raw_description": "(2)30%【攻速】；20%伤害减免|(4)55%【攻速】；33%伤害减免|(6)100%【攻速】；50%伤害减免"
+      }
+    },
+    {
+      "id": "233",
+      "name": "永恒之森",
+      "category": "origin",
+      "description": "【永恒之森】弈子们获得法术强度和150生命值。每有一名敌人阵亡，获得永久的额外生命值。",
+      "breakpoints": [
+        {
+          "min_units": 2,
+          "max_units": 3,
+          "style": "bronze",
+          "effect": "(2)15【法强】；每次敌人阵亡获得3【生命值】",
+          "values": {
+            "source_style": "1"
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(2)15"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法强",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "；每次敌人阵亡获得3"
+            },
+            {
+              "type": "stat",
+              "stat": "health",
+              "kind": "health",
+              "label": "生命值",
+              "source_label": "生命值",
+              "icon": "hp",
+              "fallback": "HP"
+            }
+          ]
+        },
+        {
+          "min_units": 4,
+          "max_units": 5,
+          "style": "silver",
+          "effect": "(4)30【法强】；每次敌人阵亡获得7【生命值】",
+          "values": {
+            "source_style": "2"
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(4)30"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法强",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "；每次敌人阵亡获得7"
+            },
+            {
+              "type": "stat",
+              "stat": "health",
+              "kind": "health",
+              "label": "生命值",
+              "source_label": "生命值",
+              "icon": "hp",
+              "fallback": "HP"
+            }
+          ]
+        },
+        {
+          "min_units": 6,
+          "max_units": null,
+          "style": "gold",
+          "effect": "(6)55【法强】；每次敌人阵亡获得10【生命值】",
+          "values": {
+            "source_style": "3"
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(6)55"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法强",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "；每次敌人阵亡获得10"
+            },
+            {
+              "type": "stat",
+              "stat": "health",
+              "kind": "health",
+              "label": "生命值",
+              "source_label": "生命值",
+              "icon": "hp",
+              "fallback": "HP"
+            }
+          ]
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/233.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode11s12/trait/s11_trait_icon_dryad.png",
+        "alt": "永恒之森羁绊图标",
+        "optimized_local_path": "assets/optimized/s11__12_4_14/traits/233.webp"
+      },
+      "source_ids": {
+        "official_id": "233",
+        "tft_spec_id": "10048",
+        "map_id": "4"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "1|2|3",
+        "raw_description": "(2)15【法强】；每次敌人阵亡获得3【生命值】|(4)30【法强】；每次敌人阵亡获得7【生命值】|(6)55【法强】；每次敌人阵亡获得10【生命值】"
+      }
+    },
+    {
+      "id": "234",
+      "name": "仙侣",
+      "category": "origin",
+      "description": "根据【仙侣】部署的位置(前两排或后两排)，切换登场的英雄。在已登场的那个【仙侣】施放技能时，另一个会提供一个额外效果。前排：【武仙子】【洛】后排：【迅捷射手】【霞】",
+      "breakpoints": [
+        {
+          "min_units": 1,
+          "max_units": null,
+          "style": "unique",
+          "effect": "(1)根据【仙侣】部署的位置(前两排或后两排)，切换登场的英雄。在已登场的那个【仙侣】施放技能时，另一个会提供一个额外效果。前排：【武仙子】【洛】后排：【迅捷射手】【霞】",
+          "values": {
+            "source_style": "5"
+          }
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/234.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode11s12/trait/s11_trait_icon_lovers.png",
+        "alt": "仙侣羁绊图标",
+        "optimized_local_path": "assets/optimized/s11__12_4_14/traits/234.webp"
+      },
+      "source_ids": {
+        "official_id": "234",
+        "tft_spec_id": "10052",
+        "map_id": "5"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "5",
+        "raw_description": "(1)根据【仙侣】部署的位置(前两排或后两排)，切换登场的英雄。在已登场的那个【仙侣】施放技能时，另一个会提供一个额外效果。前排：【武仙子】【洛】后排：【迅捷射手】【霞】"
+      }
+    },
+    {
+      "id": "235",
+      "name": "山海绘卷",
+      "category": "origin",
+      "description": "【山海绘卷】弈子们获得生命值、法术强度和攻击力。4个玩家对战回合后，【山海绘卷】弈子们会变成史诗级，使该加成提升50%。",
+      "breakpoints": [
+        {
+          "min_units": 3,
+          "max_units": 4,
+          "style": "bronze",
+          "effect": "(3)+8%【生命值】，10%【攻击力】【法强】",
+          "values": {
+            "source_style": "1"
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(3)+8%"
+            },
+            {
+              "type": "stat",
+              "stat": "health",
+              "kind": "health",
+              "label": "生命值",
+              "source_label": "生命值",
+              "icon": "hp",
+              "fallback": "HP"
+            },
+            {
+              "type": "text",
+              "value": "，10%"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "攻击力",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法强",
+              "icon": "ap",
+              "fallback": "AP"
+            }
+          ]
+        },
+        {
+          "min_units": 5,
+          "max_units": 6,
+          "style": "silver",
+          "effect": "(5)+18%【生命值】，22%【攻击力】【法强】",
+          "values": {
+            "source_style": "2"
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(5)+18%"
+            },
+            {
+              "type": "stat",
+              "stat": "health",
+              "kind": "health",
+              "label": "生命值",
+              "source_label": "生命值",
+              "icon": "hp",
+              "fallback": "HP"
+            },
+            {
+              "type": "text",
+              "value": "，22%"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "攻击力",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法强",
+              "icon": "ap",
+              "fallback": "AP"
+            }
+          ]
+        },
+        {
+          "min_units": 7,
+          "max_units": 9,
+          "style": "gold",
+          "effect": "(7)+25%【生命值】，35%【攻击力】【法强】",
+          "values": {
+            "source_style": "3"
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(7)+25%"
+            },
+            {
+              "type": "stat",
+              "stat": "health",
+              "kind": "health",
+              "label": "生命值",
+              "source_label": "生命值",
+              "icon": "hp",
+              "fallback": "HP"
+            },
+            {
+              "type": "text",
+              "value": "，35%"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_damage",
+              "kind": "ad",
+              "label": "物理加成",
+              "source_label": "攻击力",
+              "icon": "ad",
+              "fallback": "AD"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法强",
+              "icon": "ap",
+              "fallback": "AP"
+            }
+          ]
+        },
+        {
+          "min_units": 10,
+          "max_units": null,
+          "style": "prismatic",
+          "effect": "(10)(10)(10)立即变成史诗级。此加成转而提升250%",
+          "values": {
+            "source_style": "4"
+          }
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/235.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode11s12/trait/s11_trait_icon_mythic.png",
+        "alt": "山海绘卷羁绊图标",
+        "optimized_local_path": "assets/optimized/s11__12_4_14/traits/235.webp"
+      },
+      "source_ids": {
+        "official_id": "235",
+        "tft_spec_id": "10044",
+        "map_id": "6"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "1|2|3|4",
+        "raw_description": "(3)+8%【生命值】，10%【攻击力】【法强】|(5)+18%【生命值】，22%【攻击力】【法强】|(7)+25%【生命值】，35%【攻击力】【法强】|(10)(10)(10)立即变成史诗级。此加成转而提升250%"
+      }
+    },
+    {
+      "id": "236",
+      "name": "幽魂",
+      "category": "origin",
+      "description": "在造成或承受5次伤害时，【幽魂】们会派出2个亡灵缠住附近的敌人们，且每2秒为自身治疗2%最大生命值。被缠住的敌人会基于亡灵数量受到额外伤害，并在阵亡时将亡灵传递给其他单位。",
+      "breakpoints": [
+        {
+          "min_units": 2,
+          "max_units": 3,
+          "style": "bronze",
+          "effect": "(2)每个幽魂5%",
+          "values": {
+            "source_style": "1"
+          }
+        },
+        {
+          "min_units": 4,
+          "max_units": 5,
+          "style": "silver",
+          "effect": "(4)每个幽魂10%",
+          "values": {
+            "source_style": "2"
+          }
+        },
+        {
+          "min_units": 6,
+          "max_units": 7,
+          "style": "gold",
+          "effect": "(6)每个幽魂16%",
+          "values": {
+            "source_style": "3"
+          }
+        },
+        {
+          "min_units": 8,
+          "max_units": null,
+          "style": "prismatic",
+          "effect": "(8)每个幽魂36%",
+          "values": {
+            "source_style": "4"
+          }
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/236.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode11s12/trait/s11_trait_icon_ghostly.png",
+        "alt": "幽魂羁绊图标",
+        "optimized_local_path": "assets/optimized/s11__12_4_14/traits/236.webp"
+      },
+      "source_ids": {
+        "official_id": "236",
+        "tft_spec_id": "10043",
+        "map_id": "7"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "1|2|3|4",
+        "raw_description": "(2)每个幽魂5%|(4)每个幽魂10%|(6)每个幽魂16%|(8)每个幽魂36%"
+      }
+    },
+    {
+      "id": "237",
+      "name": "天龙之子",
+      "category": "origin",
+      "description": "战斗开始8秒后，巨龙打击整个棋盘，对敌人们造成真实伤害，并提升所有友军的攻击速度，持续到战斗环节结束。",
+      "breakpoints": [
+        {
+          "min_units": 2,
+          "max_units": 2,
+          "style": "bronze",
+          "effect": "(2)5%【生命值】真实伤害，12%【攻速】",
+          "values": {
+            "source_style": "1"
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(2)5%"
+            },
+            {
+              "type": "stat",
+              "stat": "health",
+              "kind": "health",
+              "label": "生命值",
+              "source_label": "生命值",
+              "icon": "hp",
+              "fallback": "HP"
+            },
+            {
+              "type": "text",
+              "value": "真实伤害，12%"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_speed",
+              "kind": "attack-speed",
+              "label": "攻击速度",
+              "source_label": "攻速",
+              "icon": "as",
+              "fallback": "AS"
+            }
+          ]
+        },
+        {
+          "min_units": 3,
+          "max_units": 3,
+          "style": "silver",
+          "effect": "(3)10%【生命值】真实伤害，18%【攻速】",
+          "values": {
+            "source_style": "2"
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(3)10%"
+            },
+            {
+              "type": "stat",
+              "stat": "health",
+              "kind": "health",
+              "label": "生命值",
+              "source_label": "生命值",
+              "icon": "hp",
+              "fallback": "HP"
+            },
+            {
+              "type": "text",
+              "value": "真实伤害，18%"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_speed",
+              "kind": "attack-speed",
+              "label": "攻击速度",
+              "source_label": "攻速",
+              "icon": "as",
+              "fallback": "AS"
+            }
+          ]
+        },
+        {
+          "min_units": 4,
+          "max_units": 4,
+          "style": "silver",
+          "effect": "(4)10%【生命值】真实伤害和1.5秒晕眩。",
+          "values": {
+            "source_style": "2"
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(4)10%"
+            },
+            {
+              "type": "stat",
+              "stat": "health",
+              "kind": "health",
+              "label": "生命值",
+              "source_label": "生命值",
+              "icon": "hp",
+              "fallback": "HP"
+            },
+            {
+              "type": "text",
+              "value": "真实伤害和1.5秒晕眩。"
+            }
+          ]
+        },
+        {
+          "min_units": 5,
+          "max_units": null,
+          "style": "gold",
+          "effect": "(5)15%【生命值】真实伤害，45%【攻速】",
+          "values": {
+            "source_style": "3"
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(5)15%"
+            },
+            {
+              "type": "stat",
+              "stat": "health",
+              "kind": "health",
+              "label": "生命值",
+              "source_label": "生命值",
+              "icon": "hp",
+              "fallback": "HP"
+            },
+            {
+              "type": "text",
+              "value": "真实伤害，45%"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_speed",
+              "kind": "attack-speed",
+              "label": "攻击速度",
+              "source_label": "攻速",
+              "icon": "as",
+              "fallback": "AS"
+            }
+          ]
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/237.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode11s12/trait/s11_trait_icon_dragonlord.png",
+        "alt": "天龙之子羁绊图标",
+        "optimized_local_path": "assets/optimized/s11__12_4_14/traits/237.webp"
+      },
+      "source_ids": {
+        "official_id": "237",
+        "tft_spec_id": "10046",
+        "map_id": "8"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "1|2|2|3",
+        "raw_description": "(2)5%【生命值】真实伤害，12%【攻速】|(3)10%【生命值】真实伤害，18%【攻速】|(4)10%【生命值】真实伤害和1.5秒晕眩。|(5)15%【生命值】真实伤害，45%【攻速】"
+      }
+    },
+    {
+      "id": "238",
+      "name": "剪纸仙灵",
+      "category": "origin",
+      "description": "【剪纸仙灵】召唤一个名为【凯尔】的英雄，并使其进化。【剪纸仙灵】们获得最大生命值。",
+      "breakpoints": [
+        {
+          "min_units": 3,
+          "max_units": 4,
+          "style": "bronze",
+          "effect": "(3)选择一个辅助型效果。60【生命值】",
+          "values": {
+            "source_style": "1"
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(3)选择一个辅助型效果。60"
+            },
+            {
+              "type": "stat",
+              "stat": "health",
+              "kind": "health",
+              "label": "生命值",
+              "source_label": "生命值",
+              "icon": "hp",
+              "fallback": "HP"
+            }
+          ]
+        },
+        {
+          "min_units": 5,
+          "max_units": 6,
+          "style": "silver",
+          "effect": "(5)选择一个战斗型效果。100【生命值】",
+          "values": {
+            "source_style": "2"
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(5)选择一个战斗型效果。100"
+            },
+            {
+              "type": "stat",
+              "stat": "health",
+              "kind": "health",
+              "label": "生命值",
+              "source_label": "生命值",
+              "icon": "hp",
+              "fallback": "HP"
+            }
+          ]
+        },
+        {
+          "min_units": 7,
+          "max_units": 9,
+          "style": "gold",
+          "effect": "(7)选择一个战斗型效果。150【生命值】",
+          "values": {
+            "source_style": "3"
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(7)选择一个战斗型效果。150"
+            },
+            {
+              "type": "stat",
+              "stat": "health",
+              "kind": "health",
+              "label": "生命值",
+              "source_label": "生命值",
+              "icon": "hp",
+              "fallback": "HP"
+            }
+          ]
+        },
+        {
+          "min_units": 10,
+          "max_units": null,
+          "style": "prismatic",
+          "effect": "(10)(10)登神。250【生命值】",
+          "values": {
+            "source_style": "4"
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(10)(10)登神。250"
+            },
+            {
+              "type": "stat",
+              "stat": "health",
+              "kind": "health",
+              "label": "生命值",
+              "source_label": "生命值",
+              "icon": "hp",
+              "fallback": "HP"
+            }
+          ]
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/238.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode11s12/trait/s11_trait_icon_storyweaver.png",
+        "alt": "剪纸仙灵羁绊图标",
+        "optimized_local_path": "assets/optimized/s11__12_4_14/traits/238.webp"
+      },
+      "source_ids": {
+        "official_id": "238",
+        "tft_spec_id": "10049",
+        "map_id": "9"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "1|2|3|4",
+        "raw_description": "(3)选择一个辅助型效果。60【生命值】|(5)选择一个战斗型效果。100【生命值】|(7)选择一个战斗型效果。150【生命值】|(10)(10)登神。250【生命值】"
+      }
+    },
+    {
+      "id": "239",
+      "name": "墨之影",
+      "category": "origin",
+      "description": "获得各种独特的【墨之影】装备。【墨之影】弈子们获得5%伤害加成和伤害减免。",
+      "breakpoints": [
+        {
+          "min_units": 3,
+          "max_units": 4,
+          "style": "silver",
+          "effect": "(3)获得第1件【墨之影】装备",
+          "values": {
+            "source_style": "2"
+          }
+        },
+        {
+          "min_units": 5,
+          "max_units": 6,
+          "style": "gold",
+          "effect": "(5)获得第2件【墨之影】装备和16%的额外伤害加成和伤害减免",
+          "values": {
+            "source_style": "3"
+          }
+        },
+        {
+          "min_units": 7,
+          "max_units": null,
+          "style": "gold",
+          "effect": "(7)再获得2件【墨之影】装备和22%的额外伤害加成和伤害减免",
+          "values": {
+            "source_style": "3"
+          }
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/239.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode11s12/trait/s11_trait_icon_inkshadow.png",
+        "alt": "墨之影羁绊图标",
+        "optimized_local_path": "assets/optimized/s11__12_4_14/traits/239.webp"
+      },
+      "source_ids": {
+        "official_id": "239",
+        "tft_spec_id": "10050",
+        "map_id": "10"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "2|3|3",
+        "raw_description": "(3)获得第1件【墨之影】装备|(5)获得第2件【墨之影】装备和16%的额外伤害加成和伤害减免|(7)再获得2件【墨之影】装备和22%的额外伤害加成和伤害减免"
+      }
+    },
+    {
+      "id": "240",
+      "name": "夜幽",
+      "category": "origin",
+      "description": "月光照亮若干格子，战斗开始时为其中的单位提供护盾。处于月光格中的【夜幽】单位将处决低生命值的敌人。",
+      "breakpoints": [
+        {
+          "min_units": 2,
+          "max_units": 3,
+          "style": "bronze",
+          "effect": "(2)200护盾值；低于10%生命值时触发处决",
+          "values": {
+            "source_style": "1"
+          }
+        },
+        {
+          "min_units": 4,
+          "max_units": 5,
+          "style": "silver",
+          "effect": "(4)450护盾值；低于18%生命值时触发处决；更多格子被照亮",
+          "values": {
+            "source_style": "2"
+          }
+        },
+        {
+          "min_units": 6,
+          "max_units": 8,
+          "style": "gold",
+          "effect": "(6)900护盾值；低于25%生命值时触发处决并照亮整个棋盘",
+          "values": {
+            "source_style": "3"
+          }
+        },
+        {
+          "min_units": 9,
+          "max_units": null,
+          "style": "prismatic",
+          "effect": "(9)被处决的敌人有100%几率掉落战利品；低于60%生命值时触发处决",
+          "values": {
+            "source_style": "4"
+          }
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/240.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode11s12/trait/s11_trait_icon_umbral.png",
+        "alt": "夜幽羁绊图标",
+        "optimized_local_path": "assets/optimized/s11__12_4_14/traits/240.webp"
+      },
+      "source_ids": {
+        "official_id": "240",
+        "tft_spec_id": "10040",
+        "map_id": "11"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "1|2|3|4",
+        "raw_description": "(2)200护盾值；低于10%生命值时触发处决|(4)450护盾值；低于18%生命值时触发处决；更多格子被照亮|(6)900护盾值；低于25%生命值时触发处决并照亮整个棋盘|(9)被处决的敌人有100%几率掉落战利品；低于60%生命值时触发处决"
+      }
+    },
+    {
+      "id": "241",
+      "name": "吉星",
+      "category": "origin",
+      "description": "在你输掉一场战斗时，获得吉运。你连败的战斗场次越多，你获得的吉运就越多。在你赢得战斗时失去吉运。",
+      "breakpoints": [
+        {
+          "min_units": 3,
+          "max_units": 4,
+          "style": "silver",
+          "effect": "(3)投掷一颗骰子；经过相当于掷出点数的玩家对战回合之后，进行一次庆典。你在庆典中可以将吉运兑换为奖励。",
+          "values": {
+            "source_style": "2"
+          }
+        },
+        {
+          "min_units": 5,
+          "max_units": 6,
+          "style": "gold",
+          "effect": "(5)每场玩家对战开始时，治疗2玩家生命值。",
+          "values": {
+            "source_style": "3"
+          }
+        },
+        {
+          "min_units": 7,
+          "max_units": null,
+          "style": "gold",
+          "effect": "(7)吉星高照！每回合无论如何都会获得额外奖励和额外吉运，并且每回合举办一次庆典。",
+          "values": {
+            "source_style": "3"
+          }
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/241.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode11s12/trait/s11_trait_icon_fortune.png",
+        "alt": "吉星羁绊图标",
+        "optimized_local_path": "assets/optimized/s11__12_4_14/traits/241.webp"
+      },
+      "source_ids": {
+        "official_id": "241",
+        "tft_spec_id": "10047",
+        "map_id": "12"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "2|3|3",
+        "raw_description": "(3)投掷一颗骰子；经过相当于掷出点数的玩家对战回合之后，进行一次庆典。你在庆典中可以将吉运兑换为奖励。|(5)每场玩家对战开始时，治疗2玩家生命值。|(7)吉星高照！每回合无论如何都会获得额外奖励和额外吉运，并且每回合举办一次庆典。"
+      }
+    },
+    {
+      "id": "191",
+      "name": "武仙子",
+      "category": "class",
+      "description": "【武仙子】们为生命值最低的那个友军治疗相当于【武仙子】15%造成伤害值的生命值。你的队伍获得护甲与魔抗。",
+      "breakpoints": [
+        {
+          "min_units": 2,
+          "max_units": 2,
+          "style": "bronze",
+          "effect": "(2)10【护甲】【魔抗】",
+          "values": {
+            "source_style": "1"
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(2)10"
+            },
+            {
+              "type": "stat",
+              "stat": "armor",
+              "kind": "armor",
+              "label": "护甲",
+              "source_label": "护甲",
+              "icon": "armor",
+              "fallback": "AR"
+            },
+            {
+              "type": "stat",
+              "stat": "magic_resist",
+              "kind": "magic-resist",
+              "label": "魔法抗性",
+              "source_label": "魔抗",
+              "icon": "mr",
+              "fallback": "MR"
+            }
+          ]
+        },
+        {
+          "min_units": 3,
+          "max_units": 3,
+          "style": "silver",
+          "effect": "(3)20【护甲】【魔抗】",
+          "values": {
+            "source_style": "2"
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(3)20"
+            },
+            {
+              "type": "stat",
+              "stat": "armor",
+              "kind": "armor",
+              "label": "护甲",
+              "source_label": "护甲",
+              "icon": "armor",
+              "fallback": "AR"
+            },
+            {
+              "type": "stat",
+              "stat": "magic_resist",
+              "kind": "magic-resist",
+              "label": "魔法抗性",
+              "source_label": "魔抗",
+              "icon": "mr",
+              "fallback": "MR"
+            }
+          ]
+        },
+        {
+          "min_units": 4,
+          "max_units": null,
+          "style": "gold",
+          "effect": "(4)40【护甲】【魔抗】",
+          "values": {
+            "source_style": "3"
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(4)40"
+            },
+            {
+              "type": "stat",
+              "stat": "armor",
+              "kind": "armor",
+              "label": "护甲",
+              "source_label": "护甲",
+              "icon": "armor",
+              "fallback": "AR"
+            },
+            {
+              "type": "stat",
+              "stat": "magic_resist",
+              "kind": "magic-resist",
+              "label": "魔法抗性",
+              "source_label": "魔抗",
+              "icon": "mr",
+              "fallback": "MR"
+            }
+          ]
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/191.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode11s12/trait/s11_trait_icon_altruist.png",
+        "alt": "武仙子羁绊图标",
+        "optimized_local_path": "assets/optimized/s11__12_4_14/traits/191.webp"
+      },
+      "source_ids": {
+        "official_id": "191",
+        "tft_spec_id": "10055",
+        "map_id": "1"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "1|2|3",
+        "raw_description": "(2)10【护甲】【魔抗】|(3)20【护甲】【魔抗】|(4)40【护甲】【魔抗】"
+      }
+    },
+    {
+      "id": "192",
+      "name": "法师",
+      "category": "class",
+      "description": "【法师】们获得法术强度，同时为友军提供法术强度。",
+      "breakpoints": [
+        {
+          "min_units": 2,
+          "max_units": 3,
+          "style": "bronze",
+          "effect": "(2)为所有友军提供20【法强】",
+          "values": {
+            "source_style": "1"
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(2)为所有友军提供20"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法强",
+              "icon": "ap",
+              "fallback": "AP"
+            }
+          ]
+        },
+        {
+          "min_units": 4,
+          "max_units": 5,
+          "style": "silver",
+          "effect": "(4)为【法师】们提供50【法强】；为其他单位提供20【法强】",
+          "values": {
+            "source_style": "2"
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(4)为【法师】们提供50"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法强",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "；为其他单位提供20"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法强",
+              "icon": "ap",
+              "fallback": "AP"
+            }
+          ]
+        },
+        {
+          "min_units": 6,
+          "max_units": 7,
+          "style": "gold",
+          "effect": "(6)为【法师】们提供90【法强】；为其他单位提供50【法强】",
+          "values": {
+            "source_style": "3"
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(6)为【法师】们提供90"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法强",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "；为其他单位提供50"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法强",
+              "icon": "ap",
+              "fallback": "AP"
+            }
+          ]
+        },
+        {
+          "min_units": 8,
+          "max_units": null,
+          "style": "prismatic",
+          "effect": "(8)为【法师】们提供135【法强】；为其他单位提供135【法强】",
+          "values": {
+            "source_style": "4"
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(8)为【法师】们提供135"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法强",
+              "icon": "ap",
+              "fallback": "AP"
+            },
+            {
+              "type": "text",
+              "value": "；为其他单位提供135"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法强",
+              "icon": "ap",
+              "fallback": "AP"
+            }
+          ]
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/192.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode11s12/trait/s11_trait_icon_arcanist.png",
+        "alt": "法师羁绊图标",
+        "optimized_local_path": "assets/optimized/s11__12_4_14/traits/192.webp"
+      },
+      "source_ids": {
+        "official_id": "192",
+        "tft_spec_id": "10056",
+        "map_id": "2"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "1|2|3|4",
+        "raw_description": "(2)为所有友军提供20【法强】|(4)为【法师】们提供50【法强】；为其他单位提供20【法强】|(6)为【法师】们提供90【法强】；为其他单位提供50【法强】|(8)为【法师】们提供135【法强】；为其他单位提供135【法强】"
+      }
+    },
+    {
+      "id": "193",
+      "name": "擎天卫",
+      "category": "class",
+      "description": "【擎天卫】获得护甲与魔抗提升。每当【擎天卫】阵亡时，相距最近的【擎天卫】获得额外的50%此加成，持续8秒。",
+      "breakpoints": [
+        {
+          "min_units": 2,
+          "max_units": 3,
+          "style": "bronze",
+          "effect": "(2)25【护甲】【魔抗】",
+          "values": {
+            "source_style": "1"
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(2)25"
+            },
+            {
+              "type": "stat",
+              "stat": "armor",
+              "kind": "armor",
+              "label": "护甲",
+              "source_label": "护甲",
+              "icon": "armor",
+              "fallback": "AR"
+            },
+            {
+              "type": "stat",
+              "stat": "magic_resist",
+              "kind": "magic-resist",
+              "label": "魔法抗性",
+              "source_label": "魔抗",
+              "icon": "mr",
+              "fallback": "MR"
+            }
+          ]
+        },
+        {
+          "min_units": 4,
+          "max_units": 5,
+          "style": "silver",
+          "effect": "(4)55【护甲】【魔抗】",
+          "values": {
+            "source_style": "2"
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(4)55"
+            },
+            {
+              "type": "stat",
+              "stat": "armor",
+              "kind": "armor",
+              "label": "护甲",
+              "source_label": "护甲",
+              "icon": "armor",
+              "fallback": "AR"
+            },
+            {
+              "type": "stat",
+              "stat": "magic_resist",
+              "kind": "magic-resist",
+              "label": "魔法抗性",
+              "source_label": "魔抗",
+              "icon": "mr",
+              "fallback": "MR"
+            }
+          ]
+        },
+        {
+          "min_units": 6,
+          "max_units": 7,
+          "style": "gold",
+          "effect": "(6)85【护甲】【魔抗】",
+          "values": {
+            "source_style": "3"
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(6)85"
+            },
+            {
+              "type": "stat",
+              "stat": "armor",
+              "kind": "armor",
+              "label": "护甲",
+              "source_label": "护甲",
+              "icon": "armor",
+              "fallback": "AR"
+            },
+            {
+              "type": "stat",
+              "stat": "magic_resist",
+              "kind": "magic-resist",
+              "label": "魔法抗性",
+              "source_label": "魔抗",
+              "icon": "mr",
+              "fallback": "MR"
+            }
+          ]
+        },
+        {
+          "min_units": 8,
+          "max_units": null,
+          "style": "prismatic",
+          "effect": "(8)115【护甲】【魔抗】",
+          "values": {
+            "source_style": "4"
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(8)115"
+            },
+            {
+              "type": "stat",
+              "stat": "armor",
+              "kind": "armor",
+              "label": "护甲",
+              "source_label": "护甲",
+              "icon": "armor",
+              "fallback": "AR"
+            },
+            {
+              "type": "stat",
+              "stat": "magic_resist",
+              "kind": "magic-resist",
+              "label": "魔法抗性",
+              "source_label": "魔抗",
+              "icon": "mr",
+              "fallback": "MR"
+            }
+          ]
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/193.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode11s12/trait/s11_trait_icon_behemoth.png",
+        "alt": "擎天卫羁绊图标",
+        "optimized_local_path": "assets/optimized/s11__12_4_14/traits/193.webp"
+      },
+      "source_ids": {
+        "official_id": "193",
+        "tft_spec_id": "10057",
+        "map_id": "3"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "1|2|3|4",
+        "raw_description": "(2)25【护甲】【魔抗】|(4)55【护甲】【魔抗】|(6)85【护甲】【魔抗】|(8)115【护甲】【魔抗】"
+      }
+    },
+    {
+      "id": "194",
+      "name": "画圣",
+      "category": "class",
+      "description": "【画圣】绘出你放置在一个特别备战席栏位的弈子。【画圣】画好后，你将获得该英雄的1星弈子。完成回合数=弈子的费用",
+      "breakpoints": [
+        {
+          "min_units": 1,
+          "max_units": null,
+          "style": "unique",
+          "effect": "(1)【画圣】绘出你放置在一个特别备战席栏位的弈子。【画圣】画好后，你将获得该英雄的1星弈子。完成回合数=弈子的费用",
+          "values": {
+            "source_style": "5"
+          }
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/194.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode11s12/trait/s11_trait_icon_artist.png",
+        "alt": "画圣羁绊图标",
+        "optimized_local_path": "assets/optimized/s11__12_4_14/traits/194.webp"
+      },
+      "source_ids": {
+        "official_id": "194",
+        "tft_spec_id": "0",
+        "map_id": "4"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "5",
+        "raw_description": "(1)【画圣】绘出你放置在一个特别备战席栏位的弈子。【画圣】画好后，你将获得该英雄的1星弈子。完成回合数=弈子的费用"
+      }
+    },
+    {
+      "id": "195",
+      "name": "狙神",
+      "category": "class",
+      "description": "固有能力：【狙神】们获得1攻击距离。【狙神】们可对距离更远的目标造成更高伤害。",
+      "breakpoints": [
+        {
+          "min_units": 2,
+          "max_units": 3,
+          "style": "bronze",
+          "effect": "(2)每格8%伤害。",
+          "values": {
+            "source_style": "1"
+          }
+        },
+        {
+          "min_units": 4,
+          "max_units": 5,
+          "style": "silver",
+          "effect": "(4)每格17.9%伤害。",
+          "values": {
+            "source_style": "2"
+          }
+        },
+        {
+          "min_units": 6,
+          "max_units": null,
+          "style": "gold",
+          "effect": "(6)每格34.7%伤害。【狙神】们获得额外的2攻击距离。",
+          "values": {
+            "source_style": "3"
+          }
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/195.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode11s12/trait/s11_trait_icon_sniper.png",
+        "alt": "狙神羁绊图标",
+        "optimized_local_path": "assets/optimized/s11__12_4_14/traits/195.webp"
+      },
+      "source_ids": {
+        "official_id": "195",
+        "tft_spec_id": "10064",
+        "map_id": "5"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "1|2|3",
+        "raw_description": "(2)每格8%伤害。|(4)每格17.9%伤害。|(6)每格34.7%伤害。【狙神】们获得额外的2攻击距离。"
+      }
+    },
+    {
+      "id": "196",
+      "name": "决斗大师",
+      "category": "class",
+      "description": "【决斗大师】们每次攻击都会获得攻击速度，最多叠加12次。",
+      "breakpoints": [
+        {
+          "min_units": 2,
+          "max_units": 3,
+          "style": "bronze",
+          "effect": "(2)5%【攻速】",
+          "values": {
+            "source_style": "1"
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(2)5%"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_speed",
+              "kind": "attack-speed",
+              "label": "攻击速度",
+              "source_label": "攻速",
+              "icon": "as",
+              "fallback": "AS"
+            }
+          ]
+        },
+        {
+          "min_units": 4,
+          "max_units": 5,
+          "style": "silver",
+          "effect": "(4)9%【攻速】",
+          "values": {
+            "source_style": "2"
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(4)9%"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_speed",
+              "kind": "attack-speed",
+              "label": "攻击速度",
+              "source_label": "攻速",
+              "icon": "as",
+              "fallback": "AS"
+            }
+          ]
+        },
+        {
+          "min_units": 6,
+          "max_units": 7,
+          "style": "gold",
+          "effect": "(6)13%【攻速】，【决斗大师】们获得12%伤害减免",
+          "values": {
+            "source_style": "3"
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(6)13%"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_speed",
+              "kind": "attack-speed",
+              "label": "攻击速度",
+              "source_label": "攻速",
+              "icon": "as",
+              "fallback": "AS"
+            },
+            {
+              "type": "text",
+              "value": "，【决斗大师】们获得12%伤害减免"
+            }
+          ]
+        },
+        {
+          "min_units": 8,
+          "max_units": null,
+          "style": "gold",
+          "effect": "(8)18%【攻速】，【决斗大师】们获得18%伤害减免",
+          "values": {
+            "source_style": "3"
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(8)18%"
+            },
+            {
+              "type": "stat",
+              "stat": "attack_speed",
+              "kind": "attack-speed",
+              "label": "攻击速度",
+              "source_label": "攻速",
+              "icon": "as",
+              "fallback": "AS"
+            },
+            {
+              "type": "text",
+              "value": "，【决斗大师】们获得18%伤害减免"
+            }
+          ]
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/196.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode11s12/trait/s11_trait_icon_duelist.png",
+        "alt": "决斗大师羁绊图标",
+        "optimized_local_path": "assets/optimized/s11__12_4_14/traits/196.webp"
+      },
+      "source_ids": {
+        "official_id": "196",
+        "tft_spec_id": "10059",
+        "map_id": "6"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "1|2|3|3",
+        "raw_description": "(2)5%【攻速】|(4)9%【攻速】|(6)13%【攻速】，【决斗大师】们获得12%伤害减免|(8)18%【攻速】，【决斗大师】们获得18%伤害减免"
+      }
+    },
+    {
+      "id": "198",
+      "name": "圣贤",
+      "category": "class",
+      "description": "战斗开始时：前2排的友军获得全能吸血。后2排的友军获得法术强度。",
+      "breakpoints": [
+        {
+          "min_units": 2,
+          "max_units": 2,
+          "style": "bronze",
+          "effect": "(2)12%全能吸血，15%【法强】",
+          "values": {
+            "source_style": "1"
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(2)12%全能吸血，15%"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法强",
+              "icon": "ap",
+              "fallback": "AP"
+            }
+          ]
+        },
+        {
+          "min_units": 3,
+          "max_units": 3,
+          "style": "silver",
+          "effect": "(3)20%全能吸血，30%【法强】",
+          "values": {
+            "source_style": "2"
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(3)20%全能吸血，30%"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法强",
+              "icon": "ap",
+              "fallback": "AP"
+            }
+          ]
+        },
+        {
+          "min_units": 4,
+          "max_units": 4,
+          "style": "gold",
+          "effect": "(4)30%全能吸血，45%【法强】",
+          "values": {
+            "source_style": "3"
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(4)30%全能吸血，45%"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法强",
+              "icon": "ap",
+              "fallback": "AP"
+            }
+          ]
+        },
+        {
+          "min_units": 5,
+          "max_units": null,
+          "style": "gold",
+          "effect": "(5)45%全能吸血，70%【法强】",
+          "values": {
+            "source_style": "3"
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(5)45%全能吸血，70%"
+            },
+            {
+              "type": "stat",
+              "stat": "ability_power",
+              "kind": "ap",
+              "label": "法术加成",
+              "source_label": "法强",
+              "icon": "ap",
+              "fallback": "AP"
+            }
+          ]
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/198.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode11s12/trait/s11_trait_icon_sage.png",
+        "alt": "圣贤羁绊图标",
+        "optimized_local_path": "assets/optimized/s11__12_4_14/traits/198.webp"
+      },
+      "source_ids": {
+        "official_id": "198",
+        "tft_spec_id": "10063",
+        "map_id": "8"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "1|2|3|3",
+        "raw_description": "(2)12%全能吸血，15%【法强】|(3)20%全能吸血，30%【法强】|(4)30%全能吸血，45%【法强】|(5)45%全能吸血，70%【法强】"
+      }
+    },
+    {
+      "id": "199",
+      "name": "斗士",
+      "category": "class",
+      "description": "你的队伍获得100最大生命值。【斗士】们获得额外的最大生命值。",
+      "breakpoints": [
+        {
+          "min_units": 2,
+          "max_units": 3,
+          "style": "bronze",
+          "effect": "(2)20%【生命值】",
+          "values": {
+            "source_style": "1"
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(2)20%"
+            },
+            {
+              "type": "stat",
+              "stat": "health",
+              "kind": "health",
+              "label": "生命值",
+              "source_label": "生命值",
+              "icon": "hp",
+              "fallback": "HP"
+            }
+          ]
+        },
+        {
+          "min_units": 4,
+          "max_units": 5,
+          "style": "silver",
+          "effect": "(4)40%【生命值】",
+          "values": {
+            "source_style": "2"
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(4)40%"
+            },
+            {
+              "type": "stat",
+              "stat": "health",
+              "kind": "health",
+              "label": "生命值",
+              "source_label": "生命值",
+              "icon": "hp",
+              "fallback": "HP"
+            }
+          ]
+        },
+        {
+          "min_units": 6,
+          "max_units": 7,
+          "style": "silver",
+          "effect": "(6)65%【生命值】",
+          "values": {
+            "source_style": "2"
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(6)65%"
+            },
+            {
+              "type": "stat",
+              "stat": "health",
+              "kind": "health",
+              "label": "生命值",
+              "source_label": "生命值",
+              "icon": "hp",
+              "fallback": "HP"
+            }
+          ]
+        },
+        {
+          "min_units": 8,
+          "max_units": null,
+          "style": "gold",
+          "effect": "(8)80%【生命值】；每3秒，【斗士】们的下次攻击将造成6%【生命值】额外物理伤害。",
+          "values": {
+            "source_style": "3"
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(8)80%"
+            },
+            {
+              "type": "stat",
+              "stat": "health",
+              "kind": "health",
+              "label": "生命值",
+              "source_label": "生命值",
+              "icon": "hp",
+              "fallback": "HP"
+            },
+            {
+              "type": "text",
+              "value": "；每3秒，【斗士】们的下次攻击将造成6%"
+            },
+            {
+              "type": "stat",
+              "stat": "health",
+              "kind": "health",
+              "label": "生命值",
+              "source_label": "生命值",
+              "icon": "hp",
+              "fallback": "HP"
+            },
+            {
+              "type": "text",
+              "value": "额外物理伤害。"
+            }
+          ]
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/199.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode11s12/trait/s11_trait_icon_brawler.png",
+        "alt": "斗士羁绊图标",
+        "optimized_local_path": "assets/optimized/s11__12_4_14/traits/199.webp"
+      },
+      "source_ids": {
+        "official_id": "199",
+        "tft_spec_id": "10058",
+        "map_id": "9"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "1|2|2|3",
+        "raw_description": "(2)20%【生命值】|(4)40%【生命值】|(6)65%【生命值】|(8)80%【生命值】；每3秒，【斗士】们的下次攻击将造成6%【生命值】额外物理伤害。"
+      }
+    },
+    {
+      "id": "200",
+      "name": "护卫",
+      "category": "class",
+      "description": "【护卫】们获得伤害减免。在战斗的最初10秒，【护卫】们获得额外18%伤害减免。",
+      "breakpoints": [
+        {
+          "min_units": 2,
+          "max_units": 3,
+          "style": "bronze",
+          "effect": "(2)10%伤害减免",
+          "values": {
+            "source_style": "1"
+          }
+        },
+        {
+          "min_units": 4,
+          "max_units": 5,
+          "style": "silver",
+          "effect": "(4)22%伤害减免",
+          "values": {
+            "source_style": "2"
+          }
+        },
+        {
+          "min_units": 6,
+          "max_units": 7,
+          "style": "gold",
+          "effect": "(6)35%伤害减免",
+          "values": {
+            "source_style": "3"
+          }
+        },
+        {
+          "min_units": 8,
+          "max_units": null,
+          "style": "prismatic",
+          "effect": "(8)45%伤害减免",
+          "values": {
+            "source_style": "4"
+          }
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/200.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode11s12/trait/s11_trait_icon_warden.png",
+        "alt": "护卫羁绊图标",
+        "optimized_local_path": "assets/optimized/s11__12_4_14/traits/200.webp"
+      },
+      "source_ids": {
+        "official_id": "200",
+        "tft_spec_id": "10066",
+        "map_id": "10"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "1|2|3|4",
+        "raw_description": "(2)10%伤害减免|(4)22%伤害减免|(6)35%伤害减免|(8)45%伤害减免"
+      }
+    },
+    {
+      "id": "201",
+      "name": "尊者",
+      "category": "class",
+      "description": "己方队伍获得7%额外伤害，伤害加成随你的等级提升。战斗环节结束后，将1经验值储存在一个【灵魂核心】中。售出核心即可领取这些经验值。",
+      "breakpoints": [
+        {
+          "min_units": 3,
+          "max_units": 4,
+          "style": "silver",
+          "effect": "(3)每级1%伤害",
+          "values": {
+            "source_style": "2"
+          }
+        },
+        {
+          "min_units": 5,
+          "max_units": null,
+          "style": "gold",
+          "effect": "(5)每级3%伤害",
+          "values": {
+            "source_style": "3"
+          }
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/201.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode11s12/trait/s11_trait_icon_exalted.png",
+        "alt": "尊者羁绊图标",
+        "optimized_local_path": "assets/optimized/s11__12_4_14/traits/201.webp"
+      },
+      "source_ids": {
+        "official_id": "201",
+        "tft_spec_id": "10060",
+        "map_id": "11"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "2|3",
+        "raw_description": "(3)每级1%伤害|(5)每级3%伤害"
+      }
+    },
+    {
+      "id": "202",
+      "name": "迅捷射手",
+      "category": "class",
+      "description": "【迅捷射手】们的技能会进行弹射。每次弹射将造成一定百分比的先前弹射伤害。",
+      "breakpoints": [
+        {
+          "min_units": 2,
+          "max_units": 3,
+          "style": "silver",
+          "effect": "(2)1次弹射，45%的先前伤害",
+          "values": {
+            "source_style": "2"
+          }
+        },
+        {
+          "min_units": 4,
+          "max_units": null,
+          "style": "gold",
+          "effect": "(4)2次弹射，60%的先前伤害",
+          "values": {
+            "source_style": "3"
+          }
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/202.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode11s12/trait/s11_trait_icon_trickshot.png",
+        "alt": "迅捷射手羁绊图标",
+        "optimized_local_path": "assets/optimized/s11__12_4_14/traits/202.webp"
+      },
+      "source_ids": {
+        "official_id": "202",
+        "tft_spec_id": "10065",
+        "map_id": "12"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "2|3",
+        "raw_description": "(2)1次弹射，45%的先前伤害|(4)2次弹射，60%的先前伤害"
+      }
+    },
+    {
+      "id": "203",
+      "name": "死神",
+      "category": "class",
+      "description": "【死神】的技能可以暴击，并且他们获得25%暴击几率。",
+      "breakpoints": [
+        {
+          "min_units": 2,
+          "max_units": 3,
+          "style": "bronze",
+          "effect": "(2)【死神】的技能可以暴击，并且他们获得25%暴击几率。",
+          "values": {
+            "source_style": "1"
+          }
+        },
+        {
+          "min_units": 4,
+          "max_units": null,
+          "style": "gold",
+          "effect": "(4)此外，【死神】们会对敌人施加流血效果，在2秒里持续造成50%额外真实伤害。",
+          "values": {
+            "source_style": "3"
+          }
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/203.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode11s12/trait/s11_trait_icon_reaper.png",
+        "alt": "死神羁绊图标",
+        "optimized_local_path": "assets/optimized/s11__12_4_14/traits/203.webp"
+      },
+      "source_ids": {
+        "official_id": "203",
+        "tft_spec_id": "10062",
+        "map_id": "13"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "1|3",
+        "raw_description": "(2)【死神】的技能可以暴击，并且他们获得25%暴击几率。|(4)此外，【死神】们会对敌人施加流血效果，在2秒里持续造成50%额外真实伤害。"
+      }
+    },
+    {
+      "id": "204",
+      "name": "神谕者",
+      "category": "class",
+      "description": "每3秒，你的弈子们获得法力值。",
+      "breakpoints": [
+        {
+          "min_units": 2,
+          "max_units": 3,
+          "style": "bronze",
+          "effect": "(2)所有己方弈子获得5【法力值】",
+          "values": {
+            "source_style": "1"
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(2)所有己方弈子获得5"
+            },
+            {
+              "type": "stat",
+              "stat": "mana",
+              "kind": "mana",
+              "label": "法力值",
+              "source_label": "法力值",
+              "icon": "mana",
+              "fallback": "MP"
+            }
+          ]
+        },
+        {
+          "min_units": 4,
+          "max_units": 5,
+          "style": "silver",
+          "effect": "(4)【神谕者】们获得20【法力值】；其它弈子们获得5【法力值】",
+          "values": {
+            "source_style": "2"
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(4)【神谕者】们获得20"
+            },
+            {
+              "type": "stat",
+              "stat": "mana",
+              "kind": "mana",
+              "label": "法力值",
+              "source_label": "法力值",
+              "icon": "mana",
+              "fallback": "MP"
+            },
+            {
+              "type": "text",
+              "value": "；其它弈子们获得5"
+            },
+            {
+              "type": "stat",
+              "stat": "mana",
+              "kind": "mana",
+              "label": "法力值",
+              "source_label": "法力值",
+              "icon": "mana",
+              "fallback": "MP"
+            }
+          ]
+        },
+        {
+          "min_units": 6,
+          "max_units": null,
+          "style": "gold",
+          "effect": "(6)【神谕者】们获得35【法力值】；其它弈子们获得20【法力值】",
+          "values": {
+            "source_style": "3"
+          },
+          "effect_tokens": [
+            {
+              "type": "text",
+              "value": "(6)【神谕者】们获得35"
+            },
+            {
+              "type": "stat",
+              "stat": "mana",
+              "kind": "mana",
+              "label": "法力值",
+              "source_label": "法力值",
+              "icon": "mana",
+              "fallback": "MP"
+            },
+            {
+              "type": "text",
+              "value": "；其它弈子们获得20"
+            },
+            {
+              "type": "stat",
+              "stat": "mana",
+              "kind": "mana",
+              "label": "法力值",
+              "source_label": "法力值",
+              "icon": "mana",
+              "fallback": "MP"
+            }
+          ]
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/204.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode11s12/trait/s11_trait_icon_invoker.png",
+        "alt": "神谕者羁绊图标",
+        "optimized_local_path": "assets/optimized/s11__12_4_14/traits/204.webp"
+      },
+      "source_ids": {
+        "official_id": "204",
+        "tft_spec_id": "10061",
+        "map_id": "14"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "1|2|3",
+        "raw_description": "(2)所有己方弈子获得5【法力值】|(4)【神谕者】们获得20【法力值】；其它弈子们获得5【法力值】|(6)【神谕者】们获得35【法力值】；其它弈子们获得20【法力值】"
+      }
+    },
+    {
+      "id": "205",
+      "name": "灵魂行者",
+      "category": "class",
+      "description": "【灵魂行者】首次降至50%生命值以下时，会释放体内的怒火，治疗至满额生命值，获得移动速度提升，并将技能从【蛮羊冲击】变更为【猛虎爪击】。",
+      "breakpoints": [
+        {
+          "min_units": 1,
+          "max_units": null,
+          "style": "unique",
+          "effect": "(1)【灵魂行者】首次降至50%生命值以下时，会释放体内的怒火，治疗至满额生命值，获得移动速度提升，并将技能从【蛮羊冲击】变更为【猛虎爪击】。",
+          "values": {
+            "source_style": "5"
+          }
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/205.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode11s12/trait/s11_trait_icon_spiritwalker.png",
+        "alt": "灵魂行者羁绊图标",
+        "optimized_local_path": "assets/optimized/s11__12_4_14/traits/205.webp"
+      },
+      "source_ids": {
+        "official_id": "205",
+        "tft_spec_id": "0",
+        "map_id": "15"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "5",
+        "raw_description": "(1)【灵魂行者】首次降至50%生命值以下时，会释放体内的怒火，治疗至满额生命值，获得移动速度提升，并将技能从【蛮羊冲击】变更为【猛虎爪击】。"
+      }
+    },
+    {
+      "id": "206",
+      "name": "齐天大圣",
+      "category": "class",
+      "description": "每进行3次技能施放，【孙悟空】的武器就会变大，技能也会随之改变。",
+      "breakpoints": [
+        {
+          "min_units": 1,
+          "max_units": null,
+          "style": "unique",
+          "effect": "(1)每进行3次技能施放，【孙悟空】的武器就会变大，技能也会随之改变。",
+          "values": {
+            "source_style": "5"
+          }
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/206.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode11s12/trait/s11_trait_icon_great.png",
+        "alt": "齐天大圣羁绊图标",
+        "optimized_local_path": "assets/optimized/s11__12_4_14/traits/206.webp"
+      },
+      "source_ids": {
+        "official_id": "206",
+        "tft_spec_id": "0",
+        "map_id": "16"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "5",
+        "raw_description": "(1)每进行3次技能施放，【孙悟空】的武器就会变大，技能也会随之改变。"
+      }
+    },
+    {
+      "id": "207",
+      "name": "迅捷射手/武仙子",
+      "category": "class",
+      "description": "放置在后两排可获得【迅捷射手】，放置在前两排则可获得【武仙子】！",
+      "breakpoints": [
+        {
+          "min_units": 1,
+          "max_units": null,
+          "style": "unique",
+          "effect": "(1)放置在后两排可获得【迅捷射手】，放置在前两排则可获得【武仙子】！",
+          "values": {
+            "source_style": "5"
+          }
+        }
+      ],
+      "image": {
+        "local_path": "assets/traits/207.png",
+        "source_url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode11s12/trait/s11_trait_icon_trickshotaltruist.png",
+        "alt": "迅捷射手/武仙子羁绊图标",
+        "optimized_local_path": "assets/optimized/s11__12_4_14/traits/207.webp"
+      },
+      "source_ids": {
+        "official_id": "207",
+        "tft_spec_id": "0",
+        "map_id": "17"
+      },
+      "tags": [],
+      "extensions": {
+        "raw_color": "5",
+        "raw_description": "(1)放置在后两排可获得【迅捷射手】，放置在前两排则可获得【武仙子】！"
+      }
+    }
+  ],
+  "rich_text_version": 1
+}
