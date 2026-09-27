@@ -1,6 +1,7 @@
 # 赛季资料与模拟器
 
 操作流程见 [赛季维护](season-maintenance-playbook.md)，上传约束见 [ZIP 协议](season-package-format.md)。
+新玩法的模板、元数据和兼容边界见 [玩法接入约定](season-mechanic-contract.md)。
 
 ## 数据来源与读取
 

@@ -168,7 +168,7 @@ def season_page_context(season_id):
     return {
         'season': entry,
         'mechanics': [
-            {'id': mechanic['id'], 'kind': mechanic.get('kind'), 'display_name': mechanic.get('display_name'), 'presentation': mechanic.get('presentation')}
+            {'id': mechanic['id'], 'kind': mechanic.get('kind'), 'display_name': mechanic.get('display_name'), 'presentation': mechanic.get('presentation'), 'description': mechanic.get('description')}
             for mechanic in index.get('mechanics') or []
         ],
         'champion_count': len(index.get('champions') or []),

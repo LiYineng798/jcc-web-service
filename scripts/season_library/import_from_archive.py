@@ -42,6 +42,7 @@ if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
 from season_rich_text import enrich_rich_text_fields  # noqa: E402
+from season_mechanic_registry import reference_metadata  # noqa: E402
 
 try:
     from .official_supplements import apply_official_supplements
@@ -312,7 +313,7 @@ def compact_mechanics(version_dir: Path) -> list[dict]:
                 "kind": entry.get("kind"),
                 "display_name": entry.get("display_name"),
                 "has_images": bool(entry.get("has_images")),
-                **({"presentation": "cards.v1"} if entry.get("kind") == "encounter" else {}),
+                **reference_metadata(entry),
                 "entries": records,
             }
         )

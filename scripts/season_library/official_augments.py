@@ -12,6 +12,7 @@ from __future__ import annotations
 import hashlib
 import json
 import re
+import shutil
 import urllib.request
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
@@ -272,7 +273,21 @@ def collect_official_augments(
         return empty, build_change_report(previous, empty)
 
     requested_version = version_entry.get("version")
-    document, source_url, resolved_version = _request_hex_document(hex_path, requested_version)
+    archived_hex = version_dir / 'source-snapshots' / 'hex.json'
+    if archived_hex.is_file():
+        document = json.loads(archived_hex.read_text(encoding='utf-8'))
+        if str(document.get('version')) != str(requested_version) or str(document.get('season')) != str(version_entry.get('season')):
+            raise ValueError('归档强化符文快照与请求版本/客户端代号不一致')
+        source_url, resolved_version = f'{OFFICIAL_JS_ROOT}{hex_path}', requested_version
+    else:
+        document, source_url, resolved_version = _request_hex_document(hex_path, requested_version)
+    overrides_path = version_dir / 'augment-image-overrides.json'
+    overrides = {}
+    if overrides_path.is_file():
+        override_doc = json.loads(overrides_path.read_text(encoding='utf-8'))
+        if override_doc.get('version_id') != version_id:
+            raise ValueError('强化符文图片修复清单版本不一致')
+        overrides = override_doc['entries']
     snapshot_path = target_dir / "source-snapshots" / "hex.json"
     snapshot_path.parent.mkdir(parents=True, exist_ok=True)
     snapshot_path.write_text(json.dumps(document, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
@@ -308,7 +323,20 @@ def collect_official_augments(
         category = classify_augment(record, augment_type)
         icon_url = str(record.get("icon") or "").strip()
         image = None
-        if icon_url:
+        recovery = overrides.get(augment_id)
+        if recovery is not None:
+            if recovery.get('name') != record.get('name') or recovery.get('original_url') != icon_url:
+                raise ValueError(f'强化符文图片修复记录不匹配：{augment_id}')
+            image = recovery.get('image')
+            if image is not None:
+                path = image.get('local_path', '')
+                source = (version_dir / path).resolve()
+                if not path.startswith('assets/') or not source.is_relative_to((version_dir / 'assets').resolve()) or not source.is_file():
+                    raise ValueError(f'强化符文修复图片路径无效：{augment_id}')
+                target = target_dir / path
+                target.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copy2(source, target)
+        elif icon_url:
             filename = _safe_image_name(icon_url, seen_names)
             local_path = f"assets/augments/{filename}"
             image_entries.append((icon_url, target_dir / local_path))
@@ -337,6 +365,7 @@ def collect_official_augments(
                 "appearance_stage_evidence": stage_evidence,
                 "is_legend": record.get("is_legend"),
                 "hero_enhancement_type": record.get("hero_enhancement_type"),
+                **({'asset_recovery': recovery['provenance']} if recovery is not None else {}),
             },
         })
 

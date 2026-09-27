@@ -1950,6 +1950,7 @@
 .season-preview-banner a { color: inherit; text-decoration: underline; }
 
 .generic-mechanic-card { display: block; padding: 20px; overflow-wrap: anywhere; }
+.mechanic-overview { margin: 0 0 20px; padding: 16px 20px; border: 1px solid var(--line); border-radius: 12px; line-height: 1.8; white-space: pre-wrap; overflow-wrap: anywhere; color: var(--muted); }
 .generic-mechanic-icon { width: 56px; height: 56px; object-fit: contain; }
 .generic-mechanic-card section { border-top: 1px solid var(--line); margin-top: 12px; padding-top: 8px; }
 .generic-mechanic-card p { line-height: 1.7; white-space: pre-wrap; }

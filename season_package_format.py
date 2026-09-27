@@ -13,18 +13,19 @@ from functools import lru_cache
 from pathlib import Path, PurePosixPath
 
 from PIL import Image
+from season_mechanic_registry import PRESENTATIONS, OVERVIEW_CAPABILITY, reference_metadata
 
 FORMAT = 'jcc-season-package'
 SCHEMA = '1.0'
 MODULES = ('champions', 'traits', 'items', 'augments', 'board_units')
 CAPABILITIES = {
+    OVERVIEW_CAPABILITY,
     'reference.cards.v1',
     'reference.variants.v1',
     'reference.stages.v1',
     'reference.table.v1',
     'simulator.placement_rules.v1',
 }
-PRESENTATIONS = {'cards.v1', 'variants.v1', 'stages.v1', 'table.v1', 'legacy.v1'}
 ID = re.compile(r'^[a-z0-9][a-z0-9_-]{0,95}$')
 VERSION = re.compile(r'^[A-Za-z0-9][A-Za-z0-9._-]{0,63}$')
 DEFAULT_LIMITS = {'bytes': 256 * 1024**2, 'expanded': 1024**3, 'files': 10000, 'json': 32 * 1024**2}
@@ -296,6 +297,10 @@ def _walk_images(value, root, location=''):
 
 
 def _validate_mechanic(mechanic):
+    try:
+        reference_metadata(mechanic)
+    except ValueError as exc:
+        raise PackageError(str(exc)) from exc
     rows = records(mechanic, 'entries')
     presentation = mechanic['presentation']
     for row in rows:
@@ -491,6 +496,8 @@ def validate_data(root, manifest, progress=lambda *args: None):
             require(mechanic.get(key) == declared.get(key), f'玩法 {key} 不一致')
         require(mechanic == read_json(root / declared['file']), '玩法文件与 index 不一致')
         _validate_mechanic(mechanic)
+        if mechanic.get('description'):
+            require(OVERVIEW_CAPABILITY in manifest['required_capabilities'], '玩法简介未声明所需展示能力')
     notes, provenance, supplements = (
         read_json(root / f'{name}.json') for name in ('release-notes', 'provenance', 'supplements')
     )

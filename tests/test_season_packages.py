@@ -139,6 +139,38 @@ def test_offline_builder_roundtrip_and_no_mechanics(prepared, tmp_path, monkeypa
     assert report['images'] == 1
 
 
+def test_future_mechanic_overview_survives_upload_and_escapes_html(prepared, manager, app):
+    index = json.loads((prepared / 'index.json').read_text('utf8'))
+    index['mechanics'] = [{
+        'id': 'future-rules', 'kind': 'future_rule', 'display_name': '未来玩法',
+        'description': '<img src=x onerror=alert(1)>规则说明',
+        'entries': [{'id': 'one', 'name': '事件', 'description': '效果', 'data': {}}],
+    }]
+    dump(prepared / 'index.json', index)
+    path = package(prepared)
+    assert 'reference.overview.v1' in inspect_zip(path)['required_capabilities']
+    response = upload(manager, path)
+    assert response.status_code == 202
+    rid = response.get_json()['package']['id']
+    assert work(app, rid)['state'] == 'ready'
+    html = manager[0].get(f'/tools/seasons/s18?preview_release={rid}').get_data(as_text=True)
+    assert 'mechanic-overview' in html
+    assert '&lt;img src=x onerror=alert(1)&gt;规则说明' in html
+    assert 'data-generic-toolbar="future-rules"' in html
+
+
+@pytest.mark.parametrize('description', [42, 'x' * 4001])
+def test_mechanic_overview_rejects_invalid_text(prepared, description):
+    index = json.loads((prepared / 'index.json').read_text('utf8'))
+    index['mechanics'] = [{
+        'id': 'rules', 'kind': 'new_rule', 'display_name': '规则',
+        'description': description, 'entries': [],
+    }]
+    dump(prepared / 'index.json', index)
+    with pytest.raises(PackageError, match='简介'):
+        package(prepared)
+
+
 @pytest.mark.parametrize(
     'name',
     [

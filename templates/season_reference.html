@@ -113,9 +113,12 @@
 
 {% for mechanic in mechanics %}
         <section class="s18-view-panel" id="mechanicPanel-{{ mechanic.id }}" data-panel="mechanic-{{ mechanic.id }}" data-mechanic-id="{{ mechanic.id }}" role="tabpanel" hidden>
+{% if mechanic.description %}
+          <p class="mechanic-overview">{{ mechanic.description }}</p>
+{% endif %}
 {% if mechanic.presentation and mechanic.presentation != 'legacy.v1' %}
           <div class="charm-toolbar" data-generic-toolbar="{{ mechanic.id }}">
-            <label class="charm-search"><span class="sr-only">搜索{{ mechanic.display_name }}</span><input type="search" placeholder="搜索名称、效果或条件" data-generic-search /></label>
+            <label class="charm-search"><span class="sr-only">搜索{{ mechanic.display_name }}</span><input type="search" aria-label="搜索{{ mechanic.display_name }}" placeholder="搜索名称、效果或条件" data-generic-search /></label>
             <label><span class="sr-only">玩法分类</span><select aria-label="{{ mechanic.display_name }}分类" data-generic-category><option value="">全部分类</option></select></label>
           </div>
 {% endif %}

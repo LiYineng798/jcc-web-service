@@ -13,6 +13,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
+from season_mechanic_registry import reference_metadata, OVERVIEW_CAPABILITY
 from season_package_format import (
     MODULES,
     FORMAT,
@@ -57,14 +58,10 @@ def build_package(source, output, revision, notes, package_id=None, provenance=N
         mechanics, supplements = [], []
         sources = list((provenance or {}).get('sources', []))
         for mechanic in index.get('mechanics', []):
-            mechanic.setdefault(
-                'presentation',
-                (
-                    'legacy.v1'
-                    if mechanic.get('kind') in ('charm', 'wand', 'god', 'monster', 'none')
-                    else 'cards.v1'
-                ),
-            )
+            try:
+                mechanic.update(reference_metadata(mechanic))
+            except ValueError as exc:
+                raise PackageError(str(exc)) from exc
             entry = {k: mechanic[k] for k in ('id', 'kind', 'display_name', 'presentation')}
             entry.update(file=f'data/mechanics/{mechanic["id"]}.json', targets=['reference'])
             mechanics.append(entry)
@@ -141,6 +138,7 @@ def build_package(source, output, revision, notes, package_id=None, provenance=N
             'builder': {'name': 'jcc-season-pack', 'version': '1.0.0'},
             'required_capabilities': sorted(
                 {'simulator.placement_rules.v1', 'reference.cards.v1'}
+                | ({OVERVIEW_CAPABILITY} if any(m.get('description') for m in index.get('mechanics', [])) else set())
                 | {
                     f'reference.{m["presentation"]}'
                     for m in mechanics

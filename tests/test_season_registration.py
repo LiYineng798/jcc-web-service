@@ -22,6 +22,30 @@ def test_encounters_use_generic_cards_without_charm_semantics(tmp_path):
     assert all(entry['data'] == {} for entry in mechanic['entries'])
 
 
+@pytest.mark.parametrize('presentation', ['cards.v1', 'variants.v1', 'stages.v1', 'table.v1'])
+def test_archive_preserves_future_mechanic_layout_and_overview(tmp_path, presentation):
+    dump(tmp_path / 'mechanics/index.json', {'mechanics': [{
+        'id': 'future', 'kind': 'not_known_to_web', 'display_name': '新玩法',
+        'file': 'future.json', 'presentation': presentation, 'description': '规则介绍',
+    }]})
+    dump(tmp_path / 'mechanics/future.json', {'records': [
+        {'id': 'one', 'name': '事件', 'description': '效果', 'data': {}},
+    ]})
+    mechanic, = importer.compact_mechanics(tmp_path)
+    assert mechanic['presentation'] == presentation
+    assert mechanic['description'] == '规则介绍'
+
+
+def test_archive_rejects_unknown_layout_instead_of_losing_fields(tmp_path):
+    dump(tmp_path / 'mechanics/index.json', {'mechanics': [{
+        'id': 'future', 'kind': 'future', 'display_name': '新玩法',
+        'file': 'future.json', 'presentation': 'execute.v1',
+    }]})
+    dump(tmp_path / 'mechanics/future.json', {'records': []})
+    with pytest.raises(ValueError, match='展示模板'):
+        importer.compact_mechanics(tmp_path)
+
+
 def test_s11_snapshot_keeps_all_encounters_and_starts_hidden():
     root = importer.REPO_ROOT / 'static/season-data'
     season = next(row for row in read_json(root / 'catalog.json')['seasons']
