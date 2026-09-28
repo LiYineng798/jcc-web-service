@@ -284,6 +284,7 @@ function normalizeChampion(raw, traitsByName) {
     attackRange: Number(raw.stats_by_star?.["1"]?.attack_range || 0),
     unitSlots: simulatorRules.unitSlots,
     traitContributions: simulatorRules.traitContributions,
+    positionForm: raw.extensions?.position_form || null,
     tftCode: String(raw.tft_code || raw.tftCode || ""),
     isBoardUnit: false,
     canEquip: true,
@@ -529,8 +530,10 @@ function hydrateBoard(rawBoard) {
   const board = Array(28).fill(null);
   if (!Array.isArray(rawBoard)) return board;
   rawBoard.slice(0, 28).forEach((slot, index) => {
-    if (!slot || !state.championById.has(String(slot.championId))) return;
-    const hydrated = { championId: String(slot.championId), items: [] };
+    if (!slot) return;
+    const championId = positionFormId(slot.championId, index);
+    if (!state.championById.has(championId)) return;
+    const hydrated = { championId, items: [] };
     const itemIds = Array.isArray(slot.items) ? slot.items : [];
     itemIds.map(String).forEach((itemId) => {
       if (!equipmentError(hydrated, itemId)) hydrated.items.push(itemId);
@@ -538,6 +541,18 @@ function hydrateBoard(rawBoard) {
     board[index] = hydrated;
   });
   return board;
+}
+
+function positionFormId(championId, index) {
+  const id = String(championId);
+  const hero = state.championById.get(id)
+    || state.champions.find((entry) => entry.positionForm?.legacy_ids?.map(String).includes(id));
+  const form = hero?.positionForm;
+  if (!form) return id;
+  const frontRows = Number(form.front_rows);
+  if (!Number.isInteger(frontRows) || frontRows < 1 || frontRows > 3) return id;
+  const selectedId = String(Math.floor(index / 7) < frontRows ? form.front_id : form.back_id);
+  return state.championById.has(selectedId) ? selectedId : id;
 }
 
 function hydrateAugmentIds(rawIds) {
@@ -1047,6 +1062,9 @@ function moveUnit(fromIndex, toIndex) {
 
 function mutate(callback) {
   callback();
+  state.board.forEach((slot, index) => {
+    if (slot) slot.championId = positionFormId(slot.championId, index);
+  });
   pushHistory();
   renderBoard();
   syncLibrarySelectionState();
@@ -1288,7 +1306,7 @@ async function handleCodeConfirm() {
       const targetSeason = seasonMatch ? ({ "16.5": "s16_5", "16": "s16_5", "17": "s17", "18": "s18" }[seasonMatch[1]] || state.season.season_id) : state.season.season_id;
       if (targetSeason !== state.season.season_id && state.catalog.some((item) => item.season_id === targetSeason)) await loadSeason(targetSeason);
       const payload = decodeTftTeamCode(rawCode);
-      state.board = payload.board;
+      state.board = hydrateBoard(payload.board);
       state.selectedAugmentIds = [];
       pushHistory();
       renderAll();

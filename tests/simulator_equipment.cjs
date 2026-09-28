@@ -3,7 +3,7 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const vm = require('node:vm');
 const source = fs.readFileSync('static/tools/lineup-simulator/app.js', 'utf8');
-const functions = ['equipmentError', 'equipItem', 'hydrateBoard', 'getTraitCounts'];
+const functions = ['equipmentError', 'equipItem', 'positionFormId', 'hydrateBoard', 'getTraitCounts'];
 const state = {
   championById: new Map([
     ['native', {id:'native', traitIds:['a'], traitContributions:[]}],
@@ -23,6 +23,7 @@ const state = {
   traitById: new Map(['a','b','c'].map(id=>[id,{id}])),
   board: [],
 };
+state.champions = [...state.championById.values()];
 let mutations = 0;
 const messages = [];
 const context = vm.createContext({state, showToast:msg=>messages.push(msg), mutate:fn=>{fn();mutations++;}});
