@@ -1064,18 +1064,18 @@ def test_lineup_simulator_page_exists_and_index_links_to_it(client):
     assert client.get('/static/tools/lineup-simulator/app.js').status_code == 200
 
 
-def test_special_mechanics_page_exists_and_index_links_to_it(client):
+def test_special_mechanics_page_remains_available_without_index_link(client):
     index_html = client.get('/').get_data(as_text=True)
-    assert 'href="/tools/special-mechanics"' in index_html
-    assert '<img class="nav-tool-icon special-mechanics-nav-icon"' in index_html
-    assert 'src="/static/special-mechanics/s8-icon.png"' in index_html
-    assert 'S8回归信息差' in index_html
+    assert 'href="/tools/special-mechanics"' not in index_html
+    assert '<img class="nav-tool-icon special-mechanics-nav-icon"' not in index_html
+    assert 'src="/static/special-mechanics/s8-icon.png"' not in index_html
+    assert 'S8回归信息差' not in index_html
     assert 'class="toolbox-menu desktop-resource-entry"' in index_html
-    assert 'href="/tools/returning-equipment"' in index_html
-    assert '回归装备' in index_html
-    assert '12 件返场装备说明' in index_html
+    assert 'href="/tools/returning-equipment"' not in index_html
+    assert '回归装备' not in index_html
+    assert '12 件返场装备说明' not in index_html
     assert '5 件返场装备说明' not in index_html
-    assert '特殊机制' in index_html
+    assert '特殊机制' not in index_html
 
     response = client.get('/tools/special-mechanics')
     assert response.status_code == 200
@@ -1110,9 +1110,9 @@ def test_home_mobile_resource_dialog_groups_content_entries(client):
     assert 'id="mobileToolsResourceTitle"' in index_html
     assert 'class="mobile-resource-subitem" href="/tools/lineup-simulator"' in index_html
     assert 'class="mobile-resource-subitem" href="/patch-notes"' in index_html
-    assert 'class="mobile-resource-subitem" href="/tools/special-mechanics"' in index_html
-    assert 'class="mobile-resource-subitem" href="/tools/artifact-guide"' in index_html
-    assert 'class="mobile-resource-subitem" href="/tools/returning-equipment"' in index_html
+    assert 'class="mobile-resource-subitem" href="/tools/special-mechanics"' not in index_html
+    assert 'class="mobile-resource-subitem" href="/tools/artifact-guide"' not in index_html
+    assert 'class="mobile-resource-subitem" href="/tools/returning-equipment"' not in index_html
     # Simulator is now the first toolbox entry, rather than a separate nav item.
     assert index_html.count('desktop-resource-entry') == 3
 
@@ -1127,10 +1127,10 @@ def test_home_mobile_resource_dialog_groups_content_entries(client):
     assert "if (!event.matches) closeMobileResourceDialog({ restoreFocus: false });" in javascript
 
 
-def test_returning_equipment_page_exists_and_index_links_to_it(client):
+def test_returning_equipment_page_remains_available_without_index_link(client):
     index_html = client.get('/').get_data(as_text=True)
-    assert 'S8回归信息差' in index_html
-    assert 'href="/tools/returning-equipment"' in index_html
+    assert 'S8回归信息差' not in index_html
+    assert 'href="/tools/returning-equipment"' not in index_html
 
     response = client.get('/tools/returning-equipment')
     assert response.status_code == 200
@@ -1181,10 +1181,10 @@ def test_returning_equipment_page_exists_and_index_links_to_it(client):
         assert client.get(f'/static/returning-equipment/{filename}').status_code == 200
 
 
-def test_artifact_guide_page_exists_and_index_links_to_it(client):
+def test_artifact_guide_page_remains_available_without_index_link(client):
     index_html = client.get('/').get_data(as_text=True)
-    assert 'href="/tools/artifact-guide"' in index_html
-    assert '神器搭配指南' in index_html
+    assert 'href="/tools/artifact-guide"' not in index_html
+    assert '神器搭配指南' not in index_html
 
     response = client.get('/tools/artifact-guide')
     assert response.status_code == 200

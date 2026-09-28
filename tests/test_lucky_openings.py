@@ -44,13 +44,13 @@ def test_home_toolbox_groups_both_features_without_loading_opening_cards(client)
     assert 'class="toolbox-menu desktop-resource-entry"' in html
     assert 'id="mobileToolsResourceTitle"' in html
     assert html.count(f'href="{PAGE}"') == 2
-    assert 'S8回归信息差' in html
+    assert 'S8回归信息差' not in html
     assert 'toolbox-featured' not in html
     assert 'toolbox-badge' not in html
     assert f'class="returning-info-menu-item" href="{PAGE}"' in html
     assert f'class="mobile-resource-subitem" href="{PAGE}"' in html
     for path in ('special-mechanics', 'artifact-guide', 'returning-equipment'):
-        assert html.count(f'href="/tools/{path}"') == 2
+        assert f'href="/tools/{path}"' not in html
     assert 'opening-card' not in html
     assert 'lucky-openings.js' not in html
     assert PAGE in client.get('/sitemap.xml').get_data(as_text=True)

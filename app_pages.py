@@ -9,6 +9,7 @@ from lineup_account_service import build_author_profile_payload
 from lineup_read_service import build_lineup_detail_payload
 from notice_service import get_active_notice
 from lucky_openings import build_lucky_openings
+from s11_items_service import recommendation_guide
 from witch_rewards_service import reward_tiers, select_reward_tier
 from golden_egg_service import golden_egg_rewards
 from trait_ladder_service import calculator_data, reward_tiers as ladder_reward_tiers
@@ -47,9 +48,7 @@ def _sitemap_entries():
     entries = [
         {'loc': absolute_url('/'), 'lastmod': None},
         {'loc': absolute_url('/patch-notes'), 'lastmod': None},
-        {'loc': absolute_url('/tools/special-mechanics'), 'lastmod': None},
-        {'loc': absolute_url('/tools/artifact-guide'), 'lastmod': None},
-        {'loc': absolute_url('/tools/returning-equipment'), 'lastmod': None},
+        {'loc': absolute_url('/tools/s11-items'), 'lastmod': None},
         {'loc': absolute_url('/tools/s16-5-lucky-openings'), 'lastmod': None},
         {'loc': absolute_url('/tools/s18-witch-rewards'), 'lastmod': None},
         {'loc': absolute_url('/tools/golden-egg'), 'lastmod': None},
@@ -176,6 +175,16 @@ def register_page_routes(app):
             seo=make_seo(title='S18 魔女层数奖励查询 - 金铲铲阵容库',
                          description='查询魔女各层数奖励概率、弈子星级、物品数量和预计价值。',
                          path='/tools/s18-witch-rewards'),
+        )
+
+    @app.get('/tools/s11-items')
+    def s11_items_page():
+        return tracked_template_response(
+            's11_items.html', 's11_items', groups=recommendation_guide(),
+            simulator_enabled=get_setting(get_db(), 'simulator_enabled', 'true') == 'true',
+            seo=make_seo(title='S11 画之灵 · 全弈子推荐出装 - 金铲铲阵容库',
+                         description='按费用查找画之灵60位弈子的推荐装备、备选装备与合成路径。',
+                         path='/tools/s11-items'),
         )
 
     @app.get('/tools/s16-5-lucky-openings')

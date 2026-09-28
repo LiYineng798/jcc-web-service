@@ -1,0 +1,1442 @@
+{
+  "season": "s11",
+  "version": "12.4.14",
+  "champions": [
+    {
+      "id": "5185",
+      "name": "孙悟空",
+      "cost": 5,
+      "traits": [
+        "天将",
+        "圣贤",
+        "齐天大圣"
+      ],
+      "image": "tools/s11-items/assets/champions/5185.png",
+      "recommended": [
+        "2006",
+        "2005",
+        "2012"
+      ],
+      "alternative": "2001"
+    },
+    {
+      "id": "5184",
+      "name": "艾瑞莉娅",
+      "cost": 5,
+      "traits": [
+        "剪纸仙灵",
+        "决斗大师"
+      ],
+      "image": "tools/s11-items/assets/champions/5184.png",
+      "recommended": [
+        "2001",
+        "2009",
+        "2010"
+      ],
+      "alternative": "2046"
+    },
+    {
+      "id": "5183",
+      "name": "阿兹尔",
+      "cost": 5,
+      "traits": [
+        "永恒之森",
+        "神谕者"
+      ],
+      "image": "tools/s11-items/assets/champions/5183.png",
+      "recommended": [
+        "2004",
+        "2038",
+        "2010"
+      ],
+      "alternative": "2041"
+    },
+    {
+      "id": "5176",
+      "name": "瑟提",
+      "cost": 5,
+      "traits": [
+        "灵魂莲华",
+        "夜幽",
+        "护卫"
+      ],
+      "image": "tools/s11-items/assets/champions/5176.png",
+      "recommended": [
+        "2006",
+        "2005",
+        "2012"
+      ],
+      "alternative": "2001"
+    },
+    {
+      "id": "5180",
+      "name": "乌迪尔",
+      "cost": 5,
+      "traits": [
+        "墨之影",
+        "擎天卫",
+        "灵魂行者"
+      ],
+      "image": "tools/s11-items/assets/champions/5180.png",
+      "recommended": [
+        "2006",
+        "2012",
+        "2039"
+      ],
+      "alternative": "2001"
+    },
+    {
+      "id": "5175",
+      "name": "丽桑卓",
+      "cost": 5,
+      "traits": [
+        "青花瓷",
+        "法师"
+      ],
+      "image": "tools/s11-items/assets/champions/5175.png",
+      "recommended": [
+        "2004",
+        "2038",
+        "2017"
+      ],
+      "alternative": "2024"
+    },
+    {
+      "id": "5182",
+      "name": "彗",
+      "cost": 5,
+      "traits": [
+        "山海绘卷",
+        "画圣"
+      ],
+      "image": "tools/s11-items/assets/champions/5182.png",
+      "recommended": [
+        "2004",
+        "2038",
+        "2016"
+      ],
+      "alternative": "2017"
+    },
+    {
+      "id": "5179",
+      "name": "洛",
+      "cost": 5,
+      "traits": [
+        "仙侣",
+        "天龙之子",
+        "武仙子"
+      ],
+      "image": "tools/s11-items/assets/champions/5179.png",
+      "recommended": [
+        "2034",
+        "2032",
+        "2018"
+      ],
+      "alternative": "2023"
+    },
+    {
+      "id": "5178",
+      "name": "霞",
+      "cost": 5,
+      "traits": [
+        "仙侣",
+        "天龙之子",
+        "迅捷射手"
+      ],
+      "image": "tools/s11-items/assets/champions/5178.png",
+      "recommended": [
+        "2010",
+        "2001",
+        "2046"
+      ],
+      "alternative": "2041"
+    },
+    {
+      "id": "4213",
+      "name": "艾希",
+      "cost": 4,
+      "traits": [
+        "青花瓷",
+        "狙神"
+      ],
+      "image": "tools/s11-items/assets/champions/4213.png",
+      "recommended": [
+        "2010",
+        "2037",
+        "2009"
+      ],
+      "alternative": "2013"
+    },
+    {
+      "id": "4203",
+      "name": "安妮",
+      "cost": 4,
+      "traits": [
+        "吉星",
+        "神谕者"
+      ],
+      "image": "tools/s11-items/assets/champions/4203.png",
+      "recommended": [
+        "2034",
+        "2019",
+        "2028"
+      ],
+      "alternative": "2024"
+    },
+    {
+      "id": "4201",
+      "name": "加里奥",
+      "cost": 4,
+      "traits": [
+        "剪纸仙灵",
+        "斗士"
+      ],
+      "image": "tools/s11-items/assets/champions/4201.png",
+      "recommended": [
+        "2028",
+        "2034",
+        "2025"
+      ],
+      "alternative": "2032"
+    },
+    {
+      "id": "4210",
+      "name": "凯隐",
+      "cost": 4,
+      "traits": [
+        "幽魂",
+        "死神"
+      ],
+      "image": "tools/s11-items/assets/champions/4210.png",
+      "recommended": [
+        "2001",
+        "2039",
+        "2005"
+      ],
+      "alternative": "2006"
+    },
+    {
+      "id": "4214",
+      "name": "李青",
+      "cost": 4,
+      "traits": [
+        "天龙之子",
+        "决斗大师"
+      ],
+      "image": "tools/s11-items/assets/champions/4214.png",
+      "recommended": [
+        "2006",
+        "2012",
+        "2005"
+      ],
+      "alternative": "2001"
+    },
+    {
+      "id": "4206",
+      "name": "莉莉娅",
+      "cost": 4,
+      "traits": [
+        "山海绘卷",
+        "神谕者"
+      ],
+      "image": "tools/s11-items/assets/champions/4206.png",
+      "recommended": [
+        "2022",
+        "2017",
+        "2016"
+      ],
+      "alternative": "2038"
+    },
+    {
+      "id": "4202",
+      "name": "莫甘娜",
+      "cost": 4,
+      "traits": [
+        "幽魂",
+        "圣贤"
+      ],
+      "image": "tools/s11-items/assets/champions/4202.png",
+      "recommended": [
+        "2004",
+        "2020",
+        "2016"
+      ],
+      "alternative": "2038"
+    },
+    {
+      "id": "4212",
+      "name": "诺提勒斯",
+      "cost": 4,
+      "traits": [
+        "山海绘卷",
+        "护卫"
+      ],
+      "image": "tools/s11-items/assets/champions/4212.png",
+      "recommended": [
+        "2034",
+        "2027",
+        "2028"
+      ],
+      "alternative": "2032"
+    },
+    {
+      "id": "4209",
+      "name": "卡莎",
+      "cost": 4,
+      "traits": [
+        "墨之影",
+        "迅捷射手"
+      ],
+      "image": "tools/s11-items/assets/champions/4209.png",
+      "recommended": [
+        "2010",
+        "2001",
+        "2046"
+      ],
+      "alternative": "2037"
+    },
+    {
+      "id": "4207",
+      "name": "辛德拉",
+      "cost": 4,
+      "traits": [
+        "灵魂莲华",
+        "法师"
+      ],
+      "image": "tools/s11-items/assets/champions/4207.png",
+      "recommended": [
+        "2022",
+        "2038",
+        "2003"
+      ],
+      "alternative": "2046"
+    },
+    {
+      "id": "4205",
+      "name": "奥恩",
+      "cost": 4,
+      "traits": [
+        "永恒之森",
+        "擎天卫"
+      ],
+      "image": "tools/s11-items/assets/champions/4205.png",
+      "recommended": [
+        "2028",
+        "2034",
+        "2025"
+      ],
+      "alternative": "2040"
+    },
+    {
+      "id": "4215",
+      "name": "塞拉斯",
+      "cost": 4,
+      "traits": [
+        "夜幽",
+        "斗士"
+      ],
+      "image": "tools/s11-items/assets/champions/4215.png",
+      "recommended": [
+        "2034",
+        "2032",
+        "2040"
+      ],
+      "alternative": "2029"
+    },
+    {
+      "id": "3211",
+      "name": "永恩",
+      "cost": 3,
+      "traits": [
+        "夜幽",
+        "死神"
+      ],
+      "image": "tools/s11-items/assets/champions/3211.png",
+      "recommended": [
+        "2010",
+        "2012",
+        "2006"
+      ],
+      "alternative": "2039"
+    },
+    {
+      "id": "3218",
+      "name": "佐伊",
+      "cost": 3,
+      "traits": [
+        "吉星",
+        "剪纸仙灵",
+        "法师"
+      ],
+      "image": "tools/s11-items/assets/champions/3218.png",
+      "recommended": [
+        "2004",
+        "2038",
+        "2017"
+      ],
+      "alternative": "2024"
+    },
+    {
+      "id": "3221",
+      "name": "沃利贝尔",
+      "cost": 3,
+      "traits": [
+        "墨之影",
+        "决斗大师"
+      ],
+      "image": "tools/s11-items/assets/champions/3221.png",
+      "recommended": [
+        "2006",
+        "2007",
+        "2012"
+      ],
+      "alternative": "2010"
+    },
+    {
+      "id": "3216",
+      "name": "黛安娜",
+      "cost": 3,
+      "traits": [
+        "天龙之子",
+        "圣贤"
+      ],
+      "image": "tools/s11-items/assets/champions/3216.png",
+      "recommended": [
+        "2028",
+        "2034",
+        "2019"
+      ],
+      "alternative": "2018"
+    },
+    {
+      "id": "3214",
+      "name": "拉露恩",
+      "cost": 3,
+      "traits": [
+        "夜幽",
+        "神谕者"
+      ],
+      "image": "tools/s11-items/assets/champions/3214.png",
+      "recommended": [
+        "2004",
+        "2038",
+        "2016"
+      ],
+      "alternative": "2017"
+    },
+    {
+      "id": "3215",
+      "name": "阿木木",
+      "cost": 3,
+      "traits": [
+        "青花瓷",
+        "护卫"
+      ],
+      "image": "tools/s11-items/assets/champions/3215.png",
+      "recommended": [
+        "2034",
+        "2027",
+        "2040"
+      ],
+      "alternative": "2029"
+    },
+    {
+      "id": "3212",
+      "name": "厄斐琉斯",
+      "cost": 3,
+      "traits": [
+        "灵魂莲华",
+        "狙神"
+      ],
+      "image": "tools/s11-items/assets/champions/3212.png",
+      "recommended": [
+        "2010",
+        "2013",
+        "2046"
+      ],
+      "alternative": "2037"
+    },
+    {
+      "id": "3213",
+      "name": "巴德",
+      "cost": 3,
+      "traits": [
+        "山海绘卷",
+        "迅捷射手"
+      ],
+      "image": "tools/s11-items/assets/champions/3213.png",
+      "recommended": [
+        "2010",
+        "2003",
+        "2039"
+      ],
+      "alternative": "2011"
+    },
+    {
+      "id": "3217",
+      "name": "俄洛伊",
+      "cost": 3,
+      "traits": [
+        "幽魂",
+        "法师",
+        "护卫"
+      ],
+      "image": "tools/s11-items/assets/champions/3217.png",
+      "recommended": [
+        "2028",
+        "2034",
+        "2032"
+      ],
+      "alternative": "2029"
+    },
+    {
+      "id": "3222",
+      "name": "锤石",
+      "cost": 3,
+      "traits": [
+        "灵魂莲华",
+        "擎天卫"
+      ],
+      "image": "tools/s11-items/assets/champions/3222.png",
+      "recommended": [
+        "2027",
+        "2034",
+        "2032"
+      ],
+      "alternative": "2025"
+    },
+    {
+      "id": "3220",
+      "name": "崔丝塔娜",
+      "cost": 3,
+      "traits": [
+        "吉星",
+        "决斗大师"
+      ],
+      "image": "tools/s11-items/assets/champions/3220.png",
+      "recommended": [
+        "2010",
+        "2001",
+        "2013"
+      ],
+      "alternative": "2042"
+    },
+    {
+      "id": "3223",
+      "name": "索拉卡",
+      "cost": 3,
+      "traits": [
+        "天将",
+        "武仙子"
+      ],
+      "image": "tools/s11-items/assets/champions/3223.png",
+      "recommended": [
+        "2004",
+        "2038",
+        "2017"
+      ],
+      "alternative": "2016"
+    },
+    {
+      "id": "3219",
+      "name": "塔姆",
+      "cost": 3,
+      "traits": [
+        "山海绘卷",
+        "斗士"
+      ],
+      "image": "tools/s11-items/assets/champions/3219.png",
+      "recommended": [
+        "2028",
+        "2032",
+        "2029"
+      ],
+      "alternative": "2023"
+    },
+    {
+      "id": "2197",
+      "name": "婕拉",
+      "cost": 2,
+      "traits": [
+        "剪纸仙灵",
+        "圣贤"
+      ],
+      "image": "tools/s11-items/assets/champions/2197.png",
+      "recommended": [
+        "2004",
+        "2038",
+        "2014"
+      ],
+      "alternative": "2020"
+    },
+    {
+      "id": "2308",
+      "name": "约里克",
+      "cost": 2,
+      "traits": [
+        "夜幽",
+        "擎天卫"
+      ],
+      "image": "tools/s11-items/assets/champions/2308.png",
+      "recommended": [
+        "2034",
+        "2032",
+        "2019"
+      ],
+      "alternative": "2040"
+    },
+    {
+      "id": "2198",
+      "name": "拉克丝",
+      "cost": 2,
+      "traits": [
+        "青花瓷",
+        "法师"
+      ],
+      "image": "tools/s11-items/assets/champions/2198.png",
+      "recommended": [
+        "2004",
+        "2038",
+        "2011"
+      ],
+      "alternative": "2024"
+    },
+    {
+      "id": "2303",
+      "name": "妮蔻",
+      "cost": 2,
+      "traits": [
+        "山海绘卷",
+        "天将",
+        "法师"
+      ],
+      "image": "tools/s11-items/assets/champions/2303.png",
+      "recommended": [
+        "2034",
+        "2028",
+        "2027"
+      ],
+      "alternative": "2032"
+    },
+    {
+      "id": "2196",
+      "name": "亚托克斯",
+      "cost": 2,
+      "traits": [
+        "幽魂",
+        "墨之影",
+        "斗士"
+      ],
+      "image": "tools/s11-items/assets/champions/2196.png",
+      "recommended": [
+        "2027",
+        "2034",
+        "2025"
+      ],
+      "alternative": "2029"
+    },
+    {
+      "id": "2195",
+      "name": "纳尔",
+      "cost": 2,
+      "traits": [
+        "永恒之森",
+        "护卫"
+      ],
+      "image": "tools/s11-items/assets/champions/2195.png",
+      "recommended": [
+        "2006",
+        "2007",
+        "2012"
+      ],
+      "alternative": "2040"
+    },
+    {
+      "id": "2309",
+      "name": "迦娜",
+      "cost": 2,
+      "traits": [
+        "天龙之子",
+        "神谕者"
+      ],
+      "image": "tools/s11-items/assets/champions/2309.png",
+      "recommended": [
+        "2004",
+        "2010",
+        "2017"
+      ],
+      "alternative": "2011"
+    },
+    {
+      "id": "2305",
+      "name": "千珏",
+      "cost": 2,
+      "traits": [
+        "灵魂莲华",
+        "永恒之森",
+        "死神"
+      ],
+      "image": "tools/s11-items/assets/champions/2305.png",
+      "recommended": [
+        "2022",
+        "2038",
+        "2016"
+      ],
+      "alternative": "2039"
+    },
+    {
+      "id": "2310",
+      "name": "提莫",
+      "cost": 2,
+      "traits": [
+        "吉星",
+        "迅捷射手"
+      ],
+      "image": "tools/s11-items/assets/champions/2310.png",
+      "recommended": [
+        "2022",
+        "2038",
+        "2020"
+      ],
+      "alternative": "2011"
+    },
+    {
+      "id": "2199",
+      "name": "慎",
+      "cost": 2,
+      "traits": [
+        "幽魂",
+        "擎天卫"
+      ],
+      "image": "tools/s11-items/assets/champions/2199.png",
+      "recommended": [
+        "2034",
+        "2028",
+        "2025"
+      ],
+      "alternative": "2023"
+    },
+    {
+      "id": "2307",
+      "name": "赛娜",
+      "cost": 2,
+      "traits": [
+        "墨之影",
+        "狙神"
+      ],
+      "image": "tools/s11-items/assets/champions/2307.png",
+      "recommended": [
+        "2010",
+        "2001",
+        "2046"
+      ],
+      "alternative": "2042"
+    },
+    {
+      "id": "2306",
+      "name": "锐雯",
+      "cost": 2,
+      "traits": [
+        "剪纸仙灵",
+        "武仙子",
+        "斗士"
+      ],
+      "image": "tools/s11-items/assets/champions/2306.png",
+      "recommended": [
+        "2032",
+        "2027",
+        "2034"
+      ],
+      "alternative": "2040"
+    },
+    {
+      "id": "2302",
+      "name": "奇亚娜",
+      "cost": 2,
+      "traits": [
+        "天将",
+        "决斗大师"
+      ],
+      "image": "tools/s11-items/assets/champions/2302.png",
+      "recommended": [
+        "2001",
+        "2006",
+        "2039"
+      ],
+      "alternative": "2012"
+    },
+    {
+      "id": "1214",
+      "name": "阿狸",
+      "cost": 1,
+      "traits": [
+        "灵魂莲华",
+        "法师"
+      ],
+      "image": "tools/s11-items/assets/champions/1214.png",
+      "recommended": [
+        "2022",
+        "2038",
+        "2016"
+      ],
+      "alternative": "2039"
+    },
+    {
+      "id": "1215",
+      "name": "凯特琳",
+      "cost": 1,
+      "traits": [
+        "幽魂",
+        "狙神"
+      ],
+      "image": "tools/s11-items/assets/champions/1215.png",
+      "recommended": [
+        "2004",
+        "2001",
+        "2010"
+      ],
+      "alternative": "2046"
+    },
+    {
+      "id": "1208",
+      "name": "科加斯",
+      "cost": 1,
+      "traits": [
+        "山海绘卷",
+        "擎天卫"
+      ],
+      "image": "tools/s11-items/assets/champions/1208.png",
+      "recommended": [
+        "2034",
+        "2028",
+        "2025"
+      ],
+      "alternative": "2032"
+    },
+    {
+      "id": "1210",
+      "name": "德莱厄斯",
+      "cost": 1,
+      "traits": [
+        "夜幽",
+        "决斗大师"
+      ],
+      "image": "tools/s11-items/assets/champions/1210.png",
+      "recommended": [
+        "2039",
+        "2001",
+        "2012"
+      ],
+      "alternative": "2006"
+    },
+    {
+      "id": "1205",
+      "name": "盖伦",
+      "cost": 1,
+      "traits": [
+        "剪纸仙灵",
+        "护卫"
+      ],
+      "image": "tools/s11-items/assets/champions/1205.png",
+      "recommended": [
+        "2027",
+        "2032",
+        "2034"
+      ],
+      "alternative": "2029"
+    },
+    {
+      "id": "1206",
+      "name": "贾克斯",
+      "cost": 1,
+      "traits": [
+        "墨之影",
+        "护卫"
+      ],
+      "image": "tools/s11-items/assets/champions/1206.png",
+      "recommended": [
+        "2025",
+        "2028",
+        "2034"
+      ],
+      "alternative": "2029"
+    },
+    {
+      "id": "1209",
+      "name": "卡兹克",
+      "cost": 1,
+      "traits": [
+        "天将",
+        "死神"
+      ],
+      "image": "tools/s11-items/assets/champions/1209.png",
+      "recommended": [
+        "2012",
+        "2041",
+        "2039"
+      ],
+      "alternative": "2046"
+    },
+    {
+      "id": "1207",
+      "name": "墨菲特",
+      "cost": 1,
+      "traits": [
+        "天将",
+        "擎天卫"
+      ],
+      "image": "tools/s11-items/assets/champions/1207.png",
+      "recommended": [
+        "2028",
+        "2034",
+        "2025"
+      ],
+      "alternative": "2023"
+    },
+    {
+      "id": "1217",
+      "name": "克格莫",
+      "cost": 1,
+      "traits": [
+        "山海绘卷",
+        "神谕者",
+        "狙神"
+      ],
+      "image": "tools/s11-items/assets/champions/1217.png",
+      "recommended": [
+        "2022",
+        "2038",
+        "2016"
+      ],
+      "alternative": "2003"
+    },
+    {
+      "id": "1211",
+      "name": "雷克塞",
+      "cost": 1,
+      "traits": [
+        "永恒之森",
+        "斗士"
+      ],
+      "image": "tools/s11-items/assets/champions/1211.png",
+      "recommended": [
+        "2034",
+        "2027",
+        "2029"
+      ],
+      "alternative": "2025"
+    },
+    {
+      "id": "1213",
+      "name": "希维尔",
+      "cost": 1,
+      "traits": [
+        "剪纸仙灵",
+        "迅捷射手"
+      ],
+      "image": "tools/s11-items/assets/champions/1213.png",
+      "recommended": [
+        "2010",
+        "2013",
+        "2046"
+      ],
+      "alternative": "2042"
+    },
+    {
+      "id": "1216",
+      "name": "可酷伯",
+      "cost": 1,
+      "traits": [
+        "吉星",
+        "斗士"
+      ],
+      "image": "tools/s11-items/assets/champions/1216.png",
+      "recommended": [
+        "2025",
+        "2032",
+        "2027"
+      ],
+      "alternative": "2029"
+    },
+    {
+      "id": "1212",
+      "name": "亚索",
+      "cost": 1,
+      "traits": [
+        "灵魂莲华",
+        "决斗大师"
+      ],
+      "image": "tools/s11-items/assets/champions/1212.png",
+      "recommended": [
+        "2028",
+        "2034",
+        "2032"
+      ],
+      "alternative": "2024"
+    }
+  ],
+  "items": {
+    "2006": {
+      "name": "汲取剑",
+      "image": "tools/s11-items/assets/items/2006.png",
+      "components": [
+        {
+          "name": "暴风大剑",
+          "image": "tools/s11-items/assets/items/1001.png"
+        },
+        {
+          "name": "负极斗篷",
+          "image": "tools/s11-items/assets/items/1006.png"
+        }
+      ]
+    },
+    "2005": {
+      "name": "夜之锋刃",
+      "image": "tools/s11-items/assets/items/2005.png",
+      "components": [
+        {
+          "name": "暴风大剑",
+          "image": "tools/s11-items/assets/items/1001.png"
+        },
+        {
+          "name": "锁子甲",
+          "image": "tools/s11-items/assets/items/1005.png"
+        }
+      ]
+    },
+    "2012": {
+      "name": "泰坦的坚决",
+      "image": "tools/s11-items/assets/items/2012.png",
+      "components": [
+        {
+          "name": "反曲之弓",
+          "image": "tools/s11-items/assets/items/1002.png"
+        },
+        {
+          "name": "锁子甲",
+          "image": "tools/s11-items/assets/items/1005.png"
+        }
+      ]
+    },
+    "2001": {
+      "name": "无尽之刃",
+      "image": "tools/s11-items/assets/items/2001.png",
+      "components": [
+        {
+          "name": "暴风大剑",
+          "image": "tools/s11-items/assets/items/1001.png"
+        },
+        {
+          "name": "拳套",
+          "image": "tools/s11-items/assets/items/1009.png"
+        }
+      ]
+    },
+    "2009": {
+      "name": "红霸符",
+      "image": "tools/s11-items/assets/items/2009.png",
+      "components": [
+        {
+          "name": "反曲之弓",
+          "image": "tools/s11-items/assets/items/1002.png"
+        },
+        {
+          "name": "反曲之弓",
+          "image": "tools/s11-items/assets/items/1002.png"
+        }
+      ]
+    },
+    "2010": {
+      "name": "鬼索的狂暴之刃",
+      "image": "tools/s11-items/assets/items/2010.png",
+      "components": [
+        {
+          "name": "反曲之弓",
+          "image": "tools/s11-items/assets/items/1002.png"
+        },
+        {
+          "name": "无用大棒",
+          "image": "tools/s11-items/assets/items/1003.png"
+        }
+      ]
+    },
+    "2046": {
+      "name": "巨人捕手",
+      "image": "tools/s11-items/assets/items/2046.png",
+      "components": [
+        {
+          "name": "暴风大剑",
+          "image": "tools/s11-items/assets/items/1001.png"
+        },
+        {
+          "name": "反曲之弓",
+          "image": "tools/s11-items/assets/items/1002.png"
+        }
+      ]
+    },
+    "2004": {
+      "name": "朔极之矛",
+      "image": "tools/s11-items/assets/items/2004.png",
+      "components": [
+        {
+          "name": "暴风大剑",
+          "image": "tools/s11-items/assets/items/1001.png"
+        },
+        {
+          "name": "女神之泪",
+          "image": "tools/s11-items/assets/items/1004.png"
+        }
+      ]
+    },
+    "2038": {
+      "name": "珠光护手",
+      "image": "tools/s11-items/assets/items/2038.png",
+      "components": [
+        {
+          "name": "无用大棒",
+          "image": "tools/s11-items/assets/items/1003.png"
+        },
+        {
+          "name": "拳套",
+          "image": "tools/s11-items/assets/items/1009.png"
+        }
+      ]
+    },
+    "2041": {
+      "name": "水银",
+      "image": "tools/s11-items/assets/items/2041.png",
+      "components": [
+        {
+          "name": "负极斗篷",
+          "image": "tools/s11-items/assets/items/1006.png"
+        },
+        {
+          "name": "拳套",
+          "image": "tools/s11-items/assets/items/1009.png"
+        }
+      ]
+    },
+    "2039": {
+      "name": "正义之手",
+      "image": "tools/s11-items/assets/items/2039.png",
+      "components": [
+        {
+          "name": "女神之泪",
+          "image": "tools/s11-items/assets/items/1004.png"
+        },
+        {
+          "name": "拳套",
+          "image": "tools/s11-items/assets/items/1009.png"
+        }
+      ]
+    },
+    "2017": {
+      "name": "大天使之杖",
+      "image": "tools/s11-items/assets/items/2017.png",
+      "components": [
+        {
+          "name": "无用大棒",
+          "image": "tools/s11-items/assets/items/1003.png"
+        },
+        {
+          "name": "女神之泪",
+          "image": "tools/s11-items/assets/items/1004.png"
+        }
+      ]
+    },
+    "2024": {
+      "name": "适应性头盔",
+      "image": "tools/s11-items/assets/items/2024.png",
+      "components": [
+        {
+          "name": "女神之泪",
+          "image": "tools/s11-items/assets/items/1004.png"
+        },
+        {
+          "name": "负极斗篷",
+          "image": "tools/s11-items/assets/items/1006.png"
+        }
+      ]
+    },
+    "2016": {
+      "name": "班克斯的魔法帽",
+      "image": "tools/s11-items/assets/items/2016.png",
+      "components": [
+        {
+          "name": "无用大棒",
+          "image": "tools/s11-items/assets/items/1003.png"
+        },
+        {
+          "name": "无用大棒",
+          "image": "tools/s11-items/assets/items/1003.png"
+        }
+      ]
+    },
+    "2034": {
+      "name": "狂徒铠甲",
+      "image": "tools/s11-items/assets/items/2034.png",
+      "components": [
+        {
+          "name": "巨人腰带",
+          "image": "tools/s11-items/assets/items/1007.png"
+        },
+        {
+          "name": "巨人腰带",
+          "image": "tools/s11-items/assets/items/1007.png"
+        }
+      ]
+    },
+    "2032": {
+      "name": "薄暮法袍",
+      "image": "tools/s11-items/assets/items/2032.png",
+      "components": [
+        {
+          "name": "负极斗篷",
+          "image": "tools/s11-items/assets/items/1006.png"
+        },
+        {
+          "name": "巨人腰带",
+          "image": "tools/s11-items/assets/items/1007.png"
+        }
+      ]
+    },
+    "2018": {
+      "name": "冕卫",
+      "image": "tools/s11-items/assets/items/2018.png",
+      "components": [
+        {
+          "name": "无用大棒",
+          "image": "tools/s11-items/assets/items/1003.png"
+        },
+        {
+          "name": "锁子甲",
+          "image": "tools/s11-items/assets/items/1005.png"
+        }
+      ]
+    },
+    "2023": {
+      "name": "圣盾使的誓约",
+      "image": "tools/s11-items/assets/items/2023.png",
+      "components": [
+        {
+          "name": "女神之泪",
+          "image": "tools/s11-items/assets/items/1004.png"
+        },
+        {
+          "name": "锁子甲",
+          "image": "tools/s11-items/assets/items/1005.png"
+        }
+      ]
+    },
+    "2037": {
+      "name": "最后的轻语",
+      "image": "tools/s11-items/assets/items/2037.png",
+      "components": [
+        {
+          "name": "反曲之弓",
+          "image": "tools/s11-items/assets/items/1002.png"
+        },
+        {
+          "name": "拳套",
+          "image": "tools/s11-items/assets/items/1009.png"
+        }
+      ]
+    },
+    "2013": {
+      "name": "卢安娜的飓风",
+      "image": "tools/s11-items/assets/items/2013.png",
+      "components": [
+        {
+          "name": "反曲之弓",
+          "image": "tools/s11-items/assets/items/1002.png"
+        },
+        {
+          "name": "负极斗篷",
+          "image": "tools/s11-items/assets/items/1006.png"
+        }
+      ]
+    },
+    "2019": {
+      "name": "离子火花",
+      "image": "tools/s11-items/assets/items/2019.png",
+      "components": [
+        {
+          "name": "无用大棒",
+          "image": "tools/s11-items/assets/items/1003.png"
+        },
+        {
+          "name": "负极斗篷",
+          "image": "tools/s11-items/assets/items/1006.png"
+        }
+      ]
+    },
+    "2028": {
+      "name": "石像鬼石板甲",
+      "image": "tools/s11-items/assets/items/2028.png",
+      "components": [
+        {
+          "name": "锁子甲",
+          "image": "tools/s11-items/assets/items/1005.png"
+        },
+        {
+          "name": "负极斗篷",
+          "image": "tools/s11-items/assets/items/1006.png"
+        }
+      ]
+    },
+    "2025": {
+      "name": "救赎",
+      "image": "tools/s11-items/assets/items/2025.png",
+      "components": [
+        {
+          "name": "女神之泪",
+          "image": "tools/s11-items/assets/items/1004.png"
+        },
+        {
+          "name": "巨人腰带",
+          "image": "tools/s11-items/assets/items/1007.png"
+        }
+      ]
+    },
+    "2022": {
+      "name": "蓝霸符",
+      "image": "tools/s11-items/assets/items/2022.png",
+      "components": [
+        {
+          "name": "女神之泪",
+          "image": "tools/s11-items/assets/items/1004.png"
+        },
+        {
+          "name": "女神之泪",
+          "image": "tools/s11-items/assets/items/1004.png"
+        }
+      ]
+    },
+    "2020": {
+      "name": "莫雷洛秘典",
+      "image": "tools/s11-items/assets/items/2020.png",
+      "components": [
+        {
+          "name": "无用大棒",
+          "image": "tools/s11-items/assets/items/1003.png"
+        },
+        {
+          "name": "巨人腰带",
+          "image": "tools/s11-items/assets/items/1007.png"
+        }
+      ]
+    },
+    "2027": {
+      "name": "棘刺背心",
+      "image": "tools/s11-items/assets/items/2027.png",
+      "components": [
+        {
+          "name": "锁子甲",
+          "image": "tools/s11-items/assets/items/1005.png"
+        },
+        {
+          "name": "锁子甲",
+          "image": "tools/s11-items/assets/items/1005.png"
+        }
+      ]
+    },
+    "2003": {
+      "name": "海克斯科技枪刃",
+      "image": "tools/s11-items/assets/items/2003.png",
+      "components": [
+        {
+          "name": "暴风大剑",
+          "image": "tools/s11-items/assets/items/1001.png"
+        },
+        {
+          "name": "无用大棒",
+          "image": "tools/s11-items/assets/items/1003.png"
+        }
+      ]
+    },
+    "2040": {
+      "name": "坚定之心",
+      "image": "tools/s11-items/assets/items/2040.png",
+      "components": [
+        {
+          "name": "锁子甲",
+          "image": "tools/s11-items/assets/items/1005.png"
+        },
+        {
+          "name": "拳套",
+          "image": "tools/s11-items/assets/items/1009.png"
+        }
+      ]
+    },
+    "2029": {
+      "name": "日炎斗篷",
+      "image": "tools/s11-items/assets/items/2029.png",
+      "components": [
+        {
+          "name": "锁子甲",
+          "image": "tools/s11-items/assets/items/1005.png"
+        },
+        {
+          "name": "巨人腰带",
+          "image": "tools/s11-items/assets/items/1007.png"
+        }
+      ]
+    },
+    "2007": {
+      "name": "斯特拉克的挑战护手",
+      "image": "tools/s11-items/assets/items/2007.png",
+      "components": [
+        {
+          "name": "暴风大剑",
+          "image": "tools/s11-items/assets/items/1001.png"
+        },
+        {
+          "name": "巨人腰带",
+          "image": "tools/s11-items/assets/items/1007.png"
+        }
+      ]
+    },
+    "2011": {
+      "name": "斯塔缇克电刃",
+      "image": "tools/s11-items/assets/items/2011.png",
+      "components": [
+        {
+          "name": "反曲之弓",
+          "image": "tools/s11-items/assets/items/1002.png"
+        },
+        {
+          "name": "女神之泪",
+          "image": "tools/s11-items/assets/items/1004.png"
+        }
+      ]
+    },
+    "2042": {
+      "name": "破防者",
+      "image": "tools/s11-items/assets/items/2042.png",
+      "components": [
+        {
+          "name": "巨人腰带",
+          "image": "tools/s11-items/assets/items/1007.png"
+        },
+        {
+          "name": "拳套",
+          "image": "tools/s11-items/assets/items/1009.png"
+        }
+      ]
+    },
+    "2014": {
+      "name": "纳什之牙",
+      "image": "tools/s11-items/assets/items/2014.png",
+      "components": [
+        {
+          "name": "反曲之弓",
+          "image": "tools/s11-items/assets/items/1002.png"
+        },
+        {
+          "name": "巨人腰带",
+          "image": "tools/s11-items/assets/items/1007.png"
+        }
+      ]
+    }
+  }
+}

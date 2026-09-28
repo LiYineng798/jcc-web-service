@@ -42,7 +42,7 @@ def test_public_page_deep_links_and_validation(client):
     assert PAGE in client.get('/sitemap.xml').get_data(as_text=True)
     home = client.get('/').get_data(as_text=True)
     assert home.count(f'href="{PAGE}"') == 2
-    assert home.index('S18 · 当季工具') < home.index('S16.5 · 恭喜发财') < home.index('S8回归信息差')
+    assert home.index('S18 · 当季工具') < home.index('S16.5 · 恭喜发财') < home.index('S11 · 画之灵')
     for src in set(re.findall(r'<img src="([^"]+)"', html)):
         assert client.get(src).status_code == 200
 

@@ -1,0 +1,98 @@
+<!doctype html>
+{% from "theme_toggle.html" import theme_toggle %}
+{% from "seo_head.html" import seo_head %}
+{% from "toolbox.html" import toolbox_menu %}
+<html lang="zh-CN">
+  <head>
+{{ seo_head(seo) }}
+    <link rel="stylesheet" href="{{ static_v('toolbox.css') }}" />
+    <link rel="stylesheet" href="{{ static_v('s11-items.css') }}" />
+    <script src="{{ static_v('toolbox.js') }}" defer></script>
+    <script src="{{ static_v('theme-toggle.js') }}" defer></script>
+    <script src="{{ static_v('s11-items.js') }}" defer></script>
+  </head>
+  <body>
+    <div class="page-shell ink-page">
+      <nav class="nav-bar ink-nav" aria-label="页面工具">
+        <a class="brand-mark brand-link" href="/" aria-label="返回首页">阵</a>
+        <div class="nav-actions">
+          <a class="ghost-link" href="/">返回首页</a>
+          {{ toolbox_menu(False, simulator_enabled) }}
+          {{ theme_toggle("nav-icon-button") }}
+        </div>
+      </nav>
+      <main>
+        <header class="ink-hero">
+          <svg class="ink-landscape" viewBox="0 0 1200 300" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+            <defs><linearGradient id="ink-mist" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="currentColor" stop-opacity=".12"/><stop offset="1" stop-color="currentColor" stop-opacity="0"/></linearGradient></defs>
+            <path class="ink-mountain-far" d="M360 300Q468 246 520 174T577 133Q594 132 619 164T658 136Q684 87 728 53T770 41Q811 64 838 117T885 147Q916 138 943 120T1009 166Q1120 224 1200 238V300Z"/>
+            <path class="ink-mountain-mid" d="M480 300Q625 280 704 207T764 174Q812 197 838 184T912 109Q958 59 984 89T1041 156Q1081 170 1113 145T1162 177L1200 191V300Z"/>
+            <path class="ink-mountain-near" d="M717 300Q848 241 887 250T956 256Q1021 242 1093 207T1158 218L1200 236V300Z"/>
+            <path class="ink-ridge" d="M619 164Q640 188 658 136Q684 87 728 53T770 41Q811 64 838 117M838 184Q867 169 912 109Q958 59 984 89"/>
+            <circle class="ink-sun" cx="1005" cy="69" r="36"/>
+          </svg>
+          <div class="ink-hero-copy">
+            <p class="ink-eyebrow"><span>S11</span> 弈入山水 · 装点乾坤</p>
+            <div class="ink-title-line"><h1>画之灵</h1><span class="ink-seal" aria-hidden="true">弈<br>谱</span></div>
+            <h2>全弈子推荐出装</h2>
+            <p class="ink-intro">一览推荐与备选，落子之前，装备了然。</p>
+          </div>
+          <p class="ink-hero-note">六十弈子 <span>／</span> 五卷出装</p>
+        </header>
+
+        <section class="ink-controls" aria-label="出装筛选" hidden>
+          <div class="ink-search-row">
+            <label class="ink-search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="10" cy="10" r="6"/><path d="m15 15 5 5"/></svg><span class="ink-sr-only">搜索弈子、羁绊、装备或组件</span><input id="ink-search" type="search" placeholder="搜索弈子、羁绊、装备或组件…" autocomplete="off" /></label>
+            <button class="ink-reset" type="button">重置筛选</button>
+          </div>
+          <div class="ink-filter-row">
+            <div class="ink-filters" role="group" aria-label="按费用筛选">
+              <button type="button" data-cost="all" aria-pressed="true">全部</button>
+{% for group in groups %}
+              <button type="button" data-cost="{{ group.cost }}" aria-pressed="false">{{ group.cost }} 费</button>
+{% endfor %}
+            </div>
+            <span class="ink-result" role="status" aria-live="polite" aria-atomic="true">共 60 位弈子</span>
+          </div>
+        </section>
+        <noscript><p class="ink-noscript">已展示全部出装；启用 JavaScript 后可按费用筛选和搜索。</p></noscript>
+
+        <div class="ink-collection">
+{% for group in groups %}
+          <section class="ink-group" data-group-cost="{{ group.cost }}" aria-labelledby="ink-group-{{ group.cost }}">
+            <div class="ink-group-heading"><h2 id="ink-group-{{ group.cost }}"><span aria-hidden="true">{{ ['','壹','贰','叁','肆','伍'][group.cost] }}</span>{{ group.cost }} 费弈子</h2><span class="ink-group-count">{{ group.champions|length }} 位</span></div>
+            <div class="ink-grid">
+{% for champion in group.champions %}
+              <article class="ink-card" data-search="{{ champion.search }}" aria-labelledby="champion-{{ champion.id }}">
+                <header class="ink-card-heading">
+                  <img class="ink-portrait" src="{{ static_v(champion.image) }}" alt="{{ champion.name }}头像" width="52" height="52" loading="lazy" decoding="async" />
+                  <div class="ink-identity"><h3 id="champion-{{ champion.id }}">{{ champion.name }}</h3><p>{{ champion.traits|join(' · ') }}</p></div>
+                  <span class="ink-cost ink-cost-{{ group.cost }}" aria-label="{{ group.cost }}费"><span aria-hidden="true">◆</span> {{ group.cost }}</span>
+                </header>
+                <div class="ink-equipment-labels"><span>推荐装备</span><span>备选</span></div>
+                <div class="ink-equipment">
+{% for item in champion.equipment %}
+                  <div class="ink-item{% if loop.last %} ink-alternative{% endif %}">
+                    <img class="ink-item-image" src="{{ static_v(item.image) }}" alt="{{ item.name }}" width="48" height="48" loading="lazy" decoding="async" />
+                    <h4>{{ item.name }}</h4>
+                    <div class="ink-recipe" aria-label="{{ item.name }}合成：{{ item.components[0].name }}加{{ item.components[1].name }}">
+{% for component in item.components %}
+{% if not loop.first %}<span class="ink-plus" aria-hidden="true">+</span>{% endif %}
+                      <span class="ink-component" title="{{ component.name }}"><img src="{{ static_v(component.image) }}" alt="" width="23" height="23" loading="lazy" decoding="async" /><span>{{ component.name }}</span></span>
+{% endfor %}
+                    </div>
+                  </div>
+{% endfor %}
+                </div>
+              </article>
+{% endfor %}
+            </div>
+          </section>
+{% endfor %}
+        </div>
+        <div class="ink-empty" hidden><span aria-hidden="true">寻</span><h2>暂未找到匹配的弈子</h2><p>试试其他名称，或切换到「全部」费用。</p><button class="ink-reset" type="button">重置筛选</button></div>
+        <footer class="ink-footer"><span>画之灵 · 出装手记</span><p>三件推荐，一件备选；按阵容与来装灵活调整。</p></footer>
+      </main>
+    </div>
+  </body>
+</html>
