@@ -482,11 +482,11 @@ def test_border_glow_styles_are_present():
     assert '@media (prefers-reduced-motion: reduce)' in css
 
 
-def test_app_js_defaults_home_image_mode_to_text_only():
+def test_app_js_restores_explicit_image_mode_and_defaults_to_images():
     with open('static/app.js', 'r', encoding='utf-8') as file:
         js = file.read()
 
-    assert "imageMode: localStorage.getItem('homeImageMode') || 'text'" in js
+    assert 'imageMode: savedHomeImageMode()' in js
     assert 'live-comp-card-text-only' in js
     assert 'toggleHomeImageMode' in js
 

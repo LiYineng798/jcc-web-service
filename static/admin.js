@@ -179,7 +179,11 @@
     }
     const button = event.target.closest('[data-admin-tab]');
     if (!button) return;
-    await activateTab(button.dataset.adminTab, button.dataset.adminWorkspace || '');
+    try {
+      await activateTab(button.dataset.adminTab, button.dataset.adminWorkspace || '');
+    } catch (error) {
+      if (error?.name !== 'AbortError') window.jccNotify.show(error.message || '加载失败，请重试', { variant: 'error' });
+    }
   });
   elements.moreButton?.addEventListener('click', () => elements.moreDialog?.showModal());
   elements.moreClose?.addEventListener('click', () => elements.moreDialog?.close());
@@ -302,7 +306,8 @@
   async function loadLineups({ force = false } = {}) {
     if (!force && isFresh(state.lineups.loadedAt)) return;
     abortRequest('lineups');
-    state.controllers.lineups = new AbortController();
+    const controller = new AbortController();
+    state.controllers.lineups = controller;
     const query = new URLSearchParams({
       q: state.lineups.query,
       status: state.lineups.status,
@@ -311,7 +316,8 @@
       page: String(state.lineups.page),
       page_size: String(state.lineups.page_size),
     });
-    const payload = await api(`/api/admin/lineups?${query.toString()}`, { signal: state.controllers.lineups.signal });
+    const payload = await api(`/api/admin/lineups?${query.toString()}`, { signal: controller.signal });
+    if (state.controllers.lineups !== controller) return;
     state.lineups = { ...state.lineups, ...payload, loadedAt: Date.now() };
     showPendingModeration(payload.counts?.pending || 0);
   }

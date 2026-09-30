@@ -10,6 +10,7 @@
 - 成功复制取 `copy_action_events.success=1`，包含普通和实时阵容；五分钟去重后的公开计分是另一口径。
 - 回访窗口取报告日之前的 3/7 天；差值比较最近一份更早报告，不假定每天已有快照。
 - 报告是生成时的快照。事件清理后强制重算旧日期可能不完整。
+- 访问记录按“日期 + 访客 + 页面类型”去重，同日重复访问不累加，也不记录具体阵容/弈子 URL。IP 页面明细与访问总数沿用此口径，展示各类页面的次数、人数和记录时段。
 
 ## 生成与读取
 
@@ -19,6 +20,7 @@ TESTING 或 Flask 配置 `DAILY_REPORT_WORKER_ENABLED=false` 关闭它。后者�
 `payload_json` 保存汇总、小时分布、页面排行、复制码/赛季排行、访客 IP 与变化量；
 头部统计列便于列表读取。字段以 `build_daily_report_payload()` 为准。
 访客 IP、复制细节和日报接口均只对管理员开放。
+页面中文名称在读取时统一映射，历史快照无需重算即可更新名称。新生成的快照包含 IP 页面明细；旧快照若缺少明细，须在原始事件仍保留时手动重新生成。
 
 `GET /api/admin/daily-reports` 列日期；`GET /api/admin/daily-reports/<date>` 取详情；
 `POST /api/admin/daily-reports/<date>/generate` 需 CSRF，强制生成并记审计。

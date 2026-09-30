@@ -3,6 +3,7 @@ from __future__ import annotations
 import re
 
 from audit import write_audit
+from admin_pagination import paginate_items
 from db import db_kind, now_text
 from db_adapter import insert_returning_id_sql, last_insert_id, qmarks
 from lineup_code import extract_lineup_code
@@ -45,6 +46,32 @@ def build_admin_lineups_query(query, status='all', season='', order='newest'):
     )
     count_sql = 'SELECT COUNT(*) AS c ' + from_sql
     return base_sql, count_sql, params
+
+
+def list_admin_lineups_by_score(db, query, status, season, scores, admin, page, page_size):
+    """Rank lightweight filtered IDs using the same cached scores we display.
+
+    Only the current page's full records are loaded. No event aggregation,
+    per-lineup queries, or unbounded SQL CASE/IN list is added to pagination.
+    """
+    base_sql, count_sql, params = build_admin_lineups_query(query, status, season)
+    ids_sql = count_sql.replace('SELECT COUNT(*) AS c ', 'SELECT lineups.id ', 1)
+    lineup_ids = [row['id'] for row in db.execute(ids_sql, params).fetchall()]
+    lineup_ids.sort(key=lambda lineup_id: (-scores.get(lineup_id, {}).get('score', 0), -lineup_id))
+    payload = paginate_items(lineup_ids, page, page_size)
+    page_ids = payload['items']
+    if page_ids:
+        select_sql = base_sql.rsplit(' ORDER BY ', 1)[0]
+        rows = db.execute(
+            select_sql + f' AND lineups.id IN ({qmarks(db_kind(), len(page_ids))})',
+            [*params, *page_ids],
+        ).fetchall()
+        rows_by_id = {row['id']: row for row in rows}
+        payload['items'] = [
+            serialize_lineup_row(rows_by_id[lineup_id], scores, user=admin, admin=True, db=db)
+            for lineup_id in page_ids if lineup_id in rows_by_id
+        ]
+    return payload
 
 
 def prepare_admin_lineup_update(data):

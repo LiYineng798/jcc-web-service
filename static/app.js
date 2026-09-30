@@ -1,5 +1,13 @@
 const HOME_VIEW_CACHE_TTL = 60000;
 
+function savedHomeImageMode() {
+  try {
+    return localStorage.getItem('homeImageMode') === 'text' ? 'text' : 'image';
+  } catch (_) {
+    return 'image';
+  }
+}
+
 const state = {
   lineups: [],
   liveCompsSummary: null,
@@ -9,7 +17,7 @@ const state = {
   liveCompSeasons: [],
   selectedLineupSeasonId: null,
   selectedLiveCompSeasonId: null,
-  imageMode: localStorage.getItem('homeImageMode') || 'text',
+  imageMode: savedHomeImageMode(),
   requestControllers: {
     lineups: null,
     liveComps: null,
@@ -43,7 +51,6 @@ const elements = {
   menuLogoutButton: $('#menuLogoutButton'),
   createLineupLink: $('#createLineupLink'),
   imageModeToggle: $('#imageModeToggle'),
-  imageModeIcon: $('#imageModeIcon'),
   imageModeText: $('#imageModeText'),
   searchClear: $('#searchClear'),
   searchInput: $('#searchInput'),
@@ -93,7 +100,7 @@ const paginationCompactQuery = globalThis.matchMedia('(max-width: 520px)');
 const mobileResourceQuery = globalThis.matchMedia('(max-width: 520px)');
 let pendingPaginationScroll = false;
 
-setTheme(localStorage.getItem('theme') || 'light');
+setTheme(document.documentElement.dataset.theme || 'light');
 renderHomeImageModeToggle();
 applyBorderGlowToStaticCards();
 boot();
@@ -201,7 +208,6 @@ async function boot() {
 function renderHomeImageModeToggle() {
   if (!elements.imageModeToggle || !elements.imageModeText) return;
   const isImageMode = state.imageMode === 'image';
-  if (elements.imageModeIcon) elements.imageModeIcon.textContent = isImageMode ? '有' : '无';
   elements.imageModeText.textContent = isImageMode ? '有图' : '无图';
   elements.imageModeToggle.setAttribute('aria-pressed', String(isImageMode));
   elements.imageModeToggle.setAttribute('aria-label', isImageMode ? '切换为首页无图片模式' : '切换为首页有图片模式');
@@ -291,7 +297,7 @@ function applyBorderGlowToStaticCards() {
 
 function toggleHomeImageMode() {
   state.imageMode = state.imageMode === 'image' ? 'text' : 'image';
-  localStorage.setItem('homeImageMode', state.imageMode);
+  try { localStorage.setItem('homeImageMode', state.imageMode); } catch (_) { /* Keep the toggle usable when storage is unavailable. */ }
   renderHomeImageModeToggle();
   if (state.view === 'live-comps') {
     renderLiveComps();
@@ -1359,7 +1365,7 @@ function showToast(text, variant = 'success') {
 
 function setTheme(theme) {
   document.documentElement.dataset.theme = theme;
-  localStorage.setItem('theme', theme);
+  try { localStorage.setItem('theme', theme); } catch (_) { /* Theme still works without storage. */ }
   window.jccApplyThemeToggleState?.(theme, elements.themeToggle, elements.themeIcon, elements.themeText);
   if (!window.jccApplyThemeToggleState && elements.themeText) elements.themeText.textContent = theme === 'dark' ? '白天模式' : '夜间模式';
 }

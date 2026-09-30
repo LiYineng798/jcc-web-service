@@ -23,6 +23,7 @@ from admin_lineup_service import (
     adjust_admin_lineup_score,
     build_admin_lineups_query,
     bulk_import_lineups,
+    list_admin_lineups_by_score,
     preview_bulk_import_lineups,
     update_admin_lineup,
 )
@@ -151,17 +152,23 @@ def admin_lineups():
         return error
     status = request.args.get('status', 'all')
     order = request.args.get('order', 'newest')
-    if status not in {'all', 'normal', 'hidden', 'banned', 'pending'} or order not in {'newest', 'oldest'}:
+    if status not in {'all', 'normal', 'hidden', 'banned', 'pending'} or order not in {'newest', 'oldest', 'score_desc'}:
         return jsonify({'error': '筛选条件无效'}), 400
     base_sql, count_sql, params = build_admin_lineups_query(request.args.get('q', ''), status, request.args.get('season', ''), order)
     scores = score_map()
-    payload = _paginate_rows(
-        base_sql,
-        count_sql,
-        params,
-        serializer=lambda row: serialize_lineup_row(row, scores, user=admin, admin=True),
-        default_page_size=20,
-    )
+    if order == 'score_desc':
+        payload = list_admin_lineups_by_score(
+            get_db(), request.args.get('q', ''), status, request.args.get('season', ''),
+            scores, admin, _parse_page(), _parse_page_size(default=20),
+        )
+    else:
+        payload = _paginate_rows(
+            base_sql,
+            count_sql,
+            params,
+            serializer=lambda row: serialize_lineup_row(row, scores, user=admin, admin=True),
+            default_page_size=20,
+        )
     counts = get_db().execute(
         '''SELECT CASE WHEN l.status='banned' AND m.state='pending' THEN 'pending'
                        ELSE l.status END AS state, COUNT(*) AS c

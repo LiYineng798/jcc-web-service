@@ -39,10 +39,6 @@
 .ln-retry { display:block; margin:0 auto 20px; }
 .ln-wrap :is(button,a):focus-visible { outline:2px solid var(--accent); outline-offset:2px; }
 @media(max-width:520px) {
-  .nav-actions.has-notifications { grid-template-columns:44px 44px minmax(0,1fr); }
-  .nav-actions.has-notifications>.mobile-resource-trigger { grid-column:span 2; padding-inline:4px; font-size:12px; }
-  .nav-actions.has-notifications>.image-mode-toggle { grid-column:3; }
-  .nav-actions.has-notifications>.animated-theme-toggle { grid-column:1; min-width:0; width:44px; padding:0; }
   .nav-actions.has-notifications>.ln-wrap { grid-column:2; }
   .nav-actions.has-notifications>.account-menu-wrap { grid-column:3; }
   .ln-panel { border-radius:14px; }

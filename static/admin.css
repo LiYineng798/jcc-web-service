@@ -905,6 +905,15 @@ body.admin-page {
   font-size: 12px;
 }
 
+.admin-page .admin-ip-row > div { width: 100%; min-width: 0; }
+.admin-page .daily-ip-pages { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+.admin-page .daily-ip-page { padding: 5px 9px; border-radius: 8px; background: var(--bg); color: var(--text); font-size: 12px; }
+.admin-page .daily-ip-details { margin-top: 10px; font-size: 12px; }
+.admin-page .daily-ip-details summary { cursor: pointer; color: var(--accent-strong); width: fit-content; padding: 6px 0; }
+.admin-page .daily-ip-details summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.admin-page .daily-ip-page-list { display: grid; gap: 8px; margin: 8px 0; padding: 10px 12px; list-style: none; border: 1px solid var(--line); border-radius: 10px; }
+.admin-page .daily-ip-page-list li { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 16px; }
+
 .admin-page .admin-pill.is-new {
   color: var(--accent-strong);
   background: color-mix(in srgb, var(--accent) 14%, transparent);

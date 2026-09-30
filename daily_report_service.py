@@ -61,10 +61,13 @@ PAGE_KEY_LABELS = {
     'auth': '登录/注册',
     'author': '作者主页',
     'me': '个人中心',
+    'account': '个人中心',
     'lineup_detail': '阵容详情',
+    'live_comp_detail': '实时阵容站位详情',
     'lineup_editor': '阵容编辑',
     'admin': '管理后台',
     'patch_notes': '更新公告',
+    'patch_note_detail': '更新公告详情',
     'season_reference': '赛季资料',
     'season_champion_detail': '弈子详情',
     'lineup_simulator': '阵容模拟器',
@@ -72,7 +75,16 @@ PAGE_KEY_LABELS = {
     'artifact_guide': '神器指南',
     'returning_equipment': '回归装备',
     'lucky_openings': 'S16.5 恭喜发财开局推荐',
+    'trait_ladder': 'S18 羁绊阶梯',
+    'witch_rewards': 'S18 女巫奖励',
+    'golden_egg': '金蛋奖励',
+    's11_items': 'S11 装备攻略',
+    'lineup_notification': '阵容处理通知',
 }
+
+
+def page_label(page_key):
+    return PAGE_KEY_LABELS.get(page_key, '其他页面')
 
 
 def _day_bounds(target_date):
@@ -133,7 +145,7 @@ def _top_pages(db, start, end, limit=MAX_TOP_PAGES):
     return [
         {
             'page_key': row['page_key'],
-            'label': PAGE_KEY_LABELS.get(row['page_key'], row['page_key']),
+            'label': page_label(row['page_key']),
             'visits': _int(row['visits']),
             'uv': _int(row['uv']),
         }
@@ -296,6 +308,8 @@ def _top_visitor_ips(db, start, end, limit=MAX_VISITOR_IPS):
                COUNT(*) AS visits,
                COUNT(DISTINCT ve.visitor_key) AS visitors,
                COUNT(DISTINCT ve.page_key) AS pages,
+               MIN(ve.created_at) AS first_visit_at,
+               MAX(ve.created_at) AS last_visit_at,
                CASE WHEN EXISTS (
                    SELECT 1 FROM visit_events prior
                    WHERE prior.ip_address = ve.ip_address
@@ -317,6 +331,35 @@ def _top_visitor_ips(db, start, end, limit=MAX_VISITOR_IPS):
         ''',
         (start, start, end, start, end, limit),
     ).fetchall()
+    # One batch for the selected IPs, rather than one query per card. The
+    # existing (ip_address, visit_date) index bounds each IP to the report day.
+    page_details = {}
+    known_ips = [row['ip_address'] for row in rows if row['ip_address'] is not None]
+    if rows:
+        ip_scope = 've.ip_address IS NULL' if not known_ips else (
+            've.ip_address IN (' + ','.join('?' for _ in known_ips) + ')'
+            + (' OR ve.ip_address IS NULL' if any(row['ip_address'] is None for row in rows) else '')
+        )
+        detail_rows = db.execute(
+            f'''
+            SELECT ve.ip_address, ve.page_key, COUNT(*) AS visits,
+                   COUNT(DISTINCT ve.visitor_key) AS uv,
+                   MIN(ve.created_at) AS first_visit_at, MAX(ve.created_at) AS last_visit_at
+            FROM visit_events ve
+            LEFT JOIN users u ON u.id = ve.user_id
+            WHERE ve.visit_date = ? AND ve.created_at >= ? AND ve.created_at < ?
+              AND ({ip_scope}) AND {_admin_excluded_visitor_scope()}
+            GROUP BY ve.ip_address, ve.page_key
+            ORDER BY visits DESC, ve.page_key
+            ''',
+            (start, start, end, *known_ips),
+        ).fetchall()
+        for detail in detail_rows:
+            page_details.setdefault(detail['ip_address'], []).append({
+                'page_key': detail['page_key'], 'label': page_label(detail['page_key']),
+                'visits': _int(detail['visits']), 'uv': _int(detail['uv']),
+                'first_visit_at': detail['first_visit_at'], 'last_visit_at': detail['last_visit_at'],
+            })
     return [
         {
             'ip': row['ip_address'] or '未知',
@@ -325,6 +368,9 @@ def _top_visitor_ips(db, start, end, limit=MAX_VISITOR_IPS):
             'pages': _int(row['pages']),
             'is_returning': bool(row['is_returning']),
             'copied': bool(row['copied']),
+            'first_visit_at': row['first_visit_at'],
+            'last_visit_at': row['last_visit_at'],
+            'page_details': page_details.get(row['ip_address'], []),
         }
         for row in rows
     ]
@@ -540,6 +586,13 @@ def get_daily_report(target_date):
         payload = {}
     if not isinstance(payload, dict):
         payload = {}
+    # Labels are presentation, so fix historical snapshots on read without
+    # recomputing totals from source events that may already have expired.
+    for page in payload.get('top_pages') or []:
+        page['label'] = page_label(page.get('page_key'))
+    for item in payload.get('top_visitor_ips') or []:
+        for page in item.get('page_details') or []:
+            page['label'] = page_label(page.get('page_key'))
     payload.update({
         'report_date': target_date,
         'generated_at': row['generated_at'],

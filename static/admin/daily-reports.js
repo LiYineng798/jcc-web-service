@@ -233,7 +233,7 @@
         const card = el('article', 'admin-row-card');
         const info = el('div');
         info.append(el('strong', '', page.label || page.page_key));
-        info.append(el('p', 'admin-meta', `页面 ${page.page_key} · ${page.visits} 次访问 · ${page.uv} 人`));
+        info.append(el('p', 'admin-meta', `${page.visits} 次访问 · ${page.uv} 人`));
         const barWrap = el('div', 'daily-page-bar');
         const bar = el('i', '', '');
         bar.style.width = `${Math.round((page.visits / maxVisits) * 100)}%`;
@@ -306,7 +306,7 @@
     }
 
     function renderVisitorIpsPanel(report) {
-      const panel = workbenchPanel('访问 IP', '昨日访问 Top IP · 仅管理员可见');
+      const panel = workbenchPanel('访问 IP', '昨日访问 Top IP · 仅管理员可见 · 同一访客每天每类页面计一次，重复刷新不累加');
       const body = panel.querySelector('.admin-workspace-body');
       const items = report.top_visitor_ips || [];
       if (!items.length) {
@@ -320,7 +320,28 @@
         const titleRow = el('strong', '', item.ip || '未知 IP');
         titleRow.append(' ', el('span', item.is_returning ? 'admin-pill' : 'admin-pill is-new', item.is_returning ? '回访' : '新见'));
         if (item.copied) titleRow.append(' ', el('span', 'admin-pill is-copy', '有复制'));
-        info.append(titleRow, el('p', 'admin-meta', `访问 ${item.visits} 次 · ${item.visitors} 人 · ${item.pages} 个页面`));
+        info.append(titleRow, el('p', 'admin-meta', `访问 ${item.visits} 次 · ${item.visitors} 人 · ${item.pages} 类页面`));
+        const pages = item.page_details;
+        if (Array.isArray(pages) && pages.length) {
+          const chips = el('div', 'daily-ip-pages');
+          pages.slice(0, 3).forEach(page => chips.append(el('span', 'daily-ip-page', `${page.label} ${page.visits} 次`)));
+          info.append(chips);
+          const details = el('details', 'daily-ip-details');
+          details.append(el('summary', '', `页面明细（${pages.length} 类）`));
+          const list = el('ul', 'daily-ip-page-list');
+          pages.forEach(page => {
+            const row = el('li');
+            row.append(el('span', '', page.label), el('span', 'admin-meta', `${page.visits} 次 · ${page.uv} 人`));
+            list.append(row);
+          });
+          details.append(list);
+          if (item.first_visit_at && item.last_visit_at) {
+            details.append(el('p', 'admin-meta', `记录时段 ${item.first_visit_at.slice(11, 16)}–${item.last_visit_at.slice(11, 16)}`));
+          }
+          info.append(details);
+        } else if (!Array.isArray(pages)) {
+          info.append(el('p', 'admin-meta', '历史快照尚未记录页面明细；原始访问记录仍保留时可重新生成。'));
+        }
         card.append(info);
         list.append(card);
       });

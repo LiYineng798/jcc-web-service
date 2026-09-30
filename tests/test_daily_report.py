@@ -1,5 +1,57 @@
 from test_admin import login_admin
 from test_auth import register_user
+import json
+import re
+from pathlib import Path
+
+
+def test_all_tracked_page_types_have_chinese_labels():
+    from daily_report_service import PAGE_KEY_LABELS, page_label
+    for filename in ('app_pages.py', 'patch_notes.py'):
+        source = Path(filename).read_text(encoding='utf-8')
+        keys = re.findall(r"tracked_template_response\(\s*'[^']+',\s*'([^']+)'", source)
+        assert keys
+        for key in keys:
+            assert key in PAGE_KEY_LABELS, key
+            assert re.search(r'[\u4e00-\u9fff]', page_label(key))
+    assert page_label('unknown_page') == '其他页面'
+
+
+def test_historical_report_labels_update_without_regenerating(app):
+    _seed_daily_activity(app)
+    with app.app_context():
+        from daily_report_service import ensure_daily_report, get_daily_report
+        from db import get_db
+        report = ensure_daily_report('2026-08-09')
+        report['top_pages'] = [{'page_key': 'live_comp_detail', 'label': 'live_comp_detail', 'visits': 22, 'uv': 22}]
+        report['top_visitor_ips'][0].pop('page_details')
+        db = get_db()
+        db.execute('UPDATE daily_admin_reports SET payload_json=? WHERE report_date=?', (json.dumps(report), '2026-08-09'))
+        db.commit()
+        updated = get_daily_report('2026-08-09')
+        assert updated['top_pages'][0]['label'] == '实时阵容站位详情'
+        assert updated['top_pages'][0]['visits'] == 22
+        assert updated['summary'] == report['summary']
+        assert updated['generated_at'] == report['generated_at']
+        assert 'page_details' not in updated['top_visitor_ips'][0]
+
+
+def test_ip_details_are_batched_and_exclude_admin_activity(app):
+    _seed_daily_activity(app)
+    with app.app_context():
+        from daily_report_service import _top_visitor_ips
+        from db import get_db
+        db = get_db()
+        statements = []
+        db.connection.set_trace_callback(statements.append)
+        try:
+            items = _top_visitor_ips(db, '2026-08-09', '2026-08-10')
+        finally:
+            db.connection.set_trace_callback(None)
+        assert len(statements) == 2
+        assert [item['ip'] for item in items] == ['1.1.1.1']
+        assert len(items[0]['page_details']) == items[0]['pages']
+        assert sum(page['visits'] for page in items[0]['page_details']) == items[0]['visits']
 
 
 def _seed_daily_activity(app):
@@ -156,6 +208,12 @@ def test_daily_report_generation_aggregates_site_activity(app):
     assert top_ip['pages'] == 2
     assert top_ip['is_returning'] is False
     assert top_ip['copied'] is False
+    assert [(page['label'], page['visits'], page['uv']) for page in top_ip['page_details']] == [
+        ('首页', 3, 3), ('阵容详情', 2, 2),
+    ]
+    assert sum(page['visits'] for page in top_ip['page_details']) == top_ip['visits']
+    assert top_ip['first_visit_at'] == '2026-08-09 08:30:00'
+    assert top_ip['last_visit_at'] == '2026-08-09 20:30:00'
     assert report['deltas'] is None
 
 
