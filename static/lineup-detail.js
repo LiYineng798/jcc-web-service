@@ -3,23 +3,32 @@ const detailRoot = document.querySelector('#lineupDetailApp');
 const detailThemeToggle = document.querySelector('#themeToggle');
 const detailThemeIcon = document.querySelector('#themeIcon');
 const detailThemeText = document.querySelector('#themeText');
+const detailRequestController = new AbortController();
+window.addEventListener('pagehide', () => detailRequestController.abort(), { once: true });
 
-setDetailTheme(localStorage.getItem('theme') || 'light');
+let savedDetailTheme = 'light';
+try { savedDetailTheme = localStorage.getItem('theme') || 'light'; } catch (_) {}
+setDetailTheme(savedDetailTheme);
 detailThemeToggle?.addEventListener('click', () => setDetailTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'));
-bootDetail();
+bootDetail().catch(() => { /* Retain the server-rendered detail when hydration fails or navigation cancels it. */ });
 
 async function bootDetail() {
   if (!detailRoot) return;
   const lineupId = detailRoot.dataset.lineupId;
-  const me = await fetch('/api/me').then((response) => response.json());
+  const meResponse = await fetch('/api/me', { signal: detailRequestController.signal });
+  if (!meResponse.ok) return;
+  const me = await meResponse.json();
   detailState.user = me.user;
   detailState.csrfToken = me.csrf_token;
-  const lineup = await fetch(`/api/lineups/${lineupId}`).then((response) => response.json());
+  const lineupResponse = await fetch(`/api/lineups/${lineupId}`, { signal: detailRequestController.signal });
+  if (!lineupResponse.ok) return;
+  const lineup = await lineupResponse.json();
   detailState.lineup = lineup;
   renderDetail(lineup);
   if (detailState.user) {
     await fetch(`/api/lineups/${lineupId}/view`, {
       method: 'POST',
+      signal: detailRequestController.signal,
       headers: { 'X-CSRF-Token': detailState.csrfToken },
     });
   } else {
@@ -50,7 +59,7 @@ function renderDetail(lineup) {
 
 function setDetailTheme(theme) {
   document.documentElement.dataset.theme = theme;
-  localStorage.setItem('theme', theme);
+  try { localStorage.setItem('theme', theme); } catch (_) { /* Keep detail usable without storage. */ }
   window.jccApplyThemeToggleState?.(theme, detailThemeToggle, detailThemeIcon, detailThemeText);
   if (!window.jccApplyThemeToggleState && detailThemeText) detailThemeText.textContent = theme === 'dark' ? '白天模式' : '夜间模式';
 }

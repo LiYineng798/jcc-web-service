@@ -2,6 +2,7 @@ from flask import has_request_context
 
 from db import get_db, now_text
 from visits import ensure_visitor_token
+from device_type import request_device_type
 
 
 def clean_copy_source(value):
@@ -30,9 +31,9 @@ def record_copy_action(
         INSERT INTO copy_action_events (
             target_type, target_id, season_id, lineup_id, live_comp_id,
             user_id, visitor_token, ip_address, source_page,
-            success, counted, created_at
+            success, counted, created_at, device_type
         )
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         ''',
         (
             str(target_type),
@@ -47,5 +48,6 @@ def record_copy_action(
             1 if success else 0,
             1 if counted else 0,
             now_text(),
+            request_device_type(),
         ),
     )

@@ -99,11 +99,36 @@ const lineupLoader = window.JccHomeTransitions.createLineupLoader({
 const paginationCompactQuery = globalThis.matchMedia('(max-width: 520px)');
 const mobileResourceQuery = globalThis.matchMedia('(max-width: 520px)');
 let pendingPaginationScroll = false;
+let restoringHomeState = false;
+let searchAnalyticsTimer = null;
+window.addEventListener('pagehide', () => clearTimeout(searchAnalyticsTimer));
+let lastSearchSignature = '';
+let homeLoadGeneration = 0;
+window.JccHomeNavigation.install(state);
+window.addEventListener('pageshow', async event => {
+  if (!event.persisted) return;
+  try {
+    const before = state.user?.id || 'guest';
+    const snapshot = history.state?.jccHome;
+    await loadMe();
+    if ((state.user?.id || 'guest') !== before) {
+      invalidateHomeViewCache();
+      lastSearchSignature = '';
+      state.view = 'live-comps'; state.sort = 'live'; state.page = 1; state.query = '';
+      syncActiveTab(); await loadCurrentView();
+      return;
+    }
+    await window.JccHomeNavigation.restorePosition(snapshot);
+    window.JccHomeNavigation.save(state);
+  } catch (_) {
+    renderLoadError(true);
+  }
+});
 
 setTheme(document.documentElement.dataset.theme || 'light');
 renderHomeImageModeToggle();
 applyBorderGlowToStaticCards();
-boot();
+boot().catch(() => renderLoadError(true));
 
 elements.imageModeToggle?.addEventListener('click', toggleHomeImageMode);
 elements.themeToggle.addEventListener('click', () => setTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'));
@@ -114,7 +139,11 @@ elements.menuAuthLink.addEventListener('click', () => {
 });
 document.addEventListener('click', closeAccountMenuOnOutsideClick);
 document.addEventListener('keydown', closeAccountMenuOnEscape);
-elements.searchInput.addEventListener('input', (event) => searchClear.sync(event.target.value));
+elements.searchInput.addEventListener('input', (event) => {
+  clearTimeout(searchAnalyticsTimer);
+  if (!event.target.value.trim()) lastSearchSignature = '';
+  searchClear.sync(event.target.value);
+});
 elements.searchInput.addEventListener('input', debounce((event) => {
   if (state.view === 'live-comps') return;
   cancelPaginationNavigation();
@@ -198,10 +227,24 @@ function handleMobileResourceDialogClosed() {
 
 async function boot() {
   await loadMe();
+  const snapshot = window.JccHomeNavigation.read(state.user);
+  if (snapshot) {
+    restoringHomeState = true;
+    lastSearchSignature = JSON.stringify([snapshot.query,snapshot.sort,snapshot.lineupSeason]);
+    Object.assign(state, { sort: snapshot.sort, view: snapshot.view, query: snapshot.query, page: snapshot.page,
+      selectedLineupSeasonId: snapshot.lineupSeason, selectedLiveCompSeasonId: snapshot.liveSeason });
+    syncActiveTab();
+  }
+  window.JccHomeNavigation.consumeFlag();
   applySavedMessage();
   await consumePendingIntent();
   loadHomeStats();
   await loadCurrentView();
+  if (snapshot) {
+    await window.JccHomeNavigation.restorePosition(snapshot);
+    window.JccHomeNavigation.save(state);
+  }
+  restoringHomeState = false;
   renderGuestbookTrigger();
 }
 
@@ -365,7 +408,7 @@ function invalidateHomeViewCache(kind = null) {
 async function fetchCachedJson(kind, key, url, signal) {
   const cached = readHomeCache(kind, key);
   if (cached) return cached;
-  const data = await fetch(url, { signal }).then((response) => response.json());
+  const data = await api(url, { signal });
   writeHomeCache(kind, key, data);
   return data;
 }
@@ -375,7 +418,7 @@ function isAbortError(error) {
 }
 
 async function loadMe() {
-  const data = await fetch('/api/me').then((response) => response.json());
+  const data = await api('/api/me');
   state.user = data.user;
   state.csrfToken = data.csrf_token;
   renderAuth();
@@ -404,17 +447,19 @@ function renderHomeStats() {
 
 async function loadLineupSeasons() {
   if (state.lineupSeasons.length) return;
-  const payload = await fetch('/api/lineup-seasons').then((response) => response.json());
+  const payload = await api('/api/lineup-seasons');
   state.lineupSeasons = payload.seasons || [];
   state.selectedLineupSeasonId = state.selectedLineupSeasonId || payload.default_season_id || state.lineupSeasons[0]?.id || '';
+  if (!state.lineupSeasons.some(item => item.id === state.selectedLineupSeasonId)) state.selectedLineupSeasonId = payload.default_season_id || state.lineupSeasons[0]?.id || '';
   renderLineupSeasonFilter();
 }
 
 async function loadLiveCompSeasons() {
   if (state.liveCompSeasons.length) return;
-  const payload = await fetch('/api/live-comps/seasons').then((response) => response.json());
+  const payload = await api('/api/live-comps/seasons');
   state.liveCompSeasons = payload.seasons || [];
   state.selectedLiveCompSeasonId = state.selectedLiveCompSeasonId || payload.default_season_id || state.liveCompSeasons[0]?.id || '';
+  if (!state.liveCompSeasons.some(item => item.id === state.selectedLiveCompSeasonId)) state.selectedLiveCompSeasonId = payload.default_season_id || state.liveCompSeasons[0]?.id || '';
   renderLineupSeasonFilter();
 }
 
@@ -520,7 +565,18 @@ async function logout() {
 }
 
 async function loadLineups(options = {}) {
+  if (state.view === 'live-comps') return;
+  const generation = ++homeLoadGeneration;
+  clearTimeout(searchAnalyticsTimer);
+  try { await performLoadLineups(options,generation); } catch (error) {
+    if (!isAbortError(error) && generation === homeLoadGeneration) renderLoadError();
+  }
+}
+
+async function performLoadLineups(options = {},generation) {
+  elements.emptyState.classList.add('hidden');
   await loadLineupSeasons();
+  if (generation !== homeLoadGeneration) return;
   const params = new URLSearchParams({
     sort: state.sort,
     view: state.view,
@@ -546,7 +602,7 @@ async function loadLineups(options = {}) {
   state.requestControllers.lineups = controller;
   try {
     const response = cachedResponse || await fetchCachedJson('lineups', requestKey, `/api/lineups?${params}`, controller.signal);
-    if (state.requestControllers.lineups !== controller) return;
+    if (state.requestControllers.lineups !== controller || generation !== homeLoadGeneration) return;
     state.lineups = response.items || [];
     state.total = response.total ?? state.lineups.length;
     state.page = response.page ?? 1;
@@ -555,8 +611,11 @@ async function loadLineups(options = {}) {
     renderLineups({ animate: shouldShowLoading });
     renderPagination();
     completePaginationNavigation();
+    window.JccHomeNavigation.save(state);
+    queueSearchAnalytics(response);
   } catch (error) {
     if (isAbortError(error)) return;
+    if (state.requestControllers.lineups !== controller || generation !== homeLoadGeneration) return;
     if (state.requestControllers.lineups === controller) lineupLoader.fail();
     if (state.requestControllers.lineups === controller) cancelPaginationNavigation();
     throw error;
@@ -575,6 +634,7 @@ function syncSearchInputState(isLiveComps) {
 }
 
 function clearLineupSearch() {
+  lastSearchSignature = '';
   cancelPaginationNavigation();
   state.query = '';
   state.page = 1;
@@ -582,6 +642,7 @@ function clearLineupSearch() {
 }
 
 async function loadCurrentView() {
+  clearTimeout(searchAnalyticsTimer);
   const isLiveComps = state.view === 'live-comps';
   abortHomeRequest(isLiveComps ? 'lineups' : 'liveComps');
   syncSearchInputState(isLiveComps);
@@ -594,7 +655,16 @@ async function loadCurrentView() {
 }
 
 async function loadLiveComps() {
+  const generation = ++homeLoadGeneration;
+  try { await performLoadLiveComps(generation); } catch (error) {
+    if (!isAbortError(error) && generation === homeLoadGeneration) renderLoadError();
+  }
+}
+
+async function performLoadLiveComps(generation) {
+  elements.emptyState.classList.add('hidden');
   await loadLiveCompSeasons();
+  if (generation !== homeLoadGeneration) return;
   const seasonQuery = state.selectedLiveCompSeasonId ? `&season=${encodeURIComponent(state.selectedLiveCompSeasonId)}` : '';
   const summarySeasonQuery = state.selectedLiveCompSeasonId ? `?season=${encodeURIComponent(state.selectedLiveCompSeasonId)}` : '';
   const seasonKey = state.selectedLiveCompSeasonId || 'default';
@@ -606,6 +676,7 @@ async function loadLiveComps() {
       fetchCachedJson('liveComps', homeCacheKey('liveSummary', [seasonKey]), `/api/live-comps/summary${summarySeasonQuery}`, controller.signal),
       fetchCachedJson('liveComps', homeCacheKey('livePage', [seasonKey, state.page]), `/api/live-comps?page=${state.page}${seasonQuery}`, controller.signal),
     ]);
+    if (state.requestControllers.liveComps !== controller || generation !== homeLoadGeneration) return;
     state.liveCompsSummary = summary;
     state.liveCompsPage = pagePayload;
     state.total = pagePayload.total ?? 0;
@@ -615,8 +686,10 @@ async function loadLiveComps() {
     renderLiveComps();
     renderPagination();
     completePaginationNavigation();
+    window.JccHomeNavigation.save(state);
   } catch (error) {
     if (isAbortError(error)) return;
+    if (state.requestControllers.liveComps !== controller) return;
     if (state.requestControllers.liveComps === controller) cancelPaginationNavigation();
     throw error;
   } finally {
@@ -668,6 +741,7 @@ function renderLineups(options = {}) {
 function createLineupCard(lineup) {
   const card = document.createElement('article');
   card.className = 'lineup-card';
+  card.dataset.lineupKey = `lineup-${lineup.id}`;
   const title = document.createElement('h3');
   title.className = 'lineup-title';
   title.textContent = `${lineup.name} · ${lineup.rank_level}`;
@@ -706,10 +780,25 @@ function createLineupCard(lineup) {
 function renderEmptyState() {
   const title = elements.emptyState.querySelector('h3');
   const description = elements.emptyState.querySelector('p');
+  elements.emptyState.querySelector('.empty-actions')?.remove();
   if (state.total > 0 || !title || !description) return;
+  const actions = document.createElement('div');
+  actions.className = 'card-actions empty-actions';
+  const latest = () => { setActiveTab('latest', 'all'); state.query = ''; loadCurrentView(); };
+  const seasonName = elements.seasonFilterText?.textContent || '当前赛季';
+  if (state.view !== 'live-comps' && state.query) {
+    title.textContent = '没有找到匹配的阵容';
+    description.textContent = `“${state.query}”在${seasonName}的当前列表中没有匹配结果。搜索按阵容名称匹配，可以缩短关键词或调整筛选。`;
+    actions.append(button('清除搜索', () => { searchClear.clear?.(); elements.searchInput.value = ''; searchClear.sync(''); clearLineupSearch(); }));
+    if (state.view !== 'all' || state.sort !== 'latest') actions.append(button('查看最新阵容', latest));
+    elements.emptyState.append(actions);
+    return;
+  }
   if (state.view === 'live-comps') {
     title.textContent = '还没有实时阵容';
-    description.textContent = '上传 `team_codes_by_tier.verify.json` 后，这里会直接展示实时阵容排行。';
+    description.textContent = `${seasonName}暂时没有实时排行数据，可以切换其他赛季或浏览已收录的阵容。`;
+    actions.append(button('浏览公开阵容', latest));
+    elements.emptyState.append(actions);
     return;
   }
   if (state.view === 'favorites') {
@@ -717,15 +806,53 @@ function renderEmptyState() {
     description.textContent = state.user
       ? '你收藏的阵容会出现在这里，可随时回来查看和复制。'
       : '登录后可收藏阵容并随时找回，收藏内容会跟随账号同步。';
+    actions.append(button('浏览公开阵容', latest));
+    elements.emptyState.append(actions);
     return;
   }
   if (state.view === 'mine') {
     title.textContent = '还没有你的阵容';
-    description.textContent = '登录后上传第一套阵容，管理和维护你自己的阵容库。';
+    description.textContent = '发布后的阵容会出现在这里，方便随时查看和维护。';
+    actions.append(button('新增阵容', () => { window.location.href='/lineup/new'; }), button('浏览公开阵容', latest));
+    elements.emptyState.append(actions);
     return;
   }
-  title.textContent = '还没有阵容';
-  description.textContent = '登录后上传第一套阵容，或切换到全部阵容查看公开内容。';
+  title.textContent = state.sort === 'ss' ? '当前赛季暂无 SS 阵容' : '当前赛季暂无阵容';
+  description.textContent = state.sort === 'ss' ? 'SS 等级随评分变化，可以查看当前赛季的最新阵容。' : `${seasonName}暂时没有符合当前条件的公开阵容，可以切换其他赛季。`;
+  if (state.sort !== 'latest') actions.append(button('查看最新阵容', latest));
+  if (state.user) actions.append(button('新增阵容', () => { window.location.href='/lineup/new'; }));
+  elements.emptyState.append(actions);
+}
+
+function renderLoadError(retryBoot = false) {
+  clearTimeout(searchAnalyticsTimer);
+  lineupLoader.reset();
+  elements.lineupList.replaceChildren();
+  elements.pagination.replaceChildren();
+  elements.emptyState.classList.remove('hidden');
+  elements.emptyState.querySelector('h3').textContent = '阵容加载失败';
+  elements.emptyState.querySelector('p').textContent = '请检查网络后重试。当前搜索和筛选条件已保留。';
+  elements.emptyState.querySelector('.empty-actions')?.remove();
+  const actions = document.createElement('div'); actions.className='card-actions empty-actions';
+  actions.append(button('重新加载', () => {
+    invalidateHomeViewCache();
+    if (retryBoot) boot().catch(() => renderLoadError(true)); else loadCurrentView();
+  }));
+  elements.emptyState.append(actions);
+}
+
+function queueSearchAnalytics(response) {
+  clearTimeout(searchAnalyticsTimer);
+  if (restoringHomeState || state.view !== 'all' || !state.query || !response.search_receipt) return;
+  const signature = JSON.stringify([state.query,state.sort,state.selectedLineupSeasonId]);
+  if (signature === lastSearchSignature) return;
+  searchAnalyticsTimer = setTimeout(() => {
+    if (state.view !== 'all' || elements.searchInput.value.trim() !== state.query || signature !== JSON.stringify([state.query,state.sort,state.selectedLineupSeasonId])) return;
+    lastSearchSignature = signature;
+    const bytes = new Uint8Array(16); crypto.getRandomValues(bytes);
+    const event_id = [...bytes].map(value => value.toString(16).padStart(2,'0')).join('');
+    api('/api/search-events', {method:'POST',body:JSON.stringify({event_id,receipt:response.search_receipt})}).catch(() => {});
+  }, 700);
 }
 
 function renderPagination() {
@@ -908,6 +1035,7 @@ function renderLiveCompsGrid() {
 
 function renderLiveCompCard(item) {
   const card = document.createElement('article');
+  card.dataset.lineupKey = `live-${item.id}`;
   card.className = state.imageMode === 'image'
     ? `live-comp-card tier-${String(item.tier || '').toLowerCase()}`
     : `live-comp-card live-comp-card-text-only tier-${String(item.tier || '').toLowerCase()}`;
@@ -1065,10 +1193,12 @@ function updateTabIndicator() {
 }
 
 function openEditor(lineupId) {
+  window.JccHomeNavigation.save(state, `/lineup/${lineupId}/edit`);
   window.location.href = `/lineup/${lineupId}/edit`;
 }
 
 function openLineupDetail(lineupId) {
+  window.JccHomeNavigation.save(state, `/lineup/${lineupId}`);
   window.location.href = `/lineup/${lineupId}`;
 }
 
@@ -1344,7 +1474,7 @@ function applySavedMessage() {
   showMessage(saved === 'edit' ? '阵容已更新' : '阵容已新增');
   params.delete('saved');
   const nextQuery = params.toString();
-  history.replaceState({}, '', `${window.location.pathname}${nextQuery ? `?${nextQuery}` : ''}`);
+  history.replaceState(history.state, '', `${window.location.pathname}${nextQuery ? `?${nextQuery}` : ''}`);
 }
 
 function stripResumeIntentFlag() {
@@ -1352,7 +1482,7 @@ function stripResumeIntentFlag() {
   if (!params.has('resume_intent')) return;
   params.delete('resume_intent');
   const nextQuery = params.toString();
-  history.replaceState({}, '', `${window.location.pathname}${nextQuery ? `?${nextQuery}` : ''}`);
+  history.replaceState(history.state, '', `${window.location.pathname}${nextQuery ? `?${nextQuery}` : ''}`);
 }
 
 function showMessage(text, variant = 'success') {

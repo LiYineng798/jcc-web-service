@@ -6,6 +6,7 @@ from flask import current_app, make_response, render_template, request
 from auth import current_user, get_client_ip
 from db import db_kind, get_db, now_text
 from db_adapter import insert_ignore_sql
+from device_type import request_device_type
 
 VISITOR_COOKIE_NAME = 'visitor_token'
 VISITOR_COOKIE_MAX_AGE = 180 * 24 * 60 * 60
@@ -62,7 +63,7 @@ def record_page_visit(page_key, user=None, visitor_token=None, ip_address=None):
     get_db().execute(
         insert_ignore_sql(
             'visit_events',
-            ['visit_date', 'visitor_key', 'visitor_kind', 'user_id', 'visitor_token', 'ip_address', 'page_key', 'created_at'],
+            ['visit_date', 'visitor_key', 'visitor_kind', 'user_id', 'visitor_token', 'ip_address', 'page_key', 'created_at', 'device_type'],
             ['visit_date', 'visitor_key', 'page_key'],
             db_kind(),
         ),
@@ -75,6 +76,7 @@ def record_page_visit(page_key, user=None, visitor_token=None, ip_address=None):
             ip_address,
             page_key,
             now_text(),
+            request_device_type(),
         ),
     )
     get_db().commit()

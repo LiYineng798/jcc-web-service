@@ -152,7 +152,7 @@
             </div>
             <div class="search-field t-clear" id="searchClear" data-placeholder="搜索阵容名称，例如：九五、卡莎、斗士">
               <label class="sr-only" for="searchInput">搜索阵容名称</label>
-              <input id="searchInput" type="search" autocomplete="off" placeholder="" />
+              <input id="searchInput" type="search" autocomplete="off" maxlength="80" placeholder="" />
               <span class="t-clear-mirror" id="searchClearMirror" aria-hidden="true"></span>
               <span class="t-clear-placeholder" id="searchClearPlaceholder" aria-hidden="true">搜索阵容名称，例如：九五、卡莎、斗士</span>
               <span class="t-clear-glow" id="searchClearGlow" aria-hidden="true"></span>
@@ -194,6 +194,7 @@
     <script src="{{ static_v('handwriting-digits.js') }}" defer></script>
     <script src="{{ static_v('handwriting-count.js') }}" defer></script>
     <script src="{{ static_v('lineup-notifications.js') }}" defer></script>
+    <script src="{{ static_v('home-navigation.js') }}" defer></script>
     <script src="{{ static_v('app.js') }}" defer></script>
   </body>
 </html>

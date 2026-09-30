@@ -85,6 +85,7 @@ CREATE TABLE IF NOT EXISTS copy_action_events (
     visitor_token TEXT,
     ip_address TEXT,
     source_page TEXT NOT NULL DEFAULT '',
+    device_type TEXT NOT NULL DEFAULT 'unknown' CHECK (device_type IN ('mobile','tablet','desktop','unknown')),
     success INTEGER NOT NULL DEFAULT 1,
     counted INTEGER NOT NULL DEFAULT 0,
     created_at TEXT NOT NULL,
@@ -225,6 +226,7 @@ CREATE TABLE IF NOT EXISTS visit_events (
     visitor_token TEXT,
     ip_address TEXT,
     page_key TEXT NOT NULL,
+    device_type TEXT NOT NULL DEFAULT 'unknown' CHECK (device_type IN ('mobile','tablet','desktop','unknown')),
     created_at TEXT NOT NULL,
     UNIQUE(visit_date, page_key, visitor_key),
     FOREIGN KEY(user_id) REFERENCES users(id)
@@ -548,3 +550,5 @@ from season_package_schema import SEASON_PACKAGE_SCHEMA
 SCHEMA += SEASON_PACKAGE_SCHEMA
 from lineup_moderation_schema import LINEUP_MODERATION_SCHEMA
 SCHEMA += LINEUP_MODERATION_SCHEMA
+from experience_schema import SEARCH_EVENTS_SCHEMA
+SCHEMA += SEARCH_EVENTS_SCHEMA

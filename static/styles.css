@@ -43,6 +43,9 @@
   --shadow: 0 24px 70px rgba(0, 0, 0, 0.28);
 }
 
+.empty-state .empty-actions { justify-content: center; margin-top: 18px; }
+.empty-state p { overflow-wrap: anywhere; }
+
 * {
   box-sizing: border-box;
 }

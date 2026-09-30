@@ -1365,7 +1365,7 @@ def test_home_live_comps_uses_live_comps_seasons_without_changing_lineup_editor(
     with open('static/lineup-editor.js', 'r', encoding='utf-8') as file:
         editor_js = file.read()
 
-    assert "fetch('/api/live-comps/seasons')" in home_js
+    assert "api('/api/live-comps/seasons')" in home_js
     assert "fetch('/api/lineup-seasons')" in editor_js
 
 

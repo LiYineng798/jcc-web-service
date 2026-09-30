@@ -12,7 +12,7 @@
   }
 
   function save(key, entries) {
-    localStorage.setItem(key, JSON.stringify(entries.slice(0, LIMIT)));
+    try { localStorage.setItem(key, JSON.stringify(entries.slice(0, LIMIT))); } catch (_) {}
   }
 
   function pushEntry(key, lineup) {
@@ -36,8 +36,10 @@
       },
       body: JSON.stringify({ views, copies }),
     });
-    localStorage.removeItem(VIEW_KEY);
-    localStorage.removeItem(COPY_KEY);
+    try {
+      localStorage.removeItem(VIEW_KEY);
+      localStorage.removeItem(COPY_KEY);
+    } catch (_) {}
   }
 
   window.jccHistoryStore = {

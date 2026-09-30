@@ -44,7 +44,7 @@ def list_lineups():
     wants_page = 'page' in request.args or 'page_size' in request.args
     page_size = parse_positive_int(request.args.get('page_size'), 10) if wants_page else None
     page = parse_positive_int(request.args.get('page'), 1) if wants_page else None
-    return jsonify(build_lineups_list_payload(
+    payload = build_lineups_list_payload(
         user=user,
         view=request.args.get('view', 'all'),
         sort=request.args.get('sort', 'latest'),
@@ -53,7 +53,14 @@ def list_lineups():
         wants_page=wants_page,
         page=page,
         page_size=page_size,
-    ))
+    )
+    if wants_page:
+        from experience_service import issue_search_receipt
+        receipt = issue_search_receipt(user, request.args.get('view','all'), request.args.get('sort','latest'),
+            request.args.get('q','').strip(), request.args.get('season'), payload['total'])
+        if receipt:
+            payload = {**payload, 'search_receipt':receipt}
+    return jsonify(payload)
 
 
 @lineups_bp.get('/api/lineups/<int:lineup_id>')

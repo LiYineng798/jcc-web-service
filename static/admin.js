@@ -33,6 +33,8 @@
     overview: null,
     growth: null,
     growthDate: todayInputValue(),
+    analyticsWorkspace: 'growth',
+    experience: {start: shiftExperienceDate(todayInputValue(),-6),end:todayInputValue(),data:null,loading:false,error:''},
     reports: { items: [], total: 0, page: 1, page_size: 20, total_pages: 1, status: 'pending', loadedAt: 0 },
     lineups: { status: 'all', season: '', order: 'newest', counts: {}, items: [], total: 0, page: 1, page_size: 10, total_pages: 1, query: '', loadedAt: 0 },
     lineupWorkspace: 'list',
@@ -131,6 +133,7 @@
     empty,
     button,
   });
+  const renderExperienceFromModule = window.JccAdminExperience.createRenderer({workbenchPanel,empty,button});
   const renderSeasonDisplayHub = window.JccAdminSeasonDisplay.createRenderer({
     getDisplay: (kind) => state.seasonDisplays[kind],
     getUi: (kind) => state.seasonDisplayUi[kind],
@@ -264,7 +267,10 @@
     if (tabKey === 'season-display') await Promise.all([loadSeasonDisplay('library'), loadSeasonDisplay('simulator')]);
     if (tabKey === 'patch-notes') await loadPatchNotes();
     if (tabKey === 'users') await loadUsers();
-    if (tabKey === 'analytics') await loadGrowth();
+    if (tabKey === 'analytics') {
+      if(state.analyticsWorkspace==='experience') await queryExperience(state.experience.start,state.experience.end);
+      else await loadGrowth();
+    }
     if (tabKey === 'daily-reports') await loadDailyReports();
     if (tabKey === 'guestbook') await loadGuestbook();
     if (tabKey === 'password-reset-emails') await loadPasswordResetEmails();
@@ -390,6 +396,26 @@
     if (!force && state.growth && state.growth.date === state.growthDate && isFresh(state.growth.loadedAt)) return;
     const payload = await api(`/api/admin/growth?date=${encodeURIComponent(state.growthDate)}`);
     state.growth = { ...payload, loadedAt: Date.now() };
+  }
+
+  function shiftExperienceDate(value,offset) {
+    const [y,m,d]=value.split('-').map(Number);const date=new Date(y,m-1,d+offset);
+    return `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}-${String(date.getDate()).padStart(2,'0')}`;
+  }
+  async function queryExperience(start,end,force=false) {
+    abortRequest('experience');
+    const controller=new AbortController();state.controllers.experience=controller;
+    Object.assign(state.experience,{start,end,loading:true,error:'',data:null});render();
+    try {
+      const data=await api(`/api/admin/experience?${new URLSearchParams({start,end,...(force?{refresh:'1'}:{})})}`,{signal:controller.signal});
+      if(state.controllers.experience!==controller)return;
+      state.experience.data=data;
+    } catch(error) {
+      if(error.name==='AbortError'||state.controllers.experience!==controller)return;
+      state.experience.error=error.message;
+    } finally {
+      if(state.controllers.experience===controller){delete state.controllers.experience;state.experience.loading=false;render();}
+    }
   }
 
   async function loadDailyReports({ force = false } = {}) {
@@ -1409,6 +1435,20 @@
   }
 
   function renderAnalyticsWorkspace() {
+    const wrap=el('div');const tabs=el('div','card-actions experience-switch');
+    [['growth','注册与活跃'],['experience','搜索与设备']].forEach(([key,label])=>{
+      tabs.append(button(label,async()=>{
+        state.analyticsWorkspace=key;render();
+        if(key==='experience'&&!state.experience.data&&!state.experience.loading) await queryExperience(state.experience.start,state.experience.end);
+      },`small-button ${state.analyticsWorkspace===key?'is-active':''}`));
+    });
+    wrap.append(tabs);
+    if(state.analyticsWorkspace==='experience') {
+      wrap.append(renderExperienceFromModule(state.experience,{
+        today:todayInputValue(),query:queryExperience,
+        range:days=>queryExperience(shiftExperienceDate(todayInputValue(),1-days),todayInputValue()),
+      }));return wrap;
+    }
     const panel = workbenchPanel('增长分析', '按自然日查询，不在首页默认加载', growthDateControl());
     const body = panel.querySelector('.admin-workspace-body');
     const growth = state.growth || {};
@@ -1443,7 +1483,7 @@
       rates.append(card);
     });
     body.append(list, rates);
-    return panel;
+    wrap.append(panel);return wrap;
   }
 
   function growthDateControl() {

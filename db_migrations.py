@@ -4,6 +4,7 @@ from db_schema import EXTRA_INDEX_STATEMENTS, LINEUP_COLUMN_MIGRATIONS, table_co
 
 
 def migrate_schema(db, admin_id, now_text_func):
+    migrate_device_columns(db)
     migrate_user_avatars(db)
     migrate_lineups_table(db, admin_id)
     migrate_legacy_live_comp_stats(db, now_text_func)
@@ -15,6 +16,15 @@ def migrate_schema(db, admin_id, now_text_func):
     migrate_audit_logs_table(db)
     migrate_password_reset_requests_table(db)
     migrate_guestbook_messages_table(db)
+
+
+def migrate_device_columns(db):
+    for table in ('visit_events', 'copy_action_events'):
+        columns = table_columns(db, table)
+        if columns and 'device_type' not in columns:
+            db.execute(f"ALTER TABLE {table} ADD COLUMN device_type TEXT NOT NULL DEFAULT 'unknown' CHECK (device_type IN ('mobile','tablet','desktop','unknown'))")
+    if 'created_at' in table_columns(db, 'visit_events'):
+        db.execute('CREATE INDEX IF NOT EXISTS idx_visit_events_created_at ON visit_events(created_at)')
 
 
 def migrate_password_reset_requests_table(db):
