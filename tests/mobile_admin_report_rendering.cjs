@@ -51,10 +51,11 @@ fs.mkdirSync(out, {recursive: true});
               await page.evaluate(value => document.documentElement.dataset.theme = value, theme);
               const box = await page.locator('#imageModeToggle').boundingBox();
               assert.equal(Math.round(box.width), 72);
-              assert.ok(box.height >= 44);
+              assert.ok(Math.round(box.height) >= 44);
               assert.ok(box.x + box.width <= width);
               const resource = await page.locator('#mobileResourceTrigger').boundingBox();
               assert.ok(resource.x + resource.width <= box.x, `overlapping navigation at ${width}`);
+              assert.ok(Math.abs(box.x - resource.x - resource.width - 8) <= 1, `button group gap at ${width}`);
               assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
               if (width === 390) await page.screenshot({path: `${out}/${engineName}-mobile-${theme}.png`, animations: 'disabled'});
             }

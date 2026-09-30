@@ -54,6 +54,7 @@ body {
     radial-gradient(circle at top left, rgba(201, 100, 66, 0.18), transparent 28rem),
     radial-gradient(circle at bottom right, rgba(140, 112, 74, 0.14), transparent 30rem),
     var(--bg);
+  background-repeat: no-repeat;
   color: var(--text);
   font-family: var(--font);
   transition: background-color 180ms ease, color 180ms ease;
@@ -1379,6 +1380,9 @@ textarea:focus {
 }
 
 .t-skel.is-revealed .t-skel-skeleton {
+  /* Transparent placeholder rows must not extend a shorter result list's
+     scroll area. Keep their fade inside the actual content height. */
+  overflow: clip;
   opacity: 0;
   filter: blur(var(--reveal-blur));
 }
@@ -1826,7 +1830,10 @@ textarea:focus {
 
   .nav-actions > .mobile-resource-trigger {
     display: inline-flex;
-    grid-column: span 2;
+    grid-column: 1 / 4;
+    grid-row: 1;
+    justify-self: end;
+    margin-right: 80px;
     width: max-content;
     justify-content: center;
     height: 44px;
@@ -1838,6 +1845,7 @@ textarea:focus {
 
   .nav-actions > .image-mode-toggle {
     grid-column: 3;
+    grid-row: 1;
     justify-self: end;
     width: 72px;
     min-width: 0;
