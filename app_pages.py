@@ -10,6 +10,7 @@ from lineup_read_service import build_lineup_detail_payload
 from notice_service import get_active_notice
 from lucky_openings import build_lucky_openings
 from s11_items_service import recommendation_guide
+from s11_artifacts_service import artifact_guide
 from witch_rewards_service import reward_tiers, select_reward_tier
 from golden_egg_service import golden_egg_rewards
 from trait_ladder_service import calculator_data, reward_tiers as ladder_reward_tiers
@@ -49,6 +50,7 @@ def _sitemap_entries():
         {'loc': absolute_url('/'), 'lastmod': None},
         {'loc': absolute_url('/patch-notes'), 'lastmod': None},
         {'loc': absolute_url('/tools/s11-items'), 'lastmod': None},
+        {'loc': absolute_url('/tools/s11-artifacts'), 'lastmod': None},
         {'loc': absolute_url('/tools/s16-5-lucky-openings'), 'lastmod': None},
         {'loc': absolute_url('/tools/s18-witch-rewards'), 'lastmod': None},
         {'loc': absolute_url('/tools/golden-egg'), 'lastmod': None},
@@ -185,6 +187,23 @@ def register_page_routes(app):
             seo=make_seo(title='S11 画之灵 · 全弈子推荐出装 - 金铲铲阵容库',
                          description='按费用查找画之灵60位弈子的推荐装备、备选装备与合成路径。',
                          path='/tools/s11-items'),
+        )
+
+    @app.get('/tools/s11-artifacts')
+    def s11_artifacts_page():
+        # The hidden current value retains the fee for no-JS text searches;
+        # a clicked fee button appends its new value after that field.
+        costs = request.args.getlist('cost')
+        cost = costs[-1] if costs else ''
+        if cost not in ('', '1', '2', '3', '4', '5'):
+            abort(400, description='请选择1至5费的推荐弈子。')
+        guide = artifact_guide(request.args.get('q', ''), cost)
+        return tracked_template_response(
+            's11_artifacts.html', 's11_artifacts', **guide,
+            simulator_enabled=get_setting(get_db(), 'simulator_enabled', 'true') == 'true',
+            seo=make_seo(title='S11 画之灵 · 全神器装备推荐 - 金铲铲阵容库',
+                         description='查找画之灵31件神器的效果与推荐弈子，支持神器名称、效果关键词、弈子名称与费用筛选。',
+                         path='/tools/s11-artifacts', noindex=bool(guide['query'] or cost)),
         )
 
     @app.get('/tools/s16-5-lucky-openings')
