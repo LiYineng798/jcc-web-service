@@ -821,6 +821,7 @@
 
   function renderLiveUploadProgressNode(job = state.liveUpload.job) {
     const wrap = el('div', 'live-upload-progress');
+    wrap.hidden = !job && !state.liveUpload.selectedFile && !state.liveUpload.busy;
     const isPreview = job?.status === 'preview';
     const percent = isPreview ? Number(state.liveUpload.uploadPercent || 0) : job ? Number(job.percent || 0) : Number(state.liveUpload.uploadPercent || 0);
     const label = job
@@ -875,7 +876,11 @@
 
   function renderLiveCompUploadWorkspace() {
     const panel = el('div', 'live-upload-workspace');
+    const uploadSurface = el('section', 'live-upload-surface');
+    const uploadHeading = el('div', 'live-upload-section-head');
+    uploadHeading.append(el('span', 'live-upload-eyebrow', '01 / 上传新版本'));
     const intro = el('p', 'admin-meta', '先上传，再安心补码。新文件默认保存为预上线版本；确认内容后，随时选择一个版本展示给用户。');
+    uploadHeading.append(intro);
     const form = el('form', 'live-upload-form');
     const seasonLabel = el('div', 'live-upload-field');
     const caption = el('label', '', '目标赛季');
@@ -897,6 +902,10 @@
     fileZone.setAttribute('role', 'button');
     fileZone.setAttribute('tabindex', '0');
     fileZone.setAttribute('aria-label', '选择实时阵容 JSON 文件');
+    const fileIcon = el('span', 'live-upload-drop-icon');
+    fileIcon.setAttribute('aria-hidden', 'true');
+    fileIcon.innerHTML = '<i data-lucide="file-json"></i>';
+    fileZone.append(fileIcon);
     fileZone.append(el('strong', 'live-upload-file-name', state.liveUpload.selectedFileName || '选择实时阵容 JSON 文件'), el('span', 'live-upload-file-hint', '点击选择，或将 JSON 文件拖到这里 · UTF-8 · 最大 5 MB'));
     const fileInput = el('input');
     fileInput.className = 'live-upload-file-input';
@@ -959,8 +968,9 @@
       event.preventDefault();
       await previewLiveCompUpload(previewButton);
     });
-    panel.append(intro, form, Object.assign(renderLiveUploadProgressNode(), { id: 'liveUploadProgress' }));
-    if (state.liveUpload.job?.preview) panel.append(renderLiveCompUploadPreview(state.liveUpload.job.preview));
+    uploadSurface.append(uploadHeading, form, Object.assign(renderLiveUploadProgressNode(), { id: 'liveUploadProgress' }));
+    if (state.liveUpload.job?.preview) uploadSurface.append(renderLiveCompUploadPreview(state.liveUpload.job.preview));
+    panel.append(uploadSurface);
     panel.append(liveVersions.view());
     return panel;
   }
@@ -1051,6 +1061,7 @@
     );
     const body = panel.querySelector('.admin-workspace-body');
     if (isUpload) {
+      panel.classList.add('admin-live-upload-page');
       body.append(renderLiveCompUploadWorkspace());
       return panel;
     }
