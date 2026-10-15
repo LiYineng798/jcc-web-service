@@ -6,6 +6,9 @@ from datetime import date, timedelta
 from admin_pagination import paginate_rows
 
 ACTION_LABELS = {
+    'publish_live_comp_version': '切换实时阵容版本',
+    'delete_live_comp_version': '删除实时阵容版本',
+    'code_live_comp_version': '版本补码',
     'lineup_ban': '封禁阵容', 'lineup_submit': '提交阵容重审', 'lineup_approve': '通过阵容重审',
     'lineup_reject': '退回阵容修改', 'lineup_release': '解除阵容封禁',
     'create_user': '创建用户', 'update_user': '更新用户', 'disable_user': '禁用用户',
@@ -29,6 +32,7 @@ ACTION_LABELS = {
     'update_library_season_visibility': '调整资料库赛季展示',
 }
 TARGET_LABELS = {
+    'live_comp_version': '实时阵容版本',
     'user': '用户', 'lineup': '阵容', 'lineup_bulk_import': '批量导入',
     'report': '失效反馈', 'patch_note': '更新公告', 'site_notice': '站点通知',
     'app_setting': '系统设置', 'daily_report': '每日报告', 'live_comp': '实时阵容',

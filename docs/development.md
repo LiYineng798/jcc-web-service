@@ -39,6 +39,7 @@ PostgreSQL 相关用例含连接替身和可移植 SQL，不能替代实际 Post
 | 审计日志 | `serve_admin_audit_preview.py` → `admin_audit_rendering.cjs` |
 | 审核/通知 | `serve_lineup_moderation_preview.py` → `lineup_moderation_rendering.cjs`、`lineup_notifications_rendering.cjs` |
 | 后台上传/导入赛季选择 | `serve_admin_season_picker_preview.py` → `admin_season_picker_rendering.cjs` |
+| 实时阵容版本与补码 | `serve_live_versions_preview.py` → `live_versions.browser.cjs`；默认 5127，演示数据保存在独立 `instance/live-versions-preview/` |
 | 资料/实时赛季展示 | `season_display_rendering.cjs` 自行启动服务器；手工用 `serve_season_display_preview.py` |
 | 赛季上传 | `serve_season_package_preview.py` → 设置输出的 `SEASON_PACKAGE_FILE` → `season_packages.browser.cjs` |
 | 完整新季/更新/回滚 | `season_lifecycle.browser.cjs` 自行启动服务器；手工用 `serve_season_lifecycle.py` |

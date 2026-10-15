@@ -135,7 +135,7 @@ def test_full_season_lifecycle_with_existing_s18_assets(tmp_path, monkeypatch):
         )
         assert response.status_code == 201, response.get_json()
         jid = response.get_json()['job_id']
-        assert post(f'/api/admin/live-comps/uploads/{jid}/start', {}).status_code == 200
+        assert post(f'/api/admin/live-comps/uploads/{jid}/start', {'publish': True}).status_code == 200
         with app.app_context():
             job = _claim_next_job()
             assert job['id'] == jid

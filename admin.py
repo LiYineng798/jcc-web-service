@@ -1,7 +1,5 @@
 import json
 
-import json
-
 from flask import Blueprint, current_app, jsonify, request
 
 from admin_audit_service import get_admin_audit_log, list_admin_audit_logs
@@ -42,6 +40,7 @@ from daily_report_service import (
 )
 from lineups_serialization import serialize_lineup_row
 from live_comp_upload_service import create_preview_job, get_upload_job, start_upload_job
+from live_comp_version_service import VersionError, list_versions, preview_version, mutate_version
 from route_response import respond_service_result
 from seo import make_seo
 from notice_service import (
@@ -62,6 +61,39 @@ from password_reset_service import list_today_requests
 from season_visibility import admin_payload, default_season_id, update_season
 
 admin_bp = Blueprint('admin', __name__)
+
+
+@admin_bp.errorhandler(VersionError)
+def live_version_error(error):
+    return jsonify({'error': str(error)}), error.status
+
+
+@admin_bp.get('/api/admin/live-comps/versions/<season_id>')
+def admin_live_versions(season_id):
+    admin, error = admin_required()
+    if error:
+        return error
+    response = jsonify(list_versions(season_id))
+    response.headers['Cache-Control'] = 'private, no-store'
+    return response
+
+
+@admin_bp.get('/api/admin/live-comps/versions/<season_id>/<version_id>')
+def admin_live_version_preview(season_id, version_id):
+    admin, error = admin_required()
+    if error:
+        return error
+    response = jsonify(preview_version(season_id, version_id))
+    response.headers['Cache-Control'] = 'private, no-store'
+    return response
+
+
+@admin_bp.post('/api/admin/live-comps/versions/<season_id>/<version_id>/<action>')
+def admin_live_version_action(season_id, version_id, action):
+    admin, error = admin_required()
+    if error:
+        return error
+    return jsonify(mutate_version(admin['id'], season_id, version_id, action, request.get_json(silent=True) or {}))
 
 @admin_bp.get('/api/admin/season-display/<kind>')
 def admin_season_display(kind):
@@ -281,7 +313,10 @@ def admin_start_live_comps_upload(job_id):
     admin, error = admin_required()
     if error:
         return error
-    result, service_error = start_upload_job(admin['id'], job_id)
+    data = request.get_json(silent=True) or {}
+    if not isinstance(data.get('publish', False), bool):
+        return jsonify({'error': '上线选项无效'}), 400
+    result, service_error = start_upload_job(admin['id'], job_id, publish=data.get('publish', False))
     if service_error:
         status = 404 if service_error == '上传任务不存在' else 409
         return jsonify({'error': service_error}), status

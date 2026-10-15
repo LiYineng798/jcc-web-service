@@ -24,7 +24,7 @@ def app():
     for path in [db_path, live_comps_path, live_comps_backup_path, live_comps_manifest_path, season_visibility_path]:
         if path.exists():
             path.unlink()
-    for directory in [live_comps_asset_dir, live_comps_season_dir, live_comps_manual_code_dir]:
+    for directory in [live_comps_asset_dir, live_comps_season_dir, live_comps_manual_code_dir, live_comps_path.parent / (live_comps_path.stem + '.versions')]:
         import shutil
         if directory.exists():
             shutil.rmtree(directory)
@@ -54,7 +54,7 @@ def app():
     for path in [db_path, live_comps_path, live_comps_backup_path, live_comps_manifest_path, season_visibility_path]:
         if path.exists():
             path.unlink()
-    for directory in [live_comps_asset_dir, live_comps_season_dir, live_comps_manual_code_dir]:
+    for directory in [live_comps_asset_dir, live_comps_season_dir, live_comps_manual_code_dir, live_comps_path.parent / (live_comps_path.stem + '.versions')]:
         import shutil
         if directory.exists():
             shutil.rmtree(directory)

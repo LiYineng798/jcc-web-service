@@ -94,12 +94,12 @@ const out = 'instance/season-picker-checks';
         await act(page.getByRole('button', { name: '解析并预览', exact: true }));
         const livePreview = await (await previewResponse).json();
         assert.equal(livePreview.season_id, 's17-star-god', JSON.stringify(livePreview));
-        await page.getByRole('button', { name: '确认并发布', exact: true }).waitFor();
+        await page.getByRole('button', { name: '保存为预上线版本', exact: true }).waitFor();
         // Success notices and finally blocks used to schedule duplicate bindings too.
         await choose('liveUpload', 'S17 · 星神');
-        assert(await page.getByRole('button', { name: '确认并发布', exact: true }).isVisible());
+        assert(await page.getByRole('button', { name: '保存为预上线版本', exact: true }).isVisible());
         await choose('liveUpload', 'S18 · 仙灵');
-        assert.equal(await page.getByRole('button', { name: '确认并发布', exact: true }).count(), 0);
+        assert.equal(await page.getByRole('button', { name: '保存为预上线版本', exact: true }).count(), 0);
         assert.equal(await page.locator('.live-upload-file-name').textContent(), 'fixture.json');
         await dismissNotices();
         for (const theme of ['light', 'dark']) {
@@ -208,8 +208,8 @@ const out = 'instance/season-picker-checks';
       await page.keyboard.press('Escape');
       await page.unroute('**/api/admin/live-comps/uploads/preview');
       await page.getByRole('button', { name: '解析并预览', exact: true }).tap();
-      await page.getByRole('button', { name: '确认并发布', exact: true }).tap();
-      await page.getByText('发布完成 · 100%', { exact: true }).waitFor();
+      await page.getByRole('button', { name: '保存为预上线版本', exact: true }).tap();
+      await page.getByText('预上线版本已就绪，可预览、补码后手动上线 · 100%', { exact: true }).waitFor();
       await page.locator('#liveUploadSeasonToggle').tap();
       assert.equal(await page.locator('#liveUploadSeasonToggle').getAttribute('aria-expanded'), 'true');
       await page.keyboard.press('Escape');
@@ -224,7 +224,7 @@ const out = 'instance/season-picker-checks';
       assert(await page.getByRole('button', { name: '解析阵容码', exact: true }).isDisabled());
       assert.deepEqual(errors, []);
       await context.close();
-      console.log(`PASS ${engineName}: delayed manifest, file preservation, failed preview retry, real worker publication and empty list`);
+      console.log(`PASS ${engineName}: delayed manifest, file preservation, failed preview retry, real worker staging and empty list`);
     } finally { await browser.close(); }
   }
 })().catch(error => { console.error(error); process.exit(1); });
