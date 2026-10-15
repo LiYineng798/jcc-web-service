@@ -111,7 +111,7 @@ async function server() {
       const live=await auth.post('/api/admin/live-comps/uploads/preview',{headers:{'X-CSRF-Token':csrf},multipart:{season_id:'s99',file:{name:'live.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify(fixture.live))}}});
       assert.equal(live.status(),201);
       const jid=(await live.json()).job_id;
-      await call('post',`/api/admin/live-comps/uploads/${jid}/start`,{});
+      await call('post',`/api/admin/live-comps/uploads/${jid}/start`,{publish:true});
       const deadline=Date.now()+30000;
       while(true) {
         const job=await (await auth.get(`/api/admin/live-comps/uploads/${jid}`)).json();

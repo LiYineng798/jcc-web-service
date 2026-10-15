@@ -1,10 +1,6 @@
 import re
 
-from flask import current_app
-
 from audit import write_audit_best_effort
-from db import now_text
-from live_comp_manual_codes import set_manual_code_overlay_value
 from live_comps import (
     build_admin_live_comp_stats_payload,
     find_live_comp,
@@ -41,16 +37,16 @@ def add_admin_live_comp_manual_code(admin_id, season_id, live_comp_id, data):
         return None, '实时阵容不存在', 404
     if str(target.get('jccCode') or '').strip():
         return None, '当前条目已有原始阵容码，无需补码', 400
-    set_manual_code_overlay_value(
-        current_app.config['LIVE_COMPS_MANUAL_CODE_DIR'],
-        season['id'],
-        live_comp_id,
-        str((data or {}).get('code') or ''),
-        admin_id=admin_id,
-        now_value=now_text(),
-    )
-    merged_payload, _, _, _, _ = read_live_comps_payload_for_season(season['id'])
-    merged_item = find_live_comp(merged_payload, live_comp_id)
+    from live_comp_version_service import preview_version, mutate_version
+    version_id = payload.get('_release', {}).get('id', 'legacy')
+    version = preview_version(season['id'], version_id)
+    if version['status'] != 'active':
+        return None, '线上版本已变化，请刷新后重试', 409
+    result = mutate_version(admin_id, season['id'], version_id, 'code', {
+        'revision': version['revision'], 'item_id': live_comp_id, 'code': (data or {}).get('code'),
+        'require_active': True,
+    })
+    merged_item = result['item']
     write_audit_best_effort(
         admin_id,
         'admin_add_live_comp_manual_code',

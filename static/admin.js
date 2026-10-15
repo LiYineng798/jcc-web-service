@@ -42,7 +42,7 @@
     lineupBulkImport: { season_id: '', raw_text: '', result: null, preview_raw_text: '', preview_season_id: '' },
     liveComps: { items: [], total: 0, page: 1, page_size: 10, total_pages: 1, query: '', updated_at: null, source_meta: null, selectedSeasonId: '', loadedAt: 0 },
     liveCompsWorkspace: 'codes',
-    liveUpload: { seasonId: '', selectedFile: null, selectedFileName: '', uploadPercent: 0, job: null, pollTimer: null },
+    liveUpload: { seasonId: '', selectedFile: null, selectedFileName: '', uploadPercent: 0, job: null, pollTimer: null, publish: false, busy: false },
     navExpanded: { lineups: false, 'live-comps': false },
     liveCompsSeasons: { seasons: [], default_season_id: '', loadedAt: 0 },
     liveSeasonUi: { expanded: false, error: '' },
@@ -73,6 +73,9 @@
     patchNoteEditing: null,
     noticeEditing: null,
   };
+  const liveVersions = window.JccAdminLiveVersions.create({
+    api, render, notify: setNotice, getSeason: () => liveUploadSeasonOptions().selected,
+  });
   const statusText = {
     pending: '待处理',
     resolved: '已处理',
@@ -262,7 +265,10 @@
     if (tabKey === 'lineups' && state.lineupWorkspace === 'list') await Promise.all([loadLineups(), loadLineupSeasons()]);
     if (tabKey === 'lineups' && state.lineupWorkspace === 'import') await loadLineupSeasons();
     if (tabKey === 'live-comps' && state.liveCompsWorkspace === 'codes') await loadAdminLiveComps();
-    if (tabKey === 'live-comps' && state.liveCompsWorkspace === 'upload') await loadAdminLiveCompsSeasons();
+    if (tabKey === 'live-comps' && state.liveCompsWorkspace === 'upload') {
+      await loadAdminLiveCompsSeasons();
+      await liveVersions.load();
+    }
     if (tabKey === 'live-comps' && state.liveCompsWorkspace === 'seasons') await refreshLiveSeasons();
     if (tabKey === 'season-display') await Promise.all([loadSeasonDisplay('library'), loadSeasonDisplay('simulator')]);
     if (tabKey === 'patch-notes') await loadPatchNotes();
@@ -579,7 +585,7 @@
       [title, subtitle] = state.liveCompsWorkspace === 'seasons'
         ? ['实时阵容 · 赛季管理', '调整赛季状态、顺序与默认赛季']
         : state.liveCompsWorkspace === 'upload'
-          ? ['实时阵容 · 数据上传', '预览变更、缓存图片并观察发布进度']
+          ? ['实时阵容 · 数据上传', '上传预上线、独立补码与版本切换']
         : ['实时阵容 · 阵容码维护', '按赛季检查并补充实时阵容码'];
     }
     if (elements.pageTitle) elements.pageTitle.textContent = title;
@@ -818,7 +824,7 @@
     const isPreview = job?.status === 'preview';
     const percent = isPreview ? Number(state.liveUpload.uploadPercent || 0) : job ? Number(job.percent || 0) : Number(state.liveUpload.uploadPercent || 0);
     const label = job
-      ? `${job.status === 'completed' ? '发布完成' : job.status === 'failed' ? '发布失败' : isPreview ? '文件已上传，等待确认' : (job.message || job.stage || '处理中')} · ${percent}%`
+      ? `${job.status === 'completed' ? (job.message || '处理完成') : job.status === 'failed' ? '处理失败' : isPreview ? '文件已上传，等待确认' : (job.message || job.stage || '处理中')} · ${percent}%`
       : `上传文件 · ${percent}%`;
     const track = el('div', 'live-upload-progress-track');
     const fill = el('div', 'live-upload-progress-fill');
@@ -869,7 +875,7 @@
 
   function renderLiveCompUploadWorkspace() {
     const panel = el('div', 'live-upload-workspace');
-    const intro = el('p', 'admin-meta', '上传新的实时阵容 JSON。系统会先计算差异和历史复制影响，确认后再缓存图片并原子替换线上文件。');
+    const intro = el('p', 'admin-meta', '先上传，再安心补码。新文件默认保存为预上线版本；确认内容后，随时选择一个版本展示给用户。');
     const form = el('form', 'live-upload-form');
     const seasonLabel = el('div', 'live-upload-field');
     const caption = el('label', '', '目标赛季');
@@ -897,7 +903,8 @@
     fileInput.type = 'file';
     fileInput.accept = 'application/json,.json';
     const setSelectedFile = (file) => {
-      if (!file) return;
+      if (!file || state.liveUpload.busy) return;
+      clearTimeout(state.liveUpload.pollTimer);
       state.liveUpload.selectedFile = file;
       state.liveUpload.selectedFileName = file.name || '';
       state.liveUpload.job = null;
@@ -928,24 +935,40 @@
     const actions = el('div', 'card-actions');
     const previewButton = el('button', 'small-button is-active', '解析并预览');
     previewButton.type = 'submit';
-    previewButton.disabled = !state.liveUpload.selectedFile || !state.liveUpload.seasonId;
+    previewButton.disabled = state.liveUpload.busy || !state.liveUpload.selectedFile || !state.liveUpload.seasonId;
     actions.append(previewButton);
     if (state.liveUpload.job?.status === 'preview') {
-      actions.append(button('确认并发布', async (event, node) => startLiveCompUpload(node), 'small-button'));
+      actions.append(button(state.liveUpload.publish ? '缓存图片并直接上线' : '保存为预上线版本', async (event, node) => startLiveCompUpload(node), 'small-button is-active', state.liveUpload.busy));
     }
-    form.append(seasonLabel, fileZone, actions);
+    const mode = el('label', 'live-version-upload-mode');
+    const direct = el('input');
+    direct.id = 'liveUploadPublishMode';
+    direct.type = 'checkbox';
+    direct.checked = state.liveUpload.publish;
+    direct.disabled = state.liveUpload.busy;
+    direct.addEventListener('change', () => {
+      state.liveUpload.publish = direct.checked;
+      render();
+      document.getElementById('liveUploadPublishMode')?.focus({ preventScroll: true });
+    });
+    const modeText = el('span');
+    modeText.append(el('strong', '', '处理完成后直接上线'), el('small', '', '默认关闭 · 缺码时建议先保存为预上线版本'));
+    mode.append(direct, modeText);
+    form.append(seasonLabel, fileZone, mode, actions);
     form.addEventListener('submit', async (event) => {
       event.preventDefault();
       await previewLiveCompUpload(previewButton);
     });
     panel.append(intro, form, Object.assign(renderLiveUploadProgressNode(), { id: 'liveUploadProgress' }));
     if (state.liveUpload.job?.preview) panel.append(renderLiveCompUploadPreview(state.liveUpload.job.preview));
+    panel.append(liveVersions.view());
     return panel;
   }
 
   async function previewLiveCompUpload(buttonNode) {
     const file = state.liveUpload.selectedFile;
     if (!file) return setNotice('请先选择 JSON 文件', 'warning');
+    state.liveUpload.busy = true;
     buttonNode.disabled = true;
     state.liveUpload.uploadPercent = 0;
     updateLiveUploadProgressDom();
@@ -973,24 +996,28 @@
       });
       state.liveUpload.uploadPercent = 100;
       state.liveUpload.job = result;
-      setNotice('文件解析完成，请检查变更后确认发布');
+      setNotice('文件解析完成，请检查差异并选择保存方式');
     } catch (error) {
       setNotice(error.message || '上传预览失败', 'error');
     } finally {
+      state.liveUpload.busy = false;
       render();
     }
   }
 
   async function startLiveCompUpload(buttonNode) {
     const job = state.liveUpload.job;
-    if (!job?.job_id) return;
+    if (!job?.job_id || state.liveUpload.busy) return;
+    if (state.liveUpload.publish && !confirm(`确认直接上线此文件？${job.preview?.missing_code_ids?.length || 0} 套阵容仍缺码，完成后将替换首页当前版本。`)) return;
+    state.liveUpload.busy = true;
     buttonNode.disabled = true;
     try {
-      state.liveUpload.job = await api(`/api/admin/live-comps/uploads/${encodeURIComponent(job.job_id)}/start`, { method: 'POST' });
+      state.liveUpload.job = await api(`/api/admin/live-comps/uploads/${encodeURIComponent(job.job_id)}/start`, { method: 'POST', body: JSON.stringify({ publish: state.liveUpload.publish }) });
       setNotice('已进入后台处理队列');
       pollLiveCompUpload();
     } catch (error) {
       setNotice(error.message || '无法启动上传任务', 'error');
+      state.liveUpload.busy = false;
       buttonNode.disabled = false;
     }
     render();
@@ -1003,12 +1030,14 @@
     state.liveUpload.pollTimer = setTimeout(async () => {
       try {
         const job = await api(`/api/admin/live-comps/uploads/${encodeURIComponent(jobId)}`);
+        if (state.liveUpload.job?.job_id !== jobId) return;
         state.liveUpload.job = job;
         updateLiveUploadProgressDom();
         if (!['completed', 'failed'].includes(job.status)) pollLiveCompUpload();
-        else render();
+        else { state.liveUpload.busy = false; await liveVersions.load(job.result?.version_id); render(); }
       } catch (error) {
-        setNotice(error.message || '读取上传进度失败', 'error');
+        setNotice(error.message || '读取上传进度失败，将自动重试', 'error');
+        if (state.liveUpload.job?.job_id === jobId) pollLiveCompUpload();
       }
     }, 1000);
   }
@@ -1018,7 +1047,7 @@
     const isUpload = state.liveCompsWorkspace === 'upload';
     const panel = workbenchPanel(
       isUpload ? '数据上传' : '阵容码维护',
-      isUpload ? '先预览差异，再异步缓存图片并原子发布' : '按赛季查看实时阵容并为缺码条目补码',
+      isUpload ? '上传 · 预览补码 · 选择上线 · 历史回滚' : '按赛季查看实时阵容并为缺码条目补码',
     );
     const body = panel.querySelector('.admin-workspace-body');
     if (isUpload) {
@@ -1823,10 +1852,14 @@
       seasons: state.liveCompsSeasons.seasons || [],
       selected: state.liveUpload.seasonId,
       onSelect(value) {
+        if (state.liveUpload.busy) { setNotice('当前上传正在处理，请完成后切换赛季', 'warning'); render(); return; }
+        clearTimeout(state.liveUpload.pollTimer);
         state.liveUpload.seasonId = value;
         state.liveUpload.job = null;
         state.liveUpload.uploadPercent = 0;
+        liveVersions.reset();
         render();
+        liveVersions.load();
       },
     });
   }

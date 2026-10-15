@@ -3,10 +3,8 @@
 from __future__ import annotations
 
 import json
-import shutil
 import threading
 import uuid
-from datetime import datetime, timedelta
 from pathlib import Path
 
 from flask import current_app
@@ -15,10 +13,8 @@ from audit import write_audit_best_effort
 from db import get_db, now_text
 from live_comps_helpers import (
     TIER_ORDER,
-    read_raw_live_comps_payload_for_season,
-    season_data_path,
+    read_live_comps_payload_for_season,
     validate_live_comps_payload,
-    write_live_comps_payload_for_season,
 )
 from seasons import canonical_season_id
 
@@ -56,7 +52,9 @@ def _items_by_id(payload):
 
 
 def _item_fingerprint(item):
-    return json.dumps(item, ensure_ascii=False, sort_keys=True, separators=(',', ':'))
+    derived = {'originalJccCode', 'resolvedJccCode', 'hasCode', 'codeSource'}
+    return json.dumps({key: value for key, value in item.items() if key not in derived},
+                      ensure_ascii=False, sort_keys=True, separators=(',', ':'))
 
 
 def _image_total(payload):
@@ -89,7 +87,7 @@ def _copy_counts(season_id, ids):
 def build_upload_preview(season_id, payload):
     """Return a safe diff and copy-impact warning before a file is committed."""
     normalized = _normalize_for_preview(payload)
-    old_payload, old_updated_at, old_valid, _, _ = read_raw_live_comps_payload_for_season(season_id)
+    old_payload, old_updated_at, old_valid, _, _ = read_live_comps_payload_for_season(season_id)
     old_items = _items_by_id(old_payload)
     new_items = _items_by_id(normalized)
     old_ids = set(old_items)
@@ -141,6 +139,9 @@ def _normalize_for_preview(payload):
     from live_comps_helpers import normalize_live_comps_payload
 
     validate_live_comps_payload(payload)
+    ids = [str(item['id']) for tier in TIER_ORDER for item in payload.get('tiers', {}).get(tier, [])]
+    if len(ids) != len(set(ids)):
+        raise ValueError('阵容 ID 重复，请为每套阵容使用独立 ID')
     return normalize_live_comps_payload(payload)
 
 
@@ -148,8 +149,15 @@ def create_preview_job(admin_id, season_id, filename, raw_bytes, payload):
     season_id = canonical_season_id(season_id)
     if not season_id:
         raise ValueError('必须选择实时阵容赛季')
+    from live_comps_helpers import load_live_comps_manifest
+    if not any(item['id'] == season_id for item in load_live_comps_manifest()['seasons']):
+        raise ValueError('赛季不存在，请先创建赛季')
     normalized = _normalize_for_preview(payload)
-    preview = build_upload_preview(season_id, normalized)
+    from live_comp_version_service import version_lock, _current, _revision
+    with version_lock(season_id):
+        preview = build_upload_preview(season_id, normalized)
+        active = _current(season_id)
+        active_revision = _revision(active) if active else None
     job_id = uuid.uuid4().hex
     input_path = _job_input_path(job_id)
     input_path.write_bytes(raw_bytes)
@@ -174,7 +182,7 @@ def create_preview_job(admin_id, season_id, filename, raw_bytes, payload):
             len(raw_bytes),
             preview['total'],
             preview['image_total'],
-            json.dumps({'preview': preview}, ensure_ascii=False),
+            json.dumps({'preview': preview, 'active_revision': active_revision}, ensure_ascii=False),
             admin_id,
             now,
             now,
@@ -184,21 +192,23 @@ def create_preview_job(admin_id, season_id, filename, raw_bytes, payload):
     return get_upload_job(job_id)
 
 
-def start_upload_job(admin_id, job_id):
+def start_upload_job(admin_id, job_id, publish=False):
     db = get_db()
     row = db.execute('SELECT * FROM live_comp_upload_jobs WHERE id = ?', (str(job_id),)).fetchone()
     if not row:
         return None, '上传任务不存在'
     if row['status'] != PREVIEW_STATUS:
         return None, '该上传任务已经开始或已结束'
+    result = json.loads(row['result_json'] or '{}')
+    result.update(publish=publish)
     now = now_text()
     cursor = db.execute(
         '''
         UPDATE live_comp_upload_jobs
-        SET status = ?, stage = ?, message = ?, updated_at = ?
+        SET status = ?, stage = ?, message = ?, updated_at = ?, result_json = ?
         WHERE id = ? AND status = ?
         ''',
-        (QUEUED_STATUS, 'queued', '等待后台处理', now, str(job_id), PREVIEW_STATUS),
+        (QUEUED_STATUS, 'queued', '等待后台处理', now, json.dumps(result, ensure_ascii=False), str(job_id), PREVIEW_STATUS),
     )
     db.commit()
     if not cursor.rowcount:
@@ -308,13 +318,6 @@ def _claim_next_job():
     return dict(row) if cursor.rowcount else None
 
 
-def _versioned_backup_path(season_id):
-    stamp = datetime.now().strftime('%Y%m%d-%H%M%S-%f')
-    path = Path(current_app.config['LIVE_COMPS_BACKUP_DIR']) / str(season_id) / f'{stamp}.json'
-    path.parent.mkdir(parents=True, exist_ok=True)
-    return path
-
-
 def _process_job(app, job):
     job_id = job['id']
     try:
@@ -346,14 +349,16 @@ def _process_job(app, job):
                 message=f"正在缓存：{update.get('current_item') or '实时阵容'}",
             )
 
-        backup_path = _versioned_backup_path(job['season_id'])
-        data_path = season_data_path(job['season_id'])
-        write_live_comps_payload_for_season(
-            job['season_id'],
-            normalized,
-            progress_callback=progress,
-            backup_path=backup_path,
-        )
+        from live_comps_helpers import cache_live_comps_payload_images
+        from live_comp_version_service import save_version
+        cached = cache_live_comps_payload_images(normalized, progress_callback=progress)
+        settings = json.loads(job['result_json'] or '{}')
+        result = save_version(job['season_id'], cached, job['filename'], job.get('created_by'),
+                              publish=settings.get('publish', False), version_id=job_id,
+                              expected_active_revision=settings.get('active_revision'), check_active=True)
+        message = ('实时阵容数据已发布' if result['published'] else
+                   '线上版本已变化，本次已保存为预上线版本，请重新预览后上线' if result['publication_conflict'] else
+                   '预上线版本已就绪，可预览、补码后手动上线')
         _update_job(
             job_id,
             status=COMPLETED_STATUS,
@@ -363,12 +368,12 @@ def _process_job(app, job):
             image_done=image_total,
             image_total=image_total,
             current_item='',
-            message='实时阵容数据已发布',
+            message=message,
             result_json=json.dumps({
                 'result': {
                     'season_id': job['season_id'],
                     'total': item_total,
-                    'backup_file': str(backup_path) if data_path.exists() and backup_path.exists() else None,
+                    **result,
                 },
             }, ensure_ascii=False),
             finished_at=now_text(),

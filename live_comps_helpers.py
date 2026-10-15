@@ -4,7 +4,6 @@ import base64
 import hashlib
 import json
 import os
-import shutil
 import urllib.request
 from datetime import datetime
 from pathlib import Path
@@ -19,7 +18,6 @@ from live_comp_manual_codes import (
     load_manual_code_overlay,
     manual_code_overlay_path,
     merge_manual_codes_into_payload,
-    prune_manual_codes_for_payload,
 )
 from lineup_code import extract_lineup_code
 from seasons import DEFAULT_SEASON_ID, canonical_season_id, season_catalog, season_manifest
@@ -322,7 +320,10 @@ def read_raw_live_comps_payload_for_season(season_id=None):
     try:
         payload = json.loads(data_path.read_text(encoding='utf-8'))
         validate_live_comps_payload(payload)
-        return normalize_live_comps_payload(payload), updated_at, True, manifest, season
+        normalized = normalize_live_comps_payload(payload)
+        if '_release' in payload:
+            normalized['_release'] = payload['_release']
+        return normalized, updated_at, True, manifest, season
     except Exception:
         return empty_live_comps_payload(), updated_at, False, manifest, season
 
@@ -342,7 +343,8 @@ def read_live_comps_payload_for_season(season_id=None):
         payload, updated_at, is_valid = entry['value']
         return payload, updated_at, is_valid, manifest, season
     payload, updated_at, is_valid, _, _ = read_raw_live_comps_payload_for_season(season_id)
-    overlay = load_manual_code_overlay(manual_code_dir(), season['id'])
+    overlay = (payload['_release'].get('manual_codes', {}) if '_release' in payload
+               else load_manual_code_overlay(manual_code_dir(), season['id']))
     merged_payload = merge_manual_codes_into_payload(payload, overlay)
     _merged_payload_cache[season['id']] = {'sig': sig, 'value': (merged_payload, updated_at, is_valid)}
     return merged_payload, updated_at, is_valid, manifest, season
@@ -656,10 +658,8 @@ def write_live_comps_payload_for_season(season_id, payload, progress_callback=No
     backup_path = Path(backup_path or current_app.config['LIVE_COMPS_BACKUP_PATH'])
     data_path.parent.mkdir(parents=True, exist_ok=True)
     backup_path.parent.mkdir(parents=True, exist_ok=True)
-    temp_path = data_path.with_suffix('.tmp')
-    temp_path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding='utf-8')
-    json.loads(temp_path.read_text(encoding='utf-8'))
-    if data_path.exists():
-        shutil.copyfile(data_path, backup_path)
-    os.replace(temp_path, data_path)
-    prune_manual_codes_for_payload(manual_code_dir(), safe_season_id, payload)
+    from live_comp_version_service import save_version
+    # CLI uploads retain their existing direct-publish contract.
+    save_version(safe_season_id, payload, '令牌上传.json', publish=True,
+                 manual_codes=load_manual_code_overlay(manual_code_dir(), safe_season_id),
+                 inherit_codes=True, backup_path=backup_path)
