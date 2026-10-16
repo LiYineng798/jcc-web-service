@@ -1,12 +1,15 @@
 # React 工作区
 
-Flask/Jinja 拥有页面外壳；此工程只构建三个独立工作区，生产不需要 Node。
+Flask/Jinja 拥有页面外壳；此工程构建三个独立工作区及首页卡片图标增强，生产不需要 Node。
 
 | 工作区 | 入口 | 挂载根 | 提交产物 |
 | --- | --- | --- | --- |
 | 赛季版本更新 | `season-packages.tsx` | `#seasonPackageRoot` | `../static/admin/season-packages/` |
 | 审计日志 | `audit-logs.tsx` | `#auditLogRoot` | `../static/admin/audit-logs/` |
 | 个人中心 | `account-profile.tsx` | `#accountApp` | `../static/account-profile/` |
+| 首页普通卡片图标 | `home-card-icons.tsx` | `#homeCardIcons`，portal 限于 `.home-lineup-card` | `../static/home-card-icons/` |
+
+首页图标入口仅管理装饰性 SVG，不接管列表和业务事件；组件路径、样式隔离与演示见 [AnimatedIcon 接入](../docs/home-card-icons.md)。
 
 在 Web 仓库根目录使用 Node 22.12+：
 

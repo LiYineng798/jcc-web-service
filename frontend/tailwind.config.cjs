@@ -1,5 +1,5 @@
 module.exports = {
-  content: ['./*.tsx', './components/**/*.tsx', '!./account-profile.tsx', '!./components/ui/bento-card.tsx', '!./components/ui/account-dialogs.tsx'],
+  content: ['./*.tsx', './components/**/*.tsx', '!./account-profile.tsx', '!./components/ui/bento-card.tsx', '!./components/ui/account-dialogs.tsx', '!./home-card-icons.tsx', '!./components/ui/animated-icon*.tsx'],
   important: '#seasonPackageRoot',
   corePlugins: { preflight: false },
   darkMode: ['selector', '[data-theme="dark"]'],

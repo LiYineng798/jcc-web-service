@@ -793,7 +793,7 @@ def test_app_js_contains_hide_action_for_admin_lineups():
 
     assert 'lineup.can_hide' in js
     assert '隐藏阵容' in js
-    assert js.index("actions.append(button('复制阵容码'") < js.index("actions.append(button('查看'")
+    assert js.index("lineupAction('复制阵容码'") < js.index("lineupAction('查看'")
     assert 'showReportDialog' in js
     assert 'prompt(' not in js
 

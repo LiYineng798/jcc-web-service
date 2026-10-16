@@ -14,13 +14,14 @@ export default defineConfig(({ mode }) => ({
       const license = readdirSync(directory).find(name => /^(license|licence|copying)(\.|$)/i.test(name));
       notices.push(`${pkg.name} ${pkg.version}\n${license ? readFileSync(resolve(directory, license), 'utf8') : pkg.license || ''}`);
     }
+    if (mode === 'home') notices.push(readFileSync(resolve(import.meta.dirname, 'components/ui/animated-icon.LICENSE.txt'), 'utf8'));
     this.emitFile({ type: 'asset', fileName: 'THIRD_PARTY_NOTICES.txt', source: notices.join('\n\n----\n\n') });
   } }],
   build: {
-    outDir: resolve(import.meta.dirname, mode === 'account' ? '../static/account-profile' : mode === 'audit' ? '../static/admin/audit-logs' : '../static/admin/season-packages'),
+    outDir: resolve(import.meta.dirname, mode === 'home' ? '../static/home-card-icons' : mode === 'account' ? '../static/account-profile' : mode === 'audit' ? '../static/admin/audit-logs' : '../static/admin/season-packages'),
     emptyOutDir: true,
     rollupOptions: { onwarn(warning, warn) { if (warning.code !== 'MODULE_LEVEL_DIRECTIVE') warn(warning); } },
-    lib: { entry: resolve(import.meta.dirname, mode === 'account' ? 'account-profile.tsx' : mode === 'audit' ? 'audit-logs.tsx' : 'season-packages.tsx'), name: mode === 'account' ? 'JccAccountProfile' : mode === 'audit' ? 'JccAuditLogs' : 'JccSeasonPackages', formats: ['iife'], fileName: () => 'app.js', cssFileName: 'app' },
+    lib: { entry: resolve(import.meta.dirname, mode === 'home' ? 'home-card-icons.tsx' : mode === 'account' ? 'account-profile.tsx' : mode === 'audit' ? 'audit-logs.tsx' : 'season-packages.tsx'), name: mode === 'home' ? 'JccHomeCardIcons' : mode === 'account' ? 'JccAccountProfile' : mode === 'audit' ? 'JccAuditLogs' : 'JccSeasonPackages', formats: ['iife'], fileName: () => 'app.js', cssFileName: 'app' },
   },
   define: { 'process.env.NODE_ENV': JSON.stringify('production') },
 }));

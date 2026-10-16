@@ -734,47 +734,130 @@ function renderLineups(options = {}) {
   renderCurrentDisplayCount();
   elements.emptyState.classList.toggle('hidden', state.total > 0);
   renderEmptyState();
+  const focusedCard = document.activeElement?.closest('.home-lineup-card');
+  const focusedAction = document.activeElement?.dataset.cardAction;
   const cards = state.lineups.map(createLineupCard);
   lineupLoader.reveal(cards, options);
+  if (focusedCard && focusedAction) {
+    cards.find(card => card.dataset.lineupKey === focusedCard.dataset.lineupKey)
+      ?.querySelector(`[data-card-action="${focusedAction}"]`)?.focus({ preventScroll: true });
+  }
 }
 
 function createLineupCard(lineup) {
   const card = document.createElement('article');
-  card.className = 'lineup-card';
+  card.className = 'lineup-card home-lineup-card';
   card.dataset.lineupKey = `lineup-${lineup.id}`;
+  const heading = document.createElement('header');
+  heading.className = 'home-card-heading';
   const title = document.createElement('h3');
   title.className = 'lineup-title';
-  title.textContent = `${lineup.name} · ${lineup.rank_level}`;
+  title.id = `home-lineup-title-${lineup.id}`;
+  title.textContent = lineup.name;
+  card.setAttribute('aria-labelledby', title.id);
+  const rank = document.createElement('span');
+  rank.className = 'home-card-rank';
+  rank.textContent = lineup.rank_level;
+  rank.setAttribute('aria-label', `阵容评级 ${lineup.rank_level}`);
+  heading.append(title, rank);
+
   const meta = document.createElement('div');
-  meta.className = 'card-time';
-  meta.classList.add('lineup-byline');
+  meta.className = 'home-card-byline lineup-byline';
   const authorLink = document.createElement('a');
   authorLink.className = 'author-link';
   authorLink.href = `/author/${encodeURIComponent(lineup.owner_username || '')}`;
-  authorLink.textContent = lineup.owner_nickname;
-  authorLink.prepend(window.jccAvatar.image(lineup.owner_avatar_color, 34));
-  const details = document.createElement('span');
-  details.className = 'lineup-byline-stats';
-  details.textContent = `赞 ${lineup.like_count} · 复制 ${lineup.copy_count} · ${lineup.updated_at}`;
-  meta.append(authorLink, details);
+  const authorName = document.createElement('span');
+  authorName.textContent = lineup.owner_nickname;
+  authorLink.append(window.jccAvatar.image(lineup.owner_avatar_color, 28), authorName);
+  const updated = document.createElement('time');
+  updated.className = 'home-card-updated';
+  updated.dateTime = lineup.updated_at.replace(' ', 'T');
+  updated.title = `更新于 ${lineup.updated_at}`;
+  updated.append(document.createTextNode(`更新于 ${lineup.updated_at.split(' ')[0]}`));
+  const clock = document.createElement('span');
+  clock.className = 'home-card-clock';
+  clock.textContent = lineup.updated_at.includes(' ') ? ` ${lineup.updated_at.split(' ')[1]}` : '';
+  updated.append(clock);
+  meta.append(authorLink, updated);
+
+  const codeBox = document.createElement('div');
+  codeBox.className = 'home-card-code';
+  const codeLabel = document.createElement('span');
+  codeLabel.className = 'home-card-code-label';
+  codeLabel.textContent = '阵容码';
   const code = document.createElement('pre');
   code.className = 'code-preview';
   code.textContent = lineup.code;
+  const copy = lineupAction('复制阵容码', 'copy', (element) => copyLineup(lineup, element), 'home-card-copy');
+  codeBox.append(codeLabel, code, copy);
+
+  const footer = document.createElement('footer');
+  footer.className = 'home-card-footer';
   const actions = document.createElement('div');
-  actions.className = 'card-actions lineup-card-actions';
-  actions.append(button('复制阵容码', () => copyLineup(lineup)));
-  actions.append(button('查看', () => openLineupDetail(lineup.id)));
-  actions.append(button(lineup.is_liked_today ? '今日已赞' : '点赞', () => likeLineup(lineup), '', Boolean(state.user && lineup.is_liked_today)));
-  actions.append(button(lineup.is_favorited ? '取消收藏' : '收藏', () => favoriteLineup(lineup)));
-  actions.append(button('失效反馈', () => reportLineup(lineup)));
-  if (lineup.can_hide) actions.append(button('隐藏阵容', () => hideLineup(lineup), 'danger-button'));
-  if (lineup.can_edit) actions.append(button('编辑', () => openEditor(lineup.id)));
+  actions.className = 'home-card-social';
+  const like = lineupAction(lineup.is_liked_today ? '已赞' : '点赞', 'heart', () => likeLineup(lineup), '', Boolean(state.user && lineup.is_liked_today));
+  like.title = lineup.is_liked_today ? '今日已赞' : '点赞阵容';
+  like.setAttribute('aria-pressed', String(Boolean(lineup.is_liked_today)));
+  appendLineupCount(like, lineup.like_count);
+  const favorite = lineupAction(lineup.is_favorited ? '已收藏' : '收藏', 'bookmark', () => favoriteLineup(lineup));
+  favorite.setAttribute('aria-pressed', String(Boolean(lineup.is_favorited)));
+  favorite.title = lineup.is_favorited ? '取消收藏' : '收藏阵容';
+  const copies = document.createElement('span');
+  copies.className = 'home-card-copy-count';
+  copies.setAttribute('role', 'img');
+  copies.setAttribute('aria-label', `${Number(lineup.copy_count || 0).toLocaleString('zh-CN')} 次复制`);
+  copies.title = '复制次数';
+  const copyIcon = document.createElement('span');
+  copyIcon.className = 'home-card-icon';
+  copyIcon.dataset.cardIcon = 'copy';
+  copyIcon.dataset.iconPreset = 'none';
+  copyIcon.setAttribute('aria-hidden', 'true');
+  copies.append(copyIcon);
+  appendLineupCount(copies, lineup.copy_count);
+  actions.append(like, favorite, copies);
+
+  const utilities = document.createElement('div');
+  utilities.className = 'home-card-utilities';
+  utilities.append(lineupAction('失效反馈', 'flag', () => reportLineup(lineup), 'home-card-quiet'));
+  if (lineup.can_hide) utilities.append(lineupAction('隐藏阵容', 'eye-off', () => hideLineup(lineup), 'home-card-quiet'));
+  if (lineup.can_edit) utilities.append(lineupAction('编辑', 'pencil', () => openEditor(lineup.id), 'home-card-quiet'));
+  utilities.append(lineupAction('查看', 'arrow-up-right', () => openLineupDetail(lineup.id), 'home-card-detail'));
+  footer.append(actions, utilities);
   if (lineup.status === 'banned') {
     code.textContent = lineup.can_moderate ? '该阵容已封禁，请到管理后台处理。' : '该阵容已封禁，请到个人中心查看原因和提交修改。';
-    actions.replaceChildren(button('查看封禁与重审', () => { window.location.href = lineup.can_moderate ? '/admin' : `/me/lineup-notifications/${lineup.id}`; }));
+    codeLabel.textContent = '暂不可用';
+    copy.remove();
+    footer.replaceChildren(lineupAction('查看封禁与重审', 'circle-alert', () => { window.location.href = lineup.can_moderate ? '/admin' : `/me/lineup-notifications/${lineup.id}`; }));
   }
-  card.append(title, meta, code, actions);
+  card.append(heading, meta, codeBox, footer);
   return card;
+}
+
+function appendLineupCount(element, value) {
+  const count = document.createElement('span');
+  count.className = 'home-card-number';
+  count.textContent = Number(value || 0).toLocaleString('zh-CN');
+  element.append(count);
+}
+
+function lineupAction(label, icon, handler, extraClass = '', disabled = false) {
+  const element = button('', async (control) => {
+    if (control.dataset.busy === 'true') return;
+    control.dataset.busy = 'true';
+    control.setAttribute('aria-busy', 'true');
+    try { await handler(control); }
+    finally { delete control.dataset.busy; control.removeAttribute('aria-busy'); }
+  }, `home-card-action ${extraClass}`, disabled);
+  element.dataset.cardAction = icon;
+  const mark = document.createElement('span');
+  mark.className = 'home-card-icon';
+  mark.dataset.cardIcon = icon;
+  mark.setAttribute('aria-hidden', 'true');
+  const text = document.createElement('span');
+  text.className = 'home-card-action-label';
+  text.textContent = label;
+  element.append(mark, text);
+  return element;
 }
 
 function renderEmptyState() {
@@ -1202,13 +1285,17 @@ function openLineupDetail(lineupId) {
   window.location.href = `/lineup/${lineupId}`;
 }
 
-async function copyLineup(lineup) {
+async function copyLineup(lineup, control) {
   const copied = await writeClipboard(lineup.code);
   if (!copied) {
     showMessage('复制失败，请长按阵容码手动复制', 'error');
     return;
   }
   showToast('阵容码已复制，可以返回游戏粘贴');
+  if (control) {
+    control.querySelector('[data-card-icon]').dataset.cardIcon = 'check';
+    control.querySelector('.home-card-action-label').textContent = '已复制';
+  }
   await api(`/api/lineups/${lineup.id}/copy?source=home`, { method: 'POST' }).catch(() => {});
   if (!state.user) {
     window.jccHistoryStore?.pushLocalCopy(lineup);

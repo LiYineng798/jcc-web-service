@@ -4,7 +4,8 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "build": "tsc --noEmit && vite build && vite build --mode audit && vite build --mode account",
+    "build": "tsc --noEmit && vite build && vite build --mode audit && vite build --mode account && vite build --mode home",
+    "build:home": "tsc --noEmit && vite build --mode home",
     "build:audit": "tsc --noEmit && vite build --mode audit",
     "build:account": "tsc --noEmit && vite build --mode account"
   },
