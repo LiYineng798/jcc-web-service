@@ -22,6 +22,9 @@ def test_serialize_lineup_row_uses_joined_owner_and_flags():
         'owner_role': 'user',
         'owner_username': 'alice',
         'owner_nickname_raw': 'Alice',
+        'owner_avatar_color': '#123abc',
+        'owner_avatar_preset': 'citrus',
+        'owner_avatar_expression': 'wink',
         'is_liked_today': 1,
         'is_favorited': 0,
     }
@@ -31,6 +34,8 @@ def test_serialize_lineup_row_uses_joined_owner_and_flags():
 
     assert data['owner_nickname'] == 'Alice'
     assert data['owner_username'] == 'alice'
+    assert data['owner_avatar_color'] == '#123abc'
+    assert data['owner_avatar_config'] == {'version': 1, 'preset': 'citrus', 'expression': 'wink', 'color': '#123abc'}
     assert data['rank_level'] == 'A'
     assert data['is_liked_today'] is True
     assert data['is_favorited'] is False

@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from db import get_db, now_text
 from scoring import score_map
 from lineups_serialization import serialize_lineup_row
@@ -38,9 +40,14 @@ def _history_rows(table_name, user_id, limit=20, user=None):
         f'''
         SELECT
             l.*,
+            owner.username AS owner_username,
             owner.nickname AS owner_nickname_raw,
             owner.role AS owner_role,
             owner.avatar_color AS owner_avatar_color,
+            owner.avatar_preset AS owner_avatar_preset,
+            owner.avatar_expression AS owner_avatar_expression,
+            EXISTS (SELECT 1 FROM likes WHERE likes.lineup_id = l.id AND likes.user_id = ? AND likes.like_date = ?) AS is_liked_today,
+            EXISTS (SELECT 1 FROM favorites WHERE favorites.lineup_id = l.id AND favorites.user_id = ?) AS is_favorited,
             history.updated_at AS history_at
         FROM {table_name} history
         JOIN lineups l ON l.id = history.lineup_id
@@ -49,7 +56,8 @@ def _history_rows(table_name, user_id, limit=20, user=None):
         ORDER BY history.updated_at DESC, history.id DESC
         LIMIT ?
         ''',
-        (user_id, *visibility_params, limit),
+        (user['id'] if user else None, datetime.now().strftime('%Y-%m-%d'), user['id'] if user else None,
+         user_id, *visibility_params, limit),
     ).fetchall()
     scores = score_map()
     return [{**serialize_lineup_row(row, scores, user=user), 'history_at': row['history_at']} for row in rows]

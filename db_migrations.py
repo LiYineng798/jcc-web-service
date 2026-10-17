@@ -1,3 +1,4 @@
+import re
 import sqlite3
 
 from db_schema import EXTRA_INDEX_STATEMENTS, LINEUP_COLUMN_MIGRATIONS, table_columns, table_names
@@ -335,7 +336,9 @@ def ensure_indexes(db):
                 raise
 
 def migrate_user_avatars(db):
-    from avatar_service import random_avatar_color
+    from avatar_service import random_avatar_color, AVATAR_PRESETS, AVATAR_EXPRESSIONS
+    import secrets
+
     columns = table_columns(db, 'users')
     if not columns:
         return
@@ -344,3 +347,37 @@ def migrate_user_avatars(db):
     rows = db.execute('SELECT id FROM users WHERE avatar_color IS NULL').fetchall()
     for row in rows:
         db.execute('UPDATE users SET avatar_color = ? WHERE id = ?', (random_avatar_color(), row['id']))
+
+    for column, choices in (('avatar_preset', AVATAR_PRESETS), ('avatar_expression', AVATAR_EXPRESSIONS)):
+        # ADD COLUMN's constant DEFAULT materializes for old rows too. Capture
+        # those rows before adding it so each gets a random value exactly once.
+        missing = column not in columns
+        rows = db.execute('SELECT id FROM users' + ('' if missing else f' WHERE {column} IS NULL')).fetchall()
+        if missing:
+            allowed = ','.join(f"'{value}'" for value in choices)
+            db.execute(f"ALTER TABLE users ADD COLUMN {column} TEXT NOT NULL DEFAULT '{choices[0]}' CHECK ({column} IN ({allowed}))")
+        for row in rows:
+            db.execute(f'UPDATE users SET {column} = ? WHERE id = ?', (secrets.choice(choices), row['id']))
+        expand_avatar_constraint(db, column, choices)
+
+
+def expand_avatar_constraint(db, column, choices):
+    if column not in ('avatar_preset', 'avatar_expression'):
+        raise ValueError('Unsupported avatar column')
+    schema = db.execute("SELECT sql FROM sqlite_master WHERE type = 'table' AND name = 'users'").fetchone()['sql']
+    constraint = re.search(rf'CHECK\s*\(\s*"?{column}"?\s+IN\s*\(([^)]*)\)', schema, re.IGNORECASE)
+    if not constraint or set(choices).issubset(re.findall(r"'([^']+)'", constraint.group(1))):
+        return
+    allowed = ','.join(f"'{value}'" for value in choices)
+    # SQLite cannot alter CHECK in place; replace only this unindexed column, not the users table.
+    db.execute('SAVEPOINT avatar_constraint_expansion')
+    try:
+        db.execute(f"ALTER TABLE users ADD COLUMN {column}_expanded TEXT NOT NULL DEFAULT '{choices[0]}' CHECK ({column}_expanded IN ({allowed}))")
+        db.execute(f'UPDATE users SET {column}_expanded = {column}')
+        db.execute(f'ALTER TABLE users DROP COLUMN {column}')
+        db.execute(f'ALTER TABLE users RENAME COLUMN {column}_expanded TO {column}')
+    except Exception:
+        db.execute('ROLLBACK TO avatar_constraint_expansion')
+        raise
+    finally:
+        db.execute('RELEASE avatar_constraint_expansion')

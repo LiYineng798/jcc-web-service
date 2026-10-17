@@ -157,7 +157,7 @@ def run():
         check_layout(page)
         first = page.locator('.home-lineup-card').first
         first.screenshot(path=str(OUT / 'card-admin-360-light.png'))
-        first.locator('.author-link span').evaluate("el => el.textContent = '一位名字很长但仍然喜欢认真研究阵容的上传者'")
+        first.locator('.home-card-author-name').evaluate("el => el.textContent = '一位名字很长但仍然喜欢认真研究阵容的上传者'")
         first.locator('.home-card-number').evaluate_all("nodes => nodes.forEach(el => el.textContent = '1,234,567')")
         check_layout(page)
         first.screenshot(path=str(OUT / 'card-long-name-counts-360-light.png'))

@@ -167,19 +167,11 @@
     function createSkeletonCard() {
       const card = document.createElement('article');
       card.className = 'lineup-card t-skel-card';
-      ['title', 'meta', 'code'].forEach((kind) => {
-        const block = document.createElement('span');
-        block.className = `t-skel-block t-skel-${kind}`;
-        card.append(block);
-      });
-      const actions = document.createElement('div');
-      actions.className = 't-skel-actions';
-      for (let index = 0; index < 5; index += 1) {
-        const action = document.createElement('span');
-        action.className = 't-skel-block t-skel-action';
-        actions.append(action);
-      }
-      card.append(actions);
+      card.setAttribute('aria-hidden', 'true');
+      card.innerHTML = `<div class="t-skel-heading"><span class="t-skel-block t-skel-title"></span><span class="t-skel-block t-skel-rank"></span></div>
+        <div class="t-skel-byline"><span class="t-skel-block t-skel-avatar"></span><span class="t-skel-block t-skel-name"></span><span class="t-skel-block t-skel-date"></span></div>
+        <div class="t-skel-code"><span class="t-skel-block t-skel-label"></span><span class="t-skel-block t-skel-code-text"></span><span class="t-skel-block t-skel-copy"></span></div>
+        <div class="t-skel-footer"><div class="t-skel-social">${'<span class="t-skel-block t-skel-action"></span>'.repeat(3)}</div><div class="t-skel-utilities"><span class="t-skel-block t-skel-action"></span><span class="t-skel-block t-skel-action"></span></div></div>`;
       return card;
     }
 

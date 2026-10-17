@@ -1,6 +1,6 @@
 # React 工作区
 
-Flask/Jinja 拥有页面外壳；此工程构建三个独立工作区及首页卡片图标增强，生产不需要 Node。
+Flask/Jinja 拥有页面外壳；此工程构建三个独立工作区、首页卡片图标及不依赖 React 的共享头像运行包，生产不需要 Node。
 
 | 工作区 | 入口 | 挂载根 | 提交产物 |
 | --- | --- | --- | --- |
@@ -8,6 +8,9 @@ Flask/Jinja 拥有页面外壳；此工程构建三个独立工作区及首页�
 | 审计日志 | `audit-logs.tsx` | `#auditLogRoot` | `../static/admin/audit-logs/` |
 | 个人中心 | `account-profile.tsx` | `#accountApp` | `../static/account-profile/` |
 | 首页普通卡片图标 | `home-card-icons.tsx` | `#homeCardIcons`，portal 限于 `.home-lineup-card` | `../static/home-card-icons/` |
+| 共享用户头像 | `avatar.ts` | 原生 `window.jccAvatar`，非 React | `../static/avatar-lab/` |
+
+头像运行包可用 `npm run build:avatar --prefix frontend` 单独构建；参数、性能和 AGPL 源码交付见 [头像系统](../docs/avatar-system.md)。
 
 首页图标入口仅管理装饰性 SVG，不接管列表和业务事件；组件路径、样式隔离与演示见 [AnimatedIcon 接入](../docs/home-card-icons.md)。
 

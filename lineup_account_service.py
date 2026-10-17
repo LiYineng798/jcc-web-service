@@ -1,36 +1,27 @@
+from avatar_service import avatar_color, avatar_config
 from db import get_db
+from lineups_query import fetch_lineup_rows
 from lineups_serialization import serialize_lineup_row
 
 
 def build_author_profile_payload(username, viewer, scores):
     author = get_db().execute(
-        "SELECT id, username, nickname, avatar_color, role, created_at FROM users WHERE username = ? AND role != 'admin'",
+        "SELECT id, username, nickname, avatar_color, avatar_preset, avatar_expression, role, created_at FROM users WHERE username = ? AND role != 'admin'",
         (username,),
     ).fetchone()
     if not author:
         return None, '作者不存在', 404
 
-    rows = get_db().execute(
-        '''
-        SELECT
-            l.*,
-            users.username AS owner_username,
-            users.nickname AS owner_nickname_raw,
-            users.role AS owner_role,
-            users.avatar_color AS owner_avatar_color
-        FROM lineups l
-        JOIN users ON users.id = l.user_id
-        WHERE l.user_id = ? AND l.status = 'normal'
-        ORDER BY l.updated_at DESC, l.id DESC
-        ''',
-        (author['id'],),
-    ).fetchall()
+    rows = fetch_lineup_rows(
+        get_db(), ['l.user_id = ?', "l.status = 'normal'"], [author['id']], user=viewer,
+    )
     lineups = [serialize_lineup_row(row, scores, user=viewer) for row in rows]
     return {
         'profile': {
             'username': author['username'],
             'nickname': author['nickname'],
-            'avatar_color': author['avatar_color'],
+            'avatar_color': avatar_color(author),
+            'avatar_config': avatar_config(author),
             'created_at': author['created_at'],
         },
         'summary': {

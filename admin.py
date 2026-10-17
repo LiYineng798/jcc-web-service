@@ -28,7 +28,7 @@ from admin_lineup_service import (
 from lineup_moderation_service import attach_admin_moderation
 from admin_pagination import paginate_rows, parse_page, parse_page_size
 from admin_report_service import build_report_list_query, resolve_report
-from admin_user_service import build_user_list_query, create_user, disable_user, update_user
+from admin_user_service import build_user_list_query, create_user, disable_user, update_user, serialize_admin_user
 from audit import write_audit_best_effort
 from auth import admin_required
 from db import get_db
@@ -147,7 +147,7 @@ def admin_users():
     if error:
         return error
     base_sql, count_sql, params = build_user_list_query(request.args.get('q', ''))
-    return jsonify(_paginate_rows(base_sql, count_sql, params, serializer=dict, default_page_size=20))
+    return jsonify(_paginate_rows(base_sql, count_sql, params, serializer=serialize_admin_user, default_page_size=20))
 
 
 @admin_bp.post('/api/admin/users')

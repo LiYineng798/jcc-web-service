@@ -5,7 +5,7 @@ import hmac
 from flask import Blueprint, current_app, g, jsonify, request, session
 from werkzeug.security import check_password_hash, generate_password_hash
 
-from avatar_service import avatar_color, random_avatar_color, COLOR_RE
+from avatar_service import avatar_color, avatar_config, random_avatar_config, COLOR_RE, AVATAR_PRESETS, AVATAR_EXPRESSIONS
 from analytics import record_growth_event
 from captcha import is_captcha_verified, lookup_answer_for_tests, verify_captcha_answer
 from db import db_kind, get_db, now_text
@@ -34,7 +34,7 @@ def current_user():
     if cached is not None and cached[0] == user_id:
         return cached[1]
     row = get_db().execute(
-        'SELECT id, username, email, nickname, avatar_color, role, status, created_at, updated_at, last_login_at, password_hash FROM users WHERE id = ?',
+        'SELECT id, username, email, nickname, avatar_color, avatar_preset, avatar_expression, role, status, created_at, updated_at, last_login_at, password_hash FROM users WHERE id = ?',
         (user_id,),
     ).fetchone()
     if row is None or row['status'] != 'active' or not hmac.compare_digest(
@@ -109,6 +109,7 @@ def public_user_payload(user):
         'username': user['username'],
         'nickname': user['nickname'],
         'avatar_color': avatar_color(user),
+        'avatar_config': avatar_config(user),
         'role': user['role'],
     }
 
@@ -184,13 +185,15 @@ def register():
     if db.execute('SELECT id FROM users WHERE email = ?', (payload['email'],)).fetchone():
         return jsonify({'error': '邮箱已存在'}), 400
     now = now_text()
+    avatar = random_avatar_config()
     cursor = db.execute(
         insert_returning_id_sql(
-            '''INSERT INTO users (username, email, nickname, password_hash, role, status, created_at, updated_at, avatar_color)
-               VALUES (?, ?, ?, ?, 'user', 'active', ?, ?, ?)''',
+            '''INSERT INTO users (username, email, nickname, password_hash, role, status, created_at, updated_at, avatar_color, avatar_preset, avatar_expression)
+               VALUES (?, ?, ?, ?, 'user', 'active', ?, ?, ?, ?, ?)''',
             db_kind(),
         ),
-        (payload['username'], payload['email'], payload['nickname'], generate_password_hash(payload['password']), now, now, random_avatar_color()),
+        (payload['username'], payload['email'], payload['nickname'], generate_password_hash(payload['password']), now, now,
+         avatar['color'], avatar['preset'], avatar['expression']),
     )
     user_id = last_insert_id(cursor, db_kind())
     db.commit()
@@ -284,14 +287,21 @@ def update_avatar():
     if error:
         return error
     data = request.get_json(silent=True)
-    if not isinstance(data, dict) or set(data) != {'color'}:
-        return jsonify({'error': '仅支持修改头像颜色'}), 400
+    if not isinstance(data, dict) or set(data) not in ({'color'}, {'color', 'preset', 'expression'}):
+        return jsonify({'error': '仅支持头像颜色或完整头像配置'}), 400
     color = data.get('color')
     if not isinstance(color, str) or not COLOR_RE.fullmatch(color):
         return jsonify({'error': '请输入有效的六位十六进制颜色，例如 #7c3aed'}), 400
+    if 'preset' in data and (data['preset'] not in AVATAR_PRESETS or data['expression'] not in AVATAR_EXPRESSIONS):
+        return jsonify({'error': '头像样式或表情无效'}), 400
     db = get_db()
-    db.execute('UPDATE users SET avatar_color = ?, updated_at = ? WHERE id = ?',
-               (color.lower(), now_text(), user['id']))
+    if 'preset' in data:
+        db.execute('UPDATE users SET avatar_color = ?, avatar_preset = ?, avatar_expression = ?, updated_at = ? WHERE id = ?',
+                   (color.lower(), data['preset'], data['expression'], now_text(), user['id']))
+    else:
+        # Legacy clients only mutate color; do not reset persisted style/expression.
+        db.execute('UPDATE users SET avatar_color = ?, updated_at = ? WHERE id = ?',
+                   (color.lower(), now_text(), user['id']))
     db.execute("UPDATE cache_state SET revision = revision + 1 WHERE cache_key = 'home'")
     db.commit()
     from lineup_cache import clear_lineup_query_caches

@@ -4,12 +4,15 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "build": "tsc --noEmit && vite build && vite build --mode audit && vite build --mode account && vite build --mode home",
+    "build": "tsc --noEmit && vite build && vite build --mode audit && vite build --mode account && vite build --mode home && vite build --mode avatar",
+    "build:avatar": "tsc --noEmit && vite build --mode avatar",
     "build:home": "tsc --noEmit && vite build --mode home",
     "build:audit": "tsc --noEmit && vite build --mode audit",
     "build:account": "tsc --noEmit && vite build --mode account"
   },
   "dependencies": {
+    "@bible-strong/avatar-core": "0.1.0",
+    "@bible-strong/avatar-web": "0.1.0",
     "clsx": "^2.1.1",
     "framer-motion": "12.43.0",
     "lucide-react": "^0.468.0",

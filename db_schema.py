@@ -5,6 +5,8 @@ CREATE TABLE IF NOT EXISTS users (
     email TEXT NOT NULL UNIQUE,
     nickname TEXT NOT NULL,
     avatar_color TEXT NOT NULL DEFAULT '#0021ed',
+    avatar_preset TEXT NOT NULL DEFAULT 'strobi' CHECK (avatar_preset IN ('strobi','freddy','citrus','nova','sunee','cloudee','sprout','bloom')),
+    avatar_expression TEXT NOT NULL DEFAULT 'neutral' CHECK (avatar_expression IN ('neutral','happy','wink','sleepy','curious','surprised','shy','determined')),
     password_hash TEXT NOT NULL,
     role TEXT NOT NULL DEFAULT 'user',
     status TEXT NOT NULL DEFAULT 'active',

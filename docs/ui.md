@@ -8,8 +8,8 @@
 - `templates/seo_head.html` 在主样式前恢复主题，并加载 `notifications.js/css`。
 - 短暂反馈走共享通知；消息写入 textContent，保留内联表单错误、任务进度和危险操作确认。
   剪贴板成功立即反馈，统计失败不能被误报为复制失败；dialog 内通知必须能关闭。
-- `avatar.js` 用一个带 evenodd 镂空的 SVG 路径绘制固定条纹球体，避免恢复 Safari 有问题的 mask/blur。
-  DB 只存六位颜色，不存上传图、SVG 或外部 URL。
+- `frontend/avatar.ts` 构建为 `static/avatar-lab/app.js`，统一渲染参数化 SVG 头像；仅互动期间创建动画实例。
+  DB 只存颜色、预设与默认表情，不存上传图、SVG 或外部 URL。兼容和 AGPL 源码交付见 [头像系统](avatar-system.md)。
 - 公开详情保留服务端文本；首页搜索/翻页使用 API 结果，缓存命中不闪骨架，失败/取消请求不滚动到列表。
 - `/#guestbook` 打开当前页留言弹窗；公告链接的留言跳转优先于旧阵容跳转字段。
 - 手机后台固定栏使用安全区和实色背景；只在需要的页面开启 viewport-fit，不能用设备地址栏高度猜布局。

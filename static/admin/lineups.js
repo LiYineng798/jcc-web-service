@@ -38,7 +38,7 @@
         const code = el('code', 'lm-code-preview', lineup.code); code.title = lineup.code; identity.append(code);
         const author = el('td', 'lm-author'); author.dataset.label = '作者';
         const person = el('div', 'lm-person');
-        if (window.jccAvatar) person.append(window.jccAvatar.image(lineup.owner_avatar_color, 30));
+        if (window.jccAvatar) person.append(window.jccAvatar.image(lineup.owner_avatar_config || lineup.owner_avatar_color, 30));
         const authorText = el('div'); authorText.append(el('span', '', lineup.owner_nickname), el('small', 'lm-muted', '@' + (lineup.owner_username || 'system'))); person.append(authorText); author.append(person);
         const status = el('td', 'lm-status'); status.dataset.label = '状态';
         const m = lineup.moderation;

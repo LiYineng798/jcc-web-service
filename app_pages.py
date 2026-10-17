@@ -1,7 +1,7 @@
 import os
 from time import monotonic
 
-from flask import Response, abort, jsonify, redirect, request, send_from_directory
+from flask import Response, abort, jsonify, redirect, request, send_from_directory, render_template
 
 from auth import current_user, login_required
 from db import get_db
@@ -95,6 +95,20 @@ SITEMAP_CACHE_SECONDS = 3600
 
 def register_page_routes(app):
     sitemap_cache = {'built_at': 0.0, 'xml': None, 'key': None}
+
+    @app.get('/avatar-source')
+    def avatar_source():
+        available = os.path.isfile(os.path.join(app.instance_path, 'avatar-source', 'source.zip'))
+        response = app.make_response(render_template('avatar_source.html', source_available=available))
+        response.headers['X-Robots-Tag'] = 'noindex'
+        response.headers['Cache-Control'] = 'no-cache'
+        return response
+
+    @app.get('/avatar-source/download')
+    def avatar_source_download():
+        return send_from_directory(os.path.join(app.instance_path, 'avatar-source'), 'source.zip',
+                                   as_attachment=True, download_name='jcc-avatar-corresponding-source.zip', max_age=0)
+
     @app.get('/api/season-catalog')
     def public_season_catalog():
         surface = request.args.get('surface', 'library')

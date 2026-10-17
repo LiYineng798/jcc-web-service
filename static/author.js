@@ -82,7 +82,7 @@ function renderAuthor(payload) {
     </div>
   `;
 
-  profile.prepend(window.jccAvatar.image(payload.profile.avatar_color, 88, '作者头像'));
+  profile.prepend(window.jccAvatar.image(payload.profile.avatar_config || payload.profile.avatar_color, 88, '作者头像'));
   const summary = document.createElement('div');
   summary.className = 'account-summary-grid';
   [
@@ -135,7 +135,7 @@ function renderAuthorLineup(lineup) {
   actions.append(actionButton('失效反馈', () => reportLineup(lineup)));
   const identity = document.createElement('div');
   identity.className = 'lineup-byline';
-  identity.append(window.jccAvatar.image(lineup.owner_avatar_color, 32), lineup.owner_nickname);
+  identity.append(window.jccAvatar.image(lineup.owner_avatar_config || lineup.owner_avatar_color, 32), lineup.owner_nickname);
   card.append(title, identity, meta, code, actions);
   return card;
 }

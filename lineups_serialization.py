@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from datetime import datetime
 
+from avatar_service import avatar_config
 from db import get_db
 from lineups_utils import row_value
 
@@ -10,15 +11,23 @@ def serialize_lineup_row(row, scores, user=None, admin=False, db=None):
     db = db or get_db()
     score = scores.get(row['id'], {'rank_level': 'B', 'like_count': 0, 'copy_count': 0, 'score': 0})
     owner_color = row_value(row, 'owner_avatar_color')
+    owner_preset = row_value(row, 'owner_avatar_preset')
+    owner_expression = row_value(row, 'owner_avatar_expression')
     owner_role = row_value(row, 'owner_role')
     owner_username = row_value(row, 'owner_username')
     owner_nickname = row_value(row, 'owner_nickname_raw')
     if owner_role is None and owner_nickname is None and owner_username is None:
-        owner = db.execute('SELECT id, username, nickname, avatar_color, role FROM users WHERE id = ?', (row['user_id'],)).fetchone()
+        owner = db.execute('SELECT id, username, nickname, avatar_color, avatar_preset, avatar_expression, role FROM users WHERE id = ?', (row['user_id'],)).fetchone()
         owner_color = owner['avatar_color'] if owner else None
+        owner_preset = row_value(owner, 'avatar_preset') if owner else None
+        owner_expression = row_value(owner, 'avatar_expression') if owner else None
         owner_role = owner['role'] if owner else None
         owner_username = owner['username'] if owner else None
         owner_nickname = owner['nickname'] if owner else None
+    owner_avatar = avatar_config({
+        'id': row['user_id'], 'avatar_color': owner_color,
+        'avatar_preset': owner_preset, 'avatar_expression': owner_expression,
+    })
     owner_name = '系统' if owner_role == 'admin' else (owner_nickname or '未知用户')
     is_owner = bool(user and user['id'] == row['user_id'])
     is_admin = bool(user and user['role'] == 'admin')
@@ -54,7 +63,8 @@ def serialize_lineup_row(row, scores, user=None, admin=False, db=None):
         'status': row['status'],
         'owner_nickname': owner_name,
         'owner_username': owner_username,
-        'owner_avatar_color': owner_color or '#0021ed',
+        'owner_avatar_color': owner_avatar['color'],
+        'owner_avatar_config': owner_avatar,
         'rank_level': score['rank_level'],
         'like_count': score['like_count'],
         'copy_count': score['copy_count'],

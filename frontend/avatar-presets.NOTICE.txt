@@ -1,0 +1,28 @@
+Bible Strong Avatar Lab — selected character and expression parameters
+Copyright: the Bible Strong Avatar Lab contributors
+License: GNU Affero General Public License v3.0 only (AGPL-3.0-only)
+Upstream: https://github.com/smontlouis/bible-strong-avatar-lab
+Preset source revision: 79fe9ba06e4874b11394b8e8a3f2c493c9d197ba
+Source file: src/features/studio/defaultStudioDocument.json
+
+Selected characters: Strobi, Freddy, Citrus, Nova, Sunee, Cloudee.
+Local geometric designs: Sprout (paired leaves) and Bloom (six rounded petals).
+Selected expressions: joyful-wide, skeptical-left, sleepy-squint, curious-left,
+surprised-left, shy-downward, angry-right.
+Changes (2026-10-17): selected six upstream characters and seven expressions,
+added two local shapes, removed editor-only IDs/names and color overrides,
+added local Chinese labels, a muted palette, per-shape optical artboards,
+compact parameter selection, contrast-aware eyes and copy/like/favorite feedback.
+Roundness values are clamped to [0, 1] for the published 0.1.0 runtime schema.
+Regenerate avatar-presets.json with scripts/maintenance/import_avatar_presets.py.
+
+Runtime dependencies: @bible-strong/avatar-web 0.1.0 and
+@bible-strong/avatar-core 0.1.0, both AGPL-3.0-only. Their original notices and
+complete licenses are included below by the frontend build. The project uses
+only the runtime and selected preset data, not the authoring studio.
+
+JCC avatar integration changes are offered under AGPL-3.0-only. A network
+source offer for the deployed combined work must include its corresponding
+source, not merely a link to the unmodified upstream project. See
+/avatar-source and docs/avatar-system.md for the release
+source-bundle procedure. Game artwork/data are not granted a license here.

@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from werkzeug.security import generate_password_hash
 
-from avatar_service import random_avatar_color
+from avatar_service import avatar_color, avatar_config, random_avatar_config
 from audit import write_audit
 from auth import validate_password
 from db import db_kind, now_text
@@ -16,9 +16,13 @@ def build_user_list_query(query):
     if query:
         from_sql += ' WHERE username LIKE ? OR email LIKE ? OR nickname LIKE ?'
         params = [f'%{query}%', f'%{query}%', f'%{query}%']
-    base_sql = 'SELECT id, username, email, nickname, role, status, created_at, updated_at, last_login_at, avatar_color ' + from_sql + ' ORDER BY id DESC'
+    base_sql = 'SELECT id, username, email, nickname, role, status, created_at, updated_at, last_login_at, avatar_color, avatar_preset, avatar_expression ' + from_sql + ' ORDER BY id DESC'
     count_sql = 'SELECT COUNT(*) AS c ' + from_sql
     return base_sql, count_sql, params
+
+
+def serialize_admin_user(row):
+    return {**dict(row), 'avatar_color': avatar_color(row), 'avatar_config': avatar_config(row)}
 
 
 def prepare_user_create_payload(data):
@@ -45,11 +49,12 @@ def create_user(db, admin_id, data):
     payload, error = prepare_user_create_payload(data)
     if error:
         return None, error, 400
+    avatar = random_avatar_config()
     try:
         cursor = db.execute(
             insert_returning_id_sql(
-                '''INSERT INTO users (username, email, nickname, password_hash, role, status, created_at, updated_at, avatar_color)
-                   VALUES (?, ?, ?, ?, ?, 'active', ?, ?, ?)''',
+                '''INSERT INTO users (username, email, nickname, password_hash, role, status, created_at, updated_at, avatar_color, avatar_preset, avatar_expression)
+                   VALUES (?, ?, ?, ?, ?, 'active', ?, ?, ?, ?, ?)''',
                 db_kind(),
             ),
             (
@@ -60,7 +65,9 @@ def create_user(db, admin_id, data):
                 payload['role'],
                 payload['created_at'],
                 payload['updated_at'],
-                random_avatar_color(),
+                avatar['color'],
+                avatar['preset'],
+                avatar['expression'],
             ),
         )
         user_id = last_insert_id(cursor, db_kind())

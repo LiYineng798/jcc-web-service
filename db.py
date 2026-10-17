@@ -173,6 +173,8 @@ def init_db():
         return
     db = get_db()
     db.executescript(SCHEMA)
+    from db_migrations import migrate_user_avatars
+    migrate_user_avatars(db)
     admin_id = bootstrap_admin(db)
     migrate_schema(db, admin_id, now_text)
     ensure_indexes(db)
@@ -211,11 +213,14 @@ def bootstrap_admin(db):
     existing = db.execute('SELECT id FROM users WHERE username = ?', (username,)).fetchone()
     if existing:
         return existing['id']
+    from avatar_service import random_avatar_config
     now = now_text()
+    avatar = random_avatar_config()
     cursor = db.execute(
-        '''INSERT INTO users (username, email, nickname, password_hash, role, status, created_at, updated_at)
-           VALUES (?, ?, ?, ?, 'admin', 'active', ?, ?)''',
-        (username, f'{username}@local.admin', '系统', generate_password_hash(password), now, now),
+        '''INSERT INTO users (username, email, nickname, password_hash, role, status, created_at, updated_at, avatar_color, avatar_preset, avatar_expression)
+           VALUES (?, ?, ?, ?, 'admin', 'active', ?, ?, ?, ?, ?)''',
+        (username, f'{username}@local.admin', '系统', generate_password_hash(password), now, now,
+         avatar['color'], avatar['preset'], avatar['expression']),
     )
     return cursor.lastrowid
 

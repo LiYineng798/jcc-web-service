@@ -1,0 +1,9 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>头像源码与许可证</title><link rel="stylesheet" href="{{ static_v('avatar-source.css') }}"></head><body><main>
+<a href="/">返回阵容库</a><h1>头像源码与许可证</h1>
+<p>本网站的参数化头像使用 <a href="https://github.com/smontlouis/bible-strong-avatar-lab" rel="noopener">Bible Strong Avatar Lab</a> 的轻量运行库与四个预设。原作者为 Stéphane Montlouis-Calixte 及项目贡献者，许可为 GNU AGPL v3.0 only。</p>
+<p>本地集成增加了精简中文配置、参数持久化、配色对比度处理、交互表情和静态渲染缓存。这些集成改动按 AGPL-3.0-only 提供。</p>
+{% if source_available %}<p><a class="download" href="/avatar-source/download">下载此版本对应源码</a></p><p>源码包含 Web/DB 代码、集成源码、构建配置与上游运行库源码；不包含用户数据、凭据、运行数据库或不属于本项目版权的游戏素材。</p>{% else %}<p class="warning">此工作副本尚未生成对应源码包，不可作为完成授权准备的生产发布版本。请先按部署文档生成并核对源码包。</p>{% endif %}
+<p><a href="{{ static_v('avatar-lab/THIRD_PARTY_NOTICES.txt') }}">完整许可证与第三方声明</a></p>
+<p>本页面不改变游戏原始素材的版权归属。生产发布者须核对部署版本与提供源码的一致性及组合软件的许可范围；仅链接上游项目并不能代替对应源码提供义务。</p>
+</main></body></html>

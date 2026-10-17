@@ -39,12 +39,19 @@ import {
   useAccountDialogs,
 } from "@/components/ui/account-dialogs";
 
+type AvatarConfig = {
+  version: 1;
+  preset: "strobi" | "freddy" | "citrus" | "nova";
+  expression: "neutral" | "happy" | "wink" | "sleepy";
+  color: string;
+};
 type User = {
   id: number;
   username: string;
   nickname: string;
   role: string;
   avatar_color: string;
+  avatar_config?: AvatarConfig | null;
 };
 type Lineup = {
   id: number;
@@ -92,10 +99,21 @@ declare global {
       copy: (lineup: Lineup, token: string) => Promise<void>;
     };
     jccAvatar: {
+      image: (
+        configOrColor?: AvatarConfig | string | null,
+        size?: number,
+        alt?: string,
+        key?: string,
+      ) => HTMLElement;
       getAvatarDataUrl: (
-        key: string,
-        options: { color: string; size: number },
+        seed?: string,
+        options?: { config?: AvatarConfig | null; color?: string; size?: number },
       ) => string;
+      normalize: (configOrColor?: AvatarConfig | string | null) => AvatarConfig;
+      presets: Record<AvatarConfig["preset"], { name: string }>;
+      expressions: Record<AvatarConfig["expression"], { name: string }>;
+      palettes: Record<string, { mid: string; name: string }>;
+      feedback: (node: HTMLElement, kind?: "copy" | "like") => void;
     };
     jccAvatarEditor: {
       mount: (
@@ -103,7 +121,7 @@ declare global {
         token: string,
         options: {
           trigger: HTMLButtonElement;
-          onSave: (color: string) => void;
+          onSave: (user: User) => void;
         },
       ) => () => void;
     };
@@ -236,6 +254,7 @@ function Avatar({ user, size = 40 }: { user: User; size?: number }) {
       height={size}
       alt={`${user.nickname}的头像`}
       src={window.jccAvatar.getAvatarDataUrl("", {
+        config: user.avatar_config,
         color: user.avatar_color,
         size,
       })}
@@ -291,8 +310,7 @@ function Profile({ user: initialUser, token }: { user: User; token: string }) {
     if (!trigger.current) return;
     return window.jccAvatarEditor.mount(initialUser, token, {
       trigger: trigger.current,
-      onSave: (color) =>
-        setUser((value) => ({ ...value, avatar_color: color })),
+      onSave: (savedUser) => setUser(savedUser),
     });
   }, [initialUser, token]);
   useEffect(() => {

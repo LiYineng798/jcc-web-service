@@ -5,7 +5,7 @@ from db import get_db
 def test_build_user_list_query_without_search():
     base_sql, count_sql, params = build_user_list_query('')
 
-    assert base_sql == 'SELECT id, username, email, nickname, role, status, created_at, updated_at, last_login_at, avatar_color FROM users ORDER BY id DESC'
+    assert base_sql == 'SELECT id, username, email, nickname, role, status, created_at, updated_at, last_login_at, avatar_color, avatar_preset, avatar_expression FROM users ORDER BY id DESC'
     assert count_sql == 'SELECT COUNT(*) AS c FROM users'
     assert params == []
 
@@ -65,4 +65,8 @@ def test_admin_list_returns_persisted_avatar_color(client, app):
     assert response.status_code == 200
     user = response.get_json()['items'][0]
     assert user['avatar_color'] == '#123abc'
+    assert user['avatar_config']['color'] == '#123abc'
+    assert user['avatar_config']['preset'] == user['avatar_preset']
+    assert user['avatar_config']['expression'] == user['avatar_expression']
+    assert user['avatar_config']['version'] == 1
     assert 'password_hash' not in user

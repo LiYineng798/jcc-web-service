@@ -1408,8 +1408,9 @@
       const row = el('tr');
       const identity = el('td', 'admin-user-identity');
       const person = el('div', 'admin-user-person');
-      const avatar = window.jccAvatar.image(user.avatar_color, 38, '');
-      avatar.decoding = 'async';
+      const avatar = window.jccAvatar.image(user.avatar_config || user.avatar_color, 38, '');
+      const avatarImage = avatar.querySelector('img');
+      if (avatarImage) avatarImage.decoding = 'async';
       const info = el('div', 'admin-user-info');
       info.append(el('strong', '', user.nickname || user.username),
         el('span', 'admin-user-handle', `@${user.username}`), el('span', 'admin-user-email', user.email || '未设置邮箱'));

@@ -496,7 +496,7 @@ function renderAuth() {
   elements.favoritesTab.classList.remove('hidden');
   elements.accountToggle.querySelector('.user-avatar')?.remove();
   document.querySelector('#menuAvatarLink').classList.toggle('hidden', !loggedIn);
-  if (loggedIn) elements.accountToggle.prepend(window.jccAvatar.image(state.user.avatar_color, 30));
+  if (loggedIn) elements.accountToggle.prepend(window.jccAvatar.image(state.user.avatar_config || state.user.avatar_color, 30));
   elements.accountToggleText.textContent = loggedIn ? `${isAdmin ? '管理员' : '已登录'} · ${nickname}` : '登录 / 注册';
   elements.menuAuthLink.classList.add('hidden');
   elements.menuAccountLink.classList.toggle('hidden', !loggedIn);
@@ -767,8 +767,9 @@ function createLineupCard(lineup) {
   authorLink.className = 'author-link';
   authorLink.href = `/author/${encodeURIComponent(lineup.owner_username || '')}`;
   const authorName = document.createElement('span');
+  authorName.className = 'home-card-author-name';
   authorName.textContent = lineup.owner_nickname;
-  authorLink.append(window.jccAvatar.image(lineup.owner_avatar_color, 28), authorName);
+  authorLink.append(window.jccAvatar.image(lineup.owner_avatar_config || lineup.owner_avatar_color, 28, '', `lineup-${lineup.id}`), authorName);
   const updated = document.createElement('time');
   updated.className = 'home-card-updated';
   updated.dateTime = lineup.updated_at.replace(' ', 'T');
@@ -795,11 +796,11 @@ function createLineupCard(lineup) {
   footer.className = 'home-card-footer';
   const actions = document.createElement('div');
   actions.className = 'home-card-social';
-  const like = lineupAction(lineup.is_liked_today ? '已赞' : '点赞', 'heart', () => likeLineup(lineup), '', Boolean(state.user && lineup.is_liked_today));
+  const like = lineupAction(lineup.is_liked_today ? '已赞' : '点赞', 'heart', (control) => likeLineup(lineup, control), '', Boolean(state.user && lineup.is_liked_today));
   like.title = lineup.is_liked_today ? '今日已赞' : '点赞阵容';
   like.setAttribute('aria-pressed', String(Boolean(lineup.is_liked_today)));
   appendLineupCount(like, lineup.like_count);
-  const favorite = lineupAction(lineup.is_favorited ? '已收藏' : '收藏', 'bookmark', () => favoriteLineup(lineup));
+  const favorite = lineupAction(lineup.is_favorited ? '已收藏' : '收藏', 'bookmark', (control) => favoriteLineup(lineup, control));
   favorite.setAttribute('aria-pressed', String(Boolean(lineup.is_favorited)));
   favorite.title = lineup.is_favorited ? '取消收藏' : '收藏阵容';
   const copies = document.createElement('span');
@@ -1285,13 +1286,21 @@ function openLineupDetail(lineupId) {
   window.location.href = `/lineup/${lineupId}`;
 }
 
+function feedbackLineupAvatar(lineup, control, kind) {
+  // A concurrent action may have rebuilt the card while this request was pending.
+  const card = elements.lineupList.querySelector(`[data-lineup-key="lineup-${lineup.id}"]`)
+    || control?.closest('.home-lineup-card');
+  const avatar = card?.querySelector('.user-avatar');
+  if (avatar) window.jccAvatar.feedback(avatar, kind);
+}
+
 async function copyLineup(lineup, control) {
   const copied = await writeClipboard(lineup.code);
   if (!copied) {
     showMessage('复制失败，请长按阵容码手动复制', 'error');
     return;
   }
-  showToast('阵容码已复制，可以返回游戏粘贴');
+  feedbackLineupAvatar(lineup, control, 'copy');
   if (control) {
     control.querySelector('[data-card-icon]').dataset.cardIcon = 'check';
     control.querySelector('.home-card-action-label').textContent = '已复制';
@@ -1302,7 +1311,7 @@ async function copyLineup(lineup, control) {
   }
   invalidateHomeViewCache('lineups');
   clearTimeout(copyLineup.refreshTimer);
-  copyLineup.refreshTimer = setTimeout(() => loadLineups({ preserveContent: true }), 500);
+  copyLineup.refreshTimer = setTimeout(() => loadLineups({ preserveContent: true }), 1600);
 }
 
 async function writeClipboard(text) {
@@ -1388,29 +1397,28 @@ function closeReportDialog() {
   elements.authPromptRoot.replaceChildren();
 }
 
-async function likeLineup(lineup) {
+async function likeLineup(lineup, control) {
   if (!state.user) trackGrowth('guest_click_like', { source: 'lineup-card', lineupId: lineup.id });
   if (requireAuthIntent({ type: 'like_lineup', lineupId: lineup.id }, '登录后可点赞并保留个人记录')) return;
   try {
     await api(`/api/lineups/${lineup.id}/like`, { method: 'POST' });
+    feedbackLineupAvatar(lineup, control, 'like');
     invalidateHomeViewCache('lineups');
-    showMessage('点赞成功');
     await loadLineups({ preserveContent: true });
   } catch (error) {
     showMessage(error.message, 'error');
   }
 }
 
-async function favoriteLineup(lineup) {
+async function favoriteLineup(lineup, control) {
   if (!state.user) trackGrowth('guest_click_favorite', { source: 'lineup-card', lineupId: lineup.id });
   if (requireAuthIntent({ type: 'favorite_lineup', lineupId: lineup.id }, '登录后可收藏阵容并跨设备同步')) return;
   try {
     if (lineup.is_favorited) {
       await api(`/api/lineups/${lineup.id}/favorite`, { method: 'DELETE' });
-      showMessage('已取消收藏');
     } else {
       await api(`/api/lineups/${lineup.id}/favorite`, { method: 'POST' });
-      showMessage('收藏成功');
+      feedbackLineupAvatar(lineup, control, 'favorite');
     }
     invalidateHomeViewCache('lineups');
     await loadLineups({ preserveContent: true });

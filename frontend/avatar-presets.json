@@ -1,0 +1,833 @@
+{
+  "presets": {
+    "strobi": {
+      "body": {
+        "primary": {
+          "type": "sphere",
+          "width": 240,
+          "height": 240,
+          "depth": 240.03671875,
+          "roundness": 1
+        },
+        "nodes": []
+      },
+      "eyes": {
+        "widthLeft": 20,
+        "widthRight": 20,
+        "heightLeft": 50,
+        "heightRight": 50,
+        "spacing": 35,
+        "positionXLeft": 0,
+        "positionXRight": 0,
+        "positionYLeft": -7,
+        "positionYRight": -7,
+        "leftAngle": 0,
+        "rightAngle": 0
+      },
+      "viewport": [
+        -165,
+        -165,
+        330,
+        330
+      ]
+    },
+    "freddy": {
+      "body": {
+        "primary": {
+          "type": "cube",
+          "width": 174.732421875,
+          "height": 149.474609375,
+          "depth": 125.596484375,
+          "roundness": 0.7621875
+        },
+        "nodes": [
+          {
+            "surface": {
+              "type": "sphere",
+              "width": 81.60000000000001,
+              "height": 81.60000000000001,
+              "depth": 37.96875000000001,
+              "roundness": 1
+            },
+            "position": [
+              -82,
+              -72,
+              -18
+            ],
+            "rotation": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "surface": {
+              "type": "sphere",
+              "width": 81.60000000000001,
+              "height": 81.60000000000001,
+              "depth": 37.024609375000004,
+              "roundness": 1
+            },
+            "position": [
+              82,
+              -72,
+              -18
+            ],
+            "rotation": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "surface": {
+              "type": "cylinder",
+              "width": 59.483593750000004,
+              "height": 63.461328124999994,
+              "depth": 73.10000000000001,
+              "roundness": 1,
+              "morphRoundness": 0.366171875
+            },
+            "position": [
+              -1.021484375,
+              -72,
+              -18
+            ],
+            "rotation": [
+              0,
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      "eyes": {
+        "widthLeft": 28.934879954481378,
+        "widthRight": 28.934879954481378,
+        "heightLeft": 60.839338555790405,
+        "heightRight": 60.839338555790405,
+        "spacing": 47.380859375,
+        "positionXLeft": -0.11992187500000001,
+        "positionXRight": -0.11992187500000001,
+        "positionYLeft": -4.310546875000002,
+        "positionYRight": -4.310546875000002,
+        "leftAngle": 0,
+        "rightAngle": 0
+      },
+      "viewport": [
+        -150,
+        -169,
+        300,
+        300
+      ]
+    },
+    "citrus": {
+      "body": {
+        "primary": {
+          "type": "cone",
+          "width": 252.708984375,
+          "height": 274.9671875,
+          "depth": 225,
+          "roundness": 0,
+          "morphRoundness": 1,
+          "tipRoundness": 0.743515625,
+          "baseRoundness": 1
+        },
+        "nodes": []
+      },
+      "eyes": {
+        "widthLeft": 20,
+        "widthRight": 20,
+        "heightLeft": 50,
+        "heightRight": 50,
+        "spacing": 35,
+        "positionXLeft": 0,
+        "positionXRight": 0,
+        "positionYLeft": 22.954687500000002,
+        "positionYRight": 22.954687500000002,
+        "leftAngle": 0,
+        "rightAngle": 0
+      },
+      "viewport": [
+        -170,
+        -150,
+        340,
+        340
+      ]
+    },
+    "nova": {
+      "body": {
+        "primary": {
+          "type": "capsule",
+          "width": 205,
+          "height": 270,
+          "depth": 205,
+          "roundness": 1
+        },
+        "nodes": []
+      },
+      "eyes": {
+        "widthLeft": 13.26171875,
+        "widthRight": 13.26171875,
+        "heightLeft": 26.074181467301138,
+        "heightRight": 46.98897797482194,
+        "spacing": 19.765234375,
+        "positionXLeft": -12.965625,
+        "positionXRight": -12.965625,
+        "positionYLeft": 0.7968750000000009,
+        "positionYRight": -6.371484375,
+        "leftAngle": -7.4886718750000005,
+        "rightAngle": -7.796875
+      },
+      "viewport": [
+        -175,
+        -175,
+        350,
+        350
+      ]
+    },
+    "sunee": {
+      "body": {
+        "primary": {
+          "type": "sphere",
+          "width": 182.95728256225593,
+          "height": 185.5484375,
+          "depth": 100.01221191461767,
+          "roundness": 1
+        },
+        "nodes": [
+          {
+            "surface": {
+              "type": "sphere",
+              "width": 60,
+              "height": 60,
+              "depth": 24.375287224264703,
+              "roundness": 1
+            },
+            "position": [
+              -94.48309236361106,
+              -95.44637036124786,
+              -10.398419675330803
+            ],
+            "rotation": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "surface": {
+              "type": "sphere",
+              "width": 59.57851562500001,
+              "height": 59.57851562500001,
+              "depth": 24.204057179245304,
+              "roundness": 1
+            },
+            "position": [
+              -6.440040491385305,
+              -133.984012454223,
+              -10.398419675330803
+            ],
+            "rotation": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "surface": {
+              "type": "sphere",
+              "width": 81.60000000000001,
+              "height": 81.60000000000001,
+              "depth": 33.150390625,
+              "roundness": 1
+            },
+            "position": [
+              89.09066821815593,
+              -114.30101031028101,
+              -10.398419675330803
+            ],
+            "rotation": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "surface": {
+              "type": "sphere",
+              "width": 70.12148437500001,
+              "height": 70.12148437500001,
+              "depth": 28.487188703873578,
+              "roundness": 1
+            },
+            "position": [
+              132.2484739833418,
+              -11.704819633353354,
+              -10.398419675330803
+            ],
+            "rotation": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "surface": {
+              "type": "sphere",
+              "width": 61.89843750000001,
+              "height": 61.89843750000001,
+              "depth": 25.146536546594966,
+              "roundness": 1
+            },
+            "position": [
+              -138.13379284351342,
+              -1.1847860044189815,
+              -10.398419675330803
+            ],
+            "rotation": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "surface": {
+              "type": "sphere",
+              "width": 61.11328125000001,
+              "height": 61.11328125000001,
+              "depth": 24.827563061433676,
+              "roundness": 1
+            },
+            "position": [
+              -103.29429634246448,
+              92.4041125555865,
+              -10.398419675330803
+            ],
+            "rotation": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "surface": {
+              "type": "sphere",
+              "width": 61.726171875000006,
+              "height": 61.726171875000006,
+              "depth": 25.076552811790915,
+              "roundness": 1
+            },
+            "position": [
+              -2.4878844479075983,
+              133.06983674233183,
+              -10.398419675330803
+            ],
+            "rotation": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "surface": {
+              "type": "sphere",
+              "width": 64.116796875,
+              "height": 64.116796875,
+              "depth": 26.047755662132705,
+              "roundness": 1
+            },
+            "position": [
+              109.54168183067505,
+              83.98361858650364,
+              -10.398419675330803
+            ],
+            "rotation": [
+              0,
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      "eyes": {
+        "widthLeft": 20,
+        "widthRight": 20,
+        "heightLeft": 50,
+        "heightRight": 50,
+        "spacing": 35,
+        "positionXLeft": 0,
+        "positionXRight": 0,
+        "positionYLeft": -7,
+        "positionYRight": -7,
+        "leftAngle": 0,
+        "rightAngle": 0
+      },
+      "viewport": [
+        -190,
+        -201,
+        390,
+        390
+      ]
+    },
+    "cloudee": {
+      "body": {
+        "primary": {
+          "type": "sphere",
+          "width": 159.787109375,
+          "height": 159.787109375,
+          "depth": 159.77982741038028,
+          "roundness": 1
+        },
+        "nodes": [
+          {
+            "surface": {
+              "type": "sphere",
+              "width": 81.60000000000001,
+              "height": 81.60000000000001,
+              "depth": 81.60000000000001,
+              "roundness": 1
+            },
+            "position": [
+              -54.211163573292225,
+              -19.983270576375716,
+              -18
+            ],
+            "rotation": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "surface": {
+              "type": "sphere",
+              "width": 108.64140625000002,
+              "height": 87.10000590491492,
+              "depth": 90.99923895827905,
+              "roundness": 1
+            },
+            "position": [
+              -64.06931629506641,
+              18.35102511266605,
+              -18
+            ],
+            "rotation": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "surface": {
+              "type": "sphere",
+              "width": 97.79101562500003,
+              "height": 96.8381380478929,
+              "depth": 89.56416057242059,
+              "roundness": 1
+            },
+            "position": [
+              61.23234219342984,
+              18.962019686907013,
+              -18
+            ],
+            "rotation": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "surface": {
+              "type": "sphere",
+              "width": 94.34892531002268,
+              "height": 94.3451962078319,
+              "depth": 100.53515625000001,
+              "roundness": 1
+            },
+            "position": [
+              41.48876642638391,
+              -37.63883372407813,
+              -17.99133043155456
+            ],
+            "rotation": [
+              0,
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      "eyes": {
+        "widthLeft": 13.942812499999993,
+        "widthRight": 13.942812499999993,
+        "heightLeft": 45.4203125,
+        "heightRight": 45.4203125,
+        "spacing": 12.757031249999997,
+        "positionXLeft": 0,
+        "positionXRight": 0,
+        "positionYLeft": -1.0691406249999993,
+        "positionYRight": -1.0691406249999993,
+        "leftAngle": 0,
+        "rightAngle": 0
+      },
+      "viewport": [
+        -135,
+        -134,
+        270,
+        270
+      ]
+    },
+    "sprout": {
+      "body": {
+        "primary": {
+          "type": "sphere",
+          "width": 202,
+          "height": 188,
+          "depth": 140,
+          "roundness": 1
+        },
+        "nodes": [
+          {
+            "surface": {
+              "type": "sphere",
+              "width": 80,
+              "height": 38,
+              "depth": 30,
+              "roundness": 1
+            },
+            "position": [
+              -30,
+              -99,
+              -24
+            ],
+            "rotation": [
+              0,
+              0,
+              32
+            ]
+          },
+          {
+            "surface": {
+              "type": "sphere",
+              "width": 80,
+              "height": 38,
+              "depth": 30,
+              "roundness": 1
+            },
+            "position": [
+              30,
+              -104,
+              -24
+            ],
+            "rotation": [
+              0,
+              0,
+              -32
+            ]
+          }
+        ]
+      },
+      "eyes": {
+        "widthLeft": 20,
+        "widthRight": 20,
+        "heightLeft": 46,
+        "heightRight": 46,
+        "spacing": 30,
+        "positionXLeft": 0,
+        "positionXRight": 0,
+        "positionYLeft": -2,
+        "positionYRight": -2,
+        "leftAngle": 0,
+        "rightAngle": 0
+      },
+      "viewport": [
+        -145,
+        -155,
+        290,
+        290
+      ]
+    },
+    "bloom": {
+      "body": {
+        "primary": {
+          "type": "sphere",
+          "width": 150,
+          "height": 150,
+          "depth": 120,
+          "roundness": 1
+        },
+        "nodes": [
+          {
+            "surface": {
+              "type": "sphere",
+              "width": 102,
+              "height": 102,
+              "depth": 48,
+              "roundness": 1
+            },
+            "position": [
+              0.0,
+              -72.0,
+              -32
+            ],
+            "rotation": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "surface": {
+              "type": "sphere",
+              "width": 102,
+              "height": 102,
+              "depth": 48,
+              "roundness": 1
+            },
+            "position": [
+              62.354,
+              -36.0,
+              -32
+            ],
+            "rotation": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "surface": {
+              "type": "sphere",
+              "width": 102,
+              "height": 102,
+              "depth": 48,
+              "roundness": 1
+            },
+            "position": [
+              62.354,
+              36.0,
+              -32
+            ],
+            "rotation": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "surface": {
+              "type": "sphere",
+              "width": 102,
+              "height": 102,
+              "depth": 48,
+              "roundness": 1
+            },
+            "position": [
+              0.0,
+              72.0,
+              -32
+            ],
+            "rotation": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "surface": {
+              "type": "sphere",
+              "width": 102,
+              "height": 102,
+              "depth": 48,
+              "roundness": 1
+            },
+            "position": [
+              -62.354,
+              36.0,
+              -32
+            ],
+            "rotation": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "surface": {
+              "type": "sphere",
+              "width": 102,
+              "height": 102,
+              "depth": 48,
+              "roundness": 1
+            },
+            "position": [
+              -62.354,
+              -36.0,
+              -32
+            ],
+            "rotation": [
+              0,
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      "eyes": {
+        "widthLeft": 20,
+        "widthRight": 20,
+        "heightLeft": 46,
+        "heightRight": 46,
+        "spacing": 30,
+        "positionXLeft": 0,
+        "positionXRight": 0,
+        "positionYLeft": -2,
+        "positionYRight": -2,
+        "leftAngle": 0,
+        "rightAngle": 0
+      },
+      "viewport": [
+        -150,
+        -150,
+        300,
+        300
+      ]
+    }
+  },
+  "expressions": {
+    "surprised": {
+      "headX": 2.9468749999999986,
+      "headY": -16.051171875,
+      "headZ": -20.916015625,
+      "widthLeft": 51.68336723153048,
+      "widthRight": 51.68336723153048,
+      "heightLeft": 51.74054108796297,
+      "heightRight": 51.74054108796297,
+      "spacing": 70.9,
+      "positionXLeft": 0,
+      "positionXRight": 0,
+      "positionYLeft": 0,
+      "positionYRight": 0,
+      "leftAngle": 0,
+      "rightAngle": 0,
+      "perspective": 1,
+      "eyeMotion": "none",
+      "bodyMotion": "none"
+    },
+    "sleepy": {
+      "headX": 3.4,
+      "headY": 13.22578125,
+      "headZ": 8.976953125,
+      "widthLeft": 51.775,
+      "widthRight": 51.775,
+      "heightLeft": 13.02734375,
+      "heightRight": 13.02734375,
+      "spacing": 63.872265625,
+      "positionXLeft": 0,
+      "positionXRight": 0,
+      "positionYLeft": 0,
+      "positionYRight": 0,
+      "leftAngle": 0,
+      "rightAngle": 0,
+      "perspective": 1,
+      "eyeMotion": "none",
+      "bodyMotion": "none"
+    },
+    "determined": {
+      "headX": 8.063671874999999,
+      "headY": 17.626562500000002,
+      "headZ": -11.116796874999999,
+      "widthLeft": 20.908203124999996,
+      "widthRight": 20.908203124999996,
+      "heightLeft": 40.40078125,
+      "heightRight": 40.40078125,
+      "spacing": 52.059765625,
+      "positionXLeft": 0,
+      "positionXRight": 0,
+      "positionYLeft": 0,
+      "positionYRight": 0,
+      "leftAngle": -30.865625,
+      "rightAngle": 28.781640625,
+      "perspective": 1,
+      "eyeMotion": "none",
+      "bodyMotion": "none"
+    },
+    "curious": {
+      "headX": -12.303515625,
+      "headY": -17.601171875,
+      "headZ": 5.9109375,
+      "widthLeft": 20.605859374999994,
+      "widthRight": 20.605859374999994,
+      "heightLeft": 47.769921874999994,
+      "heightRight": 47.769921874999994,
+      "spacing": 54.9,
+      "positionXLeft": 0,
+      "positionXRight": 0,
+      "positionYLeft": 0,
+      "positionYRight": 0,
+      "leftAngle": 23.523046875000002,
+      "rightAngle": -24.042578125000002,
+      "perspective": 1,
+      "eyeMotion": "none",
+      "bodyMotion": "none"
+    },
+    "happy": {
+      "headX": -2.092968750000001,
+      "headY": -15.899609374999999,
+      "headZ": -14.469921875,
+      "widthLeft": 34.20086765973213,
+      "widthRight": 34.20086765973213,
+      "heightLeft": 85.330859375,
+      "heightRight": 83.17775668160692,
+      "spacing": 59.414453125,
+      "positionXLeft": 0,
+      "positionXRight": 0,
+      "positionYLeft": 0,
+      "positionYRight": 0,
+      "leftAngle": 0,
+      "rightAngle": 0,
+      "perspective": 1,
+      "eyeMotion": "none",
+      "bodyMotion": "none"
+    },
+    "wink": {
+      "headX": 3.5292968750000004,
+      "headY": -7.0765625,
+      "headZ": 9.830078125,
+      "widthLeft": 24.306250000000002,
+      "widthRight": 48.92421875000001,
+      "heightLeft": 59.281640624999994,
+      "heightRight": 13.408203124999996,
+      "spacing": 62.218359375,
+      "positionXLeft": 0,
+      "positionXRight": 0,
+      "positionYLeft": 0,
+      "positionYRight": 0,
+      "leftAngle": 0,
+      "rightAngle": 0,
+      "perspective": 1,
+      "eyeMotion": "none",
+      "bodyMotion": "none"
+    },
+    "shy": {
+      "headX": 7.131640624999998,
+      "headY": 7.7828124999999995,
+      "headZ": 3.935546874999999,
+      "widthLeft": 21.5,
+      "widthRight": 23.2,
+      "heightLeft": 32,
+      "heightRight": 33.5,
+      "spacing": 51.2,
+      "positionXLeft": 0,
+      "positionXRight": 0,
+      "positionYLeft": 40,
+      "positionYRight": 40,
+      "leftAngle": 0,
+      "rightAngle": 0,
+      "perspective": 1,
+      "eyeMotion": "none",
+      "bodyMotion": "none"
+    }
+  }
+}

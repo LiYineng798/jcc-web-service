@@ -54,7 +54,7 @@ function renderDetail(lineup) {
     link.href = lineup.can_moderate ? '/admin' : `/me/lineup-notifications/${lineup.id}`; notice.append(link);
     detailRoot.prepend(notice);
   }
-  detailRoot.querySelector('.hero-description').prepend(window.jccAvatar.image(lineup.owner_avatar_color, 36));
+  detailRoot.querySelector('.hero-description').prepend(window.jccAvatar.image(lineup.owner_avatar_config || lineup.owner_avatar_color, 36));
 }
 
 function setDetailTheme(theme) {

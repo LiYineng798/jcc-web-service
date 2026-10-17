@@ -427,6 +427,66 @@ def test_home_transition_module_builds_lineup_skeletons_and_reveals():
     assert "classList.add('is-resetting')" in js
 
 
+def test_ordinary_skeleton_matches_current_card_sections_without_interactive_hooks():
+    from pathlib import Path
+    js = Path('static/home-transitions.js').read_text(encoding='utf-8')
+    card = js.split('function createSkeletonCard()', 1)[1].split('function createWrapper', 1)[0]
+    for section in ('heading', 'rank', 'byline', 'avatar', 'name', 'date', 'code', 'copy', 'social', 'utilities'):
+        assert f't-skel-{section}' in card
+    assert "setAttribute('aria-hidden', 'true')" in card
+    assert 'home-lineup-card' not in card
+    assert '<button' not in card and '<a ' not in card and 'data-card-icon' not in card
+    css = Path('static/styles.css').read_text(encoding='utf-8')
+    assert 'min-height: 594px' not in css
+    assert '.t-skel-skeleton {\n  position: relative;' in css
+    assert '.t-skel.is-revealed .t-skel-skeleton {\n  position: absolute;' in css
+    card_css = Path('static/home-lineup-card.css').read_text(encoding='utf-8')
+    assert '.t-skel-copy { grid-column: 1; grid-row: auto;' in card_css
+
+
+def test_home_avatar_feedback_follows_success_and_excludes_unfavorite():
+    from pathlib import Path
+    js = Path('static/app.js').read_text(encoding='utf-8')
+    favorite = js.split('async function favoriteLineup(lineup, control)', 1)[1].split('async function reportLineup', 1)[0]
+    remove, add = favorite.split('} else {', 1)
+    assert "method: 'DELETE'" in remove and 'feedbackLineupAvatar' not in remove
+    assert add.index("method: 'POST'") < add.index("feedbackLineupAvatar(lineup, control, 'favorite')")
+    assert '(control) => favoriteLineup(lineup, control)' in js
+    runtime = Path('frontend/avatar.ts').read_text(encoding='utf-8')
+    assert "favorite: 'favorited'" in runtime
+    assert 'animation.cancel()' in runtime
+    assert 'if (reducedMotion() || !visual.animate) return;' in runtime
+    assert 'getComputedStyle(visual).transform' in runtime
+    assert 'getState().activeExpression !== face' in runtime
+    assert 'avatar-feedback-ring' not in runtime and 'avatar-feedback-badge' not in runtime
+
+
+def test_home_card_success_feedback_is_local_but_errors_remain_visible():
+    from pathlib import Path
+    js = Path('static/app.js').read_text(encoding='utf-8')
+    copy = js.split('async function copyLineup(lineup, control)', 1)[1].split('async function writeClipboard', 1)[0]
+    actions = js.split('async function likeLineup(lineup, control)', 1)[1].split('async function reportLineup', 1)[0]
+    assert 'showToast(' not in copy
+    assert "textContent = '已复制'" in copy
+    assert "showMessage('复制失败，请长按阵容码手动复制', 'error')" in copy
+    assert "showMessage('点赞成功')" not in actions
+    assert "showMessage('收藏成功')" not in actions
+    assert "showMessage('已取消收藏')" not in actions
+    assert actions.count("showMessage(error.message, 'error')") == 2
+    assert actions.count('requireAuthIntent(') == 2
+
+
+def test_avatar_editor_has_tabbed_panels_and_keeps_source_offer_outside_dialog():
+    from pathlib import Path
+    js = Path('static/avatar-editor.js').read_text(encoding='utf-8')
+    assert 'role="tablist"' in js
+    assert js.count('role="tabpanel"') == 3
+    assert 'ArrowLeft' in js and 'ArrowRight' in js
+    assert 'window.visualViewport' in js
+    assert 'avatar-attribution' not in js and 'AGPL-3.0' not in js
+    assert '/avatar-source' in Path('templates/index.html').read_text(encoding='utf-8')
+
+
 def test_app_js_uses_skeletons_only_for_uncached_regular_lineup_navigation():
     with open('static/app.js', 'r', encoding='utf-8') as file:
         js = file.read()

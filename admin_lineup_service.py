@@ -41,7 +41,8 @@ def build_admin_lineups_query(query, status='all', season='', order='newest'):
     # issuing its three per-row fallback queries (was ~60 queries per page).
     base_sql = (
         'SELECT lineups.*, users.role AS owner_role, users.username AS owner_username, '
-        'users.avatar_color AS owner_avatar_color, users.nickname AS owner_nickname_raw, 0 AS is_liked_today, 0 AS is_favorited '
+        'users.avatar_color AS owner_avatar_color, users.avatar_preset AS owner_avatar_preset, '
+        'users.avatar_expression AS owner_avatar_expression, users.nickname AS owner_nickname_raw, 0 AS is_liked_today, 0 AS is_favorited '
         + from_sql + (' ORDER BY lineups.updated_at ASC, lineups.id ASC' if order == 'oldest' else ' ORDER BY lineups.id DESC')
     )
     count_sql = 'SELECT COUNT(*) AS c ' + from_sql
