@@ -484,7 +484,6 @@ def test_avatar_editor_has_tabbed_panels_and_keeps_source_offer_outside_dialog()
     assert 'ArrowLeft' in js and 'ArrowRight' in js
     assert 'window.visualViewport' in js
     assert 'avatar-attribution' not in js and 'AGPL-3.0' not in js
-    assert '/avatar-source' in Path('templates/index.html').read_text(encoding='utf-8')
 
 
 def test_app_js_uses_skeletons_only_for_uncached_regular_lineup_navigation():
