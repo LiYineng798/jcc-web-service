@@ -1,0 +1,22 @@
+.feedback-page { max-width:850px; }
+.fb-dialog { width:min(760px,calc(100vw - 24px)); max-height:calc(100dvh - 24px); padding:0; border:1px solid var(--line); border-radius:20px; background:var(--surface-solid); color:var(--text); }
+.fb-dialog::backdrop { background:rgb(0 0 0 / .45); }
+.fb-dialog[open] { display:flex; flex-direction:column; overflow:hidden; }
+.fb-head { display:flex; flex-shrink:0; justify-content:space-between; align-items:center; gap:16px; padding:20px; border-bottom:1px solid var(--line); }
+.fb-head h2 { margin:0; font-size:20px; }
+.fb-body { padding:20px; overflow:auto; min-height:0; overflow-wrap:anywhere; }
+.fb-status { display:inline-block; padding:5px 12px; border-radius:20px; background:var(--accent-soft); color:var(--accent-strong); font-size:13px; }
+.fb-content,.fb-event p { white-space:pre-wrap; overflow-wrap:anywhere; line-height:1.75; }
+.fb-timeline { display:grid; gap:14px; margin:20px 0; padding:0; list-style:none; }
+.fb-event { padding:16px; border:1px solid var(--line); border-radius:12px; }
+.fb-event.is-admin { background:var(--accent-soft); }
+.fb-event time { display:block; font-size:12px; color:var(--muted); margin-top:5px; }
+.fb-event p { margin:8px 0 0; }
+.fb-reply { display:grid; gap:12px; padding-top:16px; border-top:1px solid var(--line); }
+.fb-reply label { display:grid; gap:6px; }
+.fb-reply :is(select,textarea) { width:100%; box-sizing:border-box; background:var(--bg); color:var(--text); border:1px solid var(--line); border-radius:10px; padding:10px; font:inherit; }
+.fb-reply textarea { resize:vertical; min-height:110px; }
+.fb-reply .fb-hide { display:flex; gap:8px; align-items:center; }
+.fb-error { color:var(--danger,#b54747); white-space:pre-wrap; }
+.fb-dialog :is(button,a,select,textarea):focus-visible { outline:2px solid var(--accent); outline-offset:3px; }
+@media(max-width:520px) { .fb-head,.fb-body { padding:16px; } }

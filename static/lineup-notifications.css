@@ -49,3 +49,6 @@
   .ln-item-link { gap:10px; }
   .ln-preview { padding:10px; }
 }
+
+.ln-filters { flex-wrap:wrap; }
+.ln-like,.ln-favorite,.ln-copy { background:var(--accent-soft); color:var(--accent-strong); }

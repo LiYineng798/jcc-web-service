@@ -17,6 +17,7 @@ def build_report_list_query(status):
         params.append(status)
     base_sql = '''SELECT
                 reports.*,
+                (SELECT status FROM feedback_threads f WHERE f.source_type='report' AND f.source_id=reports.id) AS feedback_status,
                 reporter.username AS reporter_username,
                 reporter.nickname AS reporter_nickname,
                 handler.username AS handled_by_username,
@@ -61,5 +62,16 @@ def resolve_report(db, admin_id, report_id, data):
         before=dict(before),
         after={'status': payload['status'], 'hide_lineup': payload['hide_lineup']},
     )
-    db.commit()
+    from feedback_service import create_feedback, update_feedback
+    thread = db.execute("SELECT id,revision FROM feedback_threads WHERE source_type='report' AND source_id=?", (report_id,)).fetchone()
+    if not thread:
+        receipt = create_feedback(db, 'report', report_id, before['reporter_user_id'], '阵容失效反馈', before['reason'], before['lineup_id'])
+        thread = {'id': receipt['feedback_id'], 'revision': 1}
+    _, error, code = update_feedback(db, {'id': admin_id, 'role': 'admin', 'status': 'active'}, thread['id'], {
+        'revision': (data or {}).get('revision', thread['revision']), 'status': payload['status'],
+        'body': (data or {}).get('body') or ('管理员已处理该反馈。' if payload['status']=='resolved' else '管理员核实后暂未采纳该反馈。'),
+    })
+    if error:
+        db.rollback()
+        return None, error, code
     return {'ok': True, 'id': report_id, 'status': payload['status'], 'hide_lineup': payload['hide_lineup']}, None, 200

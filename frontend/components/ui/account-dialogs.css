@@ -590,3 +590,9 @@
     font-size: 19px;
   }
 }
+
+#accountApp .pf-feedback-body, #accountApp .pf-feedback-timeline p { white-space:pre-wrap; overflow-wrap:anywhere; line-height:1.75; }
+#accountApp .pf-feedback-timeline { list-style:none; padding:0; display:grid; gap:14px; margin:20px 0; }
+#accountApp .pf-feedback-timeline li { border:1px solid var(--line); padding:16px; border-radius:14px; background:var(--pf-paper); }
+#accountApp .pf-feedback-timeline time { display:block; font-size:12px; opacity:.65; margin:6px 0; }
+#accountApp .pf-inbox-filters { flex-wrap:wrap; }

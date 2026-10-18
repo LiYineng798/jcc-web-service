@@ -100,6 +100,8 @@ def list_my_reports_payload(user_id):
         SELECT
             reports.id,
             reports.reason,
+            (SELECT id FROM feedback_threads WHERE source_type='report' AND source_id=reports.id) AS feedback_id,
+            (SELECT status FROM feedback_threads WHERE source_type='report' AND source_id=reports.id) AS feedback_status,
             reports.status,
             reports.created_at,
             reports.handled_at,

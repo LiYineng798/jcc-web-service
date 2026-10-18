@@ -1,4 +1,6 @@
-from db import get_db, now_text
+from db import db_kind, get_db, now_text
+from db_adapter import insert_returning_id_sql, last_insert_id
+from feedback_service import create_feedback
 from rate_limit import hit_limit
 
 
@@ -20,13 +22,15 @@ def create_message(user, data, ip):
     if not content or len(content) > 500:
         return None, '留言内容需为 1-500 字', 400
 
-    db.execute(
-        '''INSERT INTO guestbook_messages (user_id, nickname, content, ip_address, created_at)
-           VALUES (?, ?, ?, ?, ?)''',
+    cursor = db.execute(
+        insert_returning_id_sql('''INSERT INTO guestbook_messages (user_id, nickname, content, ip_address, created_at)
+           VALUES (?, ?, ?, ?, ?)''', db_kind()),
         (user['id'] if user else None, nickname, content, ip, now_text()),
     )
+    receipt = create_feedback(db, 'guestbook', last_insert_id(cursor, db_kind()),
+                              user['id'], '给站长的留言', content) if user else {}
     db.commit()
-    return {'ok': True}, None, 201
+    return {'ok': True, **receipt}, None, 201
 
 
 def list_messages(db, page, page_size, status='active'):
@@ -48,7 +52,8 @@ def list_messages(db, page, page_size, status='active'):
     query_params = [*params, page_size, offset]
     rows = db.execute(
         f'''SELECT id, user_id, nickname, content, ip_address, created_at,
-                   status, read_at, archived_at
+                   status, read_at, archived_at,
+                   (SELECT status FROM feedback_threads f WHERE f.source_type='guestbook' AND f.source_id=guestbook_messages.id) AS feedback_status
             FROM guestbook_messages{where}
             ORDER BY id DESC LIMIT ? OFFSET ?''',
         query_params,
@@ -66,6 +71,7 @@ def list_messages(db, page, page_size, status='active'):
 
 
 def delete_message(db, message_id):
+    db.execute("DELETE FROM feedback_threads WHERE source_type='guestbook' AND source_id=?", (message_id,))
     db.execute('DELETE FROM guestbook_messages WHERE id = ?', (message_id,))
     db.commit()
     return {'ok': True}, None, 200
@@ -97,7 +103,8 @@ def update_message_status(db, message_id, status, admin_id):
     db.commit()
     updated = db.execute(
         '''SELECT id, user_id, nickname, content, ip_address, created_at,
-                  status, read_at, archived_at
+                  status, read_at, archived_at,
+                   (SELECT status FROM feedback_threads f WHERE f.source_type='guestbook' AND f.source_id=guestbook_messages.id) AS feedback_status
            FROM guestbook_messages WHERE id = ?''',
         (message_id,),
     ).fetchone()

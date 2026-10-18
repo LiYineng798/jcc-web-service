@@ -5,6 +5,8 @@
   const panel = root.querySelector('.ln-panel'), filters = root.querySelector('.ln-filters');
   const list = root.querySelector('.ln-list'), pagination = root.querySelector('.ln-pagination');
   const labels = { banned: '阵容已封禁', pending: '修改待审核', rejected: '修改被退回', approved: '修改审核通过', released: '封禁已解除' };
+  let category = 'all';
+  const categories = el('div','ln-filters'); categories.setAttribute('aria-label','通知分类'); filters.before(categories);
   let session = null, status = 'all', page = 1, requestId = 0, counts = {}, autoOpened = false;
   function el(tag, className = '', text = '') {
     const node = document.createElement(tag); node.className = className; node.textContent = text; return node;
@@ -18,13 +20,17 @@
     });
     return node;
   }
-  function setCounts(value) {
+  function setCounts(value, totalUnread) {
     counts = value;
-    const unread = counts.unread || 0;
+    const unread = totalUnread ?? counts.unread ?? 0;
     count.textContent = unread > 99 ? '99+' : String(unread); count.hidden = unread === 0;
     toggle.setAttribute('aria-label', unread ? `通知，${unread} 条未读` : '通知，无未读');
   }
   function renderFilters() {
+    categories.replaceChildren();
+    for (const [value,label] of [['all','全部消息'],['interaction','互动'],['feedback','反馈'],['moderation','审核']]) {
+      const tab=button(label,async()=>{category=value;page=1;await load();},'ln-filter');tab.setAttribute('aria-pressed',String(category===value));categories.append(tab);
+    }
     filters.replaceChildren();
     for (const [value, label] of [['all', '全部'], ['unread', '未读'], ['read', '已读']]) {
       const item = button(label, async () => { status = value; page = 1; await load(); }, 'ln-filter');
@@ -34,22 +40,23 @@
     }
   }
   function render(data) {
-    setCounts(data.counts); renderFilters(); list.replaceChildren(); pagination.replaceChildren();
+    setCounts(data.counts, data.unread_total); renderFilters(); list.replaceChildren(); pagination.replaceChildren();
     for (const item of data.items) {
       const row = el('article', `ln-item${item.notice_state === 'unread' ? ' is-unread' : ''}`);
-      row.dataset.lineupId = item.lineup_id;
-      const link = el('a', 'ln-item-link'); link.href = `/me/lineup-notifications/${item.lineup_id}`;
-      const symbol = el('span', `ln-symbol ln-${item.state}`, item.state === 'approved' || item.state === 'released' ? '✓' : item.state === 'pending' ? '◷' : '!');
+      row.dataset.lineupId = item.id;
+      const link = el('a', 'ln-item-link'); link.href = item.url || '/me#lineup-notifications';
+      if(item.category==='interaction')link.addEventListener('click',async event=>{if(event.ctrlKey||event.metaKey||event.shiftKey)return;event.preventDefault();if(item.notice_state==='unread')await session.api(`/api/me/notifications/${item.id}`,{method:'PUT',body:JSON.stringify({status:'read',revision:item.revision})}).catch(()=>{});location.href=link.href;});
+      const symbol = el('span', `ln-symbol ln-${item.state}`, item.category==='interaction' ? '♡' : item.kind==='feedback' ? '↗' : item.state === 'approved' || item.state === 'released' ? '✓' : item.state === 'pending' ? '◷' : '!');
       symbol.setAttribute('aria-hidden', 'true');
       const content = el('div', 'ln-item-content');
-      content.append(el('strong', 'ln-item-name', item.name), el('span', 'ln-item-status', labels[item.state] || '阵容处理结果'));
+      content.append(el('strong', 'ln-item-name', item.name), el('span', 'ln-item-status', item.category==='interaction' ? ({like:'收到点赞',favorite:'收到收藏',copy:'收到复制'}[item.kind]) : item.kind==='feedback' ? '反馈进度与回复' : labels[item.state] || '阵容处理结果'));
       const time = el('time', 'ln-time', item.updated_at); time.dateTime = item.updated_at.replace(' ', 'T'); content.append(time);
-      const message = item.state === 'pending' ? '修改已提交，管理员审核后会通知你。' : item.review_note || item.reason;
+      const message = item.body;
       content.append(el('p', 'ln-preview', message));
       link.append(symbol, content); row.append(link);
       const next = item.notice_state === 'unread' ? 'read' : 'unread';
       const mark = button('', async () => {
-        await session.api(`/api/me/lineup-notifications/${item.lineup_id}`, { method: 'PUT', body: JSON.stringify({ status: next, revision: item.revision }) });
+        await session.api(`/api/me/notifications/${item.id}`, { method: 'PUT', body: JSON.stringify({ status: next, revision: item.revision }) });
         await load();
       }, 'ln-read-toggle');
       const label = next === 'read' ? '标记已读' : '标记未读'; mark.setAttribute('aria-label', label); mark.title = label;
@@ -67,15 +74,16 @@
     if (!session) return;
     const id = ++requestId;
     const focused = panel.contains(document.activeElement) ? document.activeElement : null;
-    const focusedFilter = focused?.closest('.ln-filter') ? status : null;
+    const focusedCategory = categories.contains(focused) ? category : null;
+    const focusedFilter = filters.contains(focused) && focused?.closest('.ln-filter') ? status : null;
     const focusedRow = focused?.closest('.ln-item')?.dataset.lineupId;
     list.setAttribute('aria-busy', 'true');
     try {
-      const data = await session.api(`/api/me/lineup-notifications?status=${status}&page=${page}&page_size=6`);
+      const data = await session.api(`/api/me/notifications?category=${category}&status=${status}&page=${page}&page_size=6`);
       if (id !== requestId) return;
       page = data.page; render(data);
       if (!panel.hidden && focused) {
-        const target = focusedFilter ? [...filters.children].find(node => node.getAttribute('aria-pressed') === 'true')
+        const target = focusedCategory ? [...categories.children].find(node => node.getAttribute('aria-pressed') === 'true') : focusedFilter ? [...filters.children].find(node => node.getAttribute('aria-pressed') === 'true')
           : focusedRow ? list.querySelector(`[data-lineup-id="${focusedRow}"] .ln-read-toggle`) : null;
         (target || filters.querySelector('button'))?.focus({ preventScroll: true });
       }
@@ -114,7 +122,7 @@
     session = value.user ? value : null; root.hidden = !session;
     root.parentElement.classList.toggle('has-notifications', Boolean(session));
     if (!session) { ++requestId; close(); setCounts({}); list.replaceChildren(); return; }
-    if (changed) { status = 'all'; page = 1; load(); }
+    if (changed) { category='all'; status = 'all'; page = 1; load(); }
     if (!autoOpened && new URLSearchParams(location.search).get('notifications') === 'open') { autoOpened = true; open(); }
   }
   toggle.addEventListener('click', () => panel.hidden ? open() : close(true));

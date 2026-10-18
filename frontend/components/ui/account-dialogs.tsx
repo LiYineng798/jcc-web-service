@@ -9,6 +9,8 @@ import React, {
 import {
   ArrowLeft,
   Bell,
+  Heart,
+  MessageCircle,
   Check,
   ChevronLeft,
   ChevronRight,
@@ -48,7 +50,19 @@ type EditorData = RecordData["lineup"] & {
   can_edit: boolean;
   moderation?: Moderation;
 };
-type Notice = Moderation & {
+type Notice = {
+  state: string;
+  revision: number;
+  notice_state: string;
+  updated_at: string;
+  id: string;
+  category: string;
+  kind: string;
+  feedback_id: number | null;
+  url: string;
+  body: string;
+  event_count: number;
+  new_count: number;
   lineup_id: number;
   name: string;
   lineup_status: string;
@@ -56,6 +70,7 @@ type Notice = Moderation & {
 type Notices = {
   items: Notice[];
   counts: { unread?: number; read?: number };
+  unread_total: number;
   total: number;
   page: number;
   total_pages: number;
@@ -63,6 +78,8 @@ type Notices = {
 type Seasons = { seasons: { id: string; name: string }[] };
 type Screen =
   | { kind: "notifications" }
+  | { kind: "feedback"; id: number }
+  | { kind: "interaction"; notice: Notice }
   | { kind: "moderation"; id: number; seed?: RecordData }
   | { kind: "edit"; id: number };
 type Failure = Error & { status?: number };
@@ -114,7 +131,7 @@ export function AccountDialogsProvider({
   const [noticeRevision, setNoticeRevision] = useState(0);
   const opener = useRef<HTMLElement | null>(null);
   const counts = useResource<Notices>(
-    "/api/me/lineup-notifications?status=all&page=1&page_size=1",
+    "/api/me/notifications?status=all&page=1&page_size=1",
     noticeRevision,
   );
   const open = useCallback((screen: Screen, source?: HTMLElement) => {
@@ -153,7 +170,7 @@ export function AccountDialogsProvider({
       value={{
         open,
         dataRevision,
-        unread: counts.data?.counts.unread || 0,
+        unread: counts.data?.unread_total || 0,
         countError: Boolean(counts.error),
       }}
     >
@@ -193,7 +210,7 @@ function DialogWorkspace({
   const [dirty, setDirty] = useState(false),
     [busy, setBusy] = useState(false);
   const [discard, setDiscard] = useState<"close" | "back" | null>(null);
-  const [noticeView, setNoticeView] = useState({ status: "all", page: 1 });
+  const [noticeView, setNoticeView] = useState({ status: "all", category: "all", page: 1 });
   const screen = stack[stack.length - 1];
   const backgroundPointer = useRef(false);
   useEffect(() => {
@@ -248,10 +265,10 @@ function DialogWorkspace({
   }
   const title =
     screen.kind === "notifications"
-      ? "阵容处理通知"
+      ? "通知中心"
       : screen.kind === "moderation"
         ? "封禁与重审详情"
-        : "编辑阵容";
+        : screen.kind === "feedback" ? "反馈进度与回复" : screen.kind === "interaction" ? "收到的互动" : "编辑阵容";
   return (
     <dialog
       ref={dialog}
@@ -275,6 +292,10 @@ function DialogWorkspace({
           <span className="pf-dialog-symbol">
             {screen.kind === "notifications" ? (
               <Bell size={22} />
+            ) : screen.kind === "feedback" ? (
+              <MessageCircle size={22} />
+            ) : screen.kind === "interaction" ? (
+              <Heart size={22} />
             ) : screen.kind === "edit" ? (
               <FilePenLine size={22} />
             ) : (
@@ -350,6 +371,10 @@ function DialogWorkspace({
             changed={noticesChanged}
             go={go}
           />
+        ) : screen.kind === "feedback" ? (
+          <FeedbackDetail id={screen.id} token={token} changed={noticesChanged} />
+        ) : screen.kind === "interaction" ? (
+          <InteractionDetail item={screen.notice} token={token} changed={noticesChanged} />
         ) : (
           <Editor
             key={`edit-${screen.id}`}
@@ -411,15 +436,15 @@ function NotificationList({
 }: {
   token: string;
   revision: number;
-  view: { status: string; page: number };
+  view: { status: string; category: string; page: number };
   setView: React.Dispatch<
-    React.SetStateAction<{ status: string; page: number }>
+    React.SetStateAction<{ status: string; category: string; page: number }>
   >;
   changed: () => void;
   go: (screen: Screen) => void;
 }) {
   const result = useResource<Notices>(
-    `/api/me/lineup-notifications?status=${view.status}&page=${view.page}&page_size=6`,
+    `/api/me/notifications?category=${view.category}&status=${view.status}&page=${view.page}&page_size=6`,
     revision,
   );
   useEffect(() => {
@@ -430,8 +455,13 @@ function NotificationList({
   return (
     <section className="pf-inbox">
       <p className="pf-dialog-intro">
-        查看阵容处理结果，点击通知可在这里阅读详情和提交修改。
+        互动汇总、反馈进度和阵容审核，都在这里。收到新的互动或回复后会再次提醒。
       </p>
+      <div className="pf-inbox-filters" role="group" aria-label="通知分类">
+        {[["all","全部消息"],["interaction","互动消息"],["feedback","反馈进度"],["moderation","阵容审核"]].map(([value,label]) => (
+          <button key={value} aria-pressed={view.category === value} onClick={() => setView(v => ({...v, category:value, page:1}))}>{label}</button>
+        ))}
+      </div>
       <div className="pf-inbox-filters" role="group" aria-label="通知状态">
         {[
           ["all", "全部"],
@@ -441,7 +471,7 @@ function NotificationList({
           <button
             key={value}
             aria-pressed={view.status === value}
-            onClick={() => setView({ status: value, page: 1 })}
+            onClick={() => setView(v => ({ ...v, status: value, page: 1 }))}
           >
             {label}
             <span>
@@ -464,7 +494,7 @@ function NotificationList({
             {result.data?.items.length ? (
               result.data.items.map((item) => (
                 <NoticeRow
-                  key={`${item.lineup_id}-${item.revision}-${item.notice_state}`}
+                  key={`${item.id}-${item.revision}-${item.notice_state}`}
                   item={item}
                   token={token}
                   changed={changed}
@@ -481,7 +511,7 @@ function NotificationList({
                       ? "还没有已读通知"
                       : "暂时没有通知"}
                 </strong>
-                <p>阵容的处理结果会在这里告诉你。</p>
+                <p>收到互动、反馈回复或审核结果时会在这里展示。</p>
               </div>
             )}
           </div>
@@ -538,14 +568,14 @@ function NoticeRow({
   return (
     <article
       className={`pf-notice-row ${item.notice_state === "unread" ? "is-unread" : ""}`}
-      data-notice-id={item.lineup_id}
+      data-notice-id={item.id}
     >
       <button
         className="pf-notice-open"
-        onClick={() => go({ kind: "moderation", id: item.lineup_id })}
+        onClick={() => go(item.kind === "feedback" ? {kind:"feedback",id:item.feedback_id!} : item.kind === "moderation" ? { kind: "moderation", id: item.lineup_id } : {kind:"interaction",notice:item})}
       >
         <span className="pf-notice-symbol">
-          {["approved", "released"].includes(item.state) ? (
+          {item.category === "interaction" ? <Heart size={19} /> : item.kind === "feedback" ? <MessageCircle size={19} /> : ["approved", "released"].includes(item.state) ? (
             <Check size={19} />
           ) : item.state === "pending" ? (
             <Clock3 size={19} />
@@ -556,13 +586,11 @@ function NoticeRow({
         <span className="pf-notice-text">
           <strong>{item.name}</strong>
           <span>
-            <Status value={item.state} />
+            {item.kind === "moderation" ? <Status value={item.state} /> : <span className="pf-dialog-status">{item.kind === "feedback" ? "反馈进度" : ({like:"收到点赞",favorite:"收到收藏",copy:"收到复制"} as Record<string,string>)[item.kind]}</span>}
             <time>{date(item.updated_at)}</time>
           </span>
           <p>
-            {item.state === "pending"
-              ? "修改已提交，管理员审核后会通知你。"
-              : item.review_note || item.reason}
+            {item.body}
           </p>
         </span>
         <ChevronRight size={16} />
@@ -578,7 +606,7 @@ function NoticeRow({
           setError("");
           try {
             await window.JccAccount.request(
-              `/api/me/lineup-notifications/${item.lineup_id}`,
+              `/api/me/notifications/${item.id}`,
               {
                 method: "PUT",
                 headers: headers(token),
@@ -604,6 +632,47 @@ function NoticeRow({
       )}
     </article>
   );
+}
+
+type FeedbackData = {
+  title:string; content:string; status:string;
+  notification:{id:string;revision:number;notice_state:string}|null;
+  events:{id:number;actor_role:string;status:string;body:string;created_at:string}[];
+};
+const feedbackLabels:Record<string,string> = {pending:"已收到",in_progress:"核实中",resolved:"已解决",dismissed:"未采纳 / 无法复现"};
+function useMarkDisplayed(notice:{id:string;revision:number;notice_state:string}|null|undefined, token:string, changed:()=>void) {
+  useEffect(() => {
+    if (!notice || notice.notice_state !== "unread") return;
+    const controller = new AbortController();
+    window.JccAccount.request(`/api/me/notifications/${notice.id}`, {
+      method:"PUT",headers:headers(token),body:JSON.stringify({status:"read",revision:notice.revision}),signal:controller.signal,
+    }).then(() => {if(!controller.signal.aborted)changed();}).catch(() => {});
+    return () => controller.abort();
+  }, [notice?.id,notice?.revision,notice?.notice_state,token,changed]);
+}
+function FeedbackDetail({id,token,changed}:{id:number;token:string;changed:()=>void}) {
+  const result = useResource<FeedbackData>(`/api/me/feedback/${id}`);
+  useMarkDisplayed(result.data?.notification,token,changed);
+  if(result.error)return <FailureView error={result.error} retry={result.retry}/>;
+  if(result.loading||!result.data)return <Loading/>;
+  const data=result.data;
+  return <section className="pf-feedback-detail">
+    <h3>{data.title}</h3><span className="pf-dialog-status">{feedbackLabels[data.status]}</span>
+    <p className="pf-feedback-body">{data.content}</p>
+    <ol className="pf-feedback-timeline">{data.events.map(event => <li key={event.id}>
+      <strong>{event.actor_role === "admin" ? "管理员回复" : "我的反馈"} · {feedbackLabels[event.status]}</strong>
+      <time>{date(event.created_at)}</time><p>{event.body}</p>
+    </li>)}</ol>
+    {!data.events.some(event=>event.actor_role==="admin")&&<p>站长收到反馈后会在这里更新处理进度。</p>}
+    <button className="pf-button" onClick={result.retry}>刷新进度</button>
+  </section>;
+}
+function InteractionDetail({item,token,changed}:{item:Notice;token:string;changed:()=>void}) {
+  useMarkDisplayed(item,token,changed);
+  return <section className="pf-feedback-detail"><h3>{item.name}</h3><p>{item.body}</p>
+    <p className="pf-dialog-intro">感谢分享，你的阵容正在帮助其他玩家。数字从互动通知功能启用后累计；自己的操作不计入。收藏按用户去重，复制沿用五分钟去重规则。</p>
+    {item.url ? <a className="pf-button" href={item.url}>查看我的阵容</a> : <p>原阵容已删除，互动记录仍为你保留。</p>}
+  </section>;
 }
 
 function ContentBlock({

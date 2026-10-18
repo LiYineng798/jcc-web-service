@@ -25,6 +25,7 @@ Web SQLite schema 对应 DB migration 0016；先部署 DB 再部署 Web。
 
 通知已读状态使用独立 revision，只标记实际加载/渲染的版本。
 用户端仅 all/unread/read，没有归档，也没有邮件发送。
+审核通知已接入[统一通知中心](notification-center.md)，与互动消息、反馈进度分类展示；原审核接口和详情继续兼容。
 
 主页铃铛打开作者专属 `/me/lineup-notifications/<id>` 详情页；
 个人中心在页内浮窗查看、返回、编辑，`/me#lineup-notifications` 在账号页处理。

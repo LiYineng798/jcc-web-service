@@ -39,6 +39,8 @@ def create_app(test_config=None):
     app.register_blueprint(lineup_moderation_bp)
     app.register_blueprint(admin_bp)
     app.register_blueprint(live_comps_bp)
+    from notification_center import notification_center_bp
+    app.register_blueprint(notification_center_bp)
     app.register_blueprint(guestbook_bp)
     app.register_blueprint(patch_notes_bp)
 

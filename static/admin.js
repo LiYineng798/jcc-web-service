@@ -78,6 +78,7 @@
   });
   const statusText = {
     pending: '待处理',
+    in_progress: '核实中',
     resolved: '已处理',
     dismissed: '已驳回',
     normal: '正常',
@@ -666,20 +667,16 @@
   function reportCard(report) {
     const card = el('article', 'admin-card is-alert');
     const head = el('div', 'admin-card-head');
-    head.append(el('h3', '', `#${report.id} ${report.lineup_name || '阵容已删除'}`), pill(statusText[report.status] || report.status));
+    head.append(el('h3', '', `#${report.id} ${report.lineup_name || '阵容已删除'}`), pill(statusText[report.feedback_status || report.status] || report.status));
     const meta = el('p', 'admin-meta', `反馈用户：${report.reporter_nickname || '-'} · 作者：${report.owner_nickname || '-'} · 提交：${report.created_at}`);
     const reason = el('p', 'admin-reason', report.reason);
     const code = el('pre', 'admin-code', report.lineup_code || '无阵容码');
     card.append(head, meta, reason, code);
-    if (report.status === 'pending') {
-      const actions = el('div', 'card-actions');
-      actions.append(
-        button('处理并隐藏阵容', () => handleReport(report.id, 'resolved', true)),
-        button('仅标记已处理', () => handleReport(report.id, 'resolved', false)),
-        button('驳回失效反馈', () => handleReport(report.id, 'dismissed', false), 'small-button danger-button'),
-      );
-      card.append(actions);
-    }
+    const actions = el('div', 'card-actions');
+    actions.append(button('查看进度 / 回复用户', () => window.JccFeedback.openAdmin('report', report.id, api, async () => {
+      await Promise.all([loadReports({ force: true }), loadOverview({ force: true })]); render();
+    })));
+    card.append(actions);
     return card;
   }
 
@@ -2030,6 +2027,8 @@
     const head = el('div', 'admin-card-head');
     const heading = el('div', 'guestbook-admin-heading');
     heading.append(el('h3', '', msg.nickname), pill(statusText[msg.status] || msg.status || '未读'));
+    if(msg.feedback_status)heading.append(pill('处理进度：'+(statusText[msg.feedback_status]||msg.feedback_status)));
+    else heading.append(el('span','admin-meta','游客留言 · 无站内回复'));
     head.append(heading);
     const meta = el('p', 'admin-meta', `${msg.created_at} · IP: ${msg.ip_address}`);
     const content = el('p', 'admin-reason', msg.content);
@@ -2045,6 +2044,7 @@
       render();
       setNotice('留言已删除');
     }, 'small-button danger-button');
+    if (msg.user_id) actions.append(button('查看进度 / 回复用户', () => window.JccFeedback.openAdmin('guestbook', msg.id, api, async () => { await loadGuestbook({ force: true }); render(); })));
     actions.append(...statusActions, delBtn);
     card.append(head, meta, content, actions);
     return card;

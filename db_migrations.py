@@ -17,6 +17,11 @@ def migrate_schema(db, admin_id, now_text_func):
     migrate_audit_logs_table(db)
     migrate_password_reset_requests_table(db)
     migrate_guestbook_messages_table(db)
+    from notification_schema import FEEDBACK_BACKFILL
+    if {"feedback_threads", "reports", "guestbook_messages"}.issubset(table_names(db)):
+        for statement in FEEDBACK_BACKFILL.split(";"):
+            if statement.strip():
+                db.execute(statement)
 
 
 def migrate_device_columns(db):

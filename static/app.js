@@ -1771,6 +1771,9 @@ function showGuestbookDialog() {
 
   const helper = el('p', 'guestbook-helper', '留言会进入站长的处理队列，我们会认真阅读每一条反馈。');
   form.append(nicknameField, contentField, characterCount, inlineMessage, helper, actions);
+  if (state.user) {
+    const link=el('a','ghost-link','查看我的反馈与回复');link.href='/me#lineup-notifications';form.append(link);
+  }
   form.addEventListener('submit', async (event) => {
     event.preventDefault();
     const nickname = nicknameInput.value.trim();
@@ -1782,9 +1785,12 @@ function showGuestbookDialog() {
     try {
       const body = { content };
       if (!state.user) body.nickname = nickname;
-      await api('/api/guestbook', { method: 'POST', body: JSON.stringify(body) });
-      closeGuestbookDialog();
-      showToast('感谢留言，站长会尽快查看');
+      const receipt = await api('/api/guestbook', { method: 'POST', body: JSON.stringify(body) });
+      if (!state.user) {
+        closeGuestbookDialog();showToast('感谢留言，站长会尽快查看');return;
+      }
+      form.replaceChildren(el('p', '', '反馈已收到，后续进度和回复会出现在通知中心。'));
+      const link = el('a', 'primary-link', '查看反馈进度');link.href=receipt.feedback_url;form.append(link);link.focus();
     } catch (err) {
       window.jccNotify.inline(inlineMessage, err.message || '留言失败，请稍后再试');
     } finally {

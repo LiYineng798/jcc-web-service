@@ -67,6 +67,8 @@ type Lineup = {
   history_at?: string;
 };
 type Report = {
+  feedback_id?: number;
+  feedback_status?: string;
   id: number;
   lineup_id: number;
   lineup_name: string;
@@ -458,7 +460,7 @@ function Profile({ user: initialUser, token }: { user: User; token: string }) {
               title={
                 dialogs.countError
                   ? "通知数量暂时不可用，点击重试"
-                  : "阵容处理通知"
+                  : "通知中心"
               }
             >
               <Bell size={18} />
@@ -738,7 +740,7 @@ function Overview({
             }
           >
             <Bell size={15} />
-            <span>查看阵容处理通知</span>
+            <span>查看通知中心</span>
             <ChevronRight size={15} />
           </button>
         </section>
@@ -1122,6 +1124,7 @@ function LineupCard({
 }
 
 function ReportCard({ item }: { item: Report }) {
+  const dialogs = useAccountDialogs();
   return (
     <article className="pf-lineup-card pf-report-card">
       <div className="pf-lineup-card-top">
@@ -1138,6 +1141,7 @@ function ReportCard({ item }: { item: Report }) {
         )}
       </h2>
       <p className="pf-report-reason">{item.reason}</p>
+      {item.feedback_id && <button className="pf-button" onClick={event => dialogs.open({kind:"feedback",id:item.feedback_id!},event.currentTarget)}>{item.feedback_status === "in_progress" ? "核实中 · " : ""}查看进度与回复</button>}
       <div className="pf-report-meta">
         <span>
           阵容状态：{lineupStatusText[item.lineup_status] || item.lineup_status}

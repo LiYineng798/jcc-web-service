@@ -197,9 +197,10 @@ def postgres_schema_ready():
                     SELECT COUNT(*) FROM information_schema.tables
                     WHERE table_schema = 'public' AND table_name IN (
                         'season_release_packages','season_import_jobs','season_active_releases','season_release_events',
-                        'lineup_moderation','lineup_moderation_events'
+                        'lineup_moderation','lineup_moderation_events',
+                        'feedback_threads','feedback_events','user_notifications','author_favorite_receipts'
                     )
-                ) = 6 AS exists
+                ) = 10 AS exists
                 '''
             )
             return bool(cursor.fetchone()['exists'])

@@ -6,6 +6,8 @@ from db_adapter import insert_ignore_sql, insert_returning_id_sql, last_insert_i
 from lineups_serialization import serialize_lineup_row
 from lineups_utils import bucket_start, lineup_is_visible_to_user, lineup_row
 from scoring import score_map
+from notification_service import notify_author
+from feedback_service import create_feedback
 
 
 def like_lineup_record(user, lineup_id):
@@ -19,15 +21,15 @@ def like_lineup_record(user, lineup_id):
     count = db.execute('SELECT COUNT(*) AS c FROM likes WHERE user_id = ? AND like_date = ?', (user['id'], today)).fetchone()['c']
     if count >= 5:
         return None, '今天点赞次数已用完', 429
-    try:
-        db.execute(
-            'INSERT INTO likes (user_id, lineup_id, like_date, created_at) VALUES (?, ?, ?, ?)',
-            (user['id'], lineup_id, today, now_text()),
-        )
-        db.commit()
-    except Exception:
+    cursor = db.execute(
+        'INSERT INTO likes (user_id,lineup_id,like_date,created_at) VALUES (?,?,?,?) ON CONFLICT(user_id,lineup_id,like_date) DO NOTHING',
+        (user['id'],lineup_id,today,now_text()),
+    )
+    if not cursor.rowcount:
         db.rollback()
         return None, '今天已经点赞过该阵容', 409
+    notify_author(db, row, 'like', user)
+    db.commit()
     return {'ok': True, 'lineup': serialize_lineup_row(lineup_row(lineup_id), score_map(), user=user)}, None, 201
 
 
@@ -40,17 +42,13 @@ def copy_lineup_record(user, lineup_id, ip, source_page=''):
     copy_key = f'user:{user["id"]}' if user else f'ip:{ip}'
     bucket = bucket_start()
     db = get_db()
-    counted = True
-    try:
-        db.execute(
-            '''INSERT INTO copy_events (lineup_id, user_id, ip_address, copy_key, bucket_start, counted, created_at)
-               VALUES (?, ?, ?, ?, ?, 1, ?)''',
-            (lineup_id, user['id'] if user else None, ip, copy_key, bucket, now_text()),
-        )
-        db.commit()
-    except Exception:
-        db.rollback()
-        counted = False
+    cursor = db.execute('''INSERT INTO copy_events
+        (lineup_id,user_id,ip_address,copy_key,bucket_start,counted,created_at)
+        VALUES (?,?,?,?,?,1,?) ON CONFLICT(lineup_id,copy_key,bucket_start) DO NOTHING''',
+        (lineup_id,user['id'] if user else None,ip,copy_key,bucket,now_text()))
+    counted = bool(cursor.rowcount)
+    if counted:
+        notify_author(db, row, 'copy', user)
     record_copy_action(
         target_type='lineup',
         target_id=lineup_id,
@@ -81,6 +79,8 @@ def favorite_lineup_record(user, lineup_id):
         ),
         (user['id'], lineup_id, now_text()),
     )
+    if cursor.rowcount:
+        notify_author(db, row, 'favorite', user)
     db.commit()
     return {'ok': True, 'created': bool(cursor.rowcount)}, None, 200
 
@@ -108,5 +108,6 @@ def report_lineup_record(user, lineup_id, reason):
         (user['id'], lineup_id, clean_reason, 'pending', now_text()),
     )
     report_id = last_insert_id(cursor, db_kind())
+    receipt = create_feedback(get_db(), 'report', report_id, user['id'], row['name'], clean_reason, lineup_id)
     get_db().commit()
-    return {'id': report_id, 'status': 'pending'}, None, 201
+    return {'id': report_id, **receipt}, None, 201

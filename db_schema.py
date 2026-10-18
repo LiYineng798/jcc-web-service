@@ -554,3 +554,6 @@ from lineup_moderation_schema import LINEUP_MODERATION_SCHEMA
 SCHEMA += LINEUP_MODERATION_SCHEMA
 from experience_schema import SEARCH_EVENTS_SCHEMA
 SCHEMA += SEARCH_EVENTS_SCHEMA
+
+from notification_schema import NOTIFICATION_SCHEMA
+SCHEMA += NOTIFICATION_SCHEMA
