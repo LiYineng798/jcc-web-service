@@ -308,7 +308,6 @@ def test_all_theme_toggles_use_animated_svg_shell():
         'auth.html',
         'author.html',
         'index.html',
-        'lineup_detail.html',
         'lineup_form.html',
         'patch_note_detail.html',
         'patch_notes.html',
@@ -333,7 +332,6 @@ def test_all_theme_scripts_preserve_animated_svg_icon():
         'admin.js',
         'auth.js',
         'author.js',
-        'lineup-detail.js',
         'lineup-editor.js',
         'patch-notes.js',
     ]
@@ -788,7 +786,7 @@ def test_lineup_detail_page_renders_crawlable_lineup_content(client):
     assert '<h1 class="detail-title">SEO阵容</h1>' in html
     assert '阵容作者' in html
     assert 'S17 · 星神' in html
-    assert '#SEOCODE123...' in html
+    assert '#SEOCODE123456789' in html
     assert f'<link rel="canonical" href="http://localhost/lineup/{lineup["id"]}"' in html
     assert 'Lineup Detail' in html
 

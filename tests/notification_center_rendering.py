@@ -67,7 +67,7 @@ def run():
         page.screenshot(path=str(OUT/'account-interactions.png'),full_page=True,animations="disabled")
         page.locator('.pf-notice-open').first.click()
         expect(page.get_by_role('heading',name='收到的互动',exact=True)).to_be_visible()
-        expect(page.get_by_role('link',name='查看阵容（新标签页）')).to_be_visible()
+        expect(page.get_by_role('link',name='查看阵容')).to_be_visible()
         page.go_back()
         expect(page.locator('.pf-notice-row')).to_have_count(3)
         expect(page.get_by_role('group',name='通知分类').get_by_role('button',name='互动',exact=True)).to_have_attribute('aria-pressed','true')

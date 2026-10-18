@@ -7,6 +7,7 @@ from auth import current_user, login_required
 from db import get_db
 from lineup_account_service import build_author_profile_payload
 from lineup_read_service import build_lineup_detail_payload
+from lineups_utils import lineup_season_manifest
 from notice_service import get_active_notice
 from lucky_openings import build_lucky_openings
 from s11_items_service import recommendation_guide
@@ -19,7 +20,6 @@ from seo import (
     DEFAULT_TITLE,
     absolute_url,
     breadcrumb_json_ld,
-    code_preview,
     make_seo,
     robots_txt,
     season_label,
@@ -286,9 +286,13 @@ def register_page_routes(app):
         payload, service_error, status_code = build_lineup_detail_payload(lineup_id, current_user())
         if service_error:
             abort(status_code)
+        detail_season_label = next(
+            (season['name'] for season in lineup_season_manifest()['seasons'] if season['id'] == payload['season_id']),
+            season_label(payload['season_id']),
+        )
         title = f"{payload['name']} - 金铲铲阵容码 - 金铲铲阵容库"
         description = truncate_text(
-            f"{payload['name']}，{season_label(payload['season_id'])}阵容，作者{payload['owner_nickname']}，"
+            f"{payload['name']}，{detail_season_label}阵容，作者{payload['owner_nickname']}，"
             f"评级{payload['rank_level']}，累计点赞{payload['like_count']}，累计复制{payload['copy_count']}。"
         )
         path = f'/lineup/{lineup_id}'
@@ -310,8 +314,7 @@ def register_page_routes(app):
             'lineup_detail',
             lineup_id=lineup_id,
             lineup=payload,
-            lineup_season_label=season_label(payload['season_id']),
-            lineup_code_preview=code_preview(payload['code']),
+            lineup_season_label=detail_season_label,
             seo=seo,
         )
         if payload['status'] != 'normal':

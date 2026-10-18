@@ -1,39 +1,52 @@
 <!doctype html>
-{% from "theme_toggle.html" import theme_toggle %}
 {% from "seo_head.html" import seo_head %}
+{% macro icon(name) -%}<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{ {'back':'m14 7-5 5 5 5','copy':'M9 9h12v12H9z M15 5V3H3v12h2','heart':'M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z','bookmark':'M5 3h14v18l-7-4-7 4V3Z','share':'M12 16V3 m-4 4 4-4 4 4 M5 13v8h14v-8','flag':'M4 22V3c5-4 11 4 16 0v11c-5 4-11-4-16 0','arrow':'M7 17 17 7 M7 7h10v10'}[name] }}"/></svg>{%- endmacro %}
 <html lang="zh-CN">
   <head>
 {{ seo_head(seo) }}
     <link rel="stylesheet" href="{{ static_v('avatar.css') }}" />
+    <link rel="stylesheet" href="{{ static_v('lineup-detail.css') }}" />
     <script src="{{ static_v('avatar-lab/app.js') }}" defer></script>
-    <link rel="stylesheet" href="{{ static_v('moderation.css') }}" />
   </head>
-  <body>
-    <div class="page-shell detail-page-shell">
-      <nav class="nav-bar" aria-label="页面工具">
-        <a class="ghost-link" href="/" data-home-return>返回阵容库</a>
-        {{ theme_toggle() }}
+  <body class="lineup-detail-page">
+    <main class="ld-shell" id="lineupDetailApp" data-lineup-id="{{ lineup_id }}">
+      <nav class="ld-nav" aria-label="页面工具">
+        <a class="ld-back" href="/" id="lineupDetailBack">{{ icon('back') }}<span>返回阵容库</span></a>
+        <a href="/" class="ld-library-link">阵容库</a>
       </nav>
-
-      <section class="panel">
-        <div id="lineupDetailApp" data-lineup-id="{{ lineup_id }}">
-          <div class="detail-stack">
-            <p class="section-kicker">Lineup Detail</p>
-            <h1 class="detail-title">{{ lineup.name }}</h1>
-            <p class="hero-description">由 {{ lineup.owner_nickname }} 上传 · {{ lineup_season_label }} · 评级 {{ lineup.rank_level }}</p>
-            <p class="card-time">赞 {{ lineup.like_count }} · 复制 {{ lineup.copy_count }} · 更新于 {{ lineup.updated_at }}</p>
-{% if lineup.owner_username %}
-            <p class="card-time">作者主页：<a class="author-link" href="/author/{{ lineup.owner_username }}">{{ lineup.owner_nickname }}</a></p>
-{% endif %}
-            <pre class="code-preview">{{ lineup_code_preview }}</pre>
-          </div>
-        </div>
-      </section>
-    </div>
+      <header class="ld-heading">
+        <div class="ld-eyebrow"><span>Lineup Detail</span><span class="ld-dot"></span><span>{{ lineup_season_label }}</span></div>
+        <h1 class="detail-title">{{ lineup.name }}</h1>
+        <p class="ld-subtitle">一套值得试试的思路，带进你的下一局。</p>
+      </header>
+      <div id="ldRestriction" class="ld-restriction" {% if lineup.status == 'normal' %}hidden{% endif %} role="status">
+        {% if lineup.status == 'banned' %}此阵容已封禁，暂不可复制或互动。{% elif lineup.status == 'hidden' %}此阵容已隐藏，仅作者和管理员可查看。{% endif %}
+      </div>
+      <div class="ld-layout">
+        <section class="ld-code-card" aria-labelledby="ldCodeTitle">
+          <div class="ld-card-heading"><div><p class="ld-kicker">带入下一局</p><h2 id="ldCodeTitle">阵容码</h2></div><span class="ld-code-tag">{{ lineup_season_label }}</span></div>
+          <p class="ld-help">复制后，在游戏内的阵容导入入口粘贴使用。</p>
+          <div class="ld-code-well"><span class="ld-code-label">LINEUP CODE</span><pre id="ldCode" tabindex="0" aria-label="完整阵容码">{{ lineup.code }}</pre><button id="ldSelectCode" type="button" class="ld-text-button" hidden>选中阵容码</button></div>
+          <div class="ld-primary-actions"><button type="button" id="ldCopy" class="ld-copy" disabled>{{ icon('copy') }}<span>复制阵容码</span></button>{% if lineup.status == 'normal' %}<button id="ldShare" type="button" class="ld-share" aria-label="复制分享链接" title="复制分享链接" disabled>{{ icon('share') }}</button>{% endif %}</div>
+          <p id="ldActionStatus" class="ld-action-status" role="status" aria-live="polite">正在同步互动状态…</p>
+          <button id="ldRetry" class="ld-text-button" type="button" hidden>重新加载</button>
+          <noscript><p class="ld-help">可以直接选中上方阵容码复制；开启 JavaScript 后可使用一键复制和互动。</p></noscript>
+          <div class="ld-engagement"><div><strong>这套阵容有帮助吗？</strong><p>点个赞或收藏，让好思路留下来。</p></div><div class="ld-reactions"><button id="ldLike" type="button" aria-pressed="false" disabled>{{ icon('heart') }}<span>点赞</span></button><button id="ldFavorite" type="button" aria-pressed="false" disabled>{{ icon('bookmark') }}<span>收藏</span></button></div></div>
+        </section>
+        <aside class="ld-aside" aria-label="阵容信息">
+          <section class="ld-author-card"><p class="ld-kicker">来自棋友的分享</p><div class="ld-author"><span id="ldAvatar" aria-hidden="true">{{ lineup.owner_nickname[:1] }}</span><div>{% if lineup.owner_username %}<a class="ld-author-name" href="/author/{{ lineup.owner_username }}">{{ lineup.owner_nickname }} {{ icon('arrow') }}</a>{% else %}<strong>{{ lineup.owner_nickname }}</strong>{% endif %}<span>阵容作者</span></div></div>
+          <div class="ld-stats"><div><strong id="ldLikes">{{ lineup.like_count }}</strong><span>收获点赞</span></div><div><strong id="ldCopies">{{ lineup.copy_count }}</strong><span>有效复制</span></div></div>
+          <dl class="ld-facts"><div><dt>热度评级</dt><dd id="ldRank" class="ld-rank">{{ lineup.rank_level }}</dd></div><div><dt>所属赛季</dt><dd>{{ lineup_season_label }}</dd></div><div><dt>最近更新</dt><dd id="ldUpdated">{{ lineup.updated_at[:16] }}</dd></div></dl><p class="ld-small">评级根据站内互动计算，不代表游戏胜率。</p>
+          {% if lineup.can_edit %}<a class="ld-manage" href="/lineup/{{ lineup_id }}/edit">{% if lineup.status == 'banned' %}修改并申请重审{% else %}编辑我的阵容{% endif %} {{ icon('arrow') }}</a>{% endif %}</section>
+          <section class="ld-guide"><h2>使用前看一眼</h2><p>确认游戏赛季一致。版本更新后，阵容码和强度可能发生变化。</p><button id="ldReport" type="button" disabled>{{ icon('flag') }}<span>阵容码失效？告诉我们</span></button></section>
+        </aside>
+      </div>
+      <footer class="ld-footer"><span>好阵容，值得被看见。</span><span>金铲铲阵容库</span></footer>
+    </main>
+    <dialog id="ldReportDialog" class="ld-dialog" aria-labelledby="ldReportTitle">
+      <form id="ldReportForm"><header><div><p class="ld-kicker">一起维护好阵容</p><h2 id="ldReportTitle">反馈阵容码问题</h2></div><button type="button" id="ldReportClose" aria-label="关闭反馈">×</button></header><label for="ldReportReason">遇到了什么问题？</label><textarea id="ldReportReason" required maxlength="300" rows="4" placeholder="例如：导入失败、缺少弈子，或不适用于当前赛季…"></textarea><p class="ld-help">管理员会核实处理，你可以在通知中心查看进度和回复。</p><p id="ldReportError" role="alert"></p><div id="ldReportResult" role="status"></div><button type="submit" id="ldReportSubmit" class="ld-copy">提交反馈</button></form>
+    </dialog>
     <script src="{{ static_v('history-store.js') }}" defer></script>
-    <script src="{{ static_v('theme-toggle.js') }}" defer></script>
-    <script src="{{ static_v('lineup-moderation.js') }}" defer></script>
     <script src="{{ static_v('lineup-detail.js') }}" defer></script>
-    <script src="{{ static_v('home-navigation.js') }}" defer></script>
   </body>
 </html>

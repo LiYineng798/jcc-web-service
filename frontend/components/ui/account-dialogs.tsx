@@ -127,12 +127,16 @@ export function useAccountDialogs() {
 
 export function AccountDialogsProvider({
   token,
+  ownerId,
   children,
 }: {
   token: string;
+  ownerId: number;
   children: React.ReactNode;
 }) {
-  const [entry, setEntry] = useState<Screen | null>(null);
+  const resume = history.state?.jccAccountResume;
+  const returning = ['back_forward','reload'].includes((performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming)?.type);
+  const [entry, setEntry] = useState<Screen | null>(() => returning && resume?.owner===ownerId ? resume.stack[0] : null);
   const [dataRevision, setDataRevision] = useState(0);
   const [noticeRevision, setNoticeRevision] = useState(0);
   const opener = useRef<HTMLElement | null>(null);
@@ -155,6 +159,7 @@ export function AccountDialogsProvider({
   }, [noticesChanged]);
   const close = useCallback((saved = false) => {
     setEntry(null);
+    if(history.state?.jccAccountResume){const state={...history.state};delete state.jccAccountResume;history.replaceState(state,'');}
     if (location.hash === "#lineup-notifications")
       history.replaceState(
         history.state,
@@ -184,6 +189,7 @@ export function AccountDialogsProvider({
       {entry && (
         <DialogWorkspace
           entry={entry}
+          ownerId={ownerId}
           token={token}
           close={close}
           dataChanged={dataChanged}
@@ -197,6 +203,7 @@ export function AccountDialogsProvider({
 
 function DialogWorkspace({
   entry,
+  ownerId,
   token,
   close,
   dataChanged,
@@ -204,6 +211,7 @@ function DialogWorkspace({
   noticeRevision,
 }: {
   entry: Screen;
+  ownerId: number;
   token: string;
   close: (saved?: boolean) => void;
   dataChanged: () => void;
@@ -213,19 +221,25 @@ function DialogWorkspace({
   const dialog = useRef<HTMLDialogElement>(null);
   const body = useRef<HTMLDivElement>(null);
   const [stack, setStack] = useState<Screen[]>(() => {
+    const resume=history.state?.jccAccountResume;
+    if(resume?.owner===ownerId && ['back_forward','reload'].includes((performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming)?.type))return resume.stack;
     const incoming=new URLSearchParams(location.search).get('notice');
     return entry.kind==='notifications' && incoming?.match(/^moderation:\d+$/) ? [entry,{kind:'moderation',id:Number(incoming.split(':')[1])}] : [entry];
   });
-  const listPosition=useRef({scroll:0,key:''});
+  const listPosition=useRef(history.state?.jccAccountResume?.owner===ownerId ? history.state.jccAccountResume.position : {scroll:0,key:''});
   const restoring=useRef(false);
-  const historyKey=useRef(`notice-${Date.now()}-${Math.random()}`);
+  const historyKey=useRef(history.state?.jccAccountDetail || `notice-${Date.now()}-${Math.random()}`);
   const closingFromHistory=useRef(false);
   const [dirty, setDirty] = useState(false),
     [busy, setBusy] = useState(false);
   const [discard, setDiscard] = useState<"close" | "back" | null>(null);
-  const [noticeView, setNoticeView] = useState({ status: "all", category: "all", page: 1 });
+  const [noticeView, setNoticeView] = useState(() => history.state?.jccAccountResume?.owner===ownerId ? history.state.jccAccountResume.view : { status: "all", category: "all", page: 1 });
   const screen = stack[stack.length - 1];
   const backgroundPointer = useRef(false);
+  useEffect(()=>{
+    const save=()=>{if(!stack.some(item=>item.kind==='edit'))history.replaceState({...history.state,jccAccountResume:{owner:ownerId,stack,view:noticeView,position:listPosition.current}},'');};
+    window.addEventListener('pagehide',save);return ()=>window.removeEventListener('pagehide',save);
+  },[stack,noticeView,ownerId]);
   useEffect(() => {
     const back = () => {
       if (history.state?.jccAccountDetail === historyKey.current || stack.length < 2) return;

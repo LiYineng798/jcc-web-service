@@ -30,7 +30,7 @@
     const metrics=el('div','nc-metrics');const total=el('div');total.append(el('strong','',String(item.event_count)),el('span','',({like:'累计点赞',favorite:'累计收藏',copy:'有效复制'})[item.kind]));metrics.append(total);
     if(item.new_count>0){const recent=el('div');recent.append(el('strong','',`+${item.new_count}`),el('span','','本次新增'));metrics.append(recent);}section.append(metrics,actors(item.actors,true));
     const note=el('p','nc-caption nc-footnote',item.kind==='favorite'?'记录你曾收到的收藏；取消后再收藏不会重复计入。':item.kind==='copy'?'同一玩家短时间内重复复制只计一次，游客复制也会计入。':'记录功能启用后收到的赞，不包含你自己的操作。');section.append(note);
-    if(item.url){const link=el('a','nc-action','查看阵容 ↗');link.href=item.url;link.target='_blank';link.rel='noopener';link.setAttribute('aria-label','查看阵容（新标签页）');section.append(link);}else section.append(el('p','nc-caption','阵容已删除，这些支持仍为你保留。'));
+    if(item.url){const link=el('a','nc-action','查看阵容 ↗');link.href=item.url;link.setAttribute('aria-label','查看阵容');section.append(link);}else section.append(el('p','nc-caption','阵容已删除，这些支持仍为你保留。'));
     target.append(section);
   }
   function feedback(data,target,admin=false){

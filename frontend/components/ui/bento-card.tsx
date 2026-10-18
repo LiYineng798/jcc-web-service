@@ -290,6 +290,7 @@ export default function BentoCard() {
     <AccountDialogsProvider
       key={session.data.user.id}
       token={session.data.csrf_token}
+      ownerId={session.data.user.id}
     >
       <Profile user={session.data.user} token={session.data.csrf_token} />
     </AccountDialogsProvider>
