@@ -10,7 +10,7 @@ def test_postgres_database_url_requires_existing_schema(monkeypatch):
     with pytest.raises(RuntimeError, match='PostgreSQL schema is not initialized'):
         create_app({
             'TESTING': True,
-            'DATABASE_URL': 'postgresql://user:pass@database.np5.top:5432/jcc',
+            'DATABASE_URL': 'postgresql://user:pass@database.example.com:5432/jcc',
         })
 
 
@@ -22,7 +22,7 @@ def test_postgres_database_url_does_not_create_sqlite_file(tmp_path, monkeypatch
         create_app({
             'TESTING': True,
             'DATABASE': str(sqlite_path),
-            'DATABASE_URL': 'postgresql://user:pass@database.np5.top:5432/jcc',
+            'DATABASE_URL': 'postgresql://user:pass@database.example.com:5432/jcc',
         })
 
     assert not sqlite_path.exists()
@@ -44,7 +44,7 @@ def test_postgres_get_db_uses_psycopg_connection(monkeypatch):
     monkeypatch.setattr('db.psycopg.connect', fake_connect)
     app = create_app({
         'TESTING': True,
-        'DATABASE_URL': 'postgresql://user:pass@database.np5.top:5432/jcc',
+        'DATABASE_URL': 'postgresql://user:pass@database.example.com:5432/jcc',
     })
 
     with app.app_context():
@@ -52,7 +52,7 @@ def test_postgres_get_db_uses_psycopg_connection(monkeypatch):
         assert isinstance(db, DriverSqlConnection)
         assert db.connection.__class__ is FakeConnection
 
-    assert created['database_url'] == 'postgresql://user:pass@database.np5.top:5432/jcc'
+    assert created['database_url'] == 'postgresql://user:pass@database.example.com:5432/jcc'
     assert created['row_factory'] is not None
 
 
@@ -76,7 +76,7 @@ def test_postgres_get_db_converts_sqlite_placeholders(monkeypatch):
     monkeypatch.setattr('db.psycopg.connect', lambda *args, **kwargs: FakeConnection())
     app = create_app({
         'TESTING': True,
-        'DATABASE_URL': 'postgresql://user:pass@database.np5.top:5432/jcc',
+        'DATABASE_URL': 'postgresql://user:pass@database.example.com:5432/jcc',
     })
 
     with app.app_context():
@@ -116,7 +116,7 @@ def test_postgres_cursor_converts_sqlite_placeholders(monkeypatch):
     monkeypatch.setattr('db.psycopg.connect', lambda *args, **kwargs: FakeConnection())
     app = create_app({
         'TESTING': True,
-        'DATABASE_URL': 'postgresql://user:pass@database.np5.top:5432/jcc',
+        'DATABASE_URL': 'postgresql://user:pass@database.example.com:5432/jcc',
     })
 
     with app.app_context():
@@ -152,7 +152,7 @@ def test_postgres_schema_ready_checks_schema_migrations(monkeypatch):
     monkeypatch.setattr('db.psycopg.connect', lambda *args, **kwargs: FakeConnection())
     app = create_app({
         'TESTING': True,
-        'DATABASE_URL': 'postgresql://user:pass@database.np5.top:5432/jcc',
+        'DATABASE_URL': 'postgresql://user:pass@database.example.com:5432/jcc',
     })
 
     with app.app_context():

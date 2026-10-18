@@ -29,7 +29,7 @@ def parse_args(argv=None):
     )
     parser.add_argument('--input', default=str(SCRIPT_DIR / 'datatft_s16_raw.json'), help='Path to raw DataTFT S16 JSON')
     parser.add_argument('--output', default=str(SCRIPT_DIR / 'team_codes_by_tier.s16.json'), help='Path to write converted JCC JSON')
-    parser.add_argument('--url', required=True, help='Upload endpoint URL, e.g. https://jcc.np5.top/api/live-comps/upload')
+    parser.add_argument('--url', required=True, help='Upload endpoint URL, e.g. https://jcc.example.com/api/live-comps/upload')
     parser.add_argument('--token', required=True, help='Upload token sent via X-Upload-Token')
     parser.add_argument('--season-id', default='s16-legends', help='Season id used for upload and payload meta')
     parser.add_argument('--timeout', type=int, default=180, help='Upload timeout in seconds')

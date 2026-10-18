@@ -1,15 +1,15 @@
 server {
     listen 80;
-    server_name jcc.np5.top;
+    server_name jcc.example.com;
     return 301 https://$host$request_uri;
 }
 
 server {
     listen 443 ssl http2;
-    server_name jcc.np5.top;
+    server_name jcc.example.com;
 
-    ssl_certificate /etc/letsencrypt/live/jcc.np5.top/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/jcc.np5.top/privkey.pem;
+    ssl_certificate /etc/letsencrypt/live/jcc.example.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/jcc.example.com/privkey.pem;
 
     # 文本压缩：HTML/CSS/JS/JSON/SVG（图片本身已压缩，无需 gzip）
     gzip on;
@@ -45,21 +45,21 @@ server {
     # 静态文件由 nginx 直接服务，不经过 Python worker。
     # 站点 CSS/JS 引用带 ?v= 版本号，图片路径由数据版本决定，可放心长缓存。
     location /static/ {
-        alias /opt/jcc/jcc-web-service/static/;
+        alias /srv/example-jcc/jcc-web-service/static/;
         expires 30d;
         add_header Cache-Control "public, max-age=2592000, immutable";
         access_log off;
     }
 
     location = /favicon.ico {
-        alias /opt/jcc/jcc-web-service/static/favicon.ico;
+        alias /srv/example-jcc/jcc-web-service/static/favicon.ico;
         expires 30d;
         access_log off;
     }
 
     # 实况阵容缓存图片（上传后内容不变，按文件名区分）
     location /api/live-comps/assets/ {
-        alias /opt/jcc/jcc-web-service/instance/live-comps-assets/;
+        alias /srv/example-jcc/jcc-web-service/instance/live-comps-assets/;
         expires 7d;
         add_header Cache-Control "public, max-age=604800";
         access_log off;

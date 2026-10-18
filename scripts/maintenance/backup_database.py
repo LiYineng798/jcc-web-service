@@ -22,7 +22,7 @@ def backup_sqlite_database(database_path: str | Path, backup_dir: str | Path, ti
 def main() -> int:
     parser = argparse.ArgumentParser(description='Backup the JCC SQLite database before deployment updates.')
     parser.add_argument('--database', default='instance/lineups.sqlite3', help='SQLite database path')
-    parser.add_argument('--backup-dir', default='/opt/jcc/backups', help='Directory for database backups')
+    parser.add_argument('--backup-dir', required=True, help='Explicit private directory for database backups')
     args = parser.parse_args()
 
     backup_path = backup_sqlite_database(args.database, args.backup_dir)

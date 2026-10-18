@@ -435,10 +435,12 @@ def test_simulator_exports_a_separate_fixed_portrait_poster():
     assert 'width: POSTER_WIDTH' in javascript
     assert 'height: POSTER_HEIGHT' in javascript
     assert 'pixelRatio: 1' in javascript
-    assert 'jcc.np5.top' not in javascript
     assert '<strong>金铲铲阵容库</strong>' in javascript
     assert 'src="${UI_ROOT}/poster-brand.png"' in javascript
     poster_builder = javascript.split('function buildPosterCapture(title, championId)', 1)[1].split('function ', 1)[0]
+    assert 'location.host' not in poster_builder
+    assert 'https://' not in poster_builder
+    assert 'http://' not in poster_builder
     assert '总费用' not in poster_builder
     assert '${units.length} 个单位</span><i></i><span>${posterTraitRows().length} 个激活羁绊' in poster_builder
     assert '.lineup-poster-capture {' in css

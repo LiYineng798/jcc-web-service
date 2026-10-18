@@ -6,10 +6,10 @@ After=network.target postgresql.service
 Type=simple
 User=jcc
 Group=jcc
-WorkingDirectory=/opt/jcc/jcc-web-service
-EnvironmentFile=/etc/jcc.env
+WorkingDirectory=/srv/example-jcc/jcc-web-service
+EnvironmentFile=/etc/example-jcc.env
 Environment=JCC_PROCESS_ROLE=season-worker
-ExecStart=/opt/jcc/jcc-web-service/.venv/bin/python season_package_worker.py
+ExecStart=/srv/example-jcc/jcc-web-service/.venv/bin/python season_package_worker.py
 Restart=on-failure
 RestartSec=5
 Nice=10
@@ -18,7 +18,7 @@ CPUQuota=75%
 NoNewPrivileges=true
 PrivateTmp=true
 ProtectSystem=strict
-ReadWritePaths=/opt/jcc/season-library /opt/jcc/jcc-web-service/instance
+ReadWritePaths=/srv/example-jcc/season-library /srv/example-jcc/jcc-web-service/instance
 UMask=0027
 
 [Install]

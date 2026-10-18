@@ -1,0 +1,20 @@
+name: Repository safety
+
+on:
+  pull_request:
+  push:
+
+permissions:
+  contents: read
+
+jobs:
+  publication-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - name: Check tracked publication contents
+        run: python3 scripts/check_repository_safety.py
+      - name: Test the safety checker without application dependencies
+        run: python3 -m unittest discover -s tests -p test_repository_safety.py

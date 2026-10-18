@@ -56,7 +56,7 @@ git diff --check
 | 开发、测试、预览 | [开发与验证](docs/development.md)、[React 工程](frontend/README.md) |
 | 页面交互与兼容约束 | [前端维护](docs/ui.md) |
 | 部署、备份、恢复、缓存配置 | [运维](docs/operations.md) |
-| 查找已有生产恢复点 | [部署记录](docs/deployment-history.md) |
+| 提交前检查、私有运维资料与泄露处理 | [仓库安全](docs/repository-security.md) |
 | 新赛季、补丁、数据修订 | [赛季维护](docs/season-maintenance-playbook.md) |
 | 资料结构与模拟器规则 | [赛季资料](docs/season-library.md)、[ZIP 协议](docs/season-package-format.md) |
 | 实时榜单上传与图片 | [实时阵容](docs/live-comps.md) |

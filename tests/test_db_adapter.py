@@ -17,13 +17,13 @@ def test_database_kind_detects_sqlite_urls():
 
 
 def test_database_kind_detects_postgres_urls():
-    assert database_kind('postgresql://u:p@h:5432/db') == 'postgres'
-    assert database_kind('postgres://u:p@h:5432/db') == 'postgres'
+    assert database_kind('postgresql://user:pass@database.example.com:5432/db') == 'postgres'
+    assert database_kind('postgres://user:pass@database.example.com:5432/db') == 'postgres'
 
 
 def test_database_kind_rejects_unknown_urls():
     with pytest.raises(ValueError, match='Unsupported database URL scheme'):
-        database_kind('mysql://u:p@h/db')
+        database_kind('mysql://user:pass@database.example.com/db')
 
 
 def test_placeholder_uses_driver_specific_style():

@@ -19,7 +19,6 @@ from scripts.local import upload_live_comps
 BASE_DIR = PROJECT_DIR
 DEFAULT_FETCH_SCRIPT = BASE_DIR / '实时获取阵容码' / '阵容码代理获取' / 'fetch_tiered_codes.py'
 DEFAULT_OUTPUT_PATH = BASE_DIR / '实时获取阵容码' / '阵容码代理获取' / 'team_codes_by_tier.verify.json'
-DEFAULT_UPLOAD_URL = 'https://jcc.np5.top/api/live-comps/upload'
 ASSET_UPLOAD_PATH = '/api/live-comps/assets/upload'
 ASSET_ROUTE = '/api/live-comps/assets'
 ALLOWED_IMAGE_EXTENSIONS = {'.jpg', '.jpeg', '.png', '.webp', '.gif'}
@@ -35,7 +34,7 @@ def parse_args(argv=None):
     parser = argparse.ArgumentParser(description='Fetch live comps JSON and upload it to JCC server.')
     parser.add_argument('--fetch-script', default=str(DEFAULT_FETCH_SCRIPT), help='Path to fetch_tiered_codes.py')
     parser.add_argument('--output', default=str(DEFAULT_OUTPUT_PATH), help='Generated team_codes_by_tier.verify.json path')
-    parser.add_argument('--url', default=DEFAULT_UPLOAD_URL, help='Live comps upload endpoint')
+    parser.add_argument('--url', required=True, help='Explicit live comps upload endpoint; no production default')
     parser.add_argument('--token', default=os.environ.get('JCC_LIVE_COMPS_UPLOAD_TOKEN', ''), help='Upload token; defaults to env JCC_LIVE_COMPS_UPLOAD_TOKEN')
     parser.add_argument('--upload-timeout', type=int, default=180, help='Upload timeout in seconds')
     parser.add_argument('--image-timeout', type=int, default=20, help='Image download/upload timeout in seconds')

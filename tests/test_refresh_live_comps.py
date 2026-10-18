@@ -1,6 +1,14 @@
 import json
 
+import pytest
+
 from scripts.local import refresh_live_comps
+
+
+def test_refresh_requires_explicit_upload_url():
+    with pytest.raises(SystemExit) as error:
+        refresh_live_comps.parse_args(['--token', 'test-token'])
+    assert error.value.code == 2
 
 
 def payload_with_items(items_by_tier):
@@ -161,6 +169,7 @@ def test_refresh_requires_upload_token(tmp_path):
 
     exit_code = refresh_live_comps.main([
         '--skip-fetch',
+        '--url', 'https://example.com/api/live-comps/upload',
         '--output', str(output_path),
         '--token', '',
     ])

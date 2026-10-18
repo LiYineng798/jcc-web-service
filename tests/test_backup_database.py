@@ -1,6 +1,15 @@
 ﻿from pathlib import Path
 
-from scripts.maintenance.backup_database import backup_sqlite_database
+import pytest
+
+from scripts.maintenance.backup_database import backup_sqlite_database, main
+
+
+def test_backup_cli_requires_explicit_destination(monkeypatch):
+    monkeypatch.setattr('sys.argv', ['backup_database.py'])
+    with pytest.raises(SystemExit) as error:
+        main()
+    assert error.value.code == 2
 
 
 def test_backup_sqlite_database_copies_existing_database(tmp_path):

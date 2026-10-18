@@ -39,7 +39,7 @@ def apply_config(app, test_config=None):
         ADMIN_USERNAME=os.environ.get('JCC_ADMIN_USERNAME', 'adminxlx'),
         ADMIN_PASSWORD=os.environ.get('JCC_ADMIN_PASSWORD', 'Admin1234'),
         RESEND_API_KEY=os.environ.get('RESEND_API_KEY', ''),
-        RESEND_FROM_EMAIL=os.environ.get('RESEND_FROM_EMAIL', '阵容库 <no-reply@mail.np5.top>'),
+        RESEND_FROM_EMAIL=os.environ.get('RESEND_FROM_EMAIL', 'Site <no-reply@example.com>'),
         PASSWORD_RESET_CODE_TTL_MINUTES=int(os.environ.get('JCC_PASSWORD_RESET_CODE_TTL_MINUTES', '10')),
         PASSWORD_RESET_COOLDOWN_SECONDS=int(os.environ.get('JCC_PASSWORD_RESET_COOLDOWN_SECONDS', '60')),
     )

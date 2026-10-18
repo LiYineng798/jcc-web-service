@@ -7,7 +7,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 TARGET = ROOT.parent / 'webApplication'
 
-INCLUDE_FILES = {'.gitignore', '.env.example', 'README.md', 'AGENTS.md', 'requirements.txt', 'captcha_manifest.json'}
+INCLUDE_FILES = {'.gitignore', '.env.example', 'README.md', 'AGENTS.md', 'requirements.txt', 'captcha_manifest.json', 'scripts/check_repository_safety.py'}
 INCLUDE_DIRS = {'static', 'templates', 'docs', 'deploy'}
 INCLUDE_PARTS = {'scripts/maintenance', 'scripts/season_library'}
 EXCLUDE_PARTS = {'instance', '__pycache__', '.pytest_cache', '.git', 'scripts/local'}

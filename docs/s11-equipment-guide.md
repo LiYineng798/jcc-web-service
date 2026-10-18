@@ -4,10 +4,10 @@
 推荐清单的编辑源是 `scripts/season_library/s11_recommendations.tsv`（60 位弈子，霞/洛分别列出）。
 图片、羁绊与合成配方固定取自 S11 `12.4.14`，按原字节复制，哈希记录于工具目录的 `asset-manifest.json`。
 
-仅重新制作时需要外部档案：
+仅重新制作时需要外部档案。先在本地设置 `JCC_S11_ARCHIVE` 为 S11 `12.4.14` 档案目录的绝对路径，不将个人目录写入公共文档：
 
 ```powershell
-python scripts/season_library/import_s11_recommendations.py --archive "D:/1/codex/jcc-new/ccmax资料/数据模板/data/seasons/s11/versions/12.4.14"
+python scripts/season_library/import_s11_recommendations.py --archive "$env:JCC_S11_ARCHIVE"
 ```
 
 提交生成的 `static/tools/s11-items/` 与清单、生成器；不手改生成 JSON 或图片。
