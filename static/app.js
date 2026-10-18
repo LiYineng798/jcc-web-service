@@ -763,9 +763,9 @@ function createLineupCard(lineup) {
 
   const meta = document.createElement('div');
   meta.className = 'home-card-byline lineup-byline';
-  const authorLink = document.createElement('a');
+  const authorLink = document.createElement(lineup.owner_profile_url ? 'a' : 'span');
   authorLink.className = 'author-link';
-  authorLink.href = `/author/${encodeURIComponent(lineup.owner_username || '')}`;
+  if (lineup.owner_profile_url) authorLink.href = lineup.owner_profile_url;
   const authorName = document.createElement('span');
   authorName.className = 'home-card-author-name';
   authorName.textContent = lineup.owner_nickname;

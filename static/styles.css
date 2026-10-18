@@ -1475,7 +1475,7 @@ textarea:focus {
   font-weight: 600;
 }
 
-.author-link:hover {
+a.author-link:hover {
   text-decoration: underline;
 }
 

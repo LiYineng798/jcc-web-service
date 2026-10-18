@@ -27,6 +27,7 @@ class Fixture:
         self.html = home_html()
         self.lineup = dict(id=901, name='暖阳 · 阵容互动演示', code='#LOCAL-PREVIEW-ONLY',
                            rank_level='S', owner_username='demo', owner_nickname='阵容研究员',
+                           owner_profile_url='/author/demo',
                            owner_avatar_config=dict(version=1, preset='sunee', expression='neutral', color='#d5a06f'),
                            updated_at='2026-10-17 12:30:00', like_count=12, copy_count=38,
                            is_liked_today=False, is_favorited=False, can_edit=False, can_hide=False)

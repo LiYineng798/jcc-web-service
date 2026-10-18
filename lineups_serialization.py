@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from datetime import datetime
+from urllib.parse import quote
 
 from avatar_service import avatar_config
 from db import get_db
@@ -63,6 +64,7 @@ def serialize_lineup_row(row, scores, user=None, admin=False, db=None):
         'status': row['status'],
         'owner_nickname': owner_name,
         'owner_username': owner_username,
+        'owner_profile_url': f'/author/{quote(owner_username, safe="")}' if owner_username and owner_role != 'admin' else None,
         'owner_avatar_color': owner_avatar['color'],
         'owner_avatar_config': owner_avatar,
         'rank_level': score['rank_level'],

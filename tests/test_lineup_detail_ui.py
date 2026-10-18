@@ -5,6 +5,31 @@ from test_auth import register_user
 from test_lineup_permissions import create_lineup
 
 
+def test_system_lineup_does_not_link_to_private_admin_profile(client):
+    assert client.post('/api/login', json={'account': 'adminxlx', 'password': 'Admin1234'}).status_code == 200
+    lineup = create_lineup(client, name='系统阵容').get_json()
+    client.post('/api/logout')
+    payload = client.get(f'/api/lineups/{lineup["id"]}').get_json()
+    assert payload['owner_nickname'] == '系统'
+    assert payload['owner_profile_url'] is None
+    html = client.get(f'/lineup/{lineup["id"]}').get_data(as_text=True)
+    assert '<strong class="ld-author-name">系统</strong>' in html
+    assert '/author/adminxlx' not in html
+    assert client.get('/author/adminxlx').status_code == 404
+    assert client.get('/api/lineups').get_json()[0]['owner_profile_url'] is None
+
+
+def test_regular_author_link_uses_role_even_when_nickname_is_system(client):
+    register_user(client, username='authorlink', email='authorlink@example.com', nickname='系统')
+    lineup = create_lineup(client).get_json()
+    client.post('/api/logout')
+    payload = client.get(f'/api/lineups/{lineup["id"]}').get_json()
+    assert payload['owner_profile_url'] == '/author/authorlink'
+    html = client.get(f'/lineup/{lineup["id"]}').get_data(as_text=True)
+    assert 'href="/author/authorlink"' in html
+    assert client.get(payload['owner_profile_url']).status_code == 200
+
+
 def test_detail_uses_dynamic_lineup_season_name_and_keeps_complete_code(client):
     manifest_path = Path(client.application.config['LIVE_COMPS_SEASON_MANIFEST_PATH'])
     manifest = json.loads(manifest_path.read_text(encoding='utf-8'))
