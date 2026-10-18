@@ -41,8 +41,8 @@ import {
 
 type AvatarConfig = {
   version: 1;
-  preset: "strobi" | "freddy" | "citrus" | "nova";
-  expression: "neutral" | "happy" | "wink" | "sleepy";
+  preset: "strobi" | "freddy" | "citrus" | "nova" | "sunee" | "cloudee" | "sprout" | "bloom";
+  expression: "neutral" | "happy" | "wink" | "sleepy" | "curious" | "surprised" | "shy" | "determined";
   color: string;
 };
 type User = {

@@ -1,6 +1,7 @@
 """Private inbox; aggregation happens inside the originating write transaction."""
 from admin_pagination import parse_page, parse_page_size
 from db import get_db, now_text
+from avatar_service import avatar_config
 
 
 def publish_notification(db, user_id, kind, group_key, title, body='', lineup_id=None, feedback_id=None):
@@ -26,6 +27,34 @@ def notify_author(db, lineup, kind, actor=None):
             return
     publish_notification(db, lineup['user_id'], kind, f'{kind}:{lineup["id"]}',
                          lineup['name'], lineup_id=lineup['id'])
+    if actor:
+        db.execute('''INSERT INTO notification_actors(notification_id,actor_user_id,updated_at)
+            SELECT id,?,? FROM user_notifications WHERE user_id=? AND group_key=?
+            ON CONFLICT(notification_id,actor_user_id) DO UPDATE SET updated_at=excluded.updated_at''',
+            (actor['id'], now_text(), lineup['user_id'], f'{kind}:{lineup["id"]}'))
+
+
+def attach_actors(db, items):
+    """Bounded public profiles, scoped to notifications already authorized for the owner."""
+    ids = [int(item['id'][7:]) for item in items if item['category'] == 'interaction']
+    if not ids:
+        return items
+    placeholders = ','.join('?' for _ in ids)
+    rows = db.execute(f'''SELECT * FROM (
+        SELECT a.notification_id,u.nickname,u.id,u.avatar_color,u.avatar_preset,u.avatar_expression,
+            COUNT(*) OVER (PARTITION BY a.notification_id) AS actor_total,
+            ROW_NUMBER() OVER (PARTITION BY a.notification_id ORDER BY a.updated_at DESC,u.id DESC) AS position
+        FROM notification_actors a JOIN users u ON u.id=a.actor_user_id
+        WHERE a.notification_id IN ({placeholders}) AND u.status='active'
+    ) participants WHERE position<=4''', ids).fetchall()
+    summaries = {}
+    for row in rows:
+        summary = summaries.setdefault(row['notification_id'], {'total': row['actor_total'], 'users': []})
+        summary['users'].append({'nickname': row['nickname'], 'avatar_config': avatar_config(row)})
+    for item in items:
+        if item['category'] == 'interaction':
+            item['actors'] = summaries.get(int(item['id'][7:]), {'total': 0, 'users': []})
+    return items
 
 
 INBOX_SQL = '''
@@ -85,7 +114,7 @@ def list_inbox(user, args):
     page = min(parse_page(args), pages)
     rows = db.execute('SELECT * ' + scope + ' ORDER BY updated_at DESC, id DESC LIMIT ? OFFSET ?',
                       [*params, size, (page-1)*size]).fetchall()
-    return {'items': [serialize_notice(r) for r in rows], 'counts': counts, 'unread_total': total_unread,
+    return {'items': attach_actors(db, [serialize_notice(r) for r in rows]), 'counts': counts, 'unread_total': total_unread,
             'total': total, 'page': page, 'total_pages': pages, 'page_size': size}, None, 200
 
 

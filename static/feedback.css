@@ -20,3 +20,11 @@
 .fb-error { color:var(--danger,#b54747); white-space:pre-wrap; }
 .fb-dialog :is(button,a,select,textarea):focus-visible { outline:2px solid var(--accent); outline-offset:3px; }
 @media(max-width:520px) { .fb-head,.fb-body { padding:16px; } }
+
+.fb-dialog .fb-reply .fb-hide { display:grid; grid-template-columns:18px minmax(0,1fr); gap:4px 10px; align-items:center; padding:13px 15px; border:1px solid var(--line); border-radius:12px; background:var(--bg); }
+.fb-dialog .fb-reply .fb-hide input[type="checkbox"] { appearance:auto; width:16px; height:16px; min-width:16px; min-height:16px; margin:0; padding:0; accent-color:var(--accent); justify-self:start; grid-column:1; grid-row:1; }
+.fb-dialog .fb-reply .fb-hide span { grid-column:2; font-size:13px; line-height:1.5; }
+.fb-dialog .fb-reply .fb-hide small { grid-column:2; font-size:11px; line-height:1.6; color:var(--muted); }
+.fb-dialog .fb-head h2 { font-size:18px; }.fb-dialog .fb-body { padding:24px 28px; }.fb-dialog .fb-reply { margin-top:24px; }.fb-dialog .fb-reply label { font-size:13px; }
+.feedback-page #feedbackDetail { padding:32px; max-width:700px; margin:24px auto; border-radius:22px; }
+@media(max-width:520px){.fb-dialog .fb-body{padding:20px}.feedback-page #feedbackDetail{padding:20px}}

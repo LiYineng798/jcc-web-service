@@ -50,6 +50,12 @@ CREATE INDEX IF NOT EXISTS idx_feedback_user_updated ON feedback_threads(user_id
 CREATE INDEX IF NOT EXISTS idx_feedback_status_updated ON feedback_threads(status, updated_at DESC);
 CREATE INDEX IF NOT EXISTS idx_feedback_events_thread ON feedback_events(thread_id, id);
 CREATE INDEX IF NOT EXISTS idx_user_notifications_inbox ON user_notifications(user_id, notice_state, updated_at DESC, id DESC);
+CREATE TABLE IF NOT EXISTS notification_actors (
+    notification_id INTEGER NOT NULL REFERENCES user_notifications(id) ON DELETE CASCADE,
+    actor_user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    updated_at TEXT NOT NULL,
+    PRIMARY KEY (notification_id, actor_user_id)
+);
 '''
 
 # Preserve old feedback without generating a wave of unread historical messages.

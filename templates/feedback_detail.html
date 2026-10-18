@@ -2,7 +2,9 @@
 {% from "seo_head.html" import seo_head %}
 {% from "theme_toggle.html" import theme_toggle %}
 <html lang="zh-CN"><head>{{ seo_head(seo) }}
-<link rel="stylesheet" href="{{ static_v('feedback.css') }}" /></head>
+<link rel="stylesheet" href="{{ static_v('feedback.css') }}" />    <link rel="stylesheet" href="{{ static_v('notification-presentation.css') }}" />
+    <script src="{{ static_v('notification-presentation.js') }}" defer></script>
+</head>
 <body><main class="page-shell feedback-page">
 <nav class="nav-bar"><a class="ghost-link" href="/me#lineup-notifications">返回通知中心</a><a class="ghost-link" href="/">阵容库</a>{{ theme_toggle() }}</nav>
 <section class="panel" id="feedbackDetail" data-feedback-id="{{ feedback_id }}" aria-live="polite"><p>正在读取反馈进度…</p></section>

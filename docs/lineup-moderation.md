@@ -27,7 +27,7 @@ Web SQLite schema 对应 DB migration 0016；先部署 DB 再部署 Web。
 用户端仅 all/unread/read，没有归档，也没有邮件发送。
 审核通知已接入[统一通知中心](notification-center.md)，与互动消息、反馈进度分类展示；原审核接口和详情继续兼容。
 
-主页铃铛打开作者专属 `/me/lineup-notifications/<id>` 详情页；
+主页铃铛在原面板展开审核详情；作者专属 `/me/lineup-notifications/<id>` 旧详情地址继续兼容；
 个人中心在页内浮窗查看、返回、编辑，`/me#lineup-notifications` 在账号页处理。
 详情与 API 保持作者/管理员权限、private/no-store；页面 noindex，包含删除后的历史。
 

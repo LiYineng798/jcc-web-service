@@ -43,6 +43,31 @@ with app.app_context():
         db.execute("INSERT INTO guestbook_messages(nickname,content,created_at,ip_address) VALUES ('游客棋友','游客留言只供站长阅读，不需要站内回复。',?,'127.0.0.1')",(now_text(),))
         db.commit()
 
+    # Two additional fictional readers make the overflow circle visible in the demo.
+    lineup=dict(db.execute('SELECT * FROM lineups WHERE user_id=? ORDER BY id LIMIT 1',(owner['id'],)).fetchone())
+    for index in range(4,6):
+        username=f'notification-reader-{index}'
+        if not db.execute('SELECT id FROM users WHERE username=?',(username,)).fetchone():
+            cursor=db.execute("""INSERT INTO users(username,email,nickname,password_hash,role,status,created_at,updated_at)
+                VALUES(?,?,?,?,'user','active',?,?)""",(username,username+'@preview.invalid',f'热心棋友{index+1}',generate_password_hash('Preview1234'),now_text(),now_text()))
+            actor={'id':cursor.lastrowid}
+            db.execute('INSERT INTO likes(user_id,lineup_id,like_date,created_at) VALUES(?,?,?,?)',(actor['id'],lineup['id'],now_text()[:10],now_text()))
+            db.execute('INSERT INTO favorites(user_id,lineup_id,created_at) VALUES(?,?,?)',(actor['id'],lineup['id'],now_text()))
+            db.execute('INSERT INTO copy_events(lineup_id,user_id,copy_key,bucket_start,counted,created_at) VALUES(?,?,?,?,1,?)',(lineup['id'],actor['id'],f"user:{actor['id']}",now_text(),now_text()))
+            for kind in ('like','favorite','copy'):
+                notify_author(db,lineup,kind,actor)
+    from avatar_service import AVATAR_COLORS, AVATAR_PRESETS, AVATAR_EXPRESSIONS
+    for index in range(6):
+        db.execute('UPDATE users SET avatar_color=?,avatar_preset=?,avatar_expression=? WHERE username=?',
+                   (AVATAR_COLORS[index],AVATAR_PRESETS[index+1],AVATAR_EXPRESSIONS[index+1],f'notification-reader-{index}'))
+    # Attach the known fictional readers to existing demo notifications as well.
+    db.execute("""INSERT INTO notification_actors(notification_id,actor_user_id,updated_at)
+        SELECT n.id,u.id,n.updated_at FROM user_notifications n CROSS JOIN users u
+        WHERE n.kind IN ('like','favorite','copy') AND n.user_id=?
+          AND u.username LIKE 'notification-reader-%'
+        ON CONFLICT(notification_id,actor_user_id) DO NOTHING""",(owner['id'],))
+    db.commit()
+
 if __name__ == '__main__':
     port=int(os.environ.get('NOTIFICATION_PREVIEW_PORT','5160'))
     app.run(host='127.0.0.1',port=port,debug=False,use_reloader=False,threaded=True)

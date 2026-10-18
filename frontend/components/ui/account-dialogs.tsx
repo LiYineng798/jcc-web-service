@@ -11,6 +11,8 @@ import {
   Bell,
   Heart,
   MessageCircle,
+  Bookmark,
+  Copy,
   Check,
   ChevronLeft,
   ChevronRight,
@@ -20,6 +22,7 @@ import {
   X,
 } from "lucide-react";
 import { useResource } from "@/lib/account-api";
+import { AvatarCircles } from "./avatar-circles";
 import "./account-dialogs.css";
 
 type Content = { name: string; code: string; season_id: string };
@@ -50,7 +53,10 @@ type EditorData = RecordData["lineup"] & {
   can_edit: boolean;
   moderation?: Moderation;
 };
+type Actors = { total:number; users:{nickname:string;avatar_config:Parameters<typeof window.jccAvatar.image>[0]}[] };
+declare global { interface Window { JccNoticeView: { actors:(actors?:Actors,expanded?:boolean)=>HTMLElement; interaction:(item:Notice,target:HTMLElement)=>void; feedback:(data:FeedbackData,target:HTMLElement,admin?:boolean)=>void; }; } }
 type Notice = {
+  actors?:Actors;
   state: string;
   revision: number;
   notice_state: string;
@@ -206,7 +212,14 @@ function DialogWorkspace({
 }) {
   const dialog = useRef<HTMLDialogElement>(null);
   const body = useRef<HTMLDivElement>(null);
-  const [stack, setStack] = useState<Screen[]>([entry]);
+  const [stack, setStack] = useState<Screen[]>(() => {
+    const incoming=new URLSearchParams(location.search).get('notice');
+    return entry.kind==='notifications' && incoming?.match(/^moderation:\d+$/) ? [entry,{kind:'moderation',id:Number(incoming.split(':')[1])}] : [entry];
+  });
+  const listPosition=useRef({scroll:0,key:''});
+  const restoring=useRef(false);
+  const historyKey=useRef(`notice-${Date.now()}-${Math.random()}`);
+  const closingFromHistory=useRef(false);
   const [dirty, setDirty] = useState(false),
     [busy, setBusy] = useState(false);
   const [discard, setDiscard] = useState<"close" | "back" | null>(null);
@@ -214,17 +227,37 @@ function DialogWorkspace({
   const screen = stack[stack.length - 1];
   const backgroundPointer = useRef(false);
   useEffect(() => {
+    const back = () => {
+      if (history.state?.jccAccountDetail === historyKey.current || stack.length < 2) return;
+      if (closingFromHistory.current) { closingFromHistory.current=false;close();return; }
+      // A browser Back must not discard an editor draft or interrupt a save.
+      if (dirty || busy || stack.at(-1)?.kind === 'edit') {
+        history.pushState({...history.state,jccAccountDetail:historyKey.current},'');
+        if (!busy) leave('back');
+        return;
+      }
+      restoring.current=true;
+      setStack(value=>value.slice(0,-1));
+    };
+    window.addEventListener('popstate',back);
+    return ()=>window.removeEventListener('popstate',back);
+  },[stack,dirty,busy,close]);
+  useEffect(() => {
     const node = dialog.current!;
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     node.showModal();
+    const url=new URL(location.href);
+    if(url.searchParams.has('notice')){
+      url.searchParams.delete('notice');history.replaceState(history.state,'',url);
+    }
     return () => {
       node.close();
       document.body.style.overflow = previousOverflow;
     };
   }, []);
   useEffect(() => {
-    body.current?.scrollTo(0, 0);
+    if(screen.kind!=="notifications")body.current?.scrollTo(0, 0);
     dialog.current
       ?.querySelector<HTMLElement>(".pf-dialog-title")
       ?.focus({ preventScroll: true });
@@ -240,10 +273,15 @@ function DialogWorkspace({
   function finishLeave(target: "close" | "back") {
     setDirty(false);
     setDiscard(null);
+    if(history.state?.jccAccountDetail===historyKey.current && (target==='close' || (stack.length===2 && stack[0].kind==='notifications'))){
+      closingFromHistory.current=target==='close';history.back();return;
+    }
     if (target === "close") close();
-    else setStack((value) => value.slice(0, -1));
+    else {restoring.current=true;setStack((value) => value.slice(0, -1));}
   }
   function go(next: Screen) {
+    if(screen.kind==='notifications')listPosition.current={scroll:body.current?.scrollTop||0,key:document.activeElement?.closest('[data-notice-id]')?.getAttribute('data-notice-id')||''};
+    if(screen.kind==='notifications')history.pushState({...history.state,jccAccountDetail:historyKey.current},'');
     setDirty(false);
     setStack((value) => [...value, next]);
   }
@@ -276,7 +314,7 @@ function DialogWorkspace({
       aria-labelledby="pfDialogTitle"
       onCancel={(event) => {
         event.preventDefault();
-        leave("close");
+        leave(stack.length>1?"back":"close");
       }}
       onPointerDown={(event) => {
         backgroundPointer.current = event.target === event.currentTarget;
@@ -295,7 +333,7 @@ function DialogWorkspace({
             ) : screen.kind === "feedback" ? (
               <MessageCircle size={22} />
             ) : screen.kind === "interaction" ? (
-              <Heart size={22} />
+              screen.notice.kind === "favorite" ? <Bookmark size={22} /> : screen.notice.kind === "copy" ? <Copy size={22} /> : <Heart size={22} />
             ) : screen.kind === "edit" ? (
               <FilePenLine size={22} />
             ) : (
@@ -303,10 +341,7 @@ function DialogWorkspace({
             )}
           </span>
           <div>
-            <p className="pf-eyebrow">
-              MY PLAYBOOK /{" "}
-              {screen.kind === "notifications" ? "INBOX" : "LINEUP"}
-            </p>
+
             <h2 className="pf-dialog-title" id="pfDialogTitle" tabIndex={-1}>
               {title}
             </h2>
@@ -362,6 +397,7 @@ function DialogWorkspace({
             setView={setNoticeView}
             changed={noticesChanged}
             go={go}
+            restored={() => {if(restoring.current){restoring.current=false;requestAnimationFrame(()=>{body.current?.scrollTo(0,listPosition.current.scroll);body.current?.querySelector<HTMLElement>(`[data-notice-id="${listPosition.current.key}"] .pf-notice-open`)?.focus({preventScroll:true});});}}}
           />
         ) : screen.kind === "moderation" ? (
           <ModerationDetail
@@ -433,7 +469,9 @@ function NotificationList({
   setView,
   changed,
   go,
+  restored,
 }: {
+  restored:()=>void;
   token: string;
   revision: number;
   view: { status: string; category: string; page: number };
@@ -451,38 +489,18 @@ function NotificationList({
     if (result.data && result.data.page !== view.page)
       setView((value) => ({ ...value, page: result.data!.page }));
   }, [result.data, view.page, setView]);
-  const counts = result.data?.counts;
+  useEffect(()=>{if(result.data&&!result.loading)restored();},[result.data,result.loading]);
   return (
     <section className="pf-inbox">
-      <p className="pf-dialog-intro">
-        互动汇总、反馈进度和阵容审核，都在这里。收到新的互动或回复后会再次提醒。
-      </p>
-      <div className="pf-inbox-filters" role="group" aria-label="通知分类">
-        {[["all","全部消息"],["interaction","互动消息"],["feedback","反馈进度"],["moderation","阵容审核"]].map(([value,label]) => (
-          <button key={value} aria-pressed={view.category === value} onClick={() => setView(v => ({...v, category:value, page:1}))}>{label}</button>
-        ))}
-      </div>
-      <div className="pf-inbox-filters" role="group" aria-label="通知状态">
-        {[
-          ["all", "全部"],
-          ["unread", "未读"],
-          ["read", "已读"],
-        ].map(([value, label]) => (
-          <button
-            key={value}
-            aria-pressed={view.status === value}
-            onClick={() => setView(v => ({ ...v, status: value, page: 1 }))}
-          >
-            {label}
-            <span>
-              {counts
-                ? value === "all"
-                  ? (counts.read || 0) + (counts.unread || 0)
-                  : counts[value as "read" | "unread"] || 0
-                : "—"}
-            </span>
-          </button>
-        ))}
+      <div className="pf-inbox-toolbar">
+        <div className="pf-inbox-filters" role="group" aria-label="通知分类">
+          {[["all","全部"],["interaction","互动"],["feedback","反馈"],["moderation","审核"]].map(([value,label]) => (
+            <button key={value} aria-pressed={view.category === value} onClick={() => setView(v => ({...v,category:value,page:1}))}>{label}</button>
+          ))}
+        </div>
+        <select className="pf-inbox-status" aria-label="通知状态" value={view.status} onChange={e=>setView(v=>({...v,status:e.target.value,page:1}))}>
+          <option value="all">全部状态</option><option value="unread">仅未读</option><option value="read">已读</option>
+        </select>
       </div>
       {result.error ? (
         <FailureView error={result.error} retry={result.retry} />
@@ -574,8 +592,8 @@ function NoticeRow({
         className="pf-notice-open"
         onClick={() => go(item.kind === "feedback" ? {kind:"feedback",id:item.feedback_id!} : item.kind === "moderation" ? { kind: "moderation", id: item.lineup_id } : {kind:"interaction",notice:item})}
       >
-        <span className="pf-notice-symbol">
-          {item.category === "interaction" ? <Heart size={19} /> : item.kind === "feedback" ? <MessageCircle size={19} /> : ["approved", "released"].includes(item.state) ? (
+        <span className={`nc-icon nc-${item.kind}`}>
+          {item.kind === "favorite" ? <Bookmark size={19} /> : item.kind === "copy" ? <Copy size={19} /> : item.kind === "like" ? <Heart size={19} /> : item.kind === "feedback" ? <MessageCircle size={19} /> : ["approved", "released"].includes(item.state) ? (
             <Check size={19} />
           ) : item.state === "pending" ? (
             <Clock3 size={19} />
@@ -592,6 +610,7 @@ function NoticeRow({
           <p>
             {item.body}
           </p>
+          {item.category==='interaction'&&<ActorStack actors={item.actors}/>}
         </span>
         <ChevronRight size={16} />
       </button>
@@ -634,12 +653,23 @@ function NoticeRow({
   );
 }
 
+function ActorStack({actors}:{actors?:Actors}) {
+  if (!actors?.users.length) return null;
+  const names=actors.users.slice(0,2).map(user=>user.nickname).join('、');
+  return <span className="nc-people">
+    <AvatarCircles
+      avatarUrls={actors.users.map(user=>window.jccAvatar.getAvatarDataUrl('',{config:window.jccAvatar.normalize(user.avatar_config)}))}
+      avatarNames={actors.users.map(user=>user.nickname)}
+      numPeople={Math.max(0,actors.total-actors.users.length)}
+    />
+    <span className="nc-people-caption">{names}{actors.total>2?` 等 ${actors.total} 位棋友`:''}</span>
+  </span>;
+}
 type FeedbackData = {
-  title:string; content:string; status:string;
+  title:string;content:string;status:string;
   notification:{id:string;revision:number;notice_state:string}|null;
   events:{id:number;actor_role:string;status:string;body:string;created_at:string}[];
 };
-const feedbackLabels:Record<string,string> = {pending:"已收到",in_progress:"核实中",resolved:"已解决",dismissed:"未采纳 / 无法复现"};
 function useMarkDisplayed(notice:{id:string;revision:number;notice_state:string}|null|undefined, token:string, changed:()=>void) {
   useEffect(() => {
     if (!notice || notice.notice_state !== "unread") return;
@@ -651,28 +681,19 @@ function useMarkDisplayed(notice:{id:string;revision:number;notice_state:string}
   }, [notice?.id,notice?.revision,notice?.notice_state,token,changed]);
 }
 function FeedbackDetail({id,token,changed}:{id:number;token:string;changed:()=>void}) {
-  const result = useResource<FeedbackData>(`/api/me/feedback/${id}`);
+  const result=useResource<FeedbackData>(`/api/me/feedback/${id}`);
+  const ref=useRef<HTMLDivElement>(null);
   useMarkDisplayed(result.data?.notification,token,changed);
+  useEffect(()=>{if(result.data&&ref.current)window.JccNoticeView.feedback(result.data,ref.current);},[result.data,result.loading]);
   if(result.error)return <FailureView error={result.error} retry={result.retry}/>;
   if(result.loading||!result.data)return <Loading/>;
-  const data=result.data;
-  return <section className="pf-feedback-detail">
-    <h3>{data.title}</h3><span className="pf-dialog-status">{feedbackLabels[data.status]}</span>
-    <p className="pf-feedback-body">{data.content}</p>
-    <ol className="pf-feedback-timeline">{data.events.map(event => <li key={event.id}>
-      <strong>{event.actor_role === "admin" ? "管理员回复" : "我的反馈"} · {feedbackLabels[event.status]}</strong>
-      <time>{date(event.created_at)}</time><p>{event.body}</p>
-    </li>)}</ol>
-    {!data.events.some(event=>event.actor_role==="admin")&&<p>站长收到反馈后会在这里更新处理进度。</p>}
-    <button className="pf-button" onClick={result.retry}>刷新进度</button>
-  </section>;
+  return <><div ref={ref}/><button className="pf-text-button nc-refresh" onClick={result.retry}>刷新进度</button></>;
 }
 function InteractionDetail({item,token,changed}:{item:Notice;token:string;changed:()=>void}) {
+  const ref=useRef<HTMLDivElement>(null);
   useMarkDisplayed(item,token,changed);
-  return <section className="pf-feedback-detail"><h3>{item.name}</h3><p>{item.body}</p>
-    <p className="pf-dialog-intro">感谢分享，你的阵容正在帮助其他玩家。数字从互动通知功能启用后累计；自己的操作不计入。收藏按用户去重，复制沿用五分钟去重规则。</p>
-    {item.url ? <a className="pf-button" href={item.url}>查看我的阵容</a> : <p>原阵容已删除，互动记录仍为你保留。</p>}
-  </section>;
+  useEffect(()=>{if(ref.current)window.JccNoticeView.interaction(item,ref.current);},[item]);
+  return <div ref={ref}/>;
 }
 
 function ContentBlock({

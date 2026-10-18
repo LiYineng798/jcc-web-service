@@ -159,3 +159,32 @@ def test_guestbook_deletion_removes_private_thread_and_notification(people):
     assert admin.delete(f'/api/guestbook/{data["source_id"]}',headers=auth_headers(admin)).status_code==200
     assert owner.get(f'/api/me/feedback/{key}').status_code==404
     assert notices(owner)['total']==0
+
+
+def test_author_sees_bounded_public_actors_but_not_private_or_guest_identity(people):
+    owner, reader, other, admin, guest=people
+    lineup=create_lineup(owner).get_json()['id']
+    for person in (reader,other):
+        for kind in ('like','favorite','copy'):
+            post(person,f'/api/lineups/{lineup}/{kind}')
+    post(guest,f'/api/lineups/{lineup}/copy')
+    data=notices(owner)
+    for notice in data['items']:
+        assert notice['actors']['total']==2
+        assert len(notice['actors']['users'])==2
+        assert all(set(actor)=={'nickname','avatar_config'} for actor in notice['actors']['users'])
+    assert notices(reader)['items']==[]
+    copy=next(n for n in data['items'] if n['kind']=='copy')
+    assert copy['event_count']==3
+    for i in range(4):
+        client=owner.application.test_client()
+        client.environ_base['REMOTE_ADDR']=f'192.0.2.{i+1}'
+        assert register_user(client,username=f'fan{i}',email=f'fan{i}@example.com').status_code==201
+        post(client,f'/api/lineups/{lineup}/copy')
+    copy=next(n for n in notices(owner)['items'] if n['kind']=='copy')
+    assert copy['actors']['total']==6 and len(copy['actors']['users'])==4
+    with owner.application.app_context():
+        get_db().execute("UPDATE users SET status='banned' WHERE username='reader'")
+        get_db().commit()
+    copy=next(n for n in notices(owner)['items'] if n['kind']=='copy')
+    assert copy['actors']['total']==5

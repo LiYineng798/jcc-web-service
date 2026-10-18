@@ -8,15 +8,7 @@
     return payload;
   }
   function timeline(data, target, adminView=false) {
-    target.replaceChildren(node('h2','',data.title),node('span','fb-status',labels[data.status]),node('p','fb-content',data.content));
-    const list = node('ol','fb-timeline');
-    for (const event of data.events) {
-      const item=node('li',`fb-event${event.actor_role==='admin'?' is-admin':''}`);
-      item.append(node('strong','',`${event.actor_role==='admin'?'管理员回复':event.actor_role==='user'?(adminView?'用户反馈':'我的反馈'):'处理记录'} · ${labels[event.status]}`),node('time','',event.created_at),node('p','',event.body));
-      list.append(item);
-    }
-    if (!data.events.some(e=>e.actor_role==='admin')) list.append(node('li','fb-event','站长收到反馈后会在这里更新处理进度。'));
-    target.append(list);
+    window.JccNoticeView.feedback(data,target,adminView);
   }
   async function openAdmin(source, sourceId, api, onChanged) {
     const dialog=node('dialog','fb-dialog');
@@ -35,12 +27,12 @@
       catch(error) { if(disposed)return;body.replaceChildren(node('p','fb-error',error.message));const retry=node('button','small-button','重新加载');retry.onclick=load;body.append(retry); }
     }
     function render(data) {
-      timeline(data,body,true);
+      timeline(data,body,true);body.scrollTop=0;
       const form=node('form','fb-reply');
       const statusLabel=node('label','','处理进度'), select=node('select');select.setAttribute('aria-label','处理进度');
       for(const [key,label] of Object.entries(labels)){const option=node('option','',label);option.value=key;select.append(option);} select.value=data.status;statusLabel.append(select);
       const replyLabel=node('label','','站内回复'), textarea=node('textarea'); textarea.setAttribute('aria-label','站内回复');textarea.maxLength=1000;textarea.rows=4;textarea.placeholder='说明核实进展、解决办法或无法复现的原因（最多 1000 字）';replyLabel.append(textarea);
-      const hideLabel=node('label','fb-hide'), hide=node('input');hide.type='checkbox';hideLabel.append(hide,document.createTextNode('解决反馈时同时隐藏该阵容（不改变封禁状态）'));
+      const hideLabel=node('label','fb-hide'), hide=node('input');hide.type='checkbox';hideLabel.append(hide,node('span','','同时隐藏该阵容'));const hideHint=node('small','','仅在标记已解决时生效，已封禁阵容不受影响。');hideLabel.append(hideHint);
       const error=node('p','fb-error');error.setAttribute('role','status');
       const save=node('button','primary-button','发送回复 / 更新进度');save.type='submit';
       hasDraft=()=>Boolean(textarea.value.trim() || select.value!==data.status || hide.checked);
