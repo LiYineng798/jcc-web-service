@@ -1380,7 +1380,7 @@
       if (avatarImage) avatarImage.decoding = 'async';
       const info = el('div', 'admin-user-info');
       info.append(el('strong', '', user.nickname || user.username),
-        el('span', 'admin-user-handle', `@${user.username}`), el('span', 'admin-user-email', user.role === 'automation' ? '专用 API 账号 · 不支持网页登录' : user.email || '未设置邮箱'));
+        el('span', 'admin-user-handle', `@${user.username}`), el('span', 'admin-user-email', user.role === 'automation' ? '受限后台账号 · 用户名密码登录' : user.email || '未设置邮箱'));
       person.append(avatar, info);
       identity.append(person);
       const status = el('td');

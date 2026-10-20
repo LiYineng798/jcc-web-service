@@ -526,7 +526,7 @@ function renderAuth() {
   elements.menuAuthLink.classList.add('hidden');
   elements.menuAccountLink.classList.toggle('hidden', !loggedIn);
   elements.menuCreateLineupLink.classList.toggle('hidden', !loggedIn);
-  elements.menuAdminLink.classList.toggle('hidden', !isAdmin);
+  elements.menuAdminLink.classList.toggle('hidden', !isAdmin && state.user?.role !== 'automation');
   elements.menuLogoutButton.classList.toggle('hidden', !loggedIn);
   if (elements.heroDescription) {
     elements.heroDescription.textContent = loggedIn
@@ -1148,12 +1148,15 @@ function renderLiveCompsSummaryHeader() {
   const meta = document.createElement('p');
   meta.className = 'live-comps-summary-meta';
   meta.textContent = state.liveCompsSummary?.updated_at
-    ? `共 ${state.total} 套 · ${formatLiveUpdate(state.liveCompsSummary.updated_at)}`
-    : '最近更新：暂无数据';
-  const explanation = document.createElement('p');
-  explanation.className = 'live-comps-summary-meta';
-  explanation.textContent = '“实时”指最近一次发布的榜单快照，按批次更新，并非游戏内逐秒排名。刷新页面查看最新快照；时间按本站记录展示，也可能由管理员手动标记。';
-  header.append(title, meta, explanation);
+    ? formatLiveUpdate(state.liveCompsSummary.updated_at)
+    : '暂无更新时间';
+  const count = document.createElement('span');
+  count.className = 'live-comps-summary-count';
+  count.textContent = `${state.total} 套`;
+  const heading = document.createElement('div');
+  heading.className = 'live-comps-summary-heading';
+  heading.append(title, count);
+  header.append(heading, meta);
   return header;
 }
 

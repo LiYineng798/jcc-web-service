@@ -89,6 +89,12 @@ def serve():
             }}
             save_version('s18', payload, 'local-demo.json', admin_id=admin, publish=True)
 
+        if not db.execute("SELECT id FROM users WHERE username='previewassistant'").fetchone():
+            from automation_service import create_account
+            create_account(db, admin, {'username': 'previewassistant', 'nickname': '协作演示助手',
+                           'password': 'PreviewAssistant1234', 'can_import': True, 'allowed_seasons': ['s18'],
+                           'can_touch': True, 'touch_seasons': ['s18']})
+
     @app.get('/__preview/login')
     def preview_login():
         start_user_session(get_db().execute("SELECT * FROM users WHERE username='previewadmin'").fetchone())

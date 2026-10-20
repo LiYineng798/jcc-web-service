@@ -1,13 +1,13 @@
-"""Explicitly allowlisted machine API and administrator-only account lifecycle."""
+"""Session-protected data for the restricted browser workspace."""
 import json
 
 from flask import Blueprint, g, jsonify, request
 
 from admin_dashboard_service import build_admin_copy_rank_payload, build_admin_overview_payload
 from audit import write_audit
-from auth import admin_required
+from auth import admin_required, login_required
 from automation_service import (
-    AutomationError, authenticate, change_account, create_account, import_lineups,
+    AutomationError, session_account, require_scope, lock_account, change_account, create_account, import_lineups,
     list_accounts, request_limited, utc_now,
 )
 from daily_report_service import get_daily_report, list_daily_reports, normalize_report_date
@@ -55,14 +55,21 @@ def authorize():
             return error
         g.automation_admin = admin
         return None
-    account = authenticate(get_db(), request.headers.get('Authorization'))
-    if request_limited(get_db(), account['user_id'], write=request.method == 'POST'):
-        raise AutomationError('调用过于频繁，请稍后重试', 429)
+    user, error = login_required()
+    if error:
+        return error
+    if user['role'] != 'automation':
+        raise AutomationError('需要受限后台账号', 403)
+    if request_limited(get_db(), user['id'], write=request.method == 'POST'):
+        raise AutomationError('操作过于频繁，请稍后重试', 429)
+    account = session_account(get_db(), user['id'])
+    if not account:
+        raise AutomationError('账号已过期或停用', 401)
     g.automation_account = account
-    # Record the endpoint only: no token, user data, search text or request body.
+    # Record the endpoint only: no credentials, search text or request body.
     db = get_db()
     db.execute('UPDATE automation_accounts SET last_used_at=? WHERE user_id=?', (utc_now(), account['user_id']))
-    write_audit(account['user_id'], 'automation_request', 'automation_api',
+    write_audit(account['user_id'], 'automation_request', 'automation_workspace',
                 after={'endpoint': request.endpoint, 'method': request.method})
     db.commit()
 
@@ -82,21 +89,17 @@ def account(user_id):
                                   {} if action == 'delete' else json_body(), action))
 
 
-@automation_bp.post('/api/admin/automation-accounts/<int:user_id>/rotate-token')
-def rotate(user_id):
-    return jsonify(change_account(get_db(), g.automation_admin['id'], user_id, json_body(), 'rotate'))
-
-
-@automation_bp.get('/api/automation/me')
+@automation_bp.get('/api/admin/assistant/me')
 def me():
     account = g.automation_account
-    return jsonify(username=account['username'], expires_at=account['expires_at'],
+    return jsonify(expires_at=account['expires_at'], can_touch=bool(account['can_touch']),
+                   touch_seasons=json.loads(account['touch_seasons_json']),
                    can_import=bool(account['can_import']),
                    allowed_seasons=json.loads(account['allowed_seasons_json']),
                    limits={'rows_per_import': 50, 'write_requests_per_hour': 10, 'read_requests_per_minute': 60})
 
 
-@automation_bp.get('/api/automation/overview')
+@automation_bp.get('/api/admin/assistant/overview')
 def overview():
     data = build_admin_overview_payload(get_db())
     # Only aggregate metrics; future top-level backend fields stay private.
@@ -113,19 +116,19 @@ def date_argument(value):
     return date
 
 
-@automation_bp.get('/api/automation/copy-rank')
+@automation_bp.get('/api/admin/assistant/copy-rank')
 def copy_rank():
     date = date_argument(request.args['date']) if 'date' in request.args else None
     data = build_admin_copy_rank_payload(get_db(), date, limit=50, include_details=False)
     return jsonify(date=data['date'], items=[project(item, COPY_FIELDS) for item in data['items']])
 
 
-@automation_bp.get('/api/automation/daily-reports')
+@automation_bp.get('/api/admin/assistant/daily-reports')
 def reports():
     return jsonify(items=list_daily_reports(limit=30))
 
 
-@automation_bp.get('/api/automation/daily-reports/<date>')
+@automation_bp.get('/api/admin/assistant/daily-reports/<date>')
 def report(date):
     data = get_daily_report(date_argument(date))
     if data is None:
@@ -142,12 +145,12 @@ def report(date):
     })
 
 
-@automation_bp.get('/api/automation/lineup-seasons')
+@automation_bp.get('/api/admin/assistant/lineup-seasons')
 def seasons():
     return jsonify(seasons=[{'id': key, 'name': value.get('name') or key} for key, value in season_choice_map().items()])
 
 
-@automation_bp.get('/api/automation/lineups')
+@automation_bp.get('/api/admin/assistant/lineups')
 def lineups():
     try:
         page = max(1, min(int(request.args.get('page', '1')), 10000))
@@ -165,11 +168,33 @@ def lineups():
     return jsonify(items=[dict(row) for row in rows], page=page, page_size=50)
 
 
-@automation_bp.post('/api/automation/lineups/bulk-import/preview')
+@automation_bp.post('/api/admin/assistant/lineups/bulk-import/preview')
 def import_preview():
-    return jsonify(import_lineups(get_db(), g.automation_account, json_body(), None, preview=True))
+    return jsonify(import_lineups(get_db(), g.automation_account, json_body(), preview=True))
 
 
-@automation_bp.post('/api/automation/lineups/bulk-import')
+@automation_bp.post('/api/admin/assistant/lineups/bulk-import')
 def import_commit():
-    return jsonify(import_lineups(get_db(), g.automation_account, json_body(), request.headers.get('Idempotency-Key')))
+    return jsonify(import_lineups(get_db(), g.automation_account, json_body()))
+
+
+@automation_bp.get('/api/admin/assistant/live-seasons')
+def live_seasons():
+    from live_comps_helpers import read_live_comps_payload_for_season
+    account = g.automation_account
+    permitted = json.loads(account['touch_seasons_json']) if account['can_touch'] else []
+    return jsonify(seasons=[{'id': key, 'name': value.get('name') or key,
+                             'updated_at': read_live_comps_payload_for_season(key)[1]}
+                            for key, value in season_choice_map().items() if key in permitted])
+
+
+@automation_bp.post('/api/admin/assistant/live-seasons/<season_id>/touch')
+def touch(season_id):
+    from admin_live_comp_service import touch_admin_live_comps_season
+    from route_response import respond_service_result
+    account = lock_account(get_db(), g.automation_account)
+    require_scope(account, 'can_touch', 'touch_seasons_json', season_id)
+    data = json_body()
+    if data:
+        raise AutomationError('仅能将更新时间设为当前时间')
+    return respond_service_result(*touch_admin_live_comps_season(g.automation_account['user_id'], season_id))

@@ -37,7 +37,7 @@ def current_user():
         'SELECT id, username, email, nickname, avatar_color, avatar_preset, avatar_expression, role, status, created_at, updated_at, last_login_at, password_hash FROM users WHERE id = ?',
         (user_id,),
     ).fetchone()
-    if row is None or row['role'] == 'automation' or row['status'] != 'active' or not hmac.compare_digest(
+    if row is None or row['status'] != 'active' or not hmac.compare_digest(
         str(session.get('auth_stamp', '')), _auth_stamp(row)
     ):
         if row is not None and row['status'] != 'active':
@@ -45,6 +45,12 @@ def current_user():
         session.clear()
         g.pop('_current_user_cache', None)
         return None
+    if row['role'] == 'automation':
+        from automation_service import session_account
+        account = session_account(get_db(), user_id)
+        if not account or session.get('automation_version') != account['session_version']:
+            session.clear()
+            return None
     g._current_user_cache = (user_id, row)
     return row
 
@@ -60,6 +66,10 @@ def start_user_session(user):
     g.pop('_current_user_cache', None)
     session['user_id'] = user['id']
     session['auth_stamp'] = _auth_stamp(user)
+    if user['role'] == 'automation':
+        from automation_service import session_account
+        account = session_account(get_db(), user['id'])
+        session['automation_version'] = account['session_version'] if account else None
     session.permanent = True
     csrf_token()
 
@@ -73,9 +83,12 @@ def csrf_token():
 
 
 def require_csrf():
-    # These endpoints accept only dedicated Bearer credentials, never a cookie.
-    if request.endpoint in {'automation.import_preview', 'automation.import_commit'}:
-        return None
+    # Scoped staff accounts cannot bypass their workspace through ordinary-user writes.
+    if request.method not in {'GET', 'HEAD', 'OPTIONS'}:
+        user = current_user()
+        allowed = {'auth.login', 'auth.logout', 'automation.import_preview', 'automation.import_commit', 'automation.touch'}
+        if user and user['role'] == 'automation' and request.endpoint not in allowed:
+            return jsonify({'error': '此账号仅可在授权工作台内操作'}), 403
     if request.method in {'POST', 'PUT', 'DELETE'} and request.endpoint not in {
         'auth.login', 'auth.register', 'auth.logout', 'auth.password_reset_request', 'auth.password_reset_confirm', 'captcha.captcha_verify'
     }:
@@ -231,7 +244,10 @@ def login():
         'SELECT * FROM users WHERE username = ? OR email = ?',
         (account, account.lower()),
     ).fetchone()
-    ok = bool(user and user['role'] != 'automation' and user['status'] == 'active' and check_password_hash(user['password_hash'], password))
+    ok = bool(user and user['status'] == 'active' and check_password_hash(user['password_hash'], password))
+    if ok and user['role'] == 'automation':
+        from automation_service import session_account
+        ok = bool(session_account(db, user['id']))
     db.execute(
         'INSERT INTO login_events (user_id, ip_address, success, created_at) VALUES (?, ?, ?, ?)',
         (user['id'] if user else None, ip, 1 if ok else 0, now_text()),
@@ -244,7 +260,7 @@ def login():
     db.commit()
     start_user_session(user)
     visitor_token, created = ensure_visitor_token()
-    if user['role'] == 'admin':
+    if user['role'] in ('admin', 'automation'):
         _remove_admin_analytics_traces(db, user['id'], visitor_token)
     else:
         record_growth_event(

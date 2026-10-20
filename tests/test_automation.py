@@ -1,168 +1,190 @@
 import json
+import sqlite3
 
 import pytest
-
+from werkzeug.security import check_password_hash
 from db import get_db
 from test_admin import login_admin
 from test_auth import register_user
 from test_lineup_permissions import auth_headers
+from test_live_comps import sample_live_comps_payload, write_live_comps_seed
+
+PREFIX = '/api/admin/assistant'
+PASSWORD = 'AssistantPass1234'
 
 
-def create_account(client, admin_headers, **overrides):
-    response = client.post('/api/admin/automation-accounts', headers=admin_headers, json={
-        'username': 'analysis_bot', 'nickname': '分析助手', **overrides,
-    })
+def create_account(client, headers, **overrides):
+    response = client.post('/api/admin/automation-accounts', headers=headers, json={
+        'username': 'analysis_bot', 'nickname': '分析助手', 'password': PASSWORD, **overrides})
     assert response.status_code == 201, response.get_json()
-    result = response.get_json()
-    return result, {'Authorization': f"Bearer {result['token']}"}
+    return response.get_json()
 
 
-def test_only_admin_can_create_and_credentials_are_not_readable(client, app):
-    assert client.post('/api/admin/automation-accounts', json={}).status_code in (401, 403)
+def login_bot(app):
+    bot = app.test_client()
+    response = bot.post('/api/login', json={'account': 'analysis_bot', 'password': PASSWORD})
+    assert response.status_code == 200, response.get_json()
+    return bot, auth_headers(bot)
+
+
+def test_account_creation_login_and_secret_storage(client, app):
     register_user(client)
     assert client.post('/api/admin/automation-accounts', headers=auth_headers(client), json={}).status_code == 403
     admin = login_admin(client)
-    created, bearer = create_account(client, admin)
-    accounts = client.get('/api/admin/automation-accounts').get_json()
-    assert 'token' not in accounts['items'][0] and 'token_hash' not in accounts['items'][0]
+    account = create_account(client, admin)
+    assert 'password' not in account and 'token' not in account
+    bot, headers = login_bot(app)
+    assert bot.get('/admin').status_code == 200
+    html = bot.get('/admin').get_data(as_text=True)
+    assert 'assistant.js' in html and 'data-admin-tab="users"' not in html
+    assert bot.get(PREFIX + '/me').get_json()['can_import'] is False
+    assert bot.get(PREFIX + '/overview').status_code == 200
     with app.app_context():
-        row = get_db().execute('SELECT * FROM automation_accounts').fetchone()
-        assert row['token_hash'] != created['token'] and len(row['token_hash']) == 64
-        audits = str([dict(row) for row in get_db().execute('SELECT * FROM audit_logs').fetchall()])
-        assert created['token'] not in audits and row['token_hash'] not in audits
-    assert client.get('/api/automation/me', headers=bearer).get_json()['can_import'] is False
-    # A valid administrator cookie is deliberately not a machine credential.
-    assert client.get('/api/automation/me').status_code == 401
-    assert client.post('/api/automation/lineups/bulk-import', json={}).status_code == 401
+        row = get_db().execute("SELECT password_hash FROM users WHERE id=?", (account['user_id'],)).fetchone()
+        assert check_password_hash(row['password_hash'], PASSWORD)
+        assert PASSWORD not in str([dict(row) for row in get_db().execute('SELECT * FROM audit_logs')])
+        assert 'token_hash' not in [row[1] for row in get_db().execute('PRAGMA table_info(automation_accounts)')]
+        assert not get_db().execute("SELECT name FROM sqlite_master WHERE name='automation_imports'").fetchone()
+    assert 'password_hash' not in str(client.get('/api/admin/automation-accounts').get_json())
+    assert bot.get('/api/automation/me').status_code == 404
+    assert client.get(PREFIX + '/overview').status_code == 403
 
 
-def test_token_has_no_admin_session_or_ordinary_write_privileges(client, app):
+def test_restricted_session_cannot_escape_workspace(client, app):
     admin = login_admin(client)
-    created, bearer = create_account(client, admin)
-    other = app.test_client()
-    for path in ('/admin', '/api/admin/users', '/api/admin/overview', '/api/admin/settings',
-                 '/api/admin/daily-reports', '/api/admin/automation-accounts'):
-        assert other.get(path, headers=bearer).status_code in (401, 403), path
-    for method, path in [('post', '/api/lineups'), ('post', '/api/admin/live-comps/upload'),
-                         ('put', '/api/admin/settings'), ('delete', '/api/admin/users/1')]:
-        assert getattr(other, method)(path, headers=bearer, json={}).status_code in (401, 403, 404, 405)
-    # Neither generic role edits nor password edits can convert machine accounts.
-    assert client.put(f"/api/admin/users/{created['user_id']}", headers=admin, json={'role': 'admin'}).status_code == 403
+    create_account(client, admin)
+    bot, headers = login_bot(app)
+    for path in ('/api/admin/users', '/api/admin/settings', '/api/admin/overview', '/api/admin/daily-reports',
+                 '/api/admin/live-comps/seasons', '/api/admin/automation-accounts'):
+        assert bot.get(path).status_code == 403, path
+    for method, path in [('post', '/api/lineups'), ('put', '/api/admin/users/1'), ('post', '/api/admin/live-comps/upload'),
+                         ('put', '/api/admin/settings'), ('post', '/api/admin/lineups/bulk-import'),
+                         ('post', '/api/admin/live-comps/seasons/s17-star-god/touch-updated-at'), ('post', '/api/register')]:
+        assert getattr(bot, method)(path, headers=headers, json={}).status_code == 403, path
+    assert bot.post(PREFIX + '/lineups/bulk-import', json={}).status_code == 403
+    assert bot.post(PREFIX + '/lineups/bulk-import', headers=headers, json={}).status_code == 403
     assert client.post('/api/admin/users', headers=admin, json={'role': 'automation'}).status_code == 400
-    assert other.post('/api/login', json={'account': 'analysis_bot', 'password': created['token']}).status_code == 400
-    assert other.post('/api/automation/lineups/bulk-import', headers=bearer, json={}).status_code == 403
+    outsider = app.test_client()
+    assert outsider.get(PREFIX + '/overview').status_code == 401
 
 
-def test_rotation_expiry_disable_and_delete(client, app):
+def test_disable_enable_reset_expire_delete_revoke_sessions(client, app):
     admin = login_admin(client)
-    created, old = create_account(client, admin)
-    url = f"/api/admin/automation-accounts/{created['user_id']}"
-    rotated = client.post(url + '/rotate-token', headers=admin, json={'expires_in_days': 1}).get_json()
-    bearer = {'Authorization': f"Bearer {rotated['token']}"}
-    assert client.get('/api/automation/me', headers=old).status_code == 401
-    assert client.get('/api/automation/me', headers=bearer).status_code == 200
+    account = create_account(client, admin)
+    url = '/api/admin/automation-accounts/' + str(account['user_id'])
+    bot, _ = login_bot(app)
     assert client.put(url, headers=admin, json={'status': 'disabled'}).status_code == 200
-    assert client.get('/api/automation/me', headers=bearer).status_code == 401
+    # Re-enable before using old cookie: the previous login must still be invalid.
     assert client.put(url, headers=admin, json={'status': 'active'}).status_code == 200
-    assert client.get('/api/automation/me', headers=bearer).status_code == 401
-    rotated = client.post(url + '/rotate-token', headers=admin, json={}).get_json()
-    bearer = {'Authorization': f"Bearer {rotated['token']}"}
+    assert bot.get(PREFIX + '/overview').status_code == 401
+    bot, _ = login_bot(app)
+    assert client.put(url, headers=admin, json={'password': 'ChangedPassword5678'}).status_code == 200
+    assert bot.get(PREFIX + '/overview').status_code == 401
+    assert bot.post('/api/login', json={'account': 'analysis_bot', 'password': PASSWORD}).status_code == 400
+    assert bot.post('/api/login', json={'account': 'analysis_bot', 'password': 'ChangedPassword5678'}).status_code == 200
     with app.app_context():
         get_db().execute("UPDATE automation_accounts SET expires_at='2000-01-01T00:00:00Z'")
         get_db().commit()
-    assert client.get('/api/automation/me', headers=bearer).status_code == 401
+    assert bot.get('/admin').status_code == 401
+    assert bot.post('/api/login', json={'account': 'analysis_bot', 'password': 'ChangedPassword5678'}).status_code == 400
+    assert client.put(url, headers=admin, json={'expires_in_days': 30}).status_code == 200
+    assert bot.post('/api/login', json={'account': 'analysis_bot', 'password': 'ChangedPassword5678'}).status_code == 200
     assert client.delete(url, headers=admin).status_code == 200
+    assert bot.get('/admin').status_code in (401, 403)
     assert not client.get('/api/admin/automation-accounts').get_json()['items']
     assert not client.get('/api/admin/users?q=analysis_bot').get_json()['items']
-    assert client.put(url, headers=admin, json={'status': 'active'}).status_code == 404
 
 
-def test_import_scope_preview_retry_attribution_and_limits(client, app):
+def test_scoped_import_preview_duplicates_attribution_and_revocation(client, app):
     admin = login_admin(client)
-    created, bearer = create_account(client, admin, can_import=True, allowed_seasons=['s17-star-god'])
+    account = create_account(client, admin, can_import=True, allowed_seasons=['s17-star-god'])
+    bot, headers = login_bot(app)
     body = {'season_id': 's17-star-god', 'raw_text': '【阵容码】#测试-助手阵容#BOTCODE001'}
-    url = '/api/automation/lineups/bulk-import'
-    preview = client.post(url + '/preview', headers=bearer, json=body)
-    assert preview.status_code == 200 and preview.get_json()['importable_count'] == 1
+    url = PREFIX + '/lineups/bulk-import'
+    assert bot.post(url + '/preview', headers=headers, json=body).get_json()['importable_count'] == 1
     with app.app_context():
         assert get_db().execute('SELECT COUNT(*) FROM lineups').fetchone()[0] == 0
-    assert client.post(url, headers=bearer, json=body).status_code == 400
-    headers = {**bearer, 'Idempotency-Key': 'batch-20261020-001'}
-    result = client.post(url, headers=headers, json=body)
-    assert result.status_code == 200, result.get_json()
-    assert result.get_json()['created_count'] == 1
-    assert client.post(url, headers=headers, json=body).get_json() == result.get_json()
-    assert client.post(url, headers=headers, json={**body, 'raw_text': body['raw_text'] + '\ninvalid'}).status_code == 409
-    assert client.post(url, headers=headers, json={**body, 'season_id': 's16-legends'}).status_code == 403
-    assert client.post(url, headers=headers, json={**body, 'user_id': 1}).status_code == 400
-    assert client.post(url, headers=headers, json={**body, 'raw_text': 'x\n' * 51}).status_code == 400
+    assert bot.post(url, headers=headers, json=body).get_json()['created_count'] == 1
+    assert bot.post(url, headers=headers, json=body).get_json()['created_count'] == 0
+    assert bot.post(url, headers=headers, json={**body, 'season_id': 's16-legends'}).status_code == 403
+    assert bot.post(url, headers=headers, json={**body, 'user_id': 1}).status_code == 400
+    assert bot.post(url, headers=headers, json={**body, 'raw_text': 'x\n' * 51}).status_code == 400
     with app.app_context():
-        row = get_db().execute('SELECT user_id, status FROM lineups').fetchone()
-        assert row['user_id'] == created['user_id'] and row['status'] == 'normal'
-        assert get_db().execute('SELECT COUNT(*) FROM automation_imports').fetchone()[0] == 1
+        row = get_db().execute('SELECT user_id,status FROM lineups').fetchone()
+        assert row['user_id'] == account['user_id'] and row['status'] == 'normal'
+    assert client.put('/api/admin/automation-accounts/' + str(account['user_id']), headers=admin, json={'can_import': False}).status_code == 200
+    assert bot.post(url, headers=headers, json=body).status_code == 403
 
 
-def test_import_failure_rolls_back_lineup_and_receipt(client, app, monkeypatch):
+def test_import_failure_is_atomic(client, app, monkeypatch):
     admin = login_admin(client)
-    _, bearer = create_account(client, admin, can_import=True, allowed_seasons=['s17-star-god'])
-    import admin_lineup_service
+    create_account(client, admin, can_import=True, allowed_seasons=['s17-star-god'])
+    bot, headers = login_bot(app)
     def fail(*args, **kwargs):
         raise RuntimeError('simulated audit failure')
-    monkeypatch.setattr(admin_lineup_service, 'write_audit', fail)
+    monkeypatch.setattr('admin_lineup_service.write_audit', fail)
     with pytest.raises(RuntimeError):
-        client.post('/api/automation/lineups/bulk-import',
-                    headers={**bearer, 'Idempotency-Key': 'rollback-case'},
-                    json={'season_id': 's17-star-god', 'raw_text': '【阵容码】#测试-回滚#ROLLBACK001'})
+        bot.post(PREFIX + '/lineups/bulk-import', headers=headers,
+                 json={'season_id': 's17-star-god', 'raw_text': '【阵容码】#测试-回滚#ROLLBACK001'})
     with app.app_context():
         assert get_db().execute('SELECT COUNT(*) FROM lineups').fetchone()[0] == 0
-        assert get_db().execute('SELECT COUNT(*) FROM automation_imports').fetchone()[0] == 0
 
 
-def test_machine_responses_never_include_private_details(client, monkeypatch):
+def test_touch_scope_csrf_and_content_unchanged(client, app):
     admin = login_admin(client)
-    _, bearer = create_account(client, admin)
-    import automation
-    private = {'ip_address': 'private-ip', 'email': 'private-email', 'token_hash': 'private-hash'}
-    monkeypatch.setattr(automation, 'build_admin_copy_rank_payload', lambda *a, **k: {
-        'date': '2026-10-19', 'items': [{'title': '阵容', 'uploader': '作者', 'copies': 3, 'details': [private], **private}],
-    })
-    monkeypatch.setattr(automation, 'get_daily_report', lambda *a: {
-        'report_date': '2026-10-19', 'summary': {'successful_copies': 3, **private},
-        'top_visitor_ips': [private], 'top_copied': [{'title': '阵容', **private}],
-        'top_pages': [{'page_key': 'home', 'visits': 2, **private}], **private,
-    })
-    for path in ('/api/automation/copy-rank', '/api/automation/daily-reports/2026-10-19'):
-        response = client.get(path, headers=bearer)
+    account = create_account(client, admin, can_touch=True, touch_seasons=['s17-star-god'])
+    write_live_comps_seed(client, sample_live_comps_payload())
+    from pathlib import Path
+    path = Path(app.config['LIVE_COMPS_DATA_PATH'])
+    before = path.read_bytes()
+    bot, headers = login_bot(app)
+    url = PREFIX + '/live-seasons/s17-star-god/touch'
+    assert bot.get(PREFIX + '/live-seasons').status_code == 200
+    assert bot.post(url, json={}).status_code == 403
+    assert bot.post(url, headers=headers, json={'updated_at': 'future'}).status_code == 400
+    assert bot.post(PREFIX + '/live-seasons/s16-legends/touch', headers=headers, json={}).status_code == 403
+    assert bot.post(url, headers=headers, json={}).status_code == 200
+    assert path.read_bytes() == before
+    with app.app_context():
+        row = get_db().execute("SELECT actor_user_id FROM audit_logs WHERE action='touch_live_comps_season_updated_at'").fetchone()
+        assert row['actor_user_id'] == account['user_id']
+    client.put('/api/admin/automation-accounts/' + str(account['user_id']), headers=admin, json={'can_touch': False})
+    assert bot.post(url, headers=headers, json={}).status_code == 403
+
+
+def test_responses_exclude_private_data(client, app, monkeypatch):
+    admin = login_admin(client); create_account(client, admin); bot, _ = login_bot(app)
+    private = {'ip_address': 'private-ip', 'email': 'private-email'}
+    monkeypatch.setattr('automation.build_admin_copy_rank_payload', lambda *a, **k: {
+        'date': '2026-10-19', 'items': [{'title': '阵容', 'uploader': '作者', 'copies': 3, 'details': [private], **private}]})
+    monkeypatch.setattr('automation.get_daily_report', lambda *a: {
+        'report_date': '2026-10-19', 'summary': {'total_copies': 3, **private}, 'top_visitor_ips': [private],
+        'top_copied': [{'title': '阵容', 'copies': 3, 'details': [private], **private}]})
+    for path in ('/copy-rank', '/daily-reports/2026-10-19'):
+        response = bot.get(PREFIX + path)
         assert response.status_code == 200
         assert 'private-' not in response.get_data(as_text=True)
         assert response.headers['Cache-Control'] == 'private, no-store'
-    assert client.get('/api/automation/daily-reports/not-a-date', headers=bearer).status_code == 400
 
 
-def test_rate_limit_and_invalid_configuration(client):
+def test_invalid_creation_and_read_rate_limit(client, app):
     admin = login_admin(client)
-    for payload in ({'expires_in_days': 0}, {'expires_in_days': 91},
-                    {'can_import': 'true'}, {'can_import': True, 'allowed_seasons': []},
-                    {'can_import': True, 'allowed_seasons': ['hidden-season']}, {'role': 'admin'}):
-        assert client.post('/api/admin/automation-accounts', headers=admin,
-                           json={'username': 'analysis_bot', **payload}).status_code == 400
-    _, bearer = create_account(client, admin)
+    for data in ({'password': 'short'}, {'expires_in_days': 91}, {'can_import': 'true'}, {'can_touch': True, 'touch_seasons': ['hidden']}, {'role': 'admin'}):
+        assert client.post('/api/admin/automation-accounts', headers=admin, json={'username': 'bad', 'password': PASSWORD, **data}).status_code == 400
+    create_account(client, admin); bot, _ = login_bot(app)
     for _ in range(60):
-        assert client.get('/api/automation/me', headers=bearer).status_code == 200
-    assert client.get('/api/automation/me', headers=bearer).status_code == 429
+        assert bot.get(PREFIX + '/me').status_code == 200
+    assert bot.get(PREFIX + '/me').status_code == 429
 
 
-def test_machine_accounts_do_not_inflate_registration_metrics(client, app):
-    from admin_dashboard_service import build_admin_stats_payload
-    from daily_report_service import build_daily_report_payload
-    from db import now_text
-    admin = login_admin(client)
-    with app.app_context():
-        before = build_admin_stats_payload(get_db())
-    create_account(client, admin)
-    with app.app_context():
-        after = build_admin_stats_payload(get_db())
-        assert after['total_users'] == before['total_users']
-        assert after['today_users'] == before['today_users']
-        report = build_daily_report_payload(get_db(), now_text()[:10])
-        assert report['summary']['new_registrations'] == 0
+def test_upgrade_old_sqlite_schema_preserves_identity_and_drops_tokens():
+    from automation_schema import migrate_automation_sessions
+    db = sqlite3.connect(':memory:')
+    db.row_factory = sqlite3.Row
+    db.execute('CREATE TABLE automation_accounts(user_id INTEGER PRIMARY KEY,token_hash TEXT,token_prefix TEXT,expires_at TEXT)')
+    db.execute("INSERT INTO automation_accounts VALUES(7,'oldsecret','prefix','future')")
+    db.execute('CREATE TABLE automation_imports(user_id INTEGER)')
+    migrate_automation_sessions(db)
+    migrate_automation_sessions(db)
+    assert tuple(db.execute('SELECT user_id,can_touch,session_version FROM automation_accounts').fetchone()) == (7, 0, 1)
+    assert 'token_hash' not in [row[1] for row in db.execute('PRAGMA table_info(automation_accounts)')]

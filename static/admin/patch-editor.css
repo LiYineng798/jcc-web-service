@@ -28,7 +28,6 @@
 .automation-check { display: flex; align-items: center; gap: 10px; padding: 8px 0; }
 .automation-check input { width: 20px; height: 20px; flex: 0 0 20px; }
 .automation-seasons { border: 1px solid var(--admin-border); border-radius: 10px; max-height: 230px; overflow: auto; }
-.automation-token { width: 100%; box-sizing: border-box; font-size: 16px; overflow-wrap: anywhere; }
 .admin-search input { font-size: 16px; }
 
 @media (max-width: 700px) {

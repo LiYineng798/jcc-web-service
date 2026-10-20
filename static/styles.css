@@ -1073,10 +1073,31 @@ textarea:focus {
 }
 
 .live-comps-summary {
-  padding: 14px 18px;
-  border: 1px solid var(--line);
-  border-radius: var(--radius-lg);
-  background: var(--surface-solid);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 6px 20px;
+  padding: 12px 2px 14px;
+  border-bottom: 1px solid var(--line);
+}
+
+.live-comps-summary-heading {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.live-comps-summary .live-comps-summary-title {
+  margin: 0;
+  font-size: 17px;
+  letter-spacing: .02em;
+}
+
+.live-comps-summary-count {
+  color: var(--muted);
+  font-size: 13px;
+  white-space: nowrap;
 }
 
 .live-comps-summary-title,
@@ -1085,7 +1106,19 @@ textarea:focus {
 }
 
 .live-comps-summary-meta {
+  margin: 0;
   color: var(--muted);
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 540px) {
+  .live-comps-summary {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 5px;
+    padding: 8px 2px 12px;
+  }
 }
 
 .live-comps-season-switch {
