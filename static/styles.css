@@ -1074,33 +1074,10 @@ textarea:focus {
 
 .live-comps-summary {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 6px 20px;
-  padding: 12px 2px 14px;
-  border-bottom: 1px solid var(--line);
+  justify-content: flex-end;
+  padding: 0 2px;
 }
 
-.live-comps-summary-heading {
-  display: flex;
-  align-items: baseline;
-  gap: 12px;
-}
-
-.live-comps-summary .live-comps-summary-title {
-  margin: 0;
-  font-size: 17px;
-  letter-spacing: .02em;
-}
-
-.live-comps-summary-count {
-  color: var(--muted);
-  font-size: 13px;
-  white-space: nowrap;
-}
-
-.live-comps-summary-title,
 .live-comp-name {
   margin-bottom: 0;
 }
@@ -1114,10 +1091,7 @@ textarea:focus {
 
 @media (max-width: 540px) {
   .live-comps-summary {
-    align-items: flex-start;
-    flex-direction: column;
-    gap: 5px;
-    padding: 8px 2px 12px;
+    justify-content: flex-start;
   }
 }
 

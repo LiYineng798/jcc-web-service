@@ -75,7 +75,6 @@ const elements = {
   themeIcon: $('#themeIcon'),
   themeText: $('#themeText'),
   authPromptRoot: $('#authPromptRoot'),
-  listTitle: $('#listTitle'),
   listHeading: $('#listHeading'),
   heroDescription: $('#heroDescription'),
   mobileResourceTrigger: $('#mobileResourceTrigger'),
@@ -675,7 +674,6 @@ async function loadCurrentView() {
   const isLiveComps = state.view === 'live-comps';
   abortHomeRequest(isLiveComps ? 'lineups' : 'liveComps');
   syncSearchInputState(isLiveComps);
-  elements.listTitle.textContent = isLiveComps ? '实时阵容排行' : '阵容列表';
   if (isLiveComps) {
     await loadLiveComps();
     return;
@@ -1138,25 +1136,15 @@ function formatLiveUpdate(value) {
 }
 
 function renderLiveCompsSummaryHeader() {
-  const header = document.createElement('section');
+  const header = document.createElement('div');
   header.className = 'live-comps-summary';
-
-  const title = document.createElement('h3');
-  title.className = 'live-comps-summary-title';
-  title.textContent = '实时阵容排行';
 
   const meta = document.createElement('p');
   meta.className = 'live-comps-summary-meta';
   meta.textContent = state.liveCompsSummary?.updated_at
     ? formatLiveUpdate(state.liveCompsSummary.updated_at)
     : '暂无更新时间';
-  const count = document.createElement('span');
-  count.className = 'live-comps-summary-count';
-  count.textContent = `${state.total} 套`;
-  const heading = document.createElement('div');
-  heading.className = 'live-comps-summary-heading';
-  heading.append(title, count);
-  header.append(heading, meta);
+  header.append(meta);
   return header;
 }
 
