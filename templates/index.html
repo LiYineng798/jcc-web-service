@@ -81,7 +81,7 @@
           </section>
           <section class="stat-card border-glow-card" data-border-glow="stat" aria-label="阵容统计">
             <span class="stat-label">全站收录</span>
-            <strong id="lineupCount">0</strong>
+            <strong class="stat-count-status" id="lineupCount" aria-live="polite">加载中</strong>
             <span class="stat-caption">套阵容</span>
             <a class="primary-link stat-action-link" id="createLineupLink" href="/auth">登录后新增阵容</a>
           </section>
@@ -144,10 +144,10 @@
               <p class="section-kicker">Library</p>
               <div class="list-heading-main">
                 <h2 id="listTitle">阵容列表</h2>
-                <span class="current-display-count" id="currentDisplayCount">当前展示 0 套</span>
+                <span class="current-display-count" id="currentDisplayCount">正在加载阵容…</span>
                 <div class="season-menu-wrap" id="seasonMenuWrap">
-                  <button class="account-toggle season-toggle" id="seasonFilterToggle" type="button" aria-haspopup="menu" aria-expanded="false">
-                    <span id="seasonFilterText">S17 · 星神</span>
+                  <button class="account-toggle season-toggle" id="seasonFilterToggle" type="button" disabled aria-haspopup="menu" aria-expanded="false">
+                    <span id="seasonFilterText">加载赛季…</span>
                     <span class="account-chevron" aria-hidden="true">⌄</span>
                   </button>
                   <div class="account-menu hidden season-menu" id="seasonFilterMenu" role="menu"></div>

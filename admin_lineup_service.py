@@ -216,7 +216,7 @@ def preview_bulk_import_lineups(db, data):
     return prepare_bulk_import_preview(db, data)
 
 
-def bulk_import_lineups(db, admin_id, data):
+def bulk_import_lineups(db, admin_id, data, *, commit=True):
     summary, service_error, status_code = prepare_bulk_import_preview(db, data)
     if service_error:
         return summary, service_error, status_code
@@ -250,7 +250,8 @@ def bulk_import_lineups(db, admin_id, data):
             'invalid_count': summary['invalid_count'],
         },
     )
-    db.commit()
+    if commit:
+        db.commit()
     return summary, None, 200
 
 

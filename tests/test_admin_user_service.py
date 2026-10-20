@@ -2,19 +2,27 @@ from admin_user_service import build_user_list_query, create_user, prepare_user_
 from db import get_db
 
 
-def test_build_user_list_query_without_search():
+def test_build_user_list_query_without_search(app):
     base_sql, count_sql, params = build_user_list_query('')
 
-    assert base_sql == 'SELECT id, username, email, nickname, role, status, created_at, updated_at, last_login_at, avatar_color, avatar_preset, avatar_expression FROM users ORDER BY id DESC'
-    assert count_sql == 'SELECT COUNT(*) AS c FROM users'
+    with app.app_context():
+        db = get_db()
+        users = db.execute(base_sql, params).fetchall()
+        assert [row['username'] for row in users] == ['adminxlx']
+        assert db.execute(count_sql, params).fetchone()['c'] == len(users)
     assert params == []
 
 
-def test_build_user_list_query_with_search():
+def test_build_user_list_query_with_search(app):
     base_sql, count_sql, params = build_user_list_query('alice')
 
-    assert 'WHERE username LIKE ? OR email LIKE ? OR nickname LIKE ?' in base_sql
-    assert count_sql.endswith('WHERE username LIKE ? OR email LIKE ? OR nickname LIKE ?')
+    with app.app_context():
+        db = get_db()
+        _, error, _ = create_user(db, 1, {'username': 'alice', 'email': 'alice@example.com', 'password': 'abc123'})
+        assert error is None
+        users = db.execute(base_sql, params).fetchall()
+        assert [row['username'] for row in users] == ['alice']
+        assert db.execute(count_sql, params).fetchone()['c'] == 1
     assert params == ['%alice%', '%alice%', '%alice%']
 
 

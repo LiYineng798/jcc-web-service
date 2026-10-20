@@ -12,9 +12,9 @@ from db_adapter import insert_returning_id_sql, last_insert_id
 def build_user_list_query(query):
     query = str(query or '').strip()
     params = []
-    from_sql = 'FROM users'
+    from_sql = "FROM users WHERE NOT EXISTS (SELECT 1 FROM automation_accounts a WHERE a.user_id=users.id AND a.deleted_at IS NOT NULL)"
     if query:
-        from_sql += ' WHERE username LIKE ? OR email LIKE ? OR nickname LIKE ?'
+        from_sql += ' AND (username LIKE ? OR email LIKE ? OR nickname LIKE ?)'
         params = [f'%{query}%', f'%{query}%', f'%{query}%']
     base_sql = 'SELECT id, username, email, nickname, role, status, created_at, updated_at, last_login_at, avatar_color, avatar_preset, avatar_expression ' + from_sql + ' ORDER BY id DESC'
     count_sql = 'SELECT COUNT(*) AS c ' + from_sql
@@ -26,6 +26,8 @@ def serialize_admin_user(row):
 
 
 def prepare_user_create_payload(data):
+    if data.get('role') not in (None, 'user', 'admin'):
+        return None, '自动化账号必须通过专用管理入口创建'
     password = str(data.get('password') or '')
     if not validate_password(password):
         return None, '密码需大于5位且包含字母和数字'
@@ -99,6 +101,8 @@ def update_user(db, admin_id, user_id, data):
     before = db.execute('SELECT * FROM users WHERE id = ?', (user_id,)).fetchone()
     if not before:
         return None, '用户不存在', 404
+    if before['role'] == 'automation' or data.get('role') not in (None, 'user', 'admin'):
+        return None, '请通过自动化账号专用入口管理，不能转换账号类型', 403
     fields, params = prepare_user_update_fields(data)
     if data.get('password'):
         if not validate_password(data['password']):
@@ -120,6 +124,11 @@ def update_user(db, admin_id, user_id, data):
 
 
 def disable_user(db, admin_id, user_id):
+    row = db.execute('SELECT role FROM users WHERE id=?', (user_id,)).fetchone()
+    if row and row['role'] == 'automation':
+        from automation_service import change_account
+        change_account(db, admin_id, user_id, {'status': 'disabled'})
+        return
     db.execute("UPDATE users SET status = 'disabled', updated_at = ? WHERE id = ?", (now_text(), user_id))
     write_audit(admin_id, 'disable_user', 'user', user_id)
     db.commit()

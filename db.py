@@ -198,9 +198,9 @@ def postgres_schema_ready():
                     WHERE table_schema = 'public' AND table_name IN (
                         'season_release_packages','season_import_jobs','season_active_releases','season_release_events',
                         'lineup_moderation','lineup_moderation_events',
-                        'feedback_threads','feedback_events','user_notifications','author_favorite_receipts','notification_actors'
+                        'feedback_threads','feedback_events','user_notifications','author_favorite_receipts','notification_actors', 'automation_accounts', 'automation_imports'
                     )
-                ) = 11 AS exists
+                ) = 13 AS exists
                 '''
             )
             return bool(cursor.fetchone()['exists'])

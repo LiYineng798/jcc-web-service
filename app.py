@@ -38,6 +38,8 @@ def create_app(test_config=None):
     from lineup_moderation import lineup_moderation_bp
     app.register_blueprint(lineup_moderation_bp)
     app.register_blueprint(admin_bp)
+    from automation import automation_bp
+    app.register_blueprint(automation_bp)
     app.register_blueprint(live_comps_bp)
     from notification_center import notification_center_bp
     app.register_blueprint(notification_center_bp)

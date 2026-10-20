@@ -762,6 +762,13 @@ h1 {
   letter-spacing: -0.06em;
 }
 
+.stat-card strong.stat-count-status {
+  font-size: 1.1rem;
+  letter-spacing: normal;
+  line-height: 1.6;
+  padding-block: 8px;
+}
+
 .stat-action-link {
   display: inline-flex;
   justify-content: center;

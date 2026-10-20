@@ -37,7 +37,7 @@ def current_user():
         'SELECT id, username, email, nickname, avatar_color, avatar_preset, avatar_expression, role, status, created_at, updated_at, last_login_at, password_hash FROM users WHERE id = ?',
         (user_id,),
     ).fetchone()
-    if row is None or row['status'] != 'active' or not hmac.compare_digest(
+    if row is None or row['role'] == 'automation' or row['status'] != 'active' or not hmac.compare_digest(
         str(session.get('auth_stamp', '')), _auth_stamp(row)
     ):
         if row is not None and row['status'] != 'active':
@@ -73,6 +73,9 @@ def csrf_token():
 
 
 def require_csrf():
+    # These endpoints accept only dedicated Bearer credentials, never a cookie.
+    if request.endpoint in {'automation.import_preview', 'automation.import_commit'}:
+        return None
     if request.method in {'POST', 'PUT', 'DELETE'} and request.endpoint not in {
         'auth.login', 'auth.register', 'auth.logout', 'auth.password_reset_request', 'auth.password_reset_confirm', 'captcha.captcha_verify'
     }:
@@ -228,7 +231,7 @@ def login():
         'SELECT * FROM users WHERE username = ? OR email = ?',
         (account, account.lower()),
     ).fetchone()
-    ok = bool(user and user['status'] == 'active' and check_password_hash(user['password_hash'], password))
+    ok = bool(user and user['role'] != 'automation' and user['status'] == 'active' and check_password_hash(user['password_hash'], password))
     db.execute(
         'INSERT INTO login_events (user_id, ip_address, success, created_at) VALUES (?, ?, ?, ?)',
         (user['id'] if user else None, ip, 1 if ok else 0, now_text()),

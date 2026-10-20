@@ -1,0 +1,36 @@
+.patch-editor { display: grid; gap: 20px; min-width: 0; }
+.patch-editor-heading { display: flex; align-items: center; gap: 12px; }
+.patch-editor-heading h3 { margin: 0; }
+.patch-editor-grid { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 24px; }
+.patch-editor-fields, .patch-editor-field { display: grid; gap: 10px; min-width: 0; }
+.patch-editor-basics { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.patch-editor-field > span { font-weight: 650; font-size: 14px; }
+.patch-editor-field input, .patch-editor-field textarea { width: 100%; box-sizing: border-box; font: inherit; padding: 12px; border: 1px solid var(--admin-border); border-radius: 10px; color: inherit; background: var(--bg); min-width: 0; }
+.patch-editor-field textarea { resize: vertical; line-height: 1.7; }
+.patch-editor-preview { border: 1px solid var(--admin-border); border-radius: 14px; padding: 20px; align-self: start; overflow-wrap: anywhere; max-height: 75vh; overflow: auto; }
+.patch-editor-preview p { line-height: 1.8; white-space: pre-wrap; }
+.patch-editor-original summary { cursor: pointer; padding: 12px 0; }
+.patch-editor-actions { padding-top: 16px; border-top: 1px solid var(--admin-border); }
+.patch-editor-error { color: var(--admin-danger); margin: 0; }
+.patch-change-buff { color: var(--admin-success); }
+.patch-change-nerf { color: var(--admin-danger); }
+.patch-change-adjust { color: var(--admin-warning); }
+@media (max-width: 760px) {
+  .patch-editor-grid, .patch-editor-basics { grid-template-columns: minmax(0, 1fr); }
+  .patch-editor-field input, .patch-editor-field textarea { font-size: 16px; }
+  .patch-editor-preview { max-height: 420px; }
+  .patch-editor-actions > button { flex: 1 1 auto; min-height: 44px; }
+}
+
+.automation-dialog { width: min(840px, calc(100vw - 24px)); }
+.automation-card { padding: 18px 0; border-bottom: 1px solid var(--admin-border); overflow-wrap: anywhere; }
+.automation-form { display: grid; gap: 16px; }
+.automation-check { display: flex; align-items: center; gap: 10px; padding: 8px 0; }
+.automation-check input { width: 20px; height: 20px; flex: 0 0 20px; }
+.automation-seasons { border: 1px solid var(--admin-border); border-radius: 10px; max-height: 230px; overflow: auto; }
+.automation-token { width: 100%; box-sizing: border-box; font-size: 16px; overflow-wrap: anywhere; }
+.admin-search input { font-size: 16px; }
+
+@media (max-width: 700px) {
+  .admin-users-table .admin-user-actions:has(.small-button:first-child:last-child) { grid-column: 1 / -1; }
+}

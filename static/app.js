@@ -12,7 +12,7 @@ const state = {
   lineups: [],
   liveCompsSummary: null,
   liveCompsPage: null,
-  homeStats: { total_public_lineups: 0 },
+  homeStats: null,
   lineupSeasons: [],
   liveCompSeasons: [],
   selectedLineupSeasonId: null,
@@ -144,13 +144,29 @@ elements.searchInput.addEventListener('input', (event) => {
   if (!event.target.value.trim()) lastSearchSignature = '';
   searchClear.sync(event.target.value);
 });
-elements.searchInput.addEventListener('input', debounce((event) => {
-  if (state.view === 'live-comps') return;
-  cancelPaginationNavigation();
-  state.query = event.target.value.trim();
-  state.page = 1;
-  loadLineups();
-}, 180));
+let searchTimer, searchComposing = false;
+function scheduleHomeSearch() {
+  clearTimeout(searchTimer);
+  clearTimeout(searchAnalyticsTimer);
+  ++homeLoadGeneration;
+  abortHomeRequest('lineups');
+  if (searchComposing || state.view === 'live-comps') return;
+  searchTimer = setTimeout(() => {
+    if (searchComposing || state.view === 'live-comps') return;
+    cancelPaginationNavigation();
+    state.query = elements.searchInput.value.trim();
+    state.page = 1;
+    loadLineups();
+  }, 400);
+}
+elements.searchInput.addEventListener('compositionstart', () => { searchComposing = true; scheduleHomeSearch(); });
+elements.searchInput.addEventListener('compositionend', () => { searchComposing = false; scheduleHomeSearch(); });
+elements.searchInput.addEventListener('input', scheduleHomeSearch);
+elements.searchInput.addEventListener('keydown', event => {
+  if (event.key !== 'Enter' || event.isComposing || searchComposing || state.view === 'live-comps') return;
+  event.preventDefault(); clearTimeout(searchTimer);
+  cancelPaginationNavigation(); state.query = elements.searchInput.value.trim(); state.page = 1; loadLineups();
+});
 elements.seasonFilterToggle?.addEventListener('click', toggleSeasonMenu);
 document.addEventListener('click', closeSeasonMenuOnOutsideClick);
 document.addEventListener('keydown', closeSeasonMenuOnEscape);
@@ -426,18 +442,27 @@ async function loadMe() {
 
 async function loadHomeStats() {
   try {
-    const payload = await fetch('/api/home-stats').then((response) => response.json());
+    const payload = await api('/api/home-stats');
+    if (!Number.isFinite(payload.total_public_lineups)) throw new Error('无效统计');
     state.homeStats = {
       total_public_lineups: Number(payload.total_public_lineups || 0),
     };
     renderHomeStats();
   } catch (_) {
-    renderHomeStats();
+    state.homeStats = null;
+    if (elements.lineupCount) {
+      elements.lineupCount.classList.remove('has-handwriting');
+      elements.lineupCount.classList.add('stat-count-status');
+      elements.lineupCount.removeAttribute('aria-label');
+      delete elements.lineupCount.dataset.handwritingValue;
+      elements.lineupCount.textContent = '统计暂不可用';
+    }
   }
 }
 
 function renderHomeStats() {
-  if (!elements.lineupCount) return;
+  if (!elements.lineupCount || !state.homeStats) return;
+  elements.lineupCount.classList.remove('stat-count-status');
   if (window.jccHandwritingCount) {
     window.jccHandwritingCount.render(elements.lineupCount, state.homeStats.total_public_lineups);
   } else {
@@ -566,6 +591,7 @@ async function logout() {
 
 async function loadLineups(options = {}) {
   if (state.view === 'live-comps') return;
+  elements.currentDisplayCount.textContent = '正在加载阵容…';
   const generation = ++homeLoadGeneration;
   clearTimeout(searchAnalyticsTimer);
   try { await performLoadLineups(options,generation); } catch (error) {
@@ -603,6 +629,7 @@ async function performLoadLineups(options = {},generation) {
   try {
     const response = cachedResponse || await fetchCachedJson('lineups', requestKey, `/api/lineups?${params}`, controller.signal);
     if (state.requestControllers.lineups !== controller || generation !== homeLoadGeneration) return;
+    if (!Array.isArray(response.items) || !Number.isInteger(response.total)) throw new Error('阵容数据格式无效');
     state.lineups = response.items || [];
     state.total = response.total ?? state.lineups.length;
     state.page = response.page ?? 1;
@@ -634,6 +661,7 @@ function syncSearchInputState(isLiveComps) {
 }
 
 function clearLineupSearch() {
+  clearTimeout(searchTimer);
   lastSearchSignature = '';
   cancelPaginationNavigation();
   state.query = '';
@@ -642,6 +670,7 @@ function clearLineupSearch() {
 }
 
 async function loadCurrentView() {
+  clearTimeout(searchTimer);
   clearTimeout(searchAnalyticsTimer);
   const isLiveComps = state.view === 'live-comps';
   abortHomeRequest(isLiveComps ? 'lineups' : 'liveComps');
@@ -655,6 +684,7 @@ async function loadCurrentView() {
 }
 
 async function loadLiveComps() {
+  elements.currentDisplayCount.textContent = '正在加载阵容…';
   const generation = ++homeLoadGeneration;
   try { await performLoadLiveComps(generation); } catch (error) {
     if (!isAbortError(error) && generation === homeLoadGeneration) renderLoadError();
@@ -662,6 +692,7 @@ async function loadLiveComps() {
 }
 
 async function performLoadLiveComps(generation) {
+  if (!state.liveCompsPage) lineupLoader.showLoading();
   elements.emptyState.classList.add('hidden');
   await loadLiveCompSeasons();
   if (generation !== homeLoadGeneration) return;
@@ -677,6 +708,10 @@ async function performLoadLiveComps(generation) {
       fetchCachedJson('liveComps', homeCacheKey('livePage', [seasonKey, state.page]), `/api/live-comps?page=${state.page}${seasonQuery}`, controller.signal),
     ]);
     if (state.requestControllers.liveComps !== controller || generation !== homeLoadGeneration) return;
+    if (!Array.isArray(pagePayload.items) || !Number.isInteger(pagePayload.total)
+      || (summary.source_meta?.is_valid === false && summary.updated_at)) {
+      throw new Error('榜单数据暂不可用');
+    }
     state.liveCompsSummary = summary;
     state.liveCompsPage = pagePayload;
     state.total = pagePayload.total ?? 0;
@@ -704,7 +739,8 @@ function renderLineupSeasonFilter() {
   const seasons = isLiveComps ? state.liveCompSeasons : state.lineupSeasons;
   const selectedSeasonId = isLiveComps ? state.selectedLiveCompSeasonId : state.selectedLineupSeasonId;
   const selectedSeason = seasons.find((season) => season.id === selectedSeasonId) || seasons[0] || {};
-  elements.seasonFilterText.textContent = selectedSeason.name || selectedSeason.id || '赛季';
+  elements.seasonFilterToggle.disabled = !seasons.length;
+  elements.seasonFilterText.textContent = selectedSeason.name || selectedSeason.id || '暂无可用赛季';
   seasons.forEach((season) => {
     const item = document.createElement('button');
     item.type = 'button';
@@ -909,6 +945,8 @@ function renderEmptyState() {
 }
 
 function renderLoadError(retryBoot = false) {
+  elements.currentDisplayCount.textContent = '加载失败';
+  if (!(state.view === 'live-comps' ? state.liveCompSeasons : state.lineupSeasons).length) elements.seasonFilterText.textContent = '赛季加载失败';
   clearTimeout(searchAnalyticsTimer);
   lineupLoader.reset();
   elements.lineupList.replaceChildren();
@@ -1091,6 +1129,14 @@ function renderCurrentDisplayCount() {
   elements.currentDisplayCount.textContent = `当前展示 ${state.total} ${unit}`;
 }
 
+function formatLiveUpdate(value) {
+  const match = String(value || '').match(/^(\d{4})-(\d{2})-(\d{2})[T ](\d{2}):(\d{2})/);
+  if (!match) return '更新时间暂不可用';
+  const [, year, month, day, hour, minute] = match;
+  const prefix = Number(year) === new Date().getFullYear() ? '' : `${year}年`;
+  return `${prefix}${Number(month)}月${Number(day)}日 ${hour}:${minute} 更新`;
+}
+
 function renderLiveCompsSummaryHeader() {
   const header = document.createElement('section');
   header.className = 'live-comps-summary';
@@ -1102,9 +1148,12 @@ function renderLiveCompsSummaryHeader() {
   const meta = document.createElement('p');
   meta.className = 'live-comps-summary-meta';
   meta.textContent = state.liveCompsSummary?.updated_at
-    ? `共 ${state.total} 套 · 最近更新：${state.liveCompsSummary.updated_at}`
+    ? `共 ${state.total} 套 · ${formatLiveUpdate(state.liveCompsSummary.updated_at)}`
     : '最近更新：暂无数据';
-  header.append(title, meta);
+  const explanation = document.createElement('p');
+  explanation.className = 'live-comps-summary-meta';
+  explanation.textContent = '“实时”指最近一次发布的榜单快照，按批次更新，并非游戏内逐秒排名。刷新页面查看最新快照；时间按本站记录展示，也可能由管理员手动标记。';
+  header.append(title, meta, explanation);
   return header;
 }
 

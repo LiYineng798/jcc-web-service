@@ -77,7 +77,7 @@ def _count_event_visitors(target_date):
         FROM growth_events ge
         LEFT JOIN users u ON u.id = ge.user_id
         WHERE ge.created_at >= ? AND ge.created_at < ?
-          AND (ge.user_id IS NULL OR COALESCE(u.role, 'user') != 'admin')
+          AND (ge.user_id IS NULL OR COALESCE(u.role, 'user') NOT IN ('admin', 'automation'))
         GROUP BY ge.event_name
         ''',
         (start, end),
@@ -93,7 +93,7 @@ def _count_home_uv(target_date):
         LEFT JOIN users u ON u.id = ve.user_id
         WHERE ve.visit_date = ?
           AND ve.page_key = 'home'
-          AND (ve.user_id IS NULL OR COALESCE(u.role, 'user') != 'admin')
+          AND (ve.user_id IS NULL OR COALESCE(u.role, 'user') NOT IN ('admin', 'automation'))
         ''',
         (target_date,),
     ).fetchone()
@@ -109,7 +109,7 @@ def _count_auth_success_users(target_date):
         JOIN users u ON u.id = ge.user_id
         WHERE ge.created_at >= ? AND ge.created_at < ?
           AND ge.event_name IN ('register_success', 'login_success')
-          AND u.role != 'admin'
+          AND u.role NOT IN ('admin', 'automation')
         ''',
         (start, end),
     ).fetchone()
@@ -140,7 +140,7 @@ def _count_post_login_action_users_by_event(target_date, action_event_names):
          AND {action_created_at} <= {action_window_end}
         WHERE auth.created_at >= ? AND auth.created_at < ?
           AND auth.event_name IN ('register_success', 'login_success')
-          AND u.role != 'admin'
+          AND u.role NOT IN ('admin', 'automation')
         GROUP BY action.event_name
         ''',
         (*action_event_names, start, end),

@@ -14,7 +14,7 @@ def authenticated_active_users(db, target_date):
             WHERE success = 1 AND created_at >= ? AND created_at < ?
         ) activity
         JOIN users u ON u.id = activity.user_id
-        WHERE u.role != 'admin'
+        WHERE u.role NOT IN ('admin', 'automation')
         ''',
         (target_date, *_day_bounds(target_date)),
     ).fetchone()['c'])

@@ -21,6 +21,7 @@ The payload is deliberately data-lover friendly:
 """
 
 from __future__ import annotations
+from copy_rank_service import user_label, live_uploader, enrich_legacy_uploaders
 
 import json
 from datetime import datetime, timedelta
@@ -116,7 +117,7 @@ def _fetch_report_row(db, target_date):
 
 
 def _admin_excluded_visitor_scope():
-    return "(ve.user_id IS NULL OR COALESCE(u.role, 'user') != 'admin')"
+    return "(ve.user_id IS NULL OR COALESCE(u.role, 'user') NOT IN ('admin', 'automation'))"
 
 
 def _int(value):
@@ -184,7 +185,7 @@ def _top_copied(db, start, end, limit=MAX_TOP_COPIED):
         lineups_by_id = {
             lineup['id']: lineup
             for lineup in db.execute(
-                f'SELECT id, name, code, season_id, status FROM lineups WHERE id IN ({placeholders})',
+                f'SELECT l.id, l.name, l.code, l.season_id, l.status, u.username, u.nickname FROM lineups l LEFT JOIN users u ON u.id=l.user_id WHERE l.id IN ({placeholders})',
                 lineup_ids,
             ).fetchall()
         }
@@ -206,6 +207,7 @@ def _top_copied(db, start, end, limit=MAX_TOP_COPIED):
             'copies': _int(row['copies']),
             'unique_visitors': _int(row['unique_visitors']),
             'title': None,
+            'uploader': '原上传账号不可用',
             'tier': None,
             'lineup_id': None,
             'code': None,
@@ -214,6 +216,7 @@ def _top_copied(db, start, end, limit=MAX_TOP_COPIED):
         if row['target_type'] == 'lineup':
             lineup = lineups_by_id.get(int(row['target_id']))
             if lineup:
+                item['uploader'] = user_label(lineup)
                 item['title'] = lineup['name']
                 item['lineup_id'] = lineup['id']
                 item['code'] = lineup['code']
@@ -228,6 +231,7 @@ def _top_copied(db, start, end, limit=MAX_TOP_COPIED):
                 if season_key not in live_payload_cache:
                     payload, _, _, _, _ = read_live_comps_payload_for_season(season_key or None)
                     live_payload_cache[season_key] = payload
+                item['uploader'] = live_uploader(db, live_payload_cache[season_key], season_key, row['target_id'])
                 live_item = find_live_comp(live_payload_cache[season_key], row['target_id'])
                 if live_item:
                     item['title'] = live_item.get('title')
@@ -421,7 +425,7 @@ def build_daily_report_payload(db, target_date):
     new_returning = daily_new_returning_visitors(target_date)
 
     registrations = db.execute(
-        "SELECT COUNT(*) AS c FROM users WHERE role != 'admin' AND created_at >= ? AND created_at < ?",
+        "SELECT COUNT(*) AS c FROM users WHERE role NOT IN ('admin', 'automation') AND created_at >= ? AND created_at < ?",
         (start, end),
     ).fetchone()['c']
     successful_logins = db.execute(
@@ -431,7 +435,7 @@ def build_daily_report_payload(db, target_date):
         JOIN users u ON u.id = le.user_id
         WHERE le.success = 1
           AND le.created_at >= ? AND le.created_at < ?
-          AND u.role != 'admin'
+          AND u.role NOT IN ('admin', 'automation')
         ''',
         (start, end),
     ).fetchone()['c']
@@ -594,6 +598,7 @@ def get_daily_report(target_date):
     for item in payload.get('top_visitor_ips') or []:
         for page in item.get('page_details') or []:
             page['label'] = page_label(page.get('page_key'))
+    enrich_legacy_uploaders(get_db(), payload.get('top_copied') or [])
     payload.update({
         'report_date': target_date,
         'generated_at': row['generated_at'],
