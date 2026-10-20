@@ -62,6 +62,7 @@ const elements = {
   emptyState: $('#emptyState'),
   lineupCount: $('#lineupCount'),
   currentDisplayCount: $('#currentDisplayCount'),
+  liveCompsUpdatedAt: $('#liveCompsUpdatedAt'),
   seasonFilterToggle: $('#seasonFilterToggle'),
   seasonFilterText: $('#seasonFilterText'),
   seasonFilterMenu: $('#seasonFilterMenu'),
@@ -651,6 +652,8 @@ async function performLoadLineups(options = {},generation) {
 }
 
 function syncSearchInputState(isLiveComps) {
+  elements.liveCompsUpdatedAt.classList.toggle('hidden', !isLiveComps);
+  elements.listHeading.classList.toggle('has-live-update', isLiveComps);
   const placeholder = isLiveComps
     ? '实时阵容排行暂不支持搜索'
     : '搜索阵容名称，例如：九五、卡莎、斗士';
@@ -683,6 +686,7 @@ async function loadCurrentView() {
 
 async function loadLiveComps() {
   elements.currentDisplayCount.textContent = '正在加载阵容…';
+  elements.liveCompsUpdatedAt.textContent = '正在加载更新时间…';
   const generation = ++homeLoadGeneration;
   try { await performLoadLiveComps(generation); } catch (error) {
     if (!isAbortError(error) && generation === homeLoadGeneration) renderLoadError();
@@ -944,6 +948,7 @@ function renderEmptyState() {
 
 function renderLoadError(retryBoot = false) {
   elements.currentDisplayCount.textContent = '加载失败';
+  elements.liveCompsUpdatedAt.textContent = '更新时间暂不可用';
   if (!(state.view === 'live-comps' ? state.liveCompSeasons : state.lineupSeasons).length) elements.seasonFilterText.textContent = '赛季加载失败';
   clearTimeout(searchAnalyticsTimer);
   lineupLoader.reset();
@@ -1110,13 +1115,15 @@ function cancelPaginationNavigation() {
 function renderLiveComps() {
   elements.lineupList.replaceChildren();
   renderCurrentDisplayCount();
+  elements.liveCompsUpdatedAt.textContent = state.liveCompsSummary?.updated_at
+    ? formatLiveUpdate(state.liveCompsSummary.updated_at)
+    : '暂无更新时间';
   elements.emptyState.classList.toggle('hidden', state.total > 0);
   renderEmptyState();
   if (!state.total) return;
 
   const shell = document.createElement('div');
   shell.className = 'live-comps-shell';
-  shell.append(renderLiveCompsSummaryHeader());
   shell.append(renderLiveCompsGrid());
   elements.lineupList.append(shell);
 }
@@ -1133,19 +1140,6 @@ function formatLiveUpdate(value) {
   const [, year, month, day, hour, minute] = match;
   const prefix = Number(year) === new Date().getFullYear() ? '' : `${year}年`;
   return `${prefix}${Number(month)}月${Number(day)}日 ${hour}:${minute} 更新`;
-}
-
-function renderLiveCompsSummaryHeader() {
-  const header = document.createElement('div');
-  header.className = 'live-comps-summary';
-
-  const meta = document.createElement('p');
-  meta.className = 'live-comps-summary-meta';
-  meta.textContent = state.liveCompsSummary?.updated_at
-    ? formatLiveUpdate(state.liveCompsSummary.updated_at)
-    : '暂无更新时间';
-  header.append(meta);
-  return header;
 }
 
 function renderLiveCompsGrid() {

@@ -1072,26 +1072,52 @@ textarea:focus {
   gap: 16px;
 }
 
-.live-comps-summary {
-  display: flex;
-  justify-content: flex-end;
-  padding: 0 2px;
-}
-
 .live-comp-name {
   margin-bottom: 0;
 }
 
-.live-comps-summary-meta {
-  margin: 0;
-  color: var(--muted);
-  font-size: 13px;
-  font-variant-numeric: tabular-nums;
+.season-context {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+  max-width: 100%;
 }
 
-@media (max-width: 540px) {
-  .live-comps-summary {
-    justify-content: flex-start;
+.live-comps-updated-at {
+  margin: 0;
+  flex-shrink: 0;
+  color: var(--muted);
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+@media (max-width: 860px) {
+  .list-heading.has-live-update .season-context {
+    gap: 8px;
+  }
+
+  .list-heading.has-live-update .season-menu-wrap {
+    min-width: 0;
+    flex: 0 1 auto;
+  }
+
+  .list-heading.has-live-update .season-toggle {
+    width: 100%;
+    min-width: 0;
+    padding: 12px 14px;
+  }
+
+  .list-heading.has-live-update #seasonFilterText {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .live-comps-updated-at {
+    font-size: 11px;
   }
 }
 
