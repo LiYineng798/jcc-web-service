@@ -1098,6 +1098,56 @@ textarea:focus {
   color: var(--accent-strong);
 }
 
+#seasonFilterText {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+#seasonFilterMenu {
+  width: 280px;
+  min-width: 0;
+  max-width: calc(100vw - 64px);
+  max-height: min(360px, 60dvh);
+  overflow-y: auto;
+  gap: 4px;
+  padding: 8px;
+  border-radius: 16px;
+}
+
+#seasonFilterMenu .season-option {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 16px;
+  gap: 12px;
+  min-height: 46px;
+  padding: 12px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 22px;
+}
+
+.season-option-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.season-option-check {
+  visibility: hidden;
+  text-align: center;
+}
+
+.season-option.is-active .season-option-check {
+  visibility: visible;
+}
+
+#seasonFilterMenu .season-option:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+
 .live-comps-shell {
   display: grid;
   gap: 16px;
@@ -1138,13 +1188,6 @@ textarea:focus {
     width: 100%;
     min-width: 0;
     padding: 10px 14px;
-  }
-
-  .list-heading.has-live-update #seasonFilterText {
-    min-width: 0;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
   }
 }
 

@@ -744,11 +744,22 @@ function renderLineupSeasonFilter() {
   const selectedSeason = seasons.find((season) => season.id === selectedSeasonId) || seasons[0] || {};
   elements.seasonFilterToggle.disabled = !seasons.length;
   elements.seasonFilterText.textContent = selectedSeason.name || selectedSeason.id || '暂无可用赛季';
+  elements.seasonFilterText.title = elements.seasonFilterText.textContent;
   seasons.forEach((season) => {
     const item = document.createElement('button');
     item.type = 'button';
-    item.className = `account-menu-item${season.id === selectedSeasonId ? ' is-active' : ''}`;
-    item.textContent = season.name || season.id;
+    item.className = `account-menu-item season-option${season.id === selectedSeasonId ? ' is-active' : ''}`;
+    item.setAttribute('role', 'menuitemradio');
+    item.setAttribute('aria-checked', String(season.id === selectedSeasonId));
+    item.title = season.name || season.id;
+    const label = document.createElement('span');
+    label.className = 'season-option-label';
+    label.textContent = item.title;
+    const check = document.createElement('span');
+    check.className = 'season-option-check';
+    check.setAttribute('aria-hidden', 'true');
+    check.textContent = '✓';
+    item.append(label, check);
     item.addEventListener('click', async () => {
       if (selectedSeasonId === season.id) {
         closeSeasonMenu();
