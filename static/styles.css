@@ -1029,9 +1029,15 @@ textarea:focus {
   min-height: 48px;
   gap: 14px;
   flex-wrap: wrap;
+  font-family: var(--font);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 22px;
 }
 
 .list-heading-main h2 {
+  font-size: 18px;
+  font-weight: 600;
   line-height: 1.2;
 }
 
@@ -1044,9 +1050,7 @@ textarea:focus {
   background: var(--surface-soft);
   color: var(--muted);
   padding: 6px 10px;
-  font-size: 0.82rem;
-  line-height: 20px;
-  font-weight: 800;
+  font: inherit;
   white-space: nowrap;
 }
 
@@ -1070,7 +1074,7 @@ textarea:focus {
 .list-heading-main .season-toggle {
   min-height: 44px;
   padding-block: 10px;
-  line-height: 22px;
+  font: inherit;
 }
 
 .season-menu {
@@ -1115,8 +1119,7 @@ textarea:focus {
   margin: 0;
   flex-shrink: 0;
   color: var(--muted);
-  font-size: 12px;
-  line-height: 20px;
+  font: inherit;
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
 }
@@ -1143,9 +1146,11 @@ textarea:focus {
     text-overflow: ellipsis;
     white-space: nowrap;
   }
+}
 
-  .live-comps-updated-at {
-    font-size: 11px;
+@media (max-width: 520px) {
+  .list-heading-main {
+    font-size: 13px;
   }
 }
 
