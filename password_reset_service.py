@@ -70,7 +70,7 @@ def request_reset(email, ip_address):
                 return generic, None, 200
         except (TypeError, ValueError):
             pass
-    user = db.execute('SELECT id FROM users WHERE email = ? AND status = \'active\'', (email,)).fetchone() if email else None
+    user = db.execute('SELECT id FROM users WHERE email = ? AND status = \'active\' AND role != \'automation\'', (email,)).fetchone() if email else None
     if not user:
         return generic, None, 200
 

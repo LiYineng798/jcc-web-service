@@ -5,6 +5,12 @@ from db_schema import EXTRA_INDEX_STATEMENTS, LINEUP_COLUMN_MIGRATIONS, table_co
 
 
 def migrate_schema(db, admin_id, now_text_func):
+    from automation_schema import AUTOMATION_SCHEMA
+    for statement in AUTOMATION_SCHEMA.split(';'):
+        if statement.strip():
+            db.execute(statement)
+    from automation_schema import migrate_automation_sessions
+    migrate_automation_sessions(db)
     migrate_device_columns(db)
     migrate_user_avatars(db)
     migrate_lineups_table(db, admin_id)

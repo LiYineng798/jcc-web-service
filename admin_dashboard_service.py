@@ -1,3 +1,4 @@
+from copy_rank_service import user_label, live_uploader
 from datetime import datetime, timedelta
 
 from analytics import growth_summary, _day_bounds
@@ -19,7 +20,7 @@ def _today_login_count(db, today):
         JOIN users u ON u.id = le.user_id
         WHERE le.success = 1
           AND le.created_at >= ? AND le.created_at < ?
-          AND u.role != 'admin'
+          AND u.role NOT IN ('admin', 'automation')
         ''',
         _day_bounds(today),
     ).fetchone()['c']
@@ -42,11 +43,11 @@ def _today_live_comp_copy_count(db, today):
 
 def build_admin_stats_payload(db):
     today, yesterday = _today_and_yesterday()
-    total = db.execute("SELECT COUNT(*) AS c FROM users WHERE role != 'admin'").fetchone()['c']
+    total = db.execute("SELECT COUNT(*) AS c FROM users WHERE role NOT IN ('admin', 'automation')").fetchone()['c']
     today_visitor_mix = daily_new_returning_visitors(today)
     yesterday_visitor_mix = daily_new_returning_visitors(yesterday)
     today_users = db.execute(
-        "SELECT COUNT(*) AS c FROM users WHERE role != 'admin' AND created_at >= ? AND created_at < ?",
+        "SELECT COUNT(*) AS c FROM users WHERE role NOT IN ('admin', 'automation') AND created_at >= ? AND created_at < ?",
         _day_bounds(today),
     ).fetchone()['c']
     today_logins = _today_login_count(db, today)
@@ -55,7 +56,7 @@ def build_admin_stats_payload(db):
     traffic_7d = last_7_days_uv()
     traffic_by_date = {item['date']: item['uv'] for item in traffic_7d}
     hourly = db.execute(
-        "SELECT substr(created_at, 12, 2) AS hour, COUNT(*) AS count FROM users WHERE created_at >= ? AND created_at < ? GROUP BY hour",
+        "SELECT substr(created_at, 12, 2) AS hour, COUNT(*) AS count FROM users WHERE role NOT IN ('admin', 'automation') AND created_at >= ? AND created_at < ? GROUP BY hour",
         _day_bounds(today),
     ).fetchall()
     return {
@@ -83,11 +84,11 @@ def build_admin_overview_payload(db):
     counts = db.execute(
         '''
         SELECT
-          (SELECT COUNT(*) FROM users WHERE role != 'admin') AS total_users,
-          (SELECT COUNT(*) FROM users WHERE role != 'admin' AND created_at >= ? AND created_at < ?) AS today_users,
+          (SELECT COUNT(*) FROM users WHERE role NOT IN ('admin', 'automation')) AS total_users,
+          (SELECT COUNT(*) FROM users WHERE role NOT IN ('admin', 'automation') AND created_at >= ? AND created_at < ?) AS today_users,
           (SELECT COUNT(DISTINCT le.user_id)
              FROM login_events le JOIN users u ON u.id = le.user_id
-            WHERE le.success = 1 AND le.created_at >= ? AND le.created_at < ? AND u.role != 'admin') AS today_logins,
+            WHERE le.success = 1 AND le.created_at >= ? AND le.created_at < ? AND u.role NOT IN ('admin', 'automation')) AS today_logins,
           (SELECT COUNT(*) FROM copy_events WHERE counted = 1 AND created_at >= ? AND created_at < ?) AS today_lineup_copy_count,
           (SELECT COALESCE(copy_count, 0) FROM live_comp_global_daily_stats WHERE copy_date = ?) AS today_live_comp_copy_count,
           (SELECT COUNT(*) FROM reports WHERE status = 'pending') AS pending_reports_count,
@@ -135,7 +136,7 @@ def build_admin_growth_payload(target_date):
     return growth_summary(target_date=target_date)
 
 
-def build_admin_copy_rank_payload(db, target_date, limit=10):
+def build_admin_copy_rank_payload(db, target_date, limit=10, *, include_details=True):
     """Top copied lineup codes (regular lineups + live comps) for one day."""
     from analytics import _normalize_target_date
     from live_comps_helpers import find_live_comp, load_live_comps_manifest, read_live_comps_payload_for_season
@@ -169,7 +170,7 @@ def build_admin_copy_rank_payload(db, target_date, limit=10):
         lineups_by_id = {
             lineup['id']: lineup
             for lineup in db.execute(
-                f'SELECT id, name, code, season_id, status FROM lineups WHERE id IN ({placeholders})',
+                f'SELECT l.id, l.name, l.code, l.season_id, l.status, u.username, u.nickname FROM lineups l LEFT JOIN users u ON u.id=l.user_id WHERE l.id IN ({placeholders})',
                 lineup_ids,
             ).fetchall()
         }
@@ -191,6 +192,7 @@ def build_admin_copy_rank_payload(db, target_date, limit=10):
             'copies': int(row['copies'] or 0),
             'unique_visitors': int(row['unique_visitors'] or 0),
             'title': None,
+            'uploader': '原上传账号不可用',
             'tier': None,
             'lineup_id': None,
             'status': None,
@@ -198,6 +200,7 @@ def build_admin_copy_rank_payload(db, target_date, limit=10):
         if row['target_type'] == 'lineup':
             lineup = lineups_by_id.get(int(row['target_id']))
             if lineup:
+                item['uploader'] = user_label(lineup)
                 item['title'] = lineup['name']
                 item['lineup_id'] = lineup['id']
                 item['status'] = lineup['status']
@@ -210,6 +213,7 @@ def build_admin_copy_rank_payload(db, target_date, limit=10):
             if season_key not in live_payload_cache:
                 payload, _, _, _, _ = read_live_comps_payload_for_season(season_key or None)
                 live_payload_cache[season_key] = payload
+            item['uploader'] = live_uploader(db, live_payload_cache[season_key], season_key, row['target_id'])
             live_item = find_live_comp(live_payload_cache[season_key], row['target_id'])
             if live_item:
                 item['title'] = live_item.get('title')
@@ -217,6 +221,8 @@ def build_admin_copy_rank_payload(db, target_date, limit=10):
             else:
                 item['title'] = f"未收录实时阵容 #{row['target_id']}"
         items.append(item)
+    if not include_details:
+        return {'date': target_date, 'items': items}
     # Keep the ranked query compact, then enrich only the visible targets with
     # the underlying successful events used to produce each aggregate row.
     target_keys = {(item['target_type'], item['target_id'], item.get('season_id') or '') for item in items}

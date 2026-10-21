@@ -244,8 +244,13 @@
     }
   }
 
+  window.addEventListener('beforeunload', event => {
+    if (state.patchNoteEditing?.dirty) { event.preventDefault(); event.returnValue = ''; }
+  });
+
   async function activateTab(tabKey, workspaceKey = '') {
     if (!tabKey) return;
+    if (state.patchNoteEditing?.dirty && tabKey !== 'patch-notes' && !confirm('公告有未保存的修改，确定离开？草稿会保留到本次页面关闭。')) return;
     elements.moreDialog?.close();
     if (tabKey === 'lineups' && workspaceKey === 'list') { state.lineups.status = 'all'; state.lineups.order = 'newest'; state.lineups.page = 1; state.lineups.loadedAt = 0; }
     if (tabKey === 'lineups' && workspaceKey === 'review') {
@@ -350,13 +355,15 @@
     }
     if (!force && isFresh(state.liveComps.loadedAt)) return;
     abortRequest('liveComps');
-    state.controllers.liveComps = new AbortController();
+    const controller = new AbortController();
+    state.controllers.liveComps = controller;
     const query = new URLSearchParams({
       season: state.liveComps.selectedSeasonId,
       page: String(state.liveComps.page),
       page_size: String(state.liveComps.page_size),
     });
-    const payload = await api(`/api/admin/live-comps?${query.toString()}`, { signal: state.controllers.liveComps.signal });
+    const payload = await api(`/api/admin/live-comps?${query.toString()}`, { signal: controller.signal });
+    if (state.controllers.liveComps !== controller) return;
     state.liveComps = { ...state.liveComps, ...payload, loadedAt: Date.now() };
   }
 
@@ -388,13 +395,15 @@
   async function loadUsers({ force = false } = {}) {
     if (!force && isFresh(state.users.loadedAt)) return;
     abortRequest('users');
-    state.controllers.users = new AbortController();
+    const controller = new AbortController();
+    state.controllers.users = controller;
     const query = new URLSearchParams({
       q: state.users.query,
       page: String(state.users.page),
       page_size: String(state.users.page_size),
     });
-    const payload = await api(`/api/admin/users?${query.toString()}`, { signal: state.controllers.users.signal });
+    const payload = await api(`/api/admin/users?${query.toString()}`, { signal: controller.signal });
+    if (state.controllers.users !== controller) return;
     state.users = { ...state.users, ...payload, loadedAt: Date.now() };
   }
 
@@ -531,17 +540,17 @@
     }
     window.JccSeasonPackages?.unmount();
     root.classList.remove('admin-app-loading');
-    root.replaceChildren();
-    if (state.activeTab === 'overview') root.append(renderOverviewDashboardFromModule());
-    if (state.activeTab === 'reports') root.append(renderReportsWorkspace());
-    if (state.activeTab === 'lineups') root.append(renderLineupsWorkspace());
-    if (state.activeTab === 'live-comps') root.append(renderLiveCompsWorkspace());
-    if (state.activeTab === 'season-display') root.append(renderSeasonDisplayHub());
-    if (state.activeTab === 'patch-notes') root.append(renderPatchNotesWorkspace());
-    if (state.activeTab === 'users') root.append(renderUsersWorkspace());
-    if (state.activeTab === 'analytics') root.append(renderAnalyticsWorkspace());
+    const nextRoot = el('div');
+    if (state.activeTab === 'overview') nextRoot.append(renderOverviewDashboardFromModule());
+    if (state.activeTab === 'reports') nextRoot.append(renderReportsWorkspace());
+    if (state.activeTab === 'lineups') nextRoot.append(renderLineupsWorkspace());
+    if (state.activeTab === 'live-comps') nextRoot.append(renderLiveCompsWorkspace());
+    if (state.activeTab === 'season-display') nextRoot.append(renderSeasonDisplayHub());
+    if (state.activeTab === 'patch-notes') nextRoot.append(renderPatchNotesWorkspace());
+    if (state.activeTab === 'users') nextRoot.append(renderUsersWorkspace());
+    if (state.activeTab === 'analytics') nextRoot.append(renderAnalyticsWorkspace());
     if (state.activeTab === 'daily-reports') {
-      root.append(renderDailyReportsWorkspaceFromModule(state.dailyReports, {
+      nextRoot.append(renderDailyReportsWorkspaceFromModule(state.dailyReports, {
         selectDate: async (date) => {
           state.dailyReports.selectedDate = date;
           state.dailyReports.report = null;
@@ -561,9 +570,10 @@
         yesterdayDate,
       }));
     }
-    if (state.activeTab === 'guestbook') root.append(renderGuestbookWorkspace());
-    if (state.activeTab === 'password-reset-emails') root.append(renderPasswordResetEmailsWorkspace());
-    if (state.activeTab === 'settings') root.append(renderSettingsWorkspace());
+    if (state.activeTab === 'guestbook') nextRoot.append(renderGuestbookWorkspace());
+    if (state.activeTab === 'password-reset-emails') nextRoot.append(renderPasswordResetEmailsWorkspace());
+    if (state.activeTab === 'settings') nextRoot.append(renderSettingsWorkspace());
+    window.JccAdminSearch.replaceResults(root, nextRoot);
     // Bind the mounted controls synchronously. Deferred ID lookups can bind the
     // same final node twice when navigation/cache hits render twice in one tick.
     setupLineupBulkImportSeasonDropdown();
@@ -1240,73 +1250,27 @@
   }
 
   function lineupSearchControls() {
-    const wrap = el('form', 'admin-search');
-    const input = el('input');
-    input.type = 'search';
-    input.placeholder = '搜索阵容名、阵容码、作者';
-    input.value = state.lineups.query;
-    const submit = el('button', 'small-button', '查找');
-    submit.type = 'submit';
-    const reset = button('清空', async () => {
-      abortRequest('lineups');
-      state.lineups = { ...state.lineups, page: 1, query: '', loadedAt: 0 };
-      input.value = '';
-      await loadLineups({ force: true });
-      render();
+    return window.JccAdminSearch.create({
+      key: 'lineups', value: state.lineups.query, placeholder: '搜索阵容名、阵容码、作者',
+      invalidate: () => abortRequest('lineups'),
+      search: async query => {
+        state.lineups = { ...state.lineups, query, page: 1, loadedAt: 0 };
+        await loadLineups({ force: true });
+        render();
+      },
     });
-    const triggerSearch = debounce(async () => {
-      const nextValue = input.value.trim();
-      state.lineups.query = nextValue;
-      state.lineups.page = 1;
-      await loadLineups({ force: true });
-      render();
-    }, 360);
-    input.addEventListener('input', triggerSearch);
-    wrap.addEventListener('submit', async (event) => {
-      event.preventDefault();
-      const nextValue = input.value.trim();
-      state.lineups.query = nextValue;
-      state.lineups.page = 1;
-      await loadLineups({ force: true });
-      render();
-    });
-    wrap.append(input, submit, reset);
-    return wrap;
   }
 
   function liveCompSearchControls() {
-    const wrap = el('form', 'admin-search');
-    const input = el('input');
-    input.type = 'search';
-    input.placeholder = '搜索阵容名或 ID';
-    input.value = state.liveComps.query;
-    const submit = el('button', 'small-button', '查找');
-    submit.type = 'submit';
-    const reset = button('清空', async () => {
-      abortRequest('liveComps');
-      state.liveComps = { ...state.liveComps, items: [], total: 0, page: 1, total_pages: 1, query: '', loadedAt: 0 };
-      input.value = '';
-      await loadAdminLiveComps({ force: true });
-      render();
+    return window.JccAdminSearch.create({
+      key: 'liveComps', value: state.liveComps.query, placeholder: '搜索阵容名或 ID',
+      invalidate: () => abortRequest('liveComps'),
+      search: async query => {
+        state.liveComps = { ...state.liveComps, query, page: 1, loadedAt: 0 };
+        await loadAdminLiveComps({ force: true });
+        render();
+      },
     });
-    const triggerSearch = debounce(async () => {
-      state.liveComps.query = input.value.trim();
-      state.liveComps.page = 1;
-      await loadAdminLiveComps({ force: true });
-      render();
-    }, 360);
-    input.addEventListener('input', () => {
-      triggerSearch();
-    });
-    wrap.addEventListener('submit', async (event) => {
-      event.preventDefault();
-      state.liveComps.query = input.value.trim();
-      state.liveComps.page = 1;
-      await loadAdminLiveComps({ force: true });
-      render();
-    });
-    wrap.append(input, submit, reset);
-    return wrap;
   }
 
   async function previewLineupBulkImport(buttonNode) {
@@ -1379,12 +1343,18 @@
     window.JccAdminLineups.openScore({ api, lineup, afterChange: async () => { await loadLineups({ force: true }); render(); } });
   }
 
+  function openAutomationAccounts() {
+    window.JccAutomationAccounts.open({ api, afterChange: async () => {
+      try { await loadUsers({ force: true }); if (state.activeTab === 'users') render(); } catch (_) { setNotice('账号操作已完成，请刷新用户列表', 'warning'); }
+    } });
+  }
+
   function renderUsersWorkspace() {
     const panel = workbenchPanel('用户管理', '管理账号与访问权限 · 按注册顺序展示最近用户');
     panel.classList.add('admin-users-workspace');
     const body = panel.querySelector('.admin-workspace-body');
     const toolbar = el('div', 'admin-users-toolbar');
-    toolbar.append(userSearchControls(), el('span', 'admin-meta', `共 ${state.users.total} 位用户`));
+    toolbar.append(button('AI 自动化账号', openAutomationAccounts), userSearchControls(), el('span', 'admin-meta', `共 ${state.users.total} 位用户`));
     body.append(toolbar);
     if (!state.users.items.length) {
       body.append(empty('没有找到用户，请尝试其他用户名、昵称或邮箱'), renderPagination('users'));
@@ -1410,13 +1380,13 @@
       if (avatarImage) avatarImage.decoding = 'async';
       const info = el('div', 'admin-user-info');
       info.append(el('strong', '', user.nickname || user.username),
-        el('span', 'admin-user-handle', `@${user.username}`), el('span', 'admin-user-email', user.email || '未设置邮箱'));
+        el('span', 'admin-user-handle', `@${user.username}`), el('span', 'admin-user-email', user.role === 'automation' ? '受限后台账号 · 用户名密码登录' : user.email || '未设置邮箱'));
       person.append(avatar, info);
       identity.append(person);
       const status = el('td');
       status.dataset.label = '状态';
       status.append(el('span', `admin-user-status ${user.status === 'disabled' ? 'is-disabled' : 'is-active'}`, statusText[user.status] || user.status));
-      const role = el('td', 'admin-user-role', user.role === 'admin' ? '管理员' : '普通用户');
+      const role = el('td', 'admin-user-role', user.role === 'admin' ? '管理员' : user.role === 'automation' ? 'AI 自动化账号' : '普通用户');
       role.dataset.label = '角色';
       const joined = el('td', 'admin-user-date');
       joined.dataset.label = '注册时间';
@@ -1424,7 +1394,8 @@
       time.title = user.created_at || '';
       joined.append(time);
       const actions = el('td', 'admin-user-actions');
-      actions.append(button('修改密码', () => openPasswordDialog(user)));
+      if (user.role === 'automation') actions.append(button('管理自动化账号', openAutomationAccounts));
+      else actions.append(button('修改密码', () => openPasswordDialog(user)));
       if (user.status !== 'disabled') {
         actions.append(button('禁用', () => disableUser(user.id), 'small-button danger-button'));
       }
@@ -1437,39 +1408,15 @@
   }
 
   function userSearchControls() {
-    const wrap = el('form', 'admin-search');
-    const input = el('input');
-    input.type = 'search';
-    input.placeholder = '搜索用户名、邮箱或昵称';
-    input.setAttribute('aria-label', '搜索用户名、邮箱或昵称');
-    input.value = state.users.query;
-    const submit = el('button', 'small-button', '查找');
-    submit.type = 'submit';
-    const reset = button('清空', async () => {
-      abortRequest('users');
-      state.users = { ...state.users, page: 1, query: '', loadedAt: 0 };
-      input.value = '';
-      await loadUsers({ force: true });
-      render();
+    return window.JccAdminSearch.create({
+      key: 'users', value: state.users.query, placeholder: '搜索用户名、邮箱或昵称',
+      invalidate: () => abortRequest('users'),
+      search: async query => {
+        state.users = { ...state.users, query, page: 1, loadedAt: 0 };
+        await loadUsers({ force: true });
+        render();
+      },
     });
-    const triggerSearch = debounce(async () => {
-      const nextValue = input.value.trim();
-      state.users.query = nextValue;
-      state.users.page = 1;
-      await loadUsers({ force: true });
-      render();
-    }, 360);
-    input.addEventListener('input', triggerSearch);
-    wrap.addEventListener('submit', async (event) => {
-      event.preventDefault();
-      const nextValue = input.value.trim();
-      state.users.query = nextValue;
-      state.users.page = 1;
-      await loadUsers({ force: true });
-      render();
-    });
-    wrap.append(input, submit, reset);
-    return wrap;
   }
 
   function renderAnalyticsWorkspace() {
@@ -1555,11 +1502,11 @@
       state.patchNoteEditing = emptyPatchNoteDraft();
       render();
     }, 'small-button'));
-    body.append(actions);
-
     if (state.patchNoteEditing) {
       body.append(renderPatchNoteForm(state.patchNoteEditing));
+      return panel;
     }
+    body.append(actions);
 
     const list = el('div', 'admin-list');
     if (!state.patchNotes.items.length) {
@@ -1587,7 +1534,7 @@
   function patchNoteAdminCard(item) {
     const card = el('article', 'admin-card admin-card-tight');
     const head = el('div', 'admin-card-head');
-    head.append(el('h3', '', item.title), el('span', 'admin-pill', item.status));
+    head.append(el('h3', '', item.title), el('span', 'admin-pill', window.JccPatchEditor.labels[item.status] || item.status));
     const meta = el('p', 'admin-meta', `${item.version || '版本公告'} · ${item.published_at} · 更新 ${item.updated_at}`);
     const actions = el('div', 'card-actions');
     actions.append(
@@ -1596,6 +1543,7 @@
         render();
       }, 'small-button'),
       button(item.status === 'published' ? '下线' : '发布', async () => {
+        if (!confirm(item.status === 'published' ? '确认下线这条公告？' : '确认将这条公告发布到前台？')) return;
         await savePatchNote({ ...item, status: item.status === 'published' ? 'hidden' : 'published' });
       }, 'small-button'),
       button('隐藏', async () => {
@@ -1612,58 +1560,8 @@
   }
 
   function renderPatchNoteForm(item) {
-    const form = el('form', 'admin-card');
-    form.addEventListener('submit', async (event) => {
-      event.preventDefault();
-      const payload = readPatchNoteForm();
-      await savePatchNote(payload);
-    });
-
-    const fields = el('div');
-    fields.style.cssText = 'display:grid;gap:12px;width:100%';
-    fields.append(
-      adminInput('patchNoteTitle', '标题', item.title),
-      adminInput('patchNoteVersion', '版本号，例如 17.4', item.version),
-      adminInput('patchNotePublishedAt', '发布日期，例如 2026-05-28', item.published_at),
-      adminInput('patchNoteSourceUrl', '来源链接（可选）', item.source_url),
-      adminTextarea('patchNoteSummary', '精简版 Markdown', item.summary_markdown, 10),
-      adminTextarea('patchNoteOriginal', '原文（可选）', item.original_text, 10),
-    );
-
-    const statusRow = el('div', 'card-actions');
-    ['draft', 'published', 'hidden'].forEach((status) => {
-      statusRow.append(button(status, () => {
-        document.querySelector('#patchNoteStatus').value = status;
-        renderPatchNoteStatusButtons(statusRow, status);
-      }, `small-button${item.status === status ? ' is-active' : ''}`));
-    });
-    const hiddenStatus = el('input');
-    hiddenStatus.type = 'hidden';
-    hiddenStatus.id = 'patchNoteStatus';
-    hiddenStatus.value = item.status || 'draft';
-    fields.append(hiddenStatus, statusRow);
-
-    const actions = el('div', 'card-actions');
-    actions.append(
-      button('插入模板', () => {
-        document.querySelector('#patchNoteSummary').value = PATCH_NOTE_TEMPLATE;
-      }, 'small-button'),
-      button('取消', () => {
-        state.patchNoteEditing = null;
-        render();
-      }, 'small-button'),
-    );
-    const submit = el('button', 'small-button is-active', item.id ? '保存公告' : '创建公告');
-    submit.type = 'submit';
-    actions.append(submit);
-    form.append(fields, actions);
-    return form;
-  }
-
-  function renderPatchNoteStatusButtons(row, activeStatus) {
-    row.querySelectorAll('.small-button').forEach((buttonNode) => {
-      buttonNode.classList.toggle('is-active', buttonNode.textContent === activeStatus);
-    });
+    return window.JccPatchEditor.create({ item, template: PATCH_NOTE_TEMPLATE,
+      save: savePatchNote, cancel: () => { state.patchNoteEditing = null; render(); } });
   }
 
   function adminInput(id, placeholder, value) {
@@ -1683,26 +1581,13 @@
     return textarea;
   }
 
-  function readPatchNoteForm() {
-    return {
-      id: state.patchNoteEditing?.id || null,
-      title: document.querySelector('#patchNoteTitle')?.value?.trim() || '',
-      version: document.querySelector('#patchNoteVersion')?.value?.trim() || '',
-      published_at: document.querySelector('#patchNotePublishedAt')?.value?.trim() || '',
-      source_url: document.querySelector('#patchNoteSourceUrl')?.value?.trim() || '',
-      summary_markdown: document.querySelector('#patchNoteSummary')?.value?.trim() || '',
-      original_text: document.querySelector('#patchNoteOriginal')?.value?.trim() || '',
-      status: document.querySelector('#patchNoteStatus')?.value || 'draft',
-    };
-  }
-
   async function savePatchNote(payload) {
     const url = payload.id ? `/api/admin/patch-notes/${payload.id}` : '/api/admin/patch-notes';
     const method = payload.id ? 'PUT' : 'POST';
     await api(url, { method, body: JSON.stringify(payload) });
-    await loadPatchNotes({ force: true });
     state.patchNoteEditing = null;
-    setNotice('公告已保存');
+    setNotice(payload.status === 'published' ? '公告已发布' : '公告已保存');
+    try { await loadPatchNotes({ force: true }); } catch (_) { setNotice('公告已保存，列表刷新失败，请刷新列表', 'warning'); }
     render();
   }
 

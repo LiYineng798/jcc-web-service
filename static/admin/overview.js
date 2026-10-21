@@ -40,7 +40,8 @@
           link.rel = 'noopener';
           titleRow.append(link);
         }
-        const metaParts = [typeLabel];
+        const attribution = item.uploader_attribution === 'current' ? '（当前账号）' : '';
+        const metaParts = [typeLabel, `上传者：${item.uploader || '未记录'}${attribution}`];
         if (item.tier) metaParts.push(`${item.tier} 级`);
         if (item.season_name) metaParts.push(item.season_name);
         if (item.status && item.status !== 'normal') metaParts.push(`状态：${item.status}`);

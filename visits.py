@@ -109,7 +109,7 @@ def daily_new_returning_visitors(target_date):
             FROM visit_events ve
             LEFT JOIN users u ON u.id = ve.user_id
             WHERE ve.visit_date = ?
-              AND (ve.user_id IS NULL OR COALESCE(u.role, 'user') != 'admin')
+              AND (ve.user_id IS NULL OR COALESCE(u.role, 'user') NOT IN ('admin', 'automation'))
         )
         SELECT
             SUM(CASE WHEN NOT EXISTS (
@@ -139,7 +139,7 @@ def daily_uv_series(start_date, end_date):
         FROM visit_events ve
         LEFT JOIN users u ON u.id = ve.user_id
         WHERE ve.visit_date BETWEEN ? AND ?
-          AND (ve.user_id IS NULL OR COALESCE(u.role, 'user') != 'admin')
+          AND (ve.user_id IS NULL OR COALESCE(u.role, 'user') NOT IN ('admin', 'automation'))
         GROUP BY ve.visit_date
         ORDER BY ve.visit_date
         ''',

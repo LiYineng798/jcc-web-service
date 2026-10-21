@@ -22,7 +22,7 @@
 
 {% macro toolbox_menu(desktop_only=True, simulator_enabled=False) -%}
 <details class="toolbox-menu{% if desktop_only %} desktop-resource-entry{% endif %}">
-  <summary class="ghost-link nav-tool-link toolbox-trigger">{{ toolbox_icon() }}<span>工具箱</span><span class="returning-info-chevron" aria-hidden="true">⌄</span></summary>
+  <summary class="ghost-link nav-tool-link toolbox-trigger">{{ toolbox_icon() }}<span>工具箱</span><svg class="returning-info-chevron" aria-hidden="true" width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5 6 7.5 9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /></svg></summary>
   <nav class="toolbox-panel" aria-label="工具箱">{{ toolbox_links(simulator_enabled=simulator_enabled) }}</nav>
 </details>
 {%- endmacro %}

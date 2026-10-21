@@ -358,7 +358,11 @@ def test_homepage_separates_site_total_from_current_display_count(client):
     assert '<span class="stat-label">全站收录</span>' in html
     assert '<span class="stat-caption">套阵容</span>' in html
     assert 'id="currentDisplayCount"' in html
-    assert '当前展示' in html
+    assert '正在加载阵容…' in html
+    assert 'id="lineupCount" aria-live="polite">加载中<' in html
+    assert 'id="seasonFilterText">加载赛季…<' in html
+    assert '当前展示 0 套' not in html
+    assert 'id="seasonFilterText">S17' not in html
     assert '<span class="stat-label">已展示</span>' not in html
 
 
@@ -366,7 +370,8 @@ def test_app_js_loads_home_stats_and_updates_current_display_count():
     with open('static/app.js', 'r', encoding='utf-8') as file:
         js = file.read()
 
-    assert "fetch('/api/home-stats')" in js
+    assert "api('/api/home-stats')" in js
+    assert "统计暂不可用" in js
     assert 'homeStats' in js
     assert 'currentDisplayCount' in js
     assert 'renderCurrentDisplayCount(' in js

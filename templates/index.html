@@ -26,7 +26,9 @@
               <button class="ghost-link nav-tool-link returning-info-trigger" type="button" aria-haspopup="true">
                 <span class="nav-tool-icon s18-preview-nav-icon" aria-hidden="true">资</span>
                 <span>资料库</span>
-                <span class="returning-info-chevron" aria-hidden="true">⌄</span>
+                <svg class="returning-info-chevron" aria-hidden="true" width="12" height="12" viewBox="0 0 12 12" fill="none">
+                  <path d="M3 4.5 6 7.5 9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
               </button>
               <div class="returning-info-menu-panel" role="menu">
 {% for season in reference_seasons %}
@@ -60,7 +62,9 @@
             <div class="account-menu-wrap" id="accountMenuWrap">
               <button class="account-toggle" id="accountToggle" type="button" aria-haspopup="menu" aria-expanded="false">
                 <span id="accountToggleText">登录 / 注册</span>
-                <span class="account-chevron" aria-hidden="true">⌄</span>
+                <svg class="account-chevron" aria-hidden="true" width="12" height="12" viewBox="0 0 12 12" fill="none">
+                  <path d="M3 4.5 6 7.5 9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
               </button>
               <div class="account-menu hidden" id="accountMenu" role="menu">
                 <a class="account-menu-item" id="menuAuthLink" href="/auth" role="menuitem">登录 / 注册</a>
@@ -81,7 +85,7 @@
           </section>
           <section class="stat-card border-glow-card" data-border-glow="stat" aria-label="阵容统计">
             <span class="stat-label">全站收录</span>
-            <strong id="lineupCount">0</strong>
+            <strong class="stat-count-status" id="lineupCount" aria-live="polite">加载中</strong>
             <span class="stat-caption">套阵容</span>
             <a class="primary-link stat-action-link" id="createLineupLink" href="/auth">登录后新增阵容</a>
           </section>
@@ -144,13 +148,18 @@
               <p class="section-kicker">Library</p>
               <div class="list-heading-main">
                 <h2 id="listTitle">阵容列表</h2>
-                <span class="current-display-count" id="currentDisplayCount">当前展示 0 套</span>
-                <div class="season-menu-wrap" id="seasonMenuWrap">
-                  <button class="account-toggle season-toggle" id="seasonFilterToggle" type="button" aria-haspopup="menu" aria-expanded="false">
-                    <span id="seasonFilterText">S17 · 星神</span>
-                    <span class="account-chevron" aria-hidden="true">⌄</span>
-                  </button>
-                  <div class="account-menu hidden season-menu" id="seasonFilterMenu" role="menu"></div>
+                <span class="current-display-count" id="currentDisplayCount">正在加载阵容…</span>
+                <div class="season-context">
+                  <div class="season-menu-wrap" id="seasonMenuWrap">
+                    <button class="account-toggle season-toggle" id="seasonFilterToggle" type="button" disabled aria-haspopup="menu" aria-expanded="false">
+                      <span id="seasonFilterText">加载赛季…</span>
+                      <svg class="account-chevron" aria-hidden="true" width="12" height="12" viewBox="0 0 12 12" fill="none">
+                        <path d="M3 4.5 6 7.5 9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                    </button>
+                    <div class="account-menu hidden season-menu" id="seasonFilterMenu" role="menu"></div>
+                  </div>
+                  <p class="live-comps-updated-at" id="liveCompsUpdatedAt" role="status">正在加载更新时间…</p>
                 </div>
               </div>
             </div>

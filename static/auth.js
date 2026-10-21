@@ -71,9 +71,9 @@ function renderAuth() {
   const loggedIn = Boolean(state.user);
   elements.authForms.classList.toggle('hidden', loggedIn);
   elements.logoutButton.classList.toggle('hidden', !loggedIn);
-  elements.adminLink.classList.toggle('hidden', !(state.user && state.user.role === 'admin'));
+  elements.adminLink.classList.toggle('hidden', !(state.user && ['admin', 'automation'].includes(state.user.role)));
   elements.authStatus.textContent = loggedIn
-    ? `已登录：${state.user.nickname}（${state.user.role === 'admin' ? '管理员' : '用户'}）`
+    ? `已登录：${state.user.nickname}（${state.user.role === 'admin' ? '管理员' : state.user.role === 'automation' ? 'AI 自动化账号' : '用户'}）`
     : '未登录：请选择登录或注册';
 }
 
@@ -132,10 +132,10 @@ async function login(event) {
     const data = await api('/api/login', { method: 'POST', body: JSON.stringify({ account: elements.loginAccount.value.trim(), password: elements.loginPassword.value }) });
     state.user = data.user;
     state.csrfToken = data.csrf_token;
-    await window.jccHistoryStore?.syncToAccount(state.csrfToken);
+    if (state.user?.role !== 'automation') await window.jccHistoryStore?.syncToAccount(state.csrfToken);
     window.jccNotify.afterNavigation('登录成功，欢迎回来');
-    showMessage('登录成功，正在返回阵容库...');
-    window.setTimeout(() => { window.location.href = resolvePostLoginRedirect(); }, 500);
+    showMessage(state.user?.role === 'automation' ? '登录成功，正在进入工作台...' : '登录成功，正在返回阵容库...');
+    window.setTimeout(() => { window.location.href = state.user?.role === 'automation' ? '/admin' : resolvePostLoginRedirect(); }, 500);
   } catch (error) {
     showMessage(error.message, 'error');
   }
@@ -147,10 +147,10 @@ async function register(event) {
     const data = await api('/api/register', { method: 'POST', body: JSON.stringify({ username: elements.registerUsername.value.trim(), email: elements.registerEmail.value.trim(), nickname: elements.registerNickname.value.trim(), password: elements.registerPassword.value, captcha_token: state.captchaToken, captcha_answer: elements.captchaAnswer.value.trim() }) });
     state.user = data.user;
     state.csrfToken = data.csrf_token;
-    await window.jccHistoryStore?.syncToAccount(state.csrfToken);
+    if (state.user?.role !== 'automation') await window.jccHistoryStore?.syncToAccount(state.csrfToken);
     window.jccNotify.afterNavigation('注册成功，欢迎加入阵容库');
     showMessage('注册成功，正在返回阵容库...');
-    window.setTimeout(() => { window.location.href = resolvePostLoginRedirect(); }, 500);
+    window.setTimeout(() => { window.location.href = state.user?.role === 'automation' ? '/admin' : resolvePostLoginRedirect(); }, 500);
   } catch (error) {
     showMessage(error.message, 'error');
     if (elements.captchaImage) loadCaptcha();

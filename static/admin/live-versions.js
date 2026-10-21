@@ -149,7 +149,11 @@
         });
         pager.append(button('上一页', () => { page--; draw(); }, 'small-button', page <= 1), el('span', 'admin-meta', `${page} / ${pages} · 共 ${all.length} 套`), button('下一页', () => { page++; draw(); }, 'small-button', page >= pages));
       }
-      search.addEventListener('input', () => { query = search.value; page = 1; draw(); });
+      let composing = false;
+      const searchChanged = () => { if (!composing) { query = search.value; page = 1; draw(); } };
+      search.addEventListener('compositionstart', () => { composing = true; });
+      search.addEventListener('compositionend', () => { composing = false; searchChanged(); });
+      search.addEventListener('input', searchChanged);
       checkbox.addEventListener('change', () => { onlyMissing = checkbox.checked; page = 1; draw(); });
       draw(); panel.append(results, pager); return panel;
     }

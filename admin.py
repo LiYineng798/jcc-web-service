@@ -30,7 +30,7 @@ from admin_pagination import paginate_rows, parse_page, parse_page_size
 from admin_report_service import build_report_list_query, resolve_report
 from admin_user_service import build_user_list_query, create_user, disable_user, update_user, serialize_admin_user
 from audit import write_audit_best_effort
-from auth import admin_required
+from auth import admin_required, login_required
 from db import get_db
 from daily_report_service import (
     ensure_daily_report,
@@ -131,11 +131,13 @@ def _paginate_rows(base_sql, count_sql, params, serializer=dict, default_page_si
     return paginate_rows(get_db(), base_sql, count_sql, params, page, page_size, serializer=serializer)
 @admin_bp.get('/admin')
 def admin_page():
-    admin, error = admin_required()
+    admin, error = login_required()
     if error:
         return error
+    if admin['role'] not in ('admin', 'automation'):
+        return jsonify(error='需要后台账号权限'), 403
     return tracked_template_response(
-        'admin.html',
+        'automation_admin.html' if admin['role'] == 'automation' else 'admin.html',
         'admin',
         seo=make_seo(title='金铲铲阵容库后台', description='金铲铲阵容库后台管理页面。', path='/admin', noindex=True),
     )
