@@ -1,0 +1,3005 @@
+{
+  "version": "18.18.1",
+  "season": "S400001",
+  "setId": "16",
+  "time": "2026-10-13 20:05:43",
+  "data": {
+    "7210014": {
+      "id": "7210014",
+      "iRarityTier": "1",
+      "sName": "小额奖金 I",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7210014.png",
+      "sTags": "0|1001",
+      "sArgs": "gold=4^round=1-4",
+      "sDesc": "获得4金币。"
+    },
+    "7210015": {
+      "id": "7210015",
+      "iRarityTier": "1",
+      "sName": "补助金 I",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7210015.png",
+      "sTags": "0|1001",
+      "sArgs": "gold=8^round=4-1^gold2=1",
+      "sDesc": "获得8金币，之后每回合开始获得1金币"
+    },
+    "7210016": {
+      "id": "7210016",
+      "iRarityTier": "1",
+      "sName": "财源滚滚 I",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7210016.png",
+      "sTags": "0|1001",
+      "sArgs": "gold=50^round=6-1",
+      "sDesc": "获得50金币。"
+    },
+    "7210017": {
+      "id": "7210017",
+      "iRarityTier": "1",
+      "sName": "散件补给 I",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7210017.png",
+      "sTags": "0|1003",
+      "sArgs": "count=1^round=2-3",
+      "sDesc": "获得1个随机基础装备。"
+    },
+    "7210018": {
+      "id": "7210018",
+      "iRarityTier": "1",
+      "sName": "铁匠铺 I",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7210018.png",
+      "sTags": "0|1003",
+      "sArgs": "count=1^round=2-7",
+      "sDesc": "获得1个【基础装备锻造器】。"
+    },
+    "7210019": {
+      "id": "7210019",
+      "iRarityTier": "1",
+      "sName": "散件堆 I",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7210019.png",
+      "sTags": "0|1003",
+      "sArgs": "count=1^round=2-5",
+      "sDesc": "获得1个反曲之弓"
+    },
+    "7210020": {
+      "id": "7210020",
+      "iRarityTier": "1",
+      "sName": "杰作熔铸 I",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7210020.png",
+      "sTags": "0|1003",
+      "sArgs": "count=1^round=1-4",
+      "sDesc": "所有强化符文额外 +1次刷新次数"
+    },
+    "7210021": {
+      "id": "7210021",
+      "iRarityTier": "1",
+      "sName": "中坚力量 I",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7210021.png",
+      "sTags": "0|1002",
+      "sArgs": "num=3^cost=3^count=1^round=2-3",
+      "sDesc": "从 3个随机3 费棋子中选 1 个"
+    },
+    "7210022": {
+      "id": "7210022",
+      "iRarityTier": "1",
+      "sName": "四费援兵 I",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7210022.png",
+      "sTags": "0|1002",
+      "sArgs": "num=3^cost=4^count=1^round=3-3",
+      "sDesc": "从 3个随机4 费棋子中选 1 个"
+    },
+    "7210023": {
+      "id": "7210023",
+      "iRarityTier": "1",
+      "sName": "王牌猎手 I",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7210023.png",
+      "sTags": "0|1002",
+      "sArgs": "num=3^cost=5^count=1^round=4-3",
+      "sDesc": "从 3个随机5 费棋子中选 1 个"
+    },
+    "7210024": {
+      "id": "7210024",
+      "iRarityTier": "1",
+      "sName": "精锐援兵 I",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7210025.png",
+      "sTags": "0|1002",
+      "sArgs": "star=2^cost=2^count=1^round=2-5",
+      "sDesc": "获得1个随机2星2费弈子。"
+    },
+    "7210025": {
+      "id": "7210025",
+      "iRarityTier": "1",
+      "sName": "帮忙，好伙计！ I",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7210026.png",
+      "sTags": "0|1002",
+      "sArgs": "star=3^cost=1^flatCount=1^round=3-7",
+      "sDesc": "获得1个随机3星1费单位"
+    },
+    "7210026": {
+      "id": "7210026",
+      "iRarityTier": "1",
+      "sName": "金色军团 I",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7210027.png",
+      "sTags": "0|1002",
+      "sArgs": "cost=5^count=5^round=5-3",
+      "sDesc": "随机获得5个不同5费弈子。"
+    },
+    "7210027": {
+      "id": "7210027",
+      "iRarityTier": "1",
+      "sName": "次级复制 I",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7210028.png",
+      "sTags": "0|1001",
+      "sArgs": "count=1^round=2-5",
+      "sDesc": "获得1个【次级英雄复制器】。"
+    },
+    "7210028": {
+      "id": "7210028",
+      "iRarityTier": "1",
+      "sName": "次级复制丰收日 I",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7210029.png",
+      "sTags": "0|1001",
+      "sArgs": "count=2^round=2-5",
+      "sDesc": "获得2个【微型英雄复制器】。"
+    },
+    "7210030": {
+      "id": "7210030",
+      "iRarityTier": "1",
+      "sName": "纹章补给 I",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7210030.png",
+      "sTags": "0|1005",
+      "sArgs": "flatCount=1^round=4-1",
+      "sDesc": "获得1个随机职业纹章。"
+    },
+    "7210032": {
+      "id": "7210032",
+      "iRarityTier": "1",
+      "sName": "升级 I",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7210032.png",
+      "sTags": "0|1001",
+      "sArgs": "xp=8^round=3-1",
+      "sDesc": "获得8经验值。"
+    },
+    "7210033": {
+      "id": "7210033",
+      "iRarityTier": "1",
+      "sName": "经验盛宴 I",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7210033.png",
+      "sTags": "0|1001",
+      "sArgs": "xp=44^round=5-5",
+      "sDesc": "获得44经验值。"
+    },
+    "7210034": {
+      "id": "7210034",
+      "iRarityTier": "1",
+      "sName": "虚张声势",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7210034.png",
+      "sTags": "0|1006",
+      "sArgs": "cardStar=5^gold=2^round=1-1",
+      "sDesc": "这张卡片会被其他玩家视作5星卡片。每当玩家放弃【接受挑战】，你获得2金币。"
+    },
+    "7220015": {
+      "id": "7220015",
+      "iRarityTier": "2",
+      "sName": "假人朋友",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7220015.png",
+      "sTags": "0|1002",
+      "sArgs": "count=2^round=2-7",
+      "sDesc": "获得2个训练假人。"
+    },
+    "7220018": {
+      "id": "7220018",
+      "iRarityTier": "1",
+      "sName": "反复冶炼",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7220018.png",
+      "sTags": "0|1006",
+      "sArgs": "count=2^round=1-4",
+      "sDesc": "获得2个【打捞术】。"
+    },
+    "7220024": {
+      "id": "7220024",
+      "iRarityTier": "2",
+      "sName": "小额奖金 II",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7220024.png",
+      "sTags": "0|1001",
+      "sArgs": "gold=6^round=2-2",
+      "sDesc": "获得6金币。"
+    },
+    "7220026": {
+      "id": "7220026",
+      "iRarityTier": "2",
+      "sName": "财源滚滚 II",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7220026.png",
+      "sTags": "0|1001",
+      "sArgs": "gold=75^round=6-2",
+      "sDesc": "获得75金币。"
+    },
+    "7220027": {
+      "id": "7220027",
+      "iRarityTier": "2",
+      "sName": "散件补给 II",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7220027.png",
+      "sTags": "0|1003",
+      "sArgs": "count=1^round=2-3",
+      "sDesc": "获得1个随机基础装备。"
+    },
+    "7220028": {
+      "id": "7220028",
+      "iRarityTier": "2",
+      "sName": "铁匠铺 II",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7220028.png",
+      "sTags": "0|1003",
+      "sArgs": "count=2^round=4-1",
+      "sDesc": "获得2个【基础装备锻造器】。"
+    },
+    "7220030": {
+      "id": "7220030",
+      "iRarityTier": "2",
+      "sName": "杰作熔铸 II",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7220030.png",
+      "sTags": "0|1003",
+      "sArgs": "count=1^round=4-6",
+      "sDesc": "获得1个【杰作升级】。"
+    },
+    "7220031": {
+      "id": "7220031",
+      "iRarityTier": "2",
+      "sName": "物法皆防 I",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7220031.png",
+      "sTags": "0|1003",
+      "sArgs": "itemCount=1^count=1^round=3-7",
+      "sDesc": "获得1个【锁子甲】和1个【负极斗篷】。"
+    },
+    "7220032": {
+      "id": "7220032",
+      "iRarityTier": "2",
+      "sName": "物法皆攻 I",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7220032.png",
+      "sTags": "0|1003",
+      "sArgs": "itemCount=1^count=1^round=3-7",
+      "sDesc": "获得1个【无用大棒】和1个【暴风大剑】。"
+    },
+    "7220033": {
+      "id": "7220033",
+      "iRarityTier": "2",
+      "sName": "手套高手 I",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7220033.png",
+      "sTags": "0|1003",
+      "sArgs": "count=1^round=3-1",
+      "sDesc": "获得1个【秘法手套】。"
+    },
+    "7220034": {
+      "id": "7220034",
+      "iRarityTier": "2",
+      "sName": "中坚力量 II",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7220034.png",
+      "sTags": "0|1002",
+      "sArgs": "cost=3^count=1^round=3-1",
+      "sDesc": "获得1个随机二星3费弈子。"
+    },
+    "7220036": {
+      "id": "7220036",
+      "iRarityTier": "2",
+      "sName": "王牌猎手 II",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7220036.png",
+      "sTags": "0|1002",
+      "sArgs": "cost=5^count=1^round=4-6",
+      "sDesc": "获得1个随机二星5费弈子。"
+    },
+    "7220037": {
+      "id": "7220037",
+      "iRarityTier": "2",
+      "sName": "先遣小队",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7220037.png",
+      "sTags": "0|1002",
+      "sArgs": "cost=2^count=3^round=2-2",
+      "sDesc": "获得3个随机2费弈子。"
+    },
+    "7220038": {
+      "id": "7220038",
+      "iRarityTier": "2",
+      "sName": "精锐援兵 II",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7220038.png",
+      "sTags": "0|1002",
+      "sArgs": "star=3^cost=2^count=1^round=4-5",
+      "sDesc": "获得1个随机3星2费弈子。"
+    },
+    "7220039": {
+      "id": "7220039",
+      "iRarityTier": "2",
+      "sName": "次级复制 II",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7220039.png",
+      "sTags": "0|1001",
+      "sArgs": "count=3^round=3-7",
+      "sDesc": "获得3个【微型英雄复制器】。"
+    },
+    "7220040": {
+      "id": "7220040",
+      "iRarityTier": "2",
+      "sName": "次级复制丰收日 II",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7220040.png",
+      "sTags": "0|1001",
+      "sArgs": "count=2^round=4-2",
+      "sDesc": "获得2个【次级英雄复制器】。"
+    },
+    "7220042": {
+      "id": "7220042",
+      "iRarityTier": "2",
+      "sName": "纹章补给 II",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7220042.png",
+      "sTags": "0|1005",
+      "sArgs": "flatCount=1^round=3-7",
+      "sDesc": "获得1个随机纹章。"
+    },
+    "7220044": {
+      "id": "7220044",
+      "iRarityTier": "2",
+      "sName": "升级 II",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7220044.png",
+      "sTags": "0|1001",
+      "sArgs": "xp=2^round=1-2",
+      "sDesc": "每合成一件成装获得2经验值。"
+    },
+    "7220045": {
+      "id": "7220045",
+      "iRarityTier": "2",
+      "sName": "经验盛宴 II",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7220045.png",
+      "sTags": "0|1001",
+      "sArgs": "xp=2^round=1-2",
+      "sDesc": "每次战斗失利后获得2经验值。"
+    },
+    "7220046": {
+      "id": "7220046",
+      "iRarityTier": "2",
+      "sName": "快乐开D I",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7220046.png",
+      "sTags": "0|1001",
+      "sArgs": "times=6^round=2-7",
+      "sDesc": "获得6次免费刷新。"
+    },
+    "7220047": {
+      "id": "7220047",
+      "iRarityTier": "2",
+      "sName": "后期D牌主义 I",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7220047.png",
+      "sTags": "0|1001",
+      "sArgs": "times=12^round=4-1",
+      "sDesc": "获得12次免费刷新。"
+    },
+    "7220048": {
+      "id": "7220048",
+      "iRarityTier": "2",
+      "sName": "命运卡片 I",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7220048.png",
+      "sTags": "400001|1006",
+      "sArgs": "round=1-1^cardStar=2^gold=3",
+      "sDesc": "1-1回合开始时，为你提供3金币，随后变为随机2星【时间卡片】。"
+    },
+    "7220049": {
+      "id": "7220049",
+      "iRarityTier": "2",
+      "sName": "投资新手",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7220049.png",
+      "sTags": "400001|1002",
+      "sArgs": "itemCount=2^count=1^itemCount1=1^round=2-3",
+      "sDesc": "获得1个【米利欧】、1个【诺提勒斯】和2个【佛耶戈】。"
+    },
+    "7220050": {
+      "id": "7220050",
+      "iRarityTier": "2",
+      "sName": "熔铸之神的馈赠",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7220050.png",
+      "sTags": "400001|1002",
+      "sArgs": "itemCount=1^round=4-3",
+      "sDesc": "获得1件随机神器"
+    },
+    "7220052": {
+      "id": "7220052",
+      "iRarityTier": "2",
+      "sName": "买一赠二 II",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7220052.png",
+      "sTags": "400001|1006",
+      "sArgs": "star=2^unlockCost=2^sellStar=1^round=1-3",
+      "sDesc": "解锁2费弈子后，下次商店刷新时，该弈子会以2星版本出现。"
+    },
+    "7220053": {
+      "id": "7220053",
+      "iRarityTier": "2",
+      "sName": "2星C位开局",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7220053.png",
+      "sTags": "400001|1002",
+      "sArgs": "star=2^count=1^round=2-3",
+      "sDesc": "随机获得1个2星的【凯特琳】或【烬】和1个2星的【克格莫】或【艾尼维亚】。"
+    },
+    "7220054": {
+      "id": "7220054",
+      "iRarityTier": "2",
+      "sName": "停火协议",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7220054.png",
+      "sTags": "400001|1002",
+      "sArgs": "itemCount=1^count=1^itemCount1=1^itemCount2=1^round=2-7",
+      "sDesc": "获得1个【薇恩】、1个【赵信】、1个【德莱文】和1个【塞恩】。"
+    },
+    "7220055": {
+      "id": "7220055",
+      "iRarityTier": "2",
+      "sName": "双城故事",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7220056.png",
+      "sTags": "400001|1002",
+      "sArgs": "itemCount=1^count=1^itemCount1=1^itemCount2=1^round=2-7",
+      "sDesc": "获得1个【洛里斯】、1个【蔚】、1个【金克丝】和1个【艾克】。"
+    },
+    "7220056": {
+      "id": "7220056",
+      "iRarityTier": "2",
+      "sName": "极境之民",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7220055.png",
+      "sTags": "400001|1002",
+      "sArgs": "itemCount=1^count=1^itemCount1=1^itemCount2=1^round=2-7",
+      "sDesc": "获得1个【瑟庄妮】、1个【艾希】、1个【蕾欧娜】和1个【厄斐琉斯】。"
+    },
+    "7220057": {
+      "id": "7220057",
+      "iRarityTier": "2",
+      "sName": "常世之外",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7220057.png",
+      "sTags": "400001|1002",
+      "sArgs": "itemCount=1^count=1^itemCount1=1^itemCount2=1^round=2-7",
+      "sDesc": "获得1个【玛尔扎哈】、1个【科加斯】、1个【崔丝塔娜】和1个【提莫】。"
+    },
+    "7220058": {
+      "id": "7220058",
+      "iRarityTier": "2",
+      "sName": "口袋变形重组",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7220058.png",
+      "sTags": "400001|1006",
+      "sArgs": "num=1^round=1-4",
+      "sDesc": "提供1个【口袋变形重组器】"
+    },
+    "7230005": {
+      "id": "7230005",
+      "iRarityTier": "3",
+      "sName": "金辉尽绘",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230005.png",
+      "sTags": "400001|1001",
+      "sArgs": "count=1^extraCount=1^round=3-1^times=2^star=3",
+      "sDesc": "获得1个【次级英雄复制器】。下2次合成3星弈子时获得1个【次级英雄复制器】。"
+    },
+    "7230032": {
+      "id": "7230032",
+      "iRarityTier": "3",
+      "sName": "小额奖金 III",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230032.png",
+      "sTags": "0|1001",
+      "sArgs": "gold=9^round=2-5",
+      "sDesc": "获得9金币。"
+    },
+    "7230034": {
+      "id": "7230034",
+      "iRarityTier": "3",
+      "sName": "财源滚滚 III",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230034.png",
+      "sTags": "0|1001",
+      "sArgs": "gold=120^round=6-3",
+      "sDesc": "获得120金币。"
+    },
+    "7230035": {
+      "id": "7230035",
+      "iRarityTier": "3",
+      "sName": "铁匠铺 III",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230035.png",
+      "sTags": "0|1003",
+      "sArgs": "level=5^count=1^round=1-2",
+      "sDesc": "当你升级至5级时，获得1个散件铁砧"
+    },
+    "7230036": {
+      "id": "7230036",
+      "iRarityTier": "3",
+      "sName": "散件堆 II",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230036.png",
+      "sTags": "0|1003",
+      "sArgs": "count=1^round=5-1",
+      "sDesc": "获得 所有装备散件各1个"
+    },
+    "7230037": {
+      "id": "7230037",
+      "iRarityTier": "3",
+      "sName": "杰作熔铸 III",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230037.png",
+      "sTags": "0|1003",
+      "sArgs": "count=2^round=5-3",
+      "sDesc": "获得2个【杰作升级】。"
+    },
+    "7230038": {
+      "id": "7230038",
+      "iRarityTier": "3",
+      "sName": "神器补给",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230038.png",
+      "sTags": "0|1003",
+      "sArgs": "count=1^round=4-7",
+      "sDesc": "获得1个【神器锻造器】。"
+    },
+    "7230039": {
+      "id": "7230039",
+      "iRarityTier": "3",
+      "sName": "物法皆防 II",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230039.png",
+      "sTags": "0|1003",
+      "sArgs": "itemCount=1^count=1^round=3-3",
+      "sDesc": "获得1个【锁子甲】和1个【负极斗篷】。"
+    },
+    "7230040": {
+      "id": "7230040",
+      "iRarityTier": "3",
+      "sName": "物法皆攻 II",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230040.png",
+      "sTags": "0|1003",
+      "sArgs": "itemCount=1^count=1^round=3-3",
+      "sDesc": "获得1个【无用大棒】和1个【暴风大剑】。"
+    },
+    "7230041": {
+      "id": "7230041",
+      "iRarityTier": "3",
+      "sName": "手套高手 II",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230041.png",
+      "sTags": "0|1003",
+      "sArgs": "count=2^round=4-1",
+      "sDesc": "获得2个【秘法手套】。"
+    },
+    "7230043": {
+      "id": "7230043",
+      "iRarityTier": "3",
+      "sName": "双重暴击",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230043.png",
+      "sTags": "0|1003",
+      "sArgs": "itemCount=1^count=1^round=4-3",
+      "sDesc": "获得1个【珠光护手】和1个【无尽之刃】。"
+    },
+    "7230044": {
+      "id": "7230044",
+      "iRarityTier": "3",
+      "sName": "离子巨杀",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230044.png",
+      "sTags": "0|1003",
+      "sArgs": "itemCount=1^count=1^round=4-3",
+      "sDesc": "获得1个【离子火花】和1个【巨人杀手】。"
+    },
+    "7230045": {
+      "id": "7230045",
+      "iRarityTier": "3",
+      "sName": "幸运宝箱",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230045.png",
+      "sTags": "0|1003",
+      "sArgs": "count=1^round=3-5",
+      "sDesc": "获得1个【幸运装备宝箱】。"
+    },
+    "7230047": {
+      "id": "7230047",
+      "iRarityTier": "3",
+      "sName": "扩军令 I",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230047.png",
+      "sTags": "0|1006",
+      "sArgs": "plus=1^round=4-5",
+      "sDesc": "获得+1最大队伍规模。"
+    },
+    "7230048": {
+      "id": "7230048",
+      "iRarityTier": "3",
+      "sName": "四费援兵 II",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230048.png",
+      "sTags": "0|1002",
+      "sArgs": "cost=4^count=1^round=3-5",
+      "sDesc": "获得 1 个随机二星4 费单位"
+    },
+    "7230049": {
+      "id": "7230049",
+      "iRarityTier": "3",
+      "sName": "王牌猎手 III",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230049.png",
+      "sTags": "0|1002",
+      "sArgs": "cost=5^count=3^round=4-7",
+      "sDesc": "在3个5费弈子中选择一个获得，将其升至2星。"
+    },
+    "7230050": {
+      "id": "7230050",
+      "iRarityTier": "3",
+      "sName": "强力盟友 I",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230050.png",
+      "sTags": "0|1002",
+      "sArgs": "gold=10^round=2-5",
+      "sDesc": "获得价值10金币的相同羁绊弈子。"
+    },
+    "7230051": {
+      "id": "7230051",
+      "iRarityTier": "3",
+      "sName": "援兵组合",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230051.png",
+      "sTags": "0|1002",
+      "sArgs": "cost=2^count=3^round=1-4",
+      "sDesc": "在3个2费弈子中选择一个获得，将其升至2星。"
+    },
+    "7230052": {
+      "id": "7230052",
+      "iRarityTier": "3",
+      "sName": "帮忙，好伙计！ II",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230052.png",
+      "sTags": "0|1002",
+      "sArgs": "star=3^cost=1^flatCount=2^round=4-2",
+      "sDesc": "获得2个随机3星1费单位"
+    },
+    "7230053": {
+      "id": "7230053",
+      "iRarityTier": "3",
+      "sName": "金色军团 II",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230053.png",
+      "sTags": "0|1002",
+      "sArgs": "cost=5^count=1^round=5-5",
+      "sDesc": "获得所有的5费弈子各1个。"
+    },
+    "7230054": {
+      "id": "7230054",
+      "iRarityTier": "3",
+      "sName": "次级复制 III",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230054.png",
+      "sTags": "0|1001",
+      "sArgs": "count=2^round=2-1",
+      "sDesc": "获得【次级英雄复制器】、【微型复制器】各2个。"
+    },
+    "7230055": {
+      "id": "7230055",
+      "iRarityTier": "3",
+      "sName": "次级复制丰收日 III",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230055.png",
+      "sTags": "0|1001",
+      "sArgs": "count=3^round=4-6",
+      "sDesc": "获得3个【次级英雄复制器】。"
+    },
+    "7230057": {
+      "id": "7230057",
+      "iRarityTier": "3",
+      "sName": "纹章补给 III",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230057.png",
+      "sTags": "0|1005",
+      "sArgs": "flatCount=2^round=4-5",
+      "sDesc": "获得2个随机纹章。"
+    },
+    "7230058": {
+      "id": "7230058",
+      "iRarityTier": "3",
+      "sName": "纹章之书 I",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230058.png",
+      "sTags": "0|1005",
+      "sArgs": "count=2^round=4-3",
+      "sDesc": "获得2个【纹章之书】。"
+    },
+    "7230060": {
+      "id": "7230060",
+      "iRarityTier": "3",
+      "sName": "升级 III",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230060.png",
+      "sTags": "0|1001",
+      "sArgs": "xp=4^round=2-1",
+      "sDesc": "每次升级时，获得4经验值。"
+    },
+    "7230061": {
+      "id": "7230061",
+      "iRarityTier": "3",
+      "sName": "经验盛宴 III",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230061.png",
+      "sTags": "0|1001",
+      "sArgs": "hp=50^xp=40^round=1-2",
+      "sDesc": "生命值首次掉到 50点以下时，获得40经验值。"
+    },
+    "7230062": {
+      "id": "7230062",
+      "iRarityTier": "3",
+      "sName": "快乐开D II",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230062.png",
+      "sTags": "0|1001",
+      "sArgs": "times=5^round=2-3",
+      "sDesc": "获得5次免费刷新。"
+    },
+    "7230063": {
+      "id": "7230063",
+      "iRarityTier": "3",
+      "sName": "后期D牌主义 II",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230063.png",
+      "sTags": "0|1001",
+      "sArgs": "times=15^round=4-1",
+      "sDesc": "获得15次免费刷新。"
+    },
+    "7230064": {
+      "id": "7230064",
+      "iRarityTier": "3",
+      "sName": "蓝色法球",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230064.png",
+      "sTags": "0|1001",
+      "sArgs": "gold=8^count=1^round=1-4",
+      "sDesc": "获得1个蓝色法球，价值约8金币。"
+    },
+    "7230065": {
+      "id": "7230065",
+      "iRarityTier": "3",
+      "sName": "金色法球 I",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230065.png",
+      "sTags": "0|1001",
+      "sArgs": "gold=20^count=1^round=1-2^level=6",
+      "sDesc": "升至6级时，获得1个金色法球，价值约20金币。"
+    },
+    "7230066": {
+      "id": "7230066",
+      "iRarityTier": "3",
+      "sName": "棱彩法球 I",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230066.png",
+      "sTags": "0|1001",
+      "sArgs": "gold=40^count=1^round=4-5",
+      "sDesc": "获得1个棱彩法球，价值约40金币。"
+    },
+    "7230067": {
+      "id": "7230067",
+      "iRarityTier": "3",
+      "sName": "白银之选",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230067.png",
+      "sTags": "0|1004",
+      "sArgs": "count=1^round=3-3",
+      "sDesc": "额外选择1个白银阶强化符文。"
+    },
+    "7230068": {
+      "id": "7230068",
+      "iRarityTier": "3",
+      "sName": "黄金之选 I",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230068.png",
+      "sTags": "0|1004",
+      "sArgs": "count=1^round=3-5",
+      "sDesc": "3-5获得一个随机金色强化符文"
+    },
+    "7230069": {
+      "id": "7230069",
+      "iRarityTier": "3",
+      "sName": "棱彩之选 I",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230069.png",
+      "sTags": "0|1004",
+      "sArgs": "count=1^round=4-5",
+      "sDesc": "4-5获得一个随机棱彩强化符文"
+    },
+    "7230070": {
+      "id": "7230070",
+      "iRarityTier": "3",
+      "sName": "符文强化 I",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230070.png",
+      "sTags": "0|1004",
+      "sArgs": "gold=20^round=1-4",
+      "sDesc": "你的最终强化符文位阶提高一阶，如果已经是棱彩阶则转而获得20金币。"
+    },
+    "7230071": {
+      "id": "7230071",
+      "iRarityTier": "3",
+      "sName": "命运卡片 II",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230071.png",
+      "sTags": "400001|1006",
+      "sArgs": "round=1-1^cardStar=3^gold=5",
+      "sDesc": "1-1回合开始时，为你提供5金币，随后变为随机3星【时间卡片】。"
+    },
+    "7230072": {
+      "id": "7230072",
+      "iRarityTier": "3",
+      "sName": "寻炉乡",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230072.png",
+      "sTags": "400001|1002",
+      "sArgs": "count=8^equipnum=1^round=1-2",
+      "sDesc": "合成8件成装后，获得奥恩和1件随机神器"
+    },
+    "7230081": {
+      "id": "7230081",
+      "iRarityTier": "3",
+      "sName": "炉家人 I",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230081.png",
+      "sTags": "400001|1003",
+      "sArgs": "count=1^round=3-5^detail=20035|20036",
+      "sDesc": "获得1个【山隐之焰纹章】。"
+    },
+    "7230084": {
+      "id": "7230084",
+      "iRarityTier": "3",
+      "sName": "时光之力 I",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230084.png",
+      "sTags": "400001|1003",
+      "sArgs": "count=1^round=2-7^detail=20037|20038",
+      "sDesc": "获得1个【时光守护者纹章】。"
+    },
+    "7230085": {
+      "id": "7230085",
+      "iRarityTier": "3",
+      "sName": "贪欲恶魔 III",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230085.png",
+      "sTags": "400001|1003",
+      "sArgs": "count=1^round=2-7^detail=20001|20002",
+      "sDesc": "获得1个【河流之王纹章】。"
+    },
+    "7230087": {
+      "id": "7230087",
+      "iRarityTier": "3",
+      "sName": "范德尔",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230087.png",
+      "sTags": "400001|1002",
+      "sArgs": "round=3-3^pct=20",
+      "sDesc": "解锁【沃里克】。他的技能现在额外获得20%伤害减免和控制免疫效果。"
+    },
+    "7230088": {
+      "id": "7230088",
+      "iRarityTier": "3",
+      "sName": "上古守护者",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230088.png",
+      "sTags": "400001|1002",
+      "sArgs": "round=3-3",
+      "sDesc": "解锁【斯卡纳】。战斗开始时，将基于其护甲和最大生命值为全体友军提供护盾。"
+    },
+    "7230089": {
+      "id": "7230089",
+      "iRarityTier": "3",
+      "sName": "世界最大“恶人”",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230089.png",
+      "sTags": "400001|1002",
+      "sArgs": "round=3-3",
+      "sDesc": "解锁【维迦】。他的技能将额外发射治愈流星，为命中的我方弈子回复生命值"
+    },
+    "7230090": {
+      "id": "7230090",
+      "iRarityTier": "3",
+      "sName": "日月光华",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230090.png",
+      "sTags": "400001|1002",
+      "sArgs": "count=1^round=3-3",
+      "sDesc": "解锁【黛安娜】。获得1个【蕾欧娜】。【黛安娜】现在的被动效果翻倍。"
+    },
+    "7230091": {
+      "id": "7230091",
+      "iRarityTier": "3",
+      "sName": "买一赠二 III",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230091.png",
+      "sTags": "400001|1006",
+      "sArgs": "star=2^unlockCost=3^sellStar=1^round=1-3",
+      "sDesc": "解锁3费弈子后，下次商店刷新时，该弈子会以2星版本出现。"
+    },
+    "7230094": {
+      "id": "7230094",
+      "iRarityTier": "3",
+      "sName": "坚决之阵",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230094.png",
+      "sTags": "400001|1002",
+      "sArgs": "pct=35^count=1^round=2-5",
+      "sDesc": "获得1个【时空强化格】，所有【时空强化格】内的弈子获得35%最大生命值。"
+    },
+    "7230096": {
+      "id": "7230096",
+      "iRarityTier": "3",
+      "sName": "汲取之阵",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230096.png",
+      "sTags": "400001|1002",
+      "sArgs": "pct=15^count=1^round=3-5",
+      "sDesc": "获得1个【时空强化格】，所有【时空强化格】内的友军获得15%全能吸血。"
+    },
+    "7230103": {
+      "id": "7230103",
+      "iRarityTier": "3",
+      "sName": "同盟药水",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230103.png",
+      "sTags": "400001|1002",
+      "sArgs": "count=1^round=2-1^detail=20022",
+      "sDesc": "立刻以及每阶段开始时获得1个【同盟药水】。"
+    },
+    "7230105": {
+      "id": "7230105",
+      "iRarityTier": "3",
+      "sName": "能抗就能打",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230105.png",
+      "sTags": "400001|1002",
+      "sArgs": "pct=30^pct1=10^hpThreshold=3000^perHpThresh=1000^num=3000^round=1-3^detail=20017",
+      "sDesc": "你的弈子们只要最大生命值多于3000，就会获得大量物理和法术加成。"
+    },
+    "7230107": {
+      "id": "7230107",
+      "iRarityTier": "3",
+      "sName": "帝国反抗者",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230107.png",
+      "sTags": "400001|1002",
+      "sArgs": "round=2-7^maxhp=20^detail=20018",
+      "sDesc": "解锁【阿利斯塔】。【牛头酋长】羁绊现在为【阿利斯塔】提供永久最大生命值。"
+    },
+    "7230108": {
+      "id": "7230108",
+      "iRarityTier": "3",
+      "sName": "重峦叠嶂",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230108.png",
+      "sTags": "400001|1002",
+      "sArgs": "round=2-7^pct=100^detail=20019",
+      "sDesc": "解锁【墨菲特】。【熔岩巨兽】羁绊会基于【时空强化格】提供额外增益。"
+    },
+    "7230110": {
+      "id": "7230110",
+      "iRarityTier": "3",
+      "sName": "升星药水",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230110.png",
+      "sTags": "400001|1002",
+      "sArgs": "star=2^count=1^round=2-1^detail=20023",
+      "sDesc": "立刻以及每阶段开始时获得1个【升星药水】。"
+    },
+    "7230111": {
+      "id": "7230111",
+      "iRarityTier": "3",
+      "sName": "天衣药水",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230111.png",
+      "sTags": "400001|1002",
+      "sArgs": "count=1^round=2-1^detail=20024",
+      "sDesc": "立刻以及每阶段开始时获得1个【天衣药水】。"
+    },
+    "7230112": {
+      "id": "7230112",
+      "iRarityTier": "3",
+      "sName": "王国后裔",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230112.png",
+      "sTags": "400001|1002",
+      "sArgs": "round=2-7^count=2^detail=20006",
+      "sDesc": "解锁【希维尔】并获得2个其复制体。【战争女神】羁绊现在也会增幅【希维尔】。"
+    },
+    "7230113": {
+      "id": "7230113",
+      "iRarityTier": "3",
+      "sName": "祖安试验",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230113.png",
+      "sTags": "400001|1002",
+      "sArgs": "round=1-4^detail=20020^hplip=60^hppct=40",
+      "sDesc": "获得一个【不稳定炼金罐】。"
+    },
+    "7230114": {
+      "id": "7230114",
+      "iRarityTier": "3",
+      "sName": "坚韧药水",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7220015.png",
+      "sTags": "400001|1002",
+      "sArgs": "count=1^round=2-1^detail=20039",
+      "sDesc": "立刻以及每阶段开始时获得1个【坚韧药水】。"
+    },
+    "7240005": {
+      "id": "7240005",
+      "iRarityTier": "4",
+      "sName": "暗裔之刃",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240006.png",
+      "sTags": "400001|1003",
+      "sArgs": "pct=5^count=1^round=3-5^times=30^detail=20015",
+      "sDesc": "获得1个【暗裔鬼索的狂暴之刃】。"
+    },
+    "7240006": {
+      "id": "7240006",
+      "iRarityTier": "4",
+      "sName": "暗裔之怒",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240005.png",
+      "sTags": "400001|1003",
+      "sArgs": "pct=3^count=1^maxStack=30^round=3-5^detail=20016",
+      "sDesc": "获得1个【暗裔海妖之怒】。"
+    },
+    "7240016": {
+      "id": "7240016",
+      "iRarityTier": "4",
+      "sName": "小额奖金 IV",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240016.png",
+      "sTags": "0|1001",
+      "sArgs": "gold=12^round=2-7",
+      "sDesc": "获得12金币。"
+    },
+    "7240017": {
+      "id": "7240017",
+      "iRarityTier": "4",
+      "sName": "补助金 II",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240017.png",
+      "sTags": "0|1001",
+      "sArgs": "gold=15^round=4-3^gold2=3",
+      "sDesc": "获得15金币，之后每回合开始获得3金币"
+    },
+    "7240018": {
+      "id": "7240018",
+      "iRarityTier": "4",
+      "sName": "财源滚滚 IV",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240018.png",
+      "sTags": "0|1001",
+      "sArgs": "gold=20^round=1-2",
+      "sDesc": "每当一名玩家被淘汰，获得20金币。"
+    },
+    "7240019": {
+      "id": "7240019",
+      "iRarityTier": "4",
+      "sName": "铁匠铺 IV",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240019.png",
+      "sTags": "0|1003",
+      "sArgs": "count=2^round=2-5",
+      "sDesc": "获得2个【基础装备锻造器】。"
+    },
+    "7240020": {
+      "id": "7240020",
+      "iRarityTier": "4",
+      "sName": "自选光明武器",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240020.png",
+      "sTags": "0|1003",
+      "sArgs": "round=4-1^count=1",
+      "sDesc": "获得1个【光明幸运装备宝箱】"
+    },
+    "7240021": {
+      "id": "7240021",
+      "iRarityTier": "4",
+      "sName": "熔铸之神的杰作 I",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240021.png",
+      "sTags": "0|1003",
+      "sArgs": "count=2^round=1-2^num=10",
+      "sDesc": "赢得10场玩家对战后，获得2个【杰作升级】。"
+    },
+    "7240022": {
+      "id": "7240022",
+      "iRarityTier": "4",
+      "sName": "辅助三宝",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240022.png",
+      "sTags": "0|1003",
+      "sArgs": "count=1^round=3-7",
+      "sDesc": "获得1个【日炎斗篷】、【离子火花】和【薄暮法袍】。"
+    },
+    "7240023": {
+      "id": "7240023",
+      "iRarityTier": "4",
+      "sName": "极致攻防",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240023.png",
+      "sTags": "0|1003",
+      "sArgs": "itemCount=1^count=1^itemCount1=1^round=3-7",
+      "sDesc": "获得1个【锐利之刃】、1个【班克斯的魔法帽】和1个【狂徒铠甲】。"
+    },
+    "7240024": {
+      "id": "7240024",
+      "iRarityTier": "4",
+      "sName": "扩军令 II",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240024.png",
+      "sTags": "0|1006",
+      "sArgs": "plus=2^round=5-6",
+      "sDesc": "获得+2最大队伍规模。"
+    },
+    "7240025": {
+      "id": "7240025",
+      "iRarityTier": "4",
+      "sName": "幸运宝箱堆 I",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240025.png",
+      "sTags": "0|1003",
+      "sArgs": "count=3^round=4-1",
+      "sDesc": "获得3个【幸运装备宝箱】。"
+    },
+    "7240026": {
+      "id": "7240026",
+      "iRarityTier": "4",
+      "sName": "四费援军",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240026.png",
+      "sTags": "0|1002",
+      "sArgs": "cost=4^count=2^round=2-5",
+      "sDesc": "随机获得2个不同4费弈子。"
+    },
+    "7240027": {
+      "id": "7240027",
+      "iRarityTier": "4",
+      "sName": "王牌猎手团",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240027.png",
+      "sTags": "0|1002",
+      "sArgs": "cost=5^count=2^round=5-2",
+      "sDesc": "获得2个随机二星5费弈子。"
+    },
+    "7240028": {
+      "id": "7240028",
+      "iRarityTier": "4",
+      "sName": "双子星",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240028.png",
+      "sTags": "0|1002",
+      "sArgs": "cost=1^count=1^star=2^cost1=1^cost2=2^cost3=3^round=2-5",
+      "sDesc": "获得相同羁绊的1个2星1费弈子和1个2星3费弈子。"
+    },
+    "7240030": {
+      "id": "7240030",
+      "iRarityTier": "4",
+      "sName": "纹章补给 IV",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240030.png",
+      "sTags": "0|1005",
+      "sArgs": "flatCount=2^round=4-5",
+      "sDesc": "获得2个相同的随机纹章。"
+    },
+    "7240032": {
+      "id": "7240032",
+      "iRarityTier": "4",
+      "sName": "羁绊大师",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240032.png",
+      "sTags": "0|1005",
+      "sArgs": "plus=1^round=6-2",
+      "sDesc": "获得所有可制作纹章各1个"
+    },
+    "7240033": {
+      "id": "7240033",
+      "iRarityTier": "4",
+      "sName": "升级 IV",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240033.png",
+      "sTags": "0|1001",
+      "sArgs": "xp=12^round=1-4",
+      "sDesc": "获得12经验值。"
+    },
+    "7240034": {
+      "id": "7240034",
+      "iRarityTier": "4",
+      "sName": "经验盛宴 IV",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240034.png",
+      "sTags": "0|1001",
+      "sArgs": "xp=100^round=5-7",
+      "sDesc": "获得100经验值。"
+    },
+    "7240035": {
+      "id": "7240035",
+      "iRarityTier": "4",
+      "sName": "快乐开D III",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240035.png",
+      "sTags": "0|1001",
+      "sArgs": "pct=40^round=2-7",
+      "sDesc": "每当你的商店刷新时，你都有40%几率获得1次免费刷新。"
+    },
+    "7240036": {
+      "id": "7240036",
+      "iRarityTier": "4",
+      "sName": "金色法球 II",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240036.png",
+      "sTags": "0|1001",
+      "sArgs": "times=3^round=1-2",
+      "sDesc": "每当有一名玩家被淘汰时，你获得1个金色法球（至多触发3次）。"
+    },
+    "7240037": {
+      "id": "7240037",
+      "iRarityTier": "4",
+      "sName": "棱彩法球 II",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240037.png",
+      "sTags": "0|1001",
+      "sArgs": "level=8^count=1^round=1-2",
+      "sDesc": "升到8级时，获得1个棱彩法球"
+    },
+    "7240038": {
+      "id": "7240038",
+      "iRarityTier": "4",
+      "sName": "黄金之选 II",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240038.png",
+      "sTags": "0|1004",
+      "sArgs": "count=1^round=3-3",
+      "sDesc": "额外选择1个黄金阶强化符文。"
+    },
+    "7240039": {
+      "id": "7240039",
+      "iRarityTier": "4",
+      "sName": "棱彩之选 II",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240039.png",
+      "sTags": "0|1004",
+      "sArgs": "count=1^round=4-7",
+      "sDesc": "额外选择1个棱彩阶强化符文。"
+    },
+    "7240040": {
+      "id": "7240040",
+      "iRarityTier": "4",
+      "sName": "符文强化 II",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240040.png",
+      "sTags": "0|1004",
+      "sArgs": "gold=5^round=1-3^gold2=10",
+      "sDesc": "你的首个强化符文必定为棱彩阶，如果本来是黄金/棱彩阶，则额外提供5/10金币"
+    },
+    "7240041": {
+      "id": "7240041",
+      "iRarityTier": "3",
+      "sName": "时间引擎保险",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240041.png",
+      "sTags": "0|1006",
+      "sArgs": "round=1-3",
+      "sDesc": "当你因挑战失败而导致【时间卡片】即将碎裂时，转而消耗此卡片。"
+    },
+    "7240042": {
+      "id": "7240042",
+      "iRarityTier": "4",
+      "sName": "命运卡片 III",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240042.png",
+      "sTags": "400001|1006",
+      "sArgs": "round=1-1^cardStar=4^gold=7",
+      "sDesc": "1-1回合开始时，为你提供7金币，随后变为随机4星【时间卡片】。"
+    },
+    "7240058": {
+      "id": "7240058",
+      "iRarityTier": "4",
+      "sName": "多重投资 II",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240058.png",
+      "sTags": "400001|1006",
+      "sArgs": "silverCoin=100^soul=45^sunShard=50^round=1-3",
+      "sDesc": "获得100【银蛇币】、45【灵魂】和50【太阳碎片】。"
+    },
+    "7240059": {
+      "id": "7240059",
+      "iRarityTier": "4",
+      "sName": "夺魂海怪",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240059.png",
+      "sTags": "400001|1006",
+      "sArgs": "count=1^hpFlat=20^round=1-3",
+      "sDesc": "当任意玩家被淘汰时，获得其最强大的弈子及装备。你的队伍获得20最大生命值。"
+    },
+    "7240060": {
+      "id": "7240060",
+      "iRarityTier": "4",
+      "sName": "力量的召唤",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240060.png",
+      "sTags": "400001|1002",
+      "sArgs": "count=2^copyStar=1^round=4-3",
+      "sDesc": "解锁【瑞兹】并获得2个其1星的复制体。"
+    },
+    "7240061": {
+      "id": "7240061",
+      "iRarityTier": "4",
+      "sName": "恶魔降世",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240061.png",
+      "sTags": "400001|1002",
+      "sArgs": "count=2^plus=2^copyStar=1^round=4-3",
+      "sDesc": "解锁【亚托克斯】并获得2个【亚托克斯】。他会总计提供+2【裁决战士】。"
+    },
+    "7240062": {
+      "id": "7240062",
+      "iRarityTier": "4",
+      "sName": "旧日蛮神",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240062.png",
+      "sTags": "400001|1002",
+      "sArgs": "count=2^plus=2^copyStar=1^round=4-3",
+      "sDesc": "解锁【沃利贝尔】并获得2个【沃利贝尔】。他会总计提供+2【斗士】。"
+    },
+    "7240063": {
+      "id": "7240063",
+      "iRarityTier": "4",
+      "sName": "苦痛典狱",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240063.png",
+      "sTags": "400001|1002",
+      "sArgs": "count=2^plus=2^copyStar=1^round=4-3",
+      "sDesc": "解锁【锤石】并获得2个【锤石】。他会总计提供+2【神盾使】。"
+    },
+    "7240064": {
+      "id": "7240064",
+      "iRarityTier": "4",
+      "sName": "买一赠二 IV",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240064.png",
+      "sTags": "400001|1006",
+      "sArgs": "star=2^unlockCost=4^sellStar=1^round=1-3",
+      "sDesc": "解锁4费弈子后，下次商店刷新时，该弈子会以2星版本出现。"
+    },
+    "7240068": {
+      "id": "7240068",
+      "iRarityTier": "3",
+      "sName": "峡谷先锋奇袭！",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240068.png",
+      "sTags": "400001|1006",
+      "sArgs": "times=2^round=4-5^detail=20028",
+      "sDesc": "你接下来的2次玩家对战回合变为野怪回合。【峡谷先锋】成为你的新敌人。"
+    },
+    "7240069": {
+      "id": "7240069",
+      "iRarityTier": "4",
+      "sName": "迅捷蟹奇袭！",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240069.png",
+      "sTags": "400001|1006",
+      "sArgs": "times=2^round=3-5^detail=20029",
+      "sDesc": "你接下来的2次玩家对战回合变为野怪回合。【迅捷蟹】成为你的新敌人。"
+    },
+    "7240071": {
+      "id": "7240071",
+      "iRarityTier": "4",
+      "sName": "斗士之阵",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240071.png",
+      "sTags": "400001|1002",
+      "sArgs": "count=2^hpPerm=80^round=1-4",
+      "sDesc": "获得2个【时空强化格】，所有【时空强化格】内的弈子每回合获得80永久生命值"
+    },
+    "7240072": {
+      "id": "7240072",
+      "iRarityTier": "4",
+      "sName": "不屈之阵",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240072.png",
+      "sTags": "400001|1002",
+      "sArgs": "count=1^sec=1^round=2-5^detail=20011",
+      "sDesc": "获得1个【时空强化格】，所有【时空强化格】内的弈子获得“不屈”效果"
+    },
+    "7240073": {
+      "id": "7240073",
+      "iRarityTier": "4",
+      "sName": "败者的智慧",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240073.png",
+      "sTags": "400001|1006",
+      "sArgs": "equipnum=2^round=5-1",
+      "sDesc": "每次战败后，获得对手最强单位的复制品或其2件装备。"
+    },
+    "7240077": {
+      "id": "7240077",
+      "iRarityTier": "4",
+      "sName": "四星的第一步",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240077.png",
+      "sTags": "400001|1006",
+      "sArgs": "star=3^star1=3^count=1^round=1-3^timedelay=5",
+      "sDesc": "当你第一次将一个弈子升至3星后，每5回合后获得其1个3星复制体。"
+    },
+    "7240080": {
+      "id": "7240080",
+      "iRarityTier": "4",
+      "sName": "命运之轮：厄斐琉斯",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240080.png",
+      "sTags": "400001|1002",
+      "sArgs": "times=10^round=1-4^count=1^detail=20005",
+      "sDesc": "获得1个【厄斐琉斯】，【厄斐琉斯】获得羁绊【月神】。"
+    },
+    "7240087": {
+      "id": "7240087",
+      "iRarityTier": "3",
+      "sName": "暗裔之风",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240087.png",
+      "sTags": "400001|1003",
+      "sArgs": "count=1^range=1^round=3-5^detail=20014",
+      "sDesc": "获得1个【暗裔灵风】。"
+    },
+    "7240088": {
+      "id": "7240088",
+      "iRarityTier": "4",
+      "sName": "暗裔之霸符",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240088.png",
+      "sTags": "400001|1003",
+      "sArgs": "pct=50^count=1^manaRecover=10^manaRecoverLow=30^round=3-5^detail=20013",
+      "sDesc": "获得1个【暗裔蓝霸符】。"
+    },
+    "7240089": {
+      "id": "7240089",
+      "iRarityTier": "3",
+      "sName": "富贵险中求",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240089.png",
+      "sTags": "400001|1006",
+      "sArgs": "num1=50^num2=100^num3=200^num4=400^round=1-1",
+      "sDesc": "如果本局游戏完成挑战，基于选择接受挑战的次数获得50/100/200/400时间水晶。"
+    },
+    "7240090": {
+      "id": "7240090",
+      "iRarityTier": "4",
+      "sName": "伊莉丝夫人",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240090.png",
+      "sTags": "400001|1002",
+      "sArgs": "round=2-7^detail=20031",
+      "sDesc": "解锁【伊莉丝】。【伊莉丝】基于其形态获得强化。"
+    },
+    "7240091": {
+      "id": "7240091",
+      "iRarityTier": "4",
+      "sName": "灼烧炼狱",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240091.png",
+      "sTags": "400001|1002",
+      "sArgs": "round2=3-7^pct=200^count=1^flatCount=1^round=1-4^detail=20034",
+      "sDesc": "获得【日炎斗篷】。3-7回合获得【红霸符】。强化【复仇焰魂】羁绊。"
+    },
+    "7240092": {
+      "id": "7240092",
+      "iRarityTier": "4",
+      "sName": "变形重组",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7220015.png",
+      "sTags": "400001|1006",
+      "sArgs": "num=3^round=3-1^cost=1",
+      "sDesc": "棋盘上随机3个单位会永久变成比其高1费的随机单位"
+    },
+    "7240093": {
+      "id": "7240093",
+      "iRarityTier": "4",
+      "sName": "大哥降临",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7220015.png",
+      "sTags": "400001|1002",
+      "sArgs": "round=3-7^cost=7",
+      "sDesc": "解锁一个随机7费弈子"
+    },
+    "7240094": {
+      "id": "7240094",
+      "iRarityTier": "4",
+      "sName": "山隐之焰",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7220015.png",
+      "sTags": "400001|1002",
+      "sArgs": "level=7、8、9^round=1-3",
+      "sDesc": "升至7、8、9级时，各获得一个奥恩"
+    },
+    "7240095": {
+      "id": "7240095",
+      "iRarityTier": "4",
+      "sName": "限制解除",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7220015.png",
+      "sTags": "400001|1001",
+      "sArgs": "num=4^round=3-1",
+      "sDesc": "你的海克斯霸龙、加里奥、锤石解锁条件不再有等级限制。获得4次免费刷新"
+    },
+    "7240096": {
+      "id": "7240096",
+      "iRarityTier": "4",
+      "sName": "解锁名单",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7220015.png",
+      "sTags": "400001|1002",
+      "sArgs": "gold=2^heronum=20^round=1-3",
+      "sDesc": "每当你解锁一名英雄后，获得2金币，累计解锁20名英雄后，获得一份终极大奖"
+    },
+    "7240097": {
+      "id": "7240097",
+      "iRarityTier": "4",
+      "sName": "中庸之道",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7220015.png",
+      "sTags": "0|1001",
+      "sArgs": "gold=8^legendhp=15^round=1-3",
+      "sDesc": "首次选择“挑战”时，获得8金币，首次选择“放弃挑战”时，获得15小小英雄生命值"
+    },
+    "7250010": {
+      "id": "7250010",
+      "iRarityTier": "5",
+      "sName": "利滚利",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250010.png",
+      "sTags": "0|1001",
+      "sArgs": "interest=7^gold=20^round=3-3",
+      "sDesc": "获得20金币。你的最大利息提升至7金币。"
+    },
+    "7250011": {
+      "id": "7250011",
+      "iRarityTier": "5",
+      "sName": "自选神器",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250011.png",
+      "sTags": "0|1003",
+      "sArgs": "choiceFrom=4^choiceTo=1^round=3-3",
+      "sDesc": "开启一个4选1的神器武器库。"
+    },
+    "7250012": {
+      "id": "7250012",
+      "iRarityTier": "5",
+      "sName": "熔铸之神的杰作 II",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250012.png",
+      "sTags": "0|1003",
+      "sArgs": "count=3^round=5-3",
+      "sDesc": "获得3个【杰作升级】。"
+    },
+    "7250013": {
+      "id": "7250013",
+      "iRarityTier": "5",
+      "sName": "幸运宝箱堆 II",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250013.png",
+      "sTags": "0|1003",
+      "sArgs": "count=1^round=3-1",
+      "sDesc": "每个阶段开始时，获得1个【幸运装备宝箱】。"
+    },
+    "7250014": {
+      "id": "7250014",
+      "iRarityTier": "5",
+      "sName": "手套专家",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250014.png",
+      "sTags": "0|1003",
+      "sArgs": "count=1^round=2-3^round2=4-3",
+      "sDesc": "获得1个【秘法手套】。4-3所有【秘法手套】都会变成光明版本"
+    },
+    "7250015": {
+      "id": "7250015",
+      "iRarityTier": "5",
+      "sName": "王牌猎手 IV",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250015.png",
+      "sTags": "0|1002",
+      "sArgs": "cost=5^count=1^round=1-4",
+      "sDesc": "获得1个随机5费弈子。"
+    },
+    "7250016": {
+      "id": "7250016",
+      "iRarityTier": "5",
+      "sName": "强力盟友 II",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250016.png",
+      "sTags": "0|1002",
+      "sArgs": "gold=16^round=2-5",
+      "sDesc": "获得价值16金币的相同羁绊弈子。"
+    },
+    "7250017": {
+      "id": "7250017",
+      "iRarityTier": "5",
+      "sName": "复制复制复制…",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250017.png",
+      "sTags": "0|1001",
+      "sArgs": "count=5^round=6-3",
+      "sDesc": "获得5个【英雄复制器】。"
+    },
+    "7250018": {
+      "id": "7250018",
+      "iRarityTier": "5",
+      "sName": "纹章之书 III",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250018.png",
+      "sTags": "0|1005",
+      "sArgs": "count=1^round=3-3",
+      "sDesc": "获得1个【纹章之书】。"
+    },
+    "7250019": {
+      "id": "7250019",
+      "iRarityTier": "5",
+      "sName": "羁绊神树",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250019.png",
+      "sTags": "0|1005",
+      "sArgs": "classNum=2^equipNum=3^round=4-5",
+      "sDesc": "随机2个职业，各获得3个对应的纹章"
+    },
+    "7250020": {
+      "id": "7250020",
+      "iRarityTier": "5",
+      "sName": "升级 V",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250020.png",
+      "sTags": "0|1001",
+      "sArgs": "xp=3^round=2-7",
+      "sDesc": "每个回合开始时，获得3经验值。"
+    },
+    "7250021": {
+      "id": "7250021",
+      "iRarityTier": "5",
+      "sName": "快乐开D IV",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250021.png",
+      "sTags": "0|1001",
+      "sArgs": "times=40^round=5-3",
+      "sDesc": "获得40次免费刷新。"
+    },
+    "7250022": {
+      "id": "7250022",
+      "iRarityTier": "5",
+      "sName": "金色法球 III",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250022.png",
+      "sTags": "0|1001",
+      "sArgs": "gold=20^count=1^round=2-7",
+      "sDesc": "获得1个金色法球，价值约20金币。"
+    },
+    "7250023": {
+      "id": "7250023",
+      "iRarityTier": "5",
+      "sName": "棱彩法球 III",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250023.png",
+      "sTags": "0|1001",
+      "sArgs": "gold=80^count=2^round=5-3",
+      "sDesc": "获得2个棱彩法球，总价值约80金币。"
+    },
+    "7250025": {
+      "id": "7250025",
+      "iRarityTier": "5",
+      "sName": "棱彩之选 III",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250025.png",
+      "sTags": "0|1004",
+      "sArgs": "count=1^round=4-5",
+      "sDesc": "额外选择1个棱彩阶强化符文。"
+    },
+    "7250026": {
+      "id": "7250026",
+      "iRarityTier": "5",
+      "sName": "登峰烈阳",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250026.png",
+      "sTags": "400001|1002",
+      "sArgs": "star=2^count=1^plus=1^traitTier=3^round=2-3",
+      "sDesc": "获得1个2星【蕾欧娜】。【(3)巨神峰】层级现在提供+1最大队伍规模。"
+    },
+    "7250029": {
+      "id": "7250029",
+      "iRarityTier": "5",
+      "sName": "行走于棱彩之道",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250029.png",
+      "sTags": "400001|1002",
+      "sArgs": "itemCount=1^count=1^traitTier=10^traitTier1=10^round=1-4^round2=6-1",
+      "sDesc": "获得1个【兰博】和【慎】。6-1回合开始时，解锁约德尔人和艾欧尼亚的棱彩等级。"
+    },
+    "7250031": {
+      "id": "7250031",
+      "iRarityTier": "5",
+      "sName": "炉家人 III",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250031.png",
+      "sTags": "400001|1002",
+      "sArgs": "count=1^plusRound=1^round=3-7^detail=20035|20036",
+      "sDesc": "获得1个【山隐之焰纹章】。【山隐之焰】羁绊提供的打造进度将额外+1。"
+    },
+    "7250034": {
+      "id": "7250034",
+      "iRarityTier": "5",
+      "sName": "时光之力 III",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250034.png",
+      "sTags": "400001|1002",
+      "sArgs": "count=1^round=3-3^detail=20037|20038",
+      "sDesc": "获得1个【时光守护者纹章】。【时光守护者】羁绊提供的经验值翻倍。"
+    },
+    "7250035": {
+      "id": "7250035",
+      "iRarityTier": "5",
+      "sName": "贪欲恶魔 V",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250035.png",
+      "sTags": "400001|1002",
+      "sArgs": "gold=3^count=1^round=3-3^detail=20001|20002",
+      "sDesc": "获得1个【河流之王纹章】，现在通过【河流之王】羁绊喂养弈子时获得3金币。"
+    },
+    "7250036": {
+      "id": "7250036",
+      "iRarityTier": "5",
+      "sName": "黑玫瑰夜市",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250036.png",
+      "sTags": "400001|1006",
+      "sArgs": "star=2^sellStar=1^round=1-3^num=3",
+      "sDesc": "你解锁并购买的前3个英雄直接成为2星。"
+    },
+    "7250037": {
+      "id": "7250037",
+      "iRarityTier": "5",
+      "sName": "穿梭未来",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250037.png",
+      "sTags": "400001|1001",
+      "sArgs": "star=8^round=4-3",
+      "sDesc": "立刻升至8级。"
+    },
+    "7250039": {
+      "id": "7250039",
+      "iRarityTier": "5",
+      "sName": "投资高手",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250039.png",
+      "sTags": "400001|1006",
+      "sArgs": "pct1=25^pct2=50^count=1^round=1-3",
+      "sDesc": "银蛇币、暗影灵魂获取量+50%，太阳碎片获取量 +25%。获得崔斯特、妮蔻和佛耶戈。"
+    },
+    "7250040": {
+      "id": "7250040",
+      "iRarityTier": "5",
+      "sName": "少女的炎魔",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250040.png",
+      "sTags": "400001|1002",
+      "sArgs": "count=1^plus=1^round=2-7",
+      "sDesc": "获得1个【安妮】，【黑暗之女】羁绊现在新加+1最大队伍规模的效果。"
+    },
+    "7250041": {
+      "id": "7250041",
+      "iRarityTier": "5",
+      "sName": "黑夜恐惧",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250041.png",
+      "sTags": "400001|1002",
+      "sArgs": "count=1^sec=2^sec1=8^round=2-7^detail=20033",
+      "sDesc": "获得1个【费德提克】。【费德提克】将从备战席上加入战斗。"
+    },
+    "7250042": {
+      "id": "7250042",
+      "iRarityTier": "5",
+      "sName": "系魂圣枪",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250042.png",
+      "sTags": "400001|1002",
+      "sArgs": "count=1^indepCount=2^slots=1^round=2-7",
+      "sDesc": "获得1个【卢锡安&赛娜】。现在他们是独立的2个弈子，且仅占用1个弈子栏位。"
+    },
+    "7250044": {
+      "id": "7250044",
+      "iRarityTier": "5",
+      "sName": "宿命的抉择",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250044.png",
+      "sTags": "400001|1004",
+      "sArgs": "round2=4-1^count=1^round=2-5",
+      "sDesc": "获得【暮光试炼】强化符文，4-1回合开始时，获得1个【暗裔神器】。"
+    },
+    "7250045": {
+      "id": "7250045",
+      "iRarityTier": "5",
+      "sName": "全职高手",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250045.png",
+      "sTags": "400001|1002",
+      "sArgs": "count=7^round=4-3",
+      "sDesc": "解锁【塞拉斯】。他额外拥有神谕者、耀光使、裁决战士、主宰、斗士、迅击战士、征服者羁绊"
+    },
+    "7250046": {
+      "id": "7250046",
+      "iRarityTier": "5",
+      "sName": "德玛西亚巨像",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250046.png",
+      "sTags": "400001|1002",
+      "sArgs": "round=3-5",
+      "sDesc": "解锁加里奥。你的加里奥根据击杀数获得额外护甲与魔抗"
+    },
+    "7250047": {
+      "id": "7250047",
+      "iRarityTier": "5",
+      "sName": "流浪的救世者",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250047.png",
+      "sTags": "400001|1005",
+      "sArgs": "plus=1^round=4-5",
+      "sDesc": "解锁【瑞兹】。【符文法师】羁绊现在新增使所有地区羁绊（恕瑞玛除外）+1的效果。"
+    },
+    "7250048": {
+      "id": "7250048",
+      "iRarityTier": "5",
+      "sName": "虚空入侵",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250048.png",
+      "sTags": "400001|1002",
+      "sArgs": "count=3^round=3-7",
+      "sDesc": "解锁【峡谷先锋】，获得3个【突变】。【突变】现在可以用于所有友军。"
+    },
+    "7250049": {
+      "id": "7250049",
+      "iRarityTier": "5",
+      "sName": "量身定制",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250049.png",
+      "sTags": "400001|1003",
+      "sArgs": "round=3-7^equipNum=1",
+      "sDesc": "可解锁弈子自带1件推荐合成装备，若其装备栏已满，将1件装备升级为光明版本。"
+    },
+    "7250050": {
+      "id": "7250050",
+      "iRarityTier": "5",
+      "sName": "无极之道",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250050.png",
+      "sTags": "400001|1002",
+      "sArgs": "round=2-5^detail=20003",
+      "sDesc": "将【易大师】加入你的卡池，获得一张【易大师】"
+    },
+    "7250051": {
+      "id": "7250051",
+      "iRarityTier": "5",
+      "sName": "登神长阶",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250051.png",
+      "sTags": "400001|1002",
+      "sArgs": "round=2-5^detail=20004",
+      "sDesc": "将【凯尔】加入你的卡池，获得一张【凯尔】"
+    },
+    "7250052": {
+      "id": "7250052",
+      "iRarityTier": "5",
+      "sName": "力量之阵",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250052.png",
+      "sTags": "400001|1002",
+      "sArgs": "pct=12^count=1^round=1-1",
+      "sDesc": "每阶段获得1个【时空强化格】，所有【时空强化格】内的弈子获得12%伤害增幅和减免"
+    },
+    "7250056": {
+      "id": "7250056",
+      "iRarityTier": "4",
+      "sName": "传说的主角",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250056.png",
+      "sTags": "400001|1003",
+      "sArgs": "itemCount=1^count=1^flatCount=1^round=3-1^detail=20032",
+      "sDesc": "获得1个【基础装备锻造器】和1个【主角选择器】"
+    },
+    "7250059": {
+      "id": "7250059",
+      "iRarityTier": "5",
+      "sName": "万物落笔端",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250059.png",
+      "sTags": "400001|1002",
+      "sArgs": "round=3-3^cost=3",
+      "sDesc": "解锁【彗】。【异画师】羁绊在复制3费以下的弈子时可以额外复制一个。"
+    },
+    "7250060": {
+      "id": "7250060",
+      "iRarityTier": "5",
+      "sName": "塔利斯议员",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250060.png",
+      "sTags": "400001|1002",
+      "sArgs": "count=1^round=3-5",
+      "sDesc": "获得 1张【杰斯】。你最强的杰斯可获取由【发明家】机制共享装备的友军的一部分属性。"
+    },
+    "7250061": {
+      "id": "7250061",
+      "iRarityTier": "5",
+      "sName": "远古巨龙",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250061.png",
+      "sTags": "400001|1002",
+      "sArgs": "pct=20^pct1=20^round=4-3^detail=20027",
+      "sDesc": "解锁【远古巨龙】。【远古巨龙】获得20%伤害增幅及溅射强化效果"
+    },
+    "7250068": {
+      "id": "7250068",
+      "iRarityTier": "5",
+      "sName": "高处不胜寒",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250068.png",
+      "sTags": "400001|1005",
+      "sArgs": "count=3^tier1=2^tier2=4^tier3=6^num=1^num1=2^round=1-2^detail=20030",
+      "sDesc": "【巨神峰】羁绊获得强化。【奥恩】和【沃利贝尔】获得【巨神峰】羁绊。"
+    },
+    "7250069": {
+      "id": "7250069",
+      "iRarityTier": "5",
+      "sName": "双城传说",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250069.png",
+      "sTags": "400001|1005",
+      "sArgs": "round=1-3",
+      "sDesc": "你的【皮尔特沃夫】弈子拥有【祖安】羁绊，【祖安】弈子拥有【皮尔特沃夫】羁绊。"
+    },
+    "7250071": {
+      "id": "7250071",
+      "iRarityTier": "5",
+      "sName": "纪念卡",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250010.png",
+      "sTags": "0|1001",
+      "sArgs": "gold=2^round=1-3",
+      "sDesc": "获得2金币，此卡不会损坏"
+    }
+  },
+  "assets": {
+    "7210014": {
+      "file": "images/7210014.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7210015": {
+      "file": "images/7210015.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7210016": {
+      "file": "images/7210016.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7210017": {
+      "file": "images/7210017.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7210018": {
+      "file": "images/7210018.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7210019": {
+      "file": "images/7210019.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7210020": {
+      "file": "images/7210020.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7210021": {
+      "file": "images/7210021.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7210022": {
+      "file": "images/7210022.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7210023": {
+      "file": "images/7210023.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7210024": {
+      "file": "images/7210024.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7210025": {
+      "file": "images/7210025.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7210026": {
+      "file": "images/7210026.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7210027": {
+      "file": "images/7210027.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7210028": {
+      "file": "images/7210028.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7210030": {
+      "file": "images/7210030.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7210032": {
+      "file": "images/7210032.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7210033": {
+      "file": "images/7210033.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7210034": {
+      "file": "images/7210034.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7220015": {
+      "file": "images/7220015.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7220018": {
+      "file": "images/7220018.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7220024": {
+      "file": "images/7220024.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7220026": {
+      "file": "images/7220026.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7220027": {
+      "file": "images/7220027.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7220028": {
+      "file": "images/7220028.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7220030": {
+      "file": "images/7220030.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7220031": {
+      "file": "images/7220031.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7220032": {
+      "file": "images/7220032.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7220033": {
+      "file": "images/7220033.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7220034": {
+      "file": "images/7220034.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7220036": {
+      "file": "images/7220036.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7220037": {
+      "file": "images/7220037.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7220038": {
+      "file": "images/7220038.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7220039": {
+      "file": "images/7220039.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7220040": {
+      "file": "images/7220040.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7220042": {
+      "file": "images/7220042.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7220044": {
+      "file": "images/7220044.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7220045": {
+      "file": "images/7220045.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7220046": {
+      "file": "images/7220046.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7220047": {
+      "file": "images/7220047.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7220048": {
+      "file": "images/7220048.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7220049": {
+      "file": "images/7220049.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7220050": {
+      "file": "images/7220050.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7220052": {
+      "file": "images/7220052.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7220053": {
+      "file": "images/7220053.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7220054": {
+      "file": "images/7220054.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7220055": {
+      "file": "images/7220055.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7220056": {
+      "file": "images/7220056.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7220057": {
+      "file": "images/7220057.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7220058": {
+      "file": "images/7220058.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7230005": {
+      "file": "images/7230005.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7230032": {
+      "file": "images/7230032.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7230034": {
+      "file": "images/7230034.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7230035": {
+      "file": "images/7230035.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7230036": {
+      "file": "images/7230036.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7230037": {
+      "file": "images/7230037.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7230038": {
+      "file": "images/7230038.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7230039": {
+      "file": "images/7230039.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7230040": {
+      "file": "images/7230040.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7230041": {
+      "file": "images/7230041.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7230043": {
+      "file": "images/7230043.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7230044": {
+      "file": "images/7230044.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7230045": {
+      "file": "images/7230045.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7230047": {
+      "file": "images/7230047.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7230048": {
+      "file": "images/7230048.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7230049": {
+      "file": "images/7230049.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7230050": {
+      "file": "images/7230050.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7230051": {
+      "file": "images/7230051.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7230052": {
+      "file": "images/7230052.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7230053": {
+      "file": "images/7230053.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7230054": {
+      "file": "images/7230054.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7230055": {
+      "file": "images/7230055.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7230057": {
+      "file": "images/7230057.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7230058": {
+      "file": "images/7230058.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7230060": {
+      "file": "images/7230060.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7230061": {
+      "file": "images/7230061.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7230062": {
+      "file": "images/7230062.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7230063": {
+      "file": "images/7230063.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7230064": {
+      "file": "images/7230064.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7230065": {
+      "file": "images/7230065.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7230066": {
+      "file": "images/7230066.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7230067": {
+      "file": "images/7230067.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7230068": {
+      "file": "images/7230068.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7230069": {
+      "file": "images/7230069.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7230070": {
+      "file": "images/7230070.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7230071": {
+      "file": "images/7230071.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7230072": {
+      "file": "images/7230072.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7230081": {
+      "file": "images/7230081.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7230084": {
+      "file": "images/7230084.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7230085": {
+      "file": "images/7230085.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7230087": {
+      "file": "images/7230087.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7230088": {
+      "file": "images/7230088.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7230089": {
+      "file": "images/7230089.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7230090": {
+      "file": "images/7230090.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7230091": {
+      "file": "images/7230091.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7230094": {
+      "file": "images/7230094.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7230096": {
+      "file": "images/7230096.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7230103": {
+      "file": "images/7230103.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7230105": {
+      "file": "images/7230105.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7230107": {
+      "file": "images/7230107.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7230108": {
+      "file": "images/7230108.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7230110": {
+      "file": "images/7230110.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7230111": {
+      "file": "images/7230111.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7230112": {
+      "file": "images/7230112.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7230113": {
+      "file": "images/7230113.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7230114": {
+      "file": "images/7230114.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7240005": {
+      "file": "images/7240005.png",
+      "width": 326,
+      "height": 524,
+      "layout": "portrait"
+    },
+    "7240006": {
+      "file": "images/7240006.png",
+      "width": 326,
+      "height": 524,
+      "layout": "portrait"
+    },
+    "7240016": {
+      "file": "images/7240016.png",
+      "width": 326,
+      "height": 524,
+      "layout": "portrait"
+    },
+    "7240017": {
+      "file": "images/7240017.png",
+      "width": 326,
+      "height": 524,
+      "layout": "portrait"
+    },
+    "7240018": {
+      "file": "images/7240018.png",
+      "width": 326,
+      "height": 524,
+      "layout": "portrait"
+    },
+    "7240019": {
+      "file": "images/7240019.png",
+      "width": 326,
+      "height": 524,
+      "layout": "portrait"
+    },
+    "7240020": {
+      "file": "images/7240020.png",
+      "width": 326,
+      "height": 524,
+      "layout": "portrait"
+    },
+    "7240021": {
+      "file": "images/7240021.png",
+      "width": 326,
+      "height": 524,
+      "layout": "portrait"
+    },
+    "7240022": {
+      "file": "images/7240022.png",
+      "width": 326,
+      "height": 524,
+      "layout": "portrait"
+    },
+    "7240023": {
+      "file": "images/7240023.png",
+      "width": 326,
+      "height": 524,
+      "layout": "portrait"
+    },
+    "7240024": {
+      "file": "images/7240024.png",
+      "width": 326,
+      "height": 524,
+      "layout": "portrait"
+    },
+    "7240025": {
+      "file": "images/7240025.png",
+      "width": 326,
+      "height": 524,
+      "layout": "portrait"
+    },
+    "7240026": {
+      "file": "images/7240026.png",
+      "width": 326,
+      "height": 524,
+      "layout": "portrait"
+    },
+    "7240027": {
+      "file": "images/7240027.png",
+      "width": 326,
+      "height": 524,
+      "layout": "portrait"
+    },
+    "7240028": {
+      "file": "images/7240028.png",
+      "width": 326,
+      "height": 524,
+      "layout": "portrait"
+    },
+    "7240030": {
+      "file": "images/7240030.png",
+      "width": 326,
+      "height": 524,
+      "layout": "portrait"
+    },
+    "7240032": {
+      "file": "images/7240032.png",
+      "width": 326,
+      "height": 524,
+      "layout": "portrait"
+    },
+    "7240033": {
+      "file": "images/7240033.png",
+      "width": 326,
+      "height": 524,
+      "layout": "portrait"
+    },
+    "7240034": {
+      "file": "images/7240034.png",
+      "width": 326,
+      "height": 524,
+      "layout": "portrait"
+    },
+    "7240035": {
+      "file": "images/7240035.png",
+      "width": 326,
+      "height": 524,
+      "layout": "portrait"
+    },
+    "7240036": {
+      "file": "images/7240036.png",
+      "width": 326,
+      "height": 524,
+      "layout": "portrait"
+    },
+    "7240037": {
+      "file": "images/7240037.png",
+      "width": 326,
+      "height": 524,
+      "layout": "portrait"
+    },
+    "7240038": {
+      "file": "images/7240038.png",
+      "width": 326,
+      "height": 524,
+      "layout": "portrait"
+    },
+    "7240039": {
+      "file": "images/7240039.png",
+      "width": 326,
+      "height": 524,
+      "layout": "portrait"
+    },
+    "7240040": {
+      "file": "images/7240040.png",
+      "width": 326,
+      "height": 524,
+      "layout": "portrait"
+    },
+    "7240041": {
+      "file": "images/7240041.png",
+      "width": 324,
+      "height": 526,
+      "layout": "portrait"
+    },
+    "7240042": {
+      "file": "images/7240042.png",
+      "width": 326,
+      "height": 524,
+      "layout": "portrait"
+    },
+    "7240058": {
+      "file": "images/7240058.png",
+      "width": 326,
+      "height": 524,
+      "layout": "portrait"
+    },
+    "7240059": {
+      "file": "images/7240059.png",
+      "width": 326,
+      "height": 524,
+      "layout": "portrait"
+    },
+    "7240060": {
+      "file": "images/7240060.png",
+      "width": 326,
+      "height": 524,
+      "layout": "portrait"
+    },
+    "7240061": {
+      "file": "images/7240061.png",
+      "width": 326,
+      "height": 524,
+      "layout": "portrait"
+    },
+    "7240062": {
+      "file": "images/7240062.png",
+      "width": 326,
+      "height": 524,
+      "layout": "portrait"
+    },
+    "7240063": {
+      "file": "images/7240063.png",
+      "width": 326,
+      "height": 524,
+      "layout": "portrait"
+    },
+    "7240064": {
+      "file": "images/7240064.png",
+      "width": 326,
+      "height": 524,
+      "layout": "portrait"
+    },
+    "7240068": {
+      "file": "images/7240068.png",
+      "width": 326,
+      "height": 524,
+      "layout": "portrait"
+    },
+    "7240069": {
+      "file": "images/7240069.png",
+      "width": 326,
+      "height": 524,
+      "layout": "portrait"
+    },
+    "7240071": {
+      "file": "images/7240071.png",
+      "width": 326,
+      "height": 524,
+      "layout": "portrait"
+    },
+    "7240072": {
+      "file": "images/7240072.png",
+      "width": 326,
+      "height": 524,
+      "layout": "portrait"
+    },
+    "7240073": {
+      "file": "images/7240073.png",
+      "width": 326,
+      "height": 524,
+      "layout": "portrait"
+    },
+    "7240077": {
+      "file": "images/7240077.png",
+      "width": 326,
+      "height": 524,
+      "layout": "portrait"
+    },
+    "7240080": {
+      "file": "images/7240080.png",
+      "width": 326,
+      "height": 524,
+      "layout": "portrait"
+    },
+    "7240087": {
+      "file": "images/7240087.png",
+      "width": 326,
+      "height": 524,
+      "layout": "portrait"
+    },
+    "7240088": {
+      "file": "images/7240088.png",
+      "width": 326,
+      "height": 524,
+      "layout": "portrait"
+    },
+    "7240089": {
+      "file": "images/7240089.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7240090": {
+      "file": "images/7240090.png",
+      "width": 326,
+      "height": 524,
+      "layout": "portrait"
+    },
+    "7240091": {
+      "file": "images/7240091.png",
+      "width": 326,
+      "height": 524,
+      "layout": "portrait"
+    },
+    "7240092": {
+      "file": "images/7240092.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7240093": {
+      "file": "images/7240093.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7240094": {
+      "file": "images/7240094.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7240095": {
+      "file": "images/7240095.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7240096": {
+      "file": "images/7240096.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7240097": {
+      "file": "images/7240097.png",
+      "width": 326,
+      "height": 430,
+      "layout": "icon"
+    },
+    "7250010": {
+      "file": "images/7250010.png",
+      "width": 326,
+      "height": 524,
+      "layout": "portrait"
+    },
+    "7250011": {
+      "file": "images/7250011.png",
+      "width": 324,
+      "height": 526,
+      "layout": "portrait"
+    },
+    "7250012": null,
+    "7250013": {
+      "file": "images/7250013.png",
+      "width": 326,
+      "height": 524,
+      "layout": "portrait"
+    },
+    "7250014": {
+      "file": "images/7250014.png",
+      "width": 326,
+      "height": 524,
+      "layout": "portrait"
+    },
+    "7250015": {
+      "file": "images/7250015.png",
+      "width": 324,
+      "height": 526,
+      "layout": "portrait"
+    },
+    "7250016": {
+      "file": "images/7250016.png",
+      "width": 324,
+      "height": 526,
+      "layout": "portrait"
+    },
+    "7250017": {
+      "file": "images/7250017.png",
+      "width": 326,
+      "height": 524,
+      "layout": "portrait"
+    },
+    "7250018": {
+      "file": "images/7250018.png",
+      "width": 324,
+      "height": 526,
+      "layout": "portrait"
+    },
+    "7250019": {
+      "file": "images/7250019.png",
+      "width": 326,
+      "height": 524,
+      "layout": "portrait"
+    },
+    "7250020": {
+      "file": "images/7250020.png",
+      "width": 326,
+      "height": 524,
+      "layout": "portrait"
+    },
+    "7250021": {
+      "file": "images/7250021.png",
+      "width": 324,
+      "height": 526,
+      "layout": "portrait"
+    },
+    "7250022": {
+      "file": "images/7250022.png",
+      "width": 324,
+      "height": 526,
+      "layout": "portrait"
+    },
+    "7250023": {
+      "file": "images/7250023.png",
+      "width": 324,
+      "height": 526,
+      "layout": "portrait"
+    },
+    "7250025": {
+      "file": "images/7250025.png",
+      "width": 326,
+      "height": 524,
+      "layout": "portrait"
+    },
+    "7250026": {
+      "file": "images/7250026.png",
+      "width": 324,
+      "height": 526,
+      "layout": "portrait"
+    },
+    "7250029": {
+      "file": "images/7250029.png",
+      "width": 326,
+      "height": 524,
+      "layout": "portrait"
+    },
+    "7250031": {
+      "file": "images/7250031.png",
+      "width": 324,
+      "height": 526,
+      "layout": "portrait"
+    },
+    "7250034": {
+      "file": "images/7250034.png",
+      "width": 324,
+      "height": 526,
+      "layout": "portrait"
+    },
+    "7250035": {
+      "file": "images/7250035.png",
+      "width": 326,
+      "height": 524,
+      "layout": "portrait"
+    },
+    "7250036": {
+      "file": "images/7250036.png",
+      "width": 324,
+      "height": 526,
+      "layout": "portrait"
+    },
+    "7250037": {
+      "file": "images/7250037.png",
+      "width": 326,
+      "height": 524,
+      "layout": "portrait"
+    },
+    "7250039": {
+      "file": "images/7250039.png",
+      "width": 324,
+      "height": 526,
+      "layout": "portrait"
+    },
+    "7250040": {
+      "file": "images/7250040.png",
+      "width": 324,
+      "height": 526,
+      "layout": "portrait"
+    },
+    "7250041": {
+      "file": "images/7250041.png",
+      "width": 324,
+      "height": 526,
+      "layout": "portrait"
+    },
+    "7250042": {
+      "file": "images/7250042.png",
+      "width": 324,
+      "height": 526,
+      "layout": "portrait"
+    },
+    "7250044": {
+      "file": "images/7250044.png",
+      "width": 324,
+      "height": 526,
+      "layout": "portrait"
+    },
+    "7250045": {
+      "file": "images/7250045.png",
+      "width": 324,
+      "height": 526,
+      "layout": "portrait"
+    },
+    "7250046": {
+      "file": "images/7250046.png",
+      "width": 324,
+      "height": 526,
+      "layout": "portrait"
+    },
+    "7250047": {
+      "file": "images/7250047.png",
+      "width": 324,
+      "height": 526,
+      "layout": "portrait"
+    },
+    "7250048": {
+      "file": "images/7250048.png",
+      "width": 324,
+      "height": 526,
+      "layout": "portrait"
+    },
+    "7250049": {
+      "file": "images/7250049.png",
+      "width": 324,
+      "height": 526,
+      "layout": "portrait"
+    },
+    "7250050": {
+      "file": "images/7250050.png",
+      "width": 324,
+      "height": 526,
+      "layout": "portrait"
+    },
+    "7250051": {
+      "file": "images/7250051.png",
+      "width": 324,
+      "height": 526,
+      "layout": "portrait"
+    },
+    "7250052": {
+      "file": "images/7250052.png",
+      "width": 326,
+      "height": 524,
+      "layout": "portrait"
+    },
+    "7250056": {
+      "file": "images/7250056.png",
+      "width": 326,
+      "height": 524,
+      "layout": "portrait"
+    },
+    "7250059": {
+      "file": "images/7250059.png",
+      "width": 324,
+      "height": 526,
+      "layout": "portrait"
+    },
+    "7250060": {
+      "file": "images/7250060.png",
+      "width": 324,
+      "height": 526,
+      "layout": "portrait"
+    },
+    "7250061": {
+      "file": "images/7250061.png",
+      "width": 324,
+      "height": 526,
+      "layout": "portrait"
+    },
+    "7250068": {
+      "file": "images/7250068.png",
+      "width": 326,
+      "height": 524,
+      "layout": "portrait"
+    },
+    "7250069": {
+      "file": "images/7250069.png",
+      "width": 326,
+      "height": 524,
+      "layout": "portrait"
+    },
+    "7250071": {
+      "file": "images/7250071.png",
+      "width": 326,
+      "height": 524,
+      "layout": "portrait"
+    }
+  }
+}

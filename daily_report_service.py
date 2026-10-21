@@ -79,6 +79,7 @@ PAGE_KEY_LABELS = {
     'trait_ladder': 'S18 羁绊阶梯',
     'witch_rewards': 'S18 女巫奖励',
     'golden_egg': '金蛋奖励',
+    'orange_fortune': '大橘大利时间卡片图鉴',
     's11_items': 'S11 装备攻略',
     's11_artifacts': 'S11 全神器装备推荐',
     'lineup_notification': '阵容处理通知',

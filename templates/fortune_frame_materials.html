@@ -1,0 +1,8 @@
+{# One shared palette per page; dialog clones reference these definitions. #}
+<svg class="fortune-frame-materials" width="0" height="0" aria-hidden="true" focusable="false"><defs>
+{% for tier, base, light, shade, gem in [(1, '#8999a8', '#e7edf1', '#303e4c', '#bed1df'), (2, '#65aa99', '#d8f3db', '#203c3b', '#54d9ac'), (3, '#668fb1', '#d8f6ff', '#223c66', '#32bdff'), (4, '#a384bd', '#f6e2ff', '#44245d', '#c758f4'), (5, '#bda175', '#fff1c9', '#563548', '#ff9838')] %}
+  <linearGradient id="fortune-metal-{{ tier }}" x1="0" y1="0" x2="1" y2="1"><stop stop-color="{{ shade }}"/><stop offset=".16" stop-color="{{ light }}"/><stop offset=".3" stop-color="{{ base }}"/><stop offset=".48" stop-color="{{ shade }}"/><stop offset=".64" stop-color="{{ light }}"/><stop offset=".8" stop-color="{{ base }}"/><stop offset="1" stop-color="{{ shade }}"/></linearGradient>
+  <linearGradient id="fortune-gem-{{ tier }}" x1="0" y1="0" x2=".8" y2="1"><stop stop-color="#fff9de"/><stop offset=".35" stop-color="{{ gem }}"/><stop offset="1" stop-color="{{ shade }}"/></linearGradient>
+{% endfor %}
+<linearGradient id="fortune-prism" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff5c9"/><stop offset=".22" stop-color="#b4dfff"/><stop offset=".45" stop-color="#f0c2fb"/><stop offset=".67" stop-color="#fff2b4"/><stop offset="1" stop-color="#a2b7ed"/></linearGradient>
+</defs></svg>

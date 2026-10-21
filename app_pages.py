@@ -14,6 +14,7 @@ from s11_items_service import recommendation_guide
 from s11_artifacts_service import artifact_guide
 from witch_rewards_service import reward_tiers, select_reward_tier
 from golden_egg_service import golden_egg_rewards
+from orange_fortune_service import card_guide
 from trait_ladder_service import calculator_data, reward_tiers as ladder_reward_tiers
 from seo import (
     DEFAULT_DESCRIPTION,
@@ -54,6 +55,7 @@ def _sitemap_entries():
         {'loc': absolute_url('/tools/s16-5-lucky-openings'), 'lastmod': None},
         {'loc': absolute_url('/tools/s18-witch-rewards'), 'lastmod': None},
         {'loc': absolute_url('/tools/golden-egg'), 'lastmod': None},
+        {'loc': absolute_url('/tools/orange-fortune'), 'lastmod': None},
         {'loc': absolute_url('/tools/s18-trait-ladder'), 'lastmod': None},
     ]
     for season in catalog_seasons():
@@ -168,6 +170,19 @@ def register_page_routes(app):
             seo=make_seo(title='S18 羁绊天梯计算器 - 金铲铲阵容库',
                          description='计算转职、拉克丝双倍贡献与螳螂进化下的多羁绊阵容，查询2至14羁绊阶段奖励。',
                          path='/tools/s18-trait-ladder'),
+        )
+
+    @app.get('/tools/orange-fortune')
+    def orange_fortune_page():
+        guide = card_guide(request.args.get('q', ''), request.args.get('tier', ''),
+                           request.args.get('category', ''), request.args.get('round', ''))
+        return tracked_template_response(
+            'orange_fortune.html', 'orange_fortune', **guide,
+            simulator_enabled=get_setting(get_db(), 'simulator_enabled', 'true') == 'true',
+            seo=make_seo(title='大橘大利 · 时间卡片图鉴 - 金铲铲阵容库',
+                         description='英雄联盟传奇大橘大利时间卡片图鉴，按星级、类型和生效回合查找卡片，查看完整效果。',
+                         path='/tools/orange-fortune',
+                         noindex=bool(guide['query'] or guide['tier'] or guide['category'] or guide['round_value'])),
         )
 
     @app.get('/tools/golden-egg')
