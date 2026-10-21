@@ -1019,17 +1019,26 @@ textarea:focus {
 .list-heading-main {
   display: flex;
   align-items: center;
+  min-height: 48px;
   gap: 14px;
   flex-wrap: wrap;
 }
 
+.list-heading-main h2 {
+  line-height: 1.2;
+}
+
 .current-display-count {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
   border: 1px solid var(--line);
   border-radius: 999px;
   background: var(--surface-soft);
   color: var(--muted);
   padding: 6px 10px;
   font-size: 0.82rem;
+  line-height: 20px;
   font-weight: 800;
   white-space: nowrap;
 }
@@ -1044,6 +1053,17 @@ textarea:focus {
 .season-toggle {
   min-width: 168px;
   justify-content: space-between;
+}
+
+.list-heading-main .season-menu-wrap {
+  display: flex;
+  align-items: center;
+}
+
+.list-heading-main .season-toggle {
+  min-height: 44px;
+  padding-block: 10px;
+  line-height: 22px;
 }
 
 .season-menu {
@@ -1089,6 +1109,7 @@ textarea:focus {
   flex-shrink: 0;
   color: var(--muted);
   font-size: 12px;
+  line-height: 20px;
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
 }
@@ -1106,7 +1127,7 @@ textarea:focus {
   .list-heading.has-live-update .season-toggle {
     width: 100%;
     min-width: 0;
-    padding: 12px 14px;
+    padding: 10px 14px;
   }
 
   .list-heading.has-live-update #seasonFilterText {
