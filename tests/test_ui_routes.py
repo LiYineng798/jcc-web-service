@@ -359,7 +359,7 @@ def test_homepage_separates_site_total_from_current_display_count(client):
     assert '<span class="stat-caption">套阵容</span>' in html
     assert 'id="currentDisplayCount"' in html
     assert '正在加载阵容…' in html
-    assert 'id="lineupCount" aria-live="polite">加载中<' in html
+    assert '<strong id="lineupCount" aria-live="polite">0</strong>' in html
     assert 'id="seasonFilterText">加载赛季…<' in html
     assert '当前展示 0 套' not in html
     assert 'id="seasonFilterText">S17' not in html
