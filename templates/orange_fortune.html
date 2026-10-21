@@ -12,6 +12,7 @@
   <script src="{{ static_v('orange-fortune.js') }}" defer></script>
 </head>
 <body class="fortune-body">
+{% include 'fortune_frame_materials.html' %}
 <div class="page-shell fortune-page" id="fortune-top">
   <nav class="nav-bar" aria-label="页面工具">
     <a class="brand-mark brand-link" href="/" aria-label="返回首页">阵</a>
@@ -52,7 +53,6 @@
                 <span class="fortune-card-surface fortune-art-{{ card.layout }}">
                   {% if card.image %}<img class="fortune-card-image" src="{{ static_v(card.image) }}" alt="" loading="lazy" decoding="async">{% else %}<span class="fortune-missing"><i aria-hidden="true">◇</i>卡图暂缺</span>{% endif %}
                   <span class="fortune-card-shade"></span>
-                  <span class="fortune-card-gem" aria-hidden="true">◆</span>
                   <span class="fortune-card-stars" aria-label="{{ card.tier }}星">{{ '•' * card.tier }}</span>
                   <span class="fortune-card-copy"><span class="fortune-card-title">{{ card.name }}</span><span class="fortune-card-effect"><span class="fortune-round">{{ card.round or '待确认' }}</span><span class="fortune-card-description">{{ card.description }}</span></span></span>
                   <span class="fortune-card-category">{{ card.category }}</span>
@@ -76,7 +76,6 @@
     <p class="fortune-eyebrow" id="fortune-detail-meta"></p><h2 id="fortune-detail-title"></h2>
     <div id="fortune-detail-rounds"></div><p id="fortune-detail-effect"></p>
     <p class="fortune-detail-hint">标注回合为效果生效时间；条件触发及持续效果以卡片描述为准。</p>
-    <button type="button" class="fortune-copy-link">复制卡片链接</button><p class="fortune-copy-status" role="status"></p>
   </div></div>
 </dialog>
 </body>

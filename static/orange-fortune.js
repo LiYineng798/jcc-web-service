@@ -17,6 +17,21 @@
   let activeCard = null;
   let returnFocus = null;
   const searchText = new Map(cards.map(card => [card, `${card.querySelector('.fortune-card-title').textContent} ${card.querySelector('.fortune-card-description').textContent} ${card.dataset.id}`.toLowerCase()]));
+  // Give the artwork more room while keeping long effects above the lower bevel.
+  function fitCardCopy(root = document) {
+    const measurements = [...root.querySelectorAll('.fortune-card-frame')].map(frame => {
+      const height = frame.clientHeight;
+      if (!height) return null;
+      const copy = frame.querySelector('.fortune-card-copy');
+      const preferred = parseFloat(getComputedStyle(frame).getPropertyValue('--copy-preferred'));
+      return [frame, Math.min(preferred, .81 - (copy.offsetHeight + 1) / height) * 100];
+    });
+    measurements.forEach(item => {
+      if (item) item[0].style.setProperty('--copy-top', `${Math.max(0, item[1])}%`);
+    });
+  }
+  new ResizeObserver(() => fitCardCopy()).observe(document.querySelector('.fortune-page'));
+  document.fonts.ready.then(() => fitCardCopy());
   function watchImage(img) {
     function fallback() {
       if (img.parentElement.querySelector('.fortune-missing')) return;
@@ -59,6 +74,7 @@
     });
     document.querySelector('#fortune-count strong').textContent = count;
     document.querySelector('.fortune-empty').hidden = count !== 0;
+    fitCardCopy();
     if (writeURL) updateURL();
   }
 
@@ -79,8 +95,8 @@
     art.dataset.tier = card.dataset.tier;
     art.replaceChildren(card.querySelector('.fortune-card-frame').cloneNode(true));
     art.querySelectorAll('img').forEach(img => { img.loading = 'eager'; watchImage(img); });
-    document.querySelector('.fortune-copy-status').textContent = '';
     if (!dialog.open) dialog.showModal();
+    fitCardCopy(dialog);
     document.body.style.overflow = 'hidden';
     dialog.scrollTop = 0;
     dialog.querySelector('.fortune-close').focus({ preventScroll: true });
@@ -117,17 +133,6 @@
     updateURL();
     if (returnFocus?.getClientRects().length) returnFocus.focus({ preventScroll: true });
     else query.focus({ preventScroll: true });
-  });
-  document.querySelector('.fortune-copy-link').addEventListener('click', async () => {
-    const url = new URL(location.pathname, location.origin);
-    url.searchParams.set('card', activeCard.dataset.id);
-    try {
-      await navigator.clipboard.writeText(url.href);
-      document.querySelector('.fortune-copy-status').textContent = '链接已复制，可直接打开这张卡片。';
-      window.jccNotify?.show('卡片链接已复制', { variant: 'success' });
-    } catch (_) {
-      document.querySelector('.fortune-copy-status').textContent = '未能访问剪贴板，请复制浏览器地址栏中的卡片链接。';
-    }
   });
   function restoreURL() {
     const params = new URLSearchParams(location.search);

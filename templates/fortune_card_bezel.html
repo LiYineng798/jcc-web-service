@@ -1,8 +1,40 @@
 <svg class="fortune-card-bezel" viewBox="0 0 240 420" preserveAspectRatio="none" aria-hidden="true" focusable="false">
-  <path class="fortune-bezel-body" fill-rule="evenodd" d="M120 0 240 67.2V352.8L120 420 0 352.8V67.2ZM120 19 224 77V343L120 401 16 343V77Z"/>
-  <path class="fortune-bezel-light" d="M120 0 0 67.2V352.8L5 349.8V70L120 5 235 70 240 67.2Z"/>
-  <path class="fortune-bezel-shadow" d="M240 67.2V352.8L120 420 0 352.8 5 349.8 120 414 235 349.8V70Z"/>
-  <path class="fortune-bezel-facet" d="M120 7 7 71V210L12 205V74L120 14ZM233 71V210L228 205V74L120 14 120 7ZM7 232V349L120 412 120 405 12 346V237ZM233 232V349L120 412V405L228 346V237Z"/>
+  <path fill="url(#fortune-metal-{{ card.tier }})" fill-rule="evenodd" d="M120 0 240 67.2V352.8L120 420 0 352.8V67.2ZM120 19 224 77V343L120 401 16 343V77Z"/>
+  <path class="fortune-bezel-edge" d="M120 2 2 68.5V351.5L120 417.5 238 351.5V68.5Z"/>
+  <path class="fortune-bezel-shadow" d="M120 11 230 73V347L120 408 10 347V73Z"/>
   <path class="fortune-bezel-inlay" d="M120 19 224 77V343L120 401 16 343V77Z"/>
-  <path class="fortune-bezel-joint" d="M2 208 15 202V229L8 238 2 234ZM238 208 225 202V229L232 238 238 234Z"/>
+  {% if card.tier == 1 %}
+  {# Brushed silver: squared collars and restrained engraved rail. #}
+  <path class="fortune-bezel-engraving" d="M7 87V156M233 87V156M7 274V338L102 391M233 274V338L138 391"/>
+  <path class="fortune-bezel-plate" d="M1 230 15 234V250L1 246ZM239 230 225 234V250L239 246Z"/>
+  <path class="fortune-bezel-crown" d="M120 6 130 20 120 34 110 20Z"/>
+  {% elif card.tier == 2 %}
+  {# Jade: paired leaf mounts and split verdigris rails. #}
+  <path class="fortune-bezel-ornament" d="M36 56 25 66 29 78 17 90 16 112M204 56 215 66 211 78 223 90 224 112M9 276 15 293 9 307 15 322M231 276 225 293 231 307 225 322"/>
+  <path class="fortune-bezel-plate" d="M1 225Q19 229 19 242Q8 253 1 264ZM239 225Q221 229 221 242Q232 253 239 264Z"/>
+  <path class="fortune-bezel-crown" d="M120 5 132 20 120 36 108 20Z"/>
+  {% elif card.tier == 3 %}
+  {# Azure: crystalline shoulder caps and spear-shaped side braces. #}
+  <path class="fortune-bezel-crystal" d="M4 69 37 51 31 63 13 78 13 103 4 93ZM236 69 203 51 209 63 227 78 227 103 236 93Z"/>
+  <path class="fortune-bezel-ornament" d="M20 110V157L14 166V220M220 110V157L226 166V220M14 267V332L39 348M226 267V332L201 348"/>
+  <path class="fortune-bezel-plate" d="M1 225 18 234 11 244 18 254 1 264ZM239 225 222 234 229 244 222 254 239 264Z"/>
+  <path class="fortune-bezel-crown" d="M120 4 134 30 106 30Z"/>
+  {% elif card.tier == 4 %}
+  {# Amethyst: winged crown, diamond clasps and double rune rails. #}
+  <path class="fortune-bezel-crystal" d="M91 18 106 19 103 29 81 31ZM149 18 134 19 137 29 159 31ZM3 68 29 54 25 66 12 79 8 110ZM237 68 211 54 215 66 228 79 232 110Z"/>
+  <path class="fortune-bezel-ornament" d="M29 75 22 81V133L16 145V218M211 75 218 81V133L224 145V218M15 269V330L40 345M225 269V330L200 345M27 357 86 390M213 357 154 390"/>
+  <path class="fortune-bezel-plate" d="M8 220 21 242 8 269 1 251V234ZM232 220 219 242 232 269 239 251V234Z"/>
+  <path class="fortune-bezel-crown" d="M120 3 135 20 120 37 105 20Z"/>
+  {% else %}
+  {# Prismatic gold: gilded shoulders, articulated rails and a pentagonal crown. #}
+  <path class="fortune-bezel-prism" d="M120 3 3 69V226L9 220V73L120 10 231 73V220L237 226V69ZM3 266V351L120 417 237 351V266L231 272V347L120 410 9 347V272Z"/>
+  <path class="fortune-bezel-gold" d="M83 21 105 15 107 25 96 31 78 31ZM157 21 135 15 133 25 144 31 162 31ZM28 55 38 49 35 61 25 66ZM212 55 202 49 205 61 215 66Z"/>
+  <path class="fortune-bezel-ornament" d="M44 61 43 75 24 84V143L18 152V219M196 61 197 75 216 84V143L222 152V219M18 271V331L35 341V351M222 271V331L205 341V351"/>
+  <path class="fortune-bezel-plate" d="M1 223 13 228 19 239 13 250 13 273 6 280 1 275ZM239 223 227 228 221 239 227 250 227 273 234 280 239 275Z"/>
+  <path class="fortune-bezel-crown" d="M120 3 136 15 130 34 110 34 104 15Z"/>
+  {% endif %}
+  <path class="fortune-bezel-gem" fill="url(#fortune-gem-{{ card.tier }})" d="{% if card.tier == 3 %}M120 10 129 27H111Z{% elif card.tier == 5 %}M120 8 131 17 127 29H113L109 17Z{% else %}M120 9 129 20 120 30 111 20Z{% endif %}"/>
+  <path class="fortune-bezel-spark" d="M115 19 120 12 125 19"/>
+  <path class="fortune-bezel-seal" d="M120 383 132 390V404L120 411 108 404V390Z"/>
+  <path class="fortune-bezel-sigil" d="{% if card.tier == 1 %}M115 397H125{% elif card.tier == 2 %}M116 400Q116 393 124 393Q124 400 116 400ZM117 399 123 394{% elif card.tier == 3 %}M120 391 125 401H115ZM120 395V398{% elif card.tier == 4 %}M120 390 126 397 120 404 114 397ZM120 394V400{% else %}M114 400V394L118 397 120 391 122 397 126 394V400Z{% endif %}"/>
 </svg>
