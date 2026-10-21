@@ -522,7 +522,8 @@ function renderAuth() {
   elements.accountToggle.querySelector('.user-avatar')?.remove();
   document.querySelector('#menuAvatarLink').classList.toggle('hidden', !loggedIn);
   if (loggedIn) elements.accountToggle.prepend(window.jccAvatar.image(state.user.avatar_config || state.user.avatar_color, 30));
-  elements.accountToggleText.textContent = loggedIn ? `${isAdmin ? '管理员' : '已登录'} · ${nickname}` : '登录 / 注册';
+  elements.accountToggleText.textContent = loggedIn ? nickname : '登录 / 注册';
+  elements.accountToggleText.title = nickname;
   elements.menuAuthLink.classList.add('hidden');
   elements.menuAccountLink.classList.toggle('hidden', !loggedIn);
   elements.menuCreateLineupLink.classList.toggle('hidden', !loggedIn);
