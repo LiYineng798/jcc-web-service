@@ -26,7 +26,9 @@
               <button class="ghost-link nav-tool-link returning-info-trigger" type="button" aria-haspopup="true">
                 <span class="nav-tool-icon s18-preview-nav-icon" aria-hidden="true">资</span>
                 <span>资料库</span>
-                <span class="returning-info-chevron" aria-hidden="true">⌄</span>
+                <svg class="returning-info-chevron" aria-hidden="true" width="12" height="12" viewBox="0 0 12 12" fill="none">
+                  <path d="M3 4.5 6 7.5 9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
               </button>
               <div class="returning-info-menu-panel" role="menu">
 {% for season in reference_seasons %}
@@ -60,7 +62,9 @@
             <div class="account-menu-wrap" id="accountMenuWrap">
               <button class="account-toggle" id="accountToggle" type="button" aria-haspopup="menu" aria-expanded="false">
                 <span id="accountToggleText">登录 / 注册</span>
-                <span class="account-chevron" aria-hidden="true">⌄</span>
+                <svg class="account-chevron" aria-hidden="true" width="12" height="12" viewBox="0 0 12 12" fill="none">
+                  <path d="M3 4.5 6 7.5 9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
               </button>
               <div class="account-menu hidden" id="accountMenu" role="menu">
                 <a class="account-menu-item" id="menuAuthLink" href="/auth" role="menuitem">登录 / 注册</a>

@@ -182,6 +182,13 @@ button {
   line-height: 1;
 }
 
+svg.returning-info-chevron,
+svg.account-chevron {
+  width: 12px;
+  height: 12px;
+  flex: 0 0 12px;
+}
+
 .returning-info-menu-panel {
   position: absolute;
   top: calc(100% + 10px);
