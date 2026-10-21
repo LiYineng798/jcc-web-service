@@ -109,16 +109,21 @@
 .fortune-body [hidden] { display: none !important; }
 .fortune-dialog { width: min(800px, calc(100% - 32px)); max-height: calc(100dvh - 40px); padding: 38px; border: 1px solid var(--line); border-radius: 20px; color: var(--text); background: var(--surface-solid); overflow: auto; box-shadow: 0 30px 100px #0004; }
 .fortune-dialog::backdrop { background: #080d1bc4; backdrop-filter: blur(8px); }
-.fortune-close { position: absolute; top: 10px; right: 12px; background: transparent; border: 0; color: var(--muted); font-size: 28px; cursor: pointer; width: 40px; height: 40px; }
-.fortune-detail-layout { display: grid; grid-template-columns: 240px minmax(0,1fr); align-items: center; gap: 38px; }
-.fortune-detail-content { min-width: 0; }
-.fortune-detail-content h2 { font-size: 26px; margin: 0 0 22px; line-height: 1.4; }
+.fortune-close { position: absolute; top: 12px; right: 12px; display: grid; place-items: center; padding: 0; background: transparent; border: 0; border-radius: 10px; color: var(--muted); font-size: 28px; line-height: 1; cursor: pointer; width: 40px; height: 40px; }
+.fortune-close:hover { background: var(--bg); color: var(--text); }
+.fortune-close:focus { outline: none; }
+.fortune-close:focus-visible { outline: 2px solid var(--fortune-gold, #b88c48); outline-offset: 2px; }
+.fortune-detail-layout { --detail-art-width: 240px; display: grid; grid-template-columns: var(--detail-art-width) minmax(0,1fr); align-items: start; gap: 38px; }
+/* Align the information rail with the hexagon's upper and lower shoulders. */
+.fortune-detail-content { min-width: 0; min-height: calc(var(--detail-art-width) * 1.75); padding-block: calc(var(--detail-art-width) * .28); display: flex; flex-direction: column; }
+.fortune-detail-content .fortune-eyebrow { margin: 0 0 8px; line-height: 1.5; letter-spacing: .12em; }
+.fortune-detail-content h2 { font-size: 26px; margin: 0 0 20px; line-height: 1.4; text-wrap: balance; }
 #fortune-detail-rounds { display: flex; flex-wrap: wrap; gap: 8px; }
 #fortune-detail-rounds span { font-size: 12px; background: var(--bg); padding: 7px 10px; border: 1px solid var(--line); border-radius: 6px; }
-#fortune-detail-effect { font-size: 16px; line-height: 1.9; margin: 20px 0; }
-.fortune-detail-hint { color: var(--muted); font-size: 11px; line-height: 1.8; margin-bottom: 0; }
+#fortune-detail-effect { font-size: 16px; line-height: 1.9; margin: 24px 0; }
+.fortune-detail-hint { color: var(--muted); font-size: 11px; line-height: 1.8; margin: auto 0 0; padding-top: 16px; border-top: 1px solid var(--line); }
 @media (max-width: 1120px) { .fortune-grid { grid-template-columns: repeat(4,minmax(0,1fr)); } .fortune-card-title { font-size: 14px; } .fortune-card-effect { font-size: 12px; } }
-@media (max-width: 880px) { .fortune-grid { grid-template-columns: repeat(3,minmax(0,1fr)); } .fortune-filter-row { flex-wrap: wrap; } .fortune-search { flex-basis: 100%; } .fortune-emblem { min-width: 150px; } .fortune-tier > span { padding: 9px 12px; } .fortune-detail-layout { grid-template-columns: 200px minmax(0,1fr); gap: 25px; } }
+@media (max-width: 880px) { .fortune-grid { grid-template-columns: repeat(3,minmax(0,1fr)); } .fortune-filter-row { flex-wrap: wrap; } .fortune-search { flex-basis: 100%; } .fortune-emblem { min-width: 150px; } .fortune-tier > span { padding: 9px 12px; } .fortune-detail-layout { --detail-art-width: 200px; gap: 28px; } }
 @media (max-width: 640px) {
   .fortune-page { width: calc(100% - 28px); }
   .fortune-page .toolbox-panel { width: min(326px, calc(100vw - 112px)); }
@@ -148,11 +153,11 @@
   .fortune-footer { gap: 12px; }
   .fortune-footer nav { gap: 12px; font-size: 10px; }
   .fortune-dialog { padding: 45px 22px 18px; }
-  .fortune-detail-layout { display: flex; flex-direction: column; gap: 24px; }
+  .fortune-detail-layout { display: flex; flex-direction: column; align-items: center; gap: 28px; }
   .fortune-detail-art { width: 200px; }
   .fortune-detail-content h2 { font-size: 23px; }
-  .fortune-detail-content { width: 100%; }
-  .fortune-detail-content .fortune-eyebrow { margin-bottom: 12px; }
+  .fortune-detail-content { width: 100%; min-height: 0; padding: 0; }
+  #fortune-detail-effect { margin: 20px 0; }
 }
 @media (max-width: 359px) { .fortune-grid { grid-template-columns: 1fr; max-width: 240px; margin: auto; } }
 @media (min-width: 641px) { .fortune-grid { grid-template-columns: repeat(auto-fill,minmax(220px,1fr)); } }
