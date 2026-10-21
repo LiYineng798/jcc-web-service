@@ -1,11 +1,12 @@
 .fortune-body { background: radial-gradient(ellipse at 85% 0%, #bc8a3312, transparent 50rem), var(--bg); }
 .fortune-page { width: min(1320px, calc(100% - 64px)); --fortune-gold: #936322; }
 [data-theme="dark"] .fortune-page { --fortune-gold: #e5bf79; }
+.fortune-page .nav-bar { margin-bottom: 24px; }
 .fortune-page .nav-actions { display: flex; align-items: center; gap: 12px; }
 .fortune-page .nav-actions > .animated-theme-toggle { width: 44px; height: 44px; flex: 0 0 44px; padding: 0; }
 .fortune-page .toolbox-trigger { white-space: nowrap; }
 .fortune-page .toolbox-panel { right: 0; max-width: calc(100vw - 48px); }
-.fortune-hero { display: flex; align-items: center; justify-content: space-between; padding: 54px 24px 45px 0; gap: 30px; }
+.fortune-hero { display: flex; align-items: center; justify-content: space-between; padding: 20px 24px 36px 0; gap: 30px; }
 .fortune-eyebrow { color: var(--muted); font-size: 12px; letter-spacing: .16em; margin: 0 0 18px; }
 .fortune-eyebrow span { margin: 0 12px; opacity: .5; }
 .fortune-hero h1 { margin: 0; font-size: clamp(40px, 5vw, 64px); line-height: 1.2; letter-spacing: .04em; }
@@ -14,8 +15,9 @@
 .fortune-intro { margin: 20px 0 24px; color: var(--muted); font-size: 14px; line-height: 1.8; }
 .fortune-meta { display: flex; flex-wrap: wrap; gap: 12px 24px; font-size: 11px; color: var(--muted); }
 .fortune-meta b { font-size: 16px; color: var(--text); font-weight: 600; margin-right: 4px; }
+.fortune-preview-label { align-self: center; }
 .fortune-emblem { min-width: 230px; text-align: center; color: var(--fortune-gold); }
-.fortune-emblem > div { width: 110px; height: 126px; margin: 0 auto 15px; display: grid; place-items: center; font-size: 68px; background: linear-gradient(140deg, #a4783330, #c4a05a06); clip-path: polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%); }
+.fortune-emblem-art { display: block; width: 190px; height: auto; margin: -9px auto 6px; }
 .fortune-emblem > span { font-size: 12px; letter-spacing: .35em; display: block; }
 .fortune-emblem > small { font-size: 10px; color: var(--muted); display: block; margin-top: 10px; letter-spacing: .1em; }
 .fortune-filters { border: 1px solid var(--line); background: var(--surface-solid); border-radius: 16px; padding: 18px 20px; }
@@ -58,36 +60,47 @@
 .fortune-card-button { display: block; width: 100%; border: 0; padding: 0; background: none; font: inherit; cursor: pointer; text-align: left; transition: transform .2s; border-radius: 6px; }
 .fortune-card-button:hover { transform: translateY(-5px); }
 .fortune-card-button:focus-visible { outline: 2px solid var(--fortune-gold); outline-offset: 5px; }
-.fortune-card-frame { --hex: polygon(50% 0,100% 16%,100% 84%,50% 100%,0 84%,0 16%); display: block; width: 100%; aspect-ratio: 240 / 420; position: relative; clip-path: var(--hex); background: linear-gradient(145deg,#e9e7d4 4%,var(--tier) 20%,#465063 35%,#f4ead6 50%,var(--tier) 74%,#283342 86%,#f4dfae); }
-.fortune-card-surface { display: block; position: absolute; inset: 3px; clip-path: var(--hex); background: #101723; color: #faf8f2; overflow: hidden; }
-.fortune-card-image { position: absolute; width: 100%; height: 100%; object-fit: cover; object-position: center top; }
-.fortune-art-icon .fortune-card-image { width: 83%; height: 62%; left: 8.5%; top: 4%; object-fit: contain; }
+.fortune-card-frame { --hex: polygon(50% 0,100% 16%,100% 84%,50% 100%,0 84%,0 16%); display: block; width: 100%; aspect-ratio: 240 / 420; position: relative; clip-path: var(--hex); background: #1a202b; }
+.fortune-card-surface { display: block; position: absolute; inset: 0; clip-path: var(--hex); background: #101723; color: #faf8f2; overflow: hidden; }
+.fortune-card-image { position: absolute; width: 108%; height: 108%; left: -4%; top: -2%; object-fit: cover; object-position: center top; }
+/* Remove baked-in icon rims at display time; source PNGs remain untouched. */
+.fortune-art-icon .fortune-card-image { width: 112%; height: auto; left: -6%; top: -8%; clip-path: polygon(50% 7%,93% 28%,93% 72%,50% 93%,7% 72%,7% 28%); mask-image: radial-gradient(ellipse 49% 48% at 50% 50%, #000 60%, transparent 95%); }
 .fortune-art-icon { background: radial-gradient(ellipse at 50% 25%, color-mix(in srgb, var(--tier), #101723 88%), #101723 70%); }
+.fortune-card-bezel { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 2; pointer-events: none; }
+.fortune-bezel-body { fill: #47505d; }
+.fortune-bezel-light { fill: #e4d8bc; }
+.fortune-bezel-shadow { fill: #242e3c; }
+.fortune-bezel-facet { fill: #8c9298; }
+.fortune-bezel-inlay { fill: none; stroke: var(--tier); stroke-width: 1.6; }
+.fortune-bezel-joint { fill: #c2b69a; stroke: #465160; stroke-width: 1; }
 .fortune-card-shade { position: absolute; inset: 0; background: linear-gradient(180deg,#060d1666,transparent 19%,transparent 42%,#080f1ee8 61%,#0a1221 86%); }
-.fortune-card-gem { position: absolute; top: 3%; left: 0; right: 0; text-align: center; color: var(--tier); font-size: clamp(17px, 2vw, 24px); text-shadow: 0 0 10px var(--tier); }
+.fortune-card-gem { position: absolute; z-index: 3; top: 3%; left: 0; right: 0; text-align: center; color: var(--tier); font-size: clamp(17px, 2vw, 24px); text-shadow: 0 0 10px var(--tier); }
 .fortune-card-stars { position: absolute; top: 10%; left: 0; right: 0; text-align: center; font-size: 18px; letter-spacing: 3px; color: #f2deab; line-height: 1; }
 .fortune-card-copy { position: absolute; left: 7%; right: 7%; top: 50%; }
 .fortune-card-title { display: grid; place-items: center; min-height: 31px; padding: 4px 8px; background: linear-gradient(100deg, var(--tier-ink), var(--tier), var(--tier-ink)); border-block: 1px solid color-mix(in srgb, var(--tier), white 40%); clip-path: polygon(4% 0,96% 0,100% 50%,96% 100%,4% 100%,0 50%); color: #fff; font-size: clamp(11px, 1.15vw, 15px); font-weight: 650; line-height: 1.4; text-align: center; text-shadow: 0 1px 3px #000b; }
 .fortune-card-effect { display: block; margin-top: 12px; padding: 0 5px; font-size: clamp(11px, 1.05vw, 13px); line-height: 1.75; overflow-wrap: anywhere; }
 .fortune-round { display: inline-block; color: #e6dfcf; border: 1px solid #b9c9db66; background: #35425766; font-size: .9em; font-weight: 600; line-height: 1.4; padding: 1px 6px; border-radius: 3px; margin-right: 6px; font-variant-numeric: tabular-nums; }
-.fortune-card-category { position: absolute; bottom: 5%; left: 0; right: 0; text-align: center; color: var(--tier); font-size: 10px; letter-spacing: .2em; }
-.fortune-card-foot { display: flex; justify-content: space-between; gap: 8px; margin: 12px 7px 0; color: var(--muted); font-size: 10px; }
+.fortune-card-category { position: absolute; bottom: 8%; left: 0; right: 0; text-align: center; color: var(--tier); font-size: 10px; letter-spacing: .2em; }
 .fortune-missing { position: absolute; top: 20%; width: 100%; display: grid; text-align: center; color: #e5bf79; font-size: 12px; gap: 10px; }
 .fortune-missing i { font-size: 60px; font-style: normal; }
 .fortune-empty { text-align: center; padding: 70px 16px; color: var(--muted); }
 .fortune-empty > span { font-size: 56px; color: var(--fortune-gold); }
 .fortune-empty h2 { font-size: 20px; color: var(--text); }
 .fortune-empty p { font-size: 13px; }
-.fortune-notes { border-top: 1px solid var(--line); margin-top: 40px; padding: 24px 0 36px; font-size: 11px; line-height: 1.9; color: var(--muted); }
-.fortune-notes p { margin: 0 0 5px; }
-.fortune-notes a { color: var(--fortune-gold); text-decoration: none; }
+.fortune-footer { display: flex; align-items: center; justify-content: space-between; gap: 24px; border-top: 1px solid var(--line); margin-top: 40px; padding: 26px 0 8px; color: var(--muted); }
+.fortune-footer > div { display: flex; align-items: center; gap: 12px; }
+.fortune-footer-mark { font-family: "Songti SC", "SimSun", serif; color: var(--fortune-gold); font-size: 22px; border: 1px solid var(--line); border-radius: 50%; width: 40px; height: 40px; display: grid; place-items: center; }
+.fortune-footer p { margin: 0; font-size: 12px; line-height: 1.8; }
+.fortune-footer p > span { display: block; font-size: 10px; letter-spacing: .15em; opacity: .75; }
+.fortune-footer nav { display: flex; align-items: center; gap: 18px; font-size: 11px; }
+.fortune-footer a { color: var(--muted); text-decoration: none; padding: 10px 0; }
+.fortune-footer a:hover { color: var(--fortune-gold); }
 .fortune-sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
 .fortune-body [hidden] { display: none !important; }
 .fortune-dialog { width: min(800px, calc(100% - 32px)); max-height: calc(100dvh - 40px); padding: 38px; border: 1px solid var(--line); border-radius: 20px; color: var(--text); background: var(--surface-solid); overflow: auto; box-shadow: 0 30px 100px #0004; }
 .fortune-dialog::backdrop { background: #080d1bc4; backdrop-filter: blur(8px); }
 .fortune-close { position: absolute; top: 10px; right: 12px; background: transparent; border: 0; color: var(--muted); font-size: 28px; cursor: pointer; width: 40px; height: 40px; }
 .fortune-detail-layout { display: grid; grid-template-columns: 240px minmax(0,1fr); align-items: center; gap: 38px; }
-.fortune-detail-art .fortune-card-foot { display: none; }
 .fortune-detail-content { min-width: 0; }
 .fortune-detail-content h2 { font-size: 26px; margin: 0 0 22px; line-height: 1.4; }
 #fortune-detail-rounds { display: flex; flex-wrap: wrap; gap: 8px; }
@@ -100,7 +113,7 @@
 @media (max-width: 640px) {
   .fortune-page { width: calc(100% - 28px); }
   .fortune-page .toolbox-panel { width: min(326px, calc(100vw - 112px)); }
-  .fortune-hero { padding: 32px 2px; }
+  .fortune-hero { padding: 12px 2px 28px; }
   .fortune-hero h1 { font-size: 42px; }
   .fortune-emblem { display: none; }
   .fortune-intro { font-size: 12px; margin: 16px 0 18px; }
@@ -123,8 +136,9 @@
   .fortune-card-frame { aspect-ratio: 240 / 450; min-height: 350px; }
   .fortune-card-shade { background: linear-gradient(180deg,#060d1666,transparent 19%,transparent 30%,#080f1ee8 49%,#0a1221 86%); }
   .fortune-card-stars { font-size: 15px; }
-  .fortune-card-category { bottom: 5%; font-size: 9px; }
-  .fortune-card-foot { font-size: 9px; margin-inline: 0; gap: 2px; }
+  .fortune-card-category { font-size: 9px; }
+  .fortune-footer { gap: 12px; }
+  .fortune-footer nav { gap: 12px; font-size: 10px; }
   .fortune-dialog { padding: 45px 22px 18px; }
   .fortune-detail-layout { display: flex; flex-direction: column; gap: 24px; }
   .fortune-detail-art { width: 200px; }

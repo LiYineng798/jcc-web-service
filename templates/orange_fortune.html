@@ -12,7 +12,7 @@
   <script src="{{ static_v('orange-fortune.js') }}" defer></script>
 </head>
 <body class="fortune-body">
-<div class="page-shell fortune-page">
+<div class="page-shell fortune-page" id="fortune-top">
   <nav class="nav-bar" aria-label="页面工具">
     <a class="brand-mark brand-link" href="/" aria-label="返回首页">阵</a>
     <div class="nav-actions">{{ toolbox_menu(False, simulator_enabled) }}{{ theme_toggle('nav-icon-button') }}</div>
@@ -22,9 +22,9 @@
       <div><p class="fortune-eyebrow">英雄联盟传奇 <span>/</span> 时间卡片图鉴</p>
         <h1>大橘<span>大利</span><i aria-hidden="true">✦</i></h1>
         <p class="fortune-intro">把握每一个生效回合，寻找你的下一张王牌。</p>
-        <div class="fortune-meta"><span><b>{{ catalog.cards|length }}</b> 张时间卡片</span><span><b>5</b> 种星级</span><span>资料版本 {{ catalog.version }}</span></div>
+        <div class="fortune-meta"><span><b>{{ catalog.cards|length }}</b> 张时间卡片</span><span><b>5</b> 种星级</span><span class="fortune-preview-label">先遣服（数据以实际上线为准）</span></div>
       </div>
-      <div class="fortune-emblem" aria-hidden="true"><div>✦</div><span>TIME CARDS</span><small>英雄联盟传奇 · 大橘大利</small></div>
+      <div class="fortune-emblem" aria-hidden="true">{% include 'fortune_emblem.html' %}<span>TIME CARDS</span><small>英雄联盟传奇 · 大橘大利</small></div>
     </header>
     <form class="fortune-filters" method="get" role="search" aria-label="筛选时间卡片">
       <fieldset class="fortune-tiers"><legend class="fortune-sr-only">卡片星级</legend>
@@ -57,9 +57,9 @@
                   <span class="fortune-card-copy"><span class="fortune-card-title">{{ card.name }}</span><span class="fortune-card-effect"><span class="fortune-round">{{ card.round or '待确认' }}</span><span class="fortune-card-description">{{ card.description }}</span></span></span>
                   <span class="fortune-card-category">{{ card.category }}</span>
                 </span>
+                {% include 'fortune_card_bezel.html' %}
               </span>
             </button>
-            <span class="fortune-card-foot"><span>{{ card.category }}</span><span>{{ card.round }} 生效{% if card.rounds|length > 1 %} · 多阶段{% endif %}</span></span>
           </article>
         {% endfor %}
         </div>
@@ -67,7 +67,7 @@
     {% endfor %}
     </div>
     <div class="fortune-empty" {% if visible_ids %}hidden{% endif %}><span aria-hidden="true">◇</span><h2>没有找到匹配的卡片</h2><p>试试其他关键词，或减少筛选条件。</p><a class="fortune-reset" href="/tools/orange-fortune">清除筛选</a></div>
-    <footer class="fortune-notes"><p>当前收录测试资料 {{ catalog.version }} · 更新于 {{ catalog.time[:10] }}。卡片效果以游戏内为准。</p><p>类型为资料标签归类；持续、条件触发与后续回合请结合完整效果阅读。1 张卡图暂缺，效果仍可查询。</p><a href="https://www.taptap.cn/moment/858762475896573628" target="_blank" rel="noopener noreferrer">查看官方玩法介绍 ↗</a></footer>
+    <footer class="fortune-footer"><div><span class="fortune-footer-mark" aria-hidden="true">橘</span><p>金铲铲阵容库<span>时间卡片图鉴</span></p></div><nav aria-label="页脚导航"><a href="/">返回首页</a><span aria-hidden="true">·</span><a href="#fortune-top">回到顶部 ↑</a></nav></footer>
   </main>
 </div>
 <dialog class="fortune-dialog" aria-labelledby="fortune-detail-title">
