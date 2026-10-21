@@ -19,7 +19,7 @@ def serve():
     from live_comp_version_service import save_version
     from patch_note_service import create_patch_note
 
-    directory = ROOT / 'instance' / 'admin-experience-preview'
+    directory = Path(os.environ.get('ADMIN_EXPERIENCE_PREVIEW_DATA_DIR') or ROOT / 'instance' / 'admin-experience-preview')
     directory.mkdir(parents=True, exist_ok=True)
     manifest = directory / 'seasons.json'
     if not manifest.exists():
