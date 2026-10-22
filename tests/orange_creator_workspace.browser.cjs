@@ -22,7 +22,16 @@ async function fits(page) {
     if(mat?.offsetHeight) {
       const box=mat.getBoundingClientRect(),poster=document.querySelector('#poster-preview').getBoundingClientRect();
       if(box.bottom>footer.top-2)errors.push('preview intersects toolbar');
-      if(poster.bottom>box.bottom-10 || poster.top<box.top+10)errors.push('poster exceeds preview mat');
+      if(poster.bottom>box.bottom+.5 || poster.top<box.top-.5)errors.push('poster exceeds preview mat');
+      const rect=s=>document.querySelector(s).getBoundingClientRect();
+      const card=rect('.creator-preview-sticky');
+      for(const selector of ['#panel-profile','#panel-content']) {
+        if(Math.abs(rect(selector).top-card.top)>.5)errors.push('panel tops not aligned');
+      }
+      for(const selector of ['#panel-cards','#panel-materials']) {
+        if(Math.abs(rect(selector).bottom-card.bottom)>.5)errors.push('panel bottoms not aligned');
+      }
+      if(Math.abs(rect('#panel-profile .creator-section-title').top-rect('.creator-preview-heading').top)>.5)errors.push('section headings not aligned');
     }
     return errors;
   });
