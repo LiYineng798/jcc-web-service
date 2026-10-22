@@ -5,14 +5,14 @@
   const esc = (value) => String(value ?? '').replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const cards = new Map(config.cards.map((card) => [card.id, card]));
   const storageKey = 'jcc-orange-creator-v1';
-  const defaults = {title:'我的大橘大利卡组', author:'', target:'不标注', portal:'unspecified', customPortal:'', energy:'', note:'', background:'gilded', cards:[null,null,null]};
+  const defaults = {title:'我的大橘大利卡组', author:'', target:'不标注', portal:'unspecified', customPortal:'', energy:'', note:'', tempo:'', items:'', layout:'guide', background:'gilded', cards:[null,null,null]};
   let state = {...defaults, cards:[...defaults.cards]}, formation = null, activeSlot = 0, exporting = false;
   const notify = (message, variant = 'info') => window.jccNotify?.show(message, {variant});
   try {
     const saved = JSON.parse(localStorage.getItem(storageKey) || 'null');
     if (saved && saved.version === 1) {
-      for (const [key, max] of Object.entries({title:24,author:16,customPortal:12,note:100})) state[key] = typeof saved[key] === 'string' ? saved[key].slice(0,max) : defaults[key];
-      for (const [key, options] of Object.entries({target:config.targets, portal:config.portals.map(p=>p.id), background:config.backgrounds.map(b=>b.id)})) if (options.includes(saved[key])) state[key] = saved[key];
+      for (const [key, max] of Object.entries({title:24,author:16,customPortal:12,note:100,tempo:24,items:40})) state[key] = typeof saved[key] === 'string' ? saved[key].slice(0,max) : defaults[key];
+      for (const [key, options] of Object.entries({layout:['guide','showcase'], target:config.targets, portal:config.portals.map(p=>p.id), background:config.backgrounds.map(b=>b.id)})) if (options.includes(saved[key])) state[key] = saved[key];
       if (/^\d{1,3}$/.test(saved.energy)) state.energy = saved.energy;
       if (Array.isArray(saved.cards)) { const seen = new Set(); state.cards = Array.from({length:3}, (_,i) => { const id = saved.cards[i]; if (!cards.has(id) || seen.has(id)) return null; seen.add(id); return id; }); }
     }
@@ -60,7 +60,7 @@
   }
   function renderBoard() {
     const board = formation?.board || Array(28).fill(null);
-    return Array.from({length:4},(_,row)=>`<div class="fp-board-row">${board.slice(row*7,row*7+7).map(unit=>`<div class="fp-cell"><span class="fp-hex"></span>${unit?`<span class="fp-unit">${image(unit.icon)}</span><span class="fp-unit-name">${esc(unit.name)}</span><span class="fp-items">${unit.items.map(item=>image(item.icon,item.name)).join('')}</span>`:''}</div>`).join('')}</div>`).join('') + (!board.some(Boolean)?'<div class="fp-board-empty"><strong>你的下一步，即是灵感</strong><span>配置阵容，点亮棋盘</span></div>':'');
+    return board.map((unit,i)=>`<div class="fp-cell" style="--x:${(i%7)*106+(Math.floor(i/7)%2)*53}px;--y:${Math.floor(i/7)*106*Math.sqrt(3)/2}px;--cost:${['#778b8c','#778b8c','#4eae78','#4b98d3','#ba75dc','#e7bc5f'][Math.min(unit?.cost||0,5)]}"><span class="fp-hex"></span>${unit?`<span class="fp-unit">${image(unit.icon)}</span><span class="fp-unit-name">${esc(unit.name)}</span><span class="fp-items">${unit.items.map(item=>image(item.icon,item.name)).join('')}</span>`:''}</div>`).join('') + (!board.some(Boolean)?'<div class="fp-board-empty"><strong>你的下一步，即是灵感</strong><span>配置阵容，点亮棋盘</span></div>':'');
   }
   function renderPoster() {
     const selected = state.cards.map(id=>cards.get(id));
@@ -69,7 +69,15 @@
     $('deck-energy').value=energy.automatic ? String(energy.value) : state.energy;
     const meta = [portalName(),state.target!=='不标注'?`计划目标 · ${state.target}`:'',energy.value!==null && Number.isFinite(energy.value)?`总能量 ${energy.value}${energy.automatic?'':'（手填）'}`:''].filter(Boolean);
     const title = state.title.trim() || defaults.title;
-    $('poster-preview').innerHTML = `<article class="fortune-poster theme-${state.background}" aria-label="${esc(title)}海报"><header class="fp-header"><div><p class="fp-overline">英雄联盟传奇 / 时间卡组构筑</p><h1 class="${title.length>18?'fp-long-title':''}">${esc(title)}</h1><div class="fp-meta">${meta.map(m=>`<span>${esc(m)}</span>`).join('')}</div></div><div class="fp-brand"><b>大橘大利</b><small>FORTUNE ATELIER</small></div></header><div class="fp-content"><section><div class="fp-label">01 / 时间卡组 <small>THREE CARDS. ONE STRATEGY.</small></div><div class="fp-cards">${selected.map((card,i)=>`<section class="fp-card" ${card?`data-tier="${card.tier}"`:''}>${card?`<div class="fp-card-art">${art(card)}</div><p class="fp-card-number">TIME CARD / 0${i+1}</p><h2>${esc(card.name)}</h2><p class="fp-card-round">${card.tier} 星 · ${esc(card.rounds.join(' / ') || '条件触发')}</p><p class="fp-card-effect">${esc(card.description)}</p>`:`<div class="fp-card-empty">0${i+1}<span>等待你的王牌</span></div>`}</section>`).join('')}</div></section><section class="fp-right"><div class="fp-label">02 / 阵容蓝图 <small>${formation?.board.some(Boolean)?`${formation.population} 人口 · ${formation.board.filter(Boolean).length} 个单位`:'POSITION & SYNERGY'}</small></div><div class="fp-board">${renderBoard()}</div><div class="fp-traits">${formation?.traits.length ? formation.traits.slice(0,8).map(t=>`<span class="fp-trait">${t.icon?image(t.icon):''}<b>${t.count}</b>${esc(t.name)}</span>`).join('') + (formation.traits.length>8?`<span class="fp-trait">+ ${formation.traits.length-8} 个羁绊</span>`:'') : '<p class="fp-muted">上阵弈子后展示激活羁绊</p>'}</div><section class="fp-notebook"><div class="fp-label">03 / 运营手记 <small>THE GAME PLAN</small></div><p>${esc(state.note.trim() || '把握卡片生效的时刻，让每一步都通向你的目标。')}</p></section></section></div><footer class="fp-footer"><b>金铲铲阵容库</b><span>${state.author.trim()?`创作 / ${esc(state.author.trim())}`:'三张卡片，无限可能。'}</span><small>大橘大利 / 4:3 CREATOR SERIES</small></footer></article>`;
+    const background = config.backgrounds.find(b=>b.id===state.background);
+    const rounds = [...new Set(selected.flatMap(c=>c?.rounds||[]))].sort().join(' / ');
+    $('poster-preview').innerHTML = `<article class="fortune-poster theme-${state.background} is-${state.layout}" aria-label="${esc(title)}海报">
+      ${image(background.image_url,'','fp-background')}<div class="fp-veil"></div>
+      <header class="fp-header"><div class="fp-heading"><p class="fp-overline">英雄联盟传奇 / 时间卡组构筑</p><h1 class="${title.length>18?'fp-long-title':''}">${esc(title)}</h1><div class="fp-meta">${meta.map(m=>`<span>${esc(m)}</span>`).join('')}</div></div><div class="fp-brand"><b>大橘大利</b><small>FORTUNE ATELIER</small></div></header>
+      <div class="fp-content"><section class="fp-deck"><div class="fp-label">01 / 时间卡组 <small>THREE CARDS. ONE STRATEGY.</small></div><div class="fp-cards">${selected.map((card,i)=>`<section class="fp-card" ${card?`data-tier="${card.tier}"`:''}>${card?`<div class="fp-card-art">${art(card)}</div><p class="fp-card-number">TIME CARD / 0${i+1}</p><h2>${esc(card.name)}</h2><p class="fp-card-round">${card.tier} 星 · ${esc(card.rounds.join(' / ') || '条件触发')}</p><p class="fp-card-effect">${esc(card.description)}</p>`:`<div class="fp-card-empty">0${i+1}<span>等待你的王牌</span></div>`}</section>`).join('')}</div></section>
+      <section class="fp-formation"><div class="fp-label">02 / 阵容蓝图 <small>${formation?.board.some(Boolean)?`${formation.population} 人口 · ${formation.board.filter(Boolean).length} 个单位`:'POSITION & SYNERGY'}</small></div><div class="fp-formation-body"><div class="fp-board">${renderBoard()}</div><div class="fp-traits">${formation?.traits.length ? formation.traits.slice(0,8).map(t=>`<span class="fp-trait"><span class="fp-trait-emblem">${t.frame?image(t.frame,'','fp-trait-frame'):''}${t.icon?image(t.icon,'','fp-trait-icon'):''}</span><b>${t.count}</b><span>${esc(t.name)}</span></span>`).join('') + (formation.traits.length>8?`<span class="fp-trait fp-muted">+ ${formation.traits.length-8} 个羁绊</span>`:'') : '<p class="fp-muted">上阵弈子后<br>展示激活羁绊</p>'}</div></div></section>
+      ${state.layout==='guide'?`<section class="fp-operations"><div class="fp-label">03 / 运营手记 <small>THE GAME PLAN</small></div><div class="fp-operations-body"><div class="fp-plan"><small>${state.tempo.trim()?'启动节奏':'卡片生效'}</small><p>${esc(state.tempo.trim() || rounds || '依卡片条件触发')}</p>${state.items.trim()?`<small>装备优先</small><p>${esc(state.items.trim())}</p>`:''}</div><div class="fp-notebook"><p>${esc(state.note.trim() || '把握卡片生效的时刻，让每一步都通向你的目标。')}</p></div></div></section>`:''}</div>
+      <footer class="fp-footer"><b>金铲铲阵容库</b><span>${state.author.trim()?`创作 / ${esc(state.author.trim())}`:'三张卡片，无限可能。'}</span><small>大橘大利 / 3:4 CREATOR SERIES</small></footer></article>`;
     fitPoster();
     fitText();
     const error = energyError();
@@ -78,7 +86,7 @@
     const count = state.cards.filter(Boolean).length;
     const ready = count===3 && formation?.board.some(Boolean) && !error;
     $('export-poster').disabled = !ready || exporting;
-    $('export-status').textContent = error || (count<3 ? `还需选择 ${3-count} 张时间卡片。` : !formation?.board.some(Boolean) ? '配置阵容后即可导出完整海报。' : '已就绪 · 导出 1600 × 1200 高清 PNG');
+    $('export-status').textContent = error || (count<3 ? `还需选择 ${3-count} 张时间卡片。` : !formation?.board.some(Boolean) ? '配置阵容后即可导出完整海报。' : '已就绪 · 导出 1200 × 1600 高清 PNG');
   }
   function fitPoster() {
     const poster = $('poster-preview').firstElementChild;
@@ -89,12 +97,14 @@
       let size=17;
       while(el.scrollHeight>el.clientHeight+1 && size>12) { size-=.5; el.style.fontSize=`${size}px`; }
     });
-    const notebook = document.querySelector('#poster-preview .fp-notebook p');
-    let size=20;
-    while(notebook.scrollHeight>notebook.clientHeight+1 && size>15) {size-=.5;notebook.style.fontSize=`${size}px`;}
+    document.querySelectorAll('#poster-preview .fp-notebook p, #poster-preview .fp-plan p').forEach(el=>{
+      let size=20;
+      while(el.scrollHeight>el.clientHeight+1 && size>14) {size-=.5;el.style.fontSize=`${size}px`;}
+    });
   }
+
   function update() { renderSlots(); renderPoster(); save(); }
-  const fields = {'deck-name':'title','deck-author':'author','deck-target':'target','deck-portal':'portal','custom-portal':'customPortal','deck-energy':'energy','deck-note':'note'};
+  const fields = {'deck-name':'title','deck-author':'author','deck-target':'target','deck-portal':'portal','custom-portal':'customPortal','deck-energy':'energy','deck-note':'note','deck-tempo':'tempo','deck-items':'items'};
   for (const [id,key] of Object.entries(fields)) {
     $(id).value = state[key];
     $(id).addEventListener('input',()=>{
@@ -104,6 +114,16 @@
     });
   }
   $('custom-portal-field').hidden=state.portal!=='custom';
+  function syncLayout() {
+    $('operations-fields').hidden=state.layout!=='guide';
+    $('operations-hidden-hint').hidden=state.layout==='guide';
+    document.querySelectorAll('[name="poster-layout"]').forEach(input=>{input.checked=input.value===state.layout;});
+  }
+  document.querySelectorAll('[name="poster-layout"]').forEach(input=>input.addEventListener('change',()=>{
+    if(!input.checked) return;
+    state.layout=input.value;syncLayout();renderPoster();save();
+  }));
+  syncLayout();
   document.querySelectorAll('[data-background]').forEach(button=>{
     button.setAttribute('aria-pressed',String(button.dataset.background===state.background));
     button.addEventListener('click',()=>{
@@ -162,12 +182,15 @@
   document.fonts?.ready.then(()=>{fitPoster();fitText();});
   async function prepareImages(root) {
     await Promise.all([...root.querySelectorAll('img')].map(async img=>{
+      img.decoding='sync';img.loading='eager';
       try {await img.decode();} catch {throw new Error('有图片尚未加载，请稍后重试。');}
       if(!img.naturalWidth) throw new Error('有图片加载失败，请刷新页面后重试。');
       // Inline decoded pixels before SVG capture, including local SVG trait icons.
       const canvas=document.createElement('canvas');
-      canvas.width=img.naturalWidth;canvas.height=img.naturalHeight;
-      canvas.getContext('2d').drawImage(img,0,0);
+      const vector=/\.svg(?:[?#]|$)/i.test(img.src);
+      canvas.width=vector?img.clientWidth*2:img.naturalWidth;
+      canvas.height=vector?img.clientHeight*2:img.naturalHeight;
+      canvas.getContext('2d').drawImage(img,0,0,canvas.width,canvas.height);
       img.src=canvas.toDataURL('image/png');
       await img.decode();
     }));
@@ -183,11 +206,23 @@
       copy.prepend(document.querySelector('.fortune-frame-materials').cloneNode(true));
       document.body.append(copy);await prepareImages(copy);
       const options={width:config.export.width,height:config.export.height,pixelRatio:1,skipFonts:true,cacheBust:false,style:{position:'static',left:'auto',top:'auto',zIndex:'auto',transform:'none'}};
-      // WebKit's first foreignObject paint can omit decoded nested images.
-      // Prime that paint before capturing the downloadable frame.
-      await window.htmlToImage.toCanvas(copy,options);
-      const data=await window.htmlToImage.toPng(copy,options);
-      const link=document.createElement('a');link.href=data;link.download=`${(state.title.trim()||defaults.title).replace(/[\\/:*?"<>|\x00-\x1f]/g,'-')}-大橘大利.png`;link.click();
+      // Keep a single decoded SVG alive through its first paint. Creating a fresh
+      // SVG for every pass can restart WebKit's nested-image decoding.
+      const svg=await window.htmlToImage.toSvg(copy,options);
+      const rendered=new Image();rendered.decoding='sync';rendered.src=svg;await rendered.decode();
+      const output=document.createElement('canvas');
+      output.width=config.export.width;output.height=config.export.height;
+      const ctx=output.getContext('2d');ctx.drawImage(rendered,0,0);
+      // Each embedded image can require another SVG paint in WebKit. A fixed
+      // single delay is insufficient for larger posters; allow one pass per image.
+      const needsPaintPasses=/AppleWebKit/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent);
+      const passes=needsPaintPasses?copy.querySelectorAll('img').length:0;
+      for(let pass=0;pass<passes;pass++) {
+        await new Promise(resolve=>setTimeout(resolve,100));
+        ctx.clearRect(0,0,output.width,output.height);ctx.drawImage(rendered,0,0);
+      }
+      const data=output.toDataURL('image/png');
+      const link=document.createElement('a');link.href=data;link.download=`${(state.title.trim()||defaults.title).replace(/[\\/:*?"<>|\x00-\x1f]/g,'-')}-大橘大利-${state.layout==='guide'?'攻略版':'纯构筑版'}.png`;link.click();
       notify('海报已生成，下载已开始','success');
     } catch(error) {notify(error.message || '海报生成失败，请重试','error');$('export-status').textContent=error.message || '导出失败，请重试';}
     finally {copy?.remove();exporting=false;button.textContent='导出海报 ↓';button.disabled=state.cards.filter(Boolean).length!==3 || !formation?.board.some(Boolean) || Boolean(energyError());}

@@ -16,7 +16,7 @@ def creator_config():
         'season_id': CREATOR_SEASON,
         'simulator_available': available,
         'card_slots': 3,
-        'export': {'width': 1600, 'height': 1200},
+        'export': {'width': 1200, 'height': 1600},
         'portals': [
             {'id': 'unspecified', 'name': '不标注传送门', 'energy_limit': None},
             {'id': 'stable', 'name': '稳定传送门', 'energy_limit': 8},
@@ -24,10 +24,14 @@ def creator_config():
         ],
         'targets': ['不标注', '前七', '前五', '前三', '登顶'],
         'backgrounds': [
-            {'id': 'gilded', 'name': '曜石鎏金', 'description': '深色矿石 · 香槟金'},
-            {'id': 'jade', 'name': '翡翠秘境', 'description': '松绿玉石 · 古铜金'},
-            {'id': 'astral', 'name': '星夜紫晶', 'description': '午夜靛蓝 · 冰紫银'},
-            {'id': 'ivory', 'name': '象牙手札', 'description': '暖调纸张 · 褐金墨'},
+            {'id': key, 'name': name, 'description': description,
+             'image_url': static_v(f'tools/orange-fortune/creator/portal-{key}.png')}
+            for key, name, description in [
+                ('gilded', '时空宝库', '鎏金星门 · 深海蓝晶'),
+                ('jade', '翡翠遗迹', '青铜古树 · 秘境微光'),
+                ('astral', '棱彩星门', '紫晶星河 · 浮空秘藏'),
+                ('ivory', '象牙圣域', '暖金云海 · 冰晶石阶'),
+            ]
         ],
         # Rarity is not an energy field. Null deliberately means unknown.
         'cards': [{**{key: card[key] for key in ('id', 'tier', 'name', 'description', 'category', 'rounds', 'image', 'layout')},

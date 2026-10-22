@@ -1122,7 +1122,10 @@ function persist() {
         return { name: hero.name, icon: hero.icon, cost: hero.cost,
           items: slot.items.map((id) => { const item = state.itemById.get(id); return {name: item.name, icon: item.icon}; }) };
       }),
-      traits: posterTraitRows().map(({trait, count}) => ({ name: trait.name, count, icon: trait.icon })),
+      traits: posterTraitRows().map(({trait, count, status}) => ({
+        name: trait.name, count, icon: trait.icon,
+        frame: `${UI_ROOT}/${status.styleIndex}.svg`, color: TRAIT_STYLE_COLORS[status.styleIndex],
+      })),
     }, location.origin);
   }
 }

@@ -10,7 +10,7 @@ from settings_service import get_setting
 TOOLBOX_TOOLS = (
     dict(id='lineup-simulator', title='阵容模拟器', description='搭配弈子、装备与羁绊 · 通用工具', group='', setting='simulator_enabled'),
     dict(id='orange-fortune', title='时间卡片图鉴', description='五星分级 · 生效回合与完整效果', group='英雄联盟传奇大橘大利'),
-    dict(id='orange-fortune-creator', title='大橘大利创作者工具', description='三卡构筑 · 阵容配置 · 4:3 海报', group='英雄联盟传奇大橘大利'),
+    dict(id='orange-fortune-creator', title='大橘大利创作者工具', description='三卡构筑 · 阵容配置 · 3:4 海报', group='英雄联盟传奇大橘大利'),
     dict(id='s18-trait-ladder', title='羁绊天梯计算器', description='多羁绊阵容搜索 · 转职与阶段奖励', group='S18 · 当季工具'),
     dict(id='s18-witch-rewards', title='魔女层数奖励查询', description='9 档层数 · 概率、星级与预计价值', group='S18 · 当季工具'),
     dict(id='golden-egg', title='金蛋奖励', description='海克斯奖励一览 · 概率与物品数量', group='S18 · 当季工具'),

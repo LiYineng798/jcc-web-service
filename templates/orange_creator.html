@@ -18,7 +18,7 @@
 {% for tier in range(1, 6) %}{% set card = {'tier': tier} %}<template id="bezel-{{ tier }}">{% include 'fortune_card_bezel.html' %}</template>{% endfor %}
 <div class="creator-shell">
   <nav class="nav-bar" aria-label="页面工具"><a class="brand-mark brand-link" href="/" aria-label="返回首页">阵</a><a class="creator-back" href="/tools/orange-fortune">时间卡片图鉴 ↗</a><div class="nav-actions">{{ toolbox_menu(False) }}{{ theme_toggle('nav-icon-button') }}</div></nav>
-  <header class="creator-heading"><div><p class="creator-eyebrow">FORTUNE ATELIER <span> / </span> 大橘大利</p><h1>把灵感，构筑成王牌。</h1><p>三张时间卡片，一套专属阵容。为你的下一场冒险制作海报。</p></div><span class="creator-heading-badge">创作者工具<b>4:3</b>LANDSCAPE POSTER</span></header>
+  <header class="creator-heading"><div><p class="creator-eyebrow">FORTUNE ATELIER <span> / </span> 大橘大利</p><h1>把灵感，构筑成王牌。</h1><p>三张时间卡片，一套专属阵容。为你的下一场冒险制作海报。</p></div><span class="creator-heading-badge">创作者工具<b>3:4</b>PORTRAIT POSTER</span></header>
   <noscript><p>请启用 JavaScript，以使用卡片选择、阵容配置与海报导出。</p></noscript>
   <main class="creator-workspace">
     <section class="creator-controls" aria-label="海报编辑">
@@ -33,12 +33,20 @@
       <section class="creator-panel"><div class="creator-section-title"><span>03</span><h2>阵容与思路</h2><small id="formation-count">未配置</small></div>
         <button id="edit-formation" class="creator-secondary creator-wide" type="button" {% if not creator_data.simulator_available %}disabled{% endif %}>配置阵容 <span>站位 · 装备 · 羁绊 ↗</span></button>
         <p class="creator-help" id="formation-status" role="status">{% if creator_data.simulator_available %}正在准备阵容编辑器…{% else %}英雄联盟传奇阵容资料暂未开放。{% endif %}</p><button class="creator-secondary" id="retry-formation" type="button" hidden>重新加载阵容编辑器</button>
-        <label class="creator-field">运营手记 <small>选填 · 100 字内</small><textarea id="deck-note" maxlength="100" rows="3" placeholder="写下启动回合、装备优先级或关键运营思路…"></textarea></label>
-        <p class="creator-help">棋盘展示基础阵容；卡片专属变身、额外羁绊可在手记中注明。</p>
+        <fieldset class="creator-layout-choice"><legend>海报版本</legend>
+          <label><input type="radio" name="poster-layout" value="guide" checked><span><strong>攻略版</strong><small>包含运营信息</small></span></label>
+          <label><input type="radio" name="poster-layout" value="showcase"><span><strong>纯构筑版</strong><small>突出卡面与阵容</small></span></label>
+        </fieldset>
+        <div id="operations-fields">
+          <div class="creator-fields"><label class="creator-field">启动节奏 <small>选填</small><input id="deck-tempo" maxlength="24" placeholder="例如：8 级启动 · 稳定提质量"></label><label class="creator-field">装备优先 <small>选填</small><input id="deck-items" maxlength="40" placeholder="例如：先主 C，再补前排"></label></div>
+          <label class="creator-field">运营手记 <small>选填 · 100 字内</small><textarea id="deck-note" maxlength="100" rows="3" placeholder="写下关键回合、转型选择或对局思路…"></textarea></label>
+          <p class="creator-help">棋盘展示基础阵容；卡片专属变身、额外羁绊可在手记中注明。</p>
+        </div>
+        <p class="creator-help" id="operations-hidden-hint" hidden>纯构筑版不包含运营信息，已填写的内容仍会保留。</p>
       </section>
-      <section class="creator-panel"><div class="creator-section-title"><span>04</span><h2>海报材质</h2><small>四种氛围</small></div><div class="creator-backgrounds">{% for bg in creator_data.backgrounds %}<button type="button" data-background="{{ bg.id }}" aria-pressed="{{ 'true' if loop.first else 'false' }}"><span class="creator-swatch theme-{{ bg.id }}"></span><strong>{{ bg.name }}</strong><small>{{ bg.description }}</small></button>{% endfor %}</div></section>
+      <section class="creator-panel"><div class="creator-section-title"><span>04</span><h2>海报材质</h2><small>四种氛围</small></div><div class="creator-backgrounds">{% for bg in creator_data.backgrounds %}<button type="button" data-background="{{ bg.id }}" aria-pressed="{{ 'true' if loop.first else 'false' }}"><span class="creator-swatch theme-{{ bg.id }}"><img src="{{ bg.image_url }}" alt="" loading="lazy"></span><strong>{{ bg.name }}</strong><small>{{ bg.description }}</small></button>{% endfor %}</div></section>
     </section>
-    <section class="creator-preview-column" aria-label="实时海报预览"><div class="creator-preview-sticky"><div class="creator-preview-heading"><span><i></i> 实时预览</span><span>1600 × 1200 · PNG</span></div><div class="creator-preview-mat"><div id="poster-preview" class="creator-preview"></div></div><div class="creator-export-bar"><div><strong>一张海报，完整表达你的构筑。</strong><p id="export-status" role="status">选择三张时间卡片并配置阵容后导出。</p></div><button id="export-poster" class="creator-primary" type="button" disabled>导出海报 ↓</button></div><p class="creator-save-note" id="save-status">草稿仅保存在当前浏览器</p></div></section>
+    <section class="creator-preview-column" aria-label="实时海报预览"><div class="creator-preview-sticky"><div class="creator-preview-heading"><span><i></i> 实时预览</span><span>1200 × 1600 · PNG</span></div><div class="creator-preview-mat"><div id="poster-preview" class="creator-preview"></div></div><div class="creator-export-bar"><div><strong>一张海报，完整表达你的构筑。</strong><p id="export-status" role="status">选择三张时间卡片并配置阵容后导出。</p></div><button id="export-poster" class="creator-primary" type="button" disabled>导出海报 ↓</button></div><p class="creator-save-note" id="save-status">草稿仅保存在当前浏览器</p></div></section>
   </main>
   <footer class="creator-footer"><span>金铲铲阵容库 · 大橘大利创作者工具</span><span>MAKE YOUR NEXT MOVE.</span></footer>
 </div>

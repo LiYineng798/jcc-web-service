@@ -184,7 +184,7 @@ def register_page_routes(app):
     def orange_creator_page():
         return tracked_template_response(
             'orange_creator.html', 'orange_creator', creator_data=creator_config(),
-            seo=make_seo(title='大橘大利创作者工具', description='搭配三张时间卡片与阵容，创作专属 4:3 卡组海报。', path='/tools/orange-fortune-creator'),
+            seo=make_seo(title='大橘大利创作者工具', description='搭配三张时间卡片与阵容，创作专属 3:4 卡组海报。', path='/tools/orange-fortune-creator'),
         )
 
     @app.get('/tools/orange-fortune')

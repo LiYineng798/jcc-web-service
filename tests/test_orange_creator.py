@@ -9,7 +9,7 @@ def test_creator_static_catalog_and_public_page(client):
     data = response.get_json()
     assert data['schema_version'] == 1
     assert data['card_slots'] == 3
-    assert data['export'] == {'width': 1600, 'height': 1200}
+    assert data['export'] == {'width': 1200, 'height': 1600}
     assert len(data['cards']) == 200
     assert all(card['energy'] is None for card in data['cards'])
     assert len({card['id'] for card in data['cards']}) == 200

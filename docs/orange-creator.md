@@ -1,7 +1,7 @@
 # 大橘大利创作者工具
 
 入口 `/tools/orange-fortune-creator`，工具箱与通知目标目录统一在 `toolbox_service.py` 登记。
-输出固定为横向 4:3、1600 × 1200 PNG，包含三张时间卡片、卡片完整效果、阵容站位、装备、基础羁绊、卡组名字和可选的署名、传送门、计划目标、能量与运营手记。
+输出固定为竖向 3:4、1200 × 1600 PNG，包含三张时间卡片、卡片完整效果、阵容站位、装备、基础羁绊、卡组名字和可选的署名、传送门、计划目标、能量与运营手记。
 
 ## 数据与规则
 
@@ -30,6 +30,38 @@
 
 卡片更新沿用 [卡片导入流程](orange-fortune.md#更新)，不能手改生成的 JSON。规则、模式绑定和背景选项集中在适配层。获得有来源的能量资料后，按卡片 ID 填充 `cards[].energy`；前端对三张已知能量自动求和并切换为自动标注。保留未知值为 null，不默认补零。
 
-包边模板仍使用资料库的 `fortune_card_bezel.html` 与 `fortune_frame_materials.html`。导出克隆包含渐变定义；导出时将根定位恢复为 static，防止浏览器计算出的逻辑 inset 把 SVG 内容移出画布。
+包边模板仍使用资料库的 `fortune_card_bezel.html` 与 `fortune_frame_materials.html`。导出克隆包含渐变定义；图片使用同步解码，并为 WebKit 按嵌入图片数重绘 SVG，避免连续导出时漏图（参见 [html-to-image 问题记录](https://github.com/bubkoo/html-to-image/issues/420) 和 [modern-screenshot 的绘制策略](https://github.com/qq15725/modern-screenshot/blob/main/src/image-to-canvas.ts)）；导出时将根定位恢复为 static，防止浏览器计算出的逻辑 inset 把 SVG 内容移出画布。
 
 聚焦验证：`python -m pytest -q tests/test_orange_creator.py`；浏览器验证：启动隔离预览后设置 `CREATOR_PREVIEW_URL`，运行 `node tests/orange_creator.browser.cjs`。浏览器依赖与截图隔离约定见 [开发与验证](development.md)。
+
+## 竖版排版与背景素材
+
+导出提供攻略版（启动节奏、装备优先、运营手记）和纯构筑版（扩大卡面与效果区，不生成运营区）。切换版式保留已填写文字，兼容旧版草稿。棋盘为规则尖顶六边形：宽 100、高 200/√3，列间距 106，行距 106√3/2，偶数行横向偏移 53。羁绊快照携带模拟器计算的 `frame`，复用 `ui/{1,2,3,4,unique}.svg`，不重新推断羁绊档位。
+
+四张背景使用内置图像生成工具（built-in imagegen mode）创作，素材均已保存在 `static/tools/orange-fortune/creator/`。它们是原创场景插画，不是官方素材。视觉研究参考[官方玩法说明](https://www.bilibili.com/opus/1257412011649662993)和[官方社区介绍](https://www.taptap.cn/moment/858762475896573628)中的时空门、紫蓝晶体、金属卡框；文字、卡片与阵容由真实数据单独绘制。
+
+最终生成提示词如下；无人物参考图、无官方图片作为图生图输入。
+
+### portal-gilded.png
+
+```text
+Use case: stylized-concept. Asset type: a premium portrait 3:4 background image for a Chinese Teamfight Tactics / 金铲铲之战 大橘大利 strategy-card creator poster. Create an original hand-painted high-end fantasy game environment, inspired by the game's prismatic time portals, hextech treasure, gilded card frames and crystal facets. A huge ancient gilded hextech portal and luminous cyan-violet time vortex partly cropped in the upper right corner; subtle floating crystal shards along the top and side margins; small richly textured ancient stone and gold treasure architecture confined to bottom corners. Deep midnight indigo, petrol teal and restrained champagne gold with prismatic highlights. Beautiful brushed gold engravings, polished blue crystal, dimensional carved stone, very fine magical particles. Elegant cinematic illustrated game splash-art quality, tactile material detail, sophisticated restrained contrast. Important layout: the middle 80% must remain dark, smooth, spacious and calm because actual cards, a hex board and dense Chinese text will be overlaid by HTML; the decorative scene stays at the very top, side edges and bottom. No people, no characters, no cards, no UI panels, no words, no letters, no logos, no watermarks. Full bleed, portrait 3:4.
+```
+
+### portal-jade.png
+
+```text
+Use case: stylized-concept. Asset type: full-bleed portrait 3:4 background for a premium 金铲铲之战 大橘大利 creator poster. Original high-end hand-painted fantasy game splash art inspired by hextech treasure, time portals, prismatic crystals and gilded card frames. Scene: ancient jade-and-bronze hextech ruin, layered emerald stone arches, a softly glowing turquoise time portal cropped at top right, small angular green crystals and delicate gold-leaf rune engravings at margins, old tree roots entwined with bronze corner architecture, dark forest teal with warm muted gold, a luminous misty treasure sanctuary. Beautiful detailed brushed metal, carved stone, polished crystal, sparse magical dust. Refined cinematic illustration, sophisticated restraint. Composition must leave middle 80% spacious, calm and low-detail for actual cards, a hex board and dense Chinese text to be overlaid. All ornate scenic elements belong to extreme edges, the top 15%, and bottom corners. No characters, no UI panels, no cards, no words, no letters, no logo, no watermark. Single continuous environment, not a collage. Portrait 3:4.
+```
+
+### portal-astral.png
+
+```text
+Use case: stylized-concept. Asset type: full-bleed portrait 3:4 background for a premium 金铲铲之战 大橘大利 creator poster. Original high-end hand-painted fantasy game splash art inspired by hextech treasure, time portals, prismatic crystals and gilded card frames. Scene: prismatic time rift in a midnight violet universe, massive segmented gilded portal ring cropped across the top edge and top right, cyan and lilac faceted crystals floating near the margins, subtle swirling ultraviolet aurora, thin gold constellation paths, a few distant floating hexagonal stone islands at bottom corners, luminous iridescent platinum, purple and champagne gold. Beautiful detailed brushed metal, carved stone, polished crystal, sparse magical dust. Refined cinematic illustration, sophisticated restraint. Composition must leave middle 80% spacious, calm and low-detail for actual cards, a hex board and dense Chinese text to be overlaid. All ornate scenic elements belong to extreme edges, the top 15%, and bottom corners. No characters, no UI panels, no cards, no words, no letters, no logo, no watermark. Single continuous environment, not a collage. Portrait 3:4.
+```
+
+### portal-ivory.png
+
+```text
+Use case: stylized-concept. Asset type: full-bleed portrait 3:4 background for a premium 金铲铲之战 大橘大利 creator poster. Original high-end hand-painted fantasy game splash art inspired by hextech treasure, time portals, prismatic crystals and gilded card frames. Scene: sunlit ivory and champagne-gold hextech treasure sanctuary, pale carved stone arches and delicate gilded engraved framework at the margins, crystalline aqua time portal cropped at upper right, very pale warm parchment atmosphere in the center, small shimmering pale-blue crystal clusters and clouds at bottom corners, highly detailed elegant luminous magical antiquity, low contrast ivory interior. Beautiful detailed brushed metal, carved stone, polished crystal, sparse magical dust. Refined cinematic illustration, sophisticated restraint. Composition must leave middle 80% spacious, calm and low-detail for actual cards, a hex board and dense Chinese text to be overlaid. All ornate scenic elements belong to extreme edges, the top 15%, and bottom corners. No characters, no UI panels, no cards, no words, no letters, no logo, no watermark. Single continuous environment, not a collage. Portrait 3:4.
+```
