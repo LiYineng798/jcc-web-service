@@ -32,7 +32,7 @@
 .fp-meta { display:flex; flex-wrap:wrap; gap:8px 18px; font-size:15px; line-height:1.6; letter-spacing:.5px; font-variant-numeric:tabular-nums; color:var(--soft); margin-top:15px; }
 .fp-meta span+span:before { content:'·'; margin-right:18px; color:var(--accent); }
 .fp-meta:empty { display:none; }
-.fp-header.is-title-only .fp-heading { display:flex; flex-direction:column; justify-content:center; padding-bottom:18px; }
+.fp-header.is-title-only .fp-heading { display:flex; flex-direction:column; justify-content:center; }
 .fp-header.is-title-only .fp-overline { margin-bottom:12px; }
 .fp-header.is-title-only h1 { font-size:60px; line-height:1.2; }
 .fp-header.is-title-only h1.fp-medium-title { font-size:48px; }
