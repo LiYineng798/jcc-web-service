@@ -2,6 +2,14 @@
   'use strict';
   const config = JSON.parse(document.querySelector('#creator-config').textContent);
   const $ = (id) => document.getElementById(id);
+  const themeToggle = $('themeToggle');
+  function applyTheme(theme) {
+    document.documentElement.dataset.theme = theme;
+    window.jccApplyThemeToggleState?.(theme, themeToggle, $('themeIcon'), $('themeText'));
+    try { localStorage.setItem('theme', theme); } catch { /* Switching still works without storage. */ }
+  }
+  applyTheme(document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light');
+  themeToggle?.addEventListener('click', () => applyTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'));
   const esc = (value) => String(value ?? '').replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const cards = new Map(config.cards.map((card) => [card.id, card]));
   const storageKey = 'jcc-orange-creator-v1';

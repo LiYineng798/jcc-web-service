@@ -21,12 +21,32 @@ async function fits(page) {
   });
   assert.deepEqual(issues,[]);
 }
+async function themeState(page, theme) {
+  assert.equal(await page.locator('html').getAttribute('data-theme'),theme);
+  assert.equal(await page.locator('#themeToggle').getAttribute('aria-label'),theme==='dark'?'切换为白天模式':'切换为夜间模式');
+  assert.equal(await page.locator('#themeToggle').evaluate(e=>e.classList.contains('is-dark')),theme==='dark');
+}
+async function themeFlow(page) {
+  const panelColor=()=>page.locator('#panel-profile').evaluate(e=>getComputedStyle(e).backgroundColor);
+  const poster=()=>page.locator('.fortune-poster').evaluate(e=>({background:getComputedStyle(e).backgroundColor,material:e.className}));
+  const light=await panelColor(), material=await poster();
+  await page.locator('#themeToggle').click();await themeState(page,'dark');
+  assert.notEqual(await panelColor(),light);
+  assert.deepEqual(await poster(),material,'page theme must not change poster material');
+  assert.equal(await page.evaluate(()=>localStorage.getItem('theme')),'dark');
+  await page.reload();await page.locator('.fortune-poster').waitFor({state:'attached'});
+  await themeState(page,'dark');
+  await page.locator('#themeToggle').focus();await page.keyboard.press('Enter');await themeState(page,'light');
+  assert.equal(await panelColor(),light);
+  await page.reload();await themeState(page,'light');
+}
 (async()=>{
   for(const [name,engine] of [['chromium',chromium],['webkit',webkit]]) {
     const browser=await engine.launch();const page=await browser.newPage();
     for(const [width,height] of [[1920,1080],[1366,768],[1280,720],[1024,720],[390,844],[375,667]]) {
       await page.setViewportSize({width,height});await page.goto(`${base}/tools/orange-fortune-creator`);
       await page.waitForFunction(()=>document.querySelector('#formation-status').textContent.includes('已连接'));
+      if(width===1920||width===390) await themeFlow(page);
       await page.locator('#deck-portal').selectOption('custom');await page.locator('#custom-portal').fill('自定义传送门');
       await fits(page);
       await page.locator('#deck-portal').selectOption('stable');await page.locator('#deck-energy').fill('999');await fits(page);
@@ -52,6 +72,13 @@ async function fits(page) {
       }
       await page.screenshot({path:path.join(out,`workspace-${name}-${width}-${height}.png`)});
     }
-    await browser.close();console.log(`${name}: six viewport sizes, all settings, validation states, transparent board and preview keyboard flow passed`);
+    const blocked=await browser.newContext();
+    await blocked.addInitScript(()=>{Storage.prototype.getItem=Storage.prototype.setItem=()=>{throw new DOMException('blocked','SecurityError')};});
+    const blockedPage=await blocked.newPage(), errors=[];blockedPage.on('pageerror',e=>errors.push(e.message));
+    await blockedPage.goto(`${base}/tools/orange-fortune-creator`);
+    await blockedPage.locator('#themeToggle').click();await themeState(blockedPage,'dark');
+    await blockedPage.locator('#themeToggle').click();await themeState(blockedPage,'light');
+    assert.deepEqual(errors,[]);await blocked.close();
+    await browser.close();console.log(`${name}: six viewport sizes, settings, transparent board, keyboard flow and theme persistence/blocked storage passed`);
   }
 })().catch(e=>{console.error(e);process.exit(1)});
