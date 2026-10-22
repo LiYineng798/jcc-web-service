@@ -8,7 +8,19 @@ const base = process.env.CREATOR_PREVIEW_URL || 'http://127.0.0.1:5139';
 const out = path.resolve('instance/creator-review');
 fs.mkdirSync(out, {recursive:true});
 
+async function panel(page, name) {
+  const button=page.locator(`[data-panel="${name}"]`);
+  if(await button.isVisible()) await button.click();
+}
+async function preview(page, open) {
+  const button=page.locator('#open-preview');
+  if(await button.isVisible()) {
+    if(open) await button.click();
+    else await page.locator('[data-close="preview-dialog"]').click();
+  }
+}
 async function selectCard(page, slot, id) {
+  await panel(page,'cards');
   await page.locator(`[data-slot="${slot}"]`).click();
   await page.locator('#card-search').fill('');
   await page.locator('#card-tier').selectOption('');
@@ -28,6 +40,7 @@ async function selectCard(page, slot, id) {
     await page.locator('#deck-name').fill('时光里的胜利配方');
     await page.locator('#deck-author').fill('橘子研究所');
     await page.locator('#deck-target').selectOption('前三');
+    await panel(page,'content');
     await page.locator('#deck-tempo').fill('8 级启动 · 稳定提质量');
     await page.locator('#deck-items').fill('优先主力输出装备，再补前排坦度');
     await page.locator('#deck-note').fill('围绕时间卡片的生效回合规划节奏。优先完成主力装备，观察场上对手，再决定冲刺更高目标。');
@@ -51,6 +64,7 @@ async function selectCard(page, slot, id) {
     assert.equal(await page.locator('.fp-unit').count(),8);
     assert.ok(await page.locator('.fp-items img').count()>0);
     assert.equal(await page.evaluate(()=>localStorage.getItem('jcc-simulator-v2:s16_5')),'original-simulator-draft');
+    await panel(page,'profile');
     await page.locator('#deck-portal').selectOption('stable');
     await page.locator('#deck-energy').fill('9');
     assert.equal(await page.locator('#export-poster').isDisabled(),true);
@@ -59,6 +73,7 @@ async function selectCard(page, slot, id) {
     assert.equal(await page.locator('#export-poster').isDisabled(),false);
     await page.locator('#deck-energy').fill('');
     await page.locator('#deck-portal').selectOption('unspecified');
+    await preview(page,true);
     // Verify regular geometry and the stagger independently of exported pixels.
     const geometry=await page.locator('.fp-cell').evaluateAll(es=>es.slice(0,8).map(e=>({x:e.offsetLeft,y:e.offsetTop,w:e.offsetWidth,h:e.getBoundingClientRect().height})));
     const scale=(await page.locator('.fortune-poster').boundingBox()).width/1200;
@@ -68,12 +83,16 @@ async function selectCard(page, slot, id) {
     assert.ok(await page.locator('.fp-trait-frame').count()>0);
     assert.ok(await page.locator('.fp-trait-frame').evaluateAll(es=>es.every(e=>/\/(1|2|3|4|unique)\.svg/.test(e.src))));
     assert.ok(await page.locator('.fp-trait').evaluateAll(es=>es.every(e=>getComputedStyle(e).borderTopWidth==='0px')));
+    await preview(page,false);
     for(const layout of ['guide','showcase']) {
+      await panel(page,'content');
       await page.locator(`[name="poster-layout"][value="${layout}"]`).check();
       assert.equal(await page.locator('.fp-operations').count(),layout==='guide'?1:0);
       assert.equal(await page.locator('#deck-note').isVisible(),layout==='guide');
       for(const bg of (mobile?['jade','gilded','astral','ivory']:layout==='showcase'?['gilded']:['gilded','jade','astral','ivory'])) {
+        await panel(page,'materials');
         await page.locator(`[data-background="${bg}"]`).click();
+        await preview(page,true);
         const crops=await page.evaluate(()=>{
           const poster=document.querySelector('.fortune-poster').getBoundingClientRect(),scale=poster.width/1200;
           return ['.fp-card-art','.fp-unit','.fp-trait-emblem'].map(selector=>{
@@ -82,6 +101,7 @@ async function selectCard(page, slot, id) {
             return [(box.x-poster.x+box.width*(trait?0:.3))/scale,(box.y-poster.y+box.height*(trait?0:.4))/scale,(box.x-poster.x+box.width*(trait?1:.7))/scale,(box.y-poster.y+box.height*(trait?1:.6))/scale].map(Math.round);
           });
         });
+        await preview(page,false);
         const downloadEvent=page.waitForEvent('download',{timeout:90000});
         await page.locator('#export-poster').click();
         const download=await downloadEvent;
@@ -99,6 +119,7 @@ async function selectCard(page, slot, id) {
         }
       }
     }
+    await panel(page,'content');
     await page.locator('[name="poster-layout"][value="guide"]').check();
     assert.equal(await page.locator('#deck-tempo').inputValue(),'8 级启动 · 稳定提质量');
     assert.match(await page.locator('.fp-notebook').innerText(),/围绕时间卡片/);
@@ -108,24 +129,32 @@ async function selectCard(page, slot, id) {
     assert.equal(await page.locator('.creator-slot.selected').count(),3);
     assert.equal(await page.locator('.fp-unit').count(),8);
     const overflow=await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+1);assert.equal(overflow,false);
-    const rect=await page.locator('.fortune-poster').boundingBox();const preview=await page.locator('#poster-preview').boundingBox();assert.ok(Math.abs(rect.width-preview.width)<2);
+    await preview(page,true);
+    const rect=await page.locator('.fortune-poster').boundingBox();const previewBox=await page.locator('#poster-preview').boundingBox();assert.ok(Math.abs(rect.width-previewBox.width)<2);
     await page.evaluate(()=>scrollTo(0,0));
     await page.screenshot({path:path.join(out,`portrait-${name}-page.png`),fullPage:true});
     await page.evaluate(()=>{document.documentElement.dataset.theme='dark';});
     await page.screenshot({path:path.join(out,`portrait-${name}-dark.png`),fullPage:true});
+    await preview(page,false);
     // Missing-art card remains selectable and exports text honestly.
     await selectCard(page,2,'7250012');assert.match(await page.locator('.fortune-poster').innerText(),/卡图暂缺/);
     // Longest card descriptions must remain inside their allotted area.
     const longest=await page.evaluate(()=>JSON.parse(document.querySelector('#creator-config').textContent).cards.sort((a,b)=>b.description.length-a.description.length).slice(0,3).map(c=>c.id));
     for(let i=0;i<3;i++) await selectCard(page,i,longest[i]);
+    await preview(page,true);
     const clipping=await page.locator('.fp-card-effect').evaluateAll(es=>es.some(e=>e.scrollHeight>e.clientHeight+1));assert.equal(clipping,false);
+    await preview(page,false);
+    await panel(page,'profile');
     await page.locator('#deck-name').fill('长标题边界检查'.repeat(4).slice(0,24));
+    await panel(page,'content');
     await page.locator('#deck-tempo').fill('启动节奏'.repeat(6));
     await page.locator('#deck-items').fill('装备优先'.repeat(10));
     await page.locator('#deck-note').fill('运营手记与转型时机。'.repeat(10));
+    await preview(page,true);
     assert.equal(await page.locator('.fp-notebook p,.fp-plan p').evaluateAll(es=>es.some(e=>e.scrollHeight>e.clientHeight+1)),false);
     const sections=await page.locator('.fp-operations,.fp-footer').evaluateAll(es=>es.map(e=>e.getBoundingClientRect().toJSON()));
     assert.ok(sections[0].bottom<=sections[1].top,'operations overlap footer');
+    await preview(page,false);
     if(!mobile) {
       await page.locator('[data-slot="0"]').click();await page.keyboard.press('Escape');
       assert.equal(await page.locator('#card-picker').evaluate(e=>e.open),false);

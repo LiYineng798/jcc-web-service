@@ -53,7 +53,7 @@
 .fp-unit-name { position:absolute; bottom:22px; left:2px; right:2px; text-align:center; font-size:12px; line-height:19px; color:#fff; background:#090f18d9; white-space:nowrap; z-index:1; }
 .fp-items { display:flex; gap:2px; position:absolute; top:17px; left:0; right:0; justify-content:center; z-index:2; }
 .fp-items img { width:23px; height:23px; border:1px solid #c6aa72; border-radius:3px; }
-.fp-board-empty { position:absolute; inset:0; display:grid; place-content:center; text-align:center; background:var(--glass); color:var(--soft); font-size:19px; gap:12px; border-radius:12px; }
+.fp-board-empty { position:absolute; inset:0; display:grid; place-content:center; text-align:center; background:transparent; color:var(--soft); font-size:19px; gap:12px; border-radius:12px; }
 .fp-board-empty strong { font-weight:400; color:var(--accent); font-size:31px; }
 .fp-traits { display:grid; gap:5px; align-content:center; flex:1; min-width:0; }
 .fp-trait { display:flex; gap:9px; align-items:center; border:0; padding:0; font-size:18px; min-height:38px; }
@@ -97,3 +97,126 @@
 
 /* A single crop layer keeps card art visible in WebKit at preview scale. */
 .creator-body .fortune-card-frame { clip-path:none; background:none; }
+
+/* Single-screen editor. Poster/export geometry above remains independent. */
+.creator-body { margin:0; }
+.creator-shell { box-sizing:border-box; width:100%; max-width:1800px; height:100dvh; min-height:650px; padding:10px 22px; display:grid; grid-template-rows:42px 48px minmax(0,1fr) 52px; gap:10px; }
+.creator-shell .nav-bar { padding:0; min-height:0; }
+.creator-heading { padding:0; }
+.creator-heading .creator-eyebrow,.creator-heading-badge { display:none; }
+.creator-heading h1 { font-size:22px; margin:0 0 5px; }
+.creator-heading p:not(.creator-eyebrow) { font-size:11px; line-height:1.5; }
+.creator-workspace { min-height:0; display:grid; grid-template-columns:minmax(0,1fr) minmax(260px,calc((100dvh - 220px) * .75)); gap:20px; align-items:stretch; }
+.creator-controls { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); grid-template-rows:auto auto; gap:12px; align-content:start; }
+#panel-profile { grid-area:1 / 1; }
+#panel-cards { grid-area:2 / 1; }
+#panel-content { grid-area:1 / 2; }
+#panel-materials { grid-area:2 / 2; }
+.creator-panel { min-width:0; padding:14px; border-radius:12px; }
+.creator-section-title { margin-bottom:12px; gap:8px; }
+.creator-section-title>span { width:22px; height:22px; }
+.creator-section-title h2 { font-size:13px; }
+.creator-field { margin-bottom:10px; font-size:11px; }
+.creator-field input,.creator-field select,.creator-field textarea { min-height:0; height:34px; padding:7px 9px; margin-top:5px; font-size:12px; }
+.creator-field textarea { height:76px; resize:none; }
+.creator-fields { gap:10px; }
+.creator-help { font-size:10px; line-height:1.6; margin-top:8px; }
+.creator-layout-choice { margin-bottom:12px; gap:8px; }
+.creator-layout-choice legend { margin-bottom:7px; }
+.creator-layout-choice label { padding:8px; }
+.creator-slot { min-height:46px; padding:6px 8px; gap:9px; }
+.creator-slot img { width:27px; height:34px; }
+.creator-slot small { margin-top:4px; }
+.creator-slots { gap:6px; }
+#edit-formation { margin-top:10px; padding:9px 11px; }
+#formation-status { margin-top:6px; }
+.creator-backgrounds { gap:8px; }
+.creator-backgrounds button { padding:4px 4px 8px; }
+.creator-swatch { height:48px; margin-bottom:6px; }
+.creator-preview-column { min-width:0; min-height:0; }
+.creator-preview-sticky { position:static; max-width:none; height:100%; display:flex; flex-direction:column; }
+.creator-preview-heading { flex:0 0 auto; padding:0 0 10px; }
+.creator-preview-mat { min-height:0; flex:1; padding:12px; display:flex; align-items:center; justify-content:center; }
+.creator-preview { flex:none; width:min(100%,calc((100dvh - 224px) * .75)); }
+.creator-toolbar { min-width:0; display:flex; align-items:center; gap:20px; border-top:1px solid var(--line); padding-top:8px; }
+.creator-export-bar { flex:1; min-width:0; padding:0; flex-direction:row; align-items:center; gap:10px; }
+.creator-export-bar>div { margin-right:auto; }
+.creator-export-bar strong { display:block; font-size:11px; }
+.creator-export-bar p { margin:4px 0 0; font-size:10px; }
+.creator-export-bar .creator-primary { padding:11px 20px; }
+.creator-save-note { max-width:245px; line-height:1.6; }
+.creator-panel-tabs,#open-preview { display:none; }
+.creator-preview-dialog { width:min(600px,calc(100vw - 20px)); height:94dvh; max-height:96dvh; padding:14px; border:1px solid var(--line); border-radius:14px; background:var(--surface-solid); color:var(--text); box-sizing:border-box; }
+.creator-preview-dialog[open] { display:flex; flex-direction:column; gap:12px; }
+.creator-preview-dialog::backdrop { background:#08111ad0; }
+.creator-preview-dialog header { display:flex; justify-content:space-between; align-items:center; gap:12px; flex:none; }
+.creator-preview-dialog h2 { margin:0; font-size:16px; }
+#preview-dialog-body { flex:1; min-height:0; }
+#preview-dialog-body .creator-preview-column { display:block; height:100%; }
+#preview-dialog-body .creator-preview { width:min(100%,calc((94dvh - 120px) * .75)); }
+@media(min-width:981px) and (max-height:800px) {
+  .creator-shell { padding:8px 18px; grid-template-rows:38px 38px minmax(0,1fr) 48px; gap:8px; }
+  .creator-heading h1 { font-size:20px; margin-bottom:3px; }
+  .creator-controls { gap:10px; }
+  .creator-panel { padding:10px 12px; }
+  .creator-section-title { margin-bottom:8px; }
+  .creator-field { margin-bottom:7px; }
+  .creator-field input,.creator-field select,.creator-field textarea { height:30px; padding:5px 8px; margin-top:4px; }
+  .creator-field textarea { height:60px; }
+  .creator-help { margin-top:6px; line-height:1.5; }
+  .creator-layout-choice { margin-bottom:8px; }
+  .creator-layout-choice label { padding:6px; }
+  .creator-slot { min-height:42px; }
+  .creator-slot img { height:30px; width:24px; }
+  .creator-swatch { height:37px; }
+  .creator-preview { width:min(100%,calc((100dvh - 194px) * .75)); }
+}
+@media(max-width:980px) {
+  .creator-shell { padding:10px 14px; min-height:600px; grid-template-rows:40px 44px 38px minmax(0,1fr) 58px; gap:10px; }
+  .creator-shell .nav-bar { gap:12px; }
+  .creator-heading h1 { font-size:20px; }
+  .creator-heading p:not(.creator-eyebrow) { font-size:10px; }
+  .creator-back { display:none; }
+  .creator-panel-tabs { display:grid; grid-template-columns:repeat(4,1fr); gap:5px; }
+  .creator-panel-tabs button { min-width:0; font:inherit; font-size:11px; padding:7px 2px; border:1px solid var(--line); border-radius:7px; color:var(--muted); background:var(--surface-solid); cursor:pointer; }
+  .creator-panel-tabs button[aria-pressed=true] { color:var(--text); border-color:#b18a46; background:#b18a4612; }
+  .creator-workspace { display:block; min-height:0; }
+  .creator-controls { display:block; height:100%; }
+  .creator-panel { display:none; padding:18px; height:100%; box-sizing:border-box; }
+  .creator-panel.is-active { display:block; }
+  .creator-panel .creator-section-title { margin-bottom:18px; }
+  .creator-field { margin-bottom:14px; }
+  .creator-field input,.creator-field select { height:38px; }
+  .creator-field textarea { height:96px; }
+  .creator-slot { min-height:58px; }
+  .creator-slot img { width:35px; height:44px; }
+  .creator-slots { gap:10px; }
+  .creator-swatch { height:clamp(65px,12dvh,110px); }
+  .creator-backgrounds { gap:12px; }
+  .creator-preview-column { display:none; }
+  .creator-toolbar { padding-top:8px; }
+  .creator-save-note { display:none; }
+  .creator-export-bar strong { display:none; }
+  .creator-export-bar p { max-width:170px; line-height:1.5; }
+  .creator-export-bar .creator-primary,#open-preview { padding:10px; font-size:11px; }
+  #open-preview { display:block; }
+}
+@media(max-width:980px) and (max-height:730px) {
+  .creator-shell { gap:7px; grid-template-rows:36px 37px 34px minmax(0,1fr) 52px; padding:8px 12px; }
+  .creator-panel { padding:12px; }
+  .creator-panel .creator-section-title { margin-bottom:10px; }
+  .creator-field { margin-bottom:8px; }
+  .creator-field input,.creator-field select { height:32px; margin-top:4px; }
+  .creator-field textarea { height:64px; }
+  .creator-layout-choice { margin-bottom:8px; }
+  .creator-help { margin-top:6px; }
+}
+
+.creator-formation-feedback { display:flex; gap:6px; align-items:center; margin-top:6px; }
+.creator-formation-feedback #formation-status { flex:1; margin:0; }
+#retry-formation { padding:6px; font-size:10px; }
+@media(min-width:981px) and (max-height:800px) {
+  .creator-slot { line-height:1.25; padding:4px 8px; }
+  .creator-slot strong { font-size:11px; line-height:14px; }
+  .creator-slot small { font-size:9px; line-height:12px; margin-top:3px; }
+}

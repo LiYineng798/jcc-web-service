@@ -92,12 +92,12 @@
     const poster = $('poster-preview').firstElementChild;
     if (poster) poster.style.transform = `scale(${$('poster-preview').clientWidth/config.export.width})`;
   }
-  function fitText() {
-    document.querySelectorAll('#poster-preview .fp-card-effect').forEach(el=>{
+  function fitText(root = $('poster-preview')) {
+    root.querySelectorAll('.fp-card-effect').forEach(el=>{
       let size=17;
       while(el.scrollHeight>el.clientHeight+1 && size>12) { size-=.5; el.style.fontSize=`${size}px`; }
     });
-    document.querySelectorAll('#poster-preview .fp-notebook p, #poster-preview .fp-plan p').forEach(el=>{
+    root.querySelectorAll('.fp-notebook p, .fp-plan p').forEach(el=>{
       let size=20;
       while(el.scrollHeight>el.clientHeight+1 && size>14) {size-=.5;el.style.fontSize=`${size}px`;}
     });
@@ -146,6 +146,23 @@
   });
   document.querySelectorAll('[data-close]').forEach(button=>button.addEventListener('click',()=>$(button.dataset.close).close()));
   $('edit-formation').addEventListener('click',()=>$('formation-dialog').showModal());
+  const panelTabs=[...document.querySelectorAll('[data-panel]')];
+  function activatePanel(key) {
+    panelTabs.forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.panel===key)));
+    document.querySelectorAll('[data-editor-panel]').forEach(panel=>panel.classList.toggle('is-active',panel.dataset.editorPanel===key));
+  }
+  panelTabs.forEach(button=>button.addEventListener('click',()=>activatePanel(button.dataset.panel)));
+  activatePanel('profile');
+  const previewColumn=document.querySelector('.creator-preview-column');
+  const previewHome=previewColumn.parentElement;
+  $('open-preview').addEventListener('click',()=>{
+    $('preview-dialog-body').append(previewColumn);
+    $('preview-dialog').showModal();fitPoster();fitText();
+  });
+  $('preview-dialog').addEventListener('close',()=>{
+    previewHome.append(previewColumn);fitPoster();
+    $('open-preview').focus({preventScroll:true});
+  });
   const frame=$('formation-frame');
   let formationTimer=frame?setTimeout(formationFailed,20000):null;
   function formationFailed() {
@@ -204,7 +221,7 @@
       copy=$('poster-preview').firstElementChild.cloneNode(true);
       copy.style.transform='none';copy.style.position='fixed';copy.style.left='-10000px';copy.style.top='0';
       copy.prepend(document.querySelector('.fortune-frame-materials').cloneNode(true));
-      document.body.append(copy);await prepareImages(copy);
+      document.body.append(copy);fitText(copy);await prepareImages(copy);
       const options={width:config.export.width,height:config.export.height,pixelRatio:1,skipFonts:true,cacheBust:false,style:{position:'static',left:'auto',top:'auto',zIndex:'auto',transform:'none'}};
       // Keep a single decoded SVG alive through its first paint. Creating a fresh
       // SVG for every pass can restart WebKit's nested-image decoding.
