@@ -1,0 +1,4 @@
+.sim-brand, .season-switcher, #exportImageButton, #exportPosterButton, #shareButton, .sim-heading .eyebrow, .sim-heading h1, #seasonMeta { display: none; }
+.sim-topbar { justify-content: flex-end; min-height: 52px; }
+.sim-shell { padding-top: 8px; }
+.sim-heading { margin-bottom: 12px; }

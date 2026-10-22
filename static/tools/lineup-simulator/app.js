@@ -1,8 +1,12 @@
 const DATA_ROOT = "/static/season-data";
 const PREVIEW_RELEASE = new URLSearchParams(location.search).get("preview_release");
 const DATA_VERSION = document.querySelector("#simulatorRoot")?.dataset.seasonDataVersion || "0";
+const CREATOR_SEASON = document.querySelector("#simulatorRoot")?.dataset.creatorSeason || "";
 const UI_ROOT = "/static/tools/lineup-simulator/ui";
-const STORAGE_PREFIX = PREVIEW_RELEASE ? `jcc-simulator-preview:${PREVIEW_RELEASE}:` : "jcc-simulator-v2:";
+const STORAGE_PREFIX = CREATOR_SEASON ? "jcc-orange-formation-v1:" : PREVIEW_RELEASE ? `jcc-simulator-preview:${PREVIEW_RELEASE}:` : "jcc-simulator-v2:";
+function readPreference(key) {
+  try { return localStorage.getItem(key); } catch { return null; }
+}
 const MAX_HISTORY = 40;
 const MAX_EXPORT_TRAITS = 8;
 const MAX_POSTER_TRAITS = 9;
@@ -435,7 +439,7 @@ async function loadCatalog() {
   renderSeasonSwitcher();
   const hashPayload = readHashPayload();
   const requestedId = new URLSearchParams(location.search).get("season_id");
-  const persistedId = localStorage.getItem(`${STORAGE_PREFIX}season`);
+  const persistedId = readPreference(`${STORAGE_PREFIX}season`);
   const initial = state.catalog.find((season) => season.season_id === hashPayload?.season)
     || state.catalog.find((season) => season.season_id === requestedId)
     || state.catalog.find((season) => season.season_id === persistedId)
@@ -449,6 +453,7 @@ async function loadCatalog() {
 async function refreshCatalog() {
   const catalog = await fetchJson(`/api/season-catalog?surface=simulator&v=${encodeURIComponent(DATA_VERSION)}${PREVIEW_RELEASE ? `&preview_release=${encodeURIComponent(PREVIEW_RELEASE)}` : ""}`);
   state.catalog = [...(catalog.seasons || [])].sort((a, b) => Number(a.order || 999) - Number(b.order || 999));
+  if (CREATOR_SEASON) state.catalog = state.catalog.filter((season) => season.season_id === CREATOR_SEASON);
   state.defaultSeasonId = catalog.default_season_id || '';
 }
 
@@ -519,7 +524,7 @@ async function loadSeason(seasonId, importedPayload = null) {
     state.history = [];
     state.historyIndex = -1;
     pushHistory();
-    localStorage.setItem(`${STORAGE_PREFIX}season`, seasonId);
+    try { localStorage.setItem(`${STORAGE_PREFIX}season`, seasonId); } catch { /* Editing remains available without storage. */ }
     renderAll();
   } finally {
     setLoading(false);
@@ -1105,7 +1110,21 @@ function formationPayload() {
 
 function persist() {
   if (!state.season) return;
-  localStorage.setItem(`${STORAGE_PREFIX}${state.season.season_id}`, JSON.stringify(formationPayload()));
+  let storageSaved = true;
+  try { localStorage.setItem(`${STORAGE_PREFIX}${state.season.season_id}`, JSON.stringify(formationPayload())); }
+  catch { storageSaved = false; if (!CREATOR_SEASON) showToast("浏览器无法保存草稿", "error"); }
+  if (CREATOR_SEASON && window.parent !== window) {
+    window.parent.postMessage({ type: "jcc:orange-formation", version: 1,
+      season: state.season.season_id, population: totalPopulation(), storageSaved,
+      board: state.board.map((slot) => {
+        if (!slot) return null;
+        const hero = state.championById.get(slot.championId);
+        return { name: hero.name, icon: hero.icon, cost: hero.cost,
+          items: slot.items.map((id) => { const item = state.itemById.get(id); return {name: item.name, icon: item.icon}; }) };
+      }),
+      traits: posterTraitRows().map(({trait, count}) => ({ name: trait.name, count, icon: trait.icon })),
+    }, location.origin);
+  }
 }
 
 function readStoredFormation(seasonId) {
@@ -1969,7 +1988,8 @@ elements.showNames.addEventListener("change", () => {
 elements.hoverDetails.addEventListener("change", () => {
   state.hoverDetails = elements.hoverDetails.checked;
   if (!state.hoverDetails) hidePopover();
-  localStorage.setItem(`${STORAGE_PREFIX}hover-details`, elements.hoverDetails.checked ? "on" : "off");
+  try { localStorage.setItem(`${STORAGE_PREFIX}hover-details`, elements.hoverDetails.checked ? "on" : "off"); }
+  catch { showToast("浏览器无法保存偏好", "error"); }
 });
 elements.undo.addEventListener("click", () => applyHistory(state.historyIndex - 1));
 elements.redo.addEventListener("click", () => applyHistory(state.historyIndex + 1));
@@ -2009,10 +2029,11 @@ document.addEventListener("keydown", (event) => {
   if (event.key === "Escape") { state.selectedItemId = null; setTraitFilterMenu(false); syncLibrarySelectionState(); hidePopover(); }
 });
 
-state.hoverDetails = localStorage.getItem(`${STORAGE_PREFIX}hover-details`) !== "off";
+state.hoverDetails = readPreference(`${STORAGE_PREFIX}hover-details`) !== "off";
 elements.hoverDetails.checked = state.hoverDetails;
 window.lucide?.createIcons();
 loadCatalog().catch((error) => {
+  if (CREATOR_SEASON && window.parent !== window) window.parent.postMessage({type: 'jcc:orange-formation-error'}, location.origin);
   elements.seasonMeta.textContent = error.message;
   elements.heroGroups.innerHTML = `<div class="empty-state">${escapeHtml(error.message)}</div>`;
   showToast(error.message, "error");

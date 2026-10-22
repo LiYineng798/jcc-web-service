@@ -15,6 +15,7 @@ from s11_artifacts_service import artifact_guide
 from witch_rewards_service import reward_tiers, select_reward_tier
 from golden_egg_service import golden_egg_rewards
 from orange_fortune_service import card_guide
+from orange_creator_service import creator_config, CREATOR_SEASON
 from trait_ladder_service import calculator_data, reward_tiers as ladder_reward_tiers
 from seo import (
     DEFAULT_DESCRIPTION,
@@ -56,6 +57,7 @@ def _sitemap_entries():
         {'loc': absolute_url('/tools/s18-witch-rewards'), 'lastmod': None},
         {'loc': absolute_url('/tools/golden-egg'), 'lastmod': None},
         {'loc': absolute_url('/tools/orange-fortune'), 'lastmod': None},
+        {'loc': absolute_url('/tools/orange-fortune-creator'), 'lastmod': None},
         {'loc': absolute_url('/tools/s18-trait-ladder'), 'lastmod': None},
     ]
     for season in catalog_seasons():
@@ -170,6 +172,19 @@ def register_page_routes(app):
             seo=make_seo(title='S18 羁绊天梯计算器 - 金铲铲阵容库',
                          description='计算转职、拉克丝双倍贡献与螳螂进化下的多羁绊阵容，查询2至14羁绊阶段奖励。',
                          path='/tools/s18-trait-ladder'),
+        )
+
+    @app.get('/api/tools/orange-fortune-creator')
+    def orange_creator_api():
+        response = jsonify(creator_config())
+        response.headers['Cache-Control'] = 'no-store'
+        return response
+
+    @app.get('/tools/orange-fortune-creator')
+    def orange_creator_page():
+        return tracked_template_response(
+            'orange_creator.html', 'orange_creator', creator_data=creator_config(),
+            seo=make_seo(title='大橘大利创作者工具', description='搭配三张时间卡片与阵容，创作专属 4:3 卡组海报。', path='/tools/orange-fortune-creator'),
         )
 
     @app.get('/tools/orange-fortune')
@@ -364,9 +379,19 @@ def register_page_routes(app):
             abort(404)
         if not public_seasons('simulator'):
             abort(404)
+        creator_mode = request.args.get('creator') == 'orange-fortune'
+        if creator_mode and not creator_config()['simulator_available']:
+            abort(404)
+        if creator_mode:
+            # This editor is part of the creator page, not another page visit.
+            return render_template(
+                'lineup_simulator.html', creator_mode=True, creator_season=CREATOR_SEASON,
+                seo=make_seo(title='大橘大利阵容配置', description='配置卡组的基础阵容。', path='/tools/orange-fortune-creator'),
+            )
         return tracked_template_response(
             'lineup_simulator.html',
             'lineup_simulator',
+            creator_mode=creator_mode, creator_season=CREATOR_SEASON if creator_mode else '',
             seo=make_seo(title='阵容模拟器', description='在线搭配金铲铲阵容棋盘、弈子、装备和羁绊。', path='/tools/lineup-simulator'),
         )
 

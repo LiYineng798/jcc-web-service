@@ -5,6 +5,7 @@
 {{ seo_head(seo, include_site_assets=False) }}
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="{{ static_v('tools/lineup-simulator/style.css') }}" />
+    {% if creator_mode %}<link rel="stylesheet" href="{{ static_v('orange-creator-simulator.css') }}" />{% endif %}
   </head>
   <body>
     {% if season_preview_id %}<div class="season-preview-banner" role="status">未发布预览 · {{ season_preview_id[:8] }} · <a href="/admin">返回管理后台</a></div>{% endif %}
@@ -24,7 +25,7 @@
       </nav>
     </header>
 
-    <main class="sim-shell" id="simulatorRoot" data-season-data-version="{{ season_data_stamp() }}">
+    <main class="sim-shell" id="simulatorRoot" data-creator-season="{{ creator_season|default('') }}" data-season-data-version="{{ season_data_stamp() }}">
       <section class="sim-heading">
         <div>
           <p class="eyebrow">TEAM PLANNER</p>

@@ -1,0 +1,48 @@
+<!doctype html>
+{% from 'seo_head.html' import seo_head %}
+{% from 'theme_toggle.html' import theme_toggle %}
+{% from 'toolbox.html' import toolbox_menu %}
+<html lang="zh-CN">
+<head>
+  {{ seo_head(seo) }}
+  <link rel="stylesheet" href="{{ static_v('toolbox.css') }}">
+  <link rel="stylesheet" href="{{ static_v('orange-fortune.css') }}">
+  <link rel="stylesheet" href="{{ static_v('orange-creator.css') }}">
+  <script src="{{ static_v('toolbox.js') }}" defer></script>
+  <script src="{{ static_v('theme-toggle.js') }}" defer></script>
+  <script src="{{ static_v('tools/lineup-simulator/vendor/html-to-image.min.js') }}" defer></script>
+  <script src="{{ static_v('orange-creator.js') }}" defer></script>
+</head>
+<body class="creator-body">
+{% include 'fortune_frame_materials.html' %}
+{% for tier in range(1, 6) %}{% set card = {'tier': tier} %}<template id="bezel-{{ tier }}">{% include 'fortune_card_bezel.html' %}</template>{% endfor %}
+<div class="creator-shell">
+  <nav class="nav-bar" aria-label="页面工具"><a class="brand-mark brand-link" href="/" aria-label="返回首页">阵</a><a class="creator-back" href="/tools/orange-fortune">时间卡片图鉴 ↗</a><div class="nav-actions">{{ toolbox_menu(False) }}{{ theme_toggle('nav-icon-button') }}</div></nav>
+  <header class="creator-heading"><div><p class="creator-eyebrow">FORTUNE ATELIER <span> / </span> 大橘大利</p><h1>把灵感，构筑成王牌。</h1><p>三张时间卡片，一套专属阵容。为你的下一场冒险制作海报。</p></div><span class="creator-heading-badge">创作者工具<b>4:3</b>LANDSCAPE POSTER</span></header>
+  <noscript><p>请启用 JavaScript，以使用卡片选择、阵容配置与海报导出。</p></noscript>
+  <main class="creator-workspace">
+    <section class="creator-controls" aria-label="海报编辑">
+      <section class="creator-panel"><div class="creator-section-title"><span>01</span><h2>卡组档案</h2><small>给灵感一个名字</small></div>
+        <label class="creator-field">卡组名字<input id="deck-name" maxlength="24" placeholder="例如：时光里的胜利配方" value="我的大橘大利卡组"></label>
+        <div class="creator-fields"><label class="creator-field">作者署名 <small>选填</small><input id="deck-author" maxlength="16" placeholder="你的名字"></label><label class="creator-field">计划目标<select id="deck-target">{% for target in creator_data.targets %}<option>{{ target }}</option>{% endfor %}</select></label></div>
+        <div class="creator-fields"><label class="creator-field">传送门<select id="deck-portal">{% for portal in creator_data.portals %}<option value="{{ portal.id }}">{{ portal.name }}</option>{% endfor %}</select></label><label class="creator-field">卡组总能量 <small>选填 · 手填</small><input id="deck-energy" type="number" min="0" max="999" step="1" placeholder="以游戏内数值为准"></label></div>
+        <label class="creator-field" id="custom-portal-field" hidden>传送门名称<input id="custom-portal" maxlength="12" placeholder="填写游戏内名称"></label>
+        <p class="creator-help" id="portal-help">目标是创作计划；局内可随阶段选择更高挑战。</p>
+      </section>
+      <section class="creator-panel"><div class="creator-section-title"><span>02</span><h2>时间卡组</h2><small id="card-count">0 / 3</small></div><div id="card-slots" class="creator-slots"></div><p class="creator-help">点击卡槽选牌；选满三张后即可搭配阵容导出。</p></section>
+      <section class="creator-panel"><div class="creator-section-title"><span>03</span><h2>阵容与思路</h2><small id="formation-count">未配置</small></div>
+        <button id="edit-formation" class="creator-secondary creator-wide" type="button" {% if not creator_data.simulator_available %}disabled{% endif %}>配置阵容 <span>站位 · 装备 · 羁绊 ↗</span></button>
+        <p class="creator-help" id="formation-status" role="status">{% if creator_data.simulator_available %}正在准备阵容编辑器…{% else %}英雄联盟传奇阵容资料暂未开放。{% endif %}</p><button class="creator-secondary" id="retry-formation" type="button" hidden>重新加载阵容编辑器</button>
+        <label class="creator-field">运营手记 <small>选填 · 100 字内</small><textarea id="deck-note" maxlength="100" rows="3" placeholder="写下启动回合、装备优先级或关键运营思路…"></textarea></label>
+        <p class="creator-help">棋盘展示基础阵容；卡片专属变身、额外羁绊可在手记中注明。</p>
+      </section>
+      <section class="creator-panel"><div class="creator-section-title"><span>04</span><h2>海报材质</h2><small>四种氛围</small></div><div class="creator-backgrounds">{% for bg in creator_data.backgrounds %}<button type="button" data-background="{{ bg.id }}" aria-pressed="{{ 'true' if loop.first else 'false' }}"><span class="creator-swatch theme-{{ bg.id }}"></span><strong>{{ bg.name }}</strong><small>{{ bg.description }}</small></button>{% endfor %}</div></section>
+    </section>
+    <section class="creator-preview-column" aria-label="实时海报预览"><div class="creator-preview-sticky"><div class="creator-preview-heading"><span><i></i> 实时预览</span><span>1600 × 1200 · PNG</span></div><div class="creator-preview-mat"><div id="poster-preview" class="creator-preview"></div></div><div class="creator-export-bar"><div><strong>一张海报，完整表达你的构筑。</strong><p id="export-status" role="status">选择三张时间卡片并配置阵容后导出。</p></div><button id="export-poster" class="creator-primary" type="button" disabled>导出海报 ↓</button></div><p class="creator-save-note" id="save-status">草稿仅保存在当前浏览器</p></div></section>
+  </main>
+  <footer class="creator-footer"><span>金铲铲阵容库 · 大橘大利创作者工具</span><span>MAKE YOUR NEXT MOVE.</span></footer>
+</div>
+<dialog id="card-picker" class="creator-dialog" aria-labelledby="picker-title"><header><div><p class="creator-eyebrow">BUILD YOUR DECK</p><h2 id="picker-title">选择时间卡片</h2></div><button type="button" data-close="card-picker" aria-label="关闭卡片选择">×</button></header><div class="creator-picker-filters"><input type="search" id="card-search" aria-label="搜索卡名或效果" placeholder="搜索卡名、弈子、效果或回合…"><select id="card-tier" aria-label="卡片星级"><option value="">全部星级</option>{% for tier in range(5, 0, -1) %}<option value="{{ tier }}">{{ tier }} 星</option>{% endfor %}</select><select id="card-category" aria-label="卡片类型"><option value="">全部类型</option>{% for category in ['经济','弈子','装备','强化','纹章','特殊'] %}<option>{{ category }}</option>{% endfor %}</select></div><p class="creator-help" id="picker-count" role="status"></p><div id="picker-results" class="creator-picker-grid"></div></dialog>
+<dialog id="formation-dialog" class="creator-formation-dialog" aria-labelledby="formation-title"><header><div><h2 id="formation-title">配置你的阵容</h2><p>英雄联盟传奇 · 点击上阵，拖动调整站位，选择装备后点击弈子。</p></div><button type="button" class="creator-primary" data-close="formation-dialog">完成配置</button></header>{% if creator_data.simulator_available %}<iframe id="formation-frame" title="大橘大利阵容编辑器" src="/tools/lineup-simulator?creator=orange-fortune"></iframe>{% endif %}</dialog>
+<script id="creator-config" type="application/json">{{ creator_data|tojson }}</script>
+</body></html>
