@@ -25,12 +25,12 @@ def creator_config():
         'targets': ['不标注', '前七', '前五', '前三', '登顶'],
         'backgrounds': [
             {'id': key, 'name': name, 'description': description,
-             'image_url': static_v(f'tools/orange-fortune/creator/portal-{key}.png')}
+             'image_url': static_v(f'tools/orange-fortune/creator/material-{key}.svg')}
             for key, name, description in [
-                ('gilded', '时空宝库', '鎏金星门 · 深海蓝晶'),
-                ('jade', '翡翠遗迹', '青铜古树 · 秘境微光'),
-                ('astral', '棱彩星门', '紫晶星河 · 浮空秘藏'),
-                ('ivory', '象牙圣域', '暖金云海 · 冰晶石阶'),
+                ('gilded', '曜石鎏金', '金属星盘 · 深蓝细纹'),
+                ('jade', '翡翠棱镜', '玉石切面 · 青铜刻线'),
+                ('astral', '星轨紫晶', '轨道光环 · 紫晶微光'),
+                ('ivory', '象牙烫金', '暖白纸纹 · 放射金箔'),
             ]
         ],
         # Rarity is not an energy field. Null deliberately means unknown.

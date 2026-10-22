@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1600" viewBox="0 0 1200 1600">
+  <title>ivory — geometric poster material</title>
+  <!-- Editable vector geometry only: no embedded raster images or external resources. -->
+  <defs>
+    <linearGradient id="paper" x2=".85" y2="1"><stop stop-color="#f7f0e0"/><stop offset="1" stop-color="#e7dcc5"/></linearGradient>
+    <linearGradient id="metal" x2="1" y2=".6"><stop stop-color="#ad854b"/><stop offset=".35" stop-color="#fff9e9"/><stop offset=".53" stop-color="#ad854b"/><stop offset=".7" stop-color="#fff9e9"/><stop offset="1" stop-color="#ad854b"/></linearGradient>
+    <radialGradient id="halo"><stop stop-color="#d6c19a" stop-opacity=".7"/><stop offset="1" stop-color="#d6c19a" stop-opacity="0"/></radialGradient>
+    <linearGradient id="facet" x2="1" y2="1"><stop stop-color="#fff9e9" stop-opacity=".24"/><stop offset=".45" stop-color="#ad854b" stop-opacity=".06"/><stop offset="1" stop-color="#d6c19a" stop-opacity=".01"/></linearGradient>
+    <pattern id="grain" width="19" height="17" patternUnits="userSpaceOnUse"><path d="M0 1H19M0 9H19" stroke="#fff9e9" stroke-opacity=".025"/><circle cx="5" cy="4" r=".65" fill="#fff9e9" fill-opacity=".08"/><circle cx="14" cy="13" r=".5" fill="#ad854b" fill-opacity=".12"/></pattern>
+  </defs>
+  <path fill="url(#paper)" d="M0 0H1200V1600H0Z"/>
+  <ellipse cx="1070" cy="120" rx="620" ry="470" fill="url(#halo)"/>
+  <ellipse cx="40" cy="1530" rx="530" ry="360" fill="url(#halo)" opacity=".65"/>
+  <path fill="url(#grain)" d="M0 0H1200V1600H0Z"/>
+  <!-- Fine foil sunburst on warm ivory stock -->
+  <g transform="translate(1070 80)" stroke="url(#metal)" fill="none">
+    <path d="M123.00 0.00L275.00 0.00" opacity=".2"/>
+    <path d="M141.78 18.67L272.65 35.89" opacity=".2"/>
+    <path d="M138.13 37.01L265.63 71.18" opacity=".2"/>
+    <path d="M113.64 47.07L254.07 105.24" opacity=".2"/>
+    <path d="M123.84 71.50L238.16 137.50" opacity=".2"/>
+    <path d="M113.45 87.05L218.17 167.41" opacity=".2"/>
+    <path d="M86.97 86.97L194.45 194.45" opacity=".2"/>
+    <path d="M87.05 113.45L167.41 218.17" opacity=".2"/>
+    <path d="M71.50 123.84L137.50 238.16" opacity=".2"/>
+    <path d="M47.07 113.64L105.24 254.07" opacity=".2"/>
+    <path d="M37.01 138.13L71.18 265.63" opacity=".2"/>
+    <path d="M18.67 141.78L35.89 272.65" opacity=".2"/>
+    <path d="M0.00 123.00L0.00 275.00" opacity=".2"/>
+    <path d="M-18.67 141.78L-35.89 272.65" opacity=".2"/>
+    <path d="M-37.01 138.13L-71.18 265.63" opacity=".2"/>
+    <path d="M-47.07 113.64L-105.24 254.07" opacity=".2"/>
+    <path d="M-71.50 123.84L-137.50 238.16" opacity=".2"/>
+    <path d="M-87.05 113.45L-167.41 218.17" opacity=".2"/>
+    <path d="M-86.97 86.97L-194.45 194.45" opacity=".2"/>
+    <path d="M-113.45 87.05L-218.17 167.41" opacity=".2"/>
+    <path d="M-123.84 71.50L-238.16 137.50" opacity=".2"/>
+    <path d="M-113.64 47.07L-254.07 105.24" opacity=".2"/>
+    <path d="M-138.13 37.01L-265.63 71.18" opacity=".2"/>
+    <path d="M-141.78 18.67L-272.65 35.89" opacity=".2"/>
+    <path d="M-123.00 0.00L-275.00 0.00" opacity=".2"/>
+    <path d="M-141.78 -18.67L-272.65 -35.89" opacity=".2"/>
+    <path d="M-138.13 -37.01L-265.63 -71.18" opacity=".2"/>
+    <path d="M-113.64 -47.07L-254.07 -105.24" opacity=".2"/>
+    <path d="M-123.84 -71.50L-238.16 -137.50" opacity=".2"/>
+    <path d="M-113.45 -87.05L-218.17 -167.41" opacity=".2"/>
+    <path d="M-86.97 -86.97L-194.45 -194.45" opacity=".2"/>
+    <path d="M-87.05 -113.45L-167.41 -218.17" opacity=".2"/>
+    <path d="M-71.50 -123.84L-137.50 -238.16" opacity=".2"/>
+    <path d="M-47.07 -113.64L-105.24 -254.07" opacity=".2"/>
+    <path d="M-37.01 -138.13L-71.18 -265.63" opacity=".2"/>
+    <path d="M-18.67 -141.78L-35.89 -272.65" opacity=".2"/>
+    <path d="M-0.00 -123.00L-0.00 -275.00" opacity=".2"/>
+    <path d="M18.67 -141.78L35.89 -272.65" opacity=".2"/>
+    <path d="M37.01 -138.13L71.18 -265.63" opacity=".2"/>
+    <path d="M47.07 -113.64L105.24 -254.07" opacity=".2"/>
+    <path d="M71.50 -123.84L137.50 -238.16" opacity=".2"/>
+    <path d="M87.05 -113.45L167.41 -218.17" opacity=".2"/>
+    <path d="M86.97 -86.97L194.45 -194.45" opacity=".2"/>
+    <path d="M113.45 -87.05L218.17 -167.41" opacity=".2"/>
+    <path d="M123.84 -71.50L238.16 -137.50" opacity=".2"/>
+    <path d="M113.64 -47.07L254.07 -105.24" opacity=".2"/>
+    <path d="M138.13 -37.01L265.63 -71.18" opacity=".2"/>
+    <path d="M141.78 -18.67L272.65 -35.89" opacity=".2"/>
+    <circle r="125" opacity=".24"/><circle r="131" opacity=".3"/><circle r="282" opacity=".2"/>
+  </g>
+  <g fill="none" stroke="url(#metal)" opacity=".18"><path d="M-100 1590 210 1300 520 1590M-100 1608 210 1318 520 1608M760 1670 1090 1360 1420 1670"/></g>
+  <!-- Continuous double foil edge and cut corner fittings -->
+  <g fill="none" stroke="url(#metal)">
+    <path d="M48 18H1152L1182 48V1552L1152 1582H48L18 1552V48Z" opacity=".5"/>
+    <path d="M54 27H1146L1173 54V1546L1146 1573H54L27 1546V54Z" opacity=".17"/>
+  </g>
+  <g transform="translate(0 0) rotate(0)" stroke="url(#metal)" fill="none">
+    <path d="M18 119V48L48 18H119" stroke-width="3" opacity=".6"/>
+    <path d="M36 91V56L56 36H91" opacity=".5"/>
+    <path d="M28 28 38 38 28 48 18 38Z" fill="url(#facet)" opacity=".65"/>
+  </g>
+  <g transform="translate(1200 0) rotate(90)" stroke="url(#metal)" fill="none">
+    <path d="M18 119V48L48 18H119" stroke-width="3" opacity=".6"/>
+    <path d="M36 91V56L56 36H91" opacity=".5"/>
+    <path d="M28 28 38 38 28 48 18 38Z" fill="url(#facet)" opacity=".65"/>
+  </g>
+  <g transform="translate(1200 1600) rotate(180)" stroke="url(#metal)" fill="none">
+    <path d="M18 119V48L48 18H119" stroke-width="3" opacity=".6"/>
+    <path d="M36 91V56L56 36H91" opacity=".5"/>
+    <path d="M28 28 38 38 28 48 18 38Z" fill="url(#facet)" opacity=".65"/>
+  </g>
+  <g transform="translate(0 1600) rotate(270)" stroke="url(#metal)" fill="none">
+    <path d="M18 119V48L48 18H119" stroke-width="3" opacity=".6"/>
+    <path d="M36 91V56L56 36H91" opacity=".5"/>
+    <path d="M28 28 38 38 28 48 18 38Z" fill="url(#facet)" opacity=".65"/>
+  </g>
+  <path d="M18 371 23 380 18 389 13 380Z M1182 371 1187 380 1182 389 1177 380Z" fill="url(#metal)" opacity=".55"/>
+  <path d="M18 791 23 800 18 809 13 800Z M1182 791 1187 800 1182 809 1177 800Z" fill="url(#metal)" opacity=".55"/>
+  <path d="M18 1211 23 1220 18 1229 13 1220Z M1182 1211 1187 1220 1182 1229 1177 1220Z" fill="url(#metal)" opacity=".55"/>
+</svg>

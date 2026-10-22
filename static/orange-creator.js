@@ -187,7 +187,7 @@
       if(!img.naturalWidth) throw new Error('有图片加载失败，请刷新页面后重试。');
       // Inline decoded pixels before SVG capture, including local SVG trait icons.
       const canvas=document.createElement('canvas');
-      const vector=/\.svg(?:[?#]|$)/i.test(img.src);
+      const vector=/\.svg(?:[?#]|$)/i.test(img.src) && !img.classList.contains('fp-background');
       canvas.width=vector?img.clientWidth*2:img.naturalWidth;
       canvas.height=vector?img.clientHeight*2:img.naturalHeight;
       canvas.getContext('2d').drawImage(img,0,0,canvas.width,canvas.height);
