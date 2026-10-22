@@ -16,10 +16,17 @@ async function fits(page) {
     }
     for(const el of document.querySelectorAll('.creator-panel')){
       if(el.offsetHeight && el.scrollHeight>el.clientHeight+2)errors.push(`panel clips: ${el.id}`);
+      if(el.offsetHeight && el.getBoundingClientRect().bottom>footer.top-2)errors.push(`panel intersects toolbar: ${el.id}`);
+    }
+    const mat=document.querySelector('.creator-workspace .creator-preview-mat');
+    if(mat?.offsetHeight) {
+      const box=mat.getBoundingClientRect(),poster=document.querySelector('#poster-preview').getBoundingClientRect();
+      if(box.bottom>footer.top-2)errors.push('preview intersects toolbar');
+      if(poster.bottom>box.bottom-10 || poster.top<box.top+10)errors.push('poster exceeds preview mat');
     }
     return errors;
   });
-  assert.deepEqual(issues,[]);
+  assert.deepEqual(issues,[],JSON.stringify(page.viewportSize()));
 }
 async function themeState(page, theme) {
   assert.equal(await page.locator('html').getAttribute('data-theme'),theme);
@@ -43,10 +50,17 @@ async function themeFlow(page) {
 (async()=>{
   for(const [name,engine] of [['chromium',chromium],['webkit',webkit]]) {
     const browser=await engine.launch();const page=await browser.newPage();
-    for(const [width,height] of [[1920,1080],[1366,768],[1280,720],[1024,720],[390,844],[375,667]]) {
+    for(const [width,height] of [[1920,1080],[1432,828],[1366,900],[1366,901],[1366,768],[1280,720],[1024,820],[1024,720],[390,844],[375,667]]) {
       await page.setViewportSize({width,height});await page.goto(`${base}/tools/orange-fortune-creator`);
       await page.waitForFunction(()=>document.querySelector('#formation-status').textContent.includes('已连接'));
       if(width===1920||width===390) await themeFlow(page);
+      if(await page.locator('.creator-slot.selected').count()===0) {
+        if(width<=980)await page.locator('[data-panel="cards"]').click();
+        for(const [i,id] of ['7250046','7250036','7250034'].entries()) {
+          await page.locator(`[data-slot="${i}"]`).click();await page.locator(`[data-card="${id}"]`).click();
+        }
+        if(width<=980)await page.locator('[data-panel="profile"]').click();
+      }
       await page.locator('#deck-portal').selectOption('custom');await page.locator('#custom-portal').fill('自定义传送门');
       await fits(page);
       await page.locator('#deck-portal').selectOption('stable');await page.locator('#deck-energy').fill('999');await fits(page);
@@ -67,6 +81,9 @@ async function themeFlow(page) {
         await page.locator('[data-panel="content"]').click();assert.equal(await page.locator('#deck-note').inputValue(),'标签切换后保留运营手记');
         await page.locator('[data-panel="profile"]').click();
       } else {
+        for(const layout of ['showcase','guide']) {
+          await page.locator(`[name="poster-layout"][value="${layout}"]`).check();await fits(page);
+        }
         assert.equal(await page.locator('.creator-panel:visible').count(),4);
         assert.equal(await page.locator('.fp-board-empty').evaluate(e=>getComputedStyle(e).backgroundColor),'rgba(0, 0, 0, 0)');
       }
@@ -79,6 +96,6 @@ async function themeFlow(page) {
     await blockedPage.locator('#themeToggle').click();await themeState(blockedPage,'dark');
     await blockedPage.locator('#themeToggle').click();await themeState(blockedPage,'light');
     assert.deepEqual(errors,[]);await blocked.close();
-    await browser.close();console.log(`${name}: six viewport sizes, settings, transparent board, keyboard flow and theme persistence/blocked storage passed`);
+    await browser.close();console.log(`${name}: ten populated viewport sizes, toolbar separation, settings, keyboard flow and theme persistence/blocked storage passed`);
   }
 })().catch(e=>{console.error(e);process.exit(1)});
