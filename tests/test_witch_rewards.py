@@ -56,12 +56,12 @@ def test_importer_rejects_missing_data_and_executable_literals():
         extract({'log': {'entries': [captured]}})
 
 
-def test_toolbox_simulator_respects_site_switch(client, monkeypatch):
-    import app_pages
-    original = app_pages.get_setting
+def test_toolbox_simulator_respects_site_switch(client):
+    from test_admin import login_admin
+    headers = login_admin(client)
     for enabled in ('true', 'false'):
-        monkeypatch.setattr(app_pages, 'get_setting',
-                            lambda db, key, default=None: enabled if key == 'simulator_enabled' else original(db, key, default))
+        assert client.put('/api/admin/settings', headers=headers,
+                          json={'simulator_enabled': enabled}).status_code == 200
         for path in ('/', PAGE, '/tools/s16-5-lucky-openings'):
             html = client.get(path).get_data(as_text=True)
             menus = re.findall(r'<nav class="toolbox-panel".*?</nav>', html, re.S)

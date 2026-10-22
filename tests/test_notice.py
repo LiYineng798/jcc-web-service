@@ -187,13 +187,13 @@ def test_notice_appears_on_index_when_enabled(client):
 def test_notice_guestbook_link_opens_in_the_current_page():
     with open('templates/index.html', 'r', encoding='utf-8') as file:
         html = file.read()
-    with open('static/admin.js', 'r', encoding='utf-8') as file:
+    with open('static/admin/notice-editor.js', 'r', encoding='utf-8') as file:
         javascript = file.read()
 
     assert "notice.link_url.startswith('/')" in html
     assert "notice.link_url == '/#guestbook'" in html
     assert "'/#guestbook'" in javascript
-    assert 'noticeGuestbookLinkButton' in javascript
+    assert "['guestbook', '留言板'" in javascript
 
 
 def test_guestbook_notice_clears_stale_lineup_jump_and_renders_a_direct_action(client):

@@ -4,7 +4,6 @@ import json
 from flask import Blueprint, g, jsonify, request
 
 from admin_dashboard_service import build_admin_copy_rank_payload, build_admin_overview_payload
-from audit import write_audit
 from auth import admin_required, login_required
 from automation_service import (
     AutomationError, session_account, require_scope, lock_account, change_account, create_account, import_lineups,
@@ -66,11 +65,10 @@ def authorize():
     if not account:
         raise AutomationError('账号已过期或停用', 401)
     g.automation_account = account
-    # Record the endpoint only: no credentials, search text or request body.
+    # Usage metadata is separate from auditing. Mutation services write their
+    # own business audit events; reads and import previews must not create them.
     db = get_db()
     db.execute('UPDATE automation_accounts SET last_used_at=? WHERE user_id=?', (utc_now(), account['user_id']))
-    write_audit(account['user_id'], 'automation_request', 'automation_workspace',
-                after={'endpoint': request.endpoint, 'method': request.method})
     db.commit()
 
 

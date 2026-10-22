@@ -25,6 +25,7 @@
   };
   if (!root) return;
   let seasonDropdownCleanup = null;
+  let noticeEditorCleanup = null;
 
   const state = {
     me: null,
@@ -1605,36 +1606,42 @@
     }
   }
 
+  async function refreshNoticeAfterWrite(message) {
+    setNotice(message);
+    try {
+      await loadNotice({ force: true });
+      render();
+    } catch (error) {
+      state.noticeData.loadedAt = 0;
+      window.jccNotify.show(`${message}，列表刷新失败，请刷新页面查看`, { variant: 'warning' });
+    }
+  }
+
   async function toggleNotice(enabled) {
     await api('/api/admin/notice', {
       method: 'PUT',
       body: JSON.stringify({ enabled }),
     });
-    await loadNotice({ force: true });
-    setNotice(enabled ? '通知已开启' : '通知已关闭');
-    render();
+    await refreshNoticeAfterWrite(enabled ? '通知已开启' : '通知已关闭');
   }
 
-  async function saveNoticeContent() {
-    openNoticeDialog(null);
+  async function saveNoticeContent(event, node) {
+    openNoticeDialog(null, node);
   }
 
   async function activateNotice(noticeId) {
     await api(`/api/admin/notices/${noticeId}/activate`, { method: 'POST' });
-    await loadNotice({ force: true });
-    setNotice('已切换展示公告');
-    render();
+    await refreshNoticeAfterWrite('已切换展示公告');
   }
 
   async function deleteNotice(noticeId) {
     if (!confirm('确定删除这条通知吗？')) return;
     await api(`/api/admin/notices/${noticeId}`, { method: 'DELETE' });
-    await loadNotice({ force: true });
-    setNotice('通知已删除');
-    render();
+    await refreshNoticeAfterWrite('通知已删除');
   }
 
-  function openNoticeDialog(notice) {
+  function openNoticeDialog(notice, trigger) {
+    trigger?.focus();
     state.noticeEditing = notice || { title: '', message: '', link_url: '', link_text: '', jump_season_id: '', jump_tab: '', marquee_enabled: true };
     renderDialogs();
   }
@@ -1642,84 +1649,6 @@
   function closeNoticeDialog() {
     state.noticeEditing = null;
     renderDialogs();
-  }
-
-  function setupJumpDropdown(wrapId, toggleId, menuId, inputId, items, selectedValue, placeholder, onSelect) {
-    var wrap = document.getElementById(wrapId);
-    var toggle = document.getElementById(toggleId);
-    var menu = document.getElementById(menuId);
-    var input = document.getElementById(inputId);
-    if (!wrap || !toggle || !menu || !input) return;
-
-    var textEl = toggle.querySelector('span:first-child');
-
-    function closeMenu() {
-      menu.classList.add('hidden');
-      toggle.classList.remove('is-open');
-      toggle.setAttribute('aria-expanded', 'false');
-    }
-
-    function openMenu() {
-      menu.classList.remove('hidden');
-      toggle.classList.add('is-open');
-      toggle.setAttribute('aria-expanded', 'true');
-    }
-
-    function selectItem(value, label) {
-      input.value = value;
-      if (textEl) textEl.textContent = label || placeholder;
-      if (onSelect) onSelect(value);
-      closeMenu();
-    }
-
-    toggle.addEventListener('click', function (event) {
-      event.stopPropagation();
-      if (menu.classList.contains('hidden')) { openMenu(); } else { closeMenu(); }
-    });
-
-    document.addEventListener('click', function (event) {
-      if (!wrap.contains(event.target)) closeMenu();
-    });
-
-    document.addEventListener('keydown', function (event) {
-      if (event.key === 'Escape') closeMenu();
-    });
-
-    menu.replaceChildren();
-    // "不跳转" option
-    var noneBtn = document.createElement('button');
-    noneBtn.type = 'button';
-    noneBtn.className = 'account-menu-item' + (!selectedValue ? ' is-active' : '');
-    noneBtn.textContent = placeholder;
-    noneBtn.addEventListener('click', function () { selectItem('', placeholder); });
-    menu.append(noneBtn);
-
-    // item options
-    items.forEach(function (opt) {
-      var btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = 'account-menu-item' + (opt.value === selectedValue ? ' is-active' : '');
-      btn.textContent = opt.label;
-      btn.addEventListener('click', function () { selectItem(opt.value, opt.label); });
-      menu.append(btn);
-    });
-
-    // set initial display text
-    if (selectedValue) {
-      var found = items.find(function (it) { return it.value === selectedValue; });
-      if (found && textEl) textEl.textContent = found.label;
-    }
-  }
-
-  function setupJumpSeasonDropdown(form, item) {
-    var selected = item.jump_season_id || '';
-    fetch('/api/lineup-seasons')
-      .then(function (r) { return r.json(); })
-      .then(function (data) {
-        var items = (data.seasons || []).map(function (s) { return { value: s.id, label: s.name || s.id }; });
-        setupJumpDropdown('noticeJumpSeasonWrap', 'noticeJumpSeasonToggle', 'noticeJumpSeasonMenu', 'noticeJumpSeasonInput', items, selected, '不跳转');
-      })
-      .catch(function () {});
   }
 
   function setupLineupBulkImportSeasonDropdown() {
@@ -1756,19 +1685,6 @@
         liveVersions.load();
       },
     });
-  }
-
-  function setupJumpTabDropdown(form, item) {
-    var selected = item.jump_tab || '';
-    var items = [
-      { value: 'live', label: '实时阵容排行' },
-      { value: 'latest', label: '最新' },
-      { value: 'hot', label: '最热' },
-      { value: 'rising', label: '上升' },
-      { value: 'recommended', label: '推荐' },
-      { value: 'ss', label: 'SS' },
-    ];
-    setupJumpDropdown('noticeJumpTabWrap', 'noticeJumpTabToggle', 'noticeJumpTabMenu', 'noticeJumpTabInput', items, selected, '不跳转');
   }
 
   function renderSettingsWorkspace() {
@@ -1830,7 +1746,7 @@
         const info = el('div');
         const title = el('strong', '', item.title);
         const metaParts = [
-          item.is_active ? '当前展示' : '未展示',
+          item.is_active ? (noticeEnabled ? '当前展示' : '已选中 · 展示已关闭') : '未展示',
           item.marquee_enabled === false ? '静止' : '',
           item.updated_at ? `更新 ${item.updated_at}` : '',
         ].filter(Boolean);
@@ -1839,17 +1755,13 @@
           el('p', 'admin-meta', metaParts.join(' · ')),
           el('p', 'admin-reason', item.message),
         );
-        if (item.jump_season_id && item.jump_tab) {
-          var tabNames = { live: '实时阵容排行', latest: '最新', hot: '最热', rising: '上升', recommended: '推荐', ss: 'SS' };
-          var tabName = tabNames[item.jump_tab] || item.jump_tab;
-          info.append(el('p', 'admin-meta', '页内跳转: ' + item.jump_season_id + ' · ' + tabName));
-        } else if (item.link_url && item.link_text) {
-          info.append(el('p', 'admin-meta', `${item.link_text} · ${item.link_url}`));
+        if (item.target) {
+          info.append(el('p', 'admin-meta', `跳转至：${item.target.label}${item.target.available ? '' : ' · 已不可用，首页暂停显示链接'}`));
         }
         const actions = el('div', 'card-actions');
         actions.append(
           button('设为展示', () => activateNotice(item.id), `small-button${item.is_active && noticeEnabled ? ' is-active' : ''}`, item.is_active && noticeEnabled),
-          button('编辑', () => openNoticeDialog(item), 'small-button'),
+          button('编辑', (event, node) => openNoticeDialog(item, node), 'small-button'),
           button('删除', () => deleteNotice(item.id), 'small-button danger-button'),
         );
         card.append(info, actions);
@@ -2033,6 +1945,7 @@
 
   function renderDialogs() {
     if (!dialogRoot) return;
+    if (noticeEditorCleanup) { noticeEditorCleanup(); noticeEditorCleanup = null; }
     dialogRoot.replaceChildren();
     if (state.passwordUser) {
       renderPasswordDialog();
@@ -2146,150 +2059,15 @@
 
   function renderNoticeDialog() {
     if (!dialogRoot || !state.noticeEditing) return;
-    const item = state.noticeEditing;
-    const isEdit = Boolean(item.id);
-
-    const overlay = el('div', 'modal-backdrop');
-    const card = el('section', 'modal-card admin-password-dialog');
-    card.setAttribute('role', 'dialog');
-    card.setAttribute('aria-modal', 'true');
-    card.setAttribute('aria-labelledby', 'noticeDialogTitle');
-
-    const header = el('div', 'modal-header');
-    const titleWrap = el('div');
-    const title = el('h2', '', isEdit ? '编辑全站通知' : '新增全站通知');
-    title.id = 'noticeDialogTitle';
-    titleWrap.append(title, el('p', 'admin-meta', '保存后可在列表中选择哪一条展示到首页'));
-    header.append(titleWrap, button('取消', async () => closeNoticeDialog()));
-
-    const form = el('form', 'modal-form');
-    form.innerHTML = `
-      <label class="field">
-        <span>通知标题</span>
-        <input id="noticeTitleInput" name="title" type="text" placeholder="通知标题" value="${escapeAttribute(item.title || '')}" />
-      </label>
-      <label class="field">
-        <span>通知内容</span>
-        <textarea id="noticeMessageInput" name="message" rows="4" placeholder="通知内容">${escapeHtml(item.message || '')}</textarea>
-      </label>
-      <div class="field">
-        <span>页内跳转（设置后将忽略下方的外部链接）</span>
-      </div>
-      <label class="field">
-        <span>跳转赛季</span>
-        <div class="season-menu-wrap" id="noticeJumpSeasonWrap">
-          <button class="account-toggle season-toggle" id="noticeJumpSeasonToggle" type="button" aria-haspopup="menu" aria-expanded="false">
-            <span id="noticeJumpSeasonText">不跳转</span>
-            <i class="account-chevron" data-lucide="chevron-down" aria-hidden="true"></i>
-          </button>
-          <div class="account-menu hidden season-menu" id="noticeJumpSeasonMenu" role="menu"></div>
-        </div>
-        <input type="hidden" id="noticeJumpSeasonInput" name="jump_season_id" value="${escapeAttribute(item.jump_season_id || '')}" />
-      </label>
-      <label class="field">
-        <span>跳转Tab</span>
-        <div class="season-menu-wrap" id="noticeJumpTabWrap">
-          <button class="account-toggle season-toggle" id="noticeJumpTabToggle" type="button" aria-haspopup="menu" aria-expanded="false">
-            <span id="noticeJumpTabText">不跳转</span>
-            <i class="account-chevron" data-lucide="chevron-down" aria-hidden="true"></i>
-          </button>
-          <div class="account-menu hidden season-menu" id="noticeJumpTabMenu" role="menu"></div>
-        </div>
-        <input type="hidden" id="noticeJumpTabInput" name="jump_tab" value="${escapeAttribute(item.jump_tab || '')}" />
-      </label>
-      <div class="field" style="border-top: 1px solid var(--line); padding-top: 12px;">
-        <span>外部链接（页内跳转未设置时生效）</span>
-      </div>
-      <label class="field">
-        <span>链接地址</span>
-        <input id="noticeLinkUrlInput" name="link_url" type="text" placeholder="可选，例如 /patch-notes" value="${escapeAttribute(item.link_url || '')}" />
-      </label>
-      <label class="field">
-        <span>链接文字</span>
-        <input id="noticeLinkTextInput" name="link_text" type="text" placeholder="可选，例如 查看公告" value="${escapeAttribute(item.link_text || '')}" />
-      </label>
-      <div class="field notice-guestbook-shortcut">
-        <span>快捷链接</span>
-        <button class="small-button" id="noticeGuestbookLinkButton" type="button">跳转到留言板</button>
-      </div>
-      <div class="field visibility-toggle">
-        <div class="visibility-copy">
-          <span>滚动播放</span>
-          <strong id="marqueeStatusSummary">${item.marquee_enabled !== false ? '滚动' : '静止'}</strong>
-          <span class="field-hint">关闭后通知将静止显示，方便用户点击跳转链接</span>
-        </div>
-        <label class="visibility-switch" for="noticeMarqueeCheckbox">
-          <span class="visibility-switch-label">滚动</span>
-          <input id="noticeMarqueeCheckbox" name="marquee_enabled" type="checkbox"${item.marquee_enabled !== false ? ' checked' : ''} />
-          <span class="visibility-slider" aria-hidden="true"></span>
-          <span class="visibility-switch-label">静止</span>
-        </label>
-      </div>
-      <div class="editor-actions">
-        <button class="primary-button" type="submit">${isEdit ? '保存通知' : '创建通知'}</button>
-        <button class="ghost-button" type="button" id="cancelNoticeButton">取消</button>
-      </div>
-    `;
-
-    form.addEventListener('submit', submitNoticeDialog);
-    form.querySelector('#cancelNoticeButton').addEventListener('click', closeNoticeDialog);
-    overlay.addEventListener('click', (event) => {
-      if (event.target === overlay) closeNoticeDialog();
+    noticeEditorCleanup = window.JccNoticeEditor.mount(dialogRoot, {
+      item: state.noticeEditing,
+      api,
+      close: closeNoticeDialog,
+      async saved(item, publish) {
+        closeNoticeDialog();
+        await refreshNoticeAfterWrite(publish ? '通知已保存并展示' : '通知已保存');
+      },
     });
-
-    card.append(header, form);
-    overlay.append(card);
-    dialogRoot.append(overlay);
-
-    // 设置自定义下拉框（必须在 form 挂载到 DOM 后再初始化，因为使用 document.getElementById）
-    setupJumpSeasonDropdown(form, item);
-    setupJumpTabDropdown(form, item);
-
-    form.querySelector('#noticeGuestbookLinkButton').addEventListener('click', () => {
-      form.querySelector('#noticeLinkUrlInput').value = '/#guestbook';
-      const linkText = form.querySelector('#noticeLinkTextInput');
-      if (!linkText.value.trim()) linkText.value = '去留言';
-      form.querySelector('#noticeJumpSeasonInput').value = '';
-      form.querySelector('#noticeJumpTabInput').value = '';
-      const seasonText = form.querySelector('#noticeJumpSeasonText');
-      const tabText = form.querySelector('#noticeJumpTabText');
-      if (seasonText) seasonText.textContent = '不跳转';
-      if (tabText) tabText.textContent = '不跳转';
-    });
-
-    // 滚动开关状态同步
-    var marqueeCheckbox = document.getElementById('noticeMarqueeCheckbox');
-    if (marqueeCheckbox) {
-      marqueeCheckbox.addEventListener('change', function () {
-        var summary = document.getElementById('marqueeStatusSummary');
-        if (summary) summary.textContent = this.checked ? '滚动' : '静止';
-      });
-    }
-  }
-
-  async function submitNoticeDialog(event) {
-    event.preventDefault();
-    const form = event.currentTarget;
-    const item = state.noticeEditing;
-    const payload = {
-      title: form.querySelector('#noticeTitleInput').value.trim(),
-      message: form.querySelector('#noticeMessageInput').value.trim(),
-      link_url: form.querySelector('#noticeLinkUrlInput').value.trim(),
-      link_text: form.querySelector('#noticeLinkTextInput').value.trim(),
-      jump_season_id: form.querySelector('#noticeJumpSeasonInput').value.trim(),
-      jump_tab: form.querySelector('#noticeJumpTabInput').value.trim(),
-      marquee_enabled: form.querySelector('#noticeMarqueeCheckbox').checked ? '1' : '0',
-    };
-    if (!payload.title) { window.jccNotify.show('标题不能为空', { variant: 'error' }); return; }
-    if (!payload.message) { window.jccNotify.show('内容不能为空', { variant: 'error' }); return; }
-    await api(item.id ? `/api/admin/notices/${item.id}` : '/api/admin/notices', {
-      method: item.id ? 'PUT' : 'POST',
-      body: JSON.stringify(payload),
-    });
-    closeNoticeDialog();
-    await loadNotice({ force: true });
-    setNotice(item.id ? '通知已保存' : '通知已创建');
-    render();
   }
 
   function renderPasswordDialog() {

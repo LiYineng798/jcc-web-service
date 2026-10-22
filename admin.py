@@ -53,6 +53,8 @@ from notice_service import (
     save_notice,
     update_saved_notice,
 )
+from toolbox_service import list_toolbox_tools
+from lineups_utils import season_choice_map
 from patch_note_service import create_patch_note, hide_patch_note, list_admin_patch_notes, update_patch_note
 from scoring import score_map
 from settings_service import get_settings, save_settings
@@ -560,6 +562,18 @@ def admin_update_settings():
         return error
     result, service_error, status_code = save_settings(get_db(), admin['id'], request.get_json(silent=True) or {})
     return respond_service_result(result, service_error, status_code)
+
+
+@admin_bp.get('/api/admin/notice-targets')
+def admin_notice_targets():
+    admin, error = admin_required()
+    if error:
+        return error
+    response = jsonify(tools=list_toolbox_tools(get_db()), seasons=[
+        {'id': key, 'name': value.get('name') or key} for key, value in season_choice_map().items()
+    ])
+    response.headers['Cache-Control'] = 'private, no-store'
+    return response
 
 
 @admin_bp.get('/api/admin/notice')

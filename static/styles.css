@@ -1682,6 +1682,17 @@ a.author-link:hover {
 }
 .site-notice-marquee-track.static {
   animation: none;
+  min-width: 0;
+  white-space: normal;
+  flex-wrap: wrap;
+}
+.site-notice:hover .site-notice-marquee-track,
+.site-notice:focus-within .site-notice-marquee-track {
+  animation-play-state: paused;
+}
+@media (prefers-reduced-motion: reduce) {
+  .site-notice, .site-notice-marquee-track { animation: none; }
+  .site-notice-marquee-track { min-width: 0; white-space: normal; flex-wrap: wrap; }
 }
 @keyframes site-notice-marquee-bounce {
   from { transform: translateX(0); }

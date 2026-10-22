@@ -18,6 +18,8 @@ def create_app(test_config=None):
 
     app.teardown_appcontext(close_db)
     register_asset_helpers(app)
+    from toolbox_service import list_toolbox_tools
+    app.jinja_env.globals['list_toolbox_tools'] = list_toolbox_tools
 
     from auth import auth_bp
     from captcha import captcha_bp, lookup_answer_for_tests

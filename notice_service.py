@@ -1,13 +1,48 @@
 import json
+from urllib.parse import urlsplit
 
 from audit import write_audit
 from db import db_kind, now_text
 from db_adapter import insert_returning_id_sql, last_insert_id, upsert_setting_sql
+import toolbox_service
 
 
 NOTICE_FIELDS = ['title', 'message', 'link_url', 'link_text', 'jump_season_id', 'jump_tab', 'marquee_enabled']
 
 VALID_JUMP_TABS = {'', 'live', 'latest', 'hot', 'rising', 'recommended', 'ss'}
+JUMP_TAB_LABELS = {'live': '实时阵容排行', 'latest': '最新', 'hot': '最热', 'rising': '上升', 'recommended': '推荐', 'ss': 'SS'}
+
+
+def valid_notice_url(url):
+    if not url:
+        return True
+    if any(ord(char) < 32 or char.isspace() for char in url) or '\\' in url:
+        return False
+    try:
+        parsed = urlsplit(url)
+        return (url.startswith('/') and not url.startswith('//')) or (
+            parsed.scheme in ('http', 'https') and bool(parsed.hostname) and not parsed.username)
+    except ValueError:
+        return False
+
+
+def notice_target(notice):
+    url = notice.get('link_url', '')
+    if url == '/#guestbook':
+        return {'kind': 'guestbook', 'label': '留言板', 'available': True}
+    if notice.get('jump_season_id') and notice.get('jump_tab'):
+        from lineups_utils import season_choice_map
+        season_id = notice['jump_season_id']
+        season_name = season_choice_map().get(season_id, {}).get('name') or season_id
+        tab_name = JUMP_TAB_LABELS.get(notice['jump_tab'], notice['jump_tab'])
+        return {'kind': 'lineup', 'label': f'{season_name} · {tab_name}', 'available': True}
+    tool = toolbox_service.tool_for_url(url)
+    if tool:
+        return {'kind': 'tool', 'tool_id': tool['id'], 'label': tool['title'], 'available': True}
+    known = next((t for t in toolbox_service.TOOLBOX_TOOLS if '/tools/' + t['id'] == url), None)
+    if known:
+        return {'kind': 'tool', 'tool_id': known['id'], 'label': known['title'], 'available': False}
+    return {'kind': 'custom' if url else 'none', 'label': url or '仅展示通知', 'available': valid_notice_url(url)}
 
 
 def _load_notice_data(db):
@@ -31,7 +66,7 @@ def _is_notice_enabled(db):
 
 
 def _serialize_notice(row):
-    return {
+    notice = {
         'id': row['id'],
         'title': row['title'],
         'message': row['message'],
@@ -44,6 +79,8 @@ def _serialize_notice(row):
         'created_at': row['created_at'],
         'updated_at': row['updated_at'],
     }
+    notice['target'] = notice_target(notice)
+    return notice
 
 
 def _active_notice_row(db):
@@ -73,11 +110,42 @@ def _validate_notice_payload(data, existing=None):
     values = {}
     for field in NOTICE_FIELDS:
         values[field] = str(data.get(field, existing.get(field, ''))).strip()
+    values['marquee_enabled'] = str(data.get('marquee_enabled', existing.get('marquee_enabled', True))).lower()
 
     if not values['title']:
         return None, '标题不能为空'
     if not values['message']:
         return None, '内容不能为空'
+    kind = data.get('target_kind')
+    if kind is not None:
+        if kind not in ('none', 'lineup', 'tool', 'guestbook', 'custom'):
+            return None, '无效的跳转类型'
+        if kind != 'lineup':
+            values['jump_season_id'] = values['jump_tab'] = ''
+        if kind in ('none', 'lineup'):
+            values['link_url'] = ''
+        if kind == 'none':
+            values['link_text'] = ''
+        elif kind == 'tool':
+            tool = next((t for t in toolbox_service.list_toolbox_tools() if t['id'] == data.get('tool_id')), None)
+            if not tool:
+                return None, '工具已隐藏或不存在，请重新选择'
+            values['link_url'] = tool['url']
+            values['link_text'] = values['link_text'] or '打开' + tool['title']
+        elif kind == 'guestbook':
+            values['link_url'] = '/#guestbook'
+            values['link_text'] = values['link_text'] or '去留言'
+        elif kind == 'lineup':
+            from lineups_utils import season_choice_map
+            if values['jump_season_id'] not in season_choice_map() or not values['jump_tab']:
+                return None, '请选择可用的赛季和榜单'
+            values['link_text'] = values['link_text'] or '查看阵容'
+        elif not values['link_url']:
+            return None, '请输入链接地址'
+        else:
+            values['link_text'] = values['link_text'] or '了解更多'
+    if not valid_notice_url(values['link_url']):
+        return None, '链接仅支持站内路径或完整的 http / https 地址'
     if values['jump_tab'] not in VALID_JUMP_TABS:
         return None, '无效的跳转目标'
     if values['link_url'] == '/#guestbook':
@@ -85,6 +153,8 @@ def _validate_notice_payload(data, existing=None):
         # take precedence when an administrator reuses an existing notice.
         values['jump_season_id'] = ''
         values['jump_tab'] = ''
+    if not notice_target(values)['available']:
+        return None, '跳转工具已隐藏或链接不可用，请重新选择'
     return values, None
 
 
@@ -143,6 +213,8 @@ def get_active_notice(db):
     notice = _serialize_notice(row)
     if not notice['title'] or not notice['message']:
         return None
+    if not notice['target']['available']:
+        notice['link_url'] = notice['link_text'] = ''
     return {
         'title': notice['title'],
         'message': notice['message'],
@@ -247,6 +319,9 @@ def activate_notice(db, actor_user_id, notice_id):
     if not row:
         return None, '通知不存在', 404
 
+    if not notice_target(dict(row))['available']:
+        return None, '跳转工具已隐藏或链接不可用，请编辑通知后再展示', 400
+
     before_items = list_notices(db)
     now = now_text()
     db.execute('UPDATE site_notices SET is_active = 0 WHERE is_active = 1')
@@ -269,7 +344,7 @@ def save_notice(db, actor_user_id, data):
 
     now = now_text()
     has_enabled = 'enabled' in data
-    has_content = any(k in data for k in NOTICE_FIELDS)
+    has_content = any(k in data for k in [*NOTICE_FIELDS, 'target_kind', 'tool_id'])
     before_state = {
         'enabled': _is_notice_enabled(db),
         'active': get_notice(db),
