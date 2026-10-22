@@ -75,7 +75,7 @@
     const energy = deckEnergy();
     $('deck-energy').disabled=energy.automatic;
     $('deck-energy').value=energy.automatic ? String(energy.value) : state.energy;
-    const meta = [portalName(),state.target!=='不标注'?`计划目标 · ${state.target}`:'',energy.value!==null && Number.isFinite(energy.value)?`总能量 ${energy.value}${energy.automatic?'':'（手填）'}`:''].filter(Boolean);
+    const meta = [portalName(),state.target!=='不标注'?`计划目标 · ${state.target}`:'',energy.value!==null && Number.isFinite(energy.value)?`总能量 ${energy.value}`:''].filter(Boolean);
     const title = state.title.trim() || defaults.title;
     const background = config.backgrounds.find(b=>b.id===state.background);
     const rounds = [...new Set(selected.flatMap(c=>c?.rounds||[]))].sort().join(' / ');
