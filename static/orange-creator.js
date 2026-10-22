@@ -220,6 +220,7 @@
       await img.decode();
     }));
   }
+  let posterFontCSS;
   $('export-poster').addEventListener('click',async()=>{
     if(exporting || $('export-poster').disabled) return;
     exporting=true; const button=$('export-poster');button.disabled=true;button.textContent='正在生成…';
@@ -230,7 +231,9 @@
       copy.style.transform='none';copy.style.position='fixed';copy.style.left='-10000px';copy.style.top='0';
       copy.prepend(document.querySelector('.fortune-frame-materials').cloneNode(true));
       document.body.append(copy);fitText(copy);await prepareImages(copy);
-      const options={width:config.export.width,height:config.export.height,pixelRatio:1,skipFonts:true,cacheBust:false,style:{position:'static',left:'auto',top:'auto',zIndex:'auto',transform:'none'}};
+      // Embed the local display font so downloaded posters match the live preview.
+      posterFontCSS ??= await window.htmlToImage.getFontEmbedCSS(copy);
+      const options={width:config.export.width,height:config.export.height,pixelRatio:1,fontEmbedCSS:posterFontCSS,cacheBust:false,style:{position:'static',left:'auto',top:'auto',zIndex:'auto',transform:'none'}};
       // Keep a single decoded SVG alive through its first paint. Creating a fresh
       // SVG for every pass can restart WebKit's nested-image decoding.
       const svg=await window.htmlToImage.toSvg(copy,options);
