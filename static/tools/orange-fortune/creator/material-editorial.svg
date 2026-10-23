@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1600" viewBox="0 0 1200 1600">
+  <title>人文手札 — cream stock, blue ink and strategy notebook marks</title>
+  <defs>
+    <pattern id="grid" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M24 0H0V24" fill="none" stroke="#446c9a" stroke-width=".7" opacity=".18"/></pattern>
+    <pattern id="fibres" width="83" height="71" patternUnits="userSpaceOnUse"><path d="m5 9 2 1m39 12 1-2m24 43 2 1m-54-9 1 2" stroke="#6c5944" stroke-width=".65" opacity=".19"/><circle cx="31" cy="48" r=".7" fill="#79654c" opacity=".22"/><path d="m54 49 7-1M8 34l4 1" stroke="#fffdf3" stroke-width="1.3" opacity=".15"/></pattern>
+    <pattern id="ruler" width="40" height="20" patternUnits="userSpaceOnUse"><path d="M0 0v13m10-13v6m10-6v8m10-8v6" fill="none" stroke="#456b9a" stroke-width=".75" opacity=".45"/></pattern>
+    <linearGradient id="stock" x2=".8" y2="1"><stop stop-color="#f2e8cc"/><stop offset="1" stop-color="#e8dab9"/></linearGradient>
+  </defs>
+  <path fill="url(#stock)" d="M0 0h1200v1600H0z"/>
+  <path fill="#456b9a" d="M0 0h1200v10H0zM0 1590h1200v10H0z"/>
+  <path fill="#c35e39" d="M0 0h12v1600H0z"/>
+  <path fill="#456b9a" opacity=".13" d="M950 0h104L1002 187zM1063 0h104l-52 187z"/>
+  <path fill="#456b9a" opacity=".08" d="M1200 970v460l-170-230z"/>
+  <path fill="url(#grid)" d="M46 907h1098v389H46z"/>
+  <path fill="url(#fibres)" d="M0 0h1200v1600H0z"/>
+  <path fill="url(#ruler)" d="M55 24h1090v16H55zM55 1572h1090v10H55z"/>
+  <path d="M31 54v1490" stroke="#b65639" stroke-width=".8" opacity=".45"/>
+  <g fill="#f8edcf" stroke="#b5a07b" stroke-width=".7" opacity=".8">
+    <path d="m1080 37 43-5 15 37-43 5z"/>
+    <path d="m51 1537 39 5-4 30-39-5z"/>
+  </g>
+  <g fill="none" stroke="#365b88" stroke-width="1.5" opacity=".6">
+    <path d="m1155 312 16-3-3 45-15 3zM1156 321l12-3m-13 11 13-3"/>
+    <path d="M1165 650c-17 28-8 73 0 99m-6-13 6 13 5-16"/>
+    <path d="m22 866 20-5m-20 8 20-5m-17 16 5-27"/>
+    <path d="m1161 956 14 12-15 12 14 12-15 12"/>
+  </g>
+  <g fill="none" stroke="#456b9a" stroke-linecap="round">
+    <path d="M55 215c76 3 124-3 206 0m-205 5 148-1" stroke-width="2" opacity=".55"/>
+    <path d="M26 263v310m-5-302 10-12-1 18M25 564l7 11-11-2" stroke-width="1.4" opacity=".6"/>
+    <path d="M1170 1319c-13 40-11 82-3 118m-6-8 6 12 5-16" stroke-width="2" opacity=".65"/>
+    <ellipse cx="1098" cy="1505" rx="39" ry="13" transform="rotate(-7 1098 1505)" stroke-width="1.6" opacity=".6"/>
+    <circle cx="78" cy="1503" r="13"/><circle cx="110" cy="1503" r="13"/><circle cx="142" cy="1503" r="13"/>
+    <path d="m73 1503h10m-5-5v10m27-5h10m-5-5v10m27-5h10m-5-5v10"/>
+    <path d="M169 1504c17-7 37-5 51 0m-8-7 9 7-12 4"/>
+  </g>
+  <g stroke="#322f29" opacity=".35"><path d="M28 28h13m-6-6v13m1124-7h13m-6-6v13M28 1570h13m-6-6v13m1124-7h13m-6-6v13"/></g>
+</svg>

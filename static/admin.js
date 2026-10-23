@@ -5,7 +5,6 @@
     el,
     escapeAttribute,
     escapeHtml,
-    formatPercent,
     todayInputValue,
   } = window.JccAdminCore;
   const root = document.querySelector('#adminApp');
@@ -508,6 +507,7 @@
   }
 
   function render() {
+    window.JccAnalyticsCharts?.destroy();
     seasonDropdownCleanup?.();
     seasonDropdownCleanup = null;
     syncHeader();
@@ -1438,7 +1438,19 @@
     const panel = workbenchPanel('增长分析', '按自然日查询，不在首页默认加载', growthDateControl());
     const body = panel.querySelector('.admin-workspace-body');
     const growth = state.growth || {};
-    const list = el('div', 'admin-list compact');
+    const charts = el('div', 'analytics-growth-charts');
+    charts.append(window.JccAnalyticsCharts.chart({
+      title:'访问与认证', headline:growth.home_uv || 0, headlineLabel:'首页访客',
+      description:`${state.growthDate} · 各环节独立去重人数，不代表同一批访客的漏斗。`,
+      rows:[{label:'首页',people:growth.home_uv},{label:'登录入口',people:growth.login_entry_visitors},{label:'登录页面',people:growth.auth_page_visitors},{label:'注册成功',people:growth.successful_registrations},{label:'登录成功',people:growth.successful_logins}],
+      series:[{key:'people',label:'人数'}],
+    }),window.JccAnalyticsCharts.chart({
+      title:'互动意向与登录后行动', headline:growth.post_login_like_users || 0, headlineLabel:'登录后点赞人数',
+      description:'登录后行动限定在认证成功后 10 分钟内；游客意向与登录用户分别统计。',
+      rows:[{label:'点赞',guest:growth.guest_like_visitors,member:growth.post_login_like_users},{label:'收藏',guest:growth.guest_favorite_visitors,member:growth.post_login_favorite_users}],
+      series:[{key:'guest',label:'游客尝试'},{key:'member',label:'登录后完成',texture:'hatch'}],
+    }));
+    const list = el('div', 'analytics-metrics');
     [
       ['首页 UV', growth.home_uv || 0],
       ['点击登录入口人数', growth.login_entry_visitors || 0],
@@ -1456,19 +1468,27 @@
       list.append(card);
     });
 
-    const rates = el('div', 'admin-list compact');
+    const rates = el('section', 'analytics-rates');
+    const rateHeading = el('div', 'analytics-rates-heading');
+    rateHeading.append(el('h3', '', '转化表现'), el('p', '', '从认证到行动 · 登录后的互动统计窗口为 10 分钟'));
+    rates.append(rateHeading);
+    const rateGrid = el('div', 'analytics-rates-grid');
     [
-      ['登录入口到登录页转化率', formatPercent(growth.conversion_rates?.entry_to_auth_page_pct)],
-      ['登录页到注册/登录成功转化率', formatPercent(growth.conversion_rates?.auth_page_to_auth_success_pct)],
-      ['登录后完成点赞转化率', formatPercent(growth.conversion_rates?.auth_success_to_like_pct)],
-      ['登录后完成收藏转化率', formatPercent(growth.conversion_rates?.auth_success_to_favorite_pct)],
-      ['登录后上传阵容转化率', formatPercent(growth.conversion_rates?.auth_success_to_create_lineup_pct)],
-    ].forEach(([label, value]) => {
-      const card = el('article', 'admin-row-card');
-      card.append(el('strong', '', label), el('span', 'admin-meta', value));
-      rates.append(card);
+      ['进入登录页', '登录入口 → 登录页面', growth.conversion_rates?.entry_to_auth_page_pct],
+      ['完成认证', '登录页面 → 注册 / 登录成功', growth.conversion_rates?.auth_page_to_auth_success_pct],
+      ['完成点赞', '认证成功 → 点赞', growth.conversion_rates?.auth_success_to_like_pct],
+      ['完成收藏', '认证成功 → 收藏', growth.conversion_rates?.auth_success_to_favorite_pct],
+      ['发布阵容', '认证成功 → 上传阵容', growth.conversion_rates?.auth_success_to_create_lineup_pct],
+    ].forEach(([label, description, value], index) => {
+      const item = el('article', 'analytics-rate');
+      const top = el('div','analytics-rate-label');top.append(el('span','',label),el('small','',String(index+1).padStart(2,'0')));
+      const amount=el('strong','analytics-rate-value',Number(value || 0).toLocaleString('zh-CN',{maximumFractionDigits:2}));amount.append(el('span','','%'));
+      const track=el('div','analytics-rate-track');track.setAttribute('aria-hidden','true');
+      const fill=el('i');fill.style.width=`${Math.max(0,Math.min(100,Number(value)||0))}%`;track.append(fill);
+      item.append(top,amount,track,el('p','',description));rateGrid.append(item);
     });
-    body.append(list, rates);
+    rates.append(rateGrid);
+    body.append(charts, list, rates);
     wrap.append(panel);return wrap;
   }
 

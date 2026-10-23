@@ -104,9 +104,14 @@ async function selectCard(page, slot, id) {
         await preview(page,false);
         const downloadEvent=page.waitForEvent('download',{timeout:90000});
         await page.locator('#export-poster').click();
+        if (mobile) {
+          await page.locator('.creator-save-dialog[open]').waitFor({timeout:90000});
+          await page.locator('[data-save-download]').click();
+        }
         const download=await downloadEvent;
         assert.equal(await download.failure(),null);
         const file=path.join(out,`portrait-${name}-${bg}-${layout}.png`);await download.saveAs(file);
+        await page.locator('[data-save-close]').click();
         const png=PNG.sync.read(fs.readFileSync(file));assert.equal(png.width,1200);assert.equal(png.height,1600);
         for(const [index,[left,top,right,bottom]] of crops.entries()) {
           const colors=new Set();let bronze=0;

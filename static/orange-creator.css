@@ -20,7 +20,7 @@
 .fp-background,.fp-veil { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; pointer-events:none; }
 .fp-veil { background:linear-gradient(180deg,#07111c00,#07111c18 16%,#07111c28 48%,#07111c18 83%,#07111c00); }
 .theme-ivory .fp-veil { background:linear-gradient(180deg,#fff8e700,#fff8e712 20%,#fff8e71c 60%,#fff8e712 85%,#fff8e700); }
-.fortune-poster:after { content:''; position:absolute; inset:22px; border:1px solid var(--rule); pointer-events:none; }
+.fortune-poster:after { content:''; position:absolute; inset:22px; border:1px solid var(--rule); border-radius:18px; box-shadow:inset 0 0 0 5px var(--paper),inset 0 0 0 6px var(--rule); pointer-events:none; }
 .fp-header { height:174px; position:relative; border-bottom:1px solid var(--rule); display:flex; justify-content:space-between; gap:25px; }
 .fp-heading { min-width:0; flex:1; }
 .fp-overline { font-size:13px; letter-spacing:4px; color:var(--accent); margin:0 0 18px; }

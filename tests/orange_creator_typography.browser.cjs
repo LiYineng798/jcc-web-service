@@ -54,6 +54,7 @@ fs.mkdirSync(out, {recursive:true});
     const downloadEvent=page.waitForEvent('download',{timeout:90000});
     await page.locator('#export-poster').click();
     const download=await downloadEvent;
+    await page.locator('[data-save-close]').click();
     assert.equal(await page.evaluate(()=>window.posterFontEmbedded),true);
     const file=`${out}/typography-${name}.png`;
     await download.saveAs(file);

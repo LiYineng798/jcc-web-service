@@ -31,6 +31,8 @@ def creator_config():
                 ('jade', '翡翠棱镜', '玉石切面 · 青铜刻线'),
                 ('astral', '星轨紫晶', '轨道光环 · 紫晶微光'),
                 ('ivory', '象牙烫金', '暖白纸纹 · 放射金箔'),
+                ('editorial', '人文手札', '奶油纸色 · 复古蓝墨'),
+                ('folio', '蓝绒藏典', '织物书封 · 古铜雕饰'),
             ]
         ],
         # Rarity is not an energy field. Null deliberately means unknown.

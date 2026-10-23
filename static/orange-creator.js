@@ -81,6 +81,7 @@
     const rounds = [...new Set(selected.flatMap(c=>c?.rounds||[]))].sort().join(' / ');
     $('poster-preview').innerHTML = `<article class="fortune-poster theme-${state.background} is-${state.layout}" aria-label="${esc(title)}海报">
       ${image(background.image_url,'','fp-background')}<div class="fp-veil"></div>
+      ${state.background==='editorial'?`<div class="fp-editorial-marks" aria-hidden="true"><span class="fp-edition">构筑研究室 <i>／</i> FIELD NOTES</span><span class="fp-margin-note">观察 · 选择 · 落子</span><span class="fp-editorial-stamp">三卡<br><b>一策</b></span><span class="fp-editorial-sign">每一步，都有自己的想法。<svg viewBox="0 0 240 16"><path d="M3 9Q86 2 237 8M20 14Q100 8 202 12"/></svg></span></div>`:''}
       <header class="fp-header${meta.length?'':' is-title-only'}"><div class="fp-heading"><p class="fp-overline">英雄联盟传奇 / 时间卡组构筑</p><h1 class="${title.length>18?'fp-long-title':title.length>13?'fp-medium-title':''}">${esc(title)}</h1><div class="fp-meta">${meta.map(m=>`<span>${esc(m)}</span>`).join('')}</div></div><div class="fp-brand"><b>大橘大利</b><small>FORTUNE ATELIER</small></div></header>
       <div class="fp-content"><section class="fp-deck"><div class="fp-label">01 / 时间卡组 <small>THREE CARDS. ONE STRATEGY.</small></div><div class="fp-cards">${selected.map((card,i)=>`<section class="fp-card" ${card?`data-tier="${card.tier}"`:''}>${card?`<div class="fp-card-art">${art(card)}</div><p class="fp-card-number">TIME CARD / 0${i+1}</p><h2>${esc(card.name)}</h2><p class="fp-card-round">${card.tier} 星 · ${esc(card.rounds.join(' / ') || '条件触发')}</p><p class="fp-card-effect">${esc(card.description)}</p>`:`<div class="fp-card-empty">0${i+1}<span>等待你的王牌</span></div>`}</section>`).join('')}</div></section>
       <section class="fp-formation"><div class="fp-label">02 / 阵容蓝图 <small>${formation?.board.some(Boolean)?`${formation.population} 人口 · ${formation.board.filter(Boolean).length} 个单位`:'POSITION & SYNERGY'}</small></div><div class="fp-formation-body"><div class="fp-board">${renderBoard()}</div><div class="fp-traits">${formation?.traits.length ? formation.traits.slice(0,8).map(t=>`<span class="fp-trait"><span class="fp-trait-emblem">${t.frame?image(t.frame,'','fp-trait-frame'):''}${t.icon?image(t.icon,'','fp-trait-icon'):''}</span><b>${t.count}</b><span>${esc(t.name)}</span></span>`).join('') + (formation.traits.length>8?`<span class="fp-trait fp-muted">+ ${formation.traits.length-8} 个羁绊</span>`:'') : '<p class="fp-muted">上阵弈子后<br>展示激活羁绊</p>'}</div></div></section>
@@ -224,10 +225,11 @@
   $('export-poster').addEventListener('click',async()=>{
     if(exporting || $('export-poster').disabled) return;
     exporting=true; const button=$('export-poster');button.disabled=true;button.textContent='正在生成…';
+    const filename=`${(state.title.trim()||defaults.title).replace(/[\\/:*?"<>|\x00-\x1f]/g,'-')}-大橘大利-${state.layout==='guide'?'攻略版':'纯构筑版'}.png`;
     let copy;
     try {
-      await document.fonts.ready; fitText();
       copy=$('poster-preview').firstElementChild.cloneNode(true);
+      await document.fonts.ready;
       copy.style.transform='none';copy.style.position='fixed';copy.style.left='-10000px';copy.style.top='0';
       copy.prepend(document.querySelector('.fortune-frame-materials').cloneNode(true));
       document.body.append(copy);fitText(copy);await prepareImages(copy);
@@ -249,9 +251,9 @@
         await new Promise(resolve=>setTimeout(resolve,100));
         ctx.clearRect(0,0,output.width,output.height);ctx.drawImage(rendered,0,0);
       }
-      const data=output.toDataURL('image/png');
-      const link=document.createElement('a');link.href=data;link.download=`${(state.title.trim()||defaults.title).replace(/[\\/:*?"<>|\x00-\x1f]/g,'-')}-大橘大利-${state.layout==='guide'?'攻略版':'纯构筑版'}.png`;link.click();
-      notify('海报已生成，下载已开始','success');
+      const blob=await new Promise((resolve,reject)=>output.toBlob(value=>value?resolve(value):reject(new Error('图片生成失败，请重试')),'image/png'));
+      window.JccPosterSave.present(blob,filename);
+      $('export-status').textContent='海报已生成，请在保存面板中完成保存。';
     } catch(error) {notify(error.message || '海报生成失败，请重试','error');$('export-status').textContent=error.message || '导出失败，请重试';}
     finally {copy?.remove();exporting=false;button.textContent='导出海报 ↓';button.disabled=state.cards.filter(Boolean).length!==3 || !formation?.board.some(Boolean) || Boolean(energyError());}
   });

@@ -29,6 +29,21 @@
       body.append(el('p','admin-meta',`${data.start} 至 ${data.end} · 统计更新 ${data.generated_at}`),cards);
       const deviceSection=el('section','experience-section');
       deviceSection.append(el('h3','','按设备查看'),el('p','admin-meta','设备由浏览器标识粗略识别；旧记录保留为未知设备。访问按每天、访客和页面类型去重，同日换设备可能只保留首次记录。各设备人数可能重叠。'));
+      const deviceOverview=el('div','experience-device-overview');
+      deviceOverview.append(global.JccAnalyticsCharts.chart({
+        title:'访问与搜索', description:`${data.start} 至 ${data.end} · 按设备对比去重人数`,
+        rows:data.devices.map(d=>({label:d.label,visitors:d.uv,searchers:d.search_visitors})),
+        series:[{key:'visitors',label:'访问人数'},{key:'searchers',label:'搜索人数',texture:'hatch'}],
+      }));
+      const breakdown=el('aside','experience-device-summary');breakdown.setAttribute('aria-label','设备人数明细');
+      const summaryHead=el('div','experience-device-summary-head');summaryHead.append(el('h4','','设备分布'),el('span','','访问 / 搜索'));breakdown.append(summaryHead);
+      data.devices.forEach(d=>{
+        const row=el('div','experience-device-summary-row');const name=el('span','',d.label);
+        const values=el('div');values.append(el('strong','',Number(d.uv||0).toLocaleString('zh-CN')),el('span','','/'),el('b','',Number(d.search_visitors||0).toLocaleString('zh-CN')));
+        row.append(name,values);breakdown.append(row);
+      });
+      breakdown.append(el('p','','搜索人数按访客去重，区别于搜索次数。各设备人数可能重叠，不相加为全站总人数。'));
+      deviceOverview.append(breakdown);deviceSection.append(deviceOverview);
       const deviceTable=table(['设备','访问人数','页面访问记录','成功复制动作','复制人数','搜索次数','无结果比例'],data.devices.map(d=>[d.label,d.uv,d.pv,d.copies,d.copy_visitors,d.searches,d.searches?`${d.zero_result_pct}%`:'—']));
       deviceTable.classList.add('experience-device-table');
       const deviceCards=el('div','experience-device-cards');

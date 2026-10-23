@@ -4,6 +4,7 @@ const fs=require('node:fs');
 const {chromium,webkit}=require('playwright');
 const base=process.env.CREATOR_PREVIEW_URL||'http://127.0.0.1:5139';
 const out='instance/creator-review';fs.mkdirSync(out,{recursive:true});
+const materials=process.env.CREATOR_MATERIALS?.split(',')||['gilded','editorial','folio'];
 const team=['4345','1412','2411','4368','5397','3336','2403','4352','1402','4339'];
 
 async function geometry(page) {
@@ -18,10 +19,18 @@ async function geometry(page) {
       traitsFit:traits.bottom<=board.bottom+.5,
       columnsAlign:Math.max(...names)-Math.min(...names)<.5,
       headingFits:rect('.fp-heading').bottom<=header.bottom+.5 && rect('.fp-header h1').bottom<=header.bottom+.5,
+      marginaliaClear:[...document.querySelectorAll('.fp-editorial-marks>span')].every(mark=>{
+        const a=mark.getBoundingClientRect();
+        return [...document.querySelectorAll('.fp-overline,.fp-header h1,.fp-brand,.fp-meta,.fp-card-effect,.fp-notebook p')].every(content=>{
+          const b=content.getBoundingClientRect();
+          return !b.width || !b.height || a.right<=b.left || a.left>=b.right || a.bottom<=b.top || a.top>=b.bottom;
+        });
+      }),
     };
   });
   assert.ok(result.topDelta<1);assert.ok(result.brandCenter<1);
   assert.ok(result.traitsFit);assert.ok(result.columnsAlign);assert.ok(result.headingFits);
+  assert.ok(result.marginaliaClear,'editorial marks must not overlap poster text');
 }
 
 (async()=>{
@@ -50,8 +59,12 @@ async function geometry(page) {
     await page.locator('#deck-name').fill('百川归流 · 多羁绊构筑');
     for(const layout of ['guide','showcase']) {
       await page.locator(`[name="poster-layout"][value="${layout}"]`).check();await geometry(page);
+      for(const material of materials) {
+      await page.locator(`[data-background="${material}"]`).click();await geometry(page);
       const download=page.waitForEvent('download',{timeout:90000});await page.locator('#export-poster').click();
-      await (await download).saveAs(`${out}/full-traits-${name}-${layout}.png`);
+      await (await download).saveAs(`${out}/full-traits-${name}-${layout}-${material}.png`);
+      await page.locator('[data-save-close]').click();
+      }
     }
     await page.locator('[name="poster-layout"][value="guide"]').check();
     await page.locator('#deck-portal').selectOption('stable');await page.locator('#deck-energy').fill('6');

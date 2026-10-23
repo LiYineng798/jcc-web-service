@@ -8,9 +8,11 @@
   <link rel="stylesheet" href="{{ static_v('toolbox.css') }}">
   <link rel="stylesheet" href="{{ static_v('orange-fortune.css') }}">
   <link rel="stylesheet" href="{{ static_v('orange-creator.css') }}">
+  <link rel="stylesheet" href="{{ static_v('orange-creator-finish.css') }}">
   <script src="{{ static_v('toolbox.js') }}" defer></script>
   <script src="{{ static_v('theme-toggle.js') }}" defer></script>
   <script src="{{ static_v('tools/lineup-simulator/vendor/html-to-image.min.js') }}" defer></script>
+  <script src="{{ static_v('poster-save.js') }}" defer></script>
   <script src="{{ static_v('orange-creator.js') }}" defer></script>
 </head>
 <body class="creator-body">
@@ -46,7 +48,7 @@
         </div>
         <p class="creator-help" id="operations-hidden-hint" hidden>纯构筑版不包含运营信息，已填写的内容仍会保留。</p>
       </section>
-      <section class="creator-panel" id="panel-materials" data-editor-panel="materials"><div class="creator-section-title"><span>04</span><h2>海报材质</h2><small>四种氛围</small></div><div class="creator-backgrounds">{% for bg in creator_data.backgrounds %}<button type="button" data-background="{{ bg.id }}" aria-pressed="{{ 'true' if loop.first else 'false' }}"><span class="creator-swatch theme-{{ bg.id }}"><img src="{{ bg.image_url }}" alt="" loading="lazy"></span><strong>{{ bg.name }}</strong><small>{{ bg.description }}</small></button>{% endfor %}</div></section>
+      <section class="creator-panel" id="panel-materials" data-editor-panel="materials"><div class="creator-section-title"><span>04</span><h2>海报材质</h2><small>{{ creator_data.backgrounds|length }} 种氛围</small></div><div class="creator-backgrounds">{% for bg in creator_data.backgrounds %}<button type="button" data-background="{{ bg.id }}" aria-pressed="{{ 'true' if loop.first else 'false' }}"><span class="creator-swatch theme-{{ bg.id }}"><img src="{{ bg.image_url }}" alt="" loading="lazy"></span><strong>{{ bg.name }}</strong><small>{{ bg.description }}</small></button>{% endfor %}</div></section>
     </section>
     <section class="creator-preview-column" aria-label="实时海报预览"><div class="creator-preview-sticky"><div class="creator-preview-heading"><span><i></i> 实时预览</span><span>1200 × 1600 · PNG</span></div><div class="creator-preview-mat"><div id="poster-preview" class="creator-preview"></div></div></div></section>
   </main>

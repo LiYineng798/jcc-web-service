@@ -1,0 +1,83 @@
+/* Static foil and engraved stock: no transforms or layout changes in exported art. */
+.fortune-poster { --foil-a:#dac29b; --foil-b:#a8c9c8; --foil-c:#c2acd4; }
+.fortune-poster.theme-jade { --foil-a:#ced7a3; --foil-b:#92c8bd; --foil-c:#9eb9d2; }
+.fortune-poster.theme-astral { --foil-a:#c2a8df; --foil-b:#9bc8d6; --foil-c:#dcc0c8; }
+.fortune-poster.theme-ivory { --foil-a:#997c55; --foil-b:#789b96; --foil-c:#a18aa9; }
+.fortune-poster::before { content:''; position:absolute; inset:12px; z-index:1; border-radius:24px; pointer-events:none; border:1px solid var(--foil-a); border-top-color:var(--foil-b); border-right-color:var(--foil-c); opacity:.6; }
+.fortune-poster .fp-veil { background:radial-gradient(ellipse at 5% 0%,#c5e7ed16,transparent 43%),radial-gradient(ellipse at 100% 65%,#e3bde710,transparent 44%),linear-gradient(115deg,transparent 10%,#fff9e608 26%,transparent 42%,#b8d8eb08 73%,transparent 89%),linear-gradient(180deg,#07111c00,#07111c18 16%,#07111c28 48%,#07111c18 83%,#07111c00); }
+.fortune-poster.theme-ivory .fp-veil { background:radial-gradient(ellipse at 0% 0%,#d1cce536,transparent 46%),radial-gradient(ellipse at 100% 65%,#bed8d32b,transparent 44%),linear-gradient(115deg,transparent 10%,#ffffff38 28%,transparent 44%),linear-gradient(180deg,#fff8e700,#fff8e71c 60%,#fff8e700); }
+.fortune-poster .fp-header::after,.fortune-poster .fp-footer::after { content:''; position:absolute; height:1px; left:0; right:0; background:linear-gradient(90deg,var(--foil-a),var(--foil-b) 40%,var(--foil-c) 72%,transparent); opacity:.75; }
+.fortune-poster .fp-header::after { bottom:-1px; }
+.fortune-poster .fp-footer::after { top:-1px; }
+.fortune-poster .fp-card { position:relative; }
+.fortune-poster .fp-card::before { content:''; position:absolute; inset:-8px -10px 0; border-radius:16px; pointer-events:none; background:linear-gradient(155deg,#ffffff07,transparent 28%,var(--glass)); box-shadow:inset 0 1px 0 var(--rule); }
+.fortune-poster .fp-card>* { position:relative; }
+.fortune-poster .fp-card-art::after { content:''; position:absolute; inset:0; pointer-events:none; background:linear-gradient(120deg,transparent 17%,#eaf9ff13 30%,transparent 43%,#f8deff0c 67%,transparent 80%); clip-path:polygon(50% 0,100% 16%,100% 84%,50% 100%,0 84%,0 16%); }
+.fortune-poster .fp-card-number { text-shadow:0 0 14px var(--glow); }
+.fortune-poster .fp-card-effect { border-top-color:var(--foil-a); }
+.fortune-poster .fp-brand b { text-shadow:0 1px 0 var(--paper),0 0 24px var(--glow); }
+.creator-preview-mat { box-shadow:inset 0 1px 0 #ffffff20; }
+.creator-save-dialog { width:min(720px,calc(100vw - 24px)); max-height:calc(100dvh - 24px); padding:24px; border:1px solid var(--line); border-radius:18px; background:var(--surface-solid); color:var(--text); overflow:auto; }
+.creator-save-dialog::backdrop { background:#080b10b8; backdrop-filter:blur(5px); }
+.creator-save-dialog header { display:flex; align-items:center; justify-content:space-between; gap:16px; }
+.creator-save-dialog header p { font-size:10px; letter-spacing:2px; color:var(--muted); margin:0 0 8px; }
+.creator-save-dialog h2 { font-size:22px; margin:0; }
+.poster-save-status { color:var(--muted); font-size:14px; line-height:1.7; }
+.poster-save-actions { display:flex; flex-wrap:wrap; gap:10px; margin:18px 0; }
+.poster-save-actions a { display:inline-flex; align-items:center; text-decoration:none; cursor:pointer; }
+.poster-save-actions [hidden] { display:none; }
+.poster-save-image { display:block; width:100%; height:auto; border-radius:6px; -webkit-touch-callout:default; user-select:auto; }
+@media(max-width:520px) { .creator-save-dialog { padding:16px; } .poster-save-actions>* { flex:1 1 auto; justify-content:center; min-height:44px; } }
+.theme-editorial { --paper:#eee3c8; --paper-end:#e4d5b5; --ink:#252b30; --soft:#51534e; --accent:#365b88; --glow:#365b8810; --glass:#fffaf018; --rule:#456b9a45; }
+.fortune-poster.theme-editorial::before { inset:24px; border:0; border-radius:0; opacity:1; }
+.fortune-poster.theme-editorial::after { inset:24px; border-color:#456b9a30; border-radius:0; box-shadow:none; }
+.fortune-poster.theme-editorial .fp-veil { background:none; }
+.fortune-poster.theme-editorial .fp-header::after,.fortune-poster.theme-editorial .fp-footer::after { background:#365b88; opacity:.65; }
+.fortune-poster.theme-editorial .fp-header h1 { color:#283f5d; text-shadow:none; }
+.fortune-poster.theme-editorial .fp-brand b { color:#365b88; text-shadow:none; }
+.fortune-poster.theme-editorial .fp-card::before { border-radius:0; box-shadow:none; background:linear-gradient(180deg,#fffaf00a,#fffaf044); }
+.fortune-poster.theme-editorial .fp-card-art::after { display:none; }
+.fortune-poster.theme-editorial .fp-card-number { color:#a24f32; text-shadow:none; letter-spacing:2px; }
+.fortune-poster.theme-editorial .fp-card-effect { border-top-color:#456b9a70; color:#464b49; }
+.fortune-poster.theme-editorial .fp-card h2 { color:#263d58; }
+.fortune-poster.theme-editorial .fp-label { font-weight:600; }
+.fortune-poster.theme-editorial .fp-label small { font-weight:400; }
+.fortune-poster.theme-editorial .fp-plan small { color:#a24f32; }
+.fortune-poster.theme-editorial .fp-notebook { background-image:repeating-linear-gradient(transparent 0 35px,#456b9a17 35px 36px); }
+.fortune-poster.theme-editorial .fp-footer b { color:#365b88; }
+.creator-backgrounds { grid-template-columns:repeat(3,minmax(0,1fr)); }
+.creator-backgrounds button { min-width:0; }
+.creator-swatch.theme-editorial::after { display:none; }
+@media(min-width:981px) and (max-height:760px) { .creator-backgrounds button { padding-bottom:6px; } .creator-swatch { min-height:32px; } }
+/* Editorial marginalia lives in the existing gutters; content geometry is unchanged. */
+.fp-editorial-marks { position:absolute; inset:0; pointer-events:none; color:#365b88; }
+.fp-edition { position:absolute; left:56px; top:39px; font-size:9px; line-height:12px; letter-spacing:2px; }
+.fp-edition i { color:#ad5334; font-style:normal; margin:0 6px; }
+.fp-margin-note { position:absolute; right:22px; top:370px; writing-mode:vertical-rl; font-family:var(--poster-display); font-size:13px; letter-spacing:4px; }
+.fp-editorial-stamp { position:absolute; right:56px; top:46px; width:42px; height:42px; display:flex; flex-direction:column; align-items:center; justify-content:center; border:1px solid #aa583d99; outline:1px solid #aa583d66; outline-offset:3px; border-radius:50%; color:#aa583d; font-family:var(--poster-display); font-size:9px; line-height:1.6; transform:rotate(-12deg); }
+.fp-editorial-stamp b { font-weight:600; letter-spacing:3px; }
+.fp-editorial-sign { position:absolute; right:56px; top:196px; font-family:var(--poster-display); font-size:11px; letter-spacing:1px; transform:rotate(-3deg); }
+.fp-editorial-sign svg { display:block; width:180px; height:12px; fill:none; stroke:#365b8899; stroke-width:1.4; }
+.fortune-poster.theme-editorial .fp-card-art::before { content:''; position:absolute; inset:-5px -8px; pointer-events:none; background:linear-gradient(#365b8870,#365b8870) left top/20px 1px no-repeat,linear-gradient(#365b8870,#365b8870) left top/1px 20px no-repeat,linear-gradient(#365b8870,#365b8870) right bottom/20px 1px no-repeat,linear-gradient(#365b8870,#365b8870) right bottom/1px 20px no-repeat; }
+.fortune-poster.theme-editorial .fp-card h2::after { content:''; position:absolute; width:72px; height:3px; left:calc(50% - 36px); bottom:0; border-top:1px solid #b15a3b80; border-bottom:1px solid #b15a3b30; transform:rotate(-2deg); }
+.fortune-poster.theme-editorial .fp-card-round { color:#365b88; }
+.fortune-poster.theme-editorial .fp-card-number::before { content:''; display:inline-block; width:12px; height:12px; margin-right:8px; vertical-align:-2px; background:center/contain no-repeat url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M6 1v10M1 6h10M2.5 2.5l7 7m0-7-7 7' fill='none' stroke='%23365b88' stroke-width='.8'/%3E%3C/svg%3E"); }
+.fortune-poster.theme-editorial .fp-card::before { border:1px solid #365b8818; background:linear-gradient(165deg,#fffdf033,transparent 35%,#fffaf044); }
+/* Clothbound folio: editable SVG weave and engraved corners, with warm silver type. */
+.theme-folio { --paper:#193b61; --paper-end:#254e79; --ink:#f4eee0; --soft:#e0dfd6; --accent:#dcc89d; --glow:transparent; --glass:#0b244344; --rule:#cfdbde38; }
+.fortune-poster.theme-folio::before,.fortune-poster.theme-folio::after { display:none; }
+.fortune-poster.theme-folio .fp-veil { background:linear-gradient(90deg,transparent 3%,#102d4e40 7%,#102d4e40 93%,transparent 97%); }
+.fortune-poster.theme-folio .fp-header h1 { color:#fff5df; text-shadow:0 2px 1px #0c254e88; }
+.fortune-poster.theme-folio .fp-brand { position:relative; }
+.fortune-poster.theme-folio .fp-brand b { color:#f2e7cf; text-shadow:0 1px 1px #0b2149; }
+.fortune-poster.theme-folio .fp-brand::before { content:''; position:absolute; width:84px; height:16px; top:-24px; left:calc(50% - 42px); background:center/contain no-repeat url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 84 16'%3E%3Cpath d='M1 8h20q10-12 21 0 11-12 21 0h20M14 8q14 12 28 0 14 12 28 0M38 8l4-4 4 4-4 4z' fill='none' stroke='%23dcc89d' stroke-width='.8'/%3E%3C/svg%3E"); }
+.fortune-poster.theme-folio .fp-header::after,.fortune-poster.theme-folio .fp-footer::after { background:linear-gradient(90deg,#b9a27888,#ebdfbdcc 50%,#b9a27888); opacity:.65; }
+.fortune-poster.theme-folio .fp-card::before { display:none; }
+.fortune-poster.theme-folio .fp-card-art::before { content:''; position:absolute; inset:-8px -18px -6px; border-radius:150px 150px 5px 5px; border:1px solid #d7dbc438; background:linear-gradient(180deg,#a9c4d70d,#081e3a25); box-shadow:inset 0 0 0 5px #18365a33,inset 0 0 0 6px #d7dbc413; pointer-events:none; }
+.fortune-poster.theme-folio .fp-card-art::after { display:none; }
+.fortune-poster.theme-folio .fp-card-number { color:#cfc7af; text-shadow:none; }
+.fortune-poster.theme-folio .fp-card h2 { color:#f5ead4; }
+.fortune-poster.theme-folio .fp-card-effect { border-top-color:#c9ba9566; }
+.fortune-poster.theme-folio .fp-notebook { background:repeating-linear-gradient(transparent 0 34px,#cfdbde15 34px 35px); }
+.fortune-poster.theme-folio .fp-label { color:#e4d2af; }
+.fortune-poster.theme-folio .fp-meta,.fortune-poster.theme-folio .fp-label small { color:#d8e2e7; }
