@@ -66,6 +66,17 @@
     };
   }
 
+  // After a page change, bring the list start back under the sticky/fixed top bar.
+  // Leaves the scroll alone when the list start is already visible.
+  function revealListStart(node) {
+    if (!node?.isConnected) return;
+    const header = document.querySelector('.admin-topbar')?.getBoundingClientRect().bottom || 0;
+    const offset = node.getBoundingClientRect().top - header - 12;
+    if (offset >= 0) return;
+    const reduceMotion = global.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    global.scrollBy({ top: offset, behavior: reduceMotion ? 'auto' : 'smooth' });
+  }
+
   global.JccAdminCore = Object.freeze({
     buildDeltaText,
     button,
@@ -75,6 +86,7 @@
     escapeHtml,
     formatDay,
     formatPercent,
+    revealListStart,
     todayInputValue,
   });
 })(window);

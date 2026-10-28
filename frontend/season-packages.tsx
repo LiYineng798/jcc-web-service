@@ -2,6 +2,7 @@ import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { createRoot, type Root } from 'react-dom/client';
 import { ArrowUpRight, RefreshCw, PackageCheck, RotateCcw } from 'lucide-react';
 import { FileUpload, type FileUploadItem } from './components/ui/be-ui-file-upload';
+import { revealListStart } from './lib/utils';
 import './package-ui.css';
 
 type Active = { release_id: string | null; previous_release_id: string | null; revision: number; package_id?: string; game_version?: string; data_revision?: number };
@@ -77,6 +78,7 @@ function App({ csrfToken }: { csrfToken: string }) {
   const uploads = useRef(new Map<string, XMLHttpRequest>());
   const alive = useRef(true);
   const mutation = useRef<AbortController | null>(null);
+  const recordsRef = useRef<HTMLElement>(null);
   const reload = () => setRefresh(n => n + 1);
 
   useEffect(() => () => { alive.current = false; for (const xhr of uploads.current.values()) xhr.abort(); mutation.current?.abort(); }, []);
@@ -164,13 +166,13 @@ function App({ csrfToken }: { csrfToken: string }) {
             title="将更新包拖到这里" description={`支持 ZIP，最大 ${Math.round((listing?.max_bytes || 256 * 1024 ** 2) / 1024 ** 2)} MB`} browseLabel="选择更新包" />
           <p className="sp-muted">文件包含资料、图片、玩法配置、更新说明与来源。上传成功后还需完成校验和发布；移除文件行仅清理本次上传列表。</p>
         </section>
-        <section className="sp-panel">
+        <section className="sp-panel" ref={recordsRef}>
           <div className="sp-head"><h2>更新包记录</h2><Button onClick={reload}><RefreshCw size={14} />刷新</Button></div>
           <div className="sp-stack">{!listing ? <p className="sp-muted">正在读取记录…</p> : listing.items.length === 0 ? <p className="sp-muted">还没有更新包。上传后，处理进度和发布记录会保存在这里。</p> : listing.items.map(item => <button key={item.id} type="button" className="sp-package" aria-pressed={selected === item.id} onClick={() => { setSelected(item.id); setTab('diff'); }}>
             <span className="sp-head" style={{ margin: 0 }}><strong>{item.season_id.toUpperCase()} · {item.game_version} · r{item.data_revision}</strong><span className="sp-tag">{listing.seasons.find(s => s.season_id === item.season_id)?.active.release_id === item.id ? '当前线上' : item.published_at && item.state === 'ready' ? '历史版本' : text(item.state)}</span></span>
             <span className="sp-muted sp-break">{item.package_id}</span><span className="sp-muted">{item.created_at}</span>
           </button>)}</div>
-          {!!listing?.total && <div className="sp-actions" style={{ marginTop: 16 }}><Button disabled={page <= 1} onClick={() => setPage(p => p - 1)}>上一页</Button><span className="sp-muted">{page} / {Math.ceil(listing.total / 20)}</span><Button disabled={page * 20 >= listing.total} onClick={() => setPage(p => p + 1)}>下一页</Button></div>}
+          {!!listing?.total && <div className="sp-actions" style={{ marginTop: 16 }}><Button disabled={page <= 1} onClick={() => { setPage(p => p - 1); revealListStart(recordsRef.current); }}>上一页</Button><span className="sp-muted">{page} / {Math.ceil(listing.total / 20)}</span><Button disabled={page * 20 >= listing.total} onClick={() => { setPage(p => p + 1); revealListStart(recordsRef.current); }}>下一页</Button></div>}
         </section>
       </div>
       <div className="sp-stack">

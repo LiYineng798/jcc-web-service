@@ -504,6 +504,11 @@ function NotificationList({
       setView((value) => ({ ...value, page: result.data!.page }));
   }, [result.data, view.page, setView]);
   useEffect(()=>{if(result.data&&!result.loading)restored();},[result.data,result.loading]);
+  const turnPage = (event: React.MouseEvent<HTMLElement>, delta: number) => {
+    // The dialog body is the scroller; a new page starts from its top.
+    event.currentTarget.closest(".pf-dialog-body")?.scrollTo(0, 0);
+    setView((value) => ({ ...value, page: value.page + delta }));
+  };
   return (
     <section className="pf-inbox">
       <div className="pf-inbox-toolbar">
@@ -554,9 +559,7 @@ function NotificationList({
                 className="pf-icon-button"
                 aria-label="通知上一页"
                 disabled={view.page <= 1}
-                onClick={() =>
-                  setView((value) => ({ ...value, page: value.page - 1 }))
-                }
+                onClick={(event) => turnPage(event, -1)}
               >
                 <ChevronLeft size={17} />
               </button>
@@ -567,9 +570,7 @@ function NotificationList({
                 className="pf-icon-button"
                 aria-label="通知下一页"
                 disabled={view.page >= (result.data?.total_pages || 1)}
-                onClick={() =>
-                  setView((value) => ({ ...value, page: value.page + 1 }))
-                }
+                onClick={(event) => turnPage(event, 1)}
               >
                 <ChevronRight size={17} />
               </button>
