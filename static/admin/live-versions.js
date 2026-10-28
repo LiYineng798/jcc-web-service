@@ -1,5 +1,5 @@
 (function (global) {
-  const { el, button } = global.JccAdminCore;
+  const { el, button, revealListStart } = global.JccAdminCore;
   const labels = { active: '当前线上', draft: '预上线', history: '历史版本' };
 
   function create({ api, render, notify, getSeason }) {
@@ -147,7 +147,7 @@
           if (!item.originalJccCode) card.append(button(item.hasCode ? '修改补码' : '补充阵容码', () => codeDialog(item), 'small-button', busy));
           results.append(card);
         });
-        pager.append(button('上一页', () => { page--; draw(); }, 'small-button', page <= 1), el('span', 'admin-meta', `${page} / ${pages} · 共 ${all.length} 套`), button('下一页', () => { page++; draw(); }, 'small-button', page >= pages));
+        pager.append(button('上一页', () => { page--; draw(); revealListStart(results); }, 'small-button', page <= 1), el('span', 'admin-meta', `${page} / ${pages} · 共 ${all.length} 套`), button('下一页', () => { page++; draw(); revealListStart(results); }, 'small-button', page >= pages));
       }
       let composing = false;
       const searchChanged = () => { if (!composing) { query = search.value; page = 1; draw(); } };

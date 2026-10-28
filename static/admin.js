@@ -5,6 +5,7 @@
     el,
     escapeAttribute,
     escapeHtml,
+    revealListStart,
     todayInputValue,
   } = window.JccAdminCore;
   const root = document.querySelector('#adminApp');
@@ -1881,12 +1882,14 @@
     const source = state[kind];
     if (!source || (source.total_pages || 1) <= 1) return el('div');
     const wrap = el('div', 'admin-pagination');
+    wrap.dataset.pagination = kind;
     wrap.append(
       button('上一页', async () => {
         if (source.page <= 1) return;
         state[kind].page -= 1;
         await reloadKind(kind);
         render();
+        revealPaginatedList(kind);
       }, 'small-button', source.page <= 1),
     );
     wrap.append(el('span', 'admin-meta', `第 ${source.page} / ${source.total_pages} 页 · 共 ${source.total} 条`));
@@ -1896,9 +1899,16 @@
         state[kind].page += 1;
         await reloadKind(kind);
         render();
+        revealPaginatedList(kind);
       }, 'small-button', source.page >= source.total_pages),
     );
     return wrap;
+  }
+
+  function revealPaginatedList(kind) {
+    // The pager is always appended right after the list it pages.
+    const pager = root.querySelector(`.admin-pagination[data-pagination="${kind}"]`);
+    revealListStart(pager?.previousElementSibling);
   }
 
   async function reloadKind(kind) {

@@ -1,5 +1,5 @@
 (() => {
-  const { el, button } = window.JccAdminCore;
+  const { el, button, revealListStart } = window.JccAdminCore;
   const root = document.querySelector('#assistantApp');
   const summary = document.querySelector('#assistantPermissions');
   const avatarButton = document.querySelector('#assistantAvatar');
@@ -153,7 +153,7 @@
       try {
         const data = await api('/lineups?season_id=' + encodeURIComponent(select.value) + '&page=' + page); if (current !== generation) return;
         result.replaceChildren(table([['阵容', 'name'], ['编号', 'id'], ['阵容码', 'code'], ['上传者', 'uploader']], data.items, row => fresh.has(row.id) ? 'is-new' : ''));
-        const actions = el('div', 'card-actions'); actions.append(button('上一页', async () => { page--; await load(); }, 'small-button', page <= 1), el('span', 'admin-meta', `第 ${page} 页`), button('下一页', async () => { page++; await load(); }, 'small-button', data.items.length < data.page_size)); result.append(actions);
+        const actions = el('div', 'card-actions'); actions.append(button('上一页', async () => { page--; await load(); revealListStart(list); }, 'small-button', page <= 1), el('span', 'admin-meta', `第 ${page} 页`), button('下一页', async () => { page++; await load(); revealListStart(list); }, 'small-button', data.items.length < data.page_size)); result.append(actions);
       } catch (error) { if (current === generation) result.replaceChildren(el('p', 'assistant-error', error.message), button('重试', load)); }
     }
     async function showBatch(seasonId, ids) {

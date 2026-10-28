@@ -25,11 +25,11 @@
       const next=item.notice_state==='unread'?'read':'unread';const read=button('',async()=>{await session.api(`/api/me/notifications/${item.id}`,{method:'PUT',body:JSON.stringify({status:next,revision:item.revision})});await load();},'ln-read-toggle');read.setAttribute('aria-label',next==='read'?'标记已读':'标记未读');read.title=read.getAttribute('aria-label');read.append(el('span','ln-read-dot'));row.append(read);list.append(row);
     }
     if(!data.items.length)list.append(el('p','ln-empty',status==='unread'?'都看过啦，新的消息会在这里等你。':'这里暂时没有消息。'));
-    if(data.total_pages>1){const prev=button('上一页',()=>{page--;return load();},'ln-page-button');prev.disabled=page<=1;const next=button('下一页',()=>{page++;return load();},'ln-page-button');next.disabled=page>=data.total_pages;pagination.append(prev,el('span','',`${page} / ${data.total_pages}`),next);}pagination.hidden=data.total_pages<=1;
+    if(data.total_pages>1){const prev=button('上一页',()=>{page--;return load(false,true);},'ln-page-button');prev.disabled=page<=1;const next=button('下一页',()=>{page++;return load(false,true);},'ln-page-button');next.disabled=page>=data.total_pages;pagination.append(prev,el('span','',`${page} / ${data.total_pages}`),next);}pagination.hidden=data.total_pages<=1;
   }
-  async function load(restore=false){
+  async function load(restore=false,toTop=false){
     if(!session||detail)return;const request=++requestId;const focused=document.activeElement;const filterFocus=filters.contains(focused);const rowFocus=focused?.closest('[data-notice-id]')?.dataset.noticeId;list.setAttribute('aria-busy','true');
-    try{const data=await session.api(`/api/me/notifications?category=${category}&status=${status}&page=${page}&page_size=6`);if(request!==requestId||detail)return;page=data.page;render(data);if(filterFocus)filters.querySelector('[aria-pressed="true"]')?.focus({preventScroll:true});else if(rowFocus)list.querySelector(`[data-notice-id="${rowFocus}"] .ln-read-toggle`)?.focus({preventScroll:true});if(restore){list.scrollTop=scroll;list.querySelector(`[data-notice-id="${focusKey}"] .ln-item-link`)?.focus({preventScroll:true});}}
+    try{const data=await session.api(`/api/me/notifications?category=${category}&status=${status}&page=${page}&page_size=6`);if(request!==requestId||detail)return;page=data.page;render(data);if(toTop)list.scrollTop=0;if(filterFocus)filters.querySelector('[aria-pressed="true"]')?.focus({preventScroll:true});else if(rowFocus)list.querySelector(`[data-notice-id="${rowFocus}"] .ln-read-toggle`)?.focus({preventScroll:true});if(restore){list.scrollTop=scroll;list.querySelector(`[data-notice-id="${focusKey}"] .ln-item-link`)?.focus({preventScroll:true});}}
     catch(e){if(request!==requestId||detail)return;list.replaceChildren(el('p','ln-empty','消息暂时未送达'),button('重新加载',()=>load(restore),'ln-retry'));}finally{if(request===requestId)list.removeAttribute('aria-busy');}
   }
   async function openDetail(item,push=true){

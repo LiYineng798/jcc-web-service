@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { revealListStart } from '@/lib/utils';
 
 type Log = {
   id: number; created_at: string; action: string; action_label: string; kind: string; kind_label: string;
@@ -120,6 +121,7 @@ export function InteractiveLogsTable() {
   const [error, setError] = useState('');
   const [loadedKey, setLoadedKey] = useState('');
   const searchRef = useRef<HTMLInputElement>(null);
+  const resultsRef = useRef<HTMLDivElement>(null);
   const composing = useRef(false);
   const key = JSON.stringify({ search, filters, page, pageSize, refresh });
   const pending = loading || loadedKey !== key || query.trim() !== search;
@@ -144,6 +146,7 @@ export function InteractiveLogsTable() {
   const count = filters.targets.length + filters.kinds.length + Number(!!filters.start) + Number(!!filters.end);
   const active = count > 0 || !!query;
   const changeFilters = (value: Filters) => { setFilters(value); setPage(1); };
+  const turnPage = (value: number) => { setPage(value); revealListStart(resultsRef.current); };
   const clear = () => { setQuery(''); setSearch(''); setFilters(EMPTY_FILTERS); setPage(1); searchRef.current?.focus(); };
   const options = data?.filters || { targets: [], kinds: [] };
   return <section className="al-panel" aria-labelledby="audit-title">
@@ -166,7 +169,7 @@ export function InteractiveLogsTable() {
     </div>}
     <div className={'al-body' + (showFilters ? ' al-with-filters' : '')}>
       <AnimatePresence initial={false}>{showFilters && <motion.div key="filters" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: .15 }}><FilterPanel filters={filters} options={options} onChange={changeFilters} onClose={() => { setShowFilters(false); searchRef.current?.focus({ preventScroll: true }); }} /></motion.div>}</AnimatePresence>
-      <div className="al-results" aria-busy={pending}>
+      <div className="al-results" ref={resultsRef} aria-busy={pending}>
         <div className="al-table-head" aria-hidden="true"><span /><span>类型</span><span>发生时间</span><span>操作内容</span><span>操作对象</span><span>操作人</span></div>
         <div className="al-result-status" role="status">{pending ? '正在读取日志…' : error ? '日志加载失败' : '找到 ' + (data?.total || 0) + ' 条记录'}</div>
         {error ? <div className="al-state"><ScrollText size={28} /><h3>暂时无法读取日志</h3><p role="alert">{error}</p><Button onClick={() => setRefresh(n => n + 1)}>重新加载</Button></div> :
@@ -176,9 +179,9 @@ export function InteractiveLogsTable() {
         <footer className="al-footer">
           <span>{error ? '未能读取记录' : !pending && data ? data.total ? '显示 ' + ((data.page - 1) * data.page_size + 1) + '–' + Math.min(data.page * data.page_size, data.total) + ' 条，共 ' + data.total + ' 条' : '共 0 条记录' : '正在读取'}</span>
           <div><label className="al-page-size"><select aria-label="每页条数" value={pageSize} onChange={event => { setPageSize(Number(event.target.value)); setPage(1); }}><option value="20">20 条 / 页</option><option value="30">30 条 / 页</option><option value="50">50 条 / 页</option></select></label>
-            <Button aria-label="上一页" disabled={pending || !!error || !data || data.page <= 1} onClick={() => setPage((data?.page || 1) - 1)}><ChevronLeft size={16} /></Button>
+            <Button aria-label="上一页" disabled={pending || !!error || !data || data.page <= 1} onClick={() => turnPage((data?.page || 1) - 1)}><ChevronLeft size={16} /></Button>
             <span className="al-page-number">{data?.page || 1} / {data?.total_pages || 1}</span>
-            <Button aria-label="下一页" disabled={pending || !!error || !data || data.page >= data.total_pages} onClick={() => setPage((data?.page || 1) + 1)}><ChevronRight size={16} /></Button>
+            <Button aria-label="下一页" disabled={pending || !!error || !data || data.page >= data.total_pages} onClick={() => turnPage((data?.page || 1) + 1)}><ChevronRight size={16} /></Button>
           </div>
         </footer>
       </div>
