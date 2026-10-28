@@ -188,3 +188,54 @@ def test_upgrade_old_sqlite_schema_preserves_identity_and_drops_tokens():
     migrate_automation_sessions(db)
     assert tuple(db.execute('SELECT user_id,can_touch,session_version FROM automation_accounts').fetchone()) == (7, 0, 1)
     assert 'token_hash' not in [row[1] for row in db.execute('PRAGMA table_info(automation_accounts)')]
+
+
+def test_avatar_is_own_account_only_and_audited(client, app):
+    admin = login_admin(client)
+    account = create_account(client, admin)
+    bot, headers = login_bot(app)
+    assert bot.get(PREFIX + '/me').get_json()['can_avatar'] is True
+    body = {'color': '#7E96AD', 'preset': 'nova', 'expression': 'happy'}
+    assert bot.put(PREFIX + '/avatar', json=body).status_code == 403
+    assert bot.put('/api/me/avatar', headers=headers, json=body).status_code == 403
+    assert bot.put(PREFIX + '/avatar', headers=headers, json={**body, 'user_id': 1}).status_code == 400
+    assert bot.put(PREFIX + '/avatar', headers=headers, json={**body, 'preset': 'unknown'}).status_code == 400
+    response = bot.put(PREFIX + '/avatar', headers=headers, json=body)
+    assert response.status_code == 200
+    assert response.get_json()['user']['avatar_config'] == {'version': 1, 'preset': 'nova', 'expression': 'happy', 'color': '#7e96ad'}
+    with app.app_context():
+        rows = get_db().execute('SELECT id, avatar_preset FROM users ORDER BY id').fetchall()
+        assert {row['id']: row['avatar_preset'] for row in rows}[account['user_id']] == 'nova'
+        assert all(row['avatar_preset'] != 'nova' for row in rows if row['id'] != account['user_id'])
+        assert get_db().execute("SELECT actor_user_id FROM audit_logs WHERE action='automation_update_avatar'").fetchone()[0] == account['user_id']
+
+
+def test_import_reports_target_and_format_only_scope(client, app):
+    admin = login_admin(client)
+    create_account(client, admin, can_import=True, allowed_seasons=['s17-star-god'])
+    bot, headers = login_bot(app)
+    body = {'season_id': 's17-star-god', 'raw_text': '【阵容码】#S17-助手阵容#BOTCODE002\n#坏行'}
+    preview = bot.post(PREFIX + '/lineups/bulk-import/preview', headers=headers, json=body).get_json()
+    assert preview['target'] == {'season_id': 's17-star-god', 'season_name': 'S17 · 星神', 'uploader': '分析助手 (@analysis_bot)',
+                                 'publish_status': 'normal', 'publish_status_label': '公开：导入后立即出现在前台普通阵容列表'}
+    assert preview['validation']['content_parsed'] is False and '未解析阵容内容' in preview['validation']['summary']
+    assert [item['status'] for item in preview['items']] == ['importable', 'invalid']
+    assert preview['items'][0]['name'] == '助手阵容'
+    result = bot.post(PREFIX + '/lineups/bulk-import', headers=headers, json=body).get_json()
+    created = [item for item in result['items'] if item['status'] == 'created']
+    assert result['target']['season_id'] == 's17-star-god' and len(created) == 1 and created[0]['id']
+    listed = bot.get(PREFIX + '/lineups?season_id=s17-star-god').get_json()['items']
+    assert listed[0]['id'] == created[0]['id']
+
+
+def test_touch_reports_previous_and_zoned_times(client, app):
+    admin = login_admin(client)
+    create_account(client, admin, can_touch=True, touch_seasons=['s17-star-god'])
+    write_live_comps_seed(client, sample_live_comps_payload())
+    bot, headers = login_bot(app)
+    season = bot.get(PREFIX + '/live-seasons').get_json()['seasons'][0]
+    assert season['updated_at'][-6] in '+-'
+    result = bot.post(PREFIX + '/live-seasons/s17-star-god/touch', headers=headers, json={}).get_json()
+    assert result['season_name'] == 'S17 · 星神'
+    assert result['previous_updated_at'] == season['updated_at']
+    assert result['updated_at'][-6] in '+-' and result['updated_at'] >= result['previous_updated_at']

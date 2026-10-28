@@ -5,6 +5,7 @@
 <head>
 {{ seo_head(seo, viewport_fit_cover=True) }}
 <link rel="stylesheet" href="{{ static_v('admin.css') }}" />
+<link rel="stylesheet" href="{{ static_v('avatar.css') }}" />
 <link rel="stylesheet" href="{{ static_v('admin/assistant.css') }}" />
 <link rel="stylesheet" href="{{ static_v('feedback.css') }}" />
 <script src="{{ static_v('feedback.js') }}" defer></script>
@@ -14,7 +15,7 @@
 <aside class="admin-sidebar" aria-label="后台导航">
 <a class="admin-brand" href="/admin"><span class="admin-brand-mark" aria-hidden="true">阵</span><span class="admin-brand-copy"><strong>阵容管理台</strong><small>协作工作台</small></span></a>
 <nav class="admin-sidebar-nav">
-{% for key, title in [('overview','运营概览'),('reports','每日报告'),('lineups','普通阵容'),('touch','榜单更新时间')] %}
+{% for key, title in [('overview','运营概览'),('reports','每日报告'),('lineups','普通阵容'),('touch','榜单展示时间')] %}
 <button class="admin-nav-item" data-assistant-tab="{{ key }}" type="button">{{ title }}</button>
 {% endfor %}
 </nav>
@@ -22,18 +23,20 @@
 </aside>
 <main class="admin-main">
 <header class="admin-topbar">
-<div><h1 class="assistant-title">协作工作台</h1><p class="admin-meta" id="assistantIdentity">正在加载账号…</p></div>
+<div class="assistant-identity"><button class="assistant-avatar" id="assistantAvatar" type="button" aria-label="修改本账号头像" hidden></button><div><h1 class="assistant-title">协作工作台</h1><p class="admin-meta" id="assistantIdentity">正在加载账号…</p></div></div>
 <div class="admin-top-actions"><a class="admin-icon-link" href="/">前台</a>{{ theme_toggle('admin-theme-toggle') }}<button class="small-button" id="assistantLogout" type="button">退出</button></div>
 </header>
-<section class="admin-content"><div id="assistantApp" aria-live="polite">工作台加载中…</div></section>
+<section class="admin-content"><section class="assistant-panel assistant-permissions" id="assistantPermissions" aria-labelledby="assistantPermissionsTitle" hidden></section><div id="assistantApp" aria-live="polite">工作台加载中…</div></section>
 </main>
 </div>
 <nav class="admin-mobile-nav" aria-label="手机端后台导航">
-{% for key, title in [('overview','概览'),('reports','日报'),('lineups','阵容'),('touch','更新时间')] %}
+{% for key, title in [('overview','概览'),('reports','日报'),('lineups','阵容'),('touch','展示时间')] %}
 <button class="admin-mobile-nav-item" data-assistant-tab="{{ key }}" type="button">{{ title }}</button>
 {% endfor %}
 </nav>
 <script src="{{ static_v('theme-toggle.js') }}" defer></script>
 <script src="{{ static_v('admin/core.js') }}" defer></script>
+<script src="{{ static_v('avatar-lab/app.js') }}" defer></script>
+<script src="{{ static_v('avatar-editor.js') }}" defer></script>
 <script src="{{ static_v('admin/assistant.js') }}" defer></script>
 </body></html>

@@ -47,3 +47,34 @@
 @media (max-width: 820px) {
   .assistant-page .small-button, .assistant-page .admin-icon-link, .assistant-page .admin-theme-toggle { min-height: 44px; min-width: 44px; }
 }
+
+.assistant-identity { display: flex; align-items: center; gap: 12px; min-width: 0; }
+.assistant-avatar { flex-shrink: 0; display: grid; place-items: center; width: 44px; height: 44px; padding: 0; border: 1px solid var(--admin-border); border-radius: 50%; background: var(--admin-surface-muted); cursor: pointer; }
+.assistant-avatar:focus-visible { outline: 2px solid var(--admin-success); outline-offset: 2px; }
+.assistant-permissions { margin-bottom: 20px; }
+.assistant-grants { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin: 12px 0; }
+.assistant-grant { padding: 14px 16px; border-radius: 12px; background: var(--admin-surface-muted); }
+.assistant-grant dt { color: var(--muted); font-size: 13px; }
+.assistant-grant dd { margin: 8px 0 0; display: flex; flex-wrap: wrap; align-items: center; gap: 6px; font-weight: 600; }
+.assistant-grant .assistant-link { margin-left: auto; }
+.assistant-badge { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 12px; font-weight: 600; border: 1px solid currentColor; }
+.assistant-badge.is-ok { color: var(--admin-success); }
+.assistant-badge.is-off { color: var(--admin-warning); }
+.assistant-season-grants summary { cursor: pointer; font-weight: 600; padding: 4px 0; }
+.assistant-facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; margin: 12px 0; }
+.assistant-facts > div { padding: 10px 12px; border-radius: 10px; background: var(--admin-surface-muted); }
+.assistant-facts dt { color: var(--muted); font-size: 12px; }
+.assistant-facts dd { margin: 4px 0 0; font-weight: 600; overflow-wrap: anywhere; }
+.assistant-scope { padding: 12px 14px; border-left: 3px solid var(--admin-warning); border-radius: 8px; background: var(--admin-surface-muted); }
+.assistant-scope .admin-meta { margin: 6px 0; }
+.assistant-checks { margin: 0; padding-left: 0; list-style: none; display: grid; gap: 4px; font-size: 13px; }
+.assistant-checks li::before { content: '✓ '; color: var(--admin-success); font-weight: 700; }
+.assistant-outcome h4 { margin: 18px 0 0; }
+.assistant-table tr.is-new td { background: color-mix(in srgb, var(--admin-success) 14%, transparent); }
+.assistant-table tr.is-new td:first-child::after { content: '本批新增'; margin-left: 8px; padding: 1px 6px; border-radius: 999px; font-size: 12px; color: var(--admin-success); border: 1px solid currentColor; }
+.assistant-locked { margin: 8px 0 0; padding: 0; list-style: none; display: grid; gap: 8px; color: var(--muted); }
+@media (max-width: 1100px) { .assistant-grants { grid-template-columns: 1fr; } }
+@media (max-width: 820px) {
+  .assistant-table tr.is-new { background: color-mix(in srgb, var(--admin-success) 14%, transparent); }
+  .assistant-table tr.is-new td { background: none; }
+}

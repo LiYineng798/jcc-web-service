@@ -1,10 +1,12 @@
 """Session-protected data for the restricted browser workspace."""
 import json
+from datetime import datetime
 
 from flask import Blueprint, g, jsonify, request
 
 from admin_dashboard_service import build_admin_copy_rank_payload, build_admin_overview_payload
-from auth import admin_required, login_required
+from audit import write_audit
+from auth import admin_required, finish_avatar_update, login_required, save_user_avatar
 from automation_service import (
     AutomationError, session_account, require_scope, lock_account, change_account, create_account, import_lineups,
     list_accounts, request_limited, utc_now,
@@ -92,9 +94,21 @@ def me():
     account = g.automation_account
     return jsonify(expires_at=account['expires_at'], can_touch=bool(account['can_touch']),
                    touch_seasons=json.loads(account['touch_seasons_json']),
-                   can_import=bool(account['can_import']),
+                   can_import=bool(account['can_import']), can_avatar=True,
                    allowed_seasons=json.loads(account['allowed_seasons_json']),
                    limits={'rows_per_import': 50, 'write_requests_per_hour': 10, 'read_requests_per_minute': 60})
+
+
+@automation_bp.put('/api/admin/assistant/avatar')
+def avatar():
+    # Only this account's own system avatar; never another user's profile.
+    account = lock_account(get_db(), g.automation_account)
+    db, data = get_db(), json_body()
+    message = save_user_avatar(db, account['user_id'], data)
+    if message:
+        raise AutomationError(message)
+    write_audit(account['user_id'], 'automation_update_avatar', 'user', account['user_id'], after=data)
+    return jsonify(user=finish_avatar_update(db))
 
 
 @automation_bp.get('/api/admin/assistant/overview')
@@ -176,13 +190,22 @@ def import_commit():
     return jsonify(import_lineups(get_db(), g.automation_account, json_body()))
 
 
+def zoned(value):
+    """Live-comp times are naive server-local file mtimes; attach the server offset."""
+    return datetime.fromisoformat(value).astimezone().isoformat(timespec='seconds') if value else None
+
+
+def live_updated_at(season_id):
+    from live_comps_helpers import read_live_comps_payload_for_season
+    return zoned(read_live_comps_payload_for_season(season_id)[1])
+
+
 @automation_bp.get('/api/admin/assistant/live-seasons')
 def live_seasons():
-    from live_comps_helpers import read_live_comps_payload_for_season
     account = g.automation_account
     permitted = json.loads(account['touch_seasons_json']) if account['can_touch'] else []
     return jsonify(seasons=[{'id': key, 'name': value.get('name') or key,
-                             'updated_at': read_live_comps_payload_for_season(key)[1]}
+                             'updated_at': live_updated_at(key)}
                             for key, value in season_choice_map().items() if key in permitted])
 
 
@@ -194,5 +217,10 @@ def touch(season_id):
     require_scope(account, 'can_touch', 'touch_seasons_json', season_id)
     data = json_body()
     if data:
-        raise AutomationError('仅能将更新时间设为当前时间')
-    return respond_service_result(*touch_admin_live_comps_season(g.automation_account['user_id'], season_id))
+        raise AutomationError('仅能将展示时间设为当前时间')
+    previous = live_updated_at(season_id)
+    result, error, status = touch_admin_live_comps_season(g.automation_account['user_id'], season_id)
+    if not error:
+        result = {**result, 'season_name': season_choice_map()[season_id].get('name') or season_id,
+                  'previous_updated_at': previous, 'updated_at': zoned(result['updated_at'])}
+    return respond_service_result(result, error, status)
