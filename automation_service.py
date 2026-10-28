@@ -11,6 +11,12 @@ from db_adapter import insert_returning_id_sql, last_insert_id
 from lineups_utils import season_choice_map
 
 
+# The bulk importer only checks the share-code text; the game code itself is opaque here.
+IMPORT_BATCH_CHECKS = ('目标赛季为公开普通赛季，且在本账号的导入授权内', '每批 1–50 行、不超过 20000 字符')
+IMPORT_ROW_CHECKS = ('识别到「#名称#阵容码」格式', '名称非空且不超过 80 字', '阵容码只含字母和数字',
+                     '本批内阵容码不重复', '站内没有相同阵容码')
+
+
 class AutomationError(ValueError):
     def __init__(self, message, status=400):
         super().__init__(message)
@@ -168,4 +174,17 @@ def import_lineups(db, account, data, preview=False):
         result, error, status = bulk_import_lineups(db, account['user_id'], data)
     if error:
         raise AutomationError(error, status)
-    return result
+    uploader = db.execute('SELECT username, nickname FROM users WHERE id=?', (account['user_id'],)).fetchone()
+    season = season_choice_map()[result['season_id']]
+    return result | {
+        'target': {
+            'season_id': result['season_id'], 'season_name': season.get('name') or result['season_id'],
+            'uploader': f"{uploader['nickname'] or uploader['username']} (@{uploader['username']})",
+            'publish_status': 'normal', 'publish_status_label': '公开：导入后立即出现在前台普通阵容列表',
+        },
+        'validation': {
+            'scope': 'format', 'content_parsed': False,
+            'summary': '格式校验通过，未解析阵容内容（英雄、装备、站位未验证）',
+            'batch_checks': list(IMPORT_BATCH_CHECKS), 'row_checks': list(IMPORT_ROW_CHECKS),
+        },
+    }

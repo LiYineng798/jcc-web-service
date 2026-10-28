@@ -86,7 +86,8 @@ def require_csrf():
     # Scoped staff accounts cannot bypass their workspace through ordinary-user writes.
     if request.method not in {'GET', 'HEAD', 'OPTIONS'}:
         user = current_user()
-        allowed = {'auth.login', 'auth.logout', 'automation.import_preview', 'automation.import_commit', 'automation.touch'}
+        allowed = {'auth.login', 'auth.logout', 'automation.import_preview', 'automation.import_commit', 'automation.touch',
+                   'automation.avatar'}
         if user and user['role'] == 'automation' and request.endpoint not in allowed:
             return jsonify({'error': '此账号仅可在授权工作台内操作'}), 403
     if request.method in {'POST', 'PUT', 'DELETE'} and request.endpoint not in {
@@ -300,30 +301,41 @@ def password_reset_confirm():
 
 
 
+def save_user_avatar(db, user_id, data):
+    """Validate and persist one user's own avatar; returns an error message or None."""
+    if not isinstance(data, dict) or set(data) not in ({'color'}, {'color', 'preset', 'expression'}):
+        return '仅支持头像颜色或完整头像配置'
+    color = data.get('color')
+    if not isinstance(color, str) or not COLOR_RE.fullmatch(color):
+        return '请输入有效的六位十六进制颜色，例如 #7c3aed'
+    if 'preset' in data and (data['preset'] not in AVATAR_PRESETS or data['expression'] not in AVATAR_EXPRESSIONS):
+        return '头像样式或表情无效'
+    if 'preset' in data:
+        db.execute('UPDATE users SET avatar_color = ?, avatar_preset = ?, avatar_expression = ?, updated_at = ? WHERE id = ?',
+                   (color.lower(), data['preset'], data['expression'], now_text(), user_id))
+    else:
+        # Legacy clients only mutate color; do not reset persisted style/expression.
+        db.execute('UPDATE users SET avatar_color = ?, updated_at = ? WHERE id = ?',
+                   (color.lower(), now_text(), user_id))
+    db.execute("UPDATE cache_state SET revision = revision + 1 WHERE cache_key = 'home'")
+    return None
+
+
+def finish_avatar_update(db):
+    db.commit()
+    from lineup_cache import clear_lineup_query_caches
+    clear_lineup_query_caches()
+    g.pop('_current_user_cache', None)
+    return public_user_payload(current_user())
+
+
 @auth_bp.put('/api/me/avatar')
 def update_avatar():
     user, error = login_required()
     if error:
         return error
-    data = request.get_json(silent=True)
-    if not isinstance(data, dict) or set(data) not in ({'color'}, {'color', 'preset', 'expression'}):
-        return jsonify({'error': '仅支持头像颜色或完整头像配置'}), 400
-    color = data.get('color')
-    if not isinstance(color, str) or not COLOR_RE.fullmatch(color):
-        return jsonify({'error': '请输入有效的六位十六进制颜色，例如 #7c3aed'}), 400
-    if 'preset' in data and (data['preset'] not in AVATAR_PRESETS or data['expression'] not in AVATAR_EXPRESSIONS):
-        return jsonify({'error': '头像样式或表情无效'}), 400
     db = get_db()
-    if 'preset' in data:
-        db.execute('UPDATE users SET avatar_color = ?, avatar_preset = ?, avatar_expression = ?, updated_at = ? WHERE id = ?',
-                   (color.lower(), data['preset'], data['expression'], now_text(), user['id']))
-    else:
-        # Legacy clients only mutate color; do not reset persisted style/expression.
-        db.execute('UPDATE users SET avatar_color = ?, updated_at = ? WHERE id = ?',
-                   (color.lower(), now_text(), user['id']))
-    db.execute("UPDATE cache_state SET revision = revision + 1 WHERE cache_key = 'home'")
-    db.commit()
-    from lineup_cache import clear_lineup_query_caches
-    clear_lineup_query_caches()
-    g.pop('_current_user_cache', None)
-    return jsonify({'user': public_user_payload(current_user())})
+    message = save_user_avatar(db, user['id'], request.get_json(silent=True))
+    if message:
+        return jsonify({'error': message}), 400
+    return jsonify({'user': finish_avatar_update(db)})

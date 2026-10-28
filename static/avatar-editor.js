@@ -218,7 +218,7 @@
       feedback.textContent = '正在保存…';
       let savedUser;
       try {
-        const response = await fetch('/api/me/avatar', {
+        const response = await fetch(options.endpoint || '/api/me/avatar', {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': csrfToken },
           body: JSON.stringify({ color: draft.color, preset: draft.preset, expression: draft.expression }),

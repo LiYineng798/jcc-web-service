@@ -24,6 +24,7 @@ ACTION_LABELS = {
     'create_live_comps_season': '创建实时阵容赛季',
     'update_live_comps_season': '更新实时阵容赛季',
     'touch_live_comps_season_updated_at': '刷新赛季更新时间',
+    'automation_update_avatar': 'AI 账号修改头像',
     'update_season_display': '调整赛季展示',
     'delete_guestbook_message': '删除留言', 'update_guestbook_message': '更新留言状态',
     'queue_live_comp_upload': '提交阵容上传', 'complete_live_comp_upload': '完成阵容上传',

@@ -19,15 +19,15 @@
       try {
         const data = await api('/api/admin/automation-accounts');
         if (!dialog.open) return;
-        body.replaceChildren(el('p', 'admin-meta', '使用正常登录页进入受限后台。默认可查看脱敏运营数据；可分别授权普通阵容批量导入和榜单更新时间维护。账号只能由管理员创建，密码仅保存加密摘要。'),
+        body.replaceChildren(el('p', 'admin-meta', '使用正常登录页进入受限后台。默认可查看脱敏运营数据并修改本账号头像；可分别授权普通阵容批量导入和榜单展示时间维护。账号只能由管理员创建，密码仅保存加密摘要。'),
           button('创建自动化账号', () => edit()));
         if (!data.items.length) body.append(el('p', '', '暂无自动化账号'));
         for (const account of data.items) {
           const card = el('article', 'automation-card');
           card.append(el('strong', '', `${account.nickname} (@${account.username})`),
-            el('p', 'admin-meta', `${account.status === 'active' ? '启用' : '已禁用'} · ${account.can_import ? '可导入指定赛季' : '普通阵容只读'}${account.can_touch ? ' · 可维护更新时间' : ''}`),
+            el('p', 'admin-meta', `${account.status === 'active' ? '启用' : '已禁用'} · ${account.can_import ? '可导入指定赛季' : '普通阵容只读'}${account.can_touch ? ' · 可维护展示时间' : ''} · 可改本账号头像`),
             el('p', 'admin-meta', `到期：${new Date(account.expires_at).toLocaleString('zh-CN')} · 最近使用：${account.last_used_at ? new Date(account.last_used_at).toLocaleString('zh-CN') : '尚未使用'}`));
-          if (account.can_touch) card.append(el('p', 'admin-meta', `更新时间授权：${account.touch_seasons.join('、')}`));
+          if (account.can_touch) card.append(el('p', 'admin-meta', `展示时间授权：${account.touch_seasons.join('、')}`));
           if (account.can_import) card.append(el('p', 'admin-meta', `授权赛季：${account.allowed_seasons.join('、')}`));
           const actions = el('div', 'card-actions');
           actions.append(
@@ -101,13 +101,13 @@
       choices.disabled = !enabled.checked; enabled.addEventListener('change', () => { choices.disabled = !enabled.checked; });
       const touchLabel = el('label', 'automation-check');
       const touch = el('input'); touch.type = 'checkbox'; touch.checked = account?.can_touch || false;
-      touchLabel.append(touch, document.createTextNode('允许将实时阵容更新时间设为现在（默认关闭）'));
-      const touchChoices = choices.cloneNode(true); touchChoices.querySelector('legend').textContent = '允许维护更新时间的赛季';
+      touchLabel.append(touch, document.createTextNode('允许将实时榜单展示时间设为现在（默认关闭；不会更新阵容或排名）'));
+      const touchChoices = choices.cloneNode(true); touchChoices.querySelector('legend').textContent = '允许维护展示时间的赛季';
       touchChoices.querySelectorAll('input').forEach(input => { input.checked = account?.touch_seasons?.includes(input.value) || false; });
       touchChoices.disabled = !touch.checked; touch.addEventListener('change', () => { touchChoices.disabled = !touch.checked; });
       const message = el('p', 'patch-editor-error'); message.setAttribute('role', 'alert');
       const submit = el('button', 'small-button is-active', account ? '保存权限' : '创建账号'); submit.type = 'submit';
-      form.append(choices, touchLabel, touchChoices, el('p', 'admin-meta', '只读范围：运营概览、复制排行、日报汇总及公开普通阵容。导入不会覆盖、删除、调分或审核已有阵容，上传者记录为此账号。'),
+      form.append(choices, touchLabel, touchChoices, el('p', 'admin-meta', '只读范围：运营概览、复制排行、日报汇总及公开普通阵容；另可修改本账号头像。导入不会覆盖、删除、调分或审核已有阵容，上传者记录为此账号。'),
         message, submit, button('返回列表', load));
       let busy = false;
       form.addEventListener('submit', async event => {
@@ -115,7 +115,7 @@
         const selected = [...choices.querySelectorAll('input:checked')].map(input => input.value);
         if (enabled.checked && !selected.length) { message.textContent = '请至少选择一个允许导入的赛季。'; return; }
         const touched = [...touchChoices.querySelectorAll('input:checked')].map(input => input.value);
-        if (touch.checked && !touched.length) { message.textContent = '请选择允许维护更新时间的赛季。'; return; }
+        if (touch.checked && !touched.length) { message.textContent = '请选择允许维护展示时间的赛季。'; return; }
         const payload = { can_import: enabled.checked, allowed_seasons: selected, can_touch: touch.checked, touch_seasons: touched };
         if (!account) Object.assign(payload, { password: form.elements.password.value, username: form.elements.username.value.trim(), nickname: form.elements.nickname.value.trim(), expires_in_days: Number(form.elements.days.value) });
         busy = true; submit.disabled = true;
