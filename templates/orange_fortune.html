@@ -29,7 +29,7 @@
     </header>
     <form class="fortune-filters" method="get" role="search" aria-label="筛选时间卡片">
       <fieldset class="fortune-tiers"><legend class="fortune-sr-only">卡片星级</legend>
-        <label class="fortune-tier"><input type="radio" name="tier" value="" {% if not tier %}checked{% endif %}><span>全部星级 <small>200</small></span></label>
+        <label class="fortune-tier"><input type="radio" name="tier" value="" {% if not tier %}checked{% endif %}><span>全部星级 <small>{{ catalog.cards|length }}</small></span></label>
         {% for group in groups %}<label class="fortune-tier" data-tier="{{ group.tier }}"><input type="radio" name="tier" value="{{ group.tier }}" {% if tier == group.tier|string %}checked{% endif %}><span><i aria-hidden="true">◆</i> {{ group.tier }} 星 <small>{{ group.cards|length }}</small></span></label>{% endfor %}
       </fieldset>
       <div class="fortune-filter-row">

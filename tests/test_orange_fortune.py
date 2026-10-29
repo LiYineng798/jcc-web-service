@@ -9,19 +9,23 @@ PAGE = '/tools/orange-fortune'
 def test_catalog_preserves_official_text_and_matches_local_art():
     source = json.loads(CATALOG.read_text(encoding='utf-8'))
     cards = catalog()['cards']
-    assert len(cards) == 200
-    assert Counter(c['tier'] for c in cards) == {1: 20, 2: 30, 3: 60, 4: 49, 5: 41}
-    assert [c['id'] for c in cards if c['image'] is None] == ['7250012']
+    assert len(cards) == len(source['data']) == 201
+    assert Counter(c['tier'] for c in cards) == {1: 20, 2: 30, 3: 60, 4: 50, 5: 41}
+    # Missing art is exactly what the archive recorded as failed; no other card's image stands in.
+    assert {c['id'] for c in cards if c['image'] is None} == set(source['asset_failures'])
+    assert all(failure['error'] == 'http_404' for failure in source['asset_failures'].values())
     for card in cards:
         assert card['source'] == source['data'][card['id']]
         assert card['description'] == source['data'][card['id']]['sDesc']
         if card['image']:
             assert (CATALOG.parents[2] / card['image']).is_file()
+    hashes = [a['sha256'] for a in source['assets'].values() if a]
+    assert len(hashes) == len(set(hashes))
     # Icon URL IDs must not be substituted for the downloaded card-ID filenames.
     card = next(c for c in cards if c['id'] == '7210024')
     assert card['source']['sIcon'].endswith('/7210025.png')
     assert card['image'].endswith('/7210024.png')
-    assert Counter((a['width'], a['height']) for a in source['assets'].values() if a) == {(326, 430): 113, (326, 524): 59, (324, 526): 27}
+    assert source['provenance']['card_url'].endswith('/16/18.18.1-S400001/card.js')
 
 
 def test_filters_combine_and_include_secondary_rounds():
@@ -29,9 +33,9 @@ def test_filters_combine_and_include_secondary_rounds():
     assert guide['visible_ids'] == {'7250036'}
     assert not card_guide('黑玫瑰', '1')['visible_ids']
     card = next(c for c in catalog()['cards'] if c['id'] == '7250044')
-    assert card['rounds'] == ['2-5', '4-1']
-    assert card['id'] in card_guide(round_value='4-1')['visible_ids']
-    assert len(card_guide(tier='999', category='unknown', round_value='x')['visible_ids']) == 200
+    assert card['rounds'] == ['2-5', '4-3']
+    assert card['id'] in card_guide(round_value='4-3')['visible_ids']
+    assert len(card_guide(tier='999', category='unknown', round_value='x')['visible_ids']) == 201
     assert len(card_guide('x' * 1000)['query']) == 100
     assert parse_arguments('round=1-3^equipNum=2^equipnum=1') == {'round': '1-3', 'equipNum': '2', 'equipnum': '1'}
 
@@ -40,7 +44,8 @@ def test_guest_page_search_and_home_navigation(client):
     page = client.get(PAGE)
     assert page.status_code == 200
     html = page.get_data(as_text=True)
-    assert html.count('class="fortune-card"') == 200
+    assert html.count('class="fortune-card"') == 201
+    assert '全部星级 <small>201</small>' in html
     assert '黑玫瑰夜市' in html and '卡图暂缺' in html
     filtered = client.get(PAGE, query_string={'q': '黑玫瑰', 'tier': '5'}).get_data(as_text=True)
     assert '找到 <strong>1</strong> 张卡片' in filtered

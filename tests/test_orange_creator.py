@@ -10,13 +10,13 @@ def test_creator_static_catalog_and_public_page(client):
     assert data['schema_version'] == 1
     assert data['card_slots'] == 3
     assert data['export'] == {'width': 1200, 'height': 1600}
-    assert len(data['cards']) == 200
+    assert len(data['cards']) == 201
     assert len(data['backgrounds']) == 6
     folio = next(b for b in data['backgrounds'] if b['id'] == 'folio')
     assert 'material-folio.svg?' in folio['image_url']
     assert client.get(folio['image_url']).status_code == 200
     assert all(card['energy'] is None for card in data['cards'])
-    assert len({card['id'] for card in data['cards']}) == 200
+    assert len({card['id'] for card in data['cards']}) == 201
     assert next(p for p in data['portals'] if p['id'] == 'stable')['energy_limit'] == 8
     assert response.headers['Cache-Control'] == 'no-store'
     html = client.get(PAGE).get_data(as_text=True)
