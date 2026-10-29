@@ -29,7 +29,12 @@ if (!packageFile) throw new Error('SEASON_PACKAGE_FILE is required');
       assert.equal(await page.locator('#seasonPackageRoot').count(),0);
       releaseSession();
       const root=page.locator('#seasonPackageRoot');
-      await root.getByText('将更新包拖到这里',{exact:true}).waitFor();
+      // Uploading happens in a dialog opened from the season rail (or the compact bar on narrow screens).
+      const openUpload=async()=>{
+        await root.locator('.sp-rail .sp-pane-foot button, .sp-compact-bar .sp-btn').locator('visible=true').first().click();
+        await root.getByText('将更新包拖到这里',{exact:true}).waitFor();
+      };
+      await openUpload();
       await page.screenshot({path:`instance/season-package-checks/${name}-upload.png`,fullPage:true});
       await root.locator('input[type=file]').setInputFiles({name:'invalid.zip',mimeType:'application/zip',buffer:Buffer.from('not a zip')});
       await root.getByRole('button',{name:'重试 invalid.zip'}).waitFor();
@@ -86,7 +91,7 @@ if (!packageFile) throw new Error('SEASON_PACKAGE_FILE is required');
       await page.locator('.admin-sidebar [data-admin-tab="overview"]').click();
       assert.equal(await root.count(),0);
       await page.locator('.admin-sidebar [data-admin-tab="season-packages"]').click();
-      await root.getByText('将更新包拖到这里',{exact:true}).waitFor();
+      await root.getByRole('button',{name:'上传更新包',exact:true}).waitFor();
       assert.equal(await root.count(),1);
       assert.deepEqual(errors,[]);
       await context.close();

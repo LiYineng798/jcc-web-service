@@ -23,8 +23,17 @@ def release_root(release_id):
     return package_root() / 'releases' / release_id
 
 
+_CATALOG_CACHE = {'key': None, 'seasons': []}
+
+
 def baseline_catalog():
-    return json.loads((BASE_ROOT / 'catalog.json').read_text(encoding='utf-8'))['seasons']
+    # Read on every admin poll and asset request; reparse only when the file itself changes.
+    path = BASE_ROOT / 'catalog.json'
+    stat = path.stat()
+    key = (stat.st_mtime_ns, stat.st_size)
+    if _CATALOG_CACHE['key'] != key:
+        _CATALOG_CACHE.update(key=key, seasons=json.loads(path.read_text(encoding='utf-8'))['seasons'])
+    return [dict(entry) for entry in _CATALOG_CACHE['seasons']]
 
 
 def _selection():

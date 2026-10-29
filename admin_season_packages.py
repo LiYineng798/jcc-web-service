@@ -35,37 +35,114 @@ def invalid_package(error):
     return jsonify(error=str(error)), 400
 
 
+# Lifecycle group of a package, computed in SQL so lists can be filtered and counted per group.
+GROUP_SQL = """CASE WHEN a.release_id = p.id THEN 'online'
+    WHEN p.state IN ('queued','validating') THEN 'processing'
+    WHEN p.state = 'ready' AND p.published_at IS NULL THEN 'pending'
+    WHEN p.state = 'ready' THEN 'history'
+    ELSE 'closed' END"""
+PACKAGE_COLUMNS = """p.id,p.package_id,p.season_id,p.game_version,p.data_revision,p.filename,p.total_bytes,p.state,
+    p.created_at,p.published_at,j.status AS job_status,j.stage,j.progress,j.message"""
+PACKAGE_FROM = """FROM season_release_packages p JOIN season_import_jobs j ON j.release_id=p.id
+    LEFT JOIN season_active_releases a ON a.season_id=p.season_id"""
+PAGE_SIZE = 20
+
+
 @season_packages_bp.get('/api/admin/season-packages')
 def list_packages():
     try:
         page = max(1, int(request.args.get('page', 1)))
     except ValueError:
         return jsonify(error='页码无效'), 400
-    rows = (
-        get_db()
-        .execute(
-            '''SELECT p.id,p.package_id,p.season_id,p.game_version,p.data_revision,
-        p.filename,p.total_bytes,p.state,p.created_at,p.published_at,j.status AS job_status,j.stage,j.progress,j.message
-        FROM season_release_packages p JOIN season_import_jobs j ON j.release_id=p.id
-        ORDER BY p.created_at DESC,p.id DESC LIMIT 20 OFFSET ?''',
-            ((page - 1) * 20,),
-        )
-        .fetchall()
-    )
-    total = get_db().execute('SELECT COUNT(*) AS n FROM season_release_packages').fetchone()['n']
-    events = (
-        get_db()
-        .execute('SELECT * FROM season_release_events ORDER BY created_at DESC,id DESC LIMIT 30')
-        .fetchall()
-    )
+    catalog = baseline_catalog()
+    season_id = request.args.get('season_id') or ''
+    if season_id and season_id not in {s['season_id'] for s in catalog}:
+        return jsonify(error='赛季不存在'), 400
+    group = request.args.get('group') or ''
+    if group not in ('', 'history', 'closed'):
+        return jsonify(error='分组无效'), 400
+    scope, params = ('WHERE p.season_id=?', [season_id]) if season_id else ('WHERE 1=1', [])
+    db = get_db()
+    if group:
+        # Settled packages are only loaded on demand, one page at a time.
+        where = f'{scope} AND {GROUP_SQL}=?'
+        rows = db.execute(
+            f'SELECT {PACKAGE_COLUMNS},{GROUP_SQL} AS grp {PACKAGE_FROM} {where} '
+            'ORDER BY p.created_at DESC,p.id DESC LIMIT ? OFFSET ?',
+            (*params, group, PAGE_SIZE, (page - 1) * PAGE_SIZE),
+        ).fetchall()
+        total = db.execute(f'SELECT COUNT(*) AS n {PACKAGE_FROM} {where}', (*params, group)).fetchone()['n']
+        return jsonify(items=[dict(r) for r in rows], total=total, page=page, group=group)
+
+    # Packages that are live or still need attention are few, so they are always listed in full.
+    rows = db.execute(
+        f'SELECT {PACKAGE_COLUMNS},{GROUP_SQL} AS grp {PACKAGE_FROM} '
+        f"{scope} AND {GROUP_SQL} IN ('online','processing','pending') "
+        'ORDER BY p.created_at DESC,p.id DESC LIMIT 200',
+        params,
+    ).fetchall()
+    counts = {row['grp']: row['n'] for row in db.execute(
+        f'SELECT {GROUP_SQL} AS grp, COUNT(*) AS n {PACKAGE_FROM} {scope} GROUP BY {GROUP_SQL}', params).fetchall()}
+    events = db.execute(
+        f'''SELECT e.id,e.season_id,e.release_id,e.previous_release_id,e.action,e.status,e.detail_json,e.created_at,
+        p.game_version,p.data_revision,q.game_version AS previous_game_version,q.data_revision AS previous_data_revision,
+        u.nickname AS actor_name
+        FROM season_release_events e
+        LEFT JOIN season_release_packages p ON p.id=e.release_id
+        LEFT JOIN season_release_packages q ON q.id=e.previous_release_id
+        LEFT JOIN users u ON u.id=e.actor_id
+        {'WHERE e.season_id=?' if season_id else ''}
+        ORDER BY e.created_at DESC,e.id DESC LIMIT 30''',
+        params,
+    ).fetchall()
+    # One query for every season's counters and one for every active release, instead of one per season.
+    stats = {
+        row['season_id']: dict(row)
+        for row in db.execute(
+            f'''SELECT p.season_id, COUNT(*) AS total,
+            SUM(CASE WHEN {GROUP_SQL}='processing' THEN 1 ELSE 0 END) AS processing,
+            SUM(CASE WHEN {GROUP_SQL}='pending' THEN 1 ELSE 0 END) AS pending,
+            SUM(CASE WHEN p.state='rejected' THEN 1 ELSE 0 END) AS rejected,
+            MAX(p.created_at) AS latest_upload
+            {PACKAGE_FROM} GROUP BY p.season_id'''
+        ).fetchall()
+    }
+    actives = {
+        row['season_id']: dict(row)
+        for row in db.execute(
+            '''SELECT a.*,p.package_id,p.game_version,p.data_revision FROM season_active_releases a
+            LEFT JOIN season_release_packages p ON p.id=a.release_id'''
+        ).fetchall()
+    }
+    empty = {'total': 0, 'processing': 0, 'pending': 0, 'rejected': 0, 'latest_upload': None}
     return jsonify(
         items=[dict(r) for r in rows],
-        page=page,
-        total=total,
-        seasons=[{**s, 'active': active_state(s['season_id'])} for s in baseline_catalog()],
-        events=[dict(r) for r in events],
+        counts={key: counts.get(key, 0) for key in ('online', 'processing', 'pending', 'history', 'closed')},
+        season_id=season_id or None,
+        seasons=[{**s,
+                  'active': actives.get(s['season_id']) or {'season_id': s['season_id'], 'release_id': None,
+                                                           'previous_release_id': None, 'revision': 0},
+                  'stats': {k: v for k, v in stats.get(s['season_id'], empty).items() if k != 'season_id'}}
+                 for s in catalog],
+        events=[_event_payload(r) for r in events],
         max_bytes=current_app.config['SEASON_PACKAGE_MAX_BYTES'],
     )
+
+
+def _event_payload(row):
+    """Name the package versions and surface the reason, so the log reads without opening JSON."""
+    event = {k: row[k] for k in row.keys() if k != 'detail_json'}
+    try:
+        detail = json.loads(row['detail_json'] or '{}')
+    except ValueError:
+        detail = {}
+    event['detail'] = {
+        'message': detail.get('message') or None,
+        'warning_count': len(detail.get('warnings') or []),
+        'auto_restored': detail.get('auto_restored'),
+        'revision': detail.get('revision'),
+    }
+    return event
 
 
 @season_packages_bp.post('/api/admin/season-packages')
@@ -161,11 +238,9 @@ def package_asset(release_id, filename):
     )
     if not package:
         abort(404)
-    from season_visibility import get_season
+    from season_visibility import is_public_anywhere
 
-    public = bool(package['published_at']) and bool(
-        get_season('library', package['season_id']) or get_season('simulator', package['season_id'])
-    )
+    public = bool(package['published_at']) and is_public_anywhere(package['season_id'])
     if not public:
         _, error = admin_required()
         if error:

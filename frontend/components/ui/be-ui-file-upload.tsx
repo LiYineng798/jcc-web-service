@@ -14,10 +14,9 @@ import {
   UploadCloud,
   X,
 } from "lucide-react";
-import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useCallback, useId, useRef, useState } from "react";
-import { cn } from "@/lib/utils";
-export { cn } from "@/lib/utils";
+// clsx is enough here: these class lists never conflict, so tailwind-merge (and its weight) is not needed.
+import { clsx as cn } from "clsx";
 
 export const EASE_OUT = [0.16, 1, 0.3, 1] as const;
 export const EASE_IN_OUT = [0.77, 0, 0.175, 1] as const;
@@ -104,16 +103,6 @@ export interface FileUploadProps {
   className?: string;
   classNames?: FileUploadClassNames;
 }
-
-const ROW_TRANSITION = {
-  duration: 0.22,
-  ease: EASE_OUT,
-} as const;
-
-const FAST_TRANSITION = {
-  duration: 0.16,
-  ease: EASE_OUT,
-} as const;
 
 const STATUS_LABEL: Record<FileUploadStatus, string> = {
   queued: "等待上传",
@@ -259,44 +248,16 @@ export function createFileUploadItem(file: File, index = 0): FileUploadItem {
 
 function StatusIcon({
   status,
-  reduce,
 }: {
   status: FileUploadStatus;
-  reduce: boolean;
 }) {
   const iconClassName = "h-4 w-4";
 
   return (
-    <AnimatePresence mode="wait" initial={false}>
-      <motion.span
+    <span
         key={status}
-        initial={
-          reduce
-            ? {
-                opacity: 0,
-              }
-            : {
-                opacity: 0,
-                transform: "translateY(4px)",
-              }
-        }
-        animate={{
-          opacity: 1,
-          transform: "translateY(0px)",
-        }}
-        exit={
-          reduce
-            ? {
-                opacity: 0,
-              }
-            : {
-                opacity: 0,
-                transform: "translateY(-4px)",
-              }
-        }
-        transition={FAST_TRANSITION}
         className={cn(
-          "grid h-6 w-6 place-items-center",
+          "be-fu-swap grid h-6 w-6 place-items-center",
           STATUS_TONE[status],
         )}
       >
@@ -308,8 +269,7 @@ function StatusIcon({
           <Loader2
             className={cn(
               iconClassName,
-              "animate-spin",
-              reduce && "animate-none",
+              "animate-spin motion-reduce:animate-none",
             )}
           />
         ) : (
@@ -317,8 +277,7 @@ function StatusIcon({
         )}
 
         <span className="sr-only">{STATUS_LABEL[status]}</span>
-      </motion.span>
-    </AnimatePresence>
+      </span>
   );
 }
 
@@ -333,7 +292,6 @@ function FileUploadRow({
   onRetry: (item: FileUploadItem) => void;
   classNames?: FileUploadClassNames;
 }) {
-  const reduce = useReducedMotion() ?? false;
   const status = item.status ?? "queued";
   const progress = clampProgress(item.progress, status);
   const progressRatio = progress / 100;
@@ -341,35 +299,9 @@ function FileUploadRow({
   const LeadingIcon = getFileIcon(item);
 
   return (
-    <motion.li
-      layout={!reduce}
-      initial={
-        reduce
-          ? {
-              opacity: 0,
-            }
-          : {
-              opacity: 0,
-              transform: "translateY(8px)",
-            }
-      }
-      animate={{
-        opacity: 1,
-        transform: "translateY(0px)",
-      }}
-      exit={
-        reduce
-          ? {
-              opacity: 0,
-            }
-          : {
-              opacity: 0,
-              transform: "translateY(-6px)",
-            }
-      }
-      transition={ROW_TRANSITION}
+    <li
       className={cn(
-        "relative overflow-hidden rounded-2xl border border-border bg-background p-3",
+        "be-fu-enter relative overflow-hidden rounded-2xl border border-border bg-background p-3",
         classNames?.item,
       )}
     >
@@ -407,7 +339,7 @@ function FileUploadRow({
             </div>
 
             <div className="flex shrink-0 items-center gap-1">
-              <StatusIcon status={status} reduce={reduce} />
+              <StatusIcon status={status} />
 
               {status === "error" ? (
                 <button
@@ -449,33 +381,18 @@ function FileUploadRow({
                 classNames?.progress,
               )}
             >
-              <motion.div
+              <div
                 className={cn(
-                  "h-full rounded-full",
+                  "h-full rounded-full transition-transform duration-300 ease-out motion-reduce:transition-none",
                   status === "success" ? "bg-emerald-500" : "bg-foreground",
                 )}
-                style={{
-                  transformOrigin: "left",
-                  transform: reduce ? `scaleX(${progressRatio})` : undefined,
-                }}
-                initial={false}
-                animate={
-                  reduce
-                    ? undefined
-                    : {
-                        transform: `scaleX(${progressRatio})`,
-                      }
-                }
-                transition={{
-                  duration: 0.28,
-                  ease: EASE_OUT,
-                }}
+                style={{ transformOrigin: "left", transform: `scaleX(${progressRatio})` }}
               />
             </div>
           ) : null}
         </div>
       </div>
-    </motion.li>
+    </li>
   );
 }
 
@@ -500,7 +417,6 @@ export function FileUpload({
   const inputId = useId();
   const inputRef = useRef<HTMLInputElement>(null);
   const dragDepthRef = useRef(0);
-  const reduce = useReducedMotion() ?? false;
 
   const [items, setItems] = useControllableUpload({
     value,
@@ -639,25 +555,18 @@ export function FileUpload({
           classNames?.dropzone,
         )}
       >
-        <motion.span
+        <span
           aria-hidden="true"
           className={cn(
-            "grid shrink-0 place-items-center bg-muted text-foreground",
+            "grid shrink-0 place-items-center bg-muted text-foreground transition-transform duration-200 motion-reduce:transition-none",
             centered
               ? "h-16 w-16 rounded-[1.35rem] border border-border"
               : "h-14 w-14 rounded-[1.25rem]",
+            dragging && "-translate-y-0.5",
           )}
-          animate={
-            reduce
-              ? undefined
-              : {
-                  transform: dragging ? "translateY(-2px)" : "translateY(0px)",
-                }
-          }
-          transition={FAST_TRANSITION}
         >
           <UploadCloud className={centered ? "h-7 w-7" : "h-6 w-6"} />
-        </motion.span>
+        </span>
 
         <span className={cn("min-w-0", centered ? "max-w-xs" : "flex-1")}>
           <span
@@ -690,8 +599,7 @@ export function FileUpload({
       </button>
 
       <ul className={cn("space-y-2", classNames?.queue)} aria-label="上传队列">
-        <AnimatePresence initial={false}>
-          {items.map((item) => (
+        {items.map((item) => (
             <FileUploadRow
               key={item.id}
               item={item}
@@ -700,7 +608,6 @@ export function FileUpload({
               classNames={classNames}
             />
           ))}
-        </AnimatePresence>
       </ul>
     </div>
   );

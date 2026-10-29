@@ -60,14 +60,15 @@ async function server() {
       await page.locator('#liveSeasonIdInput').waitFor({state:'detached'});
       await page.locator('.admin-sidebar [data-admin-tab="season-packages"]').click();
       const root=page.locator('#seasonPackageRoot');
-      await root.getByText('将更新包拖到这里',{exact:true}).waitFor();
+      await root.getByRole('button',{name:'上传更新包',exact:true}).waitFor();
       let currentRevision=0;
       const releases=[];
       for (let index=0;index<3;index++) {
-        if(index) await root.getByRole('button',{name:'移除 '+path.basename(fixture.packages[index-1]),exact:true}).click();
+        await root.getByRole('button',{name:'上传更新包',exact:true}).click();
+        await root.getByText('将更新包拖到这里',{exact:true}).waitFor();
         await root.locator('input[type=file]').setInputFiles(fixture.packages[index]);
         const packageId=['s99-99_1-rehearsal-r1','s99-99_2-rehearsal-r1','s99-99_2-rehearsal-r2'][index];
-        await root.getByRole('heading',{name:packageId,exact:true}).waitFor({timeout:90000});
+        await root.locator('.sp-detail-head').getByText(packageId).waitFor({timeout:90000});
         await root.getByRole('link',{name:'预览资料库',exact:true}).waitFor({timeout:90000});
         const previewPromise=page.waitForEvent('popup');
         await root.getByRole('link',{name:'预览资料库',exact:true}).click();
@@ -95,7 +96,7 @@ async function server() {
         if(await dialog.locator('input[type=checkbox]').count()) await dialog.locator('input[type=checkbox]').check();
         await dialog.getByRole('button',{name:'确认发布',exact:true}).click();
         await root.getByText('版本已发布，关键页面检查通过。',{exact:true}).waitFor({timeout:90000});
-        await root.getByText('已发布为当前资料版本。',{exact:true}).waitFor();
+        await root.locator('.sp-banner').getByText('当前线上版本',{exact:true}).waitFor();
         const listing=await (await auth.get('/api/admin/season-packages')).json();
         const active=listing.seasons.find(s=>s.season_id==='s99').active;
         assert.equal(active.revision,++currentRevision);
