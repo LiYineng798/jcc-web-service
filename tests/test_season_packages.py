@@ -548,3 +548,59 @@ def test_image_changes_are_in_review_diff(prepared, tmp_path):
     diff = structural_diff(before / 'data', after / 'data')
     assert diff['assets']['changed'] == ['icon.png']
     assert not diff['champions']['changed']
+
+
+def test_listing_filters_by_season_and_reports_per_season_counts(manager, app, prepared):
+    client, _ = manager
+    rid = upload(manager, package(prepared)).json['package']['id']
+    everything = client.get('/api/admin/season-packages').get_json()
+    assert everything['season_id'] is None and [i['id'] for i in everything['items']] == [rid]
+    # Every registered season is listed, so a newly registered one appears without frontend changes.
+    from season_data_repository import baseline_catalog
+    assert [s['season_id'] for s in everything['seasons']] == [s['season_id'] for s in baseline_catalog()]
+    s18 = next(s for s in everything['seasons'] if s['season_id'] == 's18')
+    assert s18['stats']['total'] == 1 and s18['stats']['processing'] == 1 and s18['stats']['pending'] == 0
+    other = next(s for s in everything['seasons'] if s['season_id'] != 's18')
+    assert other['stats'] == {'total': 0, 'processing': 0, 'pending': 0, 'rejected': 0, 'latest_upload': None}
+    work(app, rid)
+    only = client.get('/api/admin/season-packages?season_id=s18').get_json()
+    assert only['season_id'] == 's18' and only['counts']['pending'] == 1 and [i['grp'] for i in only['items']] == ['pending']
+    assert next(s for s in only['seasons'] if s['season_id'] == 's18')['stats']['pending'] == 1
+    assert all(e['season_id'] == 's18' for e in only['events'])
+    empty = client.get(f"/api/admin/season-packages?season_id={other['season_id']}").get_json()
+    assert empty['items'] == [] and not any(empty['counts'].values()) and empty['events'] == []
+    assert client.get('/api/admin/season-packages?season_id=unknown').status_code == 400
+
+
+def test_event_log_names_versions_actor_and_reason(manager, app, prepared):
+    client, headers = manager
+    rid = upload(manager, package(prepared)).json['package']['id']
+    work(app, rid)
+    events = client.get('/api/admin/season-packages?season_id=s18').get_json()['events']
+    by_action = {e['action']: e for e in events}
+    assert by_action['upload']['game_version'] == '18.18.3' and by_action['upload']['data_revision'] == 1
+    assert by_action['upload']['actor_name'] and by_action['validated']['actor_name'] is None
+    assert by_action['validated']['detail']['warning_count'] >= 0 and 'detail_json' not in by_action['validated']
+
+
+def test_listing_groups_packages_and_pages_settled_ones(manager, app, prepared):
+    client, headers = manager
+    first = upload(manager, package(prepared, 'first', 1)).json['package']['id']
+    work(app, first)
+    active = client.get(f'/api/admin/season-packages/{first}').get_json()['active']
+    assert client.post(f'/api/admin/season-packages/{first}/publish', headers=headers,
+                       json={'expected_revision': active['revision'], 'acknowledge_warnings': True}).status_code == 200
+    second = upload(manager, package(prepared, 'second', 2)).json['package']['id']
+    work(app, second)
+    third = upload(manager, package(prepared, 'third', 3)).json['package']['id']
+    assert client.post(f'/api/admin/season-packages/{third}/cancel', headers=headers, json={}).status_code == 200
+    with app.app_context():
+        run_one_job()
+    listing = client.get('/api/admin/season-packages?season_id=s18').get_json()
+    # Only live or actionable packages are listed by default; settled ones are counted.
+    assert {i['id']: i['grp'] for i in listing['items']} == {first: 'online', second: 'pending'}
+    assert listing['counts'] == {'online': 1, 'processing': 0, 'pending': 1, 'history': 0, 'closed': 1}
+    closed = client.get('/api/admin/season-packages?season_id=s18&group=closed').get_json()
+    assert [i['id'] for i in closed['items']] == [third] and closed['total'] == 1 and closed['items'][0]['grp'] == 'closed'
+    assert client.get('/api/admin/season-packages?group=history').get_json() == {'items': [], 'total': 0, 'page': 1, 'group': 'history'}
+    assert client.get('/api/admin/season-packages?group=unknown').status_code == 400

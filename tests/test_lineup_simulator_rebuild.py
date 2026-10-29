@@ -64,7 +64,7 @@ def test_simulator_loads_every_season_from_catalog():
     javascript = (SIMULATOR_ROOT / 'app.js').read_text(encoding='utf-8')
     catalog = json.loads((SEASON_ROOT / 'catalog.json').read_text(encoding='utf-8'))
 
-    assert 'fetchJson(`/api/season-catalog?surface=simulator&v=${encodeURIComponent(DATA_VERSION)}' in javascript
+    assert 'fetchJson(`/api/season-catalog?surface=${CREATOR_SEASON ? "creator" : "simulator"}&v=${encodeURIComponent(DATA_VERSION)}' in javascript
     assert 'season.data_root ||' in javascript
     assert '&preview_release=${encodeURIComponent(PREVIEW_RELEASE)}' in javascript
     assert 'cache: "no-cache"' in javascript

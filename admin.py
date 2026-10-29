@@ -60,7 +60,7 @@ from scoring import score_map
 from settings_service import get_settings, save_settings
 from visits import tracked_template_response
 from password_reset_service import list_today_requests
-from season_visibility import admin_payload, default_season_id, update_season
+from season_visibility import KINDS, admin_payload, default_season_id, update_season
 
 admin_bp = Blueprint('admin', __name__)
 
@@ -102,7 +102,7 @@ def admin_season_display(kind):
     admin, error = admin_required()
     if error:
         return error
-    if kind not in ('simulator', 'library'):
+    if kind not in KINDS:
         return jsonify({'error': '展示类型无效'}), 400
     return jsonify({
         'items': admin_payload(kind),

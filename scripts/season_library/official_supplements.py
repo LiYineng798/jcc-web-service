@@ -3,9 +3,11 @@
 from __future__ import annotations
 
 import re
+import time
 import unicodedata
 from pathlib import Path
 from urllib.parse import urlparse
+from urllib.error import HTTPError
 from urllib.request import Request, urlopen
 
 
@@ -219,18 +221,25 @@ def _suffix(url, default):
     return suffix if suffix in {'.png', '.jpg', '.jpeg', '.webp'} else default
 
 
-def _download(url, target):
+def _download(url, target, attempts=3):
     if not url or target.is_file():
         return target.is_file()
     target.parent.mkdir(parents=True, exist_ok=True)
     request = Request(str(url), headers={'User-Agent': 'JCC season library importer/1.0'})
-    try:
-        with urlopen(request, timeout=20) as response:  # noqa: S310 - official CDN URL from archived snapshot
-            target.write_bytes(response.read())
-    except Exception as exc:  # noqa: BLE001 - caller reports a recoverable missing asset
-        print(f'  警告: 官方特殊单位图片下载失败 {url}: {exc}')
-        return False
-    return True
+    for attempt in range(1, attempts + 1):
+        try:
+            with urlopen(request, timeout=20) as response:  # noqa: S310 - official CDN URL from archived snapshot
+                target.write_bytes(response.read())
+            return True
+        except HTTPError as exc:
+            error = exc
+            break
+        except Exception as exc:  # noqa: BLE001 - transient network errors are retried a bounded number of times
+            error = exc
+            if attempt < attempts:
+                time.sleep(attempt)
+    print(f'  警告: 官方特殊单位图片下载失败 {url}: {error}')
+    return False
 
 
 def _image(local_path, source_url, alt):
@@ -263,11 +272,12 @@ def _group_records(records, mode):
     return groups
 
 
-def _season_code(version_dir, load_json, fallback='s18'):
+def _season_code(version_dir, load_json, fallback='18'):
     """Derive the official splash CDN token (e.g. mode18s19) from the archive."""
     path = version_dir / 'source-snapshots' / 'version-entry.json'
     try:
-        return str(load_json(path).get('season') or fallback).lower()
+        # Accept both the raw client code ("S18") and an already stripped one ("18").
+        return str(load_json(path).get('season') or fallback).lower().removeprefix('s')
     except Exception:  # noqa: BLE001 - fall back to the historical token
         return fallback
 

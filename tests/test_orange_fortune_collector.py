@@ -38,3 +38,17 @@ def test_description_changes_separate_punctuation_numbers_and_wording():
     assert describe_text_change('获得4金币。', '获得4金币') == ['punctuation_or_whitespace_only']
     assert describe_text_change('获得4金币。', '获得6金币。') == ['numbers_changed']
     assert describe_text_change('获得4金币。', '立即获得6金币。') == ['numbers_changed', 'wording_changed']
+
+
+def test_fetch_records_dropped_connections_and_stops_after_attempts(monkeypatch):
+    import http.client
+    import collect_orange_fortune
+    calls = []
+
+    def drop(*args, **kwargs):
+        calls.append(1)
+        raise http.client.RemoteDisconnected('closed')
+    monkeypatch.setattr(collect_orange_fortune.urllib.request, 'urlopen', drop)
+    monkeypatch.setattr(collect_orange_fortune.time, 'sleep', lambda _: None)
+    record = collect_orange_fortune.fetch('https://example.invalid/x.png', 1, 2)
+    assert record['error'] == 'network_error' and record['body'] is None and len(calls) == 2

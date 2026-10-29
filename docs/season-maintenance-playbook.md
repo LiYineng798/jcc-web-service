@@ -28,7 +28,7 @@ python scripts/season_library/import_from_archive.py --source "D:/本地档案/�
 
 3. 检查 catalog、版本、数量、图片与对象审计；测试并部署完整 JSON/图片。只有新 schema 才需 DB migration。
 4. 用下一节方法制作 r1，上传、预览、发布，保存独立初始快照。静态基准会随代码改变，不能代替永久恢复点。
-5. 后台「资料赛季」分别启用资料库和模拟器、排序和默认项。
+5. 后台「资料赛季」分别启用资料库、模拟器和海报创作者，设置排序和默认项。独立模式赛季见 [资料结构](season-library.md#独立模式赛季官方分支档案)。
 6. 在「实时阵容 → 赛季管理」单独创建隐藏分类，上传真实榜单后启用；普通阵容选项随后可用。
    实时详情使用资料 ID，格式见 [实时上传](live-comps.md)。
 7. 验证首页、资料页、模拟器、普通阵容创建和实时详情。公开公告单独维护。
@@ -51,7 +51,7 @@ python scripts/season_library/import_from_archive.py --source "D:/本地档案/�
 python scripts/season_library/build_upload_package.py --season s18 --source "D:/jcc-prepared/s18" --revision 2 --notes "D:/jcc-prepared/release-notes.json" --provenance "D:/jcc-prepared/provenance.json" --output "D:/jcc-packages/s18-r2.zip"
 ```
 
-4. 「赛季版本更新」上传 → 独立 worker 校验 → 审阅差异/来源/告警 → 预览资料库和模拟器。
+4. 「赛季版本更新」上传 → 独立 worker 校验 → 审阅差异/来源/告警 → 预览资料库和模拟器。页面为一屏三栏：左栏按赛季切换（列出 catalog 中全部已登记赛季及待审核数），中栏是该赛季的更新包与操作记录，右栏审核所选包；窄屏改为单栏切换。
 5. 审核并发布。线上 revision 已变时重新比较，不重放旧发布请求。
 6. 验证后保留包 ID、真实补丁、资料修订和发布结果。出错优先回滚已发布版本。
 

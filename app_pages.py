@@ -15,7 +15,7 @@ from s11_artifacts_service import artifact_guide
 from witch_rewards_service import reward_tiers, select_reward_tier
 from golden_egg_service import golden_egg_rewards
 from orange_fortune_service import card_guide
-from orange_creator_service import creator_config, CREATOR_SEASON
+from orange_creator_service import creator_config
 from trait_ladder_service import calculator_data, reward_tiers as ladder_reward_tiers
 from seo import (
     DEFAULT_DESCRIPTION,
@@ -41,7 +41,7 @@ from season_reference_service import (
     season_page_context,
     strip_scaling_tokens,
 )
-from season_visibility import default_season_id, get_season, public_seasons
+from season_visibility import DEFAULT_KINDS as DEFAULT_SURFACES, KINDS as SEASON_SURFACES, default_season_id, get_season, public_seasons
 from settings_service import get_setting
 from visits import tracked_template_response
 
@@ -116,10 +116,10 @@ def register_page_routes(app):
     @app.get('/api/season-catalog')
     def public_season_catalog():
         surface = request.args.get('surface', 'library')
-        if surface not in ('library', 'simulator'):
+        if surface not in SEASON_SURFACES:
             return jsonify({'error': '展示类型无效'}), 400
         payload = {'seasons': public_seasons(surface)}
-        if surface == 'simulator':
+        if surface in DEFAULT_SURFACES:
             payload['default_season_id'] = default_season_id(surface)
         return jsonify(payload)
 
@@ -377,21 +377,22 @@ def register_page_routes(app):
     def lineup_simulator_page():
         if get_setting(get_db(), 'simulator_enabled', 'true') != 'true':
             abort(404)
-        if not public_seasons('simulator'):
-            abort(404)
         creator_mode = request.args.get('creator') == 'orange-fortune'
-        if creator_mode and not creator_config()['simulator_available']:
-            abort(404)
         if creator_mode:
+            config = creator_config()
+            if not config['simulator_available']:
+                abort(404)
             # This editor is part of the creator page, not another page visit.
             return render_template(
-                'lineup_simulator.html', creator_mode=True, creator_season=CREATOR_SEASON,
+                'lineup_simulator.html', creator_mode=True, creator_season=config['season_id'],
                 seo=make_seo(title='大橘大利阵容配置', description='配置卡组的基础阵容。', path='/tools/orange-fortune-creator'),
             )
+        if not public_seasons('simulator'):
+            abort(404)
         return tracked_template_response(
             'lineup_simulator.html',
             'lineup_simulator',
-            creator_mode=creator_mode, creator_season=CREATOR_SEASON if creator_mode else '',
+            creator_mode=False, creator_season='',
             seo=make_seo(title='阵容模拟器', description='在线搭配金铲铲阵容棋盘、弈子、装备和羁绊。', path='/tools/lineup-simulator'),
         )
 

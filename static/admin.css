@@ -1690,7 +1690,7 @@ body.admin-page {
 .season-display-intro p, .season-display-guide { margin:0; font-size:12px; line-height:1.7; color:var(--muted); }
 .season-display-intro > .small-button { flex-shrink:0; }
 .season-display-guide { padding:10px 14px; border-left:3px solid var(--accent); background:var(--admin-surface-muted); border-radius:0 6px 6px 0; }
-.season-display-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px; align-items:start; }
+.season-display-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr)); gap:18px; align-items:start; }
 .season-display-panel { min-width:0; padding:20px; border:1px solid var(--admin-border); border-radius:10px; background:var(--admin-surface); box-shadow:var(--admin-shadow); }
 .season-display-panel-head { display:flex; align-items:center; justify-content:space-between; gap:12px; }
 .season-display-panel h2 { display:flex; align-items:center; gap:9px; margin:0; font-size:17px; }

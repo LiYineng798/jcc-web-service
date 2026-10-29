@@ -13,6 +13,8 @@ import hashlib
 import json
 import re
 import shutil
+import time
+import urllib.error
 import urllib.request
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
@@ -90,20 +92,41 @@ def _safe_image_name(url: str, seen: dict[str, str]) -> str:
     return name
 
 
+def augment_image_paths(document: dict) -> list[tuple[str, str]]:
+    """(icon_url, local_path) in import order, so an archive can ship the icons in advance."""
+    seen: dict[str, str] = {}
+    paths = []
+    for record in _records(document):
+        icon_url = str(record.get("icon") or "").strip()
+        if icon_url:
+            paths.append((icon_url, f"assets/augments/{_safe_image_name(icon_url, seen)}"))
+    return paths
+
+
 def _download_images(entries: list[tuple[str, Path]]) -> list[dict[str, str]]:
     failures = []
 
-    def download(url: str, target: Path) -> None:
-        request = urllib.request.Request(url, headers={"User-Agent": "jcc-season-library/1.0"})
-        with urllib.request.urlopen(request, timeout=30) as response:
-            content = response.read()
+    def download(url: str, target: Path, attempts: int = 3) -> None:
+        # Transient CDN drops are retried a bounded number of times; HTTP errors fail at once.
+        for attempt in range(1, attempts + 1):
+            try:
+                request = urllib.request.Request(url, headers={"User-Agent": "jcc-season-library/1.0"})
+                with urllib.request.urlopen(request, timeout=30) as response:
+                    content = response.read()
+                break
+            except urllib.error.HTTPError:
+                raise
+            except OSError:
+                if attempt == attempts:
+                    raise
+                time.sleep(attempt)
         if not content:
             raise RuntimeError("empty response")
         target.parent.mkdir(parents=True, exist_ok=True)
         target.write_bytes(content)
 
     unique_entries = list(dict.fromkeys(entries))
-    with ThreadPoolExecutor(max_workers=12) as executor:
+    with ThreadPoolExecutor(max_workers=6) as executor:
         futures = {executor.submit(download, url, target): (url, target) for url, target in unique_entries}
         for future in as_completed(futures):
             url, target = futures[future]
@@ -339,7 +362,9 @@ def collect_official_augments(
         elif icon_url:
             filename = _safe_image_name(icon_url, seen_names)
             local_path = f"assets/augments/{filename}"
-            image_entries.append((icon_url, target_dir / local_path))
+            # Icons shipped with the archive were copied in with its assets; only fetch the rest.
+            if not (target_dir / local_path).is_file():
+                image_entries.append((icon_url, target_dir / local_path))
             image = {"local_path": local_path, "source_url": icon_url, "alt": f"{record.get('name') or augment_id}强化符文图标"}
         augments.append({
             "id": augment_id,

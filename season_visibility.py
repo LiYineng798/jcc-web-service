@@ -12,6 +12,9 @@ DATA_ROOT = Path(__file__).resolve().parent / "static" / "season-data"
 
 STATUSES = {"active", "archived", "hidden", "disabled"}
 PUBLIC_STATUSES = {"active", "archived"}
+# Each surface has its own status/order; the creator surface feeds the poster tool only.
+KINDS = ("simulator", "library", "creator")
+DEFAULT_KINDS = ("simulator", "creator")
 
 
 def _path() -> Path:
@@ -29,24 +32,33 @@ def _library_catalog() -> list[dict]:
     return catalog(list(payload.get("seasons") or []))
 
 
+def _initial_status(item: dict, kind: str) -> str:
+    # A catalog entry may stage each surface separately (e.g. a mode season only for
+    # the creator). Without an override the creator lists nothing, so ordinary
+    # seasons never appear in the poster tool by accident.
+    override = (item.get("surface_status") or {}).get(kind)
+    if override in STATUSES:
+        return override
+    if kind == "creator":
+        return "hidden"
+    return item.get("status") if item.get("status") in STATUSES else "hidden"
+
+
 def _default_policy() -> dict:
-    seasons = _library_catalog()
-    ordered = list(reversed(seasons))
+    ordered = list(reversed(_library_catalog()))
     # A newly registered season may be staged as hidden before any runtime
-    # override exists. Preserve that intent for both public surfaces.
-    simulator = {
-        str(item['season_id']): {
-            'status': item.get('status') if item.get('status') in STATUSES else 'hidden',
-            'order': i + 1,
+    # override exists. Preserve that intent for every surface.
+    policy = {
+        kind: {
+            str(item["season_id"]): {"status": _initial_status(item, kind), "order": i + 1}
+            for i, item in enumerate(ordered) if item.get("season_id")
         }
-        for i, item in enumerate(ordered) if item.get('season_id')
+        for kind in KINDS
     }
-    first_public = next((sid for sid, item in simulator.items() if item['status'] in PUBLIC_STATUSES), None)
-    return {
-        "simulator_default_season_id": first_public,
-        "simulator": simulator,
-        "library": deepcopy(simulator),
-    }
+    for kind in DEFAULT_KINDS:
+        policy[f"{kind}_default_season_id"] = next(
+            (sid for sid, item in policy[kind].items() if item["status"] in PUBLIC_STATUSES), None)
+    return policy
 
 
 def _public_entries(entries: dict) -> list[tuple]:
@@ -73,7 +85,7 @@ def load_policy() -> dict:
         saved = json.loads(path.read_text(encoding="utf-8"))
     except (OSError, ValueError):
         saved = {}
-    for kind in ("simulator", "library"):
+    for kind in KINDS:
         for season_id, value in (saved.get(kind) or {}).items():
             if season_id not in base[kind] or not isinstance(value, dict):
                 continue
@@ -85,18 +97,11 @@ def load_policy() -> dict:
             except (TypeError, ValueError):
                 pass
         _normalize_order(base[kind])
-    requested_default = str(saved.get("simulator_default_season_id") or "")
-    public_simulator_ids = [
-        season_id
-        for season_id, setting in sorted(
-            base["simulator"].items(),
-            key=lambda pair: (int(pair[1].get("order") or 999), pair[0]),
-        )
-        if setting.get("status") in PUBLIC_STATUSES
-    ]
-    base["simulator_default_season_id"] = (
-        requested_default if requested_default in public_simulator_ids else (public_simulator_ids[0] if public_simulator_ids else None)
-    )
+    for kind in DEFAULT_KINDS:
+        key = f"{kind}_default_season_id"
+        public_ids = [sid for sid, _ in _public_entries(base[kind])]
+        requested = str(saved.get(key) or "")
+        base[key] = requested if requested in public_ids else (public_ids[0] if public_ids else None)
     return base
 
 
@@ -126,14 +131,19 @@ def get_season(kind: str, season_id: str) -> dict | None:
 
 
 def default_season_id(kind: str) -> str | None:
-    if kind != "simulator":
+    if kind not in DEFAULT_KINDS:
         return None
     if has_app_context() and g.get('season_preview_id'):
         from season_data_repository import selected_release
         for item in _library_catalog():
             if selected_release(item['season_id']) == g.season_preview_id:
                 return item['season_id']
-    return load_policy().get("simulator_default_season_id")
+    return load_policy().get(f"{kind}_default_season_id")
+
+
+def is_public_anywhere(season_id: str) -> bool:
+    """Season resources stay reachable while any surface shows the season."""
+    return any(get_season(kind, season_id) for kind in KINDS)
 
 
 def admin_payload(kind: str) -> list[dict]:
@@ -147,7 +157,7 @@ def admin_payload(kind: str) -> list[dict]:
 
 
 def update_season(admin_id: int, kind: str, season_id: str, data: dict):
-    if kind not in ("simulator", "library"):
+    if kind not in KINDS:
         return None, "展示类型无效", 400
     season_id = str(season_id or "")
     if not any(item.get("season_id") == season_id for item in _library_catalog()):
@@ -176,15 +186,18 @@ def update_season(admin_id: int, kind: str, season_id: str, data: dict):
             policy[kind][sid] = value
     policy[kind][season_id] = entry
     _normalize_order(policy[kind])
+    default_key = f"{kind}_default_season_id"
     if data.get("is_default"):
-        if kind != "simulator":
-            return None, "只有阵容模拟器可以设置默认赛季", 400
+        if kind not in DEFAULT_KINDS:
+            return None, "只有阵容模拟器和创作者工具可以设置默认赛季", 400
         if entry.get("status") not in PUBLIC_STATUSES:
             return None, "默认赛季必须处于展示或归档状态", 400
-        policy["simulator_default_season_id"] = season_id
-    simulator_ids = [sid for sid, _ in _public_entries(policy['simulator'])]
-    if policy.get('simulator_default_season_id') not in simulator_ids:
-        policy['simulator_default_season_id'] = simulator_ids[0] if simulator_ids else None
+        policy[default_key] = season_id
+    for default_kind in DEFAULT_KINDS:
+        key = f"{default_kind}_default_season_id"
+        public_ids = [sid for sid, _ in _public_entries(policy[default_kind])]
+        if policy.get(key) not in public_ids:
+            policy[key] = public_ids[0] if public_ids else None
     save_policy(policy)
     write_audit_best_effort(
         admin_id,
@@ -197,5 +210,5 @@ def update_season(admin_id: int, kind: str, season_id: str, data: dict):
     return {
         "items": admin_payload(kind),
         "season": next(item for item in admin_payload(kind) if item["season_id"] == season_id),
-        "default_season_id": policy.get("simulator_default_season_id") if kind == "simulator" else None,
+        "default_season_id": policy.get(default_key) if kind in DEFAULT_KINDS else None,
     }, None, 200

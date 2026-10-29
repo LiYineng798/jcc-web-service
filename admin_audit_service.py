@@ -31,6 +31,7 @@ ACTION_LABELS = {
     'fail_live_comp_upload': '阵容上传失败',
     'update_simulator_season_visibility': '调整模拟器赛季展示',
     'update_library_season_visibility': '调整资料库赛季展示',
+    'update_creator_season_visibility': '调整创作者工具赛季展示',
 }
 TARGET_LABELS = {
     'live_comp_version': '实时阵容版本',

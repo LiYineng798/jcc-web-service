@@ -22,9 +22,31 @@
 | `tft-codebook.json` | 可选的外部 TFT 英雄/装备 ID 映射 |
 | `assets/` | 本地原图与版本化优化图片 |
 
-资料库与模拟器共享同一 release，公开状态、排序独立，由 `season_visibility.py` 管理；
+资料库、模拟器与海报创作者（`creator`）共享同一 release，公开状态、排序独立，由 `season_visibility.py` 管理；
+模拟器和创作者各有默认赛季，创作者工具只使用自己的默认赛季。catalog 条目可用 `surface_status` 为各入口指定初始状态，
+未指定时创作者入口为隐藏，普通赛季不会意外出现在海报工具中。
 只有 active/archived 公开，hidden/disabled 返回受保护结果，不能按旧 draft 规则推断可见性。
-公开资源在两个展示入口都不可用时拒绝访问。实时站位详情要求资料库公开。
+公开资源在所有展示入口都不可用时拒绝访问。实时站位详情要求资料库公开。
+
+## 独立模式赛季（官方分支档案）
+
+没有外部源档案的模式（如大橘大利 `orange_s400001`）由官方分支直接生成档案：
+`scripts/collect_orange_fortune.py` 归档版本目录选中的分支，`scripts/season_library/official_archive.py`
+把 chess/race/job/equip/mission/hex 转为 `数据模板` 布局（商店/任务解锁弈子、羁绊档位、装备属性与配方、图片和
+`source-snapshots`），再交给 `import_from_archive.py`。转换规则以 `s16_5` 的来源分支 17.17.8b-S18 回放验证：
+弈子与装备逐字段一致；`new` 标签取决于 `--previous-season` 基准，旧赛季的基准未在仓库保存。
+官方 job.js 已下线时无法回放职业羁绊，以 race 的同一规则为准。
+
+```powershell
+python -I scripts/collect_orange_fortune.py --output instance/orange-fortune-archive/<时间戳>
+python -I scripts/season_library/official_archive.py --official instance/orange-fortune-archive/<时间戳> --output instance/season-archive --season-id orange_s400001 --display-name "英雄联盟传奇 · 大橘大利" --set-number 16 --theme "英雄联盟传奇 · 大橘大利" --previous-season static/season-data/s16_5 --surface creator=active
+python scripts/season_library/import_from_archive.py --source instance/season-archive --season orange_s400001 --official-only --initial-status hidden
+```
+
+单赛季导入只替换或追加目标条目，不移除 catalog 中源档案未列出的赛季。首次登记后，同一流程配合 `--output-root`
+与 `build_upload_package.py` 制作 ZIP，通过「赛季版本更新」发布。弈子、羁绊、装备和强化符文图标都预先下载进档案，
+重跑转换只补下载缺失文件；导入器直接使用档案中已有的强化符文图标。图片下载失败会写入 `asset-report.json`，
+对应图片字段留空，不用其他图片替代。
 
 ## 来源不能混淆
 

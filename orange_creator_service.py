@@ -1,19 +1,24 @@
 """Versioned, read-only creator configuration; replace this adapter for future releases."""
 from orange_fortune_service import catalog
-from season_visibility import public_seasons
+from season_visibility import default_season_id, get_season
 from settings_service import get_setting
 from db import get_db
 from assets_version import static_v
 
-CREATOR_SEASON = 's16_5'
+
+def creator_season():
+    """The formation editor uses the creator surface's default season, set in the admin."""
+    season_id = default_season_id('creator')
+    return get_season('creator', season_id) if season_id else None
 
 
 def creator_config():
-    available = (get_setting(get_db(), 'simulator_enabled', 'true') == 'true'
-                 and any(s['season_id'] == CREATOR_SEASON for s in public_seasons('simulator')))
+    season = creator_season()
+    available = get_setting(get_db(), 'simulator_enabled', 'true') == 'true' and season is not None
     return {
         'schema_version': 1,
-        'season_id': CREATOR_SEASON,
+        'season_id': season['season_id'] if season else None,
+        'season_name': season.get('display_name') if season else None,
         'simulator_available': available,
         'card_slots': 3,
         'export': {'width': 1200, 'height': 1600},
