@@ -8,8 +8,9 @@
 `orange_creator_service.py:creator_config()` 是只读适配层；页面初始数据与 `/api/tools/orange-fortune-creator` 共用它，`schema_version=1`。当前使用随代码交付的卡片档案，不在请求过程中访问官方 CDN，不新增数据库表。
 
 - 卡片来自现有 `orange_fortune_service.catalog()`，卡图复用本地文件和五档 SVG 金属包边。缺图保留明确占位，不替换成其他卡片。
-- [官方卡片 CDN](https://game.gtimg.cn/images/lol/act/jkzlk/js/16/18.18.1-S400001/card.js) 的快照与本地 200 条记录一致。该文件仅含 `id/iRarityTier/sName/sIcon/sTags/sArgs/sDesc`，没有卡片能量字段。
-- 同目录的 [模式总配置](https://game.gtimg.cn/images/lol/act/jkzlk/js/16/18.18.1-S400001/config.js)、[弈子](https://game.gtimg.cn/images/lol/act/jkzlk/js/16/18.18.1-S400001/chess.js) 和 [装备](https://game.gtimg.cn/images/lol/act/jkzlk/js/16/18.18.1-S400001/equip.js) 可公开读取；在这些已核对的文件里没有找到可关联卡片 ID 的能量字段。不能据此断言其他官方接口也不存在。
+- [官方卡片 CDN](https://game.gtimg.cn/images/lol/act/jkzlk/js/16/18.18.1-S400001/card.js) 2026-10-28 快照共 201 条，仍只含 `id/iRarityTier/sName/sIcon/sTags/sArgs/sDesc`，没有卡片能量字段。
+- 版本目录为该分支列出的 16 个接口（含[模式总配置](https://game.gtimg.cn/images/lol/act/jkzlk/js/16/18.18.1-S400001/config.js)、[弈子](https://game.gtimg.cn/images/lol/act/jkzlk/js/16/18.18.1-S400001/chess.js)、[装备](https://game.gtimg.cn/images/lol/act/jkzlk/js/16/18.18.1-S400001/equip.js)）2026-10-29 均可读取；其中没有引用卡片 ID 的字段，也没有卡片能量字段。不能据此断言未列出的官方接口也不存在。
+- 官方 `chess.js` 可展示的 1–5 费弈子有 120 个名字，复用的 `s16_5` 资料为 114 个；伊泽瑞尔、努努和威朗普、斯莫德、艾瑞利娅、迦娜、阿木木尚不能在编辑器中放置，需经赛季资料流程接入。
 - [官方开发者说明](https://www.bilibili.com/opus/1257412011649662993)确认三张卡的局前构筑、稳定传送门能量上限 8，以及由前七逐步挑战前五、前三和登顶的局内目标。页面的“计划目标”表达创作者意向，不是开局硬性门槛。
 - 卡片星级不能当成能量。当前 `cards[].energy=null`，可手填总能量并明确标注；稳定传送门手填超过 8 时阻止导出。不标注能量不代表游戏内合法性认证。
 - 高级队列名称和上限不猜测。用户可以选“其他传送门”自填名字。
