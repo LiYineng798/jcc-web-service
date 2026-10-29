@@ -7,6 +7,7 @@ directory at run time; nothing below pins a patch number.
 import argparse
 import concurrent.futures
 import hashlib
+import http.client
 import io
 import json
 import re
@@ -64,6 +65,9 @@ def fetch(url, timeout, attempts):
         except urllib.error.URLError as error:
             kind = 'timeout' if isinstance(error.reason, (socket.timeout, TimeoutError)) else 'network_error'
             record.update(status=None, error=kind, detail=str(error.reason), body=None)
+        except (http.client.HTTPException, OSError) as error:
+            # e.g. RemoteDisconnected / ConnectionResetError raised outside URLError.
+            record.update(status=None, error='network_error', detail=f'{type(error).__name__}: {error}', body=None)
         if attempt < attempts:
             time.sleep(attempt)
     return record
@@ -172,7 +176,7 @@ def select_branch(directory, mode, season):
     return ordered[0] if ordered else None, ordered
 
 
-def collect(output, mode, season, baseline_path, baseline_images, timeout, attempts, workers):
+def collect(output, mode, season, baseline_path, baseline_images, timeout, attempts, workers, skip_cards=False):
     archive = Archive(output)
     failures = []
     fetched = fetch(DIRECTORY_URL, timeout, attempts)
@@ -220,6 +224,13 @@ def collect(output, mode, season, baseline_path, baseline_images, timeout, attem
             failures.append(info)
         endpoints.setdefault(field, None)
         archive.save_json(f'endpoints/{field}.json', info)
+
+    if skip_cards:
+        # Branches without time cards (e.g. a reference season) only need the endpoint archive.
+        archive.save_json('failures.json', failures)
+        summary = {'collected_at': now(), 'directory_url': DIRECTORY_URL, 'branch': entry, 'endpoint_failures': len(failures)}
+        (output / 'manifest.json').write_text(json.dumps({**summary, 'files': archive.entries}, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+        return summary, {}
 
     cards_payload = endpoints.get('cardurl')
     if not isinstance(cards_payload, dict) or not isinstance(cards_payload.get('data'), dict):
@@ -497,6 +508,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output', required=True, type=Path, help='new, empty archive directory')
     parser.add_argument('--report-only', action='store_true', help='regenerate report.md for an existing archive')
+    parser.add_argument('--skip-cards', action='store_true', help='archive the branch endpoints only (no time cards)')
     parser.add_argument('--retry-images', action='store_true', help='retry timeout/network image failures in an existing archive')
     parser.add_argument('--mode', default='16')
     parser.add_argument('--season', default='S400001')
@@ -515,7 +527,9 @@ if __name__ == '__main__':
         sys.exit(f'{options.output} is not empty; use a new archive directory.')
     options.output.mkdir(parents=True, exist_ok=True)
     summary, diff = collect(options.output, options.mode, options.season, options.baseline,
-                            options.baseline_images, options.timeout, max(1, options.attempts), max(1, options.workers))
-    write_report(options.output)
+                            options.baseline_images, options.timeout, max(1, options.attempts), max(1, options.workers),
+                            options.skip_cards)
+    if not options.skip_cards:
+        write_report(options.output)
     print(json.dumps({**summary, 'added': len(diff.get('added', [])), 'removed': len(diff.get('removed', [])),
                       'changed': len(diff.get('changed', {}))}, ensure_ascii=False, indent=2))

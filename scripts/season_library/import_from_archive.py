@@ -462,6 +462,8 @@ def import_season(source_root: Path, catalog_entry: dict, *, official_only: bool
         "version_id": version_meta.get("version_id"),
         "effective_at": version_meta.get("effective_at"),
         "path": f"{season_id}/index.json",
+        # Per-surface initial status (e.g. a mode season staged only for the creator tool).
+        **({"surface_status": season["surface_status"]} if season.get("surface_status") else {}),
         "counts": {
             "champions": len(champions),
             "traits": len(traits),
@@ -539,6 +541,10 @@ def main(argv=None) -> int:
     if not args.season:
         existing = {entry["season_id"]: existing[entry["season_id"]] for entry in entries}
     order = [entry["season_id"] for entry in catalog.get("seasons") or []]
+    if args.season:
+        # A single-season source (e.g. one built from an official branch archive) must not
+        # drop seasons it does not list; keep the target order and append new ones.
+        order = list(existing)
     seasons = [existing[season_id] for season_id in order if season_id in existing]
     dump_json(catalog_path, {"format_version": "1.0.0", "seasons": seasons})
     print(f"catalog 写入 {catalog_path}（{len(seasons)} 个赛季）")
