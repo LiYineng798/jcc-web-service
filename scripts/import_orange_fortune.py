@@ -1,7 +1,7 @@
-"""Build the self-contained time-card catalog from a downloaded official snapshot."""
+"""Build the self-contained time-card catalog from an archive made by collect_orange_fortune.py."""
 import argparse
+import hashlib
 import json
-import shutil
 from pathlib import Path
 
 from PIL import Image
@@ -11,26 +11,46 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def build(source, output):
     source, output = Path(source), Path(output)
-    payload = json.loads((source / 'card.js').read_text(encoding='utf-8-sig'))
-    assets = {}
+    selection = json.loads((source / 'selection.json').read_text(encoding='utf-8'))
+    card_path = selection['selected']['cardurl']
+    payload = json.loads((source / f"parsed{card_path.rsplit('.', 1)[0]}.json").read_text(encoding='utf-8'))
+    endpoint = json.loads((source / 'endpoints/cardurl.json').read_text(encoding='utf-8'))
+    downloads = json.loads((source / 'images/manifest.json').read_text(encoding='utf-8'))
+    manifest = json.loads((source / 'manifest.json').read_text(encoding='utf-8'))
+    assets, failures = {}, {}
     (output / 'images').mkdir(parents=True, exist_ok=True)
     for key, card in payload['data'].items():
         if not key.isdigit() or card['id'] != key or card['iRarityTier'] not in ('1', '2', '3', '4', '5'):
             raise ValueError(f'Invalid card identity: {key}')
-        # Local filenames use card IDs, whereas official icon IDs can differ.
-        matches = list((source / f"{card['iRarityTier']}星").glob(f'{key}_*.png'))
-        if len(matches) > 1:
-            raise ValueError(f'Ambiguous image: {key}')
-        if not matches:
+        record = downloads.get(key) or {'error': 'not_downloaded'}
+        # A failed download stays missing; earlier art is never reused as this run's result.
+        if record.get('error') or record.get('url') != card['sIcon']:
             assets[key] = None
+            failures[key] = {'url': card['sIcon'], 'error': record.get('error') or 'url_mismatch',
+                             'status': record.get('status'), 'checked_at': record.get('downloaded_at')}
             continue
-        with Image.open(matches[0]) as image:
+        data = (source / record['local_path']).read_bytes()
+        if hashlib.sha256(data).hexdigest() != record['sha256']:
+            raise ValueError(f'Archive image changed after download: {key}')
+        with Image.open(source / record['local_path']) as image:
             width, height = image.size
+        # Local filenames use card IDs, whereas official icon IDs can differ.
         filename = f'images/{key}.png'
-        shutil.copyfile(matches[0], output / filename)
-        assets[key] = {'file': filename, 'width': width, 'height': height,
+        if record['format'] != 'PNG':
+            raise ValueError(f'Unexpected image format for {key}: {record["format"]}')
+        (output / filename).write_bytes(data)
+        assets[key] = {'file': filename, 'width': width, 'height': height, 'sha256': record['sha256'],
                        'layout': 'icon' if height / width < 1.4 else 'portrait'}
+    for stale in (output / 'images').glob('*.png'):
+        if assets.get(stale.stem) is None:
+            stale.unlink()
     payload['assets'] = assets
+    payload['asset_failures'] = failures
+    payload['provenance'] = {
+        'collected_at': manifest['collected_at'], 'card_url': endpoint['url'],
+        'etag': endpoint.get('etag'), 'last_modified': endpoint.get('last_modified'),
+        'archive': source.name,
+    }
     (output / 'cards.json').write_text(json.dumps(payload, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
     return len(payload['data']), sum(asset is not None for asset in assets.values())
 
