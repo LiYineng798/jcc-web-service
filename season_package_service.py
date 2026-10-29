@@ -420,7 +420,7 @@ def _smoke(season_id, release_id):
         from season_data_repository import data_url
         from season_visibility import get_season
 
-        if get_season('simulator', season_id):
+        if get_season('simulator', season_id) or get_season('creator', season_id):
             for name in ('champions', 'traits', 'items', 'augments', 'board_units'):
                 response = client.get(f'{data_url(season_id)}/{name}.json')
                 require(

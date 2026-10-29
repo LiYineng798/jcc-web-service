@@ -52,8 +52,9 @@
     seasonDisplays: {
       simulator: { items: [], default_season_id: '', loadedAt: 0 },
       library: { items: [], default_season_id: '', loadedAt: 0 },
+      creator: { items: [], default_season_id: '', loadedAt: 0 },
     },
-    seasonDisplayUi: { library: { expanded: false, error: '' }, simulator: { expanded: false, error: '' } },
+    seasonDisplayUi: { library: { expanded: false, error: '' }, simulator: { expanded: false, error: '' }, creator: { expanded: false, error: '' } },
     seasonDisplayBusy: false,
     copyRank: { date: '', items: [], loadedAt: 0 },
     dailyReports: { items: [], selectedDate: '', report: null, loadedAt: 0 },
@@ -96,7 +97,7 @@
     reports: ['失效反馈处理', '核查用户反馈并记录处理结果'],
     lineups: ['阵容管理', '搜索、审核与维护普通阵容'],
     'live-comps': ['实时阵容', '维护赛季状态与阵容码'],
-    'season-display': ['资料赛季', '统一管理资料库与模拟器的赛季展示'],
+    'season-display': ['资料赛季', '统一管理资料库、模拟器与海报创作者的赛季展示'],
     'season-packages': ['赛季版本更新', '上传资料包，检查差异并发布版本'],
     'patch-notes': ['更新公告', '编辑版本内容与发布状态'],
     users: ['用户管理', '查询账号、权限和可用状态'],
@@ -277,7 +278,7 @@
       await liveVersions.load();
     }
     if (tabKey === 'live-comps' && state.liveCompsWorkspace === 'seasons') await refreshLiveSeasons();
-    if (tabKey === 'season-display') await Promise.all([loadSeasonDisplay('library'), loadSeasonDisplay('simulator')]);
+    if (tabKey === 'season-display') await Promise.all(['library', 'simulator', 'creator'].map((kind) => loadSeasonDisplay(kind)));
     if (tabKey === 'patch-notes') await loadPatchNotes();
     if (tabKey === 'users') await loadUsers();
     if (tabKey === 'analytics') {
@@ -1101,7 +1102,7 @@
       });
       state.seasonDisplays[kind] = { ...result, loadedAt: Date.now() };
       state.seasonDisplayUi[kind].error = '';
-      const label = kind === 'library' ? '资料库' : '模拟器';
+      const label = { library: '资料库', simulator: '模拟器', creator: '海报创作者' }[kind];
       setNotice(`已更新${label}中的「${season.display_name || season.season_id}」`);
     } catch (error) {
       setNotice(error.message || '操作失败', 'error');

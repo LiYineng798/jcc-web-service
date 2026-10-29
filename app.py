@@ -74,8 +74,8 @@ def create_app(test_config=None):
         season_id = request.path[len(prefix):].split('/', 1)[0]
         if season_id == 'catalog.json':
             return None
-        from season_visibility import get_season
-        if not get_season('library', season_id) and not get_season('simulator', season_id):
+        from season_visibility import is_public_anywhere
+        if not is_public_anywhere(season_id):
             abort(404)
         return None
 

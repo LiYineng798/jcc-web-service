@@ -451,7 +451,7 @@ async function loadCatalog() {
 }
 
 async function refreshCatalog() {
-  const catalog = await fetchJson(`/api/season-catalog?surface=simulator&v=${encodeURIComponent(DATA_VERSION)}${PREVIEW_RELEASE ? `&preview_release=${encodeURIComponent(PREVIEW_RELEASE)}` : ""}`);
+  const catalog = await fetchJson(`/api/season-catalog?surface=${CREATOR_SEASON ? "creator" : "simulator"}&v=${encodeURIComponent(DATA_VERSION)}${PREVIEW_RELEASE ? `&preview_release=${encodeURIComponent(PREVIEW_RELEASE)}` : ""}`);
   state.catalog = [...(catalog.seasons || [])].sort((a, b) => Number(a.order || 999) - Number(b.order || 999));
   if (CREATOR_SEASON) state.catalog = state.catalog.filter((season) => season.season_id === CREATOR_SEASON);
   state.defaultSeasonId = catalog.default_season_id || '';

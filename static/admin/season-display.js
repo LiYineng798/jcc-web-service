@@ -5,6 +5,7 @@
   const surfaces = {
     library: { name: '资料库', icon: 'library', description: '控制首页资料菜单、赛季资料页与弈子详情。' },
     simulator: { name: '模拟器', icon: 'layout-grid', description: '控制模拟器的赛季菜单与首次打开的默认赛季。', defaultLabel: '模拟器' },
+    creator: { name: '海报创作者', icon: 'image', description: '大橘大利海报的阵容编辑器只使用默认赛季；独立模式资料只在这里启用，不进入普通模拟器。', defaultLabel: '海报创作者' },
     live: { name: '实时阵容', icon: 'radio', description: '公开赛季按此顺序展示；默认标记表示首页优先打开的赛季。', defaultLabel: '实时阵容' },
   };
 
@@ -137,11 +138,11 @@
       hub.setAttribute('aria-busy', String(isBusy()));
       const intro = el('div', 'season-display-intro');
       const copy = el('div');
-      copy.append(el('h2', '', '一份赛季资料，两个展示入口'), el('p', '', '资料库与模拟器共用资料版本，展示状态和顺序分别设置。修改后立即保存。'));
+      copy.append(el('h2', '', '一份赛季资料，三个展示入口'), el('p', '', '资料库、模拟器与海报创作者共用资料版本，展示状态、顺序和默认赛季分别设置。修改后立即保存。'));
       intro.append(copy, button('管理资料版本', openVersions, 'small-button'));
       hub.append(intro, el('p', 'season-display-guide', '展示区仅排列启用与归档赛季。隐藏、停用赛季统一收纳，可随时重新展示。'));
       const grid = el('div', 'season-display-grid');
-      grid.append(renderSurface('library'), renderSurface('simulator'));
+      grid.append(renderSurface('library'), renderSurface('simulator'), renderSurface('creator'));
       hub.append(grid);
       return hub;
     };
