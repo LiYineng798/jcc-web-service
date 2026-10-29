@@ -95,6 +95,28 @@
     "board_units": 4,
     "augments": 257
    }
+  },
+  {
+   "season_id": "orange_s400001",
+   "display_name": "英雄联盟传奇 · 大橘大利",
+   "set_number": "16",
+   "set_variant": "",
+   "theme": "英雄联盟传奇 · 大橘大利",
+   "status": "hidden",
+   "game_version": "18.18.1",
+   "version_id": "orange_s400001__18_18_1",
+   "effective_at": "2026-10-13 19:49:20",
+   "path": "orange_s400001/index.json",
+   "surface_status": {
+    "creator": "active"
+   },
+   "counts": {
+    "champions": 120,
+    "traits": 66,
+    "mechanics": 0,
+    "board_units": 5,
+    "augments": 298
+   }
   }
  ]
 }
