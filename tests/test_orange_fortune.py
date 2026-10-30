@@ -11,6 +11,8 @@ def test_catalog_preserves_official_text_and_matches_local_art():
     cards = catalog()['cards']
     assert len(cards) == len(source['data']) == 201
     assert Counter(c['tier'] for c in cards) == {1: 20, 2: 30, 3: 60, 4: 50, 5: 41}
+    assert Counter(c['tier_name'] for c in cards) == {'基础': 20, '勇士': 30, '王者': 60, '史诗': 50, '传说': 41}
+    assert all(c['energy'] == c['tier'] for c in cards)
     # Missing art is exactly what the archive recorded as failed; no other card's image stands in.
     assert {c['id'] for c in cards if c['image'] is None} == set(source['asset_failures'])
     assert all(failure['error'] == 'http_404' for failure in source['asset_failures'].values())
@@ -45,7 +47,13 @@ def test_guest_page_search_and_home_navigation(client):
     assert page.status_code == 200
     html = page.get_data(as_text=True)
     assert html.count('class="fortune-card"') == 201
-    assert '全部星级 <small>201</small>' in html
+    assert '全部品阶 <small>201</small>' in html
+    assert '全部星级' not in html and ' 星卡片' not in html and '纹章</option>' not in html and '羁绊</option>' in html
+    for name in ('基础', '勇士', '王者', '史诗', '传说'):
+        assert f'{name}卡片<em>' in html
+    for text in ('稳定传送门', '波动传送门', '未知传送门', '≤ 8', '≤ 10', '≤ 15', '0 金橘币', '400 金橘币', '2,000 金橘币',
+                 '不损失卡片', '随机损失两张卡片', '随机损失三张卡片'):
+        assert text in html
     assert '黑玫瑰夜市' in html and '卡图暂缺' in html
     filtered = client.get(PAGE, query_string={'q': '黑玫瑰', 'tier': '5'}).get_data(as_text=True)
     assert '找到 <strong>1</strong> 张卡片' in filtered

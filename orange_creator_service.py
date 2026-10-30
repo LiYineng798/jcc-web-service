@@ -1,5 +1,5 @@
 """Versioned, read-only creator configuration; replace this adapter for future releases."""
-from orange_fortune_service import catalog
+from orange_fortune_service import DECK_SIZE, PORTALS, TIERS, catalog
 from season_visibility import default_season_id, get_season
 from settings_service import get_setting
 from db import get_db
@@ -16,16 +16,19 @@ def creator_config():
     season = creator_season()
     available = get_setting(get_db(), 'simulator_enabled', 'true') == 'true' and season is not None
     return {
-        'schema_version': 1,
+        'schema_version': 2,
         'season_id': season['season_id'] if season else None,
         'season_name': season.get('display_name') if season else None,
         'simulator_available': available,
-        'card_slots': 3,
+        'card_slots': DECK_SIZE,
         'export': {'width': 1200, 'height': 1600},
-        'portals': [
-            {'id': 'unspecified', 'name': '不标注传送门', 'energy_limit': None},
-            {'id': 'stable', 'name': '稳定传送门', 'energy_limit': 8},
-            {'id': 'custom', 'name': '其他传送门', 'energy_limit': None},
+        # An over-limit deck is flagged in the editor and on the poster, never blocked.
+        'portals': [dict(portal) for portal in PORTALS],
+        'tiers': {str(tier): name for tier, name in TIERS.items()},
+        'layouts': [
+            {'id': 'guide', 'name': '攻略版', 'description': '卡组、站位与运营', 'formation': True},
+            {'id': 'showcase', 'name': '纯构筑版', 'description': '卡组与站位', 'formation': True},
+            {'id': 'cards', 'name': '卡组推荐版', 'description': '仅三张卡片', 'formation': False},
         ],
         'targets': ['不标注', '前七', '前五', '前三', '登顶'],
         'backgrounds': [
@@ -40,8 +43,7 @@ def creator_config():
                 ('folio', '蓝绒藏典', '织物书封 · 古铜雕饰'),
             ]
         ],
-        # Rarity is not an energy field. Null deliberately means unknown.
-        'cards': [{**{key: card[key] for key in ('id', 'tier', 'name', 'description', 'category', 'rounds', 'image', 'layout')},
-                   'image_url': static_v(card['image']) if card['image'] else None,
-                   'energy': None} for card in catalog()['cards']],
+        'cards': [{**{key: card[key] for key in ('id', 'tier', 'tier_name', 'energy', 'name', 'description',
+                                                 'category', 'rounds', 'image', 'layout')},
+                   'image_url': static_v(card['image']) if card['image'] else None} for card in catalog()['cards']],
     }
