@@ -195,7 +195,7 @@ def register_page_routes(app):
             'orange_fortune.html', 'orange_fortune', **guide,
             simulator_enabled=get_setting(get_db(), 'simulator_enabled', 'true') == 'true',
             seo=make_seo(title='大橘大利 · 时间卡片图鉴 - 金铲铲阵容库',
-                         description='英雄联盟传奇大橘大利时间卡片图鉴，按星级、类型和生效回合查找卡片，查看完整效果。',
+                         description='英雄联盟传奇大橘大利时间卡片图鉴，按品阶、能量、类型和生效回合查找卡片，查看完整效果与三座传送门的准入规则。',
                          path='/tools/orange-fortune',
                          noindex=bool(guide['query'] or guide['tier'] or guide['category'] or guide['round_value'])),
         )

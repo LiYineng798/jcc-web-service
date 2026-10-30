@@ -7,7 +7,7 @@ API = '/api/tools/orange-fortune-creator'
 def test_creator_static_catalog_and_public_page(client):
     response = client.get(API)
     data = response.get_json()
-    assert data['schema_version'] == 1
+    assert data['schema_version'] == 2
     assert data['simulator_available'] is True
     assert data['card_slots'] == 3
     assert data['export'] == {'width': 1200, 'height': 1600}
@@ -16,12 +16,18 @@ def test_creator_static_catalog_and_public_page(client):
     folio = next(b for b in data['backgrounds'] if b['id'] == 'folio')
     assert 'material-folio.svg?' in folio['image_url']
     assert client.get(folio['image_url']).status_code == 200
-    assert all(card['energy'] is None for card in data['cards'])
+    # Energy equals rarity: Basic 1 … Legendary 5.
+    assert data['tiers'] == {'1': '基础', '2': '勇士', '3': '王者', '4': '史诗', '5': '传说'}
+    assert all(card['energy'] == card['tier'] and card['tier_name'] == data['tiers'][str(card['tier'])] for card in data['cards'])
     assert len({card['id'] for card in data['cards']}) == 201
-    assert next(p for p in data['portals'] if p['id'] == 'stable')['energy_limit'] == 8
+    assert [(p['id'], p['name'], p['energy_limit'], p['entry_fee'], p['loss_cards']) for p in data['portals']] == [
+        ('stable', '稳定传送门', 8, 0, 0), ('volatile', '波动传送门', 10, 400, 2), ('unknown', '未知传送门', 15, 2000, 3)]
+    assert [(l['id'], l['formation']) for l in data['layouts']] == [('guide', True), ('showcase', True), ('cards', False)]
     assert response.headers['Cache-Control'] == 'no-store'
     html = client.get(PAGE).get_data(as_text=True)
     assert '大橘大利创作者工具' in html
+    assert html.count('name="deck-portal"') == 3 and '卡组推荐版' in html
+    assert '其他传送门' not in html and 'deck-energy' not in html
     assert '先遣服' not in html and '测试服' not in html
     assert f'href="{PAGE}"' in client.get('/').get_data(as_text=True)
     assert PAGE in client.get('/sitemap.xml').get_data(as_text=True)

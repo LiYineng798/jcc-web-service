@@ -70,10 +70,7 @@ async function themeFlow(page) {
         }
         if(width<=980)await page.locator('[data-panel="profile"]').click();
       }
-      await page.locator('#deck-portal').selectOption('custom');await page.locator('#custom-portal').fill('自定义传送门');
-      await fits(page);
-      await page.locator('#deck-portal').selectOption('stable');await page.locator('#deck-energy').fill('999');await fits(page);
-      await page.locator('#deck-energy').fill('');await page.locator('#deck-portal').selectOption('unspecified');
+      for(const portal of ['stable','volatile','unknown']) {await page.locator(`label[data-portal="${portal}"]`).click();await fits(page);}
       if(width<=980) {
         for(const key of ['profile','cards','content','materials']) {
           await page.locator(`[data-panel="${key}"]`).click();await fits(page);
@@ -90,7 +87,7 @@ async function themeFlow(page) {
         await page.locator('[data-panel="content"]').click();assert.equal(await page.locator('#deck-note').inputValue(),'标签切换后保留运营手记');
         await page.locator('[data-panel="profile"]').click();
       } else {
-        for(const layout of ['showcase','guide']) {
+        for(const layout of ['cards','showcase','guide']) {
           await page.locator(`[name="poster-layout"][value="${layout}"]`).check();await fits(page);
         }
         assert.equal(await page.locator('.creator-panel:visible').count(),4);

@@ -51,8 +51,9 @@ async function geometry(page) {
     assert.equal(await page.locator('.fp-trait:not(.fp-muted)').count(),8);
     await page.evaluate(()=>document.fonts.ready);
     await geometry(page);
-    assert.equal(await page.locator('.fp-meta').isVisible(),false);
-    assert.equal(await page.locator('.fp-header h1').evaluate(e=>getComputedStyle(e).fontSize),'60px');
+    // The portal is always chosen, so the meta row (portal, energy, entry, risk) is always shown.
+    assert.equal(await page.locator('.fp-meta').isVisible(),true);
+    assert.equal(await page.locator('.fp-header h1').evaluate(e=>getComputedStyle(e).fontSize),'46px');
     for(const length of [14,18,24]) {
       await page.locator('#deck-name').fill('时光里的胜利配方'.repeat(3).slice(0,length));await geometry(page);
     }
@@ -67,10 +68,10 @@ async function geometry(page) {
       }
     }
     await page.locator('[name="poster-layout"][value="guide"]').check();
-    await page.locator('#deck-portal').selectOption('stable');await page.locator('#deck-energy').fill('6');
-    await geometry(page);assert.equal(await page.locator('.fp-meta').isVisible(),true);
+    await page.locator('label[data-portal="unknown"]').click();
+    await geometry(page);assert.equal(await page.locator('.fp-energy-chip.is-over').count(),0);
     assert.equal(await page.locator('.fp-header h1').evaluate(e=>getComputedStyle(e).fontSize),'46px');
     await page.screenshot({path:`${out}/layout-populated-${name}.png`});
-    await browser.close();console.log(`${name}: real eight-trait posters, top alignment, centered brand, adaptive heading and both layouts passed`);
+    await browser.close();console.log(`${name}: real eight-trait posters, top alignment, centered brand, adaptive heading and formation layouts passed`);
   }
 })().catch(e=>{console.error(e);process.exit(1)});

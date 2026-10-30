@@ -31,7 +31,7 @@ def serve():
             db = get_db()
             actor = db.execute("SELECT id FROM users WHERE username='previewadmin'").fetchone()['id']
             notice, _, _ = create_notice(db, actor, {
-                'title': '时间卡片图鉴已上线', 'message': '查阅五星分级、生效回合与完整效果，让每一次选择更有把握。',
+                'title': '时间卡片图鉴已上线', 'message': '查阅五大品阶、传送门规则与完整效果，让每一次选择更有把握。',
                 'target_kind': 'tool', 'tool_id': 'orange-fortune', 'link_text': '打开时间卡片图鉴',
                 'marquee_enabled': False,
             })

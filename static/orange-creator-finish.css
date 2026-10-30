@@ -81,3 +81,44 @@
 .fortune-poster.theme-folio .fp-notebook { background:repeating-linear-gradient(transparent 0 34px,#cfdbde15 34px 35px); }
 .fortune-poster.theme-folio .fp-label { color:#e4d2af; }
 .fortune-poster.theme-folio .fp-meta,.fortune-poster.theme-folio .fp-label small { color:#d8e2e7; }
+
+/* Energy and portal panels take each material's own language. */
+/* Obsidian gilt: double gold hairline on smoked glass. */
+.fortune-poster.theme-gilded :is(.fp-energy-panel,.fp-portal-panel) { border-color:#d9b67142; background:linear-gradient(160deg,#ffffff09,transparent 42%),#080d1470; box-shadow:inset 0 0 0 5px #0b111a59,inset 0 0 0 6px #d9b6711f; }
+.fortune-poster.theme-gilded .fp-eq-term { background:linear-gradient(160deg,color-mix(in srgb,var(--tier) 34%,transparent),#080d1480); }
+.fortune-poster.theme-gilded .fp-eq-total { text-shadow:0 0 26px #bc8b3466; }
+/* Jade prism: chamfered stone plaques and hexagonal energy gems. */
+.fortune-poster.theme-jade :is(.fp-energy-panel,.fp-portal-panel) { border:0; border-radius:0; clip-path:polygon(20px 0,calc(100% - 20px) 0,100% 20px,100% calc(100% - 20px),calc(100% - 20px) 100%,20px 100%,0 calc(100% - 20px),0 20px); background:linear-gradient(135deg,#c3ce911f,transparent 38%),linear-gradient(315deg,#72ba8d1c,transparent 45%),#071d1a78; box-shadow:inset 0 0 0 1px #b4d39b3a; }
+.fortune-poster.theme-jade .fp-eq-term { width:54px; height:62px; border-radius:0; clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%); box-shadow:none; background:linear-gradient(160deg,color-mix(in srgb,var(--tier) 58%,transparent),color-mix(in srgb,var(--tier) 16%,#071d1a)); }
+.fortune-poster.theme-jade .fp-tier { border-radius:3px; }
+.fortune-poster.theme-jade .fp-energy-track i { transform:skewX(-30deg); }
+/* Astral amethyst: soft orbit panels, round gems and a ring around the total. */
+.fortune-poster.theme-astral :is(.fp-energy-panel,.fp-portal-panel) { border-color:#bdaceb3d; border-radius:28px; background:radial-gradient(ellipse at 0% 0%,#ab79d030,transparent 60%),radial-gradient(ellipse at 100% 100%,#9bc8d616,transparent 55%),#0a0c2073; }
+.fortune-poster.theme-astral .fp-eq-term { border-radius:50%; }
+.fortune-poster.theme-astral .fp-eq-total::after { content:''; position:absolute; left:-16px; right:-16px; top:50%; height:30px; margin-top:-13px; border:1px solid #c5b9ef70; border-radius:50%; transform:rotate(-14deg); }
+.fortune-poster.theme-astral .fp-portal-mark { filter:drop-shadow(0 0 6px #ab79d0aa); }
+/* Ivory foil: pressed card stock with a gold inner rule. */
+.fortune-poster.theme-ivory :is(.fp-energy-panel,.fp-portal-panel) { border-color:#a9844a59; border-radius:10px; background:linear-gradient(180deg,#fffcf3e0,#fbf3e0b8); box-shadow:inset 0 0 0 4px #fffaf0,inset 0 0 0 5px #c9a76a45,0 10px 28px #6b4f2a14; }
+.fortune-poster.theme-ivory .fp-eq-term { color:#372d20; background:linear-gradient(160deg,#fffaf0,color-mix(in srgb,var(--tier) 32%,#f3ecda)); box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--tier),#8a6633 45%),0 2px 6px #6b4f2a1f; }
+.fortune-poster.theme-ivory .fp-tier { background:color-mix(in srgb,var(--tier) 30%,#fffaf0); box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--tier),#8a6633 40%); }
+/* Editorial notebook: ruled boxes, ink circles and a rubber-stamp warning. */
+.fortune-poster.theme-editorial :is(.fp-energy-panel,.fp-portal-panel) { border-radius:0; border:1px solid #456b9a50; border-top:2px solid #365b88; background:#fffaf033; box-shadow:none; }
+.fortune-poster.theme-editorial .fp-eq-term { border-radius:50%; background:none; color:#283f5d; box-shadow:inset 0 0 0 1.5px #365b88,0 0 0 4px color-mix(in srgb,var(--tier) 40%,transparent); }
+.fortune-poster.theme-editorial .fp-eq-term.is-empty { box-shadow:inset 0 0 0 1.5px #365b8855; }
+.fortune-poster.theme-editorial :is(.fp-eq-total,.fp-portal-name b,.fp-recommend p) { color:#283f5d; }
+.fortune-poster.theme-editorial.is-over .fp-eq-total { color:var(--warn); }
+.fortune-poster.theme-editorial :is(.fp-energy-note em,.fp-energy-chip em) { background:none; color:var(--warn); box-shadow:inset 0 0 0 1.5px var(--warn); border-radius:3px; font-weight:600; transform:rotate(-4deg); }
+.fortune-poster.theme-editorial .fp-tier { border-radius:2px; background:none; color:#283f5d; box-shadow:inset 0 0 0 1px #365b8866,inset 3px 0 0 var(--tier); }
+.fortune-poster.theme-editorial .fp-energy-track i { border-radius:0; transform:none; }
+.fortune-poster.theme-editorial .fp-portal-mark { stroke:#365b88; }
+.fortune-poster.theme-editorial .fp-portal-mark .is-core { fill:#a24f32; }
+.fortune-poster.theme-editorial .fp-portal-panel dl div { border-top-style:solid; border-top-color:#456b9a2e; }
+.fortune-poster.theme-editorial .fp-recommend p { background:repeating-linear-gradient(transparent 0 38px,#456b9a24 38px 39px); }
+.fortune-poster.theme-editorial .fp-recommend p::before { background:#a24f32; width:2px; }
+/* Clothbound folio: brass-edged plaques and coin-struck energy. */
+.fortune-poster.theme-folio :is(.fp-energy-panel,.fp-portal-panel) { border-color:#dcc89d52; border-radius:8px; background:linear-gradient(180deg,#a9c4d70e,#081e3a33); box-shadow:inset 0 0 0 5px #18365a45,inset 0 0 0 6px #d7dbc41a; }
+.fortune-poster.theme-folio .fp-eq-term { border-radius:50%; color:#1a2f4c; background:radial-gradient(circle at 35% 30%,#f5ead4,#cdb58a 62%,#9c8256); box-shadow:inset 0 0 0 2px color-mix(in srgb,var(--tier) 85%,transparent),0 2px 4px #0b214966; }
+.fortune-poster.theme-folio .fp-eq-total { color:#f2e7cf; text-shadow:0 2px 1px #0c254e88; }
+/* Keep the overline and footer clear of the folio's corner ornaments. */
+.fortune-poster.theme-folio .fp-overline { padding-left:64px; }
+.fortune-poster.theme-folio .fp-footer { left:132px; right:132px; }

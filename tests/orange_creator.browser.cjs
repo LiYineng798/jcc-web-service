@@ -64,15 +64,21 @@ async function selectCard(page, slot, id) {
     assert.equal(await page.locator('.fp-unit').count(),8);
     assert.ok(await page.locator('.fp-items img').count()>0);
     assert.equal(await page.evaluate(()=>localStorage.getItem('jcc-simulator-v2:s16_5')),'original-simulator-draft');
+    // Three Legendary cards: energy 15 exceeds the Stable portal but stays exportable.
     await panel(page,'profile');
-    await page.locator('#deck-portal').selectOption('stable');
-    await page.locator('#deck-energy').fill('9');
-    assert.equal(await page.locator('#export-poster').isDisabled(),true);
-    assert.match(await page.locator('#portal-help').textContent(),/超过/);
-    await page.locator('#deck-energy').fill('8');
+    await page.locator('label[data-portal="stable"]').click();
+    assert.equal(await page.locator('#energy-value').textContent(),'15 / 8');
+    assert.match(await page.locator('#portal-help').textContent(),/能量 15 超出上限 8.*仍可导出/);
+    assert.equal(await page.locator('#energy-meter.is-over').count(),1);
+    assert.equal(await page.locator('#card-slots.is-over').count(),1);
+    assert.equal(await page.locator('.fp-energy-chip.is-over').count(),1);
     assert.equal(await page.locator('#export-poster').isDisabled(),false);
-    await page.locator('#deck-energy').fill('');
-    await page.locator('#deck-portal').selectOption('unspecified');
+    assert.equal(await page.locator('label[data-portal="unknown"]').getAttribute('data-fit'),'fit');
+    await page.locator('label[data-portal="unknown"]').click();
+    assert.equal(await page.locator('#energy-value').textContent(),'15 / 15');
+    assert.equal(await page.locator('.fp-energy-chip.is-over').count(),0);
+    assert.match(await page.locator('.fp-meta').innerText(),/未知传送门[\s\S]*入场 2,000 金橘币[\s\S]*失败随机损失 3 张/);
+    assert.match(await page.locator('.fp-card-round').first().innerText(),/传说\s*能量 5/);
     await preview(page,true);
     // Verify regular geometry and the stagger independently of exported pixels.
     const geometry=await page.locator('.fp-cell').evaluateAll(es=>es.slice(0,8).map(e=>({x:e.offsetLeft,y:e.offsetTop,w:e.offsetWidth,h:e.getBoundingClientRect().height})));
@@ -124,6 +130,42 @@ async function selectCard(page, slot, id) {
         }
       }
     }
+    // Card recommendation layout: no board, energy and portal panels, exported at full size.
+    await panel(page,'profile');
+    await page.locator('label[data-portal="volatile"]').click();
+    await panel(page,'content');
+    await page.locator('[name="poster-layout"][value="cards"]').check();
+    assert.equal(await page.locator('#deck-note').isVisible(),true);
+    assert.equal(await page.locator('#deck-tempo').isVisible(),false);
+    assert.equal(await page.locator('.fp-formation').count(),0);
+    assert.equal(await page.locator('.fp-eq-total').textContent(),'15');
+    assert.match(await page.locator('.fp-portal-panel').innerText(),/波动传送门[\s\S]*400 金橘币[\s\S]*随机损失两张卡片/);
+    assert.match(await page.locator('.fp-energy-note').innerText(),/超出波动传送门上限 5 点/);
+    for(const bg of (mobile?['editorial']:['editorial','folio'])) {
+      await panel(page,'materials');
+      await page.locator(`[data-background="${bg}"]`).click();
+      await preview(page,true);
+      const crop=await page.evaluate(()=>{
+        const poster=document.querySelector('.fortune-poster').getBoundingClientRect(),scale=poster.width/1200;
+        const box=document.querySelector('.fp-card-art').getBoundingClientRect();
+        return [(box.x-poster.x+box.width*.3)/scale,(box.y-poster.y+box.height*.4)/scale,(box.x-poster.x+box.width*.7)/scale,(box.y-poster.y+box.height*.6)/scale].map(Math.round);
+      });
+      await preview(page,false);
+      const downloadEvent=page.waitForEvent('download',{timeout:90000});
+      await page.locator('#export-poster').click();
+      if (mobile) {
+        await page.locator('.creator-save-dialog[open]').waitFor({timeout:90000});
+        await page.locator('[data-save-download]').click();
+      }
+      const download=await downloadEvent;
+      assert.match(download.suggestedFilename(),/卡组推荐版\.png$/);
+      const file=path.join(out,`portrait-${name}-${bg}-cards.png`);await download.saveAs(file);
+      await page.locator('[data-save-close]').click();
+      const png=PNG.sync.read(fs.readFileSync(file));assert.equal(png.width,1200);assert.equal(png.height,1600);
+      const colors=new Set();const [left,top,right,bottom]=crop;
+      for(let y=top;y<bottom;y++)for(let x=left;x<right;x++){const i=(y*png.width+x)*4;colors.add(png.data.subarray(i,i+3).join());}
+      assert.ok(colors.size>200,`missing card art: ${name}/${bg}/cards`);
+    }
     await panel(page,'content');
     await page.locator('[name="poster-layout"][value="guide"]').check();
     assert.equal(await page.locator('#deck-tempo').inputValue(),'8 级启动 · 稳定提质量');
@@ -160,6 +202,14 @@ async function selectCard(page, slot, id) {
     const sections=await page.locator('.fp-operations,.fp-footer').evaluateAll(es=>es.map(e=>e.getBoundingClientRect().toJSON()));
     assert.ok(sections[0].bottom<=sections[1].top,'operations overlap footer');
     await preview(page,false);
+    await panel(page,'content');
+    await page.locator('[name="poster-layout"][value="cards"]').check();
+    await preview(page,true);
+    assert.equal(await page.locator('.fp-card-effect,.fp-recommend p').evaluateAll(es=>es.some(e=>e.scrollHeight>e.clientHeight+1)),false);
+    const stacked=await page.locator('.fp-deck,.fp-summary,.fp-recommend,.fp-footer').evaluateAll(es=>es.map(e=>e.getBoundingClientRect().toJSON()));
+    for(let i=1;i<stacked.length;i++) assert.ok(stacked[i-1].bottom<=stacked[i].top+.5,`cards layout section ${i} overlaps`);
+    await preview(page,false);
+    await page.locator('[name="poster-layout"][value="guide"]').check();
     if(!mobile) {
       await page.locator('[data-slot="0"]').click();await page.keyboard.press('Escape');
       assert.equal(await page.locator('#card-picker').evaluate(e=>e.open),false);

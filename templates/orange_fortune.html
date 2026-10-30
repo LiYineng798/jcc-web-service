@@ -23,14 +23,39 @@
       <div><p class="fortune-eyebrow">英雄联盟传奇 <span>/</span> 时间卡片图鉴</p>
         <h1>大橘<span>大利</span><i aria-hidden="true">✦</i></h1>
         <p class="fortune-intro">把握每一个生效回合，寻找你的下一张王牌。</p>
-        <div class="fortune-meta"><span><b>{{ catalog.cards|length }}</b> 张时间卡片</span><span><b>5</b> 种星级</span><span class="fortune-preview-label">先遣服（数据以实际上线为准）</span></div>
+        <div class="fortune-meta"><span><b>{{ catalog.cards|length }}</b> 张时间卡片</span><span><b>5</b> 个品阶</span><span><b>{{ portals|length }}</b> 座传送门</span><span class="fortune-preview-label">先遣服（数据以实际上线为准）</span></div>
       </div>
       <div class="fortune-emblem" aria-hidden="true">{% include 'fortune_emblem.html' %}<span>TIME CARDS</span><small>英雄联盟传奇 · 大橘大利</small></div>
     </header>
+    <section class="fortune-rules" aria-labelledby="fortune-rules-title">
+      <div class="fortune-rules-intro">
+        <p class="fortune-eyebrow">开局构筑 <span>/</span> 传送门规则</p>
+        <h2 id="fortune-rules-title">三张卡片，一座传送门</h2>
+        <p>每局开始前挑选 {{ deck_size }} 张时间卡片组建卡组，效果涵盖经济、装备、弈子、羁绊等方向。卡片能量等于品阶，三张卡的能量之和不能超过所选传送门的上限。</p>
+        <ol class="fortune-energy-scale" aria-label="品阶与能量">{% for tier, name in tiers.items() %}<li data-tier="{{ tier }}"><b>{{ name }}</b><span aria-label="能量 {{ tier }}">{% for _ in range(5) %}<i{% if loop.index > tier %} class="is-off"{% endif %}></i>{% endfor %}</span></li>{% endfor %}</ol>
+      </div>
+      <ul class="fortune-portals" aria-label="三座传送门">
+      {% for portal in portals %}
+        <li class="fortune-portal" data-portal="{{ portal.id }}">
+          <svg class="fortune-portal-mark" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+            {% if portal.id == 'stable' %}<circle cx="32" cy="32" r="27"/><circle cx="32" cy="32" r="19"/><circle cx="32" cy="32" r="11"/><circle class="is-core" cx="32" cy="32" r="4"/>
+            {% elif portal.id == 'volatile' %}<path d="M32 5c9 3 14 0 20 7s2 13 7 20-1 14-7 20-13 3-20 7-14-2-20-7-2-13-7-20 3-14 7-20 11-4 20-7Z"/><path d="M32 14c6 2 9 0 13 5s1 9 5 13-1 9-5 13-9 2-13 5-9-1-13-5-1-9-5-13 2-9 5-13 7-3 13-5Z"/><circle class="is-core" cx="32" cy="32" r="5"/>
+            {% else %}<circle cx="32" cy="32" r="27" stroke-dasharray="3 5"/><circle cx="32" cy="32" r="18" stroke-dasharray="11 6"/><path class="is-core" d="M32 22l2.6 7.4L42 32l-7.4 2.6L32 42l-2.6-7.4L22 32l7.4-2.6Z"/>{% endif %}
+          </svg>
+          <h3>{{ portal.name }}</h3>
+          <dl>
+            <div><dt>能量上限</dt><dd><b>≤ {{ portal.energy_limit }}</b></dd></div>
+            <div><dt>入场</dt><dd>{{ '{:,}'.format(portal.entry_fee) }} 金橘币</dd></div>
+            <div><dt>失败</dt><dd>{{ portal.loss }}</dd></div>
+          </dl>
+        </li>
+      {% endfor %}
+      </ul>
+    </section>
     <form class="fortune-filters" method="get" role="search" aria-label="筛选时间卡片">
-      <fieldset class="fortune-tiers"><legend class="fortune-sr-only">卡片星级</legend>
-        <label class="fortune-tier"><input type="radio" name="tier" value="" {% if not tier %}checked{% endif %}><span>全部星级 <small>{{ catalog.cards|length }}</small></span></label>
-        {% for group in groups %}<label class="fortune-tier" data-tier="{{ group.tier }}"><input type="radio" name="tier" value="{{ group.tier }}" {% if tier == group.tier|string %}checked{% endif %}><span><i aria-hidden="true">◆</i> {{ group.tier }} 星 <small>{{ group.cards|length }}</small></span></label>{% endfor %}
+      <fieldset class="fortune-tiers"><legend class="fortune-sr-only">卡片品阶</legend>
+        <label class="fortune-tier"><input type="radio" name="tier" value="" {% if not tier %}checked{% endif %}><span>全部品阶 <small>{{ catalog.cards|length }}</small></span></label>
+        {% for group in groups %}<label class="fortune-tier" data-tier="{{ group.tier }}"><input type="radio" name="tier" value="{{ group.tier }}" {% if tier == group.tier|string %}checked{% endif %}><span><i aria-hidden="true">◆</i> {{ group.tier_name }} <small>{{ group.cards|length }}</small></span></label>{% endfor %}
       </fieldset>
       <div class="fortune-filter-row">
         <label class="fortune-search"><span class="fortune-sr-only">搜索卡名或效果</span><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="6.5"/><path d="m15 15 5 5"/></svg><input type="search" name="q" value="{{ query }}" maxlength="100" placeholder="搜索卡名、弈子或效果…" autocomplete="off"></label>
@@ -44,16 +69,16 @@
     <div id="fortune-groups">
     {% for group in groups %}
       <section class="fortune-group" data-tier="{{ group.tier }}" aria-labelledby="fortune-tier-{{ group.tier }}" {% if not group.visible %}hidden{% endif %}>
-        <header class="fortune-group-heading"><h2 id="fortune-tier-{{ group.tier }}"><i aria-hidden="true">◆</i> {{ group.tier }} 星卡片</h2><span><b>{{ group.visible }}</b> 张</span><div></div><small aria-hidden="true">{{ '★' * group.tier }}</small></header>
+        <header class="fortune-group-heading"><h2 id="fortune-tier-{{ group.tier }}"><i aria-hidden="true">◆</i> {{ group.tier_name }}卡片<em>能量 {{ group.tier }}</em></h2><span><b>{{ group.visible }}</b> 张</span><div></div><small aria-hidden="true">{{ '★' * group.tier }}</small></header>
         <div class="fortune-grid">
         {% for card in group.cards %}
-          <article class="fortune-card" data-id="{{ card.id }}" data-tier="{{ card.tier }}" data-category="{{ card.category_id }}" data-rounds="{{ card.rounds|join(' ') }}" {% if card.id not in visible_ids %}hidden{% endif %}>
+          <article class="fortune-card" data-id="{{ card.id }}" data-tier="{{ card.tier }}" data-tier-name="{{ card.tier_name }}" data-category="{{ card.category_id }}" data-rounds="{{ card.rounds|join(' ') }}" {% if card.id not in visible_ids %}hidden{% endif %}>
             <button class="fortune-card-button" type="button" aria-label="查看{{ card.name }}详情" aria-haspopup="dialog">
               <span class="fortune-card-frame">
                 <span class="fortune-card-surface fortune-art-{{ card.layout }}">
                   {% if card.image %}<img class="fortune-card-image" src="{{ static_v(card.image) }}" alt="" loading="lazy" decoding="async">{% else %}<span class="fortune-missing"><i aria-hidden="true">◇</i>卡图暂缺</span>{% endif %}
                   <span class="fortune-card-shade"></span>
-                  <span class="fortune-card-stars" aria-label="{{ card.tier }}星">{{ '•' * card.tier }}</span>
+                  <span class="fortune-card-stars" aria-label="{{ card.tier_name }} · 能量{{ card.energy }}">{{ '•' * card.tier }}</span>
                   <span class="fortune-card-copy"><span class="fortune-card-title">{{ card.name }}</span><span class="fortune-card-effect"><span class="fortune-round">{{ card.round or '待确认' }}</span><span class="fortune-card-description">{{ card.description }}</span></span></span>
                   <span class="fortune-card-category">{{ card.category }}</span>
                 </span>

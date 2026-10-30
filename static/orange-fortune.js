@@ -83,7 +83,7 @@
     returnFocus = document.activeElement;
     const title = card.querySelector('.fortune-card-title').textContent;
     document.querySelector('#fortune-detail-title').textContent = title;
-    document.querySelector('#fortune-detail-meta').textContent = `${card.dataset.tier} 星时间卡片 · ${card.querySelector('.fortune-card-category').textContent}`;
+    document.querySelector('#fortune-detail-meta').textContent = `${card.dataset.tierName}卡片 · 能量 ${card.dataset.tier} · ${card.querySelector('.fortune-card-category').textContent}`;
     document.querySelector('#fortune-detail-effect').textContent = card.querySelector('.fortune-card-description').textContent;
     const rounds = card.dataset.rounds.split(' ').filter(Boolean);
     document.querySelector('#fortune-detail-rounds').replaceChildren(...rounds.map((round, i) => {
