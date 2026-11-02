@@ -1,24 +1,106 @@
 <!doctype html>
 {% from "theme_toggle.html" import theme_toggle %}
 {% from "seo_head.html" import seo_head %}
+{% from "patch_note_macros.html" import long_date, tally, tally_bar %}
 <html lang="zh-CN">
   <head>
 {{ seo_head(seo) }}
+    <link rel="stylesheet" href="{{ static_v('patch-notes.css') }}" />
   </head>
-  <body>
-    <div class="page-shell detail-page-shell">
-      <nav class="nav-bar" aria-label="页面工具">
-        <a class="ghost-link" href="/">返回阵容库</a>
+  <body class="pn-page">
+    <div class="page-shell pn-shell">
+      <nav class="nav-bar pn-nav" aria-label="页面工具">
+        <a class="ghost-link pn-nav-link" href="/"><span aria-hidden="true">←</span> 返回阵容库</a>
         {{ theme_toggle() }}
       </nav>
-      <header class="auth-hero">
+
+      <header class="pn-masthead">
         <p class="eyebrow">Official Patch Notes</p>
-        <h1>更新公告</h1>
-        <p class="hero-description">同步《金铲铲之战》官方更新公告，快速查看版本重点与完整原文。</p>
+        <h1 class="pn-masthead-title">更新公告</h1>
+        <p class="pn-masthead-desc">整理《金铲铲之战》官方版本更新：先看重点摘要，再按章节查数值，需要时对照官方原文。</p>
+{% if patch_notes %}
+        <dl class="pn-masthead-facts">
+          <div><dt>收录</dt><dd>{{ patch_notes|length }} 篇</dd></div>
+          <div><dt>最近更新</dt><dd><time datetime="{{ patch_notes[0].published_at }}">{{ long_date(patch_notes[0].published_at) }}</time></dd></div>
+        </dl>
+{% endif %}
       </header>
-      <section class="panel">
-        <div id="patchNotesApp">公告加载中...</div>
-      </section>
+
+      <main id="patchNotesApp" class="pn-list">
+{% if not patch_notes %}
+        <div class="pn-empty">
+          <p class="pn-empty-title">暂无更新公告</p>
+          <p>官方发布新版本后，这里会同步整理摘要与原文。</p>
+        </div>
+{% else %}
+{% set latest = patch_notes[0] %}
+        <article class="pn-lead" aria-labelledby="pnLeadTitle">
+          <div class="pn-lead-meta">
+            <span class="pn-flag">最新</span>
+            {% if latest.version %}<span class="pn-version">版本 {{ latest.version }}</span>{% endif %}
+            <time datetime="{{ latest.published_at }}">{{ long_date(latest.published_at) }}</time>
+          </div>
+          <h2 class="pn-lead-title" id="pnLeadTitle"><a href="/patch-notes/{{ latest.id }}">{{ latest.title }}</a></h2>
+{% if latest.overview.excerpt %}
+          <p class="pn-lead-excerpt">{{ latest.overview.excerpt }}</p>
+{% endif %}
+          <div class="pn-lead-foot">
+{% if latest.overview.section_titles %}
+            <ul class="pn-lead-sections" aria-label="包含章节">
+{% for title in latest.overview.section_titles[:6] %}
+              <li>{{ title }}</li>
+{% endfor %}
+            </ul>
+{% endif %}
+{% if latest.overview.change_total %}
+            <div class="pn-lead-tally">
+              {{ tally(latest.overview.counts) }}
+              {{ tally_bar(latest.overview.counts, latest.overview.change_total) }}
+            </div>
+{% endif %}
+          </div>
+          <a class="pn-lead-action" href="/patch-notes/{{ latest.id }}">阅读完整公告 <span aria-hidden="true">→</span></a>
+        </article>
+
+{% if patch_notes|length > 1 %}
+        <section class="pn-archive" aria-labelledby="pnArchiveTitle">
+          <header class="pn-archive-head">
+            <h2 id="pnArchiveTitle">往期公告</h2>
+            <span>{{ patch_notes|length - 1 }} 篇</span>
+          </header>
+{% for note in patch_notes[1:] %}
+{% set year = note.published_at[:4] %}
+{% if loop.first or loop.previtem.published_at[:4] != year %}
+{% if not loop.first %}
+          </ol>
+{% endif %}
+          <h3 class="pn-year">{{ year }}</h3>
+          <ol class="pn-index">
+{% endif %}
+            <li>
+              <a class="pn-index-row" href="/patch-notes/{{ note.id }}">
+                <time class="pn-index-date" datetime="{{ note.published_at }}">{{ note.published_at[5:7] }}<i>/</i>{{ note.published_at[8:10] }}</time>
+                <span class="pn-index-main">
+                  <span class="pn-index-title">{{ note.title }}</span>
+                  <span class="pn-index-sub">
+                    <span class="pn-index-version">{{ note.version or '公告' }}</span>
+{% if note.overview.section_titles %}
+                    <span class="pn-index-sections">{{ note.overview.section_titles[:4]|join(' · ') }}</span>
+{% endif %}
+                  </span>
+                </span>
+                {% if note.overview.change_total %}<span class="pn-index-tally">{{ tally(note.overview.counts, compact=True) }}</span>{% endif %}
+                <span class="pn-index-arrow" aria-hidden="true">→</span>
+              </a>
+            </li>
+{% if loop.last %}
+          </ol>
+{% endif %}
+{% endfor %}
+        </section>
+{% endif %}
+{% endif %}
+      </main>
     </div>
     <script src="{{ static_v('theme-toggle.js') }}" defer></script>
     <script src="{{ static_v('patch-notes.js') }}" defer></script>

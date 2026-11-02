@@ -1,3 +1,6 @@
+import re
+
+
 def test_index_uses_top_right_auth_link(client):
     html = client.get('/').get_data(as_text=True)
     assert 'href="/auth"' in html
@@ -198,23 +201,26 @@ def test_admin_vendors_lucide_icons_locally():
 
 
 def test_patch_note_styles_exist():
-    with open('static/styles.css', 'r', encoding='utf-8') as file:
+    with open('static/patch-notes.css', 'r', encoding='utf-8') as file:
         css = file.read()
 
-    assert '.patch-note-list' in css
-    assert '.change-tag-buff' in css
-    assert '.change-tag-nerf' in css
-    assert '.patch-note-original' in css
-    assert '.patch-note-card-action' in css
-    assert '.patch-note-change-body span' in css
-    assert '.patch-note-mobile-meta' in css
+    assert '.pn-kind-buff' in css
+    assert '.pn-kind-nerf' in css
+    assert '.pn-kind-adjust' in css
+    assert '.pn-original' in css
+    assert ':root[data-theme="dark"] .pn-page' in css
+    assert '@media (max-width' in css
+    with open('static/styles.css', 'r', encoding='utf-8') as file:
+        assert '.patch-note-card-action' not in file.read()
 
 
-def test_patch_notes_js_uses_small_card_action_class():
+def test_patch_notes_js_enhances_server_rendered_pages():
     with open('static/patch-notes.js', 'r', encoding='utf-8') as file:
         js = file.read()
 
-    assert 'patch-note-card-action' in js
+    assert "fetch('/api/patch-notes" not in js
+    assert 'replaceChildren' not in js
+    assert 'data-filter' in js or 'dataset.filter' in js
 
 
 def test_admin_js_contains_patch_notes_workbench():
@@ -628,10 +634,12 @@ def test_patch_note_detail_page_renders_crawlable_published_content(client):
     html = response.get_data(as_text=True)
 
     assert response.status_code == 200
-    assert '<h1>S17 平衡调整</h1>' in html
+    assert re.search(r'<h1[^>]*>S17 平衡调整</h1>', html)
     assert 'S17.1' in html
     assert '英雄调整' in html
-    assert '卡莎 攻速 0.8 =&gt; 0.85' in html
+    assert '卡莎 攻速' in html and '0.8' in html and '0.85' in html
+    assert 'https://example.com/source' in html
+    assert '官方原文' in html
     assert '<script type="application/ld+json">' in html
     assert f'<link rel="canonical" href="http://localhost/patch-notes/{created["id"]}"' in html
 

@@ -156,3 +156,32 @@ def test_adjacent_public_patch_notes_skips_drafts(client):
         newer_view = adjacent_public_patch_notes(ids[2])
     assert older_view['newer']['title'] == '新公告' and older_view['older'] is None
     assert newer_view['older']['title'] == '旧公告' and newer_view['newer'] is None
+
+
+def test_public_patch_note_pages_render_published_content_server_side(client):
+    headers = login_admin(client)
+    created = create_published_patch_note(client, headers).get_json()
+    client.post('/api/admin/patch-notes', json={
+        'title': '草稿公告',
+        'summary_markdown': '- [adjust] 草稿',
+        'status': 'draft',
+        'published_at': '2026-05-29',
+    }, headers=headers)
+
+    listing = client.get('/patch-notes').get_data(as_text=True)
+    assert '17.4更新公告' in listing
+    assert f'/patch-notes/{created["id"]}' in listing
+    assert '草稿公告' not in listing
+
+    detail = client.get(f'/patch-notes/{created["id"]}').get_data(as_text=True)
+    assert '亚托克斯' in detail
+    assert 'https://example.com/jcc/174' in detail
+    assert '&lt;script&gt;alert(1)&lt;/script&gt;' in detail
+    assert '<script>alert(1)</script>' not in detail
+
+
+def test_public_patch_notes_page_renders_empty_state(client):
+    html = client.get('/patch-notes').get_data(as_text=True)
+
+    assert '暂无更新公告' in html
+    assert 'patch-notes.css' in html
