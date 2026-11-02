@@ -59,8 +59,11 @@ async function checkPortraits(page, selector, inset) {
         if (out) await download.saveAs(path.join(out, `${name}-wide.png`));
       }
       await page.locator('#exportPosterButton').click();
-      const poster = page.waitForEvent('download', {timeout:90000});
       await page.locator('#confirmExportPosterButton').click();
+      // Generation keeps the PNG in a save panel; a download is only requested from it.
+      await page.locator('#posterResultDialog[open]').waitFor({timeout:90000});
+      const poster = page.waitForEvent('download', {timeout:90000});
+      await page.locator('#posterDownloadLink').click();
       const download = await poster;
       assert.equal(await download.failure(), null);
       if (out) await download.saveAs(path.join(out, `${name}-${mobile}-poster.png`));

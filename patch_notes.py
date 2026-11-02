@@ -1,6 +1,6 @@
 from flask import Blueprint, abort, jsonify
 
-from patch_note_service import get_public_patch_note, list_public_patch_notes
+from patch_note_service import adjacent_public_patch_notes, get_public_patch_note, list_public_patch_notes
 from route_response import respond_service_result
 from seo import article_json_ld, make_seo, truncate_text
 from visits import tracked_template_response
@@ -13,6 +13,7 @@ def patch_notes_page():
     return tracked_template_response(
         'patch_notes.html',
         'patch_notes',
+        patch_notes=list_public_patch_notes()['items'],
         seo=make_seo(title='金铲铲更新公告 - 金铲铲阵容库', description='查看金铲铲之战版本更新重点、公告摘要和官方原文归档。', path='/patch-notes'),
     )
 
@@ -23,7 +24,8 @@ def patch_note_detail_page(patch_note_id):
     if service_error:
         abort(status_code)
     title = f"{payload['title']} - 金铲铲更新公告"
-    description = truncate_text(payload.get('summary_markdown') or payload['title'])
+    overview = payload['overview']
+    description = truncate_text(overview['excerpt'] or '、'.join(overview['section_titles']) or payload['title'])
     path = f'/patch-notes/{patch_note_id}'
     seo = make_seo(
         title=title,
@@ -37,6 +39,7 @@ def patch_note_detail_page(patch_note_id):
         'patch_note_detail',
         patch_note_id=patch_note_id,
         patch_note=payload,
+        adjacent=adjacent_public_patch_notes(patch_note_id),
         seo=seo,
     )
 

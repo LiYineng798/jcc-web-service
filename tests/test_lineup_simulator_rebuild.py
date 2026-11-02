@@ -354,9 +354,9 @@ def test_simulator_shows_animated_export_progress_for_both_image_formats():
     assert 'async function updateExportProgress(stage, percent)' in javascript
     assert 'async function finishExportProgress(startedAt)' in javascript
     assert 'beginExportProgress("图片正在导出")' in javascript
-    assert 'beginExportProgress("海报正在导出")' in javascript
+    assert 'beginExportProgress("海报正在生成")' in javascript
     assert 'elements.exportImageDialog.close();\n  elements.exportImage.disabled = true;' in javascript
-    assert 'elements.posterExportDialog.close();\n  const startedAt = beginExportProgress("海报正在导出")' in javascript
+    assert 'elements.posterExportDialog.close();\n  const startedAt = beginExportProgress("海报正在生成")' in javascript
     assert 'Math.max(0, 1100 - (performance.now() - startedAt))' in javascript
     assert javascript.count('await finishExportProgress(startedAt)') == 2
     assert '@keyframes export-tile-pulse' in css
@@ -418,6 +418,12 @@ def test_simulator_exports_a_separate_fixed_portrait_poster():
     assert 'id="posterChampionPicker"' in html
     assert 'id="posterPreview"' in html
     assert 'id="confirmExportPosterButton"' in html
+    assert 'id="posterResultDialog"' in html
+    assert 'id="posterDownloadLink"' in html
+    assert 'id="posterOpenLink"' in html
+    assert 'id="posterLastResultButton"' in html
+    assert 'window.htmlToImage.toBlob(poster' in javascript
+    assert 'showToast("3:4 阵容海报已保存"' not in javascript
     assert 'const POSTER_WIDTH = 1200' in javascript
     assert 'const POSTER_HEIGHT = 1600' in javascript
     assert 'const MAX_POSTER_TRAITS = 9' in javascript

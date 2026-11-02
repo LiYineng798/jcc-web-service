@@ -153,6 +153,18 @@ const elements = {
   posterChampionPicker: document.querySelector("#posterChampionPicker"),
   posterPreview: document.querySelector("#posterPreview"),
   confirmExportPoster: document.querySelector("#confirmExportPosterButton"),
+  posterLastResult: document.querySelector("#posterLastResultButton"),
+  posterLastResultMeta: document.querySelector("#posterLastResultMeta"),
+  posterResultDialog: document.querySelector("#posterResultDialog"),
+  posterResultImage: document.querySelector("#posterResultImage"),
+  posterResultStatus: document.querySelector("#posterResultStatus"),
+  posterResultTip: document.querySelector("#posterResultTip"),
+  posterResultFilename: document.querySelector("#posterResultFilename"),
+  posterResultSize: document.querySelector("#posterResultSize"),
+  posterShare: document.querySelector("#posterShareButton"),
+  posterDownload: document.querySelector("#posterDownloadLink"),
+  posterOpen: document.querySelector("#posterOpenLink"),
+  posterBackToEdit: document.querySelector("#posterBackToEditButton"),
   exportProgress: document.querySelector("#exportProgress"),
   exportProgressTitle: document.querySelector("#exportProgressTitle"),
   exportProgressStage: document.querySelector("#exportProgressStage"),
@@ -192,6 +204,7 @@ const state = {
   dragging: null,
   dialogMode: "import",
   posterChampionId: null,
+  posterResult: null,
 };
 
 function escapeHtml(value) {
@@ -1610,10 +1623,13 @@ function renderPosterChampionPicker() {
     </button>`).join("");
 }
 
-function openPosterDialog() {
+function openPosterDialog(keepSettings = false) {
   if (!state.board.some(Boolean)) return showToast("请先配置阵容");
-  state.posterChampionId = defaultPosterChampionId();
-  elements.posterTitle.value = POSTER_DEFAULT_TITLE;
+  if (!keepSettings) {
+    state.posterChampionId = defaultPosterChampionId();
+    elements.posterTitle.value = POSTER_DEFAULT_TITLE;
+  }
+  syncPosterLastResult();
   renderPosterChampionPicker();
   renderPosterPreview();
   elements.posterExportDialog.showModal();
@@ -1683,8 +1699,9 @@ async function rasterizePosterTitle(poster) {
 async function exportPortraitPoster() {
   if (!window.htmlToImage?.toPng) throw new Error("图片导出组件未加载");
   elements.posterExportDialog.close();
-  const startedAt = beginExportProgress("海报正在导出");
+  const startedAt = beginExportProgress("海报正在生成");
   let poster = null;
+  let result = null;
   elements.exportPoster.disabled = true;
   elements.confirmExportPoster.disabled = true;
   try {
@@ -1698,7 +1715,7 @@ async function exportPortraitPoster() {
     await rasterizePosterTitle(poster);
     await preparePosterImages(poster);
     await updateExportProgress("正在合成高清海报", 68);
-    const dataUrl = await window.htmlToImage.toPng(poster, {
+    const blob = await window.htmlToImage.toBlob(poster, {
       backgroundColor: "#0b0d12",
       cacheBust: true,
       pixelRatio: 1,
@@ -1707,18 +1724,119 @@ async function exportPortraitPoster() {
       height: POSTER_HEIGHT,
       style: { position: "static", left: "auto", top: "auto", zIndex: "auto", transform: "none" },
     });
-    await updateExportProgress("正在准备下载", 92);
-    const link = document.createElement("a");
-    link.download = `${state.season.season_id}-${safePosterFilename(title)}-poster.png`;
-    link.href = dataUrl;
-    link.click();
-    await updateExportProgress("导出完成", 100);
-    showToast("3:4 阵容海报已保存", "success");
+    if (!(blob instanceof Blob) || !blob.size) throw new Error("海报生成失败，请重试");
+    await updateExportProgress("海报已生成", 100);
+    result = storePosterResult(blob, `${state.season.season_id}-${safePosterFilename(title)}-poster.png`);
   } finally {
     poster?.remove();
     elements.exportPoster.disabled = !state.board.some(Boolean);
     elements.confirmExportPoster.disabled = false;
     await finishExportProgress(startedAt);
+  }
+  presentPosterResult(result, { autoDownload: !isTouchDevice() });
+}
+
+// The generated PNG stays in memory (never uploaded), so a blocked or failed save can be retried without regenerating.
+function storePosterResult(blob, filename) {
+  const previous = state.posterResult;
+  const file = typeof File === "function" ? new File([blob], filename, { type: "image/png" }) : null;
+  state.posterResult = { blob, file, filename, url: URL.createObjectURL(blob), createdAt: new Date(), requested: false };
+  // An opened tab or in-flight download may still read the previous URL for a moment.
+  if (previous) setTimeout(() => URL.revokeObjectURL(previous.url), 60000);
+  return state.posterResult;
+}
+
+function isTouchDevice() {
+  return matchMedia("(pointer: coarse)").matches || /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+}
+
+function canSharePosterFile(result) {
+  try { return Boolean(result.file && navigator.share && navigator.canShare?.({ files: [result.file] })); } catch { return false; }
+}
+
+function formatPosterSize(bytes) {
+  return bytes >= 1048576 ? `${(bytes / 1048576).toFixed(1)} MB` : `${Math.max(1, Math.round(bytes / 1024))} KB`;
+}
+
+function formatPosterTime(date) {
+  return date.toLocaleTimeString("zh-CN", { hour: "2-digit", minute: "2-digit" });
+}
+
+function setPosterSaveStep(step, message) {
+  const order = ["generated", "requested", "confirm"];
+  const reached = order.indexOf(step);
+  elements.posterResultDialog.querySelectorAll("[data-poster-step]").forEach((node) => {
+    const index = order.indexOf(node.dataset.posterStep);
+    node.classList.toggle("is-done", index <= reached && index < 2);
+    node.classList.toggle("is-current", index === reached + 1);
+  });
+  elements.posterResultStatus.textContent = message;
+}
+
+function posterRequestedMessage(viaShare) {
+  return viaShare
+    ? "已交给系统分享面板。请在所选应用（如“存储图像”或相册）中确认是否保存成功。"
+    : "已向浏览器发起下载请求。请在浏览器下载栏或“文件”中确认；没有看到文件时，可重新下载或打开原图另存。";
+}
+
+function presentPosterResult(result, { autoDownload = false } = {}) {
+  if (!result) return;
+  const touch = isTouchDevice();
+  const canShare = canSharePosterFile(result);
+  elements.posterResultImage.src = result.url;
+  elements.posterOpen.href = result.url;
+  elements.posterDownload.href = result.url;
+  elements.posterDownload.download = result.filename;
+  elements.posterResultFilename.textContent = result.filename;
+  elements.posterResultSize.textContent = `${formatPosterSize(result.blob.size)} · ${formatPosterTime(result.createdAt)} 生成`;
+  elements.posterShare.hidden = !canShare;
+  elements.posterDownload.classList.toggle("primary-button", !canShare);
+  elements.posterDownload.classList.toggle("text-button", canShare);
+  elements.posterDownload.querySelector("span").textContent = result.requested ? "重新下载" : "下载 PNG";
+  elements.posterResultTip.textContent = touch
+    ? "也可以长按左侧海报图片保存到相册；微信等内置浏览器无法下载时，请先“打开原图”。"
+    : "海报仅在本机浏览器生成，不会上传到服务器；关闭本窗口后仍可从导出面板再次查看。";
+  if (result.requested) {
+    setPosterSaveStep("requested", posterRequestedMessage(false));
+  } else {
+    setPosterSaveStep("generated", canShare
+      ? "图片已在浏览器中生成，尚未保存。点击“保存到相册 / 分享”选择保存位置，或长按图片保存。"
+      : touch
+        ? "图片已在浏览器中生成，尚未保存。点击“下载 PNG”，或长按图片保存到相册。"
+        : "图片已在浏览器中生成，尚未保存。点击“下载 PNG”保存到本机。");
+  }
+  if (!elements.posterResultDialog.open) elements.posterResultDialog.showModal();
+  if (autoDownload && !result.requested) elements.posterDownload.click();
+}
+
+function syncPosterLastResult() {
+  const result = state.posterResult;
+  elements.posterLastResult.hidden = !result;
+  if (result) elements.posterLastResultMeta.textContent = `${formatPosterTime(result.createdAt)} · ${formatPosterSize(result.blob.size)}`;
+}
+
+function markPosterRequested(viaShare = false) {
+  const result = state.posterResult;
+  if (!result) return;
+  result.requested = true;
+  elements.posterDownload.querySelector("span").textContent = "重新下载";
+  setPosterSaveStep("requested", posterRequestedMessage(viaShare));
+}
+
+async function sharePosterResult() {
+  const result = state.posterResult;
+  if (!result?.file || elements.posterShare.disabled) return;
+  elements.posterShare.disabled = true;
+  try {
+    // Called straight from the click so the share sheet keeps the user gesture.
+    await navigator.share({ files: [result.file] });
+    markPosterRequested(true);
+  } catch (error) {
+    elements.posterResultStatus.textContent = error?.name === "AbortError"
+      ? "已取消分享，海报仍保留在这里，可以重新保存。"
+      : "当前浏览器暂时无法分享图片。请长按图片保存，或使用“下载 PNG”“打开原图”。";
+  } finally {
+    elements.posterShare.disabled = false;
   }
 }
 
@@ -2019,6 +2137,20 @@ elements.posterChampionPicker.addEventListener("click", (event) => {
   renderPosterPreview();
 });
 elements.confirmExportPoster.addEventListener("click", () => exportPortraitPoster().catch(() => showToast("海报生成失败", "error")));
+elements.posterLastResult.addEventListener("click", () => {
+  elements.posterExportDialog.close();
+  presentPosterResult(state.posterResult);
+});
+elements.posterShare.addEventListener("click", sharePosterResult);
+elements.posterDownload.addEventListener("click", () => markPosterRequested(false));
+elements.posterBackToEdit.addEventListener("click", () => {
+  elements.posterResultDialog.close();
+  openPosterDialog(true);
+});
+elements.posterResultDialog.querySelectorAll("[data-poster-result-close]").forEach((button) => {
+  button.addEventListener("click", () => elements.posterResultDialog.close());
+});
+elements.posterResultDialog.addEventListener("close", () => elements.exportPoster.focus({ preventScroll: true }));
 elements.posterExportDialog.addEventListener("close", () => {
   elements.posterPreview.replaceChildren();
   elements.posterPreview.style.height = "";
