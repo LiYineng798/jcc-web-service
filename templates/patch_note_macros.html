@@ -1,0 +1,41 @@
+{% macro long_date(value) -%}
+{%- set text = value|string -%}
+{%- if text[4:5] == '-' and text[7:8] == '-' -%}{{ text[:4] }}年{{ text[5:7]|int }}月{{ text[8:10]|int }}日{%- else -%}{{ text }}{%- endif -%}
+{%- endmacro %}
+
+{% macro tally(counts, compact=False) -%}
+<span class="pn-tally{{ ' is-compact' if compact }}">
+{%- for kind, label in [('buff', '加强'), ('nerf', '削弱'), ('adjust', '调整')] if counts[kind] -%}
+<span class="pn-tally-item pn-kind-{{ kind }}"><i aria-hidden="true"></i>{% if compact %}<span class="pn-sr">{{ label }}</span>{% else %}{{ label }} {% endif %}<b>{{ counts[kind] }}</b></span>
+{%- endfor -%}
+</span>
+{%- endmacro %}
+
+{% macro tally_bar(counts, total) -%}
+{%- if total -%}
+<span class="pn-tally-bar" aria-hidden="true">
+{%- for kind in ['buff', 'nerf', 'adjust'] if counts[kind] -%}
+<span class="pn-kind-{{ kind }}" style="flex-grow: {{ counts[kind] }}"></span>
+{%- endfor -%}
+</span>
+{%- endif -%}
+{%- endmacro %}
+
+{% macro change_values(item) -%}
+{%- if item.changes -%}
+<dl class="pn-values">
+{%- for row in item.changes %}
+  <div class="pn-value-row">
+    <dt>{{ row.attribute or '调整' }}</dt>
+    <dd>
+{%- if row.from %}<span class="pn-old"><span class="pn-sr">原为 </span>{{ row.from }}</span><span class="pn-arrow" aria-hidden="true">→</span>{% endif -%}
+{%- if row.to %}<span class="pn-new"><span class="pn-sr">调整为 </span>{{ row.to }}</span>{% endif -%}
+{%- if row.note %}<span class="pn-value-note">{{ row.note }}</span>{% endif -%}
+    </dd>
+  </div>
+{%- endfor %}
+</dl>
+{%- else -%}
+<p class="pn-change-text">{{ item.detail }}</p>
+{%- endif -%}
+{%- endmacro %}

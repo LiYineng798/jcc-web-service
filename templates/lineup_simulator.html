@@ -207,7 +207,8 @@
               <legend>背景弈子</legend>
               <div class="poster-champion-picker" id="posterChampionPicker"></div>
             </fieldset>
-            <p class="poster-export-note">固定导出 1200 × 1600 PNG，包含棋盘、装备、羁绊和最多 6 个强化符文推荐。</p>
+            <p class="poster-export-note">固定导出 1200 × 1600 PNG，包含棋盘、装备、羁绊和最多 6 个强化符文推荐。海报只在当前浏览器内生成，不会上传到服务器。</p>
+            <button class="poster-last-result" id="posterLastResultButton" type="button" hidden><i data-lucide="history"></i><span>查看上次生成的海报</span><small id="posterLastResultMeta"></small></button>
           </div>
           <div class="poster-preview-shell" aria-label="阵容海报预览">
             <div class="poster-preview" id="posterPreview"></div>
@@ -215,9 +216,43 @@
         </div>
         <div class="dialog-actions">
           <button class="text-button" value="cancel">取消</button>
-          <button class="primary-button" id="confirmExportPosterButton" type="button"><i data-lucide="image-down"></i>保存海报</button>
+          <button class="primary-button" id="confirmExportPosterButton" type="button"><i data-lucide="sparkles"></i>生成海报</button>
         </div>
       </form>
+    </dialog>
+
+    <dialog class="poster-result-dialog" id="posterResultDialog" aria-labelledby="posterResultTitle" aria-describedby="posterResultStatus">
+      <div class="poster-result-layout">
+        <figure class="poster-result-figure">
+          <img id="posterResultImage" alt="已生成的 3:4 阵容海报，可长按保存" />
+        </figure>
+        <section class="poster-result-panel">
+          <div class="dialog-heading">
+            <div><span class="panel-kicker">PNG · 1200 × 1600</span><h2 id="posterResultTitle">海报已生成</h2></div>
+            <button class="icon-button" type="button" data-poster-result-close aria-label="关闭"><i data-lucide="x"></i></button>
+          </div>
+          <ol class="poster-result-steps" aria-label="保存进度">
+            <li class="is-done" data-poster-step="generated"><span></span>已生成</li>
+            <li data-poster-step="requested"><span></span>已请求保存</li>
+            <li data-poster-step="confirm"><span></span>在相册或下载中确认</li>
+          </ol>
+          <p class="poster-result-status" id="posterResultStatus" role="status" aria-live="polite"></p>
+          <div class="poster-result-actions">
+            <button class="primary-button" id="posterShareButton" type="button" hidden><i data-lucide="share"></i><span>保存到相册 / 分享</span></button>
+            <a class="primary-button" id="posterDownloadLink" href="#" download><i data-lucide="download"></i><span>下载 PNG</span></a>
+            <a class="text-button" id="posterOpenLink" href="#" target="_blank" rel="noopener"><i data-lucide="external-link"></i>打开原图</a>
+          </div>
+          <dl class="poster-result-meta">
+            <div><dt>文件</dt><dd id="posterResultFilename"></dd></div>
+            <div><dt>大小</dt><dd id="posterResultSize"></dd></div>
+          </dl>
+          <p class="poster-result-tip" id="posterResultTip"></p>
+          <div class="poster-result-footer">
+            <button class="text-button" type="button" id="posterBackToEditButton"><i data-lucide="pencil"></i>返回修改</button>
+            <button class="text-button" type="button" data-poster-result-close>完成</button>
+          </div>
+        </section>
+      </div>
     </dialog>
 
     <script src="{{ static_v('vendor/lucide/lucide.min.js') }}"></script>

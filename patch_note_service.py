@@ -11,6 +11,33 @@ CHANGE_LABELS = {
     'adjust': '调整',
 }
 CHANGE_RE = re.compile(r'^-\s*\[(buff|nerf|adjust)\]\s*(.+)$')
+SUBJECT_RE = re.compile(r'^([^：:]{1,24})[：:]\s*(.+)$')
+# The trailing run of numbers, ratios and units before "=>", e.g. "法力值 0/30" or "冷却 1.5秒".
+OLD_VALUE_RE = re.compile(r'^(.*?)\s*([-+]?\d[\d.,]*[^\s/]*(?:\s*/\s*[-+]?\d[\d.,]*[^\s/]*)*)$')
+VALUE_SPLIT_RE = re.compile(r'\s*[；;]\s*')
+EXCERPT_LENGTH = 96
+HIGHLIGHT_LIMIT = 4
+
+
+def split_value_changes(detail):
+    """Split "治疗 300 => 325；护甲 40 => 50" into attribute/from/to rows."""
+    if '=>' not in detail:
+        return []
+    changes = []
+    for part in VALUE_SPLIT_RE.split(detail):
+        if '=>' not in part:
+            if changes:
+                changes[-1]['note'] = (changes[-1]['note'] + ' ' + part).strip()
+            else:
+                changes.append({'attribute': part.strip(), 'from': '', 'to': '', 'note': ''})
+            continue
+        old_value, new_value = (value.strip() for value in part.split('=>', 1))
+        match = OLD_VALUE_RE.match(old_value)
+        attribute, before = (match.group(1).strip(), match.group(2).strip()) if match else ('', old_value)
+        if match and not attribute and not before:
+            attribute, before = old_value, ''
+        changes.append({'attribute': attribute, 'from': before, 'to': new_value, 'note': ''})
+    return changes
 
 
 def parse_summary_markdown(markdown):
@@ -25,11 +52,17 @@ def parse_summary_markdown(markdown):
         match = CHANGE_RE.match(line)
         if match:
             kind, text = match.groups()
+            text = text.strip()
+            subject_match = SUBJECT_RE.match(text)
+            subject, detail = subject_match.groups() if subject_match else ('', text)
             item = {
                 'type': 'change',
                 'kind': kind,
                 'label': CHANGE_LABELS[kind],
-                'text': text.strip(),
+                'text': text,
+                'subject': subject.strip(),
+                'detail': detail.strip(),
+                'changes': split_value_changes(detail.strip()),
                 'old_value': '',
                 'new_value': '',
             }
@@ -41,6 +74,52 @@ def parse_summary_markdown(markdown):
             continue
         items.append({'type': 'text', 'text': line})
     return items
+
+
+def empty_change_counts():
+    return {kind: 0 for kind in CHANGE_LABELS}
+
+
+def group_summary_items(items):
+    """Group parsed lines by "##" section; lines before the first heading form an untitled lead section."""
+    sections = []
+    current = None
+    for item in items:
+        if item['type'] == 'section' or current is None:
+            current = {
+                'id': f'section-{len(sections) + 1}',
+                'title': item['title'] if item['type'] == 'section' else '',
+                'items': [],
+                'counts': empty_change_counts(),
+            }
+            sections.append(current)
+            if item['type'] == 'section':
+                continue
+        current['items'].append(item)
+        if item['type'] == 'change':
+            current['counts'][item['kind']] += 1
+    return [section for section in sections if section['title'] or section['items']]
+
+
+def summarize_patch_note(items):
+    counts = empty_change_counts()
+    for item in items:
+        if item['type'] == 'change':
+            counts[item['kind']] += 1
+    texts = [item['text'] for item in items if item['type'] == 'text']
+    excerpt = texts[0] if texts else ''
+    if len(excerpt) > EXCERPT_LENGTH:
+        excerpt = excerpt[:EXCERPT_LENGTH - 1].rstrip() + '…'
+    return {
+        'counts': counts,
+        'change_total': sum(counts.values()),
+        'section_titles': [item['title'] for item in items if item['type'] == 'section'],
+        'excerpt': excerpt,
+        'highlights': [
+            {key: item[key] for key in ('kind', 'label', 'subject', 'detail', 'changes')}
+            for item in items if item['type'] == 'change'
+        ][:HIGHLIGHT_LIMIT],
+    }
 
 
 def validate_patch_note_payload(data, existing=None):
@@ -88,10 +167,13 @@ def serialize_patch_note(row, include_body=False):
         'created_at': row['created_at'],
         'updated_at': row['updated_at'],
     }
+    items = parse_summary_markdown(row['summary_markdown'])
+    payload['overview'] = summarize_patch_note(items)
     if include_body:
         payload.update({
             'summary_markdown': row['summary_markdown'],
-            'summary_items': parse_summary_markdown(row['summary_markdown']),
+            'summary_items': items,
+            'summary_sections': group_summary_items(items),
             'original_text': row['original_text'],
         })
     return payload
@@ -116,6 +198,18 @@ def get_public_patch_note(patch_note_id):
     if not row:
         return None, '公告不存在', 404
     return serialize_patch_note(row, include_body=True), None, 200
+
+
+def adjacent_public_patch_notes(patch_note_id):
+    """Return the next newer and older published notes for reading navigation."""
+    items = list_public_patch_notes()['items']
+    index = next((position for position, item in enumerate(items) if item['id'] == patch_note_id), None)
+    if index is None:
+        return {'newer': None, 'older': None}
+    return {
+        'newer': items[index - 1] if index > 0 else None,
+        'older': items[index + 1] if index + 1 < len(items) else None,
+    }
 
 
 def list_admin_patch_notes():

@@ -44,6 +44,7 @@ PostgreSQL 相关用例含连接替身和可移植 SQL，不能替代实际 Post
 | 资料/实时赛季展示 | `season_display_rendering.cjs` 自行启动服务器；手工用 `serve_season_display_preview.py` |
 | 赛季上传 | `serve_season_package_preview.py` → 设置输出的 `SEASON_PACKAGE_FILE` → `season_packages.browser.cjs` |
 | 完整新季/更新/回滚 | `season_lifecycle.browser.cjs` 自行启动服务器；手工用 `serve_season_lifecycle.py` |
+| 更新公告列表/详情 | `serve_patch_notes_preview.py`；默认 5150，虚构公告保存在独立 `instance/search-device-preview/` |
 | 工具箱/开局推荐 | `serve_lucky_openings_preview.py` → `lucky_openings_rendering.cjs` |
 | 共享通知、头像、移动布局、棋盘导出 | 对应 `notifications_rendering.cjs`、`avatar_rendering.cjs`、`*_rendering.cjs`、`board_portraits.browser.cjs` |
 

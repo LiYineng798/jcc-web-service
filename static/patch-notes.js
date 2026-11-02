@@ -1,119 +1,94 @@
-const patchListRoot = document.querySelector('#patchNotesApp');
-const patchDetailRoot = document.querySelector('#patchNoteDetailApp');
+// Patch note pages are rendered on the server; this script only adds theme, filtering and navigation helpers.
 const patchThemeToggle = document.querySelector('#themeToggle');
 const patchThemeIcon = document.querySelector('#themeIcon');
 const patchThemeText = document.querySelector('#themeText');
 
-setPatchTheme(localStorage.getItem('theme') || 'light');
+setPatchTheme(readTheme());
 patchThemeToggle?.addEventListener('click', () => setPatchTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'));
 
-if (patchListRoot) loadPatchNoteList();
-if (patchDetailRoot) loadPatchNoteDetail();
+setupKindFilter();
+setupTocHighlight();
+setupTocSheet();
+openOriginalFromHash();
+window.addEventListener('hashchange', openOriginalFromHash);
 
-async function loadPatchNoteList() {
-  try {
-    const data = await fetch('/api/patch-notes').then((response) => response.json());
-    renderPatchNoteList(data.items || []);
-  } catch (error) {
-    patchListRoot.textContent = '公告加载失败，请稍后再试';
-  }
-}
-
-async function loadPatchNoteDetail() {
-  try {
-    const id = patchDetailRoot.dataset.patchNoteId;
-    const response = await fetch(`/api/patch-notes/${id}`);
-    const data = await response.json().catch(() => null);
-    if (!response.ok) throw new Error(data?.error || '公告不存在');
-    renderPatchNoteDetail(data);
-  } catch (error) {
-    patchDetailRoot.textContent = error.message || '公告加载失败';
-  }
-}
-
-function renderPatchNoteList(items) {
-  patchListRoot.replaceChildren();
-  const list = document.createElement('div');
-  list.className = 'patch-note-list';
-  if (!items.length) {
-    list.append(el('div', 'empty-state', '暂无更新公告'));
-  } else {
-    items.forEach((item) => {
-      const card = el('article', 'patch-note-card');
-      const title = el('h2', '', item.title);
-      const meta = el('p', 'admin-meta', `${item.version || '版本公告'} · ${item.published_at}`);
-      const link = el('a', 'primary-link patch-note-card-action', '查看公告');
-      link.href = `/patch-notes/${item.id}`;
-      card.append(title, meta, link);
-      list.append(card);
+function setupKindFilter() {
+  const group = document.querySelector('[data-pn-filter]');
+  if (!group) return;
+  group.hidden = false;
+  const sections = [...document.querySelectorAll('.pn-section')];
+  group.addEventListener('click', (event) => {
+    const button = event.target.closest('[data-filter]');
+    if (!button) return;
+    const kind = button.dataset.filter;
+    group.querySelectorAll('[data-filter]').forEach((node) => node.setAttribute('aria-pressed', String(node === button)));
+    document.querySelectorAll('.pn-change').forEach((node) => {
+      node.hidden = kind !== 'all' && node.dataset.kind !== kind;
     });
-  }
-  patchListRoot.append(list);
-}
-
-function renderPatchNoteDetail(item) {
-  patchDetailRoot.replaceChildren();
-  const stack = el('div', 'detail-stack patch-note-detail');
-  stack.append(el('p', 'section-kicker', 'Official Patch Notes'));
-  stack.append(el('h1', 'detail-title', item.title));
-  stack.append(el('p', 'hero-description', `${item.version || '版本公告'} · ${item.published_at}`));
-  if (item.source_url) {
-    const source = el('a', 'ghost-link', '查看原公告');
-    source.href = item.source_url;
-    source.target = item.source_url.startsWith('/') ? '' : '_blank';
-    source.rel = 'noopener';
-    stack.append(source);
-  }
-  stack.append(renderSummary(item.summary_items || []));
-  if (item.original_text) stack.append(renderOriginal(item.original_text));
-  patchDetailRoot.append(stack);
-}
-
-function renderSummary(items) {
-  const wrap = el('div', 'patch-note-summary');
-  items.forEach((item) => {
-    if (item.type === 'section') {
-      wrap.append(el('h2', 'patch-note-section', item.title));
-      return;
-    }
-    if (item.type === 'change') {
-      const row = el('article', `patch-note-change patch-note-change-${item.kind}`);
-      row.append(el('span', `change-tag change-tag-${item.kind}`, item.label));
-      const body = el('div', 'patch-note-change-body');
-      if (item.old_value || item.new_value) {
-        body.append(el('span', 'change-old-value', item.old_value), el('span', 'change-arrow', '=>'), el('span', 'change-new-value', item.new_value));
-      } else {
-        body.append(el('span', '', item.text));
-      }
-      row.append(body);
-      wrap.append(row);
-      return;
-    }
-    wrap.append(el('p', 'patch-note-text', item.text));
+    // Plain notes stay with "all"; a filtered view only keeps sections that still have matching changes.
+    sections.forEach((section) => {
+      section.classList.toggle('is-filtered', kind !== 'all');
+      section.hidden = kind !== 'all' && !section.querySelector('.pn-change:not([hidden])');
+    });
+    document.querySelectorAll('[data-toc-link]').forEach((link) => {
+      const target = document.getElementById(link.dataset.tocLink);
+      link.closest('li').classList.toggle('is-muted', Boolean(target?.hidden));
+    });
   });
-  return wrap;
 }
 
-function renderOriginal(text) {
-  const details = document.createElement('details');
-  details.className = 'patch-note-original';
-  const summary = el('summary', '', '展开原文');
-  const pre = el('pre', 'code-preview');
-  pre.textContent = text;
-  details.append(summary, pre);
-  return details;
+function setupTocHighlight() {
+  const links = [...document.querySelectorAll('[data-toc-link]')];
+  if (!links.length || !('IntersectionObserver' in window)) return;
+  const byId = new Map(links.map((link) => [link.dataset.tocLink, link]));
+  const visible = new Set();
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => (entry.isIntersecting ? visible.add(entry.target.id) : visible.delete(entry.target.id)));
+    const current = [...byId.keys()].find((id) => visible.has(id));
+    if (!current) return;
+    links.forEach((link) => link.classList.toggle('is-active', link.dataset.tocLink === current));
+  }, { rootMargin: '-15% 0px -70% 0px' });
+  byId.forEach((_, id) => {
+    const target = document.getElementById(id);
+    if (target) observer.observe(target);
+  });
+}
+
+function setupTocSheet() {
+  const button = document.querySelector('#pnTocButton');
+  const sheet = document.querySelector('#pnTocSheet');
+  if (!button || !sheet?.showModal) return;
+  button.addEventListener('click', () => sheet.showModal());
+  sheet.addEventListener('click', (event) => {
+    if (event.target === sheet || event.target.closest('[data-sheet-close]')) sheet.close();
+    const link = event.target.closest('[data-sheet-link]');
+    if (!link) return;
+    sheet.close();
+    if (link.hasAttribute('data-scroll-top')) {
+      event.preventDefault();
+      window.scrollTo({ top: 0, behavior: prefersReducedMotion() ? 'auto' : 'smooth' });
+    }
+  });
+  sheet.addEventListener('close', () => button.focus({ preventScroll: true }));
+}
+
+function openOriginalFromHash() {
+  if (location.hash !== '#original') return;
+  const original = document.querySelector('#original');
+  if (original && !original.open) original.open = true;
+}
+
+function prefersReducedMotion() {
+  return matchMedia('(prefers-reduced-motion: reduce)').matches;
+}
+
+function readTheme() {
+  try { return localStorage.getItem('theme') || 'light'; } catch { return 'light'; }
 }
 
 function setPatchTheme(theme) {
   document.documentElement.dataset.theme = theme;
-  localStorage.setItem('theme', theme);
+  try { localStorage.setItem('theme', theme); } catch { /* Storage can be unavailable in private browsing. */ }
   window.jccApplyThemeToggleState?.(theme, patchThemeToggle, patchThemeIcon, patchThemeText);
   if (!window.jccApplyThemeToggleState && patchThemeText) patchThemeText.textContent = theme === 'dark' ? '白天模式' : '夜间模式';
-}
-
-function el(tag, className = '', text = '') {
-  const node = document.createElement(tag);
-  if (className) node.className = className;
-  if (text) node.textContent = text;
-  return node;
 }
