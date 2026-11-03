@@ -55,4 +55,16 @@ CREATE TABLE IF NOT EXISTS orange_deck_favorites (
 );
 
 CREATE INDEX IF NOT EXISTS idx_orange_deck_favorites_deck ON orange_deck_favorites (deck_id);
+
+CREATE TABLE IF NOT EXISTS orange_deck_likes (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER NOT NULL REFERENCES users(id),
+    deck_id INTEGER NOT NULL REFERENCES orange_decks(id),
+    like_date TEXT NOT NULL,
+    created_at TEXT NOT NULL,
+    UNIQUE (user_id, deck_id, like_date)
+);
+
+CREATE INDEX IF NOT EXISTS idx_orange_deck_likes_deck ON orange_deck_likes (deck_id);
+CREATE INDEX IF NOT EXISTS idx_orange_deck_likes_user_date ON orange_deck_likes (user_id, like_date);
 """

@@ -199,9 +199,9 @@ def postgres_schema_ready():
                         'season_release_packages','season_import_jobs','season_active_releases','season_release_events',
                         'lineup_moderation','lineup_moderation_events',
                         'feedback_threads','feedback_events','user_notifications','author_favorite_receipts','notification_actors', 'automation_accounts',
-                        'orange_decks','orange_deck_favorites'
+                        'orange_decks','orange_deck_favorites','orange_deck_likes'
                     )
-                ) = 14 AND EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema='public' AND table_name='automation_accounts' AND column_name='session_version') AS exists
+                ) = 15 AND EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema='public' AND table_name='automation_accounts' AND column_name='session_version') AS exists
                 '''
             )
             return bool(cursor.fetchone()['exists'])

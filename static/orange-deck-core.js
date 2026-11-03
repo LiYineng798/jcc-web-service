@@ -19,12 +19,16 @@
     return data;
   }
 
+  // The gallery's time-card frame: hexagon surface, per-layout art and the tier's metal bezel.
+  // Pages provide <template id="bezel-N"> and the shared gradient definitions.
   function art(card) {
-    if (!card) return '<span class="deck-thumb-art"><span class="deck-missing">空卡槽</span></span>';
+    if (!card) return '<span class="deck-frame-empty">空卡槽</span>';
+    const tier = Number(card.tier) || 1;
     const body = card.image_url
-      ? `<img src="${esc(card.image_url)}" alt="" loading="lazy" decoding="async">`
-      : `<span class="deck-missing">${card.status === 'missing' ? '卡片已失效' : '卡图暂缺'}</span>`;
-    return `<span class="deck-thumb-art" data-layout="${esc(card.layout || '')}">${body}</span>`;
+      ? `<img class="fortune-card-image" src="${esc(card.image_url)}" alt="" loading="lazy" decoding="async">`
+      : `<span class="fortune-missing"><i aria-hidden="true">◇</i>${card.status === 'missing' ? '已失效' : '卡图暂缺'}</span>`;
+    const bezel = document.getElementById(`bezel-${tier}`)?.innerHTML || '';
+    return `<span class="fortune-card-frame" data-tier="${tier}"><span class="fortune-card-surface fortune-art-${esc(card.layout || 'missing')}">${body}<span class="fortune-card-shade"></span><span class="fortune-card-stars" aria-hidden="true">${'•'.repeat(tier)}</span><span class="fortune-card-category">${esc(card.category || '')}</span></span>${bezel}</span>`;
   }
 
   function tierText(card) {
@@ -61,22 +65,22 @@
     dialog.showModal();
   }
 
+  // Same honeycomb as the simulator: 28 cells, rows of seven, offsets handled in CSS.
   function board(formation) {
     if (!formation) return '';
     if (!formation.available) return `<p class="deck-boundary">${esc(formation.message)}</p>`;
-    const cells = formation.cells;
-    const rows = [0, 1, 2, 3].map((row) => `<div class="deck-board-row${row % 2 ? ' is-offset' : ''}">${cells.slice(row * 7, row * 7 + 7).map((cell) => {
-      if (!cell) return '<div class="deck-cell" aria-hidden="true"><span class="deck-hex"></span></div>';
+    const rows = formation.cells.map((cell) => {
+      if (!cell) return '<li class="deck-cell" aria-hidden="true"><span class="deck-hex"></span></li>';
       const items = cell.items.map((item) => item.name).join('、');
       const label = `${cell.name}，${cell.star} 星${items ? `，装备：${items}` : ''}`;
-      return `<div class="deck-cell has-unit cost-${Math.min(cell.cost || 1, 5)}${cell.missing ? ' is-missing' : ''}" role="listitem" aria-label="${esc(label)}" title="${esc(label)}"><span class="deck-hex">${cell.icon ? `<img src="${esc(cell.icon)}" alt="" loading="lazy" decoding="async">` : ''}</span><span class="deck-stars" aria-hidden="true">${'★'.repeat(cell.star)}</span><span class="deck-items" aria-hidden="true">${cell.items.map((item) => item.icon ? `<img src="${esc(item.icon)}" alt="" loading="lazy">` : '<i></i>').join('')}</span></div>`;
-    }).join('')}</div>`).join('');
+      return `<li class="deck-cell has-unit cost-${Math.min(cell.cost || 1, 5)}${cell.missing ? ' is-missing' : ''}" aria-label="${esc(label)}" title="${esc(label)}"><span class="deck-unit"><span class="deck-unit-crop">${cell.icon ? `<img src="${esc(cell.icon)}" alt="" loading="lazy" decoding="async">` : ''}</span></span><span class="deck-unit-name" aria-hidden="true">${esc(cell.name)}</span><span class="deck-stars" aria-hidden="true">${'★'.repeat(cell.star)}</span><span class="deck-items" aria-hidden="true">${cell.items.map((item) => item.icon ? `<img src="${esc(item.icon)}" alt="" loading="lazy">` : '<i></i>').join('')}</span></li>`;
+    }).join('');
     const traits = formation.traits.length
       ? `<ul class="deck-traits" aria-label="激活羁绊">${formation.traits.map((trait) => `<li><span class="deck-trait-emblem" aria-hidden="true"><img src="${esc(trait.frame)}" alt="">${trait.icon ? `<img src="${esc(trait.icon)}" alt="">` : ''}</span><b>${trait.count}</b><span>${esc(trait.name)}</span></li>`).join('')}</ul>`
       : '<p class="deck-boundary">没有激活的羁绊。</p>';
     const issues = formation.issues.length ? `<div class="deck-issues" role="note">${formation.issues.map(esc).join('<br>')}</div>` : '';
     const augments = formation.augments.length ? `<p class="deck-boundary">强化符文：${formation.augments.map(esc).join('、')}</p>` : '';
-    return `${issues}<div class="deck-board-wrap"><div class="deck-board" role="list" aria-label="阵容站位，${formation.unit_count} 个单位">${rows}</div>${traits}</div>${augments}<p class="deck-boundary">${esc(formation.boundary)}</p>`;
+    return `${issues}<div class="deck-board-wrap"><ol class="deck-board" aria-label="阵容站位，${formation.unit_count} 个单位">${rows}</ol>${traits}</div>${augments}`;
   }
 
   function issues(deck) {

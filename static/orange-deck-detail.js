@@ -7,24 +7,37 @@
   const status = document.getElementById('deckActionStatus');
   let session = { user: null, csrf: '' };
   D.bindTheme();
-  const say = (text, error = false) => { status.textContent = text; status.classList.toggle('deck-error', error); };
+  const say = (text, error = false) => { if (!status) return; status.textContent = text; status.classList.toggle('deck-error', error); };
+
+  // The author avatar reacts to likes and favorites exactly as on lineup pages.
+  const fallback = document.getElementById('deckAuthorAvatar');
+  const avatar = D.avatar(deck.author, 30, `deck-detail-${deck.id}`);
+  if (avatar && fallback) fallback.replaceWith(avatar);
+  const feedback = (kind) => { try { if (avatar) window.jccAvatar?.feedback?.(avatar, kind); } catch { /* Decorative only. */ } };
+
+  function label(control, text) { control.querySelector('span').textContent = text; }
+
+  async function like(control) {
+    if (!session.user) { say('登录后可以点赞卡组。'); return; }
+    if (deck.is_liked_today) { say('今天已经点赞过这套卡组。'); return; }
+    const data = await D.api(`/api/orange-decks/${deck.id}/like`, { method: 'POST', csrf: session.csrf });
+    deck.is_liked_today = true;
+    control.setAttribute('aria-pressed', 'true');
+    label(control, '今日已赞');
+    document.getElementById('deckLikeCount').textContent = data.like_count;
+    feedback('like');
+    say('');
+  }
 
   async function favorite(control) {
     if (!session.user) { say('登录后可以收藏卡组。'); return; }
     const data = await D.api(`/api/orange-decks/${deck.id}/favorite`, { method: deck.is_favorited ? 'DELETE' : 'POST', csrf: session.csrf });
     deck.is_favorited = data.favorited;
     control.setAttribute('aria-pressed', String(data.favorited));
-    control.textContent = data.favorited ? '已收藏' : '收藏';
+    label(control, data.favorited ? '已收藏' : '收藏');
     document.getElementById('deckFavoriteCount').textContent = data.favorite_count;
-    say(data.favorited ? '已收藏，可在卡组库的“我的收藏”找回。' : '已取消收藏。');
-  }
-
-  async function fork() {
-    if (!session.user) { say('登录后可以以此为基础创建自己的卡组。'); return; }
-    const data = await D.api(`/api/orange-decks/${deck.id}/fork`, { method: 'POST', csrf: session.csrf });
-    // The new draft is always a separate deck; the author's deck and earlier drafts are untouched.
-    try { sessionStorage.setItem('jcc-orange-deck-notice', JSON.stringify(['已创建新的草稿，原卡组不受影响。', ...data.notes])); } catch { /* Notice is optional. */ }
-    location.href = data.edit_url;
+    if (data.favorited) feedback('favorite');
+    say('');
   }
 
   async function remove() {
@@ -33,16 +46,14 @@
     location.href = '/?library=decks&tab=mine';
   }
 
-  actions.addEventListener('click', async (event) => {
-    const control = event.target.closest('[data-action]');
+  actions?.addEventListener('click', async (event) => {
+    const control = event.target.closest('button[data-action]');
     if (!control || control.disabled) return;
     control.disabled = true;
     try {
       const action = control.dataset.action;
-      if (action === 'favorite') await favorite(control);
-      else if (action === 'copy-text') say(await D.copy(deck.share_text) ? '已复制卡组文本（含详情链接）。' : '复制失败，请手动选择页面内容。', false);
-      else if (action === 'copy-link') say(await D.copy(deck.share_url) ? '已复制详情链接。' : '复制失败，请从地址栏复制。', false);
-      else if (action === 'fork') await fork();
+      if (action === 'like') await like(control);
+      else if (action === 'favorite') await favorite(control);
       else if (action === 'delete') await remove();
     } catch (error) {
       say(error.message, true);
@@ -57,6 +68,6 @@
     if (queued.length) say(queued.join(' '));
   } catch { /* Notice is optional. */ }
   D.api('/api/me').then((data) => { session = { user: data.user, csrf: data.csrf_token }; })
-    .catch(() => say('登录状态暂时无法确认，收藏和创建可能不可用。', true))
-    .finally(() => actions.querySelectorAll('button[disabled]').forEach((button) => { button.disabled = false; }));
+    .catch(() => say('登录状态暂时无法确认，点赞和收藏可能不可用。', true))
+    .finally(() => actions?.querySelectorAll('button[disabled]').forEach((button) => { button.disabled = false; }));
 })();

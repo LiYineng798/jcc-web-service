@@ -8,13 +8,15 @@
   if (!D || !root || !lineupPanel) return;
   const $ = (id) => document.getElementById(id);
   const els = { list: $('deckList'), tabs: $('deckTabs'), indicator: $('deckTabIndicator'), search: $('deckSearch'),
-    portal: $('deckPortal'), pagination: $('deckPagination'), rule: $('deckRule'), status: $('deckStatus') };
+    portalToggle: $('deckPortalToggle'), portalMenu: $('deckPortalMenu'), portalText: $('deckPortalText'), count: $('deckCount'),
+    pagination: $('deckPagination'), rule: $('deckRule'), status: $('deckStatus') };
   const TABS = ['latest', 'hot', 'featured', 'favorites', 'mine'];
-  const PORTALS = [...els.portal.options].map((option) => option.value).filter(Boolean);
+  const PORTAL_NAMES = Object.fromEntries([...els.portalMenu.querySelectorAll('button[data-portal]')].map((item) => [item.dataset.portal, item.dataset.name]));
+  const PORTALS = Object.keys(PORTAL_NAMES).filter(Boolean);
   const TAB_NAMES = { latest: '最新', hot: '热门', featured: '推荐', favorites: '我的收藏', mine: '我的卡组' };
   const STATUS = { draft: ['草稿', ''], hidden: ['已隐藏', 'is-danger'] };
   const state = { library: 'lineups', tab: 'latest', q: '', portal: '', page: 1, user: null, csrf: '', me: null,
-    items: [], total: 0, totalPages: 1, controller: null, formations: new Map(), loadedKey: '' };
+    items: [], total: 0, totalPages: 1, controller: null, loadedKey: '' };
 
   function readUrl() {
     const params = new URLSearchParams(location.search);
@@ -56,7 +58,13 @@
 
   function syncControls() {
     els.search.value = state.q;
-    els.portal.value = state.portal;
+    els.portalText.textContent = PORTAL_NAMES[state.portal] || '全部传送门';
+    els.portalToggle.classList.toggle('deck-portal', Boolean(state.portal));
+    if (state.portal) els.portalToggle.dataset.portal = state.portal; else delete els.portalToggle.dataset.portal;
+    els.portalMenu.querySelectorAll('button[data-portal]').forEach((item) => {
+      item.classList.toggle('is-active', item.dataset.portal === state.portal);
+      item.setAttribute('aria-checked', String(item.dataset.portal === state.portal));
+    });
     els.tabs.querySelectorAll('[data-deck-tab]').forEach((tab) => {
       const active = tab.dataset.deckTab === state.tab;
       tab.classList.toggle('active', active);
@@ -95,6 +103,7 @@
     }
     if (state.loadedKey !== key) els.list.innerHTML = '<div class="deck-skeleton"></div><div class="deck-skeleton"></div>';
     els.status.textContent = '正在加载卡组…';
+    els.count.textContent = '正在加载卡组…';
     const params = new URLSearchParams({ tab: state.tab, page: String(state.page), page_size: '10' });
     if (state.q) params.set('q', state.q);
     if (state.portal) params.set('portal', state.portal);
@@ -111,44 +120,51 @@
     }
   }
 
-  function button(label, action, extra = '') {
-    return `<button type="button" class="deck-button" data-action="${action}" ${extra}>${label}</button>`;
+  // Actions share the lineup card markup so icons, focus and avatar reactions stay consistent.
+  function action(label, icon, name, extra = '', count = null) {
+    return `<button type="button" class="small-button home-card-action" data-action="${name}" data-card-action="${icon}" ${extra}><span class="home-card-icon" data-card-icon="${icon}" aria-hidden="true"></span><span class="home-card-action-label">${label}</span>${count === null ? '' : `<span class="home-card-number">${Number(count).toLocaleString('zh-CN')}</span>`}</button>`;
   }
 
   function card(deck) {
     const badges = [
       deck.featured ? '<span class="deck-badge is-featured">推荐</span>' : '',
-      deck.has_formation ? '<span class="deck-badge">含阵容</span>' : '',
       STATUS[deck.status] ? `<span class="deck-badge ${STATUS[deck.status][1]}">${STATUS[deck.status][0]}</span>` : '',
       deck.compat.missing_cards ? '<span class="deck-badge is-danger">含失效卡片</span>' : deck.compat.changed ? '<span class="deck-badge is-warn">资料已更新</span>' : '',
     ].join('');
     const over = deck.cards.every(Boolean) && !deck.fits;
-    const actions = [
-      deck.has_formation ? button('展开站位', 'formation', `aria-expanded="false" aria-controls="deck-formation-${deck.id}"`) : '',
-      deck.status === 'published' ? button(deck.is_favorited ? `已收藏 ${deck.favorite_count}` : `收藏 ${deck.favorite_count}`, 'favorite', `aria-pressed="${deck.is_favorited}"`) : '',
-      deck.can_share ? button('分享', 'share', 'title="复制卡组文本与详情链接"') : '',
-      deck.can_edit ? `<a class="deck-button" href="/orange-decks/${deck.id}/edit">编辑</a>` : '',
-      `<a class="deck-button" href="${D.esc(deck.detail_url)}">查看详情</a>`,
+    const published = deck.status === 'published';
+    const social = published ? [
+      action(deck.is_liked_today ? '已赞' : '点赞', 'heart', 'like', `aria-pressed="${deck.is_liked_today}" title="${deck.is_liked_today ? '今日已赞' : '点赞卡组'}"`, deck.like_count),
+      action(deck.is_favorited ? '已收藏' : '收藏', 'bookmark', 'favorite', `aria-pressed="${deck.is_favorited}" title="${deck.is_favorited ? '取消收藏' : '收藏卡组'}"`, deck.favorite_count),
+      action('分享', 'copy', 'share', 'title="复制卡组文本与详情链接"'),
+    ].join('') : '';
+    const utilities = [
+      deck.can_edit ? action('编辑', 'pencil', 'edit', '', null).replace('small-button home-card-action', 'small-button home-card-action home-card-quiet') : '',
+      action('查看', 'arrow-up-right', 'open').replace('small-button home-card-action', 'small-button home-card-action home-card-detail'),
     ].join('');
-    const author = deck.author.profile_url
-      ? `<a class="deck-author" href="${D.esc(deck.author.profile_url)}"><span data-avatar></span><span>${D.esc(deck.author.nickname)}</span></a>`
-      : `<span class="deck-author"><span data-avatar></span><span>${D.esc(deck.author.nickname)}</span></span>`;
-    return `<article class="deck-card" data-deck-id="${deck.id}" aria-labelledby="deck-title-${deck.id}">
-      <div class="deck-card-head"><h3 id="deck-title-${deck.id}"><a href="${D.esc(deck.detail_url)}">${D.esc(deck.name)}</a></h3><div class="deck-badges">${badges}</div></div>
-      <p class="deck-meta"><span>推荐 <b>${D.esc(deck.portal.name)}</b></span><span class="${over ? 'is-over' : ''}">能量 <b>${deck.energy}</b> / ${deck.energy_limit}${over ? '（超限）' : ''}</span></p>
-      <ul class="deck-thumbs" aria-label="三张时间卡片">${deck.cards.map(D.thumb).join('')}</ul>
-      <p class="deck-note${deck.note ? '' : ' is-empty'}">${deck.note ? D.esc(deck.note) : '作者暂未填写搭配说明。'}</p>
-      ${deck.status === 'hidden' && deck.hidden_reason ? `<p class="deck-issues" role="note">已被管理员隐藏：${D.esc(deck.hidden_reason)}</p>` : ''}
-      <div class="deck-card-foot">${author}<div class="deck-actions">${actions}</div></div>
-      <div class="deck-formation-slot" id="deck-formation-${deck.id}" hidden></div>
+    const author = `<span data-avatar></span><span class="home-card-author-name">${D.esc(deck.author.nickname)}</span>`;
+    const date = (deck.published_at || deck.updated_at || '').split(' ')[0];
+    return `<article class="lineup-card home-lineup-card deck-card" data-deck-id="${deck.id}" data-lineup-key="deck-${deck.id}" aria-labelledby="deck-title-${deck.id}">
+      <header class="home-card-heading"><h3 class="lineup-title" id="deck-title-${deck.id}"><a href="${D.esc(deck.detail_url)}">${D.esc(deck.name)}</a></h3><span class="deck-badges">${badges}</span></header>
+      <div class="home-card-byline lineup-byline">${deck.author.profile_url ? `<a class="author-link" href="${D.esc(deck.author.profile_url)}">${author}</a>` : `<span class="author-link">${author}</span>`}<time class="home-card-updated">${published ? '发布于' : '更新于'} ${D.esc(date)}</time></div>
+      <div class="deck-card-body">
+        <div class="deck-card-portal"><span class="deck-portal" data-portal="${D.esc(deck.portal.id)}">${D.esc(deck.portal.name)}</span><span class="deck-energy-chip${over ? ' is-over' : ''}">能量 <b>${deck.energy}</b> / ${deck.energy_limit}${over ? ' · 超限' : ''}</span></div>
+        <ul class="deck-thumbs" aria-label="三张时间卡片">${deck.cards.map(D.thumb).join('')}</ul>
+      </div>
+      <footer class="home-card-footer"><div class="home-card-social">${social}</div><div class="home-card-utilities">${utilities}</div></footer>
     </article>`;
   }
 
   function hydrate(node, deck) {
-    const avatar = D.avatar(deck.author, 24, `deck-${deck.id}`);
+    const avatar = D.avatar(deck.author, 28, `deck-${deck.id}`);
     const slot = node.querySelector('[data-avatar]');
     if (avatar && slot) slot.replaceWith(avatar);
     else slot?.remove();
+  }
+
+  function feedback(deck, kind) {
+    const avatar = els.list.querySelector(`[data-deck-id="${deck.id}"] .user-avatar`);
+    try { if (avatar) window.jccAvatar?.feedback?.(avatar, kind); } catch { /* Decorative only. */ }
   }
 
   // The home page keeps manual scroll restoration; return to the same deck after back/forward.
@@ -165,6 +181,7 @@
   function render(key) {
     state.loadedKey = key;
     els.status.textContent = `${TAB_NAMES[state.tab]} · 共 ${state.total} 套卡组`;
+    els.count.textContent = `当前展示 ${state.total} 套卡组`;
     if (!state.items.length) {
       els.list.innerHTML = emptyState();
       els.pagination.replaceChildren();
@@ -178,25 +195,26 @@
 
   function emptyState() {
     const filtered = state.q || state.portal;
-    let [title, text, actions] = ['还没有公开卡组', '发布第一套大橘大利卡组，把三张卡和传送门的搭配分享出来。', '<a class="deck-button is-primary" href="/orange-decks/new">发布卡组</a>'];
+    let [title, text, actions] = ['还没有公开卡组', '发布第一套大橘大利卡组，把三张卡和传送门的搭配分享出来。', '<a class="deck-button is-primary" href="/lineup/new?type=deck">发布卡组</a>'];
     if (['favorites', 'mine'].includes(state.tab) && !state.user) {
       [title, text, actions] = [state.tab === 'mine' ? '登录后查看我的卡组' : '登录后查看收藏', '收藏和发布的卡组会跟随账号保存。', '<a class="deck-button is-primary" href="/auth">登录 / 注册</a>'];
     } else if (filtered) {
       [title, text, actions] = ['没有找到匹配的卡组', `${state.q ? `“${D.esc(state.q)}”` : ''}按卡组名称和所含卡片名称搜索${state.portal ? '，并按推荐传送门筛选' : ''}。`, '<button type="button" class="deck-button" data-action="clear">清除搜索与筛选</button>'];
     } else if (state.tab === 'hot') {
-      [title, text] = ['还没有被收藏的卡组', '热门只统计真实收藏，收藏后会出现在这里。'];
+      [title, text] = ['还没有热门卡组', '热门只统计真实的点赞与收藏，有互动的卡组会出现在这里。'];
     } else if (state.tab === 'featured') {
       [title, text, actions] = ['暂无推荐卡组', '推荐由管理员挑选，可以先看看最新发布的卡组。', '<button type="button" class="deck-button" data-action="latest">查看最新</button>'];
     } else if (state.tab === 'favorites') {
       [title, text, actions] = ['还没有收藏卡组', '在卡组上点“收藏”，之后可以在这里找回。', '<button type="button" class="deck-button" data-action="latest">浏览卡组</button>'];
     } else if (state.tab === 'mine') {
-      [title, text] = ['还没有你的卡组', '草稿和已发布的卡组都会出现在这里。'];
+      [title, text, actions] = ['还没有你的卡组', '草稿和已发布的卡组都会出现在这里。', '<a class="deck-button is-primary" href="/lineup/new?type=deck">发布卡组</a>'];
     }
     return `<div class="deck-empty"><h3>${title}</h3><p>${text}</p><div class="deck-actions">${actions}</div></div>`;
   }
 
   function renderError(error) {
     els.status.textContent = '卡组加载失败';
+    els.count.textContent = '加载失败';
     els.pagination.replaceChildren();
     els.list.innerHTML = `<div class="deck-empty" role="alert"><h3>卡组加载失败</h3><p>${D.esc(error.message)}。搜索和筛选条件已保留。</p><div class="deck-actions"><button type="button" class="deck-button" data-action="retry">重新加载</button></div></div>`;
   }
@@ -213,42 +231,30 @@
     load();
   }
 
-  async function toggleFormation(control, deck) {
-    const slot = document.getElementById(`deck-formation-${deck.id}`);
-    const open = control.getAttribute('aria-expanded') !== 'true';
-    control.setAttribute('aria-expanded', String(open));
-    control.textContent = open ? '收起站位' : '展开站位';
-    slot.hidden = !open;
-    if (!open || state.formations.has(deck.id)) {
-      if (open) slot.innerHTML = D.board(state.formations.get(deck.id));
-      return;
-    }
-    slot.innerHTML = '<p>正在加载站位…</p>';
-    try {
-      const data = await D.api(`/api/orange-decks/${deck.id}/formation`);
-      state.formations.set(deck.id, data.formation);
-      if (control.getAttribute('aria-expanded') === 'true') slot.innerHTML = D.board(data.formation);
-    } catch (error) {
-      slot.innerHTML = `<p role="alert">站位加载失败：${D.esc(error.message)} <button type="button" class="deck-button is-quiet" data-action="formation-retry">重试</button></p>`;
-    }
-  }
-
-  async function toggleFavorite(control, deck) {
+  async function interact(control, deck, kind) {
     await ensureMe();
-    if (!state.user) { D.notify('登录后可以收藏卡组', 'info'); return; }
+    if (!state.user) { D.notify(kind === 'like' ? '登录后可以点赞卡组' : '登录后可以收藏卡组', 'info'); return; }
+    if (kind === 'like' && deck.is_liked_today) { D.notify('今天已经点赞过这套卡组', 'info'); return; }
     control.disabled = true;
     try {
-      const data = await D.api(`/api/orange-decks/${deck.id}/favorite`, { method: deck.is_favorited ? 'DELETE' : 'POST', csrf: state.csrf });
-      deck.is_favorited = data.favorited;
-      deck.favorite_count = data.favorite_count;
-      control.setAttribute('aria-pressed', String(data.favorited));
-      control.textContent = `${data.favorited ? '已收藏' : '收藏'} ${data.favorite_count}`;
-      D.notify(data.favorited ? '已收藏卡组' : '已取消收藏', 'success');
+      if (kind === 'like') {
+        const data = await D.api(`/api/orange-decks/${deck.id}/like`, { method: 'POST', csrf: state.csrf });
+        Object.assign(deck, { is_liked_today: true, like_count: data.like_count });
+        feedback(deck, 'like');
+      } else {
+        const data = await D.api(`/api/orange-decks/${deck.id}/favorite`, { method: deck.is_favorited ? 'DELETE' : 'POST', csrf: state.csrf });
+        Object.assign(deck, { is_favorited: data.favorited, favorite_count: data.favorite_count });
+        if (data.favorited) feedback(deck, 'favorite');
+      }
+      // Replace only this card's buttons so focus stays on the action that was used.
+      const node = els.list.querySelector(`[data-deck-id="${deck.id}"]`);
+      const fresh = document.createElement('div');
+      fresh.innerHTML = card(deck);
+      node.querySelector('.home-card-social').replaceWith(fresh.querySelector('.home-card-social'));
+      node.querySelector(`[data-action="${kind}"]`)?.focus({ preventScroll: true });
     } catch (error) {
       D.notify(error.message, 'error');
-    } finally {
       control.disabled = false;
-      control.focus({ preventScroll: true });
     }
   }
 
@@ -262,14 +268,16 @@
     if (action === 'retry') load();
     else if (action === 'clear') change({ q: '', portal: '', page: 1 });
     else if (action === 'latest') change({ tab: 'latest', page: 1 });
-    else if (action === 'formation' && deck) toggleFormation(target, deck);
-    else if (action === 'formation-retry' && deck) {
-      const opener = node.querySelector('[data-action="formation"]');
-      opener.setAttribute('aria-expanded', 'false');
-      toggleFormation(opener, deck);
-    } else if (action === 'favorite' && deck) toggleFavorite(target, deck);
+    else if ((action === 'like' || action === 'favorite') && deck) interact(target, deck, action);
+    else if (action === 'edit' && deck) location.href = `/orange-decks/${deck.id}/edit`;
+    else if (action === 'open' && deck) location.href = deck.detail_url;
     else if (action === 'share' && deck) {
-      D.copy(deck.share_text).then((ok) => D.notify(ok ? '已复制卡组文本与详情链接' : '复制失败，请打开详情页手动复制', ok ? 'success' : 'error'));
+      D.copy(deck.share_text).then((ok) => {
+        if (!ok) { D.notify('复制失败，请打开详情页手动复制', 'error'); return; }
+        feedback(deck, 'copy');
+        target.querySelector('.home-card-action-label').textContent = '已复制';
+        target.querySelector('[data-card-icon]').dataset.cardIcon = 'check';
+      });
     }
   });
   els.pagination.addEventListener('click', (event) => {
@@ -289,7 +297,39 @@
     next?.focus();
     next?.click();
   });
-  els.portal.addEventListener('change', () => change({ portal: els.portal.value, page: 1 }));
+  // Same dropdown as the lineup season filter.
+  const closePortalMenu = () => {
+    els.portalMenu.classList.add('hidden');
+    els.portalToggle.classList.remove('is-open');
+    els.portalToggle.setAttribute('aria-expanded', 'false');
+  };
+  els.portalToggle.addEventListener('click', (event) => {
+    event.stopPropagation();
+    const open = els.portalMenu.classList.contains('hidden');
+    els.portalMenu.classList.toggle('hidden', !open);
+    els.portalToggle.classList.toggle('is-open', open);
+    els.portalToggle.setAttribute('aria-expanded', String(open));
+    if (open) (els.portalMenu.querySelector('button.is-active') || els.portalMenu.querySelector('button[data-portal]'))?.focus();
+  });
+  els.portalMenu.addEventListener('click', (event) => {
+    const item = event.target.closest('button[data-portal]');
+    if (!item) return;
+    closePortalMenu();
+    els.portalToggle.focus();
+    if (item.dataset.portal !== state.portal) change({ portal: item.dataset.portal, page: 1 });
+  });
+  els.portalMenu.addEventListener('keydown', (event) => {
+    const items = [...els.portalMenu.querySelectorAll('button[data-portal]')];
+    const index = items.indexOf(document.activeElement);
+    if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+      event.preventDefault();
+      items[(index + (event.key === 'ArrowDown' ? 1 : items.length - 1)) % items.length].focus();
+    }
+  });
+  document.addEventListener('click', (event) => { if (!event.target.closest('#deckPortalWrap')) closePortalMenu(); });
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && !els.portalMenu.classList.contains('hidden')) { closePortalMenu(); els.portalToggle.focus(); }
+  });
   let timer, composing = false;
   const search = () => {
     clearTimeout(timer);

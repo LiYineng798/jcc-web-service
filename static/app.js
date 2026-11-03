@@ -106,6 +106,7 @@ let lastSearchSignature = '';
 let homeLoadGeneration = 0;
 let deferredLineupLoad = false;
 window.addEventListener('jcc:home-library', (event) => {
+  syncCreateLink();
   if (event.detail?.library !== 'lineups') return;
   updateTabIndicator();
   if (!deferredLineupLoad) return;
@@ -544,8 +545,7 @@ function renderAuth() {
       ? '保存、搜索、点赞和复制阵容码。收藏、个人中心和跨设备同步已开启。'
       : '保存、搜索、点赞和复制阵容码。登录后可收藏阵容并跨设备同步，登录后可查看我的收藏和我的阵容。';
   }
-  elements.createLineupLink.href = loggedIn ? '/lineup/new' : '/auth';
-  elements.createLineupLink.textContent = loggedIn ? '新增阵容' : '登录后新增阵容';
+  syncCreateLink();
   if (!loggedIn && (state.view === 'mine' || state.view === 'favorites')) {
     state.sort = 'live';
     state.view = 'live-comps';
@@ -553,6 +553,14 @@ function renderAuth() {
   }
   closeAccountMenu();
   syncActiveTab();
+}
+
+// The shared publish page opens on the type that matches the library being viewed.
+function syncCreateLink() {
+  const loggedIn = Boolean(state.user);
+  const decks = document.body.dataset.homeLibrary === 'decks';
+  elements.createLineupLink.href = loggedIn ? `/lineup/new${decks ? '?type=deck' : ''}` : '/auth';
+  elements.createLineupLink.textContent = `${loggedIn ? '' : '登录后'}${decks ? '发布卡组' : '新增阵容'}`;
 }
 
 function handleAccountToggle(event) {

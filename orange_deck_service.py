@@ -5,6 +5,7 @@ and its season boundary come from the creator surface. Decks keep their own tabl
 never counted as ordinary lineups.
 """
 import json
+from datetime import datetime
 from functools import lru_cache
 from pathlib import Path
 
@@ -26,12 +27,28 @@ LIMITS = {'name': 24, 'note': 300, 'key_rounds': 100, 'alternatives': 200}
 BOARD_SLOTS = 28
 MAX_ITEMS, MAX_AUGMENTS, MAX_TRAITS = 3, 6, 24
 TRAIT_STYLES = {'1', '2', '3', '4', 'unique'}
-HOT_RULE = '按收藏账号数排序：每个账号计 1 次，取消收藏即扣除；仅统计至少被收藏 1 次的公开卡组，同数按发布时间。'
-FORMATION_BOUNDARY = '羁绊为阵容模拟器按基础规则计算；时间卡片带来的额外羁绊、变身等效果不会自动计入。'
+HOT_RULE = '按真实互动排序：累计点赞数（每个账号每天对同一卡组计 1 次）加收藏账号数，取消收藏即扣除；只列出至少有 1 次互动的公开卡组，同分按发布时间。'
+DAILY_LIKE_LIMIT = 5
 OWNER_COLUMNS = ('u.username AS owner_username, u.nickname AS owner_nickname, u.role AS owner_role, '
                  'u.avatar_color AS owner_avatar_color, u.avatar_preset AS owner_avatar_preset, '
                  'u.avatar_expression AS owner_avatar_expression')
-FAVORITE_COUNTS = 'LEFT JOIN (SELECT deck_id, COUNT(*) AS c FROM orange_deck_favorites GROUP BY deck_id) fc ON fc.deck_id = d.id'
+FAVORITE_COUNTS = ('LEFT JOIN (SELECT deck_id, COUNT(*) AS c FROM orange_deck_favorites GROUP BY deck_id) fc ON fc.deck_id = d.id '
+                   'LEFT JOIN (SELECT deck_id, COUNT(*) AS c FROM orange_deck_likes GROUP BY deck_id) lc ON lc.deck_id = d.id')
+INTERACTION_SCORE = '(COALESCE(fc.c, 0) + COALESCE(lc.c, 0))'
+
+
+def today():
+    return datetime.now().strftime('%Y-%m-%d')
+
+
+def _viewer_columns(user):
+    """Counts plus the viewer's own favorite and today's like, in one query."""
+    counts = 'COALESCE(fc.c, 0) AS favorite_count, COALESCE(lc.c, 0) AS like_count'
+    if not user:
+        return f'{counts}, 0 AS is_favorited, 0 AS is_liked_today', []
+    return (f'{counts}, CASE WHEN EXISTS (SELECT 1 FROM orange_deck_favorites mf WHERE mf.deck_id = d.id AND mf.user_id = ?) THEN 1 ELSE 0 END AS is_favorited, '
+            'CASE WHEN EXISTS (SELECT 1 FROM orange_deck_likes ml WHERE ml.deck_id = d.id AND ml.user_id = ? AND ml.like_date = ?) THEN 1 ELSE 0 END AS is_liked_today',
+            [user['id'], user['id'], today()])
 
 
 class DeckError(Exception):
@@ -264,7 +281,7 @@ def resolve_formation(row):
     return {
         'available': True, 'season_id': season_id, 'season_name': season.get('display_name') or season_id,
         'cells': cells, 'traits': traits, 'augments': augments, 'unit_count': sum(1 for c in cells if c),
-        'issues': list(dict.fromkeys(issues)), 'boundary': FORMATION_BOUNDARY,
+        'issues': list(dict.fromkeys(issues)),
     }
 
 
@@ -366,6 +383,8 @@ def serialize(row, user, detail=False, share_base=None):
         },
         'favorite_count': int(row_value(row, 'favorite_count') or 0),
         'is_favorited': bool(row_value(row, 'is_favorited')),
+        'like_count': int(row_value(row, 'like_count') or 0),
+        'is_liked_today': bool(row_value(row, 'is_liked_today')),
         'featured': bool(row['featured']),
         'has_formation': bool(row['formation_json']),
         'created_at': row['created_at'], 'updated_at': row['updated_at'], 'published_at': row['published_at'],
@@ -407,11 +426,9 @@ def share_text(deck, url):
 # ---------------------------------------------------------------- reads
 
 def deck_row(deck_id, user=None):
-    params = [user['id']] if user else []
-    favorited = ('CASE WHEN EXISTS (SELECT 1 FROM orange_deck_favorites mf WHERE mf.deck_id = d.id AND mf.user_id = ?) THEN 1 ELSE 0 END'
-                 if user else '0')
+    columns, params = _viewer_columns(user)
     return get_db().execute(
-        f'''SELECT d.*, {OWNER_COLUMNS}, COALESCE(fc.c, 0) AS favorite_count, {favorited} AS is_favorited
+        f'''SELECT d.*, {OWNER_COLUMNS}, {columns}
             FROM orange_decks d JOIN users u ON u.id = d.user_id {FAVORITE_COUNTS} WHERE d.id = ?''',
         (*params, deck_id),
     ).fetchone()
@@ -451,7 +468,7 @@ def list_decks(user, tab='latest', query='', portal='', page=1, page_size=10, sh
     if tab == 'featured':
         clauses.append('d.featured = 1')
     if tab == 'hot':
-        clauses.append('COALESCE(fc.c, 0) > 0')
+        clauses.append(f'{INTERACTION_SCORE} > 0')
     if portal:
         clauses.append('d.portal_id = ?')
         params.append(portal)
@@ -467,7 +484,7 @@ def list_decks(user, tab='latest', query='', portal='', page=1, page_size=10, sh
         clauses.append('(' + ' OR '.join(search) + ')')
     order = {
         'latest': 'd.published_at DESC, d.id DESC',
-        'hot': 'COALESCE(fc.c, 0) DESC, d.published_at DESC, d.id DESC',
+        'hot': f'{INTERACTION_SCORE} DESC, d.published_at DESC, d.id DESC',
         'featured': 'd.featured_at DESC, d.id DESC',
         'favorites': 'mine.created_at DESC, d.id DESC',
         'mine': 'd.updated_at DESC, d.id DESC',
@@ -475,12 +492,10 @@ def list_decks(user, tab='latest', query='', portal='', page=1, page_size=10, sh
     base = f"FROM orange_decks d JOIN users u ON u.id = d.user_id {FAVORITE_COUNTS} {' '.join(joins)} WHERE {' AND '.join(clauses)}"
     db = get_db()
     total = db.execute(f'SELECT COUNT(*) AS total {base}', params).fetchone()['total']
-    favorited = ('CASE WHEN EXISTS (SELECT 1 FROM orange_deck_favorites mf WHERE mf.deck_id = d.id AND mf.user_id = ?) THEN 1 ELSE 0 END'
-                 if user else '0')
+    columns, viewer_params = _viewer_columns(user)
     rows = db.execute(
-        f'SELECT d.*, {OWNER_COLUMNS}, COALESCE(fc.c, 0) AS favorite_count, {favorited} AS is_favorited {base} '
-        f'ORDER BY {order} LIMIT ? OFFSET ?',
-        ([user['id']] if user else []) + params + [page_size, (page - 1) * page_size],
+        f'SELECT d.*, {OWNER_COLUMNS}, {columns} {base} ORDER BY {order} LIMIT ? OFFSET ?',
+        viewer_params + params + [page_size, (page - 1) * page_size],
     ).fetchall()
     return {
         'items': [serialize(row, user, share_base=share_base) for row in rows], 'total': total, 'page': page,
@@ -616,6 +631,39 @@ def favorite(user, deck_id, on):
     return {'favorited': on, 'favorite_count': count}
 
 
+def like(user, deck_id):
+    """Mirror lineup likes: once per deck per day, five deck likes per account per day."""
+    row = get_visible(deck_id, user)
+    if row['status'] != 'published':
+        raise DeckError('只能点赞公开的卡组', 409)
+    db, day = get_db(), today()
+    used = db.execute('SELECT COUNT(*) AS c FROM orange_deck_likes WHERE user_id = ? AND like_date = ?', (user['id'], day)).fetchone()['c']
+    if used >= DAILY_LIKE_LIMIT:
+        raise DeckError('今天的卡组点赞次数已用完', 429)
+    cursor = db.execute('INSERT INTO orange_deck_likes (user_id, deck_id, like_date, created_at) VALUES (?, ?, ?, ?) '
+                        'ON CONFLICT (user_id, deck_id, like_date) DO NOTHING', (user['id'], deck_id, day, now_text()))
+    if not cursor.rowcount:
+        db.rollback()
+        raise DeckError('今天已经点赞过该卡组', 409)
+    db.commit()
+    count = db.execute('SELECT COUNT(*) AS c FROM orange_deck_likes WHERE deck_id = ?', (deck_id,)).fetchone()['c']
+    return {'liked_today': True, 'like_count': count}
+
+
+def received_summary(user_id):
+    """Personal-centre figures for the user's own decks, kept apart from lineup totals."""
+    db = get_db()
+    one = lambda sql: db.execute(sql, (user_id,)).fetchone()['c']
+    return {
+        'decks': one("SELECT COUNT(*) AS c FROM orange_decks WHERE user_id = ? AND status != 'deleted'"),
+        'published_decks': one("SELECT COUNT(*) AS c FROM orange_decks WHERE user_id = ? AND status = 'published'"),
+        'draft_decks': one("SELECT COUNT(*) AS c FROM orange_decks WHERE user_id = ? AND status = 'draft'"),
+        'hidden_decks': one("SELECT COUNT(*) AS c FROM orange_decks WHERE user_id = ? AND status = 'hidden'"),
+        'received_likes': one('SELECT COUNT(*) AS c FROM orange_deck_likes l JOIN orange_decks d ON d.id = l.deck_id WHERE d.user_id = ?'),
+        'received_favorites': one('SELECT COUNT(*) AS c FROM orange_deck_favorites f JOIN orange_decks d ON d.id = f.deck_id WHERE d.user_id = ?'),
+    }
+
+
 def fork_deck(user, deck_id):
     """Create a new draft for the current user; the source deck and existing drafts stay untouched."""
     row = get_visible(deck_id, user)
@@ -672,7 +720,7 @@ def admin_list(admin, status='all', query='', page=1, page_size=20):
     base = f"FROM orange_decks d JOIN users u ON u.id = d.user_id {FAVORITE_COUNTS} WHERE {' AND '.join(clauses)}"
     db = get_db()
     total = db.execute(f'SELECT COUNT(*) AS total {base}', params).fetchone()['total']
-    rows = db.execute(f'SELECT d.*, {OWNER_COLUMNS}, COALESCE(fc.c, 0) AS favorite_count, 0 AS is_favorited {base} '
+    rows = db.execute(f'SELECT d.*, {OWNER_COLUMNS}, {_viewer_columns(None)[0]} {base} '
                       'ORDER BY d.updated_at DESC, d.id DESC LIMIT ? OFFSET ?', params + [page_size, (page - 1) * page_size]).fetchall()
     counts = {row['status']: row['c'] for row in db.execute(
         "SELECT status, COUNT(*) AS c FROM orange_decks WHERE status IN ('published', 'hidden') GROUP BY status").fetchall()}

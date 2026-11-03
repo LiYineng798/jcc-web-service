@@ -16,6 +16,7 @@ from orange_deck_service import (
     favorite,
     fork_deck,
     get_visible,
+    like,
     list_decks,
     resolve_formation,
     serialize,
@@ -98,6 +99,14 @@ def favorite_api(deck_id):
     return _private(jsonify(favorite(user, deck_id, request.method == 'POST')))
 
 
+@orange_decks_bp.post('/api/orange-decks/<int:deck_id>/like')
+def like_api(deck_id):
+    user, error = login_required()
+    if error:
+        return error
+    return _private(jsonify(like(user, deck_id)), 201)
+
+
 @orange_decks_bp.post('/api/orange-decks/<int:deck_id>/fork')
 def fork_api(deck_id):
     user, error = login_required()
@@ -152,19 +161,16 @@ def _editor_page(deck_id):
     user, error = login_required()
     if error:
         return redirect('/auth')
-    if deck_id is not None:
-        try:
-            row = get_visible(deck_id, user)
-        except DeckError:
-            abort(404)
-        if row['user_id'] != user['id']:
-            abort(403)
-    path = f'/orange-decks/{deck_id}/edit' if deck_id else '/orange-decks/new'
-    config = creator_config()
+    try:
+        row = get_visible(deck_id, user)
+    except DeckError:
+        abort(404)
+    if row['user_id'] != user['id']:
+        abort(403)
     response = tracked_template_response(
-        'orange_deck_form.html', 'orange_deck_editor', deck_id=deck_id or '', creator_data=config, limits=LIMITS,
-        seo=make_seo(title=('编辑卡组' if deck_id else '发布卡组') + ' - 金铲铲阵容库', description='发布大橘大利三卡组合。',
-                     path=path, noindex=True),
+        'orange_deck_form.html', 'orange_deck_editor', deck_id=deck_id, creator_data=creator_config(), limits=LIMITS,
+        seo=make_seo(title='编辑卡组 - 金铲铲阵容库', description='编辑大橘大利三卡组合。',
+                     path=f'/orange-decks/{deck_id}/edit', noindex=True),
     )
     response.headers['Cache-Control'] = 'private, no-store'
     return response
@@ -172,7 +178,8 @@ def _editor_page(deck_id):
 
 @orange_decks_bp.get('/orange-decks/new')
 def create_page():
-    return _editor_page(None)
+    # Publishing lives on the shared page; keep the poster-tool hand-off parameter.
+    return redirect('/lineup/new?type=deck' + ('&from=creator' if request.args.get('from') == 'creator' else ''))
 
 
 @orange_decks_bp.get('/orange-decks/<int:deck_id>/edit')

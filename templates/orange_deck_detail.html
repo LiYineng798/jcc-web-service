@@ -3,34 +3,37 @@
 {% from "theme_toggle.html" import theme_toggle %}
 {% from "toolbox.html" import toolbox_menu %}
 {% from "orange_deck_macros.html" import card_full, board %}
+{% macro icon(name) -%}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{ {'heart':'M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z','bookmark':'M5 3h14v18l-7-4-7 4V3Z'}[name] }}"/></svg>{%- endmacro %}
 <html lang="zh-CN">
   <head>
 {{ seo_head(seo) }}
     <link rel="stylesheet" href="{{ static_v('toolbox.css') }}" />
     <link rel="stylesheet" href="{{ static_v('avatar.css') }}" />
+    <link rel="stylesheet" href="{{ static_v('fortune-card-frame.css') }}" />
     <link rel="stylesheet" href="{{ static_v('orange-decks.css') }}" />
     <script src="{{ static_v('toolbox.js') }}" defer></script>
     <script src="{{ static_v('theme-toggle.js') }}" defer></script>
     <script src="{{ static_v('avatar-lab/app.js') }}" defer></script>
   </head>
   <body class="deck-page">
+    {% include 'fortune_frame_materials.html' %}
     <div class="page-shell" data-deck-root>
       <nav class="deck-page-nav" aria-label="页面工具">
         <a href="/?library=decks">← 返回卡组库</a>
         <div class="nav-actions">{{ toolbox_menu(False, simulator_enabled) }}{{ theme_toggle('nav-icon-button') }}</div>
       </nav>
       <header class="deck-detail-head">
-        <p class="deck-kicker">英雄联盟传奇 · 大橘大利卡组{% if deck.featured %} · 管理员推荐{% endif %}</p>
+        <p class="deck-kicker">大橘大利卡组{% if deck.featured %} · 管理员推荐{% endif %}</p>
         <h1>{{ deck.name }}</h1>
         <p class="deck-meta">
-          <span>作者 {% if deck.author.profile_url %}<a href="{{ deck.author.profile_url }}">{{ deck.author.nickname }}</a>{% else %}{{ deck.author.nickname }}{% endif %}</span>
+          {% if deck.author.profile_url %}<a class="deck-detail-author" href="{{ deck.author.profile_url }}">{% else %}<span class="deck-detail-author">{% endif %}<span class="deck-avatar-fallback" id="deckAuthorAvatar" aria-hidden="true">{{ deck.author.nickname[:1] }}</span><span>{{ deck.author.nickname }}</span>{% if deck.author.profile_url %}</a>{% else %}</span>{% endif %}
           {% if deck.published_at %}<span>发布于 {{ deck.published_at[:16] }}</span>{% endif %}
-          <span>更新于 {{ deck.updated_at[:16] }}</span>
+          <span>点赞 <b id="deckLikeCount">{{ deck.like_count }}</b></span>
           <span>收藏 <b id="deckFavoriteCount">{{ deck.favorite_count }}</b></span>
         </p>
       </header>
-      {% if deck.status == 'hidden' %}<p class="deck-notice" role="status">此卡组已被管理员隐藏，仅作者和管理员可见，不能分享或作为基础创建。{% if deck.hidden_reason %}原因：{{ deck.hidden_reason }}{% endif %}</p>
-      {% elif deck.status == 'draft' %}<p class="deck-notice" role="status">这是草稿，仅你自己可见。发布后才会出现在卡组库并可分享。</p>{% endif %}
+      {% if deck.status == 'hidden' %}<p class="deck-notice" role="status">此卡组已被管理员隐藏，仅作者和管理员可见。{% if deck.hidden_reason %}原因：{{ deck.hidden_reason }}{% endif %}</p>
+      {% elif deck.status == 'draft' %}<p class="deck-notice" role="status">这是草稿，仅你自己可见。发布后才会出现在卡组库。</p>{% endif %}
       {% if deck.compat.issues %}<div class="deck-issues deck-section" role="note"><strong>资料变化</strong><ul>{% for issue in deck.compat.issues %}<li>{{ issue }}</li>{% endfor %}</ul></div>{% endif %}
       <div class="deck-detail-grid">
         <main>
@@ -40,7 +43,7 @@
           </section>
           {% if formation %}
           <section class="deck-section" aria-labelledby="deckFormationTitle">
-            <h2 id="deckFormationTitle">阵容站位{% if formation.available %} <small class="deck-tier">{{ formation.season_name }} · {{ formation.unit_count }} 个单位</small>{% endif %}</h2>
+            <h2 id="deckFormationTitle">阵容站位{% if formation.available %}<small>{{ formation.unit_count }} 个单位</small>{% endif %}</h2>
             {{ board(formation) }}
           </section>
           {% endif %}
@@ -57,7 +60,7 @@
           <section class="deck-section" aria-labelledby="deckPortalTitle">
             <h2 id="deckPortalTitle">传送门与能量</h2>
             <dl class="deck-facts">
-              <div><dt>推荐传送门</dt><dd>{{ deck.portal.name }}</dd></div>
+              <div><dt>推荐传送门</dt><dd class="deck-portal" data-portal="{{ deck.portal.id }}">{{ deck.portal.name }}</dd></div>
               <div><dt>能量上限</dt><dd>≤ {{ deck.portal.energy_limit }}</dd></div>
               <div><dt>入场</dt><dd>{{ '{:,}'.format(deck.portal.entry_fee) }} 金橘币</dd></div>
               <div><dt>失败</dt><dd>{{ deck.portal.loss }}</dd></div>
@@ -67,18 +70,15 @@
             <div class="deck-energy-bar" aria-hidden="true">{% for index in range(15) %}<i{% if index < fills|length %} data-tier="{{ fills[index] }}"{% endif %}{% if index >= deck.energy_limit %} class="is-beyond"{% endif %}></i>{% endfor %}</div>
             <p class="deck-boundary">{% if deck.fits %}符合{{ deck.portal.name }}准入条件。{% elif deck.cards|select|list|length < 3 %}卡组未选满三张卡片。{% else %}按当前资料计算已超出上限。{% endif %}卡片能量等于品阶：基础 1 至传说 5。</p>
           </section>
+          {% if deck.status == 'published' or deck.can_edit %}
           <section class="deck-section deck-side-actions" id="deckActions" aria-label="卡组操作">
-            {% if deck.status == 'published' %}<button type="button" class="deck-button" data-action="favorite" aria-pressed="{{ 'true' if deck.is_favorited else 'false' }}" disabled>{{ '已收藏' if deck.is_favorited else '收藏' }}</button>{% endif %}
-            {% if deck.can_share %}<button type="button" class="deck-button" data-action="copy-text" disabled>复制卡组文本</button>
-            <button type="button" class="deck-button" data-action="copy-link" disabled>复制详情链接</button>{% endif %}
-            {% if deck.can_fork %}<button type="button" class="deck-button" data-action="fork" disabled>以此为基础创建</button>{% endif %}
-            {% if deck.can_export %}<a class="deck-button" href="/tools/orange-fortune-creator?deck={{ deck.id }}">导出海报{% if deck.has_formation %}（含站位）{% endif %}</a>{% endif %}
+            {% if deck.status == 'published' %}<button type="button" class="deck-button" data-action="like" aria-pressed="{{ 'true' if deck.is_liked_today else 'false' }}" disabled>{{ icon('heart') }}<span>{{ '今日已赞' if deck.is_liked_today else '点赞' }}</span></button>
+            <button type="button" class="deck-button" data-action="favorite" aria-pressed="{{ 'true' if deck.is_favorited else 'false' }}" disabled>{{ icon('bookmark') }}<span>{{ '已收藏' if deck.is_favorited else '收藏' }}</span></button>{% endif %}
             {% if deck.can_edit %}<a class="deck-button" href="/orange-decks/{{ deck.id }}/edit">编辑卡组</a>
             <button type="button" class="deck-button is-danger" data-action="delete" disabled>删除卡组</button>{% endif %}
             <p class="deck-status-line" id="deckActionStatus" role="status" aria-live="polite"></p>
-            {% if deck.can_share %}<p class="deck-boundary">复制的文本和链接用于交流分享，不是游戏内可直接导入的卡组码。</p>{% endif %}
-            <noscript><p class="deck-boundary">收藏、复制和创建需要启用 JavaScript。</p></noscript>
           </section>
+          {% endif %}
         </aside>
       </div>
     </div>

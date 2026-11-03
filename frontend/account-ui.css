@@ -1310,3 +1310,16 @@ body.account-profile-page {
     scroll-behavior: auto !important;
   }
 }
+/* Deck cards: portal names use the deck library's risk colours (stable, volatile, unknown). */
+#accountApp .pf-portal {
+  font-size: 11px;
+  font-weight: 650;
+}
+#accountApp .pf-portal-stable { color: #2f8a57; }
+#accountApp .pf-portal-volatile { color: #b26b12; }
+#accountApp .pf-portal-unknown { color: #b8323f; }
+:root[data-theme="dark"] #accountApp .pf-portal-stable { color: #6fcf97; }
+:root[data-theme="dark"] #accountApp .pf-portal-volatile { color: #f0b35a; }
+:root[data-theme="dark"] #accountApp .pf-portal-unknown { color: #f2848c; }
+#accountApp .pf-status-published { color: var(--pf-green); }
+#accountApp .pf-status-hidden { color: var(--accent-strong); }

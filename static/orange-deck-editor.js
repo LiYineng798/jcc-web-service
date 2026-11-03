@@ -14,7 +14,8 @@
   const state = { version: null, status: 'new', name: '', portal: config.portals[0].id, cards: [null, null, null], note: '', key_rounds: '',
     alternatives: '', hiddenReason: '', formation: null, formationDirty: false, formationLocked: false, dirty: false, busy: false };
   let session = { csrf: '' }, activeSlot = 0;
-  D.bindTheme();
+  // On the shared publish page the lineup editor already owns the theme toggle.
+  if (!document.getElementById('editorForm')) D.bindTheme();
 
   const notice = (lines) => {
     const box = $('deckEditorNotice');
@@ -44,7 +45,7 @@
     const d = summary();
     $('deckSlots').innerHTML = d.selected.map((card, index) => {
       const label = card ? `第 ${index + 1} 张：${card.name}，${card.tier_name}，能量 ${card.energy}。点击更换` : `选择第 ${index + 1} 张时间卡片`;
-      return `<div class="deck-slot${card ? ' is-filled' : ''}"><button type="button" class="deck-thumb" data-slot="${index}" aria-haspopup="dialog" aria-label="${D.esc(label)}" data-tier="${card?.tier || ''}">${card ? D.art({ ...card, status: 'ok' }) : '<span class="deck-slot-empty">＋ 选择卡片</span>'}<span class="deck-thumb-name">${card ? D.esc(card.name) : `第 ${index + 1} 张`}</span><small>${card ? `${D.esc(card.tier_name)} · 能量 ${card.energy}` : '未选择'}</small></button>${card ? `<button type="button" class="deck-slot-remove" data-remove="${index}" aria-label="移除${D.esc(card.name)}">×</button>` : ''}</div>`;
+      return `<div class="deck-slot${card ? ' is-filled' : ''}"><button type="button" class="deck-thumb" data-slot="${index}" aria-haspopup="dialog" aria-label="${D.esc(label)}" data-tier="${card?.tier || ''}">${card ? D.art({ ...card, status: 'ok' }) : '<span class="deck-frame-empty">＋ 选卡</span>'}<span class="deck-thumb-name">${card ? D.esc(card.name) : `第 ${index + 1} 张`}</span><small>${card ? `${D.esc(card.tier_name)} · 能量 ${card.energy}` : '未选择'}</small></button>${card ? `<button type="button" class="deck-slot-remove" data-remove="${index}" aria-label="移除${D.esc(card.name)}">×</button>` : ''}</div>`;
     }).join('');
     const energy = $('deckEnergy');
     energy.classList.toggle('is-over', d.over);
@@ -82,7 +83,7 @@
 
   function viewFromMessage(message, payload) {
     return {
-      available: true, issues: [], augments: [], boundary: '羁绊为阵容模拟器按基础规则计算；时间卡片带来的额外羁绊、变身等效果不会自动计入。',
+      available: true, issues: [], augments: [],
       unit_count: message.board.filter(Boolean).length,
       cells: message.board.map((slot, index) => slot && { name: slot.name, cost: slot.cost, icon: slot.icon, star: payload.board[index]?.star || 1,
         items: slot.items.map((item) => ({ name: item.name, icon: item.icon })) }),
@@ -362,12 +363,14 @@
       const params = new URLSearchParams(location.search);
       let draft = null;
       try { draft = JSON.parse(localStorage.getItem(DRAFT_KEY) || 'null'); } catch { /* No stored draft. */ }
-      if (params.get('from') === 'creator') {
-        if (draft && !confirm('当前浏览器里还有一份未提交的卡组。用海报创作者草稿替换它吗？选择“取消”将继续编辑原来的内容。')) params.delete('from');
+      let fromCreator = params.get('from') === 'creator';
+      if (fromCreator) {
+        if (draft && !confirm('当前浏览器里还有一份未提交的卡组。用海报创作者草稿替换它吗？选择“取消”将继续编辑原来的内容。')) fromCreator = false;
         else { try { localStorage.removeItem(DRAFT_KEY); } catch { /* Nothing stored. */ } draft = null; }
       }
-      history.replaceState(history.state, '', location.pathname);
-      if (params.get('from') === 'creator') importCreator(false);
+      params.delete('from');
+      history.replaceState(history.state, '', `${location.pathname}${params.size ? `?${params}` : ''}`);
+      if (fromCreator) importCreator(false);
       else if (draft?.version === 1) {
         applyDeck(draft);
         if (draft.formation?.payload?.season === config.season_id) state.formation = draft.formation;

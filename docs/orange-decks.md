@@ -1,8 +1,10 @@
 # 大橘大利卡组库
 
-首页的「卡组库」与「阵容库」同级，展示用户发布的三卡组合，可附带阵容站位。
+首页的「卡组库」与「阵容库」同级，切换按钮位于两个列表面板的标题位置，展示用户发布的三卡组合，可附带阵容站位。
 URL 状态为 `/?library=decks&tab=&portal=&q=&page=`，支持直接链接、刷新与前进后退；`/` 仍是阵容库。
-详情页 `/orange-decks/<id>` 服务端渲染完整内容，编辑页为 `/orange-decks/new` 与 `/orange-decks/<id>/edit`（需登录，noindex）。
+发布与普通阵容共用 `/lineup/new`：页内按钮切换「阵容码 / 大橘大利卡组」，`?type=deck` 直接打开卡组表单，
+`/orange-decks/new` 重定向至此。编辑仍按类型分开：`/lineup/<id>/edit` 与 `/orange-decks/<id>/edit`（需登录，noindex）。
+详情页 `/orange-decks/<id>` 服务端渲染完整内容。
 
 ## 代码入口
 
@@ -11,14 +13,16 @@ URL 状态为 `/?library=decks&tab=&portal=&q=&page=`，支持直接链接、刷
 | 路由（身份、参数、响应） | `orange_decks.py` |
 | 规则、序列化、可见性、后台操作 | `orange_deck_service.py` |
 | SQLite 结构 | `orange_deck_schema.py`；PostgreSQL 为 DB 仓库 `0025_orange_decks.sql` |
-| 首页列表 | `templates/index.html`、`static/orange-deck-library.js` |
-| 详情 / 编辑 | `orange_deck_detail.html`、`orange_deck_form.html`、`orange_deck_macros.html`、`orange-deck-detail.js`、`orange-deck-editor.js` |
-| 共用渲染 | `static/orange-deck-core.js`、`static/orange-decks.css`（与 `orange_deck_macros.html` 保持一致） |
+| 首页列表 | `templates/index.html`、`static/orange-deck-library.js`；卡片沿用 `home-lineup-card.css` 外壳与图标增强 |
+| 发布 / 编辑 | `lineup_form.html`（含切换与 `orange_deck_fields.html`）、`orange_deck_form.html`、`publish.js/css`、`orange-deck-editor.js` |
+| 详情 | `orange_deck_detail.html`、`orange_deck_macros.html`、`orange-deck-detail.js` |
+| 共用渲染 | `static/orange-deck-core.js`、`static/orange-decks.css`（与 `orange_deck_macros.html` 保持一致）；卡面复用图鉴的 `fortune-card-frame.css` 与包边模板 |
+| 个人中心 | `frontend/components/ui/bento-card.tsx`：概览分别统计阵容码与卡组，「我的阵容 / 我的收藏」可切换卡组 |
 | 后台 | `static/admin/orange-decks.js`，「内容与用户 → 卡组库」 |
 
 ## 数据与规则
 
-`orange_decks` 与 `orange_deck_favorites` 独立于普通阵容，不进入阵容数量、评分、排行榜或实时榜单。
+`orange_decks`、`orange_deck_favorites`、`orange_deck_likes` 独立于普通阵容，不进入阵容数量、评分、排行榜或实时榜单。
 三张卡分列保存（`card_id_1..3`），不写入任何阵容码字段。
 
 - 品阶、能量、传送门上限复用 `orange_fortune_service` 的 `TIERS`、`PORTALS`、`DECK_SIZE`；`energy` 由服务端按资料计算后保存。
@@ -39,14 +43,16 @@ URL 状态为 `/?library=decks&tab=&portal=&q=&page=`，支持直接链接、刷
 - 服务端只接受创作者入口当前默认且公开的赛季；弈子（含 `~choice-` 选择形态）、装备、强化符文须存在于该赛季资料。
 - 星级（1–3）由卡组编辑页设置并随 `board[].star` 保存；模拟器本身不处理星级，重新编辑时按弈子出现顺序保留。
 - 羁绊保存模拟器计算的结果（羁绊 ID、数量、档位），名称和图标在展示时按 ID 从资料读取；资料版本变化时标注“为保存时的计算结果”。
-  卡片带来的额外羁绊、变身等不自动计算，页面以固定说明标注边界。
+  卡片带来的额外羁绊、变身等不自动计算；该说明只在编辑页提示，详情页不重复展示。
+- 详情页棋盘复用模拟器的蜂窝几何：每行 7 格，第 2、4 行右移半格，格高为宽的 1.14 倍，行距为格高的 0.78 倍。
 - 创作者赛季被隐藏或切换后，旧阵容保留但不显示站位、不可在编辑器修改；作者可以移除后重新配置。
-- 首页列表只在点击“展开站位”时请求 `/api/orange-decks/<id>/formation`，不为每条记录创建模拟器或 iframe。
+- 首页列表不展示站位与搭配说明，详情页服务端渲染站位；编辑页预览按需请求 `/api/orange-decks/<id>/formation`，不为列表创建模拟器或 iframe。
 
 ## 列表、互动与可见性
 
 - 搜索匹配卡组名称和所含卡片的当前名称；传送门为精确筛选。
-- 热门：按收藏账号数排序（每账号 1 次，取消即扣除），只列至少被收藏 1 次的公开卡组，同数按发布时间。
+- 点赞沿用普通阵容规则：同一账号对同一卡组每天 1 次、每天最多 5 次卡组点赞，累计计数；只能点赞公开卡组。
+- 热门：按累计点赞数加收藏账号数排序（取消收藏即扣除），只列至少有 1 次互动的公开卡组，同分按发布时间。
 - 推荐：管理员设置，按推荐时间排列；隐藏或删除会同时清除推荐。
 - 收藏 POST/DELETE 幂等；只能收藏公开卡组，取消收藏总是允许。
 - 同一可见性规则用于详情、站位、搜索、分享、“以此为基础创建”和导出海报；派生入口只对公开卡组或作者自己的草稿开放，
@@ -54,9 +60,10 @@ URL 状态为 `/?library=decks&tab=&portal=&q=&page=`，支持直接链接、刷
 
 ## 分享与海报
 
-- 复制文本包含卡组名称、三张卡名（品阶·能量）、推荐传送门、能量与详情链接；页面注明它不是游戏内可导入的卡组码。
-- “导出海报”打开 `/tools/orange-fortune-creator?deck=<id>`：纯卡组进入卡组推荐版，带站位进入攻略版。
-  导入只在本页编辑，不读取也不改写 `jcc-orange-creator-v1` 与 `jcc-orange-formation-v1:*`，页头提供返回原草稿的链接。
+- 列表的“分享”复制卡组名称、三张卡名（品阶·能量）、推荐传送门、能量与详情链接；它不是游戏内可导入的卡组码。
+- 详情页只保留点赞、收藏与作者的编辑/删除。`/api/orange-decks/<id>/fork`、`/export` 与创作者工具的
+  `?deck=<id>` 导入仍保留在服务端与海报工具中，目前页面不再提供入口。
+- 海报导入只在本页编辑，不读取也不改写 `jcc-orange-creator-v1` 与 `jcc-orange-formation-v1:*`，页头提供返回原草稿的链接。
 - 反向入口：创作者页“发布到卡组库”打开 `/orange-decks/new?from=creator`，只读两个草稿键；编辑页未提交的新卡组暂存在
   `jcc-orange-deck-draft-v1`，替换前会确认。图鉴卡片详情可跳转到含该卡的卡组搜索。
 

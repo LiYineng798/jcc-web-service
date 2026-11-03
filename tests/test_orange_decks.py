@@ -111,7 +111,6 @@ def test_formation_is_stored_structured_restored_and_reedited(users):
     assert view['available'] and view['unit_count'] == 2
     assert view['cells'][21]['name'] == '佛耶戈' and view['cells'][21]['star'] == 2 and view['cells'][21]['items'][0]['name'] == '无尽之刃'
     assert view['traits'] == [{'name': '德玛西亚', 'count': 1, 'icon': view['traits'][0]['icon'], 'frame': '/static/tools/lineup-simulator/ui/1.svg'}]
-    assert '额外羁绊' in view['boundary']
     url = f"/api/orange-decks/{deck['id']}"
     # Omitting the formation keeps it; a new payload replaces it; null removes it.
     kept = owner.put(url, json={**deck_body(name='保留站位'), 'version': 1}, headers=auth_headers(owner)).get_json()
@@ -169,7 +168,7 @@ def test_search_filters_tabs_and_favorites(users):
     assert page['total'] == 2 and page['total_pages'] == 2 and names_of(page) == ['速攻稳定门']
     # Hot uses real favorites only, one per account; favoriting is idempotent.
     hot = guest.get('/api/orange-decks?tab=hot').get_json()
-    assert hot['items'] == [] and '每个账号计 1 次' in hot['ranking_rule']
+    assert hot['items'] == [] and '点赞数' in hot['ranking_rule'] and '收藏账号数' in hot['ranking_rule']
     for client in (other, other, admin):
         assert client.post(f"/api/orange-decks/{fast['id']}/favorite", headers=auth_headers(client)).status_code == 200
     assert other.post(f"/api/orange-decks/{legend['id']}/favorite", headers=auth_headers(other)).get_json() == {'favorited': True, 'favorite_count': 1}
@@ -247,8 +246,11 @@ def test_detail_page_share_text_seo_and_sitemap(users):
     draft = create(owner, action='draft', name='私人草稿').get_json()
     html = guest.get(f"/orange-decks/{deck['id']}").get_data(as_text=True)
     for text in ['轻装稳定门', '利滚利', '自选神器', '幸运宝箱堆 II', '未知传送门', '2,000 金橘币', '前期稳血', '替代卡建议',
-                 'deck-board', '佛耶戈', '额外羁绊', '不是游戏内可直接导入']:
+                 'deck-board', '佛耶戈', 'fortune-card-bezel', 'data-portal="unknown"', 'data-action="like"', 'data-action="favorite"']:
         assert text in html, text
+    # Copying, forking and poster export are no longer offered on the detail page.
+    for text in ['copy-text', 'copy-link', 'data-action="fork"', 'orange-fortune-creator?deck=', '额外羁绊']:
+        assert text not in html, text
     assert 'noindex' not in html and '"@type": "BreadcrumbList"' in html.replace('"@type":"BreadcrumbList"', '"@type": "BreadcrumbList"')
     detail = guest.get(f"/api/orange-decks/{deck['id']}").get_json()
     lines = detail['share_text'].split('\n')
@@ -261,7 +263,9 @@ def test_detail_page_share_text_seo_and_sitemap(users):
     assert 'share_text' not in owner.get(f"/api/orange-decks/{draft['id']}").get_json()
     sitemap = guest.get('/sitemap.xml').get_data(as_text=True)
     assert f"/orange-decks/{deck['id']}" in sitemap and f"/orange-decks/{draft['id']}" not in sitemap
-    assert guest.get('/orange-decks/new').headers['Location'].endswith('/auth')
+    assert guest.get('/orange-decks/new').headers['Location'].endswith('/lineup/new?type=deck')
+    assert guest.get('/orange-decks/new?from=creator').headers['Location'].endswith('/lineup/new?type=deck&from=creator')
+    assert guest.get(f"/orange-decks/{deck['id']}/edit").headers['Location'].endswith('/auth')
     editor = owner.get(f"/orange-decks/{deck['id']}/edit")
     assert editor.status_code == 200 and 'noindex' in editor.get_data(as_text=True)
     assert other.get(f"/orange-decks/{deck['id']}/edit").status_code == 403
@@ -384,3 +388,62 @@ def test_creation_is_rate_limited(users, monkeypatch):
     monkeypatch.setattr(orange_deck_service, 'hit_limit', lambda *args: True)
     response = create(owner)
     assert response.status_code == 429
+
+
+def test_likes_mirror_lineup_rules_and_feed_hot_ranking(users, monkeypatch):
+    owner, other, admin, guest = users
+    first = create(owner, name='甲').get_json()
+    second = create(owner, name='乙', cards=LEGENDS, portal='unknown').get_json()
+    draft = create(owner, action='draft').get_json()
+    url = f"/api/orange-decks/{first['id']}/like"
+    assert guest.post(url).status_code == 401
+    assert other.post(url).status_code == 403  # CSRF
+    assert other.post(url, headers=auth_headers(other)).get_json() == {'liked_today': True, 'like_count': 1}
+    again = other.post(url, headers=auth_headers(other))
+    assert again.status_code == 409 and '今天已经点赞' in again.get_json()['error']
+    assert owner.post(f"/api/orange-decks/{draft['id']}/like", headers=auth_headers(owner)).status_code == 409
+    assert admin.post(url, headers=auth_headers(admin)).status_code == 201
+    view = other.get(f"/api/orange-decks/{first['id']}").get_json()
+    assert view['like_count'] == 2 and view['is_liked_today'] is True
+    assert guest.get(f"/api/orange-decks/{first['id']}").get_json()['is_liked_today'] is False
+    # A new day allows another like; the daily cap is per account.
+    monkeypatch.setattr(orange_deck_service, 'today', lambda: '2099-01-01')
+    assert other.post(url, headers=auth_headers(other)).status_code == 201
+    monkeypatch.setattr(orange_deck_service, 'DAILY_LIKE_LIMIT', 1)
+    capped = other.post(f"/api/orange-decks/{second['id']}/like", headers=auth_headers(other))
+    assert capped.status_code == 429
+    # Hot = likes + favorites; the favorite-only deck ranks below the liked one.
+    monkeypatch.setattr(orange_deck_service, 'DAILY_LIKE_LIMIT', 5)
+    other.post(f"/api/orange-decks/{second['id']}/favorite", headers=auth_headers(other))
+    hot = guest.get('/api/orange-decks?tab=hot').get_json()['items']
+    assert [(d['name'], d['like_count'], d['favorite_count']) for d in hot] == [('甲', 3, 0), ('乙', 0, 1)]
+    assert guest.get('/api/home-stats').get_json()['total_public_lineups'] == 0
+
+
+def test_dashboard_reports_deck_figures_separately(users):
+    owner, other, admin, guest = users
+    deck = create(owner).get_json()
+    create(owner, action='draft')
+    other.post(f"/api/orange-decks/{deck['id']}/like", headers=auth_headers(other))
+    other.post(f"/api/orange-decks/{deck['id']}/favorite", headers=auth_headers(other))
+    data = owner.get('/api/me/dashboard').get_json()
+    assert data['received_likes'] == 0 and data['received_favorites'] == 0 and data['published_lineups'] == 0
+    assert data['decks'] == {'decks': 2, 'published_decks': 1, 'draft_decks': 1, 'hidden_decks': 0,
+                             'received_likes': 1, 'received_favorites': 1}
+
+
+def test_publish_page_offers_lineups_and_decks(users):
+    owner, other, admin, guest = users
+    html = owner.get('/lineup/new').get_data(as_text=True)
+    assert 'id="editorForm"' in html and 'id="deckForm"' in html and 'id="publishTabDeck"' in html
+    assert 'id="publishDeck" role="tabpanel" aria-labelledby="publishTabDeck" hidden' in html
+    deck_tab = owner.get('/lineup/new?type=deck').get_data(as_text=True)
+    assert 'id="publishLineup" role="tabpanel" aria-labelledby="publishTabLineup" hidden' in deck_tab
+    assert 'id="deckEditorConfig"' in deck_tab and 'bezel-5' in deck_tab
+    # Editing stays specific to the content type.
+    lineup_edit = owner.get('/lineup/1/edit').get_data(as_text=True)
+    assert 'id="editorForm"' in lineup_edit and 'id="deckForm"' not in lineup_edit and 'publishTabDeck' not in lineup_edit
+    deck = create(owner, action='draft').get_json()
+    deck_edit = owner.get(f"/orange-decks/{deck['id']}/edit").get_data(as_text=True)
+    assert 'id="deckForm"' in deck_edit and 'id="editorForm"' not in deck_edit
+    assert 'href="/lineup/new?type=deck&amp;from=creator"' in owner.get('/tools/orange-fortune-creator').get_data(as_text=True)

@@ -301,12 +301,16 @@ def register_page_routes(app):
 
     @app.get('/lineup/new')
     def lineup_create_page():
+        # One publish page for lineup codes and Orange Fortune decks; ?type=deck opens the deck form.
+        from orange_deck_service import LIMITS
         return tracked_template_response(
             'lineup_form.html',
             'lineup_editor',
             lineup_id='',
             page_mode='create',
-            seo=make_seo(title='新增阵容 - 金铲铲阵容库', description='新增金铲铲阵容。', path='/lineup/new', noindex=True),
+            publish_type='deck' if request.args.get('type') == 'deck' else 'lineup',
+            deck_id='', creator_data=creator_config(), limits=LIMITS,
+            seo=make_seo(title='发布阵容或卡组 - 金铲铲阵容库', description='发布金铲铲阵容码或大橘大利卡组。', path='/lineup/new', noindex=True),
         )
 
     @app.get('/lineup/<int:lineup_id>/edit')
@@ -316,6 +320,7 @@ def register_page_routes(app):
             'lineup_editor',
             lineup_id=lineup_id,
             page_mode='edit',
+            publish_type='lineup',
             seo=make_seo(title='编辑阵容 - 金铲铲阵容库', description='编辑金铲铲阵容。', path=f'/lineup/{lineup_id}/edit', noindex=True),
         )
 

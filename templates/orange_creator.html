@@ -6,6 +6,7 @@
 <head>
   {{ seo_head(seo) }}
   <link rel="stylesheet" href="{{ static_v('toolbox.css') }}">
+  <link rel="stylesheet" href="{{ static_v('fortune-card-frame.css') }}">
   <link rel="stylesheet" href="{{ static_v('orange-fortune.css') }}">
   <link rel="stylesheet" href="{{ static_v('orange-creator.css') }}">
   <link rel="stylesheet" href="{{ static_v('orange-creator-finish.css') }}">
@@ -19,7 +20,7 @@
 {% include 'fortune_frame_materials.html' %}
 {% for tier in range(1, 6) %}{% set card = {'tier': tier} %}<template id="bezel-{{ tier }}">{% include 'fortune_card_bezel.html' %}</template>{% endfor %}
 <div class="creator-shell">
-  <nav class="nav-bar" aria-label="页面工具"><a class="brand-mark brand-link" href="/" aria-label="返回首页">阵</a><a class="creator-back" href="/tools/orange-fortune">时间卡片图鉴 ↗</a><a class="creator-back" href="/orange-decks/new?from=creator">发布到卡组库 ↗</a><div class="nav-actions">{{ toolbox_menu(False) }}{{ theme_toggle('nav-icon-button') }}</div></nav>
+  <nav class="nav-bar" aria-label="页面工具"><a class="brand-mark brand-link" href="/" aria-label="返回首页">阵</a><a class="creator-back" href="/tools/orange-fortune">时间卡片图鉴 ↗</a><a class="creator-back" href="/lineup/new?type=deck&amp;from=creator">发布到卡组库 ↗</a><div class="nav-actions">{{ toolbox_menu(False) }}{{ theme_toggle('nav-icon-button') }}</div></nav>
   <header class="creator-heading"><div><p class="creator-eyebrow">FORTUNE ATELIER <span> / </span> 大橘大利</p><h1>大橘大利创作者工具</h1>{% if import_deck_id %}<p class="creator-import" id="creator-import" data-deck-id="{{ import_deck_id }}" role="status"><span data-import-status>正在从卡组库导入…</span> 原有海报草稿与阵容草稿保持不变，<a href="/tools/orange-fortune-creator">返回我的草稿</a></p>{% else %}<p>三张卡片，一套阵容。让你的构筑一目了然。</p>{% endif %}</div><span class="creator-heading-badge">创作者工具<b>3:4</b>PORTRAIT POSTER</span></header>
   <noscript><p>请启用 JavaScript，以使用卡片选择、阵容配置与海报导出。</p></noscript>
   <nav class="creator-panel-tabs" aria-label="编辑区域">
