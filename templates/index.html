@@ -12,11 +12,12 @@
     <link rel="stylesheet" href="{{ static_v('handwriting-count.css') }}" />
     <link rel="stylesheet" href="{{ static_v('lineup-notifications.css') }}" />
     <link rel="stylesheet" href="{{ static_v('home-lineup-card.css') }}" />
+    <link rel="stylesheet" href="{{ static_v('orange-decks.css') }}" />
     <script src="{{ static_v('avatar-lab/app.js') }}" defer></script>
       <link rel="stylesheet" href="{{ static_v('notification-presentation.css') }}" />
     <script src="{{ static_v('notification-presentation.js') }}" defer></script>
 </head>
-  <body>
+  <body data-home-library="{{ home_library }}">
     <div class="page-shell">
       <header class="hero">
         <nav class="nav-bar" aria-label="页面工具">
@@ -141,8 +142,13 @@
       </div>
 {% endif %}
 
+      <nav class="home-library-switch" aria-label="内容库">
+        <a href="/" data-home-library="lineups"{% if home_library == 'lineups' %} aria-current="page"{% endif %}>阵容库</a>
+        <a href="/?library=decks" data-home-library="decks"{% if home_library == 'decks' %} aria-current="page"{% endif %}>卡组库 <small>大橘大利</small></a>
+      </nav>
+
       <main class="content-grid">
-        <section class="panel list-panel list-panel-full" aria-labelledby="listTitle">
+        <section class="panel list-panel list-panel-full" id="lineupLibrary" aria-labelledby="listTitle"{% if home_library == 'decks' %} hidden{% endif %}>
           <div class="panel-heading list-heading" id="listHeading">
             <div class="list-heading-left">
               <p class="section-kicker">Library</p>
@@ -192,6 +198,38 @@
           <nav class="pagination" id="pagination" aria-label="分页导航"></nav>
           <div class="empty-state hidden" id="emptyState"><div class="empty-icon">⌘</div><h3>还没有阵容</h3><p>登录后可收藏阵容并随时找回，也可以上传第一套阵容或切换到全部阵容查看公开内容。</p></div>
         </section>
+
+        <section class="panel list-panel list-panel-full deck-library" id="deckLibrary" data-deck-root aria-labelledby="deckLibraryTitle"{% if home_library != 'decks' %} hidden{% endif %}>
+          <div class="deck-library-heading">
+            <div>
+              <p class="section-kicker">Orange Fortune</p>
+              <h2 id="deckLibraryTitle">大橘大利卡组库</h2>
+              <p>三张时间卡片与推荐传送门，可附带阵容站位。查卡请看<a href="/tools/orange-fortune">时间卡片图鉴</a>，做海报用<a href="/tools/orange-fortune-creator">创作者工具</a>。</p>
+            </div>
+            <a class="deck-button is-primary" href="/orange-decks/new">发布卡组</a>
+          </div>
+          <div class="deck-toolbar">
+            <label class="deck-visually-hidden" for="deckSearch">搜索卡组名称或卡片名称</label>
+            <input id="deckSearch" type="search" maxlength="40" autocomplete="off" placeholder="搜索卡组名或卡名" />
+            <label class="deck-visually-hidden" for="deckPortal">按推荐传送门筛选</label>
+            <select id="deckPortal"><option value="">全部传送门</option>{% for portal in deck_portals %}<option value="{{ portal.id }}">{{ portal.name }} · ≤{{ portal.energy_limit }}</option>{% endfor %}</select>
+          </div>
+          <div class="tabs-shell">
+            <div class="tabs" id="deckTabs" role="tablist" aria-label="卡组排序与范围">
+              <button class="tab active" type="button" role="tab" aria-selected="true" data-deck-tab="latest">最新</button>
+              <button class="tab" type="button" role="tab" aria-selected="false" data-deck-tab="hot">热门</button>
+              <button class="tab" type="button" role="tab" aria-selected="false" data-deck-tab="featured">推荐</button>
+              <button class="tab" type="button" role="tab" aria-selected="false" data-deck-tab="favorites">我的收藏</button>
+              <button class="tab" type="button" role="tab" aria-selected="false" data-deck-tab="mine">我的卡组</button>
+              <span class="tab-indicator" id="deckTabIndicator" aria-hidden="true"></span>
+            </div>
+          </div>
+          <p class="deck-rule" id="deckRule" hidden></p>
+          <p class="deck-visually-hidden" id="deckStatus" role="status" aria-live="polite"></p>
+          <div class="deck-list" id="deckList"></div>
+          <nav class="deck-pagination" id="deckPagination" aria-label="卡组分页"></nav>
+          <noscript><p class="deck-rule">卡组列表需要 JavaScript；卡组详情页可直接访问。</p></noscript>
+        </section>
       </main>
       <div class="guestbook-trigger" id="guestbookTrigger">
         <button type="button">给站长留言</button>
@@ -210,5 +248,7 @@
     <script src="{{ static_v('home-navigation.js') }}" defer></script>
     <script src="{{ static_v('home-card-icons/app.js') }}" defer></script>
     <script src="{{ static_v('app.js') }}" defer></script>
+    <script src="{{ static_v('orange-deck-core.js') }}" defer></script>
+    <script src="{{ static_v('orange-deck-library.js') }}" defer></script>
   </body>
 </html>

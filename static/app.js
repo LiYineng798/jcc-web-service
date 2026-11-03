@@ -104,6 +104,14 @@ let searchAnalyticsTimer = null;
 window.addEventListener('pagehide', () => clearTimeout(searchAnalyticsTimer));
 let lastSearchSignature = '';
 let homeLoadGeneration = 0;
+let deferredLineupLoad = false;
+window.addEventListener('jcc:home-library', (event) => {
+  if (event.detail?.library !== 'lineups') return;
+  updateTabIndicator();
+  if (!deferredLineupLoad) return;
+  deferredLineupLoad = false;
+  loadCurrentView().catch(() => renderLoadError());
+});
 window.JccHomeNavigation.install(state);
 window.addEventListener('pageshow', async event => {
   if (!event.persisted) return;
@@ -255,8 +263,10 @@ async function boot() {
   applySavedMessage();
   await consumePendingIntent();
   loadHomeStats();
-  await loadCurrentView();
-  if (snapshot) {
+  // The deck library is a sibling view; load lineups only once their panel is shown.
+  if (document.body.dataset.homeLibrary === 'decks') deferredLineupLoad = true;
+  else await loadCurrentView();
+  if (snapshot && !deferredLineupLoad) {
     await window.JccHomeNavigation.restorePosition(snapshot);
     window.JccHomeNavigation.save(state);
   }
@@ -1304,7 +1314,7 @@ function syncSeasonSelectionForViewChange(previousView, nextView) {
 }
 
 function syncActiveTab() {
-  document.querySelectorAll('.tab').forEach((item) => {
+  elements.tabs.querySelectorAll('.tab').forEach((item) => {
     const isActive = item.dataset.sort === state.sort && item.dataset.view === state.view;
     item.classList.toggle('active', isActive);
     item.setAttribute('aria-selected', String(isActive));

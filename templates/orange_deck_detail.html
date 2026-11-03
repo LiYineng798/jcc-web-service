@@ -1,0 +1,89 @@
+<!doctype html>
+{% from "seo_head.html" import seo_head %}
+{% from "theme_toggle.html" import theme_toggle %}
+{% from "toolbox.html" import toolbox_menu %}
+{% from "orange_deck_macros.html" import card_full, board %}
+<html lang="zh-CN">
+  <head>
+{{ seo_head(seo) }}
+    <link rel="stylesheet" href="{{ static_v('toolbox.css') }}" />
+    <link rel="stylesheet" href="{{ static_v('avatar.css') }}" />
+    <link rel="stylesheet" href="{{ static_v('orange-decks.css') }}" />
+    <script src="{{ static_v('toolbox.js') }}" defer></script>
+    <script src="{{ static_v('theme-toggle.js') }}" defer></script>
+    <script src="{{ static_v('avatar-lab/app.js') }}" defer></script>
+  </head>
+  <body class="deck-page">
+    <div class="page-shell" data-deck-root>
+      <nav class="deck-page-nav" aria-label="页面工具">
+        <a href="/?library=decks">← 返回卡组库</a>
+        <div class="nav-actions">{{ toolbox_menu(False, simulator_enabled) }}{{ theme_toggle('nav-icon-button') }}</div>
+      </nav>
+      <header class="deck-detail-head">
+        <p class="deck-kicker">英雄联盟传奇 · 大橘大利卡组{% if deck.featured %} · 管理员推荐{% endif %}</p>
+        <h1>{{ deck.name }}</h1>
+        <p class="deck-meta">
+          <span>作者 {% if deck.author.profile_url %}<a href="{{ deck.author.profile_url }}">{{ deck.author.nickname }}</a>{% else %}{{ deck.author.nickname }}{% endif %}</span>
+          {% if deck.published_at %}<span>发布于 {{ deck.published_at[:16] }}</span>{% endif %}
+          <span>更新于 {{ deck.updated_at[:16] }}</span>
+          <span>收藏 <b id="deckFavoriteCount">{{ deck.favorite_count }}</b></span>
+        </p>
+      </header>
+      {% if deck.status == 'hidden' %}<p class="deck-notice" role="status">此卡组已被管理员隐藏，仅作者和管理员可见，不能分享或作为基础创建。{% if deck.hidden_reason %}原因：{{ deck.hidden_reason }}{% endif %}</p>
+      {% elif deck.status == 'draft' %}<p class="deck-notice" role="status">这是草稿，仅你自己可见。发布后才会出现在卡组库并可分享。</p>{% endif %}
+      {% if deck.compat.issues %}<div class="deck-issues deck-section" role="note"><strong>资料变化</strong><ul>{% for issue in deck.compat.issues %}<li>{{ issue }}</li>{% endfor %}</ul></div>{% endif %}
+      <div class="deck-detail-grid">
+        <main>
+          <section class="deck-section" aria-labelledby="deckCardsTitle">
+            <h2 id="deckCardsTitle">三张时间卡片</h2>
+            <ol class="deck-full-cards">{% for card in deck.cards %}<li>{% if card %}{{ card_full(card) }}{% else %}<p class="deck-boundary">第 {{ loop.index }} 张卡片未选择。</p>{% endif %}</li>{% endfor %}</ol>
+          </section>
+          {% if formation %}
+          <section class="deck-section" aria-labelledby="deckFormationTitle">
+            <h2 id="deckFormationTitle">阵容站位{% if formation.available %} <small class="deck-tier">{{ formation.season_name }} · {{ formation.unit_count }} 个单位</small>{% endif %}</h2>
+            {{ board(formation) }}
+          </section>
+          {% endif %}
+          <section class="deck-section" aria-labelledby="deckNotesTitle">
+            <h2 id="deckNotesTitle">作者说明</h2>
+            {% if deck.note or deck.key_rounds or deck.alternatives %}
+            {% if deck.note %}<p class="deck-text-label">搭配说明</p><p class="deck-text">{{ deck.note }}</p>{% endif %}
+            {% if deck.key_rounds %}<p class="deck-text-label">关键回合与节奏</p><p class="deck-text">{{ deck.key_rounds }}</p>{% endif %}
+            {% if deck.alternatives %}<p class="deck-text-label">替代卡建议</p><p class="deck-text">{{ deck.alternatives }}</p>{% endif %}
+            {% else %}<p class="deck-boundary">作者没有填写说明。</p>{% endif %}
+          </section>
+        </main>
+        <aside>
+          <section class="deck-section" aria-labelledby="deckPortalTitle">
+            <h2 id="deckPortalTitle">传送门与能量</h2>
+            <dl class="deck-facts">
+              <div><dt>推荐传送门</dt><dd>{{ deck.portal.name }}</dd></div>
+              <div><dt>能量上限</dt><dd>≤ {{ deck.portal.energy_limit }}</dd></div>
+              <div><dt>入场</dt><dd>{{ '{:,}'.format(deck.portal.entry_fee) }} 金橘币</dd></div>
+              <div><dt>失败</dt><dd>{{ deck.portal.loss }}</dd></div>
+              <div><dt>卡组能量</dt><dd><b>{{ deck.energy }}</b> / {{ deck.energy_limit }}</dd></div>
+            </dl>
+            {% set fills = [] %}{% for card in deck.cards if card and card.status != 'missing' %}{% for _ in range(card.energy) %}{% set _ = fills.append(card.tier) %}{% endfor %}{% endfor %}
+            <div class="deck-energy-bar" aria-hidden="true">{% for index in range(15) %}<i{% if index < fills|length %} data-tier="{{ fills[index] }}"{% endif %}{% if index >= deck.energy_limit %} class="is-beyond"{% endif %}></i>{% endfor %}</div>
+            <p class="deck-boundary">{% if deck.fits %}符合{{ deck.portal.name }}准入条件。{% elif deck.cards|select|list|length < 3 %}卡组未选满三张卡片。{% else %}按当前资料计算已超出上限。{% endif %}卡片能量等于品阶：基础 1 至传说 5。</p>
+          </section>
+          <section class="deck-section deck-side-actions" id="deckActions" aria-label="卡组操作">
+            {% if deck.status == 'published' %}<button type="button" class="deck-button" data-action="favorite" aria-pressed="{{ 'true' if deck.is_favorited else 'false' }}" disabled>{{ '已收藏' if deck.is_favorited else '收藏' }}</button>{% endif %}
+            {% if deck.can_share %}<button type="button" class="deck-button" data-action="copy-text" disabled>复制卡组文本</button>
+            <button type="button" class="deck-button" data-action="copy-link" disabled>复制详情链接</button>{% endif %}
+            {% if deck.can_fork %}<button type="button" class="deck-button" data-action="fork" disabled>以此为基础创建</button>{% endif %}
+            {% if deck.can_export %}<a class="deck-button" href="/tools/orange-fortune-creator?deck={{ deck.id }}">导出海报{% if deck.has_formation %}（含站位）{% endif %}</a>{% endif %}
+            {% if deck.can_edit %}<a class="deck-button" href="/orange-decks/{{ deck.id }}/edit">编辑卡组</a>
+            <button type="button" class="deck-button is-danger" data-action="delete" disabled>删除卡组</button>{% endif %}
+            <p class="deck-status-line" id="deckActionStatus" role="status" aria-live="polite"></p>
+            {% if deck.can_share %}<p class="deck-boundary">复制的文本和链接用于交流分享，不是游戏内可直接导入的卡组码。</p>{% endif %}
+            <noscript><p class="deck-boundary">收藏、复制和创建需要启用 JavaScript。</p></noscript>
+          </section>
+        </aside>
+      </div>
+    </div>
+    <script type="application/json" id="deckData">{{ deck|tojson }}</script>
+    <script src="{{ static_v('orange-deck-core.js') }}" defer></script>
+    <script src="{{ static_v('orange-deck-detail.js') }}" defer></script>
+  </body>
+</html>

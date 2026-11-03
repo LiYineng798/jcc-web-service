@@ -47,6 +47,8 @@ def create_app(test_config=None):
     app.register_blueprint(notification_center_bp)
     app.register_blueprint(guestbook_bp)
     app.register_blueprint(patch_notes_bp)
+    from orange_decks import orange_decks_bp
+    app.register_blueprint(orange_decks_bp)
 
     from admin_season_packages import season_packages_bp, register_preview_context
     app.register_blueprint(season_packages_bp)

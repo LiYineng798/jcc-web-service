@@ -204,3 +204,5 @@
   .fortune-portal dd { text-align: left; font-size: 11px; }
   .fortune-portal dd b { font-size: 15px; }
 }
+/* Links into the deck library stay plain text links. */
+.fortune-meta a.fortune-preview-label, .fortune-detail-hint a { color: inherit; text-underline-offset: 3px; }

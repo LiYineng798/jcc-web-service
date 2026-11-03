@@ -60,6 +60,7 @@ def test_guest_page_search_and_home_navigation(client):
     assert 'noindex' in filtered
     malicious = client.get(PAGE, query_string={'q': '"><script>alert(1)</script>'}).get_data(as_text=True)
     assert '"><script>alert(1)</script>' not in malicious
-    assert client.get('/').get_data(as_text=True).count(f'href="{PAGE}"') == 2
+    # Desktop and mobile toolbox entries, plus the deck library's link to the gallery.
+    assert client.get('/').get_data(as_text=True).count(f'href="{PAGE}"') == 3
     assert PAGE in client.get('/sitemap.xml').get_data(as_text=True)
     assert client.get('/static/tools/orange-fortune/images/7250036.png').status_code == 200

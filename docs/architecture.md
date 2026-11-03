@@ -25,6 +25,7 @@
 | 资料读取与展示策略 | `season_data_repository.py`、`season_reference_service.py`、`season_visibility.py` | `season-reference.js`、弈子详情、模拟器 |
 | 资料 ZIP 上传、校验、发布 | `admin_season_packages.py`、`season_package_*.py` | 赛季版本 React |
 | 固定活动攻略 | `lucky_openings.py`、`app_pages.py` | `toolbox.*`、S8 工具与 S16.5 推荐页 |
+| 大橘大利卡组库 | `orange_decks.py`、`orange_deck_service.py`（见 [卡组库](orange-decks.md)） | 首页卡组库、`orange-deck-*.js`、`admin/orange-decks.js` |
 
 上表中的 JS/CSS 在 `static/`。模板同名或近似命名；React 入口/产物映射见 [前端工程](../frontend/README.md)。
 
@@ -39,6 +40,7 @@ rg -n '@.*\.route' app_pages.py auth.py captcha.py lineups.py admin.py live_comp
 | 数据 | 来源与存储 | 关键边界 |
 | --- | --- | --- |
 | 用户、普通阵容、互动、审核、日志、设置 | SQLite（本地）/PostgreSQL（生产） | 统一由 `db.py`、`db_adapter.py` 访问 |
+| 大橘大利卡组、卡组收藏 | 同上，独立表 `orange_decks`/`orange_deck_favorites` | 不计入普通阵容数量、排行或实时榜单 |
 | 实时阵容主体、分类、补码、图片 | `instance/live-comps*` | 统计/上传任务在 DB，榜单 JSON 和图片在磁盘 |
 | 赛季基础登记与静态基准 | `static/season-data/catalog.json` 和赛季目录 | 外部档案生成，随代码交付 |
 | 已上传赛季资料 | `JCC_SEASON_PACKAGE_ROOT` 下 uploads/staging/releases | DB 保存任务、发布指针和历史；文件与 DB 共同恢复 |

@@ -85,6 +85,7 @@
     document.querySelector('#fortune-detail-title').textContent = title;
     document.querySelector('#fortune-detail-meta').textContent = `${card.dataset.tierName}卡片 · 能量 ${card.dataset.tier} · ${card.querySelector('.fortune-card-category').textContent}`;
     document.querySelector('#fortune-detail-effect').textContent = card.querySelector('.fortune-card-description').textContent;
+    document.querySelector('#fortune-detail-decks').href = `/?library=decks&q=${encodeURIComponent(title)}`;
     const rounds = card.dataset.rounds.split(' ').filter(Boolean);
     document.querySelector('#fortune-detail-rounds').replaceChildren(...rounds.map((round, i) => {
       const span = document.createElement('span');

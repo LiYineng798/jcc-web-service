@@ -78,6 +78,7 @@
   const liveVersions = window.JccAdminLiveVersions.create({
     api, render, notify: setNotice, getSeason: () => liveUploadSeasonOptions().selected,
   });
+  const orangeDecks = window.JccAdminOrangeDecks.create({ api, render, notify: setNotice, workbenchPanel, pill, empty });
   const statusText = {
     pending: '待处理',
     in_progress: '核实中',
@@ -100,6 +101,7 @@
     'season-display': ['资料赛季', '统一管理资料库、模拟器与海报创作者的赛季展示'],
     'season-packages': ['赛季版本更新', '上传资料包，检查差异并发布版本'],
     'patch-notes': ['更新公告', '编辑版本内容与发布状态'],
+    'orange-decks': ['卡组库', '大橘大利卡组的推荐与违规隐藏'],
     users: ['用户管理', '查询账号、权限和可用状态'],
     analytics: ['增长分析', '查看访问、注册与转化数据'],
     audit: ['审计日志', '追溯操作来源，查看每一次关键变更'],
@@ -280,6 +282,7 @@
     if (tabKey === 'live-comps' && state.liveCompsWorkspace === 'seasons') await refreshLiveSeasons();
     if (tabKey === 'season-display') await Promise.all(['library', 'simulator', 'creator'].map((kind) => loadSeasonDisplay(kind)));
     if (tabKey === 'patch-notes') await loadPatchNotes();
+    if (tabKey === 'orange-decks') await orangeDecks.load();
     if (tabKey === 'users') await loadUsers();
     if (tabKey === 'analytics') {
       if(state.analyticsWorkspace==='experience') await queryExperience(state.experience.start,state.experience.end);
@@ -550,6 +553,7 @@
     if (state.activeTab === 'live-comps') nextRoot.append(renderLiveCompsWorkspace());
     if (state.activeTab === 'season-display') nextRoot.append(renderSeasonDisplayHub());
     if (state.activeTab === 'patch-notes') nextRoot.append(renderPatchNotesWorkspace());
+    if (state.activeTab === 'orange-decks') nextRoot.append(orangeDecks.view());
     if (state.activeTab === 'users') nextRoot.append(renderUsersWorkspace());
     if (state.activeTab === 'analytics') nextRoot.append(renderAnalyticsWorkspace());
     if (state.activeTab === 'daily-reports') {

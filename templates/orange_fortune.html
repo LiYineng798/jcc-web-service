@@ -23,7 +23,7 @@
       <div><p class="fortune-eyebrow">英雄联盟传奇 <span>/</span> 时间卡片图鉴</p>
         <h1>大橘<span>大利</span><i aria-hidden="true">✦</i></h1>
         <p class="fortune-intro">把握每一个生效回合，寻找你的下一张王牌。</p>
-        <div class="fortune-meta"><span><b>{{ catalog.cards|length }}</b> 张时间卡片</span><span><b>5</b> 个品阶</span><span><b>{{ portals|length }}</b> 座传送门</span><span class="fortune-preview-label">先遣服（数据以实际上线为准）</span></div>
+        <div class="fortune-meta"><span><b>{{ catalog.cards|length }}</b> 张时间卡片</span><span><b>5</b> 个品阶</span><span><b>{{ portals|length }}</b> 座传送门</span><span class="fortune-preview-label">先遣服（数据以实际上线为准）</span><a class="fortune-preview-label" href="/?library=decks">卡组库 ↗</a></div>
       </div>
       <div class="fortune-emblem" aria-hidden="true">{% include 'fortune_emblem.html' %}<span>TIME CARDS</span><small>英雄联盟传奇 · 大橘大利</small></div>
     </header>
@@ -100,7 +100,7 @@
   <div class="fortune-detail-layout"><div class="fortune-detail-art" aria-hidden="true"></div><div class="fortune-detail-content">
     <p class="fortune-eyebrow" id="fortune-detail-meta"></p><h2 id="fortune-detail-title"></h2>
     <div id="fortune-detail-rounds"></div><p id="fortune-detail-effect"></p>
-    <p class="fortune-detail-hint">标注回合为效果生效时间；条件触发及持续效果以卡片描述为准。</p>
+    <p class="fortune-detail-hint">标注回合为效果生效时间；条件触发及持续效果以卡片描述为准。<br><a id="fortune-detail-decks" href="/?library=decks">查看含此卡的卡组 ↗</a></p>
   </div></div>
 </dialog>
 </body>

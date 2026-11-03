@@ -2,6 +2,9 @@ const DATA_ROOT = "/static/season-data";
 const PREVIEW_RELEASE = new URLSearchParams(location.search).get("preview_release");
 const DATA_VERSION = document.querySelector("#simulatorRoot")?.dataset.seasonDataVersion || "0";
 const CREATOR_SEASON = document.querySelector("#simulatorRoot")?.dataset.creatorSeason || "";
+// The deck library embeds the creator editor without browser storage: the parent page
+// owns the deck's formation, so neither creator nor simulator drafts are read or replaced.
+const DECK_MODE = Boolean(CREATOR_SEASON) && new URLSearchParams(location.search).get("deck") === "1";
 const UI_ROOT = "/static/tools/lineup-simulator/ui";
 const STORAGE_PREFIX = CREATOR_SEASON ? "jcc-orange-formation-v1:" : PREVIEW_RELEASE ? `jcc-simulator-preview:${PREVIEW_RELEASE}:` : "jcc-simulator-v2:";
 function readPreference(key) {
@@ -537,7 +540,9 @@ async function loadSeason(seasonId, importedPayload = null) {
     state.history = [];
     state.historyIndex = -1;
     pushHistory();
-    try { localStorage.setItem(`${STORAGE_PREFIX}season`, seasonId); } catch { /* Editing remains available without storage. */ }
+    if (!DECK_MODE) {
+      try { localStorage.setItem(`${STORAGE_PREFIX}season`, seasonId); } catch { /* Editing remains available without storage. */ }
+    }
     renderAll();
   } finally {
     setLoading(false);
@@ -1123,20 +1128,26 @@ function formationPayload() {
 
 function persist() {
   if (!state.season) return;
-  let storageSaved = true;
-  try { localStorage.setItem(`${STORAGE_PREFIX}${state.season.season_id}`, JSON.stringify(formationPayload())); }
-  catch { storageSaved = false; if (!CREATOR_SEASON) showToast("浏览器无法保存草稿", "error"); }
+  let storageSaved = !DECK_MODE;
+  if (!DECK_MODE) {
+    try { localStorage.setItem(`${STORAGE_PREFIX}${state.season.season_id}`, JSON.stringify(formationPayload())); }
+    catch { storageSaved = false; if (!CREATOR_SEASON) showToast("浏览器无法保存草稿", "error"); }
+  }
   if (CREATOR_SEASON && window.parent !== window) {
+    // Display fields serve the poster; payload/championId/id/style let the deck library
+    // store a re-editable structure and the simulator's own trait result. Version 1 stays
+    // compatible because fields are only added.
     window.parent.postMessage({ type: "jcc:orange-formation", version: 1,
-      season: state.season.season_id, population: totalPopulation(), storageSaved,
+      season: state.season.season_id, versionId: state.season.version_id || "", population: totalPopulation(), storageSaved,
+      payload: formationPayload(),
       board: state.board.map((slot) => {
         if (!slot) return null;
         const hero = state.championById.get(slot.championId);
-        return { name: hero.name, icon: hero.icon, cost: hero.cost,
-          items: slot.items.map((id) => { const item = state.itemById.get(id); return {name: item.name, icon: item.icon}; }) };
+        return { championId: slot.championId, name: hero.name, icon: hero.icon, cost: hero.cost,
+          items: slot.items.map((id) => { const item = state.itemById.get(id); return {id, name: item.name, icon: item.icon}; }) };
       }),
       traits: posterTraitRows().map(({trait, count, status}) => ({
-        name: trait.name, count, icon: trait.icon,
+        id: trait.id, name: trait.name, count, icon: trait.icon, style: String(status.styleIndex),
         frame: `${UI_ROOT}/${status.styleIndex}.svg`, color: TRAIT_STYLE_COLORS[status.styleIndex],
       })),
     }, location.origin);
@@ -1144,6 +1155,7 @@ function persist() {
 }
 
 function readStoredFormation(seasonId) {
+  if (DECK_MODE) return null;
   try { return JSON.parse(localStorage.getItem(`${STORAGE_PREFIX}${seasonId}`) || "null"); }
   catch { return null; }
 }
@@ -2112,6 +2124,38 @@ elements.hoverDetails.addEventListener("change", () => {
   try { localStorage.setItem(`${STORAGE_PREFIX}hover-details`, elements.hoverDetails.checked ? "on" : "off"); }
   catch { showToast("浏览器无法保存偏好", "error"); }
 });
+// A deck page hands over its saved formation once the editor is ready. Units or items the
+// current data no longer has are dropped by hydrateBoard and reported, never replaced.
+function loadDeckFormation(payload) {
+  if (!state.season || payload?.season !== state.season.season_id || !Array.isArray(payload.board)) {
+    return { ok: false, error: "阵容所属赛季与当前编辑器资料不一致" };
+  }
+  const requestedUnits = payload.board.filter(Boolean).length;
+  const requestedItems = payload.board.reduce((total, slot) => total + (Array.isArray(slot?.items) ? slot.items.length : 0), 0);
+  state.board = hydrateBoard(payload.board);
+  state.selectedAugmentIds = hydrateAugmentIds(payload.augmentIds);
+  state.showNames = payload.showNames !== false;
+  elements.showNames.checked = state.showNames;
+  state.history = [];
+  state.historyIndex = -1;
+  pushHistory();
+  renderBoard();
+  syncLibrarySelectionState();
+  renderSelectedAugments();
+  const loadedUnits = state.board.filter(Boolean);
+  persist();
+  return { ok: true, droppedUnits: requestedUnits - loadedUnits.length,
+    droppedItems: requestedItems - loadedUnits.reduce((total, slot) => total + slot.items.length, 0) };
+}
+
+if (DECK_MODE) {
+  window.addEventListener("message", (event) => {
+    if (event.origin !== location.origin || event.source !== window.parent) return;
+    if (event.data?.type !== "jcc:orange-formation-load" || event.data.version !== 1) return;
+    window.parent.postMessage({ type: "jcc:orange-formation-load-result", version: 1, ...loadDeckFormation(event.data.payload) }, location.origin);
+  });
+}
+
 elements.undo.addEventListener("click", () => applyHistory(state.historyIndex - 1));
 elements.redo.addEventListener("click", () => applyHistory(state.historyIndex + 1));
 elements.reset.addEventListener("click", () => {
@@ -2167,7 +2211,9 @@ document.addEventListener("keydown", (event) => {
 state.hoverDetails = readPreference(`${STORAGE_PREFIX}hover-details`) !== "off";
 elements.hoverDetails.checked = state.hoverDetails;
 window.lucide?.createIcons();
-loadCatalog().catch((error) => {
+loadCatalog().then(() => {
+  if (DECK_MODE && window.parent !== window) window.parent.postMessage({ type: "jcc:orange-formation-ready", version: 1, season: state.season.season_id }, location.origin);
+}).catch((error) => {
   if (CREATOR_SEASON && window.parent !== window) window.parent.postMessage({type: 'jcc:orange-formation-error'}, location.origin);
   elements.seasonMeta.textContent = error.message;
   elements.heroGroups.innerHTML = `<div class="empty-state">${escapeHtml(error.message)}</div>`;

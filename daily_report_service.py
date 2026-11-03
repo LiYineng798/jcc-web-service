@@ -81,6 +81,8 @@ PAGE_KEY_LABELS = {
     'golden_egg': '金蛋奖励',
     'orange_fortune': '大橘大利时间卡片图鉴',
     'orange_creator': '大橘大利创作者工具',
+    'orange_deck_detail': '大橘大利卡组详情',
+    'orange_deck_editor': '大橘大利卡组编辑',
     's11_items': 'S11 装备攻略',
     's11_artifacts': 'S11 全神器装备推荐',
     'lineup_notification': '阵容处理通知',
