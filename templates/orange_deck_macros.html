@@ -2,14 +2,14 @@
    Pages using card_art include fortune_frame_materials.html once for the bezel gradients. #}
 {% macro card_art(card) -%}
 {% set tier = card.tier or 1 %}
-<span class="fortune-card-frame" data-tier="{{ tier }}"><span class="fortune-card-surface fortune-art-{{ card.layout or 'missing' }}">{% if card.image_url %}<img class="fortune-card-image" src="{{ card.image_url }}" alt="" decoding="async">{% else %}<span class="fortune-missing"><i aria-hidden="true">◇</i>{{ '已失效' if card.status == 'missing' else '卡图暂缺' }}</span>{% endif %}<span class="fortune-card-shade"></span><span class="fortune-card-stars" aria-hidden="true">{{ '•' * tier }}</span><span class="fortune-card-category">{{ card.category or '' }}</span></span>{% with card = {'tier': tier} %}{% include 'fortune_card_bezel.html' %}{% endwith %}</span>
+<span class="fortune-card-frame is-art-only" data-tier="{{ tier }}"><span class="fortune-card-surface fortune-art-{{ card.layout or 'missing' }}">{% if card.image_url %}<img class="fortune-card-image" src="{{ card.image_url }}" alt="" decoding="async">{% else %}<span class="fortune-missing"><i aria-hidden="true">◇</i>{{ '已失效' if card.status == 'missing' else '卡图暂缺' }}</span>{% endif %}<span class="fortune-card-shade"></span></span>{% with card = {'tier': tier} %}{% include 'fortune_card_bezel.html' %}{% endwith %}</span>
 {%- endmacro %}
 
 {% macro card_full(card) -%}
-<div class="deck-card-full" data-status="{{ card.status }}">{{ card_art(card) }}<div>
+<div class="deck-card-full" data-status="{{ card.status }}" data-tier="{{ card.tier or '' }}">{{ card_art(card) }}<div class="deck-card-info">
+  <p class="deck-card-kicker"><span class="deck-tier" data-tier="{{ card.tier or '' }}">{% if card.status == 'missing' %}当前资料中不存在{% else %}{{ card.tier_name }}</span><span>能量 {{ card.energy }}{% endif %}</span>{% if card.category %}<span>{{ card.category }}</span>{% endif %}</p>
   <h3>{{ card.name }}</h3>
-  <span class="deck-tier" data-tier="{{ card.tier or '' }}">{% if card.status == 'missing' %}当前资料中不存在{% else %}{{ card.tier_name }} · 能量 {{ card.energy }}{% endif %}{% if card.category %} · {{ card.category }}{% endif %}</span>
-  {% if card.status != 'missing' %}<br><span class="deck-rounds">{% if card.rounds %}生效 {{ card.rounds|join(' / ') }}{% else %}条件触发{% endif %}</span><p>{{ card.description }}</p>{% endif %}
+  {% if card.status != 'missing' %}<p class="deck-rounds">{% if card.rounds %}生效 {{ card.rounds|join(' / ') }}{% else %}条件触发{% endif %}</p><p class="deck-card-effect">{{ card.description }}</p>{% endif %}
   {% for change in card.changes %}<p class="deck-change">{{ change }}</p>{% endfor %}
 </div></div>
 {%- endmacro %}

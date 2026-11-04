@@ -68,7 +68,7 @@ def test_time_cards_preview_publish_remove_and_rollback(cards_source, manager, a
 
     publish(rid, 0)
     live = guest.get(url).json
-    assert live['compat']['changed']
+    assert live['compat']['issues']
     assert all(c['description'] == '本次 ZIP 中的效果' for c in live['cards'])
     assert guest.get(live['cards'][0]['image_url']).status_code == 200
     assert len(guest.get('/api/tools/orange-fortune-creator').json['cards']) == 3

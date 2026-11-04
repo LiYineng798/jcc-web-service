@@ -129,7 +129,7 @@
     const badges = [
       deck.featured ? '<span class="deck-badge is-featured">推荐</span>' : '',
       STATUS[deck.status] ? `<span class="deck-badge ${STATUS[deck.status][1]}">${STATUS[deck.status][0]}</span>` : '',
-      deck.compat.missing_cards ? '<span class="deck-badge is-danger">含失效卡片</span>' : deck.compat.changed ? '<span class="deck-badge is-warn">资料已更新</span>' : '',
+      deck.compat.missing_cards ? '<span class="deck-badge is-danger">含失效卡片</span>' : '',
     ].join('');
     const over = !deck.compat.missing_cards && deck.cards.every(Boolean) && !deck.fits;
     const published = deck.status === 'published';

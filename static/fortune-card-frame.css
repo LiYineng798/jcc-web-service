@@ -34,3 +34,14 @@
 .fortune-card-category { position: absolute; bottom: 8%; left: 0; right: 0; text-align: center; color: var(--tier); font-size: 10px; letter-spacing: .2em; }
 .fortune-missing { position: absolute; top: 20%; width: 100%; display: grid; text-align: center; color: #e5bf79; font-size: 12px; gap: 10px; }
 .fortune-missing i { font-size: 60px; font-style: normal; }
+/* Art-only frame (.is-art-only) for every place that prints the name and effect beside the card:
+   deck library, card dialogs, detail page, pickers and posters. The gallery's title ribbon, copy shade,
+   stars and category are gallery-only, so the art is centred to fill the hexagon instead. */
+.fortune-card-frame.is-art-only { aspect-ratio: 240 / 360; }
+.is-art-only .fortune-card-image { width: 108%; height: 104%; left: -4%; top: -2%; object-position: center 42%; }
+/* Square icon art carries its own hexagon backdrop: enlarge it past the rim so it fills the frame. */
+.is-art-only .fortune-art-icon .fortune-card-image { width: 128%; height: 122%; left: -14%; top: -11%; aspect-ratio: auto; object-fit: cover; object-position: center; clip-path: none; mask-image: none; }
+.is-art-only .fortune-art-icon { background: #101723; }
+.is-art-only .fortune-card-shade { background: radial-gradient(ellipse 80% 62% at 50% 46%, transparent 58%, #04081052 100%), linear-gradient(180deg, #ffffff12, transparent 22%, transparent 80%, #04081038); }
+.is-art-only .fortune-missing { inset: 0; top: 0; align-content: center; gap: 6px; }
+.is-art-only .fortune-missing i { font-size: 2.2em; }

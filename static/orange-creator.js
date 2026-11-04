@@ -58,7 +58,7 @@
   }
   const image = (url, alt = '', cls = '') => `<img src="${esc(url)}" alt="${esc(alt)}" class="${cls}" decoding="async">`;
   function art(card) {
-    return `<span class="fortune-card-frame"><span class="fortune-card-surface fortune-art-${esc(card.layout)}">${card.image ? image(card.image_url, '', 'fortune-card-image') : '<span class="fortune-missing"><i>◇</i>卡图暂缺</span>'}<span class="fortune-card-shade"></span><span class="fortune-card-stars" aria-label="${card.tier}星">${'•'.repeat(card.tier)}</span><span class="fortune-card-category">${esc(card.category)}</span></span>${$(`bezel-${card.tier}`).innerHTML}</span>`;
+    return `<span class="fortune-card-frame is-art-only"><span class="fortune-card-surface fortune-art-${esc(card.layout)}">${card.image ? image(card.image_url, '', 'fortune-card-image') : '<span class="fortune-missing"><i>◇</i>卡图暂缺</span>'}<span class="fortune-card-shade"></span></span>${$(`bezel-${card.tier}`).innerHTML}</span>`;
   }
   function renderSlots() {
     const d = deck();
