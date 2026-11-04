@@ -92,13 +92,43 @@ type Dashboard = {
   received_copies: number;
   submitted_reports: number;
   pending_reports_on_my_lineups: number;
+  // Deck figures are reported separately so lineup totals keep their meaning.
+  decks?: {
+    decks: number;
+    published_decks: number;
+    draft_decks: number;
+    hidden_decks: number;
+    received_likes: number;
+    received_favorites: number;
+  };
 };
+type Deck = {
+  id: number;
+  name: string;
+  plan_code: string;
+  status: string;
+  portal: { id: string; name: string };
+  energy: number;
+  energy_limit: number;
+  copy_count: number;
+  like_count: number;
+  favorite_count: number;
+  is_favorited: boolean;
+  updated_at: string;
+  published_at?: string | null;
+  detail_url: string;
+  author: { nickname: string };
+  cards: ({ name: string } | null)[];
+};
+type DeckPage = { items: Deck[]; total: number; total_pages: number; page: number };
+type Content = "lineups" | "decks";
 type Failure = Error & { status?: number };
 declare global {
   interface Window {
     JccAccount: {
       request: <T>(url: string, options?: RequestInit) => Promise<T>;
       copy: (lineup: Lineup, token: string) => Promise<void>;
+      copyText: (text: string) => Promise<boolean>;
     };
     jccAvatar: {
       image: (
@@ -146,7 +176,7 @@ const TABS = [
     id: "mine",
     label: "我的阵容",
     icon: Layers3,
-    description: "管理你的创作，随时打磨下一套上分阵容。",
+    description: "管理你的阵容码与大橘大利卡组，随时打磨下一套思路。",
   },
   {
     id: "favorites",
@@ -189,8 +219,17 @@ const lineupStatusText: Record<string, string> = {
 const number = (n: number) => new Intl.NumberFormat("zh-CN").format(n);
 const time = (value?: string) =>
   value ? value.replace("T", " ").slice(0, 16) : "—";
+// "#mine/decks" opens a collection on its deck list; the tab itself is the first segment.
 const tabFromHash = (): Tab =>
-  TABS.find((tab) => `#${tab.id}` === location.hash)?.id || "overview";
+  TABS.find((tab) => `#${tab.id}` === location.hash.split("/")[0])?.id ||
+  "overview";
+const contentFromHash = (): Content =>
+  location.hash.endsWith("/decks") ? "decks" : "lineups";
+const deckStatusText: Record<string, string> = {
+  draft: "草稿",
+  published: "公开",
+  hidden: "已隐藏",
+};
 function resetContentScroll() {
   if (matchMedia("(max-width: 760px)").matches) window.scrollTo(0, 0);
   else document.querySelector(".pf-content")?.scrollTo(0, 0);
@@ -330,8 +369,9 @@ function Profile({ user: initialUser, token }: { user: User; token: string }) {
     return () => window.removeEventListener("hashchange", change);
   }, []);
   useEffect(resetContentScroll, [active]);
-  function navigate(id: Tab) {
-    if (active !== id) location.hash = id;
+  function navigate(id: Tab, content: Content = "lineups") {
+    const hash = content === "decks" ? `${id}/decks` : id;
+    if (location.hash !== `#${hash}`) location.hash = hash;
   }
   function toggleTheme() {
     const value = theme === "dark" ? "light" : "dark";
@@ -422,7 +462,7 @@ function Profile({ user: initialUser, token }: { user: User; token: string }) {
               好阵容，值得被看见。<small>把你的上分思路分享给更多弈士。</small>
             </p>
             <a href="/lineup/new">
-              发布阵容
+              发布阵容或卡组
               <Plus size={15} />
             </a>
           </div>
@@ -482,7 +522,7 @@ function Profile({ user: initialUser, token }: { user: User; token: string }) {
             </button>
             <a className="pf-button pf-primary" href="/lineup/new">
               <Plus size={16} />
-              发布阵容
+              发布
             </a>
           </div>
         </header>
@@ -519,7 +559,12 @@ function Profile({ user: initialUser, token }: { user: User; token: string }) {
                     <h1>{tab.label}</h1>
                     <p>{tab.description}</p>
                   </div>
-                  <Collection key={active} kind={active} token={token} />
+                  <Collection
+                    key={active}
+                    kind={active}
+                    token={token}
+                    navigate={navigate}
+                  />
                 </>
               )}
             </motion.section>
@@ -542,7 +587,7 @@ function Overview({
 }: {
   user: User;
   token: string;
-  navigate: (id: Tab) => void;
+  navigate: (id: Tab, content?: Content) => void;
   editAvatar: () => void;
 }) {
   const dialogs = useAccountDialogs();
@@ -552,6 +597,11 @@ function Overview({
   );
   const views = useResource<Lineup[]>("/api/me/recent-views");
   const data = dashboard.data;
+  const decks = data?.decks;
+  const split = (lineups?: number, deckValue?: number) =>
+    lineups === undefined
+      ? "—"
+      : `阵容码 ${number(lineups)} · 卡组 ${number(deckValue || 0)}`;
   return (
     <div className="pf-overview">
       <div className="pf-profile-banner">
@@ -613,29 +663,32 @@ function Overview({
         <div className="pf-stats" aria-busy={dashboard.loading}>
           {[
             {
-              label: "已发布阵容",
-              value: data?.published_lineups,
+              label: "我的作品",
+              value:
+                data && (data.published_lineups + (decks?.decks || 0)),
               icon: Layers3,
-              note: "包含隐藏与封禁阵容",
+              note: split(data?.published_lineups, decks?.decks),
               target: "mine" as Tab,
             },
             {
               label: "收到点赞",
-              value: data?.received_likes,
+              value: data && data.received_likes + (decks?.received_likes || 0),
               icon: Heart,
-              note: "来自弈士的认可",
+              note: split(data?.received_likes, decks?.received_likes),
             },
             {
               label: "收到收藏",
-              value: data?.received_favorites,
+              value:
+                data &&
+                data.received_favorites + (decks?.received_favorites || 0),
               icon: Bookmark,
-              note: "你的思路被珍藏",
+              note: split(data?.received_favorites, decks?.received_favorites),
             },
             {
               label: "收到复制",
               value: data?.received_copies,
               icon: ArrowDownToLine,
-              note: "阵容被带入下一局",
+              note: "阵容码被带入下一局",
             },
           ].map((stat) => (
             <article className="pf-stat" key={stat.label}>
@@ -723,6 +776,14 @@ function Overview({
               <strong>
                 {data ? number(data.pending_reports_on_my_lineups) : "—"}
               </strong>
+              <ChevronRight size={14} />
+            </button>
+            <button onClick={() => navigate("mine", "decks")}>
+              <span>
+                <Layers3 size={15} />
+                卡组草稿
+              </span>
+              <strong>{decks ? number(decks.draft_decks) : "—"}</strong>
               <ChevronRight size={14} />
             </button>
             <button onClick={() => navigate("reports")}>
@@ -827,27 +888,42 @@ function Pager({
 function Collection({
   kind,
   token,
+  navigate,
 }: {
   kind: Exclude<Tab, "overview">;
   token: string;
+  navigate: (id: Tab, content?: Content) => void;
 }) {
   const [page, setPage] = useState(1),
     [draft, setDraft] = useState(""),
     [query, setQuery] = useState("");
   const [filter, setFilter] = useState("all");
   const paginated = kind === "mine" || kind === "favorites";
-  const url = paginated
-    ? `/api/lineups?view=${kind}&page=${page}&page_size=${PAGE_SIZE}&q=${encodeURIComponent(query)}`
-    : kind === "reports"
-      ? "/api/me/reports"
-      : `/api/me/recent-${kind}`;
+  const [content, setContent] = useState<Content>(
+    paginated ? contentFromHash() : "lineups",
+  );
+  useEffect(() => {
+    const sync = () => paginated && setContent(contentFromHash());
+    window.addEventListener("hashchange", sync);
+    return () => window.removeEventListener("hashchange", sync);
+  }, [paginated]);
+  const decks = paginated && content === "decks";
+  const url = decks
+    ? `/api/orange-decks?tab=${kind}&page=${page}&page_size=${PAGE_SIZE}&q=${encodeURIComponent(query)}`
+    : paginated
+      ? `/api/lineups?view=${kind}&page=${page}&page_size=${PAGE_SIZE}&q=${encodeURIComponent(query)}`
+      : kind === "reports"
+        ? "/api/me/reports"
+        : `/api/me/recent-${kind}`;
   const dialogs = useAccountDialogs();
-  const result = useResource<Page | Lineup[] | Report[]>(
+  const result = useResource<Page | DeckPage | Lineup[] | Report[]>(
     url,
     dialogs.dataRevision,
   );
-  const payload = paginated ? (result.data as Page | undefined) : undefined;
-  const all = paginated
+  const payload = paginated
+    ? (result.data as Page | DeckPage | undefined)
+    : undefined;
+  const all: (Lineup | Deck | Report)[] = paginated
     ? payload?.items || []
     : ((result.data || []) as (Lineup | Report)[]).filter((item) => {
         const name = "lineup_name" in item ? item.lineup_name : item.name;
@@ -874,6 +950,29 @@ function Collection({
   };
   return (
     <div className="pf-collection">
+      {paginated && (
+        <div className="pf-filters" role="group" aria-label="内容类型">
+          {(
+            [
+              ["lineups", "阵容码"],
+              ["decks", "大橘大利卡组"],
+            ] as const
+          ).map(([id, label]) => (
+            <button
+              key={id}
+              className={cn(content === id && "is-active")}
+              aria-pressed={content === id}
+              onClick={() => {
+                setPage(1);
+                navigate(kind, id);
+                setContent(id);
+              }}
+            >
+              {label}
+            </button>
+          ))}
+        </div>
+      )}
       <form
         className="pf-searchbar"
         onSubmit={(event) => {
@@ -888,7 +987,11 @@ function Collection({
             type="search"
             aria-label="搜索当前栏目"
             placeholder={
-              kind === "reports" ? "搜索阵容名称、反馈原因…" : "搜索阵容名称…"
+              kind === "reports"
+                ? "搜索阵容名称、反馈原因…"
+                : decks
+                  ? "搜索卡组名称或卡名…"
+                  : "搜索阵容名称…"
             }
             value={draft}
             onChange={(event) => setDraft(event.target.value)}
@@ -962,6 +1065,29 @@ function Collection({
                   清除筛选
                 </button>
               </div>
+            ) : decks ? (
+              <div className="pf-empty">
+                <Layers3 size={30} />
+                <strong>
+                  {kind === "mine"
+                    ? "还没有你的卡组"
+                    : "把喜欢的卡组，留在这里"}
+                </strong>
+                <p>
+                  {kind === "mine"
+                    ? "草稿和已发布的大橘大利卡组都会出现在这里。"
+                    : "在卡组库点“收藏”，之后可以在这里找回。"}
+                </p>
+                <a
+                  className="pf-button"
+                  href={
+                    kind === "mine" ? "/lineup/new?type=deck" : "/?library=decks"
+                  }
+                >
+                  {kind === "mine" ? "发布第一套卡组" : "浏览卡组库"}
+                  <ArrowUpRight size={15} />
+                </a>
+              </div>
             ) : (
               <Empty
                 mine={kind === "mine"}
@@ -986,6 +1112,14 @@ function Collection({
               {items.map((item) =>
                 "lineup_name" in item ? (
                   <ReportCard key={item.id} item={item} />
+                ) : "portal" in item ? (
+                  <DeckCard
+                    key={item.id}
+                    item={item}
+                    kind={kind}
+                    token={token}
+                    refresh={result.retry}
+                  />
                 ) : (
                   <LineupCard
                     key={item.id}
@@ -1116,6 +1250,121 @@ function LineupCard({
                 </button>
               )}
               <CopyButton item={item} token={token} />
+            </>
+          )}
+        </div>
+      </div>
+    </article>
+  );
+}
+
+function DeckCard({
+  item,
+  kind,
+  token,
+  refresh,
+}: {
+  item: Deck;
+  kind: string;
+  token: string;
+  refresh: () => void;
+}) {
+  const [busy, setBusy] = useState(false);
+  const names = item.cards.map((card) => card?.name || "—").join(" · ");
+  const [copiedCount, setCopiedCount] = useState(0);
+  return (
+    <article className="pf-lineup-card pf-deck-card" data-deck-id={item.id}>
+      <div className="pf-lineup-card-top">
+        <span className={cn("pf-portal", `pf-portal-${item.portal.id}`)}>
+          {item.portal.name}
+        </span>
+        <span className={cn("pf-status", `pf-status-${item.status}`)}>
+          {kind === "mine"
+            ? deckStatusText[item.status] || item.status
+            : `能量 ${item.energy} / ${item.energy_limit}`}
+        </span>
+      </div>
+      <h2>
+        {item.status === "draft" ? (
+          <a href={`/orange-decks/${item.id}/edit`}>{item.name}</a>
+        ) : (
+          <a href={item.detail_url}>{item.name}</a>
+        )}
+      </h2>
+      <p className="pf-lineup-meta">{names}</p>
+      {item.plan_code && (
+        <button className="pf-button pf-deck-copy" disabled={busy} onClick={async () => {
+          setBusy(true);
+          try {
+            const ok = await window.JccAccount.copyText(item.plan_code);
+            window.jccNotify.show(ok ? "方案码已复制" : "复制失败，请到详情页手动复制", { variant: ok ? "success" : "error" });
+            if (ok && item.status === "published") {
+              try {
+                const data = await window.JccAccount.request<{ copy_count: number }>(`/api/orange-decks/${item.id}/copy`, {
+                  method: "POST", headers: { "X-CSRF-Token": token },
+                });
+                setCopiedCount(data.copy_count);
+              } catch {
+                window.jccNotify.show("方案码已复制，但次数未同步，请稍后刷新", { variant: "warning" });
+              }
+            }
+          } finally { setBusy(false); }
+        }}><Copy size={14} />复制方案码</button>
+      )}
+      <div className="pf-lineup-card-bottom">
+        <span className="pf-interactions">
+          <span>
+            <Heart size={13} />
+            {number(item.like_count)}
+          </span>
+          <span>
+            <Bookmark size={13} />
+            {number(item.favorite_count)}
+          </span>
+          <span title="方案码复制次数">
+            <Copy size={13} />
+            {number(Math.max(item.copy_count, copiedCount))}
+          </span>
+        </span>
+        <div className="pf-card-actions">
+          {kind === "mine" ? (
+            <a className="pf-button" href={`/orange-decks/${item.id}/edit`}>
+              编辑卡组
+              <ChevronRight size={13} />
+            </a>
+          ) : (
+            <>
+              <button
+                className="pf-icon-button pf-bookmarked"
+                aria-label={`取消收藏：${item.name}`}
+                disabled={busy}
+                onClick={async () => {
+                  setBusy(true);
+                  try {
+                    await window.JccAccount.request(
+                      `/api/orange-decks/${item.id}/favorite`,
+                      {
+                        method: "DELETE",
+                        headers: { "X-CSRF-Token": token },
+                      },
+                    );
+                    window.jccNotify.show("已取消收藏", { variant: "success" });
+                    refresh();
+                  } catch (error) {
+                    window.jccNotify.show((error as Error).message, {
+                      variant: "error",
+                    });
+                  } finally {
+                    setBusy(false);
+                  }
+                }}
+              >
+                <Bookmark size={15} />
+              </button>
+              <a className="pf-button" href={item.detail_url}>
+                查看卡组
+                <ArrowUpRight size={13} />
+              </a>
             </>
           )}
         </div>

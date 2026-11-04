@@ -1,6 +1,7 @@
 const root = document.querySelector('.editor-page-shell');
 const mode = root?.dataset.pageMode || 'create';
 const lineupId = root?.dataset.lineupId || '';
+const previewRelease = new URLSearchParams(location.search).get('preview_release');
 const $ = (selector) => document.querySelector(selector);
 const elements = {
   form: $('#editorForm'),
@@ -15,6 +16,7 @@ const elements = {
   editorSeasonMenuWrap: $('#editorSeasonMenuWrap'),
   statusToggle: $('#statusToggle'),
   statusSummary: $('#statusSummary'),
+  codeStatus: $('#codeStatus'),
   submitButton: $('#submitButton'),
   title: $('#editorTitle'),
   description: $('#editorDescription'),
@@ -31,6 +33,7 @@ boot();
 elements.themeToggle.addEventListener('click', () => setTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'));
 elements.form.addEventListener('submit', saveLineup);
 elements.statusToggle?.addEventListener('change', syncStatusSummary);
+elements.codeInput.addEventListener('input', syncCodeStatus);
 elements.editorSeasonToggle?.addEventListener('click', toggleEditorSeasonMenu);
 document.addEventListener('click', closeEditorSeasonMenuOnOutsideClick);
 document.addEventListener('keydown', closeEditorSeasonMenuOnEscape);
@@ -44,9 +47,18 @@ async function boot() {
   }
   await loadSeasons();
   if (mode === 'edit' && lineupId) await loadLineup();
+  if (previewRelease) {
+    elements.submitButton.disabled = true;
+    elements.submitButton.textContent = '预览中不可发布';
+  }
 }
 
 async function api(url, options = {}) {
+  if (previewRelease) {
+    const target = new URL(url, location.origin);
+    target.searchParams.set('preview_release', previewRelease);
+    url = target.pathname + target.search;
+  }
   const headers = { ...(options.headers || {}) };
   if (options.body && !headers['Content-Type']) headers['Content-Type'] = 'application/json';
   if (state.csrfToken && ['POST', 'PUT', 'DELETE'].includes(options.method)) headers['X-CSRF-Token'] = state.csrfToken;
@@ -131,6 +143,7 @@ async function loadLineup() {
     elements.lineupVersion.value = lineup.version;
     elements.nameInput.value = lineup.name;
     elements.codeInput.value = lineup.code;
+    syncCodeStatus();
     setEditorSeason(lineup.season_id || state.defaultSeasonId);
     renderEditorSeasonMenu();
     elements.statusToggle.checked = lineup.status === 'hidden';
@@ -170,7 +183,7 @@ async function loadLineup() {
 
 async function saveLineup(event) {
   event.preventDefault();
-  if (!state.user || state.pending || elements.submitButton.disabled) return;
+  if (!state.user || state.pending || elements.submitButton.disabled || previewRelease) return;
   const normalizedCode = extractLineupCode(elements.codeInput.value);
   if (!normalizedCode) {
     showMessage('阵容码无法解析，请改成以 # 开头的阵容码后再提交', 'warning');
@@ -204,6 +217,18 @@ async function saveLineup(event) {
 
 function showMessage(text, variant = 'success') {
   window.jccNotify.show(text, { variant });
+}
+
+// Show what will be saved before submitting: the longest #-prefixed code in the pasted text.
+function syncCodeStatus() {
+  if (!elements.codeStatus) return;
+  const raw = elements.codeInput.value.trim();
+  const code = extractLineupCode(raw);
+  elements.codeStatus.classList.toggle('is-ok', Boolean(code));
+  elements.codeStatus.classList.toggle('is-error', Boolean(raw && !code));
+  elements.codeStatus.textContent = code
+    ? `已识别阵容码 ${code.length > 28 ? `${code.slice(0, 28)}…` : code}（${code.length} 个字符）`
+    : raw ? '没有识别到以 # 开头的阵容码，请检查粘贴内容' : '支持从分享文案中自动提取，保存时只保留以 # 开头的有效阵容码。';
 }
 
 function syncStatusSummary() {

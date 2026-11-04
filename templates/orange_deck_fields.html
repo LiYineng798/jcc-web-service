@@ -1,0 +1,70 @@
+{# Deck editor fields, shared by the publish page (/lineup/new?type=deck) and the deck edit page. #}
+<div class="deck-editor" id="deckEditor" data-deck-id="{{ deck_id }}" data-assistant-season="{{ assistant_season|default('') }}" data-deck-root>
+      <div class="deck-notice" id="deckEditorNotice" role="status" hidden></div>
+      <noscript><p class="deck-notice">编辑卡组需要启用 JavaScript。</p></noscript>
+      <form class="deck-form" id="deckForm" novalidate aria-busy="true">
+        <section class="deck-section" aria-labelledby="deckBasicsTitle">
+          <h2 id="deckBasicsTitle">卡组名称与传送门</h2>
+          <label class="field" for="deckName">卡组名称 <small class="deck-hint">必填 · {{ limits.name }} 字内</small>
+            <input id="deckName" maxlength="{{ limits.name }}" autocomplete="off" required placeholder="例如：三传说未知门" />
+          </label>
+          <label class="field" for="deckPlanCode">游戏方案码 <small class="deck-hint">选填 · 从游戏中复制完整方案码</small>
+            <textarea id="deckPlanCode" class="deck-code-input" maxlength="{{ limits.plan_code }}" rows="3" spellcheck="false" autocomplete="off" placeholder="德玛时光速9流-大橘大利-MjE5OTY4Mzc0NDMyOTI3OTQxNzkzNzU0NzMyMTczNQ==" aria-describedby="deckCodeHint"></textarea>
+          </label>
+          <p class="deck-boundary" id="deckCodeHint">填写后，卡组列表会显示“复制方案码”按钮，完整方案码只在详情页展示。请确认方案码与所选三张卡一致。</p>
+          <fieldset class="deck-portals" id="deckPortals">
+            <legend>推荐传送门 <small class="deck-hint">必填 · 卡组能量不能超过上限</small></legend>
+            {% for portal in creator_data.portals %}
+            <label data-portal="{{ portal.id }}"><input type="radio" name="deckPortal" value="{{ portal.id }}"{% if loop.first %} checked{% endif %} />
+              <strong>{{ portal.name }}</strong><span>能量 ≤ {{ portal.energy_limit }} · 入场 {{ '{:,}'.format(portal.entry_fee) }} 金橘币</span><span>失败{{ portal.loss }}</span><em data-fit></em></label>
+            {% endfor %}
+          </fieldset>
+        </section>
+        <section class="deck-section" aria-labelledby="deckCardsTitle">
+          <h2 id="deckCardsTitle">三张时间卡片</h2>
+          <p class="deck-energy" id="deckEnergy" role="status" aria-live="polite"></p>
+          <div class="deck-slots" id="deckSlots"></div>
+          <p class="deck-boundary">卡片能量等于品阶（基础 1 · 勇士 2 · 王者 3 · 史诗 4 · 传说 5）。同一张卡不能重复；公开发布时，三张卡的能量之和不能超过所选传送门上限，草稿可以暂存。</p>
+          <button type="button" class="deck-button is-quiet" id="importCreator">从海报创作者草稿导入</button>
+        </section>
+        <section class="deck-section" aria-labelledby="deckNotesTitle">
+          <h2 id="deckNotesTitle">说明 <small class="deck-hint">选填</small></h2>
+          <label class="field" for="deckNote">搭配说明 <small class="deck-hint">{{ limits.note }} 字内，在详情页展示</small><textarea id="deckNote" maxlength="{{ limits.note }}" placeholder="这套卡组适合什么局势，三张卡如何配合…"></textarea></label>
+          <label class="field" for="deckRounds">关键回合与节奏 <small class="deck-hint">{{ limits.key_rounds }} 字内</small><input id="deckRounds" maxlength="{{ limits.key_rounds }}" placeholder="例如：2-1 拿装备，3-2 开始连败" /></label>
+          <label class="field" for="deckAlternatives">替代卡建议 <small class="deck-hint">{{ limits.alternatives }} 字内</small><textarea id="deckAlternatives" maxlength="{{ limits.alternatives }}" placeholder="缺少某张卡时可以换成…"></textarea></label>
+        </section>
+        <section class="deck-section" aria-labelledby="deckFormationTitle">
+          <h2 id="deckFormationTitle">阵容站位 <small class="deck-hint">选填 · {{ creator_data.season_name or '英雄联盟传奇' }}</small></h2>
+          <p class="deck-boundary" id="formationStatus" role="status" aria-live="polite"></p>
+          <div id="formationPreview"></div>
+          <ul class="deck-star-list" id="starList" aria-label="弈子星级" hidden></ul>
+          <div class="deck-actions">
+            <button type="button" class="deck-button" id="openFormation"{% if not creator_data.simulator_available %} disabled{% endif %}>配置阵容</button>
+            <button type="button" class="deck-button is-quiet" id="removeFormation" hidden>移除阵容</button>
+          </div>
+          <p class="deck-boundary">阵容编辑使用创作者模拟器：羁绊按基础规则计算，时间卡片带来的额外羁绊、变身等效果不会自动计入，可写在说明里。星级在此处设置。</p>
+        </section>
+        <p class="deck-error" id="deckFormError" role="alert"></p>
+        <div class="deck-form-actions">
+          <p id="deckSaveState">正在准备编辑器…</p>
+          <button type="button" class="deck-button is-danger" id="deleteDeck" hidden>删除</button>
+          <button type="button" class="deck-button" id="saveSecondary" disabled>保存草稿</button>
+          <button type="submit" class="deck-button is-primary" id="savePrimary" disabled>发布</button>
+        </div>
+      </form>
+    <dialog class="deck-dialog deck-picker" id="cardPicker" aria-labelledby="pickerTitle">
+      <header><div><h2 id="pickerTitle">选择时间卡片</h2><p class="deck-boundary" id="pickerBudget"></p></div><button type="button" class="deck-dialog-close" data-close aria-label="关闭卡片选择">×</button></header>
+      <div class="deck-picker-filters">
+        <label class="deck-visually-hidden" for="pickerSearch">搜索卡名、效果或回合</label><input id="pickerSearch" type="search" placeholder="搜索卡名、效果或回合" autocomplete="off" />
+        <label class="deck-visually-hidden" for="pickerTier">品阶</label><select id="pickerTier"><option value="">全部品阶</option>{% for tier in range(5, 0, -1) %}<option value="{{ tier }}">{{ creator_data.tiers[tier|string] }} · 能量 {{ tier }}</option>{% endfor %}</select>
+        <label class="deck-visually-hidden" for="pickerCategory">类型</label><select id="pickerCategory"><option value="">全部类型</option>{% for category in ['经济','弈子','装备','强化','羁绊','特殊'] %}<option>{{ category }}</option>{% endfor %}</select>
+      </div>
+      <p class="deck-boundary" id="pickerCount" role="status"></p>
+      <div class="deck-picker-grid" id="pickerGrid"></div>
+    </dialog>
+    <dialog class="deck-dialog deck-formation-dialog" id="formationDialog" aria-labelledby="formationDialogTitle">
+      <header><div><h2 id="formationDialogTitle">配置阵容</h2><p class="deck-boundary">点击上阵，拖动调整站位，选择装备后点击弈子。修改会同步回卡组，不会改动你的模拟器或海报草稿。</p></div><button type="button" class="deck-button is-primary" id="closeFormation">完成</button></header>
+      <div id="formationFrameSlot" style="display:contents"></div>
+    </dialog>
+    <script type="application/json" id="deckEditorConfig">{{ {'season_id': creator_data.season_id, 'season_name': creator_data.season_name, 'simulator_available': creator_data.simulator_available, 'portals': creator_data.portals, 'cards': creator_data.cards}|tojson }}</script>
+</div>

@@ -87,7 +87,7 @@ def require_csrf():
     if request.method not in {'GET', 'HEAD', 'OPTIONS'}:
         user = current_user()
         allowed = {'auth.login', 'auth.logout', 'automation.import_preview', 'automation.import_commit', 'automation.touch',
-                   'automation.avatar'}
+                   'automation.avatar', 'automation.deck_upload'}
         if user and user['role'] == 'automation' and request.endpoint not in allowed:
             return jsonify({'error': '此账号仅可在授权工作台内操作'}), 403
     if request.method in {'POST', 'PUT', 'DELETE'} and request.endpoint not in {

@@ -63,5 +63,6 @@ git diff --check
 | 封禁、修改重审、站内通知 | [阵容审核](docs/lineup-moderation.md) |
 | 运营指标与日报 | [统计口径](docs/daily-report.md) |
 | 编辑官方更新公告 | [公告格式](docs/patch-notes.md) |
+| 大橘大利卡组库 | [卡组库](docs/orange-decks.md) |
 
 开发约束见 [AGENTS.md](AGENTS.md)。历史实施过程保存在 Git，不再维护重复计划和逐项接口目录。

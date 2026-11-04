@@ -9,7 +9,7 @@ from audit import write_audit
 from auth import admin_required, finish_avatar_update, login_required, save_user_avatar
 from automation_service import (
     AutomationError, session_account, require_scope, lock_account, change_account, create_account, import_lineups,
-    list_accounts, request_limited, utc_now,
+    list_accounts, request_limited, utc_now, require_deck_scope, upload_deck,
 )
 from daily_report_service import get_daily_report, list_daily_reports, normalize_report_date
 from db import get_db
@@ -96,7 +96,37 @@ def me():
                    touch_seasons=json.loads(account['touch_seasons_json']),
                    can_import=bool(account['can_import']), can_avatar=True,
                    allowed_seasons=json.loads(account['allowed_seasons_json']),
+                   can_upload_decks=bool(account['can_upload_decks']), deck_seasons=json.loads(account['deck_seasons_json']),
                    limits={'rows_per_import': 50, 'write_requests_per_hour': 10, 'read_requests_per_minute': 60})
+
+
+@automation_bp.get('/api/admin/automation-accounts/deck-seasons')
+@automation_bp.get('/api/admin/assistant/deck-seasons')
+def deck_seasons():
+    from orange_deck_service import deck_season_choices
+    return jsonify(seasons=list(deck_season_choices().values()))
+
+
+@automation_bp.get('/admin/assistant/decks/new')
+def deck_editor():
+    from orange_creator_service import creator_config
+    from orange_deck_service import LIMITS, deck_season_choices
+    from seo import make_seo
+    from visits import tracked_template_response
+    season_id = request.args.get('season_id', '')
+    require_deck_scope(g.automation_account, season_id)
+    config = creator_config()
+    config['season_name'] = deck_season_choices()[season_id]['name']
+    # Do not let a different default creator season contaminate this card season.
+    config['simulator_available'] = config['simulator_available'] and config['season_id'] == season_id
+    return tracked_template_response('orange_deck_form.html', 'orange_deck_editor', deck_id='',
+        creator_data=config, limits=LIMITS, assistant_season=season_id,
+        seo=make_seo(title='上传卡组 - 协作工作台', description='上传已授权赛季的卡组。', path='/admin/assistant/decks/new', noindex=True))
+
+
+@automation_bp.post('/api/admin/assistant/decks')
+def deck_upload():
+    return jsonify(upload_deck(get_db(), g.automation_account, json_body())), 201
 
 
 @automation_bp.put('/api/admin/assistant/avatar')

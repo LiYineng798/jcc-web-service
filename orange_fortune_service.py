@@ -1,8 +1,13 @@
-"""Read-only catalog for the independent S400001 time-card mode."""
+"""Time cards from the request's published/preview season release."""
 import json
 import re
 from functools import lru_cache
 from pathlib import Path
+from flask import has_request_context
+from assets_version import static_v
+from season_data_repository import data_directory, asset_url, selected_release
+
+CARD_SEASON = 'orange_s400001'
 
 CATEGORIES = {'1001': '经济', '1002': '弈子', '1003': '装备', '1004': '强化', '1005': '羁绊', '1006': '特殊'}
 # Mode rules confirmed for launch. A card's energy equals its rarity tier, so
@@ -23,9 +28,35 @@ def parse_arguments(value):
     return dict(part.split('=', 1) for part in value.split('^') if '=' in part)
 
 
-@lru_cache(maxsize=1)
 def catalog():
-    payload = json.loads(CATALOG.read_text(encoding='utf-8'))
+    path = data_directory(CARD_SEASON) / 'time_cards.json'
+    if path.is_file():
+        from season_visibility import is_public_anywhere
+
+        if has_request_context() and not is_public_anywhere(CARD_SEASON):
+            return {'version': 'unavailable', 'season': 'S400001', 'setId': '16', 'time': '', 'cards': []}
+        stat = path.stat()
+        data = _read_time_cards(str(path), stat.st_mtime_ns, stat.st_size)
+        release = selected_release(CARD_SEASON)
+        return {**data, 'release_id': release,
+                'cards': [{**card, 'image_url': f"{asset_url(CARD_SEASON)}/{card['image']}" if card['image'] else None}
+                          for card in data['cards']]}
+    # Compatibility for the bundled baseline and releases published before this module existed.
+    stat = CATALOG.stat()
+    data = _read_catalog(str(CATALOG), stat.st_mtime_ns, stat.st_size)
+    return {**data, 'release_id': None,
+            'cards': [{**card, 'image_url': (static_v(card['image']) if has_request_context() else '/static/' + card['image'])
+                      if card['image'] else None} for card in data['cards']]}
+
+
+@lru_cache(maxsize=2)
+def _read_catalog(path, stamp, size):
+    payload = json.loads(Path(path).read_text(encoding='utf-8'))
+    return parse_catalog(payload)
+
+
+def parse_catalog(payload, image_prefix='tools/orange-fortune'):
+    """Normalize an archived official card response without any network access."""
     cards = []
     for source in payload['data'].values():
         args = parse_arguments(source['sArgs'])
@@ -39,7 +70,7 @@ def catalog():
             'tier_name': TIERS[int(source['iRarityTier'])], 'energy': int(source['iRarityTier']),
             'description': source['sDesc'], 'category': CATEGORIES.get(tags[-1], '其他'),
             'category_id': tags[-1], 'round': args.get('round', ''), 'rounds': rounds,
-            'image': f"tools/orange-fortune/{asset['file']}" if asset else None,
+            'image': f"{image_prefix}/{asset['file']}" if asset else None,
             'layout': asset['layout'] if asset else 'missing', 'source': source,
         })
     # Lead the five-star gallery with recognizable mode-specific art, not a ranking.
@@ -47,6 +78,19 @@ def catalog():
     order = {card_id: index for index, card_id in enumerate(showcase)}
     cards.sort(key=lambda c: (-c['tier'], order.get(c['id'], len(showcase)), int(c['id'])))
     return {**{key: payload[key] for key in ('version', 'season', 'setId', 'time')}, 'cards': cards}
+
+
+@lru_cache(maxsize=8)
+def _read_time_cards(path, stamp, size):
+    payload = json.loads(Path(path).read_text(encoding='utf-8'))
+    cards = [{**card, 'tier_name': TIERS[card['tier']], 'energy': card['tier'],
+              'category': CATEGORIES.get(card['category_id'], '其他')} for card in payload['time_cards']]
+    result = {**{key: payload[key] for key in ('version', 'season', 'setId', 'time')}, 'cards': cards}
+    manifest = Path(path).parent.parent / 'manifest.json'
+    if manifest.is_file():
+        revision = json.loads(manifest.read_text(encoding='utf-8'))['data_revision']
+        result['version'] = f"{payload['version']} · r{revision}"
+    return result
 
 
 def card_guide(query='', tier='', category='', round_value=''):

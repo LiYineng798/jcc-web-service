@@ -112,6 +112,11 @@ def release_payload(release_id):
     result['simulator_url'] = (
         f'/tools/lineup-simulator?preview_release={release_id}&season_id={row["season_id"]}'
     )
+    result['time_card_previews'] = ([
+        {'label': '预览时间卡片', 'url': f'/tools/orange-fortune?preview_release={release_id}'},
+        {'label': '预览海报选卡', 'url': f'/tools/orange-fortune-creator?preview_release={release_id}'},
+        {'label': '预览卡组发布', 'url': f'/lineup/new?type=deck&preview_release={release_id}'},
+    ] if 'time_cards' in result['manifest'].get('modules', {}) else [])
     return result
 
 
@@ -235,10 +240,13 @@ def _comparison_warnings(report):
         ('items', '装备'),
         ('augments', '强化符文'),
         ('board_units', '棋盘对象'),
+        ('time_cards', '时间卡片'),
     ]:
-        diff = report['diff'][name]
+        diff = report['diff'].get(name, {'added': [], 'removed': []})
         removed = len(diff['removed'])
-        old_count = report['counts'][name] - len(diff['added']) + removed
+        old_count = report['counts'].get(name, 0) - len(diff['added']) + removed
+        if name == 'time_cards' and removed:
+            report['warnings'].append(f'比较：移除 {removed} 张时间卡片，已有卡组将保留卡槽并标记为已失效')
         if removed >= 3 and removed >= old_count * 0.25:
             report['warnings'].append(
                 f'比较：{label}移除 {removed}/{old_count} 条，请核实完整快照是否正确'
@@ -427,6 +435,15 @@ def _smoke(season_id, release_id):
                     response.status_code == 200 and isinstance(response.get_json(), dict),
                     '模拟器资料检查失败',
                 )
+        if season_id == 'orange_s400001' and (data_directory(season_id) / 'time_cards.json').is_file():
+            from orange_fortune_service import catalog as time_card_catalog
+
+            cards = time_card_catalog()['cards']
+            for url in ('/tools/orange-fortune', '/tools/orange-fortune-creator', '/api/tools/orange-fortune-creator'):
+                require(client.get(url).status_code == 200, '发布后的时间卡片检查失败')
+            image = next((c['image_url'] for c in cards if c['image_url']), None)
+            if image and (get_season('library', season_id) or get_season('creator', season_id) or get_season('simulator', season_id)):
+                require(client.get(image).status_code == 200, '发布后的时间卡片图片检查失败')
         response = client.get('/api/health')
         require(response.status_code == 200 and response.get_json().get('ok'), '健康检查失败')
     # No external CDN involved: verify the actual version selected in a fresh context.

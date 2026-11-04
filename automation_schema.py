@@ -6,6 +6,8 @@ CREATE TABLE IF NOT EXISTS automation_accounts (
     allowed_seasons_json TEXT NOT NULL DEFAULT '[]',
     can_touch INTEGER NOT NULL DEFAULT 0 CHECK (can_touch IN (0, 1)),
     touch_seasons_json TEXT NOT NULL DEFAULT '[]',
+    can_upload_decks INTEGER NOT NULL DEFAULT 0 CHECK (can_upload_decks IN (0, 1)),
+    deck_seasons_json TEXT NOT NULL DEFAULT '[]',
     session_version INTEGER NOT NULL DEFAULT 1,
     created_by INTEGER NOT NULL REFERENCES users(id),
     last_used_at TEXT,
@@ -22,6 +24,8 @@ def migrate_automation_sessions(db):
         ('can_touch', 'INTEGER NOT NULL DEFAULT 0 CHECK (can_touch IN (0, 1))'),
         ('touch_seasons_json', "TEXT NOT NULL DEFAULT '[]'"),
         ('session_version', 'INTEGER NOT NULL DEFAULT 1'),
+        ('can_upload_decks', 'INTEGER NOT NULL DEFAULT 0 CHECK (can_upload_decks IN (0, 1))'),
+        ('deck_seasons_json', "TEXT NOT NULL DEFAULT '[]'"),
     ):
         if name not in columns:
             db.execute(f'ALTER TABLE automation_accounts ADD COLUMN {name} {definition}')

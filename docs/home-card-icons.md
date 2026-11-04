@@ -25,8 +25,8 @@ npm run build:home --prefix frontend
 
 ## 接入边界
 
-普通阵容仍由 `static/app.js` 渲染，数据仍来自 `/api/lineups`。
-图标入口使用一个 React root 和 portals，观察卡片图标槽的增删及名称变化；列表刷新、搜索、分页和切换实时榜单会卸载旧图标，释放监听和动画。
+普通阵容仍由 `static/app.js` 渲染，数据仍来自 `/api/lineups`；卡组库卡片由 `static/orange-deck-library.js` 渲染，沿用同一卡片外壳与操作标记。
+图标入口为 `#lineupList` 与 `#deckList` 各建一个 React root 和 portals，观察卡片图标槽的增删及名称变化；列表刷新、搜索、分页和切换实时榜单会卸载旧图标，释放监听和动画。
 图标资源加载失败时按钮文字和原生业务仍可使用。
 
 `name` 对应 copy、heart、bookmark、flag、arrow-up-right、pencil、eye-off 等操作；

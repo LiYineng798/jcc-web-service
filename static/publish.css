@@ -1,0 +1,49 @@
+/* Publish page (lineup codes and Orange Fortune decks) and the matching edit pages. */
+.publish-page .publish-shell { width:min(960px, calc(100% - 32px)); max-width:none; margin:0 auto; padding:28px 0 0; }
+.publish-head { margin:8px 0 22px; }
+.publish-head h1 { margin:6px 0 10px; font-size:clamp(1.7rem, 3.4vw, 2.4rem); line-height:1.25; letter-spacing:-.01em; }
+.publish-head p:last-child { margin:0; max-width:620px; color:var(--muted); font-size:.92rem; line-height:1.7; }
+
+/* Two large buttons choose what to publish; the selection is kept in ?type=. */
+.publish-switch { display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:12px; margin:0 0 22px; }
+.publish-switch button { display:flex; align-items:center; gap:14px; min-height:76px; padding:14px 18px; border:1px solid var(--line); border-radius:18px; background:var(--surface-solid); color:var(--text); font:inherit; text-align:left; cursor:pointer; transition:border-color 160ms ease, background-color 160ms ease; }
+.publish-switch button:hover { border-color:color-mix(in srgb, var(--accent) 40%, var(--line)); }
+.publish-switch button[aria-selected="true"] { border-color:var(--accent); background:color-mix(in srgb, var(--accent-soft) 55%, var(--surface-solid)); box-shadow:0 0 0 1px var(--accent) inset; }
+.publish-switch button:focus-visible { outline:2px solid var(--accent); outline-offset:3px; }
+.publish-switch strong { display:block; font-size:1.02rem; }
+.publish-switch small { display:block; margin-top:3px; color:var(--muted); font-size:.8rem; line-height:1.5; }
+.publish-switch-mark { display:grid; place-items:center; flex:none; width:42px; height:42px; border-radius:12px; background:var(--accent-soft); color:var(--accent-strong); font-size:1.1rem; font-weight:800; }
+.publish-panel[hidden] { display:none !important; }
+
+.publish-form .deck-section h2 { margin-bottom:12px; }
+.publish-grid { display:grid; grid-template-columns:minmax(0, 1fr) 240px; gap:14px; align-items:start; }
+.publish-form .field { margin:0; }
+.publish-form .field > span:first-child, .publish-form label.field { color:var(--muted); font-size:.9rem; font-weight:600; }
+.publish-form textarea { min-height:150px; font-family:"SFMono-Regular", Consolas, "Liberation Mono", monospace; font-size:.88rem; }
+.publish-form .editor-season-wrap, .publish-form .editor-season-toggle { width:100%; }
+.publish-code-status { margin:10px 0 0; color:var(--muted); font-size:.82rem; line-height:1.6; overflow-wrap:anywhere; }
+.publish-code-status.is-ok { color:var(--portal-stable); }
+.publish-code-status.is-error { color:var(--deck-danger); }
+.publish-form .visibility-toggle { display:grid; grid-template-columns:minmax(0, 1fr) auto; align-items:center; gap:16px; }
+.publish-form .visibility-toggle h2 { display:flex; align-items:baseline; gap:10px; margin:0 0 4px; }
+.publish-form .visibility-toggle h2 strong { color:var(--accent-strong); font-size:.9rem; font-weight:600; }
+.publish-form .deck-form-actions .ghost-link { min-height:40px; display:inline-flex; align-items:center; }
+.publish-page .lm-editor-notice { margin-bottom:16px; }
+
+/* Deck form inside the publish page and the deck edit page. */
+.deck-portals label[data-portal="stable"] { --portal:var(--portal-stable); }
+.deck-portals label[data-portal="volatile"] { --portal:var(--portal-volatile); }
+.deck-portals label[data-portal="unknown"] { --portal:var(--portal-unknown); }
+.deck-portals label strong { color:var(--portal); }
+
+@media (max-width:640px) {
+  .publish-switch { grid-template-columns:minmax(0, 1fr); gap:8px; }
+  .publish-switch button { min-height:64px; padding:12px 14px; }
+  .publish-switch-mark { width:36px; height:36px; }
+  .publish-grid { grid-template-columns:minmax(0, 1fr); }
+  .publish-form .visibility-toggle { grid-template-columns:minmax(0, 1fr); }
+}
+.publish-form .visibility-switch { position:relative; }
+.publish-form .visibility-switch input { top:0; left:0; width:1px; height:1px; }
+/* The form grid already spaces sections. */
+.deck-form .deck-section + .deck-section { margin-top:0; }

@@ -1,0 +1,36 @@
+{# Server-rendered counterparts of orange-deck-core.js (art, cardFull and board); keep both in step.
+   Pages using card_art include fortune_frame_materials.html once for the bezel gradients. #}
+{% macro card_art(card) -%}
+{% set tier = card.tier or 1 %}
+<span class="fortune-card-frame" data-tier="{{ tier }}"><span class="fortune-card-surface fortune-art-{{ card.layout or 'missing' }}">{% if card.image_url %}<img class="fortune-card-image" src="{{ card.image_url }}" alt="" decoding="async">{% else %}<span class="fortune-missing"><i aria-hidden="true">◇</i>{{ '已失效' if card.status == 'missing' else '卡图暂缺' }}</span>{% endif %}<span class="fortune-card-shade"></span><span class="fortune-card-stars" aria-hidden="true">{{ '•' * tier }}</span><span class="fortune-card-category">{{ card.category or '' }}</span></span>{% with card = {'tier': tier} %}{% include 'fortune_card_bezel.html' %}{% endwith %}</span>
+{%- endmacro %}
+
+{% macro card_full(card) -%}
+<div class="deck-card-full" data-status="{{ card.status }}">{{ card_art(card) }}<div>
+  <h3>{{ card.name }}</h3>
+  <span class="deck-tier" data-tier="{{ card.tier or '' }}">{% if card.status == 'missing' %}当前资料中不存在{% else %}{{ card.tier_name }} · 能量 {{ card.energy }}{% endif %}{% if card.category %} · {{ card.category }}{% endif %}</span>
+  {% if card.status != 'missing' %}<br><span class="deck-rounds">{% if card.rounds %}生效 {{ card.rounds|join(' / ') }}{% else %}条件触发{% endif %}</span><p>{{ card.description }}</p>{% endif %}
+  {% for change in card.changes %}<p class="deck-change">{{ change }}</p>{% endfor %}
+</div></div>
+{%- endmacro %}
+
+{% macro board(formation) -%}
+{% if not formation.available %}<p class="deck-boundary">{{ formation.message }}</p>{% else %}
+{% if formation.issues %}<div class="deck-issues" role="note">{% for issue in formation.issues %}{{ issue }}{% if not loop.last %}<br>{% endif %}{% endfor %}</div>{% endif %}
+<div class="deck-board-wrap">
+  <ol class="deck-board" aria-label="阵容站位，{{ formation.unit_count }} 个单位">
+  {% for cell in formation.cells %}
+    {% if cell %}{% set items = cell['items']|map(attribute='name')|join('、') %}{% set label = cell.name ~ '，' ~ cell.star ~ ' 星' ~ ('，装备：' ~ items if items else '') %}
+    <li class="deck-cell has-unit cost-{{ [cell.cost or 1, 5]|min }}{% if cell.missing %} is-missing{% endif %}" aria-label="{{ label }}" title="{{ label }}"><span class="deck-unit"><span class="deck-unit-crop">{% if cell.icon %}<img src="{{ cell.icon }}" alt="" loading="lazy" decoding="async">{% endif %}</span></span><span class="deck-unit-name" aria-hidden="true">{{ cell.name }}</span><span class="deck-stars" aria-hidden="true">{{ '★' * cell.star }}</span><span class="deck-items" aria-hidden="true">{% for item in cell['items'] %}{% if item.icon %}<img src="{{ item.icon }}" alt="" loading="lazy">{% else %}<i></i>{% endif %}{% endfor %}</span></li>
+    {% else %}<li class="deck-cell" aria-hidden="true"><span class="deck-hex"></span></li>{% endif %}
+  {% endfor %}
+  </ol>
+  {% if formation.traits %}<ul class="deck-traits" aria-label="激活羁绊">{% for trait in formation.traits %}<li><span class="deck-trait-emblem" aria-hidden="true"><img src="{{ trait.frame }}" alt="">{% if trait.icon %}<img src="{{ trait.icon }}" alt="">{% endif %}</span><b>{{ trait.count }}</b><span>{{ trait.name }}</span></li>{% endfor %}</ul>{% else %}<p class="deck-boundary">没有激活的羁绊。</p>{% endif %}
+</div>
+{% if formation.augments %}<p class="deck-boundary">强化符文：{{ formation.augments|join('、') }}</p>{% endif %}
+{% endif %}
+{%- endmacro %}
+
+{% macro bezel_templates() -%}
+{% for tier in range(1, 6) %}{% with card = {'tier': tier} %}<template id="bezel-{{ tier }}">{% include 'fortune_card_bezel.html' %}</template>{% endwith %}{% endfor %}
+{%- endmacro %}

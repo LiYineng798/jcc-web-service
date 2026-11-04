@@ -4,10 +4,10 @@ import { createPortal } from 'react-dom';
 import { AnimatedIcon, type IconMotion } from '@/components/ui/animated-icon';
 
 const calmIcons = new Set(['flag', 'eye-off', 'pencil']);
-const container = document.getElementById('lineupList');
-if (container) {
+// Lineup and deck cards share the same action markup; each list gets its own portal root.
+function enhance(container: HTMLElement, hostId: string) {
   const host = document.createElement('div');
-  host.id = 'homeCardIcons';
+  host.id = hostId;
   container.after(host);
   const root = createRoot(host);
   let slots: HTMLElement[] = [];
@@ -36,4 +36,9 @@ if (container) {
     root.unmount();
     host.remove();
   }, { once: true });
+}
+
+for (const [listId, hostId] of [['lineupList', 'homeCardIcons'], ['deckList', 'deckCardIcons']]) {
+  const container = document.getElementById(listId);
+  if (container) enhance(container, hostId);
 }

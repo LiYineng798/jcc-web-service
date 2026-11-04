@@ -117,7 +117,9 @@ def my_dashboard():
     user, error = login_required()
     if error:
         return error
-    return jsonify(build_my_dashboard_payload(user['id']))
+    from orange_deck_service import received_summary
+    # Deck figures stay separate so lineup totals keep their meaning.
+    return jsonify({**build_my_dashboard_payload(user['id']), 'decks': received_summary(user['id'])})
 
 
 @lineups_bp.get('/api/me/reports')

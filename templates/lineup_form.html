@@ -1,53 +1,75 @@
 <!doctype html>
 {% from "theme_toggle.html" import theme_toggle %}
 {% from "seo_head.html" import seo_head %}
+{% from "orange_deck_macros.html" import bezel_templates %}
+{% set creating = page_mode != 'edit' %}
 <html lang="zh-CN">
   <head>
 {{ seo_head(seo) }}
     <link rel="stylesheet" href="{{ static_v('moderation.css') }}" />
+    {% if creating %}<link rel="stylesheet" href="{{ static_v('fortune-card-frame.css') }}" />{% endif %}
+    <link rel="stylesheet" href="{{ static_v('orange-decks.css') }}" />
+    <link rel="stylesheet" href="{{ static_v('publish.css') }}" />
   </head>
-  <body>
-    <div class="page-shell editor-page-shell" data-page-mode="{{ page_mode }}" data-lineup-id="{{ lineup_id }}">
-      <nav class="nav-bar" aria-label="页面工具">
+  <body class="deck-page publish-page">
+    {% if creating %}{% include 'fortune_frame_materials.html' %}{{ bezel_templates() }}{% endif %}
+    <div class="page-shell publish-shell editor-page-shell" data-page-mode="{{ page_mode }}" data-lineup-id="{{ lineup_id }}">
+      <nav class="deck-page-nav" aria-label="页面工具">
         <a class="ghost-link" href="/">返回阵容库</a>
-        {{ theme_toggle() }}
+        <div class="nav-actions">{{ theme_toggle('nav-icon-button') }}</div>
       </nav>
 
-      <header class="auth-hero">
-        <p class="eyebrow">Lineup</p>
-        <h1 id="editorTitle">{% if page_mode == 'edit' %}编辑阵容{% else %}新增阵容{% endif %}</h1>
-        <p class="hero-description" id="editorDescription">在独立页面中完成阵容的新增或修改，保存后返回阵容列表。</p>
+      <header class="publish-head">
+        <p class="deck-kicker">{% if creating %}发布{% else %}阵容码{% endif %}</p>
+        <h1 id="editorTitle">{% if creating %}发布到阵容库{% else %}编辑阵容{% endif %}</h1>
+        {% if not creating %}<p id="editorDescription">修改后保存，返回阵容列表。</p>{% endif %}
       </header>
 
-      <section class="panel editor-panel" aria-label="阵容编辑区域">
+      {% if creating %}
+      <div class="publish-switch" role="tablist" aria-label="发布类型">
+        <button type="button" role="tab" id="publishTabLineup" aria-controls="publishLineup" data-publish-type="lineup" aria-selected="{{ 'false' if publish_type == 'deck' else 'true' }}"{% if publish_type == 'deck' %} tabindex="-1"{% endif %}>
+          <span class="publish-switch-mark" aria-hidden="true">#</span>
+          <span><strong>阵容码</strong><small>粘贴游戏内阵容码，选择所属赛季</small></span>
+        </button>
+        <button type="button" role="tab" id="publishTabDeck" aria-controls="publishDeck" data-publish-type="deck" aria-selected="{{ 'true' if publish_type == 'deck' else 'false' }}"{% if publish_type != 'deck' %} tabindex="-1"{% endif %}>
+          <span class="publish-switch-mark" aria-hidden="true">◆</span>
+          <span><strong>大橘大利卡组</strong><small>三张时间卡片 · 推荐传送门 · 可选站位</small></span>
+        </button>
+      </div>
+      {% endif %}
 
-        <form id="editorForm" autocomplete="off">
+      <section class="publish-panel" id="publishLineup" role="{{ 'tabpanel' if creating else 'region' }}" aria-labelledby="{{ 'publishTabLineup' if creating else 'editorTitle' }}"{% if publish_type == 'deck' %} hidden{% endif %}>
+        <form id="editorForm" class="deck-form publish-form" autocomplete="off">
           <input type="hidden" id="lineupId" value="{{ lineup_id }}" />
           <input type="hidden" id="lineupVersion" />
-          <label class="field">
-            <span>阵容名称</span>
-            <input id="nameInput" name="name" type="text" placeholder="例如：梅尔九五" maxlength="80" />
-          </label>
-          <label class="field">
-            <span>阵容码</span>
-            <textarea id="codeInput" name="code" rows="12" placeholder="粘贴完整阵容码，支持长文本和换行"></textarea>
-            <span class="field-hint">支持从分享文案中自动提取，保存时只保留以 `#` 开头的有效阵容码。</span>
-          </label>
-          <div class="field">
-            <span id="editorSeasonLabel">所属赛季</span>
-            <input type="hidden" id="seasonSelect" name="season_id" />
-            <div class="season-menu-wrap editor-season-wrap" id="editorSeasonMenuWrap">
-              <button class="account-toggle season-toggle editor-season-toggle" id="editorSeasonToggle" type="button" aria-haspopup="menu" aria-expanded="false" aria-labelledby="editorSeasonLabel editorSeasonText">
-                <span id="editorSeasonText">请选择赛季</span>
-                <span class="account-chevron" aria-hidden="true">⌄</span>
-              </button>
-              <div class="account-menu hidden season-menu editor-season-menu" id="editorSeasonMenu" role="menu"></div>
+          <section class="deck-section" aria-labelledby="lineupBasicsTitle">
+            <h2 id="lineupBasicsTitle">名称与赛季</h2>
+            <div class="publish-grid">
+              <label class="field" for="nameInput">阵容名称 <small class="deck-hint">80 字内</small>
+                <input id="nameInput" name="name" type="text" placeholder="例如：梅尔九五" maxlength="80" />
+              </label>
+              <div class="field">
+                <span id="editorSeasonLabel">所属赛季</span>
+                <input type="hidden" id="seasonSelect" name="season_id" />
+                <div class="season-menu-wrap editor-season-wrap" id="editorSeasonMenuWrap">
+                  <button class="account-toggle season-toggle editor-season-toggle" id="editorSeasonToggle" type="button" aria-haspopup="menu" aria-expanded="false" aria-labelledby="editorSeasonLabel editorSeasonText">
+                    <span id="editorSeasonText">请选择赛季</span>
+                    <span class="account-chevron" aria-hidden="true">⌄</span>
+                  </button>
+                  <div class="account-menu hidden season-menu editor-season-menu" id="editorSeasonMenu" role="menu"></div>
+                </div>
+              </div>
             </div>
-          </div>
-          <div class="field visibility-toggle">
+          </section>
+          <section class="deck-section" aria-labelledby="lineupCodeTitle">
+            <h2 id="lineupCodeTitle">阵容码</h2>
+            <label class="deck-visually-hidden" for="codeInput">阵容码</label>
+            <textarea id="codeInput" name="code" rows="6" placeholder="粘贴游戏内复制的阵容码或整段分享文案"></textarea>
+            <p class="publish-code-status" id="codeStatus" role="status" aria-live="polite">支持从分享文案中自动提取，保存时只保留以 # 开头的有效阵容码。</p>
+          </section>
+          <section class="deck-section visibility-toggle" aria-labelledby="lineupVisibilityTitle">
             <div class="visibility-copy">
-              <span>发布状态</span>
-              <strong id="statusSummary">直接展示</strong>
+              <h2 id="lineupVisibilityTitle">发布状态 <strong id="statusSummary">直接展示</strong></h2>
               <span class="field-hint">默认直接展示；开启后会直接隐藏，仅你自己可见。</span>
             </div>
             <label class="visibility-switch" for="statusToggle">
@@ -56,15 +78,27 @@
               <span class="visibility-slider" aria-hidden="true"></span>
               <span class="visibility-switch-label">直接隐藏</span>
             </label>
-          </div>
-          <div class="editor-actions">
-            <button class="primary-button" id="submitButton" type="submit">{% if page_mode == 'edit' %}保存修改{% else %}保存阵容{% endif %}</button>
-            <a class="ghost-link" href="/">返回阵容库</a>
+          </section>
+          <div class="deck-form-actions">
+            <p>{% if creating %}保存后返回阵容库{% else %}保存后返回阵容列表{% endif %}</p>
+            <a class="ghost-link" href="/">取消</a>
+            <button class="deck-button is-primary" id="submitButton" type="submit">{% if creating %}发布阵容{% else %}保存修改{% endif %}</button>
           </div>
         </form>
       </section>
+
+      {% if creating %}
+      <section class="publish-panel" id="publishDeck" role="tabpanel" aria-labelledby="publishTabDeck"{% if publish_type != 'deck' %} hidden{% endif %}>
+{% include 'orange_deck_fields.html' %}
+      </section>
+      {% endif %}
     </div>
     <script src="{{ static_v('theme-toggle.js') }}" defer></script>
     <script src="{{ static_v('lineup-editor.js') }}" defer></script>
+    {% if creating %}
+    <script src="{{ static_v('orange-deck-core.js') }}" defer></script>
+    <script src="{{ static_v('orange-deck-editor.js') }}" defer></script>
+    <script src="{{ static_v('publish.js') }}" defer></script>
+    {% endif %}
   </body>
 </html>

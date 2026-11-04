@@ -7,7 +7,7 @@ from pathlib import Path
 
 def test_all_tracked_page_types_have_chinese_labels():
     from daily_report_service import PAGE_KEY_LABELS, page_label
-    for filename in ('app_pages.py', 'patch_notes.py'):
+    for filename in ('app_pages.py', 'patch_notes.py', 'orange_decks.py'):
         source = Path(filename).read_text(encoding='utf-8')
         keys = re.findall(r"tracked_template_response\(\s*'[^']+',\s*'([^']+)'", source)
         assert keys

@@ -16,6 +16,7 @@ sys.path.insert(0, str(ROOT))
 from season_mechanic_registry import reference_metadata, OVERVIEW_CAPABILITY
 from season_package_format import (
     MODULES,
+    OPTIONAL_MODULES,
     FORMAT,
     SCHEMA,
     dump,
@@ -42,7 +43,7 @@ def build_package(source, output, revision, notes, package_id=None, provenance=N
         data.mkdir()
         shutil.copytree(source / 'assets', root / 'assets')
         counts, modules = {}, {}
-        for name in MODULES:
+        for name in MODULES + tuple(name for name in OPTIONAL_MODULES if (source / f'{name}.json').is_file()):
             path = source / f'{name}.json'
             doc = (
                 read_json(path) if path.is_file() else {'version_id': index['version_id'], name: []}
@@ -138,6 +139,7 @@ def build_package(source, output, revision, notes, package_id=None, provenance=N
             'builder': {'name': 'jcc-season-pack', 'version': '1.0.0'},
             'required_capabilities': sorted(
                 {'simulator.placement_rules.v1', 'reference.cards.v1'}
+                | ({'orange.time_cards.v1'} if 'time_cards' in modules else set())
                 | ({OVERVIEW_CAPABILITY} if any(m.get('description') for m in index.get('mechanics', [])) else set())
                 | {
                     f'reference.{m["presentation"]}'

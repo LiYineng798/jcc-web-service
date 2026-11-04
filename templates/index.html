@@ -2,6 +2,13 @@
 {% from "theme_toggle.html" import theme_toggle %}
 {% from "seo_head.html" import seo_head %}
 {% from "toolbox.html" import toolbox_menu, toolbox_links, toolbox_icon %}
+{% from "orange_deck_macros.html" import bezel_templates %}
+{% macro library_switch() -%}
+<nav class="home-library-switch" aria-label="内容库">
+  <a href="/" data-home-library="lineups"{% if home_library == 'lineups' %} aria-current="page"{% endif %}>阵容库</a>
+  <a href="/?library=decks" data-home-library="decks"{% if home_library == 'decks' %} aria-current="page"{% endif %}>卡组库</a>
+</nav>
+{%- endmacro %}
 <html lang="zh-CN">
   <head>
 {{ seo_head(seo) }}
@@ -12,11 +19,14 @@
     <link rel="stylesheet" href="{{ static_v('handwriting-count.css') }}" />
     <link rel="stylesheet" href="{{ static_v('lineup-notifications.css') }}" />
     <link rel="stylesheet" href="{{ static_v('home-lineup-card.css') }}" />
+    <link rel="stylesheet" href="{{ static_v('fortune-card-frame.css') }}" />
+    <link rel="stylesheet" href="{{ static_v('orange-decks.css') }}" />
     <script src="{{ static_v('avatar-lab/app.js') }}" defer></script>
       <link rel="stylesheet" href="{{ static_v('notification-presentation.css') }}" />
     <script src="{{ static_v('notification-presentation.js') }}" defer></script>
 </head>
-  <body>
+  <body data-home-library="{{ home_library }}">
+{% include 'fortune_frame_materials.html' %}
     <div class="page-shell">
       <header class="hero">
         <nav class="nav-bar" aria-label="页面工具">
@@ -70,7 +80,7 @@
                 <a class="account-menu-item" id="menuAuthLink" href="/auth" role="menuitem">登录 / 注册</a>
                 <a class="account-menu-item hidden" id="menuAccountLink" href="/me" role="menuitem">个人中心</a>
                 <a class="account-menu-item hidden" id="menuAvatarLink" href="/me#avatar" role="menuitem">调整头像</a>
-                <a class="account-menu-item hidden" id="menuCreateLineupLink" href="/lineup/new" role="menuitem">新增阵容</a>
+                <a class="account-menu-item hidden" id="menuCreateLineupLink" href="/lineup/new" role="menuitem">发布阵容 / 卡组</a>
                 <a class="account-menu-item hidden" id="menuAdminLink" href="/admin" role="menuitem">后台管理</a>
                 <button class="account-menu-item account-menu-danger hidden" id="menuLogoutButton" type="button" role="menuitem">退出登录</button>
               </div>
@@ -142,12 +152,12 @@
 {% endif %}
 
       <main class="content-grid">
-        <section class="panel list-panel list-panel-full" aria-labelledby="listTitle">
+        <section class="panel list-panel list-panel-full" id="lineupLibrary" aria-labelledby="listTitle"{% if home_library == 'decks' %} hidden{% endif %}>
           <div class="panel-heading list-heading" id="listHeading">
             <div class="list-heading-left">
-              <p class="section-kicker">Library</p>
               <div class="list-heading-main">
-                <h2 id="listTitle">阵容列表</h2>
+                {{ library_switch() }}
+                <h2 id="listTitle" class="deck-visually-hidden">阵容列表</h2>
                 <span class="current-display-count" id="currentDisplayCount">正在加载阵容…</span>
                 <div class="season-context">
                   <div class="season-menu-wrap" id="seasonMenuWrap">
@@ -192,6 +202,48 @@
           <nav class="pagination" id="pagination" aria-label="分页导航"></nav>
           <div class="empty-state hidden" id="emptyState"><div class="empty-icon">⌘</div><h3>还没有阵容</h3><p>登录后可收藏阵容并随时找回，也可以上传第一套阵容或切换到全部阵容查看公开内容。</p></div>
         </section>
+
+        <section class="panel list-panel list-panel-full deck-library" id="deckLibrary" data-deck-root aria-labelledby="deckLibraryTitle"{% if home_library != 'decks' %} hidden{% endif %}>
+          <div class="panel-heading list-heading">
+            <div class="list-heading-left">
+              <div class="list-heading-main">
+                {{ library_switch() }}
+                <h2 id="deckLibraryTitle" class="deck-visually-hidden">卡组列表</h2>
+                <span class="current-display-count" id="deckCount">正在加载卡组…</span>
+                <div class="season-menu-wrap" id="deckPortalWrap">
+                  <button class="account-toggle season-toggle" id="deckPortalToggle" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="按推荐传送门筛选">
+                    <span id="deckPortalText">全部传送门</span>
+                    <svg class="account-chevron" aria-hidden="true" width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5 6 7.5 9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                  </button>
+                  <div class="account-menu hidden season-menu" id="deckPortalMenu" role="menu">
+                    <button class="account-menu-item season-option" type="button" role="menuitemradio" data-portal="" data-name="全部传送门"><span class="season-option-label">全部传送门</span><span class="season-option-check" aria-hidden="true">✓</span></button>
+                    {% for portal in deck_portals %}<button class="account-menu-item season-option" type="button" role="menuitemradio" data-portal="{{ portal.id }}" data-name="{{ portal.name }}"><span class="season-option-label"><span class="deck-portal" data-portal="{{ portal.id }}">{{ portal.name }}</span> · 能量 ≤ {{ portal.energy_limit }}</span><span class="season-option-check" aria-hidden="true">✓</span></button>{% endfor %}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="deck-search">
+              <label class="deck-visually-hidden" for="deckSearch">搜索卡组名称或卡片名称</label>
+              <input id="deckSearch" type="search" maxlength="40" autocomplete="off" placeholder="搜索卡组名或卡名，例如：利滚利" />
+            </div>
+          </div>
+          <div class="tabs-shell">
+            <div class="tabs" id="deckTabs" role="tablist" aria-label="卡组排序与范围">
+              <button class="tab active" type="button" role="tab" aria-selected="true" data-deck-tab="latest">最新</button>
+              <button class="tab" type="button" role="tab" aria-selected="false" data-deck-tab="hot">热门</button>
+              <button class="tab" type="button" role="tab" aria-selected="false" data-deck-tab="featured">推荐</button>
+              <button class="tab" type="button" role="tab" aria-selected="false" data-deck-tab="favorites">我的收藏</button>
+              <button class="tab" type="button" role="tab" aria-selected="false" data-deck-tab="mine">我的卡组</button>
+              <span class="tab-indicator" id="deckTabIndicator" aria-hidden="true"></span>
+            </div>
+          </div>
+          <p class="deck-rule" id="deckRule" hidden></p>
+          <p class="deck-visually-hidden" id="deckStatus" role="status" aria-live="polite"></p>
+          <div class="deck-list" id="deckList"></div>
+          {{ bezel_templates() }}
+          <nav class="deck-pagination" id="deckPagination" aria-label="卡组分页"></nav>
+          <noscript><p class="deck-rule">卡组列表需要 JavaScript；卡组详情页可直接访问。</p></noscript>
+        </section>
       </main>
       <div class="guestbook-trigger" id="guestbookTrigger">
         <button type="button">给站长留言</button>
@@ -210,5 +262,7 @@
     <script src="{{ static_v('home-navigation.js') }}" defer></script>
     <script src="{{ static_v('home-card-icons/app.js') }}" defer></script>
     <script src="{{ static_v('app.js') }}" defer></script>
+    <script src="{{ static_v('orange-deck-core.js') }}" defer></script>
+    <script src="{{ static_v('orange-deck-library.js') }}" defer></script>
   </body>
 </html>

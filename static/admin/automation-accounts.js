@@ -29,6 +29,7 @@
             el('p', 'admin-meta', `到期：${new Date(account.expires_at).toLocaleString('zh-CN')} · 最近使用：${account.last_used_at ? new Date(account.last_used_at).toLocaleString('zh-CN') : '尚未使用'}`));
           if (account.can_touch) card.append(el('p', 'admin-meta', `展示时间授权：${account.touch_seasons.join('、')}`));
           if (account.can_import) card.append(el('p', 'admin-meta', `授权赛季：${account.allowed_seasons.join('、')}`));
+          if (account.can_upload_decks) card.append(el('p', 'admin-meta', `卡组上传授权：${account.deck_seasons.join('、')}`));
           const actions = el('div', 'card-actions');
           actions.append(
             button('调整权限', () => edit(account)),
@@ -70,8 +71,11 @@
       body.replaceChildren(form);
     }
     async function edit(account = null) {
-      let seasons;
-      try { seasons = (await api('/api/lineup-seasons')).seasons || []; } catch (err) { error(err); return; }
+      let seasons, deckSeasons;
+      try {
+        const results = await Promise.all([api('/api/lineup-seasons'), api('/api/admin/automation-accounts/deck-seasons')]);
+        seasons = results[0].seasons || []; deckSeasons = results[1].seasons || [];
+      } catch (err) { error(err); return; }
       if (!dialog.open) return;
       const form = el('form', 'automation-form');
       const field = (label, name, value, type = 'text') => {
@@ -105,9 +109,22 @@
       const touchChoices = choices.cloneNode(true); touchChoices.querySelector('legend').textContent = '允许维护展示时间的赛季';
       touchChoices.querySelectorAll('input').forEach(input => { input.checked = account?.touch_seasons?.includes(input.value) || false; });
       touchChoices.disabled = !touch.checked; touch.addEventListener('change', () => { touchChoices.disabled = !touch.checked; });
+      const deckLabel = el('label', 'automation-check');
+      const decks = el('input'); decks.type = 'checkbox'; decks.checked = account?.can_upload_decks || false;
+      deckLabel.append(decks, document.createTextNode('允许上传指定赛季的卡组（默认关闭）'));
+      const deckChoices = el('fieldset', 'automation-seasons'); deckChoices.append(el('legend', '', '允许上传卡组的赛季'));
+      const deckOptions = [...deckSeasons];
+      for (const id of account?.deck_seasons || []) if (!deckOptions.some(s => s.id === id)) deckOptions.push({ id, name: `${id}（当前未开放）` });
+      for (const season of deckOptions) {
+        const label = el('label', 'automation-check'), input = el('input');
+        input.type = 'checkbox'; input.value = season.id; input.checked = account?.deck_seasons?.includes(season.id) || false;
+        label.append(input, document.createTextNode(season.name)); deckChoices.append(label);
+      }
+      if (!deckOptions.length) deckChoices.append(el('p', 'admin-meta', '暂无已开放且有时间卡片资料的赛季'));
+      deckChoices.disabled = !decks.checked; decks.addEventListener('change', () => { deckChoices.disabled = !decks.checked; });
       const message = el('p', 'patch-editor-error'); message.setAttribute('role', 'alert');
       const submit = el('button', 'small-button is-active', account ? '保存权限' : '创建账号'); submit.type = 'submit';
-      form.append(choices, touchLabel, touchChoices, el('p', 'admin-meta', '只读范围：运营概览、复制排行、日报汇总及公开普通阵容；另可修改本账号头像。导入不会覆盖、删除、调分或审核已有阵容，上传者记录为此账号。'),
+      form.append(choices, touchLabel, touchChoices, deckLabel, deckChoices, el('p', 'admin-meta', '只读范围：运营概览、复制排行、日报汇总及公开普通阵容；另可修改本账号头像。导入和卡组上传不会覆盖、删除或审核已有内容，上传者记录为此账号。'),
         message, submit, button('返回列表', load));
       let busy = false;
       form.addEventListener('submit', async event => {
@@ -117,6 +134,9 @@
         const touched = [...touchChoices.querySelectorAll('input:checked')].map(input => input.value);
         if (touch.checked && !touched.length) { message.textContent = '请选择允许维护展示时间的赛季。'; return; }
         const payload = { can_import: enabled.checked, allowed_seasons: selected, can_touch: touch.checked, touch_seasons: touched };
+        const deckSelected = [...deckChoices.querySelectorAll('input:checked')].map(input => input.value);
+        if (decks.checked && !deckSelected.length) { message.textContent = '请选择允许上传卡组的赛季。'; return; }
+        Object.assign(payload, { can_upload_decks: decks.checked, deck_seasons: deckSelected });
         if (!account) Object.assign(payload, { password: form.elements.password.value, username: form.elements.username.value.trim(), nickname: form.elements.nickname.value.trim(), expires_in_days: Number(form.elements.days.value) });
         busy = true; submit.disabled = true;
         try {

@@ -15,12 +15,16 @@
   const portals = new Map(config.portals.map((portal) => [portal.id, portal]));
   const layouts = new Map(config.layouts.map((layout) => [layout.id, layout]));
   const maxEnergy = Math.max(...config.portals.map(p=>p.energy_limit));
-  const storageKey = 'jcc-orange-creator-v1';
+  const preview = new URLSearchParams(location.search).get('preview_release');
+  const storageKey = 'jcc-orange-creator-v1' + (preview ? `:preview:${preview}` : '');
+  // A deck imported from the library is edited in this page only: the saved poster draft
+  // and the formation draft keep their values until the user returns to them.
+  const importDeckId = document.querySelector('#creator-import')?.dataset.deckId || '';
   const defaults = {title:'我的大橘大利卡组', author:'', target:'不标注', portal:config.portals[0].id, note:'', tempo:'', items:'', layout:'guide', background:'gilded', cards:[null,null,null]};
   let state = {...defaults, cards:[...defaults.cards]}, formation = null, activeSlot = 0, exporting = false;
   const notify = (message, variant = 'info') => window.jccNotify?.show(message, {variant});
   try {
-    const saved = JSON.parse(localStorage.getItem(storageKey) || 'null');
+    const saved = importDeckId ? null : JSON.parse(localStorage.getItem(storageKey) || 'null');
     if (saved && saved.version === 1) {
       for (const [key, max] of Object.entries({title:24,author:16,note:100,tempo:24,items:40})) state[key] = typeof saved[key] === 'string' ? saved[key].slice(0,max) : defaults[key];
       // Older drafts used "unspecified"/"custom" portals and a hand-typed energy; both fall back to the default portal.
@@ -48,6 +52,7 @@
   const formationReady = () => !layouts.get(state.layout).formation || Boolean(formation?.board.some(Boolean));
   const exportReady = () => deck().count===3 && formationReady();
   function save() {
+    if (importDeckId) { $('save-status').textContent = '正在编辑导入的卡组 · 不会覆盖你的海报草稿'; return; }
     try { localStorage.setItem(storageKey, JSON.stringify({...state,version:1})); $('save-status').textContent = '草稿已自动保存 · 仅当前浏览器'; }
     catch { $('save-status').textContent = '草稿未能保存；请在离开前导出海报'; }
   }
@@ -247,15 +252,28 @@
     formationTimer=setTimeout(formationFailed,20000);
     frame.src=frame.src;
   });
+  let importFormation = null, frameReady = false;
+  const loadImportFormation = () => frame.contentWindow.postMessage({type:'jcc:orange-formation-load',version:1,payload:importFormation},location.origin);
   window.addEventListener('message',event=>{
     if (event.origin!==location.origin || !frame || event.source!==frame.contentWindow) return;
     if(event.data?.type==='jcc:orange-formation-error') {formationFailed();return;}
+    if(event.data?.type==='jcc:orange-formation-ready') {
+      frameReady=true;
+      if(importFormation) loadImportFormation();
+      return;
+    }
+    if(event.data?.type==='jcc:orange-formation-load-result') {
+      if(!event.data.ok) notify(event.data.error || '卡组阵容未能载入','error');
+      else if(event.data.droppedUnits || event.data.droppedItems) notify('部分弈子或装备在当前资料中已不存在，未载入','warning');
+      return;
+    }
     if(event.data?.type!=='jcc:orange-formation' || event.data.version!==1 || event.data.season!==config.season_id) return;
     formation=event.data;
     clearTimeout(formationTimer);
     $('retry-formation').hidden=true;
     $('formation-count').textContent=`${formation.board.filter(Boolean).length} 个单位`;
-    $('formation-status').textContent=formation.storageSaved ? '已连接阵容编辑器 · 独立保存，不覆盖模拟器原有草稿' : '已连接阵容编辑器 · 阵容未能保存，请在离开前导出海报';
+    $('formation-status').textContent=importDeckId ? '已连接阵容编辑器 · 导入的阵容不会覆盖你的阵容草稿'
+      : formation.storageSaved ? '已连接阵容编辑器 · 独立保存，不覆盖模拟器原有草稿' : '已连接阵容编辑器 · 阵容未能保存，请在离开前导出海报';
     renderPoster();
   });
   // An unavailable child document must leave a useful retry action, never a false ready state.
@@ -316,5 +334,25 @@
     } catch(error) {notify(error.message || '海报生成失败，请重试','error');$('export-status').textContent=error.message || '导出失败，请重试';}
     finally {copy?.remove();exporting=false;button.textContent='导出海报 ↓';button.disabled=!exportReady();}
   });
+  async function importDeck() {
+    const banner=$('creator-import');
+    try {
+      const response=await fetch(`/api/orange-decks/${encodeURIComponent(importDeckId)}/export`,{headers:{Accept:'application/json'}});
+      const data=await response.json().catch(()=>null);
+      if(!response.ok) throw new Error(data?.error || '卡组读取失败');
+      Object.assign(state,{title:data.title.slice(0,24),author:data.author.slice(0,16),note:data.note,tempo:data.tempo,
+        portal:portals.has(data.portal)?data.portal:state.portal,layout:layouts.has(data.layout)?data.layout:'cards',
+        cards:data.cards.map(id=>cards.has(id)?id:null)});
+      for (const [id,key] of Object.entries(fields)) $(id).value=state[key];
+      syncLayout();update();
+      importFormation=data.formation;
+      if(importFormation && frame && frameReady) loadImportFormation();
+      banner.querySelector('[data-import-status]').textContent=`已导入卡组「${data.title}」${data.formation_dropped?'；阵容属于未开放的资料赛季，未导入站位':''}。`;
+    } catch(error) {
+      banner.classList.add('is-error');
+      banner.querySelector('[data-import-status]').textContent=`${error.message}，当前为空白海报。`;
+    }
+  }
   renderSlots();renderPoster();
+  if(importDeckId) importDeck();
 })();

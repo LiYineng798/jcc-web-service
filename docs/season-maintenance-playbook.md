@@ -59,6 +59,17 @@ python scripts/season_library/build_upload_package.py --season s18 --source "D:/
 重新传输用原 ZIP，修改内容就制作新 revision；不改文件名伪造补丁。
 日常数据发布无需 Git、迁移或重启。新能力、初次登记或明确更换静态基准才走代码部署。
 
+### 大橘大利时间卡片
+
+完整运行 `collect_orange_fortune.py`（不能使用 `--skip-cards`），保留当前分支的 cardurl 响应和
+`images/manifest.json`。`official_archive.py` 将它们转换为 `time_cards.json` 和包内图片，
+随后按上述 `import_from_archive.py` → `build_upload_package.py` 流程打包；不复制旧版时间卡片冒充新版本。
+临时图片下载失败需重试，明确的官方 404 可保留缺图占位。转换和打包阶段不访问网络。
+
+后台差异中审阅“时间卡片”的增删与字段变化，再依次预览图鉴、海报选卡和卡组发布。
+预览草稿隔离，候选页不能发布卡组。发布后刷新页面，三处选卡同步切换到当前版本，回滚也一起恢复。
+上线前已经发布的旧 ZIP 不含时间卡片时仍使用旧静态基准；后续更新必须制作带完整时间卡片的新包。
+
 ## 每次验收
 
 - 候选资源对游客不可读；管理员预览固定 release，不能写业务数据。

@@ -14,7 +14,7 @@ from s11_items_service import recommendation_guide
 from s11_artifacts_service import artifact_guide
 from witch_rewards_service import reward_tiers, select_reward_tier
 from golden_egg_service import golden_egg_rewards
-from orange_fortune_service import card_guide
+from orange_fortune_service import PORTALS, card_guide
 from orange_creator_service import creator_config
 from trait_ladder_service import calculator_data, reward_tiers as ladder_reward_tiers
 from seo import (
@@ -86,6 +86,9 @@ def _sitemap_entries():
         '''
     ).fetchall()
     entries.extend({'loc': absolute_url(f"/author/{row['username']}"), 'lastmod': row['lastmod']} for row in author_rows)
+
+    from orange_deck_service import published_deck_entries
+    entries.extend({'loc': absolute_url(f"/orange-decks/{row['id']}"), 'lastmod': row['updated_at']} for row in published_deck_entries())
 
     note_rows = db.execute(
         "SELECT id, published_at, updated_at FROM patch_notes WHERE status = 'published' ORDER BY published_at DESC, id DESC"
@@ -161,6 +164,9 @@ def register_page_routes(app):
             simulator_enabled=simulator_enabled,
             notice=notice,
             reference_seasons=catalog_seasons(),
+            # The deck library is a sibling of the lineup library; render the requested one first.
+            home_library='decks' if request.args.get('library') == 'decks' else 'lineups',
+            deck_portals=PORTALS,
             seo=seo,
         )
 
@@ -182,8 +188,10 @@ def register_page_routes(app):
 
     @app.get('/tools/orange-fortune-creator')
     def orange_creator_page():
+        deck = request.args.get('deck', '')
         return tracked_template_response(
             'orange_creator.html', 'orange_creator', creator_data=creator_config(),
+            import_deck_id=deck if deck.isdigit() else '',
             seo=make_seo(title='大橘大利创作者工具', description='搭配三张时间卡片与阵容，创作专属 3:4 卡组海报。', path='/tools/orange-fortune-creator'),
         )
 
@@ -293,12 +301,16 @@ def register_page_routes(app):
 
     @app.get('/lineup/new')
     def lineup_create_page():
+        # One publish page for lineup codes and Orange Fortune decks; ?type=deck opens the deck form.
+        from orange_deck_service import LIMITS
         return tracked_template_response(
             'lineup_form.html',
             'lineup_editor',
             lineup_id='',
             page_mode='create',
-            seo=make_seo(title='新增阵容 - 金铲铲阵容库', description='新增金铲铲阵容。', path='/lineup/new', noindex=True),
+            publish_type='deck' if request.args.get('type') == 'deck' else 'lineup',
+            deck_id='', creator_data=creator_config(), limits=LIMITS,
+            seo=make_seo(title='发布阵容或卡组 - 金铲铲阵容库', description='发布金铲铲阵容码或大橘大利卡组。', path='/lineup/new', noindex=True),
         )
 
     @app.get('/lineup/<int:lineup_id>/edit')
@@ -308,6 +320,7 @@ def register_page_routes(app):
             'lineup_editor',
             lineup_id=lineup_id,
             page_mode='edit',
+            publish_type='lineup',
             seo=make_seo(title='编辑阵容 - 金铲铲阵容库', description='编辑金铲铲阵容。', path=f'/lineup/{lineup_id}/edit', noindex=True),
         )
 
