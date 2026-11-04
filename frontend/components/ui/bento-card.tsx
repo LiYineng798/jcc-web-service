@@ -105,10 +105,12 @@ type Dashboard = {
 type Deck = {
   id: number;
   name: string;
+  plan_code: string;
   status: string;
   portal: { id: string; name: string };
   energy: number;
   energy_limit: number;
+  copy_count: number;
   like_count: number;
   favorite_count: number;
   is_favorited: boolean;
@@ -126,6 +128,7 @@ declare global {
     JccAccount: {
       request: <T>(url: string, options?: RequestInit) => Promise<T>;
       copy: (lineup: Lineup, token: string) => Promise<void>;
+      copyText: (text: string) => Promise<boolean>;
     };
     jccAvatar: {
       image: (
@@ -1268,6 +1271,7 @@ function DeckCard({
 }) {
   const [busy, setBusy] = useState(false);
   const names = item.cards.map((card) => card?.name || "—").join(" · ");
+  const [copiedCount, setCopiedCount] = useState(0);
   return (
     <article className="pf-lineup-card pf-deck-card" data-deck-id={item.id}>
       <div className="pf-lineup-card-top">
@@ -1288,6 +1292,25 @@ function DeckCard({
         )}
       </h2>
       <p className="pf-lineup-meta">{names}</p>
+      {item.plan_code && (
+        <button className="pf-button pf-deck-copy" disabled={busy} onClick={async () => {
+          setBusy(true);
+          try {
+            const ok = await window.JccAccount.copyText(item.plan_code);
+            window.jccNotify.show(ok ? "方案码已复制" : "复制失败，请到详情页手动复制", { variant: ok ? "success" : "error" });
+            if (ok && item.status === "published") {
+              try {
+                const data = await window.JccAccount.request<{ copy_count: number }>(`/api/orange-decks/${item.id}/copy`, {
+                  method: "POST", headers: { "X-CSRF-Token": token },
+                });
+                setCopiedCount(data.copy_count);
+              } catch {
+                window.jccNotify.show("方案码已复制，但次数未同步，请稍后刷新", { variant: "warning" });
+              }
+            }
+          } finally { setBusy(false); }
+        }}><Copy size={14} />复制方案码</button>
+      )}
       <div className="pf-lineup-card-bottom">
         <span className="pf-interactions">
           <span>
@@ -1297,6 +1320,10 @@ function DeckCard({
           <span>
             <Bookmark size={13} />
             {number(item.favorite_count)}
+          </span>
+          <span title="方案码复制次数">
+            <Copy size={13} />
+            {number(Math.max(item.copy_count, copiedCount))}
           </span>
         </span>
         <div className="pf-card-actions">

@@ -131,12 +131,12 @@
       STATUS[deck.status] ? `<span class="deck-badge ${STATUS[deck.status][1]}">${STATUS[deck.status][0]}</span>` : '',
       deck.compat.missing_cards ? '<span class="deck-badge is-danger">含失效卡片</span>' : deck.compat.changed ? '<span class="deck-badge is-warn">资料已更新</span>' : '',
     ].join('');
-    const over = deck.cards.every(Boolean) && !deck.fits;
+    const over = !deck.compat.missing_cards && deck.cards.every(Boolean) && !deck.fits;
     const published = deck.status === 'published';
     const social = published ? [
       action(deck.is_liked_today ? '已赞' : '点赞', 'heart', 'like', `aria-pressed="${deck.is_liked_today}" title="${deck.is_liked_today ? '今日已赞' : '点赞卡组'}"`, deck.like_count),
       action(deck.is_favorited ? '已收藏' : '收藏', 'bookmark', 'favorite', `aria-pressed="${deck.is_favorited}" title="${deck.is_favorited ? '取消收藏' : '收藏卡组'}"`, deck.favorite_count),
-      action('分享', 'copy', 'share', 'title="复制卡组文本与详情链接"'),
+      action('复制', 'copy', 'copy-plan', deck.plan_code ? 'title="复制方案码"' : 'disabled title="暂未提供方案码"', deck.copy_count || 0),
     ].join('') : '';
     const utilities = [
       deck.can_edit ? action('编辑', 'pencil', 'edit', '', null).replace('small-button home-card-action', 'small-button home-card-action home-card-quiet') : '',
@@ -263,7 +263,18 @@
     if (!target) return;
     const node = target.closest('[data-deck-id]');
     const deck = node && state.items.find((item) => String(item.id) === node.dataset.deckId);
-    if (target.dataset.cardIndex !== undefined && deck) { D.openCard(deck.cards[Number(target.dataset.cardIndex)], target); return; }
+    if (target.dataset.cardIndex !== undefined && deck) {
+      if (target.disabled) return;
+      const cardId = deck.cards[Number(target.dataset.cardIndex)]?.id;
+      target.disabled = true;
+      D.api(`/api/orange-decks/${deck.id}`).then((fresh) => {
+        if (!target.isConnected) return;
+        const current = fresh.cards.find(card => card?.id === cardId);
+        if (current) D.openCard(current, target);
+        else D.notify('作者已调整这张卡片，请刷新卡组列表', 'info');
+      }).catch(error => D.notify(error.message, 'error')).finally(() => { target.disabled = false; });
+      return;
+    }
     const action = target.dataset.action;
     if (action === 'retry') load();
     else if (action === 'clear') change({ q: '', portal: '', page: 1 });
@@ -271,13 +282,19 @@
     else if ((action === 'like' || action === 'favorite') && deck) interact(target, deck, action);
     else if (action === 'edit' && deck) location.href = `/orange-decks/${deck.id}/edit`;
     else if (action === 'open' && deck) location.href = deck.detail_url;
-    else if (action === 'share' && deck) {
-      D.copy(deck.share_text).then((ok) => {
-        if (!ok) { D.notify('复制失败，请打开详情页手动复制', 'error'); return; }
-        feedback(deck, 'copy');
-        target.querySelector('.home-card-action-label').textContent = '已复制';
-        target.querySelector('[data-card-icon]').dataset.cardIcon = 'check';
-      });
+    else if (action === 'copy-plan' && deck) {
+      target.disabled = true;
+      D.copy(deck.plan_code).then(async (ok) => {
+        D.notify(ok ? '方案码已复制' : '复制失败，请到详情页手动复制', ok ? 'success' : 'error');
+        if (ok) {
+          feedback(deck, 'copy'); target.querySelector('.home-card-action-label').textContent = '已复制';
+          try {
+            const data = await D.recordCopy(deck.id, state.csrf);
+            deck.copy_count = data.copy_count;
+            target.querySelector('.home-card-number').textContent = Number(data.copy_count).toLocaleString('zh-CN');
+          } catch { D.notify('方案码已复制，但次数未同步，请稍后刷新', 'info'); }
+        }
+      }).finally(() => { target.disabled = false; });
     }
   });
   els.pagination.addEventListener('click', (event) => {

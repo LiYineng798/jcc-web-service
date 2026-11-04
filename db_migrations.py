@@ -5,6 +5,8 @@ from db_schema import EXTRA_INDEX_STATEMENTS, LINEUP_COLUMN_MIGRATIONS, table_co
 
 
 def migrate_schema(db, admin_id, now_text_func):
+    from orange_deck_schema import migrate_deck_codes
+    migrate_deck_codes(db)
     from automation_schema import AUTOMATION_SCHEMA
     for statement in AUTOMATION_SCHEMA.split(';'):
         if statement.strip():

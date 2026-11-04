@@ -9,6 +9,8 @@ CREATE TABLE IF NOT EXISTS orange_decks (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     user_id INTEGER NOT NULL REFERENCES users(id),
     name TEXT NOT NULL,
+    plan_code TEXT NOT NULL DEFAULT '',
+    season_id TEXT NOT NULL DEFAULT 'orange_s400001',
     card_id_1 TEXT,
     card_id_2 TEXT,
     card_id_3 TEXT,
@@ -67,4 +69,28 @@ CREATE TABLE IF NOT EXISTS orange_deck_likes (
 
 CREATE INDEX IF NOT EXISTS idx_orange_deck_likes_deck ON orange_deck_likes (deck_id);
 CREATE INDEX IF NOT EXISTS idx_orange_deck_likes_user_date ON orange_deck_likes (user_id, like_date);
+
+-- Mirror DB migration 0027. The primary key also indexes counts by deck.
+CREATE TABLE IF NOT EXISTS orange_deck_copies (
+    deck_id INTEGER NOT NULL REFERENCES orange_decks(id),
+    copy_key TEXT NOT NULL,
+    bucket_start TEXT NOT NULL,
+    created_at TEXT NOT NULL,
+    PRIMARY KEY (deck_id, copy_key, bucket_start)
+);
 """
+
+
+def migrate_deck_codes(db):
+    from db_schema import table_columns
+    columns = table_columns(db, 'orange_decks')
+    # Partial legacy databases may run the shared migrator before the base schema.
+    # Normal startup creates this table from ORANGE_DECK_SCHEMA first.
+    if not columns:
+        return
+    for name, definition in (
+        ('plan_code', "TEXT NOT NULL DEFAULT ''"),
+        ('season_id', "TEXT NOT NULL DEFAULT 'orange_s400001'"),
+    ):
+        if name not in columns:
+            db.execute(f'ALTER TABLE orange_decks ADD COLUMN {name} {definition}')

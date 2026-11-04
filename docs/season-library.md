@@ -32,7 +32,7 @@
 
 没有外部源档案的模式（如大橘大利 `orange_s400001`）由官方分支直接生成档案：
 `scripts/collect_orange_fortune.py` 归档版本目录选中的分支，`scripts/season_library/official_archive.py`
-把 chess/race/job/equip/mission/hex 转为 `数据模板` 布局（商店/任务解锁弈子、羁绊档位、装备属性与配方、图片和
+把 chess/race/job/equip/mission/hex/card 转为 `数据模板` 布局（商店/任务解锁弈子、羁绊档位、装备属性与配方、时间卡片、图片和
 `source-snapshots`），再交给 `import_from_archive.py`。转换规则以 `s16_5` 的来源分支 17.17.8b-S18 回放验证：
 弈子与装备逐字段一致；`new` 标签取决于 `--previous-season` 基准，旧赛季的基准未在仓库保存。
 官方 job.js 已下线时无法回放职业羁绊，以 race 的同一规则为准。

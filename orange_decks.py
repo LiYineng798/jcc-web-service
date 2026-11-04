@@ -1,7 +1,7 @@
 """Deck library routes: identity, parameters and responses; rules live in orange_deck_service."""
 from flask import Blueprint, abort, jsonify, redirect, request
 
-from auth import admin_required, current_user, login_required
+from auth import admin_required, current_user, get_client_ip, login_required
 from db import get_db
 from lineups_utils import parse_positive_int
 from orange_creator_service import creator_config
@@ -18,6 +18,7 @@ from orange_deck_service import (
     get_visible,
     like,
     list_decks,
+    record_copy,
     resolve_formation,
     serialize,
     update_deck,
@@ -31,6 +32,7 @@ orange_decks_bp = Blueprint('orange_decks', __name__)
 
 @orange_decks_bp.errorhandler(DeckError)
 def deck_error(error):
+    get_db().rollback()
     return jsonify({'error': str(error)}), error.status
 
 
@@ -115,6 +117,14 @@ def fork_api(deck_id):
     return _private(jsonify(fork_deck(user, deck_id)), 201)
 
 
+@orange_decks_bp.post('/api/orange-decks/<int:deck_id>/copy')
+def copy_api(deck_id):
+    # A first-time guest also needs the token issued by /api/me.
+    if not request.headers.get('X-CSRF-Token'):
+        return _private(jsonify(error='CSRF 校验失败'), 403)
+    return _private(jsonify(record_copy(current_user(), deck_id, get_client_ip())))
+
+
 @orange_decks_bp.get('/api/admin/orange-decks')
 def admin_list_api():
     admin, error = admin_required()
@@ -152,8 +162,8 @@ def detail_page(deck_id):
     response = tracked_template_response('orange_deck_detail.html', 'orange_deck_detail', deck=deck,
                                          formation=resolve_formation(row), seo=seo,
                                          simulator_enabled=get_setting(get_db(), 'simulator_enabled', 'true') == 'true')
-    if row['status'] != 'published':
-        response.headers['Cache-Control'] = 'private, no-store'
+    # Public HTML still contains viewer-specific favorites and owner actions.
+    response.headers['Cache-Control'] = 'private, no-store'
     return response
 
 

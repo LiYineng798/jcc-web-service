@@ -15,7 +15,8 @@
   const portals = new Map(config.portals.map((portal) => [portal.id, portal]));
   const layouts = new Map(config.layouts.map((layout) => [layout.id, layout]));
   const maxEnergy = Math.max(...config.portals.map(p=>p.energy_limit));
-  const storageKey = 'jcc-orange-creator-v1';
+  const preview = new URLSearchParams(location.search).get('preview_release');
+  const storageKey = 'jcc-orange-creator-v1' + (preview ? `:preview:${preview}` : '');
   // A deck imported from the library is edited in this page only: the saved poster draft
   // and the formation draft keep their values until the user returns to them.
   const importDeckId = document.querySelector('#creator-import')?.dataset.deckId || '';

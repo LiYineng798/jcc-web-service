@@ -25,6 +25,17 @@ URL 状态为 `/?library=decks&tab=&portal=&q=&page=`，支持直接链接、刷
 `orange_decks`、`orange_deck_favorites`、`orange_deck_likes` 独立于普通阵容，不进入阵容数量、评分、排行榜或实时榜单。
 三张卡分列保存（`card_id_1..3`），不写入任何阵容码字段。
 
+`plan_code` 保存游戏分享的完整方案码（`名称-大橘大利-Base64编码`，最多 512 字符），与普通阵容码分开。
+列表和个人中心只提供复制按钮，详情展示完整内容；发布和编辑表单可填写或清空。旧卡组允许暂缺方案码。
+
+列表“复制”后显示累计有效复制次数，成功写入剪贴板后才上报并刷新数量。
+首页、详情和个人中心统一记录到 `orange_deck_copies`：同一账号（游客按 IP）在同一卡组的
+5 分钟时间窗口内只计一次，沿用普通阵容的去重规则。只统计有方案码的公开卡组，历史未记录的次数从 0 开始；
+统计同步失败不影响已完成的复制。此计数独立于普通阵容统计和卡组热门排序。
+PostgreSQL 对应 DB migration `0027_orange_deck_copies.sql`，需要先于 Web 部署；SQLite 启动时同步建表。
+服务端校验格式，不推断游戏内编码与三张卡是否一致；派生草稿不继承可能已不匹配的方案码。
+`season_id` 记录时间卡片所属资料赛季，不能随创作者默认赛季改变；新增字段对应 DB 迁移 `0026_deck_codes_and_permissions.sql`。
+
 - 品阶、能量、传送门上限复用 `orange_fortune_service` 的 `TIERS`、`PORTALS`、`DECK_SIZE`；`energy` 由服务端按资料计算后保存。
 - 公开发布（及被隐藏的已发布内容）必须三张不同且存在的卡，能量不超过所选传送门上限；草稿可缺卡、可超限。
   海报工具允许超限导出的行为不变。
@@ -33,6 +44,12 @@ URL 状态为 `/?library=decks&tab=&portal=&q=&page=`，支持直接链接、刷
   含失效卡的卡组不能再保存，需由作者重新选卡；“以此为基础创建”会留空失效卡槽并提示。
 - 状态：`draft`（仅作者）、`published`、`hidden`（管理员隐藏，作者与管理员可见，作者可改内容但不能自行恢复公开）、
   `deleted`（任何入口不可见）。编辑使用 `version` 乐观检查。
+
+时间卡片读取当前赛季 release 的 `data/time_cards.json` 和包内图片；图鉴、海报选卡、卡组编辑及详情共用它。
+管理员候选预览固定读取候选 ZIP，发布/回滚与资料库、模拟器同步，无需重启。刚上传但尚未发布的包不会影响公开页面。
+大橘大利新 ZIP 必须包含完整时间卡片快照；静态基准和本能力上线前已发布的旧包兼容 `static/tools/orange-fortune/cards.json`。
+首页点击时间卡片时重新请求详情，打开的旧页面也能查看最新效果；列表卡面、编辑器和海报选卡需刷新页面。
+下架卡保留保存时卡名并标为失效，不自动删除卡组或换卡；品阶/能量按当前资料显示，方案码不自动重写。
 
 ## 阵容站位
 
@@ -60,8 +77,8 @@ URL 状态为 `/?library=decks&tab=&portal=&q=&page=`，支持直接链接、刷
 
 ## 分享与海报
 
-- 列表的“分享”复制卡组名称、三张卡名（品阶·能量）、推荐传送门、能量与详情链接；它不是游戏内可导入的卡组码。
-- 详情页只保留点赞、收藏与作者的编辑/删除。`/api/orange-decks/<id>/fork`、`/export` 与创作者工具的
+- 列表底部的“复制”复制完整游戏方案码；未填写方案码时禁用。不在卡面显示编码文本。详情另提供文本与链接分享。
+- 详情页提供方案码展示/复制、点赞、收藏与作者的编辑/删除。`/api/orange-decks/<id>/fork`、`/export` 与创作者工具的
   `?deck=<id>` 导入仍保留在服务端与海报工具中，目前页面不再提供入口。
 - 海报导入只在本页编辑，不读取也不改写 `jcc-orange-creator-v1` 与 `jcc-orange-formation-v1:*`，页头提供返回原草稿的链接。
 - 反向入口：创作者页“发布到卡组库”打开 `/orange-decks/new?from=creator`，只读两个草稿键；编辑页未提交的新卡组暂存在
@@ -69,5 +86,10 @@ URL 状态为 `/?library=decks&tab=&portal=&q=&page=`，支持直接链接、刷
 
 ## 验证
 
-`python -m pytest -q tests/test_orange_decks.py`；DB 仓库 `tests/test_orange_deck_migration.py`。
+`python -m pytest -q tests/test_orange_decks.py tests/test_deck_codes_permissions.py`；DB 仓库
+`tests/test_orange_deck_migration.py`、`tests/test_deck_codes_permissions_migration.py`。
+本地交互验证：`python tests/serve_deck_review_preview.py` → `node tests/orange_decks.browser.cjs`（需 Playwright Core）。
+赛季包联动验证：启动时加 `--prepare-time-cards`，再运行 `node tests/time_card_packages.browser.cjs`。
+该包只使用仓库现有基准，浏览器脚本在本地预览库发布后会回滚到原版本；不是新的官方补丁。
+预览只监听 loopback，示例数据位于独立 `instance/deck-review-preview`，快捷登录路由仅在此测试入口注册。
 浏览器验证需覆盖首页切换/历史、站位展开、卡片弹窗、发布与超限提示、阵容 iframe 往返、海报导入不覆盖草稿和后台操作。

@@ -199,9 +199,14 @@ def postgres_schema_ready():
                         'season_release_packages','season_import_jobs','season_active_releases','season_release_events',
                         'lineup_moderation','lineup_moderation_events',
                         'feedback_threads','feedback_events','user_notifications','author_favorite_receipts','notification_actors', 'automation_accounts',
-                        'orange_decks','orange_deck_favorites','orange_deck_likes'
+                        'orange_decks','orange_deck_favorites','orange_deck_likes','orange_deck_copies'
                     )
-                ) = 15 AND EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema='public' AND table_name='automation_accounts' AND column_name='session_version') AS exists
+                ) = 16 AND (
+                    SELECT COUNT(*) FROM information_schema.columns WHERE table_schema='public' AND (
+                        (table_name='automation_accounts' AND column_name IN ('session_version','can_upload_decks','deck_seasons_json'))
+                        OR (table_name='orange_decks' AND column_name IN ('plan_code','season_id'))
+                    )
+                ) = 5 AS exists
                 '''
             )
             return bool(cursor.fetchone()['exists'])

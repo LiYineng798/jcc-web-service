@@ -7,6 +7,18 @@
   const status = document.getElementById('deckActionStatus');
   let session = { user: null, csrf: '' };
   D.bindTheme();
+  document.getElementById('copyDeckPlan')?.addEventListener('click', async (event) => {
+    const control = event.currentTarget;
+    control.disabled = true;
+    try {
+      const ok = await D.copy(deck.plan_code);
+      document.getElementById('deckCopyStatus').textContent = ok ? '方案码已复制' : '复制失败，请选择上方方案码手动复制';
+      if (ok && deck.status === 'published') {
+        try { deck.copy_count = (await D.recordCopy(deck.id, session.csrf)).copy_count; }
+        catch { document.getElementById('deckCopyStatus').textContent = '方案码已复制，但次数未同步，请稍后刷新'; }
+      }
+    } finally { control.disabled = false; }
+  });
   const say = (text, error = false) => { if (!status) return; status.textContent = text; status.classList.toggle('deck-error', error); };
 
   // The author avatar reacts to likes and favorites exactly as on lineup pages.

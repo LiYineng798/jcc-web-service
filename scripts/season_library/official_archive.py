@@ -23,6 +23,7 @@ from pathlib import Path
 from urllib.parse import urlparse
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(REPO_ROOT))
 sys.path.insert(0, str(REPO_ROOT / 'scripts'))
 from collect_orange_fortune import fetch, inspect_image, now  # noqa: E402
 from season_library.official_augments import augment_image_paths  # noqa: E402
@@ -282,6 +283,14 @@ def build(official, output, season_id, display_name, set_number, set_variant, th
         if load(name) is not None:
             dump(snapshots / name, load(name))
     dump(snapshots / 'version-entry.json', entry)
+    if entry.get('cardurl'):
+        from scripts.season_library.time_cards import import_time_cards
+
+        card_path = official / 'parsed' / (entry['cardurl'].lstrip('/').rsplit('.', 1)[0] + '.json')
+        if not card_path.is_file():
+            raise ValueError('官方分支包含时间卡片但未采集 cardurl，请重新运行完整采集')
+        import_time_cards(official, json.loads(card_path.read_text(encoding='utf-8')), version_dir,
+                          season_id, version_id, version)
     dump(version_dir / 'version.json', {
         'version_id': version_id, 'game_version': version, 'effective_at': entry.get('version_start_time') or None,
         'source': {'directory_url': selection.get('directory_url'), 'branch': entry, 'archive': official.name,

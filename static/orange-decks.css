@@ -56,6 +56,9 @@
 .deck-energy-chip b { color:var(--text); font-weight:650; }
 .deck-energy-chip.is-over b, .deck-energy-chip.is-over { color:var(--deck-danger); }
 .deck-card .home-card-footer { margin-top:auto; padding-top:10px; }
+.deck-plan-code { display:block; padding:14px; border:1px solid var(--line); border-radius:10px; background:var(--card-wash); color:var(--text); overflow-wrap:anywhere; white-space:pre-wrap; font-size:.82rem; line-height:1.8; user-select:all; }
+.deck-plan-section .deck-copy-plan { width:100%; margin-top:12px; }
+.deck-code-input { font-size:.86rem; overflow-wrap:anywhere; }
 
 /* Card art: the shared time-card frame at thumbnail size, never cropped. */
 .deck-thumbs { display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:10px; margin:0; padding:0; list-style:none; }

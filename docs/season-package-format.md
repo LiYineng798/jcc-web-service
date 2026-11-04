@@ -22,6 +22,7 @@ data/
   items.json
   augments.json
   board_units.json
+  time_cards.json               # 大橘大利必须包含，其他赛季不适用
   tft-codebook.json             # 可选
   mechanics/<id>.json
 assets/
@@ -34,6 +35,14 @@ manifest 由打包器生成，不手写：协议标识/版本、包与赛季 ID�
 弈子、羁绊、装备必须 present 且非空；不适用的模块明确 absent，无玩法明确 `mechanics: []`。
 服务端重新核对数量、ID 引用、图片、赛季/版本及完整文件与紧凑 index 的一致性。
 SHA-256 只证明完整性，不证明来源真实；effective_at 是记录值，非定时发布。
+
+大橘大利 `orange_s400001` 包声明 `time_cards` 模块及 `orange.time_cards.v1` 能力。
+`time_cards.json` 包含 `season_id/version_id/version/season/setId/time` 与 `time_cards` 数组；
+每张卡保留 ID、名称、品阶、效果、分类、回合、包内 image 路径及 portrait/icon/missing 样式。
+校验赛季、版本、品阶 1–5、重复 ID、本地图片及数量；能量与品阶相同，由应用计算。
+卡片快照不能为空，删除表示本版本下架，已有卡组保留卡名和卡槽并标为失效。
+新上传的旧格式大橘大利 ZIP 会被拒绝并提示重新生成；之前已经发布的历史包仍可回滚，
+不含该模块时沿用代码自带旧卡片基准。其他赛季的原有包协议保持兼容。
 
 ## 玩法与来源
 

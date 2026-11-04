@@ -4,17 +4,19 @@ Card rules (tiers, energy, portals) come from orange_fortune_service; the format
 and its season boundary come from the creator surface. Decks keep their own tables and are
 never counted as ordinary lineups.
 """
+import base64
+import binascii
 import json
+import re
 from datetime import datetime
 from functools import lru_cache
 from pathlib import Path
 
-from assets_version import static_v
 from audit import write_audit
 from avatar_service import avatar_config
 from db import db_kind, get_db, now_text
 from db_adapter import insert_returning_id_sql, last_insert_id
-from lineups_utils import row_value
+from lineups_utils import bucket_start, row_value
 from orange_creator_service import creator_config
 from orange_fortune_service import DECK_SIZE, PORTALS, TIERS, catalog
 from rate_limit import hit_limit
@@ -23,7 +25,7 @@ from season_visibility import get_season
 
 PORTAL_BY_ID = {portal['id']: portal for portal in PORTALS}
 TABS = ('latest', 'hot', 'featured', 'favorites', 'mine')
-LIMITS = {'name': 24, 'note': 300, 'key_rounds': 100, 'alternatives': 200}
+LIMITS = {'name': 24, 'note': 300, 'key_rounds': 100, 'alternatives': 200, 'plan_code': 512}
 BOARD_SLOTS = 28
 MAX_ITEMS, MAX_AUGMENTS, MAX_TRAITS = 3, 6, 24
 TRAIT_STYLES = {'1', '2', '3', '4', 'unique'}
@@ -33,7 +35,8 @@ OWNER_COLUMNS = ('u.username AS owner_username, u.nickname AS owner_nickname, u.
                  'u.avatar_color AS owner_avatar_color, u.avatar_preset AS owner_avatar_preset, '
                  'u.avatar_expression AS owner_avatar_expression')
 FAVORITE_COUNTS = ('LEFT JOIN (SELECT deck_id, COUNT(*) AS c FROM orange_deck_favorites GROUP BY deck_id) fc ON fc.deck_id = d.id '
-                   'LEFT JOIN (SELECT deck_id, COUNT(*) AS c FROM orange_deck_likes GROUP BY deck_id) lc ON lc.deck_id = d.id')
+                   'LEFT JOIN (SELECT deck_id, COUNT(*) AS c FROM orange_deck_likes GROUP BY deck_id) lc ON lc.deck_id = d.id '
+                   'LEFT JOIN (SELECT deck_id, COUNT(*) AS c FROM orange_deck_copies GROUP BY deck_id) cc ON cc.deck_id = d.id')
 INTERACTION_SCORE = '(COALESCE(fc.c, 0) + COALESCE(lc.c, 0))'
 
 
@@ -43,7 +46,7 @@ def today():
 
 def _viewer_columns(user):
     """Counts plus the viewer's own favorite and today's like, in one query."""
-    counts = 'COALESCE(fc.c, 0) AS favorite_count, COALESCE(lc.c, 0) AS like_count'
+    counts = 'COALESCE(fc.c, 0) AS favorite_count, COALESCE(lc.c, 0) AS like_count, COALESCE(cc.c, 0) AS copy_count'
     if not user:
         return f'{counts}, 0 AS is_favorited, 0 AS is_liked_today', []
     return (f'{counts}, CASE WHEN EXISTS (SELECT 1 FROM orange_deck_favorites mf WHERE mf.deck_id = d.id AND mf.user_id = ?) THEN 1 ELSE 0 END AS is_favorited, '
@@ -66,6 +69,32 @@ def card_index():
 def card_version():
     data = catalog()
     return f"{data['version']}@{data['time']}"
+
+
+def card_season_id():
+    return 'orange_' + catalog()['season'].lower()
+
+
+def deck_season_choices():
+    """Only seasons with an actual time-card catalog can receive deck uploads."""
+    season_id = card_season_id()
+    season = get_season('creator', season_id)
+    return {season_id: {'id': season_id, 'name': season['display_name']}} if season else {}
+
+
+def validate_plan_code(value):
+    """Validate the share text envelope, without claiming to decode game content."""
+    if not value:
+        return ''
+    name, separator, encoded = value.rpartition('-大橘大利-')
+    if not name.strip() or not separator or re.search(r'[\x00-\x1f\x7f]', value):
+        raise DeckError('方案码格式应为「名称-大橘大利-编码」，请从游戏中复制完整方案码')
+    try:
+        if not base64.b64decode(encoded, validate=True):
+            raise ValueError('empty code')
+    except (ValueError, binascii.Error):
+        raise DeckError('方案码编码无效，请从游戏中重新复制完整方案码')
+    return value
 
 
 def version_label(value):
@@ -101,7 +130,7 @@ def deck_energy(card_ids):
 
 
 def validate_portal(value):
-    if value not in PORTAL_BY_ID:
+    if not isinstance(value, str) or value not in PORTAL_BY_ID:
         raise DeckError('请选择推荐传送门')
     return value
 
@@ -221,7 +250,12 @@ def validate_formation(raw):
     if not isinstance(augments, list) or len(augments) > MAX_AUGMENTS:
         raise DeckError('强化符文数据无效')
     traits = []
-    for trait in raw.get('traits') or []:
+    raw_traits = raw.get('traits') or []
+    if not isinstance(raw_traits, list) or len(raw_traits) > MAX_TRAITS:
+        raise DeckError('羁绊数据无效')
+    if any(str(a) not in bundle['augments'] for a in augments):
+        raise DeckError('阵容包含当前资料中不存在的强化符文，请重新配置')
+    for trait in raw_traits:
         if not isinstance(trait, dict) or len(traits) >= MAX_TRAITS:
             continue
         trait_id, count, style = str(trait.get('id') or ''), trait.get('count'), str(trait.get('style') or '')
@@ -289,12 +323,13 @@ def resolve_formation(row):
 
 def _card_view(card):
     return {key: card[key] for key in ('id', 'name', 'tier', 'tier_name', 'energy', 'category', 'rounds', 'description', 'layout')} \
-        | {'image_url': static_v(card['image']) if card['image'] else None}
+        | {'image_url': card['image_url']}
 
 
 def resolve_cards(row):
     """Compare saved card snapshots with current data; never silently swap a changed card."""
-    index = card_index()
+    # IDs can be reused by a later mode season; a new catalog must not replace old cards.
+    index = card_index() if row['season_id'] == card_season_id() else {}
     snapshot = {item['id']: item for item in json.loads(row['card_snapshot_json'] or '[]') if item}
     cards, issues = [], []
     for position in range(DECK_SIZE):
@@ -358,7 +393,7 @@ def serialize(row, user, detail=False, share_base=None):
     energy = sum(card['energy'] for card in cards if card and card['status'] != 'missing')
     saved_version, current_version = row['card_version'], card_version()
     if saved_version != current_version and not issues:
-        issues.append(f'卡片资料已从 {version_label(saved_version)}更新为 {version_label(current_version)}，本卡组的卡片没有变化。')
+        issues.append(f'卡片资料已从 {version_label(saved_version)}更新为 {version_label(current_version)}，卡名与品阶未变；效果说明以当前资料为准。')
     elif saved_version != current_version:
         issues.insert(0, f'卡片资料已从 {version_label(saved_version)}更新为 {version_label(current_version)}：')
     # A card that vanished from current data cannot count towards a valid deck.
@@ -368,9 +403,11 @@ def serialize(row, user, detail=False, share_base=None):
     role, nickname = row_value(row, 'owner_role'), row_value(row, 'owner_nickname')
     username = row_value(row, 'owner_username')
     owner, admin = is_owner(row, user), is_admin(user)
+    editable = owner and user['role'] != 'automation'
     note = row['note'] if detail else row['note'][:120]
     data = {
         'id': row['id'], 'name': row['name'], 'status': row['status'],
+        'plan_code': row['plan_code'], 'season_id': row['season_id'],
         'portal': dict(portal), 'energy': energy, 'energy_limit': portal['energy_limit'],
         'fits': complete and energy <= portal['energy_limit'],
         'cards': cards, 'note': note, 'note_truncated': len(row['note']) > len(note),
@@ -384,6 +421,7 @@ def serialize(row, user, detail=False, share_base=None):
         'favorite_count': int(row_value(row, 'favorite_count') or 0),
         'is_favorited': bool(row_value(row, 'is_favorited')),
         'like_count': int(row_value(row, 'like_count') or 0),
+        'copy_count': int(row_value(row, 'copy_count') or 0),
         'is_liked_today': bool(row_value(row, 'is_liked_today')),
         'featured': bool(row['featured']),
         'has_formation': bool(row['formation_json']),
@@ -393,7 +431,7 @@ def serialize(row, user, detail=False, share_base=None):
         'compat': {'saved_version': version_label(saved_version), 'current_version': version_label(current_version),
                    'changed': saved_version != current_version or bool(issues), 'issues': issues,
                    'missing_cards': sum(1 for card in cards if card and card['status'] == 'missing')},
-        'can_edit': owner, 'can_delete': owner,
+        'can_edit': editable, 'can_delete': editable,
         'can_fork': can_derive(row, user), 'can_export': can_derive(row, user),
         'can_share': row['status'] == 'published',
         'can_moderate': admin,
@@ -542,12 +580,21 @@ def _fields(data, status, existing=None):
     cards = validate_cards(data.get('cards'), require_complete=public)
     portal = validate_portal(data.get('portal'))
     energy = check_energy(cards, portal) if public else deck_energy(cards)
+    season_id = data.get('season_id', existing['season_id'] if existing is not None else card_season_id())
+    if season_id != card_season_id():
+        raise DeckError('卡组所属赛季与当前时间卡片资料不一致')
+    if existing is not None and season_id != existing['season_id']:
+        raise DeckError('不能更改已保存卡组的所属赛季')
+    plan_code = validate_plan_code(_text(data, 'plan_code', default=existing['plan_code'] if existing is not None else ''))
     fields = {'name': name, 'card_id_1': cards[0], 'card_id_2': cards[1], 'card_id_3': cards[2], 'portal_id': portal,
+              'plan_code': plan_code, 'season_id': season_id,
               'energy': energy, 'note': _text(data, 'note'), 'key_rounds': _text(data, 'key_rounds'),
               'alternatives': _text(data, 'alternatives'), 'card_version': card_version(), 'card_snapshot_json': card_snapshot(cards)}
     # An absent key keeps the saved formation (it may belong to an earlier creator season); null removes it.
     if 'formation' in data:
         formation = validate_formation(data['formation'])
+        if formation and formation['season'] != season_id:
+            raise DeckError('阵容所属赛季必须与时间卡片所属赛季一致')
         fields.update(formation_json=json.dumps(formation, ensure_ascii=False) if formation else None,
                       formation_season_id=formation['season'] if formation else None,
                       formation_version_id=formation['version_id'] if formation else None)
@@ -561,11 +608,13 @@ def _limit(user, scope, limit):
         raise DeckError('操作过于频繁，请稍后再试', 429)
 
 
-def create_deck(user, data):
+def create_deck(user, data, *, commit=True):
     data = data if isinstance(data, dict) else {}
     status = _status_for(data.get('action', 'draft'), None)
     fields = _fields(data, status)
-    _limit(user, 'orange_deck_create', 30)
+    # Scoped uploads already consume the automation quota before locking permissions.
+    if commit:
+        _limit(user, 'orange_deck_create', 30)
     now = now_text()
     fields.update(user_id=user['id'], status=status, created_at=now, updated_at=now,
                   published_at=now if status == 'published' else None, forked_from_id=None)
@@ -575,7 +624,8 @@ def create_deck(user, data):
         f"INSERT INTO orange_decks ({', '.join(columns)}) VALUES ({', '.join('?' for _ in columns)})", db_kind()),
         [fields[c] for c in columns])
     deck_id = last_insert_id(cursor, db_kind())
-    db.commit()
+    if commit:
+        db.commit()
     return serialize(deck_row(deck_id, user), user, detail=True)
 
 
@@ -633,10 +683,12 @@ def favorite(user, deck_id, on):
 
 def like(user, deck_id):
     """Mirror lineup likes: once per deck per day, five deck likes per account per day."""
+    db, day = get_db(), today()
+    # Serialize this account's quota checks on both SQLite and PostgreSQL.
+    db.execute('UPDATE users SET id=id WHERE id=?', (user['id'],))
     row = get_visible(deck_id, user)
     if row['status'] != 'published':
         raise DeckError('只能点赞公开的卡组', 409)
-    db, day = get_db(), today()
     used = db.execute('SELECT COUNT(*) AS c FROM orange_deck_likes WHERE user_id = ? AND like_date = ?', (user['id'], day)).fetchone()['c']
     if used >= DAILY_LIKE_LIMIT:
         raise DeckError('今天的卡组点赞次数已用完', 429)
@@ -648,6 +700,27 @@ def like(user, deck_id):
     db.commit()
     count = db.execute('SELECT COUNT(*) AS c FROM orange_deck_likes WHERE deck_id = ?', (deck_id,)).fetchone()['c']
     return {'liked_today': True, 'like_count': count}
+
+
+def record_copy(user, deck_id, ip):
+    """Count successful public plan-code copies using the lineup five-minute window."""
+    row = get_visible(deck_id, user)
+    if row['status'] != 'published':
+        raise DeckError('只能统计公开卡组的复制次数', 409)
+    if not row['plan_code']:
+        raise DeckError('此卡组暂未提供方案码', 400)
+    db = get_db()
+    key = f'user:{user["id"]}' if user else f'ip:{ip}'
+    cursor = db.execute(
+        '''INSERT INTO orange_deck_copies (deck_id, copy_key, bucket_start, created_at)
+           SELECT id, ?, ?, ? FROM orange_decks WHERE id = ? AND status = 'published' AND plan_code <> ''
+           ON CONFLICT (deck_id, copy_key, bucket_start) DO NOTHING''',
+        (key, bucket_start(), now_text(), deck_id),
+    )
+    counted = bool(cursor.rowcount)
+    count = db.execute('SELECT COUNT(*) AS c FROM orange_deck_copies WHERE deck_id = ?', (deck_id,)).fetchone()['c']
+    db.commit()
+    return {'counted': counted, 'copy_count': count}
 
 
 def received_summary(user_id):
@@ -670,7 +743,7 @@ def fork_deck(user, deck_id):
     if not can_derive(row, user):
         raise DeckError('该卡组当前不可作为基础创建', 404)
     _limit(user, 'orange_deck_create', 30)
-    index, notes = card_index(), []
+    index, notes = (card_index() if row['season_id'] == card_season_id() else {}), []
     cards = [row[f'card_id_{n}'] if row[f'card_id_{n}'] in index else None for n in range(1, DECK_SIZE + 1)]
     if None in cards and all(row[f'card_id_{n}'] for n in range(1, DECK_SIZE + 1)):
         notes.append('原卡组中有卡片已在当前资料中失效，对应卡槽已留空，请重新选择。')
@@ -681,6 +754,7 @@ def fork_deck(user, deck_id):
     now = now_text()
     fields = {
         'user_id': user['id'], 'name': row['name'], 'card_id_1': cards[0], 'card_id_2': cards[1], 'card_id_3': cards[2],
+        'season_id': card_season_id(), 'plan_code': '',
         'portal_id': row['portal_id'], 'energy': deck_energy(cards), 'note': row['note'], 'key_rounds': row['key_rounds'],
         'alternatives': row['alternatives'], 'formation_json': formation,
         'formation_season_id': row['formation_season_id'] if formation else None,
@@ -757,8 +831,10 @@ def admin_moderate(admin, deck_id, action, data):
     changes.update(updated_at=now, version=row['version'] + 1)
     db = get_db()
     try:
-        db.execute(f"UPDATE orange_decks SET {', '.join(f'{k} = ?' for k in changes)} WHERE id = ? AND version = ?",
+        cursor = db.execute(f"UPDATE orange_decks SET {', '.join(f'{k} = ?' for k in changes)} WHERE id = ? AND version = ?",
                    [*changes.values(), deck_id, row['version']])
+        if not cursor.rowcount:
+            raise DeckError('卡组已被更新，请刷新列表后再操作', 409)
         before = {'status': row['status'], 'featured': bool(row['featured'])}
         after = {'status': changes.get('status', row['status']), 'featured': bool(changes.get('featured', row['featured']))}
         if action == 'hide':

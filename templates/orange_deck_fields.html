@@ -1,5 +1,5 @@
 {# Deck editor fields, shared by the publish page (/lineup/new?type=deck) and the deck edit page. #}
-<div class="deck-editor" id="deckEditor" data-deck-id="{{ deck_id }}" data-deck-root>
+<div class="deck-editor" id="deckEditor" data-deck-id="{{ deck_id }}" data-assistant-season="{{ assistant_season|default('') }}" data-deck-root>
       <div class="deck-notice" id="deckEditorNotice" role="status" hidden></div>
       <noscript><p class="deck-notice">编辑卡组需要启用 JavaScript。</p></noscript>
       <form class="deck-form" id="deckForm" novalidate aria-busy="true">
@@ -8,6 +8,10 @@
           <label class="field" for="deckName">卡组名称 <small class="deck-hint">必填 · {{ limits.name }} 字内</small>
             <input id="deckName" maxlength="{{ limits.name }}" autocomplete="off" required placeholder="例如：三传说未知门" />
           </label>
+          <label class="field" for="deckPlanCode">游戏方案码 <small class="deck-hint">选填 · 从游戏中复制完整方案码</small>
+            <textarea id="deckPlanCode" class="deck-code-input" maxlength="{{ limits.plan_code }}" rows="3" spellcheck="false" autocomplete="off" placeholder="德玛时光速9流-大橘大利-MjE5OTY4Mzc0NDMyOTI3OTQxNzkzNzU0NzMyMTczNQ==" aria-describedby="deckCodeHint"></textarea>
+          </label>
+          <p class="deck-boundary" id="deckCodeHint">填写后，卡组列表会显示“复制方案码”按钮，完整方案码只在详情页展示。请确认方案码与所选三张卡一致。</p>
           <fieldset class="deck-portals" id="deckPortals">
             <legend>推荐传送门 <small class="deck-hint">必填 · 卡组能量不能超过上限</small></legend>
             {% for portal in creator_data.portals %}
@@ -25,7 +29,7 @@
         </section>
         <section class="deck-section" aria-labelledby="deckNotesTitle">
           <h2 id="deckNotesTitle">说明 <small class="deck-hint">选填</small></h2>
-          <label class="field" for="deckNote">搭配说明 <small class="deck-hint">{{ limits.note }} 字内，列表中显示前两行</small><textarea id="deckNote" maxlength="{{ limits.note }}" placeholder="这套卡组适合什么局势，三张卡如何配合…"></textarea></label>
+          <label class="field" for="deckNote">搭配说明 <small class="deck-hint">{{ limits.note }} 字内，在详情页展示</small><textarea id="deckNote" maxlength="{{ limits.note }}" placeholder="这套卡组适合什么局势，三张卡如何配合…"></textarea></label>
           <label class="field" for="deckRounds">关键回合与节奏 <small class="deck-hint">{{ limits.key_rounds }} 字内</small><input id="deckRounds" maxlength="{{ limits.key_rounds }}" placeholder="例如：2-1 拿装备，3-2 开始连败" /></label>
           <label class="field" for="deckAlternatives">替代卡建议 <small class="deck-hint">{{ limits.alternatives }} 字内</small><textarea id="deckAlternatives" maxlength="{{ limits.alternatives }}" placeholder="缺少某张卡时可以换成…"></textarea></label>
         </section>

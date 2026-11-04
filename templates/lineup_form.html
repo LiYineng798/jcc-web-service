@@ -22,7 +22,7 @@
       <header class="publish-head">
         <p class="deck-kicker">{% if creating %}发布{% else %}阵容码{% endif %}</p>
         <h1 id="editorTitle">{% if creating %}发布到阵容库{% else %}编辑阵容{% endif %}</h1>
-        <p id="editorDescription">{% if creating %}选择要发布的内容。阵容码适用于所有赛季；大橘大利卡组发布三张时间卡片与推荐传送门。{% else %}修改后保存，返回阵容列表。{% endif %}</p>
+        {% if not creating %}<p id="editorDescription">修改后保存，返回阵容列表。</p>{% endif %}
       </header>
 
       {% if creating %}

@@ -1323,3 +1323,5 @@ body.account-profile-page {
 :root[data-theme="dark"] #accountApp .pf-portal-unknown { color: #f2848c; }
 #accountApp .pf-status-published { color: var(--pf-green); }
 #accountApp .pf-status-hidden { color: var(--accent-strong); }
+/* Keep the long game code in the detail view; collections expose only its action. */
+#accountApp .pf-deck-copy { align-self:flex-start; margin:0 0 12px; }

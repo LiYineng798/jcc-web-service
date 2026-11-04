@@ -5,7 +5,7 @@
   const avatarButton = document.querySelector('#assistantAvatar');
   const prefix = '/api/admin/assistant';
   const zone = '北京时间（UTC+8）';
-  let csrf = '', account, seasons = [], active = 'overview', revision = 0, dirty = false;
+  let csrf = '', account, seasons = [], deckSeasons = [], active = location.hash === '#decks' ? 'decks' : 'overview', revision = 0, dirty = false;
   const labels = {
     today_uv: '今日访客', yesterday_uv: '昨日访客', today_new_visitors: '今日新访客', today_returning_visitors: '今日回访',
     today_users: '今日注册', today_logins: '今日登录', today_authenticated_users: '今日活跃账号', today_lineup_copy_count: '今日普通阵容复制',
@@ -66,6 +66,7 @@
     const rows = [
       ['普通阵容批量导入', grant(account.can_import, account.allowed_seasons), 'lineups'],
       ['榜单展示时间维护', grant(account.can_touch, account.touch_seasons), 'touch'],
+      ['卡组上传', account.can_upload_decks ? account.deck_seasons.map(id => deckSeasons.find(s => s.id === id)?.name || id).join('、') : null, 'decks'],
       ['头像修改', account.can_avatar ? '仅本账号头像' : null, 'avatar'],
     ];
     const title = el('h2', '', '当前权限'); title.id = 'assistantPermissionsTitle';
@@ -233,12 +234,29 @@
     }
     return [box];
   }
+  async function decks() {
+    // Refresh grants when entering: an administrator may have changed them since login.
+    account = await api('/me');
+    const box = panel('上传卡组', '使用选卡编辑器填写方案码、三张时间卡片和推荐传送门，可附带说明与阵容站位。发布后立即公开，作者为当前账号。');
+    const available = deckSeasons.filter(s => account.can_upload_decks && account.deck_seasons.includes(s.id));
+    if (!available.length) {
+      box.append(badge('未授权', 'off'), el('p', 'admin-meta', '当前没有可上传的卡组赛季，请由管理员开通卡组上传权限并选择赛季。'));
+      return [box];
+    }
+    const select = el('select');
+    available.forEach(season => { const option = el('option', '', season.name); option.value = season.id; select.append(option); });
+    const link = el('a', 'small-button is-active', '打开卡组编辑器');
+    const update = () => { link.href = '/admin/assistant/decks/new?season_id=' + encodeURIComponent(select.value); };
+    select.addEventListener('change', update); update();
+    box.append(field('上传赛季（仅列出已授权赛季）', select), link);
+    return [box];
+  }
   async function navigate(tab) {
     if (dirty && !confirm('有尚未导入的内容，离开此页会丢失。继续离开？')) return;
     dirty = false; active = tab; const current = ++revision;
     document.querySelectorAll('[data-assistant-tab]').forEach(node => { const selected = node.dataset.assistantTab === tab; node.classList.toggle('is-active', selected); node.setAttribute('aria-current', selected ? 'page' : 'false'); });
     root.replaceChildren(el('p', 'admin-meta', '正在加载…'));
-    try { const nodes = await ({ overview, reports, lineups, touch })[tab](); if (revision === current) root.replaceChildren(...nodes); }
+    try { const nodes = await ({ overview, reports, lineups, decks, touch })[tab](); if (revision === current) root.replaceChildren(...nodes); }
     catch (error) { if (revision === current) root.replaceChildren(el('p', 'assistant-error', error.message), button('重试', () => navigate(tab))); }
   }
   document.querySelectorAll('[data-assistant-tab]').forEach(node => node.addEventListener('click', () => navigate(node.dataset.assistantTab)));
@@ -248,7 +266,7 @@
     try {
       const me = await api('/api/me'); csrf = me.csrf_token;
       if (!me.user) { window.location.assign('/auth?next=/admin'); return; }
-      [account, { seasons }] = await Promise.all([api('/me'), api('/lineup-seasons')]);
+      [account, { seasons }, { seasons: deckSeasons }] = await Promise.all([api('/me'), api('/lineup-seasons'), api('/deck-seasons')]);
       document.querySelector('#assistantIdentity').textContent = `${me.user.nickname || me.user.username} · AI 自动化账号 · 有效至 ${date(account.expires_at)}（${zone}）`;
       renderPermissions();
       if (account.can_avatar && window.jccAvatarEditor) {

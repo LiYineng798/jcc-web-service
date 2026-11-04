@@ -1,6 +1,7 @@
 const root = document.querySelector('.editor-page-shell');
 const mode = root?.dataset.pageMode || 'create';
 const lineupId = root?.dataset.lineupId || '';
+const previewRelease = new URLSearchParams(location.search).get('preview_release');
 const $ = (selector) => document.querySelector(selector);
 const elements = {
   form: $('#editorForm'),
@@ -46,9 +47,18 @@ async function boot() {
   }
   await loadSeasons();
   if (mode === 'edit' && lineupId) await loadLineup();
+  if (previewRelease) {
+    elements.submitButton.disabled = true;
+    elements.submitButton.textContent = '预览中不可发布';
+  }
 }
 
 async function api(url, options = {}) {
+  if (previewRelease) {
+    const target = new URL(url, location.origin);
+    target.searchParams.set('preview_release', previewRelease);
+    url = target.pathname + target.search;
+  }
   const headers = { ...(options.headers || {}) };
   if (options.body && !headers['Content-Type']) headers['Content-Type'] = 'application/json';
   if (state.csrfToken && ['POST', 'PUT', 'DELETE'].includes(options.method)) headers['X-CSRF-Token'] = state.csrfToken;
@@ -173,7 +183,7 @@ async function loadLineup() {
 
 async function saveLineup(event) {
   event.preventDefault();
-  if (!state.user || state.pending || elements.submitButton.disabled) return;
+  if (!state.user || state.pending || elements.submitButton.disabled || previewRelease) return;
   const normalizedCode = extractLineupCode(elements.codeInput.value);
   if (!normalizedCode) {
     showMessage('阵容码无法解析，请改成以 # 开头的阵容码后再提交', 'warning');

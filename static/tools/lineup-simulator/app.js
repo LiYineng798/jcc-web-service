@@ -6,7 +6,7 @@ const CREATOR_SEASON = document.querySelector("#simulatorRoot")?.dataset.creator
 // owns the deck's formation, so neither creator nor simulator drafts are read or replaced.
 const DECK_MODE = Boolean(CREATOR_SEASON) && new URLSearchParams(location.search).get("deck") === "1";
 const UI_ROOT = "/static/tools/lineup-simulator/ui";
-const STORAGE_PREFIX = CREATOR_SEASON ? "jcc-orange-formation-v1:" : PREVIEW_RELEASE ? `jcc-simulator-preview:${PREVIEW_RELEASE}:` : "jcc-simulator-v2:";
+const STORAGE_PREFIX = PREVIEW_RELEASE ? `jcc-simulator-preview:${PREVIEW_RELEASE}:` : CREATOR_SEASON ? "jcc-orange-formation-v1:" : "jcc-simulator-v2:";
 function readPreference(key) {
   try { return localStorage.getItem(key); } catch { return null; }
 }

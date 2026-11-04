@@ -11,7 +11,7 @@ type Item = { id: string; package_id: string; season_id: string; game_version: s
 type Change = { id: string; name: string; fields?: string[] };
 type Diff = Record<string, { added: (Change | string)[]; removed: (Change | string)[]; changed: (Change | string)[] }>;
 type Report = { counts?: Record<string, number>; warnings?: string[]; diff?: Diff; compared_active?: Active; notes?: { title: string; summary: string; sections: { title: string; items: string[] }[] }; sources?: Record<string, unknown>[]; inherited_count?: number; supplement_count?: number; images?: number };
-type Detail = Item & { job: Job; report: Report; active: Active; manifest: { mechanics: { id: string; display_name: string; presentation: string }[] }; preview_url: string; simulator_url: string };
+type Detail = Item & { job: Job; report: Report; active: Active; manifest: { mechanics: { id: string; display_name: string; presentation: string }[] }; preview_url: string; simulator_url: string; time_card_previews?: { label: string; url: string }[] };
 type Stats = { total: number; processing: number; pending: number; rejected: number; latest_upload: string | null };
 type Season = { season_id: string; display_name: string; game_version: string; active: Active; stats: Stats };
 type Event = { id: string; action: string; status: string; season_id: string; created_at: string; release_id: string | null; previous_release_id: string | null;
@@ -24,7 +24,7 @@ type Confirmation = { kind: 'publish' | 'rollback'; seasonId: string; revision: 
 
 const BASE = '/api/admin/season-packages';
 const SEASON_KEY = 'jcc-season-packages-season';
-const labels: Record<string, string> = { champions: '弈子', traits: '羁绊', items: '装备', augments: '强化符文', board_units: '棋盘对象', mechanics: '赛季玩法', assets: '图片资源', queued: '等待校验', validating: '正在校验', ready: '待审核', rejected: '校验失败', cancelled: '已取消', upload: '上传', validated: '校验通过', validation: '校验', publish: '发布', rollback: '回滚', cancel: '取消任务', retry: '重试', verifying: '验证中', completed: '完成', failed: '失败', superseded: '已被后续发布替代' };
+const labels: Record<string, string> = { champions: '弈子', traits: '羁绊', items: '装备', augments: '强化符文', board_units: '棋盘对象', time_cards: '时间卡片', mechanics: '赛季玩法', assets: '图片资源', queued: '等待校验', validating: '正在校验', ready: '待审核', rejected: '校验失败', cancelled: '已取消', upload: '上传', validated: '校验通过', validation: '校验', publish: '发布', rollback: '回滚', cancel: '取消任务', retry: '重试', verifying: '验证中', completed: '完成', failed: '失败', superseded: '已被后续发布替代' };
 const text = (key: string) => labels[key] || key;
 const running = (status: string) => status === 'queued' || status === 'running';
 const message = (error: unknown) => error instanceof Error ? error.message : '操作失败，请重试';
@@ -440,6 +440,7 @@ function App({ csrfToken }: { csrfToken: string }) {
         {currentDetail.state === 'ready' && <Button disabled={busy} onClick={() => void action(`${BASE}/${selected}/compare`, {}, '差异已按最新线上版本重新计算。')}><RefreshCw size={14} />重新比较</Button>}
         {currentDetail.state === 'ready' && <a className="sp-btn" href={currentDetail.preview_url} target="_blank" rel="noreferrer">预览资料库<ArrowUpRight size={14} /></a>}
         {currentDetail.state === 'ready' && <a className="sp-btn" href={currentDetail.simulator_url} target="_blank" rel="noreferrer">预览模拟器<ArrowUpRight size={14} /></a>}
+        {currentDetail.state === 'ready' && currentDetail.time_card_previews?.map(link => <a key={link.url} className="sp-btn" href={link.url} target="_blank" rel="noreferrer">{link.label}<ArrowUpRight size={14} /></a>)}
         {!!currentDetail.published_at && !isActive && <Button disabled={busy} onClick={() => setConfirmation({ kind: 'rollback', seasonId: currentDetail.season_id, revision: currentDetail.active.revision, target: selected, label: `恢复至 ${currentDetail.package_id}`, warnings: [] })}><RotateCcw size={14} />回滚到此版本</Button>}
         {running(currentDetail.job.status) && <Button disabled={busy || !!currentDetail.job.cancel_requested} onClick={() => void action(`${BASE}/${selected}/cancel`, {}, '已请求取消校验。')}>{currentDetail.job.cancel_requested ? '正在取消…' : '取消校验'}</Button>}
         {['failed', 'cancelled'].includes(currentDetail.job.status) && <Button disabled={busy} onClick={() => void action(`${BASE}/${selected}/retry`, {}, '任务已重新排队。')}><RotateCcw size={14} />重试校验</Button>}

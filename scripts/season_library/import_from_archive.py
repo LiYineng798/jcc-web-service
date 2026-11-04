@@ -351,6 +351,14 @@ def import_season(source_root: Path, catalog_entry: dict, *, official_only: bool
     assets_dir = version_dir / "assets"
     if assets_dir.is_dir():
         shutil.copytree(assets_dir, target_dir / "assets")
+    time_cards_path = version_dir / "time_cards.json"
+    time_cards = load_json(time_cards_path) if time_cards_path.is_file() else None
+    if time_cards is not None:
+        from season_package_format import validate_time_cards
+
+        validate_time_cards(time_cards, {"season_id": season_id, "version_id": version_meta["version_id"],
+                                         "game_version": version_meta["game_version"]})
+        dump_json(target_dir / "time_cards.json", time_cards, indent=2)
 
     supplements = apply_official_supplements(
         version_dir,
@@ -470,6 +478,7 @@ def import_season(source_root: Path, catalog_entry: dict, *, official_only: bool
             "mechanics": sum(len(m["entries"]) for m in mechanics),
             "board_units": len(board_units_doc["board_units"]),
             "augments": len(augments),
+            **({"time_cards": len(time_cards["time_cards"])} if time_cards is not None else {}),
         },
     }
 

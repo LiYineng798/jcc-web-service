@@ -18,6 +18,7 @@ from season_mechanic_registry import PRESENTATIONS, OVERVIEW_CAPABILITY, referen
 FORMAT = 'jcc-season-package'
 SCHEMA = '1.0'
 MODULES = ('champions', 'traits', 'items', 'augments', 'board_units')
+OPTIONAL_MODULES = ('time_cards',)
 CAPABILITIES = {
     OVERVIEW_CAPABILITY,
     'reference.cards.v1',
@@ -25,6 +26,7 @@ CAPABILITIES = {
     'reference.stages.v1',
     'reference.table.v1',
     'simulator.placement_rules.v1',
+    'orange.time_cards.v1',
 }
 ID = re.compile(r'^[a-z0-9][a-z0-9_-]{0,95}$')
 VERSION = re.compile(r'^[A-Za-z0-9][A-Za-z0-9._-]{0,63}$')
@@ -178,17 +180,22 @@ def validate_manifest(m):
     )
     require(isinstance(m.get('files'), dict), '缺少完整文件清单')
     require(
-        isinstance(m.get('modules'), dict) and set(m['modules']) == set(MODULES),
+        isinstance(m.get('modules'), dict) and set(MODULES) <= set(m['modules']) <= set(MODULES + OPTIONAL_MODULES),
         '必须声明全部核心模块',
     )
-    for name in MODULES:
+    if m['season_id'] == 'orange_s400001':
+        require('time_cards' in m['modules'], '大橘大利更新包必须包含 time_cards 完整时间卡片快照，请重新生成 ZIP')
+    if 'time_cards' in m['modules']:
+        require(m['season_id'] == 'orange_s400001', '时间卡片模块所属赛季不受支持')
+        require('orange.time_cards.v1' in m['required_capabilities'], '时间卡片未声明所需能力')
+    for name in m['modules']:
         module = m['modules'][name]
         require(
             isinstance(module, dict) and module.get('state') in ('present', 'absent'),
             f'{name} 状态未知或无效',
         )
         require(module.get('file') == f'data/{name}.json', f'{name} 文件路径无效')
-        if name in ('champions', 'traits', 'items'):
+        if name in ('champions', 'traits', 'items', 'time_cards'):
             require(module['state'] == 'present', f'{name} 不能缺失')
     require(isinstance(m.get('mechanics'), list) and len(m['mechanics']) <= 20, '玩法清单无效')
     ids = set()
@@ -296,6 +303,28 @@ def _walk_images(value, root, location=''):
         require((root / safe_path(value)).is_file(), f'缺少资源：{location}: {value}')
 
 
+def validate_time_cards(doc, index):
+    rows = records(doc, 'time_cards')
+    require(bool(rows), '时间卡片完整快照不能为空')
+    require(doc.get('season_id') == index['season_id'] and doc.get('season') == 'S400001'
+            and doc.get('setId') == '16', '时间卡片赛季或模式不一致')
+    require(doc.get('version_id') == index['version_id'] and doc.get('version') == index['game_version'], '时间卡片版本不一致')
+    require(isinstance(doc.get('time'), str) and len(doc['time']) <= 100, '时间卡片更新时间无效')
+    for row in rows:
+        label = f"时间卡片/{row['id']}"
+        require(type(row.get('tier')) is int and 1 <= row['tier'] <= 5, f'{label} 品阶无效')
+        require(isinstance(row.get('description'), str) and len(row['description']) <= 10000, f'{label} 效果无效')
+        require(isinstance(row.get('category_id'), str) and len(row['category_id']) <= 40, f'{label} 分类无效')
+        require(isinstance(row.get('rounds'), list) and len(row['rounds']) <= 30
+                and all(isinstance(r, str) and re.fullmatch(r'\d{1,2}-\d{1,2}', r) for r in row['rounds']), f'{label} 回合无效')
+        require(isinstance(row.get('round'), str) and len(row['round']) <= 40, f'{label} 主回合无效')
+        require(row.get('layout') in ('portrait', 'icon', 'missing'), f'{label} 卡图样式无效')
+        image = row.get('image')
+        require(image is None or (isinstance(image, str) and image.startswith('assets/')), f'{label} 必须引用本地图片')
+        require((row['layout'] == 'missing') == (image is None), f'{label} 卡图与样式不一致')
+    return rows
+
+
 def _validate_mechanic(mechanic):
     try:
         reference_metadata(mechanic)
@@ -398,7 +427,7 @@ def validate_data(root, manifest, progress=lambda *args: None):
         )
         if file.suffix.lower() == '.json':
             read_json(file)
-    docs = {name: read_json(root / f'data/{name}.json') for name in MODULES}
+    docs = {name: read_json(root / f'data/{name}.json') for name in manifest['modules']}
     index, season = read_json(root / 'data/index.json'), read_json(root / 'data/season.json')
     require(isinstance(index, dict) and isinstance(season, dict), '资料元数据无效')
     for doc in (index, season):
@@ -456,7 +485,9 @@ def validate_data(root, manifest, progress=lambda *args: None):
         )
     from season_package_validation import validate_core
 
-    validate_core(rows)
+    validate_core({name: rows[name] for name in MODULES})
+    if 'time_cards' in docs:
+        validate_time_cards(docs['time_cards'], index)
     codebook_path = root / 'data/tft-codebook.json'
     if codebook_path.is_file():
         codebook = read_json(codebook_path)
@@ -603,6 +634,7 @@ def _asset_hashes(directory):
 
 def structural_diff(old_root, new_root):
     result = {}
+    old_index, new_index = read_json(old_root / 'index.json'), read_json(new_root / 'index.json')
 
     def clean(value):
         if isinstance(value, dict):
@@ -616,13 +648,17 @@ def structural_diff(old_root, new_root):
             return [clean(x) for x in value]
         return value
 
-    for name in MODULES:
+    for name in MODULES + OPTIONAL_MODULES:
         old = (
             read_json(old_root / f'{name}.json')
             if (old_root / f'{name}.json').is_file()
             else {name: []}
         )
-        new = read_json(new_root / f'{name}.json')
+        if name == 'time_cards' and not (old_root / 'time_cards.json').is_file() and old_index.get('season_id') == 'orange_s400001':
+            from orange_fortune_service import CATALOG, parse_catalog
+
+            old = {'time_cards': parse_catalog(read_json(CATALOG))['cards']}
+        new = read_json(new_root / f'{name}.json') if (new_root / f'{name}.json').is_file() else {name: []}
         a, b = ({r['id']: r for r in d[name]} for d in (old, new))
         changed = []
         for key in a.keys() & b.keys():
@@ -639,7 +675,6 @@ def structural_diff(old_root, new_root):
             'removed': [{'id': k, 'name': a[k]['name']} for k in sorted(a.keys() - b.keys())],
             'changed': sorted(changed, key=lambda r: r['id']),
         }
-    old_index, new_index = read_json(old_root / 'index.json'), read_json(new_root / 'index.json')
     a, b = ({m['id']: m for m in d.get('mechanics', [])} for d in (old_index, new_index))
     result['mechanics'] = {
         'added': sorted(b.keys() - a.keys()),

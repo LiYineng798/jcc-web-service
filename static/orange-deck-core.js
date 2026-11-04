@@ -5,6 +5,12 @@
   const roundText = (card) => (card.rounds?.length ? `生效 ${card.rounds.join(' / ')}` : '条件触发');
 
   async function api(url, options = {}) {
+    const preview = new URLSearchParams(location.search).get('preview_release');
+    if (preview) {
+      const target = new URL(url, location.origin);
+      target.searchParams.set('preview_release', preview);
+      url = target.pathname + target.search;
+    }
     const headers = { Accept: 'application/json', ...(options.headers || {}) };
     if (options.body !== undefined) headers['Content-Type'] = 'application/json';
     if (options.csrf) headers['X-CSRF-Token'] = options.csrf;
@@ -17,6 +23,11 @@
       throw error;
     }
     return data;
+  }
+
+  async function recordCopy(deckId, csrf) {
+    if (!csrf) csrf = (await api('/api/me')).csrf_token;
+    return api(`/api/orange-decks/${deckId}/copy`, { method: 'POST', csrf });
   }
 
   // The gallery's time-card frame: hexagon surface, per-layout art and the tier's metal bezel.
@@ -62,7 +73,7 @@
     }
     dialog.returnFocus = opener;
     dialog.querySelector('[data-deck-card-body]').innerHTML = cardFull(card, 'h3');
-    dialog.showModal();
+    if (!dialog.open) dialog.showModal();
   }
 
   // Same honeycomb as the simulator: 28 cells, rows of seven, offsets handled in CSS.
@@ -118,5 +129,5 @@
     toggle?.addEventListener('click', () => apply(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'));
   }
 
-  global.JccOrangeDeck = { esc, api, art, thumb, cardFull, openCard, board, issues, copy, avatar, notify, roundText, bindTheme };
+  global.JccOrangeDeck = { esc, api, recordCopy, art, thumb, cardFull, openCard, board, issues, copy, avatar, notify, roundText, bindTheme };
 })(window);

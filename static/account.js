@@ -32,5 +32,5 @@
       window.jccNotify.show('阵容码已复制，但复制记录未同步，请稍后刷新', { variant: 'warning' });
     }
   }
-  window.JccAccount = { request, copy };
+  window.JccAccount = { request, copy, copyText: copyLineupCode };
 })();

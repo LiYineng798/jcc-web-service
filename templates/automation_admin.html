@@ -15,7 +15,7 @@
 <aside class="admin-sidebar" aria-label="后台导航">
 <a class="admin-brand" href="/admin"><span class="admin-brand-mark" aria-hidden="true">阵</span><span class="admin-brand-copy"><strong>阵容管理台</strong><small>协作工作台</small></span></a>
 <nav class="admin-sidebar-nav">
-{% for key, title in [('overview','运营概览'),('reports','每日报告'),('lineups','普通阵容'),('touch','榜单展示时间')] %}
+{% for key, title in [('overview','运营概览'),('reports','每日报告'),('lineups','普通阵容'),('decks','卡组上传'),('touch','榜单展示时间')] %}
 <button class="admin-nav-item" data-assistant-tab="{{ key }}" type="button">{{ title }}</button>
 {% endfor %}
 </nav>
@@ -30,7 +30,7 @@
 </main>
 </div>
 <nav class="admin-mobile-nav" aria-label="手机端后台导航">
-{% for key, title in [('overview','概览'),('reports','日报'),('lineups','阵容'),('touch','展示时间')] %}
+{% for key, title in [('overview','概览'),('reports','日报'),('lineups','阵容'),('decks','卡组'),('touch','展示时间')] %}
 <button class="admin-mobile-nav-item" data-assistant-tab="{{ key }}" type="button">{{ title }}</button>
 {% endfor %}
 </nav>

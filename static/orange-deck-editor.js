@@ -7,12 +7,14 @@
   const config = JSON.parse(document.getElementById('deckEditorConfig').textContent);
   const $ = (id) => document.getElementById(id);
   const deckId = $('deckEditor').dataset.deckId;
+  const assistantSeason = $('deckEditor').dataset.assistantSeason || '';
   const cards = new Map(config.cards.map((card) => [card.id, card]));
   const portals = new Map(config.portals.map((portal) => [portal.id, portal]));
-  const DRAFT_KEY = 'jcc-orange-deck-draft-v1';
-  const fields = { name: $('deckName'), note: $('deckNote'), key_rounds: $('deckRounds'), alternatives: $('deckAlternatives') };
+  const preview = new URLSearchParams(location.search).get('preview_release');
+  let DRAFT_KEY = 'jcc-orange-deck-draft-v1' + (preview ? `:preview:${preview}` : '');
+  const fields = { name: $('deckName'), plan_code: $('deckPlanCode'), note: $('deckNote'), key_rounds: $('deckRounds'), alternatives: $('deckAlternatives') };
   const state = { version: null, status: 'new', name: '', portal: config.portals[0].id, cards: [null, null, null], note: '', key_rounds: '',
-    alternatives: '', hiddenReason: '', formation: null, formationDirty: false, formationLocked: false, dirty: false, busy: false };
+    alternatives: '', plan_code: '', hiddenReason: '', formation: null, formationDirty: false, formationLocked: false, dirty: false, busy: false };
   let session = { csrf: '' }, activeSlot = 0;
   // On the shared publish page the lineup editor already owns the theme toggle.
   if (!document.getElementById('editorForm')) D.bindTheme();
@@ -132,7 +134,7 @@
     if (frame || !config.simulator_available) return;
     frame = document.createElement('iframe');
     frame.title = '大橘大利阵容编辑器';
-    frame.src = '/tools/lineup-simulator?creator=orange-fortune&deck=1';
+    frame.src = '/tools/lineup-simulator?creator=orange-fortune&deck=1' + (preview ? `&preview_release=${encodeURIComponent(preview)}` : '');
     $('formationFrameSlot').append(frame);
     frameTimer = setTimeout(() => frameFailed('阵容编辑器加载超时'), 20000);
   }
@@ -229,7 +231,7 @@
       collect();
       try {
         localStorage.setItem(DRAFT_KEY, JSON.stringify({ version: 1, name: state.name, portal: state.portal, cards: state.cards, note: state.note,
-          key_rounds: state.key_rounds, alternatives: state.alternatives, formation: state.formation && { payload: state.formation.payload, traits: state.formation.traits, view: state.formation.view } }));
+          plan_code: state.plan_code, key_rounds: state.key_rounds, alternatives: state.alternatives, formation: state.formation && { payload: state.formation.payload, traits: state.formation.traits, view: state.formation.view } }));
         $('deckSaveState').textContent = '未提交的内容已暂存在当前浏览器';
       } catch { $('deckSaveState').textContent = '浏览器无法暂存，请在离开前保存'; }
     } else {
@@ -239,7 +241,7 @@
 
   function applyDeck(data) {
     Object.assign(state, { name: data.name || '', portal: portals.has(data.portal) ? data.portal : state.portal, note: data.note || '',
-      key_rounds: data.key_rounds || '', alternatives: data.alternatives || '',
+      plan_code: data.plan_code || '', key_rounds: data.key_rounds || '', alternatives: data.alternatives || '',
       // A card missing from current data leaves its slot empty; the notice names it, nothing is swapped in.
       cards: [0, 1, 2].map((index) => (cards.has(data.cards?.[index]) ? data.cards[index] : null)) });
     Object.keys(fields).forEach((key) => { fields[key].value = state[key]; });
@@ -248,15 +250,16 @@
   function renderActions() {
     const status = state.status;
     const primary = $('savePrimary'), secondary = $('saveSecondary');
-    secondary.hidden = status === 'hidden';
+    secondary.hidden = status === 'hidden' || Boolean(assistantSeason);
     primary.textContent = status === 'hidden' ? '保存修改' : status === 'published' ? '保存并更新' : '发布';
     secondary.textContent = status === 'published' ? '撤回为草稿' : '保存草稿';
     $('deleteDeck').hidden = !deckId;
-    primary.disabled = secondary.disabled = state.busy;
+    primary.disabled = secondary.disabled = state.busy || Boolean(preview);
+    if (preview) { primary.textContent = '预览中不可发布'; secondary.hidden = true; }
   }
 
   async function save(action) {
-    if (state.busy) return;
+    if (state.busy || preview) return;
     collect();
     setError('');
     if (action !== 'draft') {
@@ -264,13 +267,14 @@
       if (problem) { setError(problem); return; }
     }
     if (state.formation?.pending) { setError('阵容还在计算羁绊，请稍候再保存。'); return; }
-    const body = { action, name: state.name, portal: state.portal, cards: state.cards, note: state.note, key_rounds: state.key_rounds, alternatives: state.alternatives };
+    const body = { action, name: state.name, plan_code: state.plan_code, portal: state.portal, cards: state.cards, note: state.note, key_rounds: state.key_rounds, alternatives: state.alternatives };
+    if (assistantSeason) body.season_id = assistantSeason;
     if (state.formationDirty) body.formation = state.formation ? { payload: state.formation.payload, traits: state.formation.traits } : null;
     if (deckId) body.version = state.version;
     state.busy = true; renderActions();
     $('deckSaveState').textContent = '正在保存…';
     try {
-      const data = await D.api(deckId ? `/api/orange-decks/${deckId}` : '/api/orange-decks', { method: deckId ? 'PUT' : 'POST', body, csrf: session.csrf });
+      const data = await D.api(assistantSeason ? '/api/admin/assistant/decks' : deckId ? `/api/orange-decks/${deckId}` : '/api/orange-decks', { method: deckId ? 'PUT' : 'POST', body, csrf: session.csrf });
       state.dirty = false;
       if (!deckId) { try { localStorage.removeItem(DRAFT_KEY); } catch { /* Nothing stored. */ } }
       try { sessionStorage.setItem('jcc-orange-deck-notice', JSON.stringify([data.status === 'published' ? '卡组已发布。' : '已保存。'])); } catch { /* Optional. */ }
@@ -328,8 +332,9 @@
   function importCreator(confirmReplace) {
     let draft = null, formation = null;
     try {
-      draft = JSON.parse(localStorage.getItem('jcc-orange-creator-v1') || 'null');
-      formation = config.season_id ? JSON.parse(localStorage.getItem(`jcc-orange-formation-v1:${config.season_id}`) || 'null') : null;
+      draft = JSON.parse(localStorage.getItem('jcc-orange-creator-v1' + (preview ? `:preview:${preview}` : '')) || 'null');
+      const formationKey = preview ? `jcc-simulator-preview:${preview}:` : 'jcc-orange-formation-v1:';
+      formation = config.season_id ? JSON.parse(localStorage.getItem(`${formationKey}${config.season_id}`) || 'null') : null;
     } catch { /* Read-only; unavailable storage simply means nothing to import. */ }
     if (!draft || draft.version !== 1) { notice(['没有找到海报创作者草稿。']); return; }
     const hasContent = state.cards.some(Boolean) || fields.name.value.trim() || state.formation;
@@ -345,6 +350,7 @@
   async function boot() {
     const queued = (() => { try { const value = JSON.parse(sessionStorage.getItem('jcc-orange-deck-notice') || '[]'); sessionStorage.removeItem('jcc-orange-deck-notice'); return value; } catch { return []; } })();
     const me = await D.api('/api/me');
+    if (assistantSeason) DRAFT_KEY = `jcc-assistant-deck-draft-v1:${me.user.id}:${assistantSeason}`;
     session = { csrf: me.csrf_token };
     if (deckId) {
       const deck = await D.api(`/api/orange-decks/${deckId}`);
@@ -380,7 +386,7 @@
     }
     renderCards(); renderFormation(); renderActions();
     $('deckForm').removeAttribute('aria-busy');
-    if (!state.dirty) $('deckSaveState').textContent = deckId ? `状态：${{ draft: '草稿', published: '已发布', hidden: '已隐藏' }[state.status]}` : '填写完成后发布，或先保存为草稿';
+    if (!state.dirty) $('deckSaveState').textContent = deckId ? `状态：${{ draft: '草稿', published: '已发布', hidden: '已隐藏' }[state.status]}` : assistantSeason ? '填写完成后发布到已授权赛季' : '填写完成后发布，或先保存为草稿';
   }
   boot().catch((error) => {
     setError(`编辑器加载失败：${error.message}`);
