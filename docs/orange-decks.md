@@ -16,7 +16,7 @@ URL 状态为 `/?library=decks&tab=&portal=&q=&page=`，支持直接链接、刷
 | 首页列表 | `templates/index.html`、`static/orange-deck-library.js`；卡片沿用 `home-lineup-card.css` 外壳与图标增强 |
 | 发布 / 编辑 | `lineup_form.html`（含切换与 `orange_deck_fields.html`）、`orange_deck_form.html`、`publish.js/css`、`orange-deck-editor.js` |
 | 详情 | `orange_deck_detail.html`、`orange_deck_macros.html`、`orange-deck-detail.js` |
-| 共用渲染 | `static/orange-deck-core.js`、`static/orange-decks.css`（与 `orange_deck_macros.html` 保持一致）；卡面复用图鉴的 `fortune-card-frame.css` 与包边模板 |
+| 共用渲染 | `static/orange-deck-core.js`、`static/orange-decks.css`（与 `orange_deck_macros.html` 保持一致）；卡面复用图鉴的 `fortune-card-frame.css` 与包边模板，使用纯卡图变体 `.is-art-only`（不叠加名称/描述底、星点与类型，卡图居中铺满），海报与选卡同样使用 |
 | 个人中心 | `frontend/components/ui/bento-card.tsx`：概览分别统计阵容码与卡组，「我的阵容 / 我的收藏」可切换卡组 |
 | 后台 | `static/admin/orange-decks.js`，「内容与用户 → 卡组库」 |
 
@@ -67,6 +67,8 @@ PostgreSQL 对应 DB migration `0027_orange_deck_copies.sql`，需要先于 Web 
 
 ## 列表、互动与可见性
 
+- 列表卡片右上角只标注「推荐 / 草稿 / 已隐藏 / 含失效卡片」；资料版本、改名或改品阶的说明只在详情、编辑与后台展示。
+  卡图下只显示卡名，品阶与能量见卡片弹窗；卡图悬停只轻微提亮，不做位移。
 - 搜索匹配卡组名称和所含卡片的当前名称；传送门为精确筛选。
 - 点赞沿用普通阵容规则：同一账号对同一卡组每天 1 次、每天最多 5 次卡组点赞，累计计数；只能点赞公开卡组。
 - 热门：按累计点赞数加收藏账号数排序（取消收藏即扣除），只列至少有 1 次互动的公开卡组，同分按发布时间。

@@ -30,7 +30,7 @@
     return api(`/api/orange-decks/${deckId}/copy`, { method: 'POST', csrf });
   }
 
-  // The gallery's time-card frame: hexagon surface, per-layout art and the tier's metal bezel.
+  // The gallery's time-card frame and metal bezel, art only: name and effect are always printed beside it.
   // Pages provide <template id="bezel-N"> and the shared gradient definitions.
   function art(card) {
     if (!card) return '<span class="deck-frame-empty">空卡槽</span>';
@@ -39,7 +39,7 @@
       ? `<img class="fortune-card-image" src="${esc(card.image_url)}" alt="" loading="lazy" decoding="async">`
       : `<span class="fortune-missing"><i aria-hidden="true">◇</i>${card.status === 'missing' ? '已失效' : '卡图暂缺'}</span>`;
     const bezel = document.getElementById(`bezel-${tier}`)?.innerHTML || '';
-    return `<span class="fortune-card-frame" data-tier="${tier}"><span class="fortune-card-surface fortune-art-${esc(card.layout || 'missing')}">${body}<span class="fortune-card-shade"></span><span class="fortune-card-stars" aria-hidden="true">${'•'.repeat(tier)}</span><span class="fortune-card-category">${esc(card.category || '')}</span></span>${bezel}</span>`;
+    return `<span class="fortune-card-frame is-art-only" data-tier="${tier}"><span class="fortune-card-surface fortune-art-${esc(card.layout || 'missing')}">${body}<span class="fortune-card-shade"></span></span>${bezel}</span>`;
   }
 
   function tierText(card) {
@@ -48,15 +48,18 @@
 
   function thumb(card, index) {
     if (!card) return `<li><span class="deck-thumb">${art(null)}<span class="deck-thumb-name">第 ${index + 1} 张未选择</span></span></li>`;
-    const flag = card.status === 'missing' ? '（已失效）' : card.status === 'changed' ? '（资料已更新）' : '';
-    return `<li><button type="button" class="deck-thumb" data-card-index="${index}" data-tier="${esc(card.tier ?? '')}" data-status="${esc(card.status)}" aria-haspopup="dialog" aria-label="查看「${esc(card.name)}」完整效果${flag}">${art(card)}<span class="deck-thumb-name">${esc(card.name)}</span><small>${esc(tierText(card))}</small></button></li>`;
+    const flag = card.status === 'missing' ? '，已失效' : `，${tierText(card)}`;
+    return `<li><button type="button" class="deck-thumb" data-card-index="${index}" data-tier="${esc(card.tier ?? '')}" data-status="${esc(card.status)}" aria-haspopup="dialog" aria-label="查看「${esc(card.name)}」完整效果${esc(flag)}">${art(card)}<span class="deck-thumb-name">${esc(card.name)}</span></button></li>`;
   }
 
-  function cardFull(card, headingTag = 'h3') {
+  // Kicker (tier, energy, type), name, effect round, then the effect, matching orange_deck_macros.card_full.
+  function cardFull(card, headingTag = 'h3', headingId = '') {
     const changes = (card.changes || []).map((text) => `<p class="deck-change">${esc(text)}</p>`).join('');
-    return `<div class="deck-card-full" data-status="${esc(card.status)}">${art(card)}<div><${headingTag}>${esc(card.name)}</${headingTag}>
-      <span class="deck-tier" data-tier="${esc(card.tier ?? '')}">${esc(tierText(card))}${card.category ? ` · ${esc(card.category)}` : ''}</span>
-      ${card.status !== 'missing' ? `<p class="deck-rounds">${esc(roundText(card))}</p><p>${esc(card.description)}</p>` : ''}${changes}</div></div>`;
+    const missing = card.status === 'missing';
+    return `<div class="deck-card-full" data-status="${esc(card.status)}" data-tier="${esc(card.tier ?? '')}">${art(card)}<div class="deck-card-info">
+      <p class="deck-card-kicker"><span class="deck-tier" data-tier="${esc(card.tier ?? '')}">${missing ? '当前资料中不存在' : esc(card.tier_name)}</span>${missing ? '' : `<span>能量 ${esc(card.energy)}</span>`}${card.category ? `<span>${esc(card.category)}</span>` : ''}</p>
+      <${headingTag}${headingId ? ` id="${headingId}"` : ''}>${esc(card.name)}</${headingTag}>
+      ${missing ? '' : `<p class="deck-rounds">${esc(roundText(card))}</p><p class="deck-card-effect">${esc(card.description)}</p>`}${changes}</div></div>`;
   }
 
   let dialog;
@@ -65,14 +68,14 @@
       dialog = document.createElement('dialog');
       dialog.className = 'deck-dialog';
       dialog.setAttribute('aria-labelledby', 'deckCardDialogTitle');
-      dialog.innerHTML = '<header><h2 id="deckCardDialogTitle">卡片效果</h2><button type="button" class="deck-dialog-close" aria-label="关闭卡片效果">×</button></header><div data-deck-card-body></div>';
+      dialog.innerHTML = '<button type="button" class="deck-dialog-close" aria-label="关闭卡片效果">×</button><div data-deck-card-body></div>';
       dialog.querySelector('.deck-dialog-close').addEventListener('click', () => dialog.close());
       dialog.addEventListener('click', (event) => { if (event.target === dialog) dialog.close(); });
       dialog.addEventListener('close', () => dialog.returnFocus?.focus({ preventScroll: true }));
       document.body.append(dialog);
     }
     dialog.returnFocus = opener;
-    dialog.querySelector('[data-deck-card-body]').innerHTML = cardFull(card, 'h3');
+    dialog.querySelector('[data-deck-card-body]').innerHTML = cardFull(card, 'h2', 'deckCardDialogTitle');
     if (!dialog.open) dialog.showModal();
   }
 

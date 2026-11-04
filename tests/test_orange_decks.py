@@ -350,7 +350,7 @@ def test_unchanged_data_reports_version_only(users, monkeypatch):
     owner, *_ = users
     deck = create(owner).get_json()
     assert deck['compat'] == {'saved_version': '18.18.1（2026-10-28）', 'current_version': '18.18.1（2026-10-28）',
-                              'changed': False, 'issues': [], 'missing_cards': 0}
+                              'issues': [], 'missing_cards': 0}
     monkeypatch.setattr(orange_deck_service, 'card_version', lambda: '18.18.2@2026-11-10 10:00:00')
     issues = owner.get(f"/api/orange-decks/{deck['id']}").get_json()['compat']['issues']
     assert issues == ['卡片资料已从 18.18.1（2026-10-28）更新为 18.18.2（2026-11-10），卡名与品阶未变；效果说明以当前资料为准。']

@@ -429,7 +429,7 @@ def serialize(row, user, detail=False, share_base=None):
         'version': row['version'],
         'detail_url': f"/orange-decks/{row['id']}",
         'compat': {'saved_version': version_label(saved_version), 'current_version': version_label(current_version),
-                   'changed': saved_version != current_version or bool(issues), 'issues': issues,
+                   'issues': issues,
                    'missing_cards': sum(1 for card in cards if card and card['status'] == 'missing')},
         'can_edit': editable, 'can_delete': editable,
         'can_fork': can_derive(row, user), 'can_export': can_derive(row, user),
