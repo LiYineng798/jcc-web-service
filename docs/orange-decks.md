@@ -26,14 +26,16 @@ URL 状态为 `/?library=decks&tab=&portal=&q=&page=`，支持直接链接、刷
 三张卡分列保存（`card_id_1..3`），不写入任何阵容码字段。
 
 `plan_code` 保存游戏分享的完整方案码（`名称-大橘大利-Base64编码`，最多 512 字符），与普通阵容码分开。
-列表和个人中心只提供复制按钮，详情展示完整内容；发布和编辑表单可填写或清空。旧卡组允许暂缺方案码。
+与之独立的 `lineup_code` 为可选阵容码，接受最多 20000 字符的分享文案，复用普通阵容的 `extract_lineup_code` 提取并保存以 `#` 开头的编码。两个字段均可省略或清空；更新时未传字段会保留旧值。
+首页、详情和个人中心分别提供复制入口；首页以两个固定操作区明确显示已提供/未填写，详情展示完整内容。AI 上传复用表单和 `create_deck`，其字段白名单同步接受 `lineup_code`。
+PostgreSQL 对应 `0028_orange_deck_lineup_code.sql`，先迁移再部署 Web；SQLite 同步建列并保留旧卡组。
 
-列表“复制”后显示累计有效复制次数，成功写入剪贴板后才上报并刷新数量。
+列表底部显示累计有效复制次数，成功写入剪贴板后才上报并刷新数量。
 首页、详情和个人中心统一记录到 `orange_deck_copies`：同一账号（游客按 IP）在同一卡组的
-5 分钟时间窗口内只计一次，沿用普通阵容的去重规则。只统计有方案码的公开卡组，历史未记录的次数从 0 开始；
+5 分钟时间窗口内只计一次，沿用普通阵容的去重规则。只统计含有所复制类型代码的公开卡组（`code_type=plan|lineup`，省略默认方案码）；两种复制共用原有卡组去重窗口，历史未记录的次数从 0 开始；
 统计同步失败不影响已完成的复制。此计数独立于普通阵容统计和卡组热门排序。
 PostgreSQL 对应 DB migration `0027_orange_deck_copies.sql`，需要先于 Web 部署；SQLite 启动时同步建表。
-服务端校验格式，不推断游戏内编码与三张卡是否一致；派生草稿不继承可能已不匹配的方案码。
+服务端校验格式，不推断游戏内编码与三张卡是否一致；派生草稿不继承可能已不匹配的方案码或阵容码。
 `season_id` 记录时间卡片所属资料赛季，不能随创作者默认赛季改变；新增字段对应 DB 迁移 `0026_deck_codes_and_permissions.sql`。
 
 - 品阶、能量、传送门上限复用 `orange_fortune_service` 的 `TIERS`、`PORTALS`、`DECK_SIZE`；`energy` 由服务端按资料计算后保存。
@@ -79,8 +81,8 @@ PostgreSQL 对应 DB migration `0027_orange_deck_copies.sql`，需要先于 Web 
 
 ## 分享与海报
 
-- 列表底部的“复制”复制完整游戏方案码；未填写方案码时禁用。不在卡面显示编码文本。详情另提供文本与链接分享。
-- 详情页提供方案码展示/复制、点赞、收藏与作者的编辑/删除。`/api/orange-decks/<id>/fork`、`/export` 与创作者工具的
+- 列表提供独立的“复制方案码”和“复制阵容码”按钮；对应代码未填写时显示“未提供”并禁用。不在卡面显示编码文本。
+- 详情页提供两种代码的展示/独立复制、点赞、收藏与作者的编辑/删除。`/api/orange-decks/<id>/fork`、`/export` 与创作者工具的
   `?deck=<id>` 导入仍保留在服务端与海报工具中，目前页面不再提供入口。
 - 海报导入只在本页编辑，不读取也不改写 `jcc-orange-creator-v1` 与 `jcc-orange-formation-v1:*`，页头提供返回原草稿的链接。
 - 反向入口：创作者页“发布到卡组库”打开 `/orange-decks/new?from=creator`，只读两个草稿键；编辑页未提交的新卡组暂存在
@@ -88,9 +90,10 @@ PostgreSQL 对应 DB migration `0027_orange_deck_copies.sql`，需要先于 Web 
 
 ## 验证
 
-`python -m pytest -q tests/test_orange_decks.py tests/test_deck_codes_permissions.py`；DB 仓库
-`tests/test_orange_deck_migration.py`、`tests/test_deck_codes_permissions_migration.py`。
+`python -m pytest -q tests/test_orange_decks.py tests/test_deck_codes_permissions.py tests/test_deck_lineup_codes.py tests/test_deck_copies.py`；DB 仓库
+`tests/test_orange_deck_migration.py`、`tests/test_deck_codes_permissions_migration.py`、`tests/test_deck_lineup_code_migration.py`。
 本地交互验证：`python tests/serve_deck_review_preview.py` → `node tests/orange_decks.browser.cjs`（需 Playwright Core）。
+双码状态、剪贴板、键盘、编辑与深浅主题窄屏检查：同一预览运行 `node tests/deck_dual_codes.browser.cjs`。
 赛季包联动验证：启动时加 `--prepare-time-cards`，再运行 `node tests/time_card_packages.browser.cjs`。
 该包只使用仓库现有基准，浏览器脚本在本地预览库发布后会回滚到原版本；不是新的官方补丁。
 预览只监听 loopback，示例数据位于独立 `instance/deck-review-preview`，快捷登录路由仅在此测试入口注册。

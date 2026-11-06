@@ -49,6 +49,17 @@ def create_preview():
                               'cards': ['7250010', '7250011', '7250013']})
             create_deck(user, {**base, 'name': '待完善草稿', 'action': 'draft', 'cards': ['7230005']})
         admin = db.execute("SELECT id FROM users WHERE username='previewadmin'").fetchone()
+        if not db.execute("SELECT 1 FROM orange_decks WHERE name='双码示例·完整搭配'").fetchone():
+            example = {'action': 'publish', 'portal': 'stable', 'cards': ['7230005', '7220015', '7210014'],
+                       'note': '本地虚构示例，仅用于验证双码填写、独立复制及卡片布局。阵容码不保证可在游戏内导入。'}
+            plan = '德玛时光速9流-大橘大利-MjE5OTY4Mzc0NDMyOTI3OTQxNzkzNzU0NzMyMTczNQ=='
+            for name, plan_code, lineup_code in [
+                ('双码示例·暂无代码', '', ''),
+                ('双码示例·仅阵容码', '', '【阵容码】#验收阵容#PREVIEWLINEUP123456'),
+                ('双码示例·仅方案码', plan, ''),
+                ('双码示例·完整搭配', plan, '【阵容码】#验收阵容#PREVIEWLINEUP123456'),
+            ]:
+                create_deck(user, {**example, 'name': name, 'plan_code': plan_code, 'lineup_code': lineup_code})
         if not db.execute("SELECT 1 FROM users WHERE username='previewbot'").fetchone():
             create_account(db, admin['id'], {'username': 'previewbot', 'nickname': '卡组上传助手', 'password': 'PreviewBot1234',
                                           'can_upload_decks': True, 'deck_seasons': ['orange_s400001']})

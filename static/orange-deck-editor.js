@@ -12,9 +12,9 @@
   const portals = new Map(config.portals.map((portal) => [portal.id, portal]));
   const preview = new URLSearchParams(location.search).get('preview_release');
   let DRAFT_KEY = 'jcc-orange-deck-draft-v1' + (preview ? `:preview:${preview}` : '');
-  const fields = { name: $('deckName'), plan_code: $('deckPlanCode'), note: $('deckNote'), key_rounds: $('deckRounds'), alternatives: $('deckAlternatives') };
+  const fields = { name: $('deckName'), plan_code: $('deckPlanCode'), lineup_code: $('deckLineupCode'), note: $('deckNote'), key_rounds: $('deckRounds'), alternatives: $('deckAlternatives') };
   const state = { version: null, status: 'new', name: '', portal: config.portals[0].id, cards: [null, null, null], note: '', key_rounds: '',
-    alternatives: '', plan_code: '', hiddenReason: '', formation: null, formationDirty: false, formationLocked: false, dirty: false, busy: false };
+    alternatives: '', plan_code: '', lineup_code: '', hiddenReason: '', formation: null, formationDirty: false, formationLocked: false, dirty: false, busy: false };
   let session = { csrf: '' }, activeSlot = 0;
   // On the shared publish page the lineup editor already owns the theme toggle.
   if (!document.getElementById('editorForm')) D.bindTheme();
@@ -231,7 +231,7 @@
       collect();
       try {
         localStorage.setItem(DRAFT_KEY, JSON.stringify({ version: 1, name: state.name, portal: state.portal, cards: state.cards, note: state.note,
-          plan_code: state.plan_code, key_rounds: state.key_rounds, alternatives: state.alternatives, formation: state.formation && { payload: state.formation.payload, traits: state.formation.traits, view: state.formation.view } }));
+          plan_code: state.plan_code, lineup_code: state.lineup_code, key_rounds: state.key_rounds, alternatives: state.alternatives, formation: state.formation && { payload: state.formation.payload, traits: state.formation.traits, view: state.formation.view } }));
         $('deckSaveState').textContent = '未提交的内容已暂存在当前浏览器';
       } catch { $('deckSaveState').textContent = '浏览器无法暂存，请在离开前保存'; }
     } else {
@@ -241,7 +241,7 @@
 
   function applyDeck(data) {
     Object.assign(state, { name: data.name || '', portal: portals.has(data.portal) ? data.portal : state.portal, note: data.note || '',
-      plan_code: data.plan_code || '', key_rounds: data.key_rounds || '', alternatives: data.alternatives || '',
+      plan_code: data.plan_code || '', lineup_code: data.lineup_code || '', key_rounds: data.key_rounds || '', alternatives: data.alternatives || '',
       // A card missing from current data leaves its slot empty; the notice names it, nothing is swapped in.
       cards: [0, 1, 2].map((index) => (cards.has(data.cards?.[index]) ? data.cards[index] : null)) });
     Object.keys(fields).forEach((key) => { fields[key].value = state[key]; });
@@ -267,7 +267,7 @@
       if (problem) { setError(problem); return; }
     }
     if (state.formation?.pending) { setError('阵容还在计算羁绊，请稍候再保存。'); return; }
-    const body = { action, name: state.name, plan_code: state.plan_code, portal: state.portal, cards: state.cards, note: state.note, key_rounds: state.key_rounds, alternatives: state.alternatives };
+    const body = { action, name: state.name, plan_code: state.plan_code, lineup_code: state.lineup_code, portal: state.portal, cards: state.cards, note: state.note, key_rounds: state.key_rounds, alternatives: state.alternatives };
     if (assistantSeason) body.season_id = assistantSeason;
     if (state.formationDirty) body.formation = state.formation ? { payload: state.formation.payload, traits: state.formation.traits } : null;
     if (deckId) body.version = state.version;

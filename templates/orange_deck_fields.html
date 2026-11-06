@@ -12,6 +12,10 @@
             <textarea id="deckPlanCode" class="deck-code-input" maxlength="{{ limits.plan_code }}" rows="3" spellcheck="false" autocomplete="off" placeholder="德玛时光速9流-大橘大利-MjE5OTY4Mzc0NDMyOTI3OTQxNzkzNzU0NzMyMTczNQ==" aria-describedby="deckCodeHint"></textarea>
           </label>
           <p class="deck-boundary" id="deckCodeHint">填写后，卡组列表会显示“复制方案码”按钮，完整方案码只在详情页展示。请确认方案码与所选三张卡一致。</p>
+          <label class="field" for="deckLineupCode">游戏阵容码 <small class="deck-hint">选填 · 可粘贴完整分享文案</small>
+            <textarea id="deckLineupCode" class="deck-code-input" maxlength="{{ limits.lineup_code }}" rows="3" spellcheck="false" autocomplete="off" placeholder="【阵容码】#阵容名称#编码" aria-describedby="deckLineupCodeHint"></textarea>
+          </label>
+          <p class="deck-boundary" id="deckLineupCodeHint">自动提取以 # 开头的有效阵容码，保存后可独立复制。方案码与阵容码均为选填，请分别确认内容与卡组一致。</p>
           <fieldset class="deck-portals" id="deckPortals">
             <legend>推荐传送门 <small class="deck-hint">必填 · 卡组能量不能超过上限</small></legend>
             {% for portal in creator_data.portals %}

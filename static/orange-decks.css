@@ -59,6 +59,35 @@
 .deck-plan-section .deck-copy-plan { width:100%; margin-top:12px; }
 .deck-code-input { font-size:.86rem; overflow-wrap:anywhere; }
 
+/* Two clearly separate code actions. Presence is communicated in words, not color alone. */
+.deck-card.home-lineup-card { border-color:color-mix(in srgb, var(--accent) 14%, var(--line)); box-shadow:0 3px 14px color-mix(in srgb, var(--text) 3%, transparent); }
+.deck-card.home-lineup-card:hover { transform:none; }
+.deck-card .deck-card-body { border:1px solid color-mix(in srgb, var(--line) 65%, transparent); background:linear-gradient(145deg, var(--card-wash), color-mix(in srgb, var(--accent-soft) 12%, var(--surface-solid))); }
+.deck-code-actions { display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:10px; margin:14px 0 2px; }
+.deck-code-action { --code-color:var(--accent-strong); display:flex; align-items:center; gap:9px; min-width:0; min-height:65px; padding:10px 12px; border:1px solid color-mix(in srgb, var(--code-color) 24%, var(--line)); border-radius:12px; background:color-mix(in srgb, var(--code-color) 5%, var(--surface-solid)); color:var(--text); text-align:left; font:inherit; cursor:pointer; transition:background-color 140ms ease, border-color 140ms ease; }
+.deck-code-action.is-lineup { --code-color:#517f91; }
+:root[data-theme="dark"] .deck-code-action.is-lineup { --code-color:#8cc2d1; }
+.deck-code-action:hover:not(:disabled) { border-color:var(--code-color); background:color-mix(in srgb, var(--code-color) 11%, var(--surface-solid)); }
+.deck-code-action:focus-visible { outline:2px solid var(--code-color); outline-offset:3px; }
+.deck-code-mark { display:grid; place-items:center; flex:none; width:27px; height:30px; border-radius:7px; background:color-mix(in srgb, var(--code-color) 10%, transparent); color:var(--code-color); font-size:1.25rem; font-weight:500; }
+.deck-code-text { display:grid; gap:4px; min-width:0; }
+.deck-code-text strong { font-size:.82rem; font-weight:650; white-space:nowrap; }
+.deck-code-text small { color:var(--muted); font-size:.68rem; white-space:nowrap; }
+.deck-code-copy-icon { width:16px; height:16px; flex:none; margin-left:auto; color:var(--code-color); }
+.deck-code-action:disabled { border-style:dashed; border-color:var(--line); background:transparent; color:var(--muted); cursor:default; }
+.deck-code-action:disabled .deck-code-mark { background:var(--card-wash); color:var(--muted); }
+.deck-code-action:disabled .deck-code-copy-icon { visibility:hidden; }
+.deck-copy-total { display:block; margin-top:4px; color:var(--muted); font-size:.68rem; text-align:right; font-variant-numeric:tabular-nums; }
+@media (max-width:600px) {
+  .deck-code-actions { gap:8px; }
+  .deck-code-action { padding:10px 8px; gap:7px; }
+  .deck-code-mark { width:22px; }
+  .deck-code-copy-icon { display:none; }
+}
+@media (prefers-reduced-motion:reduce) {
+  .deck-card.home-lineup-card, .deck-code-action, .deck-card .deck-thumb .fortune-card-frame { transition:none; animation:none; }
+}
+
 /* Card art: the shared art-only time-card frame at thumbnail size, never cropped.
    Hover only brightens the art and name; no lift, so scanning the list stays calm. */
 .deck-thumbs { display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:10px; margin:0; padding:0; list-style:none; }
@@ -253,9 +282,13 @@ a.deck-detail-author:hover span:last-child { text-decoration:underline; text-und
 .deck-card .home-card-social > * { flex:0 1 auto; padding-inline:8px; }
 .deck-card .home-card-utilities { flex:none; flex-wrap:nowrap; gap:2px; }
 @media (max-width:600px) {
-  .deck-card .home-card-footer { flex-wrap:wrap; }
-  .deck-card .home-card-social { width:100%; justify-content:space-between; }
-  .deck-card .home-card-utilities { width:100%; justify-content:space-between; }
+  .deck-card .home-card-footer { flex-wrap:wrap; gap:0 6px; }
+  .deck-card .home-card-social { width:auto; flex:1 0 auto; justify-content:flex-start; }
+  .deck-card .home-card-utilities { width:auto; margin-left:auto; padding-top:0; border-top:0; justify-content:flex-end; }
+}
+@media (max-width:360px) {
+  .deck-code-mark { display:none; }
+  .deck-code-text small { white-space:normal; }
 }
 .deck-status-line:empty { display:none; }
 /* An empty card slot previews the card shape instead of a second dashed box. */

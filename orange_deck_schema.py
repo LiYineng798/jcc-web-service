@@ -10,6 +10,7 @@ CREATE TABLE IF NOT EXISTS orange_decks (
     user_id INTEGER NOT NULL REFERENCES users(id),
     name TEXT NOT NULL,
     plan_code TEXT NOT NULL DEFAULT '',
+    lineup_code TEXT NOT NULL DEFAULT '',
     season_id TEXT NOT NULL DEFAULT 'orange_s400001',
     card_id_1 TEXT,
     card_id_2 TEXT,
@@ -90,6 +91,7 @@ def migrate_deck_codes(db):
         return
     for name, definition in (
         ('plan_code', "TEXT NOT NULL DEFAULT ''"),
+        ('lineup_code', "TEXT NOT NULL DEFAULT ''"),
         ('season_id', "TEXT NOT NULL DEFAULT 'orange_s400001'"),
     ):
         if name not in columns:

@@ -122,7 +122,7 @@ def copy_api(deck_id):
     # A first-time guest also needs the token issued by /api/me.
     if not request.headers.get('X-CSRF-Token'):
         return _private(jsonify(error='CSRF 校验失败'), 403)
-    return _private(jsonify(record_copy(current_user(), deck_id, get_client_ip())))
+    return _private(jsonify(record_copy(current_user(), deck_id, get_client_ip(), request.args.get('code_type', 'plan'))))
 
 
 @orange_decks_bp.get('/api/admin/orange-decks')

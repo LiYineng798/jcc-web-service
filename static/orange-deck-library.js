@@ -136,7 +136,6 @@
     const social = published ? [
       action(deck.is_liked_today ? '已赞' : '点赞', 'heart', 'like', `aria-pressed="${deck.is_liked_today}" title="${deck.is_liked_today ? '今日已赞' : '点赞卡组'}"`, deck.like_count),
       action(deck.is_favorited ? '已收藏' : '收藏', 'bookmark', 'favorite', `aria-pressed="${deck.is_favorited}" title="${deck.is_favorited ? '取消收藏' : '收藏卡组'}"`, deck.favorite_count),
-      action('复制', 'copy', 'copy-plan', deck.plan_code ? 'title="复制方案码"' : 'disabled title="暂未提供方案码"', deck.copy_count || 0),
     ].join('') : '';
     const utilities = [
       deck.can_edit ? action('编辑', 'pencil', 'edit', '', null).replace('small-button home-card-action', 'small-button home-card-action home-card-quiet') : '',
@@ -144,6 +143,12 @@
     ].join('');
     const author = `<span data-avatar></span><span class="home-card-author-name">${D.esc(deck.author.nickname)}</span>`;
     const date = (deck.published_at || deck.updated_at || '').split(' ')[0];
+    const codes = [['plan', '方案码', deck.plan_code, '三卡方案'], ['lineup', '阵容码', deck.lineup_code, '游戏阵容']].map(([type, label, code, description]) =>
+      `<button type="button" class="deck-code-action is-${type}${code ? ' has-code' : ''}" data-action="copy-${type}" ${code ? '' : 'disabled'} aria-label="${code ? '复制' : '未提供'}${label}">
+        <span class="deck-code-mark" aria-hidden="true">${type === 'plan' ? '◇' : '#'}</span>
+        <span class="deck-code-text"><strong>${code ? '复制' : '未提供'}${label}</strong><small>${code ? description + ' · 已提供' : '作者暂未填写'}</small></span>
+        <svg class="deck-code-copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="8" y="8" width="12" height="13" rx="2"/><path d="M15 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h3"/></svg>
+      </button>`).join('');
     return `<article class="lineup-card home-lineup-card deck-card" data-deck-id="${deck.id}" data-lineup-key="deck-${deck.id}" aria-labelledby="deck-title-${deck.id}">
       <header class="home-card-heading"><h3 class="lineup-title" id="deck-title-${deck.id}"><a href="${D.esc(deck.detail_url)}">${D.esc(deck.name)}</a></h3><span class="deck-badges">${badges}</span></header>
       <div class="home-card-byline lineup-byline">${deck.author.profile_url ? `<a class="author-link" href="${D.esc(deck.author.profile_url)}">${author}</a>` : `<span class="author-link">${author}</span>`}<time class="home-card-updated">${published ? '发布于' : '更新于'} ${D.esc(date)}</time></div>
@@ -151,7 +156,9 @@
         <div class="deck-card-portal"><span class="deck-portal" data-portal="${D.esc(deck.portal.id)}">${D.esc(deck.portal.name)}</span><span class="deck-energy-chip${over ? ' is-over' : ''}">能量 <b>${deck.energy}</b> / ${deck.energy_limit}${over ? ' · 超限' : ''}</span></div>
         <ul class="deck-thumbs" aria-label="三张时间卡片">${deck.cards.map(D.thumb).join('')}</ul>
       </div>
+      <div class="deck-code-actions" role="group" aria-label="独立复制游戏代码">${codes}</div>
       <footer class="home-card-footer"><div class="home-card-social">${social}</div><div class="home-card-utilities">${utilities}</div></footer>
+      <span class="deck-copy-total" title="同一卡组在五分钟内的重复复制只计一次">有效复制 <span data-copy-count>${Number(deck.copy_count || 0).toLocaleString('zh-CN')}</span> 次</span>
     </article>`;
   }
 
@@ -282,19 +289,23 @@
     else if ((action === 'like' || action === 'favorite') && deck) interact(target, deck, action);
     else if (action === 'edit' && deck) location.href = `/orange-decks/${deck.id}/edit`;
     else if (action === 'open' && deck) location.href = deck.detail_url;
-    else if (action === 'copy-plan' && deck) {
+    else if (['copy-plan', 'copy-lineup'].includes(action) && deck && !target.disabled) {
+      const codeType = action === 'copy-plan' ? 'plan' : 'lineup';
+      const label = codeType === 'plan' ? '方案码' : '阵容码';
+      const code = deck[codeType + '_code'];
+      if (!code) return;
       target.disabled = true;
-      D.copy(deck.plan_code).then(async (ok) => {
-        D.notify(ok ? '方案码已复制' : '复制失败，请到详情页手动复制', ok ? 'success' : 'error');
-        if (ok) {
-          feedback(deck, 'copy'); target.querySelector('.home-card-action-label').textContent = '已复制';
+      D.copy(code).then(async (ok) => {
+        D.notify(ok ? `${label}已复制` : '复制失败，请到详情页手动复制', ok ? 'success' : 'error');
+        if (ok && deck.status === 'published') {
+          feedback(deck, 'copy');
           try {
-            const data = await D.recordCopy(deck.id, state.csrf);
+            const data = await D.recordCopy(deck.id, state.csrf, codeType);
             deck.copy_count = data.copy_count;
-            target.querySelector('.home-card-number').textContent = Number(data.copy_count).toLocaleString('zh-CN');
-          } catch { D.notify('方案码已复制，但次数未同步，请稍后刷新', 'info'); }
+            target.closest('[data-deck-id]').querySelector('[data-copy-count]').textContent = Number(data.copy_count).toLocaleString('zh-CN');
+          } catch { D.notify(`${label}已复制，但次数未同步，请稍后刷新`, 'info'); }
         }
-      }).finally(() => { target.disabled = false; });
+      }).catch(() => D.notify('复制失败，请到详情页手动复制', 'error')).finally(() => { target.disabled = false; });
     }
   });
   els.pagination.addEventListener('click', (event) => {

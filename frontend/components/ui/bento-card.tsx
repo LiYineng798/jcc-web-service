@@ -106,6 +106,7 @@ type Deck = {
   id: number;
   name: string;
   plan_code: string;
+  lineup_code: string;
   status: string;
   portal: { id: string; name: string };
   energy: number;
@@ -1292,25 +1293,25 @@ function DeckCard({
         )}
       </h2>
       <p className="pf-lineup-meta">{names}</p>
-      {item.plan_code && (
-        <button className="pf-button pf-deck-copy" disabled={busy} onClick={async () => {
+      {([ ["plan", "方案码", item.plan_code], ["lineup", "阵容码", item.lineup_code] ] as const).filter(([, , code]) => code).map(([type, label, code]) => (
+        <button key={type} className="pf-button pf-deck-copy" disabled={busy} onClick={async () => {
           setBusy(true);
           try {
-            const ok = await window.JccAccount.copyText(item.plan_code);
-            window.jccNotify.show(ok ? "方案码已复制" : "复制失败，请到详情页手动复制", { variant: ok ? "success" : "error" });
+            const ok = await window.JccAccount.copyText(code);
+            window.jccNotify.show(ok ? `${label}已复制` : "复制失败，请到详情页手动复制", { variant: ok ? "success" : "error" });
             if (ok && item.status === "published") {
               try {
-                const data = await window.JccAccount.request<{ copy_count: number }>(`/api/orange-decks/${item.id}/copy`, {
+                const data = await window.JccAccount.request<{ copy_count: number }>(`/api/orange-decks/${item.id}/copy?code_type=${type}`, {
                   method: "POST", headers: { "X-CSRF-Token": token },
                 });
                 setCopiedCount(data.copy_count);
               } catch {
-                window.jccNotify.show("方案码已复制，但次数未同步，请稍后刷新", { variant: "warning" });
+                window.jccNotify.show(`${label}已复制，但次数未同步，请稍后刷新`, { variant: "warning" });
               }
             }
           } finally { setBusy(false); }
-        }}><Copy size={14} />复制方案码</button>
-      )}
+        }}><Copy size={14} />复制{label}</button>
+      ))}
       <div className="pf-lineup-card-bottom">
         <span className="pf-interactions">
           <span>
@@ -1321,7 +1322,7 @@ function DeckCard({
             <Bookmark size={13} />
             {number(item.favorite_count)}
           </span>
-          <span title="方案码复制次数">
+          <span title="卡组有效复制次数">
             <Copy size={13} />
             {number(Math.max(item.copy_count, copiedCount))}
           </span>

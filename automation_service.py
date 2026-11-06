@@ -178,7 +178,7 @@ def upload_deck(db, account, data):
     from orange_deck_service import DeckError, create_deck
     account = lock_account(db, account)
     require_deck_scope(account, data.get('season_id'))
-    if set(data) - {'season_id', 'action', 'name', 'cards', 'portal', 'plan_code', 'note', 'key_rounds', 'alternatives', 'formation'}:
+    if set(data) - {'season_id', 'action', 'name', 'cards', 'portal', 'plan_code', 'lineup_code', 'note', 'key_rounds', 'alternatives', 'formation'}:
         raise AutomationError('只能上传新卡组，不能指定作者、审核状态或推荐设置')
     if data.get('action') != 'publish':
         raise AutomationError('此工作台只允许发布新卡组')
