@@ -1271,6 +1271,7 @@ function DeckCard({
   refresh: () => void;
 }) {
   const [busy, setBusy] = useState(false);
+  const [copyingCodes, setCopyingCodes] = useState<Record<string, boolean>>({});
   const names = item.cards.map((card) => card?.name || "—").join(" · ");
   const [copiedCount, setCopiedCount] = useState(0);
   return (
@@ -1294,8 +1295,8 @@ function DeckCard({
       </h2>
       <p className="pf-lineup-meta">{names}</p>
       {([ ["plan", "方案码", item.plan_code], ["lineup", "阵容码", item.lineup_code] ] as const).filter(([, , code]) => code).map(([type, label, code]) => (
-        <button key={type} className="pf-button pf-deck-copy" disabled={busy} onClick={async () => {
-          setBusy(true);
+        <button key={type} className="pf-button pf-deck-copy" disabled={busy || copyingCodes[type]} onClick={async () => {
+          setCopyingCodes(previous => ({ ...previous, [type]: true }));
           try {
             const ok = await window.JccAccount.copyText(code);
             window.jccNotify.show(ok ? `${label}已复制` : "复制失败，请到详情页手动复制", { variant: ok ? "success" : "error" });
@@ -1304,12 +1305,14 @@ function DeckCard({
                 const data = await window.JccAccount.request<{ copy_count: number }>(`/api/orange-decks/${item.id}/copy?code_type=${type}`, {
                   method: "POST", headers: { "X-CSRF-Token": token },
                 });
-                setCopiedCount(data.copy_count);
+                setCopiedCount(previous => Math.max(previous, data.copy_count));
               } catch {
                 window.jccNotify.show(`${label}已复制，但次数未同步，请稍后刷新`, { variant: "warning" });
               }
             }
-          } finally { setBusy(false); }
+          } catch {
+            window.jccNotify.show("复制失败，请到详情页手动复制", { variant: "error" });
+          } finally { setCopyingCodes(previous => ({ ...previous, [type]: false })); }
         }}><Copy size={14} />复制{label}</button>
       ))}
       <div className="pf-lineup-card-bottom">

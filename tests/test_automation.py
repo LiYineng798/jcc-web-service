@@ -193,6 +193,16 @@ def test_upgrade_old_sqlite_schema_preserves_identity_and_drops_tokens():
 def test_avatar_is_own_account_only_and_audited(client, app):
     admin = login_admin(client)
     account = create_account(client, admin)
+    with app.app_context():
+        # Another user may already have the requested preset; identity isolation is
+        # about preserving their complete avatar, not assuming random presets differ.
+        db = get_db()
+        db.execute("UPDATE users SET avatar_preset='nova', avatar_color='#123456' WHERE id != ?", (account['user_id'],))
+        db.commit()
+        other_avatars = {
+            row['id']: (row['avatar_color'], row['avatar_preset'], row['avatar_expression'])
+            for row in db.execute('SELECT id,avatar_color,avatar_preset,avatar_expression FROM users WHERE id != ?', (account['user_id'],))
+        }
     bot, headers = login_bot(app)
     assert bot.get(PREFIX + '/me').get_json()['can_avatar'] is True
     body = {'color': '#7E96AD', 'preset': 'nova', 'expression': 'happy'}
@@ -204,9 +214,12 @@ def test_avatar_is_own_account_only_and_audited(client, app):
     assert response.status_code == 200
     assert response.get_json()['user']['avatar_config'] == {'version': 1, 'preset': 'nova', 'expression': 'happy', 'color': '#7e96ad'}
     with app.app_context():
-        rows = get_db().execute('SELECT id, avatar_preset FROM users ORDER BY id').fetchall()
+        rows = get_db().execute('SELECT id, avatar_color, avatar_preset, avatar_expression FROM users ORDER BY id').fetchall()
         assert {row['id']: row['avatar_preset'] for row in rows}[account['user_id']] == 'nova'
-        assert all(row['avatar_preset'] != 'nova' for row in rows if row['id'] != account['user_id'])
+        assert {
+            row['id']: (row['avatar_color'], row['avatar_preset'], row['avatar_expression'])
+            for row in rows if row['id'] != account['user_id']
+        } == other_avatars
         assert get_db().execute("SELECT actor_user_id FROM audit_logs WHERE action='automation_update_avatar'").fetchone()[0] == account['user_id']
 
 

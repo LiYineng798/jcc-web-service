@@ -17,6 +17,7 @@
   const STATUS = { draft: ['草稿', ''], hidden: ['已隐藏', 'is-danger'] };
   const state = { library: 'lineups', tab: 'latest', q: '', portal: '', page: 1, user: null, csrf: '', me: null,
     items: [], total: 0, totalPages: 1, controller: null, loadedKey: '' };
+  const pendingInteractions = new Set();
 
   function readUrl() {
     const params = new URLSearchParams(location.search);
@@ -133,9 +134,10 @@
     ].join('');
     const over = !deck.compat.missing_cards && deck.cards.every(Boolean) && !deck.fits;
     const published = deck.status === 'published';
+    const socialDisabled = pendingInteractions.has(deck.id) ? 'disabled' : '';
     const social = published ? [
-      action(deck.is_liked_today ? '已赞' : '点赞', 'heart', 'like', `aria-pressed="${deck.is_liked_today}" title="${deck.is_liked_today ? '今日已赞' : '点赞卡组'}"`, deck.like_count),
-      action(deck.is_favorited ? '已收藏' : '收藏', 'bookmark', 'favorite', `aria-pressed="${deck.is_favorited}" title="${deck.is_favorited ? '取消收藏' : '收藏卡组'}"`, deck.favorite_count),
+      action(deck.is_liked_today ? '已赞' : '点赞', 'heart', 'like', `${socialDisabled} aria-pressed="${deck.is_liked_today}" title="${deck.is_liked_today ? '今日已赞' : '点赞卡组'}"`, deck.like_count),
+      action(deck.is_favorited ? '已收藏' : '收藏', 'bookmark', 'favorite', `${socialDisabled} aria-pressed="${deck.is_favorited}" title="${deck.is_favorited ? '取消收藏' : '收藏卡组'}"`, deck.favorite_count),
     ].join('') : '';
     const utilities = [
       deck.can_edit ? action('编辑', 'pencil', 'edit', '', null).replace('small-button home-card-action', 'small-button home-card-action home-card-quiet') : '',
@@ -239,29 +241,42 @@
   }
 
   async function interact(control, deck, kind) {
-    await ensureMe();
-    if (!state.user) { D.notify(kind === 'like' ? '登录后可以点赞卡组' : '登录后可以收藏卡组', 'info'); return; }
-    if (kind === 'like' && deck.is_liked_today) { D.notify('今天已经点赞过这套卡组', 'info'); return; }
-    control.disabled = true;
+    if (pendingInteractions.has(deck.id)) return;
+    pendingInteractions.add(deck.id);
+    const node = control.closest('[data-deck-id]');
+    const restoreFocus = document.activeElement === control;
+    node.querySelectorAll('.home-card-social button').forEach(button => { button.disabled = true; });
     try {
+      await ensureMe();
+      if (!state.user) { D.notify(kind === 'like' ? '登录后可以点赞卡组' : '登录后可以收藏卡组', 'info'); return; }
+      if (kind === 'like' && deck.is_liked_today) { D.notify('今天已经点赞过这套卡组', 'info'); return; }
+      let changes;
       if (kind === 'like') {
         const data = await D.api(`/api/orange-decks/${deck.id}/like`, { method: 'POST', csrf: state.csrf });
-        Object.assign(deck, { is_liked_today: true, like_count: data.like_count });
+        changes = { is_liked_today: true, like_count: data.like_count };
         feedback(deck, 'like');
       } else {
         const data = await D.api(`/api/orange-decks/${deck.id}/favorite`, { method: deck.is_favorited ? 'DELETE' : 'POST', csrf: state.csrf });
-        Object.assign(deck, { is_favorited: data.favorited, favorite_count: data.favorite_count });
+        changes = { is_favorited: data.favorited, favorite_count: data.favorite_count };
         if (data.favorited) feedback(deck, 'favorite');
       }
-      // Replace only this card's buttons so focus stays on the action that was used.
-      const node = els.list.querySelector(`[data-deck-id="${deck.id}"]`);
-      const fresh = document.createElement('div');
-      fresh.innerHTML = card(deck);
-      node.querySelector('.home-card-social').replaceWith(fresh.querySelector('.home-card-social'));
-      node.querySelector(`[data-action="${kind}"]`)?.focus({ preventScroll: true });
+      Object.assign(deck, changes);
+      const current = state.items.find(item => item.id === deck.id);
+      if (current) Object.assign(current, changes);
     } catch (error) {
       D.notify(error.message, 'error');
-      control.disabled = false;
+    } finally {
+      pendingInteractions.delete(deck.id);
+      // Reconcile this deck if it is still visible; never steal focus from a new list.
+      const current = state.items.find(item => item.id === deck.id);
+      const currentNode = els.list.querySelector(`[data-deck-id="${deck.id}"]`);
+      if (current && currentNode) {
+        const focusStillHere = document.activeElement === control || document.activeElement === document.body;
+        const fresh = document.createElement('div');
+        fresh.innerHTML = card(current);
+        currentNode.querySelector('.home-card-social').replaceWith(fresh.querySelector('.home-card-social'));
+        if (currentNode === node && restoreFocus && focusStillHere) node.querySelector(`[data-action="${kind}"]`)?.focus({ preventScroll: true });
+      }
     }
   }
 
@@ -301,8 +316,14 @@
           feedback(deck, 'copy');
           try {
             const data = await D.recordCopy(deck.id, state.csrf, codeType);
-            deck.copy_count = data.copy_count;
-            target.closest('[data-deck-id]').querySelector('[data-copy-count]').textContent = Number(data.copy_count).toLocaleString('zh-CN');
+            // Independent code requests may finish out of order, or after the list reloads.
+            const current = state.items.find(item => item.id === deck.id);
+            deck.copy_count = Math.max(deck.copy_count || 0, data.copy_count);
+            if (current) {
+              current.copy_count = Math.max(current.copy_count || 0, deck.copy_count);
+              const count = els.list.querySelector(`[data-deck-id="${deck.id}"] [data-copy-count]`);
+              if (count) count.textContent = Number(current.copy_count).toLocaleString('zh-CN');
+            }
           } catch { D.notify(`${label}已复制，但次数未同步，请稍后刷新`, 'info'); }
         }
       }).catch(() => D.notify('复制失败，请到详情页手动复制', 'error')).finally(() => { target.disabled = false; });
