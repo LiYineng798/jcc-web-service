@@ -7,17 +7,21 @@
   const status = document.getElementById('deckActionStatus');
   let session = { user: null, csrf: '' };
   D.bindTheme();
-  document.getElementById('copyDeckPlan')?.addEventListener('click', async (event) => {
+  for (const [type, label, buttonId, statusId] of [
+    ['plan', '方案码', 'copyDeckPlan', 'deckCopyStatus'],
+    ['lineup', '阵容码', 'copyDeckLineup', 'deckLineupCopyStatus'],
+  ]) document.getElementById(buttonId)?.addEventListener('click', async (event) => {
     const control = event.currentTarget;
     control.disabled = true;
     try {
-      const ok = await D.copy(deck.plan_code);
-      document.getElementById('deckCopyStatus').textContent = ok ? '方案码已复制' : '复制失败，请选择上方方案码手动复制';
+      const ok = await D.copy(deck[type + '_code']);
+      document.getElementById(statusId).textContent = ok ? `${label}已复制` : `复制失败，请选择上方${label}手动复制`;
       if (ok && deck.status === 'published') {
-        try { deck.copy_count = (await D.recordCopy(deck.id, session.csrf)).copy_count; }
-        catch { document.getElementById('deckCopyStatus').textContent = '方案码已复制，但次数未同步，请稍后刷新'; }
+        try { deck.copy_count = (await D.recordCopy(deck.id, session.csrf, type)).copy_count; }
+        catch { document.getElementById(statusId).textContent = `${label}已复制，但次数未同步，请稍后刷新`; }
       }
-    } finally { control.disabled = false; }
+    } catch { document.getElementById(statusId).textContent = `复制失败，请选择上方${label}手动复制`; }
+    finally { control.disabled = false; }
   });
   const say = (text, error = false) => { if (!status) return; status.textContent = text; status.classList.toggle('deck-error', error); };
 

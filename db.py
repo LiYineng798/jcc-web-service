@@ -204,9 +204,9 @@ def postgres_schema_ready():
                 ) = 16 AND (
                     SELECT COUNT(*) FROM information_schema.columns WHERE table_schema='public' AND (
                         (table_name='automation_accounts' AND column_name IN ('session_version','can_upload_decks','deck_seasons_json'))
-                        OR (table_name='orange_decks' AND column_name IN ('plan_code','season_id'))
+                        OR (table_name='orange_decks' AND column_name IN ('plan_code','lineup_code','season_id'))
                     )
-                ) = 5 AS exists
+                ) = 6 AS exists
                 '''
             )
             return bool(cursor.fetchone()['exists'])

@@ -59,6 +59,26 @@
 .deck-plan-section .deck-copy-plan { width:100%; margin-top:12px; }
 .deck-code-input { font-size:.86rem; overflow-wrap:anywhere; }
 
+/* The panel holds the whole deck: portal and energy, three cards, then both game codes.
+   Code slots never move; a missing code stays in place and says so in words. */
+.deck-card.home-lineup-card:hover { transform:none; }
+.deck-card .deck-card-body { gap:14px; padding:14px 16px 14px; }
+.deck-portal { display:inline-flex; align-items:center; gap:7px; }
+.deck-card-portal .deck-portal::before { content:""; width:7px; height:7px; border-radius:50%; background:currentColor; box-shadow:0 0 0 3px color-mix(in srgb, currentColor 16%, transparent); }
+.deck-energy-chip { display:inline-flex; align-items:center; gap:6px; }
+.deck-energy-meter { position:relative; width:44px; height:4px; border-radius:999px; background:color-mix(in srgb, var(--muted) 18%, transparent); overflow:hidden; }
+.deck-energy-meter::after { content:""; position:absolute; inset:0 auto 0 0; width:var(--fill); border-radius:inherit; background:var(--accent-strong); }
+.deck-energy-chip.is-over .deck-energy-meter::after { background:var(--deck-danger); }
+.deck-code-actions { display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:8px; padding-top:12px; border-top:1px solid color-mix(in srgb, var(--accent) 12%, var(--line)); }
+.deck-code-action { display:inline-flex; align-items:center; justify-content:center; gap:7px; min-width:0; min-height:40px; padding:8px 10px; border:1px solid color-mix(in srgb, var(--accent) 28%, var(--line)); border-radius:12px; background:var(--surface-solid); color:var(--accent-strong); font:inherit; font-size:.8125rem; font-weight:500; line-height:1.4; white-space:nowrap; cursor:pointer; transition:background-color 160ms ease, border-color 160ms ease, color 160ms ease; }
+.deck-code-action svg { flex:none; width:16px; height:16px; }
+.deck-code-action:hover:not(:disabled) { border-color:var(--card-primary); background:var(--card-primary); color:var(--card-on-primary); }
+.deck-code-action:active:not(:disabled) { background:color-mix(in srgb, var(--card-primary) 90%, var(--text)); }
+.deck-code-action:disabled { border-color:transparent; background:color-mix(in srgb, var(--muted) 7%, transparent); color:color-mix(in srgb, var(--muted) 80%, transparent); font-weight:400; cursor:default; }
+@media (prefers-reduced-motion:reduce) {
+  .deck-code-action, .deck-card .deck-thumb .fortune-card-frame { transition:none; }
+}
+
 /* Card art: the shared art-only time-card frame at thumbnail size, never cropped.
    Hover only brightens the art and name; no lift, so scanning the list stays calm. */
 .deck-thumbs { display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:10px; margin:0; padding:0; list-style:none; }
@@ -253,9 +273,14 @@ a.deck-detail-author:hover span:last-child { text-decoration:underline; text-und
 .deck-card .home-card-social > * { flex:0 1 auto; padding-inline:8px; }
 .deck-card .home-card-utilities { flex:none; flex-wrap:nowrap; gap:2px; }
 @media (max-width:600px) {
-  .deck-card .home-card-footer { flex-wrap:wrap; }
-  .deck-card .home-card-social { width:100%; justify-content:space-between; }
-  .deck-card .home-card-utilities { width:100%; justify-content:space-between; }
+  .deck-card .deck-card-body { padding:12px 12px 12px; }
+  .deck-card .home-card-footer { gap:4px; }
+  .deck-card .home-card-social { width:auto; gap:0; }
+  .deck-card .home-card-social > * { padding-inline:5px; gap:4px; }
+  /* Icon and count carry the meaning on phones; the word stays for screen readers. */
+  .deck-card .home-card-social .home-card-action-label { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
+  .deck-card .home-card-utilities { width:auto; padding-top:0; border-top:0; gap:0; }
+  .deck-card .home-card-utilities .home-card-action { padding-inline:6px; }
 }
 .deck-status-line:empty { display:none; }
 /* An empty card slot previews the card shape instead of a second dashed box. */

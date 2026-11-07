@@ -16,6 +16,7 @@ from audit import write_audit
 from avatar_service import avatar_config
 from db import db_kind, get_db, now_text
 from db_adapter import insert_returning_id_sql, last_insert_id
+from lineup_code import LINEUP_CODE_MESSAGE, extract_lineup_code
 from lineups_utils import bucket_start, row_value
 from orange_creator_service import creator_config
 from orange_fortune_service import DECK_SIZE, PORTALS, TIERS, catalog
@@ -25,7 +26,7 @@ from season_visibility import get_season
 
 PORTAL_BY_ID = {portal['id']: portal for portal in PORTALS}
 TABS = ('latest', 'hot', 'featured', 'favorites', 'mine')
-LIMITS = {'name': 24, 'note': 300, 'key_rounds': 100, 'alternatives': 200, 'plan_code': 512}
+LIMITS = {'name': 24, 'note': 300, 'key_rounds': 100, 'alternatives': 200, 'plan_code': 512, 'lineup_code': 20000}
 BOARD_SLOTS = 28
 MAX_ITEMS, MAX_AUGMENTS, MAX_TRAITS = 3, 6, 24
 TRAIT_STYLES = {'1', '2', '3', '4', 'unique'}
@@ -34,9 +35,8 @@ DAILY_LIKE_LIMIT = 5
 OWNER_COLUMNS = ('u.username AS owner_username, u.nickname AS owner_nickname, u.role AS owner_role, '
                  'u.avatar_color AS owner_avatar_color, u.avatar_preset AS owner_avatar_preset, '
                  'u.avatar_expression AS owner_avatar_expression')
-FAVORITE_COUNTS = ('LEFT JOIN (SELECT deck_id, COUNT(*) AS c FROM orange_deck_favorites GROUP BY deck_id) fc ON fc.deck_id = d.id '
-                   'LEFT JOIN (SELECT deck_id, COUNT(*) AS c FROM orange_deck_likes GROUP BY deck_id) lc ON lc.deck_id = d.id '
-                   'LEFT JOIN (SELECT deck_id, COUNT(*) AS c FROM orange_deck_copies GROUP BY deck_id) cc ON cc.deck_id = d.id')
+RANKING_COUNTS = ('LEFT JOIN (SELECT deck_id, COUNT(*) AS c FROM orange_deck_favorites GROUP BY deck_id) fc ON fc.deck_id = d.id '
+                  'LEFT JOIN (SELECT deck_id, COUNT(*) AS c FROM orange_deck_likes GROUP BY deck_id) lc ON lc.deck_id = d.id')
 INTERACTION_SCORE = '(COALESCE(fc.c, 0) + COALESCE(lc.c, 0))'
 
 
@@ -44,9 +44,15 @@ def today():
     return datetime.now().strftime('%Y-%m-%d')
 
 
-def _viewer_columns(user):
-    """Counts plus the viewer's own favorite and today's like, in one query."""
-    counts = 'COALESCE(fc.c, 0) AS favorite_count, COALESCE(lc.c, 0) AS like_count, COALESCE(cc.c, 0) AS copy_count'
+def _viewer_columns(user, *, ranked=False):
+    """Indexed counts for displayed decks; only hot ranking needs global aggregates."""
+    counts = (
+        'COALESCE(fc.c, 0) AS favorite_count, COALESCE(lc.c, 0) AS like_count'
+        if ranked else
+        '(SELECT COUNT(*) FROM orange_deck_favorites f WHERE f.deck_id = d.id) AS favorite_count, '
+        '(SELECT COUNT(*) FROM orange_deck_likes l WHERE l.deck_id = d.id) AS like_count'
+    )
+    counts += ', (SELECT COUNT(*) FROM orange_deck_copies c WHERE c.deck_id = d.id) AS copy_count'
     if not user:
         return f'{counts}, 0 AS is_favorited, 0 AS is_liked_today', []
     return (f'{counts}, CASE WHEN EXISTS (SELECT 1 FROM orange_deck_favorites mf WHERE mf.deck_id = d.id AND mf.user_id = ?) THEN 1 ELSE 0 END AS is_favorited, '
@@ -407,7 +413,7 @@ def serialize(row, user, detail=False, share_base=None):
     note = row['note'] if detail else row['note'][:120]
     data = {
         'id': row['id'], 'name': row['name'], 'status': row['status'],
-        'plan_code': row['plan_code'], 'season_id': row['season_id'],
+        'plan_code': row['plan_code'], 'lineup_code': row['lineup_code'], 'season_id': row['season_id'],
         'portal': dict(portal), 'energy': energy, 'energy_limit': portal['energy_limit'],
         'fits': complete and energy <= portal['energy_limit'],
         'cards': cards, 'note': note, 'note_truncated': len(row['note']) > len(note),
@@ -467,7 +473,7 @@ def deck_row(deck_id, user=None):
     columns, params = _viewer_columns(user)
     return get_db().execute(
         f'''SELECT d.*, {OWNER_COLUMNS}, {columns}
-            FROM orange_decks d JOIN users u ON u.id = d.user_id {FAVORITE_COUNTS} WHERE d.id = ?''',
+            FROM orange_decks d JOIN users u ON u.id = d.user_id WHERE d.id = ?''',
         (*params, deck_id),
     ).fetchone()
 
@@ -527,10 +533,11 @@ def list_decks(user, tab='latest', query='', portal='', page=1, page_size=10, sh
         'favorites': 'mine.created_at DESC, d.id DESC',
         'mine': 'd.updated_at DESC, d.id DESC',
     }[tab]
-    base = f"FROM orange_decks d JOIN users u ON u.id = d.user_id {FAVORITE_COUNTS} {' '.join(joins)} WHERE {' AND '.join(clauses)}"
+    ranking_joins = RANKING_COUNTS if tab == 'hot' else ''
+    base = f"FROM orange_decks d JOIN users u ON u.id = d.user_id {ranking_joins} {' '.join(joins)} WHERE {' AND '.join(clauses)}"
     db = get_db()
     total = db.execute(f'SELECT COUNT(*) AS total {base}', params).fetchone()['total']
-    columns, viewer_params = _viewer_columns(user)
+    columns, viewer_params = _viewer_columns(user, ranked=tab == 'hot')
     rows = db.execute(
         f'SELECT d.*, {OWNER_COLUMNS}, {columns} {base} ORDER BY {order} LIMIT ? OFFSET ?',
         viewer_params + params + [page_size, (page - 1) * page_size],
@@ -586,8 +593,12 @@ def _fields(data, status, existing=None):
     if existing is not None and season_id != existing['season_id']:
         raise DeckError('不能更改已保存卡组的所属赛季')
     plan_code = validate_plan_code(_text(data, 'plan_code', default=existing['plan_code'] if existing is not None else ''))
+    raw_lineup_code = _text(data, 'lineup_code', default=existing['lineup_code'] if existing is not None else '')
+    lineup_code = extract_lineup_code(raw_lineup_code) if raw_lineup_code else ''
+    if raw_lineup_code and not lineup_code:
+        raise DeckError(LINEUP_CODE_MESSAGE)
     fields = {'name': name, 'card_id_1': cards[0], 'card_id_2': cards[1], 'card_id_3': cards[2], 'portal_id': portal,
-              'plan_code': plan_code, 'season_id': season_id,
+              'plan_code': plan_code, 'lineup_code': lineup_code, 'season_id': season_id,
               'energy': energy, 'note': _text(data, 'note'), 'key_rounds': _text(data, 'key_rounds'),
               'alternatives': _text(data, 'alternatives'), 'card_version': card_version(), 'card_snapshot_json': card_snapshot(cards)}
     # An absent key keeps the saved formation (it may belong to an earlier creator season); null removes it.
@@ -702,18 +713,25 @@ def like(user, deck_id):
     return {'liked_today': True, 'like_count': count}
 
 
-def record_copy(user, deck_id, ip):
-    """Count successful public plan-code copies using the lineup five-minute window."""
-    row = get_visible(deck_id, user)
+def record_copy(user, deck_id, ip, code_type='plan'):
+    """Count either code; keep the existing per-deck five-minute deduplication."""
+    if code_type not in ('plan', 'lineup'):
+        raise DeckError('复制类型无效')
+    column = 'plan_code' if code_type == 'plan' else 'lineup_code'
+    label = '方案码' if code_type == 'plan' else '阵容码'
+    db = get_db()
+    # Copy recording needs visibility and the chosen code, not author metadata or social counts.
+    row = db.execute('SELECT user_id, status, plan_code, lineup_code FROM orange_decks WHERE id = ?', (deck_id,)).fetchone()
+    if not visible_to(row, user):
+        raise DeckError('卡组不存在', 404)
     if row['status'] != 'published':
         raise DeckError('只能统计公开卡组的复制次数', 409)
-    if not row['plan_code']:
-        raise DeckError('此卡组暂未提供方案码', 400)
-    db = get_db()
+    if not row[column]:
+        raise DeckError(f'此卡组暂未提供{label}', 400)
     key = f'user:{user["id"]}' if user else f'ip:{ip}'
     cursor = db.execute(
-        '''INSERT INTO orange_deck_copies (deck_id, copy_key, bucket_start, created_at)
-           SELECT id, ?, ?, ? FROM orange_decks WHERE id = ? AND status = 'published' AND plan_code <> ''
+        f'''INSERT INTO orange_deck_copies (deck_id, copy_key, bucket_start, created_at)
+           SELECT id, ?, ?, ? FROM orange_decks WHERE id = ? AND status = 'published' AND {column} <> ''
            ON CONFLICT (deck_id, copy_key, bucket_start) DO NOTHING''',
         (key, bucket_start(), now_text(), deck_id),
     )
@@ -754,7 +772,7 @@ def fork_deck(user, deck_id):
     now = now_text()
     fields = {
         'user_id': user['id'], 'name': row['name'], 'card_id_1': cards[0], 'card_id_2': cards[1], 'card_id_3': cards[2],
-        'season_id': card_season_id(), 'plan_code': '',
+        'season_id': card_season_id(), 'plan_code': '', 'lineup_code': '',
         'portal_id': row['portal_id'], 'energy': deck_energy(cards), 'note': row['note'], 'key_rounds': row['key_rounds'],
         'alternatives': row['alternatives'], 'formation_json': formation,
         'formation_season_id': row['formation_season_id'] if formation else None,
@@ -791,7 +809,7 @@ def admin_list(admin, status='all', query='', page=1, page_size=20):
         clauses.append("(LOWER(d.name) LIKE ? ESCAPE '\\' OR LOWER(u.nickname) LIKE ? ESCAPE '\\' OR LOWER(u.username) LIKE ? ESCAPE '\\')")
         params += [f'%{escaped}%'] * 3
     page_size, page = max(1, min(int(page_size), 50)), max(1, int(page))
-    base = f"FROM orange_decks d JOIN users u ON u.id = d.user_id {FAVORITE_COUNTS} WHERE {' AND '.join(clauses)}"
+    base = f"FROM orange_decks d JOIN users u ON u.id = d.user_id WHERE {' AND '.join(clauses)}"
     db = get_db()
     total = db.execute(f'SELECT COUNT(*) AS total {base}', params).fetchone()['total']
     rows = db.execute(f'SELECT d.*, {OWNER_COLUMNS}, {_viewer_columns(None)[0]} {base} '

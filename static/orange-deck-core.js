@@ -25,9 +25,9 @@
     return data;
   }
 
-  async function recordCopy(deckId, csrf) {
+  async function recordCopy(deckId, csrf, codeType = 'plan') {
     if (!csrf) csrf = (await api('/api/me')).csrf_token;
-    return api(`/api/orange-decks/${deckId}/copy`, { method: 'POST', csrf });
+    return api(`/api/orange-decks/${deckId}/copy?code_type=${encodeURIComponent(codeType)}`, { method: 'POST', csrf });
   }
 
   // The gallery's time-card frame and metal bezel, art only: name and effect are always printed beside it.

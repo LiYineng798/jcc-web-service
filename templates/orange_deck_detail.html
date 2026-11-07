@@ -66,6 +66,15 @@
             <p id="deckCopyStatus" class="deck-status-line" role="status" aria-live="polite"></p>
             {% else %}<p class="deck-boundary">作者暂未提供方案码。</p>{% endif %}
           </section>
+          <section class="deck-section deck-plan-section" aria-labelledby="deckLineupTitle">
+            <h2 id="deckLineupTitle">游戏阵容码</h2>
+            {% if deck.lineup_code %}
+            <p class="deck-boundary">独立复制，在游戏中导入阵容。</p>
+            <code class="deck-plan-code" tabindex="0">{{ deck.lineup_code }}</code>
+            <button type="button" class="deck-button deck-copy-plan" id="copyDeckLineup">复制阵容码</button>
+            <p id="deckLineupCopyStatus" class="deck-status-line" role="status" aria-live="polite"></p>
+            {% else %}<p class="deck-boundary">作者暂未提供阵容码。</p>{% endif %}
+          </section>
           <section class="deck-section" aria-labelledby="deckPortalTitle">
             <h2 id="deckPortalTitle">传送门与能量</h2>
             <dl class="deck-facts">

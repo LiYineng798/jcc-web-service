@@ -17,6 +17,7 @@
   const STATUS = { draft: ['草稿', ''], hidden: ['已隐藏', 'is-danger'] };
   const state = { library: 'lineups', tab: 'latest', q: '', portal: '', page: 1, user: null, csrf: '', me: null,
     items: [], total: 0, totalPages: 1, controller: null, loadedKey: '' };
+  const pendingInteractions = new Set();
 
   function readUrl() {
     const params = new URLSearchParams(location.search);
@@ -133,10 +134,13 @@
     ].join('');
     const over = !deck.compat.missing_cards && deck.cards.every(Boolean) && !deck.fits;
     const published = deck.status === 'published';
+    const socialDisabled = pendingInteractions.has(deck.id) ? 'disabled' : '';
+    const copies = Number(deck.copy_count || 0).toLocaleString('zh-CN');
     const social = published ? [
-      action(deck.is_liked_today ? '已赞' : '点赞', 'heart', 'like', `aria-pressed="${deck.is_liked_today}" title="${deck.is_liked_today ? '今日已赞' : '点赞卡组'}"`, deck.like_count),
-      action(deck.is_favorited ? '已收藏' : '收藏', 'bookmark', 'favorite', `aria-pressed="${deck.is_favorited}" title="${deck.is_favorited ? '取消收藏' : '收藏卡组'}"`, deck.favorite_count),
-      action('复制', 'copy', 'copy-plan', deck.plan_code ? 'title="复制方案码"' : 'disabled title="暂未提供方案码"', deck.copy_count || 0),
+      action(deck.is_liked_today ? '已赞' : '点赞', 'heart', 'like', `${socialDisabled} aria-pressed="${deck.is_liked_today}" title="${deck.is_liked_today ? '今日已赞' : '点赞卡组'}"`, deck.like_count),
+      action(deck.is_favorited ? '已收藏' : '收藏', 'bookmark', 'favorite', `${socialDisabled} aria-pressed="${deck.is_favorited}" title="${deck.is_favorited ? '取消收藏' : '收藏卡组'}"`, deck.favorite_count),
+      // Same read-only count as the lineup card; one tally for both codes.
+      `<span class="home-card-copy-count" role="img" aria-label="有效复制 ${copies} 次" title="有效复制次数，同一卡组 5 分钟内重复复制只计一次"><span class="home-card-icon" data-card-icon="copy" data-icon-preset="none" aria-hidden="true"></span><span class="home-card-number" data-copy-count>${copies}</span></span>`,
     ].join('') : '';
     const utilities = [
       deck.can_edit ? action('编辑', 'pencil', 'edit', '', null).replace('small-button home-card-action', 'small-button home-card-action home-card-quiet') : '',
@@ -144,12 +148,19 @@
     ].join('');
     const author = `<span data-avatar></span><span class="home-card-author-name">${D.esc(deck.author.nickname)}</span>`;
     const date = (deck.published_at || deck.updated_at || '').split(' ')[0];
+    // Both codes always keep their slot, so every card has the same rhythm; a missing one says so in words.
+    const codes = [['plan', '方案码', deck.plan_code], ['lineup', '阵容码', deck.lineup_code]].map(([type, label, code]) =>
+      `<button type="button" class="deck-code-action is-${type}" data-action="copy-${type}" ${code ? `title="复制${label}"` : `disabled title="作者暂未填写${label}"`}>${code
+        ? `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.5"/><path d="M15 9V6.5A2.5 2.5 0 0 0 12.5 4h-6A2.5 2.5 0 0 0 4 6.5v6A2.5 2.5 0 0 0 6.5 15H9"/></svg>复制${label}`
+        : `未提供${label}`}</button>`).join('');
+    const energyFill = Math.min(100, Math.round(deck.energy / Math.max(1, deck.energy_limit) * 100));
     return `<article class="lineup-card home-lineup-card deck-card" data-deck-id="${deck.id}" data-lineup-key="deck-${deck.id}" aria-labelledby="deck-title-${deck.id}">
       <header class="home-card-heading"><h3 class="lineup-title" id="deck-title-${deck.id}"><a href="${D.esc(deck.detail_url)}">${D.esc(deck.name)}</a></h3><span class="deck-badges">${badges}</span></header>
       <div class="home-card-byline lineup-byline">${deck.author.profile_url ? `<a class="author-link" href="${D.esc(deck.author.profile_url)}">${author}</a>` : `<span class="author-link">${author}</span>`}<time class="home-card-updated">${published ? '发布于' : '更新于'} ${D.esc(date)}</time></div>
       <div class="deck-card-body">
-        <div class="deck-card-portal"><span class="deck-portal" data-portal="${D.esc(deck.portal.id)}">${D.esc(deck.portal.name)}</span><span class="deck-energy-chip${over ? ' is-over' : ''}">能量 <b>${deck.energy}</b> / ${deck.energy_limit}${over ? ' · 超限' : ''}</span></div>
+        <div class="deck-card-portal"><span class="deck-portal" data-portal="${D.esc(deck.portal.id)}">${D.esc(deck.portal.name)}</span><span class="deck-energy-chip${over ? ' is-over' : ''}"><span class="deck-energy-meter" style="--fill:${energyFill}%" aria-hidden="true"></span>能量 <b>${deck.energy}</b> / ${deck.energy_limit}${over ? ' · 超限' : ''}</span></div>
         <ul class="deck-thumbs" aria-label="三张时间卡片">${deck.cards.map(D.thumb).join('')}</ul>
+        <div class="deck-code-actions" role="group" aria-label="复制游戏代码">${codes}</div>
       </div>
       <footer class="home-card-footer"><div class="home-card-social">${social}</div><div class="home-card-utilities">${utilities}</div></footer>
     </article>`;
@@ -232,29 +243,42 @@
   }
 
   async function interact(control, deck, kind) {
-    await ensureMe();
-    if (!state.user) { D.notify(kind === 'like' ? '登录后可以点赞卡组' : '登录后可以收藏卡组', 'info'); return; }
-    if (kind === 'like' && deck.is_liked_today) { D.notify('今天已经点赞过这套卡组', 'info'); return; }
-    control.disabled = true;
+    if (pendingInteractions.has(deck.id)) return;
+    pendingInteractions.add(deck.id);
+    const node = control.closest('[data-deck-id]');
+    const restoreFocus = document.activeElement === control;
+    node.querySelectorAll('.home-card-social button').forEach(button => { button.disabled = true; });
     try {
+      await ensureMe();
+      if (!state.user) { D.notify(kind === 'like' ? '登录后可以点赞卡组' : '登录后可以收藏卡组', 'info'); return; }
+      if (kind === 'like' && deck.is_liked_today) { D.notify('今天已经点赞过这套卡组', 'info'); return; }
+      let changes;
       if (kind === 'like') {
         const data = await D.api(`/api/orange-decks/${deck.id}/like`, { method: 'POST', csrf: state.csrf });
-        Object.assign(deck, { is_liked_today: true, like_count: data.like_count });
+        changes = { is_liked_today: true, like_count: data.like_count };
         feedback(deck, 'like');
       } else {
         const data = await D.api(`/api/orange-decks/${deck.id}/favorite`, { method: deck.is_favorited ? 'DELETE' : 'POST', csrf: state.csrf });
-        Object.assign(deck, { is_favorited: data.favorited, favorite_count: data.favorite_count });
+        changes = { is_favorited: data.favorited, favorite_count: data.favorite_count };
         if (data.favorited) feedback(deck, 'favorite');
       }
-      // Replace only this card's buttons so focus stays on the action that was used.
-      const node = els.list.querySelector(`[data-deck-id="${deck.id}"]`);
-      const fresh = document.createElement('div');
-      fresh.innerHTML = card(deck);
-      node.querySelector('.home-card-social').replaceWith(fresh.querySelector('.home-card-social'));
-      node.querySelector(`[data-action="${kind}"]`)?.focus({ preventScroll: true });
+      Object.assign(deck, changes);
+      const current = state.items.find(item => item.id === deck.id);
+      if (current) Object.assign(current, changes);
     } catch (error) {
       D.notify(error.message, 'error');
-      control.disabled = false;
+    } finally {
+      pendingInteractions.delete(deck.id);
+      // Reconcile this deck if it is still visible; never steal focus from a new list.
+      const current = state.items.find(item => item.id === deck.id);
+      const currentNode = els.list.querySelector(`[data-deck-id="${deck.id}"]`);
+      if (current && currentNode) {
+        const focusStillHere = document.activeElement === control || document.activeElement === document.body;
+        const fresh = document.createElement('div');
+        fresh.innerHTML = card(current);
+        currentNode.querySelector('.home-card-social').replaceWith(fresh.querySelector('.home-card-social'));
+        if (currentNode === node && restoreFocus && focusStillHere) node.querySelector(`[data-action="${kind}"]`)?.focus({ preventScroll: true });
+      }
     }
   }
 
@@ -282,19 +306,32 @@
     else if ((action === 'like' || action === 'favorite') && deck) interact(target, deck, action);
     else if (action === 'edit' && deck) location.href = `/orange-decks/${deck.id}/edit`;
     else if (action === 'open' && deck) location.href = deck.detail_url;
-    else if (action === 'copy-plan' && deck) {
+    else if (['copy-plan', 'copy-lineup'].includes(action) && deck && !target.disabled) {
+      const codeType = action === 'copy-plan' ? 'plan' : 'lineup';
+      const label = codeType === 'plan' ? '方案码' : '阵容码';
+      const code = deck[codeType + '_code'];
+      if (!code) return;
       target.disabled = true;
-      D.copy(deck.plan_code).then(async (ok) => {
-        D.notify(ok ? '方案码已复制' : '复制失败，请到详情页手动复制', ok ? 'success' : 'error');
-        if (ok) {
-          feedback(deck, 'copy'); target.querySelector('.home-card-action-label').textContent = '已复制';
+      D.copy(code).then(async (ok) => {
+        D.notify(ok ? `${label}已复制` : '复制失败，请到详情页手动复制', ok ? 'success' : 'error');
+        if (ok && deck.status === 'published') {
+          feedback(deck, 'copy');
           try {
-            const data = await D.recordCopy(deck.id, state.csrf);
-            deck.copy_count = data.copy_count;
-            target.querySelector('.home-card-number').textContent = Number(data.copy_count).toLocaleString('zh-CN');
-          } catch { D.notify('方案码已复制，但次数未同步，请稍后刷新', 'info'); }
+            const data = await D.recordCopy(deck.id, state.csrf, codeType);
+            // Independent code requests may finish out of order, or after the list reloads.
+            const current = state.items.find(item => item.id === deck.id);
+            deck.copy_count = Math.max(deck.copy_count || 0, data.copy_count);
+            if (current) {
+              current.copy_count = Math.max(current.copy_count || 0, deck.copy_count);
+              const count = els.list.querySelector(`[data-deck-id="${deck.id}"] [data-copy-count]`);
+              if (count) {
+                count.textContent = Number(current.copy_count).toLocaleString('zh-CN');
+                count.parentElement.setAttribute('aria-label', `有效复制 ${count.textContent} 次`);
+              }
+            }
+          } catch { D.notify(`${label}已复制，但次数未同步，请稍后刷新`, 'info'); }
         }
-      }).finally(() => { target.disabled = false; });
+      }).catch(() => D.notify('复制失败，请到详情页手动复制', 'error')).finally(() => { target.disabled = false; });
     }
   });
   els.pagination.addEventListener('click', (event) => {

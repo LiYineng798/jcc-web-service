@@ -155,7 +155,7 @@ def test_sqlite_upgrade_preserves_old_decks_and_is_repeatable():
     for _ in range(2):
         migrate_deck_codes(db)
         migrate_automation_sessions(db)
-    assert tuple(db.execute('SELECT name,plan_code,season_id FROM orange_decks').fetchone()) == ('旧卡组', '', SEASON)
+    assert tuple(db.execute('SELECT name,plan_code,lineup_code,season_id FROM orange_decks').fetchone()) == ('旧卡组', '', '', SEASON)
     assert tuple(db.execute('SELECT can_upload_decks,deck_seasons_json FROM automation_accounts').fetchone()) == (0, '[]')
 
 

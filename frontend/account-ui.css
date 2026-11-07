@@ -1323,5 +1323,80 @@ body.account-profile-page {
 :root[data-theme="dark"] #accountApp .pf-portal-unknown { color: #f2848c; }
 #accountApp .pf-status-published { color: var(--pf-green); }
 #accountApp .pf-status-hidden { color: var(--accent-strong); }
-/* Keep the long game code in the detail view; collections expose only its action. */
-#accountApp .pf-deck-copy { align-self:flex-start; margin:0 0 12px; }
+/* Deck cards keep the lineup card's four rows, so both tabs share one height.
+   The two code actions sit in the footer as one quiet segmented control. */
+#accountApp .pf-deck-card .pf-portal {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 2px 8px;
+  border-radius: 5px;
+  background: color-mix(in srgb, currentColor 10%, transparent);
+  font-size: 10px;
+}
+#accountApp .pf-deck-card .pf-portal::before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: currentColor;
+}
+#accountApp .pf-deck-names {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+#accountApp .pf-deck-codes {
+  display: inline-flex;
+  align-items: stretch;
+  min-height: 35px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--pf-paper);
+  overflow: hidden;
+}
+#accountApp .pf-deck-code {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 0 11px;
+  border: 0;
+  background: transparent;
+  color: var(--text);
+  font-size: 11px;
+  white-space: nowrap;
+}
+#accountApp .pf-deck-code + .pf-deck-code {
+  border-left: 1px solid var(--line);
+}
+#accountApp .pf-deck-code svg {
+  color: var(--accent-strong);
+}
+#accountApp .pf-deck-code:hover:not(:disabled) {
+  background: var(--pf-subtle);
+}
+#accountApp .pf-deck-code:focus-visible {
+  outline: 2px solid var(--accent-strong);
+  outline-offset: -2px;
+}
+#accountApp .pf-deck-code:disabled {
+  color: color-mix(in srgb, var(--muted) 65%, transparent);
+  cursor: default;
+}
+#accountApp .pf-deck-code:disabled svg {
+  color: inherit;
+  opacity: 0.55;
+}
+@media (max-width: 760px) {
+  #accountApp .pf-deck-card .pf-card-actions {
+    flex: 1 1 100%;
+  }
+  #accountApp .pf-deck-codes {
+    flex: 1;
+    min-height: 40px;
+  }
+  #accountApp .pf-deck-code {
+    flex: 1;
+  }
+}

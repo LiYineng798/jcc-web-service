@@ -78,7 +78,7 @@
   const liveVersions = window.JccAdminLiveVersions.create({
     api, render, notify: setNotice, getSeason: () => liveUploadSeasonOptions().selected,
   });
-  const orangeDecks = window.JccAdminOrangeDecks.create({ api, render, notify: setNotice, workbenchPanel, pill, empty });
+  const orangeDecks = window.JccAdminOrangeDecks.create({ api, render, notify: setNotice, workbenchPanel, empty });
   const statusText = {
     pending: '待处理',
     in_progress: '核实中',

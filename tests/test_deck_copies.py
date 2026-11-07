@@ -1,6 +1,8 @@
 from concurrent.futures import ThreadPoolExecutor
 from threading import Barrier
 
+import pytest
+
 from db import get_db
 from orange_deck_service import record_copy
 from test_deck_codes_permissions import CODE
@@ -60,15 +62,16 @@ def test_copy_requires_csrf_public_deck_and_plan_code(users, app):
         assert get_db().execute('SELECT COUNT(*) FROM orange_deck_copies').fetchone()[0] == 0
 
 
-def test_concurrent_copy_requests_are_deduplicated(users, app, monkeypatch):
-    deck = create(users[0], plan_code=CODE).json
+@pytest.mark.parametrize('code_types', [('plan',) * 4, ('lineup',) * 4, ('plan', 'lineup') * 2])
+def test_concurrent_copy_requests_are_deduplicated(users, app, monkeypatch, code_types):
+    deck = create(users[0], plan_code=CODE, lineup_code='#CONCURRENT123').json
     monkeypatch.setattr('orange_deck_service.bucket_start', lambda: '2026-11-04 12:00:00')
     barrier = Barrier(4)
-    def copy_once(_):
+    def copy_once(code_type):
         with app.test_request_context('/'):
             barrier.wait(timeout=10)
-            return record_copy(None, deck['id'], '192.0.2.1')
+            return record_copy(None, deck['id'], '192.0.2.1', code_type)
     with ThreadPoolExecutor(max_workers=4) as pool:
-        results = list(pool.map(copy_once, range(4)))
+        results = list(pool.map(copy_once, code_types))
     assert sum(r['counted'] for r in results) == 1
     assert all(r['copy_count'] == 1 for r in results)
