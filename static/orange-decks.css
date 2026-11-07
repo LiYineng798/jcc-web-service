@@ -59,33 +59,24 @@
 .deck-plan-section .deck-copy-plan { width:100%; margin-top:12px; }
 .deck-code-input { font-size:.86rem; overflow-wrap:anywhere; }
 
-/* Two clearly separate code actions. Presence is communicated in words, not color alone. */
-.deck-card.home-lineup-card { border-color:color-mix(in srgb, var(--accent) 14%, var(--line)); box-shadow:0 3px 14px color-mix(in srgb, var(--text) 3%, transparent); }
+/* The panel holds the whole deck: portal and energy, three cards, then both game codes.
+   Code slots never move; a missing code stays in place and says so in words. */
 .deck-card.home-lineup-card:hover { transform:none; }
-.deck-card .deck-card-body { border:1px solid color-mix(in srgb, var(--line) 65%, transparent); background:linear-gradient(145deg, var(--card-wash), color-mix(in srgb, var(--accent-soft) 12%, var(--surface-solid))); }
-.deck-code-actions { display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:10px; margin:14px 0 2px; }
-.deck-code-action { --code-color:var(--accent-strong); display:flex; align-items:center; gap:9px; min-width:0; min-height:65px; padding:10px 12px; border:1px solid color-mix(in srgb, var(--code-color) 24%, var(--line)); border-radius:12px; background:color-mix(in srgb, var(--code-color) 5%, var(--surface-solid)); color:var(--text); text-align:left; font:inherit; cursor:pointer; transition:background-color 140ms ease, border-color 140ms ease; }
-.deck-code-action.is-lineup { --code-color:#517f91; }
-:root[data-theme="dark"] .deck-code-action.is-lineup { --code-color:#8cc2d1; }
-.deck-code-action:hover:not(:disabled) { border-color:var(--code-color); background:color-mix(in srgb, var(--code-color) 11%, var(--surface-solid)); }
-.deck-code-action:focus-visible { outline:2px solid var(--code-color); outline-offset:3px; }
-.deck-code-mark { display:grid; place-items:center; flex:none; width:27px; height:30px; border-radius:7px; background:color-mix(in srgb, var(--code-color) 10%, transparent); color:var(--code-color); font-size:1.25rem; font-weight:500; }
-.deck-code-text { display:grid; gap:4px; min-width:0; }
-.deck-code-text strong { font-size:.82rem; font-weight:650; white-space:nowrap; }
-.deck-code-text small { color:var(--muted); font-size:.68rem; white-space:nowrap; }
-.deck-code-copy-icon { width:16px; height:16px; flex:none; margin-left:auto; color:var(--code-color); }
-.deck-code-action:disabled { border-style:dashed; border-color:var(--line); background:transparent; color:var(--muted); cursor:default; }
-.deck-code-action:disabled .deck-code-mark { background:var(--card-wash); color:var(--muted); }
-.deck-code-action:disabled .deck-code-copy-icon { visibility:hidden; }
-.deck-copy-total { display:block; margin-top:4px; color:var(--muted); font-size:.68rem; text-align:right; font-variant-numeric:tabular-nums; }
-@media (max-width:600px) {
-  .deck-code-actions { gap:8px; }
-  .deck-code-action { padding:10px 8px; gap:7px; }
-  .deck-code-mark { width:22px; }
-  .deck-code-copy-icon { display:none; }
-}
+.deck-card .deck-card-body { gap:14px; padding:14px 16px 14px; }
+.deck-portal { display:inline-flex; align-items:center; gap:7px; }
+.deck-card-portal .deck-portal::before { content:""; width:7px; height:7px; border-radius:50%; background:currentColor; box-shadow:0 0 0 3px color-mix(in srgb, currentColor 16%, transparent); }
+.deck-energy-chip { display:inline-flex; align-items:center; gap:6px; }
+.deck-energy-meter { position:relative; width:44px; height:4px; border-radius:999px; background:color-mix(in srgb, var(--muted) 18%, transparent); overflow:hidden; }
+.deck-energy-meter::after { content:""; position:absolute; inset:0 auto 0 0; width:var(--fill); border-radius:inherit; background:var(--accent-strong); }
+.deck-energy-chip.is-over .deck-energy-meter::after { background:var(--deck-danger); }
+.deck-code-actions { display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:8px; padding-top:12px; border-top:1px solid color-mix(in srgb, var(--accent) 12%, var(--line)); }
+.deck-code-action { display:inline-flex; align-items:center; justify-content:center; gap:7px; min-width:0; min-height:40px; padding:8px 10px; border:1px solid color-mix(in srgb, var(--accent) 28%, var(--line)); border-radius:12px; background:var(--surface-solid); color:var(--accent-strong); font:inherit; font-size:.8125rem; font-weight:500; line-height:1.4; white-space:nowrap; cursor:pointer; transition:background-color 160ms ease, border-color 160ms ease, color 160ms ease; }
+.deck-code-action svg { flex:none; width:16px; height:16px; }
+.deck-code-action:hover:not(:disabled) { border-color:var(--card-primary); background:var(--card-primary); color:var(--card-on-primary); }
+.deck-code-action:active:not(:disabled) { background:color-mix(in srgb, var(--card-primary) 90%, var(--text)); }
+.deck-code-action:disabled { border-color:transparent; background:color-mix(in srgb, var(--muted) 7%, transparent); color:color-mix(in srgb, var(--muted) 80%, transparent); font-weight:400; cursor:default; }
 @media (prefers-reduced-motion:reduce) {
-  .deck-card.home-lineup-card, .deck-code-action, .deck-card .deck-thumb .fortune-card-frame { transition:none; animation:none; }
+  .deck-code-action, .deck-card .deck-thumb .fortune-card-frame { transition:none; }
 }
 
 /* Card art: the shared art-only time-card frame at thumbnail size, never cropped.
@@ -282,13 +273,14 @@ a.deck-detail-author:hover span:last-child { text-decoration:underline; text-und
 .deck-card .home-card-social > * { flex:0 1 auto; padding-inline:8px; }
 .deck-card .home-card-utilities { flex:none; flex-wrap:nowrap; gap:2px; }
 @media (max-width:600px) {
-  .deck-card .home-card-footer { flex-wrap:wrap; gap:0 6px; }
-  .deck-card .home-card-social { width:auto; flex:1 0 auto; justify-content:flex-start; }
-  .deck-card .home-card-utilities { width:auto; margin-left:auto; padding-top:0; border-top:0; justify-content:flex-end; }
-}
-@media (max-width:360px) {
-  .deck-code-mark { display:none; }
-  .deck-code-text small { white-space:normal; }
+  .deck-card .deck-card-body { padding:12px 12px 12px; }
+  .deck-card .home-card-footer { gap:4px; }
+  .deck-card .home-card-social { width:auto; gap:0; }
+  .deck-card .home-card-social > * { padding-inline:5px; gap:4px; }
+  /* Icon and count carry the meaning on phones; the word stays for screen readers. */
+  .deck-card .home-card-social .home-card-action-label { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
+  .deck-card .home-card-utilities { width:auto; padding-top:0; border-top:0; gap:0; }
+  .deck-card .home-card-utilities .home-card-action { padding-inline:6px; }
 }
 .deck-status-line:empty { display:none; }
 /* An empty card slot previews the card shape instead of a second dashed box. */

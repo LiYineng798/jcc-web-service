@@ -64,6 +64,14 @@ fs.mkdirSync(out, { recursive: true });
           await page.locator('#deckList').scrollIntoViewIfNeeded();
           assert(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
           assert(await page.locator('.deck-code-action').evaluateAll(buttons => buttons.every(b => b.scrollWidth <= b.clientWidth + 1)));
+          // Missing codes keep their slot, so every card has one height and a one-row footer.
+          const layout = await page.locator('.deck-card').evaluateAll(cards => cards.map(card => ({
+            height: card.offsetHeight,
+            footerRows: new Set([...card.querySelectorAll('.home-card-footer > * > *')].map(item => item.offsetTop)).size,
+            countInFooter: Boolean(card.querySelector('.home-card-footer [data-copy-count]')),
+          })));
+          assert.equal(new Set(layout.map(item => item.height)).size, 1);
+          assert(layout.every(item => item.footerRows === 1 && item.countInFooter));
           await page.locator('#deckList').screenshot({ path: `${out}/${name}-dual-${width}-${theme}.png` });
         }
       }
@@ -95,6 +103,14 @@ fs.mkdirSync(out, { recursive: true });
       assert.equal(saved.lineup_code, '');
       assert.equal(saved.plan_code, deck.plan_code);
       assert.equal((await context.request.delete(base + '/api/orange-decks/' + editDeck.id, { headers })).status(), 204);
+      // Profile deck cards keep the four-row lineup card shape; a missing code stays visible but disabled.
+      await page.setViewportSize({ width: 1440, height: 1100 });
+      await page.goto(base + '/me#mine/decks', { waitUntil: 'networkidle' });
+      await page.locator('.pf-deck-card').first().waitFor();
+      assert.equal(new Set(await page.locator('.pf-deck-card').evaluateAll(cards => cards.map(card => card.offsetHeight))).size, 1);
+      const onlyPlan = page.locator('.pf-deck-card').filter({ hasText: '双码示例·仅方案码' });
+      assert(await onlyPlan.getByRole('button', { name: /^复制方案码：/ }).isEnabled());
+      assert(await onlyPlan.getByRole('button', { name: '未提供阵容码', exact: true }).isDisabled());
       assert.deepEqual(errors, []);
       console.log(name + ': four code states, independent clipboard, keyboard, sync failure, 320/390/1440 light/dark, reduced motion, editing validation and independent clearing passed');
       await context.close();

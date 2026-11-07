@@ -30,7 +30,7 @@ fs.mkdirSync(out, { recursive: true });
       const entry = page.locator('.deck-card').filter({ hasText: '德玛时光速9流·验收示例' });
       await entry.waitFor();
       assert.equal(await entry.locator('.deck-card-copy-row').count(), 0);
-      assert.equal(await entry.locator('[data-action="copy-plan"] strong').innerText(), '复制方案码');
+      assert.equal(await entry.locator('[data-action="copy-plan"]').innerText(), '复制方案码');
       assert.equal(await entry.getByRole('button', { name: '分享', exact: true }).count(), 0);
       assert(!(await entry.innerText()).includes('MjE5OTY4'));
       const copyButton = entry.locator('[data-action="copy-plan"]');

@@ -135,9 +135,12 @@
     const over = !deck.compat.missing_cards && deck.cards.every(Boolean) && !deck.fits;
     const published = deck.status === 'published';
     const socialDisabled = pendingInteractions.has(deck.id) ? 'disabled' : '';
+    const copies = Number(deck.copy_count || 0).toLocaleString('zh-CN');
     const social = published ? [
       action(deck.is_liked_today ? '已赞' : '点赞', 'heart', 'like', `${socialDisabled} aria-pressed="${deck.is_liked_today}" title="${deck.is_liked_today ? '今日已赞' : '点赞卡组'}"`, deck.like_count),
       action(deck.is_favorited ? '已收藏' : '收藏', 'bookmark', 'favorite', `${socialDisabled} aria-pressed="${deck.is_favorited}" title="${deck.is_favorited ? '取消收藏' : '收藏卡组'}"`, deck.favorite_count),
+      // Same read-only count as the lineup card; one tally for both codes.
+      `<span class="home-card-copy-count" role="img" aria-label="有效复制 ${copies} 次" title="有效复制次数，同一卡组 5 分钟内重复复制只计一次"><span class="home-card-icon" data-card-icon="copy" data-icon-preset="none" aria-hidden="true"></span><span class="home-card-number" data-copy-count>${copies}</span></span>`,
     ].join('') : '';
     const utilities = [
       deck.can_edit ? action('编辑', 'pencil', 'edit', '', null).replace('small-button home-card-action', 'small-button home-card-action home-card-quiet') : '',
@@ -145,22 +148,21 @@
     ].join('');
     const author = `<span data-avatar></span><span class="home-card-author-name">${D.esc(deck.author.nickname)}</span>`;
     const date = (deck.published_at || deck.updated_at || '').split(' ')[0];
-    const codes = [['plan', '方案码', deck.plan_code, '三卡方案'], ['lineup', '阵容码', deck.lineup_code, '游戏阵容']].map(([type, label, code, description]) =>
-      `<button type="button" class="deck-code-action is-${type}${code ? ' has-code' : ''}" data-action="copy-${type}" ${code ? '' : 'disabled'} aria-label="${code ? '复制' : '未提供'}${label}">
-        <span class="deck-code-mark" aria-hidden="true">${type === 'plan' ? '◇' : '#'}</span>
-        <span class="deck-code-text"><strong>${code ? '复制' : '未提供'}${label}</strong><small>${code ? description + ' · 已提供' : '作者暂未填写'}</small></span>
-        <svg class="deck-code-copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="8" y="8" width="12" height="13" rx="2"/><path d="M15 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h3"/></svg>
-      </button>`).join('');
+    // Both codes always keep their slot, so every card has the same rhythm; a missing one says so in words.
+    const codes = [['plan', '方案码', deck.plan_code], ['lineup', '阵容码', deck.lineup_code]].map(([type, label, code]) =>
+      `<button type="button" class="deck-code-action is-${type}" data-action="copy-${type}" ${code ? `title="复制${label}"` : `disabled title="作者暂未填写${label}"`}>${code
+        ? `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.5"/><path d="M15 9V6.5A2.5 2.5 0 0 0 12.5 4h-6A2.5 2.5 0 0 0 4 6.5v6A2.5 2.5 0 0 0 6.5 15H9"/></svg>复制${label}`
+        : `未提供${label}`}</button>`).join('');
+    const energyFill = Math.min(100, Math.round(deck.energy / Math.max(1, deck.energy_limit) * 100));
     return `<article class="lineup-card home-lineup-card deck-card" data-deck-id="${deck.id}" data-lineup-key="deck-${deck.id}" aria-labelledby="deck-title-${deck.id}">
       <header class="home-card-heading"><h3 class="lineup-title" id="deck-title-${deck.id}"><a href="${D.esc(deck.detail_url)}">${D.esc(deck.name)}</a></h3><span class="deck-badges">${badges}</span></header>
       <div class="home-card-byline lineup-byline">${deck.author.profile_url ? `<a class="author-link" href="${D.esc(deck.author.profile_url)}">${author}</a>` : `<span class="author-link">${author}</span>`}<time class="home-card-updated">${published ? '发布于' : '更新于'} ${D.esc(date)}</time></div>
       <div class="deck-card-body">
-        <div class="deck-card-portal"><span class="deck-portal" data-portal="${D.esc(deck.portal.id)}">${D.esc(deck.portal.name)}</span><span class="deck-energy-chip${over ? ' is-over' : ''}">能量 <b>${deck.energy}</b> / ${deck.energy_limit}${over ? ' · 超限' : ''}</span></div>
+        <div class="deck-card-portal"><span class="deck-portal" data-portal="${D.esc(deck.portal.id)}">${D.esc(deck.portal.name)}</span><span class="deck-energy-chip${over ? ' is-over' : ''}"><span class="deck-energy-meter" style="--fill:${energyFill}%" aria-hidden="true"></span>能量 <b>${deck.energy}</b> / ${deck.energy_limit}${over ? ' · 超限' : ''}</span></div>
         <ul class="deck-thumbs" aria-label="三张时间卡片">${deck.cards.map(D.thumb).join('')}</ul>
+        <div class="deck-code-actions" role="group" aria-label="复制游戏代码">${codes}</div>
       </div>
-      <div class="deck-code-actions" role="group" aria-label="独立复制游戏代码">${codes}</div>
       <footer class="home-card-footer"><div class="home-card-social">${social}</div><div class="home-card-utilities">${utilities}</div></footer>
-      <span class="deck-copy-total" title="同一卡组在五分钟内的重复复制只计一次">有效复制 <span data-copy-count>${Number(deck.copy_count || 0).toLocaleString('zh-CN')}</span> 次</span>
     </article>`;
   }
 
@@ -322,7 +324,10 @@
             if (current) {
               current.copy_count = Math.max(current.copy_count || 0, deck.copy_count);
               const count = els.list.querySelector(`[data-deck-id="${deck.id}"] [data-copy-count]`);
-              if (count) count.textContent = Number(current.copy_count).toLocaleString('zh-CN');
+              if (count) {
+                count.textContent = Number(current.copy_count).toLocaleString('zh-CN');
+                count.parentElement.setAttribute('aria-label', `有效复制 ${count.textContent} 次`);
+              }
             }
           } catch { D.notify(`${label}已复制，但次数未同步，请稍后刷新`, 'info'); }
         }
