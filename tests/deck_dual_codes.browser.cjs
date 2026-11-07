@@ -39,6 +39,9 @@ fs.mkdirSync(out, { recursive: true });
         if (name === 'chromium') assert.equal(await page.evaluate(() => navigator.clipboard.readText()), deck[type + '_code']);
       }
       // Keyboard focus and activation keep the two actions distinguishable.
+      // Response headers arrive before JSON handling and the copy handler's finally re-enables buttons.
+      await page.waitForFunction(id => [...document.querySelectorAll(`[data-deck-id="${id}"] .deck-code-action`)]
+        .every(button => !button.disabled), id);
       await full.locator('[data-action="copy-plan"]').focus();
       await page.keyboard.press('Tab');
       assert.equal(await page.evaluate(() => document.activeElement.dataset.action), 'copy-lineup');

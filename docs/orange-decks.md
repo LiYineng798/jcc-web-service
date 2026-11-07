@@ -95,6 +95,7 @@ PostgreSQL 对应 DB migration `0027_orange_deck_copies.sql`，需要先于 Web 
 本地交互验证：`python tests/serve_deck_review_preview.py` → `node tests/orange_decks.browser.cjs`（需 Playwright Core）。
 双码状态、剪贴板、键盘、编辑与深浅主题窄屏检查：同一预览运行 `node tests/deck_dual_codes.browser.cjs`。
 后台推荐、行内填写隐藏原因与恢复：`node tests/admin_decks.browser.cjs`（自建并删除一个虚构卡组）。
+后台大数字排版、搜索焦点与慢请求、隐藏失败重试：`node tests/admin_decks_resilience.browser.cjs`（仅模拟响应，不写入数据）。
 慢请求、响应乱序及切换列表时的交互检查：`node tests/deck_async_actions.browser.cjs`；
 查询成本回归：`python -m pytest -q tests/test_deck_query_cost.py`（使用 SQLite 虚拟机指令预算，不依赖机器测速阈值）。
 赛季包联动验证：启动时加 `--prepare-time-cards`，再运行 `node tests/time_card_packages.browser.cjs`。

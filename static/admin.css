@@ -1887,9 +1887,10 @@ a.admin-deck-author:hover { color:var(--accent-strong, var(--accent)); text-deco
 .admin-deck-state { flex:none; padding:1px 7px; border-radius:6px; font-size:11px; font-weight:600; line-height:1.6; white-space:nowrap; }
 .admin-deck-state.is-featured { background:color-mix(in srgb, var(--accent) 13%, transparent); color:var(--accent-strong, var(--accent)); }
 .admin-deck-state.is-hidden { background:color-mix(in srgb, var(--admin-danger) 12%, transparent); color:var(--admin-danger); }
-.admin-deck-stats { display:inline-flex; gap:14px; color:var(--text); font-size:12px; font-variant-numeric:tabular-nums; white-space:nowrap; }
-.admin-deck-stat { display:inline-flex; align-items:center; gap:4px; }
-.admin-deck-stat svg { width:14px; height:14px; fill:none; stroke:var(--muted); stroke-width:1.7; stroke-linejoin:round; stroke-linecap:round; }
+.admin-deck-stats { display:inline-flex; flex-wrap:wrap; max-width:100%; gap:6px 14px; color:var(--text); font-size:12px; font-variant-numeric:tabular-nums; }
+.admin-deck-stat { display:inline-flex; align-items:center; min-width:0; max-width:100%; gap:4px; }
+.admin-deck-stat > span { min-width:0; overflow-wrap:anywhere; }
+.admin-deck-stat svg { flex:none; width:14px; height:14px; fill:none; stroke:var(--muted); stroke-width:1.7; stroke-linejoin:round; stroke-linecap:round; }
 .admin-deck-time { color:var(--muted); font-size:12px; font-variant-numeric:tabular-nums; white-space:nowrap; }
 
 .admin-deck-actions { text-align:right; white-space:nowrap; }
@@ -1948,7 +1949,7 @@ a.admin-deck-author:hover { color:var(--accent-strong, var(--accent)); text-deco
 }
 @media (max-width:600px) {
   /* Name and time, then author · portal · traction, then full-width actions. */
-  .admin-deck-row { grid-template-columns:minmax(0, 1fr) auto auto; grid-template-areas:"main main time" "author portal stats" "actions actions actions"; gap:10px 14px; padding-inline:2px; }
+  .admin-deck-row { grid-template-columns:minmax(0, 1fr) auto minmax(0, 1.5fr); grid-template-areas:"main main time" "author portal stats" "actions actions actions"; gap:10px 14px; padding-inline:2px; }
   .admin-deck-cell.is-author { max-width:none; }
   .admin-deck-cell.is-time { align-self:start; line-height:20px; }
   .admin-deck-table td.admin-deck-actions { display:flex; gap:8px; }

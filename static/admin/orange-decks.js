@@ -33,6 +33,7 @@
   function create({ api, render, notify, workbenchPanel, empty }) {
     let status = 'all', query = '', page = 1, data = null, loading = false, error = '', sequence = 0, timer = null;
     let hidingId = null, reasonDraft = '', actingId = null, focusReason = false;
+    let searchDraft = '';
     async function load() {
       const ticket = ++sequence;
       loading = true; error = ''; render();
@@ -214,19 +215,25 @@
         filters.append(control);
       });
       const search = el('label', 'admin-deck-search');
+      // The shared results renderer keeps this node and its ancestors attached, preserving IME and focus.
+      search.dataset.searchKey = 'orange-decks';
       const input = el('input');
-      Object.assign(input, { type: 'search', placeholder: '搜索卡组名或作者', value: query, maxLength: 40 });
+      Object.assign(input, { type: 'search', placeholder: '搜索卡组名或作者', value: searchDraft, maxLength: 40 });
       input.setAttribute('aria-label', '搜索卡组名或作者');
-      input.addEventListener('input', () => {
+      let composing = false;
+      const changed = () => {
+        searchDraft = input.value;
         clearTimeout(timer);
+        if (composing) return;
         timer = setTimeout(() => {
-          query = input.value.trim(); page = 1; hidingId = null;
-          load().then(() => {
-            const next = document.querySelector('.admin-deck-search input');
-            if (next) { next.focus(); next.setSelectionRange(next.value.length, next.value.length); }
-          });
+          if (!input.isConnected) return;
+          query = searchDraft.trim(); page = 1; hidingId = null;
+          load();
         }, 350);
-      });
+      };
+      input.addEventListener('compositionstart', () => { composing = true; clearTimeout(timer); });
+      input.addEventListener('compositionend', () => { composing = false; changed(); });
+      input.addEventListener('input', changed);
       search.append(icon('search'), input);
       bar.append(filters, search);
       return bar;
