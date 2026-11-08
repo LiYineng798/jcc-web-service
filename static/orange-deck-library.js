@@ -9,7 +9,7 @@
   const $ = (id) => document.getElementById(id);
   const els = { list: $('deckList'), tabs: $('deckTabs'), indicator: $('deckTabIndicator'), search: $('deckSearch'),
     portalToggle: $('deckPortalToggle'), portalMenu: $('deckPortalMenu'), portalText: $('deckPortalText'), count: $('deckCount'),
-    pagination: $('deckPagination'), rule: $('deckRule'), status: $('deckStatus') };
+    pagination: $('deckPagination'), status: $('deckStatus') };
   const TABS = ['latest', 'hot', 'featured', 'favorites', 'mine'];
   const PORTAL_NAMES = Object.fromEntries([...els.portalMenu.querySelectorAll('button[data-portal]')].map((item) => [item.dataset.portal, item.dataset.name]));
   const PORTALS = Object.keys(PORTAL_NAMES).filter(Boolean);
@@ -112,8 +112,6 @@
       const data = await D.api(`/api/orange-decks?${params}`, { signal: controller.signal });
       if (state.controller !== controller) return;
       Object.assign(state, { items: data.items, total: data.total, totalPages: data.total_pages, page: data.page });
-      els.rule.hidden = !data.ranking_rule && state.tab !== 'featured';
-      els.rule.textContent = data.ranking_rule || (state.tab === 'featured' ? '推荐由管理员设置，按推荐时间排列。' : '');
       render(key);
     } catch (error) {
       if (error.name === 'AbortError' || state.controller !== controller) return;

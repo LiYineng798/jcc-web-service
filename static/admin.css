@@ -1856,7 +1856,7 @@ body.admin-page {
 .admin-deck-table th { padding:10px 16px; background:var(--admin-surface-muted); color:var(--muted); font-size:12px; font-weight:500; text-align:left; white-space:nowrap; }
 .admin-deck-table th:first-child { border-radius:8px 0 0 8px; }
 .admin-deck-table th:last-child { border-radius:0 8px 8px 0; text-align:right; }
-.admin-deck-table th:nth-child(2) { width:132px; }
+.admin-deck-table th:nth-child(2) { width:164px; }
 .admin-deck-table th:nth-child(3) { width:124px; }
 .admin-deck-table th:nth-child(4) { width:156px; }
 .admin-deck-table th:nth-child(5) { width:104px; }
@@ -1869,7 +1869,8 @@ body.admin-page {
 .admin-deck-title { display:flex; align-items:center; gap:8px; min-width:0; }
 .admin-deck-name { overflow:hidden; min-width:0; color:var(--text); font-size:14px; font-weight:600; line-height:1.45; text-decoration:none; text-overflow:ellipsis; white-space:nowrap; }
 .admin-deck-name:hover { color:var(--accent-strong, var(--accent)); text-decoration:underline; text-underline-offset:3px; }
-.admin-deck-author { display:block; overflow:hidden; color:var(--text); text-decoration:none; text-overflow:ellipsis; white-space:nowrap; }
+.admin-deck-author { display:flex; align-items:center; gap:8px; min-width:0; color:var(--text); text-decoration:none; }
+.admin-deck-author-name { min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 a.admin-deck-author:hover { color:var(--accent-strong, var(--accent)); text-decoration:underline; text-underline-offset:3px; }
 .admin-deck-portal-cell { display:inline-flex; align-items:center; gap:8px; white-space:nowrap; }
 .admin-deck-portal { display:inline-flex; align-items:center; gap:6px; color:var(--text); }

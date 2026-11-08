@@ -121,7 +121,8 @@
       title.append(name, ...stateLabel(deck));
       const summary = el('div', 'admin-deck-summary');
       summary.append(title, ...notes(deck));
-      const author = el(deck.author.profile_url ? 'a' : 'span', 'admin-deck-author', deck.author.nickname);
+      const author = el(deck.author.profile_url ? 'a' : 'span', 'admin-deck-author');
+      author.append(global.jccAvatar.image(deck.author.avatar_config, 28), el('span', 'admin-deck-author-name', deck.author.nickname));
       author.title = deck.author.nickname;
       if (deck.author.profile_url) { author.href = deck.author.profile_url; author.target = '_blank'; author.rel = 'noopener'; }
 

@@ -43,10 +43,11 @@ async function openDecks(page) {
         await row.waitFor();
         // Search keeps focus across the debounced reload.
         assert.equal(await page.evaluate(() => document.activeElement?.closest('.admin-deck-search') !== null), true);
-        // Text only: no card art, and an ordinary public deck carries no status badge.
-        assert.equal(await row.locator('img').count(), 0);
+        // Only the shared author avatar is shown; no card art or ordinary public-state badge.
+        assert.equal(await row.locator('img').count(), 1);
+        assert.equal(await row.locator('.admin-deck-author .user-avatar img').count(), 1);
         assert.equal(await row.locator('.admin-deck-state').count(), 0);
-        assert.equal(await row.locator('.admin-deck-author').innerText(), '卡组验收作者');
+        assert.equal(await row.locator('.admin-deck-author-name').innerText(), '卡组验收作者');
         assert.equal(await row.locator('.admin-deck-portal').innerText(), '稳定');
         assert.match(await row.locator('.admin-deck-energy').innerText(), /^\d+\/8$/);
         assert.equal(await row.locator('.admin-deck-note.is-quiet').innerText(), '后台列表只显示这一行备注。');
