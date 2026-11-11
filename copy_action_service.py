@@ -20,6 +20,7 @@ def record_copy_action(
     success=True,
     counted=False,
     season_id=None,
+    code_type=None,
 ):
     visitor_token = None
     if has_request_context():
@@ -31,9 +32,9 @@ def record_copy_action(
         INSERT INTO copy_action_events (
             target_type, target_id, season_id, lineup_id, live_comp_id,
             user_id, visitor_token, ip_address, source_page,
-            success, counted, created_at, device_type
+            success, counted, created_at, device_type, code_type
         )
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         ''',
         (
             str(target_type),
@@ -49,5 +50,6 @@ def record_copy_action(
             1 if counted else 0,
             now_text(),
             request_device_type(),
+            code_type,
         ),
     )

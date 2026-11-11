@@ -80,18 +80,28 @@
 
     function renderReportStats(report) {
       const summary = report.summary || {};
-      const deltas = report.deltas || {};
+      const deltas = { ...(report.deltas || {}) };
+      if (deltas.deck_like_actions != null && deltas.deck_favorite_actions != null) {
+        deltas.deck_interactions = deltas.deck_like_actions + deltas.deck_favorite_actions;
+      }
       const cards = el('div', 'daily-report-stat-grid');
       [
         ['独立访客 UV', summary.unique_visitors, 'unique_visitors', '全站按访客去重'],
         ['访问次数 PV', summary.page_visits, 'page_visits', '记录的页面访问'],
-        ['成功复制', summary.total_copies, 'total_copies', `阵容 ${summary.lineup_copies || 0} · 实时 ${summary.live_comp_copies || 0}`],
+        ['成功复制', summary.total_copies, 'total_copies', `阵容码：阵容 ${summary.lineup_copies || 0} · 实时 ${summary.live_comp_copies || 0}；不含卡组`],
         ['新增注册', summary.new_registrations, 'new_registrations', '不含管理员'],
         ['登录用户活跃', summary.authenticated_active_users ?? '—', 'authenticated_active_users', '含保持登录回访；按账号去重，不含管理员'],
         ['主动登录', summary.successful_logins, 'successful_logins', '密码登录成功的去重用户，不含管理员'],
         ['新增阵容', summary.new_lineups, 'new_lineups', '当天发布'],
         ['公开留言', summary.guestbook_messages, 'guestbook_messages', '当天提交'],
         ['收到失效反馈', summary.reports_submitted, 'reports_submitted', '当天提交'],
+        // Deck figures are absent from snapshots taken before decks were reported; show a dash, not a fake 0.
+        ['卡组复制', deckValue(summary, 'deck_copies'), 'deck_copies', 'deck_copies' in summary
+          ? `方案码 ${summary.deck_plan_copies || 0} · 阵容码 ${summary.deck_lineup_copies || 0} · ${summary.deck_copy_visitors || 0} 人`
+          : '该快照生成时尚未统计卡组，可重新生成'],
+        ['新增卡组', deckValue(summary, 'new_decks'), 'new_decks', '当天首次公开发布'],
+        ['卡组互动', 'deck_like_actions' in summary ? (summary.deck_like_actions || 0) + (summary.deck_favorite_actions || 0) : '—', 'deck_interactions',
+          `点赞 ${summary.deck_like_actions || 0} · 收藏 ${summary.deck_favorite_actions || 0}（当天新增且仍保留）`],
       ].forEach(([label, value, deltaKey, caption]) => {
         const card = el('article', 'daily-report-stat-card');
         card.append(
@@ -103,6 +113,10 @@
         cards.append(card);
       });
       return cards;
+    }
+
+    function deckValue(summary, key) {
+      return key in summary ? summary[key] : '—';
     }
 
     function deltaBadge(deltas, key) {
@@ -146,6 +160,12 @@
       );
       const body = panel.querySelector('.admin-workspace-body');
       const hourly = report.hourly || { uv: [], visits: [], copies: [] };
+      const rows = [
+        ['访问人数', hourly.uv, '人'],
+        ['访问次数', hourly.visits, '次'],
+        ['阵容码复制', hourly.copies, '次'],
+      ];
+      if (Array.isArray(hourly.deck_copies)) rows.push(['卡组复制', hourly.deck_copies, '次']);
       const peakVisit = report.peak_visit_hour;
       const peakCopy = report.peak_copy_hour;
 
@@ -159,11 +179,7 @@
       if (chips.children.length) body.append(chips);
       body.append(
         renderHeatmapLegend(),
-        renderHeatmapGrid([
-          ['访问人数', hourly.uv, '人'],
-          ['访问次数', hourly.visits, '次'],
-          ['复制次数', hourly.copies, '次'],
-        ]),
+        renderHeatmapGrid(rows),
       );
       return panel;
     }
@@ -213,6 +229,11 @@
       const copied = renderTopCopiedPanel(report);
       copied.classList.add('is-wide');
       grid.append(copied);
+      if (Array.isArray(report.top_copied_decks)) {
+        const decks = renderTopDecksPanel(report);
+        decks.classList.add('is-wide');
+        grid.append(decks);
+      }
       const ips = renderVisitorIpsPanel(report);
       ips.classList.add('is-wide');
       grid.append(ips);
@@ -300,6 +321,52 @@
         info.append(titleRow, el('p', 'admin-meta', metaParts.join(' · ')));
         if (item.code) info.append(el('code', 'daily-copied-code', item.code));
         card.append(info);
+        list.append(card);
+      });
+      body.append(list);
+      return panel;
+    }
+
+    function renderTopDecksPanel(report) {
+      const panel = workbenchPanel('卡组复制排行', '昨日被复制最多的大橘大利卡组，按方案码 / 阵容码分开统计');
+      const body = panel.querySelector('.admin-workspace-body');
+      const items = report.top_copied_decks || [];
+      if (!items.length) {
+        body.append(empty('昨日没有卡组复制记录'));
+        return panel;
+      }
+      const maxCopies = Math.max(1, ...items.map((item) => item.copies));
+      const list = el('div', 'admin-list compact');
+      items.forEach((item) => {
+        const card = el('article', 'admin-row-card');
+        const info = el('div');
+        const titleRow = el('strong', '', `#${item.rank} ${item.title || item.deck_id}`);
+        if (item.status === 'published') {
+          const link = el('a', 'admin-inline-link', ' 查看');
+          link.href = `/orange-decks/${item.deck_id}`;
+          link.target = '_blank';
+          link.rel = 'noopener';
+          titleRow.append(link);
+        }
+        const metaParts = [`作者：${item.uploader || '未记录'}`];
+        if (item.portal) metaParts.push(item.portal);
+        if (item.cards?.length) metaParts.push(item.cards.join(' / '));
+        if (item.status && item.status !== 'published') metaParts.push(`状态：${{ hidden: '已隐藏', deleted: '已删除', draft: '草稿' }[item.status] || item.status}`);
+        metaParts.push(`复制 ${item.copies} 次 · ${item.unique_visitors} 人 · 有效 ${item.counted_copies}`);
+        info.append(titleRow, el('p', 'admin-meta', metaParts.join(' · ')));
+        const split = el('div', 'daily-deck-split');
+        split.append(
+          el('span', 'daily-ip-page', `方案码 ${item.plan_copies} 次`),
+          el('span', 'daily-ip-page', `阵容码 ${item.lineup_copies} 次`),
+        );
+        info.append(split);
+        if (item.plan_code) info.append(el('code', 'daily-copied-code', item.plan_code));
+        if (item.lineup_code) info.append(el('code', 'daily-copied-code', item.lineup_code));
+        const barWrap = el('div', 'daily-page-bar');
+        const bar = el('i', '', '');
+        bar.style.width = `${Math.round((item.copies / maxCopies) * 100)}%`;
+        barWrap.append(bar);
+        card.append(info, barWrap);
         list.append(card);
       });
       body.append(list);

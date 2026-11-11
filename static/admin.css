@@ -444,7 +444,7 @@ body.admin-page {
 }
 
 .admin-page .admin-stat-grid {
-  grid-template-columns: repeat(6, minmax(138px, 1fr));
+  grid-template-columns: repeat(4, minmax(138px, 1fr));
   gap: 10px;
   margin-bottom: 12px;
 }
@@ -941,6 +941,7 @@ body.admin-page {
 
 .admin-page .admin-ip-row > div { width: 100%; min-width: 0; }
 .admin-page .daily-ip-pages { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+.admin-page .daily-deck-split { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
 .admin-page .daily-ip-page { padding: 5px 9px; border-radius: 8px; background: var(--bg); color: var(--text); font-size: 12px; }
 .admin-page .daily-ip-details { margin-top: 10px; font-size: 12px; }
 .admin-page .daily-ip-details summary { cursor: pointer; color: var(--accent-strong); width: fit-content; padding: 6px 0; }
@@ -967,7 +968,7 @@ body.admin-page {
 
 @media (max-width: 1180px) {
   .admin-page .admin-stat-grid {
-    grid-template-columns: repeat(3, minmax(138px, 1fr));
+    grid-template-columns: repeat(4, minmax(120px, 1fr));
   }
 
   .admin-page .traffic-overview {

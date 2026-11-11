@@ -37,6 +37,10 @@ def migrate_device_columns(db):
         columns = table_columns(db, table)
         if columns and 'device_type' not in columns:
             db.execute(f"ALTER TABLE {table} ADD COLUMN device_type TEXT NOT NULL DEFAULT 'unknown' CHECK (device_type IN ('mobile','tablet','desktop','unknown'))")
+    # Mirror DB migration 0029: which deck code (plan/lineup) a copy action took.
+    columns = table_columns(db, 'copy_action_events')
+    if columns and 'code_type' not in columns:
+        db.execute('ALTER TABLE copy_action_events ADD COLUMN code_type TEXT')
     if 'created_at' in table_columns(db, 'visit_events'):
         db.execute('CREATE INDEX IF NOT EXISTS idx_visit_events_created_at ON visit_events(created_at)')
 

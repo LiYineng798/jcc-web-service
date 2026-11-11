@@ -1,9 +1,9 @@
 /* Orange Fortune deck library: home list, detail and editor.
    Card art uses fortune-card-frame.css; list cards reuse the lineup card shell (home-lineup-card.css). */
-:root { --deck-tier-1:#7d848c; --deck-tier-2:#3c8f63; --deck-tier-3:#3b7fb8; --deck-tier-4:#8c5bbd; --deck-tier-5:#b97b25; --deck-warn:#a86412; --deck-danger:#b5473a;
+:root { --deck-tier-1:#7d848c; --deck-tier-2:#3c8f63; --deck-tier-3:#3b7fb8; --deck-tier-4:#8c5bbd; --deck-tier-5:#b97b25; --deck-warn:#a86412; --deck-danger:#b5473a; --deck-hot:#c2410c;
   /* Portal risk, low to high: safe green, cautionary amber, high-stakes crimson. */
   --portal-stable:#2f8a57; --portal-volatile:#b26b12; --portal-unknown:#b8323f; }
-:root[data-theme="dark"] { --deck-tier-1:#a7adb4; --deck-tier-2:#6cc296; --deck-tier-3:#78b3e6; --deck-tier-4:#bf96e8; --deck-tier-5:#e2ac5d; --deck-warn:#e0a35a; --deck-danger:#ec8a7d;
+:root[data-theme="dark"] { --deck-tier-1:#a7adb4; --deck-tier-2:#6cc296; --deck-tier-3:#78b3e6; --deck-tier-4:#bf96e8; --deck-tier-5:#e2ac5d; --deck-warn:#e0a35a; --deck-danger:#ec8a7d; --deck-hot:#fb923c;
   --portal-stable:#6fcf97; --portal-volatile:#f0b35a; --portal-unknown:#f2848c; }
 .deck-visually-hidden { position:absolute!important; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; border:0; }
 [data-deck-root] [hidden], .deck-dialog [hidden] { display:none!important; }
@@ -49,6 +49,8 @@
 .deck-badge { display:inline-flex; align-items:center; padding:2px 8px; border:1px solid var(--line); border-radius:8px; font-size:.75rem; line-height:1.6; color:var(--muted); white-space:nowrap; }
 .deck-badge.is-featured { color:var(--accent-strong); border-color:color-mix(in srgb, var(--accent) 30%, var(--line)); background:color-mix(in srgb, var(--accent-soft) 40%, transparent); }
 .deck-badge.is-danger { color:var(--deck-danger); }
+.deck-badge.is-hot { color:var(--deck-hot); border-color:color-mix(in srgb, var(--deck-hot) 35%, var(--line)); background:color-mix(in srgb, var(--deck-hot) 9%, transparent); font-weight:600; }
+.deck-rank-note { margin:0 0 10px; color:var(--muted); font-size:.8rem; line-height:1.6; }
 .deck-card-body { display:grid; gap:12px; padding:14px 16px 12px; border-radius:14px; background:var(--card-wash); }
 .deck-card-portal { display:flex; align-items:baseline; justify-content:space-between; gap:12px; font-size:.84rem; }
 .deck-energy-chip { color:var(--muted); font-variant-numeric:tabular-nums; white-space:nowrap; }

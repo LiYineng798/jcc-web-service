@@ -1,5 +1,8 @@
 (function (global) {
   const { buildDeltaText, el, formatDay } = global.JccAdminCore;
+  const DECK_STATUS = { hidden: '已隐藏', deleted: '已删除', draft: '草稿' };
+  const CODE_LABELS = { plan: '复制方案码', lineup: '复制阵容码' };
+  const SOURCE_LABELS = { home: '首页卡组库', detail: '卡组详情', account: '个人中心' };
 
   function createOverviewRenderer({ button, empty, getOverview, getCopyRank, refreshCopyRank, trafficMetric, workbenchPanel }) {
     function renderOverviewDashboard() {
@@ -9,8 +12,66 @@
       const grid = el('div', 'admin-dashboard-grid');
       grid.append(renderTrafficOverview(), renderTodoPanel());
       wrap.append(grid);
-      wrap.append(renderCopyRankPanel());
+      wrap.append(renderCopyRankPanel(), renderDeckCopyRankPanel());
       return wrap;
+    }
+
+    // Decks are not lineups: their copies get their own ranking with the plan/lineup code split.
+    function renderDeckCopyRankPanel() {
+      const rank = getCopyRank?.() || {};
+      const panel = workbenchPanel('今日卡组复制排行', `${rank.date || '今天'} 被复制最多的大橘大利卡组（方案码 + 阵容码）`);
+      const body = panel.querySelector('.admin-workspace-body');
+      const items = rank.deck_items || [];
+      if (!items.length) {
+        body.append(empty('今天还没有卡组复制记录'));
+        return panel;
+      }
+      const list = el('div', 'admin-list compact');
+      items.forEach((item) => {
+        const card = el('article', 'admin-row-card');
+        const info = el('div');
+        const titleRow = el('strong', '', `#${item.rank} ${item.title || item.deck_id}`);
+        if (item.status === 'published') {
+          const link = el('a', 'admin-inline-link', ' 查看');
+          link.href = `/orange-decks/${item.deck_id}`;
+          link.target = '_blank';
+          link.rel = 'noopener';
+          titleRow.append(link);
+        }
+        const metaParts = ['卡组', `作者：${item.uploader || '未记录'}`];
+        if (item.portal) metaParts.push(item.portal);
+        if (item.cards?.length) metaParts.push(item.cards.join(' / '));
+        if (item.status && item.status !== 'published') metaParts.push(`状态：${DECK_STATUS[item.status] || item.status}`);
+        info.append(
+          titleRow,
+          el('p', 'admin-meta', `${metaParts.join(' · ')} · 复制 ${item.copies} 次（方案码 ${item.plan_copies} · 阵容码 ${item.lineup_copies}）· ${item.unique_visitors} 人 · 有效 ${item.counted_copies}`),
+        );
+        const details = document.createElement('details');
+        details.className = 'copy-rank-details';
+        const summary = document.createElement('summary');
+        summary.textContent = `查看明细（${(item.details || []).length} 条）`;
+        details.append(summary);
+        const eventList = el('div', 'copy-rank-event-list');
+        (item.details || []).forEach((event) => {
+          const code = event.code_type === 'lineup' ? item.lineup_code : item.plan_code;
+          const row = el('div', 'copy-rank-event');
+          row.append(
+            el('strong', '', event.actor || '游客'),
+            el('span', 'copy-rank-event-time', event.copied_at || ''),
+            el('span', 'copy-rank-event-owner', CODE_LABELS[event.code_type] || '代码类型未记录'),
+            el('span', 'copy-rank-event-ip', `复制 IP：${event.ip_address || '未记录'}`),
+            el('span', 'copy-rank-event-source', `来源：${SOURCE_LABELS[event.source_page] || event.source_page || '未记录'}${event.counted ? '' : ' · 5 分钟内重复'}`),
+            code ? el('code', 'copy-rank-code', code) : el('span', 'admin-meta', '代码已不可用'),
+          );
+          eventList.append(row);
+        });
+        if (!eventList.children.length) eventList.append(el('p', 'admin-meta', '暂无可展示的明细'));
+        details.append(eventList);
+        card.append(info, details);
+        list.append(card);
+      });
+      body.append(list);
+      return panel;
     }
 
     function renderCopyRankPanel() {
@@ -83,6 +144,8 @@
       [
         ['今日全站 UV', stats.today_uv || 0, '全站页面按自然日去重'],
         ['今日总复制', stats.today_total_copy_count || 0, `普通阵容 ${stats.today_lineup_copy_count || 0} · 实时阵容 ${stats.today_live_comp_copy_count || 0}`],
+        ['今日卡组复制', stats.today_deck_copy_count || 0, `方案码 ${stats.today_deck_plan_copy_count || 0} · 阵容码 ${stats.today_deck_lineup_copy_count || 0} · 5 分钟去重的有效复制`],
+        ['今日卡组动态', stats.today_new_decks || 0, `新发布卡组 · 点赞 ${stats.today_deck_likes || 0} · 收藏 ${stats.today_deck_favorites || 0} · 公开 ${stats.published_decks || 0} 套`],
         ['今日注册', stats.today_users || 0, '新增用户数'],
         ['登录用户活跃', stats.today_authenticated_users || 0, `含保持登录的回访用户 · 主动登录 ${stats.today_logins || 0} 人 · 均按账号去重，不含管理员`],
         ['待处理失效反馈', stats.pending_reports_count || 0, '优先处理'],
@@ -306,6 +369,7 @@
       [
         ['待处理失效反馈', `${todos.pending_reports_count || 0} 条`, '需要人工判断与处理'],
         ['已隐藏阵容', `${todos.hidden_lineups_count || 0} 条`, '可去阵容管理复核'],
+        ['已隐藏卡组', `${todos.hidden_decks_count || 0} 套`, '可去卡组库复核或恢复'],
         ['今日后台操作', `${todos.recent_audit_count || 0} 次`, '建议关注异常频繁操作'],
       ].forEach(([label, value, caption]) => {
         const card = el('article', 'admin-row-card');

@@ -25,9 +25,12 @@
     return data;
   }
 
-  async function recordCopy(deckId, csrf, codeType = 'plan') {
+  // `source` only labels the admin copy log (home/detail); it never changes the count.
+  async function recordCopy(deckId, csrf, codeType = 'plan', source = '') {
     if (!csrf) csrf = (await api('/api/me')).csrf_token;
-    return api(`/api/orange-decks/${deckId}/copy?code_type=${encodeURIComponent(codeType)}`, { method: 'POST', csrf });
+    const params = new URLSearchParams({ code_type: codeType });
+    if (source) params.set('source', source);
+    return api(`/api/orange-decks/${deckId}/copy?${params}`, { method: 'POST', csrf });
   }
 
   // The gallery's time-card frame and metal bezel, art only: name and effect are always printed beside it.

@@ -14,6 +14,9 @@ The payload is deliberately data-lover friendly:
 - ``deltas``: change versus the most recent earlier report, when one exists.
 - ``hourly``: per-hour UV / PV / copy counts for the heatmap.
 - ``top_pages`` and ``top_copied``: where traffic went and what got copied.
+- ``top_copied_decks``: Orange Fortune decks by copy actions, split by plan
+  code / lineup code. Deck figures (``summary.deck_*``, ``hourly.deck_copies``)
+  stay apart from the lineup-code totals, as decks are not lineups.
 - ``season_copy_rank``: copies grouped by season/version.
 - ``top_visitor_ips``: yesterday's most active client IPs (admin-only view).
 - ``summary.returning_3d / returning_7d``: yesterday's visitors that also
@@ -36,6 +39,9 @@ MAX_TOP_COPIED = 20
 MAX_TOP_PAGES = 12
 MAX_SEASON_RANK = 12
 MAX_VISITOR_IPS = 20
+MAX_TOP_DECKS = 10
+# Lineup-code copies; Orange Fortune deck copies (target_type 'orange_deck') are reported separately.
+LINEUP_COPY_SCOPE = "target_type IN ('lineup', 'live_comp')"
 
 DELTA_KEYS = (
     'unique_visitors',
@@ -55,6 +61,13 @@ DELTA_KEYS = (
     'reports_submitted',
     'like_actions',
     'favorite_actions',
+    'new_decks',
+    'deck_copies',
+    'deck_plan_copies',
+    'deck_lineup_copies',
+    'deck_copy_visitors',
+    'deck_like_actions',
+    'deck_favorite_actions',
 )
 
 PAGE_KEY_LABELS = {
@@ -87,6 +100,13 @@ PAGE_KEY_LABELS = {
     's11_artifacts': 'S11 全神器装备推荐',
     'lineup_notification': '阵容处理通知',
 }
+
+
+COPY_ACTOR_KEY = '''CASE
+    WHEN user_id IS NOT NULL THEN 'u:' || CAST(user_id AS TEXT)
+    WHEN COALESCE(visitor_token, '') != '' THEN 'v:' || visitor_token
+    ELSE 'ip:' || COALESCE(ip_address, '')
+END'''
 
 
 def page_label(page_key):
@@ -164,7 +184,7 @@ def _top_copied(db, start, end, limit=MAX_TOP_COPIED):
     from live_comps_helpers import find_live_comp, load_live_comps_manifest, read_live_comps_payload_for_season
 
     rows = db.execute(
-        '''
+        f'''
         SELECT target_type, target_id, season_id,
                COUNT(*) AS copies,
                COUNT(DISTINCT CASE
@@ -174,7 +194,7 @@ def _top_copied(db, start, end, limit=MAX_TOP_COPIED):
                END) AS unique_visitors
         FROM copy_action_events
         WHERE created_at >= ? AND created_at < ?
-          AND success = 1
+          AND success = 1 AND {LINEUP_COPY_SCOPE}
         GROUP BY target_type, target_id, season_id
         ORDER BY copies DESC, target_type, target_id
         LIMIT ?
@@ -249,6 +269,108 @@ def _top_copied(db, start, end, limit=MAX_TOP_COPIED):
     return items
 
 
+def top_copied_decks(db, start, end, limit=MAX_TOP_DECKS, *, include_details=False):
+    """Most copied Orange Fortune decks for one range, split by the copied code.
+
+    Counts successful copy actions like ``top_copied`` (the public deck count is the
+    five-minute deduplicated ``counted`` subset, also returned per deck).
+    """
+    from orange_deck_service import PORTAL_BY_ID, card_index
+
+    rows = db.execute(
+        f'''
+        SELECT target_id,
+               COUNT(*) AS copies,
+               SUM(CASE WHEN code_type = 'plan' THEN 1 ELSE 0 END) AS plan_copies,
+               SUM(CASE WHEN code_type = 'lineup' THEN 1 ELSE 0 END) AS lineup_copies,
+               SUM(CASE WHEN counted = 1 THEN 1 ELSE 0 END) AS counted_copies,
+               COUNT(DISTINCT {COPY_ACTOR_KEY}) AS unique_visitors
+        FROM copy_action_events
+        WHERE created_at >= ? AND created_at < ?
+          AND success = 1 AND target_type = 'orange_deck'
+        GROUP BY target_id
+        ORDER BY copies DESC, target_id
+        LIMIT ?
+        ''',
+        (start, end, limit),
+    ).fetchall()
+    ids = [int(row['target_id']) for row in rows if str(row['target_id']).isdigit()]
+    decks = {}
+    if ids:
+        marks = ', '.join('?' for _ in ids)
+        decks = {deck['id']: deck for deck in db.execute(
+            f'''SELECT d.id, d.name, d.status, d.portal_id, d.plan_code, d.lineup_code,
+                       d.card_id_1, d.card_id_2, d.card_id_3, d.card_snapshot_json, u.username, u.nickname
+                FROM orange_decks d LEFT JOIN users u ON u.id = d.user_id WHERE d.id IN ({marks})''',
+            ids,
+        ).fetchall()}
+    try:
+        cards = card_index()
+    except Exception:
+        cards = {}
+    items = []
+    for rank, row in enumerate(rows, start=1):
+        deck = decks.get(int(row['target_id'])) if str(row['target_id']).isdigit() else None
+        item = {
+            'rank': rank,
+            'deck_id': str(row['target_id']),
+            'copies': _int(row['copies']),
+            'plan_copies': _int(row['plan_copies']),
+            'lineup_copies': _int(row['lineup_copies']),
+            'counted_copies': _int(row['counted_copies']),
+            'unique_visitors': _int(row['unique_visitors']),
+            'title': f"已删除卡组 #{row['target_id']}",
+            'uploader': '原上传账号不可用',
+            'status': None,
+            'portal': None,
+            'cards': [],
+            'plan_code': None,
+            'lineup_code': None,
+        }
+        if deck:
+            try:
+                snapshot = {entry['id']: entry for entry in json.loads(deck['card_snapshot_json'] or '[]') if entry}
+            except (json.JSONDecodeError, TypeError, KeyError):
+                snapshot = {}
+            names = []
+            for n in (1, 2, 3):
+                card_id = deck[f'card_id_{n}']
+                if card_id:
+                    names.append((cards.get(card_id) or snapshot.get(card_id) or {}).get('name') or card_id)
+            item.update(
+                title=deck['name'], uploader=user_label(deck), status=deck['status'], cards=names,
+                portal=(PORTAL_BY_ID.get(deck['portal_id']) or {}).get('name'),
+                plan_code=deck['plan_code'] or None, lineup_code=deck['lineup_code'] or None,
+            )
+        items.append(item)
+    if include_details and items:
+        details = {item['deck_id']: [] for item in items}
+        marks = ', '.join('?' for _ in details)
+        for event in db.execute(
+            f'''
+            SELECT e.target_id, e.user_id, e.ip_address, e.source_page, e.counted, e.created_at, e.code_type, u.username
+            FROM copy_action_events e
+            LEFT JOIN users u ON u.id = e.user_id
+            WHERE e.created_at >= ? AND e.created_at < ? AND e.success = 1
+              AND e.target_type = 'orange_deck' AND e.target_id IN ({marks})
+            ORDER BY e.created_at DESC, e.id DESC
+            ''',
+            (start, end, *details),
+        ).fetchall():
+            details[str(event['target_id'])].append({
+                'actor': event['username'] or '游客',
+                'actor_type': 'user' if event['user_id'] is not None else 'visitor',
+                'ip_address': event['ip_address'] or '未记录',
+                'copied_at': event['created_at'],
+                'source_page': event['source_page'] or '',
+                'counted': bool(event['counted']),
+                'code_type': event['code_type'] or '',
+            })
+        for item in items:
+            item['details'] = details[item['deck_id']]
+    return items
+
+
 def _season_copy_rank(db, start, end, limit=MAX_SEASON_RANK):
     """Copy counts grouped by season id (the finest version dimension on the
     copy events today). ``share`` is the percentage of the day's successful
@@ -256,18 +378,18 @@ def _season_copy_rank(db, start, end, limit=MAX_SEASON_RANK):
     from live_comps_helpers import load_live_comps_manifest
 
     total_row = db.execute(
-        '''
+        f'''
         SELECT COUNT(*) AS c
         FROM copy_action_events
         WHERE created_at >= ? AND created_at < ?
-          AND success = 1
+          AND success = 1 AND {LINEUP_COPY_SCOPE}
         ''',
         (start, end),
     ).fetchone()
     total = _int(total_row['c'])
 
     rows = db.execute(
-        '''
+        f'''
         SELECT season_id,
                COUNT(*) AS copies,
                COUNT(DISTINCT CASE
@@ -277,7 +399,7 @@ def _season_copy_rank(db, start, end, limit=MAX_SEASON_RANK):
                END) AS unique_visitors
         FROM copy_action_events
         WHERE created_at >= ? AND created_at < ?
-          AND success = 1
+          AND success = 1 AND {LINEUP_COPY_SCOPE}
         GROUP BY season_id
         ORDER BY copies DESC, season_id
         LIMIT ?
@@ -464,12 +586,26 @@ def build_daily_report_payload(db, target_date):
         (start, end),
     ).fetchone()['c']
 
-    copies_row = db.execute(
+    deck_counts = db.execute(
         '''
+        SELECT
+          (SELECT COUNT(*) FROM orange_decks WHERE published_at >= ? AND published_at < ?) AS new_decks,
+          (SELECT COUNT(*) FROM orange_deck_likes WHERE created_at >= ? AND created_at < ?) AS deck_like_actions,
+          (SELECT COUNT(*) FROM orange_deck_favorites WHERE created_at >= ? AND created_at < ?) AS deck_favorite_actions
+        ''',
+        (start, end, start, end, start, end),
+    ).fetchone()
+
+    copies_row = db.execute(
+        f'''
         SELECT
           SUM(CASE WHEN target_type = 'lineup' THEN 1 ELSE 0 END) AS lineup_copies,
           SUM(CASE WHEN target_type = 'live_comp' THEN 1 ELSE 0 END) AS live_comp_copies,
-          COUNT(*) AS total_copies
+          SUM(CASE WHEN {LINEUP_COPY_SCOPE} THEN 1 ELSE 0 END) AS total_copies,
+          SUM(CASE WHEN target_type = 'orange_deck' THEN 1 ELSE 0 END) AS deck_copies,
+          SUM(CASE WHEN target_type = 'orange_deck' AND code_type = 'plan' THEN 1 ELSE 0 END) AS deck_plan_copies,
+          SUM(CASE WHEN target_type = 'orange_deck' AND code_type = 'lineup' THEN 1 ELSE 0 END) AS deck_lineup_copies,
+          COUNT(DISTINCT CASE WHEN target_type = 'orange_deck' THEN {COPY_ACTOR_KEY} END) AS deck_copy_visitors
         FROM copy_action_events
         WHERE created_at >= ? AND created_at < ?
           AND success = 1
@@ -477,7 +613,7 @@ def build_daily_report_payload(db, target_date):
         (start, end),
     ).fetchone()
 
-    hourly = {'uv': [0] * 24, 'visits': [0] * 24, 'copies': [0] * 24}
+    hourly = {'uv': [0] * 24, 'visits': [0] * 24, 'copies': [0] * 24, 'deck_copies': [0] * 24}
     hourly_rows = db.execute(
         f'''
         SELECT substr(ve.created_at, 12, 2) AS hour,
@@ -492,8 +628,10 @@ def build_daily_report_payload(db, target_date):
         (start, end),
     ).fetchall()
     copy_hour_rows = db.execute(
-        '''
-        SELECT substr(created_at, 12, 2) AS hour, COUNT(*) AS c
+        f'''
+        SELECT substr(created_at, 12, 2) AS hour,
+               SUM(CASE WHEN {LINEUP_COPY_SCOPE} THEN 1 ELSE 0 END) AS c,
+               SUM(CASE WHEN target_type = 'orange_deck' THEN 1 ELSE 0 END) AS deck_c
         FROM copy_action_events
         WHERE created_at >= ? AND created_at < ?
           AND success = 1
@@ -516,6 +654,7 @@ def build_daily_report_payload(db, target_date):
             continue
         if 0 <= hour <= 23:
             hourly['copies'][hour] = _int(row['c'])
+            hourly['deck_copies'][hour] = _int(row['deck_c'])
 
     def _peak_hour(series):
         if not any(series):
@@ -541,6 +680,13 @@ def build_daily_report_payload(db, target_date):
         'reports_submitted': _int(reports_submitted),
         'like_actions': _int(like_actions),
         'favorite_actions': _int(favorite_actions),
+        'new_decks': _int(deck_counts['new_decks']),
+        'deck_copies': _int(copies_row['deck_copies']),
+        'deck_plan_copies': _int(copies_row['deck_plan_copies']),
+        'deck_lineup_copies': _int(copies_row['deck_lineup_copies']),
+        'deck_copy_visitors': _int(copies_row['deck_copy_visitors']),
+        'deck_like_actions': _int(deck_counts['deck_like_actions']),
+        'deck_favorite_actions': _int(deck_counts['deck_favorite_actions']),
     }
 
     previous_date = None
@@ -576,6 +722,7 @@ def build_daily_report_payload(db, target_date):
         'peak_copy_hour': _peak_hour(hourly['copies']),
         'top_pages': _top_pages(db, start, end),
         'top_copied': _top_copied(db, start, end),
+        'top_copied_decks': top_copied_decks(db, start, end),
         'season_copy_rank': _season_copy_rank(db, start, end),
         'top_visitor_ips': _top_visitor_ips(db, start, end),
     }

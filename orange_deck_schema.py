@@ -79,6 +79,9 @@ CREATE TABLE IF NOT EXISTS orange_deck_copies (
     created_at TEXT NOT NULL,
     PRIMARY KEY (deck_id, copy_key, bucket_start)
 );
+
+-- Mirror DB migration 0029: hot ranking reads only a recent window of copies.
+CREATE INDEX IF NOT EXISTS idx_orange_deck_copies_bucket ON orange_deck_copies (bucket_start, deck_id, copy_key);
 """
 
 

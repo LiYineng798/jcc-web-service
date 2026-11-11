@@ -166,9 +166,10 @@ def test_search_filters_tabs_and_favorites(users):
     assert names(owner.get('/api/orange-decks?tab=mine')) == ['速攻草稿', '三传说', '速攻稳定门']
     page = guest.get('/api/orange-decks?page=2&page_size=1').get_json()
     assert page['total'] == 2 and page['total_pages'] == 2 and names_of(page) == ['速攻稳定门']
-    # Hot uses real favorites only, one per account; favoriting is idempotent.
+    # Hot lists every public deck even before any interaction; real favorites (one per account) then lift a deck.
     hot = guest.get('/api/orange-decks?tab=hot').get_json()
-    assert hot['items'] == [] and '点赞数' in hot['ranking_rule'] and '收藏账号数' in hot['ranking_rule']
+    assert hot['total'] == 2 and '有效复制' in hot['ranking_rule'] and '收藏' in hot['ranking_rule']
+    assert [item['hot']['rank'] for item in hot['items']] == [1, 2]
     for client in (other, other, admin):
         assert client.post(f"/api/orange-decks/{fast['id']}/favorite", headers=auth_headers(client)).status_code == 200
     assert other.post(f"/api/orange-decks/{legend['id']}/favorite", headers=auth_headers(other)).get_json() == {'favorited': True, 'favorite_count': 1}
@@ -412,7 +413,7 @@ def test_likes_mirror_lineup_rules_and_feed_hot_ranking(users, monkeypatch):
     monkeypatch.setattr(orange_deck_service, 'DAILY_LIKE_LIMIT', 1)
     capped = other.post(f"/api/orange-decks/{second['id']}/like", headers=auth_headers(other))
     assert capped.status_code == 429
-    # Hot = likes + favorites; the favorite-only deck ranks below the liked one.
+    # Likes (1 point each) and favorites (2 points) both feed hot; three likes outrank one favorite.
     monkeypatch.setattr(orange_deck_service, 'DAILY_LIKE_LIMIT', 5)
     other.post(f"/api/orange-decks/{second['id']}/favorite", headers=auth_headers(other))
     hot = guest.get('/api/orange-decks?tab=hot').get_json()['items']

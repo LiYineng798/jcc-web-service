@@ -31,10 +31,16 @@ def test_copy_counts_persist_and_share_lineup_dedup_rules(users, app, monkeypatc
     assert guest.get(url).json['copy_count'] == 4
     assert guest.get('/api/orange-decks').json['items'][0]['copy_count'] == 4
     assert owner.get('/api/orange-decks?tab=mine').json['items'][0]['copy_count'] == 4
-    # This change does not redefine deck popularity or ordinary-lineup totals.
-    assert guest.get('/api/orange-decks?tab=hot').json['total'] == 0
+    # Copies feed deck heat but never ordinary-lineup totals; every copy action is logged with its code type.
+    hot = guest.get('/api/orange-decks?tab=hot').json
+    assert hot['total'] == 1 and hot['items'][0]['hot']['rank'] == 1
     with app.app_context():
-        assert get_db().execute('SELECT COUNT(*) FROM copy_events').fetchone()[0] == 0
+        db = get_db()
+        assert db.execute('SELECT COUNT(*) FROM copy_events').fetchone()[0] == 0
+        actions = db.execute("SELECT code_type, counted, source_page FROM copy_action_events "
+                             "WHERE target_type = 'orange_deck' ORDER BY id").fetchall()
+        assert [tuple(row) for row in actions][:4] == [('plan', 1, ''), ('plan', 0, 'home'), ('plan', 0, 'detail'), ('plan', 0, 'account')]
+        assert sum(row['counted'] for row in actions) == 4
     another = create(owner, plan_code=CODE).json
     assert another['copy_count'] == 0
     assert guest.post(f"/api/orange-decks/{another['id']}/copy", headers=guest_headers).json['copy_count'] == 1

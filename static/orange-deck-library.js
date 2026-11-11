@@ -9,14 +9,14 @@
   const $ = (id) => document.getElementById(id);
   const els = { list: $('deckList'), tabs: $('deckTabs'), indicator: $('deckTabIndicator'), search: $('deckSearch'),
     portalToggle: $('deckPortalToggle'), portalMenu: $('deckPortalMenu'), portalText: $('deckPortalText'), count: $('deckCount'),
-    pagination: $('deckPagination'), status: $('deckStatus') };
+    pagination: $('deckPagination'), status: $('deckStatus'), rankNote: $('deckRankNote') };
   const TABS = ['latest', 'hot', 'featured', 'favorites', 'mine'];
   const PORTAL_NAMES = Object.fromEntries([...els.portalMenu.querySelectorAll('button[data-portal]')].map((item) => [item.dataset.portal, item.dataset.name]));
   const PORTALS = Object.keys(PORTAL_NAMES).filter(Boolean);
   const TAB_NAMES = { latest: '最新', hot: '热门', featured: '推荐', favorites: '我的收藏', mine: '我的卡组' };
   const STATUS = { draft: ['草稿', ''], hidden: ['已隐藏', 'is-danger'] };
   const state = { library: 'lineups', tab: 'latest', q: '', portal: '', page: 1, user: null, csrf: '', me: null,
-    items: [], total: 0, totalPages: 1, controller: null, loadedKey: '' };
+    items: [], total: 0, totalPages: 1, rankingRule: '', controller: null, loadedKey: '' };
   const pendingInteractions = new Set();
 
   function readUrl() {
@@ -111,7 +111,7 @@
     try {
       const data = await D.api(`/api/orange-decks?${params}`, { signal: controller.signal });
       if (state.controller !== controller) return;
-      Object.assign(state, { items: data.items, total: data.total, totalPages: data.total_pages, page: data.page });
+      Object.assign(state, { items: data.items, total: data.total, totalPages: data.total_pages, page: data.page, rankingRule: data.ranking_rule || '' });
       render(key);
     } catch (error) {
       if (error.name === 'AbortError' || state.controller !== controller) return;
@@ -125,7 +125,11 @@
   }
 
   function card(deck) {
+    // Hot tab only: the top three carry their rank; the tooltip says how lively the deck was this week.
+    const hot = state.tab === 'hot' && deck.hot && deck.hot.rank <= 3
+      ? `<span class="deck-badge is-hot" title="近 7 天有 ${Number(deck.hot.recent_interactions || 0)} 次复制、收藏或点赞">热门 #${deck.hot.rank}</span>` : '';
     const badges = [
+      hot,
       deck.featured ? '<span class="deck-badge is-featured">推荐</span>' : '',
       STATUS[deck.status] ? `<span class="deck-badge ${STATUS[deck.status][1]}">${STATUS[deck.status][0]}</span>` : '',
       deck.compat.missing_cards ? '<span class="deck-badge is-danger">含失效卡片</span>' : '',
@@ -191,6 +195,12 @@
     state.loadedKey = key;
     els.status.textContent = `${TAB_NAMES[state.tab]} · 共 ${state.total} 套卡组`;
     els.count.textContent = `当前展示 ${state.total} 套卡组`;
+    const showRule = state.tab === 'hot' && state.items.length > 0;
+    els.rankNote.hidden = !showRule;
+    if (showRule) {
+      els.rankNote.textContent = '按近期热度排序：有效复制 > 收藏 > 点赞，越新的互动权重越高；新卡组有短暂曝光加成。';
+      els.rankNote.title = state.rankingRule;
+    }
     if (!state.items.length) {
       els.list.innerHTML = emptyState();
       els.pagination.replaceChildren();
@@ -210,7 +220,7 @@
     } else if (filtered) {
       [title, text, actions] = ['没有找到匹配的卡组', `${state.q ? `“${D.esc(state.q)}”` : ''}按卡组名称和所含卡片名称搜索${state.portal ? '，并按推荐传送门筛选' : ''}。`, '<button type="button" class="deck-button" data-action="clear">清除搜索与筛选</button>'];
     } else if (state.tab === 'hot') {
-      [title, text] = ['还没有热门卡组', '热门只统计真实的点赞与收藏，有互动的卡组会出现在这里。'];
+      [title, text] = ['还没有公开卡组', '热门按复制、收藏与点赞的近期热度排序，发布后的卡组都会参与排名。'];
     } else if (state.tab === 'featured') {
       [title, text, actions] = ['暂无推荐卡组', '推荐由管理员挑选，可以先看看最新发布的卡组。', '<button type="button" class="deck-button" data-action="latest">查看最新</button>'];
     } else if (state.tab === 'favorites') {
@@ -315,7 +325,7 @@
         if (ok && deck.status === 'published') {
           feedback(deck, 'copy');
           try {
-            const data = await D.recordCopy(deck.id, state.csrf, codeType);
+            const data = await D.recordCopy(deck.id, state.csrf, codeType, 'home');
             // Independent code requests may finish out of order, or after the list reloads.
             const current = state.items.find(item => item.id === deck.id);
             deck.copy_count = Math.max(deck.copy_count || 0, data.copy_count);

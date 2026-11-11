@@ -33,6 +33,32 @@ def _today_lineup_copy_count(db, today):
     ).fetchone()['c']
 
 
+def _today_deck_activity(db, today):
+    """Today's Orange Fortune deck figures, kept apart from lineup-code totals.
+
+    ``deck_copies`` is the effective (five-minute deduplicated) count shown on deck cards;
+    the plan/lineup split comes from the copy actions that produced those effective copies.
+    """
+    start, end = _day_bounds(today)
+    row = db.execute(
+        '''
+        SELECT
+          (SELECT COUNT(*) FROM orange_deck_copies WHERE created_at >= ? AND created_at < ?) AS deck_copies,
+          (SELECT COUNT(*) FROM copy_action_events WHERE target_type = 'orange_deck' AND code_type = 'plan'
+             AND counted = 1 AND success = 1 AND created_at >= ? AND created_at < ?) AS deck_plan_copies,
+          (SELECT COUNT(*) FROM copy_action_events WHERE target_type = 'orange_deck' AND code_type = 'lineup'
+             AND counted = 1 AND success = 1 AND created_at >= ? AND created_at < ?) AS deck_lineup_copies,
+          (SELECT COUNT(*) FROM orange_decks WHERE published_at >= ? AND published_at < ?) AS new_decks,
+          (SELECT COUNT(*) FROM orange_deck_likes WHERE created_at >= ? AND created_at < ?) AS deck_likes,
+          (SELECT COUNT(*) FROM orange_deck_favorites WHERE created_at >= ? AND created_at < ?) AS deck_favorites,
+          (SELECT COUNT(*) FROM orange_decks WHERE status = 'published') AS published_decks,
+          (SELECT COUNT(*) FROM orange_decks WHERE status = 'hidden') AS hidden_decks
+        ''',
+        (start, end) * 6,
+    ).fetchone()
+    return {key: int(value or 0) for key, value in dict(row).items()}
+
+
 def _today_live_comp_copy_count(db, today):
     row = db.execute(
         'SELECT copy_count FROM live_comp_global_daily_stats WHERE copy_date = ?',
@@ -53,6 +79,7 @@ def build_admin_stats_payload(db):
     today_logins = _today_login_count(db, today)
     today_lineup_copy_count = _today_lineup_copy_count(db, today)
     today_live_comp_copy_count = _today_live_comp_copy_count(db, today)
+    decks = _today_deck_activity(db, today)
     traffic_7d = last_7_days_uv()
     traffic_by_date = {item['date']: item['uv'] for item in traffic_7d}
     hourly = db.execute(
@@ -68,6 +95,10 @@ def build_admin_stats_payload(db):
         'today_lineup_copy_count': today_lineup_copy_count,
         'today_live_comp_copy_count': today_live_comp_copy_count,
         'today_total_copy_count': today_lineup_copy_count + today_live_comp_copy_count,
+        'today_deck_copy_count': decks['deck_copies'],
+        'today_deck_plan_copy_count': decks['deck_plan_copies'],
+        'today_deck_lineup_copy_count': decks['deck_lineup_copies'],
+        'today_new_decks': decks['new_decks'],
         'yesterday_uv': traffic_by_date.get(yesterday, 0),
         'today_new_visitors': today_visitor_mix['new_visitors'],
         'today_returning_visitors': today_visitor_mix['returning_visitors'],
@@ -106,6 +137,7 @@ def build_admin_overview_payload(db):
     pending_reports_count = int(counts['pending_reports_count'] or 0)
     hidden_lineups_count = int(counts['hidden_lineups_count'] or 0)
     recent_audit_count = int(counts['recent_audit_count'] or 0)
+    decks = _today_deck_activity(db, today)
     traffic_7d = last_7_days_uv()
     traffic_by_date = {item['date']: item['uv'] for item in traffic_7d}
     return {
@@ -122,11 +154,19 @@ def build_admin_overview_payload(db):
             'today_total_copy_count': today_lineup_copy_count + today_live_comp_copy_count,
             'total_users': total_users,
             'pending_reports_count': pending_reports_count,
+            'today_deck_copy_count': decks['deck_copies'],
+            'today_deck_plan_copy_count': decks['deck_plan_copies'],
+            'today_deck_lineup_copy_count': decks['deck_lineup_copies'],
+            'today_new_decks': decks['new_decks'],
+            'today_deck_likes': decks['deck_likes'],
+            'today_deck_favorites': decks['deck_favorites'],
+            'published_decks': decks['published_decks'],
         },
         'traffic_7d': traffic_7d,
         'todos': {
             'pending_reports_count': pending_reports_count,
             'hidden_lineups_count': hidden_lineups_count,
+            'hidden_decks_count': decks['hidden_decks'],
             'recent_audit_count': recent_audit_count,
         },
     }
@@ -137,15 +177,16 @@ def build_admin_growth_payload(target_date):
 
 
 def build_admin_copy_rank_payload(db, target_date, limit=10, *, include_details=True):
-    """Top copied lineup codes (regular lineups + live comps) for one day."""
+    """Top copied lineup codes (regular lineups + live comps) for one day, plus decks as ``deck_items``."""
     from analytics import _normalize_target_date
+    from daily_report_service import LINEUP_COPY_SCOPE, top_copied_decks
     from live_comps_helpers import find_live_comp, load_live_comps_manifest, read_live_comps_payload_for_season
 
     target_date = _normalize_target_date(target_date)
     start, end = _day_bounds(target_date)
     limit = max(1, min(int(limit or 10), 50))
     rows = db.execute(
-        '''
+        f'''
         SELECT target_type, target_id, season_id,
                COUNT(*) AS copies,
                COUNT(DISTINCT CASE
@@ -155,7 +196,7 @@ def build_admin_copy_rank_payload(db, target_date, limit=10, *, include_details=
                END) AS unique_visitors
         FROM copy_action_events
         WHERE created_at >= ? AND created_at < ?
-          AND success = 1
+          AND success = 1 AND {LINEUP_COPY_SCOPE}
         GROUP BY target_type, target_id, season_id
         ORDER BY copies DESC, target_type, target_id
         LIMIT ?
@@ -221,8 +262,9 @@ def build_admin_copy_rank_payload(db, target_date, limit=10, *, include_details=
             else:
                 item['title'] = f"未收录实时阵容 #{row['target_id']}"
         items.append(item)
+    deck_items = top_copied_decks(db, start, end, limit, include_details=include_details)
     if not include_details:
-        return {'date': target_date, 'items': items}
+        return {'date': target_date, 'items': items, 'deck_items': deck_items}
     # Keep the ranked query compact, then enrich only the visible targets with
     # the underlying successful events used to produce each aggregate row.
     target_keys = {(item['target_type'], item['target_id'], item.get('season_id') or '') for item in items}
@@ -236,6 +278,7 @@ def build_admin_copy_rank_payload(db, target_date, limit=10, *, include_details=
         LEFT JOIN lineups l ON l.id = e.lineup_id
         LEFT JOIN users owner ON owner.id = l.user_id
         WHERE e.created_at >= ? AND e.created_at < ? AND e.success = 1
+          AND e.target_type IN ('lineup', 'live_comp')
         ORDER BY e.created_at DESC, e.id DESC
         ''',
         (start, end),
@@ -275,4 +318,4 @@ def build_admin_copy_rank_payload(db, target_date, limit=10, *, include_details=
     for item in items:
         key = (item['target_type'], item['target_id'], item.get('season_id') or '')
         item['details'] = details_by_key.get(key, [])
-    return {'date': target_date, 'items': items}
+    return {'date': target_date, 'items': items, 'deck_items': deck_items}

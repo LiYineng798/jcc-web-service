@@ -21,12 +21,17 @@ def populated_db(monkeypatch):
                                  created_at,updated_at,published_at,lineup_code)
         VALUES(?,1,'demo','stable','v','published','1','2','3','now','now','now','#ABC123')
     """, ((i,) for i in range(1, 501)))
+    db.execute("""CREATE TABLE copy_action_events(id INTEGER PRIMARY KEY, target_type TEXT, target_id TEXT, season_id TEXT,
+        lineup_id INTEGER, live_comp_id TEXT, user_id INTEGER, visitor_token TEXT, ip_address TEXT, source_page TEXT,
+        success INTEGER, counted INTEGER, created_at TEXT, device_type TEXT, code_type TEXT)""")
+    # Old history outside the hot window: the ranking must not read it.
     db.executemany("INSERT INTO orange_deck_copies VALUES(?,?,?,?)",
-                   ((i, f'guest:{j}', 'old bucket', 'now') for i in range(1, 501) for j in range(100)))
+                   ((i, f'guest:{j}', '2020-01-01 00:00:00', 'now') for i in range(1, 501) for j in range(100)))
     db.execute("INSERT INTO orange_deck_favorites VALUES(1,1,'now')")
     db.execute("INSERT INTO orange_deck_likes(user_id,deck_id,like_date,created_at) VALUES(1,2,?,'now')", (decks.today(),))
     db.commit()
     monkeypatch.setattr(decks, 'get_db', lambda: db)
+    monkeypatch.setattr('copy_action_service.get_db', lambda: db)
     # These tests isolate query work; full serialization is exercised by API tests.
     monkeypatch.setattr(decks, 'serialize', lambda row, *args, **kwargs: dict(row))
     yield db
@@ -67,9 +72,19 @@ def test_copy_endpoint_does_not_read_unrelated_copy_history(populated_db):
         'counted': False, 'copy_count': 101}
 
 
-def test_hot_ranking_ignores_copy_volume_and_preserves_viewer_counts(populated_db):
+def test_hot_ranking_skips_old_copy_history_and_preserves_viewer_counts(populated_db, monkeypatch):
+    monkeypatch.setattr(decks, 'hot_scores', lambda: decks.compute_hot_scores(populated_db))
+    # Recent copies by others count; the author's own copy does not.
+    populated_db.executemany("INSERT INTO orange_deck_copies VALUES(?,?,?,?)",
+                             [(300, 'ip:198.51.100.1', decks.today() + ' 10:00:00', 'now'),
+                              (300, 'user:2', decks.today() + ' 10:00:00', 'now'),
+                              (400, 'user:1', decks.today() + ' 10:00:00', 'now')])
+    populated_db.execute("INSERT INTO users VALUES(2,'other','other','user',NULL,NULL,NULL)")
+    populated_db.execute("UPDATE orange_decks SET user_id = 2 WHERE id = 300")
     result = bounded(populated_db, lambda: decks.list_decks({'id': 1}, tab='hot'))
-    assert result['total'] == 2
-    assert [row['id'] for row in result['items']] == [2, 1]
-    assert result['items'][0]['is_liked_today'] == 1
-    assert result['items'][1]['is_favorited'] == 1
+    assert result['total'] == 500
+    assert result['items'][0]['id'] == 300
+    # Every listed deck keeps its count and viewer state, whatever its rank.
+    assert all(row['copy_count'] >= 100 for row in result['items'])
+    viewer = {row['id']: row for row in bounded(populated_db, lambda: decks.list_decks({'id': 1}, tab='hot', page_size=30, page=17))['items']}
+    assert viewer[1]['is_favorited'] == 1 and viewer[2]['is_liked_today'] == 1

@@ -8,12 +8,16 @@ import base64
 import binascii
 import json
 import re
-from datetime import datetime
+import time
+from datetime import datetime, timedelta
 from functools import lru_cache
 from pathlib import Path
 
+from flask import current_app
+
 from audit import write_audit
 from avatar_service import avatar_config
+from copy_action_service import record_copy_action
 from db import db_kind, get_db, now_text
 from db_adapter import insert_returning_id_sql, last_insert_id
 from lineup_code import LINEUP_CODE_MESSAGE, extract_lineup_code
@@ -30,29 +34,32 @@ LIMITS = {'name': 24, 'note': 300, 'key_rounds': 100, 'alternatives': 200, 'plan
 BOARD_SLOTS = 28
 MAX_ITEMS, MAX_AUGMENTS, MAX_TRAITS = 3, 6, 24
 TRAIT_STYLES = {'1', '2', '3', '4', 'unique'}
-HOT_RULE = '按真实互动排序：累计点赞数（每个账号每天对同一卡组计 1 次）加收藏账号数，取消收藏即扣除；只列出至少有 1 次互动的公开卡组，同分按发布时间。'
+HOT_RULE = ('按近期热度排序：有效复制（每次计 3 分）、收藏（2 分）、点赞（1 分）随时间衰减，7 天减半、最低保留 5%；'
+            '作者给自己卡组的互动不计入。新发布的卡组有几天的曝光加成，信息完整与推荐卡组略有加分，'
+            '同一作者的多套卡组依次降权（最低 0.6 倍），避免霸榜。排名约每分钟更新。')
 DAILY_LIKE_LIMIT = 5
+# Hot ranking: weighted, time-decayed interactions plus small cold-start priors. See compute_hot_scores().
+HOT_WEIGHTS = {'copy': 3.0, 'favorite': 2.0, 'like': 1.0}
+HOT_HALF_LIFE_DAYS, HOT_DECAY_FLOOR, HOT_COPY_WINDOW_DAYS = 7, 0.05, 90
+HOT_FRESH_BOOST, HOT_FRESH_HALF_LIFE_DAYS = 2.0, 3
+HOT_COMPLETENESS_BONUS, HOT_FEATURED_BONUS = 0.25, 1.5
+HOT_AUTHOR_DAMPING, HOT_AUTHOR_DAMPING_FLOOR = 0.8, 0.6
+HOT_CACHE_SECONDS = 60
+_hot_cache = {}
 OWNER_COLUMNS = ('u.username AS owner_username, u.nickname AS owner_nickname, u.role AS owner_role, '
                  'u.avatar_color AS owner_avatar_color, u.avatar_preset AS owner_avatar_preset, '
                  'u.avatar_expression AS owner_avatar_expression')
-RANKING_COUNTS = ('LEFT JOIN (SELECT deck_id, COUNT(*) AS c FROM orange_deck_favorites GROUP BY deck_id) fc ON fc.deck_id = d.id '
-                  'LEFT JOIN (SELECT deck_id, COUNT(*) AS c FROM orange_deck_likes GROUP BY deck_id) lc ON lc.deck_id = d.id')
-INTERACTION_SCORE = '(COALESCE(fc.c, 0) + COALESCE(lc.c, 0))'
 
 
 def today():
     return datetime.now().strftime('%Y-%m-%d')
 
 
-def _viewer_columns(user, *, ranked=False):
-    """Indexed counts for displayed decks; only hot ranking needs global aggregates."""
-    counts = (
-        'COALESCE(fc.c, 0) AS favorite_count, COALESCE(lc.c, 0) AS like_count'
-        if ranked else
-        '(SELECT COUNT(*) FROM orange_deck_favorites f WHERE f.deck_id = d.id) AS favorite_count, '
-        '(SELECT COUNT(*) FROM orange_deck_likes l WHERE l.deck_id = d.id) AS like_count'
-    )
-    counts += ', (SELECT COUNT(*) FROM orange_deck_copies c WHERE c.deck_id = d.id) AS copy_count'
+def _viewer_columns(user):
+    """Indexed counts for the displayed decks only."""
+    counts = ('(SELECT COUNT(*) FROM orange_deck_favorites f WHERE f.deck_id = d.id) AS favorite_count, '
+              '(SELECT COUNT(*) FROM orange_deck_likes l WHERE l.deck_id = d.id) AS like_count, '
+              '(SELECT COUNT(*) FROM orange_deck_copies c WHERE c.deck_id = d.id) AS copy_count')
     if not user:
         return f'{counts}, 0 AS is_favorited, 0 AS is_liked_today', []
     return (f'{counts}, CASE WHEN EXISTS (SELECT 1 FROM orange_deck_favorites mf WHERE mf.deck_id = d.id AND mf.user_id = ?) THEN 1 ELSE 0 END AS is_favorited, '
@@ -511,8 +518,6 @@ def list_decks(user, tab='latest', query='', portal='', page=1, page_size=10, sh
         params.insert(0, user['id'])
     if tab == 'featured':
         clauses.append('d.featured = 1')
-    if tab == 'hot':
-        clauses.append(f'{INTERACTION_SCORE} > 0')
     if portal:
         clauses.append('d.portal_id = ?')
         params.append(portal)
@@ -526,27 +531,128 @@ def list_decks(user, tab='latest', query='', portal='', page=1, page_size=10, sh
             search += [f'd.card_id_{n} IN ({marks})' for n in range(1, DECK_SIZE + 1)]
             params += card_ids * DECK_SIZE
         clauses.append('(' + ' OR '.join(search) + ')')
-    order = {
-        'latest': 'd.published_at DESC, d.id DESC',
-        'hot': f'{INTERACTION_SCORE} DESC, d.published_at DESC, d.id DESC',
-        'featured': 'd.featured_at DESC, d.id DESC',
-        'favorites': 'mine.created_at DESC, d.id DESC',
-        'mine': 'd.updated_at DESC, d.id DESC',
-    }[tab]
-    ranking_joins = RANKING_COUNTS if tab == 'hot' else ''
-    base = f"FROM orange_decks d JOIN users u ON u.id = d.user_id {ranking_joins} {' '.join(joins)} WHERE {' AND '.join(clauses)}"
+    base = f"FROM orange_decks d JOIN users u ON u.id = d.user_id {' '.join(joins)} WHERE {' AND '.join(clauses)}"
     db = get_db()
-    total = db.execute(f'SELECT COUNT(*) AS total {base}', params).fetchone()['total']
-    columns, viewer_params = _viewer_columns(user, ranked=tab == 'hot')
-    rows = db.execute(
-        f'SELECT d.*, {OWNER_COLUMNS}, {columns} {base} ORDER BY {order} LIMIT ? OFFSET ?',
-        viewer_params + params + [page_size, (page - 1) * page_size],
-    ).fetchall()
+    columns, viewer_params = _viewer_columns(user)
+    if tab == 'hot':
+        rows, total, ranks = _hot_page(db, base, params, columns, viewer_params, page, page_size)
+    else:
+        order = {
+            'latest': 'd.published_at DESC, d.id DESC',
+            'featured': 'd.featured_at DESC, d.id DESC',
+            'favorites': 'mine.created_at DESC, d.id DESC',
+            'mine': 'd.updated_at DESC, d.id DESC',
+        }[tab]
+        total = db.execute(f'SELECT COUNT(*) AS total {base}', params).fetchone()['total']
+        rows = db.execute(
+            f'SELECT d.*, {OWNER_COLUMNS}, {columns} {base} ORDER BY {order} LIMIT ? OFFSET ?',
+            viewer_params + params + [page_size, (page - 1) * page_size],
+        ).fetchall()
+        ranks = {}
+    items = []
+    for row in rows:
+        item = serialize(row, user, share_base=share_base)
+        if row['id'] in ranks:
+            item['hot'] = ranks[row['id']]
+        items.append(item)
     return {
-        'items': [serialize(row, user, share_base=share_base) for row in rows], 'total': total, 'page': page,
+        'items': items, 'total': total, 'page': page,
         'page_size': page_size, 'total_pages': max(1, -(-total // page_size)), 'tab': tab, 'q': query, 'portal': portal,
         'ranking_rule': HOT_RULE if tab == 'hot' else None,
     }
+
+
+def _hot_page(db, base, params, columns, viewer_params, page, page_size):
+    """Order the filtered decks by the cached global heat; per-viewer counts only for the visible page."""
+    scores = hot_scores()
+    candidates = db.execute(f'SELECT d.id, d.published_at {base}', params).fetchall()
+    # Unscored decks (published after the cached ranking was built) are new, so they sort by freshness.
+    fresh = HOT_FRESH_BOOST + HOT_COMPLETENESS_BONUS
+    ordered = sorted(candidates, key=lambda row: (scores.get(row['id'], {}).get('score', fresh),
+                                                  row['published_at'] or '', row['id']), reverse=True)
+    ranks = {row['id']: {'rank': index, **scores.get(row['id'], {'score': fresh, 'recent_interactions': 0})}
+             for index, row in enumerate(ordered, start=1)}
+    ids = [row['id'] for row in ordered[(page - 1) * page_size:page * page_size]]
+    if not ids:
+        return [], len(ordered), {}
+    marks = ', '.join('?' for _ in ids)
+    by_id = {row['id']: row for row in db.execute(
+        f'SELECT d.*, {OWNER_COLUMNS}, {columns} FROM orange_decks d JOIN users u ON u.id = d.user_id WHERE d.id IN ({marks})',
+        viewer_params + ids).fetchall()}
+    return [by_id[deck_id] for deck_id in ids if deck_id in by_id], len(ordered), {deck_id: ranks[deck_id] for deck_id in ids}
+
+
+def _decay(age_days):
+    return max(0.5 ** (max(age_days, 0) / HOT_HALF_LIFE_DAYS), HOT_DECAY_FLOOR)
+
+
+def _age_days(day_text, now):
+    try:
+        return (now.date() - datetime.strptime(str(day_text)[:10], '%Y-%m-%d').date()).days
+    except ValueError:
+        return HOT_COPY_WINDOW_DAYS
+
+
+def hot_scores():
+    """Heat for every public deck, cached briefly per database because it aggregates interaction history."""
+    key = (current_app.config.get('DATABASE_URL'), current_app.config.get('DATABASE'))
+    cached = _hot_cache.get(key)
+    if cached and cached[0] > time.monotonic() and not current_app.testing:
+        return cached[1]
+    scores = compute_hot_scores(get_db())
+    _hot_cache[key] = (time.monotonic() + HOT_CACHE_SECONDS, scores)
+    return scores
+
+
+def compute_hot_scores(db, now=None):
+    """score = Σ weight × decay(age) over others' copies/favorites/likes
+             + fresh boost (halves every 3 days) + completeness + featured,
+       then an author's 2nd, 3rd… deck is damped by 0.8, 0.64, at least 0.6, so one author cannot fill the top.
+
+    Effective copies are the strongest signal (the code was taken into the game, deduplicated per
+    account/IP per five minutes); favorites persist intent; likes are cheap. Only copies inside the
+    window are read, so the cost stays bounded as history grows; older copies have reached the floor.
+    """
+    now = now or datetime.now()
+    decks = db.execute(
+        "SELECT id, user_id, published_at, featured, plan_code, lineup_code, formation_json, note "
+        "FROM orange_decks WHERE status = 'published'").fetchall()
+    heat = {row['id']: 0.0 for row in decks}
+    recent = {row['id']: 0 for row in decks}
+    since = (now - timedelta(days=HOT_COPY_WINDOW_DAYS)).strftime('%Y-%m-%d')
+    signals = (
+        # Copies first (CROSS JOIN) and day-first grouping keep SQLite on the bucket_start range
+        # instead of walking every deck's full history through the primary key.
+        ('copy', "SELECT c.deck_id, substr(c.bucket_start, 1, 10) AS day, COUNT(*) AS n FROM orange_deck_copies c "
+                 "CROSS JOIN orange_decks d WHERE c.bucket_start >= ? AND d.id = c.deck_id AND d.status = 'published' "
+                 "AND c.copy_key <> 'user:' || CAST(d.user_id AS TEXT) GROUP BY substr(c.bucket_start, 1, 10), c.deck_id", (since,)),
+        ('favorite', "SELECT f.deck_id, substr(f.created_at, 1, 10) AS day, COUNT(*) AS n FROM orange_deck_favorites f "
+                     "JOIN orange_decks d ON d.id = f.deck_id WHERE d.status = 'published' AND f.user_id <> d.user_id "
+                     "GROUP BY f.deck_id, substr(f.created_at, 1, 10)", ()),
+        ('like', "SELECT l.deck_id, l.like_date AS day, COUNT(*) AS n FROM orange_deck_likes l "
+                 "JOIN orange_decks d ON d.id = l.deck_id WHERE d.status = 'published' AND l.user_id <> d.user_id "
+                 "GROUP BY l.deck_id, l.like_date", ()),
+    )
+    for kind, sql, args in signals:
+        for row in db.execute(sql, args).fetchall():
+            if row['deck_id'] not in heat:
+                continue
+            age = _age_days(row['day'], now)
+            heat[row['deck_id']] += HOT_WEIGHTS[kind] * int(row['n']) * _decay(age)
+            if age < 7:
+                recent[row['deck_id']] += int(row['n'])
+    scored = []
+    for row in decks:
+        completeness = sum(bool(value) for value in (row['plan_code'], row['lineup_code'], row['formation_json'], row['note']))
+        prior = (HOT_FRESH_BOOST * 0.5 ** (max(_age_days(row['published_at'] or '', now), 0) / HOT_FRESH_HALF_LIFE_DAYS)
+                 + HOT_COMPLETENESS_BONUS * completeness + (HOT_FEATURED_BONUS if row['featured'] else 0))
+        scored.append((heat[row['id']] + prior, row['published_at'] or '', row['id'], row['user_id']))
+    scored.sort(reverse=True)
+    seen, result = {}, {}
+    for score, _, deck_id, author in scored:
+        result[deck_id] = score * max(HOT_AUTHOR_DAMPING ** seen.get(author, 0), HOT_AUTHOR_DAMPING_FLOOR)
+        seen[author] = seen.get(author, 0) + 1
+    return {deck_id: {'score': round(score, 3), 'recent_interactions': recent[deck_id]} for deck_id, score in result.items()}
 
 
 def export_payload(deck_id, user):
@@ -713,15 +819,19 @@ def like(user, deck_id):
     return {'liked_today': True, 'like_count': count}
 
 
-def record_copy(user, deck_id, ip, code_type='plan'):
-    """Count either code; keep the existing per-deck five-minute deduplication."""
+def record_copy(user, deck_id, ip, code_type='plan', source=''):
+    """Count either code; keep the existing per-deck five-minute deduplication.
+
+    Every successful copy is also logged in copy_action_events (target_type 'orange_deck') for the admin
+    reports, which keep deck figures apart from lineup-code totals.
+    """
     if code_type not in ('plan', 'lineup'):
         raise DeckError('复制类型无效')
     column = 'plan_code' if code_type == 'plan' else 'lineup_code'
     label = '方案码' if code_type == 'plan' else '阵容码'
     db = get_db()
     # Copy recording needs visibility and the chosen code, not author metadata or social counts.
-    row = db.execute('SELECT user_id, status, plan_code, lineup_code FROM orange_decks WHERE id = ?', (deck_id,)).fetchone()
+    row = db.execute('SELECT user_id, status, season_id, plan_code, lineup_code FROM orange_decks WHERE id = ?', (deck_id,)).fetchone()
     if not visible_to(row, user):
         raise DeckError('卡组不存在', 404)
     if row['status'] != 'published':
@@ -736,6 +846,8 @@ def record_copy(user, deck_id, ip, code_type='plan'):
         (key, bucket_start(), now_text(), deck_id),
     )
     counted = bool(cursor.rowcount)
+    record_copy_action('orange_deck', deck_id, user=user, ip_address=ip, source_page=source, counted=counted,
+                       season_id=row['season_id'], code_type=code_type)
     count = db.execute('SELECT COUNT(*) AS c FROM orange_deck_copies WHERE deck_id = ?', (deck_id,)).fetchone()['c']
     db.commit()
     return {'counted': counted, 'copy_count': count}
