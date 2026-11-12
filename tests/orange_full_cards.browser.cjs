@@ -42,6 +42,10 @@ const out='instance/full-card-review';fs.mkdirSync(out,{recursive:true});
   await page.setViewportSize({width:1440,height:1050});await page.goto(base+'/tools/orange-fortune-creator');
   await page.evaluate(()=>localStorage.setItem('jcc-orange-creator-v1',JSON.stringify({version:1,title:'把好运，留给关键回合',author:'橘子研究所',layout:'cards',background:'gilded',portal:'unknown',cards:['7210014','7230005','7250036'],note:'围绕生效回合规划节奏，让资源在关键时刻兑现价值。优先稳住经济，再用高品质卡片完成构筑。'})));
   await page.reload();await page.waitForSelector('.fp-card .is-official');
+  await page.locator('[data-slot="0"]').click();
+  const pickerRatios=await page.locator('.creator-pick .is-official').evaluateAll(es=>es.map(e=>e.clientWidth/e.clientHeight));
+  assert.equal(pickerRatios.length,201);assert.ok(pickerRatios.every(r=>Math.abs(r-.625)<.01),'picker must not stretch or crop full cards');
+  await page.keyboard.press('Escape');
   const rects=await page.locator('.fp-card .is-official').evaluateAll(es=>es.map(e=>({h:e.clientHeight,w:e.clientWidth})));
   assert.ok(rects.every(r=>r.h===rects[0].h&&r.w===rects[0].w));
   for(const material of ['gilded','ivory','astral']) {
