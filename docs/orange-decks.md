@@ -16,7 +16,7 @@ URL 状态为 `/?library=decks&tab=&portal=&q=&page=`，支持直接链接、刷
 | 首页列表 | `templates/index.html`、`static/orange-deck-library.js`；卡片沿用 `home-lineup-card.css` 外壳与图标增强 |
 | 发布 / 编辑 | `lineup_form.html`（含切换与 `orange_deck_fields.html`）、`orange_deck_form.html`、`publish.js/css`、`orange-deck-editor.js` |
 | 详情 | `orange_deck_detail.html`、`orange_deck_macros.html`、`orange-deck-detail.js` |
-| 共用渲染 | `static/orange-deck-core.js`、`static/orange-decks.css`（与 `orange_deck_macros.html` 保持一致）；卡面复用图鉴的 `fortune-card-frame.css` 与包边模板，使用纯卡图变体 `.is-art-only`（不叠加名称/描述底、星点与类型，卡图居中铺满），海报与选卡同样使用 |
+| 共用渲染 | `static/orange-deck-core.js`、`static/orange-decks.css`（与 `orange_deck_macros.html` 保持一致）；卡面由 `fortune-card-art.js`、`fortune-card-frame.css` 与 Jinja 宏共同渲染；带底板图片使用 `.is-official`，旧独立插画保留 `.is-art-only`，海报与选卡同样使用 |
 | 个人中心 | `frontend/components/ui/bento-card.tsx`：概览分别统计阵容码与卡组，「我的阵容 / 我的收藏」可切换卡组 |
 | 后台 | `static/admin/orange-decks.js`，「内容与用户 → 卡组库」 |
 
@@ -102,3 +102,11 @@ PostgreSQL 对应 DB migration `0027_orange_deck_copies.sql`，需要先于 Web 
 该包只使用仓库现有基准，浏览器脚本在本地预览库发布后会回滚到原版本；不是新的官方补丁。
 预览只监听 loopback，示例数据位于独立 `instance/deck-review-preview`，快捷登录路由仅在此测试入口注册。
 浏览器验证需覆盖首页切换/历史、站位展开、卡片弹窗、发布与超限提示、阵容 iframe 往返、海报导入不覆盖草稿和后台操作。
+
+## 卡面展示
+
+`time_card_art.py` 从当前选中版本的本地图片读取尺寸和透明边界，生成只用于展示的 `framed` 与 `art_style`。官方正方形图片的可见卡面按统一 5:8 展示区等比缩放，完整保留宝石、边框和底板；卡名写在官方横幅上，类型与能量点写在底板上，效果说明放在卡面外。不能按品阶假设固定图片尺寸，也不能仅用 `layout=icon` 或 URL 判断图片类型：旧包的短独立插画也使用该布局值。
+
+版本发布、候选预览与回滚仍读取各自图片，不用静态基准覆盖旧包卡图。若当前发布包使用独立插画，部署样式后仍保持该包图片；切换完整卡面需要另行发布对应图片修订包。包协议与数据库结构不变。
+
+图鉴用两栏至五栏的卡面展架，摘要限制三行，详情保留完整效果和所有生效回合；手机和键盘均可打开、关闭详情。专项浏览器检查为 `tests/orange_full_cards.browser.cjs`（`DECK_REVIEW_URL` 指向隔离预览）。

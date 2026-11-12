@@ -246,7 +246,7 @@ def test_detail_page_share_text_seo_and_sitemap(users):
     draft = create(owner, action='draft', name='私人草稿').get_json()
     html = guest.get(f"/orange-decks/{deck['id']}").get_data(as_text=True)
     for text in ['轻装稳定门', '利滚利', '自选神器', '幸运宝箱堆 II', '未知传送门', '2,000 金橘币', '前期稳血', '替代卡建议',
-                 'deck-board', '佛耶戈', 'fortune-card-bezel', 'data-portal="unknown"', 'data-action="like"', 'data-action="favorite"']:
+                 'deck-board', '佛耶戈', 'fortune-card-frame is-official', 'data-portal="unknown"', 'data-action="like"', 'data-action="favorite"']:
         assert text in html, text
     # Copying, forking and poster export are no longer offered on the detail page.
     for text in ['copy-text', 'copy-link', 'data-action="fork"', 'orange-fortune-creator?deck=', '额外羁绊']:
@@ -329,7 +329,7 @@ def test_card_data_changes_are_reported_and_never_replaced(users, monkeypatch):
     assert second['status'] == 'missing' and second['name'] == '假人朋友' and second['image_url'] is None
     assert third['status'] == 'ok'
     assert data['energy'] == 5 and data['compat']['missing_cards'] == 1 and not data['fits']
-    assert data['compat']['issues'][0].startswith('卡片资料已从 18.18.1（2026-10-28）更新为 18.18.2（2026-11-10）')
+    assert data['compat']['issues'][0].startswith('卡片资料已从 18.18.1（2026-11-03）更新为 18.18.2（2026-11-10）')
     assert '「假人朋友」在当前资料中已失效' in data['compat']['issues']
     html = guest.get(f"/orange-decks/{deck['id']}").get_data(as_text=True)
     assert '当前资料中不存在' in html and '资料变化' in html
@@ -349,11 +349,11 @@ def test_card_data_changes_are_reported_and_never_replaced(users, monkeypatch):
 def test_unchanged_data_reports_version_only(users, monkeypatch):
     owner, *_ = users
     deck = create(owner).get_json()
-    assert deck['compat'] == {'saved_version': '18.18.1（2026-10-28）', 'current_version': '18.18.1（2026-10-28）',
+    assert deck['compat'] == {'saved_version': '18.18.1（2026-11-03）', 'current_version': '18.18.1（2026-11-03）',
                               'issues': [], 'missing_cards': 0}
     monkeypatch.setattr(orange_deck_service, 'card_version', lambda: '18.18.2@2026-11-10 10:00:00')
     issues = owner.get(f"/api/orange-decks/{deck['id']}").get_json()['compat']['issues']
-    assert issues == ['卡片资料已从 18.18.1（2026-10-28）更新为 18.18.2（2026-11-10），卡名与品阶未变；效果说明以当前资料为准。']
+    assert issues == ['卡片资料已从 18.18.1（2026-11-03）更新为 18.18.2（2026-11-10），卡名与品阶未变；效果说明以当前资料为准。']
 
 
 def test_decks_stay_out_of_lineup_counts_and_rankings(users):

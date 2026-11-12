@@ -8,6 +8,7 @@
 {{ seo_head(seo) }}
     <link rel="stylesheet" href="{{ static_v('moderation.css') }}" />
     {% if creating %}<link rel="stylesheet" href="{{ static_v('fortune-card-frame.css') }}" />{% endif %}
+    {% if creating %}<script src="{{ static_v('fortune-card-art.js') }}" defer></script>{% endif %}
     <link rel="stylesheet" href="{{ static_v('orange-decks.css') }}" />
     <link rel="stylesheet" href="{{ static_v('publish.css') }}" />
   </head>

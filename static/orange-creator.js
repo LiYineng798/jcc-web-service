@@ -57,16 +57,14 @@
     catch { $('save-status').textContent = '草稿未能保存；请在离开前导出海报'; }
   }
   const image = (url, alt = '', cls = '') => `<img src="${esc(url)}" alt="${esc(alt)}" class="${cls}" decoding="async">`;
-  function art(card) {
-    return `<span class="fortune-card-frame is-art-only"><span class="fortune-card-surface fortune-art-${esc(card.layout)}">${card.image ? image(card.image_url, '', 'fortune-card-image') : '<span class="fortune-missing"><i>◇</i>卡图暂缺</span>'}<span class="fortune-card-shade"></span></span>${$(`bezel-${card.tier}`).innerHTML}</span>`;
-  }
+  const art = card => window.FortuneCardArt.render(card);
   function renderSlots() {
     const d = deck();
     $('card-count').textContent = `${d.count} / 3 · 能量 ${d.energy}`;
     $('card-slots').classList.toggle('is-over', d.over);
     $('card-slots').innerHTML = state.cards.map((id,i) => {
       const card = cards.get(id);
-      return `<div class="creator-slot-row"><button class="creator-slot ${card?'selected':''}" type="button" data-slot="${i}" ${card?`data-tier="${card.tier}"`:''} aria-haspopup="dialog" aria-label="选择第${i+1}张卡片${card?`：${esc(card.name)}，${esc(card.tier_name)}，能量 ${card.energy}`:''}">${card?.image?image(card.image_url):`<span>${String(i+1).padStart(2,'0')}</span>`}<span><strong>${card?esc(card.name):'选择一张时间卡片'}</strong><small>${card?`<b class="creator-tier">${esc(card.tier_name)}</b>${esc(card.category)} · ${esc(roundText(card))}`:'从时间卡片图鉴中挑选'}</small></span>${card?`<em class="creator-slot-energy" aria-hidden="true">${card.energy}</em>`:''}</button>${card?`<button type="button" class="creator-remove" data-remove="${i}" aria-label="移除${esc(card.name)}">×</button>`:''}</div>`;
+      return `<div class="creator-slot-row"><button class="creator-slot ${card?'selected':''}" type="button" data-slot="${i}" ${card?`data-tier="${card.tier}"`:''} aria-haspopup="dialog" aria-label="选择第${i+1}张卡片${card?`：${esc(card.name)}，${esc(card.tier_name)}，能量 ${card.energy}`:''}">${card?.image?`<span class="creator-slot-art">${art(card)}</span>`:`<span>${String(i+1).padStart(2,'0')}</span>`}<span><strong>${card?esc(card.name):'选择一张时间卡片'}</strong><small>${card?`<b class="creator-tier">${esc(card.tier_name)}</b>${esc(card.category)} · ${esc(roundText(card))}`:'从时间卡片图鉴中挑选'}</small></span>${card?`<em class="creator-slot-energy" aria-hidden="true">${card.energy}</em>`:''}</button>${card?`<button type="button" class="creator-remove" data-remove="${i}" aria-label="移除${esc(card.name)}">×</button>`:''}</div>`;
     }).join('');
   }
   function picker() {

@@ -25,7 +25,7 @@ def test_catalog_preserves_official_text_and_matches_local_art():
     assert len(hashes) == len(set(hashes))
     # Icon URL IDs must not be substituted for the downloaded card-ID filenames.
     card = next(c for c in cards if c['id'] == '7210024')
-    assert card['source']['sIcon'].endswith('/7210025.png')
+    assert card['source']['sIcon'].endswith('/7210025_icon.png')
     assert card['image'].endswith('/7210024.png')
     assert source['provenance']['card_url'].endswith('/16/18.18.1-S400001/card.js')
 
@@ -54,7 +54,7 @@ def test_guest_page_search_and_home_navigation(client):
     for text in ('稳定传送门', '波动传送门', '未知传送门', '≤ 8', '≤ 10', '≤ 15', '0 金橘币', '400 金橘币', '2,000 金橘币',
                  '不损失卡片', '随机损失两张卡片', '随机损失三张卡片'):
         assert text in html
-    assert '黑玫瑰夜市' in html and '卡图暂缺' in html
+    assert '黑玫瑰夜市' in html and html.count('fortune-card-frame is-official') == 201
     filtered = client.get(PAGE, query_string={'q': '黑玫瑰', 'tier': '5'}).get_data(as_text=True)
     assert '找到 <strong>1</strong> 张卡片' in filtered
     assert 'noindex' in filtered

@@ -30,17 +30,7 @@
     return api(`/api/orange-decks/${deckId}/copy?code_type=${encodeURIComponent(codeType)}`, { method: 'POST', csrf });
   }
 
-  // The gallery's time-card frame and metal bezel, art only: name and effect are always printed beside it.
-  // Pages provide <template id="bezel-N"> and the shared gradient definitions.
-  function art(card) {
-    if (!card) return '<span class="deck-frame-empty">空卡槽</span>';
-    const tier = Number(card.tier) || 1;
-    const body = card.image_url
-      ? `<img class="fortune-card-image" src="${esc(card.image_url)}" alt="" loading="lazy" decoding="async">`
-      : `<span class="fortune-missing"><i aria-hidden="true">◇</i>${card.status === 'missing' ? '已失效' : '卡图暂缺'}</span>`;
-    const bezel = document.getElementById(`bezel-${tier}`)?.innerHTML || '';
-    return `<span class="fortune-card-frame is-art-only" data-tier="${tier}"><span class="fortune-card-surface fortune-art-${esc(card.layout || 'missing')}">${body}<span class="fortune-card-shade"></span></span>${bezel}</span>`;
-  }
+  const art = card => global.FortuneCardArt.render(card);
 
   function tierText(card) {
     return card.status === 'missing' ? '当前资料中不存在' : `${card.tier_name} · 能量 ${card.energy}`;

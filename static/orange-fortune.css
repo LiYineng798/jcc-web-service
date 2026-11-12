@@ -55,10 +55,6 @@
 .fortune-card-button { display: block; width: 100%; border: 0; padding: 0; background: none; font: inherit; cursor: pointer; text-align: left; transition: transform .2s; border-radius: 6px; }
 .fortune-card-button:hover { transform: translateY(-5px); }
 .fortune-card-button:focus-visible { outline: 2px solid var(--fortune-gold); outline-offset: 5px; }
-.fortune-card-copy { position: absolute; left: 7%; right: 7%; top: var(--copy-top); }
-.fortune-card-title { display: grid; place-items: center; min-height: 31px; padding: 4px 8px; background: linear-gradient(105deg, #ffffff18, transparent 24%, #ffffff32 49%, transparent 72%), linear-gradient(180deg, var(--tier), var(--tier-ink) 48%, color-mix(in srgb, var(--tier), var(--tier-ink) 50%) 85%, var(--tier)); border-block: 1px solid color-mix(in srgb, var(--tier), white 40%); clip-path: polygon(4% 0,96% 0,100% 50%,96% 100%,4% 100%,0 50%); color: #fff; font-size: clamp(11px, 1.15vw, 15px); font-weight: 650; line-height: 1.4; text-align: center; text-shadow: 0 1px 3px #000b; }
-.fortune-card-effect { display: block; margin-top: 12px; padding: 0 5px; font-size: clamp(11px, 1.05vw, 13px); line-height: 1.75; overflow-wrap: anywhere; }
-.fortune-round { display: inline-block; color: #e6dfcf; border: 1px solid #b9c9db66; background: #35425766; font-size: .9em; font-weight: 600; line-height: 1.4; padding: 1px 6px; border-radius: 3px; margin-right: 6px; font-variant-numeric: tabular-nums; }
 .fortune-empty { text-align: center; padding: 70px 16px; color: var(--muted); }
 .fortune-empty > span { font-size: 56px; color: var(--fortune-gold); }
 .fortune-empty h2 { font-size: 20px; color: var(--text); }
@@ -172,3 +168,33 @@
 }
 /* Links into the deck library stay plain text links. */
 .fortune-meta a.fortune-preview-label, .fortune-detail-hint a { color: inherit; text-underline-offset: 3px; }
+
+/* A quiet exhibition shelf: complete card faces above a readable catalogue label. */
+.fortune-grid { gap:24px; }
+.fortune-card-button { height:100%; background:var(--surface-solid); border:1px solid var(--line); border-radius:5px; overflow:hidden; }
+.fortune-card-button:hover { transform:translateY(-3px); border-color:color-mix(in srgb,var(--tier) 65%,var(--line)); box-shadow:0 12px 28px #0000000c; }
+.fortune-card-display { display:grid; place-items:center; position:relative; padding:26px 26px 24px; background:radial-gradient(ellipse at 50% 65%,color-mix(in srgb,var(--tier) 12%,transparent),transparent 68%),linear-gradient(150deg,#ffffff08,#00000004); border-bottom:1px solid var(--line); }
+.fortune-card-display::after { content:''; position:absolute; inset:13px; border:1px solid color-mix(in srgb,var(--tier) 18%,transparent); border-radius:100px 100px 0 0; pointer-events:none; }
+.fortune-card-display .fortune-card-frame { width:76%; max-width:165px; min-height:0; aspect-ratio:5 / 8; z-index:1; }
+.fortune-card-index { position:absolute; left:13px; top:13px; font-size:9px; letter-spacing:1px; color:var(--muted); font-variant-numeric:tabular-nums; }
+.fortune-card-caption { display:flex; flex-direction:column; padding:18px 18px 14px; text-align:left; }
+.fortune-caption-meta { display:flex; justify-content:space-between; gap:8px; font-size:10px; color:var(--muted); letter-spacing:.08em; }
+.fortune-card-caption .fortune-card-category { position:static; display:inline; font-size:inherit; color:inherit; letter-spacing:inherit; }
+.fortune-card-title { display:block; min-height:0; padding:0; margin:9px 0 6px; font-size:16px; font-weight:650; line-height:1.5; color:var(--text); background:none; border:0; clip-path:none; text-shadow:none; text-align:left; }
+.fortune-card-timing { font-size:11px; line-height:1.5; color:var(--fortune-gold); font-variant-numeric:tabular-nums; }
+.fortune-card-description { display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:3; overflow:hidden; height:5.4em; margin-top:12px; font-size:12px; line-height:1.8; color:var(--muted); overflow-wrap:anywhere; }
+.fortune-card-more { display:flex; align-items:center; justify-content:space-between; padding-top:12px; margin-top:14px; border-top:1px solid var(--line); font-size:10px; letter-spacing:.06em; color:var(--muted); }
+.fortune-card-more i { font-style:normal; color:var(--fortune-gold); font-size:14px; }
+.fortune-detail-art .fortune-card-frame { min-height:0; aspect-ratio:5 / 8; }
+.fortune-detail-content { min-height:calc(var(--detail-art-width) * 1.6); padding-block:20px; }
+@media (max-width:640px) {
+ .fortune-grid { gap:14px 10px; }
+ .fortune-card-display { padding:20px 10px 18px; }
+ .fortune-card-display .fortune-card-frame { width:82%; }
+ .fortune-card-caption { padding:13px 12px 10px; }
+ .fortune-card-title { font-size:13px; margin-top:7px; }
+ .fortune-card-description { font-size:11px; }
+ .fortune-caption-meta { font-size:9px; letter-spacing:0; }
+ .fortune-detail-content { min-height:0; padding:0; }
+ .fortune-card-index { left:10px; top:10px; }
+}

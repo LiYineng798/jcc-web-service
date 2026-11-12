@@ -17,35 +17,6 @@
   let activeCard = null;
   let returnFocus = null;
   const searchText = new Map(cards.map(card => [card, `${card.querySelector('.fortune-card-title').textContent} ${card.querySelector('.fortune-card-description').textContent} ${card.dataset.id}`.toLowerCase()]));
-  // Give the artwork more room while keeping long effects above the lower bevel.
-  function fitCardCopy(root = document) {
-    const measurements = [...root.querySelectorAll('.fortune-card-frame')].map(frame => {
-      const height = frame.clientHeight;
-      if (!height) return null;
-      const copy = frame.querySelector('.fortune-card-copy');
-      const preferred = parseFloat(getComputedStyle(frame).getPropertyValue('--copy-preferred'));
-      return [frame, Math.min(preferred, .81 - (copy.offsetHeight + 1) / height) * 100];
-    });
-    measurements.forEach(item => {
-      if (item) item[0].style.setProperty('--copy-top', `${Math.max(0, item[1])}%`);
-    });
-  }
-  new ResizeObserver(() => fitCardCopy()).observe(document.querySelector('.fortune-page'));
-  document.fonts.ready.then(() => fitCardCopy());
-  function watchImage(img) {
-    function fallback() {
-      if (img.parentElement.querySelector('.fortune-missing')) return;
-      img.hidden = true;
-      const note = document.createElement('span');
-      note.className = 'fortune-missing';
-      note.textContent = '卡图暂不可用';
-      img.parentElement.append(note);
-    }
-    img.addEventListener('error', fallback, { once: true });
-    if (img.complete && !img.naturalWidth) fallback();
-  }
-  cards.forEach(card => card.querySelectorAll('img').forEach(watchImage));
-
   function updateURL(cardId = activeCard?.dataset.id) {
     const url = new URL(location.href);
     for (const key of ['q', 'tier', 'category', 'round']) {
@@ -74,13 +45,12 @@
     });
     document.querySelector('#fortune-count strong').textContent = count;
     document.querySelector('.fortune-empty').hidden = count !== 0;
-    fitCardCopy();
     if (writeURL) updateURL();
   }
 
   function openCard(card, writeURL = true) {
     activeCard = card;
-    returnFocus = document.activeElement;
+    returnFocus = card.querySelector('button');
     const title = card.querySelector('.fortune-card-title').textContent;
     document.querySelector('#fortune-detail-title').textContent = title;
     document.querySelector('#fortune-detail-meta').textContent = `${card.dataset.tierName}卡片 · 能量 ${card.dataset.tier} · ${card.querySelector('.fortune-card-category').textContent}`;
@@ -95,9 +65,8 @@
     const art = document.querySelector('.fortune-detail-art');
     art.dataset.tier = card.dataset.tier;
     art.replaceChildren(card.querySelector('.fortune-card-frame').cloneNode(true));
-    art.querySelectorAll('img').forEach(img => { img.loading = 'eager'; watchImage(img); });
+    art.querySelectorAll('img').forEach(img => { img.loading = 'eager'; });
     if (!dialog.open) dialog.showModal();
-    fitCardCopy(dialog);
     document.body.style.overflow = 'hidden';
     dialog.scrollTop = 0;
     dialog.querySelector('.fortune-close').focus({ preventScroll: true });

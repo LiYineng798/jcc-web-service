@@ -45,5 +45,5 @@ def creator_config():
         ],
         'cards': [{**{key: card[key] for key in ('id', 'tier', 'tier_name', 'energy', 'name', 'description',
                                                  'category', 'rounds', 'image', 'layout')},
-                   'image_url': card['image_url']} for card in catalog()['cards']],
+                   'image_url': card['image_url'], 'framed': card.get('framed', False), 'art_style': card.get('art_style', '')} for card in catalog()['cards']],
     }

@@ -45,3 +45,35 @@
 .is-art-only .fortune-card-shade { background: radial-gradient(ellipse 80% 62% at 50% 46%, transparent 58%, #04081052 100%), linear-gradient(180deg, #ffffff12, transparent 22%, transparent 80%, #04081038); }
 .is-art-only .fortune-missing { inset: 0; top: 0; align-content: center; gap: 6px; }
 .is-art-only .fortune-missing i { font-size: 2.2em; }
+
+/* Official full cards: retain the native rim, ribbon and plinth. All five tiers
+   share the same visible height; only transparent margins are outside the stage. */
+.fortune-card-frame.is-official {
+  display:block; position:relative; width:100%; height:auto; min-height:0;
+  aspect-ratio:5 / 8; clip-path:none; background:none; overflow:visible;
+  container-type:inline-size; filter:drop-shadow(0 8px 10px #0002);
+}
+.fortune-official-canvas { position:absolute; inset:0; display:block; overflow:hidden; }
+.is-official .fortune-card-image {
+  position:absolute; width:var(--art-width); height:auto; max-width:none;
+  left:var(--art-left); top:var(--art-top); object-fit:contain;
+  aspect-ratio:1; clip-path:none; mask-image:none;
+}
+.fortune-official-title {
+  position:absolute; top:var(--ribbon-top); left:7%; right:7%; transform:translateY(-50%);
+  color:#fff; text-shadow:0 1px 2px #000c; text-align:center;
+  font-size:clamp(6px, 6cqi, 20px); font-weight:650; line-height:1.1;
+  letter-spacing:0; white-space:nowrap;
+}
+.fortune-official-seal {
+  position:absolute; top:var(--seal-top); left:16%; right:16%; transform:translateY(-50%);
+  display:grid; justify-items:center; gap:1.8cqi; color:#34404c;
+  text-shadow:0 1px 0 #fff4; font-size:5cqi; line-height:1.2;
+}
+.fortune-official-seal b { font-weight:600; letter-spacing:.18em; }
+.fortune-official-seal > span { font-size:3.6cqi; letter-spacing:.12em; }
+.is-official[data-tier="5"] .fortune-official-seal { color:#ebdcc2; text-shadow:0 1px 3px #000c; }
+
+.is-official.is-unavailable .fortune-official-canvas { border:1px dashed var(--tier); border-radius:50% 50% 8px 8px; background:color-mix(in srgb,var(--tier) 6%,transparent); }
+.is-official.is-unavailable .fortune-official-title, .is-official.is-unavailable .fortune-official-seal { display:none; }
+.is-official.is-unavailable .fortune-missing { top:45%; font-size:clamp(10px,6cqi,14px); color:var(--muted,#b6ad9f); }

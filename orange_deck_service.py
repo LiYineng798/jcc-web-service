@@ -329,7 +329,7 @@ def resolve_formation(row):
 
 def _card_view(card):
     return {key: card[key] for key in ('id', 'name', 'tier', 'tier_name', 'energy', 'category', 'rounds', 'description', 'layout')} \
-        | {'image_url': card['image_url']}
+        | {'image_url': card['image_url'], 'framed': card.get('framed', False), 'art_style': card.get('art_style', '')}
 
 
 def resolve_cards(row):
