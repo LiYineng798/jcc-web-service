@@ -61,7 +61,8 @@
 
 /* The panel holds the whole deck: portal and energy, three cards, then both game codes.
    Code slots never move; a missing code stays in place and says so in words. */
-.deck-card.home-lineup-card:hover { transform:none; }
+.deck-card.home-lineup-card { transition:border-color 140ms ease; }
+.deck-card.home-lineup-card:hover { transform:none; box-shadow:none; border-color:color-mix(in srgb,var(--accent) 20%,var(--line)); }
 .deck-card .deck-card-body { gap:14px; padding:14px 16px 14px; }
 .deck-portal { display:inline-flex; align-items:center; gap:7px; }
 .deck-card-portal .deck-portal::before { content:""; width:7px; height:7px; border-radius:50%; background:currentColor; box-shadow:0 0 0 3px color-mix(in srgb, currentColor 16%, transparent); }
@@ -76,7 +77,7 @@
 .deck-code-action:active:not(:disabled) { background:color-mix(in srgb, var(--card-primary) 90%, var(--text)); }
 .deck-code-action:disabled { border-color:transparent; background:color-mix(in srgb, var(--muted) 7%, transparent); color:color-mix(in srgb, var(--muted) 80%, transparent); font-weight:400; cursor:default; }
 @media (prefers-reduced-motion:reduce) {
-  .deck-code-action, .deck-card .deck-thumb .fortune-card-frame { transition:none; }
+  .deck-card.home-lineup-card, .deck-code-action, .deck-card .deck-thumb .fortune-card-frame { transition:none; }
 }
 
 /* Card art: the shared art-only time-card frame at thumbnail size, never cropped.
@@ -299,6 +300,10 @@ a.deck-detail-author:hover span:last-child { text-decoration:underline; text-und
 .deck-card .deck-thumb-name { font-size:.78rem; letter-spacing:.02em; }
 .deck-card .deck-thumb small { font-size:.68rem; }
 .deck-card .deck-code-actions { padding-top:6px; }
+/* Keep hover feedback quiet: stable artwork/shadows and a light button tint. */
+.deck-card .deck-thumb .fortune-card-frame,
+.deck-card .deck-thumb:hover .fortune-card-frame { transition:none; filter:drop-shadow(0 3px 5px #00000014); }
+.deck-card .deck-code-action:hover:not(:disabled) { background:color-mix(in srgb,var(--accent) 6%,var(--surface-solid)); border-color:color-mix(in srgb,var(--accent) 35%,var(--line)); color:var(--accent-strong); }
 .deck-dialog .deck-card-full { --art:180px; gap:30px; }
 @media (max-width:640px) {
  .deck-card.home-lineup-card { padding:12px 14px 8px; }
