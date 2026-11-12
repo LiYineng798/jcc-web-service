@@ -286,20 +286,25 @@ a.deck-detail-author:hover span:last-child { text-decoration:underline; text-und
 /* An empty card slot previews the card shape instead of a second dashed box. */
 .deck-slot .deck-frame-empty { border:0; border-radius:0; clip-path:polygon(50% 0,100% 16%,100% 84%,50% 100%,0 84%,0 16%); background:color-mix(in srgb, var(--accent-soft) 55%, var(--surface-solid)); color:var(--accent-strong); font-weight:600; }
 
-/* Three complete cards sit on a single shelf, with an even baseline at every tier. */
-.deck-card .deck-card-body { padding:16px 18px 14px; border:1px solid color-mix(in srgb,var(--accent) 12%,var(--line)); border-radius:10px; background:linear-gradient(155deg,color-mix(in srgb,var(--accent) 5%,var(--surface-solid)),var(--surface-solid)); }
-.deck-card .deck-card-portal { padding-bottom:12px; border-bottom:1px solid var(--line); }
-.deck-card .deck-thumbs { gap:14px; padding:2px 0 6px; }
-.deck-card .deck-thumb { position:relative; gap:8px; }
-.deck-card .deck-thumb .fortune-card-frame { width:min(100%, 98px); aspect-ratio:5 / 8; }
+/* Compact home cards: preserve complete artwork and 40px copy controls while
+   reducing the repeated vertical spacing around the three-card shelf. */
+.deck-card.home-lineup-card { padding:14px 18px 8px; }
+.deck-card .home-card-byline { margin:4px 0 6px; }
+.deck-card .home-card-footer { padding-top:4px; }
+.deck-card .deck-card-body { gap:8px; padding:10px 12px; border:1px solid color-mix(in srgb,var(--accent) 12%,var(--line)); border-radius:10px; background:linear-gradient(155deg,color-mix(in srgb,var(--accent) 5%,var(--surface-solid)),var(--surface-solid)); }
+.deck-card .deck-card-portal { padding-bottom:4px; border-bottom:1px solid var(--line); }
+.deck-card .deck-thumbs { gap:12px; padding:0; }
+.deck-card .deck-thumb { position:relative; gap:4px; }
+.deck-card .deck-thumb .fortune-card-frame { width:min(100%, 72px); aspect-ratio:5 / 8; }
 .deck-card .deck-thumb-name { font-size:.78rem; letter-spacing:.02em; }
 .deck-card .deck-thumb small { font-size:.68rem; }
-.deck-card .deck-code-actions { padding-top:12px; }
+.deck-card .deck-code-actions { padding-top:6px; }
 .deck-dialog .deck-card-full { --art:180px; gap:30px; }
 @media (max-width:640px) {
- .deck-card .deck-card-body { padding:12px; }
+ .deck-card.home-lineup-card { padding:12px 14px 8px; }
+ .deck-card .deck-card-body { padding:10px; }
  .deck-card .deck-thumbs { gap:8px; }
- .deck-card .deck-thumb .fortune-card-frame { width:min(100%, 86px); }
+ .deck-card .deck-thumb .fortune-card-frame { width:min(100%, 70px); }
  .deck-card .deck-thumb-name { font-size:.72rem; }
  .deck-card .deck-thumb small { font-size:.62rem; gap:4px; }
  .deck-dialog .deck-card-full { --art:106px; gap:18px; }
