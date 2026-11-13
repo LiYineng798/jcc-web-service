@@ -55,8 +55,7 @@
    with the site gold only on each portal's core and desaturated tier dots. */
 .fortune-rules { display: grid; grid-template-columns: minmax(250px, .8fr) minmax(0, 2fr); align-items: center; margin: 0 0 18px; padding: 16px 0; border: 1px solid var(--fortune-line); border-radius: 14px; background: var(--surface-solid); }
 .fortune-rules-intro { padding: 0 24px; }
-.fortune-rules-intro h2 { margin: 0 0 4px; font-size: 16px; font-weight: 650; letter-spacing: .04em; }
-.fortune-rules-intro > p { margin: 0 0 10px; color: var(--muted); font-size: 12px; line-height: 1.7; }
+.fortune-rules-intro h2 { margin: 0 0 10px; font-size: 16px; font-weight: 650; letter-spacing: .04em; }
 .fortune-energy-scale { display: flex; flex-wrap: wrap; gap: 4px 14px; margin: 0; padding: 0; list-style: none; color: var(--muted); font-size: 11.5px; }
 .fortune-energy-scale li { display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; }
 .fortune-energy-scale i { width: 6px; height: 7px; background: color-mix(in srgb, var(--tier) 55%, var(--muted)); clip-path: polygon(50% 0,100% 22%,100% 78%,50% 100%,0 78%,0 22%); }

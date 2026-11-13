@@ -36,7 +36,6 @@
     <section class="fortune-rules" aria-labelledby="fortune-rules-title">
       <div class="fortune-rules-intro">
         <h2 id="fortune-rules-title">三张卡片，一座传送门</h2>
-        <p>每局挑选 {{ deck_size }} 张卡片，能量等于品阶，合计不超过传送门上限。</p>
         <ol class="fortune-energy-scale" aria-label="品阶与能量">{% for tier, name in tiers.items() %}<li data-tier="{{ tier }}"><i aria-hidden="true"></i>{{ name }}<b aria-label="能量 {{ tier }}">{{ tier }}</b></li>{% endfor %}</ol>
       </div>
       <ul class="fortune-portals" aria-label="三座传送门">
