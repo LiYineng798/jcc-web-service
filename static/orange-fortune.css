@@ -28,12 +28,27 @@
 .fortune-meta b { margin-right: 4px; color: var(--text); font-size: 18px; font-weight: 600; font-variant-numeric: tabular-nums; }
 .fortune-meta a.fortune-preview-label, .fortune-detail-hint a { color: inherit; text-underline-offset: 3px; }
 .fortune-meta a.fortune-preview-label:hover { color: var(--fortune-gold); }
-.fortune-fan { position: relative; flex: 0 0 360px; height: 270px; margin-right: 12px; }
-.fortune-fan-card { position: absolute; bottom: 8px; left: 50%; width: 132px; transform-origin: 50% 100%; }
-.fortune-fan-card .fortune-card-frame { --spot: .7; filter: drop-shadow(0 14px 16px #0000002e); }
+/* Each card pivots on its bottom tip, so that tip is where it meets the floor. Floor shadows
+   live on the unrotated fan and stay horizontal; the side tips sit 0.68 card widths from the
+   centre (half a width minus the 118% / plus the 18% shift). The faces keep only an even,
+   unoffset edge shadow, which looks the same at any angle. */
+.fortune-fan { --fan-side: 132px; --fan-front: 150px; --fan-floor: #00000033; --fan-contact: #00000052; position: relative; flex: 0 0 360px; height: 270px; margin-right: 12px; }
+[data-theme="dark"] .fortune-fan { --fan-floor: #00000080; --fan-contact: #000000b3; }
+.fortune-fan::before { content: ''; position: absolute; left: -10%; right: -10%; bottom: -8px; height: 32px; pointer-events: none;
+  background:
+    radial-gradient(closest-side, var(--fan-contact), transparent) calc(50% - var(--fan-side) * .68) 50% / calc(var(--fan-side) * .56) 8px no-repeat,
+    radial-gradient(closest-side, var(--fan-contact), transparent) calc(50% + var(--fan-side) * .68) 50% / calc(var(--fan-side) * .56) 8px no-repeat,
+    radial-gradient(closest-side, var(--fan-contact), transparent) 50% 50% / calc(var(--fan-front) * .64) 10px no-repeat,
+    radial-gradient(closest-side, var(--fan-floor), transparent) 50% 50% / calc(var(--fan-side) * 2.9) 30px no-repeat; }
+.fortune-fan-card { position: absolute; bottom: 8px; left: 50%; width: var(--fan-side); transform-origin: 50% 100%; }
+.fortune-fan-card .fortune-card-frame { --spot: 0; filter: drop-shadow(0 0 7px #00000024); }
 .fortune-fan-card[data-slot="1"] { transform: translateX(-118%) rotate(-11deg) scale(.86); }
 .fortune-fan-card[data-slot="2"] { transform: translateX(18%) rotate(11deg) scale(.86); }
-.fortune-fan-card[data-slot="3"] { width: 150px; transform: translateX(-50%); }
+.fortune-fan-card[data-slot="3"] { width: var(--fan-front); transform: translateX(-50%); }
+/* The masthead is a showcase: keep the printed ribbon and plinth at every breakpoint,
+   overriding the small-face rule in fortune-card-frame.css. */
+.fortune-fan .fortune-official-title { display: block; }
+.fortune-fan .fortune-official-seal { display: grid; }
 
 /* Rules: one band with the energy scale and the three portals. */
 .fortune-rules { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.55fr); gap: 32px; align-items: stretch; margin: 0 0 18px; padding: 22px 24px; border: 1px solid var(--fortune-line); border-radius: 16px; background: var(--surface-solid); }
@@ -146,9 +161,7 @@
 }
 @media (max-width: 1080px) { .fortune-rules { grid-template-columns: 1fr; gap: 20px; } }
 @media (max-width: 880px) {
-  .fortune-fan { flex-basis: 260px; height: 210px; margin-right: 0; }
-  .fortune-fan-card { width: 100px; }
-  .fortune-fan-card[data-slot="3"] { width: 114px; }
+  .fortune-fan { --fan-side: 100px; --fan-front: 114px; flex-basis: 260px; height: 210px; margin-right: 0; }
   .fortune-filter-row { flex-wrap: wrap; }
   .fortune-search { flex-basis: 100%; }
   .fortune-detail-layout { grid-template-columns: 240px minmax(0, 1fr); }
