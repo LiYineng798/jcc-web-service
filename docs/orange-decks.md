@@ -22,6 +22,9 @@ URL 状态为 `/?library=decks&tab=&portal=&q=&page=`，支持直接链接、刷
 
 ## 数据与规则
 
+投稿与运营统计的新结构已准备，功能接入边界见 [数据层接入说明](deck-data-integration.md)。
+下述页面/API 行为仍为当前已实现版本，不能把新表存在视为投稿功能上线。
+
 `orange_decks`、`orange_deck_favorites`、`orange_deck_likes` 独立于普通阵容，不进入阵容数量、评分、排行榜或实时榜单。
 三张卡分列保存（`card_id_1..3`），不写入任何阵容码字段。
 
