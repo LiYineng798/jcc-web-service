@@ -35,10 +35,9 @@
     </header>
     <section class="fortune-rules" aria-labelledby="fortune-rules-title">
       <div class="fortune-rules-intro">
-        <p class="fortune-eyebrow">开局构筑 <span>/</span> 传送门规则</p>
         <h2 id="fortune-rules-title">三张卡片，一座传送门</h2>
-        <p>每局开始前挑选 {{ deck_size }} 张时间卡片组建卡组，效果涵盖经济、装备、弈子、羁绊等方向。卡片能量等于品阶，三张卡的能量之和不能超过所选传送门的上限。</p>
-        <ol class="fortune-energy-scale" aria-label="品阶与能量">{% for tier, name in tiers.items() %}<li data-tier="{{ tier }}"><b>{{ name }}</b><span aria-label="能量 {{ tier }}">{% for _ in range(5) %}<i{% if loop.index > tier %} class="is-off"{% endif %}></i>{% endfor %}</span></li>{% endfor %}</ol>
+        <p>每局挑选 {{ deck_size }} 张卡片，能量等于品阶，合计不超过传送门上限。</p>
+        <ol class="fortune-energy-scale" aria-label="品阶与能量">{% for tier, name in tiers.items() %}<li data-tier="{{ tier }}"><i aria-hidden="true"></i>{{ name }}<b aria-label="能量 {{ tier }}">{{ tier }}</b></li>{% endfor %}</ol>
       </div>
       <ul class="fortune-portals" aria-label="三座传送门">
       {% for portal in portals %}
@@ -49,11 +48,8 @@
             {% else %}<circle cx="32" cy="32" r="27" stroke-dasharray="3 5"/><circle cx="32" cy="32" r="18" stroke-dasharray="11 6"/><path class="is-core" d="M32 22l2.6 7.4L42 32l-7.4 2.6L32 42l-2.6-7.4L22 32l7.4-2.6Z"/>{% endif %}
           </svg>
           <h3>{{ portal.name }}</h3>
-          <dl>
-            <div><dt>能量上限</dt><dd><b>≤ {{ portal.energy_limit }}</b></dd></div>
-            <div><dt>入场</dt><dd>{{ '{:,}'.format(portal.entry_fee) }} 金橘币</dd></div>
-            <div><dt>失败</dt><dd>{{ portal.loss }}</dd></div>
-          </dl>
+          <b class="fortune-portal-limit" aria-label="能量上限 {{ portal.energy_limit }}">≤ {{ portal.energy_limit }}</b>
+          <p>{{ '{:,}'.format(portal.entry_fee) }} 金橘币<span aria-hidden="true">·</span>失败{{ portal.loss }}</p>
         </li>
       {% endfor %}
       </ul>
