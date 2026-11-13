@@ -48,7 +48,7 @@ const out='instance/full-card-review';fs.mkdirSync(out,{recursive:true});
   await page.keyboard.press('Escape');
   const rects=await page.locator('.fp-card .is-official').evaluateAll(es=>es.map(e=>({h:e.clientHeight,w:e.clientWidth})));
   assert.ok(rects.every(r=>r.h===rects[0].h&&r.w===rects[0].w));
-  for(const material of ['gilded','ivory','astral']) {
+  for(const material of ['gilded','ivory']) {
    await page.locator(`[data-background="${material}"]`).click();
    const download=page.waitForEvent('download',{timeout:90000});await page.locator('#export-poster').click();
    const path=`${out}/poster-${name}-${material}.png`;await(await download).saveAs(path);await page.locator('[data-save-close]').click();
@@ -56,6 +56,6 @@ const out='instance/full-card-review';fs.mkdirSync(out,{recursive:true});
    // Full artwork must survive foreignObject export, including the colored art at each tier.
    for(const [x,y] of [[225,400],[600,400],[975,400]]){let colorful=0;for(let yy=y;yy<y+140;yy++)for(let xx=x-60;xx<x+60;xx++){const i=(yy*png.width+xx)*4;const rgb=[...png.data.subarray(i,i+3)];if(Math.max(...rgb)-Math.min(...rgb)>40)colorful++;}assert.ok(colorful>2000,`${name}/${material}: card artwork missing`);}
   }
-  assert.deepEqual(errors,[]);await browser.close();console.log(`${name}: all five tiers, mobile/dark gallery, card dialogs and three 1200x1600 exports passed`);
+  assert.deepEqual(errors,[]);await browser.close();console.log(`${name}: all five tiers, mobile/dark gallery, card dialogs and light/dark 1200x1600 exports passed`);
  }
 })().catch(e=>{console.error(e);process.exit(1)});

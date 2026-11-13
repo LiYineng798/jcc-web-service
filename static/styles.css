@@ -749,6 +749,8 @@ h1 {
 }
 
 .stat-card {
+  /* Keep the glow's layout box inside the page gutter at tablet widths. */
+  --border-glow-padding: 12px;
   min-width: 184px;
   padding: 22px;
   border-radius: var(--radius-lg);

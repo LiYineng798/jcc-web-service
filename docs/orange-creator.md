@@ -36,7 +36,7 @@
 
 包边模板仍使用资料库的 `fortune_card_bezel.html` 与 `fortune_frame_materials.html`。导出克隆包含渐变定义；图片使用同步解码，并为 WebKit 按嵌入图片数重绘 SVG，避免连续导出时漏图（参见 [html-to-image 问题记录](https://github.com/bubkoo/html-to-image/issues/420) 和 [modern-screenshot 的绘制策略](https://github.com/qq15725/modern-screenshot/blob/main/src/image-to-canvas.ts)）；导出时将根定位恢复为 static，防止浏览器计算出的逻辑 inset 把 SVG 内容移出画布。
 
-聚焦验证：`python -m pytest -q tests/test_orange_creator.py`；浏览器验证：启动隔离预览后设置 `CREATOR_PREVIEW_URL`，运行 `node tests/orange_creator.browser.cjs`。浏览器依赖与截图隔离约定见 [开发与验证](development.md)。
+聚焦验证：`python -m pytest -q tests/test_orange_creator.py`；浏览器验证：启动隔离预览后设置 `CREATOR_PREVIEW_URL`，运行 `node tests/orange_creator.browser.cjs`。默认每种版式仅导出一张，保留桌面下载、移动端保存及长文本检查；修改背景材质时可用 `CREATOR_MATERIALS=gilded,jade,astral,ivory,editorial,folio` 扩展导出组合。图片加载失败由 `orange_full_cards.browser.cjs` 模拟，不依赖某张官方卡片长期缺图。浏览器依赖与截图隔离约定见 [开发与验证](development.md)。
 
 ## 竖版排版与背景素材
 

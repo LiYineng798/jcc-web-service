@@ -2,7 +2,8 @@
    faces on a quiet tier-tinted stage, hairline surfaces and restrained motion.
    orange_creator.html also loads this file, so every rule stays scoped to the gallery. */
 .fortune-body { background: radial-gradient(ellipse at 85% 0%, #bc8a3310, transparent 48rem), var(--bg); }
-.fortune-page { --fortune-gold: #936322; --fortune-line: color-mix(in srgb, var(--text) 8%, var(--line)); width: min(1320px, calc(100% - 64px)); }
+.fortune-page, .fortune-dialog { --fortune-gold: #936322; --fortune-line: color-mix(in srgb, var(--text) 8%, var(--line)); }
+.fortune-page { width: min(1320px, calc(100% - 64px)); }
 [data-theme="dark"] .fortune-page, [data-theme="dark"] .fortune-dialog { --fortune-gold: #e5bf79; }
 .fortune-page [data-tier], .fortune-dialog [data-tier] { --tier-text: color-mix(in srgb, var(--tier), var(--text) 52%); }
 [data-theme="dark"] .fortune-page [data-tier], [data-theme="dark"] .fortune-dialog [data-tier] { --tier-text: var(--tier); }
@@ -80,14 +81,14 @@
 .fortune-tier small { font-size: 10px; opacity: .65; font-variant-numeric: tabular-nums; }
 .fortune-tier input:checked + span { background: color-mix(in srgb, var(--tier, var(--fortune-gold)) 15%, var(--surface-solid)); color: var(--text); font-weight: 600; }
 .fortune-tier input:focus-visible + span { outline: 2px solid var(--fortune-gold); outline-offset: 2px; }
-.fortune-filter-row { display: flex; flex: 1 1 420px; align-items: center; gap: 10px; min-width: 0; }
+.fortune-filter-row { display: flex; flex: 1 1 32rem; flex-wrap: wrap; align-items: center; gap: 10px; min-width: 0; }
 .fortune-search { position: relative; flex: 1; min-width: 150px; }
 .fortune-search svg { position: absolute; left: 12px; top: 11px; width: 18px; height: 18px; color: var(--muted); }
 .fortune-search input { width: 100%; height: 40px; padding: 0 12px 0 38px; border: 1px solid var(--fortune-line); border-radius: 9px; background: var(--bg); color: var(--text); font: inherit; font-size: 13px; }
-.fortune-select { display: flex; gap: 8px; align-items: center; font-size: 12px; color: var(--muted); }
+.fortune-select { display: flex; flex: 0 0 auto; gap: 8px; align-items: center; font-size: 12px; color: var(--muted); }
 .fortune-select > span { flex: 0 0 auto; white-space: nowrap; }
 .fortune-select select { height: 40px; min-width: 100px; padding: 0 10px; border: 1px solid var(--fortune-line); border-radius: 9px; background: var(--bg); color: var(--text); font: inherit; font-size: 13px; }
-.fortune-submit { padding: 10px 16px; border: 1px solid var(--fortune-line); border-radius: 9px; background: var(--bg); color: var(--text); font: inherit; font-size: 12px; cursor: pointer; }
+.fortune-submit { flex: 0 0 auto; padding: 10px 16px; border: 1px solid var(--fortune-line); border-radius: 9px; background: var(--bg); color: var(--text); font: inherit; font-size: 12px; white-space: nowrap; cursor: pointer; }
 .fortune-reset { padding: 10px 2px; color: var(--muted); font-size: 12px; white-space: nowrap; text-decoration: none; }
 .fortune-reset:hover { color: var(--fortune-gold); }
 .fortune-results-bar { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 18px 2px 4px; color: var(--muted); font-size: 11px; }
@@ -154,7 +155,6 @@
 @media (max-width: 1080px) { .fortune-rules { grid-template-columns: 1fr; gap: 14px; } .fortune-portal:first-child { border-left: 0; } }
 @media (max-width: 880px) {
   .fortune-fan { --fan-side: 100px; --fan-front: 114px; flex-basis: 260px; height: 210px; margin-right: 0; }
-  .fortune-filter-row { flex-wrap: wrap; }
   .fortune-search { flex-basis: 100%; }
   .fortune-detail-layout { grid-template-columns: 240px minmax(0, 1fr); }
 }
