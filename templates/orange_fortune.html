@@ -28,8 +28,10 @@
         <p class="fortune-intro">把握每一个生效回合，寻找你的下一张王牌。</p>
         <div class="fortune-meta"><span><b>{{ catalog.cards|length }}</b> 张时间卡片</span><span><b>5</b> 个品阶</span><span><b>{{ portals|length }}</b> 座传送门</span><span class="fortune-preview-label">资料 {{ catalog.version }}</span><a class="fortune-preview-label" href="/?library=decks">卡组库 ↗</a></div>
       </div>
-      {# Three complete faces (王者, 史诗, 传说) fanned as the masthead; omitted for art-only releases. #}
-      <div class="fortune-fan" aria-hidden="true">{% for group in groups[:3]|reverse %}{% set card = group.cards|selectattr('framed')|first %}{% if card %}<span class="fortune-fan-card" data-slot="{{ loop.index }}">{{ card_art(card) }}</span>{% endif %}{% endfor %}</div>
+      {# Three complete faces (王者, 史诗, 传说) fanned as the masthead; omitted for art-only releases.
+         A tier may name its showcase card; a release without it falls back to the tier's first face. #}
+      {% set fan_picks = {5: '7250071'} %}
+      <div class="fortune-fan" aria-hidden="true">{% for group in groups[:3]|reverse %}{% set framed = group.cards|selectattr('framed')|list %}{% set card = (framed|selectattr('id', 'equalto', fan_picks.get(group.tier))|first) or (framed|first) %}{% if card %}<span class="fortune-fan-card" data-slot="{{ loop.index }}">{{ card_art(card) }}</span>{% endif %}{% endfor %}</div>
     </header>
     <section class="fortune-rules" aria-labelledby="fortune-rules-title">
       <div class="fortune-rules-intro">
