@@ -7,8 +7,10 @@ import json
 import pytest
 
 
-@pytest.mark.parametrize('bounds', [(112,36,399,494), (113,32,400,497), (111,27,400,498), (113,31,399,497), (113,33,400,497)])
-def test_all_tiers_fit_the_same_stage_without_stretching(tmp_path, bounds):
+TIER_BOUNDS = [(112,36,399,494), (113,32,400,497), (111,27,400,498), (113,31,399,497), (113,33,400,497)]
+
+
+def _stage(bounds, tmp_path):
     path = tmp_path / 'card.png'
     im = Image.new('RGBA', (512,512))
     ImageDraw.Draw(im).rectangle((bounds[0], bounds[1], bounds[2]-1, bounds[3]-1), fill='white')
@@ -17,13 +19,26 @@ def test_all_tiers_fit_the_same_stage_without_stretching(tmp_path, bounds):
     assert art['framed']
     values = {k:float(v.rstrip('%')) for k,v in (pair.split(':') for pair in art['art_style'].split(';'))}
     scale = values['--art-width'] / 512
-    left = values['--art-left'] + bounds[0] * scale
-    right = values['--art-left'] + bounds[2] * scale
-    top = values['--art-top'] + bounds[1] * scale / 1.6
-    bottom = values['--art-top'] + bounds[3] * scale / 1.6
-    assert 0 <= left < right <= 100
-    assert 0 <= top < 1 and 99 < bottom <= 100
-    assert abs(left - (100-right)) < .001
+    return {'left': values['--art-left'] + bounds[0] * scale, 'right': values['--art-left'] + bounds[2] * scale,
+            'top': values['--art-top'] + bounds[1] * scale / 1.6, 'bottom': values['--art-top'] + bounds[3] * scale / 1.6,
+            'ribbon': values['--ribbon-top']}
+
+
+@pytest.mark.parametrize('bounds', TIER_BOUNDS)
+def test_all_tiers_fit_the_same_stage_without_stretching(tmp_path, bounds):
+    box = _stage(bounds, tmp_path)
+    assert 0 <= box['left'] < box['right'] <= 100
+    assert 0 <= box['top'] < box['bottom'] <= 100
+    assert abs(box['left'] - (100-box['right'])) < .001
+
+
+def test_tiers_share_body_width_and_baseline(tmp_path):
+    # Gems on higher tiers extend upwards; bodies must not shrink to make room for them.
+    boxes = [_stage(bounds, tmp_path) for bounds in TIER_BOUNDS]
+    widths = [box['right'] - box['left'] for box in boxes]
+    assert max(widths) - min(widths) < 1
+    assert all(abs(box['bottom'] - boxes[0]['bottom']) < .01 for box in boxes)
+    assert max(box['ribbon'] for box in boxes) - min(box['ribbon'] for box in boxes) < 1.5
 
 
 def test_portrait_missing_and_opaque_images_keep_legacy_rendering(tmp_path):

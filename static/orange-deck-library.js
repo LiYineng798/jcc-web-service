@@ -151,12 +151,15 @@
       `<button type="button" class="deck-code-action is-${type}" data-action="copy-${type}" ${code ? `title="复制${label}"` : `disabled title="作者暂未填写${label}"`}>${code
         ? `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.5"/><path d="M15 9V6.5A2.5 2.5 0 0 0 12.5 4h-6A2.5 2.5 0 0 0 4 6.5v6A2.5 2.5 0 0 0 6.5 15H9"/></svg>复制${label}`
         : `未提供${label}`}</button>`).join('');
-    const energyFill = Math.min(100, Math.round(deck.energy / Math.max(1, deck.energy_limit) * 100));
+    // One pip per energy point in the card's tier colour, matching the poster's energy track.
+    const fills = deck.cards.flatMap((item) => (item && item.status !== 'missing' ? Array(Number(item.energy) || 0).fill(item.tier) : []));
+    const pips = Array.from({ length: Math.max(deck.energy_limit, fills.length) }, (_, i) =>
+      `<i${fills[i] ? ` data-tier="${D.esc(fills[i])}"` : ''}${i >= deck.energy_limit ? ' class="is-beyond"' : ''}></i>`).join('');
     return `<article class="lineup-card home-lineup-card deck-card" data-deck-id="${deck.id}" data-lineup-key="deck-${deck.id}" aria-labelledby="deck-title-${deck.id}">
       <header class="home-card-heading"><h3 class="lineup-title" id="deck-title-${deck.id}"><a href="${D.esc(deck.detail_url)}">${D.esc(deck.name)}</a></h3><span class="deck-badges">${badges}</span></header>
       <div class="home-card-byline lineup-byline">${deck.author.profile_url ? `<a class="author-link" href="${D.esc(deck.author.profile_url)}">${author}</a>` : `<span class="author-link">${author}</span>`}<time class="home-card-updated">${published ? '发布于' : '更新于'} ${D.esc(date)}</time></div>
       <div class="deck-card-body">
-        <div class="deck-card-portal"><span class="deck-portal" data-portal="${D.esc(deck.portal.id)}">${D.esc(deck.portal.name)}</span><span class="deck-energy-chip${over ? ' is-over' : ''}"><span class="deck-energy-meter" style="--fill:${energyFill}%" aria-hidden="true"></span>能量 <b>${deck.energy}</b> / ${deck.energy_limit}${over ? ' · 超限' : ''}</span></div>
+        <div class="deck-card-portal"><span class="deck-portal" data-portal="${D.esc(deck.portal.id)}">${D.portalMark(deck.portal.id)}${D.esc(deck.portal.name)}</span><span class="deck-energy-chip${over ? ' is-over' : ''}"><span class="deck-energy-pips" aria-hidden="true">${pips}</span>能量 <b>${deck.energy}</b> / ${deck.energy_limit}${over ? ' · 超限' : ''}</span></div>
         <ul class="deck-thumbs" aria-label="三张时间卡片">${deck.cards.map(D.thumb).join('')}</ul>
         <div class="deck-code-actions" role="group" aria-label="复制游戏代码">${codes}</div>
       </div>

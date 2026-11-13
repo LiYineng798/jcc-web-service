@@ -54,7 +54,9 @@ def test_guest_page_search_and_home_navigation(client):
     for text in ('稳定传送门', '波动传送门', '未知传送门', '≤ 8', '≤ 10', '≤ 15', '0 金橘币', '400 金橘币', '2,000 金橘币',
                  '不损失卡片', '随机损失两张卡片', '随机损失三张卡片'):
         assert text in html
-    assert '黑玫瑰夜市' in html and html.count('fortune-card-frame is-official') == 201
+    # 201 gallery faces plus the masthead fan (one complete face each for 王者, 史诗, 传说).
+    assert html.count('class="fortune-fan-card"') == 3
+    assert '黑玫瑰夜市' in html and html.count('fortune-card-frame is-official') == 201 + 3
     filtered = client.get(PAGE, query_string={'q': '黑玫瑰', 'tier': '5'}).get_data(as_text=True)
     assert '找到 <strong>1</strong> 张卡片' in filtered
     assert 'noindex' in filtered

@@ -22,15 +22,17 @@ def presentation(path):
             # Two source pixels preserve the faint antialiasing around the official rim.
             padding = image.width / 256
             x, y, width, height = x - padding, y - padding, width + 2 * padding, height + 2 * padding
-            # Every surface uses a 5:8 stage. Fit the visible silhouette by height,
-            # centered horizontally; retain the original pixels and intrinsic ratio.
-            scale = min(100 / width, 160 / height)
-            top_padding = (100 - height * scale / 1.6) / 2
+            # Every surface uses a 5:8 stage (100 x 160 width units). Official tiers share
+            # one card body width; only higher tiers add a gem above it. Scaling by width and
+            # standing every card on the same baseline keeps bodies, ribbons and plinths
+            # aligned across tiers. Unusually tall silhouettes fall back to fitting the height.
+            scale = min(96 / width, 158 / height)
+            top = 159 - height * scale
             values = {'art-width': image.width * scale,
                       'art-left': (100 - width * scale) / 2 - x * scale,
-                      'art-top': top_padding - y * scale / 1.6,
-                      'ribbon-top': top_padding + (image.height * 341 / 512 - y) * scale / 1.6,
-                      'seal-top': top_padding + (image.height * 405 / 512 - y) * scale / 1.6}
+                      'art-top': (top - y * scale) / 1.6,
+                      'ribbon-top': (top + (image.height * 341 / 512 - y) * scale) / 1.6,
+                      'seal-top': (top + (image.height * 405 / 512 - y) * scale) / 1.6}
             return {'framed': True,
                     'art_style': ';'.join(f'--{key}:{value:.4f}%' for key, value in values.items())}
     except (OSError, UnidentifiedImageError, Image.DecompressionBombError):

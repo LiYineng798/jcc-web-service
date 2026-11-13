@@ -28,7 +28,8 @@
         <p class="fortune-intro">把握每一个生效回合，寻找你的下一张王牌。</p>
         <div class="fortune-meta"><span><b>{{ catalog.cards|length }}</b> 张时间卡片</span><span><b>5</b> 个品阶</span><span><b>{{ portals|length }}</b> 座传送门</span><span class="fortune-preview-label">资料 {{ catalog.version }}</span><a class="fortune-preview-label" href="/?library=decks">卡组库 ↗</a></div>
       </div>
-      <div class="fortune-emblem" aria-hidden="true">{% include 'fortune_emblem.html' %}<span>TIME CARDS</span><small>英雄联盟传奇 · 大橘大利</small></div>
+      {# Three complete faces (王者, 史诗, 传说) fanned as the masthead; omitted for art-only releases. #}
+      <div class="fortune-fan" aria-hidden="true">{% for group in groups[:3]|reverse %}{% set card = group.cards|selectattr('framed')|first %}{% if card %}<span class="fortune-fan-card" data-slot="{{ loop.index }}">{{ card_art(card) }}</span>{% endif %}{% endfor %}</div>
     </header>
     <section class="fortune-rules" aria-labelledby="fortune-rules-title">
       <div class="fortune-rules-intro">
@@ -78,8 +79,8 @@
         {% for card in group.cards %}
           <article class="fortune-card" data-id="{{ card.id }}" data-tier="{{ card.tier }}" data-tier-name="{{ card.tier_name }}" data-category="{{ card.category_id }}" data-rounds="{{ card.rounds|join(' ') }}" {% if card.id not in visible_ids %}hidden{% endif %}>
             <button class="fortune-card-button" type="button" aria-label="查看{{ card.name }}详情" aria-haspopup="dialog">
-              <span class="fortune-card-display">{{ card_art(card) }}<span class="fortune-card-index" aria-hidden="true">{{ '%02d'|format(loop.index) }}</span></span>
-              <span class="fortune-card-caption"><span class="fortune-caption-meta"><span class="fortune-card-category">{{ card.category }}</span><span>能量 {{ card.energy }}</span></span><span class="fortune-card-title">{{ card.name }}</span><span class="fortune-card-timing">{% if card.rounds %}生效 {{ card.rounds|join(' / ') }}{% else %}条件触发{% endif %}</span><span class="fortune-card-description">{{ card.description }}</span><span class="fortune-card-more">查看完整效果 <i aria-hidden="true">↗</i></span></span>
+              <span class="fortune-card-display">{{ card_art(card) }}</span>
+              <span class="fortune-card-caption"><span class="fortune-card-title">{{ card.name }}</span><span class="fortune-caption-meta"><span class="fortune-card-category">{{ card.category }}</span><span class="fortune-card-timing">{% if card.rounds %}生效 {{ card.rounds|join(' / ') }}{% else %}条件触发{% endif %}</span></span><span class="fortune-card-description">{{ card.description }}</span></span>
             </button>
           </article>
         {% endfor %}

@@ -32,6 +32,14 @@
 
   const art = card => global.FortuneCardArt.render(card);
 
+  // Same portal glyphs as the gallery rules and the poster (orange_fortune.html, orange-creator.js).
+  const PORTAL_MARKS = {
+    stable: '<circle cx="32" cy="32" r="27"/><circle cx="32" cy="32" r="19"/><circle cx="32" cy="32" r="11"/><circle class="is-core" cx="32" cy="32" r="4"/>',
+    volatile: '<path d="M32 5c9 3 14 0 20 7s2 13 7 20-1 14-7 20-13 3-20 7-14-2-20-7-2-13-7-20 3-14 7-20 11-4 20-7Z"/><path d="M32 14c6 2 9 0 13 5s1 9 5 13-1 9-5 13-9 2-13 5-9-1-13-5-1-9-5-13 2-9 5-13 7-3 13-5Z"/><circle class="is-core" cx="32" cy="32" r="5"/>',
+    unknown: '<circle cx="32" cy="32" r="27" stroke-dasharray="3 5"/><circle cx="32" cy="32" r="18" stroke-dasharray="11 6"/><path class="is-core" d="M32 22l2.6 7.4L42 32l-7.4 2.6L32 42l-2.6-7.4L22 32l7.4-2.6Z"/>',
+  };
+  const portalMark = (id) => `<svg class="deck-portal-mark" viewBox="0 0 64 64" aria-hidden="true" focusable="false">${PORTAL_MARKS[id] || ''}</svg>`;
+
   function tierText(card) {
     return card.status === 'missing' ? '当前资料中不存在' : `${card.tier_name} · 能量 ${card.energy}`;
   }
@@ -122,5 +130,5 @@
     toggle?.addEventListener('click', () => apply(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'));
   }
 
-  global.JccOrangeDeck = { esc, api, recordCopy, art, thumb, cardFull, openCard, board, issues, copy, avatar, notify, roundText, bindTheme };
+  global.JccOrangeDeck = { esc, api, recordCopy, art, portalMark, thumb, cardFull, openCard, board, issues, copy, avatar, notify, roundText, bindTheme };
 })(window);
