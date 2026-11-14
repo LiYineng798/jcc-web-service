@@ -75,3 +75,16 @@ def upsert_setting_sql(kind):
             'ON CONFLICT (setting_key) DO UPDATE SET setting_value = EXCLUDED.setting_value, updated_at = EXCLUDED.updated_at'
         )
     return 'INSERT OR REPLACE INTO app_settings (setting_key, setting_value, updated_at) VALUES (?, ?, ?)'
+
+
+def _integrity_errors():
+    import sqlite3
+    try:
+        from psycopg import IntegrityError as postgres_integrity_error
+    except ImportError:  # SQLite-only tooling environments.
+        return (sqlite3.IntegrityError,)
+    return (sqlite3.IntegrityError, postgres_integrity_error)
+
+
+# Expected unique-key races are caught explicitly; callers roll back and re-read.
+INTEGRITY_ERRORS = _integrity_errors()

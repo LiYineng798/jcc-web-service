@@ -25,9 +25,30 @@
     return data;
   }
 
-  async function recordCopy(deckId, csrf, codeType = 'plan') {
+  const actionId = () => (global.crypto?.randomUUID ? global.crypto.randomUUID()
+    : `${Date.now().toString(16)}-${Math.random().toString(16).slice(2, 10)}-${Math.random().toString(16).slice(2, 10)}`);
+
+  // One ID per real copy gesture; a retry after a dropped connection reuses it, so the server counts it once.
+  async function recordCopy(deckId, csrf, codeType = 'plan', source = '') {
     if (!csrf) csrf = (await api('/api/me')).csrf_token;
-    return api(`/api/orange-decks/${deckId}/copy?code_type=${encodeURIComponent(codeType)}`, { method: 'POST', csrf });
+    const url = `/api/orange-decks/${deckId}/copy?code_type=${encodeURIComponent(codeType)}${source ? `&source=${encodeURIComponent(source)}` : ''}`;
+    const body = { action_id: actionId() };
+    try {
+      return await api(url, { method: 'POST', csrf, body });
+    } catch (error) {
+      if (!(error instanceof TypeError)) throw error;
+      return api(url, { method: 'POST', csrf, body });
+    }
+  }
+
+  // Daily distinct visit of the deck library, sent only when the tab is actually shown.
+  function recordLibraryVisit(csrf) {
+    const key = `jcc-deck-library-visit:${new Date().toDateString()}`;
+    try { if (sessionStorage.getItem(key)) return; sessionStorage.setItem(key, '1'); } catch { /* Server deduplicates anyway. */ }
+    if (!csrf) return;
+    api('/api/orange-decks/visits', { method: 'POST', csrf, body: { surface: 'library' } }).catch(() => {
+      try { sessionStorage.removeItem(key); } catch { /* Optional. */ }
+    });
   }
 
   const art = card => global.FortuneCardArt.render(card);
@@ -130,5 +151,5 @@
     toggle?.addEventListener('click', () => apply(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'));
   }
 
-  global.JccOrangeDeck = { esc, api, recordCopy, art, portalMark, thumb, cardFull, openCard, board, issues, copy, avatar, notify, roundText, bindTheme };
+  global.JccOrangeDeck = { esc, api, recordCopy, recordLibraryVisit, art, portalMark, thumb, cardFull, openCard, board, issues, copy, avatar, notify, roundText, bindTheme };
 })(window);

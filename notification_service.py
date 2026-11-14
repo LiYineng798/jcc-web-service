@@ -4,17 +4,17 @@ from db import get_db, now_text
 from avatar_service import avatar_config
 
 
-def publish_notification(db, user_id, kind, group_key, title, body='', lineup_id=None, feedback_id=None):
+def publish_notification(db, user_id, kind, group_key, title, body='', lineup_id=None, feedback_id=None, deck_submission_id=None):
     if user_id is None:
         return
     now = now_text()
     db.execute('''INSERT INTO user_notifications
-        (user_id,kind,group_key,title,body,lineup_id,feedback_id,created_at,updated_at)
-        VALUES (?,?,?,?,?,?,?,?,?)
+        (user_id,kind,group_key,title,body,lineup_id,feedback_id,deck_submission_id,created_at,updated_at)
+        VALUES (?,?,?,?,?,?,?,?,?,?)
         ON CONFLICT(user_id,group_key) DO UPDATE SET
           title=excluded.title, body=excluded.body, event_count=user_notifications.event_count+1,
           revision=user_notifications.revision+1, notice_state='unread', updated_at=excluded.updated_at''',
-        (user_id, kind, group_key, title, body, lineup_id, feedback_id, now, now))
+        (user_id, kind, group_key, title, body, lineup_id, feedback_id, deck_submission_id, now, now))
 
 
 def notify_author(db, lineup, kind, actor=None):
@@ -57,17 +57,26 @@ def attach_actors(db, items):
     return items
 
 
+SUBMISSION_STATE_TEXT = {
+    'pending': '投稿已回到待处理队列，管理员会尽快查看。', 'processing': '管理员正在完善你的卡组。',
+    'needs_info': '管理员需要你补充信息，补充后会继续处理。', 'published': '你的卡组已完善并公开发布，点击查看结果。',
+    'rejected': '这次投稿未被采纳，可以查看处理说明。', 'duplicate': '卡组库中已有相同的卡组，点击查看。',
+    'withdrawn': '投稿已撤回。',
+}
+
 INBOX_SQL = '''
 SELECT 'notice:' || CAST(n.id AS TEXT) AS id, n.user_id, n.kind,
-       CASE WHEN n.kind='feedback' THEN 'feedback' ELSE 'interaction' END AS category,
-       n.lineup_id, n.feedback_id, n.title AS name, n.body, n.event_count, n.read_count,
-       n.revision, n.notice_state, n.updated_at,
-       COALESCE(f.status,'') AS state, COALESCE(l.status,'') AS lineup_status
+       CASE WHEN n.kind='feedback' THEN 'feedback' WHEN n.kind='deck_submission' THEN 'submission' ELSE 'interaction' END AS category,
+       n.lineup_id, n.feedback_id, n.deck_submission_id,
+       CASE WHEN n.kind='deck_submission' AND COALESCE(s.name,'')<>'' THEN s.name ELSE n.title END AS name,
+       n.body, n.event_count, n.read_count, n.revision, n.notice_state, n.updated_at,
+       COALESCE(f.status,s.status,'') AS state, COALESCE(l.status,'') AS lineup_status
 FROM user_notifications n LEFT JOIN feedback_threads f ON f.id=n.feedback_id
 LEFT JOIN lineups l ON l.id=n.lineup_id
+LEFT JOIN orange_deck_submissions s ON s.id=n.deck_submission_id
 UNION ALL
 SELECT 'moderation:' || CAST(m.lineup_id AS TEXT), l.user_id, 'moderation', 'moderation',
-       m.lineup_id, NULL, l.name,
+       m.lineup_id, NULL, NULL, l.name,
        CASE WHEN m.state='pending' THEN '修改已提交，管理员审核后会通知你。'
             WHEN m.review_note<>'' THEN m.review_note ELSE m.reason END,
        1, 0, m.revision, m.notice_state, m.updated_at, m.state, l.status
@@ -85,6 +94,11 @@ def serialize_notice(row):
         item['body'] = f'你的阵容累计收到 {item["event_count"]} {unit}{label}。'
         if item['notice_state'] == 'unread' and item['new_count']:
             item['body'] += f' 本次新增 {item["new_count"]} {unit}。'
+    if item['kind'] == 'deck_submission':
+        # The current status wins over the stored text, so a later release never leaves a stale promise.
+        item['body'] = SUBMISSION_STATE_TEXT.get(item['state'], item['body'])
+        item['url'] = f'/me/deck-submissions/{item["deck_submission_id"]}'
+        return item
     item['url'] = (f'/me/feedback/{item["feedback_id"]}' if item['kind'] == 'feedback' else
                    f'/me/lineup-notifications/{item["lineup_id"]}' if item['kind'] == 'moderation' else
                    f'/lineup/{item["lineup_id"]}' if item['lineup_status'] != 'deleted' else '')
@@ -93,7 +107,7 @@ def serialize_notice(row):
 
 def list_inbox(user, args):
     status, category = args.get('status', 'all'), args.get('category', 'all')
-    if status not in {'all','unread','read'} or category not in {'all','feedback','interaction','moderation'}:
+    if status not in {'all','unread','read'} or category not in {'all','feedback','interaction','moderation','submission'}:
         return None, '通知筛选无效', 400
     db = get_db()
     scope = f'FROM ({INBOX_SQL}) inbox WHERE user_id=?'

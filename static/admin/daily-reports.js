@@ -24,6 +24,7 @@
         renderReportStats(report),
         renderReturningStrip(report),
         renderHeatmapPanel(report),
+        renderDeckPanel(report),
         renderDetailPanels(report),
         renderReportFooter(report),
       );
@@ -85,7 +86,7 @@
       [
         ['独立访客 UV', summary.unique_visitors, 'unique_visitors', '全站按访客去重'],
         ['访问次数 PV', summary.page_visits, 'page_visits', '记录的页面访问'],
-        ['成功复制', summary.total_copies, 'total_copies', `阵容 ${summary.lineup_copies || 0} · 实时 ${summary.live_comp_copies || 0}`],
+        ['成功复制', summary.total_copies, 'total_copies', `阵容 ${summary.lineup_copies || 0} · 实时 ${summary.live_comp_copies || 0} · 卡组另计`],
         ['新增注册', summary.new_registrations, 'new_registrations', '不含管理员'],
         ['登录用户活跃', summary.authenticated_active_users ?? '—', 'authenticated_active_users', '含保持登录回访；按账号去重，不含管理员'],
         ['主动登录', summary.successful_logins, 'successful_logins', '密码登录成功的去重用户，不含管理员'],
@@ -207,6 +208,15 @@
       return grid;
     }
 
+    // Snapshots before payload v2 have no deck keys; every figure then reads "未采集" instead of zero.
+    function renderDeckPanel(report) {
+      const panel = workbenchPanel('卡组库', '投稿、处理、发布、复制与访问；复制动作、有效复制与人数分别统计');
+      const body = panel.querySelector('.admin-workspace-body');
+      body.append(global.JccAdminDeckMetrics.render({ summary: report.summary, coverage: report.deck_coverage,
+        top: report.deck_top, contributors: report.deck_contributors, snapshot: report.deck_snapshot }));
+      return panel;
+    }
+
     function renderDetailPanels(report) {
       const grid = el('div', 'daily-report-detail-grid');
       grid.append(renderTopPagesPanel(report), renderSeasonRankPanel(report));
@@ -272,7 +282,7 @@
     }
 
     function renderTopCopiedPanel(report) {
-      const panel = workbenchPanel('复制排行', '昨日被复制最多的阵容码（普通阵容 + 实时阵容）');
+      const panel = workbenchPanel('复制排行', '昨日成功复制动作最多的内容（普通阵容、实时阵容与卡组分别标注）');
       const body = panel.querySelector('.admin-workspace-body');
       const items = report.top_copied || [];
       if (!items.length) {
@@ -283,8 +293,13 @@
       items.forEach((item) => {
         const card = el('article', 'admin-row-card');
         const info = el('div');
-        const typeLabel = item.target_type === 'live_comp' ? '实时阵容' : '普通阵容';
+        const typeLabel = { live_comp: '实时阵容', lineup: '普通阵容', orange_deck: '大橘大利卡组' }[item.target_type] || item.target_type;
         const titleRow = el('strong', '', `#${item.rank} ${item.title || item.target_id}`);
+        if (item.target_type === 'orange_deck') {
+          const link = el('a', 'admin-inline-link', ' 查看');
+          link.href = `/orange-decks/${item.target_id}`; link.target = '_blank'; link.rel = 'noopener';
+          titleRow.append(link);
+        }
         if (item.target_type === 'lineup' && item.lineup_id) {
           const link = el('a', 'admin-inline-link', ' 查看');
           link.href = `/lineup/${item.lineup_id}`;
@@ -293,9 +308,9 @@
           titleRow.append(link);
         }
         const attribution = item.uploader_attribution === 'current' ? '（当前账号）' : '';
-        const metaParts = [typeLabel, `上传者：${item.uploader || '未记录'}${attribution}`];
+        const metaParts = [typeLabel, `${item.uploader_attribution === 'provided' ? '提供者' : '上传者'}：${item.uploader || '未记录'}${attribution}`];
         if (item.tier) metaParts.push(`${item.tier} 级`);
-        if (item.season_name) metaParts.push(item.season_name);
+        if (item.season_name && item.target_type !== 'orange_deck') metaParts.push(item.season_name);
         metaParts.push(`复制 ${item.copies} 次 · ${item.unique_visitors} 人`);
         info.append(titleRow, el('p', 'admin-meta', metaParts.join(' · ')));
         if (item.code) info.append(el('code', 'daily-copied-code', item.code));

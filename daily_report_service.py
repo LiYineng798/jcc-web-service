@@ -30,6 +30,7 @@ from db import db_kind, get_db, now_text
 from db_adapter import insert_ignore_sql
 from visits import daily_new_returning_visitors
 from auth_activity import authenticated_active_users
+from deck_report_service import deck_metrics, deck_snapshot
 
 REPORT_DATE_FORMAT = '%Y-%m-%d'
 MAX_TOP_COPIED = 20
@@ -55,6 +56,13 @@ DELTA_KEYS = (
     'reports_submitted',
     'like_actions',
     'favorite_actions',
+)
+# Payload v2 adds deck_* figures; a delta is only shown when both snapshots collected the key.
+PAYLOAD_VERSION = 2
+DECK_DELTA_KEYS = (
+    'deck_submissions_new', 'deck_submitters', 'deck_submissions_published', 'deck_published',
+    'deck_copy_actions', 'deck_effective_copies', 'deck_copiers', 'deck_likes', 'deck_favorite_adds',
+    'deck_library_visitors', 'deck_detail_visitors',
 )
 
 PAGE_KEY_LABELS = {
@@ -86,6 +94,7 @@ PAGE_KEY_LABELS = {
     's11_items': 'S11 装备攻略',
     's11_artifacts': 'S11 全神器装备推荐',
     'lineup_notification': '阵容处理通知',
+    'deck_submissions': '卡组投稿进度',
 }
 
 
@@ -229,7 +238,9 @@ def _top_copied(db, start, end, limit=MAX_TOP_COPIED):
                 item['season_name'] = season_names.get(item['season_id'], item['season_id'] or '')
             else:
                 item['title'] = f"已删除阵容 #{row['target_id']}"
-        else:
+        elif row['target_type'] == 'orange_deck':
+            _describe_deck(db, item)
+        elif row['target_type'] == 'live_comp':
             season_key = row['season_id'] or ''
             try:
                 if season_key not in live_payload_cache:
@@ -249,6 +260,18 @@ def _top_copied(db, start, end, limit=MAX_TOP_COPIED):
     return items
 
 
+def _describe_deck(db, item):
+    """Deck copies carry their own title and public credit; they are never treated as live comps."""
+    deck = db.execute('''SELECT d.name, d.status, d.origin_type, u.username, u.nickname FROM orange_decks d
+        LEFT JOIN users u ON u.id = COALESCE(d.provided_by_user_id, d.user_id) WHERE d.id = ?''', (int(item['target_id']),)).fetchone()
+    item['season_name'] = '大橘大利卡组'
+    if deck:
+        item.update(title=deck['name'], status=deck['status'], uploader=user_label(deck),
+                    uploader_attribution='provided' if deck['origin_type'] == 'submission' else 'current')
+    else:
+        item['title'] = f"卡组 #{item['target_id']}"
+
+
 def _season_copy_rank(db, start, end, limit=MAX_SEASON_RANK):
     """Copy counts grouped by season id (the finest version dimension on the
     copy events today). ``share`` is the percentage of the day's successful
@@ -260,7 +283,7 @@ def _season_copy_rank(db, start, end, limit=MAX_SEASON_RANK):
         SELECT COUNT(*) AS c
         FROM copy_action_events
         WHERE created_at >= ? AND created_at < ?
-          AND success = 1
+          AND success = 1 AND target_type IN ('lineup', 'live_comp')
         ''',
         (start, end),
     ).fetchone()
@@ -277,7 +300,7 @@ def _season_copy_rank(db, start, end, limit=MAX_SEASON_RANK):
                END) AS unique_visitors
         FROM copy_action_events
         WHERE created_at >= ? AND created_at < ?
-          AND success = 1
+          AND success = 1 AND target_type IN ('lineup', 'live_comp')
         GROUP BY season_id
         ORDER BY copies DESC, season_id
         LIMIT ?
@@ -469,7 +492,7 @@ def build_daily_report_payload(db, target_date):
         SELECT
           SUM(CASE WHEN target_type = 'lineup' THEN 1 ELSE 0 END) AS lineup_copies,
           SUM(CASE WHEN target_type = 'live_comp' THEN 1 ELSE 0 END) AS live_comp_copies,
-          COUNT(*) AS total_copies
+          SUM(CASE WHEN target_type IN ('lineup', 'live_comp') THEN 1 ELSE 0 END) AS total_copies
         FROM copy_action_events
         WHERE created_at >= ? AND created_at < ?
           AND success = 1
@@ -496,7 +519,7 @@ def build_daily_report_payload(db, target_date):
         SELECT substr(created_at, 12, 2) AS hour, COUNT(*) AS c
         FROM copy_action_events
         WHERE created_at >= ? AND created_at < ?
-          AND success = 1
+          AND success = 1 AND target_type IN ('lineup', 'live_comp')
         GROUP BY hour
         ''',
         (start, end),
@@ -542,6 +565,8 @@ def build_daily_report_payload(db, target_date):
         'like_actions': _int(like_actions),
         'favorite_actions': _int(favorite_actions),
     }
+    deck = deck_metrics(db, start, end)
+    summary.update(deck['summary'])
 
     previous_date = None
     deltas = None
@@ -566,9 +591,18 @@ def build_daily_report_payload(db, target_date):
                 key: _delta(summary[key], previous_summary.get(key))
                 for key in DELTA_KEYS
             }
+            for key in DECK_DELTA_KEYS:
+                current, previous = summary.get(key), previous_summary.get(key)
+                deltas[key] = current - previous if isinstance(current, int) and isinstance(previous, int) else None
 
     return {
+        'payload_version': PAYLOAD_VERSION,
         'summary': summary,
+        'deck_coverage': deck['coverage'],
+        'deck_top': deck['top_decks'],
+        'deck_contributors': deck['contributors'],
+        # Totals at generation time; past days are not reconstructed.
+        'deck_snapshot': deck_snapshot(db),
         'deltas': deltas,
         'previous_date': previous_date,
         'hourly': hourly,

@@ -167,13 +167,15 @@ def test_search_filters_tabs_and_favorites(users):
     page = guest.get('/api/orange-decks?page=2&page_size=1').get_json()
     assert page['total'] == 2 and page['total_pages'] == 2 and names_of(page) == ['速攻稳定门']
     # Hot uses real favorites only, one per account; favoriting is idempotent.
+    # Cold start: every valid public deck is listed, newest first, before any interaction.
     hot = guest.get('/api/orange-decks?tab=hot').get_json()
-    assert hot['items'] == [] and '点赞数' in hot['ranking_rule'] and '收藏账号数' in hot['ranking_rule']
+    assert names_of(hot) == ['三传说', '速攻稳定门'] and '7 天减半' in hot['ranking_rule'] and '取消收藏' in hot['ranking_rule']
     for client in (other, other, admin):
         assert client.post(f"/api/orange-decks/{fast['id']}/favorite", headers=auth_headers(client)).status_code == 200
     assert other.post(f"/api/orange-decks/{legend['id']}/favorite", headers=auth_headers(other)).get_json() == {'favorited': True, 'favorite_count': 1}
-    assert names(guest.get('/api/orange-decks?tab=hot')) == ['速攻稳定门', '三传说']
-    assert [i['favorite_count'] for i in guest.get('/api/orange-decks?tab=hot').get_json()['items']] == [2, 1]
+    # The administrator's favorite is real but earns no ranking weight, so the two decks tie and the newer leads.
+    assert names(guest.get('/api/orange-decks?tab=hot')) == ['三传说', '速攻稳定门']
+    assert [i['favorite_count'] for i in guest.get('/api/orange-decks?tab=hot').get_json()['items']] == [1, 2]
     assert names(other.get('/api/orange-decks?tab=favorites')) == ['三传说', '速攻稳定门']
     assert other.get(f"/api/orange-decks/{fast['id']}").get_json()['is_favorited'] is True
     for _ in range(2):
@@ -296,7 +298,7 @@ def test_poster_export_and_creator_import_do_not_touch_drafts(users):
     exported = guest.get(f"/api/orange-decks/{plain['id']}/export").get_json()
     assert exported == {'id': plain['id'], 'title': '轻装稳定门', 'author': 'Alice', 'portal': 'stable', 'cards': LIGHT,
                         'note': '前期稳血，3-2 开始提速。', 'tempo': '2-1 拿装备', 'layout': 'cards', 'formation': None,
-                        'formation_dropped': False}
+                        'formation_dropped': False, 'author_credit': 'author'}
     with_board = guest.get(f"/api/orange-decks/{staged['id']}/export").get_json()
     assert with_board['layout'] == 'guide' and with_board['formation']['board'][21]['championId'] == '1400'
     page = guest.get(f"/tools/orange-fortune-creator?deck={staged['id']}").get_data(as_text=True)
@@ -412,11 +414,17 @@ def test_likes_mirror_lineup_rules_and_feed_hot_ranking(users, monkeypatch):
     monkeypatch.setattr(orange_deck_service, 'DAILY_LIKE_LIMIT', 1)
     capped = other.post(f"/api/orange-decks/{second['id']}/like", headers=auth_headers(other))
     assert capped.status_code == 429
-    # Hot = likes + favorites; the favorite-only deck ranks below the liked one.
+    # Hot weighs a favorite 2 and a daily like 1; the administrator's like earns nothing.
+    # 甲 has two counted likes, 乙 one favorite: a tie, which goes to the newer deck.
     monkeypatch.setattr(orange_deck_service, 'DAILY_LIKE_LIMIT', 5)
     other.post(f"/api/orange-decks/{second['id']}/favorite", headers=auth_headers(other))
     hot = guest.get('/api/orange-decks?tab=hot').get_json()['items']
-    assert [(d['name'], d['like_count'], d['favorite_count']) for d in hot] == [('甲', 3, 0), ('乙', 0, 1)]
+    assert [(d['name'], d['like_count'], d['favorite_count']) for d in hot] == [('乙', 0, 1), ('甲', 3, 0)]
+    third = create(owner, name='丙').get_json()
+    bob_favorite = other.post(f"/api/orange-decks/{first['id']}/favorite", headers=auth_headers(other))
+    assert bob_favorite.status_code == 200
+    assert [d['name'] for d in guest.get('/api/orange-decks?tab=hot').get_json()['items']][:2] == ['甲', '乙']
+    assert third['id']
     assert guest.get('/api/home-stats').get_json()['total_public_lineups'] == 0
 
 
@@ -429,20 +437,29 @@ def test_dashboard_reports_deck_figures_separately(users):
     data = owner.get('/api/me/dashboard').get_json()
     assert data['received_likes'] == 0 and data['received_favorites'] == 0 and data['published_lineups'] == 0
     assert data['decks'] == {'decks': 2, 'published_decks': 1, 'draft_decks': 1, 'hidden_decks': 0,
-                             'received_likes': 1, 'received_favorites': 1}
+                             'received_likes': 1, 'received_favorites': 1, 'contributed_decks': 0,
+                             'submissions_active': 0, 'submissions_needs_info': 0, 'submissions_published': 0,
+                             'submissions_total': 0}
 
 
 def test_publish_page_offers_lineups_and_decks(users):
     owner, other, admin, guest = users
+    # The two-code submission is the default; lineup codes and the full deck editor keep explicit links.
     html = owner.get('/lineup/new').get_data(as_text=True)
-    assert 'id="editorForm"' in html and 'id="deckForm"' in html and 'id="publishTabDeck"' in html
-    assert 'id="publishDeck" role="tabpanel" aria-labelledby="publishTabDeck" hidden' in html
+    assert 'id="deckSubmitForm"' in html and 'id="editorForm"' in html and 'id="deckForm"' in html
+    assert 'id="publishSubmit" role="tabpanel" aria-labelledby="publishTabSubmit">' in html
+    assert 'id="publishLineup" role="tabpanel" aria-labelledby="publishTabLineup" hidden' in html
+    assert 'id="publishDeck" aria-label="完整编辑卡组" hidden' in html
+    lineup_tab = owner.get('/lineup/new?type=lineup').get_data(as_text=True)
+    assert 'id="publishSubmit" role="tabpanel" aria-labelledby="publishTabSubmit" hidden' in lineup_tab
+    assert 'id="publishLineup" role="tabpanel" aria-labelledby="publishTabLineup">' in lineup_tab
     deck_tab = owner.get('/lineup/new?type=deck').get_data(as_text=True)
     assert 'id="publishLineup" role="tabpanel" aria-labelledby="publishTabLineup" hidden' in deck_tab
+    assert 'id="publishDeck" aria-label="完整编辑卡组">' in deck_tab
     assert 'id="deckEditorConfig"' in deck_tab and 'bezel-5' in deck_tab
     # Editing stays specific to the content type.
     lineup_edit = owner.get('/lineup/1/edit').get_data(as_text=True)
-    assert 'id="editorForm"' in lineup_edit and 'id="deckForm"' not in lineup_edit and 'publishTabDeck' not in lineup_edit
+    assert 'id="editorForm"' in lineup_edit and 'id="deckForm"' not in lineup_edit and 'publishTabSubmit' not in lineup_edit
     deck = create(owner, action='draft').get_json()
     deck_edit = owner.get(f"/orange-decks/{deck['id']}/edit").get_data(as_text=True)
     assert 'id="deckForm"' in deck_edit and 'id="editorForm"' not in deck_edit

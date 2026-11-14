@@ -12,7 +12,7 @@
   const el=(tag,cls='',text='')=>{const n=document.createElement(tag);n.className=cls;n.textContent=text;return n;};
   function button(text,action,cls){const b=el('button',cls,text);b.type='button';b.onclick=async()=>{b.disabled=true;try{await action();}catch(e){window.jccNotify.show(e.message,{variant:'error'});}finally{b.disabled=false;}};return b;}
   function setCount(n){count.textContent=n>99?'99+':String(n);count.hidden=!n;toggle.setAttribute('aria-label',n?`通知，${n} 条未读`:'通知，无未读');}
-  function renderFilters(){filters.replaceChildren();for(const [key,label] of [['all','全部'],['interaction','互动'],['feedback','反馈'],['moderation','审核']]){const b=button(label,()=>{category=key;page=1;return load();},'ln-filter');b.setAttribute('aria-pressed',String(category===key));filters.append(b);}stateFilter.value=status;}
+  function renderFilters(){filters.replaceChildren();for(const [key,label] of [['all','全部'],['interaction','互动'],['feedback','反馈'],['moderation','审核'],['submission','投稿']]){const b=button(label,()=>{category=key;page=1;return load();},'ln-filter');b.setAttribute('aria-pressed',String(category===key));filters.append(b);}stateFilter.value=status;}
   async function mark(item){if(item.notice_state!=='unread')return;try{await session.api(`/api/me/notifications/${item.id}`,{method:'PUT',body:JSON.stringify({status:'read',revision:item.revision})});item.notice_state='read';if(snapshot){snapshot.unread_total=Math.max(0,snapshot.unread_total-1);setCount(snapshot.unread_total);}}catch{/* A newer revision stays unread. */}}
   function render(data){
     snapshot=data;setCount(data.unread_total);renderFilters();list.replaceChildren();pagination.replaceChildren();
@@ -38,6 +38,7 @@
     toolbar.hidden=true;pagination.hidden=true;back.hidden=false;title.textContent=view.labels[item.kind];list.classList.add('ln-detail');list.replaceChildren(el('p','ln-empty','正在展开…'));list.scrollTop=0;back.focus({preventScroll:true});
     try{
       if(item.category==='interaction'){view.interaction(item,list);await mark(item);}
+      else if(item.kind==='deck_submission'){const data=await session.api(`/api/me/deck-submissions/${item.deck_submission_id}`);if(request!==requestId)return;view.submission(data,list);if(data.notification)await mark(data.notification);}
       else if(item.kind==='feedback'){const data=await session.api(`/api/me/feedback/${item.feedback_id}`);if(request!==requestId)return;view.feedback(data,list);if(data.notification)await mark(data.notification);}
       else{const data=await session.api(`/api/lineups/${item.lineup_id}/moderation`);if(request!==requestId)return;view.moderation(data,list);if(data.moderation)await mark({id:item.id,...data.moderation});}
     }catch(e){if(request!==requestId)return;list.replaceChildren(el('p','ln-empty',e.message),button('重试',()=>openDetail(item,false),'ln-retry'));}

@@ -1,5 +1,5 @@
 {# Deck editor fields, shared by the publish page (/lineup/new?type=deck) and the deck edit page. #}
-<div class="deck-editor" id="deckEditor" data-deck-id="{{ deck_id }}" data-assistant-season="{{ assistant_season|default('') }}" data-deck-root>
+<div class="deck-editor" id="deckEditor" data-deck-id="{{ deck_id }}" data-assistant-season="{{ assistant_season|default('') }}" data-submission-id="{{ submission_id|default('') }}" data-deck-root>
       <div class="deck-notice" id="deckEditorNotice" role="status" hidden></div>
       <noscript><p class="deck-notice">编辑卡组需要启用 JavaScript。</p></noscript>
       <form class="deck-form" id="deckForm" novalidate aria-busy="true">

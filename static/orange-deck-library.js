@@ -54,7 +54,7 @@
       else link.removeAttribute('aria-current');
     });
     window.dispatchEvent(new CustomEvent('jcc:home-library', { detail: { library } }));
-    if (library === 'decks') { syncControls(); load(); }
+    if (library === 'decks') { syncControls(); load(); ensureMe().then(() => D.recordLibraryVisit(state.csrf)); }
   }
 
   function syncControls() {
@@ -144,7 +144,8 @@
       deck.can_edit ? action('编辑', 'pencil', 'edit', '', null).replace('small-button home-card-action', 'small-button home-card-action home-card-quiet') : '',
       action('查看', 'arrow-up-right', 'open').replace('small-button home-card-action', 'small-button home-card-action home-card-detail'),
     ].join('');
-    const author = `<span data-avatar></span><span class="home-card-author-name">${D.esc(deck.author.nickname)}</span>`;
+    const credit = deck.author.credit === 'provided' ? `由 ${D.esc(deck.author.nickname)} 提供` : D.esc(deck.author.nickname);
+    const author = `<span data-avatar></span><span class="home-card-author-name">${credit}</span>`;
     const date = (deck.published_at || deck.updated_at || '').split(' ')[0];
     // Both codes always keep their slot, so every card has the same rhythm; a missing one says so in words.
     const codes = [['plan', '方案码', deck.plan_code], ['lineup', '阵容码', deck.lineup_code]].map(([type, label, code]) =>
@@ -207,7 +208,7 @@
 
   function emptyState() {
     const filtered = state.q || state.portal;
-    let [title, text, actions] = ['还没有公开卡组', '发布第一套大橘大利卡组，把三张卡和传送门的搭配分享出来。', '<a class="deck-button is-primary" href="/lineup/new?type=deck">发布卡组</a>'];
+    let [title, text, actions] = ['还没有公开卡组', '投稿你的方案码和阵容码，管理员完善后会在这里展示。', '<a class="deck-button is-primary" href="/lineup/new">投稿卡组</a>'];
     if (['favorites', 'mine'].includes(state.tab) && !state.user) {
       [title, text, actions] = [state.tab === 'mine' ? '登录后查看我的卡组' : '登录后查看收藏', '收藏和发布的卡组会跟随账号保存。', '<a class="deck-button is-primary" href="/auth">登录 / 注册</a>'];
     } else if (filtered) {
@@ -219,7 +220,7 @@
     } else if (state.tab === 'favorites') {
       [title, text, actions] = ['还没有收藏卡组', '在卡组上点“收藏”，之后可以在这里找回。', '<button type="button" class="deck-button" data-action="latest">浏览卡组</button>'];
     } else if (state.tab === 'mine') {
-      [title, text, actions] = ['还没有你的卡组', '草稿和已发布的卡组都会出现在这里。', '<a class="deck-button is-primary" href="/lineup/new?type=deck">发布卡组</a>'];
+      [title, text, actions] = ['还没有你的卡组', '你的草稿、已发布的卡组和被采纳的投稿都会出现在这里。', '<a class="deck-button is-primary" href="/lineup/new">投稿卡组</a> <a class="deck-button" href="/me/deck-submissions">我的投稿</a>'];
     }
     return `<div class="deck-empty"><h3>${title}</h3><p>${text}</p><div class="deck-actions">${actions}</div></div>`;
   }
@@ -318,7 +319,7 @@
         if (ok && deck.status === 'published') {
           feedback(deck, 'copy');
           try {
-            const data = await D.recordCopy(deck.id, state.csrf, codeType);
+            const data = await D.recordCopy(deck.id, state.csrf, codeType, 'home');
             // Independent code requests may finish out of order, or after the list reloads.
             const current = state.items.find(item => item.id === deck.id);
             deck.copy_count = Math.max(deck.copy_count || 0, data.copy_count);

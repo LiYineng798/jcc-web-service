@@ -137,7 +137,7 @@
       ${state.background==='editorial'?`<div class="fp-editorial-marks" aria-hidden="true"><span class="fp-edition">构筑研究室 <i>／</i> FIELD NOTES</span><span class="fp-margin-note">观察 · 选择 · 落子</span><span class="fp-editorial-stamp">三卡<br><b>一门</b></span><span class="fp-editorial-sign">每一步，都有自己的想法。<svg viewBox="0 0 240 16"><path d="M3 9Q86 2 237 8M20 14Q100 8 202 12"/></svg></span></div>`:''}
       <header class="fp-header"><div class="fp-heading"><p class="fp-overline">英雄联盟传奇 · 大橘大利 / ${cardsOnly?'时间卡组推荐':'时间卡组构筑'}</p><h1 class="${title.length>18?'fp-long-title':''}">${esc(title)}</h1><div class="fp-meta">${meta.join('')}</div></div><div class="fp-brand"><b>大橘大利</b><small>FORTUNE ATELIER</small></div></header>
       <div class="fp-content"><section class="fp-deck"><div class="fp-label">01 / ${cardsOnly?'推荐卡组':'时间卡组'} <small>THREE CARDS. ONE PORTAL.</small></div><div class="fp-cards">${selected.map(posterCard).join('')}</div></section>${body}</div>
-      <footer class="fp-footer"><b>金铲铲阵容库</b><span>${state.author.trim()?`创作 / ${esc(state.author.trim())}`:'三张卡片，一座传送门。'}</span><small>大橘大利 / 3:4 CREATOR SERIES</small></footer></article>`;
+      <footer class="fp-footer"><b>金铲铲阵容库</b><span>${state.author.trim()?(state.credit==='provided'?`由 ${esc(state.author.trim())} 提供`:`创作 / ${esc(state.author.trim())}`):'三张卡片，一座传送门。'}</span><small>大橘大利 / 3:4 CREATOR SERIES</small></footer></article>`;
     fitPoster();
     fitText();
     renderRules();
@@ -173,6 +173,7 @@
     $(id).value = state[key];
     $(id).addEventListener('input',()=>{
       state[key]=$(id).value;
+      if(key==='author') state.credit='';  // A typed name is an author credit again.
       renderPoster(); save();
     });
   }
@@ -338,7 +339,7 @@
       const response=await fetch(`/api/orange-decks/${encodeURIComponent(importDeckId)}/export`,{headers:{Accept:'application/json'}});
       const data=await response.json().catch(()=>null);
       if(!response.ok) throw new Error(data?.error || '卡组读取失败');
-      Object.assign(state,{title:data.title.slice(0,24),author:data.author.slice(0,16),note:data.note,tempo:data.tempo,
+      Object.assign(state,{title:data.title.slice(0,24),author:data.author.slice(0,16),credit:data.author_credit||'',note:data.note,tempo:data.tempo,
         portal:portals.has(data.portal)?data.portal:state.portal,layout:layouts.has(data.layout)?data.layout:'cards',
         cards:data.cards.map(id=>cards.has(id)?id:null)});
       for (const [id,key] of Object.entries(fields)) $(id).value=state[key];

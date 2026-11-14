@@ -18,6 +18,7 @@ import {
   ChevronRight,
   Clock3,
   FilePenLine,
+  Layers3,
   ShieldAlert,
   X,
 } from "lucide-react";
@@ -65,6 +66,7 @@ type Notice = {
   category: string;
   kind: string;
   feedback_id: number | null;
+  deck_submission_id?: number | null;
   url: string;
   body: string;
   event_count: number;
@@ -513,7 +515,7 @@ function NotificationList({
     <section className="pf-inbox">
       <div className="pf-inbox-toolbar">
         <div className="pf-inbox-filters" role="group" aria-label="通知分类">
-          {[["all","全部"],["interaction","互动"],["feedback","反馈"],["moderation","审核"]].map(([value,label]) => (
+          {[["all","全部"],["interaction","互动"],["feedback","反馈"],["moderation","审核"],["submission","投稿"]].map(([value,label]) => (
             <button key={value} aria-pressed={view.category === value} onClick={() => setView(v => ({...v,category:value,page:1}))}>{label}</button>
           ))}
         </div>
@@ -605,10 +607,11 @@ function NoticeRow({
     >
       <button
         className="pf-notice-open"
-        onClick={() => go(item.kind === "feedback" ? {kind:"feedback",id:item.feedback_id!} : item.kind === "moderation" ? { kind: "moderation", id: item.lineup_id } : {kind:"interaction",notice:item})}
+        // Submission progress has its own private page, which also marks the notice read.
+        onClick={() => item.kind === "deck_submission" ? location.assign(item.url) : go(item.kind === "feedback" ? {kind:"feedback",id:item.feedback_id!} : item.kind === "moderation" ? { kind: "moderation", id: item.lineup_id } : {kind:"interaction",notice:item})}
       >
         <span className={`nc-icon nc-${item.kind}`}>
-          {item.kind === "favorite" ? <Bookmark size={19} /> : item.kind === "copy" ? <Copy size={19} /> : item.kind === "like" ? <Heart size={19} /> : item.kind === "feedback" ? <MessageCircle size={19} /> : ["approved", "released"].includes(item.state) ? (
+          {item.kind === "deck_submission" ? <Layers3 size={19} /> : item.kind === "favorite" ? <Bookmark size={19} /> : item.kind === "copy" ? <Copy size={19} /> : item.kind === "like" ? <Heart size={19} /> : item.kind === "feedback" ? <MessageCircle size={19} /> : ["approved", "released"].includes(item.state) ? (
             <Check size={19} />
           ) : item.state === "pending" ? (
             <Clock3 size={19} />
@@ -619,7 +622,7 @@ function NoticeRow({
         <span className="pf-notice-text">
           <strong>{item.name}</strong>
           <span>
-            {item.kind === "moderation" ? <Status value={item.state} /> : <span className="pf-dialog-status">{item.kind === "feedback" ? "反馈进度" : ({like:"收到点赞",favorite:"收到收藏",copy:"收到复制"} as Record<string,string>)[item.kind]}</span>}
+            {item.kind === "moderation" ? <Status value={item.state} /> : <span className="pf-dialog-status">{item.kind === "feedback" ? "反馈进度" : ({like:"收到点赞",favorite:"收到收藏",copy:"收到复制",deck_submission:"卡组投稿"} as Record<string,string>)[item.kind]}</span>}
             <time>{date(item.updated_at)}</time>
           </span>
           <p>
