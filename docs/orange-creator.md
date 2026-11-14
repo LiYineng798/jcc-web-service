@@ -7,7 +7,7 @@
 
 `orange_creator_service.py:creator_config()` 是只读适配层；页面初始数据与 `/api/tools/orange-fortune-creator` 共用它，`schema_version=2`。当前使用随代码交付的卡片档案，不在请求过程中访问官方 CDN，不新增数据库表。
 
-- 卡片来自现有 `orange_fortune_service.catalog()`，卡图复用本地文件和五档 SVG 金属包边。缺图保留明确占位，不替换成其他卡片。
+- 卡片来自现有 `orange_fortune_service.catalog()`，卡图复用当前版本的本地文件，官方带底板卡面完整展示；旧独立插画才使用五档 SVG 包边。缺图保留明确占位，不替换成其他卡片。
 - [官方卡片 CDN](https://game.gtimg.cn/images/lol/act/jkzlk/js/16/18.18.1-S400001/card.js) 2026-10-28 快照共 201 条，仍只含 `id/iRarityTier/sName/sIcon/sTags/sArgs/sDesc`，没有卡片能量字段。
 - 版本目录为该分支列出的 16 个接口（含[模式总配置](https://game.gtimg.cn/images/lol/act/jkzlk/js/16/18.18.1-S400001/config.js)、[弈子](https://game.gtimg.cn/images/lol/act/jkzlk/js/16/18.18.1-S400001/chess.js)、[装备](https://game.gtimg.cn/images/lol/act/jkzlk/js/16/18.18.1-S400001/equip.js)）2026-10-29 均可读取；其中没有引用卡片 ID 的字段，也没有卡片能量字段。不能据此断言未列出的官方接口也不存在。
 - 阵容资料来自独立资料赛季 `orange_s400001`（英雄联盟传奇 · 大橘大利），由官方 S400001 分支生成，包含 `s16_5` 没有的伊泽瑞尔、努努和威朗普、斯莫德、艾瑞利娅、迦娜、阿木木；相对 `s16_5` 新增的弈子带 `new` 标签。生成方式见 [独立模式赛季](season-library.md#独立模式赛季官方分支档案)。
@@ -36,13 +36,13 @@
 
 包边模板仍使用资料库的 `fortune_card_bezel.html` 与 `fortune_frame_materials.html`。导出克隆包含渐变定义；图片使用同步解码，并为 WebKit 按嵌入图片数重绘 SVG，避免连续导出时漏图（参见 [html-to-image 问题记录](https://github.com/bubkoo/html-to-image/issues/420) 和 [modern-screenshot 的绘制策略](https://github.com/qq15725/modern-screenshot/blob/main/src/image-to-canvas.ts)）；导出时将根定位恢复为 static，防止浏览器计算出的逻辑 inset 把 SVG 内容移出画布。
 
-聚焦验证：`python -m pytest -q tests/test_orange_creator.py`；浏览器验证：启动隔离预览后设置 `CREATOR_PREVIEW_URL`，运行 `node tests/orange_creator.browser.cjs`。浏览器依赖与截图隔离约定见 [开发与验证](development.md)。
+聚焦验证：`python -m pytest -q tests/test_orange_creator.py`；浏览器验证：启动隔离预览后设置 `CREATOR_PREVIEW_URL`，运行 `node tests/orange_creator.browser.cjs`。默认每种版式仅导出一张，保留桌面下载、移动端保存及长文本检查；修改背景材质时可用 `CREATOR_MATERIALS=gilded,jade,astral,ivory,editorial,folio` 扩展导出组合。图片加载失败由 `orange_full_cards.browser.cjs` 模拟，不依赖某张官方卡片长期缺图。浏览器依赖与截图隔离约定见 [开发与验证](development.md)。
 
 ## 竖版排版与背景素材
 
 导出提供攻略版（启动节奏、装备优先、运营手记）、纯构筑版（扩大卡面与效果区，不生成运营区）和卡组推荐版（不含站位，不需要配置阵容即可导出）。卡组推荐版自上而下为三张大卡面与效果、能量构成（品阶色块算式、15 格能量条与上限刻线）和传送门（上限、入场、失败损卡）双面板，以及可选的推荐理由（复用运营手记字段）。切换版式保留已填写文字，兼容旧版草稿。棋盘为规则尖顶六边形：宽 100、高 200/√3，列间距 106，行距 106√3/2，偶数行横向偏移 53。羁绊快照携带模拟器计算的 `frame`，复用 `ui/{1,2,3,4,unique}.svg`，不重新推断羁绊档位。
 
-六种材质分别为曜石鎏金（雕刻星盘）、翡翠棱镜（六边形玉石切面）、星轨紫晶（轨道与星点）、象牙烫金（放射金箔与纸纹）、人文手札（奶油纸色、蓝墨方格与手绘圈线）和蓝绒藏典（蓝色织物书封与古铜雕饰）。全部使用本地 SVG 与 CSS，无生成式位图、内嵌图片或外部资源。矢量文件为 `static/tools/orange-fortune/creator/material-{gilded,jade,astral,ivory,editorial,folio}.svg`。蓝绒藏典由 `python scripts/build_folio_material.py` 重建：手绘路径描述卷叶护角，两组贝塞尔曲线构成边角交错暗纹，重复经纬线与固定种子的 SVG 噪声表现织物；修改时先改脚本再重建 SVG。`orange-creator-finish.css` 叠加配色、边框和卡面质感，不改变海报内容几何。装饰为静态效果，预览与导出保持一致，不阻止手机滚动。
+六种材质分别为曜石鎏金（雕刻星盘）、翡翠棱镜（六边形玉石切面）、星轨紫晶（轨道与星点）、象牙烫金（放射金箔与纸纹）、人文手札（奶油纸色、蓝墨方格与手绘圈线）和蓝绒藏典（蓝色织物书封与古铜雕饰）。全部使用本地 SVG 与 CSS，无生成式位图、内嵌图片或外部资源。矢量文件为 `static/tools/orange-fortune/creator/material-{gilded,jade,astral,ivory,editorial,folio}.svg`。蓝绒藏典由 `python scripts/build_folio_material.py` 重建：手绘路径描述卷叶护角，两组贝塞尔曲线构成边角交错暗纹，重复经纬线与固定种子的 SVG 噪声表现织物；修改时先改脚本再重建 SVG。`orange-creator-finish.css` 叠加配色、边框和卡面质感，并为完整卡面设置等比展示区与独立文字栏；卡面使用与图鉴、卡组库一致的品阶色背光、底光与展台线（人文手札、蓝绒藏典保留各自的角标与拱形）；编号、卡名、品阶行与效果说明以卡面中线居中对齐，编号两侧装饰对称，效果文字均衡换行。信息行按标题宽度单行排布，避免导出克隆固定 max-content 宽度后在 PNG 中折行。装饰为静态效果，预览与导出保持一致，不阻止手机滚动。
 
 ## 图片保存
 
@@ -67,3 +67,5 @@
 棋盘的空状态提示层为透明背景，保留六边形格子。工作台尺寸不改变海报本身的 1200 × 1600 导出布局。可运行 `node tests/orange_creator_workspace.browser.cjs` 验证多个窗口尺寸、错误提示、透明棋盘及预览键盘流程。
 
 页头信息行始终显示传送门与卡组能量（攻略／纯构筑版另含入场与失败损卡）；长标题缩小，右侧品牌标识在页头垂直居中。六种材质分别为能量与传送门面板提供各自的处理：曜石鎏金双金线烟玻璃、翡翠棱镜切角玉牌与六边形能量石、星轨紫晶圆角光晕与总能量轨道环、象牙烫金压纹卡纸、人文手札直角格框与墨圈数字及红色印章式“超限”、蓝绒藏典铜边铭牌与币形能量；蓝绒藏典的页眉小字与页脚避开四角饰件。羁绊从棋盘右侧区域的左上角排列，保留八行容量。`node tests/orange_creator_layout.browser.cjs` 使用模拟器实际配置十名弈子，验证八项激活羁绊及两种版式，并将示例 PNG 输出到忽略的 `instance/creator-review/`；示例用于排版检查。
+
+完整卡面的几何与卡组库共用 `time_card_art.py` / `fortune-card-art.js`。三种海报版式分别使用 350、425、466 像素卡面高度，所有品阶保持同一高度与原图比例，不再叠加 SVG 包边或裁切官方底板。长效果说明保留在卡面下方，沿用正文自适应与 1200×1600 导出；旧草稿、六种背景 ID 和能量规则不变。

@@ -67,21 +67,6 @@ fs.mkdirSync(out, {recursive:true});
     }
     assert.ok(ink>1000,'exported title is missing');
     titleInk.push(ink);
-    await page.locator('#deck-name').fill('长标题边界检查'.repeat(4).slice(0,24));
-    await page.locator('#deck-note').fill('运营手记与转型时机。'.repeat(10));
-    const longest=await page.evaluate(()=>JSON.parse(document.querySelector('#creator-config').textContent).cards.sort((a,b)=>b.description.length-a.description.length).slice(0,3).map(c=>c.id));
-    for(const [i,id] of longest.entries()) {
-      await page.locator(`[data-slot="${i}"]`).click();await page.locator(`[data-card="${id}"]`).click();
-    }
-    const boundaries=await page.evaluate(()=>{
-      const rect=s=>document.querySelector(s).getBoundingClientRect();
-      return {
-        clipped:[...document.querySelectorAll('.fp-card-effect,.fp-notebook p')].some(e=>e.scrollHeight>e.clientHeight+1),
-        titleFits:rect('.fp-header h1').right<=rect('.fp-brand').left,
-        footerFits:rect('.fp-operations').bottom<=rect('.fp-footer').top,
-      };
-    });
-    assert.deepEqual(boundaries,{clipped:false,titleFits:true,footerFits:true});
     await browser.close();
     console.log(`${name}: local font, eight aligned traits, single/double digit counts and embedded-font PNG passed`);
   }

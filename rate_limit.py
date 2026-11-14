@@ -18,15 +18,11 @@ def hit_limit(scope, key, limit, window_minutes):
     ).fetchone()
     if row and row['attempts'] >= limit:
         return True
-    if row:
-        db.execute(
-            'UPDATE rate_limits SET attempts = attempts + 1 WHERE scope = ? AND key = ? AND window_start = ?',
-            (scope, key, window),
-        )
-    else:
-        db.execute(
-            'INSERT INTO rate_limits (scope, key, window_start, attempts) VALUES (?, ?, ?, 1)',
-            (scope, key, window),
-        )
+    # Upsert: concurrent first requests in a window must not fail on the unique key.
+    db.execute(
+        'INSERT INTO rate_limits (scope, key, window_start, attempts) VALUES (?, ?, ?, 1) '
+        'ON CONFLICT (scope, key, window_start) DO UPDATE SET attempts = rate_limits.attempts + 1',
+        (scope, key, window),
+    )
     db.commit()
     return False

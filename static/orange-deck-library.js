@@ -54,7 +54,7 @@
       else link.removeAttribute('aria-current');
     });
     window.dispatchEvent(new CustomEvent('jcc:home-library', { detail: { library } }));
-    if (library === 'decks') { syncControls(); load(); }
+    if (library === 'decks') { syncControls(); load(); ensureMe().then(() => D.recordLibraryVisit(state.csrf)); }
   }
 
   function syncControls() {
@@ -144,19 +144,23 @@
       deck.can_edit ? action('编辑', 'pencil', 'edit', '', null).replace('small-button home-card-action', 'small-button home-card-action home-card-quiet') : '',
       action('查看', 'arrow-up-right', 'open').replace('small-button home-card-action', 'small-button home-card-action home-card-detail'),
     ].join('');
-    const author = `<span data-avatar></span><span class="home-card-author-name">${D.esc(deck.author.nickname)}</span>`;
+    const credit = deck.author.credit === 'provided' ? `由 ${D.esc(deck.author.nickname)} 提供` : D.esc(deck.author.nickname);
+    const author = `<span data-avatar></span><span class="home-card-author-name">${credit}</span>`;
     const date = (deck.published_at || deck.updated_at || '').split(' ')[0];
     // Both codes always keep their slot, so every card has the same rhythm; a missing one says so in words.
     const codes = [['plan', '方案码', deck.plan_code], ['lineup', '阵容码', deck.lineup_code]].map(([type, label, code]) =>
       `<button type="button" class="deck-code-action is-${type}" data-action="copy-${type}" ${code ? `title="复制${label}"` : `disabled title="作者暂未填写${label}"`}>${code
         ? `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.5"/><path d="M15 9V6.5A2.5 2.5 0 0 0 12.5 4h-6A2.5 2.5 0 0 0 4 6.5v6A2.5 2.5 0 0 0 6.5 15H9"/></svg>复制${label}`
         : `未提供${label}`}</button>`).join('');
-    const energyFill = Math.min(100, Math.round(deck.energy / Math.max(1, deck.energy_limit) * 100));
+    // One pip per energy point in the card's tier colour, matching the poster's energy track.
+    const fills = deck.cards.flatMap((item) => (item && item.status !== 'missing' ? Array(Number(item.energy) || 0).fill(item.tier) : []));
+    const pips = Array.from({ length: Math.max(deck.energy_limit, fills.length) }, (_, i) =>
+      `<i${fills[i] ? ` data-tier="${D.esc(fills[i])}"` : ''}${i >= deck.energy_limit ? ' class="is-beyond"' : ''}></i>`).join('');
     return `<article class="lineup-card home-lineup-card deck-card" data-deck-id="${deck.id}" data-lineup-key="deck-${deck.id}" aria-labelledby="deck-title-${deck.id}">
       <header class="home-card-heading"><h3 class="lineup-title" id="deck-title-${deck.id}"><a href="${D.esc(deck.detail_url)}">${D.esc(deck.name)}</a></h3><span class="deck-badges">${badges}</span></header>
       <div class="home-card-byline lineup-byline">${deck.author.profile_url ? `<a class="author-link" href="${D.esc(deck.author.profile_url)}">${author}</a>` : `<span class="author-link">${author}</span>`}<time class="home-card-updated">${published ? '发布于' : '更新于'} ${D.esc(date)}</time></div>
       <div class="deck-card-body">
-        <div class="deck-card-portal"><span class="deck-portal" data-portal="${D.esc(deck.portal.id)}">${D.esc(deck.portal.name)}</span><span class="deck-energy-chip${over ? ' is-over' : ''}"><span class="deck-energy-meter" style="--fill:${energyFill}%" aria-hidden="true"></span>能量 <b>${deck.energy}</b> / ${deck.energy_limit}${over ? ' · 超限' : ''}</span></div>
+        <div class="deck-card-portal"><span class="deck-portal" data-portal="${D.esc(deck.portal.id)}">${D.portalMark(deck.portal.id)}${D.esc(deck.portal.name)}</span><span class="deck-energy-chip${over ? ' is-over' : ''}"><span class="deck-energy-pips" aria-hidden="true">${pips}</span>能量 <b>${deck.energy}</b> / ${deck.energy_limit}${over ? ' · 超限' : ''}</span></div>
         <ul class="deck-thumbs" aria-label="三张时间卡片">${deck.cards.map(D.thumb).join('')}</ul>
         <div class="deck-code-actions" role="group" aria-label="复制游戏代码">${codes}</div>
       </div>
@@ -204,7 +208,7 @@
 
   function emptyState() {
     const filtered = state.q || state.portal;
-    let [title, text, actions] = ['还没有公开卡组', '发布第一套大橘大利卡组，把三张卡和传送门的搭配分享出来。', '<a class="deck-button is-primary" href="/lineup/new?type=deck">发布卡组</a>'];
+    let [title, text, actions] = ['还没有公开卡组', '投稿你的方案码和阵容码，管理员完善后会在这里展示。', '<a class="deck-button is-primary" href="/lineup/new?type=submit">投稿卡组</a>'];
     if (['favorites', 'mine'].includes(state.tab) && !state.user) {
       [title, text, actions] = [state.tab === 'mine' ? '登录后查看我的卡组' : '登录后查看收藏', '收藏和发布的卡组会跟随账号保存。', '<a class="deck-button is-primary" href="/auth">登录 / 注册</a>'];
     } else if (filtered) {
@@ -216,7 +220,7 @@
     } else if (state.tab === 'favorites') {
       [title, text, actions] = ['还没有收藏卡组', '在卡组上点“收藏”，之后可以在这里找回。', '<button type="button" class="deck-button" data-action="latest">浏览卡组</button>'];
     } else if (state.tab === 'mine') {
-      [title, text, actions] = ['还没有你的卡组', '草稿和已发布的卡组都会出现在这里。', '<a class="deck-button is-primary" href="/lineup/new?type=deck">发布卡组</a>'];
+      [title, text, actions] = ['还没有你的卡组', '你的草稿、已发布的卡组和被采纳的投稿都会出现在这里。', '<a class="deck-button is-primary" href="/lineup/new?type=submit">投稿卡组</a> <a class="deck-button" href="/me/deck-submissions">我的投稿</a>'];
     }
     return `<div class="deck-empty"><h3>${title}</h3><p>${text}</p><div class="deck-actions">${actions}</div></div>`;
   }
@@ -315,7 +319,7 @@
         if (ok && deck.status === 'published') {
           feedback(deck, 'copy');
           try {
-            const data = await D.recordCopy(deck.id, state.csrf, codeType);
+            const data = await D.recordCopy(deck.id, state.csrf, codeType, 'home');
             // Independent code requests may finish out of order, or after the list reloads.
             const current = state.items.find(item => item.id === deck.id);
             deck.copy_count = Math.max(deck.copy_count || 0, data.copy_count);

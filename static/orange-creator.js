@@ -57,16 +57,14 @@
     catch { $('save-status').textContent = '草稿未能保存；请在离开前导出海报'; }
   }
   const image = (url, alt = '', cls = '') => `<img src="${esc(url)}" alt="${esc(alt)}" class="${cls}" decoding="async">`;
-  function art(card) {
-    return `<span class="fortune-card-frame is-art-only"><span class="fortune-card-surface fortune-art-${esc(card.layout)}">${card.image ? image(card.image_url, '', 'fortune-card-image') : '<span class="fortune-missing"><i>◇</i>卡图暂缺</span>'}<span class="fortune-card-shade"></span></span>${$(`bezel-${card.tier}`).innerHTML}</span>`;
-  }
+  const art = card => window.FortuneCardArt.render(card);
   function renderSlots() {
     const d = deck();
     $('card-count').textContent = `${d.count} / 3 · 能量 ${d.energy}`;
     $('card-slots').classList.toggle('is-over', d.over);
     $('card-slots').innerHTML = state.cards.map((id,i) => {
       const card = cards.get(id);
-      return `<div class="creator-slot-row"><button class="creator-slot ${card?'selected':''}" type="button" data-slot="${i}" ${card?`data-tier="${card.tier}"`:''} aria-haspopup="dialog" aria-label="选择第${i+1}张卡片${card?`：${esc(card.name)}，${esc(card.tier_name)}，能量 ${card.energy}`:''}">${card?.image?image(card.image_url):`<span>${String(i+1).padStart(2,'0')}</span>`}<span><strong>${card?esc(card.name):'选择一张时间卡片'}</strong><small>${card?`<b class="creator-tier">${esc(card.tier_name)}</b>${esc(card.category)} · ${esc(roundText(card))}`:'从时间卡片图鉴中挑选'}</small></span>${card?`<em class="creator-slot-energy" aria-hidden="true">${card.energy}</em>`:''}</button>${card?`<button type="button" class="creator-remove" data-remove="${i}" aria-label="移除${esc(card.name)}">×</button>`:''}</div>`;
+      return `<div class="creator-slot-row"><button class="creator-slot ${card?'selected':''}" type="button" data-slot="${i}" ${card?`data-tier="${card.tier}"`:''} aria-haspopup="dialog" aria-label="选择第${i+1}张卡片${card?`：${esc(card.name)}，${esc(card.tier_name)}，能量 ${card.energy}`:''}">${card?.image?`<span class="creator-slot-art">${art(card)}</span>`:`<span>${String(i+1).padStart(2,'0')}</span>`}<span><strong>${card?esc(card.name):'选择一张时间卡片'}</strong><small>${card?`<b class="creator-tier">${esc(card.tier_name)}</b>${esc(card.category)} · ${esc(roundText(card))}`:'从时间卡片图鉴中挑选'}</small></span>${card?`<em class="creator-slot-energy" aria-hidden="true">${card.energy}</em>`:''}</button>${card?`<button type="button" class="creator-remove" data-remove="${i}" aria-label="移除${esc(card.name)}">×</button>`:''}</div>`;
     }).join('');
   }
   function picker() {
@@ -139,7 +137,7 @@
       ${state.background==='editorial'?`<div class="fp-editorial-marks" aria-hidden="true"><span class="fp-edition">构筑研究室 <i>／</i> FIELD NOTES</span><span class="fp-margin-note">观察 · 选择 · 落子</span><span class="fp-editorial-stamp">三卡<br><b>一门</b></span><span class="fp-editorial-sign">每一步，都有自己的想法。<svg viewBox="0 0 240 16"><path d="M3 9Q86 2 237 8M20 14Q100 8 202 12"/></svg></span></div>`:''}
       <header class="fp-header"><div class="fp-heading"><p class="fp-overline">英雄联盟传奇 · 大橘大利 / ${cardsOnly?'时间卡组推荐':'时间卡组构筑'}</p><h1 class="${title.length>18?'fp-long-title':''}">${esc(title)}</h1><div class="fp-meta">${meta.join('')}</div></div><div class="fp-brand"><b>大橘大利</b><small>FORTUNE ATELIER</small></div></header>
       <div class="fp-content"><section class="fp-deck"><div class="fp-label">01 / ${cardsOnly?'推荐卡组':'时间卡组'} <small>THREE CARDS. ONE PORTAL.</small></div><div class="fp-cards">${selected.map(posterCard).join('')}</div></section>${body}</div>
-      <footer class="fp-footer"><b>金铲铲阵容库</b><span>${state.author.trim()?`创作 / ${esc(state.author.trim())}`:'三张卡片，一座传送门。'}</span><small>大橘大利 / 3:4 CREATOR SERIES</small></footer></article>`;
+      <footer class="fp-footer"><b>金铲铲阵容库</b><span>${state.author.trim()?(state.credit==='provided'?`由 ${esc(state.author.trim())} 提供`:`创作 / ${esc(state.author.trim())}`):'三张卡片，一座传送门。'}</span><small>大橘大利 / 3:4 CREATOR SERIES</small></footer></article>`;
     fitPoster();
     fitText();
     renderRules();
@@ -175,6 +173,7 @@
     $(id).value = state[key];
     $(id).addEventListener('input',()=>{
       state[key]=$(id).value;
+      if(key==='author') state.credit='';  // A typed name is an author credit again.
       renderPoster(); save();
     });
   }
@@ -340,7 +339,7 @@
       const response=await fetch(`/api/orange-decks/${encodeURIComponent(importDeckId)}/export`,{headers:{Accept:'application/json'}});
       const data=await response.json().catch(()=>null);
       if(!response.ok) throw new Error(data?.error || '卡组读取失败');
-      Object.assign(state,{title:data.title.slice(0,24),author:data.author.slice(0,16),note:data.note,tempo:data.tempo,
+      Object.assign(state,{title:data.title.slice(0,24),author:data.author.slice(0,16),credit:data.author_credit||'',note:data.note,tempo:data.tempo,
         portal:portals.has(data.portal)?data.portal:state.portal,layout:layouts.has(data.layout)?data.layout:'cards',
         cards:data.cards.map(id=>cards.has(id)?id:null)});
       for (const [id,key] of Object.entries(fields)) $(id).value=state[key];

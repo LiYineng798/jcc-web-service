@@ -2,13 +2,13 @@
   "version": "18.18.1",
   "season": "S400001",
   "setId": "16",
-  "time": "2026-10-28 10:49:42",
+  "time": "2026-11-03 22:20:57",
   "data": {
     "7210014": {
       "id": "7210014",
       "iRarityTier": "1",
       "sName": "小额奖金 I",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7210014.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7210014_icon.png",
       "sTags": "0|1001",
       "sArgs": "gold=4^round=1-4",
       "sDesc": "获得4金币。"
@@ -17,7 +17,7 @@
       "id": "7210015",
       "iRarityTier": "1",
       "sName": "金币流 I",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7210015.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7210015_icon.png",
       "sTags": "0|1001",
       "sArgs": "gold=8^round=4-1^gold2=1",
       "sDesc": "立刻获得8金币，以及在剩余游戏时间内每回合获得1金币。"
@@ -26,7 +26,7 @@
       "id": "7210016",
       "iRarityTier": "1",
       "sName": "财源滚滚 I",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7210016.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7210016_icon.png",
       "sTags": "0|1001",
       "sArgs": "gold=50^round=6-1",
       "sDesc": "获得50金币。"
@@ -35,7 +35,7 @@
       "id": "7210017",
       "iRarityTier": "1",
       "sName": "散件补给 I",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7210017.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7210017_icon.png",
       "sTags": "0|1003",
       "sArgs": "count=1^round=2-3",
       "sDesc": "获得1件随机基础装备。"
@@ -44,7 +44,7 @@
       "id": "7210018",
       "iRarityTier": "1",
       "sName": "铁匠铺 I",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7210018.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7210018_icon.png",
       "sTags": "0|1003",
       "sArgs": "count=1^round=2-7",
       "sDesc": "获得1个【基础装备锻造器】。"
@@ -53,7 +53,7 @@
       "id": "7210019",
       "iRarityTier": "1",
       "sName": "反曲之弓",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7210019.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7210019_icon.png",
       "sTags": "0|1003",
       "sArgs": "count=1^round=2-5",
       "sDesc": "获得1个【反曲之弓】。"
@@ -62,7 +62,7 @@
       "id": "7210020",
       "iRarityTier": "1",
       "sName": "侦察小队",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7210020.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7210020_icon.png",
       "sTags": "0|1006",
       "sArgs": "count=1^round=1-4",
       "sDesc": "所有强化符文额外获得+1刷新次数。"
@@ -71,7 +71,7 @@
       "id": "7210021",
       "iRarityTier": "1",
       "sName": "中坚力量 I",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7210021.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7210021_icon.png",
       "sTags": "0|1002",
       "sArgs": "num=3^cost=3^count=1^round=2-3",
       "sDesc": "在3个随机3费弈子中选择1个。"
@@ -80,7 +80,7 @@
       "id": "7210022",
       "iRarityTier": "1",
       "sName": "四费援兵 I",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7210022.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7210022_icon.png",
       "sTags": "0|1002",
       "sArgs": "num=3^cost=4^count=1^round=3-3",
       "sDesc": "在3个随机4费弈子中选择1个。"
@@ -89,7 +89,7 @@
       "id": "7210023",
       "iRarityTier": "1",
       "sName": "王牌猎手 I",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7210023.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7210023_icon.png",
       "sTags": "0|1002",
       "sArgs": "num=3^cost=5^count=1^round=4-3",
       "sDesc": "在3个随机5费弈子中选择1个。"
@@ -98,7 +98,7 @@
       "id": "7210024",
       "iRarityTier": "1",
       "sName": "精锐援兵 I",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7210025.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7210025_icon.png",
       "sTags": "0|1002",
       "sArgs": "star=2^cost=2^count=1^round=2-5",
       "sDesc": "获得1个随机2星2费弈子。"
@@ -107,7 +107,7 @@
       "id": "7210025",
       "iRarityTier": "1",
       "sName": "帮忙，好伙计！ I",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7210026.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7210026_icon.png",
       "sTags": "0|1002",
       "sArgs": "star=3^cost=1^flatCount=1^round=3-7",
       "sDesc": "获得1个随机3星1费弈子。"
@@ -116,7 +116,7 @@
       "id": "7210026",
       "iRarityTier": "1",
       "sName": "金色军团 I",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7210027.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7210027_icon.png",
       "sTags": "0|1002",
       "sArgs": "cost=5^count=5^round=5-3",
       "sDesc": "获得5个不同的随机5费弈子。"
@@ -125,7 +125,7 @@
       "id": "7210027",
       "iRarityTier": "1",
       "sName": "次级复制 I",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7210128.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7210128_icon.png",
       "sTags": "0|1001",
       "sArgs": "count=1^round=2-5",
       "sDesc": "获得1个【次级英雄复制器】。"
@@ -134,7 +134,7 @@
       "id": "7210028",
       "iRarityTier": "1",
       "sName": "微型复制 I",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7210028.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7210028_icon.png",
       "sTags": "0|1001",
       "sArgs": "count=2^round=2-5",
       "sDesc": "获得2个【微型英雄复制器】。"
@@ -143,7 +143,7 @@
       "id": "7210030",
       "iRarityTier": "1",
       "sName": "纹章补给 I",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7210030.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7210030_icon.png",
       "sTags": "0|1005",
       "sArgs": "flatCount=1^round=4-1",
       "sDesc": "获得1个随机职业纹章。"
@@ -152,7 +152,7 @@
       "id": "7210032",
       "iRarityTier": "1",
       "sName": "升级 I",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7210032.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7210032_icon.png",
       "sTags": "0|1001",
       "sArgs": "xp=8^round=3-1",
       "sDesc": "获得8经验值。"
@@ -161,7 +161,7 @@
       "id": "7210033",
       "iRarityTier": "1",
       "sName": "经验盛宴 I",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7210033.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7210033_icon.png",
       "sTags": "0|1001",
       "sArgs": "xp=44^round=5-5",
       "sDesc": "获得44经验值。"
@@ -170,16 +170,16 @@
       "id": "7210034",
       "iRarityTier": "1",
       "sName": "虚张声势",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7210034.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7210034_icon.png",
       "sTags": "0|1006",
-      "sArgs": "cardStar=5^gold=2^round=1-1",
+      "sArgs": "cardStar=5^gold=2^round=1-1^detail=20046",
       "sDesc": "伪装为传说【时间卡片】。任一玩家放弃【接受挑战】时，你获得2金币。"
     },
     "7220015": {
       "id": "7220015",
       "iRarityTier": "2",
       "sName": "假人朋友",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7220015.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7220015_icon.png",
       "sTags": "0|1002",
       "sArgs": "count=2^round=2-7",
       "sDesc": "获得2个【训练假人】。"
@@ -188,7 +188,7 @@
       "id": "7220018",
       "iRarityTier": "1",
       "sName": "回响打捞术",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7220018.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7220018_icon.png",
       "sTags": "0|1006",
       "sArgs": "count=2^round=1-4^detail=20040",
       "sDesc": "获得2个【打捞术】。"
@@ -197,7 +197,7 @@
       "id": "7220024",
       "iRarityTier": "2",
       "sName": "小额奖金 II",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7220024.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7220024_icon.png",
       "sTags": "0|1001",
       "sArgs": "gold=6^round=2-2",
       "sDesc": "获得6金币。"
@@ -206,7 +206,7 @@
       "id": "7220026",
       "iRarityTier": "2",
       "sName": "财源滚滚 II",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7220026.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7220026_icon.png",
       "sTags": "0|1001",
       "sArgs": "gold=75^round=6-2",
       "sDesc": "获得75金币。"
@@ -215,16 +215,16 @@
       "id": "7220027",
       "iRarityTier": "2",
       "sName": "散件补给 II",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7220027.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7220027_icon.png",
       "sTags": "0|1003",
-      "sArgs": "count=1^round=2-3",
-      "sDesc": "获得1个随机基础装备。"
+      "sArgs": "count=2^round=3-5",
+      "sDesc": "获得2个随机基础装备。"
     },
     "7220028": {
       "id": "7220028",
       "iRarityTier": "2",
       "sName": "铁匠铺 II",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7220028.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7220028_icon.png",
       "sTags": "0|1003",
       "sArgs": "count=2^round=4-1",
       "sDesc": "获得2个【基础装备锻造器】。"
@@ -233,7 +233,7 @@
       "id": "7220030",
       "iRarityTier": "2",
       "sName": "杰作熔铸 I",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7220030.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7220030_icon.png",
       "sTags": "0|1003",
       "sArgs": "count=1^round=4-6",
       "sDesc": "获得1个【杰作升级】。"
@@ -242,7 +242,7 @@
       "id": "7220031",
       "iRarityTier": "2",
       "sName": "物法皆防 I",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7220031.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7220031_icon.png",
       "sTags": "0|1003",
       "sArgs": "itemCount=1^count=1^round=3-7",
       "sDesc": "获得1个【锁子甲】和1个【负极斗篷】。"
@@ -251,7 +251,7 @@
       "id": "7220032",
       "iRarityTier": "2",
       "sName": "物法皆攻 I",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7220032.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7220032_icon.png",
       "sTags": "0|1003",
       "sArgs": "itemCount=1^count=1^round=3-7",
       "sDesc": "获得1个【无用大棒】和1个【暴风大剑】。"
@@ -260,7 +260,7 @@
       "id": "7220033",
       "iRarityTier": "2",
       "sName": "手套高手 I",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7220033.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7220033_icon.png",
       "sTags": "0|1003",
       "sArgs": "count=1^round=3-1",
       "sDesc": "获得1个【秘法手套】。"
@@ -269,7 +269,7 @@
       "id": "7220034",
       "iRarityTier": "2",
       "sName": "中坚力量 II",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7220034.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7220034_icon.png",
       "sTags": "0|1002",
       "sArgs": "cost=3^count=1^round=3-1",
       "sDesc": "获得1个随机2星3费弈子。"
@@ -278,7 +278,7 @@
       "id": "7220036",
       "iRarityTier": "2",
       "sName": "王牌猎手 II",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7220036.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7220036_icon.png",
       "sTags": "0|1002",
       "sArgs": "cost=5^count=1^round=4-6",
       "sDesc": "获得1个随机2星5费弈子。"
@@ -287,7 +287,7 @@
       "id": "7220037",
       "iRarityTier": "2",
       "sName": "先遣小队",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7220037.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7220037_icon.png",
       "sTags": "0|1002",
       "sArgs": "cost=2^count=3^round=2-2",
       "sDesc": "获得3个随机2费弈子。"
@@ -296,7 +296,7 @@
       "id": "7220038",
       "iRarityTier": "2",
       "sName": "精锐援兵 II",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7220038.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7220038_icon.png",
       "sTags": "0|1002",
       "sArgs": "star=3^cost=2^count=1^round=4-5",
       "sDesc": "获得1个随机3星2费弈子。"
@@ -305,7 +305,7 @@
       "id": "7220039",
       "iRarityTier": "2",
       "sName": "微型复制 II",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7220039.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7220039_icon.png",
       "sTags": "0|1001",
       "sArgs": "count=3^round=3-7",
       "sDesc": "获得3个【微型英雄复制器】。"
@@ -314,7 +314,7 @@
       "id": "7220040",
       "iRarityTier": "2",
       "sName": "次级复制 II",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7220139.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7220139_icon.png",
       "sTags": "0|1001",
       "sArgs": "count=2^round=4-2",
       "sDesc": "获得2个【次级英雄复制器】。"
@@ -323,7 +323,7 @@
       "id": "7220042",
       "iRarityTier": "2",
       "sName": "纹章补给 II",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7220042.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7220042_icon.png",
       "sTags": "0|1005",
       "sArgs": "flatCount=1^round=3-7",
       "sDesc": "获得1个随机纹章。"
@@ -332,7 +332,7 @@
       "id": "7220044",
       "iRarityTier": "2",
       "sName": "百炼成钢",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7220044.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7220044_icon.png",
       "sTags": "0|1001",
       "sArgs": "xp=2^round=1-2",
       "sDesc": "每当你合成1件成装时，获得2经验值。"
@@ -341,7 +341,7 @@
       "id": "7220045",
       "iRarityTier": "2",
       "sName": "有意失利",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7220045.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7220045_icon.png",
       "sTags": "0|1001",
       "sArgs": "xp=2^round=1-2",
       "sDesc": "每当你输掉对战时，获得2经验值。"
@@ -350,7 +350,7 @@
       "id": "7220046",
       "iRarityTier": "2",
       "sName": "快乐开D I",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7220046.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7220046_icon.png",
       "sTags": "0|1001",
       "sArgs": "times=6^round=2-7",
       "sDesc": "获得6次免费刷新。"
@@ -359,7 +359,7 @@
       "id": "7220047",
       "iRarityTier": "2",
       "sName": "后期D牌主义 I",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7220047.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7220047_icon.png",
       "sTags": "0|1001",
       "sArgs": "times=12^round=4-1",
       "sDesc": "获得12次免费刷新。"
@@ -368,7 +368,7 @@
       "id": "7220048",
       "iRarityTier": "2",
       "sName": "命运卡片 I",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7220048.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7220048_icon.png",
       "sTags": "400001|1006",
       "sArgs": "round=1-1^cardStar=2^gold=3",
       "sDesc": "回合开始时，为你提供3金币，随后变为随机勇士【时间卡片】。"
@@ -377,16 +377,16 @@
       "id": "7220049",
       "iRarityTier": "2",
       "sName": "投资新手",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7220049.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7220049_icon.png",
       "sTags": "400001|1002",
       "sArgs": "itemCount=2^count=1^itemCount1=1^round=2-3",
-      "sDesc": "获得1个【米利欧】、1个【崔斯特】和2个【佛耶戈】"
+      "sDesc": "获得1个【米利欧】、1个【崔斯特】和2个【佛耶戈】。"
     },
     "7220050": {
       "id": "7220050",
       "iRarityTier": "2",
       "sName": "熔铸之神的馈赠",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7220050.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7220050_icon.png",
       "sTags": "400001|1002",
       "sArgs": "itemCount=1^round=3-7",
       "sDesc": "获得1件随机神器。"
@@ -395,7 +395,7 @@
       "id": "7220052",
       "iRarityTier": "2",
       "sName": "买一赠二 I",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7220052.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7220052_icon.png",
       "sTags": "400001|1006",
       "sArgs": "star=2^unlockCost=2^sellStar=1^round=1-3",
       "sDesc": "解锁2费弈子后，下次商店刷新时，该弈子会以2星版本出现。"
@@ -404,7 +404,7 @@
       "id": "7220053",
       "iRarityTier": "2",
       "sName": "2星C位开局",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7220053.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7220053_icon.png",
       "sTags": "400001|1002",
       "sArgs": "star=2^count=1^round=2-3",
       "sDesc": "获得1个2星的【凯特琳】或【烬】，以及1个2星的【克格莫】或【艾尼维亚】。"
@@ -413,7 +413,7 @@
       "id": "7220054",
       "iRarityTier": "2",
       "sName": "停火协议",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7220054.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7220054_icon.png",
       "sTags": "400001|1002",
       "sArgs": "itemCount=1^count=1^itemCount1=1^itemCount2=1^round=2-7",
       "sDesc": "获得1个【薇恩】、1个【赵信】、1个【德莱文】和1个【塞恩】。"
@@ -422,7 +422,7 @@
       "id": "7220055",
       "iRarityTier": "2",
       "sName": "双城故事",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7220056.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7220056_icon.png",
       "sTags": "400001|1002",
       "sArgs": "itemCount=1^count=1^itemCount1=1^itemCount2=1^round=2-7",
       "sDesc": "获得1个【洛里斯】、1个【蔚】、1个【金克丝】和1个【艾克】。"
@@ -431,7 +431,7 @@
       "id": "7220056",
       "iRarityTier": "2",
       "sName": "极境之民",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7220055.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7220055_icon.png",
       "sTags": "400001|1002",
       "sArgs": "itemCount=1^count=1^itemCount1=1^itemCount2=1^round=2-7",
       "sDesc": "获得1个【瑟庄妮】、1个【艾希】、1个【蕾欧娜】和1个【厄斐琉斯】。"
@@ -440,7 +440,7 @@
       "id": "7220057",
       "iRarityTier": "2",
       "sName": "常世之外",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7220057.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7220057_icon.png",
       "sTags": "400001|1002",
       "sArgs": "itemCount=1^count=1^itemCount1=1^itemCount2=1^round=2-7",
       "sDesc": "获得1个【玛尔扎哈】、1个【科加斯】、1个【崔丝塔娜】和1个【提莫】。"
@@ -449,7 +449,7 @@
       "id": "7220058",
       "iRarityTier": "2",
       "sName": "口袋变形",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7220058.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7220058_icon.png",
       "sTags": "400001|1006",
       "sArgs": "num=1^round=1-4^detail=20045",
       "sDesc": "获得1个【口袋变形重组器】。"
@@ -458,7 +458,7 @@
       "id": "7230005",
       "iRarityTier": "3",
       "sName": "金辉尽绘",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230005.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230005_icon.png",
       "sTags": "400001|1001",
       "sArgs": "count=1^extraCount=1^round=3-1^times=3^star=3",
       "sDesc": "获得1个【次级英雄复制器】。你接下来3次将弈子升至3星时，都会再获得1个。"
@@ -467,7 +467,7 @@
       "id": "7230032",
       "iRarityTier": "3",
       "sName": "小额奖金 III",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230032.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230032_icon.png",
       "sTags": "0|1001",
       "sArgs": "gold=9^round=2-5",
       "sDesc": "获得9金币。"
@@ -476,7 +476,7 @@
       "id": "7230034",
       "iRarityTier": "3",
       "sName": "财源滚滚 III",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230034.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230034_icon.png",
       "sTags": "0|1001",
       "sArgs": "gold=120^round=6-3",
       "sDesc": "获得120金币。"
@@ -485,16 +485,16 @@
       "id": "7230035",
       "iRarityTier": "3",
       "sName": "基础锻造",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230035.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230035_icon.png",
       "sTags": "0|1003",
       "sArgs": "level=5^count=1^round=1-2",
-      "sDesc": "当你到达5级时，获得1个【基础装备锻造器】"
+      "sDesc": "当你到达5级时，获得1个【基础装备锻造器】。"
     },
     "7230036": {
       "id": "7230036",
       "iRarityTier": "3",
       "sName": "散件大礼包",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230036.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230036_icon.png",
       "sTags": "0|1003",
       "sArgs": "count=1^round=5-1",
       "sDesc": "获得每种基础装备各1件。"
@@ -503,7 +503,7 @@
       "id": "7230037",
       "iRarityTier": "3",
       "sName": "杰作熔铸 II",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230037.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230037_icon.png",
       "sTags": "0|1003",
       "sArgs": "count=2^round=5-3",
       "sDesc": "获得2个【杰作升级】。"
@@ -512,7 +512,7 @@
       "id": "7230038",
       "iRarityTier": "3",
       "sName": "神器补给",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230038.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230038_icon.png",
       "sTags": "0|1003",
       "sArgs": "count=1^round=4-1",
       "sDesc": "获得1个【神器锻造器】。"
@@ -521,7 +521,7 @@
       "id": "7230039",
       "iRarityTier": "3",
       "sName": "物法皆防 II",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230039.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230039_icon.png",
       "sTags": "0|1003",
       "sArgs": "itemCount=1^count=1^round=3-3",
       "sDesc": "获得1个【锁子甲】和1个【负极斗篷】。"
@@ -530,7 +530,7 @@
       "id": "7230040",
       "iRarityTier": "3",
       "sName": "物法皆攻 II",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230040.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230040_icon.png",
       "sTags": "0|1003",
       "sArgs": "itemCount=1^count=1^round=3-3",
       "sDesc": "获得1个【无用大棒】和1个【暴风大剑】。"
@@ -539,7 +539,7 @@
       "id": "7230041",
       "iRarityTier": "3",
       "sName": "手套高手 II",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230041.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230041_icon.png",
       "sTags": "0|1003",
       "sArgs": "count=2^round=4-1",
       "sDesc": "获得2个【秘法手套】。"
@@ -548,7 +548,7 @@
       "id": "7230043",
       "iRarityTier": "3",
       "sName": "双重暴击",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230043.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230043_icon.png",
       "sTags": "0|1003",
       "sArgs": "itemCount=1^count=1^round=4-3",
       "sDesc": "获得1个【珠光护手】和1个【无尽之刃】。"
@@ -557,7 +557,7 @@
       "id": "7230044",
       "iRarityTier": "3",
       "sName": "离子巨杀",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230044.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230044_icon.png",
       "sTags": "0|1003",
       "sArgs": "itemCount=1^count=1^round=4-3",
       "sDesc": "获得1个【离子火花】和1个【巨人杀手】。"
@@ -566,7 +566,7 @@
       "id": "7230045",
       "iRarityTier": "3",
       "sName": "幸运宝箱",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230045.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230045_icon.png",
       "sTags": "0|1003",
       "sArgs": "count=1^round=3-5",
       "sDesc": "获得1个【幸运装备宝箱】。"
@@ -575,7 +575,7 @@
       "id": "7230047",
       "iRarityTier": "3",
       "sName": "扩军令 I",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230047.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230047_icon.png",
       "sTags": "0|1006",
       "sArgs": "plus=1^round=4-3",
       "sDesc": "获得+1最大队伍规模。"
@@ -584,7 +584,7 @@
       "id": "7230048",
       "iRarityTier": "3",
       "sName": "四费援兵 II",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230048.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230048_icon.png",
       "sTags": "0|1002",
       "sArgs": "cost=4^count=1^round=3-5",
       "sDesc": "获得1个随机2星4费弈子。"
@@ -593,7 +593,7 @@
       "id": "7230049",
       "iRarityTier": "3",
       "sName": "王牌猎手 III",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230049.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230049_icon.png",
       "sTags": "0|1002",
       "sArgs": "cost=5^count=3^round=4-7",
       "sDesc": "在3个随机2星5费弈子中选择1个。"
@@ -602,7 +602,7 @@
       "id": "7230050",
       "iRarityTier": "3",
       "sName": "强力盟友 I",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230050.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230050_icon.png",
       "sTags": "0|1002",
       "sArgs": "gold=10^round=2-5",
       "sDesc": "获得价值10金币的相同羁绊弈子。"
@@ -611,7 +611,7 @@
       "id": "7230051",
       "iRarityTier": "3",
       "sName": "援兵组合",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230051.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230051_icon.png",
       "sTags": "0|1002",
       "sArgs": "cost=2^count=3^round=1-4",
       "sDesc": "在3个随机2星2费弈子中选择1个。"
@@ -620,7 +620,7 @@
       "id": "7230052",
       "iRarityTier": "3",
       "sName": "帮忙，好伙计！ II",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230052.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230052_icon.png",
       "sTags": "0|1002",
       "sArgs": "star=3^cost=1^flatCount=2^round=4-2",
       "sDesc": "获得2个随机3星1费弈子。"
@@ -629,7 +629,7 @@
       "id": "7230053",
       "iRarityTier": "3",
       "sName": "金色军团 II",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230053.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230053_icon.png",
       "sTags": "0|1002",
       "sArgs": "cost=5^count=1^round=5-5",
       "sDesc": "获得所有的5费弈子各1个。"
@@ -638,7 +638,7 @@
       "id": "7230054",
       "iRarityTier": "3",
       "sName": "混合复制",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230054.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230054_icon.png",
       "sTags": "0|1001",
       "sArgs": "count=1^round=2-1",
       "sDesc": "获得1个【微型英雄复制器】和1个【次级英雄复制器】。"
@@ -647,7 +647,7 @@
       "id": "7230055",
       "iRarityTier": "3",
       "sName": "次级复制 III",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230055.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230055_icon.png",
       "sTags": "0|1001",
       "sArgs": "count=3^round=4-5",
       "sDesc": "获得3个【次级英雄复制器】。"
@@ -656,7 +656,7 @@
       "id": "7230057",
       "iRarityTier": "3",
       "sName": "纹章补给 III",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230058.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230058_icon.png",
       "sTags": "0|1005",
       "sArgs": "flatCount=2^round=4-3",
       "sDesc": "获得2个随机纹章。"
@@ -665,7 +665,7 @@
       "id": "7230058",
       "iRarityTier": "3",
       "sName": "纹章之书 I",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230057.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230057_icon.png",
       "sTags": "0|1005",
       "sArgs": "count=2^round=4-5",
       "sDesc": "获得2个【纹章之书】。"
@@ -674,7 +674,7 @@
       "id": "7230060",
       "iRarityTier": "3",
       "sName": "经验叠经验",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230060.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230060_icon.png",
       "sTags": "0|1001",
       "sArgs": "xp=4^round=2-1",
       "sDesc": "每当你升级时，额外获得4经验值。"
@@ -683,7 +683,7 @@
       "id": "7230061",
       "iRarityTier": "3",
       "sName": "绝处逢生",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230061.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230061_icon.png",
       "sTags": "0|1001",
       "sArgs": "hp=50^xp=40^round=1-2",
       "sDesc": "当你的玩家生命值首次降至50以下时，获得40经验值。"
@@ -692,7 +692,7 @@
       "id": "7230062",
       "iRarityTier": "3",
       "sName": "快乐开D II",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230062.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230062_icon.png",
       "sTags": "0|1001",
       "sArgs": "times=5^round=2-3",
       "sDesc": "获得5次刷新。"
@@ -701,7 +701,7 @@
       "id": "7230063",
       "iRarityTier": "3",
       "sName": "后期D牌主义 II",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230063.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230063_icon.png",
       "sTags": "0|1001",
       "sArgs": "times=15^round=4-1",
       "sDesc": "获得15次刷新。"
@@ -710,7 +710,7 @@
       "id": "7230064",
       "iRarityTier": "3",
       "sName": "蓝色法球",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230064.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230064_icon.png",
       "sTags": "0|1001",
       "sArgs": "gold=8^count=1^round=1-4",
       "sDesc": "获得1个蓝色法球，价值约8金币。"
@@ -719,7 +719,7 @@
       "id": "7230065",
       "iRarityTier": "3",
       "sName": "金球之礼",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230065.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230065_icon.png",
       "sTags": "0|1001",
       "sArgs": "gold=20^count=1^round=1-2^level=6",
       "sDesc": "当你到达6级时，获得1个金色法球，价值约20金币。"
@@ -728,7 +728,7 @@
       "id": "7230066",
       "iRarityTier": "3",
       "sName": "棱彩法球 I",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230066.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230066_icon.png",
       "sTags": "0|1001",
       "sArgs": "gold=40^count=1^round=4-5",
       "sDesc": "获得1个棱彩法球，价值约40金币。"
@@ -737,7 +737,7 @@
       "id": "7230067",
       "iRarityTier": "3",
       "sName": "白银之选",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230067.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230067_icon.png",
       "sTags": "0|1004",
       "sArgs": "count=1^round=3-3",
       "sDesc": "额外选择1个白银阶强化符文。"
@@ -746,7 +746,7 @@
       "id": "7230068",
       "iRarityTier": "3",
       "sName": "命运：黄金阶",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230068.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230068_icon.png",
       "sTags": "0|1004",
       "sArgs": "count=1^round=3-1",
       "sDesc": "获得1个随机黄金阶强化符文。"
@@ -755,7 +755,7 @@
       "id": "7230069",
       "iRarityTier": "3",
       "sName": "命运：棱彩阶",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230069.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230069_icon.png",
       "sTags": "0|1004",
       "sArgs": "count=1^round=4-1",
       "sDesc": "获得1个随机棱彩阶强化符文。"
@@ -764,7 +764,7 @@
       "id": "7230070",
       "iRarityTier": "3",
       "sName": "符文强化 I",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230070.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230070_icon.png",
       "sTags": "0|1004",
       "sArgs": "gold=20^round=1-4",
       "sDesc": "你的最终强化符文位阶提高一阶，如果已经是棱彩阶则转而获得20金币。"
@@ -773,7 +773,7 @@
       "id": "7230071",
       "iRarityTier": "3",
       "sName": "命运卡片 II",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230071.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230071_icon.png",
       "sTags": "400001|1006",
       "sArgs": "round=1-1^cardStar=3^gold=5",
       "sDesc": "回合开始时，为你提供5金币，随后变为随机王者【时间卡片】。"
@@ -782,7 +782,7 @@
       "id": "7230072",
       "iRarityTier": "3",
       "sName": "寻炉乡",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230072.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230072_icon.png",
       "sTags": "400001|1002",
       "sArgs": "count=8^equipnum=1^round=1-2",
       "sDesc": "当你首次合成8件成装时，获得1个【奥恩】和1件随机神器。"
@@ -791,7 +791,7 @@
       "id": "7230081",
       "iRarityTier": "3",
       "sName": "炉家人 I",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230081.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230081_icon.png",
       "sTags": "400001|1003",
       "sArgs": "count=1^round=3-5^detail=20035|20036",
       "sDesc": "获得1个【山隐之焰纹章】。"
@@ -800,7 +800,7 @@
       "id": "7230084",
       "iRarityTier": "3",
       "sName": "时光之力 I",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230084.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230084_icon.png",
       "sTags": "400001|1003",
       "sArgs": "count=1^round=2-5^detail=20037|20038",
       "sDesc": "获得1个【时光守护者纹章】。"
@@ -809,7 +809,7 @@
       "id": "7230085",
       "iRarityTier": "3",
       "sName": "贪欲恶魔 I",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230085.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230085_icon.png",
       "sTags": "400001|1003",
       "sArgs": "count=1^round=2-7^detail=20001|20002",
       "sDesc": "获得1个【河流之王纹章】。"
@@ -818,7 +818,7 @@
       "id": "7230087",
       "iRarityTier": "3",
       "sName": "范德尔",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230087.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230087_icon.png",
       "sTags": "400001|1002",
       "sArgs": "round=3-1^pct=20",
       "sDesc": "解锁【沃里克】。他的技能现在额外获得20%伤害减免和不可阻挡效果。"
@@ -827,7 +827,7 @@
       "id": "7230088",
       "iRarityTier": "3",
       "sName": "上古守护者",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230088.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230088_icon.png",
       "sTags": "400001|1002",
       "sArgs": "round=3-1",
       "sDesc": "解锁【斯卡纳】。战斗开始时，基于他的护甲和最大生命值为所有友军提供护盾。"
@@ -836,7 +836,7 @@
       "id": "7230089",
       "iRarityTier": "3",
       "sName": "世界最大“恶人”",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230089.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230089_icon.png",
       "sTags": "400001|1002",
       "sArgs": "round=3-1",
       "sDesc": "解锁【维迦】。他的技能现在额外发射治愈流星，为命中的友军回复生命值。"
@@ -845,7 +845,7 @@
       "id": "7230090",
       "iRarityTier": "3",
       "sName": "日月光华",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230090.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230090_icon.png",
       "sTags": "400001|1002",
       "sArgs": "count=1^round=3-3",
       "sDesc": "解锁【黛安娜】。获得1个【蕾欧娜】。【黛安娜】现在的被动效果翻倍。"
@@ -854,7 +854,7 @@
       "id": "7230091",
       "iRarityTier": "3",
       "sName": "买一赠二 II",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230091.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230091_icon.png",
       "sTags": "400001|1006",
       "sArgs": "star=2^unlockCost=3^sellStar=1^round=1-3",
       "sDesc": "解锁3费弈子后，下次商店刷新时，该弈子会以2星版本出现。"
@@ -863,7 +863,7 @@
       "id": "7230094",
       "iRarityTier": "3",
       "sName": "坚决之阵",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230094.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230094_icon.png",
       "sTags": "400001|1002",
       "sArgs": "pct=35^count=1^round=2-5",
       "sDesc": "获得1个【金橘格】。所有【金橘格】内的弈子获得35%最大生命值。"
@@ -872,16 +872,16 @@
       "id": "7230096",
       "iRarityTier": "3",
       "sName": "汲取之阵",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230096.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230096_icon.png",
       "sTags": "400001|1002",
-      "sArgs": "pct=20^count=1^round=3-5",
-      "sDesc": "获得1个【金橘格】。所有【金橘格】 内的弈子获得20%全能吸血。"
+      "sArgs": "pct=20^count=1^round=3-1",
+      "sDesc": "获得1个【金橘格】。所有【金橘格】内的弈子获得20%全能吸血。"
     },
     "7230103": {
       "id": "7230103",
       "iRarityTier": "3",
       "sName": "同盟药水",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230103.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230103_icon.png",
       "sTags": "400001|1002",
       "sArgs": "count=1^round=2-1^detail=20022",
       "sDesc": "立刻以及每阶段开始时获得1个【同盟药水】。"
@@ -890,7 +890,7 @@
       "id": "7230105",
       "iRarityTier": "3",
       "sName": "能抗就能打",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230105.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230105_icon.png",
       "sTags": "400001|1002",
       "sArgs": "pct=30^pct1=10^hpThreshold=3000^perHpThresh=1000^num=3000^round=1-3^detail=20017",
       "sDesc": "最大生命值高于3000的友军获得大量物理加成和法术加成。"
@@ -899,7 +899,7 @@
       "id": "7230107",
       "iRarityTier": "3",
       "sName": "帝国反抗者",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230107.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230107_icon.png",
       "sTags": "400001|1002",
       "sArgs": "round=2-5^maxhp=25/40/60/100^detail=20018",
       "sDesc": "解锁【阿利斯塔】。【牛头酋长】羁绊现在为【阿利斯塔】提供永久最大生命值。"
@@ -908,16 +908,16 @@
       "id": "7230108",
       "iRarityTier": "3",
       "sName": "重峦叠嶂",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230108.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230108_icon.png",
       "sTags": "400001|1002",
       "sArgs": "round=2-5^pct=100^detail=20019",
-      "sDesc": "解锁【墨菲特】。【熔岩巨兽】羁绊会基于【时空强化格】提供额外增益。"
+      "sDesc": "解锁【墨菲特】。【熔岩巨兽】羁绊新增【金橘格】相关效果。"
     },
     "7230110": {
       "id": "7230110",
       "iRarityTier": "3",
       "sName": "升星药水",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230110.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230110_icon.png",
       "sTags": "400001|1002",
       "sArgs": "star=2^count=1^round=2-1^detail=20023",
       "sDesc": "立刻以及每阶段开始时获得1个【升星药水】。"
@@ -926,7 +926,7 @@
       "id": "7230111",
       "iRarityTier": "3",
       "sName": "天衣药水",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230111.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230111_icon.png",
       "sTags": "400001|1002",
       "sArgs": "count=1^round=2-1^detail=20024",
       "sDesc": "立刻以及每阶段开始时获得1个【天衣药水】。"
@@ -935,25 +935,25 @@
       "id": "7230112",
       "iRarityTier": "3",
       "sName": "王国后裔",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230112.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230112_icon.png",
       "sTags": "400001|1002",
       "sArgs": "round=2-5^count=2^detail=20006",
-      "sDesc": "解锁【希维尔】。获得2个【希维尔】。【战争女神】羁绊现在也会增幅【希维尔】。"
+      "sDesc": "解锁并获得2个【希维尔】。【战争女神】羁绊现在也会增幅【希维尔】。"
     },
     "7230113": {
       "id": "7230113",
       "iRarityTier": "3",
       "sName": "祖安试验",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230113.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230113_icon.png",
       "sTags": "400001|1002",
       "sArgs": "round=1-4^detail=20020^hplip=60^hppct=40",
-      "sDesc": "获得1个【不稳定炼金罐】"
+      "sDesc": "获得1个【不稳定炼金罐】。"
     },
     "7230114": {
       "id": "7230114",
       "iRarityTier": "3",
       "sName": "坚毅药水",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230114.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230114_icon.png",
       "sTags": "400001|1002",
       "sArgs": "count=1^round=2-1^detail=20039",
       "sDesc": "立刻以及每阶段开始时获得1个【坚毅药水】。"
@@ -962,7 +962,7 @@
       "id": "7240005",
       "iRarityTier": "4",
       "sName": "暗裔之刃",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240006.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240006_icon.png",
       "sTags": "400001|1003",
       "sArgs": "pct=5^count=1^round=3-5^times=30^detail=20015",
       "sDesc": "获得1个【暗裔鬼索的狂暴之刃】。"
@@ -971,7 +971,7 @@
       "id": "7240006",
       "iRarityTier": "4",
       "sName": "暗裔之怒",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240005.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240005_icon.png",
       "sTags": "400001|1003",
       "sArgs": "pct=3^count=1^maxStack=30^round=3-5^detail=20016",
       "sDesc": "获得1个【暗裔海妖之怒】。"
@@ -980,7 +980,7 @@
       "id": "7240016",
       "iRarityTier": "4",
       "sName": "小额奖金 IV",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240016.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240016_icon.png",
       "sTags": "0|1001",
       "sArgs": "gold=12^round=2-7",
       "sDesc": "获得12金币。"
@@ -989,7 +989,7 @@
       "id": "7240017",
       "iRarityTier": "4",
       "sName": "金币流 II",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240017.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240017_icon.png",
       "sTags": "0|1001",
       "sArgs": "gold=15^round=4-3^gold2=3",
       "sDesc": "立刻获得15金币，以及在剩余游戏时间内每回合获得3金币。"
@@ -998,7 +998,7 @@
       "id": "7240018",
       "iRarityTier": "4",
       "sName": "掘金者",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240018.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240018_icon.png",
       "sTags": "0|1001",
       "sArgs": "gold=16^round=1-2",
       "sDesc": "每当有玩家被淘汰时，你获得16金币。"
@@ -1007,7 +1007,7 @@
       "id": "7240019",
       "iRarityTier": "4",
       "sName": "铁匠铺 III",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240019.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240019_icon.png",
       "sTags": "0|1003",
       "sArgs": "count=2^round=2-5",
       "sDesc": "获得2个【基础装备锻造器】。"
@@ -1016,16 +1016,16 @@
       "id": "7240020",
       "iRarityTier": "4",
       "sName": "光明宝箱",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240020.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240020_icon.png",
       "sTags": "0|1003",
       "sArgs": "round=4-1^count=1",
-      "sDesc": "获得1个【光明版幸运装备宝箱】"
+      "sDesc": "获得1个【光明版幸运装备宝箱】。"
     },
     "7240021": {
       "id": "7240021",
       "iRarityTier": "4",
       "sName": "凯旋熔炉",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240021.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240021_icon.png",
       "sTags": "0|1003",
       "sArgs": "count=2^round=1-2^num=10",
       "sDesc": "当你首次赢得10场玩家对战时，获得2个【杰作升级】。"
@@ -1034,7 +1034,7 @@
       "id": "7240022",
       "iRarityTier": "4",
       "sName": "辅助三宝",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240022.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240022_icon.png",
       "sTags": "0|1003",
       "sArgs": "count=1^round=3-7",
       "sDesc": "获得1个【日炎斗篷】、1个【离子火花】和1个【薄暮法袍】。"
@@ -1043,7 +1043,7 @@
       "id": "7240023",
       "iRarityTier": "4",
       "sName": "极致攻防",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240023.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240023_icon.png",
       "sTags": "0|1003",
       "sArgs": "itemCount=1^count=1^itemCount1=1^round=3-7",
       "sDesc": "获得1个【锐利之刃】、1个【班克斯的魔法帽】和1个【狂徒铠甲】。"
@@ -1052,7 +1052,7 @@
       "id": "7240024",
       "iRarityTier": "4",
       "sName": "扩军令 II",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240024.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240024_icon.png",
       "sTags": "0|1006",
       "sArgs": "plus=2^round=5-6",
       "sDesc": "获得+2最大队伍规模。"
@@ -1061,7 +1061,7 @@
       "id": "7240025",
       "iRarityTier": "4",
       "sName": "幸运宝箱堆 I",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240025.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240025_icon.png",
       "sTags": "0|1003",
       "sArgs": "count=3^round=4-1",
       "sDesc": "获得3个【幸运装备宝箱】。"
@@ -1070,7 +1070,7 @@
       "id": "7240026",
       "iRarityTier": "4",
       "sName": "四费援军",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240026.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240026_icon.png",
       "sTags": "0|1002",
       "sArgs": "cost=4^count=2^round=2-5",
       "sDesc": "获得2个不同的随机4费弈子。"
@@ -1079,7 +1079,7 @@
       "id": "7240027",
       "iRarityTier": "4",
       "sName": "王牌猎手团",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240027.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240027_icon.png",
       "sTags": "0|1002",
       "sArgs": "cost=5^count=2^round=5-2",
       "sDesc": "获得2个随机2星5费弈子。"
@@ -1088,7 +1088,7 @@
       "id": "7240028",
       "iRarityTier": "4",
       "sName": "双子星",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240028.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240028_icon.png",
       "sTags": "0|1002",
       "sArgs": "cost=1^count=1^star=2^cost1=1^cost2=2^cost3=3^round=2-5",
       "sDesc": "获得相同羁绊的1个2星1费弈子和1个2星3费弈子。"
@@ -1097,7 +1097,7 @@
       "id": "7240030",
       "iRarityTier": "4",
       "sName": "纹章补给 IV",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240030.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240030_icon.png",
       "sTags": "0|1005",
       "sArgs": "flatCount=2^round=4-5",
       "sDesc": "获得2个相同的随机纹章。"
@@ -1106,7 +1106,7 @@
       "id": "7240031",
       "iRarityTier": "4",
       "sName": "金锅铲冠冕",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240031.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240031_icon.png",
       "sTags": "0|1003",
       "sArgs": "count=1^round=4-3",
       "sDesc": "获得1个【金锅铲冠冕】。"
@@ -1115,7 +1115,7 @@
       "id": "7240032",
       "iRarityTier": "4",
       "sName": "羁绊大师",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240032.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240032_icon.png",
       "sTags": "0|1005",
       "sArgs": "plus=1^round=6-2",
       "sDesc": "获得每种可合成纹章各1个。"
@@ -1124,7 +1124,7 @@
       "id": "7240033",
       "iRarityTier": "4",
       "sName": "升级 II",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240033.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240033_icon.png",
       "sTags": "0|1001",
       "sArgs": "xp=12^round=1-4",
       "sDesc": "获得12经验值。"
@@ -1133,7 +1133,7 @@
       "id": "7240034",
       "iRarityTier": "4",
       "sName": "经验盛宴 II",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240034.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240034_icon.png",
       "sTags": "0|1001",
       "sArgs": "xp=100^round=5-7",
       "sDesc": "获得100经验值。"
@@ -1141,8 +1141,8 @@
     "7240035": {
       "id": "7240035",
       "iRarityTier": "4",
-      "sName": "鎏金门票",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240035.png",
+      "sName": "浮金门票",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240035_icon.png",
       "sTags": "0|1001",
       "sArgs": "pct=35^round=2-7",
       "sDesc": "每次商店刷新时，你都有35%几率获得1次免费刷新。"
@@ -1151,7 +1151,7 @@
       "id": "7240036",
       "iRarityTier": "4",
       "sName": "拾荒人",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240036.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240036_icon.png",
       "sTags": "0|1001",
       "sArgs": "times=3^round=1-2",
       "sDesc": "任一玩家被淘汰时，你获得1个金色法球(至多3次)。"
@@ -1160,7 +1160,7 @@
       "id": "7240037",
       "iRarityTier": "4",
       "sName": "彩球之礼",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240037.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240037_icon.png",
       "sTags": "0|1001",
       "sArgs": "level=8^count=1^round=1-2",
       "sDesc": "当你到达8级时，获得1个棱彩法球。"
@@ -1169,7 +1169,7 @@
       "id": "7240038",
       "iRarityTier": "4",
       "sName": "黄金之选",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240038.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240038_icon.png",
       "sTags": "0|1004",
       "sArgs": "count=1^round=3-3",
       "sDesc": "额外选择1个黄金阶强化符文。"
@@ -1178,7 +1178,7 @@
       "id": "7240039",
       "iRarityTier": "4",
       "sName": "棱彩之选 I",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240039.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240039_icon.png",
       "sTags": "0|1004",
       "sArgs": "count=1^round=4-7",
       "sDesc": "额外选择1个棱彩阶强化符文。"
@@ -1187,7 +1187,7 @@
       "id": "7240040",
       "iRarityTier": "4",
       "sName": "符文强化 II",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240040.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240040_icon.png",
       "sTags": "0|1004",
       "sArgs": "gold=8^round=1-3^gold2=10",
       "sDesc": "你的首个强化符文必定为棱彩阶，如果本来是棱彩阶，则额外提供8金币。"
@@ -1196,7 +1196,7 @@
       "id": "7240041",
       "iRarityTier": "3",
       "sName": "时间引擎保险",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240041.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240041_icon.png",
       "sTags": "0|1006",
       "sArgs": "round=1-3",
       "sDesc": "当你因挑战失败而导致【时间卡片】即将碎裂时，转而消耗此卡片。"
@@ -1205,7 +1205,7 @@
       "id": "7240042",
       "iRarityTier": "4",
       "sName": "命运卡片 III",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240042.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240042_icon.png",
       "sTags": "400001|1006",
       "sArgs": "round=1-1^cardStar=4^gold=7",
       "sDesc": "回合开始时，为你提供7金币，随后变为随机史诗【时间卡片】。"
@@ -1214,7 +1214,7 @@
       "id": "7240058",
       "iRarityTier": "4",
       "sName": "多重投资",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240058.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240058_icon.png",
       "sTags": "400001|1006",
       "sArgs": "silverCoin=100^soul=45^sunShard=50^round=1-3",
       "sDesc": "获得100【银蛇币】、45【灵魂】和50【太阳碎片】。"
@@ -1223,7 +1223,7 @@
       "id": "7240059",
       "iRarityTier": "4",
       "sName": "夺魂海怪",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240059.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240059_icon.png",
       "sTags": "400001|1006",
       "sArgs": "count=1^hpFlat=20^round=5-1^num=3",
       "sDesc": "任一玩家被淘汰时，获得该玩家最强大的那个弈子及其携带的装备(至多3次)。"
@@ -1232,7 +1232,7 @@
       "id": "7240060",
       "iRarityTier": "4",
       "sName": "力量的召唤",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240060.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240060_icon.png",
       "sTags": "400001|1002",
       "sArgs": "count=2^copyStar=1^round=4-3",
       "sDesc": "解锁【瑞兹】。获得2个【瑞兹】。"
@@ -1241,7 +1241,7 @@
       "id": "7240061",
       "iRarityTier": "4",
       "sName": "恶魔降世",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240061.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240061_icon.png",
       "sTags": "400001|1002",
       "sArgs": "count=2^plus=2^copyStar=1^round=4-3",
       "sDesc": "解锁【亚托克斯】。获得2个【亚托克斯】。他现在总计提供+2【裁决战士】羁绊。"
@@ -1250,7 +1250,7 @@
       "id": "7240062",
       "iRarityTier": "4",
       "sName": "旧日蛮神",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240062.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240062_icon.png",
       "sTags": "400001|1002",
       "sArgs": "count=2^plus=2^copyStar=1^round=4-3",
       "sDesc": "解锁【沃利贝尔】。获得2个【沃利贝尔】。他现在总计提供+2【斗士】羁绊。"
@@ -1259,7 +1259,7 @@
       "id": "7240063",
       "iRarityTier": "4",
       "sName": "苦痛典狱",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240063.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240063_icon.png",
       "sTags": "400001|1002",
       "sArgs": "count=2^plus=2^copyStar=1^round=4-3",
       "sDesc": "解锁【锤石】。获得2个【锤石】。他现在总计提供+2【神盾使】羁绊。"
@@ -1268,7 +1268,7 @@
       "id": "7240064",
       "iRarityTier": "4",
       "sName": "买一赠二 III",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240064.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240064_icon.png",
       "sTags": "400001|1006",
       "sArgs": "star=2^unlockCost=4^sellStar=1^round=1-3",
       "sDesc": "解锁4费弈子后，下次商店刷新时，该弈子会以2星版本出现。"
@@ -1277,7 +1277,7 @@
       "id": "7240068",
       "iRarityTier": "3",
       "sName": "峡谷先锋奇袭！",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240068.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240068_icon.png",
       "sTags": "400001|1006",
       "sArgs": "times=2^round=4-5^detail=20028",
       "sDesc": "你接下来的2次玩家对战回合变为野怪回合，【峡谷先锋】成为你的新敌人。"
@@ -1286,7 +1286,7 @@
       "id": "7240069",
       "iRarityTier": "4",
       "sName": "迅捷蟹奇袭！",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240069.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240069_icon.png",
       "sTags": "400001|1006",
       "sArgs": "times=2^round=3-5^detail=20029",
       "sDesc": "你接下来的2次玩家对战回合变为野怪回合，【迅捷蟹】成为你的新敌人。"
@@ -1295,16 +1295,16 @@
       "id": "7240071",
       "iRarityTier": "4",
       "sName": "斗士之阵",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240071.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240071_icon.png",
       "sTags": "400001|1002",
-      "sArgs": "count=2^hpPerm=80^round=1-4",
-      "sDesc": "获得2个【金橘格】。所有【金橘格】内的弈子每回合获得80永久最大生命值。"
+      "sArgs": "count=2^hpPerm=60^round=1-4",
+      "sDesc": "获得2个【金橘格】。所有【金橘格】内的弈子每回合获得60永久最大生命值。"
     },
     "7240072": {
       "id": "7240072",
       "iRarityTier": "4",
       "sName": "不屈之阵",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240072.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240072_icon.png",
       "sTags": "400001|1002",
       "sArgs": "count=1^sec=1^round=2-5^detail=20011",
       "sDesc": "获得1个【金橘格】。所有【金橘格】内的弈子获得不屈效果。"
@@ -1313,16 +1313,16 @@
       "id": "7240073",
       "iRarityTier": "4",
       "sName": "败者的智慧",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240073.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240073_icon.png",
       "sTags": "400001|1006",
-      "sArgs": "equipnum=3^round=5-1^num=3",
-      "sDesc": "前3次输掉玩家对战时，获得敌人最强大的那个单位或其携带的3件装备。"
+      "sArgs": "equipnum=3^round=5-1^num=2",
+      "sDesc": "前2次输掉玩家对战时，获得敌人最强大的那个单位或其携带的3件装备。"
     },
     "7240077": {
       "id": "7240077",
       "iRarityTier": "4",
       "sName": "四星的第一步",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240077.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240077_icon.png",
       "sTags": "400001|1006",
       "sArgs": "star=3^star1=3^count=1^round=1-3^timedelay=5",
       "sDesc": "当你首次将1个弈子升至3星后，每过5个回合获得1个其3星复制体。"
@@ -1331,7 +1331,7 @@
       "id": "7240080",
       "iRarityTier": "4",
       "sName": "命运之轮：厄斐琉斯",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240080.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240080_icon.png",
       "sTags": "400001|1002",
       "sArgs": "times=10^round=1-4^count=1^detail=20005",
       "sDesc": "获得1个【厄斐琉斯】。【厄斐琉斯】获得【月神】羁绊。"
@@ -1340,7 +1340,7 @@
       "id": "7240087",
       "iRarityTier": "3",
       "sName": "暗裔之风",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240087.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240087_icon.png",
       "sTags": "400001|1003",
       "sArgs": "count=1^range=1^round=3-5^detail=20014",
       "sDesc": "获得1个【暗裔灵风】。"
@@ -1349,7 +1349,7 @@
       "id": "7240088",
       "iRarityTier": "4",
       "sName": "暗裔之霸符",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240088.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240088_icon.png",
       "sTags": "400001|1003",
       "sArgs": "pct=50^count=1^manaRecover=10^manaRecoverLow=30^round=3-5^detail=20013",
       "sDesc": "获得1个【暗裔蓝霸符】。"
@@ -1358,16 +1358,16 @@
       "id": "7240089",
       "iRarityTier": "3",
       "sName": "富贵险中求",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240089.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240089_icon.png",
       "sTags": "400001|1006",
-      "sArgs": "num1=100^num2=200^num3=400^num4=800^round=1-1",
-      "sDesc": "如果本局游戏完成挑战，基于选择【接受挑战】的次数获得100/200/400/800【金橘】。"
+      "sArgs": "num1=100^num2=200^num3=400^num4=800^round=1-1^detail=20051",
+      "sDesc": "如果本局游戏完成挑战，基于选择【接受挑战】的次数获得额外【金橘】。"
     },
     "7240090": {
       "id": "7240090",
       "iRarityTier": "4",
       "sName": "伊莉丝夫人",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240090.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240090_icon.png",
       "sTags": "400001|1002",
       "sArgs": "round=2-7^detail=20031",
       "sDesc": "解锁【伊莉丝】。【伊莉丝】基于其形态获得强化。"
@@ -1376,7 +1376,7 @@
       "id": "7240091",
       "iRarityTier": "4",
       "sName": "灼烧炼狱",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240091.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240091_icon.png",
       "sTags": "400001|1002",
       "sArgs": "round2=3-7^pct=200^count=1^flatCount=1^round=1-4^detail=20034",
       "sDesc": "获得1个【日炎斗篷】并强化【复仇焰魂】羁绊。3-7时，获得1个【红霸符】。"
@@ -1385,7 +1385,7 @@
       "id": "7240092",
       "iRarityTier": "4",
       "sName": "部分变形重组",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240092.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240092_icon.png",
       "sTags": "400001|1006",
       "sArgs": "num=3^round=3-1^cost=1",
       "sDesc": "你棋盘上的3个随机弈子会永久变形为一个比自身高1费的随机弈子(最高5费)。"
@@ -1394,7 +1394,7 @@
       "id": "7240093",
       "iRarityTier": "4",
       "sName": "大神降临",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240093.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240093_icon.png",
       "sTags": "400001|1002",
       "sArgs": "round=3-7^cost=7",
       "sDesc": "解锁1个随机7费弈子。"
@@ -1403,7 +1403,7 @@
       "id": "7240094",
       "iRarityTier": "4",
       "sName": "三顾炉乡",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240094.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240094_icon.png",
       "sTags": "400001|1002",
       "sArgs": "level=7、8、9^round=1-3",
       "sDesc": "当你到达7、8、9级时，分别获得1个【奥恩】。"
@@ -1412,7 +1412,7 @@
       "id": "7240095",
       "iRarityTier": "4",
       "sName": "破格征召",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240095.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240095_icon.png",
       "sTags": "400001|1006",
       "sArgs": "num=4^round=3-1",
       "sDesc": "获得4次刷新。你的海克斯霸龙、加里奥和锤石的解锁条件不再有等级限制。"
@@ -1421,7 +1421,7 @@
       "id": "7240096",
       "iRarityTier": "4",
       "sName": "解锁天梯",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240096.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240096_icon.png",
       "sTags": "400001|1001",
       "sArgs": "gold=2^heronum=25^round=1-3",
       "sDesc": "每当你解锁1个弈子时，获得2金币。总计解锁25个弈子后，获得终极大奖！"
@@ -1430,16 +1430,16 @@
       "id": "7240097",
       "iRarityTier": "4",
       "sName": "中庸之道",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240097.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240097_icon.png",
       "sTags": "0|1001",
-      "sArgs": "gold=8^legendhp=15^round=1-3",
+      "sArgs": "gold=8^legendhp=15^round=1-3^detail=20050",
       "sDesc": "当你首次选择【接受挑战】或【维持现状】时，都会获得对应奖励。"
     },
     "7250010": {
       "id": "7250010",
       "iRarityTier": "5",
       "sName": "利滚利",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250010.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250010_icon.png",
       "sTags": "0|1001",
       "sArgs": "interest=7^gold=20^round=3-3",
       "sDesc": "获得20金币。你的最大利息提升至7金币。"
@@ -1448,7 +1448,7 @@
       "id": "7250011",
       "iRarityTier": "5",
       "sName": "自选神器",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250011.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250011_icon.png",
       "sTags": "0|1003",
       "sArgs": "choiceFrom=4^choiceTo=1^round=3-1",
       "sDesc": "开启1个4选1的神器武器库。"
@@ -1457,7 +1457,7 @@
       "id": "7250012",
       "iRarityTier": "5",
       "sName": "熔铸之神的杰作 II",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250012.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250012_icon.png",
       "sTags": "0|1003",
       "sArgs": "count=3^round=5-3",
       "sDesc": "获得3个【杰作升级】。"
@@ -1466,7 +1466,7 @@
       "id": "7250013",
       "iRarityTier": "5",
       "sName": "幸运宝箱堆 II",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250013.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250013_icon.png",
       "sTags": "0|1003",
       "sArgs": "count=1^round=3-1^times=3",
       "sDesc": "立刻及每3个玩家对战回合后，获得1个【幸运装备宝箱】。"
@@ -1475,7 +1475,7 @@
       "id": "7250014",
       "iRarityTier": "5",
       "sName": "手套专家",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250014.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250014_icon.png",
       "sTags": "0|1003",
       "sArgs": "count=1^round=2-3^round2=4-3",
       "sDesc": "获得1个【秘法手套】。4-3开始，所有【秘法手套】都会升级为光明版。"
@@ -1484,7 +1484,7 @@
       "id": "7250015",
       "iRarityTier": "5",
       "sName": "王牌猎手 IV",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250015.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250015_icon.png",
       "sTags": "0|1002",
       "sArgs": "cost=5^count=1^round=1-4",
       "sDesc": "获得1个随机5费弈子。"
@@ -1493,7 +1493,7 @@
       "id": "7250016",
       "iRarityTier": "5",
       "sName": "强力盟友 II",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250016.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250016_icon.png",
       "sTags": "0|1002",
       "sArgs": "gold=16^round=2-5",
       "sDesc": "获得价值16金币的相同羁绊弈子。"
@@ -1502,7 +1502,7 @@
       "id": "7250017",
       "iRarityTier": "5",
       "sName": "复制复制复制…",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250017.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250017_icon.png",
       "sTags": "0|1001",
       "sArgs": "count=5^round=6-3",
       "sDesc": "获得5个【英雄复制器】。"
@@ -1511,7 +1511,7 @@
       "id": "7250018",
       "iRarityTier": "5",
       "sName": "纹章之书 II",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250018.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250018_icon.png",
       "sTags": "0|1005",
       "sArgs": "count=1^round=3-3",
       "sDesc": "获得1个【纹章之书】。"
@@ -1520,7 +1520,7 @@
       "id": "7250019",
       "iRarityTier": "5",
       "sName": "羁绊神树",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250019.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250019_icon.png",
       "sTags": "0|1005",
       "sArgs": "classNum=2^equipNum=3^round=4-5",
       "sDesc": "获得3个某一职业羁绊的纹章，以及3个另一职业羁绊的纹章。"
@@ -1529,7 +1529,7 @@
       "id": "7250020",
       "iRarityTier": "5",
       "sName": "经验流",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250020.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250020_icon.png",
       "sTags": "0|1001",
       "sArgs": "xp=3^round=2-7",
       "sDesc": "每回合开始时，获得3经验值。"
@@ -1538,7 +1538,7 @@
       "id": "7250021",
       "iRarityTier": "5",
       "sName": "快乐开D III",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250021.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250021_icon.png",
       "sTags": "0|1001",
       "sArgs": "times=40^round=5-3",
       "sDesc": "获得40次刷新。"
@@ -1547,7 +1547,7 @@
       "id": "7250022",
       "iRarityTier": "5",
       "sName": "金色法球 II",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250022.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250022_icon.png",
       "sTags": "0|1001",
       "sArgs": "gold=20^count=1^round=2-7",
       "sDesc": "获得1个金色法球，价值约20金币。"
@@ -1556,7 +1556,7 @@
       "id": "7250023",
       "iRarityTier": "5",
       "sName": "棱彩法球 II",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250023.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250023_icon.png",
       "sTags": "0|1001",
       "sArgs": "gold=80^count=2^round=5-3",
       "sDesc": "获得2个棱彩法球，总价值约80金币。"
@@ -1565,7 +1565,7 @@
       "id": "7250025",
       "iRarityTier": "5",
       "sName": "棱彩之选 II",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250025.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250025_icon.png",
       "sTags": "0|1004",
       "sArgs": "count=1^round=4-3",
       "sDesc": "额外选择1个棱彩阶强化符文。"
@@ -1574,7 +1574,7 @@
       "id": "7250026",
       "iRarityTier": "5",
       "sName": "登峰烈阳",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250026.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250026_icon.png",
       "sTags": "400001|1002",
       "sArgs": "star=2^count=2^plus=1^traitTier=3^round=2-3",
       "sDesc": "获得2个【蕾欧娜】。【(3)巨神峰】层级现在提供+1最大队伍规模。"
@@ -1583,16 +1583,16 @@
       "id": "7250029",
       "iRarityTier": "5",
       "sName": "行走于棱彩之道",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250029.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250029_icon.png",
       "sTags": "400001|1002",
       "sArgs": "itemCount=1^count=1^traitTier=10^traitTier1=10^round=1-4^round2=6-1",
-      "sDesc": "获得1个【兰博】和1个【慎】。6-1时，解锁【约德尔人】和【艾欧尼亚】的棱彩层级。"
+      "sDesc": "获得1个【兰博】和【慎】。6-1时，解锁【约德尔人】和【艾欧尼亚】棱彩层级。"
     },
     "7250031": {
       "id": "7250031",
       "iRarityTier": "5",
       "sName": "炉家人 II",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250031.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250031_icon.png",
       "sTags": "400001|1002",
       "sArgs": "count=1^plusRound=1^round=3-7^detail=20035|20036|20047",
       "sDesc": "获得1个【山隐之焰纹章】。【山隐之焰】羁绊获得强化。"
@@ -1601,7 +1601,7 @@
       "id": "7250034",
       "iRarityTier": "5",
       "sName": "时光之力 II",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250034.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250034_icon.png",
       "sTags": "400001|1002",
       "sArgs": "count=1^round=3-1^detail=20037|20038",
       "sDesc": "获得1个【时光守护者纹章】。【时光守护者】羁绊提供的经验翻倍。"
@@ -1610,7 +1610,7 @@
       "id": "7250035",
       "iRarityTier": "5",
       "sName": "贪欲恶魔 II",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250035.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250035_icon.png",
       "sTags": "400001|1002",
       "sArgs": "gold=2^count=1^round=3-3^detail=20001|20002",
       "sDesc": "获得1个【河流之王纹章】。现在通过【河流之王】羁绊喂养弈子时获得2金币。"
@@ -1619,7 +1619,7 @@
       "id": "7250036",
       "iRarityTier": "5",
       "sName": "黑玫瑰夜市",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250036.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250036_icon.png",
       "sTags": "400001|1006",
       "sArgs": "star=2^sellStar=1^round=1-3^num=3",
       "sDesc": "你接下来解锁并购买的3个弈子升至2星。"
@@ -1628,7 +1628,7 @@
       "id": "7250037",
       "iRarityTier": "5",
       "sName": "穿梭未来",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250037.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250037_icon.png",
       "sTags": "400001|1001",
       "sArgs": "star=8^round=4-3",
       "sDesc": "立刻升至8级。"
@@ -1637,16 +1637,16 @@
       "id": "7250039",
       "iRarityTier": "5",
       "sName": "投资高手",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250039.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250039_icon.png",
       "sTags": "400001|1006",
-      "sArgs": "pct1=15^pct2=50^count=1^round=1-4",
-      "sDesc": "银蛇币、暗影灵魂获取量+50%，太阳碎片获取量 +15%。获得崔斯特、妮蔻和佛耶戈。"
+      "sArgs": "pct1=15^pct2=50^count=1^round=1-4^detail=20025",
+      "sDesc": "【银蛇币】、【灵魂】、【太阳碎片】获得量增加。获得崔斯特、妮蔻和佛耶戈。"
     },
     "7250040": {
       "id": "7250040",
       "iRarityTier": "5",
       "sName": "少女的炎魔",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250040.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250040_icon.png",
       "sTags": "400001|1002",
       "sArgs": "count=1^plus=1^round=2-7^detail=20042",
       "sDesc": "获得1个【安妮】。【黑暗之女】羁绊获得强化，新增+1最大队伍规模的效果。"
@@ -1655,7 +1655,7 @@
       "id": "7250041",
       "iRarityTier": "5",
       "sName": "黑夜恐惧",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250041.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250041_icon.png",
       "sTags": "400001|1002",
       "sArgs": "count=1^sec=2^sec1=8^round=2-7^detail=20033",
       "sDesc": "获得1个【费德提克】。【费德提克】获得强化，可以从备战席上加入战斗。"
@@ -1664,7 +1664,7 @@
       "id": "7250042",
       "iRarityTier": "5",
       "sName": "系魂圣枪",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250042.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250042_icon.png",
       "sTags": "400001|1002",
       "sArgs": "count=1^indepCount=2^slots=1^round=2-7",
       "sDesc": "获得1个【卢锡安与赛娜】。他们现在是独立的2个弈子，且仅占用1个弈子栏位。"
@@ -1673,7 +1673,7 @@
       "id": "7250044",
       "iRarityTier": "5",
       "sName": "宿命的抉择",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250044.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250044_icon.png",
       "sTags": "400001|1004",
       "sArgs": "round2=4-3^count=1^round=2-5",
       "sDesc": "获得【暮光试炼】强化符文。4-3开始时，获得1件暗裔神器。"
@@ -1682,7 +1682,7 @@
       "id": "7250045",
       "iRarityTier": "5",
       "sName": "全职高手",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250045.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250045_icon.png",
       "sTags": "400001|1002",
       "sArgs": "count=7^round=4-5^detail=20044",
       "sDesc": "解锁【塞拉斯】。他额外拥有7种职业羁绊。"
@@ -1691,16 +1691,16 @@
       "id": "7250046",
       "iRarityTier": "5",
       "sName": "德玛西亚巨像",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250046.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250046_icon.png",
       "sTags": "400001|1002",
-      "sArgs": "round=3-5",
+      "sArgs": "round=3-5^detail=20041",
       "sDesc": "解锁加里奥。加里奥基于击败数获得额外护甲和魔抗。"
     },
     "7250047": {
       "id": "7250047",
       "iRarityTier": "5",
       "sName": "流浪的救世者",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250047.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250047_icon.png",
       "sTags": "400001|1005",
       "sArgs": "plus=1^round=4-5^detail=20049",
       "sDesc": "解锁【瑞兹】。【符文法师】羁绊新增使所有地区羁绊+1的效果（除部分地区）。"
@@ -1709,16 +1709,16 @@
       "id": "7250048",
       "iRarityTier": "5",
       "sName": "虚空入侵",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250048.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250048_icon.png",
       "sTags": "400001|1002",
-      "sArgs": "count=3^round=3-5",
+      "sArgs": "count=3^round=3-1",
       "sDesc": "解锁【峡谷先锋】，获得3个【突变】。【突变】现在可以用于所有友军。"
     },
     "7250049": {
       "id": "7250049",
       "iRarityTier": "5",
       "sName": "量身定制",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250049.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250049_icon.png",
       "sTags": "400001|1003",
       "sArgs": "round=3-5^equipNum=1^detail=20048",
       "sDesc": "可解锁弈子自带1件临时推荐成装，或将其携带的1件装备升为光明版。"
@@ -1727,7 +1727,7 @@
       "id": "7250050",
       "iRarityTier": "5",
       "sName": "无极之道",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250050.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250050_icon.png",
       "sTags": "400001|1002",
       "sArgs": "round=2-5^detail=20003",
       "sDesc": "获得1个【易】。现在商店中可以刷新出【易】。"
@@ -1736,7 +1736,7 @@
       "id": "7250051",
       "iRarityTier": "5",
       "sName": "登神长阶",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250051.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250051_icon.png",
       "sTags": "400001|1002",
       "sArgs": "round=2-5^detail=20004",
       "sDesc": "获得1个【凯尔】。现在商店中可以刷新出【凯尔】。"
@@ -1745,16 +1745,16 @@
       "id": "7250052",
       "iRarityTier": "5",
       "sName": "力量之阵",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250052.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250052_icon.png",
       "sTags": "400001|1002",
       "sArgs": "pct=12^count=1^round=1-1",
-      "sDesc": "每个阶段开始时获得1个【金橘格】。【金橘格】内的弈子获得12%伤害增幅和减免。"
+      "sDesc": "每个阶段开始获得1个【金橘格】。【金橘格】内弈子获得12%伤害增幅和减免。"
     },
     "7250056": {
       "id": "7250056",
       "iRarityTier": "4",
       "sName": "传说的主角",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250056.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250056_icon.png",
       "sTags": "400001|1003",
       "sArgs": "itemCount=1^count=1^flatCount=1^round=3-1^detail=20032",
       "sDesc": "获得1个【基础装备锻造器】和1个【主角选择器】。"
@@ -1763,7 +1763,7 @@
       "id": "7250059",
       "iRarityTier": "5",
       "sName": "万物落笔端",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250059.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250059_icon.png",
       "sTags": "400001|1002",
       "sArgs": "round=3-5^cost=3",
       "sDesc": "解锁【彗】。【异画师】羁绊现在复制3费及以下的弈子时可额外复制1个。"
@@ -1772,16 +1772,16 @@
       "id": "7250060",
       "iRarityTier": "5",
       "sName": "塔利斯议员",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250060.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250060_icon.png",
       "sTags": "400001|1002",
-      "sArgs": "count=1^round=3-5^detail=20043",
-      "sDesc": "获得 1张【杰斯】。你最强的那个杰斯现在会获得被【发明家】共享装备的友军的部分属性。"
+      "sArgs": "count=1^round=3-1^detail=20043",
+      "sDesc": "获得1个【杰斯】。最强大的【杰斯】现在会获得被【发明家】共享装备友军的部分属性。"
     },
     "7250061": {
       "id": "7250061",
       "iRarityTier": "5",
       "sName": "远古巨龙",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250061.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250061_icon.png",
       "sTags": "400001|1002",
       "sArgs": "pct=20^pct1=20^round=4-3^detail=20027",
       "sDesc": "解锁【远古巨龙】。【远古巨龙】获得20%伤害增幅，且溅射效果获得强化。"
@@ -1790,7 +1790,7 @@
       "id": "7250068",
       "iRarityTier": "5",
       "sName": "高处不胜寒",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250068.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250068_icon.png",
       "sTags": "400001|1005",
       "sArgs": "count=3^tier1=2^tier2=4^tier3=6^num=1^num1=2^round=1-2^detail=20030",
       "sDesc": "【巨神峰】羁绊获得强化。【奥恩】和【沃利贝尔】获得【巨神峰】羁绊。"
@@ -1799,7 +1799,7 @@
       "id": "7250069",
       "iRarityTier": "5",
       "sName": "双城传说",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250069.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250069_icon.png",
       "sTags": "400001|1005",
       "sArgs": "round=4-3",
       "sDesc": "【皮尔特沃夫】弈子拥有【祖安】羁绊，【祖安】弈子拥有【皮尔特沃夫】羁绊。"
@@ -1808,7 +1808,7 @@
       "id": "7250071",
       "iRarityTier": "5",
       "sName": "永恒的心",
-      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250071.png",
+      "sIcon": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250071_icon.png",
       "sTags": "0|1001",
       "sArgs": "gold=2^round=1-2",
       "sDesc": "获得2金币。这张【时间卡片】永不碎裂，因大家永恒而闪耀的心。"
@@ -1817,1419 +1817,1418 @@
   "assets": {
     "7210014": {
       "file": "images/7210014.png",
-      "width": 326,
-      "height": 430,
-      "sha256": "33c844ec725ba6d2c31fa63afa712daec750d1ac8c3b564e9c1d5390d79c715a",
+      "width": 512,
+      "height": 512,
+      "sha256": "fd5457db3f3c796ec4206680667d452b5fcd028595a8a7adf54b1169d743802a",
       "layout": "icon"
     },
     "7210015": {
       "file": "images/7210015.png",
-      "width": 326,
-      "height": 430,
-      "sha256": "5810e492f99baff9d6d7857ad391e0c87da120521681dfa48e80f5de5c92d6a9",
+      "width": 512,
+      "height": 512,
+      "sha256": "9b9887c6b439e7937a235f124016ba2727b1c8bd98b5d0f63884b49208462d9a",
       "layout": "icon"
     },
     "7210016": {
       "file": "images/7210016.png",
-      "width": 326,
-      "height": 430,
-      "sha256": "e34c89ab26db86ae6d9850bbac8408e401cb7146aa2be4975b330fb7c8f1e9cc",
+      "width": 512,
+      "height": 512,
+      "sha256": "3b73b9d9bec0441f9db4a8da9f0ece9a6353ea30e7dde6aeaaf7dc01841d0114",
       "layout": "icon"
     },
     "7210017": {
       "file": "images/7210017.png",
-      "width": 326,
-      "height": 430,
-      "sha256": "019be86b0132cae0c52e1b0bd117433b780a81c3789121fabecaddf15546f999",
+      "width": 512,
+      "height": 512,
+      "sha256": "0abb7b799251fb3d625c1b905c02913beb7f1044d594171dc31e021f05f50850",
       "layout": "icon"
     },
     "7210018": {
       "file": "images/7210018.png",
-      "width": 326,
-      "height": 430,
-      "sha256": "95bfc4a32b7729768cb754436e42d8d144f72f76f7a1592f33cc6598b7327c07",
+      "width": 512,
+      "height": 512,
+      "sha256": "17eb11549234715ce9cd6c91e1ffe0821abbd918f153763a6d59046cad6a1492",
       "layout": "icon"
     },
     "7210019": {
       "file": "images/7210019.png",
-      "width": 326,
-      "height": 430,
-      "sha256": "854883a906463824a31817be10556402efde98970f215098581f24e6b58ed2e0",
+      "width": 512,
+      "height": 512,
+      "sha256": "ea4c2b37bb17e79b2fe20a2249200144da3b9b964bf5c9665197b9acc1badc49",
       "layout": "icon"
     },
     "7210020": {
       "file": "images/7210020.png",
-      "width": 326,
-      "height": 430,
-      "sha256": "bcfc8ced042deaaf50faf8d656e6dd05155fa90abab1d99aa81782399cf01770",
+      "width": 512,
+      "height": 512,
+      "sha256": "ce539141a2eae860acb1a569763bc9fcf0980e8dcb6cb2f85b89f671761b96db",
       "layout": "icon"
     },
     "7210021": {
       "file": "images/7210021.png",
-      "width": 326,
-      "height": 430,
-      "sha256": "b9005ad90cb61088ec6ff35676781b20bc50624e2b919e6a315dcb1caa025770",
+      "width": 512,
+      "height": 512,
+      "sha256": "2152d28c93077e7743db0b31fe11e6f4ab1ed64bf9c2f965188fde7ed329d1fb",
       "layout": "icon"
     },
     "7210022": {
       "file": "images/7210022.png",
-      "width": 326,
-      "height": 430,
-      "sha256": "8971fe9cd7c93daf3b29078610e3161734a2f2ed0c54cc60ae675892f8348008",
+      "width": 512,
+      "height": 512,
+      "sha256": "be7991bb8b8582e89349a4da2cbefcb6cd17fb945596bab0df40b942d1f4fa79",
       "layout": "icon"
     },
     "7210023": {
       "file": "images/7210023.png",
-      "width": 326,
-      "height": 430,
-      "sha256": "0661e5168c752898d11ab34520c951b3a740b15091da3323acf0155d0314c0c0",
+      "width": 512,
+      "height": 512,
+      "sha256": "41c6925fc192318e9fe9f80e80b9bd182a9129253a7127178e0b7f83cb1b2070",
       "layout": "icon"
     },
     "7210024": {
       "file": "images/7210024.png",
-      "width": 326,
-      "height": 430,
-      "sha256": "78809b0f2d6abc3834c5cbd03a59a61ae34cd42e93b4cbb3df1c82df33e17016",
+      "width": 512,
+      "height": 512,
+      "sha256": "1462063b4f0cb97ea5f914c83ce13f9b4abb36e51e645001890dbb857d10bbe9",
       "layout": "icon"
     },
     "7210025": {
       "file": "images/7210025.png",
-      "width": 326,
-      "height": 430,
-      "sha256": "ab5f6389d6fa1dc7799ce98502c89594edabff42ba3ab86e897d078e002c0efd",
+      "width": 512,
+      "height": 512,
+      "sha256": "de827864c85f1b0814dfa11ef2152197fc725961663f9f659e19a036f9827a40",
       "layout": "icon"
     },
     "7210026": {
       "file": "images/7210026.png",
-      "width": 326,
-      "height": 430,
-      "sha256": "b2bc31d9326788ca3224b7a833378a0ff15278b0b9d3561a9a0d90739824cfb0",
+      "width": 512,
+      "height": 512,
+      "sha256": "3d42d6d7eedf42e8b652074cd4d11cc0d83190c79e199f2033172e12dbc89b13",
       "layout": "icon"
     },
-    "7210027": null,
+    "7210027": {
+      "file": "images/7210027.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "6d80ec372568b06a3b20adcd6dcdfca22ab456bd42375d6b9651c7f499fb244c",
+      "layout": "icon"
+    },
     "7210028": {
       "file": "images/7210028.png",
-      "width": 326,
-      "height": 430,
-      "sha256": "69173cdeda5d350d279652d25d6f7b29abd9c850abb1350b6d5be6311bebf3b9",
+      "width": 512,
+      "height": 512,
+      "sha256": "a07528ee89eadb8964e455d79436565f906ca58d2157266f6ee0177fe66f04a8",
       "layout": "icon"
     },
     "7210030": {
       "file": "images/7210030.png",
-      "width": 326,
-      "height": 430,
-      "sha256": "fd9d3c46cc333f0ba5a3e299d3935c2a0e39df78dc1ee3c7695ffaffced8d8de",
+      "width": 512,
+      "height": 512,
+      "sha256": "3765ef279dec56926388819c24638e52a1d084199759f2cffbcaeed593a0f2f7",
       "layout": "icon"
     },
     "7210032": {
       "file": "images/7210032.png",
-      "width": 326,
-      "height": 430,
-      "sha256": "2bcc89e728ddc33c42473b61ec21e86350ce04b03f3818ed1623d4bb1117bf09",
+      "width": 512,
+      "height": 512,
+      "sha256": "6fa834d2f1d2f475d47f8d3ff72e8260d44b7e19291db391917f414260f0f7a3",
       "layout": "icon"
     },
     "7210033": {
       "file": "images/7210033.png",
-      "width": 326,
-      "height": 430,
-      "sha256": "28e6eb24389e230ae1dab1a8d6d8b2716301a9d97261ea646ee03dfc665b2e5b",
+      "width": 512,
+      "height": 512,
+      "sha256": "29e1199cf2a0b26175f45feba60f1c760346a2226dc73c71c34d753350e90e19",
       "layout": "icon"
     },
     "7210034": {
       "file": "images/7210034.png",
-      "width": 326,
-      "height": 430,
-      "sha256": "be5c8ef51d631a4cbd3468a6124f8b1d31a870aefae132361bef5e7967c14808",
+      "width": 512,
+      "height": 512,
+      "sha256": "481c3f138574478186a7fe1e7579cad245f2a5b3cebed572d79240efb8401ae2",
       "layout": "icon"
     },
     "7220015": {
       "file": "images/7220015.png",
-      "width": 326,
-      "height": 430,
-      "sha256": "625260fb55698f607e1a7f852c0e0edb35c90eb1bb7bb164d6ca9a943ffbaa70",
+      "width": 512,
+      "height": 512,
+      "sha256": "833cd6e84c964d7abacd4270df67780c80dd1ae7e2d3335bbec43e5e377c630a",
       "layout": "icon"
     },
     "7220018": {
       "file": "images/7220018.png",
-      "width": 326,
-      "height": 430,
-      "sha256": "4035a0b32b253304dca56fa18aa6d45c789a32d668771be174026591706f9978",
+      "width": 512,
+      "height": 512,
+      "sha256": "8d2eaf6667f5be2538470f35cdeca4eb2fe143c05f2d2bff7a27ea6f44d18556",
       "layout": "icon"
     },
     "7220024": {
       "file": "images/7220024.png",
-      "width": 326,
-      "height": 430,
-      "sha256": "20dedf0acdbeda84bc538533ac1735368e49b4141e467ba07e4213c316d33a21",
+      "width": 512,
+      "height": 512,
+      "sha256": "da79c5d32b840fc651cf4d2f1c33b5209d66bc01373ffb65ca1a38782124ec23",
       "layout": "icon"
     },
     "7220026": {
       "file": "images/7220026.png",
-      "width": 326,
-      "height": 430,
-      "sha256": "df0dd985068f2caec18732ab6b50472cce35bd33228ca6c5981f77c53025cfd1",
+      "width": 512,
+      "height": 512,
+      "sha256": "7419dcd4f43bcfabb980d98469199f540c2caff87d5a016b7f5dbe2413c92771",
       "layout": "icon"
     },
     "7220027": {
       "file": "images/7220027.png",
-      "width": 326,
-      "height": 430,
-      "sha256": "e9b0411be1afe1d889ce5edbd117e822d13d4258f373dccab2eb6c3f272058b0",
+      "width": 512,
+      "height": 512,
+      "sha256": "4b7d6e3b20a968a2ce6916aadb1fb07eb993afa990a9a24c063ec95a28d7f732",
       "layout": "icon"
     },
     "7220028": {
       "file": "images/7220028.png",
-      "width": 326,
-      "height": 430,
-      "sha256": "a68cdda3887e11976638a7a19a0bbc7d97228493515827308aeafe6a02ce4fa6",
+      "width": 512,
+      "height": 512,
+      "sha256": "2511373d40794b0ad0a4b9f0d808dd8ffd798927d8e88e2d21397a11aa13a231",
       "layout": "icon"
     },
     "7220030": {
       "file": "images/7220030.png",
-      "width": 326,
-      "height": 430,
-      "sha256": "0eb1aacb448572688dc835507c2a12ccf3749cc1e0ecbbbe081087ae865cd420",
+      "width": 512,
+      "height": 512,
+      "sha256": "93e4e5808caed4beb62653738a22e1dacd47e77d5fcd2212f23d94c37ebe672a",
       "layout": "icon"
     },
     "7220031": {
       "file": "images/7220031.png",
-      "width": 326,
-      "height": 430,
-      "sha256": "9bd954514debde3fd8e00232a6ad2425ad9b9f51c992bc735d4e87d878353434",
+      "width": 512,
+      "height": 512,
+      "sha256": "04b164b08f580304b9a6096a2e9e3d7cfa89ea3fed1a52a03676ff89c358922c",
       "layout": "icon"
     },
     "7220032": {
       "file": "images/7220032.png",
-      "width": 326,
-      "height": 430,
-      "sha256": "a5a912ff23d63c89989c0b670015f306bab4bf3fad6ae906f89246576f4c9721",
+      "width": 512,
+      "height": 512,
+      "sha256": "368dae3ef72b8b305b3a8db12b14e7bb5a6ba352334779950fcc0fb27c21791d",
       "layout": "icon"
     },
     "7220033": {
       "file": "images/7220033.png",
-      "width": 326,
-      "height": 430,
-      "sha256": "bce7ee2466f66f7d8ccd6614f501fb6cbba0f55ca973e26ec7cfad7ba866ff0d",
+      "width": 512,
+      "height": 512,
+      "sha256": "842bcdd5cc5387e9fffcb450df9778ad10aab569c32c4a73997f3158b3f18c27",
       "layout": "icon"
     },
     "7220034": {
       "file": "images/7220034.png",
-      "width": 326,
-      "height": 430,
-      "sha256": "97ba3a8caff131b473e8d25589eb2e0f26dce132600522053c3ef6e3f6fa02a0",
+      "width": 512,
+      "height": 512,
+      "sha256": "abbce033aea63c93df908f420ab3b4a22dfa7dcfb05cb53b504d041d9c1e9123",
       "layout": "icon"
     },
     "7220036": {
       "file": "images/7220036.png",
-      "width": 326,
-      "height": 430,
-      "sha256": "a364d5f7ddc0b307ab8042a4a6fe3c17861602f7135d3cb5abf07876e6e68ae7",
+      "width": 512,
+      "height": 512,
+      "sha256": "5e5ca7bc9e7cb528a3383f9933a5b3078eae54e452f2f3023032ba94e6aa0cf7",
       "layout": "icon"
     },
     "7220037": {
       "file": "images/7220037.png",
-      "width": 326,
-      "height": 430,
-      "sha256": "d7766c450f61e07deb8fb1d377feef0f9092e3e7e0877039effb593e335753d9",
+      "width": 512,
+      "height": 512,
+      "sha256": "f567133a80cc9a7dac76e2146107e88350677d970900a6e724a739977a1728a5",
       "layout": "icon"
     },
     "7220038": {
       "file": "images/7220038.png",
-      "width": 326,
-      "height": 430,
-      "sha256": "f306439e3f8854ad2c70e0793b41bbf8ae74af4c4d24e608ce241fa4dc68c221",
+      "width": 512,
+      "height": 512,
+      "sha256": "b5c6f1495f0628df1ecde899c9b51fa498776709055860c9758f95568728be37",
       "layout": "icon"
     },
     "7220039": {
       "file": "images/7220039.png",
-      "width": 326,
-      "height": 430,
-      "sha256": "5889486575627952405d43299df8a976ae26c700b1b82e08770d69a6c106847d",
+      "width": 512,
+      "height": 512,
+      "sha256": "ccc1eb00c29ed275c0166e1c9f7855ff5be0ef7dbe3897fdbedb2d734881f127",
       "layout": "icon"
     },
-    "7220040": null,
+    "7220040": {
+      "file": "images/7220040.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "b6d7c2378409e9b2bef6c79c3c9299feff7559c400bca2d25c4f336fa63190d0",
+      "layout": "icon"
+    },
     "7220042": {
       "file": "images/7220042.png",
-      "width": 326,
-      "height": 430,
-      "sha256": "bf050ab14b5e2d5bc0f25d35e5db5be415452977e5d7ed508ba15af100a961ec",
+      "width": 512,
+      "height": 512,
+      "sha256": "e45663f9226c4bc27d8c1bdd36bc7e156ae6b3acf1ec23e8454446f2deb2318d",
       "layout": "icon"
     },
     "7220044": {
       "file": "images/7220044.png",
-      "width": 326,
-      "height": 430,
-      "sha256": "70714915967ddc922bce774aee9563a16f911fb6224b2c85c46565cabcd8f0f0",
+      "width": 512,
+      "height": 512,
+      "sha256": "31183ccb7a34681e888155908b8e120a8bd9d734ba73221452dcc84eaadeec9b",
       "layout": "icon"
     },
     "7220045": {
       "file": "images/7220045.png",
-      "width": 326,
-      "height": 430,
-      "sha256": "147371e6ed0663b19570213bab98d015c65da07f0b6791dd13abfb2f5520de02",
+      "width": 512,
+      "height": 512,
+      "sha256": "7a8f1d5c741e25f680927d0c0e918ff0e8b221e9734b1473de59b8c63c670dcb",
       "layout": "icon"
     },
     "7220046": {
       "file": "images/7220046.png",
-      "width": 326,
-      "height": 430,
-      "sha256": "5a8425bbf39d909ae75556e8634a732539e8a64d787592e3f009bd7e04c9b27c",
+      "width": 512,
+      "height": 512,
+      "sha256": "1f58c9376e2126e9033b10d46b6199fe20b06c1959d15f58ab044aebe32ef5fb",
       "layout": "icon"
     },
     "7220047": {
       "file": "images/7220047.png",
-      "width": 326,
-      "height": 430,
-      "sha256": "9ee0b2dd9ebec2fbcb8f4d25e59b5e220a6a29f1e05ad97abdb251038bf83b71",
+      "width": 512,
+      "height": 512,
+      "sha256": "88362b5fd5d05db938439e3021a248acab11e671d4025bf80585865ae6109eb0",
       "layout": "icon"
     },
     "7220048": {
       "file": "images/7220048.png",
-      "width": 326,
-      "height": 430,
-      "sha256": "ddfe6c7b589ca9f0e646ce784fafbf65a0a2213fac19e1897a99c1ccfa9c487f",
+      "width": 512,
+      "height": 512,
+      "sha256": "8f126a4ce975c67412c5dbb9b3a9e4335bb895fda5705ae98bfeb6c337f6c43d",
       "layout": "icon"
     },
     "7220049": {
       "file": "images/7220049.png",
-      "width": 326,
-      "height": 430,
-      "sha256": "28543cac12c9b14ba718ba92600b77837d2122abb9f84599ee3448611076220b",
+      "width": 512,
+      "height": 512,
+      "sha256": "09f97cb362e35d01020ada88459f9fae9ed2cb545f858ace4ba9618bf5c5c836",
       "layout": "icon"
     },
     "7220050": {
       "file": "images/7220050.png",
-      "width": 326,
-      "height": 430,
-      "sha256": "df2759417d780f09c5b609c5fe905f43cbe8e8797ddef46fb7213ebd5e0db615",
+      "width": 512,
+      "height": 512,
+      "sha256": "7e959c7e4e8219fdc2482b8fd9edca3c3124eed52849a940551027f1850c1c19",
       "layout": "icon"
     },
     "7220052": {
       "file": "images/7220052.png",
-      "width": 326,
-      "height": 430,
-      "sha256": "ca8584844d9d075a80551d4c28e55b9827c5265d73e38cb9ed5b5b3484301585",
+      "width": 512,
+      "height": 512,
+      "sha256": "f5b3c7321edee8b30d667ff53505fb9b2dc81aa043f714cac3fe6f6ecfcfc959",
       "layout": "icon"
     },
     "7220053": {
       "file": "images/7220053.png",
-      "width": 326,
-      "height": 430,
-      "sha256": "ddc28c938bcd3d725f5cdc6d19c0f8d8b416e8ea157bcd7552d5b2f56b21a441",
+      "width": 512,
+      "height": 512,
+      "sha256": "645b6bb755debd8299207e661cc843173e50b5c74972969fef3da56201017287",
       "layout": "icon"
     },
     "7220054": {
       "file": "images/7220054.png",
-      "width": 326,
-      "height": 430,
-      "sha256": "8e15b2ee0dfc5e0ae9ac0c9b15a0e4ce92553531f4abfd6fcf3bc583563b26be",
+      "width": 512,
+      "height": 512,
+      "sha256": "f7aa3603e70ca1b7eda7ef110856b567c0dcdf0994fbacacd6edb3b3be407ce7",
       "layout": "icon"
     },
     "7220055": {
       "file": "images/7220055.png",
-      "width": 326,
-      "height": 430,
-      "sha256": "ffe1d09d643b7943788fcfb1c881d4d0bd3c5c605cd752b99f2a8c2a5dd58f74",
+      "width": 512,
+      "height": 512,
+      "sha256": "2fa876cf0d55d6def967240a85befc2b9a6a06bfc4c51a7124a927ba786dbbbc",
       "layout": "icon"
     },
     "7220056": {
       "file": "images/7220056.png",
-      "width": 326,
-      "height": 430,
-      "sha256": "8c693f6fe00bd5f463cb6dae89dc875ce192ceb8415e63eab0a14574478d190b",
+      "width": 512,
+      "height": 512,
+      "sha256": "78c9e604813455b7c9e166586a0b3ae072b2585aa942e8671595ca650a7825c4",
       "layout": "icon"
     },
     "7220057": {
       "file": "images/7220057.png",
-      "width": 326,
-      "height": 430,
-      "sha256": "013d967233649840357bde0a4c0a4fb05510e730ac55abdc58a71eca1eae2d13",
+      "width": 512,
+      "height": 512,
+      "sha256": "43ce620df8be67146af21d8511f7984dee25872f7388e3c5014a04c125202f3d",
       "layout": "icon"
     },
     "7220058": {
       "file": "images/7220058.png",
-      "width": 326,
-      "height": 430,
-      "sha256": "2c3110ce8cf94bd66ceeb5bc3f1322aa0be88bba11e6044180ed0f5c46ea25d7",
+      "width": 512,
+      "height": 512,
+      "sha256": "a0157eeb8cdea6b0da9c31fbe53ee19265d9094290772d1908fc51ac244d12ef",
       "layout": "icon"
     },
     "7230005": {
       "file": "images/7230005.png",
-      "width": 326,
-      "height": 430,
-      "sha256": "e309eb23fe85dfc57d5121ce619bd4bda37fe43607859e216742449ca63fd0d6",
+      "width": 512,
+      "height": 512,
+      "sha256": "e044173a7aa6d6fe7b74870252a2af4b6cba905dcd6ebad35a91564a40de33b4",
       "layout": "icon"
     },
     "7230032": {
       "file": "images/7230032.png",
-      "width": 326,
-      "height": 430,
-      "sha256": "b6282d3e55324e90f780c76b99e0b60bef7233bb4e6c629567d2bca064937392",
+      "width": 512,
+      "height": 512,
+      "sha256": "aedb34652a54a7f7ebd05b2a3f88b37f2e36869c1a0310815d17fcbdd51e57bc",
       "layout": "icon"
     },
     "7230034": {
       "file": "images/7230034.png",
-      "width": 326,
-      "height": 430,
-      "sha256": "850f225fe461ed6cfbbb802dc0cedbf3a708fa60bab53d63de133e639f49e502",
+      "width": 512,
+      "height": 512,
+      "sha256": "e179dd18c1c0c4c327cd8cd82d3701e408b9119e10126770ad6dbaa27f448230",
       "layout": "icon"
     },
     "7230035": {
       "file": "images/7230035.png",
-      "width": 326,
-      "height": 430,
-      "sha256": "9bd2786dc9f36968ee8c965f9e73de086aed6275cbc764c3f23d0d5251a7bf23",
+      "width": 512,
+      "height": 512,
+      "sha256": "fe6022270426fb03fd7977a8a5097d415df37646a133bae11254ba6221e3d2c7",
       "layout": "icon"
     },
     "7230036": {
       "file": "images/7230036.png",
-      "width": 326,
-      "height": 430,
-      "sha256": "e3e79117b763a921178fa0617d75099a6f0e34af5e462e5b0a4deb465939c507",
+      "width": 512,
+      "height": 512,
+      "sha256": "9a1c194d48071378348d713a8ed4e216d145b67027f1881ad62461684af0133b",
       "layout": "icon"
     },
     "7230037": {
       "file": "images/7230037.png",
-      "width": 326,
-      "height": 430,
-      "sha256": "9545cdeed75983dfe3ce1449280b2687594d562a65287f50888e256552741689",
+      "width": 512,
+      "height": 512,
+      "sha256": "6047f0394888057c68b8e762973cc56f7faaa2689a4f8cfdfc83a061c6a308b3",
       "layout": "icon"
     },
     "7230038": {
       "file": "images/7230038.png",
-      "width": 326,
-      "height": 430,
-      "sha256": "22f0330ddf853a5b9a392efb8ca322d587417d4cbc8a5e5ec2c929f98cf4d0b2",
+      "width": 512,
+      "height": 512,
+      "sha256": "114e99c98c7c9a5b9808f9ef74aa16b10e92312d19dbc645bc17a62642e34dde",
       "layout": "icon"
     },
     "7230039": {
       "file": "images/7230039.png",
-      "width": 326,
-      "height": 430,
-      "sha256": "de0e32d02174041ad4f3a6b5ed10ea39473ecfb97804c6cc434d34bc266f81e4",
+      "width": 512,
+      "height": 512,
+      "sha256": "4ac2982dbf78fedbbb5526a1966f9e1841be1c06d38b6b924be5ed0f640eba24",
       "layout": "icon"
     },
     "7230040": {
       "file": "images/7230040.png",
-      "width": 326,
-      "height": 430,
-      "sha256": "ae1eadb9acaa61800fb5351e664ca3f7cfd72f510d0676c5c836d07f9822560e",
+      "width": 512,
+      "height": 512,
+      "sha256": "3b9436efa3dc71c740e8c9ac79ba7335032f64ce0f94059c023bc2726efd42bf",
       "layout": "icon"
     },
     "7230041": {
       "file": "images/7230041.png",
-      "width": 326,
-      "height": 430,
-      "sha256": "7e5a5f1f0354d89b60ae66a1010a70d6247ad07ca9cc42c96ac718944855d189",
+      "width": 512,
+      "height": 512,
+      "sha256": "f36f55cd98c311cc80d2c7be62350a5b5bacdbd51a964dee03a2f0b5df08ded5",
       "layout": "icon"
     },
     "7230043": {
       "file": "images/7230043.png",
-      "width": 326,
-      "height": 430,
-      "sha256": "1ce0ffe26dcdae5a78ca6888436919a396d42ccde1cc77d40bfc68976f617e12",
+      "width": 512,
+      "height": 512,
+      "sha256": "803be448bbbb9a2d74e8cca457767ebed577471512b335fe27807d20ecec7776",
       "layout": "icon"
     },
     "7230044": {
       "file": "images/7230044.png",
-      "width": 326,
-      "height": 430,
-      "sha256": "61f28c3f07472b60a9c845691b81989269027bb97fa0d78229b45c22e161e538",
+      "width": 512,
+      "height": 512,
+      "sha256": "c105eefbae56c7abbd4c3cfe90c10c4f1e0ff97b0b63e30e23cb7c115d808f5d",
       "layout": "icon"
     },
     "7230045": {
       "file": "images/7230045.png",
-      "width": 326,
-      "height": 430,
-      "sha256": "9d228fc4bd5200827d290f73852d21ad94b7fd86a979e85560b24653c4f6bed0",
+      "width": 512,
+      "height": 512,
+      "sha256": "3384f092c888757fbfc1376477e46fb0d2cd15f1f167782b0c1907fd36a4d227",
       "layout": "icon"
     },
     "7230047": {
       "file": "images/7230047.png",
-      "width": 326,
-      "height": 430,
-      "sha256": "c54d3fc69913c91ed5cbc3a35fb3ec44f096cd39fc0464cf28409cab7ec4f070",
+      "width": 512,
+      "height": 512,
+      "sha256": "f99e49a7948c07d70d24a99c40eb59558d62fcf7010acb0bf92386bdf550705a",
       "layout": "icon"
     },
     "7230048": {
       "file": "images/7230048.png",
-      "width": 326,
-      "height": 430,
-      "sha256": "7a4ce2ad84744b6d36fa24111a3f4adc4e44447052294919b4fe41aa6a3bc2fc",
+      "width": 512,
+      "height": 512,
+      "sha256": "bf533a400bfdca1103a8ccf839641ee04b7100a1bfc8c2f1d6c0c8fe4437b899",
       "layout": "icon"
     },
     "7230049": {
       "file": "images/7230049.png",
-      "width": 326,
-      "height": 430,
-      "sha256": "f04db4bfde7bbd59f9cf130799a849106effd4c05b0f8618ce8f66121311e58d",
+      "width": 512,
+      "height": 512,
+      "sha256": "b9050fcec30c2f53508ecdd74b7272b73d21878c994ec96d322fd0b725eb724a",
       "layout": "icon"
     },
     "7230050": {
       "file": "images/7230050.png",
-      "width": 326,
-      "height": 430,
-      "sha256": "7e615272e011cb45334317785df6c00851fd7989bc76cca98c115191e339b9fd",
+      "width": 512,
+      "height": 512,
+      "sha256": "18457dc1eff0750ea1ffddd7faf09ddcf756c5b8288d4593c94fff2e5094e1d8",
       "layout": "icon"
     },
     "7230051": {
       "file": "images/7230051.png",
-      "width": 326,
-      "height": 430,
-      "sha256": "d81528a06e45bd3d900d2bac57fbe55f148b6f20f6fbe387a6c2963e3cf191ab",
+      "width": 512,
+      "height": 512,
+      "sha256": "77b93f936f5116b771fcfb1cbb7a0652ed6ecea1ba41cf3f44eb030327d2d85d",
       "layout": "icon"
     },
     "7230052": {
       "file": "images/7230052.png",
-      "width": 326,
-      "height": 430,
-      "sha256": "3c6694ea542abdcec8c902b0daa989745ffc1ea38be1d42ace8dc9e5ac96fce8",
+      "width": 512,
+      "height": 512,
+      "sha256": "69b74629c24cc74011c464ae51e8f9d91ae556a70e65b1ade4aad24f614ebaa1",
       "layout": "icon"
     },
     "7230053": {
       "file": "images/7230053.png",
-      "width": 326,
-      "height": 430,
-      "sha256": "b4cfaa30a53c114d5aa7fd3363b6e9b1d1a3f32a50a540c4e1da3f74617eec59",
+      "width": 512,
+      "height": 512,
+      "sha256": "19495043b06b26888159787f62e5f4f1a31b917096ee7f892ff646fd7fe30ea1",
       "layout": "icon"
     },
     "7230054": {
       "file": "images/7230054.png",
-      "width": 326,
-      "height": 430,
-      "sha256": "304bdde77dc24f12b6b08910f6c08dee62e957656c203ee0da008cab64c4cb73",
+      "width": 512,
+      "height": 512,
+      "sha256": "6846d184cdc381a4b0935253486042db80d0aeda8dbaf40920eeb10daaa47cd1",
       "layout": "icon"
     },
     "7230055": {
       "file": "images/7230055.png",
-      "width": 326,
-      "height": 430,
-      "sha256": "94e16767e479ed196640ac0315042432b15c96ecafdf0b0f337caff6fe5e8e1c",
+      "width": 512,
+      "height": 512,
+      "sha256": "8b2cb94d985283fcf6e1b9686c19bc8d90aac1361c727ef191af62fa3d44d54b",
       "layout": "icon"
     },
     "7230057": {
       "file": "images/7230057.png",
-      "width": 326,
-      "height": 430,
-      "sha256": "745d58763869b14c9b3135ed700cc1dbe5847739021a8c859807b4376aea6de1",
+      "width": 512,
+      "height": 512,
+      "sha256": "e79a150b4e980f9d98bb430f409e2a3302c3bc4c34c53881621333648d16cc55",
       "layout": "icon"
     },
     "7230058": {
       "file": "images/7230058.png",
-      "width": 326,
-      "height": 430,
-      "sha256": "31098f6836ea3c6500a40a104deb724b1de3e1c5ed79285a496678bddfb79aca",
+      "width": 512,
+      "height": 512,
+      "sha256": "979a52fda3deef15b0c6fd677028f51aa578c569af138d6b0bda7e2bd7d5ccfa",
       "layout": "icon"
     },
     "7230060": {
       "file": "images/7230060.png",
-      "width": 326,
-      "height": 430,
-      "sha256": "a4355caf893ed55d21b907ad8b25d3486177a82e347e56c0dddfe8c28c991423",
+      "width": 512,
+      "height": 512,
+      "sha256": "0a93085c160a5752ee4d89ea348c015ba20ad7947b73e5b147205dc25d1e7659",
       "layout": "icon"
     },
     "7230061": {
       "file": "images/7230061.png",
-      "width": 326,
-      "height": 430,
-      "sha256": "2d940e6ba33b2ade613cb0e26036330440769ec51c491fbec44be0e65b848900",
+      "width": 512,
+      "height": 512,
+      "sha256": "d7c57c4f13d3a19e931feb241c0c342c396ac23d69ed934f21cbed6445857c21",
       "layout": "icon"
     },
     "7230062": {
       "file": "images/7230062.png",
-      "width": 326,
-      "height": 430,
-      "sha256": "30744db845e5425b2d4fa445deda7370e0d44a078bc42e7903590c05305516d1",
+      "width": 512,
+      "height": 512,
+      "sha256": "548b04791369b343cf1e74d53e7fec3a0fcbed0a232f9594b3e50d1ed0e06176",
       "layout": "icon"
     },
     "7230063": {
       "file": "images/7230063.png",
-      "width": 326,
-      "height": 430,
-      "sha256": "4825b9af2780ad7d6238bc2c01e1c83599b61fbd1c359368c02f420421ed3ec6",
+      "width": 512,
+      "height": 512,
+      "sha256": "6fecb21f4a10c7b24c0c45449fd0b9edf436ea9e2a7e19e511d14d6744d46f40",
       "layout": "icon"
     },
     "7230064": {
       "file": "images/7230064.png",
-      "width": 326,
-      "height": 430,
-      "sha256": "e696ac96396c2da2efc1095c7afb5105ebe75080fc5c536a4dc2f0f4e41e32dc",
+      "width": 512,
+      "height": 512,
+      "sha256": "2bd0efa4fb87227a2feb97bf333374b9c092079bc8ea9ab2d8bfebaae84334b1",
       "layout": "icon"
     },
     "7230065": {
       "file": "images/7230065.png",
-      "width": 326,
-      "height": 430,
-      "sha256": "c96edef4fa9e6b31d7234499105014e42da70d513a2cd3725311ff0259f96a8c",
+      "width": 512,
+      "height": 512,
+      "sha256": "8a7e76d76425f852c9636cc2104939f1af2fcb02bdb6ab2883d88b7022a4fe4b",
       "layout": "icon"
     },
     "7230066": {
       "file": "images/7230066.png",
-      "width": 326,
-      "height": 430,
-      "sha256": "8d56a332c25e373ca299d853f52fa8adb00b163dee80344be27a1f5c135d24a1",
+      "width": 512,
+      "height": 512,
+      "sha256": "371d8cf5becb6ce5f83677ee8bb32a282761792b061a94ed7c6332db86c290af",
       "layout": "icon"
     },
     "7230067": {
       "file": "images/7230067.png",
-      "width": 326,
-      "height": 430,
-      "sha256": "392867775dde923796f98ea86bc816739bbf9d087c0b846dc2617f6b074b18ad",
+      "width": 512,
+      "height": 512,
+      "sha256": "267a4644dae0aed1e05d9b08bdcbba6cfc62eb0ead80b7a533d675947973cb80",
       "layout": "icon"
     },
     "7230068": {
       "file": "images/7230068.png",
-      "width": 326,
-      "height": 430,
-      "sha256": "e4e748b2ff0f94e9ae57c65086268fe9b576f581eb10ad30d793cda8b32bec55",
+      "width": 512,
+      "height": 512,
+      "sha256": "6b1e7031b719c1cbe3892180f194e0f2cd7cab89cdb52879886ff57a64be7d9d",
       "layout": "icon"
     },
     "7230069": {
       "file": "images/7230069.png",
-      "width": 326,
-      "height": 430,
-      "sha256": "c73fa800e338e9527e91353e7916a27acf2491b11908b4ab755777f225402dfe",
+      "width": 512,
+      "height": 512,
+      "sha256": "cdfbd86d08f296e3d6669fe612a6cf1c48aadb2f0ebb747dabb9b57955ab8ad7",
       "layout": "icon"
     },
     "7230070": {
       "file": "images/7230070.png",
-      "width": 326,
-      "height": 430,
-      "sha256": "bed81e479a1bf9728c5e5724b0442e4d1d0839a3e3f00c2617ada0e7c01fc28f",
+      "width": 512,
+      "height": 512,
+      "sha256": "04ad374a1c6416eaa1032aec98faa42c9a7593817394455aa7c4dced077971f9",
       "layout": "icon"
     },
     "7230071": {
       "file": "images/7230071.png",
-      "width": 326,
-      "height": 430,
-      "sha256": "c91e4887dd0830118b0bf3a7305d9fd1f24b30753598ccc609b19567a6643fcc",
+      "width": 512,
+      "height": 512,
+      "sha256": "3748ae39b8e89e461945655a8dc39f057829df4533cd2e62afd4494f0ccea85b",
       "layout": "icon"
     },
     "7230072": {
       "file": "images/7230072.png",
-      "width": 326,
-      "height": 430,
-      "sha256": "875133639d2fd9785c8cb2495ae774e0aafd543629674068c47f5428d41837f4",
+      "width": 512,
+      "height": 512,
+      "sha256": "a496ca5f976ea09e085537d0fcad19a46a5317d670a821abf0bc0f441a41b21f",
       "layout": "icon"
     },
     "7230081": {
       "file": "images/7230081.png",
-      "width": 326,
-      "height": 430,
-      "sha256": "29e25c2a220d820e5f92d4d73422d204199139a31a2944bf0d2da6a883cf78df",
+      "width": 512,
+      "height": 512,
+      "sha256": "ab060957c0f12b576a4303c9a2143a3b45159aeaf5ca578c3895af777d61bde8",
       "layout": "icon"
     },
     "7230084": {
       "file": "images/7230084.png",
-      "width": 326,
-      "height": 430,
-      "sha256": "9fd3908aae9f5981a80c2d68677071097688951af32ee609ae79bcae1b98567b",
+      "width": 512,
+      "height": 512,
+      "sha256": "7255eee8f4e7feb4abce7d4f51f0b36cf53f4c15a111c22818eec86f6f49ed93",
       "layout": "icon"
     },
     "7230085": {
       "file": "images/7230085.png",
-      "width": 326,
-      "height": 430,
-      "sha256": "9801a1a7d8a2b7be83f7e0a1805089f71201c4f23ded64d1a9c4e6462406067e",
+      "width": 512,
+      "height": 512,
+      "sha256": "40618abc694396314b6a39cfcad685b5092b6e5a0d0648f98741fc1b86b801c2",
       "layout": "icon"
     },
     "7230087": {
       "file": "images/7230087.png",
-      "width": 326,
-      "height": 430,
-      "sha256": "06346d5406dbff29b93848f6eb3d71808fe42d8ed4892f5f1e851bf2b4a4790f",
+      "width": 512,
+      "height": 512,
+      "sha256": "cbe8f949c4abde2a7e4a8e277471de584fce4bb72578269791c1c7e4c8c1460e",
       "layout": "icon"
     },
     "7230088": {
       "file": "images/7230088.png",
-      "width": 326,
-      "height": 430,
-      "sha256": "b97b5729ada51162c84d6dc5242b076cfd7fbe47627d8002e11f22ce1c1c252e",
+      "width": 512,
+      "height": 512,
+      "sha256": "6e5b0ba51d6ba6db95b923e7b939e2b5fe896ecee2784157c013f1ee3c1ed45d",
       "layout": "icon"
     },
     "7230089": {
       "file": "images/7230089.png",
-      "width": 326,
-      "height": 430,
-      "sha256": "696523080078bd5a2042415ed38b65a2ba59102f03478ea32e89ea0cbae8b621",
+      "width": 512,
+      "height": 512,
+      "sha256": "6031476b8ebad69311458f775b50be2fb5eba453339d821f259d5eb7e91d695e",
       "layout": "icon"
     },
     "7230090": {
       "file": "images/7230090.png",
-      "width": 326,
-      "height": 430,
-      "sha256": "88c9b9fbe014d94789b9d255c14e55b02ec28a38c94caf431cd08c27da4954ae",
+      "width": 512,
+      "height": 512,
+      "sha256": "79823ede21c012f166aa3e05c31fd1ea77512587d71bf3c80ea5ce14d256dcb5",
       "layout": "icon"
     },
     "7230091": {
       "file": "images/7230091.png",
-      "width": 326,
-      "height": 430,
-      "sha256": "74513baa51b154ae250805129479c27c2e5aefc1ed7a01ed361faeaa6699a877",
+      "width": 512,
+      "height": 512,
+      "sha256": "ff5737c81f5fcac2c4c957efe02350419ec34ee2014ca2d31ddf66109e8af36a",
       "layout": "icon"
     },
     "7230094": {
       "file": "images/7230094.png",
-      "width": 326,
-      "height": 430,
-      "sha256": "738099a2976d45e3084b3b552198aa047aea1dc890fc8cc0525bb5cb37094419",
+      "width": 512,
+      "height": 512,
+      "sha256": "84665dbd34b4330d45869f4341a7a7986af5c5f96f4c49f2e490178cf2f038fb",
       "layout": "icon"
     },
     "7230096": {
       "file": "images/7230096.png",
-      "width": 326,
-      "height": 430,
-      "sha256": "23e9aef9eca0a19bb07cd473ea2a3fdf42fbb2753c4d2a1dfa6e933ae8a6f41b",
+      "width": 512,
+      "height": 512,
+      "sha256": "294e06ceb4b420d49bea9eae14dec413ea45607ce82ca8c5ee4789acbdbb1514",
       "layout": "icon"
     },
     "7230103": {
       "file": "images/7230103.png",
-      "width": 326,
-      "height": 430,
-      "sha256": "0da3c5c031a5cd76712a98aa9f2cc8b19d6df49e3c3219766f687cd7ad0b6cd2",
+      "width": 512,
+      "height": 512,
+      "sha256": "096012244ed6564b5f336ea1170038cc50cd8d4498634a89d250531f296a3945",
       "layout": "icon"
     },
     "7230105": {
       "file": "images/7230105.png",
-      "width": 326,
-      "height": 430,
-      "sha256": "22795fe7535d8a766b4e1ca22400a31d1534fec88951ec3d265ba147892bcf55",
+      "width": 512,
+      "height": 512,
+      "sha256": "471672008a5d88a5dd7dd09e7c69052cd7f1544bed8b3e836ed435e1621db400",
       "layout": "icon"
     },
     "7230107": {
       "file": "images/7230107.png",
-      "width": 326,
-      "height": 430,
-      "sha256": "0bbc6c209de81e83657e7f362942522e75dc4d5c1a079343638152d75b301d31",
+      "width": 512,
+      "height": 512,
+      "sha256": "60a3ecb35e9a14296d0c67169c5d01d473a111ec2af13821cbc2d56f3c396d21",
       "layout": "icon"
     },
     "7230108": {
       "file": "images/7230108.png",
-      "width": 326,
-      "height": 430,
-      "sha256": "b98ddcd714ebfc287bb14e8fc1c42dcf173f96cd4030131611112940e656e682",
+      "width": 512,
+      "height": 512,
+      "sha256": "27310784ed9e0547ce7f4ecfd94c983a1ae75e23f4629ac73d1c43e2760c97a0",
       "layout": "icon"
     },
     "7230110": {
       "file": "images/7230110.png",
-      "width": 326,
-      "height": 430,
-      "sha256": "6c853d317e8545bc74760c8aeebd21ebccb95a82c4b546f6c5095e8d562f8dde",
+      "width": 512,
+      "height": 512,
+      "sha256": "a914030ec92db8411d22076adeac0b663187537da680c07ccb0ca28e5b65cb32",
       "layout": "icon"
     },
     "7230111": {
       "file": "images/7230111.png",
-      "width": 326,
-      "height": 430,
-      "sha256": "52f80f055141e5315fc0eb5b01d78c529062ba99f3917333f0981457e4a8b751",
+      "width": 512,
+      "height": 512,
+      "sha256": "32d45767d82a3467ab109d943d514df3c2cbaf9d7049085b8536d47de56df6c9",
       "layout": "icon"
     },
     "7230112": {
       "file": "images/7230112.png",
-      "width": 326,
-      "height": 430,
-      "sha256": "ae0dd52bf5902f7a6b2fb8018e8dc4c95286354fddb76783371af195bde4263f",
+      "width": 512,
+      "height": 512,
+      "sha256": "247752b325b14ad712146c7de76486c8ece5105c9f7b6dd4c11470d32f05189b",
       "layout": "icon"
     },
     "7230113": {
       "file": "images/7230113.png",
-      "width": 326,
-      "height": 430,
-      "sha256": "a348f8e0fcbf642e3671e18edbf64187e1494f9bd2b5889feb0c03e2823b40ab",
+      "width": 512,
+      "height": 512,
+      "sha256": "454f79e133cd7e1f986b90efcedfdce22a14ae9d24afeff729fd8e6c6a188665",
       "layout": "icon"
     },
-    "7230114": null,
+    "7230114": {
+      "file": "images/7230114.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "bf381d82ad932200645aaff7d789da9aec5c228400b2f743a886b0c3ebf7e423",
+      "layout": "icon"
+    },
     "7240005": {
       "file": "images/7240005.png",
-      "width": 326,
-      "height": 524,
-      "sha256": "d25b17c5825875bd77c3f423cd5478c85af99a6a002dff14a13d751ea43d11d3",
-      "layout": "portrait"
+      "width": 512,
+      "height": 512,
+      "sha256": "afd051dcaf4be339247933b3b7e69889f8bb6b8a09e80b1cac0dcade56543bc5",
+      "layout": "icon"
     },
     "7240006": {
       "file": "images/7240006.png",
-      "width": 326,
-      "height": 524,
-      "sha256": "efc31e5e01ca2d6637e5a315ed0be3a0f5d07cd7e755e65a90338d6db83d4e73",
-      "layout": "portrait"
+      "width": 512,
+      "height": 512,
+      "sha256": "c48c86705c31ca3b2186dbf1fd49c325cf1a64b1771dcd9723c158a0261bf934",
+      "layout": "icon"
     },
     "7240016": {
       "file": "images/7240016.png",
-      "width": 326,
-      "height": 524,
-      "sha256": "61b97ec1b6f2245f10c1c72b4959a0433594fb1c1017ca0136e30abf99101fb6",
-      "layout": "portrait"
+      "width": 512,
+      "height": 512,
+      "sha256": "a8bc8926e72f0d30e9a6f01488fda50ae5fed5d6fa128570286e3a081f64f76e",
+      "layout": "icon"
     },
     "7240017": {
       "file": "images/7240017.png",
-      "width": 326,
-      "height": 524,
-      "sha256": "e7fb7a79f8952bcafc7e5e59e843c450da76a25c2a8aa208c6f0b91f7afbb96d",
-      "layout": "portrait"
+      "width": 512,
+      "height": 512,
+      "sha256": "4c338d2b50683582c09839c009695a9b7bcfa0ec83f2cea5d3864fad4bbcc2be",
+      "layout": "icon"
     },
     "7240018": {
       "file": "images/7240018.png",
-      "width": 326,
-      "height": 524,
-      "sha256": "857adccf8e06fd26ba6c27b2ac603df89bb135dc0e7f38a2237549b2f88962c0",
-      "layout": "portrait"
+      "width": 512,
+      "height": 512,
+      "sha256": "180f8f14d1eb9df7b20459c4e2aaddb4aa482f9250496573aed2a7f2b5d23702",
+      "layout": "icon"
     },
     "7240019": {
       "file": "images/7240019.png",
-      "width": 326,
-      "height": 524,
-      "sha256": "605f134ce818d9c01c779e837498cd7b0bdd78ef4ce15477c8276456245faf98",
-      "layout": "portrait"
+      "width": 512,
+      "height": 512,
+      "sha256": "97493a11db59a9f816126c5a5e1f94a9803a25d5bf9c4d0b2292582a196b6ee2",
+      "layout": "icon"
     },
     "7240020": {
       "file": "images/7240020.png",
-      "width": 326,
-      "height": 524,
-      "sha256": "e569dc0a84f9693005ddfdb1fde09f825696268c39f42b6539fb5aee4a8ab44d",
-      "layout": "portrait"
+      "width": 512,
+      "height": 512,
+      "sha256": "ec5f0204d624f0463ad65ed5b8ded31dee25819900909f7f094ce682625189e7",
+      "layout": "icon"
     },
     "7240021": {
       "file": "images/7240021.png",
-      "width": 326,
-      "height": 524,
-      "sha256": "3c4f25717d4513e198af0ddabce9dd90c6ed8c6b8fd1e681f07f562a9eb52ae5",
-      "layout": "portrait"
+      "width": 512,
+      "height": 512,
+      "sha256": "e9e77f51c43e61dcd5d1555ee1f73014e98133e2a15e97b4034b8cc1f35400ca",
+      "layout": "icon"
     },
     "7240022": {
       "file": "images/7240022.png",
-      "width": 326,
-      "height": 524,
-      "sha256": "0f183e0c8eb86c423bb031ee046fe302b1999ff73b051a702b108f997bf87e68",
-      "layout": "portrait"
+      "width": 512,
+      "height": 512,
+      "sha256": "42a30fa019895e86ed46e3eb237d22b1c9d4b5bd005d8fc0869becdf578e25e4",
+      "layout": "icon"
     },
     "7240023": {
       "file": "images/7240023.png",
-      "width": 326,
-      "height": 524,
-      "sha256": "ca7dea7ee0a13e329a00189ce50b551666476cc2d985284ff2776309ed697d0a",
-      "layout": "portrait"
+      "width": 512,
+      "height": 512,
+      "sha256": "f8a6774a400a1af4a751aaecf17324412f2380f6edbd19023c66ef793909e0e3",
+      "layout": "icon"
     },
     "7240024": {
       "file": "images/7240024.png",
-      "width": 326,
-      "height": 524,
-      "sha256": "d4b7a49f9c70911e3a4447e8923d872a4ed2f41ddf87268e5d4de79fe4326f1f",
-      "layout": "portrait"
+      "width": 512,
+      "height": 512,
+      "sha256": "a8d244b0204f2c642c9ea175979f387fd74076c2bbc09d3a9feaf2008b10f8c4",
+      "layout": "icon"
     },
     "7240025": {
       "file": "images/7240025.png",
-      "width": 326,
-      "height": 524,
-      "sha256": "89558a96ad6dfa07915b0c93647ea4506a1f2b9fb1f7b5ffba78195c3511b682",
-      "layout": "portrait"
+      "width": 512,
+      "height": 512,
+      "sha256": "c033263f8dbe484219ee87c993dd61dfe1cabdbccb9e9b7b4e2ccc272e67db15",
+      "layout": "icon"
     },
     "7240026": {
       "file": "images/7240026.png",
-      "width": 326,
-      "height": 524,
-      "sha256": "90ca4f2d86be71b2a900c71341ef532506d41c3ce95726ff283f14f07cbc4733",
-      "layout": "portrait"
+      "width": 512,
+      "height": 512,
+      "sha256": "4d8b942fd31b744a8ec345cb539ee4e08c605b2d69882dae63de92172923887b",
+      "layout": "icon"
     },
     "7240027": {
       "file": "images/7240027.png",
-      "width": 326,
-      "height": 524,
-      "sha256": "ae4a2d5d68154ec66b89ccd529e6c2c972183983d15485c569094a4f9efbb121",
-      "layout": "portrait"
+      "width": 512,
+      "height": 512,
+      "sha256": "6fa8d19f2c0e338dd1835cdcef195dbeb39e45b7456785eb44a7c46de38d6903",
+      "layout": "icon"
     },
     "7240028": {
       "file": "images/7240028.png",
-      "width": 326,
-      "height": 524,
-      "sha256": "9903a13b8fff64952621e7f69fe02f39d4684b23bd7d0e6d99bb886590334bbd",
-      "layout": "portrait"
+      "width": 512,
+      "height": 512,
+      "sha256": "399d606e197a50f436905259a313b20f8f1bc8ad7b568d4068f13a001b51c714",
+      "layout": "icon"
     },
     "7240030": {
       "file": "images/7240030.png",
-      "width": 326,
-      "height": 524,
-      "sha256": "79a11c86850622661169f912b7d1c3f9530bf2523a81240872aa8c021f52db1e",
-      "layout": "portrait"
+      "width": 512,
+      "height": 512,
+      "sha256": "15a5216e0a3d78a0b1e65fa1832a43d8ef10e4a7527dc0f283aa6271f0f3c205",
+      "layout": "icon"
     },
     "7240031": {
       "file": "images/7240031.png",
-      "width": 326,
-      "height": 524,
-      "sha256": "950934bc8f25b152c2f02854de000278f60f9fc3f77fc69baee45dd79291cd98",
-      "layout": "portrait"
+      "width": 512,
+      "height": 512,
+      "sha256": "9add25112c559087f315401f46e73dc1cc7f0c128b82aa977ed400fdeadf592b",
+      "layout": "icon"
     },
     "7240032": {
       "file": "images/7240032.png",
-      "width": 326,
-      "height": 524,
-      "sha256": "da9a6c41aed1f93fc7cfb79683eea38b4ab67e5181f2fb7e0bfb41466e3e756a",
-      "layout": "portrait"
+      "width": 512,
+      "height": 512,
+      "sha256": "84b6fc5d27d80ebaaf5af3fe3d09226e6c883a62130b3050714e4caf4bdecd94",
+      "layout": "icon"
     },
     "7240033": {
       "file": "images/7240033.png",
-      "width": 326,
-      "height": 524,
-      "sha256": "eae00c721ddf51747e2caf94a4246628a8107455f3bcb059b574ea68cf02e353",
-      "layout": "portrait"
+      "width": 512,
+      "height": 512,
+      "sha256": "e4c219f541fd8f542aa81038384346f24fdf1cb43f8277722e1d0554a000cdb2",
+      "layout": "icon"
     },
     "7240034": {
       "file": "images/7240034.png",
-      "width": 326,
-      "height": 524,
-      "sha256": "032be54d1135fd769285cb00926a0ae3cdf8b334a1dda0189febef3c5bf6e512",
-      "layout": "portrait"
+      "width": 512,
+      "height": 512,
+      "sha256": "a0849bd186f6cee1e302d22fa172e663720ac194397a9938a1b7cce9e2055e34",
+      "layout": "icon"
     },
     "7240035": {
       "file": "images/7240035.png",
-      "width": 326,
-      "height": 524,
-      "sha256": "6f8622f212333650b9edea0413456bfad03ef0462ee877acabab4e1416f8f936",
-      "layout": "portrait"
+      "width": 512,
+      "height": 512,
+      "sha256": "f7d7425426870a5456e4c78fc7470ca1796222bf1060f69ff5196446a37dc614",
+      "layout": "icon"
     },
     "7240036": {
       "file": "images/7240036.png",
-      "width": 326,
-      "height": 524,
-      "sha256": "075d8177fb8bac3430c4049e059cc2f8a66ce2e1a881bb52bfbcf6dcaf01b78b",
-      "layout": "portrait"
+      "width": 512,
+      "height": 512,
+      "sha256": "285735adeabd4dd6f539755ef955fb15582c20d5af3c7fe69a84a357ff921bff",
+      "layout": "icon"
     },
     "7240037": {
       "file": "images/7240037.png",
-      "width": 326,
-      "height": 524,
-      "sha256": "cc3655444ef45656cb0532ea74a4d299f084ad409d707352a187e33da6eeb1d6",
-      "layout": "portrait"
+      "width": 512,
+      "height": 512,
+      "sha256": "09ec7a3e6fa65f52f2b453e80711033236a60452abcb5d86fd0a8f3845bee49d",
+      "layout": "icon"
     },
     "7240038": {
       "file": "images/7240038.png",
-      "width": 326,
-      "height": 524,
-      "sha256": "8cbcb4bfb84c5130eb254a9ba711a293a4dae23814706ba970209ea59aead821",
-      "layout": "portrait"
+      "width": 512,
+      "height": 512,
+      "sha256": "487465d6c617432486665322e18ea52a88f798a1073a8f2594658ab8a3e78f24",
+      "layout": "icon"
     },
     "7240039": {
       "file": "images/7240039.png",
-      "width": 326,
-      "height": 524,
-      "sha256": "8b6989320df21ed674408e37f60f2cc2ded44ba4f43bfa5dcffbaba645cd5ecd",
-      "layout": "portrait"
+      "width": 512,
+      "height": 512,
+      "sha256": "2ea2eb861986a60e6d06a67785f37582db998936ac3b7420d9c7b5f1bcaf98e4",
+      "layout": "icon"
     },
     "7240040": {
       "file": "images/7240040.png",
-      "width": 326,
-      "height": 524,
-      "sha256": "ed45dff999ef33aa2f6e9dd10f71b64582f0971eec9c62e35a7dd6862dc32f6f",
-      "layout": "portrait"
+      "width": 512,
+      "height": 512,
+      "sha256": "5037b6c11f4a2ff9624fffc4c1fd95483af0b113c579563500d7efe948ff0cf5",
+      "layout": "icon"
     },
     "7240041": {
       "file": "images/7240041.png",
-      "width": 324,
-      "height": 526,
-      "sha256": "3e3e569d986f8055005b2798a9842e72463d8c30f71517c31d2c62d9a8f7319b",
-      "layout": "portrait"
+      "width": 512,
+      "height": 512,
+      "sha256": "053b3f527ded54b54a28d9077966496a79bf0ef1b29f63841c1eea156e2622bf",
+      "layout": "icon"
     },
     "7240042": {
       "file": "images/7240042.png",
-      "width": 326,
-      "height": 524,
-      "sha256": "6afc364dd9484c87c47da1eedba4604ffd41ff88bac7e0a6d7d9120b58d07e10",
-      "layout": "portrait"
+      "width": 512,
+      "height": 512,
+      "sha256": "f89051b180346f0b8d454d6923ff6f8fb349b8fc963d074a081821b3e25b534a",
+      "layout": "icon"
     },
     "7240058": {
       "file": "images/7240058.png",
-      "width": 326,
-      "height": 524,
-      "sha256": "3cfb59ecc4bb810fee9f1fa1a952ba85e8ef07744fe36cb7938b400eb19b9f5f",
-      "layout": "portrait"
+      "width": 512,
+      "height": 512,
+      "sha256": "7f5f74e58fada2a8727f69c70f16a033ab66c7db2374b6be3643108c64fc6826",
+      "layout": "icon"
     },
     "7240059": {
       "file": "images/7240059.png",
-      "width": 326,
-      "height": 524,
-      "sha256": "807a76ab560279f8f6d05947502ae1bed6c4d62ab5372330a761283204ca5da4",
-      "layout": "portrait"
+      "width": 512,
+      "height": 512,
+      "sha256": "883b8f41ed927b1137a08acafe6f5755aa3a492dc76dfcf2c98e8cce2b9fbb5e",
+      "layout": "icon"
     },
     "7240060": {
       "file": "images/7240060.png",
-      "width": 326,
-      "height": 524,
-      "sha256": "95836bf52ba48df3945cffe5b8da228160746309db50098a5be546dcc0b26457",
-      "layout": "portrait"
+      "width": 512,
+      "height": 512,
+      "sha256": "25be2f491a57e3c56dff3b64cb7322de46257d2bae328740b864020166308175",
+      "layout": "icon"
     },
     "7240061": {
       "file": "images/7240061.png",
-      "width": 326,
-      "height": 524,
-      "sha256": "687a015d84e751013afcf91c02791a162417fb5b616fdbfaaf94b72265c8ec9d",
-      "layout": "portrait"
+      "width": 512,
+      "height": 512,
+      "sha256": "b74293c0d086b3b0a6a4e617eeb9500543a11a59420e48e8032edc230f39fd44",
+      "layout": "icon"
     },
     "7240062": {
       "file": "images/7240062.png",
-      "width": 326,
-      "height": 524,
-      "sha256": "fb5be38162d0e23d6d393e7e6be1184388e4d062fafb9bea1dfbe5beddb13229",
-      "layout": "portrait"
+      "width": 512,
+      "height": 512,
+      "sha256": "937a753da9675b98d3bede251d8231a3b1d1ddcfca2505e1f6fcafce3c3e447a",
+      "layout": "icon"
     },
     "7240063": {
       "file": "images/7240063.png",
-      "width": 326,
-      "height": 524,
-      "sha256": "29fa30260582af0b7ba6257d73ef3140a2507119e3327dac6b877a858b99aa03",
-      "layout": "portrait"
+      "width": 512,
+      "height": 512,
+      "sha256": "f1735d87f616b0fc4ae44d644edd3eb8a4c4053431b7ddd0bfb937418059bfa6",
+      "layout": "icon"
     },
     "7240064": {
       "file": "images/7240064.png",
-      "width": 326,
-      "height": 524,
-      "sha256": "1a5bddae05f1bf4230a3fa259a87aac0b01f0e31993f8fe7d34982fe43051ebf",
-      "layout": "portrait"
+      "width": 512,
+      "height": 512,
+      "sha256": "448645d71073a087c15532579cd071608e6c9319fb5bb631c205bb6f68a9f65f",
+      "layout": "icon"
     },
     "7240068": {
       "file": "images/7240068.png",
-      "width": 326,
-      "height": 524,
-      "sha256": "6202eeb361ca770980fff4468159843c170a9def68ccfe1c5d6bafdb012adc8f",
-      "layout": "portrait"
+      "width": 512,
+      "height": 512,
+      "sha256": "41dfe3fe6995b00b97425600c7029718359673ad05cea691a226150d94d42b5e",
+      "layout": "icon"
     },
     "7240069": {
       "file": "images/7240069.png",
-      "width": 326,
-      "height": 524,
-      "sha256": "f6e689c5346d46b9a32a78b32e82ed2c9439d3a52063f3ab589e5d9d8309a290",
-      "layout": "portrait"
+      "width": 512,
+      "height": 512,
+      "sha256": "5c29f66e6f80b4122ce19e1d486e42338ed74612ea3ea8aad30dd7cb2d003f4e",
+      "layout": "icon"
     },
     "7240071": {
       "file": "images/7240071.png",
-      "width": 326,
-      "height": 524,
-      "sha256": "b159785a5af5e66df3475654a8b3a321288eea7aebd2441e818c465f9cafd574",
-      "layout": "portrait"
+      "width": 512,
+      "height": 512,
+      "sha256": "60a4b398df962fe7631445db83932dcf39cdec253b1474e13783ba65f97747c7",
+      "layout": "icon"
     },
     "7240072": {
       "file": "images/7240072.png",
-      "width": 326,
-      "height": 524,
-      "sha256": "e13d37d4634495a4552cc0b460752e8b0585e6d9e2ac9ba95471429a38bb4d81",
-      "layout": "portrait"
+      "width": 512,
+      "height": 512,
+      "sha256": "856870a1300dc2b1fe42536aaf15b6f08aec52396b8f7be6b48de33c469e4eb7",
+      "layout": "icon"
     },
     "7240073": {
       "file": "images/7240073.png",
-      "width": 326,
-      "height": 524,
-      "sha256": "382f2e63694aa4dd4a03776c728aa86e0b25b2848f0cd0e46c9087216b355130",
-      "layout": "portrait"
+      "width": 512,
+      "height": 512,
+      "sha256": "0c06a04a22f3002e3a7e9f4a6d35a9dd9c28ec10e224246fed3b812bfc505042",
+      "layout": "icon"
     },
     "7240077": {
       "file": "images/7240077.png",
-      "width": 326,
-      "height": 524,
-      "sha256": "2f594e1b836cf6998aeff8cbb6087a4a73ecd09a1286041a99025a1ab98e1de2",
-      "layout": "portrait"
+      "width": 512,
+      "height": 512,
+      "sha256": "05887081f13d05239bbb97118a5bd1a28370d07526c3281f817ba4fb0f79bb56",
+      "layout": "icon"
     },
     "7240080": {
       "file": "images/7240080.png",
-      "width": 326,
-      "height": 524,
-      "sha256": "6cd3036b3d1313251b18dbe15d1cca9fc86943df3909a2193a79a7e1dc3c1fa9",
-      "layout": "portrait"
+      "width": 512,
+      "height": 512,
+      "sha256": "e3fcf8e8be2312758dbfd600665435487d44df298e6129054ba00c25289d0d20",
+      "layout": "icon"
     },
     "7240087": {
       "file": "images/7240087.png",
-      "width": 326,
-      "height": 524,
-      "sha256": "e94ea31df6429f24b1a12e42efdb55c80f1464567b15b2ad35b6f9e17e07fa2a",
-      "layout": "portrait"
+      "width": 512,
+      "height": 512,
+      "sha256": "b909e2ae80559d765d9392600bdb39662932ab607c0b8f4b89615bf81c184ba5",
+      "layout": "icon"
     },
     "7240088": {
       "file": "images/7240088.png",
-      "width": 326,
-      "height": 524,
-      "sha256": "1961b4ee7cbd8157fde948a4baf02402b1b0c40aca989f6c64fc7502784dcf4d",
-      "layout": "portrait"
+      "width": 512,
+      "height": 512,
+      "sha256": "438a760a441aacf22d5b03bfcf5890d2d7614f4cc2a29ca22fc3e03525accd60",
+      "layout": "icon"
     },
     "7240089": {
       "file": "images/7240089.png",
-      "width": 326,
-      "height": 430,
-      "sha256": "70134327185311b38a8e95404901ba9d0d6a3131ea30ce4f1f0001d9e5587f3e",
+      "width": 512,
+      "height": 512,
+      "sha256": "98c059b48269c7266e7417b59ec5d070b83dec8002373da5a0200b1252d97bda",
       "layout": "icon"
     },
     "7240090": {
       "file": "images/7240090.png",
-      "width": 326,
-      "height": 524,
-      "sha256": "fbcd083e3ba78ac532eee7e4d38e10993650530eed8138683a21695b15164957",
-      "layout": "portrait"
+      "width": 512,
+      "height": 512,
+      "sha256": "b976c83b442c6608f33d4204a5f97a41db9f409da1f9e1effb8943869cd40722",
+      "layout": "icon"
     },
     "7240091": {
       "file": "images/7240091.png",
-      "width": 326,
-      "height": 524,
-      "sha256": "1d407eed24f0d6caee84ad5a918d43aa775626a58205b04cd2f9475b63124656",
-      "layout": "portrait"
+      "width": 512,
+      "height": 512,
+      "sha256": "8a6d3461f79e8f4db4d4eaa8fcc29bc9c347544201fd5e8dbc0b8164c45ea565",
+      "layout": "icon"
     },
-    "7240092": null,
-    "7240093": null,
-    "7240094": null,
-    "7240095": null,
-    "7240096": null,
-    "7240097": null,
+    "7240092": {
+      "file": "images/7240092.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "366f479e1126719f759fc66f13cd56b3fdeacd64a25bd8d4ea1c8b3783731afc",
+      "layout": "icon"
+    },
+    "7240093": {
+      "file": "images/7240093.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "b04ea2bc3310ca14007e01ba91568d78b8b16fabb5ec0694d1d431d69e164699",
+      "layout": "icon"
+    },
+    "7240094": {
+      "file": "images/7240094.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "b1912336b2a9e0000f60aeeae4674d0a78ccd567dafa95f35f51402837b1f01c",
+      "layout": "icon"
+    },
+    "7240095": {
+      "file": "images/7240095.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "4b4970507b47b29839a4e389adbc5825a1c67d4f47b712a224f142e73985bff7",
+      "layout": "icon"
+    },
+    "7240096": {
+      "file": "images/7240096.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "8e2a927a71d7937ca3fc65ff1f43689c77316ead92ce945bcf4c5283fcc1e898",
+      "layout": "icon"
+    },
+    "7240097": {
+      "file": "images/7240097.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "29c1d3bc7996049fb1fced65872b1b54813f96f97218273525a417aa51ab9de2",
+      "layout": "icon"
+    },
     "7250010": {
       "file": "images/7250010.png",
-      "width": 326,
-      "height": 524,
-      "sha256": "b4fddb00be251e9034689b758efa167471f32f916c14fdac2cd0ca7d2aa21470",
-      "layout": "portrait"
+      "width": 512,
+      "height": 512,
+      "sha256": "af03a50c0e9b90e0a15922bd2a8493b83ae9b6767ad0569b5aa2c9724184f5d4",
+      "layout": "icon"
     },
     "7250011": {
       "file": "images/7250011.png",
-      "width": 324,
-      "height": 526,
-      "sha256": "1e07dbbc8fe80f8c179cd45e979ba88c31819e3aaa6803c2008a4261efefd648",
-      "layout": "portrait"
+      "width": 512,
+      "height": 512,
+      "sha256": "699a3c0e15d9ceb18d59872c5c5554a8efbe5b136b27605784ff74281e58071d",
+      "layout": "icon"
     },
-    "7250012": null,
+    "7250012": {
+      "file": "images/7250012.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "9000a90b4e895ba68b64b8c0f190268a77ebbe0edf92fe8742944c6ba2c4cce0",
+      "layout": "icon"
+    },
     "7250013": {
       "file": "images/7250013.png",
-      "width": 326,
-      "height": 524,
-      "sha256": "98629c29a78e8ad47b072b3fe14d0992dda46e2f5124cec04cb41ea7200f8ef9",
-      "layout": "portrait"
+      "width": 512,
+      "height": 512,
+      "sha256": "a024352e0b7d609976647755674318aef9fcdd82ff761edcbfff37014e59a561",
+      "layout": "icon"
     },
     "7250014": {
       "file": "images/7250014.png",
-      "width": 326,
-      "height": 524,
-      "sha256": "04e6fe4890478e40dc35f53888efd62ab3745089f86f939afdb94df7bf7f67dd",
-      "layout": "portrait"
+      "width": 512,
+      "height": 512,
+      "sha256": "dddd259680ae7ebe6936a379ce17efa05a9bbd0f3db1ea9517fda8cbfe8470f2",
+      "layout": "icon"
     },
     "7250015": {
       "file": "images/7250015.png",
-      "width": 324,
-      "height": 526,
-      "sha256": "e07e579bd7196d3f6413238fd3e002b336be65c8ba5041d1e12e07f3b8cd62e5",
-      "layout": "portrait"
+      "width": 512,
+      "height": 512,
+      "sha256": "8ca56bb88c8e5fc92b6cc4ce87ffe52707c0d5fa17b0e20e9055de716d7f16b8",
+      "layout": "icon"
     },
     "7250016": {
       "file": "images/7250016.png",
-      "width": 324,
-      "height": 526,
-      "sha256": "a774781108d9fd0f1a3e23b79018c0b5b8e10f2cf7a845103cacba5bdf88a4cd",
-      "layout": "portrait"
+      "width": 512,
+      "height": 512,
+      "sha256": "3c712907a1d4df71d372a88f99908345c5deee53657e741d9d2cd5d5bd239bb3",
+      "layout": "icon"
     },
     "7250017": {
       "file": "images/7250017.png",
-      "width": 326,
-      "height": 524,
-      "sha256": "c16338b636a7cfed2337c0dac093c5c368eb4bd8c5548f92b2598ebaad27e1c0",
-      "layout": "portrait"
+      "width": 512,
+      "height": 512,
+      "sha256": "d68cd9b2195779fc2634f9ae2eebc6907eef39823d9d9a9c2955effe2cad3432",
+      "layout": "icon"
     },
     "7250018": {
       "file": "images/7250018.png",
-      "width": 324,
-      "height": 526,
-      "sha256": "09ab1741174551cfa5154db77b27bc3ba6fc269a0987b69268c41e3c531694ae",
-      "layout": "portrait"
+      "width": 512,
+      "height": 512,
+      "sha256": "66343ef81985ddfdfd6638db0aa0c7106ab16b184de3751e24a2a807dae498da",
+      "layout": "icon"
     },
     "7250019": {
       "file": "images/7250019.png",
-      "width": 326,
-      "height": 524,
-      "sha256": "cbea8893e251eb6a91d64539cd0ad48b94947bfd3835e0846bace23e77295dca",
-      "layout": "portrait"
+      "width": 512,
+      "height": 512,
+      "sha256": "101628485b9549c7882025ee81bf29d1d4298e1f16024532b2c5defc33b5204b",
+      "layout": "icon"
     },
     "7250020": {
       "file": "images/7250020.png",
-      "width": 326,
-      "height": 524,
-      "sha256": "80fe7525ec02d8f05a0e1760c1ca1831f3ae19acdb077328d01f81e33d31d640",
-      "layout": "portrait"
+      "width": 512,
+      "height": 512,
+      "sha256": "06410ea073e0a0536c0724ca9d0497b5502a39160eb0764e573d79ecb666ccdc",
+      "layout": "icon"
     },
     "7250021": {
       "file": "images/7250021.png",
-      "width": 324,
-      "height": 526,
-      "sha256": "0a99eb90c6cf26c869e7f35951650ee6ede8200c6b0d7349d40ec42a0d46fb8a",
-      "layout": "portrait"
+      "width": 512,
+      "height": 512,
+      "sha256": "e11763b6e60e2b52f4a0cf785aad6f6bdaaba4793bb9a7bf405fe72174867fc8",
+      "layout": "icon"
     },
     "7250022": {
       "file": "images/7250022.png",
-      "width": 324,
-      "height": 526,
-      "sha256": "13c8b3e94f6f3bcbc89f17d3293d5d8979db2c0a7f86b3eb323bf24ea0ab2642",
-      "layout": "portrait"
+      "width": 512,
+      "height": 512,
+      "sha256": "4e837e0eedad1d2138416eb7f333786f151caa502d193da76c42ac2d9c5cf1a6",
+      "layout": "icon"
     },
     "7250023": {
       "file": "images/7250023.png",
-      "width": 324,
-      "height": 526,
-      "sha256": "eba26633e8053332a2e198c61cab502d65bb2047457b47831355a7df5d5420ab",
-      "layout": "portrait"
+      "width": 512,
+      "height": 512,
+      "sha256": "a4c36e5538648ca8cc762b87fd9bf2e1dd6bbf227ef1517d9c57f14d6acb55b4",
+      "layout": "icon"
     },
     "7250025": {
       "file": "images/7250025.png",
-      "width": 326,
-      "height": 524,
-      "sha256": "08c1a3ec8120d9edcb274f11857527e61d309862afb00bd34049bd1bd26626fe",
-      "layout": "portrait"
+      "width": 512,
+      "height": 512,
+      "sha256": "0fad848924c03a79a83a0447bdc1babc32863b1b21c44e2c84f6b67ee7126c01",
+      "layout": "icon"
     },
     "7250026": {
       "file": "images/7250026.png",
-      "width": 324,
-      "height": 526,
-      "sha256": "317fe587a11080c05ee9bf182cd4fa6adbcec058129bc39fbec8ea839f08beef",
-      "layout": "portrait"
+      "width": 512,
+      "height": 512,
+      "sha256": "4eb4589dd698c9178eff7eb4efa815a36e2a19da03c1992681f47445d1bead82",
+      "layout": "icon"
     },
     "7250029": {
       "file": "images/7250029.png",
-      "width": 326,
-      "height": 524,
-      "sha256": "cca5d37c5544ae787f3889ec6750fbdfd8a60b29ba64561273915b6898628883",
-      "layout": "portrait"
+      "width": 512,
+      "height": 512,
+      "sha256": "a2645fe2c48b1d21f36c0222c0676ecb348edafbd680a9282957c9ab57243983",
+      "layout": "icon"
     },
     "7250031": {
       "file": "images/7250031.png",
-      "width": 324,
-      "height": 526,
-      "sha256": "cdfe137ce059e7abf18e3dde2cd5a7ecd3c9d27f3c9e274efcf7de40a6f0478e",
-      "layout": "portrait"
+      "width": 512,
+      "height": 512,
+      "sha256": "ce6629e47d9e7f9626247e3574880515837634363953702f4a103bdd30392699",
+      "layout": "icon"
     },
     "7250034": {
       "file": "images/7250034.png",
-      "width": 324,
-      "height": 526,
-      "sha256": "59462351ad42543115f7996ce4ba5462b672fd1d8871b5068e4cf47774871835",
-      "layout": "portrait"
+      "width": 512,
+      "height": 512,
+      "sha256": "a30c7bb5b550e227c6d3d29f62814629c88fc3394d059f7ff4c9c995364276ab",
+      "layout": "icon"
     },
     "7250035": {
       "file": "images/7250035.png",
-      "width": 326,
-      "height": 524,
-      "sha256": "5628c006dc1817656eb27c1eb65a9ecdf06a6cd5b7183846979e63f4e35a2c9b",
-      "layout": "portrait"
+      "width": 512,
+      "height": 512,
+      "sha256": "7a8334a4c4331144836fcda3bb178ccd7a3b0f5c1eac5d0659ad7522e7156f55",
+      "layout": "icon"
     },
     "7250036": {
       "file": "images/7250036.png",
-      "width": 324,
-      "height": 526,
-      "sha256": "d41f285b68ccc84ae919b9992c06417ded0318edfdb384fe24d5a35666736566",
-      "layout": "portrait"
+      "width": 512,
+      "height": 512,
+      "sha256": "efaeb23e764c43bbfddfba5005789efe21c3eb1b52f590301ca24f36a9d003a8",
+      "layout": "icon"
     },
     "7250037": {
       "file": "images/7250037.png",
-      "width": 326,
-      "height": 524,
-      "sha256": "311e0d77c2850dbdc476d44a68bbec03df936e4438748c70baa94b6bc0f8e192",
-      "layout": "portrait"
+      "width": 512,
+      "height": 512,
+      "sha256": "f957ba3d45a48def21691f306068a46537835b79319e9f93baf27e3ad2844525",
+      "layout": "icon"
     },
     "7250039": {
       "file": "images/7250039.png",
-      "width": 324,
-      "height": 526,
-      "sha256": "51ff9cdb89238f754d8dcc2ee7bb394af91af6c638aa776e63474008f5212c29",
-      "layout": "portrait"
+      "width": 512,
+      "height": 512,
+      "sha256": "c9dcc43a174a29e2828a245ff380fd3b0f89aea4d98f45c458831325f6ae5f95",
+      "layout": "icon"
     },
     "7250040": {
       "file": "images/7250040.png",
-      "width": 324,
-      "height": 526,
-      "sha256": "98bdfc0fdc1fa7a211fdde89865287f19ef39baf36d6e6f4c0436b01a5e9be26",
-      "layout": "portrait"
+      "width": 512,
+      "height": 512,
+      "sha256": "3c725e07342598a2c3dee4769eda5b2d79930bbcdabb3b7aa3eed1136bae6e57",
+      "layout": "icon"
     },
     "7250041": {
       "file": "images/7250041.png",
-      "width": 324,
-      "height": 526,
-      "sha256": "2a3267d4f7167afba9b68b1ced2ae422c50fd39b3b744dae2a0503c5b11f232b",
-      "layout": "portrait"
+      "width": 512,
+      "height": 512,
+      "sha256": "049db68b38491579bf38a9dd0cf847fc24e46c0e2ed58ca468e99bc34cde6cdf",
+      "layout": "icon"
     },
     "7250042": {
       "file": "images/7250042.png",
-      "width": 324,
-      "height": 526,
-      "sha256": "238ea62270f708133314facfa47995c902e2a6e022199e29b79cc274283ee4f2",
-      "layout": "portrait"
+      "width": 512,
+      "height": 512,
+      "sha256": "8bf36827945a8a76011972229854ddd32c7a37fcc6e0be1051d45ca5386566da",
+      "layout": "icon"
     },
     "7250044": {
       "file": "images/7250044.png",
-      "width": 324,
-      "height": 526,
-      "sha256": "41d2d70a35af63b053347c0181fd2e6696fb8b76af769f8ac4cbe31bf34d8301",
-      "layout": "portrait"
+      "width": 512,
+      "height": 512,
+      "sha256": "cfef9d7439958047dbe786b2243f4ff626372eb64359df4140ab6e3ed3a241b6",
+      "layout": "icon"
     },
     "7250045": {
       "file": "images/7250045.png",
-      "width": 324,
-      "height": 526,
-      "sha256": "6c153fe94c816e37e07e67baec37378a164af561e390aa73b1eae81c1a5281a9",
-      "layout": "portrait"
+      "width": 512,
+      "height": 512,
+      "sha256": "f61fda643bcb48c8a3b9a3ded4a2a2a2168582b9558abc51241525f88b4482bc",
+      "layout": "icon"
     },
     "7250046": {
       "file": "images/7250046.png",
-      "width": 324,
-      "height": 526,
-      "sha256": "362be6aae17f3e66fce5365d3f1ae9d62bf9e37f1d6e674cd39c787a26ee1654",
-      "layout": "portrait"
+      "width": 512,
+      "height": 512,
+      "sha256": "06554fde0c279e2ad10548830c385191203b64a4f636aeedb4e8cf82b85ac25f",
+      "layout": "icon"
     },
     "7250047": {
       "file": "images/7250047.png",
-      "width": 324,
-      "height": 526,
-      "sha256": "6417ad405d8182b2b31de237922f30ece9ea79d9e2234f3d9abe2daeaa05dc0f",
-      "layout": "portrait"
+      "width": 512,
+      "height": 512,
+      "sha256": "581b469cbd63cef22170ea8cd7084efaf62bda5192a13daa4af500dfb226a3ae",
+      "layout": "icon"
     },
     "7250048": {
       "file": "images/7250048.png",
-      "width": 324,
-      "height": 526,
-      "sha256": "d254443544d536a03caf171d4f1177a2c0c7d1a71466df09c6d39d1c141bc561",
-      "layout": "portrait"
+      "width": 512,
+      "height": 512,
+      "sha256": "ad6a08756a54d422bbf3a1d2f9d7b4bf83a2a20e53a36478b2e8d5ec30391dd7",
+      "layout": "icon"
     },
     "7250049": {
       "file": "images/7250049.png",
-      "width": 324,
-      "height": 526,
-      "sha256": "4efeedcdccc576ce6b2eedecacd2792c6c800a3032be1eabf040534f81e243df",
-      "layout": "portrait"
+      "width": 512,
+      "height": 512,
+      "sha256": "2a859d234b5e55b9e5748f0d4c3b456e179af7a22ead08e3d6a7feb8f008c6f0",
+      "layout": "icon"
     },
     "7250050": {
       "file": "images/7250050.png",
-      "width": 324,
-      "height": 526,
-      "sha256": "1354e34d00696f702c6b6d7de6eb262a9ae5a1f23bc81e354798774dccc63c98",
-      "layout": "portrait"
+      "width": 512,
+      "height": 512,
+      "sha256": "f0fc2845e2b67a5e275d0a1263c414282fb10fa20ef681e21ffe857482b94798",
+      "layout": "icon"
     },
     "7250051": {
       "file": "images/7250051.png",
-      "width": 324,
-      "height": 526,
-      "sha256": "d6725d00db274e04443a6b115d2b4dca8f2b086af899a034231405bfe6279c71",
-      "layout": "portrait"
+      "width": 512,
+      "height": 512,
+      "sha256": "14c20e8943a862d586d7b85184fef1c3790a88f7cb2ebdfbc660126444d6fab6",
+      "layout": "icon"
     },
     "7250052": {
       "file": "images/7250052.png",
-      "width": 326,
-      "height": 524,
-      "sha256": "617c5327d4d8c0dc7a7643b48a4dd3e6b6713b2d3e2308146d5c8861cdf7dab2",
-      "layout": "portrait"
+      "width": 512,
+      "height": 512,
+      "sha256": "f2306b07508dc9ba284a36b60ec9557e7753029f8bbf4d2dc4e8c6cd877fdbcc",
+      "layout": "icon"
     },
     "7250056": {
       "file": "images/7250056.png",
-      "width": 326,
-      "height": 524,
-      "sha256": "174c4ed98915146bedc1e2b757e72608ab101da449acfdf3fc96273542efa95f",
-      "layout": "portrait"
+      "width": 512,
+      "height": 512,
+      "sha256": "820ddd7297e3367075193ef6cef63abdeb6cdc9d4235e31275e60c3f5f71855d",
+      "layout": "icon"
     },
     "7250059": {
       "file": "images/7250059.png",
-      "width": 324,
-      "height": 526,
-      "sha256": "5f471b0b1ca72e7e6fd0546eaa5e11e469f6e9f2923bb56747ec7fc557655210",
-      "layout": "portrait"
+      "width": 512,
+      "height": 512,
+      "sha256": "09580f996dd0489e325f33d772c56bec79b22ba3cde0370399ce0b8398f132f0",
+      "layout": "icon"
     },
     "7250060": {
       "file": "images/7250060.png",
-      "width": 324,
-      "height": 526,
-      "sha256": "1e46c333186208117e187f44992034be378ce30e4e1bcb0a891721ef881e64ed",
-      "layout": "portrait"
+      "width": 512,
+      "height": 512,
+      "sha256": "500476b0f168881aca1773c3f7f6438961d68eb2988e162d5cadc0ea56fb1aad",
+      "layout": "icon"
     },
     "7250061": {
       "file": "images/7250061.png",
-      "width": 324,
-      "height": 526,
-      "sha256": "d1e1a28deec32f1ad33e40b7dc5325afd534d9ce196f17e501e12d1d3052f092",
-      "layout": "portrait"
+      "width": 512,
+      "height": 512,
+      "sha256": "fc9807a1607063a51ea1dace0ac77502e91e6ed36e56bb5c78547e3397a801c1",
+      "layout": "icon"
     },
     "7250068": {
       "file": "images/7250068.png",
-      "width": 326,
-      "height": 524,
-      "sha256": "8ec12d38c2e5349d00f674db85287c449dc1c566456af5ca73a2f4f94bed73a0",
-      "layout": "portrait"
+      "width": 512,
+      "height": 512,
+      "sha256": "a2da198acb6af9035daf28a35e577695dc305e28335d38deff323d1883a920dc",
+      "layout": "icon"
     },
     "7250069": {
       "file": "images/7250069.png",
-      "width": 326,
-      "height": 524,
-      "sha256": "3e75f227ccf546b3da88e64191c0b749a18deb776028d5b1ecd8909b61671087",
-      "layout": "portrait"
-    },
-    "7250071": null
-  },
-  "asset_failures": {
-    "7210027": {
-      "url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7210128.png",
-      "error": "http_404",
-      "status": 404,
-      "checked_at": "2026-10-29T11:56:22+08:00"
-    },
-    "7220040": {
-      "url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7220139.png",
-      "error": "http_404",
-      "status": 404,
-      "checked_at": "2026-10-29T11:58:05+08:00"
-    },
-    "7230114": {
-      "url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7230114.png",
-      "error": "http_404",
-      "status": 404,
-      "checked_at": "2026-10-29T12:01:46+08:00"
-    },
-    "7240092": {
-      "url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240092.png",
-      "error": "http_404",
-      "status": 404,
-      "checked_at": "2026-10-29T12:03:56+08:00"
-    },
-    "7240093": {
-      "url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240093.png",
-      "error": "http_404",
-      "status": 404,
-      "checked_at": "2026-10-29T12:03:57+08:00"
-    },
-    "7240094": {
-      "url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240094.png",
-      "error": "http_404",
-      "status": 404,
-      "checked_at": "2026-10-29T12:04:21+08:00"
-    },
-    "7240095": {
-      "url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240095.png",
-      "error": "http_404",
-      "status": 404,
-      "checked_at": "2026-10-29T12:04:02+08:00"
-    },
-    "7240096": {
-      "url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240096.png",
-      "error": "http_404",
-      "status": 404,
-      "checked_at": "2026-10-29T12:04:02+08:00"
-    },
-    "7240097": {
-      "url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7240097.png",
-      "error": "http_404",
-      "status": 404,
-      "checked_at": "2026-10-29T12:04:07+08:00"
-    },
-    "7250012": {
-      "url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250012.png",
-      "error": "http_404",
-      "status": 404,
-      "checked_at": "2026-10-29T12:04:36+08:00"
+      "width": 512,
+      "height": 512,
+      "sha256": "e2fc332b743304767475d15016d753eebd07d5825db055a9e8bb20cd29020c29",
+      "layout": "icon"
     },
     "7250071": {
-      "url": "https://game.gtimg.cn/images/lol/act/jkzlk/mode16s400001/tomato/7250071.png",
-      "error": "http_404",
-      "status": 404,
-      "checked_at": "2026-10-29T12:06:31+08:00"
+      "file": "images/7250071.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "8247df4ef2dcee7a4d835432db54a81747f662b5a953f012cbfdf607c83ca07e",
+      "layout": "icon"
     }
   },
+  "asset_failures": {},
   "provenance": {
-    "collected_at": "2026-10-29T12:09:03+08:00",
+    "collected_at": "2026-11-12T11:49:26+08:00",
     "card_url": "https://game.gtimg.cn/images/lol/act/jkzlk/js/16/18.18.1-S400001/card.js",
-    "etag": "\"6ae1634d-de93\"",
-    "last_modified": "Wed, 28 Oct 2026 02:51:57 GMT",
-    "archive": "20261029-115254"
+    "etag": "\"6aea052e-e294\"",
+    "last_modified": "Tue, 03 Nov 2026 16:00:46 GMT",
+    "archive": "20261112-audit"
   }
 }

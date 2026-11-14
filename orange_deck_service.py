@@ -8,14 +8,19 @@ import base64
 import binascii
 import json
 import re
-from datetime import datetime
+import time
+from datetime import datetime, timedelta
 from functools import lru_cache
 from pathlib import Path
 
+from flask import current_app, has_app_context
+
 from audit import write_audit
 from avatar_service import avatar_config
+from copy_action_service import record_deck_copy_action
 from db import db_kind, get_db, now_text
-from db_adapter import insert_returning_id_sql, last_insert_id
+from db_adapter import INTEGRITY_ERRORS, insert_returning_id_sql, last_insert_id
+from deck_analytics_service import actor_key, clean_action_id, mark_started, record_activity
 from lineup_code import LINEUP_CODE_MESSAGE, extract_lineup_code
 from lineups_utils import bucket_start, row_value
 from orange_creator_service import creator_config
@@ -30,28 +35,34 @@ LIMITS = {'name': 24, 'note': 300, 'key_rounds': 100, 'alternatives': 200, 'plan
 BOARD_SLOTS = 28
 MAX_ITEMS, MAX_AUGMENTS, MAX_TRAITS = 3, 6, 24
 TRAIT_STYLES = {'1', '2', '3', '4', 'unique'}
-HOT_RULE = '按真实互动排序：累计点赞数（每个账号每天对同一卡组计 1 次）加收藏账号数，取消收藏即扣除；只列出至少有 1 次互动的公开卡组，同分按发布时间。'
+HOT_RULE = ('按近 30 天的真实使用排序：每人每天复制同一卡组计 3 分（方案码与阵容码合计一次）、收藏 2 分、点赞 1 分，'
+            '7 天减半；不计作者、供稿人和管理员自己的操作，取消收藏即不再计入。新卡组有短期曝光加成，'
+            '相同三张卡的组合会适当错开；没有互动的合法卡组按发布时间补位。')
+HOT_WINDOW_DAYS, HOT_HALF_LIFE_DAYS = 30, 7
+HOT_WEIGHTS = {'copy': 3.0, 'favorite': 2.0, 'like': 1.0}
+FRESH_BONUS, FRESH_HALF_LIFE_DAYS = 1.5, 3
+DUPLICATE_DAMPING = 0.6
+HOT_CACHE_SECONDS = 60
 DAILY_LIKE_LIMIT = 5
 OWNER_COLUMNS = ('u.username AS owner_username, u.nickname AS owner_nickname, u.role AS owner_role, '
                  'u.avatar_color AS owner_avatar_color, u.avatar_preset AS owner_avatar_preset, '
-                 'u.avatar_expression AS owner_avatar_expression')
-RANKING_COUNTS = ('LEFT JOIN (SELECT deck_id, COUNT(*) AS c FROM orange_deck_favorites GROUP BY deck_id) fc ON fc.deck_id = d.id '
-                  'LEFT JOIN (SELECT deck_id, COUNT(*) AS c FROM orange_deck_likes GROUP BY deck_id) lc ON lc.deck_id = d.id')
-INTERACTION_SCORE = '(COALESCE(fc.c, 0) + COALESCE(lc.c, 0))'
+                 'u.avatar_expression AS owner_avatar_expression, '
+                 'p.username AS provider_username, p.nickname AS provider_nickname, p.role AS provider_role, '
+                 'p.avatar_color AS provider_avatar_color, p.avatar_preset AS provider_avatar_preset, '
+                 'p.avatar_expression AS provider_avatar_expression')
+# Public credit: the submitter for managed submissions, otherwise the owner. Never used for permissions.
+DECK_USERS = 'JOIN users u ON u.id = d.user_id LEFT JOIN users p ON p.id = d.provided_by_user_id'
+SUBMISSION_LOCKED = '这是投稿卡组，请在后台「卡组投稿」中处理'
 
 
 def today():
     return datetime.now().strftime('%Y-%m-%d')
 
 
-def _viewer_columns(user, *, ranked=False):
-    """Indexed counts for displayed decks; only hot ranking needs global aggregates."""
-    counts = (
-        'COALESCE(fc.c, 0) AS favorite_count, COALESCE(lc.c, 0) AS like_count'
-        if ranked else
-        '(SELECT COUNT(*) FROM orange_deck_favorites f WHERE f.deck_id = d.id) AS favorite_count, '
-        '(SELECT COUNT(*) FROM orange_deck_likes l WHERE l.deck_id = d.id) AS like_count'
-    )
+def _viewer_columns(user):
+    """Indexed counts for displayed decks only."""
+    counts = ('(SELECT COUNT(*) FROM orange_deck_favorites f WHERE f.deck_id = d.id) AS favorite_count, '
+              '(SELECT COUNT(*) FROM orange_deck_likes l WHERE l.deck_id = d.id) AS like_count')
     counts += ', (SELECT COUNT(*) FROM orange_deck_copies c WHERE c.deck_id = d.id) AS copy_count'
     if not user:
         return f'{counts}, 0 AS is_favorited, 0 AS is_liked_today', []
@@ -329,7 +340,7 @@ def resolve_formation(row):
 
 def _card_view(card):
     return {key: card[key] for key in ('id', 'name', 'tier', 'tier_name', 'energy', 'category', 'rounds', 'description', 'layout')} \
-        | {'image_url': card['image_url']}
+        | {'image_url': card['image_url'], 'framed': card.get('framed', False), 'art_style': card.get('art_style', '')}
 
 
 def resolve_cards(row):
@@ -377,6 +388,18 @@ def is_admin(user):
     return bool(user and user['role'] == 'admin')
 
 
+def is_managed(row):
+    """A deck completed from a user submission; only admins maintain it, never the submitter."""
+    return row_value(row, 'origin_type') == 'submission'
+
+
+def can_maintain(row, user):
+    """Ordinary decks: the owner (not automation). Managed submission decks: any admin."""
+    if not user or user['role'] == 'automation':
+        return False
+    return is_admin(user) if is_managed(row) else is_owner(row, user)
+
+
 def visible_to(row, user):
     """One rule for detail, formation, search and derived entries: deleted is gone, drafts are private."""
     if row is None or row['status'] == 'deleted':
@@ -385,7 +408,8 @@ def visible_to(row, user):
         return True
     if row['status'] == 'hidden':
         return is_owner(row, user) or is_admin(user)
-    return is_owner(row, user)
+    # Admins may read submission drafts (reassignment), never other users' private drafts.
+    return is_owner(row, user) or (is_managed(row) and is_admin(user))
 
 
 def can_derive(row, user):
@@ -406,10 +430,13 @@ def serialize(row, user, detail=False, share_base=None):
     complete = all(card and card['status'] != 'missing' for card in cards)
     if complete and energy > portal['energy_limit']:
         issues.append(f"按当前资料计算能量为 {energy}，已超出{portal['name']}上限 {portal['energy_limit']}。")
-    role, nickname = row_value(row, 'owner_role'), row_value(row, 'owner_nickname')
-    username = row_value(row, 'owner_username')
     owner, admin = is_owner(row, user), is_admin(user)
-    editable = owner and user['role'] != 'automation'
+    editable = can_maintain(row, user)
+    credit = 'provider' if is_managed(row) and row_value(row, 'provider_nickname') is not None else 'owner'
+    prefix = 'provider_' if credit == 'provider' else 'owner_'
+    role, nickname = row_value(row, prefix + 'role'), row_value(row, prefix + 'nickname')
+    username = row_value(row, prefix + 'username')
+    credit_id = row['provided_by_user_id'] if credit == 'provider' else row['user_id']
     note = row['note'] if detail else row['note'][:120]
     data = {
         'id': row['id'], 'name': row['name'], 'status': row['status'],
@@ -420,10 +447,13 @@ def serialize(row, user, detail=False, share_base=None):
         'author': {
             'nickname': '系统' if role == 'admin' else (nickname or '未知用户'),
             'profile_url': f'/author/{username}' if username and role != 'admin' else None,
-            'avatar_config': avatar_config({'id': row['user_id'], 'avatar_color': row_value(row, 'owner_avatar_color'),
-                                            'avatar_preset': row_value(row, 'owner_avatar_preset'),
-                                            'avatar_expression': row_value(row, 'owner_avatar_expression')}),
+            'avatar_config': avatar_config({'id': credit_id, 'avatar_color': row_value(row, prefix + 'avatar_color'),
+                                            'avatar_preset': row_value(row, prefix + 'avatar_preset'),
+                                            'avatar_expression': row_value(row, prefix + 'avatar_expression')}),
+            # "由 XXX 提供" for submissions; ordinary decks keep the plain author line.
+            'credit': 'provided' if credit == 'provider' else 'author',
         },
+        'origin': 'submission' if is_managed(row) else 'direct',
         'favorite_count': int(row_value(row, 'favorite_count') or 0),
         'is_favorited': bool(row_value(row, 'is_favorited')),
         'like_count': int(row_value(row, 'like_count') or 0),
@@ -437,13 +467,15 @@ def serialize(row, user, detail=False, share_base=None):
         'compat': {'saved_version': version_label(saved_version), 'current_version': version_label(current_version),
                    'issues': issues,
                    'missing_cards': sum(1 for card in cards if card and card['status'] == 'missing')},
-        'can_edit': editable, 'can_delete': editable,
+        'can_edit': editable, 'can_delete': editable and not is_managed(row),
         'can_fork': can_derive(row, user), 'can_export': can_derive(row, user),
         'can_share': row['status'] == 'published',
         'can_moderate': admin,
     }
     if owner or admin:
         data['hidden_reason'] = row['hidden_reason']
+    if admin and is_managed(row):
+        data['reviewed_card_version'] = row_value(row, 'reviewed_card_version')
     if detail:
         data['key_rounds'] = row['key_rounds']
         data['alternatives'] = row['alternatives']
@@ -451,7 +483,7 @@ def serialize(row, user, detail=False, share_base=None):
     if share_base and row['status'] == 'published':
         data['share_url'] = share_base + data['detail_url']
         data['share_text'] = share_text(data, data['share_url'])
-    if detail and owner and row['formation_json']:
+    if detail and editable and row['formation_json']:
         stored = json.loads(row['formation_json'])
         data['formation_edit'] = {'season': row['formation_season_id'], 'payload': stored['payload'], 'traits': stored.get('traits', [])}
     return data
@@ -473,7 +505,7 @@ def deck_row(deck_id, user=None):
     columns, params = _viewer_columns(user)
     return get_db().execute(
         f'''SELECT d.*, {OWNER_COLUMNS}, {columns}
-            FROM orange_decks d JOIN users u ON u.id = d.user_id WHERE d.id = ?''',
+            FROM orange_decks d {DECK_USERS} WHERE d.id = ?''',
         (*params, deck_id),
     ).fetchone()
 
@@ -490,20 +522,13 @@ def matching_card_ids(query):
     return [card['id'] for card in catalog()['cards'] if terms in card['name'].casefold()]
 
 
-def list_decks(user, tab='latest', query='', portal='', page=1, page_size=10, share_base=None):
-    if tab not in TABS:
-        raise DeckError('列表类型无效')
-    if tab in ('favorites', 'mine') and not user:
-        raise DeckError('请先登录', 401)
-    if portal and portal not in PORTAL_BY_ID:
-        raise DeckError('传送门筛选无效')
-    query = str(query or '').strip()[:40]
-    page_size = max(1, min(int(page_size), 30))
-    page = max(1, int(page))
+def _filters(tab, user, query, portal):
     joins, clauses, params = [], [], []
     if tab == 'mine':
-        clauses += ["d.status IN ('draft', 'published', 'hidden')", 'd.user_id = ?']
-        params.append(user['id'])
+        # Own ordinary decks, plus published decks this user contributed; admins' submission drafts stay in the workbench.
+        clauses.append("((d.user_id = ? AND d.origin_type = 'direct' AND d.status IN ('draft', 'published', 'hidden')) "
+                       "OR (d.provided_by_user_id = ? AND d.status = 'published'))")
+        params += [user['id'], user['id']]
     else:
         clauses.append("d.status = 'published'")
     if tab == 'favorites':
@@ -511,8 +536,6 @@ def list_decks(user, tab='latest', query='', portal='', page=1, page_size=10, sh
         params.insert(0, user['id'])
     if tab == 'featured':
         clauses.append('d.featured = 1')
-    if tab == 'hot':
-        clauses.append(f'{INTERACTION_SCORE} > 0')
     if portal:
         clauses.append('d.portal_id = ?')
         params.append(portal)
@@ -526,27 +549,143 @@ def list_decks(user, tab='latest', query='', portal='', page=1, page_size=10, sh
             search += [f'd.card_id_{n} IN ({marks})' for n in range(1, DECK_SIZE + 1)]
             params += card_ids * DECK_SIZE
         clauses.append('(' + ' OR '.join(search) + ')')
-    order = {
-        'latest': 'd.published_at DESC, d.id DESC',
-        'hot': f'{INTERACTION_SCORE} DESC, d.published_at DESC, d.id DESC',
-        'featured': 'd.featured_at DESC, d.id DESC',
-        'favorites': 'mine.created_at DESC, d.id DESC',
-        'mine': 'd.updated_at DESC, d.id DESC',
-    }[tab]
-    ranking_joins = RANKING_COUNTS if tab == 'hot' else ''
-    base = f"FROM orange_decks d JOIN users u ON u.id = d.user_id {ranking_joins} {' '.join(joins)} WHERE {' AND '.join(clauses)}"
+    return f"FROM orange_decks d {DECK_USERS} {' '.join(joins)} WHERE {' AND '.join(clauses)}", params
+
+
+def list_decks(user, tab='latest', query='', portal='', page=1, page_size=10, share_base=None):
+    if tab not in TABS:
+        raise DeckError('列表类型无效')
+    if tab in ('favorites', 'mine') and not user:
+        raise DeckError('请先登录', 401)
+    if portal and portal not in PORTAL_BY_ID:
+        raise DeckError('传送门筛选无效')
+    query = str(query or '').strip()[:40]
+    page_size = max(1, min(int(page_size), 30))
+    page = max(1, int(page))
+    base, params = _filters(tab, user, query, portal)
     db = get_db()
-    total = db.execute(f'SELECT COUNT(*) AS total {base}', params).fetchone()['total']
-    columns, viewer_params = _viewer_columns(user, ranked=tab == 'hot')
-    rows = db.execute(
-        f'SELECT d.*, {OWNER_COLUMNS}, {columns} {base} ORDER BY {order} LIMIT ? OFFSET ?',
-        viewer_params + params + [page_size, (page - 1) * page_size],
-    ).fetchall()
+    columns, viewer_params = _viewer_columns(user)
+    if tab == 'hot':
+        # Rank the full eligible set first, then page it: totals and pages never disagree.
+        ranked = hot_ranking(db, base, params)
+        total = len(ranked)
+        ids = ranked[(page - 1) * page_size:page * page_size]
+        rows = []
+        if ids:
+            marks = ', '.join('?' for _ in ids)
+            by_id = {row['id']: row for row in db.execute(
+                f'SELECT d.*, {OWNER_COLUMNS}, {columns} FROM orange_decks d {DECK_USERS} WHERE d.id IN ({marks})',
+                viewer_params + ids).fetchall()}
+            rows = [by_id[deck_id] for deck_id in ids if deck_id in by_id]
+    else:
+        order = {
+            'latest': 'd.published_at DESC, d.id DESC',
+            'featured': 'd.featured_at DESC, d.id DESC',
+            'favorites': 'mine.created_at DESC, d.id DESC',
+            'mine': 'd.updated_at DESC, d.id DESC',
+        }[tab]
+        total = db.execute(f'SELECT COUNT(*) AS total {base}', params).fetchone()['total']
+        rows = db.execute(
+            f'SELECT d.*, {OWNER_COLUMNS}, {columns} {base} ORDER BY {order} LIMIT ? OFFSET ?',
+            viewer_params + params + [page_size, (page - 1) * page_size],
+        ).fetchall()
     return {
         'items': [serialize(row, user, share_base=share_base) for row in rows], 'total': total, 'page': page,
         'page_size': page_size, 'total_pages': max(1, -(-total // page_size)), 'tab': tab, 'q': query, 'portal': portal,
         'ranking_rule': HOT_RULE if tab == 'hot' else None,
     }
+
+
+# ---------------------------------------------------------------- hot ranking
+
+def rank_eligible_row(row, index=None, season_id=None):
+    """Current rules, re-checked against current card data rather than the saved version string."""
+    index = card_index() if index is None else index
+    if row['season_id'] != (season_id or card_season_id()) or not str(row['name'] or '').strip():
+        return False
+    cards = [row[f'card_id_{n}'] for n in range(1, DECK_SIZE + 1)]
+    if not all(card in index for card in cards) or len(set(cards)) != DECK_SIZE:
+        return False
+    portal = PORTAL_BY_ID.get(row['portal_id'])
+    return bool(portal) and sum(index[card]['energy'] for card in cards) <= portal['energy_limit']
+
+
+_signal_cache = {}
+
+
+def _signals(db, now):
+    """Decayed per-deck signals; cached briefly, keyed by the newest event so new activity shows at once."""
+    revision = (
+        db.execute('SELECT MAX(id) AS m FROM orange_deck_activity_events').fetchone()['m'],
+        db.execute("SELECT MAX(id) AS m FROM copy_action_events WHERE target_type = 'orange_deck'").fetchone()['m'],
+        now.strftime('%Y-%m-%d %H'),
+    )
+    database = (current_app.config.get('DATABASE_URL'), current_app.config.get('DATABASE')) if has_app_context() else (id(db),)
+    key = (*database, revision)
+    cached = _signal_cache.get(key)
+    if cached and cached[0] > time.monotonic():
+        return cached[1]
+    since = (now - timedelta(days=HOT_WINDOW_DAYS)).strftime('%Y-%m-%d %H:%M:%S')
+    # Interactions by staff, the owner or the credited submitter never earn weight.
+    not_self = ("JOIN orange_decks d ON d.id = x.deck_id JOIN users a ON a.id = x.user_id "
+                "WHERE a.role NOT IN ('admin', 'automation') AND x.user_id <> d.user_id "
+                "AND (d.provided_by_user_id IS NULL OR x.user_id <> d.provided_by_user_id)")
+    queries = {
+        # One signal per deck, actor and day, whichever codes were copied.
+        'copy': ("SELECT deck_id, substr(created_at, 1, 10) AS day, COUNT(DISTINCT actor_key) AS n FROM copy_action_events "
+                 "WHERE target_type = 'orange_deck' AND rank_eligible = 1 AND created_at >= ? GROUP BY deck_id, substr(created_at, 1, 10)"),
+        # Current relationships only: a removed favorite no longer counts.
+        'favorite': (f"SELECT x.deck_id, substr(x.created_at, 1, 10) AS day, COUNT(*) AS n FROM orange_deck_favorites x {not_self} "
+                     "AND x.created_at >= ? GROUP BY x.deck_id, substr(x.created_at, 1, 10)"),
+        'like': (f"SELECT x.deck_id, x.like_date AS day, COUNT(*) AS n FROM orange_deck_likes x {not_self} "
+                 "AND x.created_at >= ? GROUP BY x.deck_id, x.like_date"),
+    }
+    today_date = now.date()
+    scores = {}
+    for kind, sql in queries.items():
+        for row in db.execute(sql, (since,)).fetchall():
+            try:
+                age = max(0, (today_date - datetime.strptime(row['day'], '%Y-%m-%d').date()).days)
+            except (TypeError, ValueError):
+                continue
+            scores[row['deck_id']] = scores.get(row['deck_id'], 0.0) + HOT_WEIGHTS[kind] * row['n'] * 0.5 ** (age / HOT_HALF_LIFE_DAYS)
+    _signal_cache.clear()
+    _signal_cache[key] = (time.monotonic() + HOT_CACHE_SECONDS, scores)
+    return scores
+
+
+def _age_days(value, now):
+    try:
+        return max(0.0, (now - datetime.strptime(str(value)[:19], '%Y-%m-%d %H:%M:%S')).total_seconds() / 86400)
+    except ValueError:
+        return float(HOT_WINDOW_DAYS)
+
+
+def hot_ranking(db, base, params, now=None):
+    """Ordered IDs of every eligible public deck: recent decayed signals, a fresh-deck boost and combo variety.
+
+    Candidates are read fresh on each request, so hiding, deletion and rule changes apply immediately;
+    only the signal aggregation is cached.
+    """
+    now = now or datetime.now()
+    index, season_id = card_index(), card_season_id()
+    candidates = [row for row in db.execute(
+        f'SELECT d.id, d.name, d.season_id, d.portal_id, d.card_id_1, d.card_id_2, d.card_id_3, d.published_at {base}', params
+    ).fetchall() if rank_eligible_row(row, index, season_id)]
+    signals = _signals(db, now)
+    scored = []
+    for row in candidates:
+        score = signals.get(row['id'], 0.0) + FRESH_BONUS * 0.5 ** (_age_days(row['published_at'], now) / FRESH_HALF_LIFE_DAYS)
+        scored.append((score, str(row['published_at'] or ''), row['id'], frozenset(row[f'card_id_{n}'] for n in range(1, DECK_SIZE + 1))))
+    scored.sort(key=lambda item: (item[0], item[1], item[2]), reverse=True)
+    # The same three cards repeated across decks step back a little each time they recur.
+    seen, adjusted = {}, []
+    for score, published, deck_id, combo in scored:
+        repeats = seen.get(combo, 0)
+        seen[combo] = repeats + 1
+        adjusted.append((score * DUPLICATE_DAMPING ** repeats, published, deck_id))
+    adjusted.sort(reverse=True)
+    return [deck_id for _, _, deck_id in adjusted]
 
 
 def export_payload(deck_id, user):
@@ -560,6 +699,8 @@ def export_payload(deck_id, user):
         formation = json.loads(row['formation_json'])['payload']
     return {
         'id': row['id'], 'title': row['name'], 'author': deck['author']['nickname'][:16], 'portal': row['portal_id'],
+        # Submitted decks print "由 XXX 提供" on the poster instead of an author credit.
+        'author_credit': deck['author']['credit'],
         'cards': [card['id'] if card and card['status'] != 'missing' else None for card in deck['cards']],
         'note': row['note'][:100], 'tempo': row['key_rounds'][:24],
         'layout': 'guide' if formation else 'cards', 'formation': formation,
@@ -619,6 +760,15 @@ def _limit(user, scope, limit):
         raise DeckError('操作过于频繁，请稍后再试', 429)
 
 
+def insert_deck(db, fields):
+    """Composable insert: no commit, no rate limit; the caller owns the transaction."""
+    columns = list(fields)
+    cursor = db.execute(insert_returning_id_sql(
+        f"INSERT INTO orange_decks ({', '.join(columns)}) VALUES ({', '.join('?' for _ in columns)})", db_kind()),
+        [fields[c] for c in columns])
+    return last_insert_id(cursor, db_kind())
+
+
 def create_deck(user, data, *, commit=True):
     data = data if isinstance(data, dict) else {}
     status = _status_for(data.get('action', 'draft'), None)
@@ -629,50 +779,73 @@ def create_deck(user, data, *, commit=True):
     now = now_text()
     fields.update(user_id=user['id'], status=status, created_at=now, updated_at=now,
                   published_at=now if status == 'published' else None, forked_from_id=None)
-    columns = list(fields)
     db = get_db()
-    cursor = db.execute(insert_returning_id_sql(
-        f"INSERT INTO orange_decks ({', '.join(columns)}) VALUES ({', '.join('?' for _ in columns)})", db_kind()),
-        [fields[c] for c in columns])
-    deck_id = last_insert_id(cursor, db_kind())
+    deck_id = insert_deck(db, fields)
+    if status == 'published':
+        record_activity(db, deck_id, 'published', user['id'])
     if commit:
         db.commit()
     return serialize(deck_row(deck_id, user), user, detail=True)
 
 
-def update_deck(user, deck_id, data):
-    data = data if isinstance(data, dict) else {}
-    row = get_visible(deck_id, user)
-    if not is_owner(row, user):
-        raise DeckError('只能编辑自己的卡组', 403)
-    if data.get('version') != row['version']:
-        raise DeckError('卡组已在其他页面更新，请刷新后再编辑', 409)
-    status = _status_for(data.get('action', 'save'), row['status'])
+def apply_deck_update(db, row, actor, data, status, extra=None):
+    """Validate and write one optimistic update without committing; returns the new version.
+
+    First publication is recorded once; later edits of public content are not new publications.
+    """
     fields = _fields(data, status, existing=row)
     now = now_text()
-    fields.update(status=status, updated_at=now, version=row['version'] + 1)
-    if status == 'published' and not row['published_at']:
+    fields.update(status=status, updated_at=now, version=row['version'] + 1, **(extra or {}))
+    first_publish = status == 'published' and not row['published_at']
+    if first_publish:
         fields['published_at'] = now
     if status != 'published':
         fields.update(featured=0, featured_at=None)
     assignments = ', '.join(f'{column} = ?' for column in fields)
-    db = get_db()
     cursor = db.execute(f'UPDATE orange_decks SET {assignments} WHERE id = ? AND version = ?',
-                        [*fields.values(), deck_id, row['version']])
+                        [*fields.values(), row['id'], row['version']])
     if not cursor.rowcount:
-        db.rollback()
         raise DeckError('卡组已在其他页面更新，请刷新后再编辑', 409)
-    db.commit()
+    if first_publish:
+        record_activity(db, row['id'], 'published', actor['id'])
+    return fields['version']
+
+
+def update_deck(user, deck_id, data):
+    data = data if isinstance(data, dict) else {}
+    row = get_visible(deck_id, user)
+    if not can_maintain(row, user):
+        raise DeckError('只能编辑自己的卡组', 403)
+    if is_managed(row) and (row['status'] == 'draft' or data.get('action', 'save') != 'save'):
+        # Drafts belong to the assigned reviewer; published submissions are kept public, not withdrawn here.
+        raise DeckError(SUBMISSION_LOCKED, 409)
+    if data.get('version') != row['version']:
+        raise DeckError('卡组已在其他页面更新，请刷新后再编辑', 409)
+    status = _status_for(data.get('action', 'save'), row['status'])
+    db = get_db()
+    try:
+        apply_deck_update(db, row, user, data, status)
+        if is_managed(row):
+            write_audit(user['id'], 'orange_deck.managed_edit', 'orange_deck', target_id=deck_id,
+                        before={'version': row['version']}, after={'version': row['version'] + 1})
+        db.commit()
+    except Exception:
+        db.rollback()
+        raise
     return serialize(deck_row(deck_id, user), user, detail=True)
 
 
 def delete_deck(user, deck_id):
     row = get_visible(deck_id, user)
-    if not is_owner(row, user):
+    if not is_owner(row, user) or user['role'] == 'automation':
         raise DeckError('只能删除自己的卡组', 403)
+    if is_managed(row):
+        raise DeckError('投稿卡组不能直接删除，如需下架请使用隐藏', 409)
     db = get_db()
     db.execute("UPDATE orange_decks SET status = 'deleted', featured = 0, featured_at = NULL, updated_at = ?, version = version + 1 WHERE id = ?",
                (now_text(), deck_id))
+    if row['status'] in ('published', 'hidden'):
+        record_activity(db, deck_id, 'deleted', user['id'])
     db.commit()
 
 
@@ -682,11 +855,14 @@ def favorite(user, deck_id, on):
         row = get_visible(deck_id, user)
         if row['status'] != 'published':
             raise DeckError('只能收藏公开的卡组', 409)
-        db.execute('INSERT INTO orange_deck_favorites (user_id, deck_id, created_at) VALUES (?, ?, ?) '
-                   'ON CONFLICT (user_id, deck_id) DO NOTHING', (user['id'], deck_id, now_text()))
+        cursor = db.execute('INSERT INTO orange_deck_favorites (user_id, deck_id, created_at) VALUES (?, ?, ?) '
+                            'ON CONFLICT (user_id, deck_id) DO NOTHING', (user['id'], deck_id, now_text()))
     else:
         # Removing is always allowed so a hidden deck can still leave a user's list.
-        db.execute('DELETE FROM orange_deck_favorites WHERE user_id = ? AND deck_id = ?', (user['id'], deck_id))
+        cursor = db.execute('DELETE FROM orange_deck_favorites WHERE user_id = ? AND deck_id = ?', (user['id'], deck_id))
+    # Repeated requests change nothing and record nothing.
+    if cursor.rowcount:
+        record_activity(db, deck_id, 'favorite_add' if on else 'favorite_remove', user['id'])
     db.commit()
     count = db.execute('SELECT COUNT(*) AS c FROM orange_deck_favorites WHERE deck_id = ?', (deck_id,)).fetchone()['c']
     return {'favorited': on, 'favorite_count': count}
@@ -708,50 +884,98 @@ def like(user, deck_id):
     if not cursor.rowcount:
         db.rollback()
         raise DeckError('今天已经点赞过该卡组', 409)
+    record_activity(db, deck_id, 'like', user['id'])
     db.commit()
     count = db.execute('SELECT COUNT(*) AS c FROM orange_deck_likes WHERE deck_id = ?', (deck_id,)).fetchone()['c']
     return {'liked_today': True, 'like_count': count}
 
 
-def record_copy(user, deck_id, ip, code_type='plan'):
-    """Count either code; keep the existing per-deck five-minute deduplication."""
+def _copy_replay(db, action_id, deck_id, code_type, key):
+    prior = db.execute('SELECT deck_id, code_type, actor_key, counted FROM copy_action_events WHERE client_action_id = ?',
+                       (action_id,)).fetchone()
+    if prior is None:
+        return None
+    if prior['deck_id'] != deck_id or prior['code_type'] != code_type or prior['actor_key'] != key:
+        raise DeckError('复制记录标识已被使用，请刷新页面后重试', 409)
+    return bool(prior['counted'])
+
+
+def record_copy(user, deck_id, ip, code_type='plan', action_id=None, source_page=''):
+    """One successful copy gesture: an action event per code plus the shared five-minute effective copy.
+
+    ``action_id`` makes network retries of the same gesture idempotent; the actor and ranking
+    eligibility are decided here, never by the client.
+    """
     if code_type not in ('plan', 'lineup'):
         raise DeckError('复制类型无效')
+    action_id = clean_action_id(action_id)
+    if action_id is False:
+        raise DeckError('复制记录标识无效')
     column = 'plan_code' if code_type == 'plan' else 'lineup_code'
     label = '方案码' if code_type == 'plan' else '阵容码'
     db = get_db()
     # Copy recording needs visibility and the chosen code, not author metadata or social counts.
-    row = db.execute('SELECT user_id, status, plan_code, lineup_code FROM orange_decks WHERE id = ?', (deck_id,)).fetchone()
+    row = db.execute('SELECT id, user_id, provided_by_user_id, origin_type, season_id, status, plan_code, lineup_code '
+                     'FROM orange_decks WHERE id = ?', (deck_id,)).fetchone()
     if not visible_to(row, user):
         raise DeckError('卡组不存在', 404)
     if row['status'] != 'published':
         raise DeckError('只能统计公开卡组的复制次数', 409)
     if not row[column]:
         raise DeckError(f'此卡组暂未提供{label}', 400)
+    actor = actor_key(user, ip)
+    count_sql = 'SELECT COUNT(*) AS c FROM orange_deck_copies WHERE deck_id = ?'
+    if action_id:
+        replayed = _copy_replay(db, action_id, deck_id, code_type, actor)
+        if replayed is not None:
+            return {'counted': replayed, 'copy_count': db.execute(count_sql, (deck_id,)).fetchone()['c']}
     key = f'user:{user["id"]}' if user else f'ip:{ip}'
-    cursor = db.execute(
-        f'''INSERT INTO orange_deck_copies (deck_id, copy_key, bucket_start, created_at)
-           SELECT id, ?, ?, ? FROM orange_decks WHERE id = ? AND status = 'published' AND {column} <> ''
-           ON CONFLICT (deck_id, copy_key, bucket_start) DO NOTHING''',
-        (key, bucket_start(), now_text(), deck_id),
-    )
-    counted = bool(cursor.rowcount)
-    count = db.execute('SELECT COUNT(*) AS c FROM orange_deck_copies WHERE deck_id = ?', (deck_id,)).fetchone()['c']
-    db.commit()
+    eligible = user is None or (user['role'] not in ('admin', 'automation')
+                                and user['id'] not in (row['user_id'], row['provided_by_user_id']))
+    try:
+        cursor = db.execute(
+            f'''INSERT INTO orange_deck_copies (deck_id, copy_key, bucket_start, created_at)
+               SELECT id, ?, ?, ? FROM orange_decks WHERE id = ? AND status = 'published' AND {column} <> ''
+               ON CONFLICT (deck_id, copy_key, bucket_start) DO NOTHING''',
+            (key, bucket_start(), now_text(), deck_id),
+        )
+        counted = bool(cursor.rowcount)
+        mark_started(db)
+        record_deck_copy_action(db, row, code_type, actor, action_id, eligible, counted,
+                                user=user, ip_address=ip, source_page=source_page)
+        count = db.execute(count_sql, (deck_id,)).fetchone()['c']
+        db.commit()
+    except INTEGRITY_ERRORS:
+        # A concurrent retry of the same gesture won the unique action ID; report its outcome.
+        db.rollback()
+        replayed = _copy_replay(db, action_id, deck_id, code_type, actor) if action_id else None
+        if replayed is None:
+            raise
+        return {'counted': replayed, 'copy_count': db.execute(count_sql, (deck_id,)).fetchone()['c']}
     return {'counted': counted, 'copy_count': count}
 
 
 def received_summary(user_id):
-    """Personal-centre figures for the user's own decks, kept apart from lineup totals."""
+    """Personal-centre figures, kept apart from lineup totals; credit follows public attribution."""
     db = get_db()
-    one = lambda sql: db.execute(sql, (user_id,)).fetchone()['c']
+    one = lambda sql, count=1: db.execute(sql, (user_id,) * count).fetchone()['c']
+    credited = 'COALESCE(d.provided_by_user_id, d.user_id) = ?'
+    submissions = {row['status']: row['c'] for row in db.execute(
+        'SELECT status, COUNT(*) AS c FROM orange_deck_submissions WHERE submitter_user_id = ? GROUP BY status', (user_id,)).fetchall()}
     return {
-        'decks': one("SELECT COUNT(*) AS c FROM orange_decks WHERE user_id = ? AND status != 'deleted'"),
-        'published_decks': one("SELECT COUNT(*) AS c FROM orange_decks WHERE user_id = ? AND status = 'published'"),
-        'draft_decks': one("SELECT COUNT(*) AS c FROM orange_decks WHERE user_id = ? AND status = 'draft'"),
-        'hidden_decks': one("SELECT COUNT(*) AS c FROM orange_decks WHERE user_id = ? AND status = 'hidden'"),
-        'received_likes': one('SELECT COUNT(*) AS c FROM orange_deck_likes l JOIN orange_decks d ON d.id = l.deck_id WHERE d.user_id = ?'),
-        'received_favorites': one('SELECT COUNT(*) AS c FROM orange_deck_favorites f JOIN orange_decks d ON d.id = f.deck_id WHERE d.user_id = ?'),
+        'decks': one("SELECT COUNT(*) AS c FROM orange_decks WHERE (user_id = ? AND origin_type = 'direct' AND status != 'deleted') "
+                     "OR (provided_by_user_id = ? AND status = 'published')", 2),
+        'published_decks': one("SELECT COUNT(*) AS c FROM orange_decks WHERE status = 'published' "
+                               "AND ((user_id = ? AND origin_type = 'direct') OR provided_by_user_id = ?)", 2),
+        'contributed_decks': one("SELECT COUNT(*) AS c FROM orange_decks WHERE provided_by_user_id = ? AND status = 'published'"),
+        'draft_decks': one("SELECT COUNT(*) AS c FROM orange_decks WHERE user_id = ? AND origin_type = 'direct' AND status = 'draft'"),
+        'hidden_decks': one("SELECT COUNT(*) AS c FROM orange_decks WHERE user_id = ? AND origin_type = 'direct' AND status = 'hidden'"),
+        'received_likes': one(f"SELECT COUNT(*) AS c FROM orange_deck_likes l JOIN orange_decks d ON d.id = l.deck_id WHERE {credited} AND d.status != 'deleted'"),
+        'received_favorites': one(f"SELECT COUNT(*) AS c FROM orange_deck_favorites f JOIN orange_decks d ON d.id = f.deck_id WHERE {credited} AND d.status != 'deleted'"),
+        'submissions_active': sum(submissions.get(key, 0) for key in ('pending', 'processing', 'needs_info')),
+        'submissions_needs_info': submissions.get('needs_info', 0),
+        'submissions_published': submissions.get('published', 0),
+        'submissions_total': sum(submissions.values()),
     }
 
 
@@ -806,10 +1030,11 @@ def admin_list(admin, status='all', query='', page=1, page_size=20):
     query = str(query or '').strip()[:40]
     if query:
         escaped = query.replace('\\', '\\\\').replace('%', '\\%').replace('_', '\\_').lower()
-        clauses.append("(LOWER(d.name) LIKE ? ESCAPE '\\' OR LOWER(u.nickname) LIKE ? ESCAPE '\\' OR LOWER(u.username) LIKE ? ESCAPE '\\')")
-        params += [f'%{escaped}%'] * 3
+        clauses.append("(LOWER(d.name) LIKE ? ESCAPE '\\' OR LOWER(u.nickname) LIKE ? ESCAPE '\\' OR LOWER(u.username) LIKE ? ESCAPE '\\' "
+                       "OR LOWER(COALESCE(p.nickname, '')) LIKE ? ESCAPE '\\' OR LOWER(COALESCE(p.username, '')) LIKE ? ESCAPE '\\')")
+        params += [f'%{escaped}%'] * 5
     page_size, page = max(1, min(int(page_size), 50)), max(1, int(page))
-    base = f"FROM orange_decks d JOIN users u ON u.id = d.user_id WHERE {' AND '.join(clauses)}"
+    base = f"FROM orange_decks d {DECK_USERS} WHERE {' AND '.join(clauses)}"
     db = get_db()
     total = db.execute(f'SELECT COUNT(*) AS total {base}', params).fetchone()['total']
     rows = db.execute(f'SELECT d.*, {OWNER_COLUMNS}, {_viewer_columns(None)[0]} {base} '
@@ -844,6 +1069,11 @@ def admin_moderate(admin, deck_id, action, data):
         if row['status'] != 'hidden':
             raise DeckError('该卡组未被隐藏', 409)
         changes = {'status': 'published', 'hidden_reason': ''}
+    elif action == 'review':
+        # Confirms the deck against the current card data without rewriting its saved snapshot.
+        if row['status'] != 'published' or not rank_eligible_row(row):
+            raise DeckError('只有符合当前卡片规则的公开卡组可以标记为已复核', 409)
+        changes = {'reviewed_card_version': card_version(), 'reviewed_at': now}
     else:
         raise DeckError('操作无效', 404)
     changes.update(updated_at=now, version=row['version'] + 1)
@@ -857,6 +1087,11 @@ def admin_moderate(admin, deck_id, action, data):
         after = {'status': changes.get('status', row['status']), 'featured': bool(changes.get('featured', row['featured']))}
         if action == 'hide':
             after['reason'] = changes['hidden_reason']
+        if action == 'review':
+            before['reviewed_card_version'], after['reviewed_card_version'] = row['reviewed_card_version'], changes['reviewed_card_version']
+        activity = {'hide': 'hidden', 'restore': 'restored', 'review': 'reviewed'}.get(action)
+        if activity:
+            record_activity(db, deck_id, activity, admin['id'])
         write_audit(admin['id'], f'orange_deck.{action}', 'orange_deck', target_id=deck_id, before=before, after=after)
         db.commit()
     except Exception:

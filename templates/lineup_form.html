@@ -8,8 +8,10 @@
 {{ seo_head(seo) }}
     <link rel="stylesheet" href="{{ static_v('moderation.css') }}" />
     {% if creating %}<link rel="stylesheet" href="{{ static_v('fortune-card-frame.css') }}" />{% endif %}
+    {% if creating %}<script src="{{ static_v('fortune-card-art.js') }}" defer></script>{% endif %}
     <link rel="stylesheet" href="{{ static_v('orange-decks.css') }}" />
     <link rel="stylesheet" href="{{ static_v('publish.css') }}" />
+    {% if creating %}<link rel="stylesheet" href="{{ static_v('deck-submissions.css') }}" />{% endif %}
   </head>
   <body class="deck-page publish-page">
     {% if creating %}{% include 'fortune_frame_materials.html' %}{{ bezel_templates() }}{% endif %}
@@ -21,24 +23,24 @@
 
       <header class="publish-head">
         <p class="deck-kicker">{% if creating %}发布{% else %}阵容码{% endif %}</p>
-        <h1 id="editorTitle">{% if creating %}发布到阵容库{% else %}编辑阵容{% endif %}</h1>
+        <h1 id="editorTitle">{% if creating %}分享到阵容库{% else %}编辑阵容{% endif %}</h1>
         {% if not creating %}<p id="editorDescription">修改后保存，返回阵容列表。</p>{% endif %}
       </header>
 
       {% if creating %}
       <div class="publish-switch" role="tablist" aria-label="发布类型">
-        <button type="button" role="tab" id="publishTabLineup" aria-controls="publishLineup" data-publish-type="lineup" aria-selected="{{ 'false' if publish_type == 'deck' else 'true' }}"{% if publish_type == 'deck' %} tabindex="-1"{% endif %}>
+        <button type="button" role="tab" id="publishTabLineup" aria-controls="publishLineup" data-publish-type="lineup" aria-selected="{{ 'true' if publish_type == 'lineup' else 'false' }}"{% if publish_type != 'lineup' %} tabindex="-1"{% endif %}>
           <span class="publish-switch-mark" aria-hidden="true">#</span>
-          <span><strong>阵容码</strong><small>粘贴游戏内阵容码，选择所属赛季</small></span>
+          <span><strong>发布阵容码</strong><small>普通阵容，选择赛季后直接发布</small></span>
         </button>
-        <button type="button" role="tab" id="publishTabDeck" aria-controls="publishDeck" data-publish-type="deck" aria-selected="{{ 'true' if publish_type == 'deck' else 'false' }}"{% if publish_type != 'deck' %} tabindex="-1"{% endif %}>
+        <button type="button" role="tab" id="publishTabSubmit" aria-controls="publishSubmit" data-publish-type="submit" aria-selected="{{ 'true' if publish_type == 'submit' else 'false' }}"{% if publish_type != 'submit' %} tabindex="-1"{% endif %}>
           <span class="publish-switch-mark" aria-hidden="true">◆</span>
-          <span><strong>大橘大利卡组</strong><small>三张时间卡片 · 推荐传送门 · 可选站位</small></span>
+          <span><strong>投稿大橘大利卡组</strong><small>只需方案码和阵容码，管理员完善后发布</small></span>
         </button>
       </div>
       {% endif %}
 
-      <section class="publish-panel" id="publishLineup" role="{{ 'tabpanel' if creating else 'region' }}" aria-labelledby="{{ 'publishTabLineup' if creating else 'editorTitle' }}"{% if publish_type == 'deck' %} hidden{% endif %}>
+      <section class="publish-panel" id="publishLineup" role="{{ 'tabpanel' if creating else 'region' }}" aria-labelledby="{{ 'publishTabLineup' if creating else 'editorTitle' }}"{% if creating and publish_type != 'lineup' %} hidden{% endif %}>
         <form id="editorForm" class="deck-form publish-form" autocomplete="off">
           <input type="hidden" id="lineupId" value="{{ lineup_id }}" />
           <input type="hidden" id="lineupVersion" />
@@ -88,7 +90,15 @@
       </section>
 
       {% if creating %}
-      <section class="publish-panel" id="publishDeck" role="tabpanel" aria-labelledby="publishTabDeck"{% if publish_type != 'deck' %} hidden{% endif %}>
+      <section class="publish-panel" id="publishSubmit" role="tabpanel" aria-labelledby="publishTabSubmit"{% if publish_type != 'submit' %} hidden{% endif %}>
+{% include 'deck_submission_fields.html' %}
+        <p class="submit-alt">已配好三张卡和站位？<a href="/lineup/new?type=deck" data-publish-link="deck">自己完整编辑并发布卡组</a></p>
+      </section>
+      {% endif %}
+
+      {% if creating %}
+      <section class="publish-panel" id="publishDeck" aria-label="完整编辑卡组"{% if publish_type != 'deck' %} hidden{% endif %}>
+        <p class="submit-alt is-top"><a href="/lineup/new?type=submit" data-publish-link="submit">← 返回投稿</a>　完整编辑后直接公开发布，作者为你自己。</p>
 {% include 'orange_deck_fields.html' %}
       </section>
       {% endif %}
@@ -98,6 +108,7 @@
     {% if creating %}
     <script src="{{ static_v('orange-deck-core.js') }}" defer></script>
     <script src="{{ static_v('orange-deck-editor.js') }}" defer></script>
+    <script src="{{ static_v('deck-submit.js') }}" defer></script>
     <script src="{{ static_v('publish.js') }}" defer></script>
     {% endif %}
   </body>

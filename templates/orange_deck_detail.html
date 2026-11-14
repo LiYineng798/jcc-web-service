@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="{{ static_v('toolbox.css') }}" />
     <link rel="stylesheet" href="{{ static_v('avatar.css') }}" />
     <link rel="stylesheet" href="{{ static_v('fortune-card-frame.css') }}" />
+    <script src="{{ static_v('fortune-card-art.js') }}" defer></script>
     <link rel="stylesheet" href="{{ static_v('orange-decks.css') }}" />
     <script src="{{ static_v('toolbox.js') }}" defer></script>
     <script src="{{ static_v('theme-toggle.js') }}" defer></script>
@@ -26,7 +27,7 @@
         <p class="deck-kicker">大橘大利卡组{% if deck.featured %} · 管理员推荐{% endif %}</p>
         <h1>{{ deck.name }}</h1>
         <p class="deck-meta">
-          {% if deck.author.profile_url %}<a class="deck-detail-author" href="{{ deck.author.profile_url }}">{% else %}<span class="deck-detail-author">{% endif %}<span class="deck-avatar-fallback" id="deckAuthorAvatar" aria-hidden="true">{{ deck.author.nickname[:1] }}</span><span>{{ deck.author.nickname }}</span>{% if deck.author.profile_url %}</a>{% else %}</span>{% endif %}
+          {% if deck.author.profile_url %}<a class="deck-detail-author" href="{{ deck.author.profile_url }}">{% else %}<span class="deck-detail-author">{% endif %}<span class="deck-avatar-fallback" id="deckAuthorAvatar" aria-hidden="true">{{ deck.author.nickname[:1] }}</span><span>{% if deck.author.credit == 'provided' %}由 {{ deck.author.nickname }} 提供{% else %}{{ deck.author.nickname }}{% endif %}</span>{% if deck.author.profile_url %}</a>{% else %}</span>{% endif %}
           {% if deck.published_at %}<span>发布于 {{ deck.published_at[:16] }}</span>{% endif %}
           <span>点赞 <b id="deckLikeCount">{{ deck.like_count }}</b></span>
           <span>收藏 <b id="deckFavoriteCount">{{ deck.favorite_count }}</b></span>

@@ -53,6 +53,7 @@
             <button class="admin-nav-item" data-admin-tab="season-packages" type="button"><i data-lucide="package-check"></i><span>赛季版本更新</span></button>
             <button class="admin-nav-item" data-admin-tab="patch-notes" type="button"><i data-lucide="notebook-tabs"></i><span>更新公告</span></button>
             <button class="admin-nav-item" data-admin-tab="orange-decks" type="button"><i data-lucide="layers"></i><span>卡组库</span></button>
+            <button class="admin-nav-item" data-admin-tab="deck-submissions" type="button"><i data-lucide="inbox"></i><span>卡组投稿</span><span class="admin-nav-count" data-deck-submission-count hidden>0</span></button>
             <button class="admin-nav-item" data-admin-tab="users" type="button"><i data-lucide="users"></i><span>用户管理</span></button>
             <button class="admin-nav-item" data-admin-tab="guestbook" type="button"><i data-lucide="message-square-text"></i><span>留言管理</span><span class="admin-nav-count" id="guestbookUnreadCount">0</span></button>
           </section>
@@ -129,6 +130,7 @@
           <button data-admin-tab="season-packages" type="button"><i data-lucide="package-check"></i><span>赛季版本更新</span></button>
           <button data-admin-tab="patch-notes" type="button"><i data-lucide="notebook-tabs"></i><span>更新公告</span></button>
           <button data-admin-tab="orange-decks" type="button"><i data-lucide="layers"></i><span>卡组库</span></button>
+          <button data-admin-tab="deck-submissions" type="button"><i data-lucide="inbox"></i><span>卡组投稿</span><span class="admin-nav-count" data-deck-submission-count hidden>0</span></button>
           <button data-admin-tab="users" type="button"><i data-lucide="users"></i><span>用户管理</span></button>
           <button data-admin-tab="guestbook" type="button"><i data-lucide="message-square-text"></i><span>留言管理</span><span class="admin-nav-count" id="guestbookUnreadCountMobile">0</span></button>
           <button data-admin-tab="password-reset-emails" type="button"><i data-lucide="mail-check"></i><span>找回邮件</span></button>
@@ -147,6 +149,7 @@
     <script src="{{ static_v('admin/patch-editor.js') }}" defer></script>
     <script src="{{ static_v('admin/automation-accounts.js') }}" defer></script>
     <script src="{{ static_v('admin/season-picker.js') }}" defer></script>
+    <script src="{{ static_v('admin/deck-metrics.js') }}" defer></script>
     <script src="{{ static_v('admin/overview.js') }}" defer></script>
     <script src="{{ static_v('admin/daily-reports.js') }}" defer></script>
     <script src="{{ static_v('admin/analytics-charts.js') }}" defer></script>
@@ -159,6 +162,7 @@
     <script src="{{ static_v('admin/lineups.js') }}" defer></script>
     <script src="{{ static_v('admin/live-versions.js') }}" defer></script>
     <script src="{{ static_v('admin/orange-decks.js') }}" defer></script>
+    <script src="{{ static_v('admin/deck-submissions.js') }}" defer></script>
     <script src="{{ static_v('admin/notice-editor.js') }}" defer></script>
     <script src="{{ static_v('admin.js') }}" defer></script>
   </body>

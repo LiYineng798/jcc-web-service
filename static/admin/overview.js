@@ -9,13 +9,23 @@
       const grid = el('div', 'admin-dashboard-grid');
       grid.append(renderTrafficOverview(), renderTodoPanel());
       wrap.append(grid);
+      wrap.append(renderDeckPanel());
       wrap.append(renderCopyRankPanel());
       return wrap;
     }
 
+    function renderDeckPanel() {
+      const deck = getOverview()?.deck;
+      const panel = workbenchPanel('卡组库 · 今日', '投稿处理、发布与两种代码的复制，口径与每日报告一致');
+      const body = panel.querySelector('.admin-workspace-body');
+      if (!deck) { body.append(empty('卡组数据暂不可用')); return panel; }
+      body.append(global.JccAdminDeckMetrics.render({ summary: deck, coverage: deck.coverage, top: deck.top_decks, snapshot: deck.snapshot, compact: true }));
+      return panel;
+    }
+
     function renderCopyRankPanel() {
       const rank = getCopyRank?.() || {};
-      const panel = workbenchPanel('今日复制排行', `${rank.date || '今天'} 被复制最多的阵容码（普通阵容 + 实时阵容）`);
+      const panel = workbenchPanel('今日复制排行', `${rank.date || '今天'} 成功复制动作最多的内容（普通阵容、实时阵容与卡组分别标注）`);
       const body = panel.querySelector('.admin-workspace-body');
       if (refreshCopyRank) {
         const actions = el('div', 'card-actions');
@@ -31,8 +41,15 @@
       items.forEach((item) => {
         const card = el('article', 'admin-row-card');
         const info = el('div');
-        const typeLabel = item.target_type === 'live_comp' ? '实时阵容' : '普通阵容';
+        const typeLabel = { live_comp: '实时阵容', lineup: '普通阵容', orange_deck: '大橘大利卡组' }[item.target_type] || item.target_type;
         const titleRow = el('strong', '', `#${item.rank} ${item.title || item.target_id}`);
+        if (item.target_type === 'orange_deck') {
+          const link = el('a', 'admin-inline-link', ' 查看');
+          link.href = `/orange-decks/${item.target_id}`;
+          link.target = '_blank';
+          link.rel = 'noopener';
+          titleRow.append(link);
+        }
         if (item.target_type === 'lineup' && item.lineup_id) {
           const link = el('a', 'admin-inline-link', ' 查看');
           link.href = `/lineup/${item.lineup_id}`;
@@ -41,9 +58,9 @@
           titleRow.append(link);
         }
         const attribution = item.uploader_attribution === 'current' ? '（当前账号）' : '';
-        const metaParts = [typeLabel, `上传者：${item.uploader || '未记录'}${attribution}`];
+        const metaParts = [typeLabel, `${item.uploader_attribution === 'provided' ? '提供者' : '上传者'}：${item.uploader || '未记录'}${attribution}`];
         if (item.tier) metaParts.push(`${item.tier} 级`);
-        if (item.season_name) metaParts.push(item.season_name);
+        if (item.season_name && item.target_type !== 'orange_deck') metaParts.push(item.season_name);
         if (item.status && item.status !== 'normal') metaParts.push(`状态：${item.status}`);
         info.append(
           titleRow,
@@ -57,13 +74,13 @@
         const eventList = el('div', 'copy-rank-event-list');
         (item.details || []).forEach((event) => {
           const row = el('div', 'copy-rank-event');
-          const copiedCode = event.code ? el('code', 'copy-rank-code', event.code) : el('span', 'admin-meta', '阵容码已不可用');
+          const copiedCode = event.code ? el('code', 'copy-rank-code', event.code) : el('span', 'admin-meta', '代码已不可用');
           row.append(
             el('strong', '', event.actor || '游客'),
             el('span', 'copy-rank-event-time', event.copied_at || ''),
             el('span', 'copy-rank-event-owner', `上传者：${event.uploader || '未知用户'}`),
             el('span', 'copy-rank-event-ip', `复制 IP：${event.ip_address || '未记录'}`),
-            el('span', 'copy-rank-event-source', event.source_page ? `来源：${event.source_page}` : '来源：未记录'),
+            el('span', 'copy-rank-event-source', `${event.code_type ? `${event.code_type === 'plan' ? '方案码' : '阵容码'} · ` : ''}${event.source_page ? `来源：${event.source_page}` : '来源：未记录'}`),
             copiedCode,
           );
           eventList.append(row);
@@ -82,7 +99,7 @@
       const cards = el('div', 'admin-stat-grid');
       [
         ['今日全站 UV', stats.today_uv || 0, '全站页面按自然日去重'],
-        ['今日总复制', stats.today_total_copy_count || 0, `普通阵容 ${stats.today_lineup_copy_count || 0} · 实时阵容 ${stats.today_live_comp_copy_count || 0}`],
+        ['今日总复制', stats.today_total_copy_count || 0, `普通阵容 ${stats.today_lineup_copy_count || 0} · 实时阵容 ${stats.today_live_comp_copy_count || 0} · 卡组另计`],
         ['今日注册', stats.today_users || 0, '新增用户数'],
         ['登录用户活跃', stats.today_authenticated_users || 0, `含保持登录的回访用户 · 主动登录 ${stats.today_logins || 0} 人 · 均按账号去重，不含管理员`],
         ['待处理失效反馈', stats.pending_reports_count || 0, '优先处理'],
@@ -305,6 +322,7 @@
       const list = el('div', 'admin-list compact');
       [
         ['待处理失效反馈', `${todos.pending_reports_count || 0} 条`, '需要人工判断与处理'],
+        ['卡组投稿', `${todos.deck_submissions_pending || 0} 待处理 · ${todos.deck_submissions_processing || 0} 处理中`, `${todos.deck_submissions_needs_info || 0} 份等待投稿人补充`],
         ['已隐藏阵容', `${todos.hidden_lineups_count || 0} 条`, '可去阵容管理复核'],
         ['今日后台操作', `${todos.recent_audit_count || 0} 次`, '建议关注异常频繁操作'],
       ].forEach(([label, value, caption]) => {

@@ -559,8 +559,8 @@ function renderAuth() {
 function syncCreateLink() {
   const loggedIn = Boolean(state.user);
   const decks = document.body.dataset.homeLibrary === 'decks';
-  elements.createLineupLink.href = loggedIn ? `/lineup/new${decks ? '?type=deck' : ''}` : '/auth';
-  elements.createLineupLink.textContent = `${loggedIn ? '' : '登录后'}${decks ? '发布卡组' : '新增阵容'}`;
+  elements.createLineupLink.href = loggedIn ? `/lineup/new${decks ? '?type=submit' : ''}` : '/auth';
+  elements.createLineupLink.textContent = `${loggedIn ? '' : '登录后'}${decks ? '投稿卡组' : '新增阵容'}`;
 }
 
 function handleAccountToggle(event) {
@@ -965,14 +965,14 @@ function renderEmptyState() {
   if (state.view === 'mine') {
     title.textContent = '还没有你的阵容';
     description.textContent = '发布后的阵容会出现在这里，方便随时查看和维护。';
-    actions.append(button('新增阵容', () => { window.location.href='/lineup/new'; }), button('浏览公开阵容', latest));
+    actions.append(button('新增阵容', () => { window.location.href='/lineup/new?type=lineup'; }), button('浏览公开阵容', latest));
     elements.emptyState.append(actions);
     return;
   }
   title.textContent = state.sort === 'ss' ? '当前赛季暂无 SS 阵容' : '当前赛季暂无阵容';
   description.textContent = state.sort === 'ss' ? 'SS 等级随评分变化，可以查看当前赛季的最新阵容。' : `${seasonName}暂时没有符合当前条件的公开阵容，可以切换其他赛季。`;
   if (state.sort !== 'latest') actions.append(button('查看最新阵容', latest));
-  if (state.user) actions.append(button('新增阵容', () => { window.location.href='/lineup/new'; }));
+  if (state.user) actions.append(button('新增阵容', () => { window.location.href='/lineup/new?type=lineup'; }));
   elements.emptyState.append(actions);
 }
 

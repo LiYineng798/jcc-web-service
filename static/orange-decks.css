@@ -61,7 +61,8 @@
 
 /* The panel holds the whole deck: portal and energy, three cards, then both game codes.
    Code slots never move; a missing code stays in place and says so in words. */
-.deck-card.home-lineup-card:hover { transform:none; }
+.deck-card.home-lineup-card { transition:border-color 140ms ease; }
+.deck-card.home-lineup-card:hover { transform:none; box-shadow:none; border-color:color-mix(in srgb,var(--accent) 20%,var(--line)); }
 .deck-card .deck-card-body { gap:14px; padding:14px 16px 14px; }
 .deck-portal { display:inline-flex; align-items:center; gap:7px; }
 .deck-card-portal .deck-portal::before { content:""; width:7px; height:7px; border-radius:50%; background:currentColor; box-shadow:0 0 0 3px color-mix(in srgb, currentColor 16%, transparent); }
@@ -76,7 +77,7 @@
 .deck-code-action:active:not(:disabled) { background:color-mix(in srgb, var(--card-primary) 90%, var(--text)); }
 .deck-code-action:disabled { border-color:transparent; background:color-mix(in srgb, var(--muted) 7%, transparent); color:color-mix(in srgb, var(--muted) 80%, transparent); font-weight:400; cursor:default; }
 @media (prefers-reduced-motion:reduce) {
-  .deck-code-action, .deck-card .deck-thumb .fortune-card-frame { transition:none; }
+  .deck-card.home-lineup-card, .deck-code-action, .deck-card .deck-thumb .fortune-card-frame { transition:none; }
 }
 
 /* Card art: the shared art-only time-card frame at thumbnail size, never cropped.
@@ -224,8 +225,15 @@ a.deck-detail-author:hover span:last-child { text-decoration:underline; text-und
 .deck-energy { display:flex; flex-wrap:wrap; justify-content:space-between; gap:6px; font-size:.86rem; }
 .deck-energy.is-over, .deck-error { color:var(--deck-danger); }
 .deck-error { margin:0; font-size:.86rem; }
-.deck-form-actions { position:sticky; bottom:0; z-index:3; display:flex; flex-wrap:wrap; gap:10px; align-items:center; justify-content:flex-end; padding:12px 0; border-top:1px solid var(--line); background:var(--bg); }
-.deck-form-actions p { margin:0 auto 0 0; color:var(--muted); font-size:.82rem; }
+/* A floating bar aligned with the section cards, so the page gradient never shows a flat cut-off strip behind it. */
+.deck-form-actions { position:sticky; bottom:12px; z-index:3; display:flex; flex-wrap:wrap; gap:10px; align-items:center; justify-content:flex-end; margin-bottom:16px; padding:10px 10px 10px 20px; border:1px solid var(--line); border-radius:18px; background:color-mix(in srgb, var(--surface-solid) 88%, transparent); box-shadow:0 12px 32px color-mix(in srgb, var(--text) 8%, transparent); -webkit-backdrop-filter:blur(14px) saturate(1.2); backdrop-filter:blur(14px) saturate(1.2); }
+.deck-form-actions p { flex:1 1 220px; margin:0; color:var(--muted); font-size:.82rem; line-height:1.55; }
+.deck-form-actions .ghost-link { min-height:40px; padding:0 16px; display:inline-flex; align-items:center; border-radius:10px; background:var(--surface-solid); font-size:.88rem; }
+.deck-form .deck-error:empty { display:none; }
+@media (max-width:640px) {
+  .deck-form-actions { bottom:8px; padding:10px 10px 10px 14px; border-radius:16px; }
+  .deck-form-actions p { flex-basis:100%; }
+}
 .deck-star-list { display:grid; gap:6px; margin:12px 0 0; padding:0; list-style:none; }
 .deck-star-list li { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:6px; font-size:.84rem; }
 .deck-star-list [role="radiogroup"] { display:flex; gap:4px; }
@@ -285,3 +293,62 @@ a.deck-detail-author:hover span:last-child { text-decoration:underline; text-und
 .deck-status-line:empty { display:none; }
 /* An empty card slot previews the card shape instead of a second dashed box. */
 .deck-slot .deck-frame-empty { border:0; border-radius:0; clip-path:polygon(50% 0,100% 16%,100% 84%,50% 100%,0 84%,0 16%); background:color-mix(in srgb, var(--accent-soft) 55%, var(--surface-solid)); color:var(--accent-strong); font-weight:600; }
+
+/* Home deck card: one quiet exhibition tray. Portal and energy head it, three complete
+   cards stand on a shared baseline under a soft tier light, and the two code actions
+   close it. Hover only tints the name or button; nothing moves or rescales. */
+.deck-card.home-lineup-card { padding:16px 18px 8px; }
+.deck-card .home-card-byline { margin:4px 0 12px; }
+.deck-card .home-card-footer { padding-top:4px; }
+.deck-card .deck-card-body { gap:0; padding:0; overflow:hidden; border:1px solid color-mix(in srgb,var(--text) 7%,var(--line)); border-radius:12px; background:var(--surface-solid); }
+.deck-card .deck-card-portal { align-items:center; padding:9px 14px; font-size:.8rem; line-height:1.4; border-bottom:1px solid color-mix(in srgb,var(--text) 5%,var(--line)); }
+.deck-card-portal .deck-portal::before { display:none; }
+/* Portal risk colours stay in filters and details; the list card uses the site's neutral ink. */
+.deck-card .deck-card-portal .deck-portal { color:var(--text); font-weight:600; }
+.deck-card .deck-portal-mark { color:var(--muted); }
+.deck-portal-mark { width:15px; height:15px; flex:none; fill:none; stroke:currentColor; stroke-width:3.4; }
+.deck-portal-mark .is-core { fill:currentColor; stroke:none; }
+.deck-energy-chip { gap:8px; }
+.deck-energy-pips { display:inline-flex; gap:2px; }
+.deck-energy-pips i { width:4px; height:10px; border-radius:1px; background:color-mix(in srgb,var(--muted) 20%,transparent); transform:skewX(-14deg); }
+.deck-energy-pips i[data-tier] { background:var(--accent-strong); }
+.deck-energy-pips i.is-beyond { background:color-mix(in srgb,var(--deck-danger) 30%,transparent); }
+.deck-energy-pips i.is-beyond[data-tier] { background:var(--deck-danger); }
+.deck-card .deck-thumbs { gap:8px; padding:16px 12px 12px; }
+.deck-card .deck-thumb { gap:10px; }
+/* List faces stand flat on the tray: no tier light and no drop shadow. */
+.deck-card .deck-thumb .fortune-card-frame { --spot:0; width:min(100%, 82px); aspect-ratio:5 / 8; transition:none; filter:none; }
+.deck-card .deck-thumb .deck-frame-empty { width:min(100%, 82px); aspect-ratio:5 / 8; }
+.deck-card .deck-thumb:hover .fortune-card-frame { filter:none; }
+.deck-card .deck-thumb-name { font-size:.8rem; letter-spacing:.02em; }
+.deck-card .deck-code-actions { gap:8px; padding:10px 12px 12px; border-top:1px solid color-mix(in srgb,var(--text) 5%,var(--line)); }
+.deck-card .deck-code-action { border-color:var(--line); border-radius:9px; background:var(--surface-solid); color:var(--text); }
+.deck-card .deck-code-action svg { width:15px; height:15px; color:var(--accent-strong); }
+.deck-card .deck-code-action:hover:not(:disabled) { background:color-mix(in srgb,var(--accent) 6%,var(--surface-solid)); border-color:color-mix(in srgb,var(--accent) 38%,var(--line)); color:var(--accent-strong); }
+.deck-card .deck-code-action:active:not(:disabled) { background:color-mix(in srgb,var(--accent) 11%,var(--surface-solid)); }
+.deck-card .deck-code-action:disabled { border:1px dashed color-mix(in srgb,var(--muted) 28%,transparent); background:transparent; color:var(--muted); }
+/* Wide cards put portal, energy and both codes in a side rail beside the three faces,
+   removing two stacked rows. Narrow cards (phones) keep the stacked tray above. */
+.deck-card.home-lineup-card { container:deck-card / inline-size; }
+.deck-card .home-card-byline { margin-bottom:10px; }
+@container deck-card (min-width:400px) {
+ .deck-card .deck-card-body { grid-template-columns:minmax(0, 1fr) 156px; grid-template-rows:auto minmax(0, 1fr); }
+ .deck-card .deck-thumbs { grid-column:1; grid-row:1 / 3; align-content:center; padding:14px 8px 12px; border-right:1px solid color-mix(in srgb,var(--text) 5%,var(--line)); }
+ .deck-card .deck-card-portal { grid-column:2; grid-row:1; flex-direction:column; align-items:flex-start; justify-content:flex-start; gap:7px; padding:14px 14px 0; border-bottom:0; }
+ .deck-card .deck-energy-chip { flex-wrap:wrap; column-gap:4px; row-gap:6px; }
+ .deck-card .deck-energy-pips { flex-basis:100%; order:1; }
+ .deck-card .deck-code-actions { grid-column:2; grid-row:2; grid-template-columns:minmax(0, 1fr); align-content:end; gap:8px; padding:10px 12px 12px; border-top:0; }
+ .deck-card .deck-code-action { justify-content:flex-start; padding-inline:12px; }
+}
+.deck-dialog .deck-card-full { --art:180px; gap:30px; }
+.deck-dialog .deck-card-full > .fortune-card-frame { --spot:.6; }
+@media (max-width:640px) {
+ .deck-card.home-lineup-card { padding:14px 14px 8px; }
+ .deck-card .deck-card-portal { padding:8px 12px; font-size:.76rem; }
+ .deck-energy-pips { display:none; }
+ .deck-card .deck-thumbs { gap:6px; padding:14px 8px 10px; }
+ .deck-card .deck-thumb .fortune-card-frame, .deck-card .deck-thumb .deck-frame-empty { width:min(100%, 76px); }
+ .deck-card .deck-thumb-name { font-size:.74rem; }
+ .deck-card .deck-code-actions { padding:8px 10px 10px; }
+ .deck-dialog .deck-card-full { --art:106px; gap:18px; }
+}

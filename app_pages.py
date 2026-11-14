@@ -301,14 +301,17 @@ def register_page_routes(app):
 
     @app.get('/lineup/new')
     def lineup_create_page():
-        # One publish page for lineup codes and Orange Fortune decks; ?type=deck opens the deck form.
+        # One publish page: lineup codes by default, ?type=submit for the two-code deck submission,
+        # ?type=deck for the full deck editor (?type=lineup keeps working).
+        from deck_submission_service import LIMITS as SUBMISSION_LIMITS
         from orange_deck_service import LIMITS
+        publish_type = request.args.get('type') if request.args.get('type') in ('submit', 'deck') else 'lineup'
         return tracked_template_response(
             'lineup_form.html',
             'lineup_editor',
             lineup_id='',
             page_mode='create',
-            publish_type='deck' if request.args.get('type') == 'deck' else 'lineup',
+            publish_type=publish_type, submission_limits=SUBMISSION_LIMITS,
             deck_id='', creator_data=creator_config(), limits=LIMITS,
             seo=make_seo(title='发布阵容或卡组 - 金铲铲阵容库', description='发布金铲铲阵容码或大橘大利卡组。', path='/lineup/new', noindex=True),
         )

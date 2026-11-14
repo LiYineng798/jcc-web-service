@@ -1,4 +1,4 @@
-"""SQLite equivalent of PostgreSQL migration 0021."""
+"""SQLite notifications: migrations 0021/0022, with submission targets from 0029."""
 
 NOTIFICATION_SCHEMA = '''
 CREATE TABLE IF NOT EXISTS feedback_threads (
@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS feedback_events (
 CREATE TABLE IF NOT EXISTS user_notifications (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     user_id INTEGER NOT NULL REFERENCES users(id),
-    kind TEXT NOT NULL CHECK (kind IN ('feedback','like','favorite','copy')),
+    kind TEXT NOT NULL CHECK (kind IN ('feedback','like','favorite','copy','deck_submission')),
     group_key TEXT NOT NULL,
     lineup_id INTEGER REFERENCES lineups(id),
     feedback_id INTEGER REFERENCES feedback_threads(id) ON DELETE CASCADE,
@@ -39,6 +39,11 @@ CREATE TABLE IF NOT EXISTS user_notifications (
     notice_state TEXT NOT NULL DEFAULT 'unread' CHECK (notice_state IN ('unread','read')),
     created_at TEXT NOT NULL,
     updated_at TEXT NOT NULL,
+    deck_submission_id INTEGER REFERENCES orange_deck_submissions(id),
+    CONSTRAINT user_notifications_deck_submission CHECK (
+        (kind='deck_submission' AND deck_submission_id IS NOT NULL AND lineup_id IS NULL AND feedback_id IS NULL)
+        OR (kind<>'deck_submission' AND deck_submission_id IS NULL)
+    ),
     UNIQUE(user_id, group_key)
 );
 CREATE TABLE IF NOT EXISTS author_favorite_receipts (
@@ -57,6 +62,10 @@ CREATE TABLE IF NOT EXISTS notification_actors (
     PRIMARY KEY (notification_id, actor_user_id)
 );
 '''
+
+# The upgrade rebuilds only this table, retaining IDs, sequence, indexes and actors.
+NOTIFICATION_TABLE_SCHEMA = ('CREATE TABLE IF NOT EXISTS user_notifications ('
+    + NOTIFICATION_SCHEMA.split('CREATE TABLE IF NOT EXISTS user_notifications (', 1)[1].split(';', 1)[0])
 
 # Preserve old feedback without generating a wave of unread historical messages.
 FEEDBACK_BACKFILL = '''
