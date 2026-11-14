@@ -559,7 +559,7 @@ function renderAuth() {
 function syncCreateLink() {
   const loggedIn = Boolean(state.user);
   const decks = document.body.dataset.homeLibrary === 'decks';
-  elements.createLineupLink.href = loggedIn ? `/lineup/new${decks ? '' : '?type=lineup'}` : '/auth';
+  elements.createLineupLink.href = loggedIn ? `/lineup/new${decks ? '?type=submit' : ''}` : '/auth';
   elements.createLineupLink.textContent = `${loggedIn ? '' : '登录后'}${decks ? '投稿卡组' : '新增阵容'}`;
 }
 

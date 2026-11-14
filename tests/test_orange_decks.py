@@ -444,15 +444,18 @@ def test_dashboard_reports_deck_figures_separately(users):
 
 def test_publish_page_offers_lineups_and_decks(users):
     owner, other, admin, guest = users
-    # The two-code submission is the default; lineup codes and the full deck editor keep explicit links.
+    # Lineup codes come first and are the default; the two-code submission and the full deck editor have explicit links.
     html = owner.get('/lineup/new').get_data(as_text=True)
     assert 'id="deckSubmitForm"' in html and 'id="editorForm"' in html and 'id="deckForm"' in html
-    assert 'id="publishSubmit" role="tabpanel" aria-labelledby="publishTabSubmit">' in html
-    assert 'id="publishLineup" role="tabpanel" aria-labelledby="publishTabLineup" hidden' in html
+    assert html.index('id="publishTabLineup"') < html.index('id="publishTabSubmit"')
+    assert html.count('id="submitButton"') == 1 and 'id="deckSubmitButton"' in html
+    assert 'id="publishLineup" role="tabpanel" aria-labelledby="publishTabLineup">' in html
+    assert 'id="publishSubmit" role="tabpanel" aria-labelledby="publishTabSubmit" hidden' in html
     assert 'id="publishDeck" aria-label="完整编辑卡组" hidden' in html
-    lineup_tab = owner.get('/lineup/new?type=lineup').get_data(as_text=True)
-    assert 'id="publishSubmit" role="tabpanel" aria-labelledby="publishTabSubmit" hidden' in lineup_tab
-    assert 'id="publishLineup" role="tabpanel" aria-labelledby="publishTabLineup">' in lineup_tab
+    assert owner.get('/lineup/new?type=lineup').get_data(as_text=True).count('aria-labelledby="publishTabLineup">') == 1
+    submit_tab = owner.get('/lineup/new?type=submit').get_data(as_text=True)
+    assert 'id="publishSubmit" role="tabpanel" aria-labelledby="publishTabSubmit">' in submit_tab
+    assert 'id="publishLineup" role="tabpanel" aria-labelledby="publishTabLineup" hidden' in submit_tab
     deck_tab = owner.get('/lineup/new?type=deck').get_data(as_text=True)
     assert 'id="publishLineup" role="tabpanel" aria-labelledby="publishTabLineup" hidden' in deck_tab
     assert 'id="publishDeck" aria-label="完整编辑卡组">' in deck_tab

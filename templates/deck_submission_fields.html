@@ -1,4 +1,4 @@
-{# Two-code deck submission, the default on the publish page. An admin completes cards, portal and formation. #}
+{# Two-code deck submission on the publish page (?type=submit). An admin completes cards, portal and formation. #}
 <form class="deck-form submit-form" id="deckSubmitForm" novalidate data-limits='{{ submission_limits|tojson }}'>
   <section class="deck-section submit-codes" aria-labelledby="submitCodesTitle">
     <h2 id="submitCodesTitle">粘贴两段游戏代码</h2>
@@ -26,6 +26,6 @@
   <div class="deck-form-actions">
     <p id="submitState">管理员补全三张卡、传送门和站位后公开展示，并署名“由你提供”。</p>
     <a class="ghost-link" href="/me/deck-submissions">我的投稿</a>
-    <button type="submit" class="deck-button is-primary" id="submitButton">提交投稿</button>
+    <button type="submit" class="deck-button is-primary" id="deckSubmitButton">提交投稿</button>
   </div>
 </form>

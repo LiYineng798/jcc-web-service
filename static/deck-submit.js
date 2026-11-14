@@ -6,7 +6,7 @@
   if (!form) return;
   const $ = (id) => document.getElementById(id);
   const fields = { plan_code: $('submitPlanCode'), lineup_code: $('submitLineupCode'), name: $('submitName'), note: $('submitNote') };
-  const button = $('submitButton'), error = $('submitError'), state = $('submitState');
+  const button = $('deckSubmitButton'), error = $('submitError'), state = $('submitState');
   const defaultState = state.textContent;
   const DRAFT_KEY = 'jcc-deck-submission-draft-v1';
   let session = null, pending = null, busy = false;

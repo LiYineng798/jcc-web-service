@@ -225,8 +225,15 @@ a.deck-detail-author:hover span:last-child { text-decoration:underline; text-und
 .deck-energy { display:flex; flex-wrap:wrap; justify-content:space-between; gap:6px; font-size:.86rem; }
 .deck-energy.is-over, .deck-error { color:var(--deck-danger); }
 .deck-error { margin:0; font-size:.86rem; }
-.deck-form-actions { position:sticky; bottom:0; z-index:3; display:flex; flex-wrap:wrap; gap:10px; align-items:center; justify-content:flex-end; padding:12px 0; border-top:1px solid var(--line); background:var(--bg); }
-.deck-form-actions p { margin:0 auto 0 0; color:var(--muted); font-size:.82rem; }
+/* A floating bar aligned with the section cards, so the page gradient never shows a flat cut-off strip behind it. */
+.deck-form-actions { position:sticky; bottom:12px; z-index:3; display:flex; flex-wrap:wrap; gap:10px; align-items:center; justify-content:flex-end; margin-bottom:16px; padding:10px 10px 10px 20px; border:1px solid var(--line); border-radius:18px; background:color-mix(in srgb, var(--surface-solid) 88%, transparent); box-shadow:0 12px 32px color-mix(in srgb, var(--text) 8%, transparent); -webkit-backdrop-filter:blur(14px) saturate(1.2); backdrop-filter:blur(14px) saturate(1.2); }
+.deck-form-actions p { flex:1 1 220px; margin:0; color:var(--muted); font-size:.82rem; line-height:1.55; }
+.deck-form-actions .ghost-link { min-height:40px; padding:0 16px; display:inline-flex; align-items:center; border-radius:10px; background:var(--surface-solid); font-size:.88rem; }
+.deck-form .deck-error:empty { display:none; }
+@media (max-width:640px) {
+  .deck-form-actions { bottom:8px; padding:10px 10px 10px 14px; border-radius:16px; }
+  .deck-form-actions p { flex-basis:100%; }
+}
 .deck-star-list { display:grid; gap:6px; margin:12px 0 0; padding:0; list-style:none; }
 .deck-star-list li { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:6px; font-size:.84rem; }
 .deck-star-list [role="radiogroup"] { display:flex; gap:4px; }

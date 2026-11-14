@@ -10,16 +10,21 @@
   <body class="deck-page submissions-page">
     <div class="page-shell submissions-shell" id="submissionsApp" data-submission-id="{{ submission_id }}" data-limits='{{ limits|tojson }}'>
       <nav class="deck-page-nav" aria-label="页面工具">
-        {% if submission_id %}<a href="/me/deck-submissions">← 我的投稿</a>{% else %}<a href="/?library=decks">← 卡组库</a>{% endif %}
-        <div class="nav-actions"><a href="/lineup/new">新投稿</a>{{ theme_toggle('nav-icon-button') }}</div>
+        {% if submission_id %}<a class="sub-back" href="/me/deck-submissions">← 我的投稿</a>{% else %}<a class="sub-back" href="/?library=decks">← 卡组库</a>{% endif %}
+        <div class="nav-actions">{{ theme_toggle('nav-icon-button') }}</div>
       </nav>
       <header class="submissions-head">
-        <p class="deck-kicker">大橘大利卡组投稿</p>
-        <h1 id="submissionsTitle">{% if submission_id %}投稿进度{% else %}我的投稿{% endif %}</h1>
+        <div>
+          <p class="deck-kicker">大橘大利卡组投稿</p>
+          <h1 id="submissionsTitle">{% if submission_id %}投稿进度{% else %}我的投稿{% endif %}</h1>
+          <p class="submissions-lede" id="submissionsLede">{% if submission_id %}管理员处理时会通知你，结果和说明都在这里。{% else %}粘贴方案码和阵容码即可投稿，管理员补全卡片与站位后公开展示，并署名由你提供。{% endif %}</p>
+        </div>
+        {% if not submission_id %}<a class="deck-button is-primary sub-new" href="/lineup/new?type=submit"><span aria-hidden="true">＋</span>投稿新卡组</a>{% endif %}
       </header>
-      <main id="submissionsBody" aria-live="polite" aria-busy="true"><p class="submissions-loading">正在读取…</p></main>
+      <main id="submissionsBody" aria-live="polite" aria-busy="true"><div class="sub-skeleton" aria-hidden="true"><span></span><span></span><span></span></div><p class="deck-visually-hidden">正在读取…</p></main>
     </div>
     <script src="{{ static_v('theme-toggle.js') }}" defer></script>
+    <script src="{{ static_v('orange-deck-core.js') }}" defer></script>
     <script src="{{ static_v('deck-submissions.js') }}" defer></script>
   </body>
 </html>

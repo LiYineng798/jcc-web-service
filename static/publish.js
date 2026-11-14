@@ -1,4 +1,4 @@
-/* Publish page: deck submission (default) or lineup codes; ?type=lineup / ?type=deck keep existing links working. */
+/* Publish page: lineup codes (default) or deck submission (?type=submit); ?type=lineup / ?type=deck keep existing links working. */
 (function () {
   'use strict';
   const tabs = [...document.querySelectorAll('[data-publish-type]')];
@@ -15,7 +15,7 @@
     // The full deck editor is reached by its own link and leaves through the tabs.
     if (deckPanel) deckPanel.hidden = true;
     const params = new URLSearchParams(location.search);
-    if (type === 'lineup') params.set('type', 'lineup'); else params.delete('type');
+    if (type === 'submit') params.set('type', 'submit'); else params.delete('type');
     params.delete('from');
     history.replaceState(history.state, '', `${location.pathname}${params.size ? `?${params}` : ''}`);
   }

@@ -208,7 +208,7 @@
 
   function emptyState() {
     const filtered = state.q || state.portal;
-    let [title, text, actions] = ['还没有公开卡组', '投稿你的方案码和阵容码，管理员完善后会在这里展示。', '<a class="deck-button is-primary" href="/lineup/new">投稿卡组</a>'];
+    let [title, text, actions] = ['还没有公开卡组', '投稿你的方案码和阵容码，管理员完善后会在这里展示。', '<a class="deck-button is-primary" href="/lineup/new?type=submit">投稿卡组</a>'];
     if (['favorites', 'mine'].includes(state.tab) && !state.user) {
       [title, text, actions] = [state.tab === 'mine' ? '登录后查看我的卡组' : '登录后查看收藏', '收藏和发布的卡组会跟随账号保存。', '<a class="deck-button is-primary" href="/auth">登录 / 注册</a>'];
     } else if (filtered) {
@@ -220,7 +220,7 @@
     } else if (state.tab === 'favorites') {
       [title, text, actions] = ['还没有收藏卡组', '在卡组上点“收藏”，之后可以在这里找回。', '<button type="button" class="deck-button" data-action="latest">浏览卡组</button>'];
     } else if (state.tab === 'mine') {
-      [title, text, actions] = ['还没有你的卡组', '你的草稿、已发布的卡组和被采纳的投稿都会出现在这里。', '<a class="deck-button is-primary" href="/lineup/new">投稿卡组</a> <a class="deck-button" href="/me/deck-submissions">我的投稿</a>'];
+      [title, text, actions] = ['还没有你的卡组', '你的草稿、已发布的卡组和被采纳的投稿都会出现在这里。', '<a class="deck-button is-primary" href="/lineup/new?type=submit">投稿卡组</a> <a class="deck-button" href="/me/deck-submissions">我的投稿</a>'];
     }
     return `<div class="deck-empty"><h3>${title}</h3><p>${text}</p><div class="deck-actions">${actions}</div></div>`;
   }

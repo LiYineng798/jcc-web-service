@@ -29,22 +29,15 @@
 
       {% if creating %}
       <div class="publish-switch" role="tablist" aria-label="发布类型">
-        <button type="button" role="tab" id="publishTabSubmit" aria-controls="publishSubmit" data-publish-type="submit" aria-selected="{{ 'true' if publish_type == 'submit' else 'false' }}"{% if publish_type != 'submit' %} tabindex="-1"{% endif %}>
-          <span class="publish-switch-mark" aria-hidden="true">◆</span>
-          <span><strong>投稿大橘大利卡组</strong><small>只需方案码和阵容码，管理员完善后发布</small></span>
-        </button>
         <button type="button" role="tab" id="publishTabLineup" aria-controls="publishLineup" data-publish-type="lineup" aria-selected="{{ 'true' if publish_type == 'lineup' else 'false' }}"{% if publish_type != 'lineup' %} tabindex="-1"{% endif %}>
           <span class="publish-switch-mark" aria-hidden="true">#</span>
           <span><strong>发布阵容码</strong><small>普通阵容，选择赛季后直接发布</small></span>
         </button>
+        <button type="button" role="tab" id="publishTabSubmit" aria-controls="publishSubmit" data-publish-type="submit" aria-selected="{{ 'true' if publish_type == 'submit' else 'false' }}"{% if publish_type != 'submit' %} tabindex="-1"{% endif %}>
+          <span class="publish-switch-mark" aria-hidden="true">◆</span>
+          <span><strong>投稿大橘大利卡组</strong><small>只需方案码和阵容码，管理员完善后发布</small></span>
+        </button>
       </div>
-      {% endif %}
-
-      {% if creating %}
-      <section class="publish-panel" id="publishSubmit" role="tabpanel" aria-labelledby="publishTabSubmit"{% if publish_type != 'submit' %} hidden{% endif %}>
-{% include 'deck_submission_fields.html' %}
-        <p class="submit-alt">已配好三张卡和站位？<a href="/lineup/new?type=deck" data-publish-link="deck">自己完整编辑并发布卡组</a></p>
-      </section>
       {% endif %}
 
       <section class="publish-panel" id="publishLineup" role="{{ 'tabpanel' if creating else 'region' }}" aria-labelledby="{{ 'publishTabLineup' if creating else 'editorTitle' }}"{% if creating and publish_type != 'lineup' %} hidden{% endif %}>
@@ -97,8 +90,15 @@
       </section>
 
       {% if creating %}
+      <section class="publish-panel" id="publishSubmit" role="tabpanel" aria-labelledby="publishTabSubmit"{% if publish_type != 'submit' %} hidden{% endif %}>
+{% include 'deck_submission_fields.html' %}
+        <p class="submit-alt">已配好三张卡和站位？<a href="/lineup/new?type=deck" data-publish-link="deck">自己完整编辑并发布卡组</a></p>
+      </section>
+      {% endif %}
+
+      {% if creating %}
       <section class="publish-panel" id="publishDeck" aria-label="完整编辑卡组"{% if publish_type != 'deck' %} hidden{% endif %}>
-        <p class="submit-alt is-top"><a href="/lineup/new" data-publish-link="submit">← 返回投稿</a>　完整编辑后直接公开发布，作者为你自己。</p>
+        <p class="submit-alt is-top"><a href="/lineup/new?type=submit" data-publish-link="submit">← 返回投稿</a>　完整编辑后直接公开发布，作者为你自己。</p>
 {% include 'orange_deck_fields.html' %}
       </section>
       {% endif %}

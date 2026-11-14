@@ -56,17 +56,21 @@
       render();
     }
 
-    async function act(action, extra = {}, message = '') {
-      if (acting || !detail) return;
+    // `target` is the loaded detail, or a queue row for the one-click claim; only full details are ever rendered.
+    async function act(action, extra = {}, message = '', target = detail) {
+      if (acting || !target) return;
       acting = true; render();
       try {
-        detail = await api(`/api/admin/deck-submissions/${detail.id}/${action}`, { method: 'POST', body: JSON.stringify({ version: detail.version, ...extra }) });
+        const result = await api(`/api/admin/deck-submissions/${target.id}/${action}`, { method: 'POST', body: JSON.stringify({ version: target.version, ...extra }) });
+        openId = target.id; detail = result; detailError = '';
         form = null; noteDraft = ''; targetDraft = '';
+        // A claimed submission leaves the pending queue; follow it to "我处理的" so it stays open.
+        if (action === 'claim' && status === 'pending') { status = 'mine'; page = 1; }
         notify(message);
       } catch (err) {
         acting = false;
         // A stale version or someone else's claim: show the latest state, keep the typed note.
-        await refreshDetail();
+        if (target === detail) await refreshDetail(); else await load();
         throw err;
       }
       acting = false;
@@ -92,7 +96,7 @@
       state.append(statusTag(item));
       if (item.assignee) state.append(el('span', 'admin-meta', item.mine ? '我' : item.assignee.nickname));
       const actions = [];
-      if (item.status === 'pending') actions.push(button('认领', async () => { openId = item.id; detail = item; await act('claim', {}, '已认领，可以开始完善'); await refreshDetail(); }, 'small-button', acting));
+      if (item.status === 'pending') actions.push(button('认领', () => act('claim', {}, '已认领，可以开始完善', item), 'small-button', acting));
       if (item.status === 'processing' && item.mine) {
         const edit = el('a', 'small-button is-primary-link', '完善卡组');
         edit.href = item.editor_url;
