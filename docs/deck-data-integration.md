@@ -38,3 +38,10 @@ accepted 后即使卡组隐藏/软删除，也保留投稿的 published 历史�
 数据库与 SQLite 迁移验证不等于 PostgreSQL 生产验收。部署时先应用 DB 迁移，再部署 Web。
 新投稿/API/推荐/采集实现后仍需相应聚焦测试；避免重复全量浏览器测试。
 Web 测试会初始化默认 instance，应在干净副本验证，不能在带真实数据的工作区试升级。
+
+## 当前实现（Web）
+
+上述后续工作已接入：投稿/处理接口与页面、署名与权限分离、可组合写入（`insert_deck`、`apply_deck_update`）、
+`deck_submission` 通知、活动/复制/访问采集（首个事件同事务写 `deck_analytics_started_at`）、热门算法、
+后台概览/日报（`deck_report_service.py`，payload v2 的 `deck_*` 字段）和个人中心计数。
+未新增迁移。没有 PostgreSQL 实例时，以上只经过 SQLite 测试；生产仍须先应用 DB `0029/0030` 再部署 Web。
