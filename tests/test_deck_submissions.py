@@ -142,6 +142,51 @@ def test_admin_claim_assign_and_assignee_only_actions(people, app):
     assert alice.get('/api/admin/deck-submissions').status_code == 403
 
 
+def test_admin_queue_returns_to_last_valid_page_after_removal(people):
+    alice, bob, admin, _ = people
+    claim(admin, submit(alice).json)
+    claim(admin, submit(bob).json)
+    url = '/api/admin/deck-submissions?status=mine&page_size=1&page=2'
+    before = admin.get(url).json
+    assert before['page'] == 2 and before['total'] == 2
+    focused = admin.get(f"/api/admin/deck-submissions?status=mine&page_size=1&focus_id={before['items'][0]['id']}").json
+    assert focused['page'] == 2 and focused['items'][0]['id'] == before['items'][0]['id']
+    excluded = admin.get(f"/api/admin/deck-submissions?status=needs_info&focus_id={before['items'][0]['id']}").json
+    assert excluded['items'] == []  # Restoring a position never bypasses the active filter.
+    assert act(admin, before['items'][0], 'release').status_code == 200
+    after = admin.get(url).json
+    assert after['page'] == after['total_pages'] == 1
+    assert after['total'] == 1 and len(after['items']) == 1
+    assert after['items'][0]['id'] != before['items'][0]['id']
+    assert act(admin, after['items'][0], 'release').status_code == 200
+    empty = admin.get(url).json
+    assert empty['page'] == 1 and empty['total'] == 0 and empty['items'] == []
+
+
+def test_contributor_counts_separate_new_submissions_from_supplements(people, app):
+    from datetime import datetime, timedelta
+    from deck_report_service import top_contributors
+
+    alice, bob, admin, _ = people
+    sub = submit(alice).json
+    for index in range(2):
+        requested = act(admin, claim(admin, sub), 'request_info', note='请补充打法').json
+        response = alice.put(f"/api/me/deck-submissions/{sub['id']}",
+                             json={'version': requested['version'], 'note': f'补充思路 {index}'}, headers=auth_headers(alice))
+        assert response.status_code == 200
+        sub = response.json
+    assert submit(bob).status_code == 201
+    assert submit(bob, lineup_code='#ANOTHER2026').status_code == 201
+    with app.app_context():
+        start = datetime.now().strftime('%Y-%m-%d')
+        end = (datetime.now() + timedelta(days=1)).strftime('%Y-%m-%d')
+        rows = top_contributors(get_db(), start, end)
+    # Repeated supplements do not outrank a contributor with more distinct submissions.
+    assert len(rows) == 2 and '@bob' in rows[0]['user']
+    assert (rows[0]['new_submissions'], rows[0]['resubmissions'], rows[0]['submitted']) == (2, 0, 2)
+    assert (rows[1]['new_submissions'], rows[1]['resubmissions'], rows[1]['submitted']) == (1, 2, 3)
+
+
 def test_draft_is_reused_and_publish_credits_the_submitter(people, app):
     alice, bob, admin, admin2 = people
     sub = claim(admin, submit(alice, name='用户起名', note='用户说明').json)

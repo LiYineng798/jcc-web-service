@@ -52,6 +52,7 @@
 
   function setBusy(value) {
     busy = value;
+    Object.values(fields).forEach((input) => { input.disabled = value; });
     button.disabled = value || !session?.user;
     button.textContent = value ? '正在提交…' : '提交投稿';
     form.setAttribute('aria-busy', String(value));

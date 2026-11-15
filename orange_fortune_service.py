@@ -87,12 +87,14 @@ def parse_catalog(payload, image_prefix='tools/orange-fortune'):
 @lru_cache(maxsize=8)
 def _read_time_cards(path, stamp, size):
     payload = json.loads(Path(path).read_text(encoding='utf-8'))
+    manifest = Path(path).parent.parent / 'manifest.json'
+    # ZIPs store data/time_cards.json and assets/ as siblings; bundled data keeps assets below its data directory.
+    asset_root = manifest.parent if manifest.is_file() else Path(path).parent
     cards = [{**card, 'tier_name': TIERS[card['tier']], 'energy': card['tier'],
               'category': CATEGORIES.get(card['category_id'], '其他')} for card in payload['time_cards']]
     for card in cards:
-        card.update(presentation(Path(path).parent / card['image']) if card['image'] else {'framed': False, 'art_style': ''})
+        card.update(presentation(asset_root / card['image']) if card['image'] else {'framed': False, 'art_style': ''})
     result = {**{key: payload[key] for key in ('version', 'season', 'setId', 'time')}, 'cards': cards}
-    manifest = Path(path).parent.parent / 'manifest.json'
     if manifest.is_file():
         revision = json.loads(manifest.read_text(encoding='utf-8'))['data_revision']
         result['version'] = f"{payload['version']} · r{revision}"

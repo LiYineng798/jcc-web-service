@@ -81,6 +81,7 @@
   const orangeDecks = window.JccAdminOrangeDecks.create({ api, render, notify: setNotice, workbenchPanel, empty });
   const deckSubmissions = window.JccAdminDeckSubmissions.create({
     api, render, notify: setNotice, workbenchPanel, empty,
+    getAdminId: () => state.me?.id,
     onCounts: (counts) => { state.deckSubmissionQueue = (counts.pending || 0); },
   });
   const statusText = {

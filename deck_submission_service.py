@@ -385,7 +385,7 @@ def withdraw(user, submission_id, data):
 
 # ---------------------------------------------------------------- admin
 
-def admin_list(admin, status='pending', query='', page=1, page_size=20):
+def admin_list(admin, status='pending', query='', page=1, page_size=20, focus_id=0):
     if status not in ADMIN_FILTERS:
         raise SubmissionError('筛选条件无效')
     clauses, params = [ADMIN_FILTERS[status]], [admin['id']] if status == 'mine' else []
@@ -400,6 +400,16 @@ def admin_list(admin, status='pending', query='', page=1, page_size=20):
     where = f"WHERE {' AND '.join(clauses)}"
     total = db.execute(f'SELECT COUNT(*) AS c FROM orange_deck_submissions s JOIN users su ON su.id = s.submitter_user_id {where}',
                        params).fetchone()['c']
+    total_pages = max(1, -(-total // page_size))
+    if focus_id:
+        # Editing changes queue order. Locate the item within the same authorized filter on return.
+        position = db.execute(f'''SELECT row_position FROM (
+            SELECT s.id, ROW_NUMBER() OVER (ORDER BY {ADMIN_ORDER[status]}) AS row_position
+            FROM orange_deck_submissions s JOIN users su ON su.id = s.submitter_user_id {where}
+            ) queue WHERE id = ?''', params + [focus_id]).fetchone()
+        if position:
+            page = (position['row_position'] - 1) // page_size + 1
+    page = min(page, total_pages)
     rows = db.execute(f'{SELECT} {where} ORDER BY {ADMIN_ORDER[status]} LIMIT ? OFFSET ?',
                       params + [page_size, (page - 1) * page_size]).fetchall()
     counts = {row['status']: row['c'] for row in db.execute(
@@ -408,7 +418,7 @@ def admin_list(admin, status='pending', query='', page=1, page_size=20):
                                 (admin['id'],)).fetchone()['c']
     counts['resolved'] = sum(counts.get(key, 0) for key in RESOLVED)
     return {'items': [serialize_submission(row, admin, admin_view=True) for row in rows], 'total': total, 'page': page,
-            'page_size': page_size, 'total_pages': max(1, -(-total // page_size)), 'counts': counts}
+            'page_size': page_size, 'total_pages': total_pages, 'counts': counts}
 
 
 def _admin_row(submission_id):

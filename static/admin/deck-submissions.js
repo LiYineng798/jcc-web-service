@@ -20,28 +20,75 @@
     return hours < 1 ? '不到 1 小时' : hours < 48 ? `${Math.floor(hours)} 小时` : `${Math.floor(hours / 24)} 天`;
   }
 
-  function create({ api, render, notify, workbenchPanel, empty, onCounts }) {
+  function create({ api, render, notify, workbenchPanel, empty, onCounts, getAdminId }) {
     let status = 'pending', query = '', searchDraft = '', page = 1, data = null, loading = false, error = '', sequence = 0, timer = null;
     let openId = null, detail = null, detailError = '', acting = false, form = null, noteDraft = '', targetDraft = '';
+    let restored = false, restorePosition = false;
+    const storageKey = () => getAdminId?.() ? `jcc-admin-deck-queue-v1:${getAdminId()}` : null;
+
+    function remember(id = openId) {
+      const key = storageKey();
+      if (!key) return;
+      try { sessionStorage.setItem(key, JSON.stringify({ status, query, page, openId: id, at: Date.now() })); } catch { /* Optional. */ }
+    }
+
+    function restore() {
+      if (restored || !storageKey()) return;
+      restored = true;
+      try {
+        const saved = JSON.parse(sessionStorage.getItem(storageKey()) || 'null');
+        if (!saved || !Number.isFinite(saved.at) || Date.now() - saved.at > 8 * 3600e3 || !FILTERS.some(([key]) => key === saved.status)) return;
+        status = saved.status;
+        query = searchDraft = String(saved.query || '').slice(0, 40);
+        page = Number.isSafeInteger(saved.page) && saved.page > 0 ? saved.page : 1;
+        openId = Number.isSafeInteger(saved.openId) && saved.openId > 0 ? saved.openId : null;
+        restorePosition = Boolean(openId);
+      } catch { /* Optional. */ }
+    }
+
+    function editorLink(item, label) {
+      const link = el('a', 'small-button is-primary-link', label);
+      link.href = item.editor_url;
+      link.addEventListener('click', () => remember(item.id));
+      return link;
+    }
+
+    document.addEventListener('click', (event) => {
+      document.querySelectorAll('.admin-sub-more[open]').forEach((menu) => { if (!menu.contains(event.target)) menu.open = false; });
+    });
 
     async function load() {
+      restore();
       const ticket = ++sequence;
       loading = true; error = ''; render();
       try {
         const params = new URLSearchParams({ status, page: String(page), page_size: '20' });
         if (query) params.set('q', query);
+        if (restorePosition && openId) params.set('focus_id', String(openId));
         const result = await api(`/api/admin/deck-submissions?${params}`);
-        if (ticket === sequence) { data = result; onCounts?.(result.counts); }
+        if (ticket === sequence) {
+          data = result; page = result.page; onCounts?.(result.counts);
+          if (openId && !result.items.some((item) => item.id === openId)) { openId = null; detail = null; form = null; }
+          remember();
+          if (openId) await refreshDetail();
+        }
       } catch (err) {
         if (ticket === sequence) error = err.message || '投稿读取失败';
       } finally {
-        if (ticket === sequence) { loading = false; render(); }
+        if (ticket === sequence) {
+          loading = false; render();
+          if (restorePosition) {
+            document.getElementById(`admin-sub-detail-${openId}`)?.scrollIntoView({ block: 'nearest' });
+            restorePosition = false;
+          }
+        }
       }
     }
 
     async function open(id) {
-      if (openId === id) { openId = null; detail = null; form = null; render(); return; }
+      if (openId === id) { openId = null; detail = null; form = null; remember(); render(); return; }
       openId = id; detail = null; detailError = ''; form = null; render();
+      remember();
       await refreshDetail();
     }
 
@@ -49,7 +96,7 @@
       const id = openId;
       try {
         const result = await api(`/api/admin/deck-submissions/${id}`);
-        if (openId === id) detail = result;
+        if (openId === id) { detail = result; detailError = ''; }
       } catch (err) {
         if (openId === id) detailError = err.message || '读取失败';
       }
@@ -98,9 +145,7 @@
       const actions = [];
       if (item.status === 'pending') actions.push(button('认领', () => act('claim', {}, '已认领，可以开始完善', item), 'small-button', acting));
       if (item.status === 'processing' && item.mine) {
-        const edit = el('a', 'small-button is-primary-link', '完善卡组');
-        edit.href = item.editor_url;
-        actions.push(edit);
+        if (openId !== item.id) actions.push(editorLink(item, '完善卡组'));
       }
       const cells = [[title, 'admin-sub-main'], [who, 'admin-sub-cell', '投稿人'], [time, 'admin-sub-cell', '时间'], [state, 'admin-sub-cell', '状态'], [actions, 'admin-sub-actions']];
       cells.forEach(([content, className, label]) => {
@@ -196,7 +241,11 @@
       const left = el('div', 'admin-sub-detail-main');
       left.append(copyBlock('方案码', detail.plan_code), copyBlock('阵容码', detail.lineup_code));
       if (detail.note) { const note = el('div', 'admin-sub-note'); note.append(el('span', 'admin-meta', '投稿人备注'), el('p', '', detail.note)); left.append(note); }
-      if (detail.review_note) { const note = el('div', 'admin-sub-note'); note.append(el('span', 'admin-meta', '处理说明'), el('p', '', detail.review_note)); left.append(note); }
+      if (detail.review_note) {
+        const previousRequest = ['pending', 'processing'].includes(detail.status) && detail.events.some((event) => event.action === 'resubmit');
+        const note = el('div', 'admin-sub-note');
+        note.append(el('span', 'admin-meta', previousRequest ? '上次补充要求 · 已收到补充' : '处理说明'), el('p', '', detail.review_note)); left.append(note);
+      }
       if (detail.season_id !== detail.current_season_id) left.append(el('p', 'admin-sub-warning', '投稿所属赛季已不是当前时间卡片赛季，无法完善发布。'));
       const dupes = detail.possible_duplicates;
       if (dupes.decks.length || dupes.submissions.length) {
@@ -212,20 +261,31 @@
       }
       const side = el('div', 'admin-sub-detail-side');
       const actions = el('div', 'admin-sub-detail-actions');
+      const more = el('details', 'admin-sub-more');
+      const moreToggle = el('summary', 'small-button', '更多操作');
+      const moreActions = el('div', 'admin-sub-more-items');
+      more.append(moreToggle, moreActions);
+      more.addEventListener('toggle', () => {
+        if (more.open && matchMedia('(max-width:900px)').matches) moreActions.scrollIntoView({ block: 'nearest' });
+      });
+      more.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') { event.preventDefault(); more.open = false; moreToggle.focus(); }
+      });
+      more.addEventListener('focusout', (event) => { if (event.relatedTarget && !more.contains(event.relatedTarget)) more.open = false; });
       const processingMine = detail.status === 'processing' && detail.mine;
       if (detail.status === 'pending') actions.append(button('认领并开始处理', () => act('claim', {}, '已认领'), 'small-button is-primary-button', acting));
       if (processingMine) {
-        const edit = el('a', 'small-button is-primary-link', detail.deck_detail ? '继续完善并发布' : '完善卡组');
-        edit.href = detail.editor_url;
-        actions.append(edit,
-          button('请求补充', () => { form = 'request_info'; render(); }, 'small-button', acting),
+        actions.append(editorLink(detail, detail.deck_detail ? '继续完善并发布' : '完善卡组'),
+          button('请求补充', () => { form = 'request_info'; render(); }, 'small-button', acting));
+        moreActions.append(
           button('判重', () => { form = 'duplicate'; render(); }, 'small-button', acting),
           button('不采纳', () => { form = 'reject'; render(); }, 'small-button danger-button', acting),
           button('放回队列', () => act('release', {}, '已放回待处理队列'), 'small-button', acting));
       }
       if (['pending', 'processing'].includes(detail.status) && detail.admins.length > 1) {
-        actions.append(button(detail.status === 'processing' && !detail.mine ? '转派给我或他人' : '转派', () => { form = 'assign'; render(); }, 'small-button', acting));
+        moreActions.append(button(detail.status === 'processing' && !detail.mine ? '转派给我或他人' : '转派', () => { form = 'assign'; render(); }, 'small-button', acting));
       }
+      if (moreActions.children.length) actions.append(more);
       if (detail.status === 'processing' && !detail.mine) side.append(el('p', 'admin-meta', `正由 ${detail.assignee?.nickname || '其他管理员'} 处理`));
       if (detail.status === 'needs_info') side.append(el('p', 'admin-meta', '等待投稿人补充，补充后回到待处理。'));
       if (detail.deck?.detail_url) { const link = el('a', 'small-button', '查看发布的卡组'); link.href = detail.deck.detail_url; link.target = '_blank'; actions.append(link); }
@@ -292,6 +352,7 @@
     }
 
     function view() {
+      restore();
       const panel = workbenchPanel('卡组投稿', '认领后补全三张卡、传送门和站位，发布时署名由投稿人提供');
       const body = panel.querySelector('.admin-workspace-body');
       body.classList.add('admin-deck-workspace', 'admin-sub-workspace');

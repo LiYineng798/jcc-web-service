@@ -2002,7 +2002,15 @@ a.admin-deck-author:hover { color:var(--accent-strong, var(--accent)); text-deco
 .admin-sub-warning { margin:0; color:var(--admin-danger); font-size:12px; }
 .admin-sub-dupes { display:grid; gap:4px; padding:10px 12px; border-left:2px solid #a86412; font-size:12px; }
 .admin-sub-dupes a { color:inherit; }
-.admin-sub-detail-actions { display:flex; flex-wrap:wrap; gap:6px; }
+.admin-sub-detail-actions { display:flex; flex-wrap:wrap; align-items:flex-start; gap:6px; }
+.admin-sub-more { position:relative; }
+.admin-sub-more > summary { display:flex; align-items:center; gap:7px; list-style:none; cursor:pointer; border:1px solid var(--admin-border); color:var(--muted); }
+.admin-sub-more > summary::-webkit-details-marker { display:none; }
+.admin-sub-more > summary::after { content:''; flex:none; width:6px; height:6px; margin-top:-3px; border-right:1.5px solid currentColor; border-bottom:1.5px solid currentColor; transform:rotate(45deg); }
+.admin-sub-more > summary:focus-visible { outline:2px solid var(--accent); outline-offset:2px; }
+.admin-sub-more-items { position:absolute; right:0; top:calc(100% + 6px); z-index:20; display:grid; gap:3px; min-width:156px; padding:6px; border:1px solid var(--admin-border); border-radius:10px; background:var(--admin-surface); box-shadow:0 8px 24px #00000014; }
+.admin-page .admin-sub-more-items .small-button { width:100%; margin:0; border-color:transparent; background:transparent; text-align:left; }
+.admin-page .admin-sub-more-items .small-button:hover:not(:disabled) { background:var(--admin-surface-muted); }
 .admin-page .admin-sub-detail-actions .small-button + .small-button { margin-left:0; }
 .admin-sub-form { display:grid; gap:8px; padding:12px; border:1px solid var(--admin-border); border-radius:10px; }
 .admin-sub-form-heading { display:grid; gap:2px; }
@@ -2027,6 +2035,8 @@ a.admin-deck-author:hover { color:var(--accent-strong, var(--accent)); text-deco
   .admin-sub-detail-row { display:block; }
   .admin-sub-detail-row td { display:block; padding:0 0 14px; }
   .admin-sub-detail { grid-template-columns:minmax(0, 1fr); padding:12px; }
+  .admin-sub-more[open] { flex-basis:100%; }
+  .admin-sub-more-items { position:static; margin-top:6px; box-shadow:none; scroll-margin-bottom:100px; }
   .admin-page .admin-sub-workspace .small-button { min-height:40px; }
   .admin-page .admin-sub-form textarea, .admin-page .admin-sub-form input { font-size:16px; }
 }
@@ -2102,6 +2112,25 @@ a.admin-deck-author:hover { color:var(--accent-strong, var(--accent)); text-deco
 .admin-dm-inline-bar i { grid-area:1 / 1; height:6px; border-radius:999px; background:var(--dm-accent); }
 .admin-dm-inline-bar b { min-width:2ch; font-weight:650; text-align:right; }
 .admin-dm-empty { margin:0; padding:14px; border:1px dashed var(--admin-border); border-radius:10px; color:var(--muted); font-size:12px; text-align:center; }
+.admin-dm-queue { display:flex; flex-wrap:wrap; align-items:center; gap:12px 22px; padding:5px 2px; }
+.admin-dm-queue-item { display:inline-flex; align-items:baseline; gap:8px; font-size:12px; color:var(--muted); }
+.admin-dm-queue-item b { color:var(--text); font-size:15px; font-variant-numeric:tabular-nums; }
+.admin-dm-queue-links { display:flex; flex-wrap:wrap; gap:16px; margin-left:auto; }
+.admin-page .admin-dm-queue-links button { padding:4px 0; border:0; background:transparent; color:var(--dm-accent); font:inherit; font-size:12px; cursor:pointer; }
+.admin-page .admin-dm-queue-links button:hover { transform:none; text-decoration:underline; text-underline-offset:3px; }
+/* Keep the overview's headline, queue and ranking on the same inset and text baselines. */
+.admin-deck-overview .admin-dm-kpi { display:grid; grid-template-rows:18px 32px minmax(16px, auto); gap:4px; align-content:start; }
+.admin-deck-overview .admin-dm-label { line-height:18px; }
+.admin-deck-overview .admin-dm-kpi strong { margin:0; line-height:32px; }
+.admin-deck-overview .admin-dm-kpi small { line-height:16px; }
+.admin-deck-overview .admin-dm-queue { align-items:baseline; gap:10px 24px; padding:4px 16px; }
+.admin-deck-overview .admin-dm-queue > .admin-meta { font-size:12px; line-height:18px; }
+.admin-deck-overview .admin-dm-queue-item { line-height:18px; }
+.admin-deck-overview .admin-dm-queue-links { align-self:baseline; }
+.admin-page .admin-deck-overview .admin-dm-queue-links button { line-height:18px; }
+.admin-deck-overview .admin-dm-table th.is-bar { text-align:right; }
+.admin-deck-overview .admin-dm-inline-bar { grid-template-columns:minmax(0, 1fr) 4ch; gap:12px; }
+.admin-deck-overview .admin-dm-inline-bar b { line-height:18px; }
 /* The daily report stacks its blocks with one rhythm, the same gap the overview uses. */
 .admin-page .admin-daily-reports { display:grid; gap:12px; }
 .admin-page .admin-daily-reports > * { margin-top:0; margin-bottom:0; }

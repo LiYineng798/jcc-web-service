@@ -119,7 +119,7 @@ def _credit_label(row):
 
 
 def top_decks(db, start, end, limit=MAX_TOP_DECKS):
-    """Most copied decks: actions, effective copies and unique copiers side by side, never summed."""
+    """Rank by unique copiers, then actions; effective copies are a separate metric."""
     rows = db.execute(
         f'''SELECT a.deck_id, a.actions, a.copiers, a.plan_actions, a.lineup_actions,
                    (SELECT COUNT(*) FROM orange_deck_copies c WHERE c.deck_id = a.deck_id AND c.created_at >= ? AND c.created_at < ?) AS effective,
@@ -143,13 +143,17 @@ def top_contributors(db, start, end, limit=MAX_CONTRIBUTORS):
     rows = db.execute(
         '''SELECT s.submitter_user_id AS user_id, u.username AS credit_username, u.nickname AS credit_nickname,
                   SUM(CASE WHEN e.action IN ('submit', 'resubmit') THEN 1 ELSE 0 END) AS submitted,
+                  SUM(CASE WHEN e.action = 'submit' THEN 1 ELSE 0 END) AS new_submissions,
+                  SUM(CASE WHEN e.action = 'resubmit' THEN 1 ELSE 0 END) AS resubmissions,
                   SUM(CASE WHEN e.action = 'publish' THEN 1 ELSE 0 END) AS published
            FROM orange_deck_submission_events e JOIN orange_deck_submissions s ON s.id = e.submission_id
            LEFT JOIN users u ON u.id = s.submitter_user_id
            WHERE e.created_at >= ? AND e.created_at < ? AND e.action IN ('submit', 'resubmit', 'publish')
            GROUP BY s.submitter_user_id, u.username, u.nickname
-           ORDER BY published DESC, submitted DESC, s.submitter_user_id LIMIT ?''', (start, end, limit)).fetchall()
-    return [{'user': _credit_label(row), 'submitted': int(row['submitted'] or 0), 'published': int(row['published'] or 0)} for row in rows]
+           ORDER BY published DESC, new_submissions DESC, s.submitter_user_id LIMIT ?''', (start, end, limit)).fetchall()
+    return [{'user': _credit_label(row), 'submitted': int(row['submitted'] or 0),
+             'new_submissions': int(row['new_submissions'] or 0), 'resubmissions': int(row['resubmissions'] or 0),
+             'published': int(row['published'] or 0)} for row in rows]
 
 
 def deck_metrics(db, start, end):

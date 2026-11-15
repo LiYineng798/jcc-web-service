@@ -16,7 +16,8 @@
 
     function renderDeckPanel() {
       const deck = getOverview()?.deck;
-      const panel = workbenchPanel('卡组库 · 今日', '投稿处理、发布与两种代码的复制，口径与每日报告一致');
+      const panel = workbenchPanel('卡组库 · 今日', '今日关键数据与当前待办，详细构成可在每日报告查看');
+      panel.classList.add('admin-deck-overview');
       const body = panel.querySelector('.admin-workspace-body');
       if (!deck) { body.append(empty('卡组数据暂不可用')); return panel; }
       body.append(global.JccAdminDeckMetrics.render({ summary: deck, coverage: deck.coverage, top: deck.top_decks, snapshot: deck.snapshot, compact: true }));

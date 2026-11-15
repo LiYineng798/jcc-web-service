@@ -61,6 +61,31 @@ def test_release_uses_its_own_art_not_the_new_baseline(tmp_path):
     assert result['cards'][0]['image'] == 'old.png'
 
 
+@pytest.mark.parametrize('kind', ['full', 'legacy', 'missing'])
+def test_package_card_art_resolves_assets_from_release_root(tmp_path, kind):
+    original = catalog()['cards'][0]
+    data = tmp_path / 'data'
+    assets = tmp_path / 'assets/time-cards'
+    data.mkdir()
+    assets.mkdir(parents=True)
+    target = assets / 'card.png'
+    if kind == 'full':
+        im = Image.new('RGBA', (512, 512))
+        ImageDraw.Draw(im).rectangle((113, 33, 399, 496), fill='white')
+        im.save(target)
+    elif kind == 'legacy':
+        Image.new('RGBA', (326, 430), 'white').save(target)
+    row = {**original, 'image': 'assets/time-cards/card.png', 'layout': 'icon'}
+    doc = {'version': '18.18.1', 'season': 'S400001', 'setId': '16', 'time': 'fixture', 'time_cards': [row]}
+    path = data / 'time_cards.json'
+    path.write_text(json.dumps(doc), encoding='utf-8')
+    (tmp_path / 'manifest.json').write_text(json.dumps({'data_revision': 4}), encoding='utf-8')
+    result = _read_time_cards(str(path), path.stat().st_mtime_ns, path.stat().st_size)
+    assert result['cards'][0]['framed'] is (kind == 'full')
+    assert result['cards'][0]['image'] == row['image']
+    assert result['version'] == '18.18.1 · r4'
+
+
 def test_complete_official_baseline_and_public_adapters(client):
     cards = catalog()['cards']
     assert len(cards) == 201 and all(c['framed'] for c in cards)

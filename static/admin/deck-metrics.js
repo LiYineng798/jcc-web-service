@@ -30,16 +30,16 @@
     return tile;
   }
 
-  function kpis(summary, snapshot) {
+  function kpis(summary, snapshot, compact) {
     const row = el('div', 'admin-dm-kpis');
     const rate = summary?.deck_adoption_rate;
     const decided = raw(summary, 'deck_submissions_decided');
     row.append(
       kpi('新投稿', value(summary, 'deck_submissions_new'), `投稿人 ${value(summary, 'deck_submitters')} · 补充重提 ${value(summary, 'deck_submissions_resubmitted')}`),
       kpi('采纳率', rate == null ? '—' : `${rate}%`, decided ? `本时段作出的 ${num(decided)} 个决定` : '本时段还没有处理决定', rate == null ? '' : 'good'),
-      kpi('有效复制', value(summary, 'deck_effective_copies'), `复制动作 ${value(summary, 'deck_copy_actions')} · 同一人 5 分钟内计一次`, 'accent'),
+      kpi('有效复制', value(summary, 'deck_effective_copies'), compact ? '同一人 5 分钟内计一次' : `复制动作 ${value(summary, 'deck_copy_actions')} · 同一人 5 分钟内计一次`, 'accent'),
       kpi('复制人数', value(summary, 'deck_copiers'), `方案码 ${value(summary, 'deck_plan_copiers')} · 阵容码 ${value(summary, 'deck_lineup_copiers')}`),
-      kpi('公开卡组', snapshot ? num(snapshot.public_decks || 0) : '—', snapshot ? `其中投稿采纳 ${num(snapshot.public_submitted_decks || 0)} · 生成时` : '生成时的总数'),
+      kpi('公开卡组', snapshot ? num(snapshot.public_decks || 0) : '—', snapshot ? `其中投稿采纳 ${num(snapshot.public_submitted_decks || 0)} · ${compact ? '当前' : '生成时'}` : '生成时的总数'),
     );
     return row;
   }
@@ -146,24 +146,48 @@
   }
 
   function topTable(top, compact) {
-    const items = top.slice(0, compact ? 5 : 10);
-    const most = Math.max(1, ...items.map((item) => item.effective_copies));
-    return table('复制最多的卡组', [['#', 'num'], ['卡组'], ['有效复制', 'bar'], ['人数', 'num'], ['动作（方案 / 阵容）', 'num']], items.map((item, index) => {
+    const items = top.slice(0, compact ? 3 : 10);
+    const most = Math.max(1, ...items.map((item) => item.copiers));
+    const columns = [['#', 'num'], ['卡组'], ['复制人数', 'bar']];
+    if (!compact) columns.push(['有效复制', 'num'], ['动作（方案 / 阵容）', 'num']);
+    return table(compact ? '复制人数排行 · 前三' : '复制人数排行', columns, items.map((item, index) => {
       const name = el('div', 'admin-dm-deck');
       const link = el('a', '', item.title || `卡组 #${item.deck_id}`);
       link.href = `/orange-decks/${item.deck_id}`; link.target = '_blank'; link.rel = 'noopener';
       name.append(link, el('small', '', `${item.credit === 'provided' ? '由' : '作者'} ${item.uploader}${item.credit === 'provided' ? ' 提供' : ''}`));
       const bar = el('div', 'admin-dm-inline-bar');
       const fill = el('i');
-      fill.style.width = `${Math.round((item.effective_copies / most) * 100)}%`;
-      bar.append(fill, el('b', '', num(item.effective_copies)));
-      return [el('span', `admin-dm-rank-no${index < 3 ? ' is-top' : ''}`, String(index + 1)), name, bar, num(item.copiers),
-        `${num(item.copy_actions)}（${num(item.plan_copy_actions)} / ${num(item.lineup_copy_actions)}）`];
+      fill.style.width = `${Math.round((item.copiers / most) * 100)}%`;
+      bar.append(fill, el('b', '', num(item.copiers)));
+      const cells = [el('span', `admin-dm-rank-no${index < 3 ? ' is-top' : ''}`, String(index + 1)), name, bar];
+      if (!compact) cells.push(num(item.effective_copies), `${num(item.copy_actions)}（${num(item.plan_copy_actions)} / ${num(item.lineup_copy_actions)}）`);
+      return cells;
     }));
   }
 
   function contributorTable(contributors) {
-    return table('供稿人', [['供稿人'], ['投稿', 'num'], ['采纳', 'num']], contributors.map((item) => [item.user, num(item.submitted), num(item.published)]));
+    // Old snapshots only stored the combined count; never infer a missing split as zero.
+    const splitAvailable = contributors.every((item) => Number.isFinite(item.new_submissions) && Number.isFinite(item.resubmissions));
+    return splitAvailable
+      ? table('供稿人', [['供稿人'], ['新投稿', 'num'], ['补充次数', 'num'], ['采纳', 'num']], contributors.map((item) => [item.user, num(item.new_submissions), num(item.resubmissions), num(item.published)]))
+      : table('供稿人', [['供稿人'], ['提交次数（含补充）', 'num'], ['采纳', 'num']], contributors.map((item) => [item.user, num(item.submitted), num(item.published)]));
+  }
+
+  function queueSummary(snapshot, readOnly) {
+    const wrap = el('div', 'admin-dm-queue');
+    wrap.append(el('span', 'admin-meta', '当前队列'));
+    [['待处理', 'pending'], ['处理中', 'processing'], ['待补充', 'needs_info']].forEach(([label, key]) => {
+      const item = el('span', 'admin-dm-queue-item');
+      item.append(el('span', '', label), el('b', '', snapshot ? num(snapshot[key] || 0) : '—'));
+      wrap.append(item);
+    });
+    if (readOnly) return wrap;
+    const links = el('div', 'admin-dm-queue-links');
+    [['处理投稿', 'deck-submissions'], ['查看完整日报', 'daily-reports']].forEach(([label, tab]) => {
+      const link = el('button', '', label); link.type = 'button'; link.dataset.adminTab = tab; links.append(link);
+    });
+    wrap.append(links);
+    return wrap;
   }
 
   function comparison(deltas, previousDate) {
@@ -178,16 +202,17 @@
     return wrap;
   }
 
-  function render({ summary, coverage, top, contributors, snapshot, deltas, previousDate, compact = false }) {
+  function render({ summary, coverage, top, contributors, snapshot, deltas, previousDate, compact = false, readOnly = false }) {
     const wrap = el('div', `admin-deck-metrics${compact ? ' is-compact' : ''}`);
     const note = coverageText(coverage);
     if (note) wrap.append(el('p', 'admin-deck-metrics-note', note));
-    wrap.append(kpis(summary, snapshot), panels(summary));
+    wrap.append(kpis(summary, snapshot, compact), compact ? queueSummary(snapshot, readOnly) : panels(summary));
     if (deltas && previousDate) wrap.append(comparison(deltas, previousDate));
     const ranks = el('div', 'admin-dm-ranks');
     if (top?.length) ranks.append(topTable(top, compact));
     if (!compact && contributors?.length) ranks.append(contributorTable(contributors));
-    if (!ranks.children.length) ranks.append(el('p', 'admin-dm-empty', '这一时段还没有卡组被复制'));
+    if (!ranks.children.length) ranks.append(el('p', 'admin-dm-empty', !coverage || coverage.status === 'not_collected'
+      ? '这一时段未采集卡组排行' : readOnly ? '这一时段暂无可展示的公开卡组排行' : '这一时段还没有卡组被复制'));
     wrap.append(ranks);
     return wrap;
   }

@@ -88,7 +88,8 @@ def admin_list_api():
     if error:
         return error
     return jsonify(admin_list(admin, request.args.get('status', 'pending'), request.args.get('q', ''),
-                              parse_positive_int(request.args.get('page'), 1), parse_positive_int(request.args.get('page_size'), 20)))
+                              parse_positive_int(request.args.get('page'), 1), parse_positive_int(request.args.get('page_size'), 20),
+                              focus_id=parse_positive_int(request.args.get('focus_id'), 0)))
 
 
 @deck_submissions_bp.get('/api/admin/deck-submissions/<int:submission_id>')

@@ -8,6 +8,7 @@ from test_admin import login_admin
 from test_auth import register_user
 from test_lineup_permissions import auth_headers
 from test_live_comps import sample_live_comps_payload, write_live_comps_seed
+from test_orange_decks import users  # noqa: F401 (fixture)
 
 PREFIX = '/api/admin/assistant'
 PASSWORD = 'AssistantPass1234'
@@ -165,6 +166,52 @@ def test_responses_exclude_private_data(client, app, monkeypatch):
         assert response.status_code == 200
         assert 'private-' not in response.get_data(as_text=True)
         assert response.headers['Cache-Control'] == 'private, no-store'
+
+
+def test_deck_reports_keep_collection_gaps_and_exclude_private_decks(users, app, monkeypatch):
+    from test_orange_decks import create, moderate
+    owner, _, admin, _ = users
+    public = create(owner, name='公开卡组').json
+    hidden = create(owner, name='私有卡组标题').json
+    assert moderate(admin, hidden, 'hide', reason='管理员已隐藏').status_code == 200
+    create_account(admin, auth_headers(admin))
+    bot, _ = login_bot(app)
+    secret = {'email': 'private-email', 'ip_address': 'private-ip', 'review_note': 'private-note'}
+    payload = {
+        'report_date': '2026-11-14', 'previous_date': '2026-11-13',
+        'summary': {'deck_submissions_new': 2, 'deck_copy_actions': None, 'deck_effective_copies': 4,
+                    'deck_future_private': 999, **secret},
+        'deck_coverage': {'status': 'partial', 'from': '2026-11-14 12:00:00', **secret},
+        'deck_top': [{'deck_id': deck['id'], 'title': deck['name'], 'copiers': 2, **secret} for deck in (public, hidden)],
+        'deck_contributors': [{'user': '公开署名', 'new_submissions': 2, 'resubmissions': 1, 'published': 1, **secret}],
+        'deck_snapshot': {'public_decks': 1, 'pending': 2, **secret},
+        'deltas': {'deck_effective_copies': 1, 'deck_copy_actions': None, 'deck_future_private': 999},
+    }
+    monkeypatch.setattr('automation.get_daily_report', lambda *args: payload)
+    response = bot.get(PREFIX + '/daily-reports/2026-11-14')
+    assert response.status_code == 200
+    deck = response.json['deck']
+    assert deck['summary']['deck_copy_actions'] is None
+    assert deck['summary']['deck_submissions_new'] == 2
+    assert deck['coverage']['status'] == 'partial'
+    assert deck['deltas'] == {'deck_effective_copies': 1, 'deck_copy_actions': None}
+    assert [row['deck_id'] for row in deck['top']] == [public['id']]
+    assert deck['contributors'][0]['resubmissions'] == 1
+    assert deck['snapshot']['public_decks'] == 1
+    assert 'private-' not in response.get_data(as_text=True)
+    assert 'deck_future_private' not in response.get_data(as_text=True)
+    assert '私有卡组标题' not in response.get_data(as_text=True)
+    monkeypatch.setattr('automation.build_admin_overview_payload', lambda *args: {
+        'stats': {}, 'deck': {**payload['summary'], 'coverage': payload['deck_coverage'],
+                             'top_decks': payload['deck_top'], 'snapshot': payload['deck_snapshot']}})
+    today = bot.get(PREFIX + '/overview').json['deck']
+    assert today['summary']['deck_copy_actions'] is None
+    assert today['top'][0]['deck_id'] == public['id'] and len(today['top']) == 1
+    monkeypatch.setattr('automation.get_daily_report', lambda *args: {'summary': {'total_copies': 3}})
+    old = bot.get(PREFIX + '/daily-reports/2026-11-13').json['deck']
+    assert old['summary'] == {} and old['coverage'] is None and old['snapshot'] is None
+    assert bot.get('/api/admin/deck-submissions').status_code == 403
+    assert bot.post('/api/admin/daily-reports/2026-11-14/generate', headers=auth_headers(bot)).status_code == 403
 
 
 def test_invalid_creation_and_read_rate_limit(client, app):
