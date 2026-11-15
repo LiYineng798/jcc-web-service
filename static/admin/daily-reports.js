@@ -213,7 +213,8 @@
       const panel = workbenchPanel('卡组库', '投稿、处理、发布、复制与访问；复制动作、有效复制与人数分别统计');
       const body = panel.querySelector('.admin-workspace-body');
       body.append(global.JccAdminDeckMetrics.render({ summary: report.summary, coverage: report.deck_coverage,
-        top: report.deck_top, contributors: report.deck_contributors, snapshot: report.deck_snapshot }));
+        top: report.deck_top, contributors: report.deck_contributors, snapshot: report.deck_snapshot,
+        deltas: report.deltas, previousDate: report.previous_date }));
       return panel;
     }
 

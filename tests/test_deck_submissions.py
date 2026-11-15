@@ -338,3 +338,72 @@ def test_concurrent_submissions_and_first_draft_saves_create_one_row(people, app
     with app.app_context():
         assert get_db().execute("SELECT COUNT(*) FROM orange_decks WHERE origin_type = 'submission'").fetchone()[0] == 1
         assert get_db().execute('SELECT COUNT(*) FROM orange_deck_submissions').fetchone()[0] == 1
+
+
+@pytest.mark.parametrize('return_action', ['request_info', 'release'])
+def test_corrected_codes_sync_existing_draft_and_keep_reviewers_work(people, app, return_action):
+    alice, bob, admin, _ = people
+    sub = claim(admin, submit(alice).json)
+    base = f"/api/admin/deck-submissions/{sub['id']}"
+    saved = admin.put(base + '/draft', json={'version': sub['version'], **editor_fields(note='管理员完善说明')},
+                      headers=auth_headers(admin)).json
+    previous_draft = saved['deck_detail']
+    returned = act(admin, saved, return_action, note='请修正代码').json
+    own_url = f"/api/me/deck-submissions/{sub['id']}"
+    updated = alice.put(own_url, json={'version': returned['version'], 'plan_code': OTHER_CODE,
+                                     'lineup_code': '#REVISED987654321', 'note': '新补充'}, headers=auth_headers(alice))
+    assert updated.status_code == 200
+    claimed = claim(admin, updated.json)
+    draft = claimed['deck_detail']
+    assert draft['id'] == previous_draft['id'] and draft['version'] == previous_draft['version'] + 1
+    assert (draft['plan_code'], draft['lineup_code']) == (OTHER_CODE, '#REVISED987654321')
+    assert draft['cards'] == previous_draft['cards'] and draft['note'] == '管理员完善说明'
+    history = alice.get(own_url).json['events']
+    change = next(event for event in reversed(history) if event['changes'])
+    changes = {item['field']: item for item in change['changes']}
+    assert changes['plan_code']['before'] == CODE and changes['plan_code']['after'] == OTHER_CODE
+    assert bob.get(own_url).status_code == 404
+    # A reviewer holding the old draft cannot overwrite the newly adopted codes.
+    assert admin.post(base + '/publish', json={'version': claimed['version'], 'deck_version': previous_draft['version'],
+                                              **editor_fields()}, headers=auth_headers(admin)).status_code == 409
+    published = admin.post(base + '/publish', json={'version': claimed['version'], 'deck_version': draft['version'],
+                                                   **editor_fields()}, headers=auth_headers(admin))
+    assert published.status_code == 200, published.json
+    public = bob.get(f"/api/orange-decks/{draft['id']}").json
+    assert (public['plan_code'], public['lineup_code']) == (OTHER_CODE, '#REVISED987654321')
+    assert public['can_delete'] is False and public['can_withdraw'] is False
+    assert 'review' not in public and 'published_by' not in public
+    assert published.json['deck_detail']['published_by']
+
+
+def test_code_sync_rolls_back_if_submission_update_fails(people, app, monkeypatch):
+    alice, _, admin, _ = people
+    sub = claim(admin, submit(alice).json)
+    saved = admin.put(f"/api/admin/deck-submissions/{sub['id']}/draft",
+                      json={'version': sub['version'], **editor_fields()}, headers=auth_headers(admin)).json
+    returned = act(admin, saved, 'request_info', note='请修正代码').json
+
+    def fail(*args, **kwargs):
+        raise RuntimeError('history unavailable')
+    monkeypatch.setattr(deck_submission_service, '_transition', fail)
+    with pytest.raises(RuntimeError):
+        alice.put(f"/api/me/deck-submissions/{sub['id']}", json={'version': returned['version'], 'plan_code': OTHER_CODE},
+                  headers=auth_headers(alice))
+    detail = admin.get(f"/api/admin/deck-submissions/{sub['id']}").json
+    assert detail['version'] == returned['version'] and detail['plan_code'] == CODE
+    assert detail['deck_detail']['plan_code'] == CODE
+    assert detail['deck_detail']['version'] == saved['deck_detail']['version']
+
+
+def test_publication_of_different_draft_codes_requires_explicit_confirmation(people):
+    alice, _, admin, _ = people
+    sub = claim(admin, submit(alice).json)
+    base = f"/api/admin/deck-submissions/{sub['id']}"
+    saved = admin.put(base + '/draft', json={'version': sub['version'], **editor_fields(plan_code=OTHER_CODE)},
+                      headers=auth_headers(admin)).json
+    body = {'version': saved['version'], 'deck_version': saved['deck_detail']['version'], **editor_fields()}
+    refused = admin.post(base + '/publish', json=body, headers=auth_headers(admin))
+    assert refused.status_code == 409 and '确认' in refused.json['error']
+    assert admin.get(base).json['status'] == 'processing'
+    accepted = admin.post(base + '/publish', json={**body, 'confirm_code_changes': True}, headers=auth_headers(admin))
+    assert accepted.status_code == 200 and accepted.json['deck_detail']['plan_code'] == OTHER_CODE

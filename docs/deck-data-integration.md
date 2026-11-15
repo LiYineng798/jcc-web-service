@@ -1,47 +1,37 @@
 # 卡组投稿数据层接入
 
-DB migrations `0029_orange_deck_submissions` / `0030_orange_deck_analytics` 已有对应 SQLite 镜像。
-完整字段定义在 DB 仓库 migrations；业务语义见
+DB migrations `0029_orange_deck_submissions` / `0030_orange_deck_analytics` 已接入 Web，
+并有对应 SQLite 镜像。字段定义以 DB migrations 为准，业务语义见
 [DB 数据契约](https://github.com/LiYineng798/jcc-db-service/blob/codex/deck-submissions-data/docs/deck-submission-data.md)。
-不要重新创建同名表或修改已应用迁移；新增需要另加编号，并同步两种数据库。
+不要重新创建同名表或修改已应用迁移；结构调整需新增编号并同步两种数据库。
 
-## 已实现
+## 实现入口
 
-- 投稿、处理历史、管理员完善卡组与供稿署名关联所需结构。
-- 卡组操作、双代码复制、每日去重访问所需字段/事件表。
-- 统一通知关联投稿的存储能力。
-- `orange_deck_data_schema.py` 新库 schema / 旧库原子升级；通知表升级保留关联、已读状态、自增序列。
-- `db.py` 在 SQLite bootstrap 写入前调用升级；PostgreSQL 只检查新表/列，不执行 DDL。
+- `deck_submission_service.py` / `deck_submissions.py`：双码投稿、私有进度、管理员认领/转派/补充/发布。
+  提交者仅可修改待处理/待补充投稿；保存与发布使用投稿版本和草稿版本检查。
+- `orange_deck_service.py`：供稿署名与权限分离、当前资料校验、近期互动衰减排行与冷启动补位。
+  所有者仍为 `user_id`；投稿卡组公开供稿人取 `provided_by_user_id`，`published_by_user_id` 保留首次发布管理员。
+- `insert_deck` / `apply_deck_update` 不提交事务；发布一次性写入卡组、投稿、版本事件、通知和审计。
+  补交代码同步到已有关联草稿并推进草稿版本，保留管理员完善的卡片、站位和说明。
+  发布代码与当前投稿不同时需显式确认，防止旧草稿无提示覆盖补交内容。
+- `orange_deck_submission_events.payload_json` 保存必要快照；投稿人及管理员可在各自私有详情查看历史内容。
+  API 只返回允许展示的字段，不把任意事件载荷透传给浏览器。
+- 统一通知支持 `deck_submission` 分类、版本化已读与私有详情跳转；自身保存不新增通知。
+- `deck_analytics_service.py` / `copy_action_service.py`：活动、双码复制、每日去重访问。
+  首个事件同事务写入 `deck_analytics_started_at`，不补造旧行为数据。
+- `deck_report_service.py` / `daily_report_service.py`：概览及日报 payload v2 的 `deck_*` 指标。
+  动作数、五分钟有效复制、独立人数分别统计；缺失历史显示“未采集”。
+  部分时段采集的行为指标不与全天直接计算差值，投稿和已有有效复制记录不受此限制。
+- 后台卡组库展示首次发布人、复核版本和时间，并提供当前资料复核入口。
+  内容修改会清除当前复核标记，资料版本变化显示待重新复核；历史复核事件保留。
 
-原卡组行为、页面、推荐和报表仍保持现状。这些结构尚无业务写入，不代表功能已上线。
+页面和规则见 [卡组库](orange-decks.md)，统计口径见 [日报](daily-report.md)。
 
-## 后续 Web 工作
+## 迁移与验证边界
 
-1. 用户双码投稿、自己的投稿列表/私有详情；管理员认领/转派/补充/发布接口与队列。
-   身份、CSRF、码校验、版本冲突、处理权限和事务放在服务端，不能仅靠表约束。
-2. 公开署名与编辑权限分离。所有者仍为 user_id；公开供稿人优先 provided_by_user_id。
-   旧卡组按直接发布兼容。后台跨用户编辑仅限有来源投稿的管理卡组。
-3. 同一事务保存投稿版本事件、卡组、通知和审计。当前 orange_deck_service 的部分方法自行 commit，
-   需先拆出可组合写入方法。不要让同一次投稿创建多个草稿。
-4. 通知收件箱 SQL/序列化/前端类型/私有跳转适配 deck_submission 后，再启用该 kind 的写入。
-5. 统一动作采集与有效计数，启用时记录 deck_analytics_started_at；旧历史未知值显示“未采集”。
-6. 热门卡组使用近期真实信号、衰减及冷启动补位；后台概览/日报/个人贡献接入新数据。
-   任何 target_type 分支显式识别 orange_deck，不把非 lineup 一律当实时榜单。
-7. 页面保持简洁、高级，适量动效；本次未调整 UI，不限制后续设计发挥。
+`orange_deck_data_schema.py` 负责 SQLite 新库 schema 和旧库原子升级；通知表升级保留关联、
+已读状态和自增序列。`db.py` 在 SQLite bootstrap 写入前调用升级，PostgreSQL 只检查所需表/列。
 
-`published_by_user_id` 记录首次发布人；终态投稿的 `resolved_at` 非空。
-accepted 后即使卡组隐藏/软删除，也保留投稿的 published 历史结果。
-当前基础通知服务尚不认识新 kind；不要手工插入真实投稿通知来当作界面已接入的验收。
-
-## 验证边界
-
-数据库与 SQLite 迁移验证不等于 PostgreSQL 生产验收。部署时先应用 DB 迁移，再部署 Web。
-新投稿/API/推荐/采集实现后仍需相应聚焦测试；避免重复全量浏览器测试。
-Web 测试会初始化默认 instance，应在干净副本验证，不能在带真实数据的工作区试升级。
-
-## 当前实现（Web）
-
-上述后续工作已接入：投稿/处理接口与页面、署名与权限分离、可组合写入（`insert_deck`、`apply_deck_update`）、
-`deck_submission` 通知、活动/复制/访问采集（首个事件同事务写 `deck_analytics_started_at`）、热门算法、
-后台概览/日报（`deck_report_service.py`，payload v2 的 `deck_*` 字段）和个人中心计数。
-未新增迁移。没有 PostgreSQL 实例时，以上只经过 SQLite 测试；生产仍须先应用 DB `0029/0030` 再部署 Web。
+部署时先应用 DB `0029/0030`，再部署 Web，不能让生产启动代替迁移。
+SQLite、路由和浏览器测试不等于真实 PostgreSQL 验收；生产部署/恢复需在隔离 PostgreSQL 验证。
+Web 测试导入时会初始化默认 instance，应使用不含真实运行数据的干净副本。

@@ -2122,3 +2122,10 @@ a.admin-deck-author:hover { color:var(--accent-strong, var(--accent)); text-deco
   .admin-dm-cards { grid-template-columns:minmax(0, 1fr); }
 }
 .admin-page .admin-sub-workspace .admin-deck-search input { padding-left:12px; }
+.admin-sub-changes { margin-top:8px; min-width:0; }
+.admin-sub-changes summary, .admin-dm-comparison summary { cursor:pointer; color:var(--muted); font-size:12px; }
+.admin-sub-changes > div { display:grid; gap:4px; padding-top:10px; }
+.admin-sub-changes pre { margin:0; max-height:180px; overflow:auto; white-space:pre-wrap; overflow-wrap:anywhere; font-size:12px; }
+.admin-deck-publisher { display:block; margin-top:4px; }
+.admin-dm-comparison { padding:12px 16px; border-top:1px solid var(--admin-border); }
+.admin-dm-comparison .admin-dm-facts { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:0 20px; margin-top:10px; }

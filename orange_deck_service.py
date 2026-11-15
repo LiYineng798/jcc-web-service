@@ -49,9 +49,11 @@ OWNER_COLUMNS = ('u.username AS owner_username, u.nickname AS owner_nickname, u.
                  'u.avatar_expression AS owner_avatar_expression, '
                  'p.username AS provider_username, p.nickname AS provider_nickname, p.role AS provider_role, '
                  'p.avatar_color AS provider_avatar_color, p.avatar_preset AS provider_avatar_preset, '
-                 'p.avatar_expression AS provider_avatar_expression')
+                 'p.avatar_expression AS provider_avatar_expression, '
+                 'pub.nickname AS publisher_nickname, pub.username AS publisher_username')
 # Public credit: the submitter for managed submissions, otherwise the owner. Never used for permissions.
-DECK_USERS = 'JOIN users u ON u.id = d.user_id LEFT JOIN users p ON p.id = d.provided_by_user_id'
+DECK_USERS = ('JOIN users u ON u.id = d.user_id LEFT JOIN users p ON p.id = d.provided_by_user_id '
+              'LEFT JOIN users pub ON pub.id = d.published_by_user_id')
 SUBMISSION_LOCKED = '这是投稿卡组，请在后台「卡组投稿」中处理'
 
 
@@ -468,14 +470,21 @@ def serialize(row, user, detail=False, share_base=None):
                    'issues': issues,
                    'missing_cards': sum(1 for card in cards if card and card['status'] == 'missing')},
         'can_edit': editable, 'can_delete': editable and not is_managed(row),
+        'can_withdraw': editable and not is_managed(row) and row['status'] == 'published',
         'can_fork': can_derive(row, user), 'can_export': can_derive(row, user),
         'can_share': row['status'] == 'published',
         'can_moderate': admin,
     }
     if owner or admin:
         data['hidden_reason'] = row['hidden_reason']
-    if admin and is_managed(row):
+    if admin:
         data['reviewed_card_version'] = row_value(row, 'reviewed_card_version')
+        eligible = row['status'] == 'published' and rank_eligible_row(row)
+        reviewed = bool(row_value(row, 'reviewed_at')) and row_value(row, 'reviewed_card_version') == current_version
+        data['review'] = {'version': version_label(row_value(row, 'reviewed_card_version')),
+                          'at': row_value(row, 'reviewed_at'), 'current': reviewed and eligible,
+                          'can_review': eligible and not reviewed}
+        data['published_by'] = (row_value(row, 'publisher_nickname') or row_value(row, 'publisher_username')) if row_value(row, 'published_by_user_id') else None
     if detail:
         data['key_rounds'] = row['key_rounds']
         data['alternatives'] = row['alternatives']
@@ -795,6 +804,9 @@ def apply_deck_update(db, row, actor, data, status, extra=None):
     """
     fields = _fields(data, status, existing=row)
     now = now_text()
+    # A review applies to the content that was checked, not subsequent edits. Keep no-op saves neutral.
+    if any(value != row[key] for key, value in fields.items()):
+        fields.update(reviewed_card_version=None, reviewed_at=None)
     fields.update(status=status, updated_at=now, version=row['version'] + 1, **(extra or {}))
     first_publish = status == 'published' and not row['published_at']
     if first_publish:
@@ -1073,6 +1085,8 @@ def admin_moderate(admin, deck_id, action, data):
         # Confirms the deck against the current card data without rewriting its saved snapshot.
         if row['status'] != 'published' or not rank_eligible_row(row):
             raise DeckError('只有符合当前卡片规则的公开卡组可以标记为已复核', 409)
+        if row['reviewed_card_version'] == card_version() and row['reviewed_at']:
+            return serialize(deck_row(deck_id, admin), admin)
         changes = {'reviewed_card_version': card_version(), 'reviewed_at': now}
     else:
         raise DeckError('操作无效', 404)

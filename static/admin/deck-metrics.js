@@ -109,6 +109,7 @@
         facts([['有效复制', value(summary, 'deck_effective_copies'), '同一人 5 分钟内只计一次，两种代码共用']])),
       card('卡组与互动', facts([
         ['首次发布', value(summary, 'deck_published')],
+        ['资料复核', value(summary, 'deck_reviewed')],
         ['恢复 / 隐藏 / 删除', `${value(summary, 'deck_restored')} / ${value(summary, 'deck_hidden')} / ${value(summary, 'deck_deleted')}`],
         ['点赞', value(summary, 'deck_likes')],
         ['收藏新增 / 取消', `${value(summary, 'deck_favorite_adds')} / ${value(summary, 'deck_favorite_removes')}`],
@@ -165,11 +166,24 @@
     return table('供稿人', [['供稿人'], ['投稿', 'num'], ['采纳', 'num']], contributors.map((item) => [item.user, num(item.submitted), num(item.published)]));
   }
 
-  function render({ summary, coverage, top, contributors, snapshot, compact = false }) {
+  function comparison(deltas, previousDate) {
+    const wrap = el('details', 'admin-dm-comparison');
+    wrap.append(el('summary', '', `与 ${previousDate} 相比`));
+    const labels = { deck_submissions_new: '新投稿', deck_submitters: '投稿人', deck_submissions_published: '采纳',
+      deck_published: '首次发布', deck_copy_actions: '复制动作', deck_effective_copies: '有效复制', deck_copiers: '复制人数',
+      deck_likes: '点赞', deck_favorite_adds: '收藏新增', deck_library_visitors: '卡组库访客', deck_detail_visitors: '详情访客' };
+    wrap.append(facts(Object.entries(labels).map(([key, label]) => [label,
+      typeof deltas[key] === 'number' ? `${deltas[key] > 0 ? '+' : ''}${num(deltas[key])}` : '—'])));
+    wrap.append(el('p', 'admin-meta', '— 表示无可比数据；部分时段采集的行为指标不计算差值。'));
+    return wrap;
+  }
+
+  function render({ summary, coverage, top, contributors, snapshot, deltas, previousDate, compact = false }) {
     const wrap = el('div', `admin-deck-metrics${compact ? ' is-compact' : ''}`);
     const note = coverageText(coverage);
     if (note) wrap.append(el('p', 'admin-deck-metrics-note', note));
     wrap.append(kpis(summary, snapshot), panels(summary));
+    if (deltas && previousDate) wrap.append(comparison(deltas, previousDate));
     const ranks = el('div', 'admin-dm-ranks');
     if (top?.length) ranks.append(topTable(top, compact));
     if (!compact && contributors?.length) ranks.append(contributorTable(contributors));

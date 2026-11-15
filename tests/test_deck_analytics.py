@@ -9,7 +9,7 @@ from daily_report_service import build_daily_report_payload, ensure_daily_report
 from db import get_db
 from test_deck_codes_permissions import CODE
 from test_lineup_permissions import auth_headers
-from test_orange_decks import LEGENDS, create, moderate, users  # noqa: F401  (fixture)
+from test_orange_decks import LEGENDS, create, deck_body, moderate, users  # noqa: F401  (fixture)
 
 LINEUP = '#ABC123456789'
 
@@ -216,3 +216,43 @@ def test_legacy_interaction_notifications_still_serialize(users, app):
     assert inbox['items'][0]['kind'] == 'favorite' and inbox['items'][0]['category'] == 'interaction'
     assert inbox['items'][0]['url'] == f'/lineup/{lineup_id}' and inbox['items'][0]['deck_submission_id'] is None
     assert owner.get('/api/me/notifications?category=submission').json['total'] == 0
+
+
+def test_reviews_expire_after_content_or_catalog_changes_and_do_not_double_count(users, app, monkeypatch):
+    owner, _, admin, guest = users
+    deck = create(owner).json
+    reviewed = moderate(admin, deck, 'review').json
+    assert reviewed['review']['current'] and not reviewed['review']['can_review']
+    assert reviewed['review']['at']
+    repeated = moderate(admin, reviewed, 'review').json
+    assert repeated['version'] == reviewed['version']
+    with app.app_context():
+        assert get_db().execute("SELECT COUNT(*) FROM orange_deck_activity_events WHERE action = 'reviewed'").fetchone()[0] == 1
+    assert 'review' not in guest.get(f"/api/orange-decks/{deck['id']}").json
+    with monkeypatch.context() as patch:
+        patch.setattr(orange_deck_service, 'card_version', lambda: 'new-catalog@2026-12-01')
+        changed = admin.get(f"/api/orange-decks/{deck['id']}").json
+        assert not changed['review']['current'] and changed['review']['can_review']
+    edited = owner.put(f"/api/orange-decks/{deck['id']}", json={**deck_body(action='save', name='修订内容'), 'version': reviewed['version']},
+                       headers=auth_headers(owner))
+    assert edited.status_code == 200
+    current = admin.get(f"/api/orange-decks/{deck['id']}").json
+    assert current['review']['at'] is None and current['review']['can_review']
+
+
+def test_deck_report_deltas_only_compare_fully_collected_behavior(users, app):
+    from deck_report_service import COLLECTED_KEYS
+    from daily_report_service import DECK_DELTA_KEYS
+    import json
+    with app.app_context():
+        db = get_db()
+        db.execute("INSERT INTO app_settings (setting_key, setting_value, updated_at) VALUES ('deck_analytics_started_at', '2026-01-01 12:00:00', '2026-01-01 12:00:00')")
+        baseline = {'summary': {key: 0 for key in DECK_DELTA_KEYS}, 'deck_coverage': {'status': 'partial'}}
+        db.execute('''INSERT INTO daily_admin_reports (report_date, unique_visitors, page_visits, successful_copies, payload_json, generated_at, updated_at)
+                      VALUES ('2026-01-01', 0, 0, 0, ?, '2026-01-02 00:00:00', '2026-01-02 00:00:00')''', (json.dumps(baseline),))
+        report = build_daily_report_payload(db, '2026-01-02')
+        assert report['deltas']['deck_effective_copies'] == 0 and report['deltas']['deck_submissions_new'] == 0
+        assert all(report['deltas'][key] is None for key in DECK_DELTA_KEYS if key in COLLECTED_KEYS)
+        baseline['deck_coverage']['status'] = 'full'
+        db.execute('UPDATE daily_admin_reports SET payload_json = ?', (json.dumps(baseline),))
+        assert build_daily_report_payload(db, '2026-01-02')['deltas']['deck_copy_actions'] == 0

@@ -444,13 +444,13 @@ def test_dashboard_reports_deck_figures_separately(users):
 
 def test_publish_page_offers_lineups_and_decks(users):
     owner, other, admin, guest = users
-    # Lineup codes come first and are the default; the two-code submission and the full deck editor have explicit links.
+    # Simplified submissions come first; explicit links still open ordinary and full editors.
     html = owner.get('/lineup/new').get_data(as_text=True)
     assert 'id="deckSubmitForm"' in html and 'id="editorForm"' in html and 'id="deckForm"' in html
-    assert html.index('id="publishTabLineup"') < html.index('id="publishTabSubmit"')
+    assert html.index('id="publishTabSubmit"') < html.index('id="publishTabLineup"')
     assert html.count('id="submitButton"') == 1 and 'id="deckSubmitButton"' in html
-    assert 'id="publishLineup" role="tabpanel" aria-labelledby="publishTabLineup">' in html
-    assert 'id="publishSubmit" role="tabpanel" aria-labelledby="publishTabSubmit" hidden' in html
+    assert 'id="publishLineup" role="tabpanel" aria-labelledby="publishTabLineup" hidden' in html
+    assert 'id="publishSubmit" role="tabpanel" aria-labelledby="publishTabSubmit">' in html
     assert 'id="publishDeck" aria-label="完整编辑卡组" hidden' in html
     assert owner.get('/lineup/new?type=lineup').get_data(as_text=True).count('aria-labelledby="publishTabLineup">') == 1
     submit_tab = owner.get('/lineup/new?type=submit').get_data(as_text=True)

@@ -141,15 +141,21 @@ def _events(db, submission_id, admin_view):
     rows = db.execute('''SELECT e.*, u.nickname AS actor_nickname, u.role AS actor_role
         FROM orange_deck_submission_events e LEFT JOIN users u ON u.id = e.actor_user_id
         WHERE e.submission_id = ? ORDER BY e.submission_version, e.id''', (submission_id,)).fetchall()
-    events = []
+    events, previous = [], {}
+    labels = {'name': '标题', 'plan_code': '方案码', 'lineup_code': '阵容码', 'note': '备注'}
     for row in rows:
         by_admin = row['action'] not in ('submit', 'update', 'resubmit', 'withdraw')
         event = {'action': row['action'], 'label': ACTION_LABELS[row['action']], 'from_status': row['from_status'],
                  'to_status': row['to_status'], 'version': row['submission_version'], 'note': row['note'],
                  'created_at': row['created_at'], 'actor': ('管理员' if by_admin else '我')}
+        payload = json.loads(row['payload_json'] or '{}')
+        event['changes'] = [
+            {'field': key, 'label': label, 'before': previous.get(key), 'after': payload[key]}
+            for key, label in labels.items() if isinstance(payload.get(key), str)
+        ]
+        previous.update({change['field']: change['after'] for change in event['changes']})
         if admin_view:
             event['actor'] = row['actor_nickname'] or '已删除账号'
-            payload = json.loads(row['payload_json'] or '{}')
             event['payload'] = {key: payload[key] for key in ('deck_id', 'deck_version', 'assigned_admin_id', 'duplicate_of_deck_id', 'changed') if key in payload}
         events.append(event)
     return events
@@ -341,9 +347,24 @@ def update_by_submitter(user, submission_id, data):
 
     def work(db):
         _active_duplicate(db, user['id'], row['season_id'], code_fingerprint, exclude=row['id'])
+        # Keep the reviewer's cards, formation and prose, but adopt codes the submitter corrected.
+        # Match the draft-then-submission lock order used by save/publish; either both versions advance or neither does.
+        synced = {}
+        code_changes = {key: fields[key] for key in ('plan_code', 'lineup_code') if key in changed}
+        if row['deck_id'] and code_changes:
+            draft = db.execute('SELECT status, version FROM orange_decks WHERE id = ?', (row['deck_id'],)).fetchone()
+            if draft is None or draft['status'] != 'draft':
+                raise SubmissionError('完善草稿状态已变化，请刷新后再修改', 409)
+            cursor = db.execute(
+                f"UPDATE orange_decks SET {', '.join(f'{key} = ?' for key in code_changes)}, "
+                "updated_at = ?, version = version + 1 WHERE id = ? AND version = ? AND status = 'draft'",
+                [*code_changes.values(), now_text(), row['deck_id'], draft['version']])
+            if not cursor.rowcount:
+                raise SubmissionError('完善草稿已更新，请刷新后再修改', 409)
+            synced = {'deck_id': row['deck_id'], 'deck_version': draft['version'] + 1}
         _transition(db, row, user, 'resubmit' if resubmit else 'update', 'pending',
                     changes={**fields, 'code_fingerprint': code_fingerprint},
-                    payload={'changed': changed, **{key: fields[key] for key in changed}})
+                    payload={'changed': changed, **{key: fields[key] for key in changed}, **synced})
     try:
         _run(work)
     except INTEGRITY_ERRORS:
@@ -403,8 +424,8 @@ def _possible_duplicates(db, row):
         ORDER BY s.created_at, s.id LIMIT 10""", (row['season_id'], row['code_fingerprint'], row['id'])).fetchall()
     encoded = row['plan_code'].rpartition('-大橘大利-')[2]
     decks = db.execute("""SELECT id, name, status FROM orange_decks WHERE season_id = ? AND status IN ('published', 'hidden')
-        AND (lineup_code = ? OR plan_code LIKE ?) AND (? IS NULL OR id <> ?) ORDER BY published_at DESC, id DESC LIMIT 10""",
-        (row['season_id'], row['lineup_code'], '%-大橘大利-' + encoded, row['deck_id'], row['deck_id'] or 0)).fetchall()
+        AND (lineup_code = ? OR plan_code LIKE ?) AND id <> ? ORDER BY published_at DESC, id DESC LIMIT 10""",
+        (row['season_id'], row['lineup_code'], '%-大橘大利-' + encoded, row['deck_id'] or 0)).fetchall()
     return {
         'submissions': [{'id': o['id'], 'title': o['name'] or f"卡组投稿 #{o['id']}", 'status': o['status'],
                          'status_label': STATUS_LABELS[o['status']], 'submitter': o['submitter_nickname'],
@@ -510,6 +531,11 @@ def _write_deck(db, row, admin, data, publish):
     # A first save starts from what the submitter sent; the editor normally sends every field.
     fields_in = {'name': row['name'], 'note': row['note'], 'plan_code': row['plan_code'], 'lineup_code': row['lineup_code'],
                  **_deck_payload(data)} if row['deck_id'] is None else _deck_payload(data)
+    deck = deck_row(row['deck_id'], admin) if row['deck_id'] else None
+    if publish and data.get('confirm_code_changes') is not True:
+        source = deck if deck is not None else row
+        if any(fields_in.get(key, source[key]) != row[key] for key in ('plan_code', 'lineup_code')):
+            raise SubmissionError('完善稿代码与最新投稿不同，请核对后明确确认再发布', 409)
     now = now_text()
     if row['deck_id'] is None:
         status = 'published' if publish else 'draft'
@@ -523,7 +549,6 @@ def _write_deck(db, row, admin, data, publish):
         if publish:
             record_activity(db, deck_id, 'published', admin['id'])
         return deck_id, 1
-    deck = deck_row(row['deck_id'], admin)
     if deck is None or deck['status'] != 'draft':
         raise SubmissionError('完善草稿状态异常，请刷新后再操作', 409)
     if data.get('deck_version') != deck['version']:

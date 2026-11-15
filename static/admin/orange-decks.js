@@ -60,7 +60,7 @@
       }
       actingId = null;
       hidingId = null; reasonDraft = '';
-      notify({ feature: '已设为推荐', unfeature: '已取消推荐', hide: '卡组已隐藏，详情、搜索和分享入口同步关闭', restore: '卡组已恢复公开' }[action]);
+      notify({ feature: '已设为推荐', unfeature: '已取消推荐', hide: '卡组已隐藏，详情、搜索和分享入口同步关闭', restore: '卡组已恢复公开', review: '已按当前资料标记复核' }[action]);
       // A refresh failure must not misreport a successful write.
       await load();
     }
@@ -90,6 +90,8 @@
       if (deck.compat.missing_cards) add(`含 ${deck.compat.missing_cards} 张失效卡片`, 'is-warning', deck.compat.issues.join(' ') || '');
       else if (deck.compat.issues.length) add(`资料已变化：${deck.compat.issues.join(' ')}`, 'is-warning');
       if (deck.note) add(deck.note, 'is-quiet');
+      if (deck.review) add(deck.review.current ? `已复核 · ${deck.review.version} · ${shortTime(deck.review.at)}`
+        : deck.review.at ? `待重新复核 · 上次 ${deck.review.version}` : '尚未复核当前内容', 'is-quiet');
       return lines;
     }
 
@@ -129,6 +131,10 @@
       const time = el('time', 'admin-deck-time', shortTime(deck.published_at || deck.updated_at));
       time.dateTime = String(deck.published_at || deck.updated_at || '').replace(' ', 'T');
       time.title = [deck.published_at && `发布于 ${deck.published_at}`, `更新于 ${deck.updated_at}`].filter(Boolean).join('\n');
+      if (deck.published_by) time.title += `\n首次发布人：${deck.published_by}`;
+      const timeCell = el('span');
+      timeCell.append(time);
+      if (deck.published_by) timeCell.append(el('span', 'admin-meta admin-deck-publisher', `发布人：${deck.published_by}`));
 
       const busy = actingId !== null;
       const actions = [];
@@ -141,6 +147,7 @@
         hide.setAttribute('aria-expanded', String(hidingId === deck.id));
         hide.setAttribute('aria-controls', `admin-deck-hide-${deck.id}`);
         actions.push(feature, hide);
+        if (deck.review?.can_review) actions.push(button('标记已复核', () => act(deck, 'review'), 'small-button admin-deck-action', busy));
       } else {
         actions.push(button('恢复公开', () => act(deck, 'restore'), 'small-button admin-deck-action', busy));
       }
@@ -149,7 +156,7 @@
         cell(author, 'admin-deck-cell is-author', COLUMNS[1]),
         cell(portal(deck), 'admin-deck-cell is-portal', COLUMNS[2]),
         cell(stats(deck), 'admin-deck-cell is-stats', COLUMNS[3]),
-        cell(time, 'admin-deck-cell is-time', COLUMNS[4]),
+        cell(timeCell, 'admin-deck-cell is-time', COLUMNS[4]),
         cell(actions, 'admin-deck-actions'),
       );
       return tr;

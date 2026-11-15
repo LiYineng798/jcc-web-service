@@ -30,7 +30,7 @@ from db import db_kind, get_db, now_text
 from db_adapter import insert_ignore_sql
 from visits import daily_new_returning_visitors
 from auth_activity import authenticated_active_users
-from deck_report_service import deck_metrics, deck_snapshot
+from deck_report_service import COLLECTED_KEYS, deck_metrics, deck_snapshot
 
 REPORT_DATE_FORMAT = '%Y-%m-%d'
 MAX_TOP_COPIED = 20
@@ -583,7 +583,8 @@ def build_daily_report_payload(db, target_date):
     if previous_row:
         previous_date = previous_row['report_date']
         try:
-            previous_summary = (json.loads(previous_row['payload_json'] or '{}') or {}).get('summary') or {}
+            previous_payload = json.loads(previous_row['payload_json'] or '{}') or {}
+            previous_summary = previous_payload.get('summary') or {}
         except (json.JSONDecodeError, TypeError):
             previous_summary = {}
         if previous_summary:
@@ -593,7 +594,9 @@ def build_daily_report_payload(db, target_date):
             }
             for key in DECK_DELTA_KEYS:
                 current, previous = summary.get(key), previous_summary.get(key)
-                deltas[key] = current - previous if isinstance(current, int) and isinstance(previous, int) else None
+                comparable = key not in COLLECTED_KEYS or (
+                    deck['coverage']['status'] == 'full' and (previous_payload.get('deck_coverage') or {}).get('status') == 'full')
+                deltas[key] = current - previous if comparable and isinstance(current, int) and isinstance(previous, int) else None
 
     return {
         'payload_version': PAYLOAD_VERSION,

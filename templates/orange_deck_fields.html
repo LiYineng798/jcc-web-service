@@ -1,6 +1,13 @@
 {# Deck editor fields, shared by the publish page (/lineup/new?type=deck) and the deck edit page. #}
 <div class="deck-editor" id="deckEditor" data-deck-id="{{ deck_id }}" data-assistant-season="{{ assistant_season|default('') }}" data-submission-id="{{ submission_id|default('') }}" data-deck-root>
       <div class="deck-notice" id="deckEditorNotice" role="status" hidden></div>
+      <details class="deck-notice" id="submissionCodeChanges" hidden>
+        <summary>对照最新投稿代码</summary>
+        <p class="deck-boundary">当前完善稿与投稿不同。可保留核对后的修订，或采用投稿人的最新代码。</p>
+        <p>方案码</p><pre class="deck-code-input" data-plan></pre>
+        <p>阵容码</p><pre class="deck-code-input" data-lineup></pre>
+        <button type="button" class="deck-button is-quiet">使用最新投稿代码</button>
+      </details>
       <noscript><p class="deck-notice">编辑卡组需要启用 JavaScript。</p></noscript>
       <form class="deck-form" id="deckForm" novalidate aria-busy="true">
         <section class="deck-section" aria-labelledby="deckBasicsTitle">

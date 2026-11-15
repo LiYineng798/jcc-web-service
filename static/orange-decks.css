@@ -352,3 +352,5 @@ a.deck-detail-author:hover span:last-child { text-decoration:underline; text-und
  .deck-card .deck-code-actions { padding:8px 10px 10px; }
  .deck-dialog .deck-card-full { --art:106px; gap:18px; }
 }
+/* Submission comparison stays readable for long game codes on narrow screens. */
+#submissionCodeChanges pre { max-height:160px; overflow:auto; white-space:pre-wrap; overflow-wrap:anywhere; }

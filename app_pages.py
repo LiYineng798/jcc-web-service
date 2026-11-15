@@ -301,11 +301,10 @@ def register_page_routes(app):
 
     @app.get('/lineup/new')
     def lineup_create_page():
-        # One publish page: lineup codes by default, ?type=submit for the two-code deck submission,
-        # ?type=deck for the full deck editor (?type=lineup keeps working).
+        # Two-code deck submission by default; explicit links retain ordinary and full editors.
         from deck_submission_service import LIMITS as SUBMISSION_LIMITS
         from orange_deck_service import LIMITS
-        publish_type = request.args.get('type') if request.args.get('type') in ('submit', 'deck') else 'lineup'
+        publish_type = request.args.get('type') if request.args.get('type') in ('lineup', 'deck') else 'submit'
         return tracked_template_response(
             'lineup_form.html',
             'lineup_editor',

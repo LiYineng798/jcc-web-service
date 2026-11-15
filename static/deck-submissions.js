@@ -146,7 +146,12 @@
         <button type="button" class="deck-button is-quiet is-danger" data-action="withdraw">撤回投稿</button>
         <button type="button" class="deck-button${item.status === 'needs_info' ? ' is-primary' : ''}" data-action="edit">${item.status === 'needs_info' ? '补充信息' : '修改投稿'}</button></div>`
       : item.status === 'processing' ? '<p class="sub-lock">管理员正在完善，处理期间不能修改；需要补充时会通知你。</p>' : '';
-    const events = item.events.slice().reverse().map((event) => `<li><div><strong>${esc(event.label)}</strong><time datetime="${esc(event.created_at)}" title="${esc(date(event.created_at))}">${esc(ago(event.created_at))}</time></div>${event.note ? `<p>${esc(event.note)}</p>` : ''}<span class="sub-muted">${esc(event.actor)}</span></li>`).join('');
+    const events = item.events.slice().reverse().map((event) => {
+      const changes = event.changes?.length ? `<details class="sub-history-changes"><summary>${event.action === 'submit' ? '查看提交内容' : '查看修改内容'}</summary>${event.changes.map(change => `<div><strong>${esc(change.label)}</strong>
+        ${event.action !== 'submit' ? `<span class="sub-muted">修改前</span><pre>${esc(change.before ?? '未记录')}</pre>` : ''}
+        <span class="sub-muted">${event.action === 'submit' ? '提交时' : '修改后'}</span><pre>${esc(change.after || '（空）')}</pre></div>`).join('')}</details>` : '';
+      return `<li><div><strong>${esc(event.label)}</strong><time datetime="${esc(event.created_at)}" title="${esc(date(event.created_at))}">${esc(ago(event.created_at))}</time></div>${event.note ? `<p>${esc(event.note)}</p>` : ''}<span class="sub-muted">${esc(event.actor)}</span>${changes}</li>`;
+    }).join('');
     const content = editing ? editor(item) : `<div class="sub-codes">${codeBlock('方案码', item.plan_code)}${codeBlock('阵容码', item.lineup_code)}</div>
         ${item.note ? `<div class="sub-note"><span>你的备注</span><p>${esc(item.note)}</p></div>` : ''}${actions}`;
     body.innerHTML = `${message ? `<p class="sub-flash" role="status">${esc(message)}</p>` : ''}

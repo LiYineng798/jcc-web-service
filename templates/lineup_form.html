@@ -29,13 +29,13 @@
 
       {% if creating %}
       <div class="publish-switch" role="tablist" aria-label="发布类型">
-        <button type="button" role="tab" id="publishTabLineup" aria-controls="publishLineup" data-publish-type="lineup" aria-selected="{{ 'true' if publish_type == 'lineup' else 'false' }}"{% if publish_type != 'lineup' %} tabindex="-1"{% endif %}>
-          <span class="publish-switch-mark" aria-hidden="true">#</span>
-          <span><strong>发布阵容码</strong><small>普通阵容，选择赛季后直接发布</small></span>
-        </button>
         <button type="button" role="tab" id="publishTabSubmit" aria-controls="publishSubmit" data-publish-type="submit" aria-selected="{{ 'true' if publish_type == 'submit' else 'false' }}"{% if publish_type != 'submit' %} tabindex="-1"{% endif %}>
           <span class="publish-switch-mark" aria-hidden="true">◆</span>
           <span><strong>投稿大橘大利卡组</strong><small>只需方案码和阵容码，管理员完善后发布</small></span>
+        </button>
+        <button type="button" role="tab" id="publishTabLineup" aria-controls="publishLineup" data-publish-type="lineup" aria-selected="{{ 'true' if publish_type == 'lineup' else 'false' }}"{% if publish_type != 'lineup' %} tabindex="-1"{% endif %}>
+          <span class="publish-switch-mark" aria-hidden="true">#</span>
+          <span><strong>发布阵容码</strong><small>普通阵容，选择赛季后直接发布</small></span>
         </button>
       </div>
       {% endif %}

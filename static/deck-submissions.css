@@ -136,6 +136,10 @@
 .sub-history strong { font-size:.86rem; }
 .sub-history time { color:var(--muted); font-size:.74rem; }
 .sub-history p { margin:4px 0 2px; font-size:.82rem; line-height:1.6; white-space:pre-wrap; overflow-wrap:anywhere; }
+.sub-history-changes { margin-top:8px; min-width:0; font-size:.8rem; }
+.sub-history-changes summary { cursor:pointer; color:var(--muted); }
+.sub-history-changes > div { display:grid; gap:4px; padding-top:10px; }
+.sub-history-changes pre { margin:0; max-height:180px; overflow:auto; white-space:pre-wrap; overflow-wrap:anywhere; font:inherit; }
 
 @media (max-width:760px) {
   .sub-detail { grid-template-columns:minmax(0, 1fr); }

@@ -236,6 +236,18 @@
         const item = el('li');
         item.append(el('strong', '', event.label), el('span', 'admin-meta', `${event.actor} · ${shortTime(event.created_at)}`));
         if (event.note) item.append(el('p', '', event.note));
+        if (event.changes?.length) {
+          const changes = el('details', 'admin-sub-changes');
+          changes.append(el('summary', '', event.action === 'submit' ? '查看提交内容' : '查看修改内容'));
+          event.changes.forEach(change => {
+            const field = el('div');
+            field.append(el('strong', '', change.label));
+            if (event.action !== 'submit') field.append(el('span', 'admin-meta', '修改前'), el('pre', '', change.before ?? '未记录'));
+            field.append(el('span', 'admin-meta', event.action === 'submit' ? '提交时' : '修改后'), el('pre', '', change.after || '（空）'));
+            changes.append(field);
+          });
+          item.append(changes);
+        }
         history.append(item);
       });
       const historyWrap = el('details', 'admin-sub-history-wrap');
