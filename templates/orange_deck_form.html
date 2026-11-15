@@ -6,6 +6,7 @@
   <head>
 {{ seo_head(seo) }}
     <link rel="stylesheet" href="{{ static_v('fortune-card-frame.css') }}" />
+    <script src="{{ static_v('fortune-card-art.js') }}" defer></script>
     <link rel="stylesheet" href="{{ static_v('orange-decks.css') }}" />
     <link rel="stylesheet" href="{{ static_v('publish.css') }}" />
   </head>
@@ -14,14 +15,14 @@
     {{ bezel_templates() }}
     <div class="page-shell publish-shell">
       <nav class="deck-page-nav" aria-label="页面工具">
-        {% if assistant_season %}<a href="/admin#decks">← 返回协作工作台</a>{% else %}<a href="/orange-decks/{{ deck_id }}">← 返回卡组详情</a>{% endif %}
+        {% if submission_id %}<a href="/admin#deck-submissions">← 返回投稿工作台</a>{% elif assistant_season %}<a href="/admin#decks">← 返回协作工作台</a>{% else %}<a href="/orange-decks/{{ deck_id }}">← 返回卡组详情</a>{% endif %}
         <div class="nav-actions"><a href="/tools/orange-fortune" target="_blank" rel="noopener">时间卡片图鉴 ↗</a>{{ theme_toggle('nav-icon-button') }}</div>
       </nav>
       <header class="publish-head">
         <p class="deck-kicker">大橘大利卡组</p>
-        <h1>{{ '上传卡组' if assistant_season else '编辑卡组' }}</h1>
+        <h1>{{ '完善投稿卡组' if submission_id else ('上传卡组' if assistant_season else '编辑卡组') }}</h1>
         {% if assistant_season %}<p class="deck-notice">上传到管理员授权的「{{ creator_data.season_name or assistant_season }}」，发布后公开展示，作者记录为当前账号。</p>{% endif %}
-        <p>必填：卡组名称、三张时间卡片、推荐传送门。阵容站位与说明可以不填。</p>
+        <p>{% if submission_id %}按投稿的方案码补全三张卡、传送门，按阵容码配置站位；发布时会按当前资料重新校验，并署名“由投稿人提供”。{% else %}必填：卡组名称、三张时间卡片、推荐传送门。阵容站位与说明可以不填。{% endif %}</p>
       </header>
 {% include 'orange_deck_fields.html' %}
     </div>

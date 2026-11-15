@@ -3,6 +3,7 @@ from flask import Blueprint, abort, jsonify, redirect, request
 
 from auth import admin_required, current_user, get_client_ip, login_required
 from db import get_db
+from deck_analytics_service import record_visit
 from lineups_utils import parse_positive_int
 from orange_creator_service import creator_config
 from orange_deck_service import (
@@ -15,7 +16,9 @@ from orange_deck_service import (
     export_payload,
     favorite,
     fork_deck,
+    can_maintain,
     get_visible,
+    is_managed,
     like,
     list_decks,
     record_copy,
@@ -122,7 +125,23 @@ def copy_api(deck_id):
     # A first-time guest also needs the token issued by /api/me.
     if not request.headers.get('X-CSRF-Token'):
         return _private(jsonify(error='CSRF 校验失败'), 403)
-    return _private(jsonify(record_copy(current_user(), deck_id, get_client_ip(), request.args.get('code_type', 'plan'))))
+    body = request.get_json(silent=True) or {}
+    body = body if isinstance(body, dict) else {}
+    return _private(jsonify(record_copy(current_user(), deck_id, get_client_ip(), request.args.get('code_type', 'plan'),
+                                        action_id=body.get('action_id') or request.args.get('action_id'),
+                                        source_page=request.args.get('source', ''))))
+
+
+@orange_decks_bp.post('/api/orange-decks/visits')
+def library_visit_api():
+    # Sent by the page only when the deck library tab is actually shown; daily distinct per visitor.
+    data = request.get_json(silent=True) or {}
+    if not isinstance(data, dict) or data.get('surface') != 'library':
+        return _private(jsonify(error='访问类型无效'), 400)
+    db = get_db()
+    recorded = record_visit(db, 'library', current_user())
+    db.commit()
+    return _private(jsonify(recorded=recorded))
 
 
 @orange_decks_bp.get('/api/admin/orange-decks')
@@ -159,6 +178,9 @@ def detail_page(deck_id):
     seo = make_seo(title=title, description=description, path=path, noindex=row['status'] != 'published',
                    json_ld=[webpage_json_ld(deck['name'], description, path), breadcrumb_json_ld([
                        {'name': '首页', 'path': '/'}, {'name': '卡组库', 'path': '/?library=decks'}, {'name': deck['name'], 'path': path}])])
+    if row['status'] == 'published':
+        record_visit(get_db(), 'detail', user, deck_id=deck_id)
+        get_db().commit()
     response = tracked_template_response('orange_deck_detail.html', 'orange_deck_detail', deck=deck,
                                          formation=resolve_formation(row), seo=seo,
                                          simulator_enabled=get_setting(get_db(), 'simulator_enabled', 'true') == 'true')
@@ -175,7 +197,13 @@ def _editor_page(deck_id):
         row = get_visible(deck_id, user)
     except DeckError:
         abort(404)
-    if row['user_id'] != user['id']:
+    if not can_maintain(row, user):
+        abort(403)
+    if is_managed(row) and row['status'] == 'draft':
+        # Completion drafts are edited from their submission, under the assigned reviewer.
+        submission = get_db().execute('SELECT id FROM orange_deck_submissions WHERE deck_id = ?', (deck_id,)).fetchone()
+        if submission:
+            return redirect(f"/admin/deck-submissions/{submission['id']}/edit")
         abort(403)
     response = tracked_template_response(
         'orange_deck_form.html', 'orange_deck_editor', deck_id=deck_id, creator_data=creator_config(), limits=LIMITS,

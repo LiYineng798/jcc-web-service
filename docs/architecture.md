@@ -26,6 +26,7 @@
 | 资料 ZIP 上传、校验、发布 | `admin_season_packages.py`、`season_package_*.py` | 赛季版本 React |
 | 固定活动攻略 | `lucky_openings.py`、`app_pages.py` | `toolbox.*`、S8 工具与 S16.5 推荐页 |
 | 大橘大利卡组库 | `orange_decks.py`、`orange_deck_service.py`（见 [卡组库](orange-decks.md)） | 首页卡组库、`orange-deck-*.js`、`admin/orange-decks.js` |
+| 卡组投稿、卡组统计 | `deck_submissions.py`、`deck_submission_service.py`、`deck_analytics_service.py`、`deck_report_service.py` | `deck-submit.js`、`deck-submissions.js`、`admin/deck-submissions.js`、`admin/deck-metrics.js` |
 
 上表中的 JS/CSS 在 `static/`。模板同名或近似命名；React 入口/产物映射见 [前端工程](../frontend/README.md)。
 

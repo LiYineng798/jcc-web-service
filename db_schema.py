@@ -91,6 +91,22 @@ CREATE TABLE IF NOT EXISTS copy_action_events (
     success INTEGER NOT NULL DEFAULT 1,
     counted INTEGER NOT NULL DEFAULT 0,
     created_at TEXT NOT NULL,
+    deck_id INTEGER REFERENCES orange_decks(id),
+    code_type TEXT CHECK (code_type IN ('plan','lineup')),
+    actor_key TEXT,
+    client_action_id TEXT
+    CHECK (client_action_id IS NULL OR length(trim(client_action_id)) BETWEEN 1 AND 64),
+    rank_eligible INTEGER NOT NULL DEFAULT 0
+    CONSTRAINT copy_action_events_deck CHECK (
+        rank_eligible IN (0,1) AND (
+            (target_type='orange_deck' AND deck_id IS NOT NULL
+                AND target_id=CAST(deck_id AS TEXT) AND code_type IS NOT NULL
+                AND actor_key IS NOT NULL AND length(trim(actor_key))>0
+                AND lineup_id IS NULL AND live_comp_id IS NULL
+                AND (rank_eligible=0 OR success=1))
+            OR (target_type<>'orange_deck' AND deck_id IS NULL AND code_type IS NULL AND rank_eligible=0)
+        )
+    ),
     FOREIGN KEY(user_id) REFERENCES users(id),
     FOREIGN KEY(lineup_id) REFERENCES lineups(id)
 );
@@ -563,3 +579,6 @@ SCHEMA += AUTOMATION_SCHEMA
 
 from orange_deck_schema import ORANGE_DECK_SCHEMA
 SCHEMA += ORANGE_DECK_SCHEMA
+
+from orange_deck_data_schema import DECK_DATA_SCHEMA
+SCHEMA += DECK_DATA_SCHEMA

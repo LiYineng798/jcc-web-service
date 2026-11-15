@@ -1,0 +1,31 @@
+{# Two-code deck submission on the publish page (?type=submit). An admin completes cards, portal and formation. #}
+<form class="deck-form submit-form" id="deckSubmitForm" novalidate data-limits='{{ submission_limits|tojson }}'>
+  <section class="deck-section submit-codes" aria-labelledby="submitCodesTitle">
+    <h2 id="submitCodesTitle">粘贴两段游戏代码</h2>
+    <label class="field" for="submitPlanCode">方案码
+      <textarea id="submitPlanCode" class="deck-code-input" rows="2" maxlength="{{ submission_limits.plan_code }}" spellcheck="false" autocomplete="off" required placeholder="德玛时光速9流-大橘大利-MjE5OTY4Mzc0NDMyOTI3OTQxNzkzNzU0NzMyMTczNQ==" aria-describedby="submitPlanStatus"></textarea>
+    </label>
+    <p class="submit-field-status" id="submitPlanStatus" aria-live="polite">游戏内「大橘大利」方案分享，格式为 名称-大橘大利-编码</p>
+    <label class="field" for="submitLineupCode">阵容码
+      <textarea id="submitLineupCode" class="deck-code-input" rows="2" maxlength="{{ submission_limits.lineup_code }}" spellcheck="false" autocomplete="off" required placeholder="【阵容码】#阵容名称#编码，可粘贴整段分享文案" aria-describedby="submitLineupStatus"></textarea>
+    </label>
+    <p class="submit-field-status" id="submitLineupStatus" aria-live="polite">自动提取以 # 开头的阵容码</p>
+    <details class="submit-optional">
+      <summary>补充标题和备注 <span>选填</span></summary>
+      <div class="submit-optional-body">
+        <label class="field" for="submitName">标题 <small class="deck-hint">{{ submission_limits.name }} 字内</small>
+          <input id="submitName" maxlength="{{ submission_limits.name }}" autocomplete="off" placeholder="例如：三传说未知门" />
+        </label>
+        <label class="field" for="submitNote">给管理员的备注 <small class="deck-hint">{{ submission_limits.note }} 字内</small>
+          <textarea id="submitNote" rows="3" maxlength="{{ submission_limits.note }}" placeholder="打法思路、关键回合，或想让管理员注意的地方"></textarea>
+        </label>
+      </div>
+    </details>
+  </section>
+  <p class="deck-error" id="submitError" role="alert"></p>
+  <div class="deck-form-actions">
+    <p id="submitState">管理员补全三张卡、传送门和站位后公开展示，并署名“由你提供”。</p>
+    <a class="ghost-link" href="/me/deck-submissions">我的投稿</a>
+    <button type="submit" class="deck-button is-primary" id="deckSubmitButton">提交投稿</button>
+  </div>
+</form>

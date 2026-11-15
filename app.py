@@ -49,6 +49,8 @@ def create_app(test_config=None):
     app.register_blueprint(patch_notes_bp)
     from orange_decks import orange_decks_bp
     app.register_blueprint(orange_decks_bp)
+    from deck_submissions import deck_submissions_bp
+    app.register_blueprint(deck_submissions_bp)
 
     from admin_season_packages import season_packages_bp, register_preview_context
     app.register_blueprint(season_packages_bp)

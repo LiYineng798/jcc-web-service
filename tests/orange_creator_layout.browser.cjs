@@ -18,7 +18,7 @@ async function geometry(page) {
       brandCenter:Math.abs((brand.top+brand.bottom)/2-(header.top+header.bottom)/2)/scale,
       traitsFit:traits.bottom<=board.bottom+.5,
       columnsAlign:Math.max(...names)-Math.min(...names)<.5,
-      headingFits:rect('.fp-heading').bottom<=header.bottom+.5 && rect('.fp-header h1').bottom<=header.bottom+.5,
+      headingFits:rect('.fp-heading').bottom<=header.bottom+.5 && rect('.fp-header h1').bottom<=header.bottom+.5 && rect('.fp-header h1').right<=brand.left+.5,
       marginaliaClear:[...document.querySelectorAll('.fp-editorial-marks>span')].every(mark=>{
         const a=mark.getBoundingClientRect();
         return [...document.querySelectorAll('.fp-overline,.fp-header h1,.fp-brand,.fp-meta,.fp-card-effect,.fp-notebook p')].every(content=>{
@@ -61,11 +61,13 @@ async function geometry(page) {
     for(const layout of ['guide','showcase']) {
       await page.locator(`[name="poster-layout"][value="${layout}"]`).check();await geometry(page);
       for(const material of materials) {
-      await page.locator(`[data-background="${material}"]`).click();await geometry(page);
+        await page.locator(`[data-background="${material}"]`).click();await geometry(page);
+      }
+      // Geometry covers every material; one PNG per layout exercises the shared exporter.
+      const material=materials.at(-1);
       const download=page.waitForEvent('download',{timeout:90000});await page.locator('#export-poster').click();
       await (await download).saveAs(`${out}/full-traits-${name}-${layout}-${material}.png`);
       await page.locator('[data-save-close]').click();
-      }
     }
     await page.locator('[name="poster-layout"][value="guide"]').check();
     await page.locator('label[data-portal="unknown"]').click();

@@ -662,7 +662,7 @@ body.account-profile-page {
 #accountApp .pf-notebook-lines {
   padding: 0 20px;
 }
-#accountApp .pf-notebook-lines button {
+#accountApp .pf-notebook-lines button, #accountApp .pf-notebook-lines a {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -675,8 +675,9 @@ body.account-profile-page {
   color: var(--muted);
   font-size: 11px;
   text-align: left;
+  text-decoration: none;
 }
-#accountApp .pf-notebook-lines button > span {
+#accountApp .pf-notebook-lines button > span, #accountApp .pf-notebook-lines a > span {
   display: flex;
   align-items: center;
   flex: 1;
@@ -687,7 +688,7 @@ body.account-profile-page {
   color: var(--text);
   font-weight: 550;
 }
-#accountApp .pf-notebook-lines button:hover {
+#accountApp .pf-notebook-lines button:hover, #accountApp .pf-notebook-lines a:hover {
   color: var(--accent-strong);
 }
 #accountApp .pf-notebook-footer {
@@ -1035,7 +1036,7 @@ body.account-profile-page {
   #accountApp .pf-recent-row {
     min-height: 55px;
   }
-  #accountApp .pf-notebook-lines button {
+  #accountApp .pf-notebook-lines button, #accountApp .pf-notebook-lines a {
     min-height: 39px;
     padding-block: 8px;
   }

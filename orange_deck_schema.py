@@ -1,4 +1,4 @@
-"""SQLite mirror of DB migration 0025: the Orange Fortune deck library.
+"""SQLite deck schema, including codes (0026/0028) and attribution (0029).
 
 Decks are not lineups: they have their own rows, favorites and ranking so they never
 enter ordinary lineup counts, scores or live comps.
@@ -34,6 +34,21 @@ CREATE TABLE IF NOT EXISTS orange_decks (
     created_at TEXT NOT NULL,
     updated_at TEXT NOT NULL,
     published_at TEXT,
+    provided_by_user_id INTEGER REFERENCES users(id),
+    published_by_user_id INTEGER REFERENCES users(id),
+    origin_type TEXT NOT NULL DEFAULT 'direct'
+    CONSTRAINT orange_decks_origin CHECK (
+        (origin_type='direct' AND provided_by_user_id IS NULL)
+        OR (origin_type='submission' AND provided_by_user_id IS NOT NULL)
+    ),
+    reviewed_card_version TEXT,
+    reviewed_at TEXT
+    CONSTRAINT orange_decks_review CHECK (
+        (reviewed_card_version IS NULL AND reviewed_at IS NULL)
+        OR (reviewed_card_version IS NOT NULL AND length(trim(reviewed_card_version))>0
+            AND reviewed_at IS NOT NULL AND length(trim(reviewed_at))>0)
+    ),
+
     CONSTRAINT orange_decks_public_cards CHECK (
         status IN ('draft', 'deleted')
         OR (card_id_1 IS NOT NULL AND card_id_2 IS NOT NULL AND card_id_3 IS NOT NULL)

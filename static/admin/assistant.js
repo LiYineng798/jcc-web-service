@@ -57,6 +57,12 @@
   function ranks(rows) {
     return table([['阵容', 'title'], ['赛季', 'season_name'], ['上传者', 'uploader'], ['复制次数', 'copies'], ['复制人数', 'unique_visitors']], rows);
   }
+  function deckPanel(data, compact = false) {
+    const box = panel(compact ? '卡组库 · 今日' : '卡组库', '投稿、发布、复制与互动；仅提供运营汇总，排行只展示当前公开的卡组。');
+    box.classList.add('assistant-deck-report');
+    box.append(window.JccAdminDeckMetrics.render({ ...(data || {}), compact, readOnly: true }));
+    return box;
+  }
   function field(label, input) { const wrap = el('label', 'assistant-field', label); wrap.append(input); return wrap; }
   function seasonSelect(allowed = null) {
     const select = el('select'); seasons.filter(s => !allowed || allowed.includes(s.id)).forEach(s => { const option = el('option', '', s.name); option.value = s.id; select.append(option); }); return select;
@@ -107,7 +113,7 @@
       try { const data = await api('/copy-rank?date=' + encodeURIComponent(day.value)); if (generation === current) result.replaceChildren(ranks(data.items)); }
       catch (error) { if (generation === current) result.replaceChildren(el('p', 'assistant-error', error.message)); }
     });
-    copyBox.append(field('查询日期', day), result); return [box, copyBox];
+    copyBox.append(field('查询日期', day), result); return [box, deckPanel(data.deck, true), copyBox];
   }
   async function reports() {
     const data = await api('/daily-reports'); const box = panel('每日报告', '阅读已生成的运营快照。');
@@ -124,6 +130,7 @@
           el('h3', '', '按小时统计'), table([['时段', 'hour'], ['访客', 'uv'], ['访问', 'visits'], ['复制', 'copies']],
             Array.from({ length: 24 }, (_, hour) => ({ hour: `${hour}:00`, uv: report.hourly.uv?.[hour] ?? 0, visits: report.hourly.visits?.[hour] ?? 0, copies: report.hourly.copies?.[hour] ?? 0 }))),
           el('p', 'admin-meta', `报告生成：${date(report.generated_at)}（${zone}）`));
+        result.prepend(deckPanel(report.deck));
       } catch (error) { if (current === generation) result.replaceChildren(el('p', 'assistant-error', error.message), button('重试', load)); }
     }
     select.addEventListener('change', load); box.append(field('报告日期', select), result); await load(); return [box];

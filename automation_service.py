@@ -17,6 +17,52 @@ IMPORT_ROW_CHECKS = ('识别到「#名称#阵容码」格式', '名称非空且�
                      '本批内阵容码不重复', '站内没有相同阵容码')
 
 
+def project_deck_report(db, data):
+    """Allowlisted deck aggregates for AI accounts, retaining unknown collection values as null."""
+    from deck_report_service import COLLECTED_KEYS
+
+    summary_fields = COLLECTED_KEYS + (
+        'deck_submissions_new', 'deck_submissions_resubmitted', 'deck_submitters',
+        'deck_submissions_pending', 'deck_submissions_processing', 'deck_submissions_needs_info',
+        'deck_submissions_published', 'deck_submissions_rejected', 'deck_submissions_duplicate',
+        'deck_submissions_info_requested', 'deck_submissions_withdrawn', 'deck_submissions_decided',
+        'deck_adoption_rate', 'deck_review_hours_avg', 'deck_review_hours_median', 'deck_effective_copies',
+    )
+
+    def numbers(source, keys):
+        return {key: source[key] for key in keys if key in source and
+                (source[key] is None or type(source[key]) in (int, float))}
+
+    def scalars(source, keys):
+        return {key: source[key] for key in keys if key in source and
+                (source[key] is None or type(source[key]) in (str, int, float))}
+
+    top = data.get('deck_top')
+    rows = (top or [])[:10]
+    ids = [row['deck_id'] for row in rows if type(row.get('deck_id')) is int]
+    # Historical reports can outlive a moderation decision; never disclose a now-private deck's title.
+    public_ids = {row['id'] for row in db.execute(
+        f"SELECT id FROM orange_decks WHERE status = 'published' AND id IN ({','.join('?' for _ in ids)})", ids
+    ).fetchall()} if ids else set()
+    safe_top = [scalars(row, ('deck_id', 'title', 'credit', 'uploader', 'copy_actions', 'plan_copy_actions',
+                             'lineup_copy_actions', 'effective_copies', 'copiers'))
+                for row in rows if row.get('deck_id') in public_ids]
+    for rank, row in enumerate(safe_top, 1):
+        row['rank'] = rank
+    coverage = data.get('deck_coverage')
+    return {
+        'summary': numbers(data.get('summary') or {}, summary_fields),
+        'coverage': scalars(coverage, ('status', 'started_at', 'from')) if isinstance(coverage, dict) else None,
+        'top': safe_top if isinstance(top, list) else None,
+        'contributors': [scalars(row, ('user', 'submitted', 'new_submissions', 'resubmissions', 'published'))
+                         for row in (data.get('deck_contributors') or [])[:10]],
+        'snapshot': numbers(data['deck_snapshot'], ('public_decks', 'public_submitted_decks', 'pending', 'processing', 'needs_info'))
+                    if isinstance(data.get('deck_snapshot'), dict) else None,
+        'deltas': numbers(data.get('deltas') or {}, summary_fields),
+        'previousDate': data.get('previous_date'),
+    }
+
+
 class AutomationError(ValueError):
     def __init__(self, message, status=400):
         super().__init__(message)

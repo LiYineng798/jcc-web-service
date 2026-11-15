@@ -31,8 +31,8 @@ def test_copy_counts_persist_and_share_lineup_dedup_rules(users, app, monkeypatc
     assert guest.get(url).json['copy_count'] == 4
     assert guest.get('/api/orange-decks').json['items'][0]['copy_count'] == 4
     assert owner.get('/api/orange-decks?tab=mine').json['items'][0]['copy_count'] == 4
-    # This change does not redefine deck popularity or ordinary-lineup totals.
-    assert guest.get('/api/orange-decks?tab=hot').json['total'] == 0
+    # Ordinary-lineup totals are untouched; hot lists the valid public deck even before signals (cold start).
+    assert guest.get('/api/orange-decks?tab=hot').json['total'] == 1
     with app.app_context():
         assert get_db().execute('SELECT COUNT(*) FROM copy_events').fetchone()[0] == 0
     another = create(owner, plan_code=CODE).json
@@ -75,3 +75,17 @@ def test_concurrent_copy_requests_are_deduplicated(users, app, monkeypatch, code
         results = list(pool.map(copy_once, code_types))
     assert sum(r['counted'] for r in results) == 1
     assert all(r['copy_count'] == 1 for r in results)
+
+
+def test_concurrent_retries_of_one_copy_gesture_store_one_action(users, app):
+    deck = create(users[0], plan_code=CODE).json
+    barrier = Barrier(3)
+    def copy_once(_):
+        with app.test_request_context('/'):
+            barrier.wait(timeout=10)
+            return record_copy(None, deck['id'], '192.0.2.9', 'plan', action_id='gesture-0001-retry')
+    with ThreadPoolExecutor(max_workers=3) as pool:
+        results = list(pool.map(copy_once, range(3)))
+    assert all(r == {'counted': True, 'copy_count': 1} for r in results)
+    with app.app_context():
+        assert get_db().execute("SELECT COUNT(*) FROM copy_action_events WHERE client_action_id = 'gesture-0001-retry'").fetchone()[0] == 1

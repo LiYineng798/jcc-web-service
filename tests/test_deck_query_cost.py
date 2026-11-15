@@ -4,7 +4,10 @@ import sqlite3
 import pytest
 
 import orange_deck_service as decks
+from orange_deck_data_schema import COPY_COLUMNS, DECK_COLUMNS, DECK_DATA_SCHEMA
 from orange_deck_schema import ORANGE_DECK_SCHEMA
+
+LIGHT = ('7230005', '7220015', '7210014')  # valid cards that fit every portal
 
 
 @pytest.fixture()
@@ -15,7 +18,18 @@ def populated_db(monkeypatch):
         CREATE TABLE users(id INTEGER PRIMARY KEY, username TEXT, nickname TEXT, role TEXT,
                            avatar_color TEXT, avatar_preset TEXT, avatar_expression TEXT);
         INSERT INTO users VALUES(1,'demo','demo','user',NULL,NULL,NULL);
+        CREATE TABLE app_settings(setting_key TEXT PRIMARY KEY, setting_value TEXT NOT NULL, updated_at TEXT NOT NULL);
+        CREATE TABLE copy_action_events(id INTEGER PRIMARY KEY AUTOINCREMENT, target_type TEXT NOT NULL, target_id TEXT NOT NULL,
+            season_id TEXT, lineup_id INTEGER, live_comp_id TEXT, user_id INTEGER, visitor_token TEXT, ip_address TEXT,
+            source_page TEXT NOT NULL DEFAULT '', device_type TEXT NOT NULL DEFAULT 'unknown', success INTEGER NOT NULL DEFAULT 1,
+            counted INTEGER NOT NULL DEFAULT 0, created_at TEXT NOT NULL);
     """ + ORANGE_DECK_SCHEMA)
+    for table, columns in (('orange_decks', DECK_COLUMNS), ('copy_action_events', COPY_COLUMNS)):
+        existing = {row[1] for row in db.execute(f'PRAGMA table_info({table})')}
+        for name, definition in columns:
+            if name not in existing:
+                db.execute(f'ALTER TABLE {table} ADD COLUMN {name} {definition}')
+    db.executescript(DECK_DATA_SCHEMA)
     db.executemany("""
         INSERT INTO orange_decks(id,user_id,name,portal_id,card_version,status,card_id_1,card_id_2,card_id_3,
                                  created_at,updated_at,published_at,lineup_code)
@@ -67,9 +81,14 @@ def test_copy_endpoint_does_not_read_unrelated_copy_history(populated_db):
         'counted': False, 'copy_count': 101}
 
 
-def test_hot_ranking_ignores_copy_volume_and_preserves_viewer_counts(populated_db):
-    result = bounded(populated_db, lambda: decks.list_decks({'id': 1}, tab='hot'))
-    assert result['total'] == 2
-    assert [row['id'] for row in result['items']] == [2, 1]
-    assert result['items'][0]['is_liked_today'] == 1
-    assert result['items'][1]['is_favorited'] == 1
+def test_hot_ranking_pages_eligible_decks_without_scanning_copy_history(populated_db):
+    # Only decks valid under current card data are candidates; the 50,000 old copy rows are never read.
+    populated_db.execute('UPDATE orange_decks SET card_id_1 = ?, card_id_2 = ?, card_id_3 = ?, season_id = ? WHERE id <= 12',
+                         (*LIGHT, decks.card_season_id()))
+    populated_db.execute("UPDATE orange_decks SET published_at = '2026-01-01 00:00:00'")
+    result = bounded(populated_db, lambda: decks.list_decks({'id': 1}, tab='hot', page=2, page_size=5))
+    assert result['total'] == 12 and result['total_pages'] == 3
+    assert [row['id'] for row in result['items']] == [7, 6, 5, 4, 3]
+    assert all(row['copy_count'] == 100 for row in result['items'])
+    last = bounded(populated_db, lambda: decks.list_decks({'id': 1}, tab='hot', page=3, page_size=5))
+    assert [row['id'] for row in last['items']] == [2, 1] and last['items'][0]['is_liked_today'] == 1

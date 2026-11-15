@@ -1,4 +1,4 @@
-from flask import has_request_context
+from flask import has_request_context, request
 
 from db import get_db, now_text
 from visits import ensure_visitor_token
@@ -50,4 +50,22 @@ def record_copy_action(
             now_text(),
             request_device_type(),
         ),
+    )
+
+
+def record_deck_copy_action(db, deck, code_type, actor_key, action_id, rank_eligible, counted,
+                            user=None, ip_address=None, source_page=''):
+    """One successful deck copy gesture; the caller owns the transaction and the idempotency race."""
+    token = request.cookies.get('visitor_token', '').strip()[:64] or None if has_request_context() else None
+    db.execute(
+        '''
+        INSERT INTO copy_action_events (
+            target_type, target_id, season_id, deck_id, code_type, actor_key, client_action_id, rank_eligible,
+            user_id, visitor_token, ip_address, source_page, success, counted, created_at, device_type
+        )
+        VALUES ('orange_deck', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1, ?, ?, ?)
+        ''',
+        (str(deck['id']), deck['season_id'], deck['id'], code_type, actor_key, action_id, 1 if rank_eligible else 0,
+         user['id'] if user else None, token, ip_address, clean_copy_source(source_page), 1 if counted else 0,
+         now_text(), request_device_type() if has_request_context() else 'unknown'),
     )

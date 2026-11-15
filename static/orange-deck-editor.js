@@ -8,6 +8,10 @@
   const $ = (id) => document.getElementById(id);
   const deckId = $('deckEditor').dataset.deckId;
   const assistantSeason = $('deckEditor').dataset.assistantSeason || '';
+  // Admin completion of a user submission: saves go through the submission, never the owner endpoints.
+  const submissionId = $('deckEditor').dataset.submissionId || '';
+  let submission = null;
+  let permissions = { can_delete: false, can_withdraw: false };
   const cards = new Map(config.cards.map((card) => [card.id, card]));
   const portals = new Map(config.portals.map((portal) => [portal.id, portal]));
   const preview = new URLSearchParams(location.search).get('preview_release');
@@ -227,7 +231,7 @@
   function markDirty() {
     state.dirty = true;
     setError('');
-    if (state.status === 'new') {
+    if (state.status === 'new' && !submissionId) {
       collect();
       try {
         localStorage.setItem(DRAFT_KEY, JSON.stringify({ version: 1, name: state.name, portal: state.portal, cards: state.cards, note: state.note,
@@ -250,10 +254,17 @@
   function renderActions() {
     const status = state.status;
     const primary = $('savePrimary'), secondary = $('saveSecondary');
-    secondary.hidden = status === 'hidden' || Boolean(assistantSeason);
+    if (submissionId) {
+      const ready = submission?.status === 'processing' && submission.mine;
+      primary.textContent = '完善并发布'; secondary.textContent = '保存草稿'; secondary.hidden = false;
+      $('deleteDeck').hidden = true;
+      primary.disabled = secondary.disabled = state.busy || !ready;
+      return;
+    }
+    secondary.hidden = status === 'hidden' || Boolean(assistantSeason) || (status === 'published' && !permissions.can_withdraw);
     primary.textContent = status === 'hidden' ? '保存修改' : status === 'published' ? '保存并更新' : '发布';
     secondary.textContent = status === 'published' ? '撤回为草稿' : '保存草稿';
-    $('deleteDeck').hidden = !deckId;
+    $('deleteDeck').hidden = !permissions.can_delete;
     primary.disabled = secondary.disabled = state.busy || Boolean(preview);
     if (preview) { primary.textContent = '预览中不可发布'; secondary.hidden = true; }
   }
@@ -273,6 +284,7 @@
     if (deckId) body.version = state.version;
     state.busy = true; renderActions();
     $('deckSaveState').textContent = '正在保存…';
+    if (submissionId) { await saveSubmission(action, body); return; }
     try {
       const data = await D.api(assistantSeason ? '/api/admin/assistant/decks' : deckId ? `/api/orange-decks/${deckId}` : '/api/orange-decks', { method: deckId ? 'PUT' : 'POST', body, csrf: session.csrf });
       state.dirty = false;
@@ -286,7 +298,35 @@
     }
   }
 
-  $('deckForm').addEventListener('submit', (event) => { event.preventDefault(); save(state.status === 'hidden' ? 'save' : 'publish'); });
+  async function saveSubmission(action, body) {
+    const publish = action !== 'draft';
+    const codesDiffer = ['plan_code', 'lineup_code'].some(key => body[key] !== submission[key]);
+    const message = (codesDiffer ? '完善稿中的代码与最新投稿不同，请确认这是你核对后的修订。\n\n' : '')
+      + '发布后卡组会公开展示，并署名由投稿人提供。确定发布吗？';
+    if (publish && !confirm(message)) { state.busy = false; renderActions(); $('deckSaveState').textContent = '尚未发布'; return; }
+    try {
+      const payload = { ...body, version: submission.version };
+      if (publish && codesDiffer) payload.confirm_code_changes = true;
+      delete payload.action;
+      if (state.version !== null) payload.deck_version = state.version;
+      const data = await D.api(`/api/admin/deck-submissions/${submissionId}/${publish ? 'publish' : 'draft'}`, { method: publish ? 'POST' : 'PUT', body: payload, csrf: session.csrf });
+      state.dirty = false; state.formationDirty = false;
+      if (publish) {
+        try { sessionStorage.setItem('jcc-orange-deck-notice', JSON.stringify(['投稿卡组已发布，署名为投稿人。'])); } catch { /* Optional. */ }
+        location.href = data.published_deck_url;
+        return;
+      }
+      submission = { ...submission, version: data.version, status: data.status, mine: data.mine };
+      state.version = data.deck_detail?.version ?? state.version;
+      $('deckSaveState').textContent = `草稿已保存 · ${new Date().toTimeString().slice(0, 5)}`;
+    } catch (error) {
+      setError(error.message);
+      $('deckSaveState').textContent = error.status === 409 ? '投稿或草稿已在其他页面更新；内容仍保留在此页，请复制必要内容后刷新' : '保存未完成，修改仍保留在此页面';
+    }
+    state.busy = false; renderActions();
+  }
+
+  $('deckForm').addEventListener('submit', (event) => { event.preventDefault(); save(['hidden', 'published'].includes(state.status) ? 'save' : 'publish'); });
   $('saveSecondary').addEventListener('click', () => save('draft'));
   $('deleteDeck').addEventListener('click', async () => {
     if (!confirm('确定删除这个卡组吗？删除后详情、搜索和分享链接都将失效。')) return;
@@ -352,8 +392,47 @@
     const me = await D.api('/api/me');
     if (assistantSeason) DRAFT_KEY = `jcc-assistant-deck-draft-v1:${me.user.id}:${assistantSeason}`;
     session = { csrf: me.csrf_token };
+    if (submissionId) {
+      submission = await D.api(`/api/admin/deck-submissions/${submissionId}`);
+      const deck = submission.deck_detail;
+      if (deck) {
+        applyDeck({ ...deck, portal: deck.portal.id, cards: deck.cards.map((card) => card?.id || null) });
+        state.version = deck.version;
+        if (deck.formation_edit) {
+          state.formationLocked = deck.formation_edit.season !== config.season_id || !config.simulator_available;
+          state.formation = { payload: deck.formation_edit.payload, traits: deck.formation_edit.traits, view: null };
+          D.api(`/api/orange-decks/${deck.id}/formation`).then((data) => { if (state.formation && !state.formation.view) { state.formation.view = data.formation; renderFormation(); } })
+            .catch(() => { $('formationStatus').textContent = '阵容预览加载失败；保存时会原样保留阵容。'; });
+        }
+        notice([...(deck.compat.issues.length ? ['资料变化：', ...deck.compat.issues] : [])]);
+      } else {
+        applyDeck({ name: submission.name, plan_code: submission.plan_code, lineup_code: submission.lineup_code, note: submission.note });
+      }
+      state.status = 'submission';
+      const lines = [`投稿人：${submission.submitter.nickname}${submission.note ? ` · 备注：${submission.note}` : ''}`];
+      if (deck && ['plan_code', 'lineup_code'].some(key => deck[key] !== submission[key])) {
+        const comparison = $('submissionCodeChanges');
+        comparison.hidden = false;
+        comparison.querySelector('[data-plan]').textContent = submission.plan_code;
+        comparison.querySelector('[data-lineup]').textContent = submission.lineup_code;
+        comparison.querySelector('button').addEventListener('click', () => {
+          ['plan_code', 'lineup_code'].forEach(key => { state[key] = fields[key].value = submission[key]; });
+          comparison.hidden = true;
+          markDirty();
+        });
+        lines.push('完善草稿的代码与最新投稿不同，请展开对照后再发布。');
+      }
+      if (submission.status !== 'processing') lines.push(`投稿当前为「${submission.status_label}」，不能保存。`);
+      else if (!submission.mine) lines.push(`该投稿正由${submission.assignee?.nickname || '其他管理员'}处理，请先在工作台转派给自己。`);
+      notice(lines);
+      renderCards(); renderFormation(); renderActions();
+      $('deckForm').removeAttribute('aria-busy');
+      $('deckSaveState').textContent = deck ? '已载入完善草稿' : '补全三张卡与传送门后发布；可以先保存草稿';
+      return;
+    }
     if (deckId) {
       const deck = await D.api(`/api/orange-decks/${deckId}`);
+      permissions = { can_delete: deck.can_delete, can_withdraw: deck.can_withdraw };
       applyDeck({ ...deck, portal: deck.portal.id, cards: deck.cards.map((card) => card?.id || null) });
       Object.assign(state, { version: deck.version, status: deck.status, hiddenReason: deck.hidden_reason || '' });
       if (deck.formation_edit) {

@@ -100,6 +100,9 @@ type Dashboard = {
     hidden_decks: number;
     received_likes: number;
     received_favorites: number;
+    contributed_decks?: number;
+    submissions_active?: number;
+    submissions_needs_info?: number;
   };
 };
 type Deck = {
@@ -118,7 +121,8 @@ type Deck = {
   updated_at: string;
   published_at?: string | null;
   detail_url: string;
-  author: { nickname: string };
+  author: { nickname: string; credit?: string };
+  can_edit?: boolean;
   cards: ({ name: string } | null)[];
 };
 type DeckPage = { items: Deck[]; total: number; total_pages: number; page: number };
@@ -787,6 +791,17 @@ function Overview({
               <strong>{decks ? number(decks.draft_decks) : "—"}</strong>
               <ChevronRight size={14} />
             </button>
+            <a href="/me/deck-submissions">
+              <span>
+                <Layers3 size={15} />
+                卡组投稿进行中
+              </span>
+              <strong>
+                {decks ? number(decks.submissions_active || 0) : "—"}
+                {decks?.submissions_needs_info ? ` · ${number(decks.submissions_needs_info)} 待补充` : ""}
+              </strong>
+              <ChevronRight size={14} />
+            </a>
             <button onClick={() => navigate("reports")}>
               <span>
                 <Check size={15} />
@@ -1281,8 +1296,10 @@ function DeckCard({
       window.jccNotify.show(ok ? `${label}已复制` : "复制失败，请到详情页手动复制", { variant: ok ? "success" : "error" });
       if (ok && item.status === "published") {
         try {
-          const data = await window.JccAccount.request<{ copy_count: number }>(`/api/orange-decks/${item.id}/copy?code_type=${type}`, {
-            method: "POST", headers: { "X-CSRF-Token": token },
+          // One action ID per copy gesture keeps a retried request from counting twice.
+          const action_id = crypto.randomUUID ? crypto.randomUUID() : `${Date.now().toString(16)}-${Math.random().toString(16).slice(2, 10)}`;
+          const data = await window.JccAccount.request<{ copy_count: number }>(`/api/orange-decks/${item.id}/copy?code_type=${type}&source=account`, {
+            method: "POST", headers: { "X-CSRF-Token": token, "Content-Type": "application/json" }, body: JSON.stringify({ action_id }),
           });
           setCopiedCount(previous => Math.max(previous, data.copy_count));
         } catch {
@@ -1348,7 +1365,12 @@ function DeckCard({
         </span>
         <div className="pf-card-actions">
           {codes}
-          {kind === "mine" ? (
+          {kind === "mine" && item.can_edit === false ? (
+            <a className="pf-button" href={item.detail_url} title="由你提供、管理员完善发布的卡组">
+              我提供的
+              <ChevronRight size={13} />
+            </a>
+          ) : kind === "mine" ? (
             <a className="pf-button" href={`/orange-decks/${item.id}/edit`}>
               编辑卡组
               <ChevronRight size={13} />

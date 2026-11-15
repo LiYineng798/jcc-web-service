@@ -1,5 +1,6 @@
 <!doctype html>
 {% from "theme_toggle.html" import theme_toggle %}
+{% from "orange_deck_macros.html" import card_art %}
 {% from "seo_head.html" import seo_head %}
 {% from "toolbox.html" import toolbox_menu %}
 <html lang="zh-CN">
@@ -7,6 +8,7 @@
   {{ seo_head(seo) }}
   <link rel="stylesheet" href="{{ static_v('toolbox.css') }}" />
   <link rel="stylesheet" href="{{ static_v('fortune-card-frame.css') }}" />
+  <script src="{{ static_v('fortune-card-art.js') }}" defer></script>
   <link rel="stylesheet" href="{{ static_v('orange-fortune.css') }}" />
   <script src="{{ static_v('toolbox.js') }}" defer></script>
   <script src="{{ static_v('theme-toggle.js') }}" defer></script>
@@ -24,16 +26,17 @@
       <div><p class="fortune-eyebrow">英雄联盟传奇 <span>/</span> 时间卡片图鉴</p>
         <h1>大橘<span>大利</span><i aria-hidden="true">✦</i></h1>
         <p class="fortune-intro">把握每一个生效回合，寻找你的下一张王牌。</p>
-        <div class="fortune-meta"><span><b>{{ catalog.cards|length }}</b> 张时间卡片</span><span><b>5</b> 个品阶</span><span><b>{{ portals|length }}</b> 座传送门</span><span class="fortune-preview-label">先遣服（数据以实际上线为准）</span><a class="fortune-preview-label" href="/?library=decks">卡组库 ↗</a></div>
+        <div class="fortune-meta"><span><b>{{ catalog.cards|length }}</b> 张时间卡片</span><span><b>5</b> 个品阶</span><span><b>{{ portals|length }}</b> 座传送门</span><span class="fortune-preview-label">资料 {{ catalog.version }}</span><a class="fortune-preview-label" href="/?library=decks">卡组库 ↗</a></div>
       </div>
-      <div class="fortune-emblem" aria-hidden="true">{% include 'fortune_emblem.html' %}<span>TIME CARDS</span><small>英雄联盟传奇 · 大橘大利</small></div>
+      {# Three complete faces (王者, 史诗, 传说) fanned as the masthead; omitted for art-only releases.
+         A tier may name its showcase card; a release without it falls back to the tier's first face. #}
+      {% set fan_picks = {5: '7250071'} %}
+      <div class="fortune-fan" aria-hidden="true">{% for group in groups[:3]|reverse %}{% set framed = group.cards|selectattr('framed')|list %}{% set card = (framed|selectattr('id', 'equalto', fan_picks.get(group.tier))|first) or (framed|first) %}{% if card %}<span class="fortune-fan-card" data-slot="{{ loop.index }}">{{ card_art(card) }}</span>{% endif %}{% endfor %}</div>
     </header>
     <section class="fortune-rules" aria-labelledby="fortune-rules-title">
       <div class="fortune-rules-intro">
-        <p class="fortune-eyebrow">开局构筑 <span>/</span> 传送门规则</p>
         <h2 id="fortune-rules-title">三张卡片，一座传送门</h2>
-        <p>每局开始前挑选 {{ deck_size }} 张时间卡片组建卡组，效果涵盖经济、装备、弈子、羁绊等方向。卡片能量等于品阶，三张卡的能量之和不能超过所选传送门的上限。</p>
-        <ol class="fortune-energy-scale" aria-label="品阶与能量">{% for tier, name in tiers.items() %}<li data-tier="{{ tier }}"><b>{{ name }}</b><span aria-label="能量 {{ tier }}">{% for _ in range(5) %}<i{% if loop.index > tier %} class="is-off"{% endif %}></i>{% endfor %}</span></li>{% endfor %}</ol>
+        <ol class="fortune-energy-scale" aria-label="品阶与能量">{% for tier, name in tiers.items() %}<li data-tier="{{ tier }}"><i aria-hidden="true"></i>{{ name }}<b aria-label="能量 {{ tier }}">{{ tier }}</b></li>{% endfor %}</ol>
       </div>
       <ul class="fortune-portals" aria-label="三座传送门">
       {% for portal in portals %}
@@ -44,11 +47,8 @@
             {% else %}<circle cx="32" cy="32" r="27" stroke-dasharray="3 5"/><circle cx="32" cy="32" r="18" stroke-dasharray="11 6"/><path class="is-core" d="M32 22l2.6 7.4L42 32l-7.4 2.6L32 42l-2.6-7.4L22 32l7.4-2.6Z"/>{% endif %}
           </svg>
           <h3>{{ portal.name }}</h3>
-          <dl>
-            <div><dt>能量上限</dt><dd><b>≤ {{ portal.energy_limit }}</b></dd></div>
-            <div><dt>入场</dt><dd>{{ '{:,}'.format(portal.entry_fee) }} 金橘币</dd></div>
-            <div><dt>失败</dt><dd>{{ portal.loss }}</dd></div>
-          </dl>
+          <b class="fortune-portal-limit" aria-label="能量上限 {{ portal.energy_limit }}">≤ {{ portal.energy_limit }}</b>
+          <p>{{ '{:,}'.format(portal.entry_fee) }} 金橘币<span aria-hidden="true">·</span>失败{{ portal.loss }}</p>
         </li>
       {% endfor %}
       </ul>
@@ -76,16 +76,8 @@
         {% for card in group.cards %}
           <article class="fortune-card" data-id="{{ card.id }}" data-tier="{{ card.tier }}" data-tier-name="{{ card.tier_name }}" data-category="{{ card.category_id }}" data-rounds="{{ card.rounds|join(' ') }}" {% if card.id not in visible_ids %}hidden{% endif %}>
             <button class="fortune-card-button" type="button" aria-label="查看{{ card.name }}详情" aria-haspopup="dialog">
-              <span class="fortune-card-frame">
-                <span class="fortune-card-surface fortune-art-{{ card.layout }}">
-                  {% if card.image_url %}<img class="fortune-card-image" src="{{ card.image_url }}" alt="" loading="lazy" decoding="async">{% else %}<span class="fortune-missing"><i aria-hidden="true">◇</i>卡图暂缺</span>{% endif %}
-                  <span class="fortune-card-shade"></span>
-                  <span class="fortune-card-stars" aria-label="{{ card.tier_name }} · 能量{{ card.energy }}">{{ '•' * card.tier }}</span>
-                  <span class="fortune-card-copy"><span class="fortune-card-title">{{ card.name }}</span><span class="fortune-card-effect"><span class="fortune-round">{{ card.round or '待确认' }}</span><span class="fortune-card-description">{{ card.description }}</span></span></span>
-                  <span class="fortune-card-category">{{ card.category }}</span>
-                </span>
-                {% include 'fortune_card_bezel.html' %}
-              </span>
+              <span class="fortune-card-display">{{ card_art(card) }}</span>
+              <span class="fortune-card-caption"><span class="fortune-card-title">{{ card.name }}</span><span class="fortune-caption-meta"><span class="fortune-card-category">{{ card.category }}</span><span class="fortune-card-timing">{% if card.rounds %}生效 {{ card.rounds|join(' / ') }}{% else %}条件触发{% endif %}</span></span><span class="fortune-card-description">{{ card.description }}</span></span>
             </button>
           </article>
         {% endfor %}

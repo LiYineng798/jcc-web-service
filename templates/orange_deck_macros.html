@@ -2,7 +2,9 @@
    Pages using card_art include fortune_frame_materials.html once for the bezel gradients. #}
 {% macro card_art(card) -%}
 {% set tier = card.tier or 1 %}
-<span class="fortune-card-frame is-art-only" data-tier="{{ tier }}"><span class="fortune-card-surface fortune-art-{{ card.layout or 'missing' }}">{% if card.image_url %}<img class="fortune-card-image" src="{{ card.image_url }}" alt="" decoding="async">{% else %}<span class="fortune-missing"><i aria-hidden="true">◇</i>{{ '已失效' if card.status == 'missing' else '卡图暂缺' }}</span>{% endif %}<span class="fortune-card-shade"></span></span>{% with card = {'tier': tier} %}{% include 'fortune_card_bezel.html' %}{% endwith %}</span>
+{% if card.framed and card.image_url %}
+<span class="fortune-card-frame is-official" data-tier="{{ tier }}" style="{{ card.art_style }}"><span class="fortune-official-canvas"><img class="fortune-card-image" src="{{ card.image_url }}" alt="" loading="lazy" decoding="async"></span><span class="fortune-official-title" style="font-size:{{ [6, 78 / ([1, card.name|length]|max)]|min }}cqi" aria-hidden="true">{{ card.name }}</span><span class="fortune-official-seal" aria-hidden="true"><b>{{ card.category }}</b><span>{{ '◆' * tier }}</span></span></span>
+{% else %}<span class="fortune-card-frame is-art-only" data-tier="{{ tier }}"><span class="fortune-card-surface fortune-art-{{ card.layout or 'missing' }}">{% if card.image_url %}<img class="fortune-card-image" src="{{ card.image_url }}" alt="" loading="lazy" decoding="async">{% else %}<span class="fortune-missing"><i aria-hidden="true">◇</i>{{ '已失效' if card.status == 'missing' else '卡图暂缺' }}</span>{% endif %}<span class="fortune-card-shade"></span></span>{% with card = {'tier': tier} %}{% include 'fortune_card_bezel.html' %}{% endwith %}</span>{% endif %}
 {%- endmacro %}
 
 {% macro card_full(card) -%}

@@ -25,22 +25,41 @@
     return data;
   }
 
-  async function recordCopy(deckId, csrf, codeType = 'plan') {
+  const actionId = () => (global.crypto?.randomUUID ? global.crypto.randomUUID()
+    : `${Date.now().toString(16)}-${Math.random().toString(16).slice(2, 10)}-${Math.random().toString(16).slice(2, 10)}`);
+
+  // One ID per real copy gesture; a retry after a dropped connection reuses it, so the server counts it once.
+  async function recordCopy(deckId, csrf, codeType = 'plan', source = '') {
     if (!csrf) csrf = (await api('/api/me')).csrf_token;
-    return api(`/api/orange-decks/${deckId}/copy?code_type=${encodeURIComponent(codeType)}`, { method: 'POST', csrf });
+    const url = `/api/orange-decks/${deckId}/copy?code_type=${encodeURIComponent(codeType)}${source ? `&source=${encodeURIComponent(source)}` : ''}`;
+    const body = { action_id: actionId() };
+    try {
+      return await api(url, { method: 'POST', csrf, body });
+    } catch (error) {
+      if (!(error instanceof TypeError)) throw error;
+      return api(url, { method: 'POST', csrf, body });
+    }
   }
 
-  // The gallery's time-card frame and metal bezel, art only: name and effect are always printed beside it.
-  // Pages provide <template id="bezel-N"> and the shared gradient definitions.
-  function art(card) {
-    if (!card) return '<span class="deck-frame-empty">空卡槽</span>';
-    const tier = Number(card.tier) || 1;
-    const body = card.image_url
-      ? `<img class="fortune-card-image" src="${esc(card.image_url)}" alt="" loading="lazy" decoding="async">`
-      : `<span class="fortune-missing"><i aria-hidden="true">◇</i>${card.status === 'missing' ? '已失效' : '卡图暂缺'}</span>`;
-    const bezel = document.getElementById(`bezel-${tier}`)?.innerHTML || '';
-    return `<span class="fortune-card-frame is-art-only" data-tier="${tier}"><span class="fortune-card-surface fortune-art-${esc(card.layout || 'missing')}">${body}<span class="fortune-card-shade"></span></span>${bezel}</span>`;
+  // Daily distinct visit of the deck library, sent only when the tab is actually shown.
+  function recordLibraryVisit(csrf) {
+    const key = `jcc-deck-library-visit:${new Date().toDateString()}`;
+    try { if (sessionStorage.getItem(key)) return; sessionStorage.setItem(key, '1'); } catch { /* Server deduplicates anyway. */ }
+    if (!csrf) return;
+    api('/api/orange-decks/visits', { method: 'POST', csrf, body: { surface: 'library' } }).catch(() => {
+      try { sessionStorage.removeItem(key); } catch { /* Optional. */ }
+    });
   }
+
+  const art = card => global.FortuneCardArt.render(card);
+
+  // Same portal glyphs as the gallery rules and the poster (orange_fortune.html, orange-creator.js).
+  const PORTAL_MARKS = {
+    stable: '<circle cx="32" cy="32" r="27"/><circle cx="32" cy="32" r="19"/><circle cx="32" cy="32" r="11"/><circle class="is-core" cx="32" cy="32" r="4"/>',
+    volatile: '<path d="M32 5c9 3 14 0 20 7s2 13 7 20-1 14-7 20-13 3-20 7-14-2-20-7-2-13-7-20 3-14 7-20 11-4 20-7Z"/><path d="M32 14c6 2 9 0 13 5s1 9 5 13-1 9-5 13-9 2-13 5-9-1-13-5-1-9-5-13 2-9 5-13 7-3 13-5Z"/><circle class="is-core" cx="32" cy="32" r="5"/>',
+    unknown: '<circle cx="32" cy="32" r="27" stroke-dasharray="3 5"/><circle cx="32" cy="32" r="18" stroke-dasharray="11 6"/><path class="is-core" d="M32 22l2.6 7.4L42 32l-7.4 2.6L32 42l-2.6-7.4L22 32l7.4-2.6Z"/>',
+  };
+  const portalMark = (id) => `<svg class="deck-portal-mark" viewBox="0 0 64 64" aria-hidden="true" focusable="false">${PORTAL_MARKS[id] || ''}</svg>`;
 
   function tierText(card) {
     return card.status === 'missing' ? '当前资料中不存在' : `${card.tier_name} · 能量 ${card.energy}`;
@@ -132,5 +151,5 @@
     toggle?.addEventListener('click', () => apply(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'));
   }
 
-  global.JccOrangeDeck = { esc, api, recordCopy, art, thumb, cardFull, openCard, board, issues, copy, avatar, notify, roundText, bindTheme };
+  global.JccOrangeDeck = { esc, api, recordCopy, recordLibraryVisit, art, portalMark, thumb, cardFull, openCard, board, issues, copy, avatar, notify, roundText, bindTheme };
 })(window);

@@ -1,9 +1,9 @@
 /* Shared notification visuals for the homepage, account workspace and private details. */
 (() => {
   const el=(tag,cls='',text='')=>{const n=document.createElement(tag);n.className=cls;n.textContent=text;return n;};
-  const labels={like:'收到点赞',favorite:'收到收藏',copy:'收到复制',feedback:'反馈进度',moderation:'阵容审核'};
+  const labels={like:'收到点赞',favorite:'收到收藏',copy:'收到复制',feedback:'反馈进度',moderation:'阵容审核',deck_submission:'卡组投稿'};
   const states={pending:'已收到',in_progress:'核实中',resolved:'已解决',dismissed:'未采纳 / 无法复现'};
-  const paths={like:['M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z'],favorite:['M5 3h14v18l-7-4-7 4V3Z'],copy:['M9 9h12v12H9z','M15 5V3H3v12h2'],feedback:['M21 11.5a8.4 8.4 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.7A8.4 8.4 0 0 1 4 11.5a8.5 8.5 0 0 1 4.7-7.6A8.4 8.4 0 0 1 12.5 3H13a8.5 8.5 0 0 1 8 8v.5Z'],moderation:['M12 22s8-4 8-11V5l-8-3-8 3v6c0 7 8 11 8 11Z','m9 12 2 2 4-4']};
+  const paths={like:['M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z'],favorite:['M5 3h14v18l-7-4-7 4V3Z'],copy:['M9 9h12v12H9z','M15 5V3H3v12h2'],feedback:['M21 11.5a8.4 8.4 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.7A8.4 8.4 0 0 1 4 11.5a8.5 8.5 0 0 1 4.7-7.6A8.4 8.4 0 0 1 12.5 3H13a8.5 8.5 0 0 1 8 8v.5Z'],moderation:['M12 22s8-4 8-11V5l-8-3-8 3v6c0 7 8 11 8 11Z','m9 12 2 2 4-4'],deck_submission:['m12 2 9 5-9 5-9-5 9-5Z','m3 12 9 5 9-5','m3 17 9 5 9-5']};
   function icon(kind){
     const wrap=el('span',`nc-icon nc-${kind}`);wrap.setAttribute('aria-hidden','true');
     const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');
@@ -54,5 +54,16 @@
     const list=el('ol','nc-timeline');for(const event of data.events){const row=el('li');const head=el('div','nc-event-head');head.append(el('strong','',({ban:'封禁阵容',submit:'提交修改',approve:'审核通过',reject:'退回修改',release:'解除封禁'})[event.action]||'处理记录'),el('time','',date(event.created_at)));row.append(head,el('p','',event.reason||'处理状态已更新'));list.append(row);}section.append(list);
     const link=el('a','nc-action','查看阵容与处理选项 ↗');link.href=`/me?notice=moderation:${data.lineup.id}#lineup-notifications`;link.target='_blank';link.rel='noopener';section.append(link);target.append(section);
   }
-  window.JccNoticeView={icon,actors,interaction,feedback,moderation,labels,date};
+  // Deck submission progress: status, the admin's note, the public result, and a link to the private page.
+  function submission(data,target){
+    target.replaceChildren();const section=el('section','nc-detail');
+    const head=hero('deck_submission',data.title,'');head.append(el('span',`nc-status nc-status-${data.status}`,data.status_label));section.append(head);
+    if(data.review_note){const card=el('div','nc-original');card.append(el('span','nc-eyebrow',data.status==='needs_info'?'需要补充':'处理说明'),el('p','',data.review_note));section.append(card);}
+    const list=el('ol','nc-timeline');for(const event of data.events.slice(-4).reverse()){const row=el('li');const top=el('div','nc-event-head');top.append(el('strong','',event.label),el('time','',date(event.created_at)));row.append(top);if(event.note)row.append(el('p','',event.note));list.append(row);}section.append(list);
+    const result=data.deck?.detail_url||data.duplicate_of?.detail_url;
+    if(result){const link=el('a','nc-action',data.deck?'查看发布的卡组 ↗':'查看相同卡组 ↗');link.href=result;section.append(link);}
+    const more=el('a','nc-action',data.can_edit?(data.status==='needs_info'?'去补充信息 ↗':'查看与修改投稿 ↗'):'查看投稿进度 ↗');more.href=data.url;section.append(more);
+    target.append(section);
+  }
+  window.JccNoticeView={icon,actors,interaction,feedback,moderation,submission,labels,date};
 })();

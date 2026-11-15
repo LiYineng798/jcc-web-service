@@ -108,6 +108,8 @@ def build_admin_overview_payload(db):
     recent_audit_count = int(counts['recent_audit_count'] or 0)
     traffic_7d = last_7_days_uv()
     traffic_by_date = {item['date']: item['uv'] for item in traffic_7d}
+    from deck_submission_service import queue_counts
+    deck_queue = queue_counts()
     return {
         'stats': {
             'today_uv': traffic_by_date.get(today, 0),
@@ -124,12 +126,25 @@ def build_admin_overview_payload(db):
             'pending_reports_count': pending_reports_count,
         },
         'traffic_7d': traffic_7d,
+        'deck': _today_deck(db, today),
         'todos': {
+            'deck_submissions_pending': deck_queue.get('pending', 0),
+            'deck_submissions_processing': deck_queue.get('processing', 0),
+            'deck_submissions_needs_info': deck_queue.get('needs_info', 0),
             'pending_reports_count': pending_reports_count,
             'hidden_lineups_count': hidden_lineups_count,
             'recent_audit_count': recent_audit_count,
         },
     }
+
+
+def _today_deck(db, today):
+    """Today so far, with the same names and collection boundary as the daily report."""
+    from deck_report_service import deck_metrics, deck_snapshot
+    start, end = _day_bounds(today)
+    metrics = deck_metrics(db, start, end)
+    return {**metrics['summary'], 'coverage': metrics['coverage'], 'top_decks': (metrics['top_decks'] or [])[:5],
+            'snapshot': deck_snapshot(db)}
 
 
 def build_admin_growth_payload(target_date):
@@ -208,7 +223,10 @@ def build_admin_copy_rank_payload(db, target_date, limit=10, *, include_details=
                 item['season_name'] = season_names.get(item['season_id'], item['season_id'] or '')
             else:
                 item['title'] = f"已删除阵容 #{row['target_id']}"
-        else:
+        elif row['target_type'] == 'orange_deck':
+            from daily_report_service import _describe_deck
+            _describe_deck(db, item)
+        elif row['target_type'] == 'live_comp':
             season_key = row['season_id'] or ''
             if season_key not in live_payload_cache:
                 payload, _, _, _, _ = read_live_comps_payload_for_season(season_key or None)
@@ -229,12 +247,16 @@ def build_admin_copy_rank_payload(db, target_date, limit=10, *, include_details=
     event_rows = db.execute(
         '''
         SELECT e.target_type, e.target_id, e.season_id, e.user_id,
-               e.ip_address, e.source_page, e.counted, e.created_at,
-               u.username, owner.username AS uploader, l.name AS lineup_name, l.code AS lineup_code
+               e.ip_address, e.source_page, e.counted, e.created_at, e.code_type,
+               u.username, COALESCE(owner.username, credit.username) AS uploader,
+               COALESCE(l.name, d.name) AS lineup_name,
+               CASE WHEN e.code_type = 'plan' THEN d.plan_code WHEN e.code_type = 'lineup' THEN d.lineup_code ELSE l.code END AS lineup_code
         FROM copy_action_events e
         LEFT JOIN users u ON u.id = e.user_id
         LEFT JOIN lineups l ON l.id = e.lineup_id
         LEFT JOIN users owner ON owner.id = l.user_id
+        LEFT JOIN orange_decks d ON d.id = e.deck_id
+        LEFT JOIN users credit ON credit.id = COALESCE(d.provided_by_user_id, d.user_id)
         WHERE e.created_at >= ? AND e.created_at < ? AND e.success = 1
         ORDER BY e.created_at DESC, e.id DESC
         ''',
@@ -268,6 +290,7 @@ def build_admin_copy_rank_payload(db, target_date, limit=10, *, include_details=
             'copied_at': event['created_at'],
             'source_page': event['source_page'] or '',
             'counted': bool(event['counted']),
+            'code_type': event['code_type'],
             'lineup_name': lineup_name,
             'uploader': uploader,
             'code': copied_code or '',

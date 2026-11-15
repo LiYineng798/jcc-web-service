@@ -17,7 +17,7 @@
       const ok = await D.copy(deck[type + '_code']);
       document.getElementById(statusId).textContent = ok ? `${label}已复制` : `复制失败，请选择上方${label}手动复制`;
       if (ok && deck.status === 'published') {
-        try { deck.copy_count = (await D.recordCopy(deck.id, session.csrf, type)).copy_count; }
+        try { deck.copy_count = (await D.recordCopy(deck.id, session.csrf, type, 'detail')).copy_count; }
         catch { document.getElementById(statusId).textContent = `${label}已复制，但次数未同步，请稍后刷新`; }
       }
     } catch { document.getElementById(statusId).textContent = `复制失败，请选择上方${label}手动复制`; }

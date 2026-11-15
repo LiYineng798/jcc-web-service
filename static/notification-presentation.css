@@ -1,8 +1,8 @@
 /* Shared visual language; every rule is scoped to notification components. */
 .nc-icon { --nc-tone:#816da6; display:inline-grid; place-items:center; width:40px; height:40px; flex:0 0 40px; border-radius:14px; color:var(--nc-tone); background:color-mix(in srgb,var(--nc-tone) 11%,var(--surface-solid)); }
 .nc-icon svg { width:20px; height:20px; }
-.nc-like { --nc-tone:#ce5973; }.nc-favorite { --nc-tone:#b48435; }.nc-copy { --nc-tone:#498b9e; }.nc-feedback { --nc-tone:#668772; }.nc-moderation { --nc-tone:#8771aa; }
-[data-theme="dark"] .nc-like{--nc-tone:#ed94a9;}[data-theme="dark"] .nc-favorite{--nc-tone:#dfb866;}[data-theme="dark"] .nc-copy{--nc-tone:#81c3d5;}[data-theme="dark"] .nc-feedback{--nc-tone:#92bba1;}[data-theme="dark"] .nc-moderation{--nc-tone:#b8a2db;}
+.nc-like { --nc-tone:#ce5973; }.nc-favorite { --nc-tone:#b48435; }.nc-copy { --nc-tone:#498b9e; }.nc-feedback { --nc-tone:#668772; }.nc-moderation { --nc-tone:#8771aa; } .nc-deck_submission { --nc-tone:#b0703a; }
+[data-theme="dark"] .nc-like{--nc-tone:#ed94a9;}[data-theme="dark"] .nc-favorite{--nc-tone:#dfb866;}[data-theme="dark"] .nc-copy{--nc-tone:#81c3d5;}[data-theme="dark"] .nc-feedback{--nc-tone:#92bba1;}[data-theme="dark"] .nc-moderation{--nc-tone:#b8a2db;}[data-theme="dark"] .nc-deck_submission{--nc-tone:#e0a46d;}
 .nc-people { display:flex; align-items:center; gap:10px; min-width:0; margin-top:13px; }
 .nc-avatar-circles { position:relative; z-index:1; display:inline-flex; align-items:center; flex-shrink:0; isolation:isolate; }
 .nc-avatar-circles>.nc-avatar { display:block; width:40px!important; height:40px!important; min-width:40px; flex:0 0 40px; padding:0; border-radius:50%; border:2px solid var(--surface-solid); box-sizing:border-box; background:var(--bg); object-fit:cover; margin:0 0 0 -16px!important; transition:transform .18s ease; }

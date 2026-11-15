@@ -9,7 +9,7 @@ from audit import write_audit
 from auth import admin_required, finish_avatar_update, login_required, save_user_avatar
 from automation_service import (
     AutomationError, session_account, require_scope, lock_account, change_account, create_account, import_lineups,
-    list_accounts, request_limited, utc_now, require_deck_scope, upload_deck,
+    list_accounts, request_limited, utc_now, require_deck_scope, upload_deck, project_deck_report,
 )
 from daily_report_service import get_daily_report, list_daily_reports, normalize_report_date
 from db import get_db
@@ -144,10 +144,13 @@ def avatar():
 @automation_bp.get('/api/admin/assistant/overview')
 def overview():
     data = build_admin_overview_payload(get_db())
+    deck = data.get('deck') or {}
     # Only aggregate metrics; future top-level backend fields stay private.
     return jsonify({
         'stats': {key: value for key, value in data.get('stats', {}).items() if type(value) in (int, float)},
         'traffic_7d': [project(row, ('date', 'uv', 'pv', 'label')) for row in data.get('traffic_7d', [])],
+        'deck': project_deck_report(get_db(), {'summary': deck, 'deck_coverage': deck.get('coverage'),
+                                             'deck_top': deck.get('top_decks'), 'deck_snapshot': deck.get('snapshot')}),
     })
 
 
@@ -175,9 +178,12 @@ def report(date):
     data = get_daily_report(date_argument(date))
     if data is None:
         raise AutomationError('日报尚未生成', 404)
+    deck = project_deck_report(get_db(), data)
     return jsonify({
         **project(data, ('report_date', 'generated_at', 'updated_at', 'previous_date')),
-        'summary': {key: value for key, value in data.get('summary', {}).items() if type(value) in (int, float)},
+        'summary': {**{key: value for key, value in data.get('summary', {}).items()
+                      if not key.startswith('deck_') and type(value) in (int, float)}, **deck['summary']},
+        'deck': deck,
         'hourly': {key: values for key, values in data.get('hourly', {}).items()
                    if key in ('uv', 'visits', 'copies') and isinstance(values, list)
                    and all(type(value) in (int, float) for value in values)},

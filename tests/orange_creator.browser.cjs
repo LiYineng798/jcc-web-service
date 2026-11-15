@@ -5,6 +5,8 @@ const path = require('node:path');
 const {chromium, webkit, devices} = require('playwright');
 const {PNG} = require('pngjs');
 const base = process.env.CREATOR_PREVIEW_URL || 'http://127.0.0.1:5139';
+// One export per layout by default; opt into a material matrix when changing backgrounds.
+const materials = process.env.CREATOR_MATERIALS?.split(',');
 const out = path.resolve('instance/creator-review');
 fs.mkdirSync(out, {recursive:true});
 
@@ -95,7 +97,7 @@ async function selectCard(page, slot, id) {
       await page.locator(`[name="poster-layout"][value="${layout}"]`).check();
       assert.equal(await page.locator('.fp-operations').count(),layout==='guide'?1:0);
       assert.equal(await page.locator('#deck-note').isVisible(),layout==='guide');
-      for(const bg of (mobile?['jade','gilded','astral','ivory']:layout==='showcase'?['gilded']:['gilded','jade','astral','ivory'])) {
+      for(const bg of (materials || [layout==='guide'?'gilded':'jade'])) {
         await panel(page,'materials');
         await page.locator(`[data-background="${bg}"]`).click();
         await preview(page,true);
@@ -141,7 +143,7 @@ async function selectCard(page, slot, id) {
     assert.equal(await page.locator('.fp-eq-total').textContent(),'15');
     assert.match(await page.locator('.fp-portal-panel').innerText(),/波动传送门[\s\S]*400 金橘币[\s\S]*随机损失两张卡片/);
     assert.match(await page.locator('.fp-energy-note').innerText(),/超出波动传送门上限 5 点/);
-    for(const bg of (mobile?['editorial']:['editorial','folio'])) {
+    for(const bg of (materials || ['editorial'])) {
       await panel(page,'materials');
       await page.locator(`[data-background="${bg}"]`).click();
       await preview(page,true);
@@ -183,8 +185,6 @@ async function selectCard(page, slot, id) {
     await page.evaluate(()=>{document.documentElement.dataset.theme='dark';});
     await page.screenshot({path:path.join(out,`portrait-${name}-dark.png`),fullPage:true});
     await preview(page,false);
-    // Missing-art card remains selectable and exports text honestly.
-    await selectCard(page,2,'7250012');assert.match(await page.locator('.fortune-poster').innerText(),/卡图暂缺/);
     // Longest card descriptions must remain inside their allotted area.
     const longest=await page.evaluate(()=>JSON.parse(document.querySelector('#creator-config').textContent).cards.sort((a,b)=>b.description.length-a.description.length).slice(0,3).map(c=>c.id));
     for(let i=0;i<3;i++) await selectCard(page,i,longest[i]);

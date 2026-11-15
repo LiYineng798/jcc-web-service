@@ -173,6 +173,8 @@ def init_db():
         return
     db = get_db()
     db.executescript(SCHEMA)
+    from orange_deck_data_schema import migrate_deck_data
+    migrate_deck_data(db)
     from db_migrations import migrate_user_avatars
     migrate_user_avatars(db)
     admin_id = bootstrap_admin(db)
@@ -199,14 +201,21 @@ def postgres_schema_ready():
                         'season_release_packages','season_import_jobs','season_active_releases','season_release_events',
                         'lineup_moderation','lineup_moderation_events',
                         'feedback_threads','feedback_events','user_notifications','author_favorite_receipts','notification_actors', 'automation_accounts',
-                        'orange_decks','orange_deck_favorites','orange_deck_likes','orange_deck_copies'
+                        'orange_decks','orange_deck_favorites','orange_deck_likes','orange_deck_copies',
+                        'orange_deck_submissions','orange_deck_submission_events',
+                        'orange_deck_activity_events','orange_deck_visit_events'
                     )
-                ) = 16 AND (
+                ) = 20 AND (
                     SELECT COUNT(*) FROM information_schema.columns WHERE table_schema='public' AND (
                         (table_name='automation_accounts' AND column_name IN ('session_version','can_upload_decks','deck_seasons_json'))
-                        OR (table_name='orange_decks' AND column_name IN ('plan_code','lineup_code','season_id'))
+                        OR (table_name='orange_decks' AND column_name IN (
+                            'plan_code','lineup_code','season_id','origin_type','provided_by_user_id',
+                            'published_by_user_id','reviewed_card_version','reviewed_at'))
+                        OR (table_name='copy_action_events' AND column_name IN (
+                            'deck_id','code_type','actor_key','client_action_id','rank_eligible'))
+                        OR (table_name='user_notifications' AND column_name='deck_submission_id')
                     )
-                ) = 6 AS exists
+                ) = 17 AS exists
                 '''
             )
             return bool(cursor.fetchone()['exists'])
