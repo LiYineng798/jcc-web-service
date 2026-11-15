@@ -81,8 +81,13 @@ fs.mkdirSync(out, { recursive: true });
       await page.emulateMedia({ reducedMotion: 'reduce' });
       assert.equal(await full.locator('[data-action="copy-lineup"]').evaluate(b => getComputedStyle(b).transitionDuration), '0s');
       await page.goto(base + deck.detail_url, { waitUntil: 'networkidle' });
+      const detailCopy = page.waitForResponse(r => r.url().includes('/copy?code_type=lineup&source=detail'));
       await page.locator('#copyDeckLineup').click();
       await page.locator('#deckLineupCopyStatus').getByText('阵容码已复制', { exact: true }).waitFor();
+      // Copy feedback precedes statistics; finish that request before navigating away.
+      assert.equal((await detailCopy).status(), 200);
+      await (await detailCopy).finished();
+      await page.waitForFunction(() => !document.getElementById('copyDeckLineup').disabled);
       if (name === 'chromium') assert.equal(await page.evaluate(() => navigator.clipboard.readText()), deck.lineup_code);
       await page.goto(base + '/__preview/login?user=author', { waitUntil: 'networkidle' });
       const me = await (await context.request.get(base + '/api/me')).json();

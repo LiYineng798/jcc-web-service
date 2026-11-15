@@ -26,13 +26,21 @@ const base = process.env.DECK_REVIEW_URL || 'http://127.0.0.1:5137';
         nextGate = null;
         const response = await route.fetch();
         const data = await response.json();
-        data.items.forEach(deck => Object.assign(deck, { like_count: 1234, favorite_count: 1234, copy_count: 12345 }));
+        data.items.forEach((deck, index) => Object.assign(deck, {
+          like_count: 1234, favorite_count: 1234, copy_count: 12345,
+          compat: { ...deck.compat, missing_cards: 0, issues: ['卡片资料已更新，效果说明以当前资料为准。'] },
+          review: { current: index % 3 === 0, at: index % 3 === 2 ? '' : '2026-11-10 10:00:00',
+            version: '18.18.1', can_review: true },
+        }));
         if (held) { held.ready(); await held.gate; }
         await route.fulfill({ response, json: data });
       });
       await page.goto(base + '/__preview/login?user=admin', { waitUntil: 'networkidle' });
       await page.evaluate(() => document.querySelector('[data-admin-tab="orange-decks"]').click());
       await page.locator('.admin-deck-row').first().waitFor();
+      // Version changes and every review state stay out of the management rows.
+      assert.doesNotMatch(await page.locator('.admin-deck-table').innerText(), /资料已变化|卡片资料已更新|复核/);
+      assert.equal(await page.getByRole('button', { name: '标记已复核', exact: true }).count(), 0);
       // Full numeric values must stay inside their cell, including on phones with little room.
       for (const width of [1440, 1280, 1024, 390, 320]) {
         await page.setViewportSize({ width, height: 1000 });

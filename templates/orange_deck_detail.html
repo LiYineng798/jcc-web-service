@@ -35,7 +35,6 @@
       </header>
       {% if deck.status == 'hidden' %}<p class="deck-notice" role="status">此卡组已被管理员隐藏，仅作者和管理员可见。{% if deck.hidden_reason %}原因：{{ deck.hidden_reason }}{% endif %}</p>
       {% elif deck.status == 'draft' %}<p class="deck-notice" role="status">这是草稿，仅你自己可见。发布后才会出现在卡组库。</p>{% endif %}
-      {% if deck.compat.issues %}<div class="deck-issues deck-section" role="note"><strong>资料变化</strong><ul>{% for issue in deck.compat.issues %}<li>{{ issue }}</li>{% endfor %}</ul></div>{% endif %}
       <div class="deck-detail-grid">
         <main>
           <section class="deck-section" aria-labelledby="deckCardsTitle">

@@ -334,7 +334,8 @@ def test_card_data_changes_are_reported_and_never_replaced(users, monkeypatch):
     assert data['compat']['issues'][0].startswith('卡片资料已从 18.18.1（2026-11-03）更新为 18.18.2（2026-11-10）')
     assert '「假人朋友」在当前资料中已失效' in data['compat']['issues']
     html = guest.get(f"/orange-decks/{deck['id']}").get_data(as_text=True)
-    assert '当前资料中不存在' in html and '资料变化' in html
+    assert '当前资料中不存在' in html
+    assert '资料变化' not in html and 'deck-issues deck-section' not in html
     # Saving with a vanished card is rejected; a fork leaves that slot empty and says so.
     update = owner.put(f"/api/orange-decks/{deck['id']}", json={**deck_body(), 'version': 1}, headers=auth_headers(owner))
     assert update.status_code == 400 and '不存在或已下架' in update.get_json()['error']
