@@ -143,7 +143,15 @@
 .fortune-poster.is-cards .fp-card h2 { height:48px; font-size:28px; }
 .fortune-poster.is-cards .fp-card-round { font-size:14px; }
 .fortune-poster.is-showcase .fp-card h2 { font-size:27px; }
-.fortune-poster .fortune-official-title { font-family:var(--poster-display); }
+.fortune-poster .fp-card:not(.has-face) .fortune-official-title { font-family:var(--poster-display); }
+/* Whole official faces carry name and effect, so the caption height goes to the card itself. */
+.fortune-poster .fp-card.has-face .fp-card-art { width:300px; height:480px; }
+.fortune-poster:is(.is-showcase,.is-cards) .fp-card.has-face .fp-card-art { width:340px; height:544px; }
+/* Spend the remaining height evenly: centre the showcase row, open up the recommendation stack. */
+.fortune-poster.is-showcase .fp-cards:has(.has-face) { padding-top:60px; }
+.fortune-poster.is-cards:has(.has-face) .fp-summary { margin-top:64px; }
+.fortune-poster.is-cards:has(.has-face) .fp-recommend { margin-top:30px; }
+.fortune-poster .fp-card.has-face .fp-card-number { margin-top:22px; }
 .fortune-poster .fortune-official-seal { font-family:inherit; }
 .creator-pick .fortune-card-frame.is-official { width:100%; max-width:138px; height:auto; aspect-ratio:5 / 8; margin-inline:auto; }
 

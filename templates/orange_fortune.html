@@ -31,7 +31,7 @@
       {# Three complete faces (王者, 史诗, 传说) fanned as the masthead; omitted for art-only releases.
          A tier may name its showcase card; a release without it falls back to the tier's first face. #}
       {% set fan_picks = {5: '7250071'} %}
-      <div class="fortune-fan" aria-hidden="true">{% for group in groups[:3]|reverse %}{% set framed = group.cards|selectattr('framed')|list %}{% set card = (framed|selectattr('id', 'equalto', fan_picks.get(group.tier))|first) or (framed|first) %}{% if card %}<span class="fortune-fan-card" data-slot="{{ loop.index }}">{{ card_art(card) }}</span>{% endif %}{% endfor %}</div>
+      <div class="fortune-fan" aria-hidden="true">{% for group in groups[:3]|reverse %}{% set framed = group.cards|selectattr('framed')|list %}{% set card = (framed|selectattr('id', 'equalto', fan_picks.get(group.tier))|first) or (framed|first) %}{% if card %}<span class="fortune-fan-card" data-slot="{{ loop.index }}">{{ card_art(card, face=True) }}</span>{% endif %}{% endfor %}</div>
     </header>
     <section class="fortune-rules" aria-labelledby="fortune-rules-title">
       <div class="fortune-rules-intro">
@@ -74,9 +74,9 @@
         <header class="fortune-group-heading"><h2 id="fortune-tier-{{ group.tier }}"><i aria-hidden="true">◆</i> {{ group.tier_name }}卡片<em>能量 {{ group.tier }}</em></h2><span><b>{{ group.visible }}</b> 张</span><div></div><small aria-hidden="true">{{ '★' * group.tier }}</small></header>
         <div class="fortune-grid">
         {% for card in group.cards %}
-          <article class="fortune-card" data-id="{{ card.id }}" data-tier="{{ card.tier }}" data-tier-name="{{ card.tier_name }}" data-category="{{ card.category_id }}" data-rounds="{{ card.rounds|join(' ') }}" {% if card.id not in visible_ids %}hidden{% endif %}>
+          <article class="fortune-card{% if card.framed and card.image_url %} has-face{% endif %}" data-id="{{ card.id }}" data-tier="{{ card.tier }}" data-tier-name="{{ card.tier_name }}" data-category="{{ card.category_id }}" data-rounds="{{ card.rounds|join(' ') }}" {% if card.id not in visible_ids %}hidden{% endif %}>
             <button class="fortune-card-button" type="button" aria-label="查看{{ card.name }}详情" aria-haspopup="dialog">
-              <span class="fortune-card-display">{{ card_art(card) }}</span>
+              <span class="fortune-card-display">{{ card_art(card, face=True) }}</span>
               <span class="fortune-card-caption"><span class="fortune-card-title">{{ card.name }}</span><span class="fortune-caption-meta"><span class="fortune-card-category">{{ card.category }}</span><span class="fortune-card-timing">{% if card.rounds %}生效 {{ card.rounds|join(' / ') }}{% else %}条件触发{% endif %}</span></span><span class="fortune-card-description">{{ card.description }}</span></span>
             </button>
           </article>

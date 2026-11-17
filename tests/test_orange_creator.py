@@ -20,6 +20,8 @@ def test_creator_static_catalog_and_public_page(client):
     assert data['tiers'] == {'1': '基础', '2': '勇士', '3': '王者', '4': '史诗', '5': '传说'}
     assert all(card['energy'] == card['tier'] and card['tier_name'] == data['tiers'][str(card['tier'])] for card in data['cards'])
     assert len({card['id'] for card in data['cards']}) == 201
+    # Poster faces pick their type seal by the source category code.
+    assert {card['category_id'] for card in data['cards']} <= {'1001', '1002', '1003', '1004', '1005', '1006'}
     assert [(p['id'], p['name'], p['energy_limit'], p['entry_fee'], p['loss_cards']) for p in data['portals']] == [
         ('stable', '稳定传送门', 8, 0, 0), ('volatile', '波动传送门', 10, 400, 2), ('unknown', '未知传送门', 15, 2000, 3)]
     assert [(l['id'], l['formation']) for l in data['layouts']] == [('guide', True), ('showcase', True), ('cards', False)]

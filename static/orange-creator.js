@@ -108,7 +108,9 @@
   }
   function posterCard(card, i) {
     if (!card) return `<section class="fp-card"><div class="fp-card-empty">0${i+1}<span>等待你的王牌</span></div></section>`;
-    return `<section class="fp-card" data-tier="${card.tier}"><div class="fp-card-art">${art(card)}</div><p class="fp-card-number">TIME CARD / 0${i+1}</p><h2>${esc(card.name)}</h2><p class="fp-card-round"><span class="fp-tier">${esc(card.tier_name)}</span><span class="fp-card-energy">能量 <b>${card.energy}</b></span><span>${esc(roundText(card))}</span></p><p class="fp-card-effect">${esc(card.description)}</p></section>`;
+    // A whole official face already prints the name, round and effect; legacy art keeps its captions.
+    const face = card.framed && card.image_url;
+    return `<section class="fp-card${face?' has-face':''}" data-tier="${card.tier}"><div class="fp-card-art">${window.FortuneCardArt.render(card, {face})}</div><p class="fp-card-number">TIME CARD / 0${i+1}</p>${face?'':`<h2>${esc(card.name)}</h2>`}<p class="fp-card-round"><span class="fp-tier">${esc(card.tier_name)}</span><span class="fp-card-energy">能量 <b>${card.energy}</b></span><span>${esc(roundText(card))}</span></p>${face?'':`<p class="fp-card-effect">${esc(card.description)}</p>`}</section>`;
   }
   function energySummary(d) {
     const terms = d.selected.map(card=>card ? `<span class="fp-eq-term" data-tier="${card.tier}">${card.energy}</span>` : '<span class="fp-eq-term is-empty">·</span>').join('<i>+</i>');
