@@ -104,12 +104,12 @@
   position:absolute; top:var(--copy-top); bottom:var(--copy-bottom); left:var(--copy-left); right:var(--copy-right);
   overflow:hidden; padding-top:2.2cqi; text-align:center;
   font-family:"PingFang SC","Microsoft YaHei","Noto Sans CJK SC","Source Han Sans SC","Noto Sans SC",system-ui,sans-serif;
-  font-size:5.1cqi; font-weight:700; line-height:1.42; letter-spacing:.02em; overflow-wrap:anywhere;
+  font-size:5.4cqi; font-weight:700; line-height:1.4; letter-spacing:.02em; overflow-wrap:anywhere;
   color:color-mix(in srgb,#fffaf0 calc(var(--ink-dark) * 100%),#262b38);
   text-shadow:0 .2cqi .7cqi color-mix(in srgb,#000e calc(var(--ink-dark) * 100%),#fff9);
   background:radial-gradient(64% 58% at 50% 34%,rgb(8 6 14 / calc(var(--ink-dark) * .42)),transparent);
 }
-.fortune-face-copy.is-long { font-size:4.7cqi; line-height:1.38; }
+.fortune-face-copy.is-long { font-size:5cqi; line-height:1.36; }
 /* The plinth narrows to its notch from halfway down; two shaped floats follow that edge. */
 .fortune-face-taper { float:left; width:49%; height:100%; shape-outside:polygon(0 48%,82% 100%,0 100%); }
 .fortune-face-taper.is-right { float:right; shape-outside:polygon(100% 48%,18% 100%,100% 100%); }

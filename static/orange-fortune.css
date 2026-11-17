@@ -109,8 +109,9 @@
 .fortune-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(196px, 1fr)); gap: 16px; }
 .fortune-card { min-width: 0; }
 /* Whole official faces print the name, round and effect themselves, so the tile is the card:
-   wider columns keep the plinth copy legible and the caption shrinks to one meta row. */
-.fortune-grid:has(.has-face) { grid-template-columns: repeat(auto-fill, minmax(232px, 1fr)); gap: 18px; }
+   no box around it, the face fills the column like the in-game collection, and the caption
+   shrinks to one meta row. Columns stay wide enough for ~10px plinth copy. */
+.fortune-grid:has(.has-face) { grid-template-columns: repeat(auto-fill, minmax(196px, 1fr)); gap: 14px 12px; }
 .fortune-card.has-face { container: fortune-tile / inline-size; }
 .fortune-card-button { display: flex; flex-direction: column; width: 100%; height: 100%; padding: 0; overflow: hidden; border: 1px solid var(--fortune-line); border-radius: 14px; background: var(--surface-solid); color: inherit; font: inherit; text-align: left; cursor: pointer; transition: border-color .18s, box-shadow .18s; }
 .fortune-card-button:hover { border-color: color-mix(in srgb, var(--tier) 55%, var(--line)); box-shadow: 0 10px 26px -14px color-mix(in srgb, var(--tier) 55%, #0000); }
@@ -123,15 +124,18 @@
 .fortune-card-category { display: inline-flex; align-items: center; gap: 6px; color: var(--tier-text); font-weight: 600; }
 .fortune-card-category::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--tier); }
 .fortune-card-description { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; height: 5.25em; margin-top: 4px; overflow: hidden; color: var(--muted); font-size: 12.5px; line-height: 1.75; overflow-wrap: anywhere; }
-.has-face .fortune-card-display { padding: 20px 0 16px; }
-.has-face .fortune-card-display .fortune-card-frame { width: 84%; max-width: 250px; }
-.has-face .fortune-card-caption { align-items: center; padding: 9px 14px 11px; }
+.has-face .fortune-card-button { overflow: visible; border-color: transparent; background: none; border-radius: 16px; transition: background-color .18s; }
+.has-face .fortune-card-button:hover { border-color: transparent; box-shadow: none; background: color-mix(in srgb, var(--tier) 7%, transparent); }
+.has-face .fortune-card-display { padding: 10px 0 12px; background: none; }
+.has-face .fortune-card-display .fortune-card-frame { width: 96%; max-width: 264px; transition: transform .18s; }
+.has-face .fortune-card-button:hover .fortune-card-frame { transform: translateY(-3px); }
+.has-face .fortune-card-caption { align-items: center; padding: 0 8px 10px; border-top: 0; }
 .has-face .fortune-caption-meta { justify-content: center; }
 /* Kept for search and screen readers; shown again once the face is too small to read. */
 .has-face :is(.fortune-card-title, .fortune-card-description) { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
-@container fortune-tile (max-width: 214px) {
+@container fortune-tile (max-width: 184px) {
   .fortune-face-copy { display: none; }
-  .has-face .fortune-card-caption { align-items: stretch; padding: 10px 12px 12px; }
+  .has-face .fortune-card-caption { align-items: stretch; padding: 0 6px 10px; }
   .has-face .fortune-caption-meta { justify-content: flex-start; }
   .has-face :is(.fortune-card-title, .fortune-card-description) { position: static; width: auto; height: auto; overflow: hidden; clip-path: none; white-space: normal; }
   .has-face .fortune-card-description { height: 5.1em; }
@@ -205,7 +209,7 @@
   .fortune-results-bar { flex-direction: column; align-items: flex-start; gap: 4px; }
   .fortune-results-bar > span { font-size: 10px; }
   .fortune-grid, .fortune-grid:has(.has-face) { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
-  .has-face .fortune-card-display .fortune-card-frame { width: 78%; }
+  .has-face .fortune-card-display .fortune-card-frame { width: 92%; }
   .fortune-card-button { border-radius: 12px; }
   .fortune-card-display { padding: 16px 0 14px; }
   .fortune-card-display .fortune-card-frame { width: 66%; }
@@ -224,4 +228,4 @@
   #fortune-detail-effect { margin: 18px 0; font-size: 15px; }
 }
 @media (max-width: 359px) { .fortune-grid, .fortune-grid:has(.has-face) { grid-template-columns: 1fr; max-width: 260px; margin: auto; } }
-@media (prefers-reduced-motion: reduce) { .fortune-card-button, .fortune-tier > span { transition: none; } }
+@media (prefers-reduced-motion: reduce) { .fortune-card-button, .fortune-tier > span, .has-face .fortune-card-display .fortune-card-frame { transition: none; } .has-face .fortune-card-button:hover .fortune-card-frame { transform: none; } }
