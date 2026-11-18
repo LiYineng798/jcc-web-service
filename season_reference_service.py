@@ -158,14 +158,21 @@ def _season_full(season_id):
     return _full_at(str(data_directory(season_id)))
 
 
+HERO_EXCLUDED_AVAILABILITY = {'unlock', 'special'}
+
+
 def _hero_champions(champions, limit=5):
-    """Highest-cost shop champions with card art, one per name, for the page cover."""
+    """Highest-cost regular champions with card art, one per name, for the page cover.
+
+    Preview seasons mark regular champions as ``unknown`` rather than ``shop``,
+    so only unlockable and special units are left out.
+    """
     picks, seen = [], set()
     for champion in sorted(champions, key=lambda item: -int(item.get('cost') or 0)):
         art = champion.get('card') or champion.get('splash')
         if not art or champion.get('name') in seen:
             continue
-        if (champion.get('availability') or {}).get('type') not in (None, 'shop'):
+        if (champion.get('availability') or {}).get('type') in HERO_EXCLUDED_AVAILABILITY:
             continue
         seen.add(champion.get('name'))
         picks.append({'id': champion['id'], 'name': champion.get('name'), 'cost': champion.get('cost'), 'art': art})

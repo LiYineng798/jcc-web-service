@@ -630,3 +630,17 @@ def test_season_page_context_lists_cover_champions_and_sibling_seasons(app):
     assert [pick['cost'] for pick in picks] == sorted((pick['cost'] for pick in picks), reverse=True)
     assert all(pick['art'] for pick in picks)
     assert [season['season_id'] for season in context['library_seasons']] == [season['season_id'] for season in catalog_seasons()]
+
+
+def test_cover_champions_skip_unlocks_and_accept_preview_availability(app):
+    with app.test_request_context():
+        for season in catalog_seasons():
+            picks = season_page_context(season['season_id'])['hero_champions']
+            assert picks, season['season_id']
+    from season_reference_service import _hero_champions
+    champions = [
+        {'id': '1', 'name': '解锁', 'cost': 5, 'card': 'a.webp', 'availability': {'type': 'unlock'}},
+        {'id': '2', 'name': '预览', 'cost': 5, 'card': 'b.webp', 'availability': {'type': 'unknown'}},
+        {'id': '3', 'name': '商店', 'cost': 4, 'card': 'c.webp', 'availability': {'type': 'shop'}},
+    ]
+    assert [pick['id'] for pick in _hero_champions(champions)] == ['2', '3']

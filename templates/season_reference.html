@@ -13,6 +13,13 @@
     <div class="page-shell s18-preview-page">
       <nav class="nav-bar s18-preview-nav" aria-label="页面工具">
         <a class="brand-mark brand-link" href="/" aria-label="返回首页">阵</a>
+{% if library_seasons|length > 1 %}
+        <nav class="lib-season-switch" aria-label="切换赛季资料">
+{% for item in library_seasons %}
+          <a href="/tools/seasons/{{ item.season_id }}" title="{{ item.display_name }}"{% if item.season_id == season.season_id %} aria-current="page"{% endif %}>{{ item.display_name.split(' ')[0] }}</a>
+{% endfor %}
+        </nav>
+{% endif %}
         <div class="nav-actions">
           <a class="ghost-link nav-tool-link" href="/">返回首页</a>
           {{ theme_toggle("nav-icon-button") }}
@@ -23,13 +30,6 @@
       {% set has_code = title_parts|length == 2 and title_parts[0][:1] == 'S' %}
       <header class="s18-preview-hero lib-hero">
         <div class="lib-hero-copy">
-{% if library_seasons|length > 1 %}
-          <nav class="lib-season-switch" aria-label="切换赛季资料">
-{% for item in library_seasons %}
-            <a href="/tools/seasons/{{ item.season_id }}" title="{{ item.display_name }}"{% if item.season_id == season.season_id %} aria-current="page"{% endif %}>{{ item.display_name.split(' ')[0] }}</a>
-{% endfor %}
-          </nav>
-{% endif %}
           <p class="eyebrow lib-eyebrow"><span class="lib-status-dot" aria-hidden="true"></span>{{ season.status_label or '赛季资料' }} · Season Library</p>
           <h1 class="lib-title">{% if has_code %}<span class="lib-title-code">{{ title_parts[0] }}</span><span>{{ title_parts[1] }}</span>{% else %}{{ season.display_name }}{% endif %}</h1>
           <p class="season-version-note lib-meta">
