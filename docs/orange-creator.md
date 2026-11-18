@@ -7,7 +7,7 @@
 
 `orange_creator_service.py:creator_config()` 是只读适配层；页面初始数据与 `/api/tools/orange-fortune-creator` 共用它，`schema_version=2`。当前使用随代码交付的卡片档案，不在请求过程中访问官方 CDN，不新增数据库表。
 
-- 卡片来自现有 `orange_fortune_service.catalog()`，卡图复用当前版本的本地文件，官方带底板卡面完整展示；旧独立插画才使用五档 SVG 包边。缺图保留明确占位，不替换成其他卡片。
+- 卡片来自现有 `orange_fortune_service.catalog()`，卡图复用当前版本的本地文件，海报卡片使用与图鉴一致的完整官方卡面（卡名、回合与效果印在卡面上，卡面下只保留编号与品阶·能量·生效回合行，空出的高度用于放大卡面），选卡弹窗与卡槽仍是原横幅卡面；旧独立插画才使用五档 SVG 包边。缺图保留明确占位，不替换成其他卡片。
 - [官方卡片 CDN](https://game.gtimg.cn/images/lol/act/jkzlk/js/16/18.18.1-S400001/card.js) 2026-10-28 快照共 201 条，仍只含 `id/iRarityTier/sName/sIcon/sTags/sArgs/sDesc`，没有卡片能量字段。
 - 版本目录为该分支列出的 16 个接口（含[模式总配置](https://game.gtimg.cn/images/lol/act/jkzlk/js/16/18.18.1-S400001/config.js)、[弈子](https://game.gtimg.cn/images/lol/act/jkzlk/js/16/18.18.1-S400001/chess.js)、[装备](https://game.gtimg.cn/images/lol/act/jkzlk/js/16/18.18.1-S400001/equip.js)）2026-10-29 均可读取；其中没有引用卡片 ID 的字段，也没有卡片能量字段。不能据此断言未列出的官方接口也不存在。
 - 阵容资料来自独立资料赛季 `orange_s400001`（英雄联盟传奇 · 大橘大利），由官方 S400001 分支生成，包含 `s16_5` 没有的伊泽瑞尔、努努和威朗普、斯莫德、艾瑞利娅、迦娜、阿木木；相对 `s16_5` 新增的弈子带 `new` 标签。生成方式见 [独立模式赛季](season-library.md#独立模式赛季官方分支档案)。

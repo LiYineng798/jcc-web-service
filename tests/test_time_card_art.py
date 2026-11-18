@@ -19,7 +19,7 @@ def _stage(bounds, tmp_path):
     assert art['framed']
     values = {k:float(v.rstrip('%')) for k,v in (pair.split(':') for pair in art['art_style'].split(';'))}
     scale = values['--art-width'] / 512
-    return {'left': values['--art-left'] + bounds[0] * scale, 'right': values['--art-left'] + bounds[2] * scale,
+    return {'values': values,'left': values['--art-left'] + bounds[0] * scale, 'right': values['--art-left'] + bounds[2] * scale,
             'top': values['--art-top'] + bounds[1] * scale / 1.6, 'bottom': values['--art-top'] + bounds[3] * scale / 1.6,
             'ribbon': values['--ribbon-top']}
 
@@ -100,3 +100,23 @@ def test_higher_resolution_official_cards_keep_the_same_geometry(tmp_path):
     im.save(tmp_path/'original.png')
     im.resize((1024,1024),Image.Resampling.NEAREST).save(tmp_path/'large.png')
     assert presentation(tmp_path/'original.png') == presentation(tmp_path/'large.png')
+
+
+@pytest.mark.parametrize('bounds', TIER_BOUNDS)
+def test_face_landmarks_stay_on_the_plinth(tmp_path, bounds):
+    box = _stage(bounds, tmp_path)
+    v = box['values']
+    assert box['top'] < v['--pips-top'] < v['--ribbon-top'] < v['--copy-top'] < 100 - v['--copy-bottom'] < v['--tip-top'] < box['bottom']
+    assert box['left'] < v['--copy-left'] and 100 - v['--copy-right'] < box['right']
+    assert abs(v['--copy-left'] - v['--copy-right']) < .5
+
+
+@pytest.mark.parametrize('plinth, dark', [('#e8ebf2', 0), ('#1b1420', 1)])
+def test_copy_ink_follows_the_plinth_tone(tmp_path, plinth, dark):
+    path = tmp_path / 'card.png'
+    im = Image.new('RGBA', (512,512))
+    draw = ImageDraw.Draw(im)
+    draw.rectangle((112,36,399,493), fill='#5a3d2a')
+    draw.rectangle((132,362,380,470), fill=plinth)
+    im.save(path)
+    assert presentation(path)['art_style'].endswith(f';--face-dark:{dark}')

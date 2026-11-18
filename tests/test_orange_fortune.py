@@ -46,7 +46,7 @@ def test_guest_page_search_and_home_navigation(client):
     page = client.get(PAGE)
     assert page.status_code == 200
     html = page.get_data(as_text=True)
-    assert html.count('class="fortune-card"') == 201
+    assert html.count('<article class="fortune-card has-face"') == 201
     assert '全部品阶 <small>201</small>' in html
     assert '全部星级' not in html and ' 星卡片' not in html and '纹章</option>' not in html and '羁绊</option>' in html
     for name in ('基础', '勇士', '王者', '史诗', '传说'):
@@ -57,6 +57,11 @@ def test_guest_page_search_and_home_navigation(client):
     # 201 gallery faces plus the masthead fan (one complete face each for 王者, 史诗, 传说).
     assert html.count('class="fortune-fan-card"') == 3
     assert '黑玫瑰夜市' in html and html.count('fortune-card-frame is-official') == 201 + 3
+    # Whole official faces: tier pips, the round chip and effect on the plinth, and the type seal.
+    assert html.count('fortune-card-frame is-official is-face') == 201 + 3
+    assert '<b class="fortune-face-round">1-4</b>获得4金币。</span>' in html
+    assert html.count('class="fortune-face-seal" data-category="1001"') >= 1
+    assert '<span class="fortune-face-pips" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>' in html
     filtered = client.get(PAGE, query_string={'q': '黑玫瑰', 'tier': '5'}).get_data(as_text=True)
     assert '找到 <strong>1</strong> 张卡片' in filtered
     assert 'noindex' in filtered
