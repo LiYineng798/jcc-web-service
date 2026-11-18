@@ -619,3 +619,14 @@ def test_augment_classifier_keeps_inference_rules_explicit():
         'local_path': 'assets/augments/1.png', 'source_url': 'https://game.gtimg.cn/1.png', 'alt': '测试',
     }}]}
     assert build_change_report(previous, current)['summary']['changed'] == 0
+
+
+def test_season_page_context_lists_cover_champions_and_sibling_seasons(app):
+    with app.test_request_context():
+        context = season_page_context('s18')
+    picks = context['hero_champions']
+    assert 0 < len(picks) <= 5
+    assert len({pick['name'] for pick in picks}) == len(picks)
+    assert [pick['cost'] for pick in picks] == sorted((pick['cost'] for pick in picks), reverse=True)
+    assert all(pick['art'] for pick in picks)
+    assert [season['season_id'] for season in context['library_seasons']] == [season['season_id'] for season in catalog_seasons()]

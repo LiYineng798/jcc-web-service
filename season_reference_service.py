@@ -158,6 +158,22 @@ def _season_full(season_id):
     return _full_at(str(data_directory(season_id)))
 
 
+def _hero_champions(champions, limit=5):
+    """Highest-cost shop champions with card art, one per name, for the page cover."""
+    picks, seen = [], set()
+    for champion in sorted(champions, key=lambda item: -int(item.get('cost') or 0)):
+        art = champion.get('card') or champion.get('splash')
+        if not art or champion.get('name') in seen:
+            continue
+        if (champion.get('availability') or {}).get('type') not in (None, 'shop'):
+            continue
+        seen.add(champion.get('name'))
+        picks.append({'id': champion['id'], 'name': champion.get('name'), 'cost': champion.get('cost'), 'art': art})
+        if len(picks) == limit:
+            break
+    return picks
+
+
 def season_page_context(season_id):
     """Everything the reference page template needs, or None if unknown."""
     entry = get_season_entry(season_id)
@@ -167,6 +183,8 @@ def season_page_context(season_id):
     augments = index.get('augments') or []
     return {
         'season': entry,
+        'library_seasons': catalog_seasons(),
+        'hero_champions': _hero_champions(index.get('champions') or []),
         'mechanics': [
             {'id': mechanic['id'], 'kind': mechanic.get('kind'), 'display_name': mechanic.get('display_name'), 'presentation': mechanic.get('presentation'), 'description': mechanic.get('description')}
             for mechanic in index.get('mechanics') or []

@@ -431,6 +431,7 @@ function createChampionCard(champion, index) {
   card.className = `champion-card${state.showSkills ? '' : ' skills-hidden'}`;
   card.style.setProperty('--cost-color', costStyle(champion.cost));
   card.style.setProperty('--delay', `${Math.min(index, 10) * 28}ms`);
+  card.dataset.cost = String(champion.cost);
 
   const isNew = (champion.tags || []).includes('new');
   const art = document.createElement('div');
@@ -505,6 +506,8 @@ function renderChampions() {
     if (!costChampions.length) return;
     const section = document.createElement('section');
     section.className = 'champion-cost-section';
+    section.dataset.cost = String(cost);
+    section.style.setProperty('--cost-color', costStyle(cost));
     section.setAttribute('aria-labelledby', `championCost${cost}`);
     const heading = document.createElement('div');
     heading.className = 'champion-cost-heading';
@@ -545,6 +548,7 @@ function filteredTraits() {
 function createTraitCard(trait, index) {
   const card = document.createElement('article');
   card.className = 'trait-card';
+  card.dataset.category = trait.category === 'class' ? 'class' : 'origin';
   card.style.setProperty('--delay', `${Math.min(index, 10) * 30}ms`);
 
   const title = document.createElement('h2');
@@ -566,6 +570,7 @@ function createTraitCard(trait, index) {
     breakpoints.forEach((breakpoint) => {
       const row = document.createElement('div');
       row.className = 'trait-level';
+      if (breakpoint.style) row.dataset.style = breakpoint.style;
       const count = document.createElement('span');
       count.className = 'trait-level-count';
       count.textContent = String(breakpoint.min_units);
