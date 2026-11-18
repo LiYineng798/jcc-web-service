@@ -24,6 +24,7 @@
         <div>
           <p class="eyebrow">{{ season.display_name }} · Champion Archive</p>
           <h1>{{ champion.name }}</h1>
+          {% if season.game_version %}<p class="season-version-note">游戏版本 {{ season.game_version }}</p>{% endif %}
         </div>
         <span class="champion-detail-cost">{{ champion.cost }}费弈子</span>
       </header>

@@ -1,0 +1,86 @@
+{
+  "version_id": "s19__pbe",
+  "rich_text_version": 1,
+  "board_units": [
+    {
+      "id": "rakan-clone",
+      "name": "洛的克隆体",
+      "kind": "trait_object",
+      "aliases": [],
+      "trait_ids": [
+        "origin-30"
+      ],
+      "contribution_trait_ids": [],
+      "placement_rules": [
+        {
+          "champion_id": "919497",
+          "min_units": 1,
+          "max_count": 2
+        }
+      ],
+      "can_equip": false,
+      "stats": {},
+      "skill": {
+        "name": "幻翎克隆体",
+        "description": "【洛】将与2个可放置的克隆体一同登场，克隆体拥有他50%的最大生命值，造成30%的伤害，并复制他携带的装备。",
+        "image": null
+      },
+      "image": {
+        "local_path": "assets/champions/icons/919497.jpg",
+        "source_url": "https://static.datatft.com/images/heros/default/tmp0712/919497.jpg",
+        "placeholder": false,
+        "optimized_local_path": "assets/optimized/s19__pbe/board-units/rakan-clone.webp"
+      },
+      "source_ids": {
+        "datatft_trait": "DA_19_BoyBand"
+      },
+      "extensions": {
+        "simulator": {
+          "copy_items_from": "919497",
+          "population_unverified": true
+        },
+        "provenance": {
+          "source_type": "user_har",
+          "verified_for_current_patch": false,
+          "note": "站位预览；复用洛头像；不推断克隆体人口、独立羁绊或战斗数值。"
+        }
+      }
+    }
+  ],
+  "source": {
+    "id": "datatft-user-har",
+    "type": "community_preview",
+    "url": "https://www.datatft.com/assets/data-cn-DXom63BO.js",
+    "har_sha256": "76eb8b7224f65e1bb4d98152fac6b33f7f37e8b9ae877d3e7b4e99c1d7b33059",
+    "source_updated_at": "2026-11-17T04:23:07.152000+00:00",
+    "verified_for_current_patch": false,
+    "note": "以用户提供的 HAR 为准；不是官方正式服快照",
+    "capture_count": 1,
+    "capture_sha256": [
+      "76eb8b7224f65e1bb4d98152fac6b33f7f37e8b9ae877d3e7b4e99c1d7b33059"
+    ],
+    "data_sha256": "14a649fd46eead677b9fccc1c2b9fcc385c90efeadb31f412e1142ef74fa439b",
+    "asset_capture_sha256": [
+      "1e9bbc33d7bd7de70cec9ebf0b67ce19735c0a03b73a91bb03db8478e730e955",
+      "02cd877d18f0b2e0bb29cffed790640f0a265bd82b4f1b2b5eb07e715046f45d",
+      "e166b2e3932b646e33417492af3226e0c2a24a47c62faa403205de697376b1e1"
+    ]
+  },
+  "discovery_audit": {
+    "supported": [
+      "K/DA 总星级",
+      "娑娜五选一乐队及零人口",
+      "纳什男爵两人口",
+      "真实伤害 A/B 面说明",
+      "洛的两个克隆体站位及装备复制"
+    ],
+    "review": [
+      "洛克隆体人口与独立羁绊未核定；不贡献羁绊，人口显示下限。",
+      "海之歌明确可放置，但每局随机乐器、累计数量与人口规则不完整。",
+      "炼狱偶像仅说明召唤，没有可手动放置的依据。",
+      "神秘乐器明确无法放置；巴德木灵用于备战席出售，不作为布阵对象。",
+      "阿卡丽技能写 A 面金币/B 面回血，说唱女王描述相反；仅保留原文，不计算收益。",
+      "合奏每局随机名单缺失；真实伤害及心之钢重复人数棱彩档缺少追加条件。"
+    ]
+  }
+}

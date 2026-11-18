@@ -1,0 +1,39 @@
+{
+  "sources": [
+    {
+      "id": "datatft-user-har",
+      "type": "community_preview",
+      "url": "https://www.datatft.com/assets/data-cn-DXom63BO.js",
+      "har_sha256": "76eb8b7224f65e1bb4d98152fac6b33f7f37e8b9ae877d3e7b4e99c1d7b33059",
+      "source_updated_at": "2026-11-17T04:23:07.152000+00:00",
+      "verified_for_current_patch": false,
+      "note": "以用户提供的 HAR 为准；不是官方正式服快照",
+      "capture_count": 1,
+      "capture_sha256": [
+        "76eb8b7224f65e1bb4d98152fac6b33f7f37e8b9ae877d3e7b4e99c1d7b33059"
+      ],
+      "data_sha256": "14a649fd46eead677b9fccc1c2b9fcc385c90efeadb31f412e1142ef74fa439b",
+      "asset_capture_sha256": [
+        "1e9bbc33d7bd7de70cec9ebf0b67ce19735c0a03b73a91bb03db8478e730e955",
+        "02cd877d18f0b2e0bb29cffed790640f0a265bd82b4f1b2b5eb07e715046f45d",
+        "e166b2e3932b646e33417492af3226e0c2a24a47c62faa403205de697376b1e1"
+      ]
+    },
+    {
+      "id": "previous-season-modules",
+      "type": "previous_season_snapshot",
+      "season_id": "s18",
+      "version_id": "s18__18_18_2",
+      "game_version": "18.18.2",
+      "verified_for_current_patch": false,
+      "modules": [
+        "items",
+        "augments"
+      ],
+      "sha256": {
+        "items": "958ca6862f832bcf83777d3694458482dc5d8c0ca8be1c04da689ec53471a5ae",
+        "augments": "641d823920d663b540e051b0a06c33b148988b313274d9a94a1031614d03ef3d"
+      }
+    }
+  ]
+}

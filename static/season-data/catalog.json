@@ -117,6 +117,31 @@
     "board_units": 5,
     "augments": 298
    }
+  },
+  {
+   "season_id": "s19",
+   "display_name": "S19 棱彩音乐盛典",
+   "set_number": "19",
+   "set_variant": null,
+   "theme": "棱彩音乐盛典",
+   "status": "hidden",
+   "game_version": "PBE",
+   "version_id": "s19__pbe",
+   "effective_at": "2026-11-17T04:23:07.152000+00:00",
+   "counts": {
+    "champions": 94,
+    "traits": 47,
+    "items": 157,
+    "augments": 257,
+    "board_units": 1,
+    "mechanics": 0
+   },
+   "path": "s19/index.json",
+   "surface_status": {
+    "library": "hidden",
+    "simulator": "hidden",
+    "creator": "hidden"
+   }
   }
  ]
 }

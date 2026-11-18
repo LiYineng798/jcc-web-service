@@ -233,6 +233,9 @@ function normalizeText(value) {
 }
 
 function traitChoiceNames(raw, traitByName = null) {
+  if (raw.extensions?.simulator?.choice_trait_ids) {
+    return raw.extensions.simulator.choice_trait_ids.map((id) => traitByName?.get(String(id))?.name).filter(Boolean);
+  }
   const traitText = (raw.trait_ids || [])
     .map((traitId) => traitByName?.get(String(traitId)))
     .map((trait) => trait?.description || "")
@@ -260,6 +263,9 @@ function expandChampionTraitChoices(raw, traitByName) {
     traitIds: [...new Set([...base.traitIds, trait.id])],
     choiceTraitId: trait.id,
     choiceTraitName: trait.name,
+    baseChampionId: base.id,
+    boardName: base.name,
+    uniqueChoice: raw.extensions?.simulator?.unique_choice === true,
   }));
 }
 
@@ -282,7 +288,8 @@ function simulatorChampionRules(raw, traitsByName) {
     }
   });
   return {
-    unitSlots: Math.max(1, Number(slotMatch?.[1]) || 1),
+    unitSlots: Number.isInteger(raw.extensions?.simulator?.unit_slots)
+      ? Math.max(0, raw.extensions.simulator.unit_slots) : Math.max(1, Number(slotMatch?.[1]) || 1),
     traitContributions,
   };
 }
@@ -378,6 +385,9 @@ function normalizeBoardUnit(raw) {
     stats: raw.stats || {},
     isBoardUnit: true,
     canEquip: raw.can_equip === true,
+    unitSlots: raw.extensions?.simulator?.population_unverified ? 0 : 1,
+    populationUnverified: raw.extensions?.simulator?.population_unverified === true,
+    copyItemsFrom: raw.extensions?.simulator?.copy_items_from || null,
   };
 }
 
@@ -400,6 +410,7 @@ function normalizeTrait(raw) {
     icon: seasonAsset(raw.image?.optimized_local_path || raw.image?.local_path),
     tags: raw.tags || [],
     activationRules,
+    counting: {...(raw.extensions?.simulator || {}), sides: (raw.extensions?.simulator?.sides || []).filter(side => side === "A" || side === "B")},
   };
 }
 
@@ -505,6 +516,7 @@ async function loadSeason(seasonId, importedPayload = null) {
       fetchJson(`${seasonDataRoot}/board_units.json?v=${stamp}`),
       augmentRequest,
     ]);
+    state.simulatorControls = championData.simulator_controls === true;
     state.traits = (traitData.traits || []).map(normalizeTrait)
       .sort((a, b) => a.category.localeCompare(b.category) || a.name.localeCompare(b.name, "zh-CN"));
     const traitByName = new Map(state.traits.flatMap((trait) => [[trait.name, trait], [String(trait.id), trait]]));
@@ -513,7 +525,9 @@ async function loadSeason(seasonId, importedPayload = null) {
       .flatMap((raw) => expandChampionTraitChoices(raw, traitByName))
       .sort((a, b) => a.cost - b.cost || a.name.localeCompare(b.name, "zh-CN"));
     state.boardUnits = (boardUnitData.board_units || []).map(normalizeBoardUnit).sort((a, b) => a.name.localeCompare(b.name, "zh-CN"));
-    state.items = (itemData.items || []).map(normalizeItem);
+    state.items = (itemData.items || [])
+      .filter((raw) => raw.extensions?.simulator_visible !== false)
+      .map(normalizeItem);
     state.augments = (augmentData.augments || []).map(normalizeAugment)
       .sort((a, b) => a.tierOrder - b.tierOrder || a.category.localeCompare(b.category) || a.name.localeCompare(b.name, "zh-CN"));
     const availableCategories = availableItemCategories();
@@ -534,6 +548,7 @@ async function loadSeason(seasonId, importedPayload = null) {
       payload = importedPayload.format === "JCC2" ? decodePayload(importedPayload.code) : importedPayload;
     }
     state.board = hydrateBoard(payload?.board);
+    state.traitModes = hydrateTraitModes(payload?.traitModes);
     state.selectedAugmentIds = hydrateAugmentIds(payload?.augmentIds);
     state.showNames = payload?.showNames !== false;
     elements.showNames.checked = state.showNames;
@@ -551,12 +566,19 @@ async function loadSeason(seasonId, importedPayload = null) {
 
 function hydrateBoard(rawBoard) {
   const board = Array(28).fill(null);
+  const selectedFamilies = new Set();
   if (!Array.isArray(rawBoard)) return board;
   rawBoard.slice(0, 28).forEach((slot, index) => {
     if (!slot) return;
     const championId = positionFormId(slot.championId, index);
     if (!state.championById.has(championId)) return;
+    const hero = state.championById.get(championId);
+    if (hero.uniqueChoice) {
+      if (selectedFamilies.has(hero.baseChampionId)) return;
+      selectedFamilies.add(hero.baseChampionId);
+    }
     const hydrated = { championId, items: [] };
+    if (!hero.isBoardUnit && Number(slot.stars) > 1) hydrated.stars = unitStars(slot);
     const itemIds = Array.isArray(slot.items) ? slot.items : [];
     itemIds.map(String).forEach((itemId) => {
       if (!equipmentError(hydrated, itemId)) hydrated.items.push(itemId);
@@ -609,7 +631,8 @@ function renderSeasonSwitcher() {
     </button>`).join("");
   if (state.season) {
     const boardUnitText = state.boardUnits.length ? ` · ${state.boardUnits.length} 个棋盘对象` : "";
-    elements.seasonMeta.textContent = `${state.season.display_name} · ${state.season.game_version} · ${state.champions.length} 名弈子${boardUnitText}`;
+    const championCount = new Set(state.champions.map(hero => hero.baseChampionId || hero.id)).size;
+    elements.seasonMeta.textContent = `${state.season.display_name} · ${state.season.game_version} · ${championCount} 名弈子${boardUnitText}`;
   }
 }
 
@@ -833,6 +856,49 @@ function toggleAugment(augmentId) {
   });
 }
 
+function hydrateTraitModes(value) {
+  return Object.fromEntries(state.traits.filter(t => t.counting?.sides?.length).map(t =>
+    [t.id, t.counting.sides.includes(value?.[t.id]) ? value[t.id] : t.counting.sides[0]]));
+}
+
+function selectedTraitBreakpoints(trait) {
+  const side = state.traitModes?.[trait.id] || trait.counting?.sides?.[0];
+  return (trait.breakpoints || []).filter(point => !point.side || point.side === side);
+}
+
+function effectiveItems(slot) {
+  const owner = state.championById.get(slot.championId)?.copyItemsFrom;
+  if (!owner) return slot.items;
+  const sources = state.board.filter(s => s?.championId === owner);
+  // Prefer the strongest equipped body; re-evaluate after every board edit.
+  sources.sort((a, b) => unitStars(b) - unitStars(a) || b.items.length - a.items.length);
+  return sources[0]?.items || [];
+}
+
+function unitStars(slot) {
+  const value = Number(slot?.stars);
+  return Number.isFinite(value) ? Math.min(4, Math.max(1, Math.floor(value))) : 1;
+}
+
+function cycleUnitStars(index) {
+  const slot = state.board[index];
+  if (!slot || state.championById.get(slot.championId)?.isBoardUnit) return;
+  mutate(() => { slot.stars = unitStars(slot) % 4 + 1; });
+}
+
+function removeUnit(index) {
+  if (!state.board[index]) return;
+  hidePopover();
+  mutate(() => { state.board[index] = null; });
+}
+
+function unitStarsHtml(slot, index) {
+  const stars = unitStars(slot);
+  const gradientId = `star-metal-${index}`;
+  const star = `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11.1 3.1Q12 1.3 12.9 3.1L15.2 7.8Q15.5 8.4 16.2 8.5L21.4 9.3Q23.3 9.6 21.9 10.9L18.2 14.6Q17.7 15.1 17.8 15.8L18.7 21Q19 22.9 17.3 22L12.7 19.6Q12 19.3 11.3 19.6L6.7 22Q5 22.9 5.3 21L6.2 15.8Q6.3 15.1 5.8 14.6L2.1 10.9Q.7 9.6 2.6 9.3L7.8 8.5Q8.5 8.4 8.8 7.8Z" fill="url(#${gradientId})" stroke="#fff0bc" stroke-width=".7" stroke-linejoin="round"/></svg>`;
+  return `<button type="button" class="unit-stars" data-cycle-stars="${index}" aria-label="${stars}星，点击升星" title="右键弈子或点击星标升星"><svg class="star-palette" aria-hidden="true" width="0" height="0"><defs><linearGradient id="${gradientId}" x1="0" y1="0" x2=".2" y2="1"><stop stop-color="#fff7d5"/><stop offset=".38" stop-color="#f5d478"/><stop offset=".62" stop-color="#cc963a"/><stop offset="1" stop-color="#ffe9a0"/></linearGradient></defs></svg>${star.repeat(stars)}</button>`;
+}
+
 function renderBoard() {
   elements.board.classList.toggle("hide-names", !state.showNames);
   elements.board.innerHTML = state.board.map((slot, index) => boardSlotHtml(slot, index)).join("");
@@ -846,6 +912,10 @@ function renderBoard() {
     : invalidSpecials
     ? `${invalidSpecials} 个特殊单位未满足解锁条件`
     : units.length ? `${population} 人口 · ${units.length} 个单位已上阵` : "阵容未配置";
+  if (units.some((slot) => state.championById.get(slot.championId)?.populationUnverified)) {
+    elements.unitCount.textContent = `≥${population}`;
+    elements.boardStatus.textContent = `至少 ${population} 人口 · ${units.length} 个单位已上阵 · 克隆体人口未核定${invalidSpecials ? ` · ${invalidSpecials} 个特殊单位未满足解锁条件` : ""}`;
+  }
   renderTraitSummary();
   renderComponentSummary();
   elements.undo.disabled = state.historyIndex <= 0;
@@ -857,19 +927,22 @@ function boardSlotHtml(slot, index) {
   if (!slot) return `<button class="hex-cell" type="button" role="gridcell" data-slot-index="${index}" aria-label="空棋格 ${index + 1}"><span class="hex-floor"></span></button>`;
   const hero = state.championById.get(slot.championId);
   if (!hero) return `<button class="hex-cell" type="button" role="gridcell" data-slot-index="${index}"><span class="hex-floor"></span></button>`;
-  const items = slot.items.map((itemId, itemIndex) => {
+  const items = effectiveItems(slot).map((itemId, itemIndex) => {
     const item = state.itemById.get(itemId);
     return item ? `<span class="unit-item" data-item-id="${escapeHtml(item.id)}" data-slot-index="${index}" data-item-index="${itemIndex}"><img src="${escapeHtml(item.icon)}" alt="${escapeHtml(item.name)}" /></span>` : "";
   }).join("");
   const validSpecial = !hero.isBoardUnit || specialPlacementIsValid(hero.id, index);
-  const longNameClass = [...hero.name].length > 7 ? " is-long" : "";
-  return `<button class="hex-cell has-unit ${items ? "has-items" : ""} ${hero.isBoardUnit ? "is-special" : ""} ${validSpecial ? "" : "is-invalid-special"}" type="button" role="gridcell" draggable="true" data-slot-index="${index}" data-hero-id="${escapeHtml(hero.id)}" aria-label="${escapeHtml(hero.name)}">
+  const boardName = hero.boardName || hero.name;
+  const longNameClass = [...boardName].length > 7 ? " is-long" : "";
+  return `<div class="hex-cell has-unit ${items ? "has-items" : ""} ${hero.isBoardUnit ? "is-special" : ""} ${validSpecial ? "" : "is-invalid-special"}" tabindex="0" role="gridcell" draggable="true" data-slot-index="${index}" data-hero-id="${escapeHtml(hero.id)}" aria-label="${escapeHtml(hero.name)}">
     <span class="hex-floor"></span>
     <span class="unit-portrait" style="--unit-color:${costColor(hero.cost)}"><span class="unit-portrait-crop"><img class="unit-portrait-image" src="${escapeHtml(hero.icon)}" alt="" /></span></span>
     <span class="unit-items">${items}</span>
-    <span class="unit-name${longNameClass}">${escapeHtml(hero.name)}</span>
+    <span class="unit-name${longNameClass}">${escapeHtml(boardName)}</span>
+    ${!hero.isBoardUnit ? unitStarsHtml(slot, index) : ""}
+    <button type="button" class="unit-remove" data-remove-unit="${index}" aria-label="移除 ${escapeHtml(hero.name)}" title="移除弈子"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4 4 8 8m0-8-8 8"/></svg></button>
     ${hero.availability?.type === "unlock" ? `<span class="unlock-mark" title="解锁弈子"><img src="${UI_ROOT}/unlock.png" alt="" /></span>` : ""}
-  </button>`;
+  </div>`;
 }
 
 function getTraitCounts() {
@@ -884,7 +957,9 @@ function getTraitCounts() {
     .reduce((total, count) => total + count, 0);
   state.board.filter(Boolean).forEach((slot) => {
     const hero = state.championById.get(slot.championId);
-    hero?.traitIds.forEach((traitId) => addContributor(traitId, hero.id));
+    const contributorId = hero?.baseChampionId || hero?.id;
+    hero?.traitIds.forEach((traitId) => addContributor(traitId, contributorId,
+      state.traitById.get(traitId)?.counting?.count_mode === "star_sum" ? slot.stars || 1 : 1));
     hero?.traitContributions?.forEach(({ traitId, count }) => addContributor(traitId, hero.id, count));
     slot.items.forEach((itemId) => {
       const traitId = state.itemById.get(itemId)?.grantedTraitId;
@@ -914,8 +989,9 @@ function getTraitCounts() {
 }
 
 function traitState(trait, count) {
-  const active = trait.breakpoints.filter((point) => count >= Number(point.min_units)).at(-1) || null;
-  const next = trait.breakpoints.find((point) => count < Number(point.min_units)) || null;
+  const points = selectedTraitBreakpoints(trait);
+  const active = points.filter((point) => count > 0 && count >= Number(point.min_units)).at(-1) || null;
+  const next = points.find((point) => count < Number(point.min_units)) || null;
   const unique = active?.style === "unique"
     || trait.category === "unique"
     || trait.tags.some((tag) => normalizeText(tag).includes("unique") || String(tag).includes("独特"));
@@ -943,9 +1019,11 @@ function renderTraitSummary() {
   }).filter(Boolean).sort(compareTraitRows);
   elements.activeTraitCount.textContent = String(rows.filter((row) => row.status.active).length);
   elements.traitSummary.innerHTML = rows.length ? rows.map(({ trait, count, status }) => {
-    const breakpointText = trait.breakpoints.length
+    let breakpointText = trait.breakpoints.length
       ? trait.breakpoints.map((breakpoint) => breakpoint.min_units).join(" > ")
       : "独特";
+    if (trait.counting?.sides?.length) breakpointText = `${state.traitModes?.[trait.id] || "A"}面 · ${[...new Set(selectedTraitBreakpoints(trait).map(p => p.min_units))].join(" > ")}`;
+    if (trait.counting?.count_mode === "star_sum") breakpointText += " 星";
     const background = status.styleIndex === "unique" ? `${UI_ROOT}/unique.svg` : `${UI_ROOT}/${status.styleIndex}.svg`;
     return `<div class="trait-row" style="--trait-color:${TRAIT_STYLE_COLORS[status.styleIndex]}" data-trait-id="${escapeHtml(trait.id)}" data-tier-rank="${traitTierRank(status)}">
       <span class="trait-badge"><img class="trait-badge-frame" src="${background}" alt="" />${trait.icon ? `<img class="trait-badge-icon" src="${escapeHtml(trait.icon)}" alt="" />` : ""}</span>
@@ -983,7 +1061,7 @@ function firstEmptySlot() {
 
 function totalPopulation(board = state.board) {
   return board.filter(Boolean).reduce((total, slot) => (
-    total + (state.championById.get(slot.championId)?.unitSlots || 1)
+    total + (state.championById.get(slot.championId)?.unitSlots ?? 1)
   ), 0);
 }
 
@@ -1018,6 +1096,8 @@ function boardUnitAllowance(unit) {
 }
 
 function boardUnitRequirementText(unit) {
+  const allowance = boardUnitAllowance(unit);
+  if (allowance > 0 && countPlacedUnit(unit.id) >= allowance) return `最多放置 ${allowance} 个${unit.name}`;
   const first = [...(unit.placementRules || [])].sort((a, b) => Number(a.min_units) - Number(b.min_units))[0];
   const trait = first ? state.traitById.get(String(first.trait_id)) : null;
   const champion = first ? state.championById.get(String(first.champion_id)) : null;
@@ -1035,6 +1115,9 @@ function specialPlacementIsValid(unitId, index) {
 function addChampion(championId, requestedIndex = null) {
   const hero = state.championById.get(championId);
   if (!hero) return;
+  if (hero.uniqueChoice && state.board.some(slot => slot && state.championById.get(slot.championId)?.baseChampionId === hero.baseChampionId)) {
+    return showToast("该弈子已上阵，请在特殊规则中切换乐队");
+  }
   if (totalPopulation() + hero.unitSlots > state.board.length) {
     return showToast("阵容人口已满");
   }
@@ -1096,7 +1179,7 @@ function mutate(callback) {
 }
 
 function snapshot() {
-  return JSON.stringify({ board: state.board, augmentIds: state.selectedAugmentIds, showNames: state.showNames });
+  return JSON.stringify({ board: state.board, augmentIds: state.selectedAugmentIds, showNames: state.showNames, traitModes: state.traitModes });
 }
 
 function pushHistory() {
@@ -1113,6 +1196,7 @@ function applyHistory(index) {
   state.historyIndex = index;
   const value = JSON.parse(state.history[index]);
   state.board = hydrateBoard(value.board);
+  state.traitModes = hydrateTraitModes(value.traitModes);
   state.selectedAugmentIds = hydrateAugmentIds(value.augmentIds);
   state.showNames = value.showNames !== false;
   elements.showNames.checked = state.showNames;
@@ -1123,7 +1207,7 @@ function applyHistory(index) {
 }
 
 function formationPayload() {
-  return { version: 2, season: state.season.season_id, showNames: state.showNames, board: state.board, augmentIds: state.selectedAugmentIds };
+  return { version: 2, season: state.season.season_id, showNames: state.showNames, board: state.board, augmentIds: state.selectedAugmentIds, traitModes: state.traitModes };
 }
 
 function persist() {
@@ -1203,6 +1287,9 @@ function normalizeFormationCode(value) {
 }
 
 function encodePayload(payload = formationPayload()) {
+  // Keep existing JCC2 codes unchanged. Extended preview settings use the
+  // already supported JSON envelope so sharing never silently drops stars/sides.
+  if (state.simulatorControls || payload.board?.some(slot => unitStars(slot) > 1)) return bytesToBase64Url(new TextEncoder().encode(JSON.stringify(payload)));
   const codebook = formationCodebook();
   const bytes = new Uint8Array(FORMATION_TOTAL_BYTES);
   const view = new DataView(bytes.buffer);
@@ -1354,6 +1441,7 @@ async function handleCodeConfirm() {
       if (targetSeason !== state.season.season_id && state.catalog.some((item) => item.season_id === targetSeason)) await loadSeason(targetSeason);
       const payload = decodeTftTeamCode(rawCode);
       state.board = hydrateBoard(payload.board);
+      state.traitModes = hydrateTraitModes(payload.traitModes);
       state.selectedAugmentIds = [];
       pushHistory();
       renderAll();
@@ -1365,10 +1453,14 @@ async function handleCodeConfirm() {
     else {
       const payload = inspected.format === "JCC2" ? decodePayload(inspected.code) : inspected;
       state.board = hydrateBoard(payload.board);
+      state.traitModes = hydrateTraitModes(payload.traitModes);
+      state.selectedAugmentIds = hydrateAugmentIds(payload.augmentIds);
       state.showNames = payload.showNames !== false;
       elements.showNames.checked = state.showNames;
       pushHistory();
       renderBoard();
+      syncLibrarySelectionState();
+      renderSelectedAugments();
       persist();
     }
     elements.dialog.close();
@@ -1446,7 +1538,9 @@ function buildImageCapture(includeTraits, transparentBackground) {
   }
   const boardPanel = document.createElement("section");
   boardPanel.className = "lineup-image-board";
-  boardPanel.append(elements.board.cloneNode(true));
+  const board = elements.board.cloneNode(true);
+  board.querySelectorAll(".unit-remove").forEach(button => button.remove());
+  boardPanel.append(board);
   capture.append(boardPanel);
   document.body.append(capture);
   return capture;
@@ -1552,6 +1646,7 @@ function posterAugmentHtml() {
 function posterBoardClone() {
   const board = elements.board.cloneNode(true);
   board.removeAttribute("id");
+  board.querySelectorAll(".unit-remove").forEach(button => button.remove());
   board.classList.remove("hide-names");
   board.classList.add("lineup-poster-hex-board");
   board.querySelectorAll(".hex-cell").forEach((cell) => {
@@ -1908,7 +2003,7 @@ function showTraitPopover(traitId, anchor) {
   if (!trait) return;
   const count = getTraitCounts().get(traitId) || 0;
   const status = traitState(trait, count);
-  const breakpoints = trait.breakpoints || [];
+  const breakpoints = selectedTraitBreakpoints(trait);
   elements.popover.innerHTML = `<div class="trait-detail">
     <div class="trait-detail-heading">
       ${trait.icon ? `<img src="${escapeHtml(trait.icon)}" alt="" />` : ""}
@@ -1917,9 +2012,9 @@ function showTraitPopover(traitId, anchor) {
     </div>
     ${trait.description ? `<p class="trait-detail-description">${richTextHtml(trait.description, trait.descriptionTokens)}</p>` : ""}
     <div class="trait-detail-tiers">${breakpoints.length ? breakpoints.map((point) => {
-      const active = Number(point.min_units) <= count;
+      const active = count > 0 && Number(point.min_units) <= count;
       return `<div class="trait-detail-tier ${active ? "is-active" : ""}">
-        <strong>${escapeHtml(point.min_units)} 人</strong><span>${richTextHtml(point.effect || point.description || "", point.effect_tokens || point.description_tokens)}</span>
+        <strong>${escapeHtml(point.min_units)} ${escapeHtml(trait.counting?.count_label || "人")}</strong><span>${richTextHtml(point.effect || point.description || "", point.effect_tokens || point.description_tokens)}</span>
       </div>`;
     }).join("") : `<p class="muted">独特羁绊 · ${status.active ? "已激活" : "未激活"}</p>`}</div>
   </div>`;
@@ -2046,6 +2141,15 @@ elements.selectedAugmentList.addEventListener("click", (event) => {
 });
 
 elements.board.addEventListener("click", (event) => {
+  const remove = event.target.closest("[data-remove-unit]");
+  if (remove) { removeUnit(Number(remove.dataset.removeUnit)); return; }
+  const stars = event.target.closest("[data-cycle-stars]");
+  if (stars) {
+    const index = Number(stars.dataset.cycleStars);
+    cycleUnitStars(index);
+    elements.board.querySelector(`[data-cycle-stars="${index}"]`)?.focus({preventScroll: true});
+    return;
+  }
   const itemChip = event.target.closest(".unit-item");
   if (itemChip) return;
   const cell = event.target.closest("[data-slot-index]");
@@ -2058,6 +2162,7 @@ elements.board.addEventListener("contextmenu", (event) => {
   if (itemChip) {
     event.preventDefault();
     hidePopover();
+    if (state.championById.get(state.board[Number(itemChip.dataset.slotIndex)]?.championId)?.copyItemsFrom) return showToast("克隆体装备随洛变化，请修改洛的装备");
     mutate(() => { state.board[Number(itemChip.dataset.slotIndex)].items.splice(Number(itemChip.dataset.itemIndex), 1); });
     return;
   }
@@ -2065,7 +2170,7 @@ elements.board.addEventListener("contextmenu", (event) => {
   if (!cell) return;
   event.preventDefault();
   hidePopover();
-  mutate(() => { state.board[Number(cell.dataset.slotIndex)] = null; });
+  cycleUnitStars(Number(cell.dataset.slotIndex));
 });
 
 document.addEventListener("dragstart", (event) => {
@@ -2076,8 +2181,41 @@ document.addEventListener("dragstart", (event) => {
   else if (item) state.dragging = { type: "item", id: item.dataset.itemId };
   else if (unit) state.dragging = { type: "unit", index: Number(unit.dataset.slotIndex) };
   if (state.dragging) event.dataTransfer?.setData("text/plain", JSON.stringify(state.dragging));
+  hidePopover();
+  document.querySelector(".trait-rail")?.classList.toggle("is-unit-dragging", state.dragging?.type === "unit");
 });
-document.addEventListener("dragend", () => { state.dragging = null; document.querySelectorAll(".is-drop-target").forEach((node) => node.classList.remove("is-drop-target")); });
+function finishUnitDrag() {
+  state.dragging = null;
+  document.querySelectorAll(".is-drop-target, .is-unit-dragging, .is-delete-target").forEach(node => node.classList.remove("is-drop-target", "is-unit-dragging", "is-delete-target"));
+}
+document.addEventListener("dragend", finishUnitDrag);
+const traitDeleteRail = document.querySelector(".trait-rail");
+traitDeleteRail?.addEventListener("dragover", event => {
+  if (state.dragging?.type !== "unit") return;
+  event.preventDefault();
+  if (event.dataTransfer) event.dataTransfer.dropEffect = "move";
+  traitDeleteRail.classList.add("is-delete-target");
+});
+traitDeleteRail?.addEventListener("dragleave", event => {
+  if (!traitDeleteRail.contains(event.relatedTarget)) traitDeleteRail.classList.remove("is-delete-target");
+});
+traitDeleteRail?.addEventListener("drop", event => {
+  if (state.dragging?.type !== "unit") return;
+  event.preventDefault();
+  removeUnit(state.dragging.index);
+  finishUnitDrag();
+});
+elements.board.addEventListener("keydown", event => {
+  if (!event.target.matches(".hex-cell.has-unit")) return;
+  const index = Number(event.target.dataset.slotIndex);
+  if (event.key === "Delete" || event.key === "Backspace") { event.preventDefault(); removeUnit(index); }
+  else if (event.key === "Enter" || event.key === " ") {
+    event.preventDefault();
+    if (state.selectedItemId) equipItem(index, state.selectedItemId);
+    else cycleUnitStars(index);
+    elements.board.querySelector(`[data-slot-index="${index}"]`)?.focus({preventScroll: true});
+  }
+});
 elements.board.addEventListener("dragover", (event) => { const cell = event.target.closest(".hex-cell"); if (cell) { event.preventDefault(); cell.classList.add("is-drop-target"); } });
 elements.board.addEventListener("dragleave", (event) => { event.target.closest(".hex-cell")?.classList.remove("is-drop-target"); });
 elements.board.addEventListener("drop", (event) => {
@@ -2091,11 +2229,13 @@ elements.board.addEventListener("drop", (event) => {
     addChampion(state.dragging.id, target);
   } else if (state.dragging.type === "item") equipItem(target, state.dragging.id);
   else if (state.dragging.type === "unit") moveUnit(state.dragging.index, target);
+  finishUnitDrag();
 });
 
 document.addEventListener("pointerover", (event) => {
   if (!state.hoverDetails) return;
   if (event.pointerType === "touch" || window.matchMedia("(hover: none)").matches) return;
+  if (state.dragging || event.target.closest(".unit-remove, .unit-stars")) return;
   const hero = event.target.closest("[data-hero-id]");
   const item = event.target.closest("[data-item-id]");
   const trait = event.target.closest("[data-trait-id]");
@@ -2133,6 +2273,7 @@ function loadDeckFormation(payload) {
   const requestedUnits = payload.board.filter(Boolean).length;
   const requestedItems = payload.board.reduce((total, slot) => total + (Array.isArray(slot?.items) ? slot.items.length : 0), 0);
   state.board = hydrateBoard(payload.board);
+  state.traitModes = hydrateTraitModes(payload.traitModes);
   state.selectedAugmentIds = hydrateAugmentIds(payload.augmentIds);
   state.showNames = payload.showNames !== false;
   elements.showNames.checked = state.showNames;
@@ -2160,7 +2301,7 @@ elements.undo.addEventListener("click", () => applyHistory(state.historyIndex - 
 elements.redo.addEventListener("click", () => applyHistory(state.historyIndex + 1));
 elements.reset.addEventListener("click", () => {
   if ((state.board.some(Boolean) || state.selectedAugmentIds.length) && !confirm("确认清空当前阵容？")) return;
-  mutate(() => { state.board = Array(28).fill(null); state.selectedAugmentIds = []; });
+  mutate(() => { state.board = Array(28).fill(null); state.selectedAugmentIds = []; state.traitModes = hydrateTraitModes(null); });
 });
 elements.import.addEventListener("click", () => openCodeDialog("import"));
 elements.export.addEventListener("click", () => openCodeDialog("export"));

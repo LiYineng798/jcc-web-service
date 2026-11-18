@@ -74,6 +74,17 @@ python scripts/season_library/import_from_archive.py --source instance/season-ar
 - `availability.type=unlock` 表示解锁弈子；装备 recipe 与 emblem 的 trait_id/fetter_id 驱动合成需求和羁绊贡献。
 - 新玩法展示优先用已支持模板；新模拟器行为仍需代码适配，不承诺任意未来赛季直接可用。
 
+用户 HAR 预览由 `import_datatft_har.py` 离线生成，规则依据和未解决项保存在
+`import-report.simulator_audit` 与 `board_units.discovery_audit`。不将预览描述视为正式服规则。
+资料主 HAR 决定全部记录；`--asset-har` 可用旧 HAR 补图，旧记录不参与合并，同 ID 图片以主 HAR 为准。
+独特底框遵循来源组件规则：金色档位、仅一个档位、仅关联一个英雄；保留原始种族/职业分类。
+`extensions.simulator` 支持显式人口、可选羁绊、星级计数、A/B 面和克隆装备来源；
+档位暂按人数门槛展示，不强制未知的追加条件。K/DA 按不同弈子的最高星级相加；
+右键弈子或点击星标按 1—4 星循环，四星仅用于布阵标记，不反推缺失属性。
+悬浮删除按钮或拖至羁绊区可移除弈子；键盘支持 Enter 升星、Delete 删除。
+洛克隆体动态复制主体装备；多个主体时优先星级最高、其次装备最多、最后棋盘顺序。
+洛克隆体仅供站位与装备复制预览，人口未核定时显示人口下限。
+
 ## 图片与分享兼容
 
 导入器通过 Pillow 生成弈子卡图及 `assets/optimized/<version_id>/` 小图。
@@ -83,8 +94,10 @@ JSON 和图片必须完整交付。缓存/代理设置见 [运维](operations.md
 当前模拟器直接读取上述资料，不使用旧 `static/tools/lineup-simulator/data/` 构建产物。
 棋盘为 4×7；羁绊、人口、特殊对象和装备约束由资料能力驱动。
 
-新分享码 `JCC2-` 固定 321 字符，含赛季/字典哈希与校验和；旧 Base64 JSON 只用于导入兼容。
+新分享码 `JCC2-` 固定 321 字符，含赛季/字典哈希与校验和；兼容旧 Base64 JSON 封装。
 资料字典变化可能使旧码失效，必须检查样例。最多六个强化符文保存在本地、撤销/重做和海报中，
 不写入固定 JCC2 结构。JCC2 不是游戏内可直接使用的金铲铲阵容码。
+HAR 预览或含升星弈子的阵容使用已有 JSON 阵容码封装，保存星级、A/B 面和强化符文；
+其余单星阵容保持固定 JCC2 格式。预览规则包需要同时部署支持这些字段的 Web 代码。
 
 页面及图片导出兼容约束见 [前端维护](ui.md)。旧构建器仍保留供兼容核查，不用于日常更新。
