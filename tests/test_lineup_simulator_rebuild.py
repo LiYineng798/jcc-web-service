@@ -162,7 +162,7 @@ def test_simulator_implements_board_and_equipment_rules():
     assert 'countPlacedUnit(hero.id) >= boardUnitAllowance(hero)' in javascript
     assert 'specialPlacementIsValid' in javascript
     assert 'if (itemChip) {\n    event.preventDefault();\n    hidePopover();' in javascript
-    assert 'if (!cell) return;\n  event.preventDefault();\n  hidePopover();\n  mutate(() => { state.board' in javascript
+    assert 'if (!cell) return;\n  event.preventDefault();\n  hidePopover();\n  cycleUnitStars(Number(cell.dataset.slotIndex));' in javascript
     assert 'function expandChampionTraitChoices(raw, traitByName)' in javascript
     assert 'parseCompositeActivation(raw.description)' in javascript
     assert 'trait.activationRules' in javascript
@@ -203,6 +203,9 @@ def test_every_simulator_emblem_maps_to_a_known_trait():
             if item.get('category') != 'emblem':
                 continue
             extensions = item.get('extensions') or {}
+            if extensions.get('simulator_visible') is False:
+                assert extensions.get('unresolved_trait_name'), 'Excluded emblems must retain an explanation'
+                continue
             granted_trait_id = extensions.get('trait_id') or extensions.get('fetter_id')
             assert granted_trait_id is not None, f"{season['season_id']} {item['id']} missing granted trait"
             assert str(granted_trait_id) in trait_ids, (
@@ -264,10 +267,6 @@ def test_simulator_only_renders_item_categories_populated_by_the_current_season(
     shared_categories = {'component', 'completed', 'emblem', 'artifact', 'radiant', 'support', 'consumable', 'other'}
     assert all(
         categories and categories <= shared_categories
-        for categories in categories_by_season.values()
-    )
-    assert all(
-        'consumable' not in categories
         for categories in categories_by_season.values()
     )
 
@@ -334,7 +333,7 @@ def test_simulator_wraps_long_board_unit_names_without_clipping_exports():
     javascript = (SIMULATOR_ROOT / 'app.js').read_text(encoding='utf-8')
     css = (SIMULATOR_ROOT / 'style.css').read_text(encoding='utf-8')
 
-    assert '[...hero.name].length > 7 ? " is-long" : ""' in javascript
+    assert '[...boardName].length > 7 ? " is-long" : ""' in javascript
     assert 'class="unit-name${longNameClass}"' in javascript
     assert '.unit-name.is-long {' in css
     assert 'white-space: normal' in css

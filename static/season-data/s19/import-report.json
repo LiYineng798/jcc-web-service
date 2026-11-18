@@ -1,0 +1,127 @@
+{
+  "source": {
+    "id": "datatft-user-har",
+    "type": "community_preview",
+    "url": "https://www.datatft.com/assets/data-cn-DXom63BO.js",
+    "har_sha256": "76eb8b7224f65e1bb4d98152fac6b33f7f37e8b9ae877d3e7b4e99c1d7b33059",
+    "source_updated_at": "2026-11-17T04:23:07.152000+00:00",
+    "verified_for_current_patch": false,
+    "note": "以用户提供的 HAR 为准；不是官方正式服快照",
+    "capture_count": 1,
+    "capture_sha256": [
+      "76eb8b7224f65e1bb4d98152fac6b33f7f37e8b9ae877d3e7b4e99c1d7b33059"
+    ],
+    "data_sha256": "14a649fd46eead677b9fccc1c2b9fcc385c90efeadb31f412e1142ef74fa439b",
+    "asset_capture_sha256": [
+      "1e9bbc33d7bd7de70cec9ebf0b67ce19735c0a03b73a91bb03db8478e730e955",
+      "02cd877d18f0b2e0bb29cffed790640f0a265bd82b4f1b2b5eb07e715046f45d",
+      "e166b2e3932b646e33417492af3226e0c2a24a47c62faa403205de697376b1e1"
+    ]
+  },
+  "counts": {
+    "champions": 94,
+    "traits": 47,
+    "items": 157,
+    "augments": 257,
+    "board_units": 1,
+    "mechanics": 0
+  },
+  "hero_images": 94,
+  "hero_icons": 94,
+  "trait_images": 46,
+  "unique_traits": [
+    "独立音乐",
+    "情绪硬核",
+    "作曲家",
+    "乡村音乐",
+    "合成器浪潮",
+    "迪斯科",
+    "哥特",
+    "赐福之风",
+    "说唱女王",
+    "节奏大师",
+    "马里亚奇",
+    "气氛组大王",
+    "探戈",
+    "灵罗吉他",
+    "8比特",
+    "唱片大亨",
+    "音乐总监",
+    "幻翎boys",
+    "一只怪乐团"
+  ],
+  "inherited_modules": {
+    "id": "previous-season-modules",
+    "type": "previous_season_snapshot",
+    "season_id": "s18",
+    "version_id": "s18__18_18_2",
+    "game_version": "18.18.2",
+    "verified_for_current_patch": false,
+    "modules": [
+      "items",
+      "augments"
+    ],
+    "sha256": {
+      "items": "958ca6862f832bcf83777d3694458482dc5d8c0ca8be1c04da689ec53471a5ae",
+      "augments": "641d823920d663b540e051b0a06c33b148988b313274d9a94a1031614d03ef3d"
+    }
+  },
+  "simulator_audit": {
+    "supported": [
+      "K/DA 总星级",
+      "娑娜五选一乐队及零人口",
+      "纳什男爵两人口",
+      "真实伤害 A/B 面说明",
+      "洛的两个克隆体站位及装备复制"
+    ],
+    "review": [
+      "洛克隆体人口与独立羁绊未核定；不贡献羁绊，人口显示下限。",
+      "海之歌明确可放置，但每局随机乐器、累计数量与人口规则不完整。",
+      "炼狱偶像仅说明召唤，没有可手动放置的依据。",
+      "神秘乐器明确无法放置；巴德木灵用于备战席出售，不作为布阵对象。",
+      "阿卡丽技能写 A 面金币/B 面回血，说唱女王描述相反；仅保留原文，不计算收益。",
+      "合奏每局随机名单缺失；真实伤害及心之钢重复人数棱彩档缺少追加条件。"
+    ]
+  },
+  "unlocks": 33,
+  "incomplete_unlocks": 16,
+  "unsupported_simulator_items": [
+    "41801",
+    "41802",
+    "41803",
+    "41804",
+    "41805",
+    "41806",
+    "41807",
+    "41808",
+    "41809",
+    "41810",
+    "41811",
+    "41813",
+    "41815",
+    "41816",
+    "41817",
+    "41818",
+    "41820",
+    "41821"
+  ],
+  "missing_images": {
+    "champions": [],
+    "traits": [
+      "class-14"
+    ],
+    "items": [],
+    "augments": [],
+    "board_units": []
+  },
+  "excluded_modules": {
+    "charms19": "与 charms18 完全相同，保留为来源审计，不接入 S19 玩法",
+    "regions19": "开局奇遇未接入本次资料预览"
+  },
+  "charms_equal_s18": true,
+  "notes": [
+    "PBE 预览资料；缺失数值及 xx 条件保留原样。装备与强化符文暂沿用 S18 18.18.2，未核定为 S19 正式资料。",
+    "PBE 布阵预览：支持 K/DA 星级计数、娑娜乐队选择、特殊人口与真实伤害 A/B 面。洛克隆体仅作站位及装备复制预览，人口未核定；海之歌乐器数量、合奏随机名单及棱彩追加条件暂缺。装备与强化符文暂沿用 S18 18.18.2，未核定为 S19 正式资料。",
+    "仅使用本地 HAR 和已选上一赛季资料；未请求远端图片。"
+  ]
+}

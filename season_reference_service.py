@@ -174,6 +174,7 @@ def season_page_context(season_id):
         'champion_count': len(index.get('champions') or []),
         'augment_count': len(augments),
         'has_augments': bool(augments),
+        'preview_notice': index.get('preview_notice'),
         'data_url': f"{data_url(entry['season_id'])}/index.json?v={entry.get('version_id', '')}",
         'asset_root': asset_url(entry['season_id']),
     }

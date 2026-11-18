@@ -1,0 +1,3027 @@
+{
+  "version_id": "s19__pbe",
+  "rich_text_version": 1,
+  "traits": [
+    {
+      "id": "origin-4",
+      "name": "国风",
+      "category": "origin",
+      "description": "随着你飞升天界，你的队伍将变得越发强大，并获得基于玩家等级不断增长的加成。",
+      "image": {
+        "local_path": "assets/traits/656b7767b7688972.png",
+        "source_url": null,
+        "placeholder": false,
+        "optimized_local_path": "assets/optimized/s19__pbe/traits/origin-4.webp"
+      },
+      "breakpoints": [
+        {
+          "min_units": 2,
+          "max_units": null,
+          "style": "bronze",
+          "effect": "每级提供2%攻击力和法术强度2护甲和魔抗。"
+        },
+        {
+          "min_units": 3,
+          "max_units": null,
+          "style": "silver",
+          "effect": "【国风】弈子获得加成的50%。"
+        },
+        {
+          "min_units": 4,
+          "max_units": null,
+          "style": "gold",
+          "effect": "从两份强力卷轴中选择一份，卷轴可以由【国风】弈子装备。其中一份卷轴会开启通往11级的危险道路。"
+        }
+      ],
+      "source_ids": {
+        "datatft_id": "4",
+        "datatft_key": "DA_19_Gufeng"
+      },
+      "extensions": {
+        "simulator": {},
+        "datatft": {
+          "heros": [
+            919062,
+            919498,
+            919040,
+            919064
+          ],
+          "raceId": 4,
+          "code": "wE",
+          "level": [
+            {
+              "levelStyle": 1,
+              "level": 2,
+              "levelDesc": "每级提供2%攻击力和法术强度2护甲和魔抗。"
+            },
+            {
+              "levelStyle": 2,
+              "level": 3,
+              "levelDesc": "【国风】弈子获得加成的50%。"
+            },
+            {
+              "levelStyle": 3,
+              "level": 4,
+              "levelDesc": "从两份强力卷轴中选择一份，卷轴可以由【国风】弈子装备。其中一份卷轴会开启通往11级的危险道路。"
+            }
+          ],
+          "introduce": "随着你飞升天界，你的队伍将变得越发强大，并获得基于玩家等级不断增长的加成。",
+          "name": "国风",
+          "key": "DA_19_Gufeng"
+        }
+      },
+      "tags": []
+    },
+    {
+      "id": "origin-5",
+      "name": "爵士乐",
+      "category": "origin",
+      "description": "每拥有一个处于激活状态的羁绊 (唯一羁绊除外)，你的队伍就会获得额外生命值和伤害增幅。",
+      "image": {
+        "local_path": "assets/traits/cb430d7e53e8a089.png",
+        "source_url": null,
+        "placeholder": false,
+        "optimized_local_path": "assets/optimized/s19__pbe/traits/origin-5.webp"
+      },
+      "breakpoints": [
+        {
+          "min_units": 2,
+          "max_units": null,
+          "style": "bronze",
+          "effect": "1.5%生命值，1%增伤"
+        },
+        {
+          "min_units": 3,
+          "max_units": null,
+          "style": "silver",
+          "effect": "2.5%生命值，1.5%增伤"
+        },
+        {
+          "min_units": 4,
+          "max_units": null,
+          "style": "gold",
+          "effect": "3.5%生命值，2%增伤"
+        }
+      ],
+      "source_ids": {
+        "datatft_id": "5",
+        "datatft_key": "DA_19_Jazz"
+      },
+      "extensions": {
+        "simulator": {},
+        "datatft": {
+          "heros": [
+            919236,
+            919003,
+            919432,
+            919958
+          ],
+          "raceId": 5,
+          "otherNames": [
+            "Jazz"
+          ],
+          "code": "wF",
+          "level": [
+            {
+              "levelStyle": 1,
+              "level": 2,
+              "levelDesc": "1.5%生命值，1%增伤"
+            },
+            {
+              "levelStyle": 2,
+              "level": 3,
+              "levelDesc": "2.5%生命值，1.5%增伤"
+            },
+            {
+              "levelStyle": 3,
+              "level": 4,
+              "levelDesc": "3.5%生命值，2%增伤"
+            }
+          ],
+          "introduce": "每拥有一个处于激活状态的羁绊 (唯一羁绊除外)，你的队伍就会获得额外生命值和伤害增幅。",
+          "name": "爵士乐",
+          "key": "DA_19_Jazz"
+        }
+      },
+      "tags": []
+    },
+    {
+      "id": "origin-6",
+      "name": "高能流行",
+      "category": "origin",
+      "description": "玩家对战结束后，【高能流行】成员会根据其星级获得4/6/12热力值，每击杀一个敌人还能额外获得1点。\n【高能流行】弈子获得最大生命值和攻击速度。你每次达到新的热力等级时获得特殊奖励，并使加成增加。",
+      "image": {
+        "local_path": "assets/traits/c61db49f641cff48.png",
+        "source_url": null,
+        "placeholder": false,
+        "optimized_local_path": "assets/optimized/s19__pbe/traits/origin-6.webp"
+      },
+      "breakpoints": [
+        {
+          "min_units": 2,
+          "max_units": null,
+          "style": "bronze",
+          "effect": "+100生命值+10%攻速"
+        },
+        {
+          "min_units": 3,
+          "max_units": null,
+          "style": "silver",
+          "effect": "+200生命值+15%攻速"
+        },
+        {
+          "min_units": 4,
+          "max_units": null,
+          "style": "silver",
+          "effect": "+300生命值+20%攻速"
+        },
+        {
+          "min_units": 5,
+          "max_units": null,
+          "style": "gold",
+          "effect": "+500生命值+30%攻速"
+        }
+      ],
+      "source_ids": {
+        "datatft_id": "6",
+        "datatft_key": "DA_19_Hyperpop"
+      },
+      "extensions": {
+        "simulator": {},
+        "datatft": {
+          "heros": [
+            919115,
+            919954,
+            919018,
+            919117,
+            919017
+          ],
+          "raceId": 6,
+          "code": "wG",
+          "level": [
+            {
+              "levelStyle": 1,
+              "level": 2,
+              "levelDesc": "+100生命值+10%攻速"
+            },
+            {
+              "levelStyle": 2,
+              "level": 3,
+              "levelDesc": "+200生命值+15%攻速"
+            },
+            {
+              "levelStyle": 2,
+              "level": 4,
+              "levelDesc": "+300生命值+20%攻速"
+            },
+            {
+              "levelStyle": 3,
+              "level": 5,
+              "levelDesc": "+500生命值+30%攻速"
+            }
+          ],
+          "introduce": "玩家对战结束后，【高能流行】成员会根据其星级获得4/6/12热力值，每击杀一个敌人还能额外获得1点。<br>【高能流行】弈子获得最大生命值和攻击速度。你每次达到新的热力等级时获得特殊奖励，并使加成增加。",
+          "name": "高能流行",
+          "key": "DA_19_Hyperpop"
+        }
+      },
+      "tags": []
+    },
+    {
+      "id": "origin-7",
+      "name": "大触打击乐",
+      "category": "origin",
+      "description": "打开【大触打击乐】混音器，调整己方队伍获得的属性。你可以在4个不同的频道之间分配音量。\n【大触打击乐】单位会获得额外的此类增益效果。\n频道1：生命值\n频道2：攻击力\n频道3：法术强度\n频道4：击杀获得金币概率",
+      "image": {
+        "local_path": "assets/traits/11a87ceb82c3eb20.png",
+        "source_url": null,
+        "placeholder": false,
+        "optimized_local_path": "assets/optimized/s19__pbe/traits/origin-7.webp"
+      },
+      "breakpoints": [
+        {
+          "min_units": 2,
+          "max_units": null,
+          "style": "bronze",
+          "effect": "获得10层音量"
+        },
+        {
+          "min_units": 4,
+          "max_units": null,
+          "style": "gold",
+          "effect": "获得22层音量"
+        }
+      ],
+      "source_ids": {
+        "datatft_id": "7",
+        "datatft_key": "DA_19_Illbeats"
+      },
+      "extensions": {
+        "simulator": {},
+        "datatft": {
+          "heros": [
+            919420,
+            919119,
+            919201,
+            919350
+          ],
+          "raceId": 7,
+          "code": "wH",
+          "level": [
+            {
+              "levelStyle": 1,
+              "level": 2,
+              "levelDesc": "获得10层音量"
+            },
+            {
+              "levelStyle": 3,
+              "level": 4,
+              "levelDesc": "获得22层音量"
+            }
+          ],
+          "introduce": "打开【大触打击乐】混音器，调整己方队伍获得的属性。你可以在4个不同的频道之间分配音量。<br>【大触打击乐】单位会获得额外的此类增益效果。<br>频道1：生命值<br>频道2：攻击力<br>频道3：法术强度<br>频道4：击杀获得金币概率",
+          "name": "大触打击乐",
+          "key": "DA_19_Illbeats"
+        }
+      },
+      "tags": []
+    },
+    {
+      "id": "origin-8",
+      "name": "古典乐",
+      "category": "origin",
+      "description": "【古典乐】弈子会用独特的方式使敌人陷入【迷醉】。他们会因此获得伤害增幅，每有一名敌人陷入迷醉，则每6秒增幅提高1%。",
+      "image": {
+        "local_path": "assets/traits/0338b50a09353543.png",
+        "source_url": null,
+        "placeholder": false,
+        "optimized_local_path": "assets/optimized/s19__pbe/traits/origin-8.webp"
+      },
+      "breakpoints": [
+        {
+          "min_units": 2,
+          "max_units": null,
+          "style": "bronze",
+          "effect": "8%增伤；陷入迷醉的单位造成的伤害降低10%。"
+        },
+        {
+          "min_units": 4,
+          "max_units": null,
+          "style": "silver",
+          "effect": "15%增伤；并且陷入迷醉的敌人阵亡时会抛出玫瑰花束，为你生命值最低的【古典乐】弈子恢复生命值"
+        },
+        {
+          "min_units": 6,
+          "max_units": null,
+          "style": "gold",
+          "effect": "25%增伤；且处于迷醉状态的弈子在阵亡时有15%的概率加入你的备战席"
+        }
+      ],
+      "source_ids": {
+        "datatft_id": "8",
+        "datatft_key": "DA_19_Virtuoso"
+      },
+      "extensions": {
+        "simulator": {},
+        "datatft": {
+          "heros": [
+            919055,
+            919075,
+            919360,
+            919888,
+            919202,
+            919412,
+            919008
+          ],
+          "raceId": 8,
+          "code": "wI",
+          "level": [
+            {
+              "levelStyle": 1,
+              "level": 2,
+              "levelDesc": "8%增伤；陷入迷醉的单位造成的伤害降低10%。"
+            },
+            {
+              "levelStyle": 2,
+              "level": 4,
+              "levelDesc": "15%增伤；并且陷入迷醉的敌人阵亡时会抛出玫瑰花束，为你生命值最低的【古典乐】弈子恢复生命值"
+            },
+            {
+              "levelStyle": 3,
+              "level": 6,
+              "levelDesc": "25%增伤；且处于迷醉状态的弈子在阵亡时有15%的概率加入你的备战席"
+            }
+          ],
+          "introduce": "【古典乐】弈子会用独特的方式使敌人陷入【迷醉】。他们会因此获得伤害增幅，每有一名敌人陷入迷醉，则每6秒增幅提高1%。",
+          "name": "古典乐",
+          "key": "DA_19_Virtuoso"
+        }
+      },
+      "tags": []
+    },
+    {
+      "id": "origin-9",
+      "name": "离子火花",
+      "category": "origin",
+      "description": "粉丝们聚集在舞台边缘，每4秒为【离子火花】成员送上礼物应援。【离子火花】成员获得生命值。",
+      "image": {
+        "local_path": "assets/traits/ad9ed9710c9a5680.png",
+        "source_url": null,
+        "placeholder": false,
+        "optimized_local_path": "assets/optimized/s19__pbe/traits/origin-9.webp"
+      },
+      "breakpoints": [
+        {
+          "min_units": 3,
+          "max_units": null,
+          "style": "bronze",
+          "effect": "100生命值。可以恢复2%生命值并提供7%攻击速度的信函。"
+        },
+        {
+          "min_units": 5,
+          "max_units": null,
+          "style": "silver",
+          "effect": "250生命值。专属礼物，提供25%攻击力或25%法强。"
+        },
+        {
+          "min_units": 7,
+          "max_units": null,
+          "style": "silver",
+          "effect": "550生命值。演出时间到！己方队伍每完成一次击杀，即可推进演出进度。完成演出后，粉丝会提供奖励。"
+        },
+        {
+          "min_units": 10,
+          "max_units": null,
+          "style": "prismatic",
+          "effect": "每4秒一群粉丝横穿棋盘卷起数名敌人，有概率抛至备战席"
+        }
+      ],
+      "source_ids": {
+        "datatft_id": "9",
+        "datatft_key": "DA_19_IonicSpark"
+      },
+      "extensions": {
+        "simulator": {},
+        "datatft": {
+          "heros": [
+            919060,
+            919804,
+            919001,
+            919099,
+            919233,
+            919986,
+            919102,
+            919222,
+            919893,
+            919887,
+            919037
+          ],
+          "raceId": 9,
+          "code": "wJ",
+          "level": [
+            {
+              "levelStyle": 1,
+              "level": 3,
+              "levelDesc": "100生命值。可以恢复2%生命值并提供7%攻击速度的信函。"
+            },
+            {
+              "levelStyle": 2,
+              "level": 5,
+              "levelDesc": "250生命值。专属礼物，提供25%攻击力或25%法强。"
+            },
+            {
+              "levelStyle": 2,
+              "level": 7,
+              "levelDesc": "550生命值。演出时间到！己方队伍每完成一次击杀，即可推进演出进度。完成演出后，粉丝会提供奖励。"
+            },
+            {
+              "levelStyle": 4,
+              "level": 10,
+              "levelDesc": "每4秒一群粉丝横穿棋盘卷起数名敌人，有概率抛至备战席"
+            }
+          ],
+          "introduce": "粉丝们聚集在舞台边缘，每4秒为【离子火花】成员送上礼物应援。【离子火花】成员获得生命值。",
+          "name": "离子火花",
+          "key": "DA_19_IonicSpark"
+        }
+      },
+      "tags": []
+    },
+    {
+      "id": "origin-10",
+      "name": "海之歌",
+      "category": "origin",
+      "description": "获得可放置的乐器，每件乐器在战斗开始时会为相邻的弈子提供加成。每种乐器提供的增益不同。【海之歌】弈子获得的乐器增益加倍。\n【海之歌】的乐器在每局游戏中各不相同！",
+      "image": {
+        "local_path": "assets/traits/e1933bc4327ccbc9.png",
+        "source_url": null,
+        "placeholder": false,
+        "optimized_local_path": "assets/optimized/s19__pbe/traits/origin-10.webp"
+      },
+      "breakpoints": [
+        {
+          "min_units": 3,
+          "max_units": null,
+          "style": "bronze",
+          "effect": "邦戈鼓：回蓝与伤害增幅"
+        },
+        {
+          "min_units": 5,
+          "max_units": null,
+          "style": "silver",
+          "effect": "排箫：生命值回复速率"
+        },
+        {
+          "min_units": 7,
+          "max_units": null,
+          "style": "gold",
+          "effect": "选择一件乐器，为己方队伍提供独特效果。"
+        }
+      ],
+      "source_ids": {
+        "datatft_id": "10",
+        "datatft_key": "DA_19_BeachPop"
+      },
+      "extensions": {
+        "simulator": {},
+        "datatft": {
+          "heros": [
+            919044,
+            919142,
+            919022,
+            919058,
+            919134,
+            919104,
+            919154,
+            919163
+          ],
+          "raceId": 10,
+          "code": "wK",
+          "level": [
+            {
+              "levelStyle": 1,
+              "level": 3,
+              "levelDesc": "邦戈鼓：回蓝与伤害增幅"
+            },
+            {
+              "levelStyle": 2,
+              "level": 5,
+              "levelDesc": "排箫：生命值回复速率"
+            },
+            {
+              "levelStyle": 3,
+              "level": 7,
+              "levelDesc": "选择一件乐器，为己方队伍提供独特效果。"
+            }
+          ],
+          "introduce": "获得可放置的乐器，每件乐器在战斗开始时会为相邻的弈子提供加成。每种乐器提供的增益不同。【海之歌】弈子获得的乐器增益加倍。<br>【海之歌】的乐器在每局游戏中各不相同！",
+          "name": "海之歌",
+          "key": "DA_19_BeachPop"
+        }
+      },
+      "tags": []
+    },
+    {
+      "id": "origin-11",
+      "name": "真实伤害",
+      "category": "origin",
+      "description": "【真实伤害】会根据处于A面或B面而变换效果。这两面都会提供闪耀值。每经过4个回合，便可进行一次选择：是将闪耀值兑换为奖励，还是继续打榜积累。",
+      "image": {
+        "local_path": "assets/traits/3a15b85bb5b95ebf.png",
+        "source_url": null,
+        "placeholder": false,
+        "optimized_local_path": "assets/optimized/s19__pbe/traits/origin-11.webp"
+      },
+      "breakpoints": [
+        {
+          "min_units": 3,
+          "max_units": null,
+          "style": "bronze",
+          "effect": "【A面】真实伤害弈子造成18%额外真实伤害。击杀敌人时获得2闪耀值，战斗获胜则额外获得10。",
+          "side": "A"
+        },
+        {
+          "min_units": 5,
+          "max_units": null,
+          "style": "silver",
+          "effect": "【A面】30%真实伤害。击杀敌人时获得4闪耀值，战斗获胜则额外获得18。",
+          "side": "A"
+        },
+        {
+          "min_units": 5,
+          "max_units": null,
+          "style": "gold",
+          "effect": "【A面】造成99%真实伤害，每回合胜利额外获得战利品",
+          "side": "A",
+          "requires_confirmation": true
+        },
+        {
+          "min_units": 3,
+          "max_units": null,
+          "style": "silver",
+          "effect": "【B面】玩家对战落败后，获得7声望，随后获得15闪耀值+等同于你总声望的闪耀值。如果获胜，则声望重置为0，并失去50%的闪耀值。",
+          "side": "B"
+        },
+        {
+          "min_units": 5,
+          "max_units": null,
+          "style": "silver",
+          "effect": "【B面】每回合战斗结束后恢复2玩家生命值并获得2经验值。",
+          "side": "B"
+        },
+        {
+          "min_units": 5,
+          "max_units": null,
+          "style": "gold",
+          "effect": "【B面】单位体积巨人化",
+          "side": "B",
+          "requires_confirmation": true
+        }
+      ],
+      "source_ids": {
+        "datatft_id": "11",
+        "datatft_key": "DA_19_TrueDamage"
+      },
+      "extensions": {
+        "simulator": {
+          "sides": [
+            "A",
+            "B"
+          ],
+          "note": "同人数档位的追加条件未完整提供。"
+        },
+        "datatft": {
+          "heros": [
+            919085,
+            919246,
+            919235,
+            919245,
+            919157,
+            919953,
+            919037
+          ],
+          "raceId": 11,
+          "code": "wL",
+          "level": [
+            {
+              "levelStyle": 1,
+              "level": 3,
+              "levelDesc": "【A面】真实伤害弈子造成18%额外真实伤害。击杀敌人时获得2闪耀值，战斗获胜则额外获得10。"
+            },
+            {
+              "levelStyle": 2,
+              "level": 5,
+              "levelDesc": "【A面】30%真实伤害。击杀敌人时获得4闪耀值，战斗获胜则额外获得18。"
+            },
+            {
+              "levelStyle": 3,
+              "level": 5,
+              "levelDesc": "【A面】造成99%真实伤害，每回合胜利额外获得战利品"
+            },
+            {
+              "levelStyle": 2,
+              "level": 3,
+              "levelDesc": "【B面】玩家对战落败后，获得7声望，随后获得15闪耀值+等同于你总声望的闪耀值。如果获胜，则声望重置为0，并失去50%的闪耀值。"
+            },
+            {
+              "levelStyle": 2,
+              "level": 5,
+              "levelDesc": "【B面】每回合战斗结束后恢复2玩家生命值并获得2经验值。"
+            },
+            {
+              "levelStyle": 3,
+              "level": 5,
+              "levelDesc": "【B面】单位体积巨人化"
+            }
+          ],
+          "introduce": "【真实伤害】会根据处于A面或B面而变换效果。这两面都会提供闪耀值。每经过4个回合，便可进行一次选择：是将闪耀值兑换为奖励，还是继续打榜积累。",
+          "name": "真实伤害",
+          "key": "DA_19_TrueDamage"
+        }
+      },
+      "tags": []
+    },
+    {
+      "id": "origin-12",
+      "name": "心之钢",
+      "category": "origin",
+      "description": "瑟提：80生命值\n凯隐：7%攻击力\n伊泽瑞尔：10%暴击率\n奎桑提：8双抗\n拉露恩：8%法强\n永恩：5%全能吸血\n厄斐琉斯：6%攻速\n纹章：3%减伤\n娑娜：5%护盾治疗强度",
+      "image": {
+        "local_path": "assets/traits/4e4dac1db486eb30.png",
+        "source_url": null,
+        "placeholder": false,
+        "optimized_local_path": "assets/optimized/s19__pbe/traits/origin-12.webp"
+      },
+      "breakpoints": [
+        {
+          "min_units": 1,
+          "max_units": null,
+          "style": "bronze",
+          "effect": "【心之钢】成员为己方队伍提供增益。"
+        },
+        {
+          "min_units": 3,
+          "max_units": null,
+          "style": "silver",
+          "effect": "选择一个本命，强化其技能。"
+        },
+        {
+          "min_units": 5,
+          "max_units": null,
+          "style": "silver",
+          "effect": "选择第二项偏好。"
+        },
+        {
+          "min_units": 7,
+          "max_units": null,
+          "style": "silver",
+          "effect": "你的本命弈子会将其加成的150%赋予【心之钢】弈子。"
+        },
+        {
+          "min_units": 7,
+          "max_units": null,
+          "style": "prismatic",
+          "effect": "战斗开始数秒后一辆车驶入，成员全员跳上车碾过敌人处决",
+          "requires_confirmation": true
+        }
+      ],
+      "source_ids": {
+        "datatft_id": "12",
+        "datatft_key": "DA_19_Heartsteel"
+      },
+      "extensions": {
+        "simulator": {
+          "note": "同人数档位的追加条件未完整提供。"
+        },
+        "datatft": {
+          "heros": [
+            919141,
+            919875,
+            919081,
+            919897,
+            919777,
+            919955,
+            919523,
+            919037
+          ],
+          "raceId": 12,
+          "code": "wM",
+          "level": [
+            {
+              "levelStyle": 1,
+              "level": 1,
+              "levelDesc": "【心之钢】成员为己方队伍提供增益。"
+            },
+            {
+              "levelStyle": 2,
+              "level": 3,
+              "levelDesc": "选择一个本命，强化其技能。"
+            },
+            {
+              "levelStyle": 2,
+              "level": 5,
+              "levelDesc": "选择第二项偏好。"
+            },
+            {
+              "levelStyle": 2,
+              "level": 7,
+              "levelDesc": "你的本命弈子会将其加成的150%赋予【心之钢】弈子。"
+            },
+            {
+              "levelStyle": 4,
+              "level": 7,
+              "levelDesc": "战斗开始数秒后一辆车驶入，成员全员跳上车碾过敌人处决"
+            }
+          ],
+          "introduce": "瑟提：80生命值<br>凯隐：7%攻击力<br>伊泽瑞尔：10%暴击率<br>奎桑提：8双抗<br>拉露恩：8%法强<br>永恩：5%全能吸血<br>厄斐琉斯：6%攻速<br>纹章：3%减伤<br>娑娜：5%护盾治疗强度",
+          "name": "心之钢",
+          "key": "DA_19_Heartsteel"
+        }
+      },
+      "tags": []
+    },
+    {
+      "id": "origin-13",
+      "name": "五杀乐队",
+      "category": "origin",
+      "description": "获得可由任意队友装备的残暴武器。由【五杀乐队】弈子装备时，残暴武器会在每场战斗的第1个和第5个敌人阵亡后嘶吼，获得强力加成。\n每装配一件装备，就会为【五杀乐队】弈子提供生命值。",
+      "image": {
+        "local_path": "assets/traits/fb6781d6aa2be3e1.png",
+        "source_url": null,
+        "placeholder": false,
+        "optimized_local_path": "assets/optimized/s19__pbe/traits/origin-13.webp"
+      },
+      "breakpoints": [
+        {
+          "min_units": 3,
+          "max_units": null,
+          "style": "bronze",
+          "effect": "0%嘶吼概率"
+        },
+        {
+          "min_units": 5,
+          "max_units": null,
+          "style": "silver",
+          "effect": "0%嘶吼概率"
+        },
+        {
+          "min_units": 7,
+          "max_units": null,
+          "style": "gold",
+          "effect": "0%嘶吼概率"
+        }
+      ],
+      "source_ids": {
+        "datatft_id": "13",
+        "datatft_key": "DA_19_Pentakill"
+      },
+      "extensions": {
+        "simulator": {},
+        "datatft": {
+          "heros": [
+            919002,
+            919150,
+            919030,
+            919234,
+            919010,
+            919083,
+            919082,
+            919037
+          ],
+          "raceId": 13,
+          "code": "wN",
+          "level": [
+            {
+              "levelStyle": 1,
+              "level": 3,
+              "levelDesc": "0%嘶吼概率"
+            },
+            {
+              "levelStyle": 2,
+              "level": 5,
+              "levelDesc": "0%嘶吼概率"
+            },
+            {
+              "levelStyle": 3,
+              "level": 7,
+              "levelDesc": "0%嘶吼概率"
+            }
+          ],
+          "introduce": "获得可由任意队友装备的残暴武器。由【五杀乐队】弈子装备时，残暴武器会在每场战斗的第1个和第5个敌人阵亡后嘶吼，获得强力加成。<br>每装配一件装备，就会为【五杀乐队】弈子提供生命值。",
+          "name": "五杀乐队",
+          "key": "DA_19_Pentakill"
+        }
+      },
+      "tags": []
+    },
+    {
+      "id": "origin-14",
+      "name": "摇滚恶魔",
+      "category": "origin",
+      "description": "摇滚恶魔弈子召唤【炼狱偶像】\n【炼狱偶像】的强度将基于你的【摇滚恶魔】弈子星级而提升。",
+      "image": {
+        "local_path": "assets/traits/4d3729b65bc73f20.png",
+        "source_url": null,
+        "placeholder": false,
+        "optimized_local_path": "assets/optimized/s19__pbe/traits/origin-14.webp"
+      },
+      "breakpoints": [
+        {
+          "min_units": 3,
+          "max_units": null,
+          "style": "bronze",
+          "effect": "他到场时会击飞相邻的敌人。"
+        },
+        {
+          "min_units": 4,
+          "max_units": null,
+          "style": "silver",
+          "effect": "其击飞范围翻倍，且造成伤害时对敌人施加1%灼烧和33%重伤效果。"
+        },
+        {
+          "min_units": 5,
+          "max_units": null,
+          "style": "silver",
+          "effect": "升级他的技能！"
+        },
+        {
+          "min_units": 6,
+          "max_units": null,
+          "style": "gold",
+          "effect": "他登场时为【摇滚恶魔】弈子提供攻击速度，并为偶像治疗相当于这些弈子所造成伤害8%的生命值。"
+        }
+      ],
+      "source_ids": {
+        "datatft_id": "14",
+        "datatft_key": "DA_19_Rock"
+      },
+      "extensions": {
+        "simulator": {},
+        "datatft": {
+          "heros": [
+            919002,
+            919110,
+            919164,
+            919050,
+            919067,
+            919805,
+            919555
+          ],
+          "raceId": 14,
+          "code": "wO",
+          "level": [
+            {
+              "levelStyle": 1,
+              "level": 3,
+              "levelDesc": "他到场时会击飞相邻的敌人。"
+            },
+            {
+              "levelStyle": 2,
+              "level": 4,
+              "levelDesc": "其击飞范围翻倍，且造成伤害时对敌人施加1%灼烧和33%重伤效果。"
+            },
+            {
+              "levelStyle": 2,
+              "level": 5,
+              "levelDesc": "升级他的技能！"
+            },
+            {
+              "levelStyle": 3,
+              "level": 6,
+              "levelDesc": "他登场时为【摇滚恶魔】弈子提供攻击速度，并为偶像治疗相当于这些弈子所造成伤害8%的生命值。"
+            }
+          ],
+          "introduce": "摇滚恶魔弈子召唤【炼狱偶像】<br>【炼狱偶像】的强度将基于你的【摇滚恶魔】弈子星级而提升。",
+          "name": "摇滚恶魔",
+          "key": "DA_19_Rock"
+        }
+      },
+      "tags": []
+    },
+    {
+      "id": "origin-15",
+      "name": "K/DA",
+      "category": "origin",
+      "description": "【K|DA】弈子会根据她们的总星级解锁新歌。在战斗开始时以及8秒后，其每拥有一首歌曲，便会获得力量加成。",
+      "image": {
+        "local_path": "assets/traits/b85d7d8f257a3583.png",
+        "source_url": null,
+        "placeholder": false,
+        "optimized_local_path": "assets/optimized/s19__pbe/traits/origin-15.webp"
+      },
+      "breakpoints": [
+        {
+          "min_units": 3,
+          "max_units": null,
+          "style": "bronze",
+          "effect": "POP|STARS：15%护盾。"
+        },
+        {
+          "min_units": 5,
+          "max_units": null,
+          "style": "bronze",
+          "effect": "DRUM GO DRUM：-10%最大法力值。"
+        },
+        {
+          "min_units": 7,
+          "max_units": null,
+          "style": "silver",
+          "effect": "反派：60%攻速，会在8秒内衰减。"
+        },
+        {
+          "min_units": 10,
+          "max_units": null,
+          "style": "silver",
+          "effect": "I'LL SHOW YOU：先前所有效果提升33%。"
+        },
+        {
+          "min_units": 13,
+          "max_units": null,
+          "style": "gold",
+          "effect": "WATCH ME：对所有敌人造成1.25秒晕眩。"
+        },
+        {
+          "min_units": 16,
+          "max_units": null,
+          "style": "gold",
+          "effect": "引火人：敌人在8秒内受到相当于其最大生命值16%的魔法伤害。"
+        },
+        {
+          "min_units": 23,
+          "max_units": null,
+          "style": "prismatic",
+          "effect": "所有K/DA英雄升到4星"
+        }
+      ],
+      "source_ids": {
+        "datatft_id": "15",
+        "datatft_key": "DA_19_KDA"
+      },
+      "extensions": {
+        "simulator": {
+          "count_mode": "star_sum",
+          "count_label": "星",
+          "note": "按不同弈子的最高星级相加；重复弈子不重复计数。"
+        },
+        "datatft": {
+          "heros": [
+            919518,
+            919876,
+            919079,
+            919028,
+            919145,
+            919089,
+            919103,
+            919952,
+            919037
+          ],
+          "raceId": 15,
+          "otherNames": [
+            "KDA"
+          ],
+          "code": "wP",
+          "level": [
+            {
+              "levelStyle": 1,
+              "level": 3,
+              "levelDesc": "POP|STARS：15%护盾。"
+            },
+            {
+              "levelStyle": 1,
+              "level": 5,
+              "levelDesc": "DRUM GO DRUM：-10%最大法力值。"
+            },
+            {
+              "levelStyle": 2,
+              "level": 7,
+              "levelDesc": "反派：60%攻速，会在8秒内衰减。"
+            },
+            {
+              "levelStyle": 2,
+              "level": 10,
+              "levelDesc": "I'LL SHOW YOU：先前所有效果提升33%。"
+            },
+            {
+              "levelStyle": 3,
+              "level": 13,
+              "levelDesc": "WATCH ME：对所有敌人造成1.25秒晕眩。"
+            },
+            {
+              "levelStyle": 3,
+              "level": 16,
+              "levelDesc": "引火人：敌人在8秒内受到相当于其最大生命值16%的魔法伤害。"
+            },
+            {
+              "levelStyle": 4,
+              "level": 23,
+              "levelDesc": "所有K/DA英雄升到4星"
+            }
+          ],
+          "introduce": "【K|DA】弈子会根据她们的总星级解锁新歌。在战斗开始时以及8秒后，其每拥有一首歌曲，便会获得力量加成。",
+          "name": "K/DA",
+          "key": "DA_19_KDA"
+        }
+      },
+      "tags": []
+    },
+    {
+      "id": "origin-2",
+      "name": "电子舞曲",
+      "category": "origin",
+      "description": "",
+      "image": {
+        "local_path": "assets/traits/f074698a6c9bca1f.png",
+        "source_url": null,
+        "placeholder": false,
+        "optimized_local_path": "assets/optimized/s19__pbe/traits/origin-2.webp"
+      },
+      "breakpoints": [
+        {
+          "min_units": 2,
+          "max_units": null,
+          "style": "gold",
+          "effect": "【电子舞曲】技能变得更硬核、更强劲、更快速、更有力。"
+        }
+      ],
+      "source_ids": {
+        "datatft_id": "2",
+        "datatft_key": "DA_19_EDM"
+      },
+      "extensions": {
+        "simulator": {},
+        "datatft": {
+          "heros": [
+            919024,
+            919254
+          ],
+          "raceId": 2,
+          "code": "wC",
+          "level": [
+            {
+              "levelStyle": 3,
+              "level": 2,
+              "levelDesc": "【电子舞曲】技能变得更硬核、更强劲、更快速、更有力。"
+            }
+          ],
+          "introduce": "",
+          "name": "电子舞曲",
+          "key": "DA_19_EDM"
+        }
+      },
+      "tags": []
+    },
+    {
+      "id": "origin-3",
+      "name": "R&B",
+      "category": "origin",
+      "description": "",
+      "image": {
+        "local_path": "assets/traits/7590c59a919cf405.png",
+        "source_url": null,
+        "placeholder": false,
+        "optimized_local_path": "assets/optimized/s19__pbe/traits/origin-3.webp"
+      },
+      "breakpoints": [
+        {
+          "min_units": 1,
+          "max_units": null,
+          "style": "bronze",
+          "effect": "己方队伍受到的技能伤害减少6%。"
+        },
+        {
+          "min_units": 2,
+          "max_units": null,
+          "style": "gold",
+          "effect": "己方最强的梅尔与芮尔将灵魂相连，梅尔所受伤害的70%会转移到芮尔身上。芮尔将获得治疗，治疗量相当于梅尔所造成伤害的15%。"
+        }
+      ],
+      "source_ids": {
+        "datatft_id": "3",
+        "datatft_key": "DA_19_R&B"
+      },
+      "extensions": {
+        "simulator": {},
+        "datatft": {
+          "heros": [
+            919800,
+            919526
+          ],
+          "raceId": 3,
+          "code": "wD",
+          "level": [
+            {
+              "levelStyle": 1,
+              "level": 1,
+              "levelDesc": "己方队伍受到的技能伤害减少6%。"
+            },
+            {
+              "levelStyle": 3,
+              "level": 2,
+              "levelDesc": "己方最强的梅尔与芮尔将灵魂相连，梅尔所受伤害的70%会转移到芮尔身上。芮尔将获得治疗，治疗量相当于梅尔所造成伤害的15%。"
+            }
+          ],
+          "introduce": "",
+          "name": "R&B",
+          "key": "DA_19_R&B"
+        }
+      },
+      "tags": []
+    },
+    {
+      "id": "origin-18",
+      "name": "独立音乐",
+      "category": "origin",
+      "description": "每个回合开始时，萨勒芬妮会吸引新的追随者，给予你一个随机弈子。\n每当你花费20金币刷新时，她会改为送你一份特别订阅奖励！",
+      "image": {
+        "local_path": "assets/traits/1428e980b7785d19.png",
+        "source_url": null,
+        "placeholder": false,
+        "optimized_local_path": "assets/optimized/s19__pbe/traits/origin-18.webp"
+      },
+      "breakpoints": [
+        {
+          "min_units": 1,
+          "max_units": null,
+          "style": "unique",
+          "effect": "每个回合开始时，萨勒芬妮会吸引新的追随者，给予你一个随机弈子。\n每当你花费20金币刷新时，她会改为送你一份特别订阅奖励！"
+        }
+      ],
+      "source_ids": {
+        "datatft_id": "18",
+        "datatft_key": "DA_19_Indie"
+      },
+      "extensions": {
+        "simulator": {},
+        "datatft": {
+          "heros": [
+            919147
+          ],
+          "raceId": 18,
+          "code": "wS",
+          "level": [
+            {
+              "levelStyle": 3,
+              "level": 1,
+              "levelDesc": "每个回合开始时，萨勒芬妮会吸引新的追随者，给予你一个随机弈子。<br>每当你花费20金币刷新时，她会改为送你一份特别订阅奖励！"
+            }
+          ],
+          "introduce": "每个回合开始时，萨勒芬妮会吸引新的追随者，给予你一个随机弈子。<br>每当你花费20金币刷新时，她会改为送你一份特别订阅奖励！",
+          "name": "独立音乐",
+          "key": "DA_19_Indie"
+        }
+      },
+      "tags": []
+    },
+    {
+      "id": "origin-24",
+      "name": "情绪硬核",
+      "category": "origin",
+      "description": "战斗开始时，如果阿木木周围1格内没有友军，则获得20/30/55护甲和魔抗。",
+      "image": {
+        "local_path": "assets/traits/b4d0eb9b7bd846c6.png",
+        "source_url": null,
+        "placeholder": false,
+        "optimized_local_path": "assets/optimized/s19__pbe/traits/origin-24.webp"
+      },
+      "breakpoints": [
+        {
+          "min_units": 1,
+          "max_units": null,
+          "style": "unique",
+          "effect": "战斗开始时，如果阿木木周围1格内没有友军，则获得20/30/55护甲和魔抗。"
+        }
+      ],
+      "source_ids": {
+        "datatft_id": "24",
+        "datatft_key": "DA_19_Emo"
+      },
+      "extensions": {
+        "simulator": {},
+        "datatft": {
+          "heros": [
+            919032
+          ],
+          "raceId": 24,
+          "code": "wY",
+          "level": [
+            {
+              "levelStyle": 3,
+              "level": 1,
+              "levelDesc": "战斗开始时，如果阿木木周围1格内没有友军，则获得20/30/55护甲和魔抗。"
+            }
+          ],
+          "introduce": "战斗开始时，如果阿木木周围1格内没有友军，则获得20/30/55护甲和魔抗。",
+          "name": "情绪硬核",
+          "key": "DA_19_Emo"
+        }
+      },
+      "tags": []
+    },
+    {
+      "id": "origin-29",
+      "name": "作曲家",
+      "category": "origin",
+      "description": "派玛尔扎哈上场战斗后，你的刷新将拥有魔力，偶尔会刷出神秘乐器。每个费用都对应一件神秘乐器。\n如果玛尔扎哈已造成65000伤害，并且你拥有全部5件神秘乐器，则玛尔扎哈就会谱写杰作，解锁纳什男爵。",
+      "image": {
+        "local_path": "assets/traits/addeb38353e86390.png",
+        "source_url": null,
+        "placeholder": false,
+        "optimized_local_path": "assets/optimized/s19__pbe/traits/origin-29.webp"
+      },
+      "breakpoints": [
+        {
+          "min_units": 1,
+          "max_units": null,
+          "style": "unique",
+          "effect": "派玛尔扎哈上场战斗后，你的刷新将拥有魔力，偶尔会刷出神秘乐器。每个费用都对应一件神秘乐器。\n如果玛尔扎哈已造成65000伤害，并且你拥有全部5件神秘乐器，则玛尔扎哈就会谱写杰作，解锁纳什男爵。"
+        }
+      ],
+      "source_ids": {
+        "datatft_id": "29",
+        "datatft_key": "DA_19_Composer"
+      },
+      "extensions": {
+        "simulator": {},
+        "datatft": {
+          "heros": [
+            919090
+          ],
+          "raceId": 29,
+          "code": "wd",
+          "level": [
+            {
+              "levelStyle": 3,
+              "level": 1,
+              "levelDesc": "派玛尔扎哈上场战斗后，你的刷新将拥有魔力，偶尔会刷出神秘乐器。每个费用都对应一件神秘乐器。<br>如果玛尔扎哈已造成65000伤害，并且你拥有全部5件神秘乐器，则玛尔扎哈就会谱写杰作，解锁纳什男爵。"
+            }
+          ],
+          "introduce": "派玛尔扎哈上场战斗后，你的刷新将拥有魔力，偶尔会刷出神秘乐器。每个费用都对应一件神秘乐器。<br>如果玛尔扎哈已造成65000伤害，并且你拥有全部5件神秘乐器，则玛尔扎哈就会谱写杰作，解锁纳什男爵。",
+          "name": "作曲家",
+          "key": "DA_19_Composer"
+        }
+      },
+      "tags": []
+    },
+    {
+      "id": "origin-26",
+      "name": "乡村音乐",
+      "category": "origin",
+      "description": "阿利斯塔每受到相当于其部分最大生命值的伤害时，便会获得毅力。获得数层毅力后，他将在此次战斗环节的剩余时间里获得伤害减免。",
+      "image": {
+        "local_path": "assets/traits/113eaf49c74954cb.png",
+        "source_url": null,
+        "placeholder": false,
+        "optimized_local_path": "assets/optimized/s19__pbe/traits/origin-26.webp"
+      },
+      "breakpoints": [
+        {
+          "min_units": 1,
+          "max_units": null,
+          "style": "unique",
+          "effect": "阿利斯塔每受到相当于其部分最大生命值的伤害时，便会获得毅力。获得数层毅力后，他将在此次战斗环节的剩余时间里获得伤害减免。"
+        }
+      ],
+      "source_ids": {
+        "datatft_id": "26",
+        "datatft_key": "DA_19_Country"
+      },
+      "extensions": {
+        "simulator": {},
+        "datatft": {
+          "heros": [
+            919012
+          ],
+          "raceId": 26,
+          "code": "wa",
+          "level": [
+            {
+              "levelStyle": 3,
+              "level": 1,
+              "levelDesc": "阿利斯塔每受到相当于其部分最大生命值的伤害时，便会获得毅力。获得数层毅力后，他将在此次战斗环节的剩余时间里获得伤害减免。"
+            }
+          ],
+          "introduce": "阿利斯塔每受到相当于其部分最大生命值的伤害时，便会获得毅力。获得数层毅力后，他将在此次战斗环节的剩余时间里获得伤害减免。",
+          "name": "乡村音乐",
+          "key": "DA_19_Country"
+        }
+      },
+      "tags": []
+    },
+    {
+      "id": "origin-34",
+      "name": "合成器浪潮",
+      "category": "origin",
+      "description": "受到治疗后，盖伦会将其中部分的治疗效果复制给附近的一名友军。",
+      "image": {
+        "local_path": "assets/traits/ffa1ff2958062335.png",
+        "source_url": null,
+        "placeholder": false,
+        "optimized_local_path": "assets/optimized/s19__pbe/traits/origin-34.webp"
+      },
+      "breakpoints": [
+        {
+          "min_units": 1,
+          "max_units": null,
+          "style": "unique",
+          "effect": "受到治疗后，盖伦会将其中部分的治疗效果复制给附近的一名友军。"
+        }
+      ],
+      "source_ids": {
+        "datatft_id": "34",
+        "datatft_key": "DA_19_Synthwave"
+      },
+      "extensions": {
+        "simulator": {},
+        "datatft": {
+          "heros": [
+            919086
+          ],
+          "raceId": 34,
+          "code": "wi",
+          "level": [
+            {
+              "levelStyle": 3,
+              "level": 1,
+              "levelDesc": "受到治疗后，盖伦会将其中部分的治疗效果复制给附近的一名友军。"
+            }
+          ],
+          "introduce": "受到治疗后，盖伦会将其中部分的治疗效果复制给附近的一名友军。",
+          "name": "合成器浪潮",
+          "key": "DA_19_Synthwave"
+        }
+      },
+      "tags": []
+    },
+    {
+      "id": "origin-16",
+      "name": "迪斯科",
+      "category": "origin",
+      "description": "己方队伍每秒回复1%最大生命值。\n努努首次参与5次击杀时会触发迪斯科狂热，为己方队伍提供125%攻击速度，持续到战斗结束。",
+      "image": {
+        "local_path": "assets/traits/d1498b68c7a795aa.png",
+        "source_url": null,
+        "placeholder": false,
+        "optimized_local_path": "assets/optimized/s19__pbe/traits/origin-16.webp"
+      },
+      "breakpoints": [
+        {
+          "min_units": 1,
+          "max_units": null,
+          "style": "unique",
+          "effect": "己方队伍每秒回复1%最大生命值。\n努努首次参与5次击杀时会触发迪斯科狂热，为己方队伍提供125%攻击速度，持续到战斗结束。"
+        }
+      ],
+      "source_ids": {
+        "datatft_id": "16",
+        "datatft_key": "DA_19_Disco"
+      },
+      "extensions": {
+        "simulator": {},
+        "datatft": {
+          "heros": [
+            919020
+          ],
+          "raceId": 16,
+          "code": "wQ",
+          "level": [
+            {
+              "levelStyle": 3,
+              "level": 1,
+              "levelDesc": "己方队伍每秒回复1%最大生命值。<br>努努首次参与5次击杀时会触发迪斯科狂热，为己方队伍提供125%攻击速度，持续到战斗结束。"
+            }
+          ],
+          "introduce": "己方队伍每秒回复1%最大生命值。<br>努努首次参与5次击杀时会触发迪斯科狂热，为己方队伍提供125%攻击速度，持续到战斗结束。",
+          "name": "迪斯科",
+          "key": "DA_19_Disco"
+        }
+      },
+      "tags": []
+    },
+    {
+      "id": "origin-17",
+      "name": "哥特",
+      "category": "origin",
+      "description": "每当一名敌人的生命值降至一定比例以下时，吸血蝙蝠便会从该敌人身上偷取法力值，并将法力值返还给你最强的【泽丽】。",
+      "image": {
+        "local_path": "assets/traits/b6487b5e077b3934.png",
+        "source_url": null,
+        "placeholder": false,
+        "optimized_local_path": "assets/optimized/s19__pbe/traits/origin-17.webp"
+      },
+      "breakpoints": [
+        {
+          "min_units": 1,
+          "max_units": null,
+          "style": "unique",
+          "effect": "每当一名敌人的生命值降至一定比例以下时，吸血蝙蝠便会从该敌人身上偷取法力值，并将法力值返还给你最强的【泽丽】。"
+        }
+      ],
+      "source_ids": {
+        "datatft_id": "17",
+        "datatft_key": "DA_19_Goth"
+      },
+      "extensions": {
+        "simulator": {},
+        "datatft": {
+          "heros": [
+            919221
+          ],
+          "raceId": 17,
+          "code": "wR",
+          "level": [
+            {
+              "levelStyle": 3,
+              "level": 1,
+              "levelDesc": "每当一名敌人的生命值降至一定比例以下时，吸血蝙蝠便会从该敌人身上偷取法力值，并将法力值返还给你最强的【泽丽】。"
+            }
+          ],
+          "introduce": "每当一名敌人的生命值降至一定比例以下时，吸血蝙蝠便会从该敌人身上偷取法力值，并将法力值返还给你最强的【泽丽】。",
+          "name": "哥特",
+          "key": "DA_19_Goth"
+        }
+      },
+      "tags": []
+    },
+    {
+      "id": "origin-19",
+      "name": "赐福之风",
+      "category": "origin",
+      "description": "每当你最强的迦娜召唤天风时，她将使你获得经验值。如果你拥有【国风】的野兽卷轴，则你每剩余一定数量弈士生命值，就可获得1点额外经验值。",
+      "image": {
+        "local_path": "assets/traits/659c648fa2c66372.png",
+        "source_url": null,
+        "placeholder": false,
+        "optimized_local_path": "assets/optimized/s19__pbe/traits/origin-19.webp"
+      },
+      "breakpoints": [
+        {
+          "min_units": 1,
+          "max_units": null,
+          "style": "unique",
+          "effect": "每当你最强的迦娜召唤天风时，她将使你获得经验值。如果你拥有【国风】的野兽卷轴，则你每剩余一定数量弈士生命值，就可获得1点额外经验值。"
+        }
+      ],
+      "source_ids": {
+        "datatft_id": "19",
+        "datatft_key": "DA_19_Windblessed"
+      },
+      "extensions": {
+        "simulator": {},
+        "datatft": {
+          "heros": [
+            919040
+          ],
+          "raceId": 19,
+          "code": "wT",
+          "level": [
+            {
+              "levelStyle": 3,
+              "level": 1,
+              "levelDesc": "每当你最强的迦娜召唤天风时，她将使你获得经验值。如果你拥有【国风】的野兽卷轴，则你每剩余一定数量弈士生命值，就可获得1点额外经验值。"
+            }
+          ],
+          "introduce": "每当你最强的迦娜召唤天风时，她将使你获得经验值。如果你拥有【国风】的野兽卷轴，则你每剩余一定数量弈士生命值，就可获得1点额外经验值。",
+          "name": "赐福之风",
+          "key": "DA_19_Windblessed"
+        }
+      },
+      "tags": []
+    },
+    {
+      "id": "origin-20",
+      "name": "说唱女王",
+      "category": "origin",
+      "description": "根据【真实伤害】唱片设定的盘面不同，阿卡丽可获得不同的被动效果。A面提供玩家生命值，B面提供金币。",
+      "image": {
+        "local_path": "assets/traits/edbc40d8cd8eea46.png",
+        "source_url": null,
+        "placeholder": false,
+        "optimized_local_path": "assets/optimized/s19__pbe/traits/origin-20.webp"
+      },
+      "breakpoints": [
+        {
+          "min_units": 1,
+          "max_units": null,
+          "style": "unique",
+          "effect": "根据【真实伤害】唱片设定的盘面不同，阿卡丽可获得不同的被动效果。A面提供玩家生命值，B面提供金币。"
+        }
+      ],
+      "source_ids": {
+        "datatft_id": "20",
+        "datatft_key": "DA_19_Freestyle"
+      },
+      "extensions": {
+        "simulator": {},
+        "datatft": {
+          "heros": [
+            919953
+          ],
+          "raceId": 20,
+          "code": "wU",
+          "level": [
+            {
+              "levelStyle": 3,
+              "level": 1,
+              "levelDesc": "根据【真实伤害】唱片设定的盘面不同，阿卡丽可获得不同的被动效果。A面提供玩家生命值，B面提供金币。"
+            }
+          ],
+          "introduce": "根据【真实伤害】唱片设定的盘面不同，阿卡丽可获得不同的被动效果。A面提供玩家生命值，B面提供金币。",
+          "name": "说唱女王",
+          "key": "DA_19_Freestyle"
+        }
+      },
+      "tags": []
+    },
+    {
+      "id": "origin-21",
+      "name": "节奏大师",
+      "category": "origin",
+      "description": "芮尔的最大生命值首次降到50%以下时，她会在2秒内回满生命值，最大法力值降低40并骑乘坐骑。\n处于骑乘状态时，每3次攻击对直线范围造成相当于其50/75/500%总护甲和魔法抗性的魔法伤害。",
+      "image": {
+        "local_path": "assets/traits/68a8895ab38262b9.png",
+        "source_url": null,
+        "placeholder": false,
+        "optimized_local_path": "assets/optimized/s19__pbe/traits/origin-21.webp"
+      },
+      "breakpoints": [
+        {
+          "min_units": 1,
+          "max_units": null,
+          "style": "unique",
+          "effect": "芮尔的最大生命值首次降到50%以下时，她会在2秒内回满生命值，最大法力值降低40并骑乘坐骑。\n处于骑乘状态时，每3次攻击对直线范围造成相当于其50/75/500%总护甲和魔法抗性的魔法伤害。"
+        }
+      ],
+      "source_ids": {
+        "datatft_id": "21",
+        "datatft_key": "DA_19_Synchmancer"
+      },
+      "extensions": {
+        "simulator": {},
+        "datatft": {
+          "heros": [
+            919526
+          ],
+          "raceId": 21,
+          "code": "wV",
+          "level": [
+            {
+              "levelStyle": 3,
+              "level": 1,
+              "levelDesc": "芮尔的最大生命值首次降到50%以下时，她会在2秒内回满生命值，最大法力值降低40并骑乘坐骑。<br>处于骑乘状态时，每3次攻击对直线范围造成相当于其50/75/500%总护甲和魔法抗性的魔法伤害。"
+            }
+          ],
+          "introduce": "芮尔的最大生命值首次降到50%以下时，她会在2秒内回满生命值，最大法力值降低40并骑乘坐骑。<br>处于骑乘状态时，每3次攻击对直线范围造成相当于其50/75/500%总护甲和魔法抗性的魔法伤害。",
+          "name": "节奏大师",
+          "key": "DA_19_Synchmancer"
+        }
+      },
+      "tags": []
+    },
+    {
+      "id": "origin-22",
+      "name": "马里亚奇",
+      "category": "origin",
+      "description": "如果【奈德丽】施放技能时生命值高于70%，则变身为美洲狮形态并施放【猛扑派对】。否则将施放【生命之舞】。每当她的生命值降至40%以下时，她会跳开并变回人类形态。\n你最强的【奈德丽】会为己方队伍提供增益效果。处于人类形态时，友军获得伤害减免。处于美洲狮形态时，友军获得伤害增幅。",
+      "image": {
+        "local_path": "assets/traits/d8b86b4e30eea203.png",
+        "source_url": null,
+        "placeholder": false,
+        "optimized_local_path": "assets/optimized/s19__pbe/traits/origin-22.webp"
+      },
+      "breakpoints": [
+        {
+          "min_units": 1,
+          "max_units": null,
+          "style": "unique",
+          "effect": "如果【奈德丽】施放技能时生命值高于70%，则变身为美洲狮形态并施放【猛扑派对】。否则将施放【生命之舞】。每当她的生命值降至40%以下时，她会跳开并变回人类形态。\n你最强的【奈德丽】会为己方队伍提供增益效果。处于人类形态时，友军获得伤害减免。处于美洲狮形态时，友军获得伤害增幅。"
+        }
+      ],
+      "source_ids": {
+        "datatft_id": "22",
+        "datatft_key": "DA_19_Mariachi"
+      },
+      "extensions": {
+        "simulator": {},
+        "datatft": {
+          "heros": [
+            919076
+          ],
+          "raceId": 22,
+          "code": "wW",
+          "level": [
+            {
+              "levelStyle": 3,
+              "level": 1,
+              "levelDesc": "如果【奈德丽】施放技能时生命值高于70%，则变身为美洲狮形态并施放【猛扑派对】。否则将施放【生命之舞】。每当她的生命值降至40%以下时，她会跳开并变回人类形态。<br>你最强的【奈德丽】会为己方队伍提供增益效果。处于人类形态时，友军获得伤害减免。处于美洲狮形态时，友军获得伤害增幅。"
+            }
+          ],
+          "introduce": "如果【奈德丽】施放技能时生命值高于70%，则变身为美洲狮形态并施放【猛扑派对】。否则将施放【生命之舞】。每当她的生命值降至40%以下时，她会跳开并变回人类形态。<br>你最强的【奈德丽】会为己方队伍提供增益效果。处于人类形态时，友军获得伤害减免。处于美洲狮形态时，友军获得伤害增幅。",
+          "name": "马里亚奇",
+          "key": "DA_19_Mariachi"
+        }
+      },
+      "tags": []
+    },
+    {
+      "id": "origin-23",
+      "name": "气氛组大王",
+      "category": "origin",
+      "description": "每当【高能流行】弈子造成2500伤害或受到2500伤害时，都会为【高能流行】热力条额外积攒一点。",
+      "image": {
+        "local_path": "assets/traits/93313950e79c620b.png",
+        "source_url": null,
+        "placeholder": false,
+        "optimized_local_path": "assets/optimized/s19__pbe/traits/origin-23.webp"
+      },
+      "breakpoints": [
+        {
+          "min_units": 1,
+          "max_units": null,
+          "style": "unique",
+          "effect": "每当【高能流行】弈子造成2500伤害或受到2500伤害时，都会为【高能流行】热力条额外积攒一点。"
+        }
+      ],
+      "source_ids": {
+        "datatft_id": "23",
+        "datatft_key": "DA_19_HypeMan"
+      },
+      "extensions": {
+        "simulator": {},
+        "datatft": {
+          "heros": [
+            919017
+          ],
+          "raceId": 23,
+          "code": "wX",
+          "level": [
+            {
+              "levelStyle": 3,
+              "level": 1,
+              "levelDesc": "每当【高能流行】弈子造成2500伤害或受到2500伤害时，都会为【高能流行】热力条额外积攒一点。"
+            }
+          ],
+          "introduce": "每当【高能流行】弈子造成2500伤害或受到2500伤害时，都会为【高能流行】热力条额外积攒一点。",
+          "name": "气氛组大王",
+          "key": "DA_19_HypeMan"
+        }
+      },
+      "tags": []
+    },
+    {
+      "id": "origin-25",
+      "name": "探戈",
+      "category": "origin",
+      "description": "崔斯特将距离最近的友军标记为探戈舞伴。他们燃起激情，获得15%攻击速度。他们在造成伤害时，会对敌人施加1%灼烧和33%重伤效果。\n灼烧：每秒造成相当于目标最大生命值一定比例的真实伤害。\n重伤：降低受到的治疗效果。",
+      "image": {
+        "local_path": "assets/traits/f654f3e8f0fc3c63.png",
+        "source_url": null,
+        "placeholder": false,
+        "optimized_local_path": "assets/optimized/s19__pbe/traits/origin-25.webp"
+      },
+      "breakpoints": [
+        {
+          "min_units": 1,
+          "max_units": null,
+          "style": "unique",
+          "effect": "崔斯特将距离最近的友军标记为探戈舞伴。他们燃起激情，获得15%攻击速度。他们在造成伤害时，会对敌人施加1%灼烧和33%重伤效果。\n灼烧：每秒造成相当于目标最大生命值一定比例的真实伤害。\n重伤：降低受到的治疗效果。"
+        }
+      ],
+      "source_ids": {
+        "datatft_id": "25",
+        "datatft_key": "DA_19_Tango"
+      },
+      "extensions": {
+        "simulator": {},
+        "datatft": {
+          "heros": [
+            919004
+          ],
+          "raceId": 25,
+          "code": "wZ",
+          "level": [
+            {
+              "levelStyle": 3,
+              "level": 1,
+              "levelDesc": "崔斯特将距离最近的友军标记为探戈舞伴。他们燃起激情，获得15%攻击速度。他们在造成伤害时，会对敌人施加1%灼烧和33%重伤效果。<br>灼烧：每秒造成相当于目标最大生命值一定比例的真实伤害。<br>重伤：降低受到的治疗效果。"
+            }
+          ],
+          "introduce": "崔斯特将距离最近的友军标记为探戈舞伴。他们燃起激情，获得15%攻击速度。他们在造成伤害时，会对敌人施加1%灼烧和33%重伤效果。<br>灼烧：每秒造成相当于目标最大生命值一定比例的真实伤害。<br>重伤：降低受到的治疗效果。",
+          "name": "探戈",
+          "key": "DA_19_Tango"
+        }
+      },
+      "tags": []
+    },
+    {
+      "id": "origin-27",
+      "name": "灵罗吉他",
+      "category": "origin",
+      "description": "你最强的格温在战斗开始后的15秒内无法被攻击选中，同时获得10%伤害减免。在此期间，1格内的友军也会获得该伤害减免效果。",
+      "image": {
+        "local_path": "assets/traits/5712364a2ccf6bf2.png",
+        "source_url": null,
+        "placeholder": false,
+        "optimized_local_path": "assets/optimized/s19__pbe/traits/origin-27.webp"
+      },
+      "breakpoints": [
+        {
+          "min_units": 1,
+          "max_units": null,
+          "style": "unique",
+          "effect": "你最强的格温在战斗开始后的15秒内无法被攻击选中，同时获得10%伤害减免。在此期间，1格内的友军也会获得该伤害减免效果。"
+        }
+      ],
+      "source_ids": {
+        "datatft_id": "27",
+        "datatft_key": "DA_19_MelodicHeart"
+      },
+      "extensions": {
+        "simulator": {},
+        "datatft": {
+          "heros": [
+            919887
+          ],
+          "raceId": 27,
+          "code": "wb",
+          "level": [
+            {
+              "levelStyle": 3,
+              "level": 1,
+              "levelDesc": "你最强的格温在战斗开始后的15秒内无法被攻击选中，同时获得10%伤害减免。在此期间，1格内的友军也会获得该伤害减免效果。"
+            }
+          ],
+          "introduce": "你最强的格温在战斗开始后的15秒内无法被攻击选中，同时获得10%伤害减免。在此期间，1格内的友军也会获得该伤害减免效果。",
+          "name": "灵罗吉他",
+          "key": "DA_19_MelodicHeart"
+        }
+      },
+      "tags": []
+    },
+    {
+      "id": "origin-31",
+      "name": "8比特",
+      "category": "origin",
+      "description": "己方队伍每轮造成的伤害将不断累计，且厄运小姐造成的伤害按三倍计算。每当打破高分纪录，即可获得愈发丰厚的奖励。",
+      "image": {
+        "local_path": "assets/traits/2cf5ee4d5a99017c.png",
+        "source_url": null,
+        "placeholder": false,
+        "optimized_local_path": "assets/optimized/s19__pbe/traits/origin-31.webp"
+      },
+      "breakpoints": [
+        {
+          "min_units": 1,
+          "max_units": null,
+          "style": "unique",
+          "effect": "己方队伍每轮造成的伤害将不断累计，且厄运小姐造成的伤害按三倍计算。每当打破高分纪录，即可获得愈发丰厚的奖励。"
+        }
+      ],
+      "source_ids": {
+        "datatft_id": "31",
+        "datatft_key": "DA_19_8-Bit"
+      },
+      "extensions": {
+        "simulator": {},
+        "datatft": {
+          "heros": [
+            919021
+          ],
+          "raceId": 31,
+          "code": "wf",
+          "level": [
+            {
+              "levelStyle": 3,
+              "level": 1,
+              "levelDesc": "己方队伍每轮造成的伤害将不断累计，且厄运小姐造成的伤害按三倍计算。每当打破高分纪录，即可获得愈发丰厚的奖励。"
+            }
+          ],
+          "introduce": "己方队伍每轮造成的伤害将不断累计，且厄运小姐造成的伤害按三倍计算。每当打破高分纪录，即可获得愈发丰厚的奖励。",
+          "name": "8比特",
+          "key": "DA_19_8-Bit"
+        }
+      },
+      "tags": []
+    },
+    {
+      "id": "origin-32",
+      "name": "唱片大亨",
+      "category": "origin",
+      "description": "获得一份唱片合约，使你能选择一位赛季之星。赛季之星获得10%伤害增幅，并且他们参与击杀会为蒙多医生永久提升生命值。\n参与多次击杀后，赛季之星晋升为白金阶，额外获得一份唱片合约。\n当赛季之星被出售或升至白金阶时，唱片合约会归还给蒙多医生。",
+      "image": {
+        "local_path": "assets/traits/4b57b1e9265e16eb.png",
+        "source_url": null,
+        "placeholder": false,
+        "optimized_local_path": "assets/optimized/s19__pbe/traits/origin-32.webp"
+      },
+      "breakpoints": [
+        {
+          "min_units": 1,
+          "max_units": null,
+          "style": "unique",
+          "effect": "获得一份唱片合约，使你能选择一位赛季之星。赛季之星获得10%伤害增幅，并且他们参与击杀会为蒙多医生永久提升生命值。\n参与多次击杀后，赛季之星晋升为白金阶，额外获得一份唱片合约。\n当赛季之星被出售或升至白金阶时，唱片合约会归还给蒙多医生。"
+        }
+      ],
+      "source_ids": {
+        "datatft_id": "32",
+        "datatft_key": "DA_19_RecordMogul"
+      },
+      "extensions": {
+        "simulator": {},
+        "datatft": {
+          "heros": [
+            919036
+          ],
+          "raceId": 32,
+          "code": "wg",
+          "level": [
+            {
+              "levelStyle": 3,
+              "level": 1,
+              "levelDesc": "获得一份唱片合约，使你能选择一位赛季之星。赛季之星获得10%伤害增幅，并且他们参与击杀会为蒙多医生永久提升生命值。<br>参与多次击杀后，赛季之星晋升为白金阶，额外获得一份唱片合约。<br>当赛季之星被出售或升至白金阶时，唱片合约会归还给蒙多医生。"
+            }
+          ],
+          "introduce": "获得一份唱片合约，使你能选择一位赛季之星。赛季之星获得10%伤害增幅，并且他们参与击杀会为蒙多医生永久提升生命值。<br>参与多次击杀后，赛季之星晋升为白金阶，额外获得一份唱片合约。<br>当赛季之星被出售或升至白金阶时，唱片合约会归还给蒙多医生。",
+          "name": "唱片大亨",
+          "key": "DA_19_RecordMogul"
+        }
+      },
+      "tags": []
+    },
+    {
+      "id": "origin-28",
+      "name": "音乐总监",
+      "category": "origin",
+      "description": "娑娜不占用队伍栏位。娑娜登场时，选择一支主打乐队，获得该乐队的羁绊，并根据主打乐队强化技能。\n娑娜会将所有额外攻击力和攻击速度转化为法术强度。\n可选的乐队：【K/DA】【离子火花】【真实伤害】【心之钢】【五杀乐队】",
+      "image": {
+        "local_path": "assets/traits/e3912cf13b43f3a7.png",
+        "source_url": null,
+        "placeholder": false,
+        "optimized_local_path": "assets/optimized/s19__pbe/traits/origin-28.webp"
+      },
+      "breakpoints": [
+        {
+          "min_units": 1,
+          "max_units": null,
+          "style": "unique",
+          "effect": "娑娜不占用队伍栏位。娑娜登场时，选择一支主打乐队，获得该乐队的羁绊，并根据主打乐队强化技能。\n娑娜会将所有额外攻击力和攻击速度转化为法术强度。\n可选的乐队：【K/DA】【离子火花】【真实伤害】【心之钢】【五杀乐队】"
+        }
+      ],
+      "source_ids": {
+        "datatft_id": "28",
+        "datatft_key": "DA_19_Producer"
+      },
+      "extensions": {
+        "simulator": {},
+        "datatft": {
+          "heros": [
+            919037
+          ],
+          "raceId": 28,
+          "code": "wc",
+          "level": [
+            {
+              "levelStyle": 3,
+              "level": 1,
+              "levelDesc": "娑娜不占用队伍栏位。娑娜登场时，选择一支主打乐队，获得该乐队的羁绊，并根据主打乐队强化技能。<br>娑娜会将所有额外攻击力和攻击速度转化为法术强度。<br>可选的乐队：【K/DA】【离子火花】【真实伤害】【心之钢】【五杀乐队】"
+            }
+          ],
+          "introduce": "娑娜不占用队伍栏位。娑娜登场时，选择一支主打乐队，获得该乐队的羁绊，并根据主打乐队强化技能。<br>娑娜会将所有额外攻击力和攻击速度转化为法术强度。<br>可选的乐队：【K/DA】【离子火花】【真实伤害】【心之钢】【五杀乐队】",
+          "name": "音乐总监",
+          "key": "DA_19_Producer"
+        }
+      },
+      "tags": []
+    },
+    {
+      "id": "origin-30",
+      "name": "幻翎boys",
+      "category": "origin",
+      "description": "【洛】将与2个可放置的克隆体一同登场，克隆体拥有他50%的最大生命值，造成30%的伤害，并复制他携带的装备。",
+      "image": {
+        "local_path": "assets/traits/2f17398909d0a72f.png",
+        "source_url": null,
+        "placeholder": false,
+        "optimized_local_path": "assets/optimized/s19__pbe/traits/origin-30.webp"
+      },
+      "breakpoints": [
+        {
+          "min_units": 1,
+          "max_units": null,
+          "style": "unique",
+          "effect": "【洛】将与2个可放置的克隆体一同登场，克隆体拥有他50%的最大生命值，造成30%的伤害，并复制他携带的装备。"
+        }
+      ],
+      "source_ids": {
+        "datatft_id": "30",
+        "datatft_key": "DA_19_BoyBand"
+      },
+      "extensions": {
+        "simulator": {},
+        "datatft": {
+          "heros": [
+            919497
+          ],
+          "raceId": 30,
+          "otherNames": [
+            "男子乐队"
+          ],
+          "code": "we",
+          "level": [
+            {
+              "levelStyle": 3,
+              "level": 1,
+              "levelDesc": "【洛】将与2个可放置的克隆体一同登场，克隆体拥有他50%的最大生命值，造成30%的伤害，并复制他携带的装备。"
+            }
+          ],
+          "introduce": "【洛】将与2个可放置的克隆体一同登场，克隆体拥有他50%的最大生命值，造成30%的伤害，并复制他携带的装备。",
+          "name": "幻翎boys",
+          "key": "DA_19_BoyBand"
+        }
+      },
+      "tags": []
+    },
+    {
+      "id": "origin-33",
+      "name": "一只怪乐团",
+      "category": "origin",
+      "description": "纳什男爵占用2个弈子栏位，且为不可阻挡状态。\n数秒后，棋盘将被他的歌声笼罩，从所有敌人身上偷取3%攻击力、法术强度、攻击速度和暴击几率。",
+      "image": {
+        "local_path": "assets/traits/b74e1fe90247b718.png",
+        "source_url": null,
+        "placeholder": false,
+        "optimized_local_path": "assets/optimized/s19__pbe/traits/origin-33.webp"
+      },
+      "breakpoints": [
+        {
+          "min_units": 1,
+          "max_units": null,
+          "style": "unique",
+          "effect": "纳什男爵占用2个弈子栏位，且为不可阻挡状态。\n数秒后，棋盘将被他的歌声笼罩，从所有敌人身上偷取3%攻击力、法术强度、攻击速度和暴击几率。"
+        }
+      ],
+      "source_ids": {
+        "datatft_id": "33",
+        "datatft_key": "DA_19_OneMonsterBand"
+      },
+      "extensions": {
+        "simulator": {},
+        "datatft": {
+          "heros": [
+            919981
+          ],
+          "raceId": 33,
+          "code": "wh",
+          "level": [
+            {
+              "levelStyle": 3,
+              "level": 1,
+              "levelDesc": "纳什男爵占用2个弈子栏位，且为不可阻挡状态。<br>数秒后，棋盘将被他的歌声笼罩，从所有敌人身上偷取3%攻击力、法术强度、攻击速度和暴击几率。"
+            }
+          ],
+          "introduce": "纳什男爵占用2个弈子栏位，且为不可阻挡状态。<br>数秒后，棋盘将被他的歌声笼罩，从所有敌人身上偷取3%攻击力、法术强度、攻击速度和暴击几率。",
+          "name": "一只怪乐团",
+          "key": "DA_19_OneMonsterBand"
+        }
+      },
+      "tags": []
+    },
+    {
+      "id": "class-1",
+      "name": "经纪人",
+      "category": "class",
+      "description": "获得一个聚光灯格。战斗开始时，位于该格内的弈子获得法力回复和额外最大生命值。",
+      "image": {
+        "local_path": "assets/traits/7bfc1a1da7d99f05.png",
+        "source_url": null,
+        "placeholder": false,
+        "optimized_local_path": "assets/optimized/s19__pbe/traits/class-1.webp"
+      },
+      "breakpoints": [
+        {
+          "min_units": 2,
+          "max_units": null,
+          "style": "bronze",
+          "effect": "1个聚光灯格,15%最大生命值"
+        },
+        {
+          "min_units": 3,
+          "max_units": null,
+          "style": "silver",
+          "effect": "1个聚光灯格,20%最大生命值"
+        },
+        {
+          "min_units": 4,
+          "max_units": null,
+          "style": "gold",
+          "effect": "1个聚光灯格,25%最大生命值"
+        }
+      ],
+      "source_ids": {
+        "datatft_id": "1",
+        "datatft_key": "DA_19_Manager"
+      },
+      "extensions": {
+        "simulator": {},
+        "datatft": {
+          "heros": [
+            919089,
+            919955,
+            919036
+          ],
+          "jobId": 1,
+          "code": "xB",
+          "level": [
+            {
+              "levelStyle": 1,
+              "level": 2,
+              "levelDesc": "1个聚光灯格,15%最大生命值"
+            },
+            {
+              "levelStyle": 2,
+              "level": 3,
+              "levelDesc": "1个聚光灯格,20%最大生命值"
+            },
+            {
+              "levelStyle": 3,
+              "level": 4,
+              "levelDesc": "1个聚光灯格,25%最大生命值"
+            }
+          ],
+          "introduce": "获得一个聚光灯格。战斗开始时，位于该格内的弈子获得法力回复和额外最大生命值。",
+          "name": "经纪人",
+          "key": "DA_19_Manager"
+        }
+      },
+      "tags": []
+    },
+    {
+      "id": "class-2",
+      "name": "花式射手",
+      "category": "class",
+      "description": "【花式射手】的技能会进行弹射。每次弹射将造成上一次弹射伤害的一定百分比伤害。",
+      "image": {
+        "local_path": "assets/traits/fe03d4abde40ccc1.png",
+        "source_url": null,
+        "placeholder": false,
+        "optimized_local_path": "assets/optimized/s19__pbe/traits/class-2.webp"
+      },
+      "breakpoints": [
+        {
+          "min_units": 2,
+          "max_units": null,
+          "style": "bronze",
+          "effect": "1次弹射；造成前一次伤害的22%"
+        },
+        {
+          "min_units": 3,
+          "max_units": null,
+          "style": "silver",
+          "effect": "1次弹射；造成前一次伤害的33%"
+        },
+        {
+          "min_units": 4,
+          "max_units": null,
+          "style": "gold",
+          "effect": "2次弹射；造成前一次伤害的33%"
+        }
+      ],
+      "source_ids": {
+        "datatft_id": "2",
+        "datatft_key": "DA_19_Trickshot"
+      },
+      "extensions": {
+        "simulator": {},
+        "datatft": {
+          "heros": [
+            919150,
+            919099,
+            919360,
+            919119,
+            919145,
+            919067,
+            919004
+          ],
+          "jobId": 2,
+          "code": "xC",
+          "level": [
+            {
+              "levelStyle": 1,
+              "level": 2,
+              "levelDesc": "1次弹射；造成前一次伤害的22%"
+            },
+            {
+              "levelStyle": 2,
+              "level": 3,
+              "levelDesc": "1次弹射；造成前一次伤害的33%"
+            },
+            {
+              "levelStyle": 3,
+              "level": 4,
+              "levelDesc": "2次弹射；造成前一次伤害的33%"
+            }
+          ],
+          "introduce": "【花式射手】的技能会进行弹射。每次弹射将造成上一次弹射伤害的一定百分比伤害。",
+          "name": "花式射手",
+          "key": "DA_19_Trickshot"
+        }
+      },
+      "tags": []
+    },
+    {
+      "id": "class-3",
+      "name": "编舞师",
+      "category": "class",
+      "description": "战斗开始时，前2排的友军获得护盾。其他友军获得伤害增幅。【编舞师】们获得双倍加成。",
+      "image": {
+        "local_path": "assets/traits/af09f86d0d6382f9.png",
+        "source_url": null,
+        "placeholder": false,
+        "optimized_local_path": "assets/optimized/s19__pbe/traits/class-3.webp"
+      },
+      "breakpoints": [
+        {
+          "min_units": 2,
+          "max_units": null,
+          "style": "bronze",
+          "effect": "175护盾；8%增伤"
+        },
+        {
+          "min_units": 3,
+          "max_units": null,
+          "style": "silver",
+          "effect": "250护盾；12%增伤"
+        },
+        {
+          "min_units": 4,
+          "max_units": null,
+          "style": "silver",
+          "effect": "375护盾；16%增伤"
+        },
+        {
+          "min_units": 5,
+          "max_units": null,
+          "style": "gold",
+          "effect": "550护盾；20%增伤"
+        }
+      ],
+      "source_ids": {
+        "datatft_id": "3",
+        "datatft_key": "DA_19_Choreographer"
+      },
+      "extensions": {
+        "simulator": {},
+        "datatft": {
+          "heros": [
+            919117,
+            919888,
+            919134,
+            919234,
+            919086,
+            919103,
+            919076,
+            919497
+          ],
+          "jobId": 3,
+          "code": "xD",
+          "level": [
+            {
+              "levelStyle": 1,
+              "level": 2,
+              "levelDesc": "175护盾；8%增伤"
+            },
+            {
+              "levelStyle": 2,
+              "level": 3,
+              "levelDesc": "250护盾；12%增伤"
+            },
+            {
+              "levelStyle": 2,
+              "level": 4,
+              "levelDesc": "375护盾；16%增伤"
+            },
+            {
+              "levelStyle": 3,
+              "level": 5,
+              "levelDesc": "550护盾；20%增伤"
+            }
+          ],
+          "introduce": "战斗开始时，前2排的友军获得护盾。其他友军获得伤害增幅。【编舞师】们获得双倍加成。",
+          "name": "编舞师",
+          "key": "DA_19_Choreographer"
+        }
+      },
+      "tags": []
+    },
+    {
+      "id": "class-4",
+      "name": "非主流",
+      "category": "class",
+      "description": "【非主流】获得暴击几率和暴击伤害。",
+      "image": {
+        "local_path": "assets/traits/7f11e42aced05eac.png",
+        "source_url": null,
+        "placeholder": false,
+        "optimized_local_path": "assets/optimized/s19__pbe/traits/class-4.webp"
+      },
+      "breakpoints": [
+        {
+          "min_units": 2,
+          "max_units": null,
+          "style": "bronze",
+          "effect": "15%暴击率，12%暴击伤害"
+        },
+        {
+          "min_units": 3,
+          "max_units": null,
+          "style": "silver",
+          "effect": "20%暴击率，18%暴击伤害"
+        },
+        {
+          "min_units": 4,
+          "max_units": null,
+          "style": "silver",
+          "effect": "25%暴击率，25%暴击伤害"
+        },
+        {
+          "min_units": 5,
+          "max_units": null,
+          "style": "gold",
+          "effect": "30%暴击率，30%暴击伤害。此外，叛逆者获得12%伤害减免。"
+        }
+      ],
+      "source_ids": {
+        "datatft_id": "4",
+        "datatft_key": "DA_19_Renegade"
+      },
+      "extensions": {
+        "simulator": {},
+        "datatft": {
+          "heros": [
+            919246,
+            919360,
+            919028,
+            919104,
+            919893,
+            919555
+          ],
+          "jobId": 4,
+          "code": "xE",
+          "level": [
+            {
+              "levelStyle": 1,
+              "level": 2,
+              "levelDesc": "15%暴击率，12%暴击伤害"
+            },
+            {
+              "levelStyle": 2,
+              "level": 3,
+              "levelDesc": "20%暴击率，18%暴击伤害"
+            },
+            {
+              "levelStyle": 2,
+              "level": 4,
+              "levelDesc": "25%暴击率，25%暴击伤害"
+            },
+            {
+              "levelStyle": 3,
+              "level": 5,
+              "levelDesc": "30%暴击率，30%暴击伤害。此外，叛逆者获得12%伤害减免。"
+            }
+          ],
+          "introduce": "【非主流】获得暴击几率和暴击伤害。",
+          "name": "非主流",
+          "key": "DA_19_Renegade"
+        }
+      },
+      "tags": []
+    },
+    {
+      "id": "class-5",
+      "name": "制作人",
+      "category": "class",
+      "description": "【制作人】获得攻击力。在上一回合造成最多伤害的【制作人】会成为【大腕枪手】，获得额外攻击力。",
+      "image": {
+        "local_path": "assets/traits/2d10598169a18da4.png",
+        "source_url": null,
+        "placeholder": false,
+        "optimized_local_path": "assets/optimized/s19__pbe/traits/class-5.webp"
+      },
+      "breakpoints": [
+        {
+          "min_units": 2,
+          "max_units": null,
+          "style": "bronze",
+          "effect": "1名大腕枪手"
+        },
+        {
+          "min_units": 4,
+          "max_units": null,
+          "style": "gold",
+          "effect": "2名大腕枪手"
+        }
+      ],
+      "source_ids": {
+        "datatft_id": "5",
+        "datatft_key": "DA_19_Hitmaker"
+      },
+      "extensions": {
+        "simulator": {},
+        "datatft": {
+          "heros": [
+            919018,
+            919236,
+            919235,
+            919222,
+            919498,
+            919021
+          ],
+          "jobId": 5,
+          "code": "xF",
+          "level": [
+            {
+              "levelStyle": 1,
+              "level": 2,
+              "levelDesc": "1名大腕枪手"
+            },
+            {
+              "levelStyle": 3,
+              "level": 4,
+              "levelDesc": "2名大腕枪手"
+            }
+          ],
+          "introduce": "【制作人】获得攻击力。在上一回合造成最多伤害的【制作人】会成为【大腕枪手】，获得额外攻击力。",
+          "name": "制作人",
+          "key": "DA_19_Hitmaker"
+        }
+      },
+      "tags": []
+    },
+    {
+      "id": "class-6",
+      "name": "安可",
+      "category": "class",
+      "description": "【安可】弈子施放技能时，会以较低效果重复施放该技能。",
+      "image": {
+        "local_path": "assets/traits/0222ef039ddb3bb1.png",
+        "source_url": null,
+        "placeholder": false,
+        "optimized_local_path": "assets/optimized/s19__pbe/traits/class-6.webp"
+      },
+      "breakpoints": [
+        {
+          "min_units": 2,
+          "max_units": null,
+          "style": "bronze",
+          "effect": "25%效果"
+        },
+        {
+          "min_units": 4,
+          "max_units": null,
+          "style": "gold",
+          "effect": "50%效果"
+        }
+      ],
+      "source_ids": {
+        "datatft_id": "6",
+        "datatft_key": "DA_19_Encore"
+      },
+      "extensions": {
+        "simulator": {},
+        "datatft": {
+          "heros": [
+            919110,
+            919518,
+            919081,
+            919236,
+            919202,
+            919350,
+            919163
+          ],
+          "jobId": 6,
+          "code": "xG",
+          "level": [
+            {
+              "levelStyle": 1,
+              "level": 2,
+              "levelDesc": "25%效果"
+            },
+            {
+              "levelStyle": 3,
+              "level": 4,
+              "levelDesc": "50%效果"
+            }
+          ],
+          "introduce": "【安可】弈子施放技能时，会以较低效果重复施放该技能。",
+          "name": "安可",
+          "key": "DA_19_Encore"
+        }
+      },
+      "tags": []
+    },
+    {
+      "id": "class-7",
+      "name": "护卫",
+      "category": "class",
+      "description": "【护卫】们获得护甲与魔抗。在至少有一个【护卫】还存活时，非【护卫】弈子们获得15护甲和魔抗。",
+      "image": {
+        "local_path": "assets/traits/53dd4da64b0bb8e3.png",
+        "source_url": null,
+        "placeholder": false,
+        "optimized_local_path": "assets/optimized/s19__pbe/traits/class-7.webp"
+      },
+      "breakpoints": [
+        {
+          "min_units": 2,
+          "max_units": null,
+          "style": "bronze",
+          "effect": "37护甲与魔抗"
+        },
+        {
+          "min_units": 4,
+          "max_units": null,
+          "style": "silver",
+          "effect": "70护甲与魔抗"
+        },
+        {
+          "min_units": 6,
+          "max_units": null,
+          "style": "gold",
+          "effect": "130护甲与魔抗"
+        }
+      ],
+      "source_ids": {
+        "datatft_id": "7",
+        "datatft_key": "DA_19_Bodyguard"
+      },
+      "extensions": {
+        "simulator": {},
+        "datatft": {
+          "heros": [
+            919085,
+            919876,
+            919024,
+            919075,
+            919897,
+            919986,
+            919089,
+            919526
+          ],
+          "jobId": 7,
+          "code": "xH",
+          "level": [
+            {
+              "levelStyle": 1,
+              "level": 2,
+              "levelDesc": "37护甲与魔抗"
+            },
+            {
+              "levelStyle": 2,
+              "level": 4,
+              "levelDesc": "70护甲与魔抗"
+            },
+            {
+              "levelStyle": 3,
+              "level": 6,
+              "levelDesc": "130护甲与魔抗"
+            }
+          ],
+          "introduce": "【护卫】们获得护甲与魔抗。在至少有一个【护卫】还存活时，非【护卫】弈子们获得15护甲和魔抗。",
+          "name": "护卫",
+          "key": "DA_19_Bodyguard"
+        }
+      },
+      "tags": []
+    },
+    {
+      "id": "class-8",
+      "name": "舞者",
+      "category": "class",
+      "description": "【舞者】们获得攻击速度和全能吸血，这些加成基于其已损失生命值获得提升，最多增至100%。",
+      "image": {
+        "local_path": "assets/traits/fc1520db379242d9.png",
+        "source_url": null,
+        "placeholder": false,
+        "optimized_local_path": "assets/optimized/s19__pbe/traits/class-8.webp"
+      },
+      "breakpoints": [
+        {
+          "min_units": 2,
+          "max_units": null,
+          "style": "bronze",
+          "effect": "20%攻速，8%全能吸血"
+        },
+        {
+          "min_units": 4,
+          "max_units": null,
+          "style": "silver",
+          "effect": "40%攻速，10%全能吸血"
+        },
+        {
+          "min_units": 6,
+          "max_units": null,
+          "style": "gold",
+          "effect": "65%攻速，12%全能吸血"
+        }
+      ],
+      "source_ids": {
+        "datatft_id": "8",
+        "datatft_key": "DA_19_Slayer"
+      },
+      "extensions": {
+        "simulator": {},
+        "datatft": {
+          "heros": [
+            919055,
+            919141,
+            919164,
+            919233,
+            919234,
+            919157,
+            919777,
+            919958
+          ],
+          "jobId": 8,
+          "code": "xI",
+          "level": [
+            {
+              "levelStyle": 1,
+              "level": 2,
+              "levelDesc": "20%攻速，8%全能吸血"
+            },
+            {
+              "levelStyle": 2,
+              "level": 4,
+              "levelDesc": "40%攻速，10%全能吸血"
+            },
+            {
+              "levelStyle": 3,
+              "level": 6,
+              "levelDesc": "65%攻速，12%全能吸血"
+            }
+          ],
+          "introduce": "【舞者】们获得攻击速度和全能吸血，这些加成基于其已损失生命值获得提升，最多增至100%。",
+          "name": "舞者",
+          "key": "DA_19_Slayer"
+        }
+      },
+      "tags": []
+    },
+    {
+      "id": "class-9",
+      "name": "法师",
+      "category": "class",
+      "description": "己方队伍获得法术强度，【法师】获得更多。",
+      "image": {
+        "local_path": "assets/traits/e565f1215b74f2c8.png",
+        "source_url": null,
+        "placeholder": false,
+        "optimized_local_path": "assets/optimized/s19__pbe/traits/class-9.webp"
+      },
+      "breakpoints": [
+        {
+          "min_units": 2,
+          "max_units": null,
+          "style": "bronze",
+          "effect": "12%法强，【法师】获得25%法强"
+        },
+        {
+          "min_units": 4,
+          "max_units": null,
+          "style": "silver",
+          "effect": "18%法强，【法师】获得50%法强"
+        },
+        {
+          "min_units": 6,
+          "max_units": null,
+          "style": "gold",
+          "effect": "30%法强，【法师】获得70%法强"
+        }
+      ],
+      "source_ids": {
+        "datatft_id": "9",
+        "datatft_key": "DA_19_Arcanist"
+      },
+      "extensions": {
+        "simulator": {},
+        "datatft": {
+          "heros": [
+            919115,
+            919142,
+            919001,
+            919030,
+            919050,
+            919103,
+            919800,
+            919008
+          ],
+          "jobId": 9,
+          "code": "xJ",
+          "level": [
+            {
+              "levelStyle": 1,
+              "level": 2,
+              "levelDesc": "12%法强，【法师】获得25%法强"
+            },
+            {
+              "levelStyle": 2,
+              "level": 4,
+              "levelDesc": "18%法强，【法师】获得50%法强"
+            },
+            {
+              "levelStyle": 3,
+              "level": 6,
+              "levelDesc": "30%法强，【法师】获得70%法强"
+            }
+          ],
+          "introduce": "己方队伍获得法术强度，【法师】获得更多。",
+          "name": "法师",
+          "key": "DA_19_Arcanist"
+        }
+      },
+      "tags": []
+    },
+    {
+      "id": "class-10",
+      "name": "泰坦",
+      "category": "class",
+      "description": "己方队伍获得100最大生命值。泰坦可获得更高的加成，并在其首次施放技能后进一步提升。",
+      "image": {
+        "local_path": "assets/traits/776561e126e99e4b.png",
+        "source_url": null,
+        "placeholder": false,
+        "optimized_local_path": "assets/optimized/s19__pbe/traits/class-10.webp"
+      },
+      "breakpoints": [
+        {
+          "min_units": 2,
+          "max_units": null,
+          "style": "bronze",
+          "effect": "15%，提升至30%最大生命值"
+        },
+        {
+          "min_units": 4,
+          "max_units": null,
+          "style": "silver",
+          "effect": "22%，提升至45%最大生命值"
+        },
+        {
+          "min_units": 6,
+          "max_units": null,
+          "style": "gold",
+          "effect": "35%，提升至70%最大生命值"
+        }
+      ],
+      "source_ids": {
+        "datatft_id": "10",
+        "datatft_key": "DA_19_Titan"
+      },
+      "extensions": {
+        "simulator": {},
+        "datatft": {
+          "heros": [
+            919060,
+            919875,
+            919954,
+            919058,
+            919420,
+            919003,
+            919050,
+            919102,
+            919412,
+            919020
+          ],
+          "jobId": 10,
+          "code": "xK",
+          "level": [
+            {
+              "levelStyle": 1,
+              "level": 2,
+              "levelDesc": "15%，提升至30%最大生命值"
+            },
+            {
+              "levelStyle": 2,
+              "level": 4,
+              "levelDesc": "22%，提升至45%最大生命值"
+            },
+            {
+              "levelStyle": 3,
+              "level": 6,
+              "levelDesc": "35%，提升至70%最大生命值"
+            }
+          ],
+          "introduce": "己方队伍获得100最大生命值。泰坦可获得更高的加成，并在其首次施放技能后进一步提升。",
+          "name": "泰坦",
+          "key": "DA_19_Titan"
+        }
+      },
+      "tags": []
+    },
+    {
+      "id": "class-11",
+      "name": "合奏",
+      "category": "class",
+      "description": "【合奏】弈子携手过往羁绊，打造专属演出！\n每局游戏，参与合奏的弈子阵容皆不相同。",
+      "image": {
+        "local_path": "assets/traits/ec7fdb363b7c5a04.png",
+        "source_url": null,
+        "placeholder": false,
+        "optimized_local_path": "assets/optimized/s19__pbe/traits/class-11.webp"
+      },
+      "breakpoints": [
+        {
+          "min_units": 3,
+          "max_units": null,
+          "style": "bronze",
+          "effect": ""
+        },
+        {
+          "min_units": 5,
+          "max_units": null,
+          "style": "gold",
+          "effect": ""
+        }
+      ],
+      "source_ids": {
+        "datatft_id": "11",
+        "datatft_key": "DA_19_Collab"
+      },
+      "extensions": {
+        "simulator": {},
+        "datatft": {
+          "heros": [
+            919037
+          ],
+          "jobId": 11,
+          "code": "xL",
+          "level": [
+            {
+              "levelStyle": 1,
+              "level": 3,
+              "levelDesc": ""
+            },
+            {
+              "levelStyle": 3,
+              "level": 5,
+              "levelDesc": ""
+            }
+          ],
+          "introduce": "【合奏】弈子携手过往羁绊，打造专属演出！<br>每局游戏，参与合奏的弈子阵容皆不相同。",
+          "name": "合奏",
+          "key": "DA_19_Collab"
+        }
+      },
+      "tags": []
+    },
+    {
+      "id": "class-12",
+      "name": "迅击鼓手",
+      "category": "class",
+      "description": "己方队伍获得10%攻击速度。\n迅击鼓手每2秒获得更多攻击速度，最多可叠加5层。",
+      "image": {
+        "local_path": "assets/traits/2f3b629fa6d257e2.png",
+        "source_url": null,
+        "placeholder": false,
+        "optimized_local_path": "assets/optimized/s19__pbe/traits/class-12.webp"
+      },
+      "breakpoints": [
+        {
+          "min_units": 2,
+          "max_units": null,
+          "style": "bronze",
+          "effect": "每层5%攻速"
+        },
+        {
+          "min_units": 3,
+          "max_units": null,
+          "style": "silver",
+          "effect": "每层13%攻速"
+        },
+        {
+          "min_units": 4,
+          "max_units": null,
+          "style": "gold",
+          "effect": "每层25%攻速"
+        }
+      ],
+      "source_ids": {
+        "datatft_id": "12",
+        "datatft_key": "DA_19_Swiftstriker"
+      },
+      "extensions": {
+        "simulator": {},
+        "datatft": {
+          "heros": [
+            919115,
+            919804,
+            919022,
+            919024,
+            919432,
+            919010,
+            919805,
+            919221
+          ],
+          "jobId": 12,
+          "code": "xM",
+          "level": [
+            {
+              "levelStyle": 1,
+              "level": 2,
+              "levelDesc": "每层5%攻速"
+            },
+            {
+              "levelStyle": 2,
+              "level": 3,
+              "levelDesc": "每层13%攻速"
+            },
+            {
+              "levelStyle": 3,
+              "level": 4,
+              "levelDesc": "每层25%攻速"
+            }
+          ],
+          "introduce": "己方队伍获得10%攻击速度。<br>迅击鼓手每2秒获得更多攻击速度，最多可叠加5层。",
+          "name": "迅击鼓手",
+          "key": "DA_19_Swiftstriker"
+        }
+      },
+      "tags": []
+    },
+    {
+      "id": "class-13",
+      "name": "主宰",
+      "category": "class",
+      "description": "己方获得伤害减免。\n【主宰】获得更高的伤害减免，数值会根据已损失生命值提升。",
+      "image": {
+        "local_path": "assets/traits/75717dea50e90be5.png",
+        "source_url": null,
+        "placeholder": false,
+        "optimized_local_path": "assets/optimized/s19__pbe/traits/class-13.webp"
+      },
+      "breakpoints": [
+        {
+          "min_units": 2,
+          "max_units": null,
+          "style": "bronze",
+          "effect": "15%到28%减伤"
+        },
+        {
+          "min_units": 4,
+          "max_units": null,
+          "style": "silver",
+          "effect": "22%到40%减伤"
+        },
+        {
+          "min_units": 6,
+          "max_units": null,
+          "style": "gold",
+          "effect": "30%到48%减伤"
+        }
+      ],
+      "source_ids": {
+        "datatft_id": "13",
+        "datatft_key": "DA_19_Juggernaut"
+      },
+      "extensions": {
+        "simulator": {},
+        "datatft": {
+          "heros": [
+            919002,
+            919044,
+            919001,
+            919079,
+            919201,
+            919245,
+            919083,
+            919154,
+            919254
+          ],
+          "jobId": 13,
+          "code": "xN",
+          "level": [
+            {
+              "levelStyle": 1,
+              "level": 2,
+              "levelDesc": "15%到28%减伤"
+            },
+            {
+              "levelStyle": 2,
+              "level": 4,
+              "levelDesc": "22%到40%减伤"
+            },
+            {
+              "levelStyle": 3,
+              "level": 6,
+              "levelDesc": "30%到48%减伤"
+            }
+          ],
+          "introduce": "己方获得伤害减免。<br>【主宰】获得更高的伤害减免，数值会根据已损失生命值提升。",
+          "name": "主宰",
+          "key": "DA_19_Juggernaut"
+        }
+      },
+      "tags": []
+    },
+    {
+      "id": "class-14",
+      "name": "天才",
+      "category": "class",
+      "description": "己方队伍获得1法力回复。【天才】获得更多。",
+      "image": {
+        "local_path": "assets/missing.png",
+        "source_url": null,
+        "placeholder": true,
+        "optimized_local_path": "assets/optimized/s19__pbe/traits/class-14.webp"
+      },
+      "breakpoints": [
+        {
+          "min_units": 2,
+          "max_units": null,
+          "style": "bronze",
+          "effect": "【天才】获得2法力回复"
+        },
+        {
+          "min_units": 3,
+          "max_units": null,
+          "style": "silver",
+          "effect": "【天才】获得3法力回复"
+        },
+        {
+          "min_units": 4,
+          "max_units": null,
+          "style": "silver",
+          "effect": "【天才】获得6法力回复"
+        },
+        {
+          "min_units": 5,
+          "max_units": null,
+          "style": "gold",
+          "effect": "【天才】获得7法力回复。【天才】造成伤害的12%用于治疗生命值最低的友军。"
+        }
+      ],
+      "source_ids": {
+        "datatft_id": "14",
+        "datatft_key": "preview-s19-job-14"
+      },
+      "extensions": {
+        "simulator": {},
+        "datatft": {
+          "heros": [
+            919518,
+            919099,
+            919090,
+            919245,
+            919955,
+            919040
+          ],
+          "jobId": 14,
+          "code": "xO",
+          "level": [
+            {
+              "levelStyle": 1,
+              "level": 2,
+              "levelDesc": "【天才】获得2法力回复"
+            },
+            {
+              "levelStyle": 2,
+              "level": 3,
+              "levelDesc": "【天才】获得3法力回复"
+            },
+            {
+              "levelStyle": 2,
+              "level": 4,
+              "levelDesc": "【天才】获得6法力回复"
+            },
+            {
+              "levelStyle": 3,
+              "level": 5,
+              "levelDesc": "【天才】获得7法力回复。【天才】造成伤害的12%用于治疗生命值最低的友军。"
+            }
+          ],
+          "introduce": "己方队伍获得1法力回复。【天才】获得更多。",
+          "name": "天才",
+          "key": "preview-s19-job-14"
+        }
+      },
+      "tags": []
+    }
+  ],
+  "source": {
+    "id": "datatft-user-har",
+    "type": "community_preview",
+    "url": "https://www.datatft.com/assets/data-cn-DXom63BO.js",
+    "har_sha256": "76eb8b7224f65e1bb4d98152fac6b33f7f37e8b9ae877d3e7b4e99c1d7b33059",
+    "source_updated_at": "2026-11-17T04:23:07.152000+00:00",
+    "verified_for_current_patch": false,
+    "note": "以用户提供的 HAR 为准；不是官方正式服快照",
+    "capture_count": 1,
+    "capture_sha256": [
+      "76eb8b7224f65e1bb4d98152fac6b33f7f37e8b9ae877d3e7b4e99c1d7b33059"
+    ],
+    "data_sha256": "14a649fd46eead677b9fccc1c2b9fcc385c90efeadb31f412e1142ef74fa439b",
+    "asset_capture_sha256": [
+      "1e9bbc33d7bd7de70cec9ebf0b67ce19735c0a03b73a91bb03db8478e730e955",
+      "02cd877d18f0b2e0bb29cffed790640f0a265bd82b4f1b2b5eb07e715046f45d",
+      "e166b2e3932b646e33417492af3226e0c2a24a47c62faa403205de697376b1e1"
+    ]
+  }
+}
