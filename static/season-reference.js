@@ -511,6 +511,7 @@ function renderChampions() {
     section.setAttribute('aria-labelledby', `championCost${cost}`);
     const heading = document.createElement('div');
     heading.className = 'champion-cost-heading';
+    heading.dataset.cost = String(cost);
     const title = document.createElement('h2');
     title.id = `championCost${cost}`;
     title.textContent = `${cost}费弈子`;

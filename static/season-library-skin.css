@@ -1,0 +1,720 @@
+/* Season library skin a3f8c1 — editorial codex: hairline rules, numerals, a fanned cover. */
+
+.s18-preview-page {
+  --lib-num: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+  --lib-card: var(--surface-solid);
+  --lib-shadow: 0 1px 0 rgba(55, 45, 31, 0.04), 0 12px 32px rgba(55, 45, 31, 0.07);
+  --lib-shadow-lift: 0 22px 48px rgba(55, 45, 31, 0.14);
+  --tier-bronze: #a5704a;
+  --tier-silver: #7f8c99;
+  --tier-gold: #bf9228;
+  --tier-unique: #cf6a3e;
+  --tier-prismatic: linear-gradient(135deg, #79cfe0, #b99cf0 52%, #f0b2cb);
+}
+
+:root[data-theme="dark"] .s18-preview-page {
+  --lib-shadow: 0 1px 0 rgba(0, 0, 0, 0.2), 0 12px 32px rgba(0, 0, 0, 0.24);
+  --lib-shadow-lift: 0 22px 48px rgba(0, 0, 0, 0.42);
+  --tier-bronze: #c88d62;
+  --tier-silver: #a9b5c1;
+  --tier-gold: #e0b44a;
+}
+
+.s18-preview-nav {
+  margin-bottom: 4px;
+}
+
+/* ---- Hero ---- */
+
+.lib-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  align-items: center;
+  gap: 48px;
+  margin: 0;
+  border-bottom: 0;
+  padding: 26px 0 44px;
+}
+
+.lib-season-switch {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin: 0 0 30px;
+}
+
+.lib-season-switch a {
+  border: 1px solid transparent;
+  border-radius: 999px;
+  color: var(--muted);
+  padding: 6px 13px;
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: color 160ms ease, background-color 160ms ease, border-color 160ms ease;
+}
+
+.lib-season-switch a:hover {
+  background: var(--surface);
+  color: var(--text);
+}
+
+.lib-season-switch a[aria-current="page"] {
+  border-color: var(--line);
+  background: var(--surface-solid);
+  box-shadow: 0 4px 14px rgba(55, 45, 31, 0.07);
+  color: var(--accent-strong);
+}
+
+.lib-season-switch a:focus-visible,
+.lib-cover-card:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.lib-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 16px;
+}
+
+.lib-status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 4px var(--accent-soft);
+}
+
+.lib-title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0 0.3em;
+  margin: 0;
+  font-size: clamp(40px, 5.2vw, 70px);
+  font-weight: 800;
+  line-height: 1.04;
+  letter-spacing: 0.02em;
+}
+
+.lib-title-code {
+  color: var(--accent);
+  font-family: var(--lib-num);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+
+.lib-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  margin: 16px 0 0;
+  font-size: 14px;
+}
+
+.lib-meta span + span::before {
+  margin-right: 14px;
+  color: var(--line);
+  content: "/";
+}
+
+.lib-meta:empty {
+  display: none;
+}
+
+.lib-stats {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 34px 0 0;
+}
+
+.lib-stats div {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 8px;
+  border-left: 1px solid var(--line);
+  padding: 2px 30px;
+}
+
+.lib-stats div:first-child {
+  border-left: 0;
+  padding-left: 0;
+}
+
+.lib-stats dt {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+.lib-stats dd {
+  margin: 0;
+  font-family: var(--lib-num);
+  font-size: 42px;
+  font-variant-numeric: lining-nums tabular-nums;
+  line-height: 1;
+}
+
+/* Fanned cover: cards cascade from back-left to front-right. */
+.lib-cover {
+  --cover-spread-x: 40%;
+  --cover-spread-y: 50%;
+  --cover-width: 60%;
+  position: relative;
+  aspect-ratio: 1.7;
+}
+
+.lib-cover-card {
+  --step-x: calc(var(--cover-spread-x) / max(var(--cover-count) - 1, 1));
+  --step-y: calc(var(--cover-spread-y) / max(var(--cover-count) - 1, 1));
+  position: absolute;
+  top: calc(var(--i) * var(--step-y));
+  left: calc(var(--i) * var(--step-x));
+  z-index: calc(var(--i) + 1);
+  width: var(--cover-width);
+  aspect-ratio: 500 / 231;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--cost-color) 20%, var(--surface-solid));
+  box-shadow: 0 18px 40px rgba(55, 45, 31, 0.2);
+  color: #fff;
+  text-decoration: none;
+  transform: rotate(calc((var(--i) - 2) * 1.5deg));
+  transition: transform 260ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 260ms ease, filter 260ms ease;
+}
+
+:root[data-theme="dark"] .lib-cover-card {
+  border-color: rgba(255, 255, 255, 0.16);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.5);
+}
+
+.lib-cover-card::after {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 45%, rgba(12, 10, 8, 0.78));
+  content: "";
+}
+
+.lib-cover-card img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.lib-cover-card span {
+  position: absolute;
+  bottom: 10px;
+  left: 14px;
+  z-index: 1;
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  font-size: 15px;
+  font-weight: 800;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.6);
+}
+
+.lib-cover-card small {
+  border-left: 2px solid var(--cost-color);
+  padding-left: 7px;
+  font-size: 11px;
+  font-weight: 700;
+  opacity: 0.88;
+}
+
+.lib-cover-card:not(:last-child) {
+  filter: saturate(0.82) brightness(0.94);
+}
+
+.lib-cover-card:hover,
+.lib-cover-card:focus-visible {
+  z-index: 10;
+  box-shadow: 0 26px 54px rgba(55, 45, 31, 0.3);
+  filter: none;
+  transform: translateY(-8px) rotate(0deg);
+}
+
+/* ---- Sticky tab bar ---- */
+
+.lib-tabbar {
+  position: sticky;
+  top: 0;
+  z-index: 70;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  margin: 0 0 28px;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter: blur(14px);
+}
+
+.s18-main-tabs {
+  position: relative;
+  top: auto;
+  grid-template-columns: repeat(var(--tab-count, 3), 104px);
+  width: auto;
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  padding: 0;
+  backdrop-filter: none;
+}
+
+:root[data-theme="dark"] .s18-main-tabs {
+  box-shadow: none;
+}
+
+.s18-main-tab {
+  min-height: 52px;
+  border-radius: 0;
+  font-size: 15px;
+  font-weight: 750;
+}
+
+.s18-main-tab:hover {
+  color: var(--text);
+}
+
+.s18-main-tab.active {
+  color: var(--text);
+}
+
+.s18-tab-indicator {
+  top: auto;
+  bottom: -1px;
+  left: 0;
+  width: calc(100% / var(--tab-count, 3));
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, transparent 22%, var(--accent) 22%, var(--accent) 78%, transparent 78%);
+  box-shadow: none;
+}
+
+.s18-preview-count {
+  border: 0;
+  background: none;
+  padding: 0;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 650;
+}
+
+/* ---- Filters ---- */
+
+.champion-filter-panel {
+  border-radius: 16px;
+  background: var(--lib-card);
+  box-shadow: none;
+}
+
+:root[data-theme="dark"] .champion-filter-panel {
+  box-shadow: none;
+}
+
+.s18-search-field input,
+.s18-filter-select-trigger {
+  border-color: transparent;
+  background: color-mix(in srgb, var(--bg) 70%, var(--surface-solid));
+}
+
+.trait-type-switch {
+  gap: 2px;
+  margin-bottom: 22px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--lib-card);
+  padding: 3px;
+}
+
+.trait-type-switch button {
+  min-height: 32px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  padding: 5px 20px;
+}
+
+.trait-type-switch button:hover {
+  transform: none;
+}
+
+.trait-type-switch button.active {
+  background: var(--text);
+  color: var(--bg);
+}
+
+/* ---- Cost sections ---- */
+
+.champion-cost-section + .champion-cost-section {
+  margin-top: 44px;
+}
+
+.champion-cost-heading {
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+.champion-cost-heading::before {
+  display: grid;
+  width: 36px;
+  height: 36px;
+  flex: 0 0 auto;
+  place-items: center;
+  border: 1px solid color-mix(in srgb, var(--cost-color) 60%, transparent);
+  border-radius: 50%;
+  color: var(--cost-color);
+  content: attr(data-cost);
+  font-family: var(--lib-num);
+  font-size: 19px;
+  font-style: italic;
+}
+
+.champion-cost-heading::after {
+  order: 2;
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, color-mix(in srgb, var(--cost-color) 45%, transparent), var(--line) 30%, transparent);
+  content: "";
+}
+
+.champion-cost-heading h2 {
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.champion-cost-heading span {
+  order: 3;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---- Champion cards ---- */
+
+.champion-grid {
+  gap: 18px;
+}
+
+.champion-card-link {
+  border-radius: 14px;
+}
+
+.champion-card-link:hover {
+  filter: none;
+  transform: translateY(-4px);
+}
+
+.champion-card {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--lib-card);
+  box-shadow: var(--lib-shadow);
+  transition: border-color 200ms ease, box-shadow 200ms ease;
+}
+
+:root[data-theme="dark"] .champion-card {
+  box-shadow: var(--lib-shadow);
+}
+
+.champion-card-link:hover .champion-card,
+.champion-card-link:focus-visible .champion-card {
+  border-color: color-mix(in srgb, var(--cost-color) 55%, var(--line));
+  box-shadow: 0 20px 44px color-mix(in srgb, var(--cost-color) 20%, transparent);
+}
+
+.champion-art::before {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 3;
+  height: 3px;
+  background: var(--cost-color);
+  content: "";
+}
+
+.champion-art::after {
+  background: linear-gradient(180deg, rgba(12, 10, 8, 0.55) 0, transparent 30%, transparent 50%, rgba(12, 10, 8, 0.82) 100%);
+}
+
+.champion-art > img {
+  transition: transform 600ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.champion-card-link:hover .champion-art > img {
+  transform: scale(1.045);
+}
+
+.champion-name {
+  font-size: 19px;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+}
+
+.champion-cost {
+  border: 1px solid rgba(255, 255, 255, 0.32);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--cost-color) 72%, rgba(0, 0, 0, 0.45));
+  padding: 3px 9px 3px 5px;
+  font-size: 13px;
+  text-shadow: none;
+  backdrop-filter: blur(6px);
+}
+
+.champion-cost img {
+  width: 15px;
+  height: 15px;
+}
+
+.champion-skill-body {
+  padding: 16px 16px 18px;
+}
+
+.champion-skill-name {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-bottom: 8px;
+}
+
+.champion-skill-name::before {
+  width: 6px;
+  height: 6px;
+  flex: 0 0 auto;
+  background: var(--cost-color);
+  content: "";
+  transform: rotate(45deg);
+}
+
+.champion-skill-description {
+  line-height: 1.7;
+}
+
+/* ---- Traits ---- */
+
+.trait-grid {
+  gap: 18px;
+}
+
+.trait-card {
+  gap: 16px;
+  border-radius: 16px;
+  background: var(--lib-card);
+  box-shadow: var(--lib-shadow);
+  padding: 22px;
+}
+
+:root[data-theme="dark"] .trait-card {
+  box-shadow: var(--lib-shadow);
+}
+
+.trait-card-title {
+  gap: 13px;
+  font-size: 19px;
+  font-weight: 800;
+}
+
+.trait-card-title img {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  background: var(--accent-soft);
+  padding: 8px;
+}
+
+.trait-card[data-category="class"] .trait-card-title img {
+  background: color-mix(in srgb, #4f7fa8 15%, var(--surface-solid));
+}
+
+.trait-levels {
+  border-top: 0;
+}
+
+.trait-level {
+  --tier: var(--accent);
+  grid-template-columns: 46px minmax(0, 1fr);
+  border-bottom: 1px dashed var(--line);
+  padding: 10px 0;
+}
+
+.trait-level:last-child {
+  border-bottom: 0;
+}
+
+.trait-level[data-style="bronze"] { --tier: var(--tier-bronze); }
+.trait-level[data-style="silver"] { --tier: var(--tier-silver); }
+.trait-level[data-style="gold"] { --tier: var(--tier-gold); }
+.trait-level[data-style="unique"] { --tier: var(--tier-unique); }
+
+.trait-level-count {
+  width: 38px;
+  min-height: 24px;
+  border: 1px solid color-mix(in srgb, var(--tier) 48%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--tier) 14%, transparent);
+  color: var(--tier);
+  font-family: var(--lib-num);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.trait-level[data-style="prismatic"] .trait-level-count {
+  border: 0;
+  background: var(--tier-prismatic);
+  color: #2d2546;
+}
+
+.trait-champions {
+  gap: 10px;
+  border-top: 1px solid var(--line);
+  padding-top: 16px;
+}
+
+.trait-champion img {
+  width: 46px;
+  height: 46px;
+  border-radius: 11px;
+}
+
+/* ---- Augments and mechanics ---- */
+
+.augment-card,
+.wand-card,
+.charm-card,
+.mechanic-card {
+  border-radius: 14px;
+  background: var(--lib-card);
+  box-shadow: var(--lib-shadow);
+}
+
+.augment-icon {
+  border-radius: 12px;
+}
+
+/* ---- Responsive ---- */
+
+@media (max-width: 960px) {
+  .lib-hero {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 32px;
+    padding-bottom: 32px;
+  }
+
+  .lib-cover {
+    width: min(560px, 100%);
+  }
+}
+
+@media (max-width: 640px) {
+  .lib-hero {
+    gap: 26px;
+    padding: 14px 0 26px;
+  }
+
+  .lib-season-switch {
+    flex-wrap: nowrap;
+    margin: 0 -9px 22px;
+    overflow-x: auto;
+    padding: 0 9px;
+    scrollbar-width: none;
+  }
+
+  .lib-season-switch a {
+    flex: 0 0 auto;
+  }
+
+  .lib-title {
+    font-size: clamp(34px, 11vw, 46px);
+  }
+
+  .lib-stats {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px 0;
+    margin-top: 26px;
+  }
+
+  .lib-stats div,
+  .lib-stats div:first-child {
+    border-left: 0;
+    padding: 0;
+  }
+
+  .lib-stats div:nth-child(even) {
+    border-left: 1px solid var(--line);
+    padding-left: 18px;
+  }
+
+  .lib-stats dd {
+    font-size: 34px;
+  }
+
+  .lib-cover {
+    --cover-spread-x: 30%;
+    --cover-spread-y: 42%;
+    --cover-width: 70%;
+    aspect-ratio: 2;
+  }
+
+  .lib-cover-card span {
+    bottom: 7px;
+    left: 10px;
+    font-size: 13px;
+  }
+
+  .lib-tabbar {
+    margin-bottom: 18px;
+  }
+
+  .lib-tabbar .s18-preview-count {
+    display: none;
+  }
+
+  .s18-main-tabs {
+    grid-template-columns: repeat(var(--tab-count, 3), minmax(0, 1fr));
+    width: 100%;
+  }
+
+  .s18-main-tab {
+    min-height: 48px;
+    font-size: 14px;
+  }
+
+  .champion-grid {
+    gap: 10px;
+  }
+
+  .champion-card,
+  .champion-card-link {
+    border-radius: 12px;
+  }
+
+  .champion-cost-section + .champion-cost-section {
+    margin-top: 32px;
+  }
+
+  .trait-card {
+    padding: 18px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lib-cover-card,
+  .champion-card,
+  .champion-art > img {
+    transition: none !important;
+  }
+
+  .champion-card-link:hover .champion-art > img {
+    transform: none;
+  }
+}
