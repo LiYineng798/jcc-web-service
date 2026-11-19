@@ -4,19 +4,11 @@
   --lib-card: var(--surface-solid);
   --lib-shadow: 0 1px 0 rgba(55, 45, 31, 0.04), 0 12px 32px rgba(55, 45, 31, 0.07);
   --lib-shadow-lift: 0 22px 48px rgba(55, 45, 31, 0.14);
-  --tier-bronze: #a5704a;
-  --tier-silver: #7f8c99;
-  --tier-gold: #bf9228;
-  --tier-unique: #cf6a3e;
-  --tier-prismatic: linear-gradient(135deg, #79cfe0, #b99cf0 52%, #f0b2cb);
 }
 
 :root[data-theme="dark"] .s18-preview-page {
   --lib-shadow: 0 1px 0 rgba(0, 0, 0, 0.2), 0 12px 32px rgba(0, 0, 0, 0.24);
   --lib-shadow-lift: 0 22px 48px rgba(0, 0, 0, 0.42);
-  --tier-bronze: #c88d62;
-  --tier-silver: #a9b5c1;
-  --tier-gold: #e0b44a;
 }
 
 .s18-preview-nav {
@@ -572,8 +564,10 @@
 }
 
 .trait-level {
-  --tier: var(--accent);
-  grid-template-columns: 46px minmax(0, 1fr);
+  --tier-fill: var(--accent);
+  --tier-edge: var(--accent-strong);
+  --tier-ink: #fffaf2;
+  grid-template-columns: 40px minmax(0, 1fr);
   border-bottom: 1px dashed var(--line);
   padding: 10px 0;
 }
@@ -582,27 +576,23 @@
   border-bottom: 0;
 }
 
-.trait-level[data-style="bronze"] { --tier: var(--tier-bronze); }
-.trait-level[data-style="silver"] { --tier: var(--tier-silver); }
-.trait-level[data-style="gold"] { --tier: var(--tier-gold); }
-.trait-level[data-style="unique"] { --tier: var(--tier-unique); }
+/* In-game breakpoint plates: solid fill, a lighter edge, the same in both themes. */
+.trait-level[data-style="bronze"] { --tier-fill: #7f4f3e; --tier-edge: #a5644a; --tier-ink: #fff5e0; }
+.trait-level[data-style="silver"] { --tier-fill: #818181; --tier-edge: #a7a399; --tier-ink: #f9f0dc; }
+.trait-level[data-style="gold"] { --tier-fill: #ae8b42; --tier-edge: #c6aa4f; --tier-ink: #fff8e6; }
+.trait-level[data-style="prismatic"] { --tier-fill: #d4f6f1; --tier-edge: #60dace; --tier-ink: #1c2a28; }
+.trait-level[data-style="unique"] { --tier-fill: #a8502f; --tier-edge: #cf6a3e; --tier-ink: #fff5e0; }
 
 .trait-level-count {
-  width: 38px;
+  width: 28px;
   min-height: 24px;
-  border: 1px solid color-mix(in srgb, var(--tier) 48%, transparent);
-  border-radius: 999px;
-  background: color-mix(in srgb, var(--tier) 14%, transparent);
-  color: var(--tier);
+  border: 1px solid var(--tier-edge);
+  border-radius: 4px;
+  background: var(--tier-fill);
+  color: var(--tier-ink);
   font-size: 13px;
   font-variant-numeric: tabular-nums;
   font-weight: 800;
-}
-
-.trait-level[data-style="prismatic"] .trait-level-count {
-  border: 0;
-  background: var(--tier-prismatic);
-  color: #2d2546;
 }
 
 .trait-champions {
