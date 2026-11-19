@@ -130,14 +130,13 @@
 
 /*
  * Fanned cover: cards cascade from back-left to front-right in fixed pixel steps.
- * A hovered card slides left out of the deck while the cards in front of it shift
- * right, so it is revealed without changing stacking order or popping through.
+ * A hovered card stays inside the cover box: the cards in front of it fade and
+ * shift right, so it is revealed without a stacking jump or covering the title.
  */
 .lib-cover {
   --cover-card: 210px;
   --cover-step-x: 46px;
   --cover-step-y: 9px;
-  --cover-pull: 150px;
   --cover-push: 22px;
   --cover-tilt: 1.2deg;
   position: relative;
@@ -161,8 +160,8 @@
   color: #fff;
   text-decoration: none;
   transform: rotate(calc((var(--i) - 2) * var(--cover-tilt)));
-  transition: transform 460ms cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 300ms ease, filter 300ms ease;
-  will-change: transform;
+  transition: transform 420ms cubic-bezier(0.2, 0.8, 0.2, 1), opacity 320ms ease, box-shadow 300ms ease, filter 300ms ease;
+  will-change: transform, opacity;
 }
 
 :root[data-theme="dark"] .lib-cover-card {
@@ -211,17 +210,20 @@
 
 @media (min-width: 641px) {
   .lib-cover-card:is(:hover, :focus-visible) {
-    box-shadow: 0 22px 44px rgba(55, 45, 31, 0.28);
+    box-shadow: 0 16px 34px rgba(55, 45, 31, 0.24);
     filter: none;
-    transform: translateY(-6px) rotate(0deg);
+    transform: translateY(-3px) rotate(0deg);
   }
 
-  .lib-cover-card:not(:last-child):is(:hover, :focus-visible) {
-    transform: translate(calc(var(--cover-pull) * -1), -6px) rotate(-1.5deg);
-  }
-
+  /*
+   * Faded cards keep pointer events so the pointer can scrub card by card; the
+   * revealed card is always the one under the pointer. The push widens the hovered
+   * card's strip, which keeps the boundary between two cards from flickering.
+   */
   .lib-cover-card:is(:hover, :focus-visible) ~ .lib-cover-card {
-    transform: translateX(var(--cover-push)) rotate(calc((var(--i) - 2) * var(--cover-tilt) + 1deg));
+    box-shadow: none;
+    opacity: 0.05;
+    transform: translateX(var(--cover-push)) rotate(calc((var(--i) - 2) * var(--cover-tilt)));
   }
 }
 
@@ -403,7 +405,7 @@
 
 .champion-card-link:hover {
   filter: none;
-  transform: translateY(-4px);
+  transform: translateY(-2px);
 }
 
 .champion-card {
@@ -420,8 +422,8 @@
 
 .champion-card-link:hover .champion-card,
 .champion-card-link:focus-visible .champion-card {
-  border-color: color-mix(in srgb, var(--cost-color) 55%, var(--line));
-  box-shadow: 0 20px 44px color-mix(in srgb, var(--cost-color) 20%, transparent);
+  border-color: color-mix(in srgb, var(--cost-color) 50%, var(--line));
+  box-shadow: 0 14px 30px color-mix(in srgb, var(--cost-color) 14%, transparent);
 }
 
 .champion-art::before {
@@ -444,7 +446,7 @@
 }
 
 .champion-card-link:hover .champion-art > img {
-  transform: scale(1.045);
+  transform: scale(1.015);
 }
 
 .champion-name {
@@ -544,16 +546,33 @@
   font-weight: 800;
 }
 
+/* The tile sits behind the icon: the icon's tint filter would otherwise repaint its own background. */
+.trait-card-title {
+  position: relative;
+}
+
 .trait-card-title img {
+  position: relative;
+  z-index: 1;
+  width: 42px;
+  height: 42px;
+  padding: 9px;
+}
+
+.trait-card-title:has(> img)::before {
+  position: absolute;
+  top: 50%;
+  left: 0;
   width: 42px;
   height: 42px;
   border-radius: 12px;
   background: var(--accent-soft);
-  padding: 8px;
+  content: "";
+  transform: translateY(-50%);
 }
 
-.trait-card[data-category="class"] .trait-card-title img {
-  background: color-mix(in srgb, #4f7fa8 15%, var(--surface-solid));
+.trait-card[data-category="class"] .trait-card-title::before {
+  background: color-mix(in srgb, #4f7fa8 16%, var(--surface-solid));
 }
 
 .trait-levels {
@@ -632,7 +651,6 @@
     --cover-card: 170px;
     --cover-step-x: 34px;
     --cover-step-y: 7px;
-    --cover-pull: 116px;
     --cover-push: 16px;
   }
 }
