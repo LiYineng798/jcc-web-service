@@ -104,6 +104,38 @@ themeElements.themeToggle?.addEventListener('click', () => {
   setTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark');
 });
 
+// Hero spotlight: hovering or focusing a roster avatar cross-fades its splash in.
+// Only the first splash ships with a src; the rest load on demand or when the page is idle.
+function initSpotlight() {
+  const root = document.querySelector('[data-spotlight]');
+  if (!root) return;
+  const arts = Array.from(root.querySelectorAll('[data-spotlight-art]'));
+  const picks = Array.from(root.querySelectorAll('[data-spotlight-pick]'));
+  const name = root.querySelector('[data-spotlight-name]');
+  const cost = root.querySelector('[data-spotlight-cost]');
+  const load = (image) => {
+    if (image && !image.getAttribute('src') && image.dataset.src) image.src = image.dataset.src;
+  };
+  const show = (index) => {
+    load(arts[index]);
+    arts.forEach((image, i) => image.classList.toggle('is-active', i === index));
+    picks.forEach((pick, i) => pick.classList.toggle('is-active', i === index));
+    if (name) name.textContent = picks[index].dataset.name;
+    if (cost) cost.textContent = `${picks[index].dataset.cost} 费`;
+  };
+  picks.forEach((pick, index) => {
+    pick.addEventListener('pointerenter', () => show(index));
+    pick.addEventListener('focus', () => show(index));
+  });
+  // Phones hide the spotlight; skip the prefetch there.
+  if (!root.offsetParent) return;
+  const warm = () => arts.forEach(load);
+  if ('requestIdleCallback' in window) window.requestIdleCallback(warm, { timeout: 4000 });
+  else window.setTimeout(warm, 2000);
+}
+
+initSpotlight();
+
 function assetUrl(path) {
   if (!path) return '';
   const url = `${config.assetRoot}/${String(path).split('/').map(encodeURIComponent).join('/')}`;

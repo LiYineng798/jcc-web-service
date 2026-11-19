@@ -175,7 +175,10 @@ def _hero_champions(champions, limit=5):
         if (champion.get('availability') or {}).get('type') in HERO_EXCLUDED_AVAILABILITY:
             continue
         seen.add(champion.get('name'))
-        picks.append({'id': champion['id'], 'name': champion.get('name'), 'cost': champion.get('cost'), 'art': art})
+        picks.append({
+            'id': champion['id'], 'name': champion.get('name'), 'cost': champion.get('cost'),
+            'art': art, 'splash': champion.get('splash') or art, 'icon': champion.get('icon') or art,
+        })
         if len(picks) == limit:
             break
     return picks

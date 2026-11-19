@@ -39,14 +39,22 @@
 {% endif %}
         </div>
 {% if hero_champions %}
-        <nav class="lib-cover" aria-label="本赛季高费弈子" style="--cover-count: {{ hero_champions|length }}">
+        <div class="lib-spotlight" data-spotlight>
+          <div class="lib-spotlight-art" aria-hidden="true">
 {% for champion in hero_champions %}
-          <a class="lib-cover-card" href="/tools/seasons/{{ season.season_id }}/champions/{{ champion.id }}" style="--i: {{ loop.index0 }}; --cost-color: var(--s18-cost-{{ champion.cost }}, var(--accent))">
-            <img src="{{ asset_root }}/{{ champion.art }}?v={{ season.version_id|urlencode }}" alt="" decoding="async" />
-            <span>{{ champion.name }}<small>{{ champion.cost }} 费</small></span>
-          </a>
+            <img {% if loop.first %}src{% else %}data-src{% endif %}="{{ asset_root }}/{{ champion.splash }}?v={{ season.version_id|urlencode }}"{% if loop.first %} class="is-active"{% endif %} alt="" loading="lazy" decoding="async" data-spotlight-art />
 {% endfor %}
-        </nav>
+          </div>
+          <nav class="lib-spotlight-roster" aria-label="本赛季高费弈子">
+            <p class="lib-spotlight-caption" aria-hidden="true"><strong data-spotlight-name>{{ hero_champions[0].name }}</strong><span data-spotlight-cost>{{ hero_champions[0].cost }} 费</span></p>
+{% for champion in hero_champions %}
+            <a class="lib-spotlight-pick{% if loop.first %} is-active{% endif %}" href="/tools/seasons/{{ season.season_id }}/champions/{{ champion.id }}" data-spotlight-pick data-name="{{ champion.name }}" data-cost="{{ champion.cost }}" style="--cost-color: var(--s18-cost-{{ champion.cost }}, var(--accent))">
+              <img src="{{ asset_root }}/{{ champion.icon }}?v={{ season.version_id|urlencode }}" alt="" decoding="async" />
+              <span class="sr-only">{{ champion.name }}</span>
+            </a>
+{% endfor %}
+          </nav>
+        </div>
 {% endif %}
       </header>
 

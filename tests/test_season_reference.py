@@ -628,7 +628,7 @@ def test_season_page_context_lists_cover_champions_and_sibling_seasons(app):
     assert 0 < len(picks) <= 5
     assert len({pick['name'] for pick in picks}) == len(picks)
     assert [pick['cost'] for pick in picks] == sorted((pick['cost'] for pick in picks), reverse=True)
-    assert all(pick['art'] for pick in picks)
+    assert all(pick['art'] and pick['splash'] and pick['icon'] for pick in picks)
     assert [season['season_id'] for season in context['library_seasons']] == [season['season_id'] for season in catalog_seasons()]
 
 
@@ -658,3 +658,21 @@ def test_season_reference_tabs_carry_server_rendered_counts(client):
     assert 'id="previewCount" role="status"' in html
     assert 'Season Library' not in html
     assert 'lib-stats' not in html
+
+
+def test_champion_detail_uses_library_heading_tier_plates_and_wrappable_stats(client):
+    champion_id = find_champion_id_by_name('s16_5', '佛耶戈')
+    html = client.get(f'/tools/seasons/s16_5/champions/{champion_id}').get_data(as_text=True)
+    detail = build_champion_detail('s16_5', champion_id)
+    assert 'season-library-skin.css' in html
+    assert 'Champion Archive' not in html
+    assert 'champion-detail-trait-kicker' not in html
+    assert f'{detail["champion"]["cost"]} 费</p>' in html
+    styles = {b.get('style') for trait in detail['traits'] for b in trait['breakpoints'] if b.get('style')}
+    for style in styles:
+        assert f'class="trait-level" data-style="{style}"' in html
+    for trait in detail['traits']:
+        assert f'所属弈子 <span class="lib-tab-count">{len(trait["members"])}</span>' in html
+    slashed = [v for row in detail['champion']['stat_rows'] for v in row['values'] if '/' in str(v)]
+    for value in slashed:
+        assert str(value).replace('/', '/<wbr>') in html

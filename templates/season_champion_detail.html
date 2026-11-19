@@ -8,6 +8,7 @@
 {{ seo_head(seo) }}
     <link rel="stylesheet" href="{{ static_v('season-reference.css') }}" />
     <link rel="stylesheet" href="{{ static_v('season-champion-detail.css') }}" />
+    <link rel="stylesheet" href="{{ static_v('season-library-skin.css') }}" />
   </head>
   <body>
     {% if season_preview_id %}<div class="season-preview-banner" role="status">未发布预览 · {{ season_preview_id[:8] }} · <a href="/admin">返回管理后台</a></div>{% endif %}
@@ -21,12 +22,13 @@
       </nav>
 
       <header class="champion-detail-heading">
-        <div>
-          <p class="eyebrow">{{ season.display_name }} · Champion Archive</p>
+        <div class="lib-hero-copy">
           <h1>{{ champion.name }}</h1>
-          {% if season.game_version %}<p class="season-version-note">游戏版本 {{ season.game_version }}</p>{% endif %}
+          <p class="champion-detail-cost" style="--cost-color: var(--s18-cost-{{ champion.cost }}, var(--accent))">{{ champion.cost }} 费</p>
+{% if season.game_version %}
+          <p class="lib-version" title="游戏版本 {{ season.game_version }}"><span class="sr-only">游戏版本 </span>{% if season.game_version[:1].isdigit() %}v{% endif %}{{ season.game_version }}</p>
+{% endif %}
         </div>
-        <span class="champion-detail-cost">{{ champion.cost }}费弈子</span>
       </header>
 
       <main class="champion-detail-layout">
@@ -92,7 +94,7 @@
                   <tr>
                     <th scope="row"><span class="stat-label"><img class="stat-icon" src="{{ row.icon }}" alt="" aria-hidden="true" /><span>{{ row.label }}</span></span></th>
 {% for value in row['values'] %}
-                    <td>{{ value }}</td>
+                    <td>{{ (value|string).split('/')|join('/<wbr>'|safe) }}</td>
 {% endfor %}
                   </tr>
 {% endfor %}
@@ -140,18 +142,14 @@
                 <img src="{{ asset_root }}/{{ trait.image }}?v={{ season.version_id }}" alt="" aria-hidden="true" />
 {% endif %}
               </span>
-              <div>
-                <span class="champion-detail-trait-kicker">羁绊 {{ loop.index }} / {{ detail.traits|length }}</span>
-                <h2>{{ trait.name }}</h2>
-              </div>
-              <span class="champion-detail-member-count">{{ trait.members|length }} 名弈子</span>
+              <h2>{{ trait.name }}</h2>
             </header>
             <p class="trait-description champion-detail-trait-description">{{ trait.description_html }}</p>
 
 {% if trait.breakpoints %}
             <div class="trait-levels champion-detail-levels" aria-label="{{ trait.name }}羁绊数量">
 {% for breakpoint in trait.breakpoints %}
-              <div class="trait-level">
+              <div class="trait-level"{% if breakpoint.style %} data-style="{{ breakpoint.style }}"{% endif %}>
                 <span class="trait-level-count">{{ breakpoint.min_units }}</span>
                 <span class="trait-level-effect">{{ breakpoint.effect_html }}</span>
               </div>
@@ -162,7 +160,7 @@
 {% endif %}
 
             <div class="champion-detail-members">
-              <h3>所属弈子</h3>
+              <h3>所属弈子 <span class="lib-tab-count">{{ trait.members|length }}</span></h3>
               <div class="trait-champions">
 {% for member in trait.members %}
                 <a class="trait-champion" href="{{ url_for('season_champion_detail_page', season_id=season.season_id, champion_id=member.id) }}{{ season_preview_suffix }}" data-champion-id="{{ member.id }}" style="--cost-color: var(--s18-cost-{{ member.cost }})" aria-label="查看{{ member.name }}详情">

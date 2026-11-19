@@ -20,13 +20,22 @@
   flex: 0 0 auto;
 }
 
-/* ---- Hero: the title, the version and a fanned cover; counts live in the tabs ---- */
+/* ---- Hero: the title, the version and a splash spotlight; counts live in the tabs ---- */
+
+/* The spotlight art reaches up behind the nav, which therefore stacks above it. */
+.s18-preview-nav {
+  position: relative;
+  z-index: 2;
+}
 
 .lib-hero {
+  position: relative;
+  isolation: isolate;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 32px;
+  min-height: 150px;
   margin: 0;
   border-bottom: 0;
   padding: 8px 0 18px;
@@ -74,7 +83,7 @@
 }
 
 .lib-season-switch a:focus-visible,
-.lib-cover-card:focus-visible {
+.lib-spotlight-pick:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
 }
@@ -116,102 +125,112 @@
 }
 
 /*
- * Fanned cover: cards cascade from back-left to front-right in fixed pixel steps.
- * A hovered card stays inside the cover box: the cards in front of it fade and
- * shift right, so it is revealed without a stacking jump or covering the title.
+ * Spotlight: one large splash fades into the page behind the hero, the way a
+ * season banner does; the roster avatars cross-fade it. The art is a background
+ * layer, so it adds no height and never sits on top of the title.
  */
-.lib-cover {
-  --cover-card: 210px;
-  --cover-step-x: 46px;
-  --cover-step-y: 9px;
-  --cover-push: 22px;
-  --cover-tilt: 1.2deg;
-  position: relative;
+.lib-spotlight {
+  display: flex;
+  align-self: flex-end;
   flex: 0 0 auto;
-  width: calc(var(--cover-card) + (var(--cover-count) - 1) * var(--cover-step-x) + var(--cover-push));
-  height: calc(var(--cover-card) * 231 / 500 + (var(--cover-count) - 1) * var(--cover-step-y) + 8px);
 }
 
-.lib-cover-card {
+.lib-spotlight-art {
   position: absolute;
-  top: calc(var(--i) * var(--cover-step-y));
-  left: calc(var(--i) * var(--cover-step-x));
-  z-index: calc(var(--i) + 1);
-  width: var(--cover-card);
-  aspect-ratio: 500 / 231;
-  overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.55);
-  border-radius: 12px;
-  background: color-mix(in srgb, var(--cost-color) 20%, var(--surface-solid));
-  box-shadow: 0 14px 30px rgba(55, 45, 31, 0.18);
-  color: #fff;
-  text-decoration: none;
-  transform: rotate(calc((var(--i) - 2) * var(--cover-tilt)));
-  transition: transform 420ms cubic-bezier(0.2, 0.8, 0.2, 1), opacity 320ms ease, box-shadow 300ms ease, filter 300ms ease;
-  will-change: transform, opacity;
+  top: -96px;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  width: min(68%, 900px);
+  pointer-events: none;
+  -webkit-mask-image:
+    linear-gradient(90deg, transparent 0, #000 45%, #000 90%, transparent 100%),
+    linear-gradient(180deg, transparent 0, #000 30%, #000 62%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(90deg, transparent 0, #000 45%, #000 90%, transparent 100%),
+    linear-gradient(180deg, transparent 0, #000 30%, #000 62%, transparent 100%);
+  mask-composite: intersect;
 }
 
-:root[data-theme="dark"] .lib-cover-card {
-  border-color: rgba(255, 255, 255, 0.16);
-  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.5);
-}
-
-.lib-cover-card::after {
+.lib-spotlight-art img {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, transparent 45%, rgba(12, 10, 8, 0.78));
-  content: "";
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 22%;
+  opacity: 0;
+  transform: scale(1.04);
+  transition: opacity 700ms ease, transform 1400ms cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
-.lib-cover-card img {
+.lib-spotlight-art img.is-active {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.lib-spotlight-roster {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--surface-solid) 76%, transparent);
+  box-shadow: 0 10px 28px rgba(55, 45, 31, 0.12);
+  padding: 5px 5px 5px 16px;
+  backdrop-filter: blur(14px);
+}
+
+:root[data-theme="dark"] .lib-spotlight-roster {
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.36);
+}
+
+/* The caption sits left of the avatars and grows leftward, so the avatars never move under the pointer. */
+.lib-spotlight-caption {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin: 0 6px 0 0;
+  white-space: nowrap;
+}
+
+.lib-spotlight-caption strong {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.lib-spotlight-caption span {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.lib-spotlight-pick {
+  display: block;
+  width: 38px;
+  height: 38px;
+  flex: 0 0 auto;
+  overflow: hidden;
+  border: 2px solid var(--cost-color);
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--cost-color) 20%, var(--surface-solid));
+  transition: transform 220ms ease, box-shadow 220ms ease;
+}
+
+.lib-spotlight-pick img {
   display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-.lib-cover-card span {
-  position: absolute;
-  bottom: 8px;
-  left: 12px;
-  z-index: 1;
-  display: flex;
-  align-items: baseline;
-  gap: 7px;
-  font-size: 13px;
-  font-weight: 700;
-  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.6);
+.lib-spotlight-pick:hover {
+  transform: translateY(-2px);
 }
 
-.lib-cover-card small {
-  border-left: 2px solid var(--cost-color);
-  padding-left: 6px;
-  font-size: 10px;
-  font-weight: 700;
-  opacity: 0.88;
-}
-
-.lib-cover-card:not(:last-child) {
-  filter: saturate(0.82) brightness(0.94);
-}
-
-@media (min-width: 641px) {
-  .lib-cover-card:is(:hover, :focus-visible) {
-    box-shadow: 0 16px 34px rgba(55, 45, 31, 0.24);
-    filter: none;
-    transform: translateY(-3px) rotate(0deg);
-  }
-
-  /*
-   * Faded cards keep pointer events so the pointer can scrub card by card; the
-   * revealed card is always the one under the pointer. The push widens the hovered
-   * card's strip, which keeps the boundary between two cards from flickering.
-   */
-  .lib-cover-card:is(:hover, :focus-visible) ~ .lib-cover-card {
-    box-shadow: none;
-    opacity: 0.05;
-    transform: translateX(var(--cover-push)) rotate(calc((var(--i) - 2) * var(--cover-tilt)));
-  }
+.lib-spotlight-pick.is-active {
+  box-shadow: 0 0 0 2px var(--surface-solid), 0 0 0 4px var(--cost-color);
 }
 
 /* ---- Sticky tab bar ---- */
@@ -628,7 +647,7 @@
   font-weight: 700;
 }
 
-.trait-champions {
+.trait-card .trait-champions {
   gap: 10px;
   border-top: 1px solid var(--line);
   padding-top: 16px;
@@ -662,11 +681,8 @@
     gap: 20px;
   }
 
-  .lib-cover {
-    --cover-card: 170px;
-    --cover-step-x: 34px;
-    --cover-step-y: 7px;
-    --cover-push: 16px;
+  .lib-spotlight-art {
+    width: 78%;
   }
 }
 
@@ -718,9 +734,13 @@
     font-size: 14px;
   }
 
-  /* The cover repeats champions listed right below, so phones skip it. */
-  .lib-cover {
+  /* The spotlight repeats champions listed right below, so phones skip it. */
+  .lib-spotlight {
     display: none;
+  }
+
+  .lib-hero {
+    min-height: 0;
   }
 
   .lib-tabbar {
@@ -766,7 +786,8 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .lib-cover-card,
+  .lib-spotlight-art img,
+  .lib-spotlight-pick,
   .champion-card,
   .champion-art > img {
     transition: none !important;
