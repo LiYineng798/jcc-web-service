@@ -1,7 +1,6 @@
-/* Season library skin a3f8c1 — editorial codex: hairline rules, numerals, a fanned cover. */
+/* Season library skin a3f8c1 — editorial codex: hairline rules, a fanned cover, one typeface (the site font). */
 
 .s18-preview-page {
-  --lib-num: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
   --lib-card: var(--surface-solid);
   --lib-shadow: 0 1px 0 rgba(55, 45, 31, 0.04), 0 12px 32px rgba(55, 45, 31, 0.07);
   --lib-shadow-lift: 0 22px 48px rgba(55, 45, 31, 0.14);
@@ -102,19 +101,14 @@
 
 .lib-title-code {
   color: var(--accent);
-  font-family: var(--lib-num);
-  font-style: italic;
-  font-weight: 400;
-  letter-spacing: 0;
 }
 
 .lib-version {
   margin: 0;
   color: var(--muted);
-  font-family: var(--lib-num);
-  font-size: 16px;
-  font-style: italic;
-  font-variant-numeric: lining-nums;
+  font-size: 14px;
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
 }
 
 .lib-status {
@@ -279,11 +273,9 @@
 .lib-tab-count {
   margin-left: 2px;
   color: var(--muted);
-  font-family: var(--lib-num);
-  font-size: 14px;
-  font-style: italic;
-  font-variant-numeric: lining-nums tabular-nums;
-  font-weight: 400;
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
 }
 
 .s18-main-tab.active .lib-tab-count {
@@ -366,9 +358,9 @@
   border-radius: 50%;
   color: var(--cost-color);
   content: attr(data-cost);
-  font-family: var(--lib-num);
-  font-size: 19px;
-  font-style: italic;
+  font-size: 16px;
+  font-variant-numeric: tabular-nums;
+  font-weight: 800;
 }
 
 .champion-cost-heading::after {
@@ -542,7 +534,7 @@
 
 .trait-card-title {
   gap: 13px;
-  font-size: 19px;
+  font-size: 18px;
   font-weight: 800;
 }
 
@@ -602,9 +594,9 @@
   border-radius: 999px;
   background: color-mix(in srgb, var(--tier) 14%, transparent);
   color: var(--tier);
-  font-family: var(--lib-num);
-  font-size: 14px;
-  font-weight: 700;
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+  font-weight: 800;
 }
 
 .trait-level[data-style="prismatic"] .trait-level-count {
