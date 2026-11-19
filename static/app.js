@@ -77,7 +77,6 @@ const elements = {
   themeText: $('#themeText'),
   authPromptRoot: $('#authPromptRoot'),
   listHeading: $('#listHeading'),
-  heroDescription: $('#heroDescription'),
   mobileResourceTrigger: $('#mobileResourceTrigger'),
   mobileResourceDialog: $('#mobileResourceDialog'),
   mobileResourceClose: $('#mobileResourceClose'),
@@ -136,7 +135,6 @@ window.addEventListener('pageshow', async event => {
 
 setTheme(document.documentElement.dataset.theme || 'light');
 renderHomeImageModeToggle();
-applyBorderGlowToStaticCards();
 boot().catch(() => renderLoadError(true));
 
 elements.imageModeToggle?.addEventListener('click', toggleHomeImageMode);
@@ -355,16 +353,6 @@ function runBorderGlowSweep(card) {
   }, 1200);
 }
 
-function applyBorderGlowToStaticCards() {
-  const statCard = document.querySelector('[data-border-glow="stat"]');
-  initBorderGlowCard(statCard, {
-    fillOpacity: '0.14',
-    edgeSensitivity: '38',
-    coneSpread: '20',
-    initialSweep: true,
-  });
-}
-
 function toggleHomeImageMode() {
   state.imageMode = state.imageMode === 'image' ? 'text' : 'image';
   try { localStorage.setItem('homeImageMode', state.imageMode); } catch (_) { /* Keep the toggle usable when storage is unavailable. */ }
@@ -540,11 +528,6 @@ function renderAuth() {
   elements.menuCreateLineupLink.classList.toggle('hidden', !loggedIn);
   elements.menuAdminLink.classList.toggle('hidden', !isAdmin && state.user?.role !== 'automation');
   elements.menuLogoutButton.classList.toggle('hidden', !loggedIn);
-  if (elements.heroDescription) {
-    elements.heroDescription.textContent = loggedIn
-      ? '保存、搜索、点赞和复制阵容码。收藏、个人中心和跨设备同步已开启。'
-      : '保存、搜索、点赞和复制阵容码。登录后可收藏阵容并跨设备同步，登录后可查看我的收藏和我的阵容。';
-  }
   syncCreateLink();
   if (!loggedIn && (state.view === 'mine' || state.view === 'favorites')) {
     state.sort = 'live';
@@ -560,7 +543,7 @@ function syncCreateLink() {
   const loggedIn = Boolean(state.user);
   const decks = document.body.dataset.homeLibrary === 'decks';
   elements.createLineupLink.href = loggedIn ? `/lineup/new?type=${decks ? 'submit' : 'lineup'}` : '/auth';
-  elements.createLineupLink.textContent = `${loggedIn ? '' : '登录后'}${decks ? '投稿卡组' : '新增阵容'}`;
+  elements.createLineupLink.textContent = decks ? '投稿卡组' : '新增阵容';
 }
 
 function handleAccountToggle(event) {
@@ -673,11 +656,9 @@ async function performLoadLineups(options = {},generation) {
 function syncSearchInputState(isLiveComps) {
   elements.liveCompsUpdatedAt.classList.toggle('hidden', !isLiveComps);
   elements.listHeading.classList.toggle('has-live-update', isLiveComps);
-  const placeholder = isLiveComps
-    ? '实时阵容排行暂不支持搜索'
-    : '搜索阵容名称，例如：九五、卡莎、斗士';
+  elements.searchClear.hidden = isLiveComps;
   elements.searchInput.value = isLiveComps ? '' : state.query;
-  searchClear.setDisabled(isLiveComps, placeholder);
+  searchClear.setDisabled(isLiveComps);
   searchClear.sync(elements.searchInput.value);
 }
 
@@ -940,7 +921,7 @@ function renderEmptyState() {
   const seasonName = elements.seasonFilterText?.textContent || '当前赛季';
   if (state.view !== 'live-comps' && state.query) {
     title.textContent = '没有找到匹配的阵容';
-    description.textContent = `“${state.query}”在${seasonName}的当前列表中没有匹配结果。搜索按阵容名称匹配，可以缩短关键词或调整筛选。`;
+    description.textContent = `${seasonName} · “${state.query}”`;
     actions.append(button('清除搜索', () => { searchClear.clear?.(); elements.searchInput.value = ''; searchClear.sync(''); clearLineupSearch(); }));
     if (state.view !== 'all' || state.sort !== 'latest') actions.append(button('查看最新阵容', latest));
     elements.emptyState.append(actions);
@@ -948,29 +929,27 @@ function renderEmptyState() {
   }
   if (state.view === 'live-comps') {
     title.textContent = '还没有实时阵容';
-    description.textContent = `${seasonName}暂时没有实时排行数据，可以切换其他赛季或浏览已收录的阵容。`;
+    description.textContent = '';
     actions.append(button('浏览公开阵容', latest));
     elements.emptyState.append(actions);
     return;
   }
   if (state.view === 'favorites') {
-    title.textContent = '还没有收藏阵容';
-    description.textContent = state.user
-      ? '你收藏的阵容会出现在这里，可随时回来查看和复制。'
-      : '登录后可收藏阵容并随时找回，收藏内容会跟随账号同步。';
+    title.textContent = state.user ? '还没有收藏阵容' : '登录后可收藏阵容';
+    description.textContent = '';
     actions.append(button('浏览公开阵容', latest));
     elements.emptyState.append(actions);
     return;
   }
   if (state.view === 'mine') {
     title.textContent = '还没有你的阵容';
-    description.textContent = '发布后的阵容会出现在这里，方便随时查看和维护。';
+    description.textContent = '';
     actions.append(button('新增阵容', () => { window.location.href='/lineup/new?type=lineup'; }), button('浏览公开阵容', latest));
     elements.emptyState.append(actions);
     return;
   }
   title.textContent = state.sort === 'ss' ? '当前赛季暂无 SS 阵容' : '当前赛季暂无阵容';
-  description.textContent = state.sort === 'ss' ? 'SS 等级随评分变化，可以查看当前赛季的最新阵容。' : `${seasonName}暂时没有符合当前条件的公开阵容，可以切换其他赛季。`;
+  description.textContent = '';
   if (state.sort !== 'latest') actions.append(button('查看最新阵容', latest));
   if (state.user) actions.append(button('新增阵容', () => { window.location.href='/lineup/new?type=lineup'; }));
   elements.emptyState.append(actions);
@@ -986,7 +965,7 @@ function renderLoadError(retryBoot = false) {
   elements.pagination.replaceChildren();
   elements.emptyState.classList.remove('hidden');
   elements.emptyState.querySelector('h3').textContent = '阵容加载失败';
-  elements.emptyState.querySelector('p').textContent = '请检查网络后重试。当前搜索和筛选条件已保留。';
+  elements.emptyState.querySelector('p').textContent = '';
   elements.emptyState.querySelector('.empty-actions')?.remove();
   const actions = document.createElement('div'); actions.className='card-actions empty-actions';
   actions.append(button('重新加载', () => {
@@ -1161,7 +1140,7 @@ function renderLiveComps() {
 function renderCurrentDisplayCount() {
   if (!elements.currentDisplayCount) return;
   const unit = state.view === 'live-comps' ? '套实时阵容' : '套阵容';
-  elements.currentDisplayCount.textContent = `当前展示 ${state.total} ${unit}`;
+  elements.currentDisplayCount.textContent = `${state.total} ${unit}`;
 }
 
 function formatLiveUpdate(value) {

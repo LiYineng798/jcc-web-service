@@ -194,7 +194,7 @@
   function render(key) {
     state.loadedKey = key;
     els.status.textContent = `${TAB_NAMES[state.tab]} · 共 ${state.total} 套卡组`;
-    els.count.textContent = `当前展示 ${state.total} 套卡组`;
+    els.count.textContent = `${state.total} 套卡组`;
     if (!state.items.length) {
       els.list.innerHTML = emptyState();
       els.pagination.replaceChildren();

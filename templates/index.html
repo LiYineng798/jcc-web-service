@@ -43,7 +43,7 @@
               </button>
               <div class="returning-info-menu-panel" role="menu">
 {% for season in reference_seasons %}
-                <a class="returning-info-menu-item" href="/tools/seasons/{{ season.season_id }}" role="menuitem"><span>{{ season.display_name }}{% if season.status != 'active' and season.status_label %}（{{ season.status_label }}）{% endif %}</span><small>{{ season.counts.champions }} 名弈子 · {{ season.counts.traits }} 个羁绊</small></a>
+                <a class="returning-info-menu-item" href="/tools/seasons/{{ season.season_id }}" role="menuitem"><span>{{ season.display_name }}{% if season.status != 'active' and season.status_label %}（{{ season.status_label }}）{% endif %}</span></a>
 {% endfor %}
               </div>
             </div>
@@ -89,16 +89,10 @@
           </div>
         </nav>
         <div class="hero-grid">
-          <section class="hero-copy">
-            <p class="eyebrow">JCC Lineup Manager</p>
-            <h1>金铲铲阵容库</h1>
-            <p class="hero-description hero-benefits" id="heroDescription">保存、搜索、点赞和复制阵容码。登录后可收藏阵容并跨设备同步，登录后可查看我的收藏和我的阵容。</p>
-          </section>
-          <section class="stat-card border-glow-card" data-border-glow="stat" aria-label="阵容统计">
-            <span class="stat-label">全站收录</span>
-            <strong id="lineupCount" aria-live="polite">0</strong>
-            <span class="stat-caption">套阵容</span>
-            <a class="primary-link stat-action-link" id="createLineupLink" href="/auth">登录后新增阵容</a>
+          <h1>金铲铲阵容库</h1>
+          <section class="stat-card" aria-label="阵容统计">
+            <p class="stat-total"><strong id="lineupCount" aria-live="polite">0</strong><span class="stat-caption">套阵容</span></p>
+            <a class="primary-link stat-action-link" id="createLineupLink" href="/auth">新增阵容</a>
           </section>
         </div>
       </header>
@@ -106,17 +100,14 @@
       <dialog class="mobile-resource-dialog" id="mobileResourceDialog" aria-labelledby="mobileResourceTitle">
         <div class="mobile-resource-sheet">
           <div class="mobile-resource-header">
-            <div>
-              <p class="section-kicker">Resources</p>
-              <h2 id="mobileResourceTitle">资料与工具</h2>
-            </div>
+            <h2 id="mobileResourceTitle">资料与工具</h2>
             <button class="mobile-resource-close" id="mobileResourceClose" type="button" aria-label="关闭资料入口">&times;</button>
           </div>
           <nav class="mobile-resource-list" aria-label="资料与工具">
             <section class="mobile-resource-group" aria-labelledby="mobileLibraryResourceTitle">
               <div class="mobile-resource-group-title" id="mobileLibraryResourceTitle"><span class="nav-tool-icon s18-preview-nav-icon" aria-hidden="true">资</span><span>资料库</span></div>
 {% for season in reference_seasons %}
-              <a class="mobile-resource-subitem" href="/tools/seasons/{{ season.season_id }}"><strong>{{ season.display_name }}{% if season.status != 'active' and season.status_label %}（{{ season.status_label }}）{% endif %}</strong><span>{{ season.counts.champions }} 名弈子 · {{ season.counts.traits }} 个羁绊</span></a>
+              <a class="mobile-resource-subitem" href="/tools/seasons/{{ season.season_id }}"><strong>{{ season.display_name }}{% if season.status != 'active' and season.status_label %}（{{ season.status_label }}）{% endif %}</strong></a>
 {% endfor %}
             </section>
             <section class="mobile-resource-group" aria-labelledby="mobileToolsResourceTitle">
@@ -125,7 +116,7 @@
             </section>
             <section class="mobile-resource-group" aria-labelledby="mobileSiteResourceTitle">
               <div class="mobile-resource-group-title" id="mobileSiteResourceTitle"><span>站点</span></div>
-              <a class="mobile-resource-subitem" href="/patch-notes"><strong>更新公告</strong><span>同步官方版本更新内容</span></a>
+              <a class="mobile-resource-subitem" href="/patch-notes"><strong>更新公告</strong></a>
             </section>
           </nav>
         </div>
@@ -174,11 +165,11 @@
                 </div>
               </div>
             </div>
-            <div class="search-field t-clear" id="searchClear" data-placeholder="搜索阵容名称，例如：九五、卡莎、斗士">
+            <div class="search-field t-clear" id="searchClear" data-placeholder="搜索阵容">
               <label class="sr-only" for="searchInput">搜索阵容名称</label>
               <input id="searchInput" type="search" autocomplete="off" maxlength="80" placeholder="" />
               <span class="t-clear-mirror" id="searchClearMirror" aria-hidden="true"></span>
-              <span class="t-clear-placeholder" id="searchClearPlaceholder" aria-hidden="true">搜索阵容名称，例如：九五、卡莎、斗士</span>
+              <span class="t-clear-placeholder" id="searchClearPlaceholder" aria-hidden="true">搜索阵容</span>
               <span class="t-clear-glow" id="searchClearGlow" aria-hidden="true"></span>
               <button class="t-clear-btn" id="searchClearButton" type="button" aria-label="清除搜索" title="清除搜索">
                 <span aria-hidden="true">&times;</span>
@@ -201,7 +192,7 @@
 
           <div class="lineup-list" id="lineupList" data-author-link-class="author-link"></div>
           <nav class="pagination" id="pagination" aria-label="分页导航"></nav>
-          <div class="empty-state hidden" id="emptyState"><div class="empty-icon">⌘</div><h3>还没有阵容</h3><p>登录后可收藏阵容并随时找回，也可以上传第一套阵容或切换到全部阵容查看公开内容。</p></div>
+          <div class="empty-state hidden" id="emptyState"><h3>还没有阵容</h3><p></p></div>
         </section>
 
         <section class="panel list-panel list-panel-full deck-library" id="deckLibrary" data-deck-root aria-labelledby="deckLibraryTitle"{% if home_library != 'decks' %} hidden{% endif %}>
@@ -225,7 +216,7 @@
             </div>
             <div class="deck-search">
               <label class="deck-visually-hidden" for="deckSearch">搜索卡组名称或卡片名称</label>
-              <input id="deckSearch" type="search" maxlength="40" autocomplete="off" placeholder="搜索卡组名或卡名，例如：利滚利" />
+              <input id="deckSearch" type="search" maxlength="40" autocomplete="off" placeholder="搜索卡组或卡名" />
             </div>
           </div>
           <div class="tabs-shell">

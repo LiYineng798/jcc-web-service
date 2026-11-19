@@ -6,16 +6,13 @@ import {
   useReducedMotion,
 } from "motion/react";
 import {
-  ArrowDownToLine,
   ArrowLeft,
   ArrowRight,
   ArrowUpRight,
   Bell,
   Bookmark,
-  Check,
   ChevronLeft,
   ChevronRight,
-  Clock3,
   Copy,
   Eye,
   Heart,
@@ -27,9 +24,8 @@ import {
   Palette,
   Plus,
   Search,
-  ShieldCheck,
-  Sparkles,
   Sun,
+  UserRound,
   X,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -171,42 +167,12 @@ declare global {
   }
 }
 const TABS = [
-  {
-    id: "overview",
-    label: "个人概览",
-    icon: LayoutDashboard,
-    description: "你的阵容、灵感与每一次被认可。",
-  },
-  {
-    id: "mine",
-    label: "我的阵容",
-    icon: Layers3,
-    description: "管理你的阵容码与大橘大利卡组，随时打磨下一套思路。",
-  },
-  {
-    id: "favorites",
-    label: "我的收藏",
-    icon: Bookmark,
-    description: "收藏的好思路，下次开局时就在这里。",
-  },
-  {
-    id: "views",
-    label: "最近浏览",
-    icon: Eye,
-    description: "回到最近看过的阵容，接着研究。",
-  },
-  {
-    id: "copies",
-    label: "最近复制",
-    icon: Copy,
-    description: "快速找回最近用过的阵容码。",
-  },
-  {
-    id: "reports",
-    label: "我的失效反馈",
-    icon: MessageSquare,
-    description: "查看你提交的反馈与处理结果。",
-  },
+  { id: "overview", label: "个人概览", icon: LayoutDashboard },
+  { id: "mine", label: "我的阵容", icon: Layers3 },
+  { id: "favorites", label: "我的收藏", icon: Bookmark },
+  { id: "views", label: "最近浏览", icon: Eye },
+  { id: "copies", label: "最近复制", icon: Copy },
+  { id: "reports", label: "我的失效反馈", icon: MessageSquare },
 ] as const;
 type Tab = (typeof TABS)[number]["id"];
 const PAGE_SIZE = 4;
@@ -272,19 +238,16 @@ function Loading() {
   );
 }
 function Empty({
-  title = "这里还没有阵容",
-  description = "去阵容库逛逛，发现一些新的上分思路。",
+  title = "还没有阵容",
   mine = false,
 }: {
   title?: string;
-  description?: string;
   mine?: boolean;
 }) {
   return (
     <div className="pf-empty">
       <Layers3 size={30} />
       <strong>{title}</strong>
-      <p>{description}</p>
       <a className="pf-button" href={mine ? "/lineup/new" : "/"}>
         {mine ? "发布第一套阵容" : "探索阵容库"}
         <ArrowUpRight size={15} />
@@ -399,12 +362,10 @@ function Profile({ user: initialUser, token }: { user: User; token: string }) {
       <aside className="pf-sidebar" aria-label="个人中心侧栏">
         <a className="pf-brand" href="/" aria-label="返回金铲铲阵容库">
           <span className="pf-brand-mark">阵</span>
-          <span>
-            金铲铲阵容库<small>YOUR PLAYBOOK</small>
-          </span>
+          <span>金铲铲阵容库</span>
         </a>
         <div className="pf-side-identity">
-          <Avatar user={user} size={44} />
+          <Avatar user={user} size={36} />
           <span>
             <strong>{user.nickname}</strong>
             <small>@{user.username}</small>
@@ -418,7 +379,6 @@ function Profile({ user: initialUser, token }: { user: User; token: string }) {
             <Palette size={17} />
           </button>
         </div>
-        <p className="pf-nav-caption">个人空间</p>
         <nav className="pf-tabs" role="tablist" aria-label="个人中心栏目">
           <LayoutGroup id="profile-navigation">
             {TABS.map((item, i) => (
@@ -455,24 +415,22 @@ function Profile({ user: initialUser, token }: { user: User; token: string }) {
                 )}
                 <item.icon size={18} />
                 <span>{item.label}</span>
-                {active === item.id && <span className="pf-active-dot" />}
               </button>
             ))}
           </LayoutGroup>
         </nav>
         <div className="pf-sidebar-bottom">
-          <div className="pf-side-note">
-            <Sparkles size={18} />
-            <p>
-              好阵容，值得被看见。<small>把你的上分思路分享给更多弈士。</small>
-            </p>
-            <a href="/lineup/new">
-              发布阵容或卡组
-              <Plus size={15} />
+          {user.role !== "admin" && (
+            <a
+              className="pf-side-link"
+              href={`/author/${encodeURIComponent(user.username)}`}
+            >
+              <UserRound size={18} />
+              公开主页
             </a>
-          </div>
+          )}
           <a className="pf-side-link" href="/">
-            <ArrowLeft size={17} />
+            <ArrowLeft size={18} />
             返回阵容库
           </a>
           <button
@@ -480,18 +438,14 @@ function Profile({ user: initialUser, token }: { user: User; token: string }) {
             disabled={loggingOut}
             onClick={logout}
           >
-            <LogOut size={17} />
+            <LogOut size={18} />
             {loggingOut ? "正在退出…" : "退出登录"}
           </button>
         </div>
       </aside>
       <div className="pf-main">
         <header className="pf-topbar">
-          <div className="pf-breadcrumb">
-            <span>个人中心</span>
-            <ChevronRight size={13} />
-            <strong>{tab.label}</strong>
-          </div>
+          <h1 className="pf-title">{tab.label}</h1>
           <div className="pf-top-actions">
             <button
               className="pf-icon-button pf-notice-bell"
@@ -545,39 +499,17 @@ function Profile({ user: initialUser, token }: { user: User; token: string }) {
               transition={{ duration: reducedMotion ? 0 : 0.14 }}
             >
               {active === "overview" ? (
-                <Overview
-                  user={user}
+                <Overview token={token} navigate={navigate} />
+              ) : (
+                <Collection
+                  key={active}
+                  kind={active}
                   token={token}
                   navigate={navigate}
-                  editAvatar={() => trigger.current?.click()}
                 />
-              ) : (
-                <>
-                  <div className="pf-workspace-heading">
-                    <p className="pf-eyebrow">
-                      MY PLAYBOOK /{" "}
-                      {String(TABS.findIndex((t) => t.id === active)).padStart(
-                        2,
-                        "0",
-                      )}
-                    </p>
-                    <h1>{tab.label}</h1>
-                    <p>{tab.description}</p>
-                  </div>
-                  <Collection
-                    key={active}
-                    kind={active}
-                    token={token}
-                    navigate={navigate}
-                  />
-                </>
               )}
             </motion.section>
           </AnimatePresence>
-          <footer className="pf-footer">
-            <span>每一套阵容，都有你的思考。</span>
-            <span>金铲铲阵容库</span>
-          </footer>
         </div>
       </div>
     </div>
@@ -585,15 +517,11 @@ function Profile({ user: initialUser, token }: { user: User; token: string }) {
 }
 
 function Overview({
-  user,
   token,
   navigate,
-  editAvatar,
 }: {
-  user: User;
   token: string;
   navigate: (id: Tab, content?: Content) => void;
-  editAvatar: () => void;
 }) {
   const dialogs = useAccountDialogs();
   const dashboard = useResource<Dashboard>(
@@ -603,128 +531,60 @@ function Overview({
   const views = useResource<Lineup[]>("/api/me/recent-views");
   const data = dashboard.data;
   const decks = data?.decks;
-  const split = (lineups?: number, deckValue?: number) =>
-    lineups === undefined
-      ? "—"
-      : `阵容码 ${number(lineups)} · 卡组 ${number(deckValue || 0)}`;
+  const count = (value?: number) =>
+    data ? number(value || 0) : "—";
+  const stats = [
+    {
+      label: "我的作品",
+      value: data && data.published_lineups + (decks?.decks || 0),
+      target: "mine" as Tab,
+    },
+    {
+      label: "收到点赞",
+      value: data && data.received_likes + (decks?.received_likes || 0),
+    },
+    {
+      label: "收到收藏",
+      value:
+        data && data.received_favorites + (decks?.received_favorites || 0),
+    },
+    { label: "收到复制", value: data?.received_copies },
+  ];
   return (
     <div className="pf-overview">
-      <div className="pf-profile-banner">
-        <div className="pf-profile-copy">
-          <p className="pf-eyebrow">PLAYER PROFILE</p>
-          <div className="pf-profile-person">
-            <button
-              className="pf-avatar-button"
-              onClick={editAvatar}
-              aria-label="编辑个人头像"
-            >
-              <Avatar user={user} size={78} />
-              <span>
-                <Palette size={12} />
-              </span>
-            </button>
-            <div>
-              <div className="pf-profile-name">
-                <h1>{user.nickname}</h1>
-                <span className="pf-role">
-                  <ShieldCheck size={12} />
-                  {user.role === "admin" ? "管理员" : "弈士"}
-                </span>
-              </div>
-              <p className="pf-handle">@{user.username}</p>
-              <p className="pf-motto">把每一次灵感，变成下一次上分。</p>
-            </div>
-          </div>
-          <div className="pf-profile-links">
-            <button onClick={editAvatar}>
-              调整头像
-              <ArrowUpRight size={13} />
-            </button>
-            {user.role !== "admin" && (
-              <a href={`/author/${encodeURIComponent(user.username)}`}>
-                公开主页
-                <ArrowUpRight size={13} />
-              </a>
-            )}
-          </div>
-        </div>
-        <div className="pf-banner-art" aria-hidden="true">
-          <div className="pf-art-orbit" />
-          <div className="pf-art-board">
-            {Array.from({ length: 9 }, (_, i) => (
-              <span key={i} />
-            ))}
-          </div>
-          <span className="pf-art-caption">EVERY MOVE MATTERS</span>
-        </div>
-      </div>
-      <div className="pf-section-label">
-        <h2>我的数据</h2>
-        <span>来自你的阵容与互动</span>
-      </div>
       {dashboard.error ? (
         <ErrorState error={dashboard.error} retry={dashboard.retry} />
       ) : (
         <div className="pf-stats" aria-busy={dashboard.loading}>
-          {[
-            {
-              label: "我的作品",
-              value:
-                data && (data.published_lineups + (decks?.decks || 0)),
-              icon: Layers3,
-              note: split(data?.published_lineups, decks?.decks),
-              target: "mine" as Tab,
-            },
-            {
-              label: "收到点赞",
-              value: data && data.received_likes + (decks?.received_likes || 0),
-              icon: Heart,
-              note: split(data?.received_likes, decks?.received_likes),
-            },
-            {
-              label: "收到收藏",
-              value:
-                data &&
-                data.received_favorites + (decks?.received_favorites || 0),
-              icon: Bookmark,
-              note: split(data?.received_favorites, decks?.received_favorites),
-            },
-            {
-              label: "收到复制",
-              value: data?.received_copies,
-              icon: ArrowDownToLine,
-              note: "阵容码被带入下一局",
-            },
-          ].map((stat) => (
-            <article className="pf-stat" key={stat.label}>
-              <div>
+          {stats.map((stat) => {
+            const body = (
+              <>
                 <span>{stat.label}</span>
-                <stat.icon size={17} />
-              </div>
-              <strong>
-                {stat.value === undefined ? "—" : number(stat.value)}
-              </strong>
-              <small>{stat.note}</small>
-              {stat.target && (
-                <button
-                  className="pf-stat-link"
-                  aria-label="查看我的阵容"
-                  onClick={() => navigate(stat.target!)}
-                >
-                  <ArrowUpRight size={16} />
-                </button>
-              )}
-            </article>
-          ))}
+                <strong>
+                  {stat.value === undefined ? "—" : number(stat.value)}
+                </strong>
+              </>
+            );
+            return stat.target ? (
+              <button
+                className="pf-stat"
+                key={stat.label}
+                onClick={() => navigate(stat.target!)}
+              >
+                {body}
+              </button>
+            ) : (
+              <article className="pf-stat" key={stat.label}>
+                {body}
+              </article>
+            );
+          })}
         </div>
       )}
       <div className="pf-bento-grid">
-        <section className="pf-card pf-recent">
+        <section className="pf-card pf-recent" aria-labelledby="pf-recent-title">
           <div className="pf-card-heading">
-            <div>
-              <h2>继续你的上分思路</h2>
-              <p>最近浏览 · 灵感无需从头找起</p>
-            </div>
+            <h2 id="pf-recent-title">最近浏览</h2>
             <button
               className="pf-text-button"
               onClick={() => navigate("views")}
@@ -738,12 +598,11 @@ function Overview({
           ) : views.loading ? (
             <Loading />
           ) : !views.data?.length ? (
-            <Empty title="你的下一套阵容，从这里开始" />
+            <Empty title="还没有浏览记录" />
           ) : (
             <div className="pf-recent-list">
-              {views.data.slice(0, 3).map((item, i) => (
+              {views.data.slice(0, 3).map((item) => (
                 <div className="pf-recent-row" key={item.id}>
-                  <span className="pf-index">0{i + 1}</span>
                   <div>
                     <a href={`/lineup/${item.id}`}>{item.name}</a>
                     <p>
@@ -756,46 +615,28 @@ function Overview({
             </div>
           )}
         </section>
-        <section className="pf-card pf-notebook">
+        <section className="pf-card pf-notebook" aria-labelledby="pf-status-title">
           <div className="pf-card-heading">
-            <div>
-              <h2>创作备忘</h2>
-              <p>把阵容状态，一起照顾好</p>
-            </div>
-            <Layers3 size={18} />
+            <h2 id="pf-status-title">状态</h2>
           </div>
           <div className="pf-notebook-lines">
             <button onClick={() => navigate("mine")}>
-              <span>
-                <Eye size={15} />
-                隐藏阵容
-              </span>
-              <strong>{data ? number(data.hidden_lineups) : "—"}</strong>
+              <span>隐藏阵容</span>
+              <strong>{count(data?.hidden_lineups)}</strong>
               <ChevronRight size={14} />
             </button>
             <button onClick={() => navigate("mine")}>
-              <span>
-                <MessageSquare size={15} />
-                我的阵容待处理反馈
-              </span>
-              <strong>
-                {data ? number(data.pending_reports_on_my_lineups) : "—"}
-              </strong>
+              <span>阵容待处理反馈</span>
+              <strong>{count(data?.pending_reports_on_my_lineups)}</strong>
               <ChevronRight size={14} />
             </button>
             <button onClick={() => navigate("mine", "decks")}>
-              <span>
-                <Layers3 size={15} />
-                卡组草稿
-              </span>
+              <span>卡组草稿</span>
               <strong>{decks ? number(decks.draft_decks) : "—"}</strong>
               <ChevronRight size={14} />
             </button>
             <a href="/me/deck-submissions">
-              <span>
-                <Layers3 size={15} />
-                卡组投稿进行中
-              </span>
+              <span>卡组投稿</span>
               <strong>
                 {decks ? number(decks.submissions_active || 0) : "—"}
                 {decks?.submissions_needs_info ? ` · ${number(decks.submissions_needs_info)} 待补充` : ""}
@@ -803,24 +644,11 @@ function Overview({
               <ChevronRight size={14} />
             </a>
             <button onClick={() => navigate("reports")}>
-              <span>
-                <Check size={15} />
-                我提交的失效反馈
-              </span>
-              <strong>{data ? number(data.submitted_reports) : "—"}</strong>
+              <span>我的失效反馈</span>
+              <strong>{count(data?.submitted_reports)}</strong>
               <ChevronRight size={14} />
             </button>
           </div>
-          <button
-            className="pf-notebook-footer"
-            onClick={(event) =>
-              dialogs.open({ kind: "notifications" }, event.currentTarget)
-            }
-          >
-            <Bell size={15} />
-            <span>查看通知中心</span>
-            <ChevronRight size={15} />
-          </button>
         </section>
       </div>
     </div>
@@ -1004,10 +832,10 @@ function Collection({
             aria-label="搜索当前栏目"
             placeholder={
               kind === "reports"
-                ? "搜索阵容名称、反馈原因…"
+                ? "搜索阵容或反馈原因"
                 : decks
-                  ? "搜索卡组名称或卡名…"
-                  : "搜索阵容名称…"
+                  ? "搜索卡组或卡名"
+                  : "搜索阵容"
             }
             value={draft}
             onChange={(event) => setDraft(event.target.value)}
@@ -1050,13 +878,6 @@ function Collection({
           )}
         </div>
       )}
-      {(kind === "views" || kind === "copies") && (
-        <p className="pf-history-note">
-          <Clock3 size={13} />
-          按最近{kind === "views" ? "浏览" : "复制"}时间排列 ·
-          展示账号保留的近期记录
-        </p>
-      )}
       {result.error ? (
         <ErrorState error={result.error} retry={result.retry} />
       ) : result.loading ? (
@@ -1068,7 +889,6 @@ function Collection({
               <div className="pf-empty">
                 <Search size={28} />
                 <strong>没有找到匹配的内容</strong>
-                <p>换一个关键词，或清除筛选再看看。</p>
                 <button
                   className="pf-button"
                   onClick={() => {
@@ -1085,15 +905,8 @@ function Collection({
               <div className="pf-empty">
                 <Layers3 size={30} />
                 <strong>
-                  {kind === "mine"
-                    ? "还没有你的卡组"
-                    : "把喜欢的卡组，留在这里"}
+                  {kind === "mine" ? "还没有你的卡组" : "还没有收藏卡组"}
                 </strong>
-                <p>
-                  {kind === "mine"
-                    ? "草稿和已发布的大橘大利卡组都会出现在这里。"
-                    : "在卡组库点“收藏”，之后可以在这里找回。"}
-                </p>
                 <a
                   className="pf-button"
                   href={
@@ -1109,17 +922,12 @@ function Collection({
                 mine={kind === "mine"}
                 title={
                   kind === "reports"
-                    ? "还没有提交过失效反馈"
+                    ? "还没有失效反馈"
                     : kind === "favorites"
-                      ? "把喜欢的阵容，留在这里"
+                      ? "还没有收藏阵容"
                       : kind === "mine"
-                        ? "第一套阵容，等你分享"
-                        : "这里还没有近期记录"
-                }
-                description={
-                  kind === "reports"
-                    ? "阵容有问题时，可从阵容库提交失效反馈。"
-                    : undefined
+                        ? "还没有你的阵容"
+                        : "还没有记录"
                 }
               />
             )
@@ -1148,12 +956,14 @@ function Collection({
               )}
             </div>
           )}
-          <Pager
-            page={currentPage}
-            pages={pages}
-            total={total}
-            onPage={changePage}
-          />
+          {total > 0 && (
+            <Pager
+              page={currentPage}
+              pages={pages}
+              total={total}
+              onPage={changePage}
+            />
+          )}
         </>
       )}
     </div>
@@ -1176,7 +986,7 @@ function LineupCard({
   return (
     <article className="pf-lineup-card" data-lineup-id={item.id}>
       <div className="pf-lineup-card-top">
-        <span className="pf-rank">{item.rank_level || "阵容"}</span>
+        {item.rank_level && <span className="pf-rank">{item.rank_level}</span>}
         <span className={cn("pf-status", `pf-status-${item.status}`)}>
           {kind === "mine"
             ? lineupStatusText[item.status] || item.status
@@ -1421,7 +1231,6 @@ function ReportCard({ item }: { item: Report }) {
   return (
     <article className="pf-lineup-card pf-report-card">
       <div className="pf-lineup-card-top">
-        <span className="pf-lineup-meta">失效反馈</span>
         <span className={cn("pf-status", `pf-status-${item.status}`)}>
           {reportStatusText[item.status] || item.status}
         </span>

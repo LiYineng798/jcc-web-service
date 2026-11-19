@@ -273,8 +273,8 @@ def test_admin_season_pickers_bind_after_mount_without_deferred_id_lookups(clien
 def test_index_page_contains_account_value_copy_and_favorites_tab(client):
     html = client.get('/').get_data(as_text=True)
     assert 'id="favoritesTab"' in html
-    assert '登录后可收藏阵容并跨设备同步' in html
-    assert '登录后可查看我的收藏和我的阵容' in html
+    assert '登录后可收藏阵容并跨设备同步' not in html
+    assert '登录后可查看我的收藏和我的阵容' not in html
 
 
 def test_index_page_contains_home_image_mode_toggle(client):
@@ -350,18 +350,20 @@ def test_all_theme_scripts_preserve_animated_svg_icon():
         assert ".textContent = theme === 'dark' ? '☀' : '☾'" not in js, script_name
 
 
-def test_homepage_stat_card_has_border_glow_hook():
-    with open('templates/index.html', 'r', encoding='utf-8') as file:
-        html = file.read()
+def test_homepage_hero_is_title_count_and_action_only(client):
+    html = client.get('/').get_data(as_text=True)
+    hero = html[html.index('<div class="hero-grid">'):html.index('<dialog class="mobile-resource-dialog"')]
 
-    assert 'class="stat-card border-glow-card"' in html
-    assert 'data-border-glow="stat"' in html
+    assert '<h1>金铲铲阵容库</h1>' in hero
+    assert '<section class="stat-card" aria-label="阵容统计">' in hero
+    assert 'id="createLineupLink" href="/auth">新增阵容</a>' in hero
+    for removed in ('eyebrow', 'heroDescription', 'border-glow', '全站收录', '登录后新增阵容'):
+        assert removed not in hero
 
 
 def test_homepage_separates_site_total_from_current_display_count(client):
     html = client.get('/').get_data(as_text=True)
 
-    assert '<span class="stat-label">全站收录</span>' in html
     assert '<span class="stat-caption">套阵容</span>' in html
     assert 'id="currentDisplayCount"' in html
     assert '正在加载阵容…' in html
@@ -534,7 +536,7 @@ def test_border_glow_is_scoped_to_homepage_realtime_cards():
         js = file.read()
 
     assert 'function initBorderGlowCard(' in js
-    assert 'function applyBorderGlowToStaticCards(' in js
+    assert 'applyBorderGlowToStaticCards' not in js
     assert "card.dataset.borderGlow = 'live-comp'" in js
     assert 'initBorderGlowCard(card, {' in js
 
@@ -749,7 +751,10 @@ def test_home_numbered_pagination_styles_are_present():
 
 def test_index_page_contains_favorites_empty_state_copy(client):
     html = client.get('/').get_data(as_text=True)
-    assert '登录后可收藏阵容并随时找回' in html
+    with open('static/app.js', 'r', encoding='utf-8') as file:
+        js = file.read()
+    assert '<div class="empty-state hidden" id="emptyState"><h3>还没有阵容</h3><p></p></div>' in html
+    assert "state.user ? '还没有收藏阵容' : '登录后可收藏阵容'" in js
 
 
 def test_app_js_supports_favorite_toggle():
@@ -825,7 +830,7 @@ def test_account_page_requires_login_and_contains_shell(client):
     html = response.get_data(as_text=True)
     assert 'id="accountApp"' in html
     assert 'account.js' in html
-    assert '我的数据' in html
+    assert 'class="profile-boot" role="status"' in html
 
 
 def test_account_js_contains_dashboard_and_history_sections():
@@ -1074,7 +1079,8 @@ def test_app_js_contains_live_comps_mode_and_copy_only_actions():
     assert '/api/live-comps/${encodeURIComponent(item.id)}/copy' in js
     assert '/api/live-comps/summary' in js
     assert '/api/live-comps?page=' in js
-    assert '实时阵容排行' in js
+    assert 'elements.searchClear.hidden = isLiveComps' in js
+    assert '实时阵容排行暂不支持搜索' not in js
     assert 'renderLiveComps' in js
     assert "sort: 'live'" in js
     assert "view: 'live-comps'" in js
