@@ -45,6 +45,7 @@
 
 .empty-state .empty-actions { justify-content: center; margin-top: 18px; }
 .empty-state p { overflow-wrap: anywhere; }
+.empty-state p:empty { display: none; }
 
 * {
   box-sizing: border-box;
@@ -234,12 +235,6 @@ svg.account-chevron {
 .returning-info-menu-item span {
   font-size: 14px;
   font-weight: 800;
-}
-
-.returning-info-menu-item small {
-  color: var(--muted);
-  font-size: 12px;
-  line-height: 1.35;
 }
 
 .mobile-resource-trigger,
@@ -593,13 +588,16 @@ svg.account-chevron {
 }
 
 .hero-grid {
-  align-items: end;
+  align-items: center;
   justify-content: space-between;
   gap: 28px;
 }
 
-.hero-copy {
-  max-width: 720px;
+.hero h1 {
+  margin: 0;
+  font-size: clamp(2.25rem, 5.5vw, 3.75rem);
+  line-height: 1.05;
+  letter-spacing: -0.05em;
 }
 
 .eyebrow,
@@ -640,7 +638,6 @@ h1 {
   line-height: 1.8;
 }
 
-.stat-card,
 .panel,
 .lineup-card {
   border: 1px solid var(--line);
@@ -749,11 +746,27 @@ h1 {
 }
 
 .stat-card {
-  /* Keep the glow's layout box inside the page gutter at tablet widths. */
-  --border-glow-padding: 12px;
-  min-width: 184px;
-  padding: 22px;
-  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.stat-total {
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  margin: 0;
+}
+
+/* The handwriting SVG keeps an inset around its ink: pull the first stroke onto the
+   page edge and sit the caption on the digits' baseline, not on the SVG box. */
+.stat-total #lineupCount {
+  margin-left: -0.11em;
+}
+
+.stat-total .stat-caption {
+  line-height: 1;
+  padding-bottom: 9px;
 }
 
 .stat-label,
@@ -766,7 +779,7 @@ h1 {
 
 .stat-card strong {
   display: block;
-  margin: 8px 0 2px;
+  margin: 0;
   font-size: 3rem;
   letter-spacing: -0.06em;
 }
@@ -781,7 +794,7 @@ h1 {
 .stat-action-link {
   display: inline-flex;
   justify-content: center;
-  margin-top: 16px;
+  white-space: nowrap;
 }
 
 .content-grid {
@@ -881,6 +894,10 @@ textarea:focus {
 
 .search-field {
   width: min(380px, 100%);
+}
+
+.search-field[hidden] {
+  display: none;
 }
 
 .t-clear {
@@ -1047,12 +1064,9 @@ textarea:focus {
   display: inline-flex;
   align-items: center;
   min-height: 44px;
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  background: var(--surface-soft);
   color: var(--muted);
-  padding: 6px 10px;
   font: inherit;
+  font-variant-numeric: tabular-nums;
   white-space: nowrap;
 }
 
@@ -1196,6 +1210,10 @@ textarea:focus {
 @media (max-width: 520px) {
   .list-heading-main {
     font-size: 13px;
+  }
+
+  .list-heading-main .current-display-count {
+    min-height: 0;
   }
 }
 
@@ -1611,18 +1629,6 @@ a.author-link:hover {
   color: var(--muted);
 }
 
-.empty-icon {
-  display: grid;
-  width: 56px;
-  height: 56px;
-  place-items: center;
-  margin: 0 auto 14px;
-  border-radius: 18px;
-  background: var(--accent-soft);
-  color: var(--accent-strong);
-  font-size: 1.6rem;
-}
-
 .hidden,
 .sr-only {
   display: none !important;
@@ -1870,7 +1876,10 @@ a.author-link:hover {
     flex-direction: column;
   }
 
-  .stat-card,
+  .stat-card {
+    justify-content: space-between;
+  }
+
   .form-panel {
     width: 100%;
     min-width: 0;

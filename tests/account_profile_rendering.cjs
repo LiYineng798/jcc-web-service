@@ -76,7 +76,7 @@ async function select(page, id) {
           height: innerHeight,
           sw: document.documentElement.scrollWidth,
           sh: document.documentElement.scrollHeight,
-          footer: document.querySelector(".pf-footer").getBoundingClientRect()
+          footer: document.querySelector("#profile-panel").getBoundingClientRect()
             .bottom,
         }));
         assert(
