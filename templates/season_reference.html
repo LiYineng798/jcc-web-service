@@ -16,7 +16,7 @@
 {% if library_seasons|length > 1 %}
         <nav class="lib-season-switch" aria-label="切换赛季资料">
 {% for item in library_seasons %}
-          <a href="/tools/seasons/{{ item.season_id }}" title="{{ item.display_name }}"{% if item.season_id == season.season_id %} aria-current="page"{% endif %}>{{ item.display_name.split(' ')[0] }}</a>
+          <a href="/tools/seasons/{{ item.season_id }}{{ season_preview_suffix }}" title="{{ item.display_name }}"{% if item.season_id == season.season_id %} aria-current="page"{% endif %}>{{ item.display_name.split(' ')[0] }}</a>
 {% endfor %}
         </nav>
 {% endif %}
@@ -48,7 +48,7 @@
           <nav class="lib-spotlight-roster" aria-label="本赛季高费弈子">
             <p class="lib-spotlight-caption" aria-hidden="true"><strong data-spotlight-name>{{ hero_champions[0].name }}</strong><span data-spotlight-cost>{{ hero_champions[0].cost }} 费</span></p>
 {% for champion in hero_champions %}
-            <a class="lib-spotlight-pick{% if loop.first %} is-active{% endif %}" href="/tools/seasons/{{ season.season_id }}/champions/{{ champion.id }}" data-spotlight-pick data-name="{{ champion.name }}" data-cost="{{ champion.cost }}" style="--cost-color: var(--s18-cost-{{ champion.cost }}, var(--accent))">
+            <a class="lib-spotlight-pick{% if loop.first %} is-active{% endif %}" href="/tools/seasons/{{ season.season_id }}/champions/{{ champion.id }}{{ season_preview_suffix }}" data-spotlight-pick data-name="{{ champion.name }}" data-cost="{{ champion.cost }}" style="--cost-color: var(--s18-cost-{{ champion.cost }}, var(--accent))">
               <img src="{{ asset_root }}/{{ champion.icon }}?v={{ season.version_id|urlencode }}" alt="" decoding="async" />
               <span class="sr-only">{{ champion.name }}</span>
             </a>

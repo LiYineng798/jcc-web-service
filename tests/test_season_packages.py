@@ -440,7 +440,14 @@ def test_preview_hidden_season_stays_private_and_cannot_write(manager, app, prep
             policy[surface]['s18']['status'] = 'hidden'
         save_policy(policy)
     assert app.test_client().get('/tools/seasons/s18').status_code == 404
-    assert client.get(f'/tools/seasons/s18?preview_release={rid}').status_code == 200
+    preview_url = f'/tools/seasons/s18?preview_release={rid}'
+    response = client.get(preview_url)
+    assert response.status_code == 200
+    html = response.get_data(as_text=True)
+    assert f'href="{preview_url}"' in html
+    champion_url = f'/tools/seasons/s18/champions/100?preview_release={rid}'
+    assert f'href="{champion_url}"' in html
+    assert client.get(champion_url).status_code == 200
     catalog = client.get(f'/api/season-catalog?surface=simulator&preview_release={rid}').json
     assert catalog['default_season_id'] == 's18'
     assert next(s for s in catalog['seasons'] if s['season_id'] == 's18')['release_id'] == rid
