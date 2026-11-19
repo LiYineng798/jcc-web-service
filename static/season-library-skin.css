@@ -1,0 +1,799 @@
+/* Season library skin a3f8c1 — editorial codex: hairline rules, a fanned cover, one typeface (the site font). */
+
+.s18-preview-page {
+  --lib-card: var(--surface-solid);
+  --lib-shadow: 0 1px 0 rgba(55, 45, 31, 0.04), 0 12px 32px rgba(55, 45, 31, 0.07);
+  --lib-shadow-lift: 0 22px 48px rgba(55, 45, 31, 0.14);
+}
+
+:root[data-theme="dark"] .s18-preview-page {
+  --lib-shadow: 0 1px 0 rgba(0, 0, 0, 0.2), 0 12px 32px rgba(0, 0, 0, 0.24);
+  --lib-shadow-lift: 0 22px 48px rgba(0, 0, 0, 0.42);
+}
+
+.s18-preview-nav {
+  gap: 20px;
+  margin-bottom: 0;
+}
+
+.s18-preview-nav .nav-actions {
+  flex: 0 0 auto;
+}
+
+/* ---- Hero: the title, the version and a splash spotlight; counts live in the tabs ---- */
+
+/* The spotlight art reaches up behind the nav, which therefore stacks above it. */
+.s18-preview-nav {
+  position: relative;
+  z-index: 2;
+}
+
+.lib-hero {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  min-height: 150px;
+  margin: 0;
+  border-bottom: 0;
+  padding: 8px 0 18px;
+}
+
+.lib-hero-copy {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px 14px;
+  min-width: 0;
+}
+
+.lib-season-switch {
+  display: flex;
+  flex: 1 1 auto;
+  min-width: 0;
+  gap: 4px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.lib-season-switch a {
+  flex: 0 0 auto;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  color: var(--muted);
+  padding: 6px 13px;
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: color 160ms ease, background-color 160ms ease, border-color 160ms ease;
+}
+
+.lib-season-switch a:hover {
+  background: var(--surface);
+  color: var(--text);
+}
+
+.lib-season-switch a[aria-current="page"] {
+  border-color: var(--line);
+  background: var(--surface-solid);
+  box-shadow: 0 4px 14px rgba(55, 45, 31, 0.07);
+  color: var(--accent-strong);
+}
+
+.lib-season-switch a:focus-visible,
+.lib-spotlight-pick:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* .s18-preview-hero h1 in season-reference.css outranks a bare class, hence the scoped selector. */
+.lib-hero .lib-title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0 0.28em;
+  margin: 0;
+  font-size: clamp(32px, 3.4vw, 48px);
+  font-weight: 700;
+  line-height: 1.06;
+  letter-spacing: -0.03em;
+}
+
+.lib-title-code {
+  color: var(--accent);
+}
+
+.lib-version {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+}
+
+.lib-status {
+  align-self: center;
+  margin: 0;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--muted);
+  padding: 2px 10px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/*
+ * Spotlight: one large splash fades into the page behind the hero, the way a
+ * season banner does; the roster avatars cross-fade it. The art is a background
+ * layer, so it adds no height and never sits on top of the title.
+ */
+.lib-spotlight {
+  display: flex;
+  align-self: flex-end;
+  flex: 0 0 auto;
+}
+
+.lib-spotlight-art {
+  position: absolute;
+  top: -96px;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  width: min(68%, 900px);
+  pointer-events: none;
+  -webkit-mask-image:
+    linear-gradient(90deg, transparent 0, #000 45%, #000 90%, transparent 100%),
+    linear-gradient(180deg, transparent 0, #000 30%, #000 62%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(90deg, transparent 0, #000 45%, #000 90%, transparent 100%),
+    linear-gradient(180deg, transparent 0, #000 30%, #000 62%, transparent 100%);
+  mask-composite: intersect;
+}
+
+.lib-spotlight-art img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 22%;
+  opacity: 0;
+  transform: scale(1.04);
+  transition: opacity 700ms ease, transform 1400ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.lib-spotlight-art img.is-active {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.lib-spotlight-roster {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--surface-solid) 76%, transparent);
+  box-shadow: 0 10px 28px rgba(55, 45, 31, 0.12);
+  padding: 5px 5px 5px 16px;
+  backdrop-filter: blur(14px);
+}
+
+:root[data-theme="dark"] .lib-spotlight-roster {
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.36);
+}
+
+/* The caption sits left of the avatars and grows leftward, so the avatars never move under the pointer. */
+.lib-spotlight-caption {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin: 0 6px 0 0;
+  white-space: nowrap;
+}
+
+.lib-spotlight-caption strong {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.lib-spotlight-caption span {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.lib-spotlight-pick {
+  display: block;
+  width: 38px;
+  height: 38px;
+  flex: 0 0 auto;
+  overflow: hidden;
+  border: 2px solid var(--cost-color);
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--cost-color) 20%, var(--surface-solid));
+  transition: transform 220ms ease, box-shadow 220ms ease;
+}
+
+.lib-spotlight-pick img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.lib-spotlight-pick:hover {
+  transform: translateY(-2px);
+}
+
+.lib-spotlight-pick.is-active {
+  box-shadow: 0 0 0 2px var(--surface-solid), 0 0 0 4px var(--cost-color);
+}
+
+/* ---- Sticky tab bar ---- */
+
+.lib-tabbar {
+  position: sticky;
+  top: 0;
+  z-index: 70;
+  display: flex;
+  align-items: center;
+  margin: 0 0 22px;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter: blur(14px);
+}
+
+.s18-main-tabs {
+  position: relative;
+  top: auto;
+  grid-template-columns: repeat(var(--tab-count, 3), 124px);
+  width: auto;
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  padding: 0;
+  backdrop-filter: none;
+}
+
+:root[data-theme="dark"] .s18-main-tabs {
+  box-shadow: none;
+}
+
+.s18-main-tab {
+  min-height: 50px;
+  border-radius: 0;
+  font-size: 0.95rem;
+  font-weight: 750;
+  white-space: nowrap;
+}
+
+.s18-main-tab:hover {
+  color: var(--text);
+}
+
+.s18-main-tab.active {
+  color: var(--text);
+}
+
+.lib-tab-count {
+  margin-left: 2px;
+  color: var(--muted);
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+}
+
+.s18-main-tab.active .lib-tab-count {
+  color: var(--accent);
+}
+
+.s18-tab-indicator {
+  top: auto;
+  bottom: -1px;
+  left: 0;
+  width: calc(100% / var(--tab-count, 3));
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, transparent 22%, var(--accent) 22%, var(--accent) 78%, transparent 78%);
+  box-shadow: none;
+}
+
+/* ---- Type scale aligned with the home page: headings 700, controls 600-700, body 400 ---- */
+
+.s18-search-field,
+.skill-toggle,
+.champion-filter-label,
+.augment-tier-label,
+.augment-category-label,
+.augment-filter-group button.is-active,
+.charm-categories button.active,
+.charm-extra-heading > span:first-child,
+.mechanic-stage-title,
+.champion-new-badge,
+.champion-unlock-badge,
+.champion-special-badge,
+.champion-hover-cost,
+.champion-cost,
+.wand-cost,
+.scale-chip {
+  font-weight: 700;
+}
+
+.champion-filter-options button,
+.s18-filter-select-trigger,
+.s18-filter-select-option,
+.trait-type-switch button,
+.champion-trait,
+.champion-hover-traits span,
+.augment-stage-list span,
+.charm-category-label,
+.wand-condition {
+  font-weight: 600;
+}
+
+/* ---- Filters ---- */
+
+.champion-filter-panel {
+  border-radius: 16px;
+  background: var(--lib-card);
+  box-shadow: none;
+}
+
+:root[data-theme="dark"] .champion-filter-panel {
+  box-shadow: none;
+}
+
+.s18-search-field input,
+.s18-filter-select-trigger {
+  border-color: transparent;
+  background: color-mix(in srgb, var(--bg) 70%, var(--surface-solid));
+}
+
+.trait-type-switch {
+  gap: 2px;
+  margin-bottom: 22px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--lib-card);
+  padding: 3px;
+}
+
+.trait-type-switch button {
+  min-height: 32px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  padding: 5px 20px;
+}
+
+.trait-type-switch button:hover {
+  transform: none;
+}
+
+.trait-type-switch button.active {
+  background: var(--text);
+  color: var(--bg);
+}
+
+/* ---- Cost sections ---- */
+
+.champion-cost-section + .champion-cost-section {
+  margin-top: 44px;
+}
+
+.champion-cost-heading {
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+.champion-cost-heading::before {
+  display: grid;
+  width: 36px;
+  height: 36px;
+  flex: 0 0 auto;
+  place-items: center;
+  border: 1px solid color-mix(in srgb, var(--cost-color) 60%, transparent);
+  border-radius: 50%;
+  color: var(--cost-color);
+  content: attr(data-cost);
+  font-size: 16px;
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+}
+
+.champion-cost-heading::after {
+  order: 2;
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, color-mix(in srgb, var(--cost-color) 45%, transparent), var(--line) 30%, transparent);
+  content: "";
+}
+
+.champion-cost-heading h2 {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.champion-cost-heading span {
+  order: 3;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---- Champion cards ---- */
+
+/* Six or seven cards per row on desktop; phones keep the base two-column grid. */
+@media (min-width: 641px) {
+  .champion-grid {
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 200px), 1fr));
+    gap: 14px;
+  }
+}
+
+.champion-card-link {
+  border-radius: 14px;
+}
+
+.champion-card-link:hover {
+  filter: none;
+  transform: translateY(-2px);
+}
+
+.champion-card {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--lib-card);
+  box-shadow: var(--lib-shadow);
+  transition: border-color 200ms ease, box-shadow 200ms ease;
+}
+
+:root[data-theme="dark"] .champion-card {
+  box-shadow: var(--lib-shadow);
+}
+
+.champion-card-link:hover .champion-card,
+.champion-card-link:focus-visible .champion-card {
+  border-color: color-mix(in srgb, var(--cost-color) 50%, var(--line));
+  box-shadow: 0 14px 30px color-mix(in srgb, var(--cost-color) 14%, transparent);
+}
+
+.champion-art::before {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 3;
+  height: 3px;
+  background: var(--cost-color);
+  content: "";
+}
+
+.champion-art::after {
+  background: linear-gradient(180deg, rgba(12, 10, 8, 0.55) 0, transparent 30%, transparent 50%, rgba(12, 10, 8, 0.82) 100%);
+}
+
+.champion-art > img {
+  transition: transform 600ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.champion-card-link:hover .champion-art > img {
+  transform: scale(1.015);
+}
+
+.champion-name {
+  font-weight: 700;
+}
+
+.champion-cost {
+  border: 1px solid rgba(255, 255, 255, 0.32);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--cost-color) 72%, rgba(0, 0, 0, 0.45));
+  padding: 2px 7px 2px 4px;
+  text-shadow: none;
+  backdrop-filter: blur(6px);
+}
+
+.champion-skill-name {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.champion-skill-name::before {
+  width: 6px;
+  height: 6px;
+  flex: 0 0 auto;
+  background: var(--cost-color);
+  content: "";
+  transform: rotate(45deg);
+}
+
+/* Desktop card density; phones keep the compact sizes from season-reference.css. */
+@media (min-width: 641px) {
+  .champion-name {
+    top: 11px;
+    left: 12px;
+    font-size: 17px;
+  }
+
+  .champion-art.has-new .champion-name {
+    top: 35px;
+  }
+
+  .champion-traits {
+    bottom: 10px;
+    left: 11px;
+    max-width: calc(100% - 64px);
+    gap: 4px;
+  }
+
+  .champion-cost {
+    padding: 3px 9px 3px 5px;
+    font-size: 13px;
+  }
+
+  .champion-cost img {
+    width: 15px;
+    height: 15px;
+  }
+
+  .champion-skill-body {
+    padding: 13px 14px 15px;
+  }
+
+  .champion-skill-name {
+    margin-bottom: 6px;
+    font-size: 14px;
+  }
+
+  .champion-skill-description {
+    font-size: 12.5px;
+    line-height: 1.66;
+  }
+}
+
+/* ---- Traits ---- */
+
+.trait-grid {
+  gap: 18px;
+}
+
+.trait-card {
+  gap: 16px;
+  border-radius: 16px;
+  background: var(--lib-card);
+  box-shadow: var(--lib-shadow);
+  padding: 22px;
+}
+
+:root[data-theme="dark"] .trait-card {
+  box-shadow: var(--lib-shadow);
+}
+
+.trait-card-title {
+  gap: 13px;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+/* The tile sits behind the icon: the icon's tint filter would otherwise repaint its own background. */
+.trait-card-title {
+  position: relative;
+}
+
+.trait-card-title img {
+  position: relative;
+  z-index: 1;
+  width: 42px;
+  height: 42px;
+  padding: 9px;
+}
+
+.trait-card-title:has(> img)::before {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  background: var(--accent-soft);
+  content: "";
+  transform: translateY(-50%);
+}
+
+.trait-card[data-category="class"] .trait-card-title::before {
+  background: color-mix(in srgb, #4f7fa8 16%, var(--surface-solid));
+}
+
+.trait-levels {
+  border-top: 0;
+}
+
+.trait-level {
+  --tier-fill: var(--accent);
+  --tier-edge: var(--accent-strong);
+  --tier-ink: #fffaf2;
+  grid-template-columns: 40px minmax(0, 1fr);
+  border-bottom: 1px dashed var(--line);
+  padding: 10px 0;
+}
+
+.trait-level:last-child {
+  border-bottom: 0;
+}
+
+/* In-game breakpoint plates: solid fill, a lighter edge, the same in both themes. */
+.trait-level[data-style="bronze"] { --tier-fill: #7f4f3e; --tier-edge: #a5644a; --tier-ink: #fff5e0; }
+.trait-level[data-style="silver"] { --tier-fill: #818181; --tier-edge: #a7a399; --tier-ink: #f9f0dc; }
+.trait-level[data-style="gold"] { --tier-fill: #ae8b42; --tier-edge: #c6aa4f; --tier-ink: #fff8e6; }
+.trait-level[data-style="prismatic"] { --tier-fill: #d4f6f1; --tier-edge: #60dace; --tier-ink: #1c2a28; }
+.trait-level[data-style="unique"] { --tier-fill: #a8502f; --tier-edge: #cf6a3e; --tier-ink: #fff5e0; }
+
+.trait-level-count {
+  width: 28px;
+  min-height: 24px;
+  border: 1px solid var(--tier-edge);
+  border-radius: 4px;
+  background: var(--tier-fill);
+  color: var(--tier-ink);
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+}
+
+.trait-card .trait-champions {
+  gap: 10px;
+  border-top: 1px solid var(--line);
+  padding-top: 16px;
+}
+
+.trait-champion img {
+  width: 46px;
+  height: 46px;
+  border-radius: 11px;
+}
+
+/* ---- Augments and mechanics ---- */
+
+.augment-card,
+.wand-card,
+.charm-card,
+.mechanic-card {
+  border-radius: 14px;
+  background: var(--lib-card);
+  box-shadow: var(--lib-shadow);
+}
+
+.augment-icon {
+  border-radius: 12px;
+}
+
+/* ---- Responsive ---- */
+
+@media (max-width: 960px) {
+  .lib-hero {
+    gap: 20px;
+  }
+
+  .lib-spotlight-art {
+    width: 78%;
+  }
+}
+
+/* Five filters do not fit one row between phone and desktop widths: search spans two columns. */
+@media (min-width: 641px) and (max-width: 860px) {
+  .champion-filter-row {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: end;
+    gap: 12px;
+  }
+
+  .champion-filter-row .s18-search-field {
+    grid-column: span 2;
+    width: 100%;
+  }
+
+  .champion-filter-row .s18-filter-select {
+    width: 100%;
+  }
+
+  .champion-filter-row .skill-toggle {
+    justify-self: end;
+    min-height: 44px;
+  }
+}
+
+@media (max-width: 640px) {
+  .s18-preview-nav {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .s18-preview-nav .lib-season-switch {
+    order: 3;
+    flex-basis: 100%;
+    margin: 0 -9px;
+    padding: 0 9px;
+  }
+
+  .lib-hero {
+    padding: 10px 0 12px;
+  }
+
+  .lib-hero .lib-title {
+    font-size: clamp(28px, 8.4vw, 36px);
+  }
+
+  .lib-version {
+    font-size: 14px;
+  }
+
+  /* The spotlight repeats champions listed right below, so phones skip it. */
+  .lib-spotlight {
+    display: none;
+  }
+
+  .lib-hero {
+    min-height: 0;
+  }
+
+  .lib-tabbar {
+    margin-bottom: 16px;
+  }
+
+  .s18-main-tabs {
+    grid-template-columns: repeat(var(--tab-count, 3), minmax(0, 1fr));
+    width: 100%;
+  }
+
+  .s18-main-tab {
+    min-height: 46px;
+    font-size: 13px;
+  }
+
+  .lib-tab-count {
+    font-size: 12px;
+  }
+
+  .champion-grid {
+    gap: 10px;
+  }
+
+  .champion-card,
+  .champion-card-link {
+    border-radius: 12px;
+  }
+
+  .champion-cost-section + .champion-cost-section {
+    margin-top: 32px;
+  }
+
+  .trait-card {
+    padding: 18px;
+  }
+
+  /* All seven charm categories stay visible instead of hiding the last ones in a scroller. */
+  .charm-categories {
+    flex-wrap: wrap;
+    overflow-x: visible;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lib-spotlight-art img,
+  .lib-spotlight-pick,
+  .champion-card,
+  .champion-art > img {
+    transition: none !important;
+  }
+
+  .champion-card-link:hover .champion-art > img {
+    transform: none;
+  }
+}

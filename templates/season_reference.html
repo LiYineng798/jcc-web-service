@@ -6,41 +6,71 @@
   <head>
 {{ seo_head(seo) }}
     <link rel="stylesheet" href="{{ static_v('season-reference.css') }}" />
+    <link rel="stylesheet" href="{{ static_v('season-library-skin.css') }}" />
   </head>
   <body>
     {% if season_preview_id %}<div class="season-preview-banner" role="status">未发布预览 · {{ season_preview_id[:8] }} · <a href="/admin">返回管理后台</a></div>{% endif %}
     <div class="page-shell s18-preview-page">
       <nav class="nav-bar s18-preview-nav" aria-label="页面工具">
         <a class="brand-mark brand-link" href="/" aria-label="返回首页">阵</a>
+{% if library_seasons|length > 1 %}
+        <nav class="lib-season-switch" aria-label="切换赛季资料">
+{% for item in library_seasons %}
+          <a href="/tools/seasons/{{ item.season_id }}{{ season_preview_suffix }}" title="{{ item.display_name }}"{% if item.season_id == season.season_id %} aria-current="page"{% endif %}>{{ item.display_name.split(' ')[0] }}</a>
+{% endfor %}
+        </nav>
+{% endif %}
         <div class="nav-actions">
           <a class="ghost-link nav-tool-link" href="/">返回首页</a>
           {{ theme_toggle("nav-icon-button") }}
         </div>
       </nav>
 
-      <header class="s18-preview-hero">
-        <p class="eyebrow">{{ season.status_label or '赛季资料' }} · Season Library</p>
-        <div class="s18-preview-title-row">
-          <div>
-            <h1>{{ season.display_name }}</h1>
-            {% if season.game_version %}
-            <p class="season-version-note">游戏版本 {{ season.game_version }}</p>
-            {% endif %}
-          </div>
-          <span class="s18-preview-count" id="previewCount">资料加载中</span>
+      {% set title_parts = season.display_name.split(' ', 1) %}
+      {% set has_code = title_parts|length == 2 and title_parts[0][:1] == 'S' %}
+      <header class="s18-preview-hero lib-hero">
+        <div class="lib-hero-copy">
+          <h1 class="lib-title">{% if has_code %}<span class="lib-title-code">{{ title_parts[0] }}</span><span>{{ title_parts[1] }}</span>{% else %}{{ season.display_name }}{% endif %}</h1>
+{% if season.game_version %}
+          <p class="lib-version" title="游戏版本 {{ season.game_version }}"><span class="sr-only">游戏版本 </span>{% if season.game_version[:1].isdigit() %}v{% endif %}{{ season.game_version }}</p>
+{% endif %}
+{% if season.status != 'active' and season.status_label %}
+          <p class="lib-status">{{ season.status_label }}</p>
+{% endif %}
         </div>
+{% if hero_champions %}
+        <div class="lib-spotlight" data-spotlight>
+          <div class="lib-spotlight-art" aria-hidden="true">
+{% for champion in hero_champions %}
+            <img {% if loop.first %}src{% else %}data-src{% endif %}="{{ asset_root }}/{{ champion.splash }}?v={{ season.version_id|urlencode }}"{% if loop.first %} class="is-active"{% endif %} alt="" loading="lazy" decoding="async" data-spotlight-art />
+{% endfor %}
+          </div>
+          <nav class="lib-spotlight-roster" aria-label="本赛季高费弈子">
+            <p class="lib-spotlight-caption" aria-hidden="true"><strong data-spotlight-name>{{ hero_champions[0].name }}</strong><span data-spotlight-cost>{{ hero_champions[0].cost }} 费</span></p>
+{% for champion in hero_champions %}
+            <a class="lib-spotlight-pick{% if loop.first %} is-active{% endif %}" href="/tools/seasons/{{ season.season_id }}/champions/{{ champion.id }}{{ season_preview_suffix }}" data-spotlight-pick data-name="{{ champion.name }}" data-cost="{{ champion.cost }}" style="--cost-color: var(--s18-cost-{{ champion.cost }}, var(--accent))">
+              <img src="{{ asset_root }}/{{ champion.icon }}?v={{ season.version_id|urlencode }}" alt="" decoding="async" />
+              <span class="sr-only">{{ champion.name }}</span>
+            </a>
+{% endfor %}
+          </nav>
+        </div>
+{% endif %}
       </header>
 
-      <div class="s18-main-tabs" role="tablist" aria-label="{{ season.display_name }}资料分类" style="--tab-count: {{ tab_count }}">
-        <button class="s18-main-tab active" type="button" data-view="champions" role="tab" aria-selected="true" aria-controls="championsPanel">弈子</button>
-        <button class="s18-main-tab" type="button" data-view="traits" role="tab" aria-selected="false" aria-controls="traitsPanel">羁绊</button>
+      <div class="lib-tabbar">
+        <div class="s18-main-tabs" role="tablist" aria-label="{{ season.display_name }}资料分类" style="--tab-count: {{ tab_count }}">
+          <button class="s18-main-tab active" type="button" data-view="champions" role="tab" aria-selected="true" aria-controls="championsPanel"><span class="lib-tab-label">弈子</span> <span class="lib-tab-count" data-tab-count>{{ champion_count }}</span></button>
+          <button class="s18-main-tab" type="button" data-view="traits" role="tab" aria-selected="false" aria-controls="traitsPanel"><span class="lib-tab-label">羁绊</span> <span class="lib-tab-count" data-tab-count>{{ trait_count }}</span></button>
 {% if has_augments %}
-        <button class="s18-main-tab" type="button" data-view="augments" role="tab" aria-selected="false" aria-controls="augmentsPanel">强化符文</button>
+          <button class="s18-main-tab" type="button" data-view="augments" role="tab" aria-selected="false" aria-controls="augmentsPanel"><span class="lib-tab-label">强化符文</span> <span class="lib-tab-count" data-tab-count>{{ augment_count }}</span></button>
 {% endif %}
 {% for mechanic in mechanics %}
-        <button class="s18-main-tab" type="button" data-view="mechanic-{{ mechanic.id }}" role="tab" aria-selected="false" aria-controls="mechanicPanel-{{ mechanic.id }}">{{ mechanic.display_name }}</button>
+          <button class="s18-main-tab" type="button" data-view="mechanic-{{ mechanic.id }}" role="tab" aria-selected="false" aria-controls="mechanicPanel-{{ mechanic.id }}"><span class="lib-tab-label">{{ mechanic.display_name }}</span> <span class="lib-tab-count" data-tab-count>{{ mechanic.count }}</span></button>
 {% endfor %}
-        <span class="s18-tab-indicator" aria-hidden="true"></span>
+          <span class="s18-tab-indicator" aria-hidden="true"></span>
+        </div>
+        <span class="sr-only" id="previewCount" role="status">资料加载中</span>
       </div>
 
       <main class="s18-preview-content" id="seasonContent" aria-live="polite" aria-busy="true"
