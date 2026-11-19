@@ -79,16 +79,17 @@
   outline-offset: 3px;
 }
 
-.lib-title {
+/* .s18-preview-hero h1 in season-reference.css outranks a bare class, hence the scoped selector. */
+.lib-hero .lib-title {
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
-  gap: 0 0.3em;
+  gap: 0 0.28em;
   margin: 0;
   font-size: clamp(32px, 3.4vw, 48px);
-  font-weight: 800;
+  font-weight: 700;
   line-height: 1.06;
-  letter-spacing: 0.02em;
+  letter-spacing: -0.03em;
 }
 
 .lib-title-code {
@@ -178,7 +179,7 @@
   align-items: baseline;
   gap: 7px;
   font-size: 13px;
-  font-weight: 800;
+  font-weight: 700;
   text-shadow: 0 1px 6px rgba(0, 0, 0, 0.6);
 }
 
@@ -249,7 +250,7 @@
 .s18-main-tab {
   min-height: 50px;
   border-radius: 0;
-  font-size: 15px;
+  font-size: 0.95rem;
   font-weight: 750;
   white-space: nowrap;
 }
@@ -283,6 +284,39 @@
   border-radius: 2px;
   background: linear-gradient(90deg, transparent 22%, var(--accent) 22%, var(--accent) 78%, transparent 78%);
   box-shadow: none;
+}
+
+/* ---- Type scale aligned with the home page: headings 700, controls 600-700, body 400 ---- */
+
+.s18-search-field,
+.skill-toggle,
+.champion-filter-label,
+.augment-tier-label,
+.augment-category-label,
+.augment-filter-group button.is-active,
+.charm-categories button.active,
+.charm-extra-heading > span:first-child,
+.mechanic-stage-title,
+.champion-new-badge,
+.champion-unlock-badge,
+.champion-special-badge,
+.champion-hover-cost,
+.champion-cost,
+.wand-cost,
+.scale-chip {
+  font-weight: 700;
+}
+
+.champion-filter-options button,
+.s18-filter-select-trigger,
+.s18-filter-select-option,
+.trait-type-switch button,
+.champion-trait,
+.champion-hover-traits span,
+.augment-stage-list span,
+.charm-category-label,
+.wand-condition {
+  font-weight: 600;
 }
 
 /* ---- Filters ---- */
@@ -352,7 +386,7 @@
   content: attr(data-cost);
   font-size: 16px;
   font-variant-numeric: tabular-nums;
-  font-weight: 800;
+  font-weight: 700;
 }
 
 .champion-cost-heading::after {
@@ -365,7 +399,7 @@
 
 .champion-cost-heading h2 {
   font-size: 18px;
-  font-weight: 800;
+  font-weight: 700;
 }
 
 .champion-cost-heading span {
@@ -434,8 +468,7 @@
 }
 
 .champion-name {
-  font-weight: 800;
-  letter-spacing: 0.03em;
+  font-weight: 700;
 }
 
 .champion-cost {
@@ -527,7 +560,7 @@
 .trait-card-title {
   gap: 13px;
   font-size: 18px;
-  font-weight: 800;
+  font-weight: 700;
 }
 
 /* The tile sits behind the icon: the icon's tint filter would otherwise repaint its own background. */
@@ -592,7 +625,7 @@
   color: var(--tier-ink);
   font-size: 13px;
   font-variant-numeric: tabular-nums;
-  font-weight: 800;
+  font-weight: 700;
 }
 
 .trait-champions {
@@ -637,6 +670,29 @@
   }
 }
 
+/* Five filters do not fit one row between phone and desktop widths: search spans two columns. */
+@media (min-width: 641px) and (max-width: 860px) {
+  .champion-filter-row {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: end;
+    gap: 12px;
+  }
+
+  .champion-filter-row .s18-search-field {
+    grid-column: span 2;
+    width: 100%;
+  }
+
+  .champion-filter-row .s18-filter-select {
+    width: 100%;
+  }
+
+  .champion-filter-row .skill-toggle {
+    justify-self: end;
+    min-height: 44px;
+  }
+}
+
 @media (max-width: 640px) {
   .s18-preview-nav {
     flex-wrap: wrap;
@@ -654,7 +710,7 @@
     padding: 10px 0 12px;
   }
 
-  .lib-title {
+  .lib-hero .lib-title {
     font-size: clamp(28px, 8.4vw, 36px);
   }
 
@@ -700,6 +756,12 @@
 
   .trait-card {
     padding: 18px;
+  }
+
+  /* All seven charm categories stay visible instead of hiding the last ones in a scroller. */
+  .charm-categories {
+    flex-wrap: wrap;
+    overflow-x: visible;
   }
 }
 
