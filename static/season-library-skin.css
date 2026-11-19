@@ -29,16 +29,24 @@
   flex: 0 0 auto;
 }
 
-/* ---- Hero ---- */
+/* ---- Hero: the title, the version and a fanned cover; counts live in the tabs ---- */
 
 .lib-hero {
-  display: grid;
-  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  display: flex;
   align-items: center;
-  gap: 40px;
+  justify-content: space-between;
+  gap: 32px;
   margin: 0;
   border-bottom: 0;
-  padding: 14px 0 22px;
+  padding: 8px 0 18px;
+}
+
+.lib-hero-copy {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px 14px;
+  min-width: 0;
 }
 
 .lib-season-switch {
@@ -51,10 +59,10 @@
 }
 
 .lib-season-switch a {
+  flex: 0 0 auto;
   border: 1px solid transparent;
   border-radius: 999px;
   color: var(--muted);
-  flex: 0 0 auto;
   padding: 6px 13px;
   font-size: 13px;
   font-weight: 700;
@@ -80,30 +88,15 @@
   outline-offset: 3px;
 }
 
-.lib-eyebrow {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin: 0 0 10px;
-}
-
-.lib-status-dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--accent);
-  box-shadow: 0 0 0 4px var(--accent-soft);
-}
-
 .lib-title {
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
   gap: 0 0.3em;
   margin: 0;
-  font-size: clamp(36px, 4vw, 54px);
+  font-size: clamp(32px, 3.4vw, 48px);
   font-weight: 800;
-  line-height: 1.04;
+  line-height: 1.06;
   letter-spacing: 0.02em;
 }
 
@@ -115,90 +108,66 @@
   letter-spacing: 0;
 }
 
-.lib-meta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px 14px;
-  margin: 10px 0 0;
-  font-size: 13px;
-}
-
-.lib-meta span + span::before {
-  margin-right: 14px;
-  color: var(--line);
-  content: "/";
-}
-
-.lib-meta:empty {
-  display: none;
-}
-
-.lib-stats {
-  display: flex;
-  flex-wrap: wrap;
-  margin: 20px 0 0;
-}
-
-.lib-stats div {
-  display: flex;
-  flex-direction: column-reverse;
-  gap: 5px;
-  border-left: 1px solid var(--line);
-  padding: 0 24px;
-}
-
-.lib-stats div:first-child {
-  border-left: 0;
-  padding-left: 0;
-}
-
-.lib-stats dt {
+.lib-version {
+  margin: 0;
   color: var(--muted);
+  font-family: var(--lib-num);
+  font-size: 16px;
+  font-style: italic;
+  font-variant-numeric: lining-nums;
+}
+
+.lib-status {
+  align-self: center;
+  margin: 0;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--muted);
+  padding: 2px 10px;
   font-size: 12px;
   font-weight: 700;
-  letter-spacing: 0.12em;
 }
 
-.lib-stats dd {
-  margin: 0;
-  font-family: var(--lib-num);
-  font-size: 32px;
-  font-variant-numeric: lining-nums tabular-nums;
-  line-height: 1;
-}
-
-/* Fanned cover: cards cascade from back-left to front-right. */
+/*
+ * Fanned cover: cards cascade from back-left to front-right in fixed pixel steps.
+ * A hovered card slides left out of the deck while the cards in front of it shift
+ * right, so it is revealed without changing stacking order or popping through.
+ */
 .lib-cover {
-  --cover-spread-x: 50%;
-  --cover-spread-y: 40%;
-  --cover-width: 48%;
+  --cover-card: 210px;
+  --cover-step-x: 46px;
+  --cover-step-y: 9px;
+  --cover-pull: 150px;
+  --cover-push: 22px;
+  --cover-tilt: 1.2deg;
   position: relative;
-  height: 220px;
+  flex: 0 0 auto;
+  width: calc(var(--cover-card) + (var(--cover-count) - 1) * var(--cover-step-x) + var(--cover-push));
+  height: calc(var(--cover-card) * 231 / 500 + (var(--cover-count) - 1) * var(--cover-step-y) + 8px);
 }
 
 .lib-cover-card {
-  --step-x: calc(var(--cover-spread-x) / max(var(--cover-count) - 1, 1));
-  --step-y: calc(var(--cover-spread-y) / max(var(--cover-count) - 1, 1));
   position: absolute;
-  top: calc(var(--i) * var(--step-y));
-  left: calc(var(--i) * var(--step-x));
+  top: calc(var(--i) * var(--cover-step-y));
+  left: calc(var(--i) * var(--cover-step-x));
   z-index: calc(var(--i) + 1);
-  width: var(--cover-width);
+  width: var(--cover-card);
   aspect-ratio: 500 / 231;
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.55);
-  border-radius: 14px;
+  border-radius: 12px;
   background: color-mix(in srgb, var(--cost-color) 20%, var(--surface-solid));
-  box-shadow: 0 18px 40px rgba(55, 45, 31, 0.2);
+  box-shadow: 0 14px 30px rgba(55, 45, 31, 0.18);
   color: #fff;
   text-decoration: none;
-  transform: rotate(calc((var(--i) - 2) * 1.5deg));
-  transition: transform 260ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 260ms ease, filter 260ms ease;
+  transform: rotate(calc((var(--i) - 2) * var(--cover-tilt)));
+  transition: transform 460ms cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 300ms ease, filter 300ms ease;
+  will-change: transform;
 }
 
 :root[data-theme="dark"] .lib-cover-card {
   border-color: rgba(255, 255, 255, 0.16);
-  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.5);
 }
 
 .lib-cover-card::after {
@@ -217,21 +186,21 @@
 
 .lib-cover-card span {
   position: absolute;
-  bottom: 10px;
-  left: 14px;
+  bottom: 8px;
+  left: 12px;
   z-index: 1;
   display: flex;
   align-items: baseline;
-  gap: 8px;
-  font-size: 15px;
+  gap: 7px;
+  font-size: 13px;
   font-weight: 800;
   text-shadow: 0 1px 6px rgba(0, 0, 0, 0.6);
 }
 
 .lib-cover-card small {
   border-left: 2px solid var(--cost-color);
-  padding-left: 7px;
-  font-size: 11px;
+  padding-left: 6px;
+  font-size: 10px;
   font-weight: 700;
   opacity: 0.88;
 }
@@ -240,12 +209,20 @@
   filter: saturate(0.82) brightness(0.94);
 }
 
-.lib-cover-card:hover,
-.lib-cover-card:focus-visible {
-  z-index: 10;
-  box-shadow: 0 26px 54px rgba(55, 45, 31, 0.3);
-  filter: none;
-  transform: translateY(-8px) rotate(0deg);
+@media (min-width: 641px) {
+  .lib-cover-card:is(:hover, :focus-visible) {
+    box-shadow: 0 22px 44px rgba(55, 45, 31, 0.28);
+    filter: none;
+    transform: translateY(-6px) rotate(0deg);
+  }
+
+  .lib-cover-card:not(:last-child):is(:hover, :focus-visible) {
+    transform: translate(calc(var(--cover-pull) * -1), -6px) rotate(-1.5deg);
+  }
+
+  .lib-cover-card:is(:hover, :focus-visible) ~ .lib-cover-card {
+    transform: translateX(var(--cover-push)) rotate(calc((var(--i) - 2) * var(--cover-tilt) + 1deg));
+  }
 }
 
 /* ---- Sticky tab bar ---- */
@@ -256,8 +233,6 @@
   z-index: 70;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 18px;
   margin: 0 0 22px;
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
@@ -268,7 +243,7 @@
 .s18-main-tabs {
   position: relative;
   top: auto;
-  grid-template-columns: repeat(var(--tab-count, 3), 104px);
+  grid-template-columns: repeat(var(--tab-count, 3), 124px);
   width: auto;
   margin: 0;
   border: 0;
@@ -284,10 +259,11 @@
 }
 
 .s18-main-tab {
-  min-height: 52px;
+  min-height: 50px;
   border-radius: 0;
   font-size: 15px;
   font-weight: 750;
+  white-space: nowrap;
 }
 
 .s18-main-tab:hover {
@@ -296,6 +272,20 @@
 
 .s18-main-tab.active {
   color: var(--text);
+}
+
+.lib-tab-count {
+  margin-left: 2px;
+  color: var(--muted);
+  font-family: var(--lib-num);
+  font-size: 14px;
+  font-style: italic;
+  font-variant-numeric: lining-nums tabular-nums;
+  font-weight: 400;
+}
+
+.s18-main-tab.active .lib-tab-count {
+  color: var(--accent);
 }
 
 .s18-tab-indicator {
@@ -307,15 +297,6 @@
   border-radius: 2px;
   background: linear-gradient(90deg, transparent 22%, var(--accent) 22%, var(--accent) 78%, transparent 78%);
   box-shadow: none;
-}
-
-.s18-preview-count {
-  border: 0;
-  background: none;
-  padding: 0;
-  color: var(--muted);
-  font-size: 13px;
-  font-weight: 650;
 }
 
 /* ---- Filters ---- */
@@ -408,8 +389,12 @@
 
 /* ---- Champion cards ---- */
 
-.champion-grid {
-  gap: 18px;
+/* Six or seven cards per row on desktop; phones keep the base two-column grid. */
+@media (min-width: 641px) {
+  .champion-grid {
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 200px), 1fr));
+    gap: 14px;
+  }
 }
 
 .champion-card-link {
@@ -463,7 +448,6 @@
 }
 
 .champion-name {
-  font-size: 19px;
   font-weight: 800;
   letter-spacing: 0.03em;
 }
@@ -472,26 +456,15 @@
   border: 1px solid rgba(255, 255, 255, 0.32);
   border-radius: 999px;
   background: color-mix(in srgb, var(--cost-color) 72%, rgba(0, 0, 0, 0.45));
-  padding: 3px 9px 3px 5px;
-  font-size: 13px;
+  padding: 2px 7px 2px 4px;
   text-shadow: none;
   backdrop-filter: blur(6px);
-}
-
-.champion-cost img {
-  width: 15px;
-  height: 15px;
-}
-
-.champion-skill-body {
-  padding: 16px 16px 18px;
 }
 
 .champion-skill-name {
   display: flex;
   align-items: center;
-  gap: 9px;
-  margin-bottom: 8px;
+  gap: 8px;
 }
 
 .champion-skill-name::before {
@@ -503,8 +476,48 @@
   transform: rotate(45deg);
 }
 
-.champion-skill-description {
-  line-height: 1.7;
+/* Desktop card density; phones keep the compact sizes from season-reference.css. */
+@media (min-width: 641px) {
+  .champion-name {
+    top: 11px;
+    left: 12px;
+    font-size: 17px;
+  }
+
+  .champion-art.has-new .champion-name {
+    top: 35px;
+  }
+
+  .champion-traits {
+    bottom: 10px;
+    left: 11px;
+    max-width: calc(100% - 64px);
+    gap: 4px;
+  }
+
+  .champion-cost {
+    padding: 3px 9px 3px 5px;
+    font-size: 13px;
+  }
+
+  .champion-cost img {
+    width: 15px;
+    height: 15px;
+  }
+
+  .champion-skill-body {
+    padding: 13px 14px 15px;
+  }
+
+  .champion-skill-name {
+    margin-bottom: 6px;
+    font-size: 14px;
+  }
+
+  .champion-skill-description {
+    font-size: 12.5px;
+    line-height: 1.66;
+  }
 }
 
 /* ---- Traits ---- */
@@ -612,13 +625,15 @@
 
 @media (max-width: 960px) {
   .lib-hero {
-    gap: 24px;
+    gap: 20px;
   }
 
   .lib-cover {
-    --cover-width: 58%;
-    --cover-spread-x: 42%;
-    height: 180px;
+    --cover-card: 170px;
+    --cover-step-x: 34px;
+    --cover-step-y: 7px;
+    --cover-pull: 116px;
+    --cover-push: 16px;
   }
 }
 
@@ -636,89 +651,24 @@
   }
 
   .lib-hero {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 14px;
-    padding: 12px 0 16px;
-  }
-
-  .lib-eyebrow {
-    margin-bottom: 6px;
+    padding: 10px 0 12px;
   }
 
   .lib-title {
-    font-size: clamp(30px, 9vw, 40px);
+    font-size: clamp(28px, 8.4vw, 36px);
   }
 
-  .lib-meta {
-    margin-top: 6px;
-    font-size: 12px;
+  .lib-version {
+    font-size: 14px;
   }
 
-  .lib-stats {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
-    grid-auto-flow: column;
-    margin-top: 14px;
-  }
-
-  .lib-stats div {
-    padding: 0 12px;
-  }
-
-  .lib-stats dt {
-    font-size: 11px;
-    letter-spacing: 0.04em;
-  }
-
-  .lib-stats dd {
-    font-size: 24px;
-  }
-
-  /* Phones get a single scrollable strip instead of the fanned stack. */
+  /* The cover repeats champions listed right below, so phones skip it. */
   .lib-cover {
-    display: flex;
-    height: auto;
-    gap: 8px;
-    margin: 0 -9px;
-    overflow-x: auto;
-    padding: 2px 9px 6px;
-    scrollbar-width: none;
-  }
-
-  .lib-cover-card,
-  .lib-cover-card:not(:last-child) {
-    position: relative;
-    top: auto;
-    left: auto;
-    flex: 0 0 132px;
-    width: 132px;
-    border-radius: 10px;
-    box-shadow: 0 8px 18px rgba(55, 45, 31, 0.14);
-    filter: none;
-    transform: none;
-  }
-
-  .lib-cover-card:hover,
-  .lib-cover-card:focus-visible {
-    transform: none;
-  }
-
-  .lib-cover-card span {
-    bottom: 5px;
-    left: 8px;
-    font-size: 12px;
-  }
-
-  .lib-cover-card small {
     display: none;
   }
 
   .lib-tabbar {
-    margin-bottom: 18px;
-  }
-
-  .lib-tabbar .s18-preview-count {
-    display: none;
+    margin-bottom: 16px;
   }
 
   .s18-main-tabs {
@@ -727,8 +677,12 @@
   }
 
   .s18-main-tab {
-    min-height: 48px;
-    font-size: 14px;
+    min-height: 46px;
+    font-size: 13px;
+  }
+
+  .lib-tab-count {
+    font-size: 12px;
   }
 
   .champion-grid {

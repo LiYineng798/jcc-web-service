@@ -30,48 +30,39 @@
       {% set has_code = title_parts|length == 2 and title_parts[0][:1] == 'S' %}
       <header class="s18-preview-hero lib-hero">
         <div class="lib-hero-copy">
-          <p class="eyebrow lib-eyebrow"><span class="lib-status-dot" aria-hidden="true"></span>{{ season.status_label or '赛季资料' }} · Season Library</p>
           <h1 class="lib-title">{% if has_code %}<span class="lib-title-code">{{ title_parts[0] }}</span><span>{{ title_parts[1] }}</span>{% else %}{{ season.display_name }}{% endif %}</h1>
-          <p class="season-version-note lib-meta">
-            {% if season.game_version %}<span>游戏版本 {{ season.game_version }}</span>{% endif %}
-            {% if season.effective_at %}<span>{{ season.effective_at[:10] }} 生效</span>{% endif %}
-          </p>
-          <dl class="lib-stats">
-            <div><dt>弈子</dt><dd>{{ champion_count }}</dd></div>
-            <div><dt>羁绊</dt><dd>{{ season.counts.traits }}</dd></div>
-{% if has_augments %}
-            <div><dt>强化符文</dt><dd>{{ augment_count }}</dd></div>
+{% if season.game_version %}
+          <p class="lib-version" title="游戏版本 {{ season.game_version }}"><span class="sr-only">游戏版本 </span>{% if season.game_version[:1].isdigit() %}v{% endif %}{{ season.game_version }}</p>
 {% endif %}
-{% if mechanics|length == 1 and season.counts.mechanics %}
-            <div><dt>{{ mechanics[0].display_name }}</dt><dd>{{ season.counts.mechanics }}</dd></div>
+{% if season.status != 'active' and season.status_label %}
+          <p class="lib-status">{{ season.status_label }}</p>
 {% endif %}
-          </dl>
         </div>
 {% if hero_champions %}
-        <div class="lib-cover" style="--cover-count: {{ hero_champions|length }}">
+        <nav class="lib-cover" aria-label="本赛季高费弈子" style="--cover-count: {{ hero_champions|length }}">
 {% for champion in hero_champions %}
           <a class="lib-cover-card" href="/tools/seasons/{{ season.season_id }}/champions/{{ champion.id }}" style="--i: {{ loop.index0 }}; --cost-color: var(--s18-cost-{{ champion.cost }}, var(--accent))">
             <img src="{{ asset_root }}/{{ champion.art }}?v={{ season.version_id|urlencode }}" alt="" decoding="async" />
             <span>{{ champion.name }}<small>{{ champion.cost }} 费</small></span>
           </a>
 {% endfor %}
-        </div>
+        </nav>
 {% endif %}
       </header>
 
       <div class="lib-tabbar">
         <div class="s18-main-tabs" role="tablist" aria-label="{{ season.display_name }}资料分类" style="--tab-count: {{ tab_count }}">
-          <button class="s18-main-tab active" type="button" data-view="champions" role="tab" aria-selected="true" aria-controls="championsPanel">弈子</button>
-          <button class="s18-main-tab" type="button" data-view="traits" role="tab" aria-selected="false" aria-controls="traitsPanel">羁绊</button>
+          <button class="s18-main-tab active" type="button" data-view="champions" role="tab" aria-selected="true" aria-controls="championsPanel"><span class="lib-tab-label">弈子</span> <span class="lib-tab-count" data-tab-count>{{ champion_count }}</span></button>
+          <button class="s18-main-tab" type="button" data-view="traits" role="tab" aria-selected="false" aria-controls="traitsPanel"><span class="lib-tab-label">羁绊</span> <span class="lib-tab-count" data-tab-count>{{ trait_count }}</span></button>
 {% if has_augments %}
-          <button class="s18-main-tab" type="button" data-view="augments" role="tab" aria-selected="false" aria-controls="augmentsPanel">强化符文</button>
+          <button class="s18-main-tab" type="button" data-view="augments" role="tab" aria-selected="false" aria-controls="augmentsPanel"><span class="lib-tab-label">强化符文</span> <span class="lib-tab-count" data-tab-count>{{ augment_count }}</span></button>
 {% endif %}
 {% for mechanic in mechanics %}
-          <button class="s18-main-tab" type="button" data-view="mechanic-{{ mechanic.id }}" role="tab" aria-selected="false" aria-controls="mechanicPanel-{{ mechanic.id }}">{{ mechanic.display_name }}</button>
+          <button class="s18-main-tab" type="button" data-view="mechanic-{{ mechanic.id }}" role="tab" aria-selected="false" aria-controls="mechanicPanel-{{ mechanic.id }}"><span class="lib-tab-label">{{ mechanic.display_name }}</span> <span class="lib-tab-count" data-tab-count>{{ mechanic.count }}</span></button>
 {% endfor %}
           <span class="s18-tab-indicator" aria-hidden="true"></span>
         </div>
-        <span class="s18-preview-count" id="previewCount">资料加载中</span>
+        <span class="sr-only" id="previewCount" role="status">资料加载中</span>
       </div>
 
       <main class="s18-preview-content" id="seasonContent" aria-live="polite" aria-busy="true"

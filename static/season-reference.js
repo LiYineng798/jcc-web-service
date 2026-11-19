@@ -34,6 +34,7 @@ const config = {
 };
 
 const state = {
+  loaded: false,
   genericFilters: {},
   champions: [],
   traits: [],
@@ -188,26 +189,35 @@ function filteredCharmEntries(mechanic) {
   });
 }
 
-function updateCount() {
-  if (!elements.previewCount) return;
+// The status text is announced to assistive tech; the active tab's number shows the filtered result.
+// The trait origin/class switch groups rather than filters, so the trait tab keeps its total.
+function activeViewCount() {
   if (state.activeView === 'champions') {
-    elements.previewCount.textContent = `${filteredChampions().length} 名弈子`;
-    return;
+    const count = filteredChampions().length;
+    return { count, text: `${count} 名弈子` };
   }
   if (state.activeView === 'traits') {
-    elements.previewCount.textContent = `${filteredTraits().length} 个羁绊`;
-    return;
+    return { count: state.traits.length, text: `${filteredTraits().length} 个羁绊` };
   }
   if (state.activeView === 'augments') {
-    elements.previewCount.textContent = `${filteredAugments().length} 个强化符文`;
-    return;
+    const count = filteredAugments().length;
+    return { count, text: `${count} 个强化符文` };
   }
   const mechanic = mechanicById(state.activeView.replace(/^mechanic-/, ''));
-  if (mechanic) {
-    const count = mechanic.presentation && mechanic.presentation !== 'legacy.v1' ? filteredGenericEntries(mechanic).length
-      : mechanic.kind === 'charm' ? filteredCharmEntries(mechanic).length : mechanic.entries.length;
-    elements.previewCount.textContent = `${count} 条${mechanic.display_name}`;
-  }
+  if (!mechanic) return null;
+  const count = mechanic.presentation && mechanic.presentation !== 'legacy.v1' ? filteredGenericEntries(mechanic).length
+    : mechanic.kind === 'charm' ? filteredCharmEntries(mechanic).length : mechanic.entries.length;
+  return { count, text: `${count} 条${mechanic.display_name}` };
+}
+
+function updateCount() {
+  if (!state.loaded) return;
+  const result = activeViewCount();
+  if (!result) return;
+  if (elements.previewCount) elements.previewCount.textContent = result.text;
+  const activeTab = elements.mainTabs.find((tab) => tab.dataset.view === state.activeView);
+  const badge = activeTab?.querySelector('[data-tab-count]');
+  if (badge) badge.textContent = String(result.count);
 }
 
 function setActiveView(view) {
@@ -994,6 +1004,7 @@ async function loadData() {
     state.traits = data.traits || [];
     state.mechanics = data.mechanics || [];
     state.augments = data.augments || [];
+    state.loaded = true;
     bindCharmControls();
     bindGenericControls();
     state.traitsById = new Map(state.traits.map((trait) => [trait.id, trait]));

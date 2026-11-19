@@ -644,3 +644,17 @@ def test_cover_champions_skip_unlocks_and_accept_preview_availability(app):
         {'id': '3', 'name': '商店', 'cost': 4, 'card': 'c.webp', 'availability': {'type': 'shop'}},
     ]
     assert [pick['id'] for pick in _hero_champions(champions)] == ['2', '3']
+
+
+def test_season_reference_tabs_carry_server_rendered_counts(client):
+    html = client.get('/tools/seasons/s18').get_data(as_text=True)
+    with client.application.test_request_context():
+        context = season_page_context('s18')
+    assert f'<span class="lib-tab-label">弈子</span> <span class="lib-tab-count" data-tab-count>{context["champion_count"]}</span>' in html
+    assert f'<span class="lib-tab-label">羁绊</span> <span class="lib-tab-count" data-tab-count>{context["trait_count"]}</span>' in html
+    assert f'<span class="lib-tab-label">强化符文</span> <span class="lib-tab-count" data-tab-count>{context["augment_count"]}</span>' in html
+    for mechanic in context['mechanics']:
+        assert f'<span class="lib-tab-label">{mechanic["display_name"]}</span> <span class="lib-tab-count" data-tab-count>{mechanic["count"]}</span>' in html
+    assert 'id="previewCount" role="status"' in html
+    assert 'Season Library' not in html
+    assert 'lib-stats' not in html

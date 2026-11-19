@@ -193,10 +193,11 @@ def season_page_context(season_id):
         'library_seasons': catalog_seasons(),
         'hero_champions': _hero_champions(index.get('champions') or []),
         'mechanics': [
-            {'id': mechanic['id'], 'kind': mechanic.get('kind'), 'display_name': mechanic.get('display_name'), 'presentation': mechanic.get('presentation'), 'description': mechanic.get('description')}
+            {'id': mechanic['id'], 'kind': mechanic.get('kind'), 'display_name': mechanic.get('display_name'), 'presentation': mechanic.get('presentation'), 'description': mechanic.get('description'), 'count': len(mechanic.get('entries') or [])}
             for mechanic in index.get('mechanics') or []
         ],
         'champion_count': len(index.get('champions') or []),
+        'trait_count': len(index.get('traits') or []),
         'augment_count': len(augments),
         'has_augments': bool(augments),
         'preview_notice': index.get('preview_notice'),
