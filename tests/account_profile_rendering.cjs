@@ -93,7 +93,7 @@ async function select(page, id) {
             bounds.footer < bounds.height,
             `${name}/${width}: complete overview fits without scrolling`,
           );
-        for (const tab of await page.locator("[role=tab]").all()) {
+        for (const tab of await page.getByRole("tablist", { name: "个人中心栏目" }).getByRole("tab").all()) {
           const box = await tab.boundingBox();
           assert(box.x >= 0 && box.x + box.width <= width + 1);
         }
@@ -265,10 +265,11 @@ async function select(page, id) {
       await page.locator("#profile-panel").getAttribute("aria-labelledby"),
       "tab-favorites",
     );
-    // Avatar dialog uses the existing save API and synchronizes both profile avatars.
+    // Avatar dialog uses the existing save API and updates the account avatar.
     await page.goto(`${base}/me#avatar`);
     await page.locator(".avatar-dialog[open]").waitFor();
     const newColor = name === "chromium" ? "#637bb2" : "#b56949";
+    await page.getByRole("tab", { name: "配色" }).click();
     await page.locator("#avatarHex").fill(newColor);
     await page.getByRole("button", { name: "保存头像", exact: true }).click();
     await page.locator(".avatar-dialog[open]").waitFor({ state: "detached" });
@@ -277,7 +278,7 @@ async function select(page, id) {
     await page.reload();
     await page.locator(".avatar-dialog[open]").waitFor();
     await page.getByRole("button", { name: "取消", exact: true }).click();
-    assert.equal(await page.locator(".pf-avatar").count(), 2);
+    await page.getByRole("img", { name: "弈起上分的头像" }).waitFor();
     await select(page, "mine");
     await page.locator("#tab-mine").focus();
     await page.keyboard.press("ArrowRight");
