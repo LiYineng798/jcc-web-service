@@ -17,7 +17,6 @@
     adminIdentity: document.querySelector('#adminIdentity'),
     adminIdentityName: document.querySelector('#adminIdentity .admin-identity-copy strong'),
     pageTitle: document.querySelector('#adminPageTitle'),
-    pageSubtitle: document.querySelector('#adminPageSubtitle'),
     pendingReportCount: document.querySelector('#pendingReportCount'),
     moreButton: document.querySelector('#adminMoreButton'),
     moreDialog: document.querySelector('#adminMoreDialog'),
@@ -98,23 +97,28 @@
     read: '已读',
     disabled: '已禁用',
   };
-  const tabMeta = {
-    overview: ['运营概览', '今日关键指标与待处理事项'],
-    reports: ['失效反馈处理', '核查用户反馈并记录处理结果'],
-    lineups: ['阵容管理', '搜索、审核与维护普通阵容'],
-    'live-comps': ['实时阵容', '维护赛季状态与阵容码'],
-    'season-display': ['资料赛季', '统一管理资料库、模拟器与海报创作者的赛季展示'],
-    'season-packages': ['赛季版本更新', '上传资料包，检查差异并发布版本'],
-    'patch-notes': ['更新公告', '编辑版本内容与发布状态'],
-    'orange-decks': ['卡组库', '大橘大利卡组的推荐与违规隐藏'],
-    'deck-submissions': ['卡组投稿', '认领、完善并发布用户投稿的卡组'],
-    users: ['用户管理', '查询账号、权限和可用状态'],
-    analytics: ['增长分析', '查看访问、注册与转化数据'],
-    audit: ['审计日志', '追溯操作来源，查看每一次关键变更'],
-    'daily-reports': ['每日报告', '昨日运营快照与历史数据'],
-    guestbook: ['留言管理', '处理访客提交的站点反馈'],
-    'password-reset-emails': ['找回邮件', '查看今日密码找回验证码发送记录'],
-    settings: ['系统设置', '管理功能开关与全站通知'],
+  // Page titles match the navigation labels; each workspace's layout carries the rest.
+  const tabTitles = {
+    overview: '概览',
+    reports: '失效反馈',
+    lineups: '阵容管理',
+    'live-comps': '实时阵容',
+    'season-display': '资料赛季',
+    'season-packages': '赛季版本更新',
+    'patch-notes': '更新公告',
+    'orange-decks': '卡组库',
+    'deck-submissions': '卡组投稿',
+    users: '用户管理',
+    analytics: '增长分析',
+    audit: '审计日志',
+    'daily-reports': '每日报告',
+    guestbook: '留言管理',
+    'password-reset-emails': '找回邮件',
+    settings: '系统设置',
+  };
+  const workspaceTitles = {
+    lineups: { list: '阵容查找', review: '修改审核', import: '批量导入' },
+    'live-comps': { codes: '阵容码维护', upload: '数据上传', seasons: '赛季管理' },
   };
   const PATCH_NOTE_TEMPLATE = `## 英雄调整
 
@@ -603,23 +607,13 @@
     if (elements.adminIdentityName) {
       elements.adminIdentityName.textContent = state.me?.nickname || '后台账号';
     }
-    let [title, subtitle] = tabMeta[state.activeTab] || tabMeta.overview;
-    if (state.activeTab === 'lineups') {
-      [title, subtitle] = state.lineupWorkspace === 'import'
-        ? ['阵容管理 · 批量导入', '批量解析、预览并导入普通阵容码']
-        : state.lineups.status === 'pending' ? ['阵容管理 · 修改审核', '按提交先后核对用户修改，记录审核结果'] : ['阵容管理 · 阵容查找', '搜索、审核与维护普通阵容'];
-    }
-    if (state.activeTab === 'live-comps') {
-      [title, subtitle] = state.liveCompsWorkspace === 'seasons'
-        ? ['实时阵容 · 赛季管理', '调整赛季状态、顺序与默认赛季']
-        : state.liveCompsWorkspace === 'upload'
-          ? ['实时阵容 · 数据上传', '上传预上线、独立补码与版本切换']
-        : ['实时阵容 · 阵容码维护', '按赛季检查并补充实时阵容码'];
-    }
-    if (elements.pageTitle) elements.pageTitle.textContent = title;
-    if (elements.pageSubtitle) elements.pageSubtitle.textContent = subtitle;
+    const title = tabTitles[state.activeTab] || tabTitles.overview;
+    const workspace = workspaceTitles[state.activeTab]?.[activeWorkspaceFor(state.activeTab)];
+    if (elements.pageTitle) elements.pageTitle.textContent = workspace ? `${title} · ${workspace}` : title;
     if (elements.pendingReportCount) {
-      elements.pendingReportCount.textContent = String(state.overview?.stats?.pending_reports_count || 0);
+      const pending = String(state.overview?.stats?.pending_reports_count || 0);
+      elements.pendingReportCount.textContent = pending;
+      elements.pendingReportCount.hidden = pending === '0';
     }
     const queue = String(state.deckSubmissionQueue ?? state.overview?.todos?.deck_submissions_pending ?? 0);
     document.querySelectorAll('[data-deck-submission-count]').forEach((node) => {
@@ -633,11 +627,16 @@
     });
   }
 
+  function activeWorkspaceFor(tab) {
+    if (tab === 'lineups') return state.lineupWorkspace === 'list' && state.lineups.status === 'pending' ? 'review' : state.lineupWorkspace;
+    if (tab === 'live-comps') return state.liveCompsWorkspace;
+    return '';
+  }
+
   function syncTabs() {
     document.querySelectorAll('[data-admin-tab]').forEach((node) => {
       const workspace = node.dataset.adminWorkspace || '';
-      const activeWorkspace = node.dataset.adminTab === 'lineups' ? (state.lineupWorkspace === 'list' && state.lineups.status === 'pending' ? 'review' : state.lineupWorkspace)
-        : node.dataset.adminTab === 'live-comps' ? state.liveCompsWorkspace : '';
+      const activeWorkspace = activeWorkspaceFor(node.dataset.adminTab);
       const isActive = node.dataset.adminTab === state.activeTab && (!workspace || workspace === activeWorkspace);
       node.classList.toggle('is-active', isActive);
       if (node.matches('.admin-nav-subitem, .admin-mobile-nav-item')) {
@@ -664,7 +663,7 @@
   }
 
   function renderReportsWorkspace() {
-    const panel = workbenchPanel('用户失效反馈', '进入该工作台后再加载数据；支持分页切换');
+    const panel = workbenchPanel();
     const body = panel.querySelector('.admin-workspace-body');
     body.append(renderReportStatusTabs());
 
@@ -726,8 +725,7 @@
 
   function renderLineupsWorkspace() {
     const isImport = state.lineupWorkspace === 'import';
-    const panel = workbenchPanel(isImport ? '批量导入' : '阵容管理',
-      isImport ? '解析、预览并批量写入普通阵容' : '查看阵容状态，处理封禁与用户修改审核');
+    const panel = workbenchPanel();
     panel.querySelector('.admin-workspace-body').append(isImport ? renderLineupBulkImportPanel() : renderModeratedLineups());
     return panel;
   }
@@ -803,13 +801,13 @@
     if (!result) return wrap;
     const primaryCount = result.created_count ? result.created_count : result.importable_count || 0;
     const primaryLabel = result.created_count ? '已导入' : '可导入';
-    const primaryCaption = result.created_count ? '已写入普通阵容库' : '解析成功，待确认写入';
+    const primaryCaption = result.created_count ? '已写入普通阵容库' : '待确认写入';
     const metrics = el('div', 'traffic-grid');
     metrics.append(
       trafficMetric(primaryLabel, primaryCount, primaryCaption),
-      trafficMetric('库内重复', result.duplicate_existing_count || 0, '已存在，未重复写入'),
-      trafficMetric('上传重复', result.duplicate_in_upload_count || 0, '同次粘贴重复，已跳过'),
-      trafficMetric('错误', result.invalid_count || 0, '未识别为有效阵容码'),
+      trafficMetric('库内重复', result.duplicate_existing_count || 0, '', '已存在，未重复写入'),
+      trafficMetric('上传重复', result.duplicate_in_upload_count || 0, '', '同次粘贴重复，已跳过'),
+      trafficMetric('错误', result.invalid_count || 0, '', '未识别为有效阵容码'),
     );
     wrap.append(metrics);
 
@@ -874,10 +872,10 @@
     if (!preview) return wrap;
     const metrics = el('div', 'traffic-grid');
     metrics.append(
-      trafficMetric('新阵容总数', preview.total || 0, '本次文件将发布的阵容数量'),
-      trafficMetric('新增 ID', (preview.added_ids || []).length, '线上没有、本次新增'),
-      trafficMetric('移除 ID', (preview.removed_ids || []).length, '线上存在、本次移除'),
-      trafficMetric('复制受影响', Object.values(preview.copy_counts || {}).reduce((sum, value) => sum + Number(value || 0), 0), '历史复制记录仍会保留'),
+      trafficMetric('新阵容总数', preview.total || 0, '', '本次文件将发布的阵容数量'),
+      trafficMetric('新增 ID', (preview.added_ids || []).length, '', '线上没有、本次新增'),
+      trafficMetric('移除 ID', (preview.removed_ids || []).length, '', '线上存在、本次移除'),
+      trafficMetric('复制受影响', Object.values(preview.copy_counts || {}).reduce((sum, value) => sum + Number(value || 0), 0), '', '历史复制记录仍会保留'),
     );
     wrap.append(metrics);
     const lists = [
@@ -1084,10 +1082,7 @@
   function renderLiveCompsWorkspace() {
     if (state.liveCompsWorkspace === 'seasons') return renderLiveCompSeasonManager();
     const isUpload = state.liveCompsWorkspace === 'upload';
-    const panel = workbenchPanel(
-      isUpload ? '数据上传' : '阵容码维护',
-      isUpload ? '上传 · 预览补码 · 选择上线 · 历史回滚' : '按赛季查看实时阵容并为缺码条目补码',
-    );
+    const panel = workbenchPanel();
     const body = panel.querySelector('.admin-workspace-body');
     if (isUpload) {
       panel.classList.add('admin-live-upload-page');
@@ -1153,8 +1148,8 @@
   function renderLiveCompMetrics() {
     const metrics = el('div', 'traffic-grid');
     metrics.append(
-      trafficMetric('今日复制', state.liveComps.today_copy_count || 0, '今天实时阵容专区所有复制点击'),
-      trafficMetric('累计复制', state.liveComps.total_copy_count || 0, '从统计开始至今的所有复制点击'),
+      trafficMetric('今日复制', state.liveComps.today_copy_count || 0, '', '今天实时阵容专区所有复制点击'),
+      trafficMetric('累计复制', state.liveComps.total_copy_count || 0, '', '从统计开始至今的所有复制点击'),
     );
     return metrics;
   }
@@ -1372,7 +1367,7 @@
   }
 
   function renderUsersWorkspace() {
-    const panel = workbenchPanel('用户管理', '管理账号与访问权限 · 按注册顺序展示最近用户');
+    const panel = workbenchPanel();
     panel.classList.add('admin-users-workspace');
     const body = panel.querySelector('.admin-workspace-body');
     const toolbar = el('div', 'admin-users-toolbar');
@@ -1456,7 +1451,7 @@
         range:days=>queryExperience(shiftExperienceDate(todayInputValue(),1-days),todayInputValue()),
       }));return wrap;
     }
-    const panel = workbenchPanel('增长分析', '按自然日查询，不在首页默认加载', growthDateControl());
+    const panel = workbenchPanel('', growthDateControl());
     const body = panel.querySelector('.admin-workspace-body');
     const growth = state.growth || {};
     const charts = el('div', 'analytics-growth-charts');
@@ -1537,7 +1532,7 @@
 
 
   function renderPatchNotesWorkspace() {
-    const panel = workbenchPanel('更新公告', '同步官方更新公告，维护版本重点与官方原文链接');
+    const panel = workbenchPanel();
     const body = panel.querySelector('.admin-workspace-body');
     const actions = el('div', 'card-actions');
     actions.append(button('新增公告', () => {
@@ -1729,15 +1724,13 @@
   }
 
   function renderSettingsWorkspace() {
-    const panel = workbenchPanel('站点设置', '控制前台功能的开关状态');
+    const wrap = el('div', 'admin-dashboard');
+    const panel = workbenchPanel();
     const body = panel.querySelector('.admin-workspace-body');
 
     const card = el('article', 'admin-row-card');
     const info = el('div');
-    info.append(
-      el('strong', '', '阵容模拟器'),
-      el('p', 'admin-meta', '控制前台导航栏中阵容模拟器入口的显示与隐藏'),
-    );
+    info.append(el('strong', '', '导航显示阵容模拟器'));
 
     const enabled = (state.settings.data || {}).simulator_enabled === 'true';
 
@@ -1754,15 +1747,12 @@
     const noticeEnabled = noticeData.enabled ?? false;
     const notices = noticeData.items || [];
 
-    const noticePanel = workbenchPanel('全站通知', '编辑首页通知横幅的内容和状态');
+    const noticePanel = workbenchPanel('全站通知', button('新增通知', saveNoticeContent, 'small-button is-active'));
     const noticeBody = noticePanel.querySelector('.admin-workspace-body');
 
     const toggleRow = el('article', 'admin-row-card');
     const toggleInfo = el('div');
-    toggleInfo.append(
-      el('strong', '', '启用通知'),
-      el('p', 'admin-meta', '开启后首页将展示通知横幅'),
-    );
+    toggleInfo.append(el('strong', '', '首页通知横幅'));
     const toggleActions = el('div', 'card-actions');
     toggleActions.append(
       button('开启', () => toggleNotice(true), `small-button${noticeEnabled ? ' is-active' : ''}`),
@@ -1770,13 +1760,6 @@
     );
     toggleRow.append(toggleInfo, toggleActions);
     noticeBody.append(toggleRow);
-
-    const listHead = el('div', 'admin-section-head');
-    listHead.append(
-      el('div', '', ''),
-      button('新增通知', saveNoticeContent, 'small-button is-active'),
-    );
-    noticeBody.append(listHead);
 
     const list = el('div', 'admin-list');
     if (!notices.length) {
@@ -1810,13 +1793,12 @@
       });
     }
     noticeBody.append(list);
-    body.append(noticePanel);
-
-    return panel;
+    wrap.append(panel, noticePanel);
+    return wrap;
   }
 
   function renderPasswordResetEmailsWorkspace() {
-    const panel = workbenchPanel('今日密码找回邮件', '仅展示当天由系统发出的密码找回验证码邮件');
+    const panel = workbenchPanel();
     const body = panel.querySelector('.admin-workspace-body');
     const emailData = state.passwordResetEmails;
     body.append(el('p', 'admin-meta', `${emailData.date || '今天'} · 共 ${emailData.total || 0} 封`));
@@ -1837,55 +1819,64 @@
   }
 
   function renderGuestbookWorkspace() {
-    const panel = workbenchPanel('留言管理', '先标记已读，再归档已处理留言');
+    const panel = workbenchPanel();
     const body = panel.querySelector('.admin-workspace-body');
     const filters = el('div', 'admin-segmented guestbook-filters');
+    filters.setAttribute('role', 'group');
+    filters.setAttribute('aria-label', '留言筛选');
     [['active', '待处理'], ['unread', '未读'], ['read', '已读'], ['archived', '已归档'], ['all', '全部']].forEach(([value, label]) => {
-      filters.append(button(label, async () => {
+      const node = button(label, async () => {
         if (state.guestbook.status === value) return;
         state.guestbook.status = value;
         state.guestbook.page = 1;
         await loadGuestbook({ force: true });
         render();
-      }, `small-button${state.guestbook.status === value ? ' is-active' : ''}`));
+      }, `small-button${state.guestbook.status === value ? ' is-active' : ''}`);
+      node.setAttribute('aria-pressed', String(state.guestbook.status === value));
+      filters.append(node);
     });
     body.append(filters);
-    const list = el('div', 'admin-list');
+    const list = el('div', 'guestbook-list');
     if (!state.guestbook.items.length) {
       list.append(empty('暂无留言'));
     } else {
-      state.guestbook.items.forEach((msg) => list.append(guestbookCard(msg)));
+      state.guestbook.items.forEach((msg) => list.append(guestbookRow(msg)));
     }
     body.append(list, renderPagination('guestbook'));
     return panel;
   }
 
-  function guestbookCard(msg) {
-    const card = el('article', 'admin-card admin-card-tight');
-    const head = el('div', 'admin-card-head');
-    const heading = el('div', 'guestbook-admin-heading');
-    heading.append(el('h3', '', msg.nickname), pill(statusText[msg.status] || msg.status || '未读'));
-    if(msg.feedback_status)heading.append(pill('处理进度：'+(statusText[msg.feedback_status]||msg.feedback_status)));
-    else heading.append(el('span','admin-meta','游客留言 · 无站内回复'));
-    head.append(heading);
-    const meta = el('p', 'admin-meta', `${msg.created_at} · IP: ${msg.ip_address}`);
-    const content = el('p', 'admin-reason', msg.content);
+  // Unread is a dot, archived is dimmed; the active filter already names the rest.
+  function guestbookRow(msg) {
+    const row = el('article', `guestbook-row is-${msg.status || 'unread'}`);
+    const head = el('div', 'guestbook-row-head');
+    if (msg.status === 'unread') {
+      const dot = el('span', 'guestbook-unread-dot');
+      dot.setAttribute('role', 'img');
+      dot.setAttribute('aria-label', '未读');
+      head.append(dot);
+    }
+    head.append(el('strong', '', msg.nickname));
+    if (msg.feedback_status) head.append(pill(statusText[msg.feedback_status] || msg.feedback_status));
+    head.append(el('span', 'admin-meta guestbook-row-time', msg.created_at));
+    const content = el('p', 'guestbook-row-content', msg.content);
+    const foot = el('div', 'guestbook-row-foot');
+    foot.append(el('span', 'admin-meta', msg.ip_address || ''));
     const actions = el('div', 'card-actions');
-    const statusActions = [];
-    if (msg.status === 'unread') statusActions.push(button('标记已读', () => updateGuestbookStatus(msg, 'read'), 'small-button is-active'));
-    if (msg.status === 'read') statusActions.push(button('归档', () => updateGuestbookStatus(msg, 'archived'), 'small-button'));
-    if (msg.status === 'archived') statusActions.push(button('恢复待处理', () => updateGuestbookStatus(msg, 'read'), 'small-button'));
-    const delBtn = button('删除留言', async () => {
+    if (msg.user_id) actions.append(button('回复', () => window.JccFeedback.openAdmin('guestbook', msg.id, api, async () => { await loadGuestbook({ force: true }); render(); })));
+    if (msg.status === 'unread') actions.append(button('标记已读', () => updateGuestbookStatus(msg, 'read'), 'small-button is-active'));
+    if (msg.status === 'read') actions.append(button('归档', () => updateGuestbookStatus(msg, 'archived')));
+    if (msg.status === 'archived') actions.append(button('恢复', () => updateGuestbookStatus(msg, 'read')));
+    actions.append(button('删除', async () => {
       if (!confirm('确定要删除这条留言吗？')) return;
       await api(`/api/guestbook/${msg.id}`, { method: 'DELETE' });
       await loadGuestbook({ force: true });
       render();
       setNotice('留言已删除');
-    }, 'small-button danger-button');
-    if (msg.user_id) actions.append(button('查看进度 / 回复用户', () => window.JccFeedback.openAdmin('guestbook', msg.id, api, async () => { await loadGuestbook({ force: true }); render(); })));
-    actions.append(...statusActions, delBtn);
-    card.append(head, meta, content, actions);
-    return card;
+    }, 'small-button danger-button'));
+    foot.append(actions);
+    row.append(head, content, foot);
+    return row;
   }
 
   async function updateGuestbookStatus(msg, status) {
@@ -1939,25 +1930,32 @@
     if (kind === 'guestbook') await loadGuestbook({ force: true });
   }
 
-  function workbenchPanel(title, subtitle, controls = null) {
+  // A panel heading is optional: single-panel pages already carry the page title.
+  function workbenchPanel(title = '', controls = null) {
     const section = el('section', 'admin-workspace-panel');
-    const header = el('div', 'admin-module-header');
-    header.append(sectionTitle(title, subtitle));
-    if (controls) header.append(controls);
+    if (title || controls) {
+      const header = el('div', 'admin-module-header');
+      header.append(title ? sectionTitle(title) : el('div'));
+      if (controls) header.append(controls);
+      section.append(header);
+    }
     const body = el('div', 'admin-workspace-body');
-    section.append(header, body);
+    section.append(body);
     return section;
   }
 
-  function trafficMetric(label, value, caption) {
+  // caption shows a related number; definition explains the metric on hover.
+  function trafficMetric(label, value, caption = '', definition = '') {
     const card = el('article', 'traffic-metric');
-    card.append(el('span', 'stat-label', label), el('strong', '', String(value)), el('small', '', caption));
+    if (definition) card.title = definition;
+    card.append(el('span', 'stat-label', label), el('strong', '', String(value)));
+    if (caption) card.append(el('small', '', caption));
     return card;
   }
 
-  function sectionTitle(title, subtitle) {
+  function sectionTitle(title) {
     const wrap = el('div', 'admin-section-title');
-    wrap.append(el('h2', '', title), el('p', '', subtitle));
+    wrap.append(el('h2', '', title));
     return wrap;
   }
 

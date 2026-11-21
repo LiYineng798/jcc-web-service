@@ -20,11 +20,12 @@
       }
       season.value = state.season || ''; season.addEventListener('change', () => changeFilters({ season: season.value }).catch(filterError));
       const order = el('select'); order.setAttribute('aria-label', '阵容排序');
+      // The score formula is reference material, so it lives in the tooltip.
+      order.title = '分数 = 近 7 天点赞 × 5 + 有效复制，包含管理员修正；同分时最新添加优先';
       for (const [value, text] of [['newest', '最新添加'], ['score_desc', '分数从高到低'], ['oldest', '最早更新优先']]) { const option = el('option', '', text); option.value = value; order.append(option); }
       order.value = state.order; order.addEventListener('change', () => changeFilters({ order: order.value }).catch(filterError));
       toolbar.append(season, order, button('刷新', refresh));
-      root.append(tabs, toolbar, el('p', 'lm-muted', '状态数量为全站统计；下表按搜索和赛季筛选。封禁后用户可修改并提交重审。'));
-      if (state.order === 'score_desc') root.append(el('p', 'lm-muted', '按当前分数降序，同分时最新添加优先。分数 = 近 7 天点赞 × 5 + 有效复制，包含管理员修正。'));
+      root.append(tabs, toolbar);
       if (!state.items.length) { root.append(el('p', 'lm-empty', '当前筛选下没有阵容')); return root; }
       const table = el('table', 'lm-table'); table.setAttribute('aria-label', '阵容管理列表');
       const head = el('thead'), headings = el('tr');

@@ -1729,6 +1729,10 @@ function renderGuestbookTrigger() {
   }
 }
 
+const GUESTBOOK_MAX_LENGTH = 500;
+// The counter stays hidden until the limit is close enough to matter.
+const GUESTBOOK_COUNT_FROM = 400;
+
 function showGuestbookDialog() {
   closeGuestbookDialog();
 
@@ -1744,85 +1748,69 @@ function showGuestbookDialog() {
   card.setAttribute('aria-modal', 'true');
   card.setAttribute('aria-labelledby', 'guestbookDialogTitle');
 
-  const header = document.createElement('div');
-  header.className = 'modal-header guestbook-header';
-  const headerCopy = document.createElement('div');
-  const icon = el('span', 'guestbook-header-icon');
-  icon.innerHTML = '<i data-lucide="message-circle-heart"></i>';
-  const eyebrow = el('p', 'guestbook-eyebrow', 'PLAYER FEEDBACK');
-  const title = document.createElement('h2');
+  const header = el('div', 'guestbook-header');
+  const title = el('h2', '', '给站长留言');
   title.id = 'guestbookDialogTitle';
-  title.textContent = '给站长留言';
-  const desc = document.createElement('p');
-  desc.className = 'auth-prompt-copy';
-  desc.textContent = '告诉我们你的体验、建议或想看的内容。';
-  headerCopy.append(eyebrow, title, desc);
   const closeBtn = document.createElement('button');
   closeBtn.type = 'button';
   closeBtn.className = 'guestbook-close';
-  closeBtn.setAttribute('aria-label', '关闭留言窗口');
-  closeBtn.title = '关闭';
-  closeBtn.textContent = '×';
+  closeBtn.setAttribute('aria-label', '关闭');
+  closeBtn.innerHTML = '<i data-lucide="x"></i>';
   closeBtn.addEventListener('click', closeGuestbookDialog);
-  header.append(icon, headerCopy, closeBtn);
+  header.append(title, closeBtn);
 
-  const form = document.createElement('form');
-  form.className = 'modal-form';
+  const form = el('form', 'guestbook-form');
+  form.noValidate = true;
 
-  const nicknameField = el('div', 'field');
-  const nicknameLabel = el('label', '', '昵称');
-  const nicknameInput = el('input');
+  // Signed-in messages are attributed to the account, so only guests name themselves.
+  const nicknameInput = el('input', 'guestbook-nickname');
   nicknameInput.type = 'text';
   nicknameInput.maxLength = 20;
-  nicknameInput.placeholder = '如何称呼你';
-  nicknameInput.required = true;
-  if (state.user) {
-    nicknameInput.value = state.user.nickname || '';
-    nicknameInput.readOnly = true;
-    nicknameLabel.textContent = '昵称（已登录）';
-  }
-  nicknameField.classList.add('guestbook-field');
-  nicknameField.append(nicknameLabel, nicknameInput);
+  nicknameInput.placeholder = '昵称';
+  nicknameInput.setAttribute('aria-label', '昵称');
+  nicknameInput.autocomplete = 'nickname';
 
-  const contentField = el('div', 'field');
-  const contentLabel = el('label', '', '留言内容');
-  const contentInput = el('textarea');
-  contentInput.placeholder = '写下你想对站长说的话...';
-  contentInput.maxLength = 500;
-  contentInput.required = true;
-  contentInput.rows = 4;
-  contentField.classList.add('guestbook-field', 'guestbook-content-field');
-  contentField.append(contentLabel, contentInput);
+  const contentInput = el('textarea', 'guestbook-content');
+  contentInput.placeholder = '想对站长说的话';
+  contentInput.setAttribute('aria-label', '留言内容');
+  contentInput.maxLength = GUESTBOOK_MAX_LENGTH;
+  contentInput.rows = 5;
 
-  const characterCount = el('p', 'guestbook-character-count', '0 / 500');
+  const characterCount = el('span', 'guestbook-character-count');
+  characterCount.setAttribute('aria-live', 'polite');
+  characterCount.hidden = true;
   contentInput.addEventListener('input', () => {
-    characterCount.textContent = `${contentInput.value.length} / 500`;
+    const length = contentInput.value.length;
+    characterCount.hidden = length < GUESTBOOK_COUNT_FROM;
+    characterCount.textContent = `${length} / ${GUESTBOOK_MAX_LENGTH}`;
     contentInput.style.height = 'auto';
-    contentInput.style.height = `${Math.min(contentInput.scrollHeight, 220)}px`;
+    contentInput.style.height = `${Math.min(contentInput.scrollHeight, 260)}px`;
+  });
+  contentInput.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter' && (event.metaKey || event.ctrlKey)) form.requestSubmit();
   });
 
-  const inlineMessage = document.createElement('div');
-  inlineMessage.className = 'message';
+  const inlineMessage = el('div', 'message');
 
-  const actions = document.createElement('div');
-  actions.className = 'guestbook-actions';
-  const submitBtn = document.createElement('button');
-  submitBtn.type = 'submit';
-  submitBtn.className = 'primary-button auth-prompt-confirm';
-  submitBtn.textContent = '提交留言';
-  actions.append(submitBtn);
-
-  const helper = el('p', 'guestbook-helper', '留言会进入站长的处理队列，我们会认真阅读每一条反馈。');
-  form.append(nicknameField, contentField, characterCount, inlineMessage, helper, actions);
+  const actions = el('div', 'guestbook-actions');
   if (state.user) {
-    const link=el('a','ghost-link','查看我的反馈与回复');link.href='/me#lineup-notifications';form.append(link);
+    const historyLink = el('a', 'guestbook-history', '我的反馈');
+    historyLink.href = '/me#lineup-notifications';
+    actions.append(historyLink);
   }
+  const submitBtn = el('button', 'guestbook-submit', '发送');
+  submitBtn.type = 'submit';
+  actions.append(characterCount, submitBtn);
+
+  if (!state.user) form.append(nicknameInput);
+  form.append(contentInput, inlineMessage, actions);
+
   form.addEventListener('submit', async (event) => {
     event.preventDefault();
     const nickname = nicknameInput.value.trim();
     const content = contentInput.value.trim();
-    if (!nickname) { window.jccNotify.inline(inlineMessage, '请填写昵称'); return; }
-    if (!content) { window.jccNotify.inline(inlineMessage, '请填写留言内容'); return; }
+    if (!state.user && !nickname) { window.jccNotify.inline(inlineMessage, '请填写昵称'); nicknameInput.focus(); return; }
+    if (!content) { window.jccNotify.inline(inlineMessage, '请填写留言内容'); contentInput.focus(); return; }
     submitBtn.disabled = true;
     inlineMessage.textContent = '';
     try {
@@ -1830,10 +1818,14 @@ function showGuestbookDialog() {
       if (!state.user) body.nickname = nickname;
       const receipt = await api('/api/guestbook', { method: 'POST', body: JSON.stringify(body) });
       if (!state.user) {
-        closeGuestbookDialog();showToast('感谢留言，站长会尽快查看');return;
+        closeGuestbookDialog(); showToast('已发送，谢谢你的留言'); return;
       }
-      form.replaceChildren(el('p', '', '反馈已收到，后续进度和回复会出现在通知中心。'));
-      const link = el('a', 'primary-link', '查看反馈进度');link.href=receipt.feedback_url;form.append(link);link.focus();
+      const done = el('div', 'guestbook-done');
+      const link = el('a', 'guestbook-submit', '查看进度');
+      link.href = receipt.feedback_url;
+      done.append(el('p', '', '已发送，回复会出现在通知中心。'), link);
+      form.replaceChildren(done);
+      link.focus();
     } catch (err) {
       window.jccNotify.inline(inlineMessage, err.message || '留言失败，请稍后再试');
     } finally {
@@ -1848,7 +1840,7 @@ function showGuestbookDialog() {
   backdrop.addEventListener('keydown', (event) => {
     if (event.key === 'Escape') closeGuestbookDialog();
   });
-  contentInput.focus();
+  (state.user ? contentInput : nicknameInput).focus();
 }
 
 function closeGuestbookDialog() {

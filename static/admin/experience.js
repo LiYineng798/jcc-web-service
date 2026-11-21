@@ -14,7 +14,7 @@
         button('近 30 天',()=>helpers.range(30),'small-button',state.loading),
         button('刷新',()=>helpers.query(state.start,state.end,true),'small-button',state.loading));
       controls.addEventListener('submit',event=>{event.preventDefault();helpers.query(start.value,end.value,true);});
-      const panel=workbenchPanel('搜索与设备','普通阵容列表搜索 · 最多查询 90 天 · 不含管理员',controls);
+      const panel=workbenchPanel('搜索与设备',controls);
       panel.classList.add('admin-experience-panel');
       const body=panel.querySelector('.admin-workspace-body');
       const message=el('p','admin-meta'); message.setAttribute('role','status');

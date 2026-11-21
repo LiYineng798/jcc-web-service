@@ -3678,192 +3678,177 @@ a.author-link:hover {
 /* ---- guestbook dialog ---- */
 
 .guestbook-dialog {
-  width: min(100% - 32px, 560px);
-  border-color: color-mix(in srgb, var(--accent) 34%, var(--line));
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 24px 70px rgba(14, 18, 25, .24);
+  width: min(100% - 32px, 520px);
+  padding: 18px 20px 20px;
+  border-radius: 14px;
+  box-shadow: 0 24px 64px rgba(14, 18, 25, .18);
 }
 
-.guestbook-dialog .modal-header {
-  align-items: flex-start;
+.guestbook-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
   gap: 12px;
-  padding: 24px 26px 20px;
-  border-bottom: 1px solid var(--line);
-  background: color-mix(in srgb, var(--accent) 8%, var(--surface-solid));
-}
-
-.guestbook-header-icon {
-  flex: 0 0 42px;
-  width: 42px;
-  height: 42px;
-  display: grid;
-  place-items: center;
-  border: 1px solid color-mix(in srgb, var(--accent) 32%, var(--line));
-  border-radius: 10px;
-  color: var(--accent-strong);
-  background: var(--surface-solid);
-}
-
-.guestbook-header-icon svg { width: 21px; height: 21px; }
-
-.guestbook-dialog .modal-form {
-  gap: 0;
-  padding: 24px 26px 26px;
-}
-
-.guestbook-eyebrow {
-  margin: 0 0 6px;
-  color: var(--accent);
-  font-size: 0.69rem;
-  font-weight: 800;
-  letter-spacing: 0.08em;
+  margin-bottom: 14px;
 }
 
 .guestbook-dialog h2 {
   margin: 0;
   color: var(--text);
-  font-size: 1.34rem;
+  font-size: 1.06rem;
+  font-weight: 650;
 }
 
-.guestbook-dialog .auth-prompt-copy {
-  margin: 7px 0 0;
-  max-width: 390px;
-  color: var(--muted);
-  font-size: 0.9rem;
-  line-height: 1.65;
-}
-
-.guestbook-close {
-  flex: 0 0 auto;
+.guestbook-dialog .guestbook-close {
   display: grid;
-  width: 32px;
-  height: 32px;
+  flex: 0 0 auto;
+  width: 30px;
+  height: 30px;
+  margin-right: -6px;
   place-items: center;
-  border: 1px solid var(--line);
-  border-radius: 6px;
+  border: 0;
+  border-radius: 8px;
   color: var(--muted);
   background: transparent;
-  font-size: 1.5rem;
-  line-height: 1;
   cursor: pointer;
-  transition: color 160ms ease, border-color 160ms ease, background 160ms ease;
+  transition: color 160ms ease, background 160ms ease;
 }
 
-.guestbook-close:hover {
-  border-color: var(--accent);
-  color: var(--accent);
-  background: var(--accent-soft);
+.guestbook-dialog .guestbook-close svg { width: 18px; height: 18px; }
+
+.guestbook-dialog .guestbook-close:hover {
+  color: var(--text);
+  background: color-mix(in srgb, var(--text) 7%, transparent);
 }
 
-.guestbook-dialog .field {
-  margin-bottom: 18px;
-}
-
-.guestbook-field { display: grid; gap: 7px; }
-
-.guestbook-dialog label {
-  display: block;
-  color: var(--muted);
-  font-size: 0.88rem;
-  font-weight: 600;
+.guestbook-form {
+  display: grid;
+  gap: 10px;
+  min-height: 0;
+  overflow-y: auto;
 }
 
 .guestbook-dialog input,
 .guestbook-dialog textarea {
   width: 100%;
-  border: 1px solid color-mix(in srgb, var(--line) 92%, transparent);
-  border-radius: 8px;
-  background: color-mix(in srgb, var(--surface-solid) 92%, var(--page));
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--surface-solid) 55%, var(--bg));
   color: var(--text);
   outline: none;
-  transition: border-color 160ms ease, box-shadow 160ms ease;
+  transition: border-color 160ms ease, box-shadow 160ms ease, background 160ms ease;
 }
 
 .guestbook-dialog input {
-  height: 46px;
-  padding: 0 13px;
+  height: 42px;
+  padding: 0 12px;
 }
 
 .guestbook-dialog textarea {
   resize: none;
-  min-height: 132px;
-  max-height: 220px;
-  padding: 13px 14px;
-  line-height: 1.6;
+  min-height: 140px;
+  max-height: 260px;
+  padding: 11px 12px;
+  line-height: 1.65;
+}
+
+.guestbook-dialog input::placeholder,
+.guestbook-dialog textarea::placeholder {
+  color: color-mix(in srgb, var(--muted) 80%, transparent);
 }
 
 .guestbook-dialog input:focus,
 .guestbook-dialog textarea:focus {
-  border-color: rgba(201, 100, 66, 0.78);
-  box-shadow: 0 0 0 4px var(--accent-soft);
+  border-color: color-mix(in srgb, var(--accent) 70%, transparent);
+  background: var(--surface-solid);
+  box-shadow: 0 0 0 3px var(--accent-soft);
 }
 
-.guestbook-character-count {
-  margin: -8px 0 14px;
-  color: var(--muted);
-  font-size: 0.75rem;
-  text-align: right;
+.guestbook-form .message {
+  min-height: 0;
+  margin: 0;
+  font-size: .85rem;
 }
+
+.guestbook-form .message:empty { display: none; }
 
 .guestbook-actions {
   display: flex;
-  justify-content: stretch;
-  margin-top: 6px;
+  align-items: center;
+  gap: 12px;
+  margin-top: 4px;
 }
 
-.guestbook-dialog .guestbook-submit,
-.guestbook-dialog .auth-prompt-confirm {
-  width: 100%;
+.guestbook-history {
+  color: var(--muted);
+  font-size: .85rem;
+  text-decoration: none;
+}
+
+.guestbook-history:hover { color: var(--accent-strong); }
+
+.guestbook-character-count {
+  margin-left: auto;
+  color: var(--muted);
+  font-size: .78rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.guestbook-dialog .guestbook-submit {
+  display: inline-flex;
+  align-items: center;
+  margin-left: auto;
+  min-height: 38px;
+  padding: 0 18px;
   border: 0;
-  border-radius: var(--radius-md);
+  border-radius: 10px;
   background: var(--accent);
   color: #fffaf5;
-  padding: 12px 18px;
-  font-weight: 700;
+  font-weight: 650;
+  text-decoration: none;
   cursor: pointer;
-  transition: transform 160ms ease, background 160ms ease;
+  transition: background 160ms ease;
 }
 
-.guestbook-dialog .guestbook-submit:hover,
-.guestbook-dialog .auth-prompt-confirm:hover {
-  background: var(--accent-strong);
-  transform: translateY(-1px);
+.guestbook-character-count:not([hidden]) + .guestbook-submit { margin-left: 0; }
+
+.guestbook-dialog .guestbook-submit:hover { background: var(--accent-strong); }
+
+.guestbook-dialog .guestbook-submit:focus-visible,
+.guestbook-dialog .guestbook-close:focus-visible,
+.guestbook-history:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 
-.guestbook-dialog .guestbook-submit:disabled,
-.guestbook-dialog .auth-prompt-confirm:disabled {
+.guestbook-dialog .guestbook-submit:disabled {
   opacity: 0.5;
   pointer-events: none;
 }
 
-.guestbook-helper {
-  margin: 0;
-  color: var(--muted);
-  font-size: .76rem;
-  line-height: 1.55;
+.guestbook-done {
+  display: grid;
+  justify-items: start;
+  gap: 14px;
 }
 
+.guestbook-done p {
+  margin: 0;
+  color: var(--text);
+  line-height: 1.65;
+}
+
+.guestbook-done .guestbook-submit { margin-left: 0; }
+
 @media (max-width: 600px) {
-  .guestbook-dialog { width: min(100% - 20px, 560px); max-height: calc(100dvh - 20px); }
-  .guestbook-dialog .modal-header {
-    position: relative;
-    flex-direction: row;
-    align-items: flex-start;
-    padding: 18px 18px 16px;
+  .guestbook-dialog {
+    width: min(100% - 20px, 520px);
+    max-height: calc(100dvh - 20px);
+    padding: 16px;
   }
-  .guestbook-dialog .modal-header > div:not(.guestbook-header-icon) {
-    min-width: 0;
-    flex: 1 1 auto;
-  }
-  .guestbook-dialog .guestbook-close {
-    position: relative;
-    z-index: 1;
-    margin-left: auto;
-  }
-  .guestbook-dialog .modal-form { padding: 18px; overflow-y: auto; }
-  .guestbook-dialog textarea { min-height: 116px; }
-  .guestbook-header-icon { flex-basis: 36px; width: 36px; height: 36px; }
+  .guestbook-dialog .guestbook-header { flex-direction: row; }
+  .guestbook-dialog textarea { min-height: 128px; }
 }
 
 @media (max-width: 920px) {

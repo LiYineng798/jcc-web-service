@@ -10,7 +10,7 @@
       wrap.append(renderToolbar(state, helpers));
 
       if (!items.length && !report) {
-        wrap.append(empty('还没有每日报告。每天凌晨会自动生成昨日报告，也可以点击「生成昨日报告」立即生成。'));
+        wrap.append(empty('还没有每日报告'));
         return wrap;
       }
       if (!report) {
@@ -141,10 +141,7 @@
     }
 
     function renderHeatmapPanel(report) {
-      const panel = workbenchPanel(
-        '昨日小时热度',
-        '24 小时访问与复制分布，颜色越深人数越多',
-      );
+      const panel = workbenchPanel('昨日小时热度');
       const body = panel.querySelector('.admin-workspace-body');
       const hourly = report.hourly || { uv: [], visits: [], copies: [] };
       const peakVisit = report.peak_visit_hour;
@@ -210,7 +207,7 @@
 
     // Snapshots before payload v2 have no deck keys; every figure then reads "未采集" instead of zero.
     function renderDeckPanel(report) {
-      const panel = workbenchPanel('卡组库', '投稿、处理、发布、复制与访问；复制动作、有效复制与人数分别统计');
+      const panel = workbenchPanel('卡组库');
       const body = panel.querySelector('.admin-workspace-body');
       body.append(global.JccAdminDeckMetrics.render({ summary: report.summary, coverage: report.deck_coverage,
         top: report.deck_top, contributors: report.deck_contributors, snapshot: report.deck_snapshot,
@@ -231,7 +228,7 @@
     }
 
     function renderTopPagesPanel(report) {
-      const panel = workbenchPanel('热门页面', '昨日访问最多的页面');
+      const panel = workbenchPanel('热门页面');
       const body = panel.querySelector('.admin-workspace-body');
       const pages = report.top_pages || [];
       if (!pages.length) {
@@ -257,7 +254,7 @@
     }
 
     function renderSeasonRankPanel(report) {
-      const panel = workbenchPanel('版本复制榜', '按赛季版本统计昨日成功复制次数');
+      const panel = workbenchPanel('版本复制榜');
       const body = panel.querySelector('.admin-workspace-body');
       const items = report.season_copy_rank || [];
       if (!items.length) {
@@ -283,7 +280,7 @@
     }
 
     function renderTopCopiedPanel(report) {
-      const panel = workbenchPanel('复制排行', '昨日成功复制动作最多的内容（普通阵容、实时阵容与卡组分别标注）');
+      const panel = workbenchPanel('复制排行');
       const body = panel.querySelector('.admin-workspace-body');
       const items = report.top_copied || [];
       if (!items.length) {
@@ -323,7 +320,7 @@
     }
 
     function renderVisitorIpsPanel(report) {
-      const panel = workbenchPanel('访问 IP', '昨日访问 Top IP · 仅管理员可见 · 同一访客每天每类页面计一次，重复刷新不累加');
+      const panel = workbenchPanel('访问 IP');
       const body = panel.querySelector('.admin-workspace-body');
       const items = report.top_visitor_ips || [];
       if (!items.length) {
@@ -368,7 +365,7 @@
 
     function renderReportFooter(report) {
       const footer = el('p', 'daily-report-footer',
-        `快照时间 ${report.generated_at || '--'} · 每日 00:15 左右自动生成昨日报告 · 可在上方重新生成`);
+        `快照时间 ${report.generated_at || '--'}`);
       if (report.previous_date && report.deltas) {
         footer.textContent = `与 ${report.previous_date} 报告对比 · ${footer.textContent}`;
       }

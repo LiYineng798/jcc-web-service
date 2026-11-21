@@ -22,12 +22,11 @@
       <aside class="admin-sidebar" aria-label="后台主导航">
         <a class="admin-brand" href="/admin" aria-label="金铲铲阵容站后台首页">
           <span class="admin-brand-mark" aria-hidden="true">阵</span>
-          <span class="admin-brand-copy"><strong>阵容管理台</strong><small>JCC Admin</small></span>
+          <span class="admin-brand-copy"><strong>阵容管理台</strong></span>
         </a>
 
         <nav class="admin-sidebar-nav">
-          <section class="admin-nav-group" aria-labelledby="adminNavWorkbench">
-            <h2 id="adminNavWorkbench">工作台</h2>
+          <section class="admin-nav-group" aria-label="工作台">
             <button class="admin-nav-item is-active" data-admin-tab="overview" type="button"><i data-lucide="layout-dashboard"></i><span>概览</span></button>
             <button class="admin-nav-item" data-admin-tab="reports" type="button"><i data-lucide="shield-alert"></i><span>失效反馈处理</span><span class="admin-nav-count" id="pendingReportCount">0</span></button>
             <div class="admin-nav-tree" data-admin-nav-tree="lineups">
@@ -47,8 +46,7 @@
               </div>
             </div>
           </section>
-          <section class="admin-nav-group" aria-labelledby="adminNavContent">
-            <h2 id="adminNavContent">内容与用户</h2>
+          <section class="admin-nav-group" aria-label="内容与用户">
             <button class="admin-nav-item" data-admin-tab="season-display" type="button"><i data-lucide="panels-top-left"></i><span>资料赛季</span></button>
             <button class="admin-nav-item" data-admin-tab="season-packages" type="button"><i data-lucide="package-check"></i><span>赛季版本更新</span></button>
             <button class="admin-nav-item" data-admin-tab="patch-notes" type="button"><i data-lucide="notebook-tabs"></i><span>更新公告</span></button>
@@ -57,8 +55,7 @@
             <button class="admin-nav-item" data-admin-tab="users" type="button"><i data-lucide="users"></i><span>用户管理</span></button>
             <button class="admin-nav-item" data-admin-tab="guestbook" type="button"><i data-lucide="message-square-text"></i><span>留言管理</span><span class="admin-nav-count" id="guestbookUnreadCount">0</span></button>
           </section>
-          <section class="admin-nav-group" aria-labelledby="adminNavSystem">
-            <h2 id="adminNavSystem">数据与系统</h2>
+          <section class="admin-nav-group" aria-label="数据与系统">
             <button class="admin-nav-item" data-admin-tab="analytics" type="button"><i data-lucide="chart-no-axes-combined"></i><span>增长分析</span></button>
             <button class="admin-nav-item" data-admin-tab="daily-reports" type="button"><i data-lucide="calendar-check-2"></i><span>每日报告</span></button>
             <button class="admin-nav-item" data-admin-tab="audit" type="button"><i data-lucide="scroll-text"></i><span>审计日志</span></button>
@@ -67,26 +64,18 @@
           </section>
         </nav>
 
-        <div class="admin-sidebar-footer">
-          <span class="admin-system-state"><i data-lucide="circle-check"></i>服务运行正常</span>
-          <span class="admin-system-caption">管理操作将写入审计日志</span>
-        </div>
       </aside>
 
       <main class="admin-main">
         <header class="admin-topbar">
-          <div class="admin-mobile-brand" aria-label="阵容管理台">
+          <a class="admin-mobile-brand" href="/admin" aria-label="阵容管理台">
             <span class="admin-brand-mark" aria-hidden="true">阵</span>
-            <span><strong>阵容管理台</strong><small>管理员工作台</small></span>
-          </div>
-          <div class="admin-page-heading">
-            <h1 id="adminPageTitle">运营概览</h1>
-            <p id="adminPageSubtitle">今日关键指标与待处理事项</p>
-          </div>
+          </a>
+          <h1 class="admin-page-heading" id="adminPageTitle">概览</h1>
           <div class="admin-top-actions">
-            <a class="admin-icon-link" href="/" title="返回前台" aria-label="返回前台"><i data-lucide="external-link"></i><span>返回前台</span></a>
+            <a class="admin-icon-link" href="/" title="返回前台" aria-label="返回前台"><i data-lucide="external-link"></i></a>
             {{ theme_toggle('admin-theme-toggle') }}
-            <span class="admin-identity" id="adminIdentity"><span class="admin-avatar" aria-hidden="true">管</span><span class="admin-identity-copy"><strong>后台账号</strong><small>管理员</small></span></span>
+            <span class="admin-identity" id="adminIdentity"><span class="admin-avatar" aria-hidden="true">管</span><span class="admin-identity-copy"><strong>后台账号</strong></span></span>
           </div>
         </header>
 
@@ -106,7 +95,7 @@
 
     <dialog class="admin-more-dialog" id="adminMoreDialog" aria-labelledby="adminMoreTitle">
       <div class="admin-more-handle" aria-hidden="true"></div>
-      <header><div><h2 id="adminMoreTitle">更多管理工具</h2><p>内容、用户与系统设置</p></div><button class="admin-dialog-close" id="adminMoreClose" type="button" aria-label="关闭"><i data-lucide="x"></i></button></header>
+      <header><h2 id="adminMoreTitle">更多</h2><button class="admin-dialog-close" id="adminMoreClose" type="button" aria-label="关闭"><i data-lucide="x"></i></button></header>
       <section class="admin-more-section" aria-labelledby="adminMoreLineups">
         <h3 id="adminMoreLineups">阵容管理</h3>
         <div class="admin-more-grid admin-more-grid-compact">
@@ -123,8 +112,7 @@
           <button data-admin-tab="live-comps" data-admin-workspace="seasons" type="button"><i data-lucide="layers-3"></i><span>赛季管理</span></button>
         </div>
       </section>
-      <section class="admin-more-section" aria-labelledby="adminMoreOther">
-        <h3 id="adminMoreOther">其他工具</h3>
+      <section class="admin-more-section" aria-label="其他">
         <div class="admin-more-grid">
           <button data-admin-tab="season-display" type="button"><i data-lucide="panels-top-left"></i><span>资料赛季</span></button>
           <button data-admin-tab="season-packages" type="button"><i data-lucide="package-check"></i><span>赛季版本更新</span></button>

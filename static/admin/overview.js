@@ -16,7 +16,7 @@
 
     function renderDeckPanel() {
       const deck = getOverview()?.deck;
-      const panel = workbenchPanel('卡组库 · 今日', '今日关键数据与当前待办，详细构成可在每日报告查看');
+      const panel = workbenchPanel('卡组库');
       panel.classList.add('admin-deck-overview');
       const body = panel.querySelector('.admin-workspace-body');
       if (!deck) { body.append(empty('卡组数据暂不可用')); return panel; }
@@ -26,13 +26,9 @@
 
     function renderCopyRankPanel() {
       const rank = getCopyRank?.() || {};
-      const panel = workbenchPanel('今日复制排行', `${rank.date || '今天'} 成功复制动作最多的内容（普通阵容、实时阵容与卡组分别标注）`);
+      const refresh = refreshCopyRank ? button('刷新', async () => refreshCopyRank(), 'small-button') : null;
+      const panel = workbenchPanel('今日复制排行', refresh);
       const body = panel.querySelector('.admin-workspace-body');
-      if (refreshCopyRank) {
-        const actions = el('div', 'card-actions');
-        actions.append(button('刷新', async () => refreshCopyRank(), 'small-button'));
-        body.append(actions);
-      }
       const items = rank.items || [];
       if (!items.length) {
         body.append(empty('今天还没有复制记录'));
@@ -98,23 +94,26 @@
     function renderOverviewStats() {
       const stats = getOverview()?.stats || {};
       const cards = el('div', 'admin-stat-grid');
+      // Visible captions carry numbers only; metric definitions live in the tooltip.
       [
-        ['今日全站 UV', stats.today_uv || 0, '全站页面按自然日去重'],
-        ['今日总复制', stats.today_total_copy_count || 0, `普通阵容 ${stats.today_lineup_copy_count || 0} · 实时阵容 ${stats.today_live_comp_copy_count || 0} · 卡组另计`],
-        ['今日注册', stats.today_users || 0, '新增用户数'],
-        ['登录用户活跃', stats.today_authenticated_users || 0, `含保持登录的回访用户 · 主动登录 ${stats.today_logins || 0} 人 · 均按账号去重，不含管理员`],
-        ['待处理失效反馈', stats.pending_reports_count || 0, '优先处理'],
-        ['总用户', stats.total_users || 0, '不含管理员'],
-      ].forEach(([label, value, caption]) => {
+        ['今日全站 UV', stats.today_uv || 0, buildDeltaText(stats.today_uv || 0, stats.yesterday_uv || 0), '全站页面按自然日去重'],
+        ['今日总复制', stats.today_total_copy_count || 0, `普通阵容 ${stats.today_lineup_copy_count || 0} · 实时阵容 ${stats.today_live_comp_copy_count || 0}`, '普通阵容与实时阵容，卡组另计'],
+        ['今日注册', stats.today_users || 0, '', '新增用户数'],
+        ['登录用户活跃', stats.today_authenticated_users || 0, `主动登录 ${stats.today_logins || 0}`, '含保持登录的回访用户，均按账号去重，不含管理员'],
+        ['待处理失效反馈', stats.pending_reports_count || 0, '', ''],
+        ['总用户', stats.total_users || 0, '', '不含管理员'],
+      ].forEach(([label, value, caption, definition]) => {
         const card = el('article', 'admin-stat-card');
-        card.append(el('span', 'stat-label', label), el('strong', '', String(value)), el('small', '', caption));
+        if (definition) card.title = definition;
+        card.append(el('span', 'stat-label', label), el('strong', '', String(value)));
+        if (caption) card.append(el('small', '', caption));
         cards.append(card);
       });
       return cards;
     }
 
     function renderTrafficOverview() {
-      const panel = workbenchPanel('7 日访问趋势', '只展示轻量趋势，不在首页加载完整增长漏斗');
+      const panel = workbenchPanel('近 7 日访问');
       const body = panel.querySelector('.admin-workspace-body');
       const stats = getOverview()?.stats || {};
       const trend = getOverview()?.traffic_7d || [];
@@ -122,11 +121,10 @@
 
       const overview = el('div', 'traffic-overview');
       overview.append(
-        trafficMetric('今日全站 UV', stats.today_uv || 0, buildDeltaText(stats.today_uv || 0, stats.yesterday_uv || 0)),
-        trafficMetric('昨日全站 UV', stats.yesterday_uv || 0, '上一自然日全站去重'),
-        trafficMetric('7 日累计全站 UV', totalUv, '最近 7 天全站访问人数'),
-        trafficMetric('今日新访客', stats.today_new_visitors || 0, '首次访问日期为今天'),
-        trafficMetric('今日老访客', stats.today_returning_visitors || 0, '今天之前已访问过'),
+        trafficMetric('昨日全站 UV', stats.yesterday_uv || 0, '', '上一自然日全站去重'),
+        trafficMetric('7 日累计全站 UV', totalUv, '', '最近 7 天全站访问人数'),
+        trafficMetric('今日新访客', stats.today_new_visitors || 0, '', '首次访问日期为今天'),
+        trafficMetric('今日老访客', stats.today_returning_visitors || 0, '', '今天之前已访问过'),
       );
 
       body.append(overview, renderTrafficLineChart(trend));
@@ -145,8 +143,8 @@
       const delta = Number(latest.uv || 0) - Number(previous.uv || 0);
       const summary = el('div', 'traffic-line-summary');
       summary.append(
-        el('strong', '', '每日 UV 折线'),
-        el('span', '', `最新 ${latest.uv} UV · ${delta >= 0 ? '+' : ''}${delta} 较前日`),
+        el('strong', '', '每日 UV'),
+        el('span', '', `${latest.uv} UV · ${delta >= 0 ? '+' : ''}${delta}`),
       );
 
       const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
@@ -317,20 +315,18 @@
     }
 
     function renderTodoPanel() {
-      const panel = workbenchPanel('待办事项', '优先完成有风险和有反馈压力的任务');
+      const panel = workbenchPanel('待办');
       const body = panel.querySelector('.admin-workspace-body');
       const todos = getOverview()?.todos || {};
       const list = el('div', 'admin-list compact');
       [
-        ['待处理失效反馈', `${todos.pending_reports_count || 0} 条`, '需要人工判断与处理'],
-        ['卡组投稿', `${todos.deck_submissions_pending || 0} 待处理 · ${todos.deck_submissions_processing || 0} 处理中`, `${todos.deck_submissions_needs_info || 0} 份等待投稿人补充`],
-        ['已隐藏阵容', `${todos.hidden_lineups_count || 0} 条`, '可去阵容管理复核'],
-        ['今日后台操作', `${todos.recent_audit_count || 0} 次`, '建议关注异常频繁操作'],
-      ].forEach(([label, value, caption]) => {
+        ['待处理失效反馈', `${todos.pending_reports_count || 0} 条`],
+        ['卡组投稿', `${todos.deck_submissions_pending || 0} 待处理 · ${todos.deck_submissions_processing || 0} 处理中 · ${todos.deck_submissions_needs_info || 0} 待补充`],
+        ['已隐藏阵容', `${todos.hidden_lineups_count || 0} 条`],
+        ['今日后台操作', `${todos.recent_audit_count || 0} 次`],
+      ].forEach(([label, value]) => {
         const card = el('article', 'admin-row-card');
-        const info = el('div');
-        info.append(el('strong', '', label), el('p', 'admin-meta', caption));
-        card.append(info, el('span', 'admin-meta', value));
+        card.append(el('strong', '', label), el('span', 'admin-meta', value));
         list.append(card);
       });
       body.append(list);
