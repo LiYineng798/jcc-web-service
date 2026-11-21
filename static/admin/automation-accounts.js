@@ -1,11 +1,11 @@
 (function (global) {
-  const { el, button } = global.JccAdminCore;
+  const { el, button, closeButton } = global.JccAdminCore;
   function open({ api, afterChange }) {
     const dialog = el('dialog', 'lm-dialog automation-dialog');
     dialog.setAttribute('aria-labelledby', 'automationTitle');
     const header = el('header', 'lm-dialog-head');
     const title = el('h2', '', 'AI 自动化账号'); title.id = 'automationTitle';
-    header.append(title, button('关闭', () => dialog.close()));
+    header.append(title, closeButton(() => dialog.close()));
     const body = el('div', 'lm-dialog-body');
     dialog.append(header, body); document.body.append(dialog);
     dialog.addEventListener('close', () => { dialog.remove(); afterChange?.(); }, { once: true });
@@ -19,13 +19,14 @@
       try {
         const data = await api('/api/admin/automation-accounts');
         if (!dialog.open) return;
-        body.replaceChildren(el('p', 'admin-meta', '使用正常登录页进入受限后台。默认可查看脱敏运营数据并修改本账号头像；可分别授权普通阵容批量导入和榜单展示时间维护。账号只能由管理员创建，密码仅保存加密摘要。'),
-          button('创建自动化账号', () => edit()));
+        const toolbar = el('div', 'automation-toolbar');
+        toolbar.append(button('创建自动化账号', () => edit(), 'small-button is-active'));
+        body.replaceChildren(toolbar);
         if (!data.items.length) body.append(el('p', '', '暂无自动化账号'));
         for (const account of data.items) {
           const card = el('article', 'automation-card');
           card.append(el('strong', '', `${account.nickname} (@${account.username})`),
-            el('p', 'admin-meta', `${account.status === 'active' ? '启用' : '已禁用'} · ${account.can_import ? '可导入指定赛季' : '普通阵容只读'}${account.can_touch ? ' · 可维护展示时间' : ''} · 可改本账号头像`),
+            el('p', 'admin-meta', `${account.status === 'active' ? '启用' : '已禁用'} · ${account.can_import ? '可导入指定赛季' : '普通阵容只读'}${account.can_touch ? ' · 可维护展示时间' : ''}`),
             el('p', 'admin-meta', `到期：${new Date(account.expires_at).toLocaleString('zh-CN')} · 最近使用：${account.last_used_at ? new Date(account.last_used_at).toLocaleString('zh-CN') : '尚未使用'}`));
           if (account.can_touch) card.append(el('p', 'admin-meta', `展示时间授权：${account.touch_seasons.join('、')}`));
           if (account.can_import) card.append(el('p', 'admin-meta', `授权赛季：${account.allowed_seasons.join('、')}`));
@@ -49,14 +50,16 @@
     }
     function resetPassword(account) {
       const form = el('form', 'automation-form');
-      form.append(el('h3', '', `重设 ${account.username}`), el('p', 'admin-meta', '留空的项目保持不变。重设密码将使已有登录失效；续期按当前时间起算。'));
-      const label = el('label', 'patch-editor-field', '新密码（12–128 字符，含字母和数字）');
-      const password = el('input'); password.type = 'password'; password.autocomplete = 'new-password'; password.minLength = 12; password.maxLength = 128; label.append(password);
-      const daysLabel = el('label', 'patch-editor-field', '续期天数（1–90 天）');
-      const days = el('input'); days.type = 'number'; days.min = 1; days.max = 90; daysLabel.append(days);
+      // Blank fields stay unchanged; a new password signs out existing sessions.
+      form.append(el('h3', '', `重设 ${account.username}`));
+      const label = el('label', 'patch-editor-field', '新密码');
+      const password = el('input'); password.type = 'password'; password.autocomplete = 'new-password'; password.minLength = 12; password.maxLength = 128; password.placeholder = '留空不改 · 12 位以上，含字母和数字'; label.append(password);
+      const daysLabel = el('label', 'patch-editor-field', '续期天数');
+      const days = el('input'); days.type = 'number'; days.min = 1; days.max = 90; days.placeholder = '留空不改 · 1–90'; daysLabel.append(days);
       const message = el('p', 'patch-editor-error'); message.setAttribute('role', 'alert');
       const submit = el('button', 'small-button is-active', '保存'); submit.type = 'submit';
-      form.append(label, daysLabel, message, submit, button('返回列表', load));
+      const actions = el('div', 'card-actions automation-actions'); actions.append(button('返回列表', load), submit);
+      form.append(label, daysLabel, message, actions);
       form.addEventListener('submit', async event => {
         event.preventDefault(); if (submit.disabled) return;
         const data = {};
@@ -87,16 +90,17 @@
       if (!account) {
         const name = field('用户名', 'username', ''); name.querySelector('input').maxLength = 30;
         const nickname = field('显示名称', 'nickname', ''); nickname.querySelector('input').maxLength = 30;
-        const days = field('账号有效期（1–90 天）', 'days', '30', 'number');
+        const days = field('有效期（天）', 'days', '30', 'number');
         days.querySelector('input').min = '1'; days.querySelector('input').max = '90';
-        const password = field('登录密码（至少 12 字符，含字母和数字）', 'password', '', 'password');
+        const password = field('登录密码', 'password', '', 'password');
         password.querySelector('input').minLength = 12; password.querySelector('input').maxLength = 128; password.querySelector('input').autocomplete = 'new-password';
+        password.querySelector('input').placeholder = '12 位以上，含字母和数字';
         form.append(name, nickname, password, days);
       }
       const permission = el('label', 'automation-check');
       const enabled = el('input'); enabled.type = 'checkbox'; enabled.checked = account?.can_import || false;
-      permission.append(enabled, document.createTextNode('允许批量导入普通赛季阵容（默认关闭）')); form.append(permission);
-      const choices = el('fieldset', 'automation-seasons'); choices.append(el('legend', '', '允许导入的赛季'));
+      permission.append(enabled, document.createTextNode('批量导入普通阵容')); form.append(permission);
+      const choices = el('fieldset', 'automation-seasons'); choices.append(el('legend', '', '导入赛季'));
       for (const season of seasons) {
         const label = el('label', 'automation-check'); const input = el('input');
         input.type = 'checkbox'; input.value = season.id; input.checked = account?.allowed_seasons?.includes(season.id) || false;
@@ -105,14 +109,14 @@
       choices.disabled = !enabled.checked; enabled.addEventListener('change', () => { choices.disabled = !enabled.checked; });
       const touchLabel = el('label', 'automation-check');
       const touch = el('input'); touch.type = 'checkbox'; touch.checked = account?.can_touch || false;
-      touchLabel.append(touch, document.createTextNode('允许将实时榜单展示时间设为现在（默认关闭；不会更新阵容或排名）'));
-      const touchChoices = choices.cloneNode(true); touchChoices.querySelector('legend').textContent = '允许维护展示时间的赛季';
+      touchLabel.append(touch, document.createTextNode('维护实时榜单展示时间'));
+      const touchChoices = choices.cloneNode(true); touchChoices.querySelector('legend').textContent = '展示时间赛季';
       touchChoices.querySelectorAll('input').forEach(input => { input.checked = account?.touch_seasons?.includes(input.value) || false; });
       touchChoices.disabled = !touch.checked; touch.addEventListener('change', () => { touchChoices.disabled = !touch.checked; });
       const deckLabel = el('label', 'automation-check');
       const decks = el('input'); decks.type = 'checkbox'; decks.checked = account?.can_upload_decks || false;
-      deckLabel.append(decks, document.createTextNode('允许上传指定赛季的卡组（默认关闭）'));
-      const deckChoices = el('fieldset', 'automation-seasons'); deckChoices.append(el('legend', '', '允许上传卡组的赛季'));
+      deckLabel.append(decks, document.createTextNode('上传卡组'));
+      const deckChoices = el('fieldset', 'automation-seasons'); deckChoices.append(el('legend', '', '卡组赛季'));
       const deckOptions = [...deckSeasons];
       for (const id of account?.deck_seasons || []) if (!deckOptions.some(s => s.id === id)) deckOptions.push({ id, name: `${id}（当前未开放）` });
       for (const season of deckOptions) {
@@ -124,8 +128,8 @@
       deckChoices.disabled = !decks.checked; decks.addEventListener('change', () => { deckChoices.disabled = !decks.checked; });
       const message = el('p', 'patch-editor-error'); message.setAttribute('role', 'alert');
       const submit = el('button', 'small-button is-active', account ? '保存权限' : '创建账号'); submit.type = 'submit';
-      form.append(choices, touchLabel, touchChoices, deckLabel, deckChoices, el('p', 'admin-meta', '只读范围：运营概览、复制排行、日报汇总及公开普通阵容；另可修改本账号头像。导入和卡组上传不会覆盖、删除或审核已有内容，上传者记录为此账号。'),
-        message, submit, button('返回列表', load));
+      const actions = el('div', 'card-actions automation-actions'); actions.append(button('返回列表', load), submit);
+      form.append(choices, touchLabel, touchChoices, deckLabel, deckChoices, message, actions);
       let busy = false;
       form.addEventListener('submit', async event => {
         event.preventDefault(); if (busy) return; message.textContent = '';

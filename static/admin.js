@@ -2014,62 +2014,78 @@
     renderDialogs();
   }
 
+  // Shared shell for the small admin forms: title (+ the record it acts on), fields,
+  // then 取消 / primary. Escape, the backdrop and 取消 all close it.
+  function adminModal({ id, title, context = '', fields, submitLabel, cancelId, error = '', onSubmit, onClose }) {
+    const overlay = el('div', 'modal-backdrop');
+    const card = el('section', 'modal-card admin-modal');
+    card.setAttribute('role', 'dialog');
+    card.setAttribute('aria-modal', 'true');
+    card.setAttribute('aria-labelledby', `${id}Title`);
+    const header = el('div', 'admin-modal-header');
+    const heading = el('h2', '', title);
+    heading.id = `${id}Title`;
+    header.append(heading);
+    if (context) header.append(el('p', 'admin-meta', context));
+    const form = el('form', 'modal-form admin-modal-form');
+    form.innerHTML = `${fields}
+      <div class="message" id="${id}Message">${escapeHtml(error)}</div>
+      <div class="editor-actions admin-modal-actions">
+        <button class="ghost-button" type="button" id="${cancelId}">取消</button>
+        <button class="primary-button" type="submit">${escapeHtml(submitLabel)}</button>
+      </div>`;
+    form.addEventListener('submit', onSubmit);
+    form.querySelector(`#${cancelId}`).addEventListener('click', onClose);
+    overlay.addEventListener('click', (event) => { if (event.target === overlay) onClose(); });
+    // Listen on document: a re-render can leave focus outside the new overlay.
+    const onKey = (event) => {
+      if (!overlay.isConnected) { document.removeEventListener('keydown', onKey); return; }
+      if (event.key === 'Escape') onClose();
+    };
+    document.addEventListener('keydown', onKey);
+    card.append(header, form);
+    overlay.append(card);
+    dialogRoot.append(overlay);
+    requestAnimationFrame(() => form.querySelector('input, textarea, select')?.focus());
+    return form;
+  }
+
   function renderLiveSeasonCreateDialog() {
     if (!dialogRoot || !state.liveSeasonCreating) return;
     const draft = state.liveSeasonCreating;
-    const overlay = el('div', 'modal-backdrop');
-    const card = el('section', 'modal-card admin-password-dialog');
-    card.setAttribute('role', 'dialog');
-    card.setAttribute('aria-modal', 'true');
-    card.setAttribute('aria-labelledby', 'liveSeasonCreateTitle');
-
-    const header = el('div', 'modal-header');
-    const titleWrap = el('div');
-    const title = el('h2', '', '新增实时阵容赛季');
-    title.id = 'liveSeasonCreateTitle';
-    titleWrap.append(title, el('p', 'admin-meta', '后台隐藏的赛季收在「未展示赛季」；上传阵容数据后再启用展示。此处创建的分类也用于普通阵容。'));
-    header.append(titleWrap, button('取消', async () => closeLiveSeasonCreateDialog()));
-
-    const form = el('form', 'modal-form');
-    form.innerHTML = `
+    const form = adminModal({
+      id: 'liveSeasonCreate',
+      title: '新增实时阵容赛季',
+      fields: `
       <label class="field">
-        <span>赛季 ID（小写字母/数字/短横线，如 s18-preview）</span>
-        <input id="liveSeasonIdInput" name="id" maxlength="40" placeholder="s18-preview" value="${escapeHtml(draft.id)}" />
+        <span>赛季 ID</span>
+        <input id="liveSeasonIdInput" name="id" maxlength="40" placeholder="s18-preview" autocapitalize="off" spellcheck="false" value="${escapeHtml(draft.id)}" />
       </label>
       <label class="field">
         <span>赛季名称</span>
         <input id="liveSeasonNameInput" name="name" maxlength="60" placeholder="S18 · 新赛季" value="${escapeHtml(draft.name)}" />
       </label>
       <label class="field">
-        <span>说明（可选）</span>
-        <input id="liveSeasonDescriptionInput" name="description" maxlength="200" placeholder="赛季说明" value="${escapeHtml(draft.description)}" />
+        <span>说明</span>
+        <input id="liveSeasonDescriptionInput" name="description" maxlength="200" placeholder="可选" value="${escapeHtml(draft.description)}" />
       </label>
       <label class="field">
         <span>初始状态</span>
         <select id="liveSeasonStatusInput" name="status">
-          <option value="hidden">后台隐藏（推荐，数据齐后再启用）</option>
+          <option value="hidden">后台隐藏</option>
           <option value="active">启用展示</option>
           <option value="archived">归档展示</option>
           <option value="disabled">停用</option>
         </select>
-      </label>
-      <div class="message" id="liveSeasonCreateMessage">${escapeHtml(state.liveSeasonCreateError || '')}</div>
-      <div class="editor-actions">
-        <button class="primary-button" type="submit">创建赛季</button>
-        <button class="ghost-button" type="button" id="cancelLiveSeasonCreateButton">取消</button>
-      </div>
-    `;
-    form.querySelector('#liveSeasonStatusInput').value = draft.status || 'hidden';
-    form.addEventListener('submit', submitLiveSeasonCreate);
-    form.querySelector('#cancelLiveSeasonCreateButton').addEventListener('click', closeLiveSeasonCreateDialog);
-    overlay.addEventListener('click', (event) => {
-      if (event.target === overlay) closeLiveSeasonCreateDialog();
+      </label>`,
+      submitLabel: '创建赛季',
+      cancelId: 'cancelLiveSeasonCreateButton',
+      error: state.liveSeasonCreateError || '',
+      onSubmit: submitLiveSeasonCreate,
+      onClose: closeLiveSeasonCreateDialog,
     });
-
-    card.append(header, form);
-    overlay.append(card);
-    overlay.querySelectorAll('input, select, button').forEach(node => { node.disabled = state.liveSeasonCreateBusy; });
-    dialogRoot.append(overlay);
+    form.querySelector('#liveSeasonStatusInput').value = draft.status || 'hidden';
+    form.querySelectorAll('input, select, button').forEach(node => { node.disabled = state.liveSeasonCreateBusy; });
   }
 
   async function submitLiveSeasonCreate(event) {
@@ -2122,44 +2138,25 @@
     if (!dialogRoot) return;
     if (!state.passwordUser) return;
 
-    const overlay = el('div', 'modal-backdrop');
-    const card = el('section', 'modal-card admin-password-dialog');
-    card.setAttribute('role', 'dialog');
-    card.setAttribute('aria-modal', 'true');
-    card.setAttribute('aria-labelledby', 'passwordDialogTitle');
-
-    const header = el('div', 'modal-header');
-    const titleWrap = el('div');
-    const title = el('h2', '', '修改用户密码');
-    title.id = 'passwordDialogTitle';
-    titleWrap.append(title, el('p', 'admin-meta', `正在修改 ${state.passwordUser.nickname}（${state.passwordUser.username}）的登录密码`));
-    header.append(titleWrap, button('取消', async () => closePasswordDialog()));
-
-    const form = el('form', 'modal-form');
-    form.innerHTML = `
+    adminModal({
+      id: 'passwordDialog',
+      title: '修改密码',
+      context: `${state.passwordUser.nickname} · @${state.passwordUser.username}`,
+      fields: `
       <label class="field">
         <span>新密码</span>
-        <input id="passwordInput" name="password" type="password" placeholder="大于 5 位，且包含字母和数字" autocomplete="new-password" />
+        <input id="passwordInput" name="password" type="password" placeholder="6 位以上，含字母和数字" autocomplete="new-password" />
       </label>
       <label class="field">
         <span>确认密码</span>
-        <input id="confirmPasswordInput" name="confirmPassword" type="password" placeholder="再次输入新密码" autocomplete="new-password" />
-      </label>
-      <div class="message" id="passwordDialogMessage">${state.passwordError || ''}</div>
-      <div class="editor-actions">
-        <button class="primary-button" type="submit">保存新密码</button>
-        <button class="ghost-button" type="button" id="cancelPasswordButton">取消</button>
-      </div>
-    `;
-    form.addEventListener('submit', submitPasswordReset);
-    form.querySelector('#cancelPasswordButton').addEventListener('click', closePasswordDialog);
-    overlay.addEventListener('click', (event) => {
-      if (event.target === overlay) closePasswordDialog();
+        <input id="confirmPasswordInput" name="confirmPassword" type="password" autocomplete="new-password" />
+      </label>`,
+      submitLabel: '保存新密码',
+      cancelId: 'cancelPasswordButton',
+      error: state.passwordError || '',
+      onSubmit: submitPasswordReset,
+      onClose: closePasswordDialog,
     });
-
-    card.append(header, form);
-    overlay.append(card);
-    dialogRoot.append(overlay);
   }
 
   async function submitPasswordReset(event) {
@@ -2198,40 +2195,21 @@
   function renderLiveCompManualCodeDialog() {
     if (!dialogRoot || !state.liveCompManualCodeTarget) return;
     const target = state.liveCompManualCodeTarget;
-    const overlay = el('div', 'modal-backdrop');
-    const card = el('section', 'modal-card admin-live-code-dialog');
-    card.setAttribute('role', 'dialog');
-    card.setAttribute('aria-modal', 'true');
-    card.setAttribute('aria-labelledby', 'liveCompManualCodeTitle');
-
-    const header = el('div', 'modal-header');
-    const titleWrap = el('div');
-    const title = el('h2', '', '补录实时阵容码');
-    title.id = 'liveCompManualCodeTitle';
-    titleWrap.append(title, el('p', 'admin-meta', `${target.tier} · ${target.title} · ${target.id}`));
-    header.append(titleWrap, button('取消', async () => closeLiveCompManualCodeDialog()));
-
-    const form = el('form', 'modal-form');
-    form.innerHTML = `
+    adminModal({
+      id: 'liveCompManualCode',
+      title: '补录阵容码',
+      context: `${target.tier} · ${target.title} · ${target.id}`,
+      fields: `
       <label class="field">
         <span>阵容码</span>
         <textarea id="liveCompManualCodeInput" name="code" rows="4" placeholder="粘贴阵容码"></textarea>
-      </label>
-      <div class="message" id="liveCompManualCodeMessage">${state.liveCompManualCodeError || ''}</div>
-      <div class="editor-actions">
-        <button class="primary-button" type="submit">保存</button>
-        <button class="ghost-button" type="button" id="cancelLiveCompManualCodeButton">取消</button>
-      </div>
-    `;
-    form.addEventListener('submit', submitLiveCompManualCode);
-    form.querySelector('#cancelLiveCompManualCodeButton').addEventListener('click', closeLiveCompManualCodeDialog);
-    overlay.addEventListener('click', (event) => {
-      if (event.target === overlay) closeLiveCompManualCodeDialog();
+      </label>`,
+      submitLabel: '保存',
+      cancelId: 'cancelLiveCompManualCodeButton',
+      error: state.liveCompManualCodeError || '',
+      onSubmit: submitLiveCompManualCode,
+      onClose: closeLiveCompManualCodeDialog,
     });
-
-    card.append(header, form);
-    overlay.append(card);
-    dialogRoot.append(overlay);
   }
 
   async function submitLiveCompManualCode(event) {

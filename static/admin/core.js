@@ -77,9 +77,23 @@
     global.scrollBy({ top: offset, behavior: reduceMotion ? 'auto' : 'smooth' });
   }
 
+  // Every admin dialog closes with the same icon button; the label stays for screen readers.
+  const CLOSE_ICON = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M18 6 6 18M6 6l12 12"/></svg>';
+  function closeButton(handler, label = '关闭') {
+    const node = el('button', 'dialog-close');
+    node.type = 'button';
+    node.innerHTML = CLOSE_ICON;
+    node.setAttribute('aria-label', label);
+    node.title = label;
+    node.addEventListener('click', handler);
+    return node;
+  }
+
   global.JccAdminCore = Object.freeze({
+    CLOSE_ICON,
     buildDeltaText,
     button,
+    closeButton,
     debounce,
     el,
     escapeAttribute,

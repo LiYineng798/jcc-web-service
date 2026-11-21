@@ -4,6 +4,13 @@
   function el(tag, className = '', text = '') {
     const node = document.createElement(tag); node.className = className; node.textContent = text; return node;
   }
+  // Standalone (also used outside the admin), so it carries its own close icon.
+  function closeButton(handler, label) {
+    const node = el('button', 'dialog-close'); node.type = 'button';
+    node.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M18 6 6 18M6 6l12 12"/></svg>';
+    node.setAttribute('aria-label', label); node.title = label; node.addEventListener('click', handler);
+    return node;
+  }
   function button(text, action, className = 'small-button') {
     const node = el('button', className, text); node.type = 'button';
     node.addEventListener('click', async () => {
@@ -46,9 +53,9 @@
     const seasons = manifest.seasons || [];
     const dialog = el('dialog', 'lm-dialog'); dialog.setAttribute('aria-labelledby', 'lmDialogTitle');
     const head = el('header', 'lm-dialog-head');
-    const heading = el('div'); heading.append(el('p', 'lm-eyebrow', `阵容管理 / #${lineupId}`), el('h2', '', mode === 'ban' ? '封禁阵容' : m?.state === 'pending' ? '修改审核' : '处理详情'));
-    heading.querySelector('h2').id = 'lmDialogTitle';
-    const close = button('关闭', () => dialog.close()); close.setAttribute('aria-label', '关闭详情');
+    const heading = el('h2', '', `${mode === 'ban' ? '封禁阵容' : m?.state === 'pending' ? '修改审核' : '处理详情'} · #${lineupId}`);
+    heading.id = 'lmDialogTitle';
+    const close = closeButton(() => dialog.close(), '关闭详情');
     head.append(heading, close); dialog.append(head);
     const body = el('div', 'lm-dialog-body');
     body.append(badge(lineup.status === 'banned' ? m?.state || 'banned' : lineup.status));
@@ -61,18 +68,17 @@
     comparison.append(contentBlock(m?.proposal ? '原阵容' : '阵容内容', lineup, seasons));
     if (m?.proposal) comparison.append(contentBlock('用户提交版本', m.proposal, seasons, lineup));
     body.append(comparison);
-    if (m?.state === 'pending') body.append(el('p', 'lm-muted', `提交于 ${m.submitted_at}。审核通过前，原阵容保持封禁。`));
-    if (m) body.append(el('p', 'lm-muted', `通过审核或解除封禁后恢复为「${labels[m.prior_status]}」。`));
+    const facts = [m?.state === 'pending' ? `提交于 ${m.submitted_at}` : '', m ? `解封后恢复为「${labels[m.prior_status]}」` : ''].filter(Boolean);
+    if (facts.length) body.append(el('p', 'lm-muted', facts.join(' · ')));
     body.append(timeline(events, seasons)); dialog.append(body);
     const footer = el('footer', 'lm-dialog-footer'); dialog.append(footer);
     function confirmAction(action) {
       footer.replaceChildren();
       const form = el('form', 'lm-decision');
-      form.append(el('p', 'lm-muted', action === 'release' ? '本次按原阵容的名称、阵容码和赛季解除封禁。' : action === 'ban' ? '封禁后阵容从公开列表下架，作者会收到站内处理通知。' : action === 'approve' ? '审核通过后，以用户提交版本替换原阵容，并通知作者。' : '退回后继续封禁，作者可按说明再次修改并提交。'));
       const label = el('label', 'field');
-      label.append(el('span', '', `${actionLabels[action]}${action === 'approve' ? '说明（选填）' : '原因（必填，用户可见）'}`));
+      label.append(el('span', '', `${action === 'approve' ? '说明' : '原因'} · 作者可见`));
       const input = el('textarea'); input.rows = 3; input.maxLength = 500; input.required = action !== 'approve'; input.name = 'reason';
-      input.placeholder = action === 'ban' ? '说明存在的问题，以及用户需要如何修改…' : action === 'reject' ? '明确哪些内容仍需修改…' : '填写本次处理说明…';
+      input.placeholder = action === 'ban' ? '问题在哪，作者该怎么改' : action === 'reject' ? '还有哪些需要修改' : '可选';
       label.append(input);
       const error = el('p', 'lm-error'); error.setAttribute('role', 'alert');
       const actions = el('div', 'lm-actions');
@@ -114,5 +120,5 @@
     dialog.showModal();
     if (mode === 'ban') confirmAction('ban');
   }
-  window.JccLineupModeration = { el, button, badge, labels, seasonName, openRecord, contentBlock, timeline };
+  window.JccLineupModeration = { el, button, closeButton, badge, labels, seasonName, openRecord, contentBlock, timeline };
 })();

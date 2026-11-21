@@ -2235,3 +2235,205 @@ a.admin-deck-author:hover { color:var(--accent-strong, var(--accent)); text-deco
 .admin-deck-publisher { display:block; margin-top:4px; }
 .admin-dm-comparison { padding:12px 16px; border-top:1px solid var(--admin-border); }
 .admin-dm-comparison .admin-dm-facts { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:0 20px; margin-top:10px; }
+
+/* Admin dialogs share one skin: quiet header, plain fields, actions bottom-right.
+   Covers the admin.js modals, lineup moderation, feedback replies, live versions
+   and the notice editor, so a new dialog only needs one of these containers. */
+.admin-page :is(.admin-modal, .lm-dialog, .fb-dialog, .live-version-dialog, .notice-editor) {
+  border: 1px solid var(--admin-border);
+  border-radius: 14px;
+  background: var(--admin-surface);
+  box-shadow: 0 24px 64px rgba(20, 16, 12, .2);
+}
+
+.admin-page :is(.lm-dialog, .fb-dialog, .live-version-dialog, .notice-editor)::backdrop,
+.admin-page .modal-backdrop {
+  background: rgba(20, 17, 13, .42);
+  backdrop-filter: blur(4px);
+}
+
+.admin-page :is(.admin-modal, .lm-dialog, .fb-dialog, .live-version-dialog, .notice-editor) h2 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.admin-page :is(.lm-dialog-head, .fb-head, .notice-editor-header) {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 16px 14px 20px;
+  border-bottom: 1px solid var(--admin-border);
+}
+
+.admin-page :is(.admin-modal, .lm-dialog, .fb-dialog, .live-version-dialog, .notice-editor) .field {
+  gap: 6px;
+  margin-bottom: 14px;
+  color: var(--muted);
+  font-size: 12.5px;
+  font-weight: 500;
+}
+
+.admin-page :is(.admin-modal, .lm-dialog, .live-version-dialog) :is(input:not([type=checkbox]):not([type=radio]), select, textarea) {
+  height: auto;
+  min-height: 38px;
+  padding: 8px 11px;
+  border: 1px solid var(--admin-border);
+  border-radius: 8px;
+  background: var(--admin-surface);
+  color: var(--text);
+  font-size: 13px;
+}
+
+.admin-page :is(.admin-modal, .lm-dialog, .live-version-dialog) textarea {
+  min-height: 96px;
+  line-height: 1.6;
+}
+
+.admin-page :is(.admin-modal, .lm-dialog, .fb-dialog, .live-version-dialog, .notice-editor) :is(.primary-button, .ghost-button) {
+  width: auto;
+  min-height: 34px;
+  padding: 0 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  transform: none;
+}
+
+.admin-page :is(.admin-modal, .lm-dialog, .fb-dialog, .live-version-dialog, .notice-editor) .ghost-button {
+  border: 1px solid var(--admin-border);
+  background: transparent;
+  color: var(--text);
+}
+
+/* admin.js modals */
+.admin-page .admin-modal {
+  width: min(100%, 440px);
+  padding: 20px;
+}
+
+.admin-modal-header {
+  display: grid;
+  gap: 4px;
+  margin-bottom: 18px;
+}
+
+.admin-modal-header .admin-meta {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.admin-page .admin-modal-form {
+  gap: 0;
+}
+
+.admin-page .admin-modal-form .message:empty {
+  display: none;
+}
+
+.admin-page .admin-modal-actions,
+.admin-page .fb-actions,
+.admin-page .automation-actions {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.admin-page .admin-modal-actions .primary-button {
+  flex: 0 0 auto;
+}
+
+/* Lineup moderation, score and automation dialogs */
+.admin-page .lm-dialog-body {
+  padding: 18px 20px;
+}
+
+.admin-page .lm-dialog-footer {
+  padding: 14px 20px;
+}
+
+.admin-page .automation-toolbar {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.admin-page .automation-form h3 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* Feedback reply: the dialog title already names the thread, so the
+   shared notification hero drops its icon and eyebrow here. */
+.admin-page .fb-dialog .fb-body {
+  padding: 18px 20px;
+}
+
+.admin-page .fb-dialog .nc-hero :is(.nc-icon, .nc-eyebrow) {
+  display: none;
+}
+
+.admin-page .fb-dialog .fb-reply {
+  margin-top: 18px;
+}
+
+.admin-page .live-version-dialog {
+  padding: 20px;
+}
+
+.admin-page :is(.lm-error, .fb-error):empty {
+  display: none;
+}
+
+.admin-page .automation-form {
+  gap: 12px;
+}
+
+.admin-page .automation-form :is(.patch-editor-field, .patch-editor-field > span, legend) {
+  color: var(--muted);
+  font-size: 12.5px;
+  font-weight: 500;
+}
+
+.admin-page .automation-form .patch-editor-field {
+  gap: 6px;
+}
+
+.admin-page .automation-check {
+  gap: 8px;
+  padding: 5px 0;
+  font-size: 13px;
+}
+
+.admin-page .automation-check input {
+  width: 16px;
+  height: 16px;
+  flex-basis: 16px;
+  accent-color: var(--accent);
+}
+
+.admin-page .automation-seasons {
+  padding: 6px 12px;
+  border-radius: 8px;
+}
+
+@media (max-width: 600px) {
+  /* Keep 16px inputs on phones so iOS does not zoom into the dialog. */
+  .admin-page :is(.admin-modal, .lm-dialog, .live-version-dialog, .notice-editor) :is(input:not([type=checkbox]):not([type=radio]), select, textarea) {
+    font-size: 16px;
+  }
+
+  .admin-page .admin-modal-actions,
+  .admin-page .fb-actions {
+    flex-direction: row;
+  }
+
+  .admin-page .admin-modal-actions > *,
+  .admin-page .fb-actions > * {
+    flex: 1 1 0;
+  }
+}

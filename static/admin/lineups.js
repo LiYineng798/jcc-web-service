@@ -66,10 +66,11 @@
   function openScore({ api, lineup, afterChange }) {
     const dialog = el('dialog', 'lm-dialog lm-score-dialog'); dialog.setAttribute('aria-labelledby', 'lmScoreTitle');
     const head = el('header', 'lm-dialog-head'); const title = el('h2', '', '调整阵容分数'); title.id = 'lmScoreTitle';
-    const close = button('关闭', () => dialog.close()); head.append(title, close);
+    const close = window.JccAdminCore.closeButton(() => dialog.close()); head.append(title, close);
     const form = el('form', 'lm-dialog-body');
-    form.append(el('strong', '', lineup.name), el('p', 'lm-muted', '设置修正总值：正数增加，负数扣减。现有点赞与复制记录会保留。'));
+    form.append(el('strong', '', lineup.name));
     const inputs = {};
+    // Values are signed totals (negative deducts); existing like/copy records are kept.
     for (const [key, label] of [['admin_like_adjustment', '点赞修正数'], ['admin_copy_adjustment', '复制修正数']]) {
       const field = el('label', 'field'); field.append(el('span', '', label));
       const input = el('input'); input.type = 'number'; input.min = -1000000; input.max = 1000000; input.step = 1; input.required = true; input.value = lineup[key] || 0;
@@ -77,7 +78,8 @@
     }
     const error = el('p', 'lm-error'); error.setAttribute('role', 'alert');
     const submit = el('button', 'small-button lm-primary', '保存分数修正'); submit.type = 'submit';
-    form.append(error, submit); dialog.append(head, form); let busy = false;
+    const actions = el('div', 'lm-actions'); actions.append(submit);
+    form.append(error, actions); dialog.append(head, form); let busy = false;
     form.addEventListener('submit', async event => {
       event.preventDefault(); if (busy) return; busy = true; submit.disabled = close.disabled = true; error.textContent = '';
       try {
