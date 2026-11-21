@@ -244,7 +244,7 @@
     }
 
     function view() {
-      const panel = workbenchPanel('卡组库', '推荐优质卡组，隐藏违规内容；草稿仅作者可见，不在此列出');
+      const panel = workbenchPanel();
       const body = panel.querySelector('.admin-workspace-body');
       body.classList.add('admin-deck-workspace');
       body.append(toolbar());

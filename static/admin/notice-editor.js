@@ -1,10 +1,8 @@
 (function () {
   'use strict';
-  const { el, escapeAttribute: attr, escapeHtml: html } = window.JccAdminCore;
+  const { el, escapeAttribute: attr, escapeHtml: html, CLOSE_ICON } = window.JccAdminCore;
   const kinds = [
-    ['none', '仅展示', '不设置跳转'], ['tool', '工具箱', '直接打开站内工具'],
-    ['lineup', '阵容榜单', '指定赛季与榜单'], ['guestbook', '留言板', '打开首页反馈窗口'],
-    ['custom', '自定义链接', '站内页面或外部网站'],
+    ['none', '不跳转'], ['tool', '工具箱'], ['lineup', '阵容榜单'], ['guestbook', '留言板'], ['custom', '自定义链接'],
   ];
   const tabs = [['live', '实时阵容排行'], ['latest', '最新'], ['hot', '最热'], ['rising', '上升'], ['recommended', '推荐'], ['ss', 'SS']];
 
@@ -21,23 +19,21 @@
     let loading = false;
     let savedId = item.id;
     dialog.innerHTML = `
-      <header class="notice-editor-header"><div><p class="notice-eyebrow">首页 · 全站通知</p>
-        <h2 id="noticeDialogTitle">${item.id ? '编辑通知' : '创建一条通知'}</h2>
-        <p class="admin-meta">写好消息，选择去处。发布前即可预览效果。</p></div>
-        <button type="button" class="ghost-button" data-close aria-label="关闭通知编辑器">关闭</button></header>
+      <header class="notice-editor-header">
+        <h2 id="noticeDialogTitle">${item.id ? '编辑通知' : '新建通知'}</h2>
+        <button type="button" class="dialog-close" data-close aria-label="关闭通知编辑器" title="关闭">${CLOSE_ICON}</button></header>
       <form class="notice-editor-form">
         <div class="notice-editor-grid"><div class="notice-editor-fields">
-          <section><h3><span>01</span> 通知内容</h3>
-            <label class="field"><span>标题</span><input id="noticeTitleInput" name="title" required placeholder="例如：时间卡片图鉴已上线" value="${attr(item.title || '')}"></label>
-            <label class="field"><span>内容</span><textarea id="noticeMessageInput" name="message" required rows="3" placeholder="用简短的一句话，告诉玩家这次更新的亮点。">${html(item.message || '')}</textarea></label>
+          <section>
+            <label class="field"><span>标题</span><input id="noticeTitleInput" name="title" required placeholder="时间卡片图鉴已上线" value="${attr(item.title || '')}"></label>
+            <label class="field"><span>内容</span><textarea id="noticeMessageInput" name="message" required rows="3" placeholder="一句话说清亮点">${html(item.message || '')}</textarea></label>
           </section>
-          <section><h3><span>02</span> 点击后前往</h3>
-            <fieldset class="notice-target-types"><legend class="sr-only">跳转类型</legend>${kinds.map(([value, label, hint]) => `
-              <label class="notice-type"><input type="radio" name="target_kind" value="${value}"${kind === value ? ' checked' : ''}><span><strong>${label}</strong><small>${hint}</small></span></label>`).join('')}
+          <section><h3>点击后前往</h3>
+            <fieldset class="notice-target-types"><legend class="sr-only">跳转类型</legend>${kinds.map(([value, label]) => `
+              <label class="notice-type"><input type="radio" name="target_kind" value="${value}"${kind === value ? ' checked' : ''}><span><strong>${label}</strong></span></label>`).join('')}
             </fieldset>
             <div data-panel="tool" class="notice-target-panel">
-              <div class="notice-catalog-heading"><span class="admin-meta">与前台工具箱同步</span><button type="button" class="small-button" data-refresh>刷新选项</button></div>
-              <label class="field"><span class="sr-only">搜索工具</span><input type="search" data-tool-search placeholder="搜索工具名称或赛季…"></label>
+              <div class="notice-catalog-heading"><label class="field"><span class="sr-only">搜索工具</span><input type="search" data-tool-search placeholder="搜索工具或赛季"></label><button type="button" class="small-button" data-refresh>刷新选项</button></div>
               <div class="notice-tool-list" role="group" aria-label="选择工具"></div>
               <p class="notice-tool-status" role="status"></p>
             </div>
@@ -46,20 +42,19 @@
               <label class="field"><span>榜单</span><select id="noticeJumpTabInput"><option value="">请选择榜单</option>${tabs.map(([value, label]) => `<option value="${value}"${item.jump_tab === value ? ' selected' : ''}>${label}</option>`).join('')}</select></label>
               <button type="button" class="small-button" data-refresh>刷新赛季</button>
             </div>
-            <p data-panel="guestbook" class="notice-target-panel admin-meta">玩家点击后，将直接打开首页留言窗口。</p>
-            <label data-panel="custom" class="field notice-target-panel"><span>链接地址</span><input id="noticeLinkUrlInput" placeholder="/patch-notes 或 https://example.com" value="${attr(item.link_url || '')}"><small class="admin-meta">站内链接在当前页打开，外部网站在新标签页打开。</small></label>
-            <label class="field" data-link-text><span>按钮文字 <small class="admin-meta">选填，留空使用默认文字</small></span><input id="noticeLinkTextInput" placeholder="例如：打开图鉴" value="${attr(item.link_text || '')}"></label>
+            <label data-panel="custom" class="field notice-target-panel"><span>链接地址</span><input id="noticeLinkUrlInput" placeholder="/patch-notes 或 https://example.com" value="${attr(item.link_url || '')}"></label>
+            <label class="field" data-link-text><span>按钮文字</span><input id="noticeLinkTextInput" placeholder="留空使用默认文字" value="${attr(item.link_text || '')}"></label>
             <p class="notice-catalog-error" role="status" hidden></p>
           </section>
-          <section class="notice-display-option"><div><h3><span>03</span> 展示方式</h3><p class="admin-meta">桌面端滚动展示，手机端自动换行。</p></div>
-            <label><input id="noticeMarqueeCheckbox" type="checkbox"${item.marquee_enabled !== false ? ' checked' : ''}> 滚动播放</label>
+          <section class="notice-display-option">
+            <label><input id="noticeMarqueeCheckbox" type="checkbox"${item.marquee_enabled !== false ? ' checked' : ''}> 桌面端滚动播放</label>
           </section>
-        </div><aside class="notice-preview"><p class="notice-eyebrow">实时预览</p><h3>玩家将看到</h3>
+        </div><aside class="notice-preview" aria-label="预览">
           <div class="notice-preview-banner"><strong data-preview-title></strong><p data-preview-message></p><span data-preview-link></span></div>
-          <div class="notice-destination"><span class="notice-eyebrow">跳转目标</span><strong data-preview-target></strong><code data-preview-url></code></div>
-          <p class="admin-meta" data-preview-mode></p><p class="admin-meta">预览用于检查内容和去向，首页会按屏幕宽度自动排版。</p>
+          <div class="notice-destination"><strong data-preview-target></strong><code data-preview-url></code></div>
+          <p class="admin-meta" data-preview-mode></p>
         </aside></div>
-        <footer class="notice-editor-footer"><p class="notice-form-error" role="alert" hidden></p><p class="admin-meta">${item.is_active ? '此通知已被选中，保存会同步更新展示内容。' : '保存到通知库，或立即展示在首页。'}</p>
+        <footer class="notice-editor-footer"><p class="notice-form-error" role="alert" hidden></p>
           <div><button type="button" class="ghost-button" data-close>取消</button><button type="submit" class="small-button" value="save">保存通知</button><button type="submit" class="primary-button" value="publish">保存并展示</button></div>
         </footer>
       </form>`;
@@ -109,7 +104,7 @@
       $('[data-preview-link]').textContent = kind === 'none' ? '' : `${value('#noticeLinkTextInput') || destination.text || '查看详情'} →`;
       $('[data-preview-target]').textContent = destination.label;
       $('[data-preview-url]').textContent = destination.url;
-      $('[data-preview-mode]').textContent = $('#noticeMarqueeCheckbox').checked ? '展示方式 · 桌面滚动 / 手机换行' : '展示方式 · 静止显示';
+      $('[data-preview-mode]').textContent = $('#noticeMarqueeCheckbox').checked ? '桌面滚动 · 手机换行' : '静止显示';
     }
     function changeTarget(change) {
       const text = $('#noticeLinkTextInput');

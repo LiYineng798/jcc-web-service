@@ -13,14 +13,14 @@
   async function openAdmin(source, sourceId, api, onChanged) {
     const dialog=node('dialog','fb-dialog');
     const head=node('header','fb-head');
-    const title=node('h2','','反馈处理与站内回复'); title.id='feedbackAdminTitle'; dialog.setAttribute('aria-labelledby',title.id);
-    const close=node('button','small-button','关闭'); close.type='button';
+    const title=node('h2','','回复反馈'); title.id='feedbackAdminTitle'; dialog.setAttribute('aria-labelledby',title.id);
+    const close=window.JccAdminCore.closeButton(()=>leave());
     const body=node('div','fb-body'); head.append(title,close); dialog.append(head,body); document.body.append(dialog);
     const opener=document.activeElement;
     let busy=false, changed=false, disposed=false;
     let hasDraft=()=>false;
     const leave=()=>{if(busy)return;if(hasDraft()&&!confirm('回复尚未发送，确定放弃并关闭吗？'))return; disposed=true;dialog.close();dialog.remove();opener?.focus();if(changed)Promise.resolve(onChanged?.()).catch(()=>{window.jccNotify?.show('回复已保存，列表刷新失败，请重新打开工作区。',{variant:'error'});});};
-    close.onclick=leave; dialog.addEventListener('cancel',e=>{e.preventDefault();leave();}); dialog.showModal();
+    dialog.addEventListener('cancel',e=>{e.preventDefault();leave();}); dialog.showModal();
     async function load() {
       body.textContent='正在读取反馈…';
       try { const data=await api(`/api/admin/feedback/${source}/${sourceId}`); if(!disposed)render(data); }
@@ -31,12 +31,12 @@
       const form=node('form','fb-reply');
       const statusLabel=node('label','','处理进度'), select=node('select');select.setAttribute('aria-label','处理进度');
       for(const [key,label] of Object.entries(labels)){const option=node('option','',label);option.value=key;select.append(option);} select.value=data.status;statusLabel.append(select);
-      const replyLabel=node('label','','站内回复'), textarea=node('textarea'); textarea.setAttribute('aria-label','站内回复');textarea.maxLength=1000;textarea.rows=4;textarea.placeholder='说明核实进展、解决办法或无法复现的原因（最多 1000 字）';replyLabel.append(textarea);
-      const hideLabel=node('label','fb-hide'), hide=node('input');hide.type='checkbox';hideLabel.append(hide,node('span','','同时隐藏该阵容'));const hideHint=node('small','','仅在标记已解决时生效，已封禁阵容不受影响。');hideLabel.append(hideHint);
+      const replyLabel=node('label','','站内回复'), textarea=node('textarea'); textarea.setAttribute('aria-label','站内回复');textarea.maxLength=1000;textarea.rows=4;textarea.placeholder='核实进展、解决办法或无法复现的原因';replyLabel.append(textarea);
+      const hideLabel=node('label','fb-hide'), hide=node('input');hide.type='checkbox';hideLabel.append(hide,node('span','','同时隐藏该阵容'));hideLabel.title='仅在标记已解决时生效，已封禁阵容不受影响';
       const error=node('p','fb-error');error.setAttribute('role','status');
-      const save=node('button','primary-button','发送回复 / 更新进度');save.type='submit';
+      const save=node('button','primary-button','发送回复 / 更新进度');save.type='submit';const actions=node('div','fb-actions');actions.append(save);
       hasDraft=()=>Boolean(textarea.value.trim() || select.value!==data.status || hide.checked);
-      form.append(statusLabel,replyLabel);if(source==='report')form.append(hideLabel);form.append(error,save);body.append(form);
+      form.append(statusLabel,replyLabel);if(source==='report')form.append(hideLabel);form.append(error,actions);body.append(form);
       form.onsubmit=async event=>{
         event.preventDefault();if(busy)return;
         if(['resolved','dismissed'].includes(select.value)&&!textarea.value.trim()){error.textContent='请填写处理结果，让用户知道原因。';textarea.focus();return;}

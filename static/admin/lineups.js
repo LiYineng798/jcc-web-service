@@ -20,11 +20,12 @@
       }
       season.value = state.season || ''; season.addEventListener('change', () => changeFilters({ season: season.value }).catch(filterError));
       const order = el('select'); order.setAttribute('aria-label', '阵容排序');
+      // The score formula is reference material, so it lives in the tooltip.
+      order.title = '分数 = 近 7 天点赞 × 5 + 有效复制，包含管理员修正；同分时最新添加优先';
       for (const [value, text] of [['newest', '最新添加'], ['score_desc', '分数从高到低'], ['oldest', '最早更新优先']]) { const option = el('option', '', text); option.value = value; order.append(option); }
       order.value = state.order; order.addEventListener('change', () => changeFilters({ order: order.value }).catch(filterError));
       toolbar.append(season, order, button('刷新', refresh));
-      root.append(tabs, toolbar, el('p', 'lm-muted', '状态数量为全站统计；下表按搜索和赛季筛选。封禁后用户可修改并提交重审。'));
-      if (state.order === 'score_desc') root.append(el('p', 'lm-muted', '按当前分数降序，同分时最新添加优先。分数 = 近 7 天点赞 × 5 + 有效复制，包含管理员修正。'));
+      root.append(tabs, toolbar);
       if (!state.items.length) { root.append(el('p', 'lm-empty', '当前筛选下没有阵容')); return root; }
       const table = el('table', 'lm-table'); table.setAttribute('aria-label', '阵容管理列表');
       const head = el('thead'), headings = el('tr');
@@ -65,10 +66,11 @@
   function openScore({ api, lineup, afterChange }) {
     const dialog = el('dialog', 'lm-dialog lm-score-dialog'); dialog.setAttribute('aria-labelledby', 'lmScoreTitle');
     const head = el('header', 'lm-dialog-head'); const title = el('h2', '', '调整阵容分数'); title.id = 'lmScoreTitle';
-    const close = button('关闭', () => dialog.close()); head.append(title, close);
+    const close = window.JccAdminCore.closeButton(() => dialog.close()); head.append(title, close);
     const form = el('form', 'lm-dialog-body');
-    form.append(el('strong', '', lineup.name), el('p', 'lm-muted', '设置修正总值：正数增加，负数扣减。现有点赞与复制记录会保留。'));
+    form.append(el('strong', '', lineup.name));
     const inputs = {};
+    // Values are signed totals (negative deducts); existing like/copy records are kept.
     for (const [key, label] of [['admin_like_adjustment', '点赞修正数'], ['admin_copy_adjustment', '复制修正数']]) {
       const field = el('label', 'field'); field.append(el('span', '', label));
       const input = el('input'); input.type = 'number'; input.min = -1000000; input.max = 1000000; input.step = 1; input.required = true; input.value = lineup[key] || 0;
@@ -76,7 +78,8 @@
     }
     const error = el('p', 'lm-error'); error.setAttribute('role', 'alert');
     const submit = el('button', 'small-button lm-primary', '保存分数修正'); submit.type = 'submit';
-    form.append(error, submit); dialog.append(head, form); let busy = false;
+    const actions = el('div', 'lm-actions'); actions.append(submit);
+    form.append(error, actions); dialog.append(head, form); let busy = false;
     form.addEventListener('submit', async event => {
       event.preventDefault(); if (busy) return; busy = true; submit.disabled = close.disabled = true; error.textContent = '';
       try {

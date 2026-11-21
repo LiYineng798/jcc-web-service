@@ -52,14 +52,15 @@
       const dialog = el('dialog', 'live-version-dialog');
       const title = el('h2', '', action === 'delete' ? '删除这个版本？' : chosen.status === 'history' ? '回滚到这个版本？' : '将这个版本上线？');
       title.id = 'liveVersionConfirmTitle'; dialog.setAttribute('aria-labelledby', title.id);
+      // Destructive/publishing confirmations keep exactly one consequence line.
       dialog.append(title, el('p', '', chosen.filename), el('p', 'admin-meta', action === 'delete'
-        ? '将删除此版本及其补码记录，此操作无法撤销。当前线上版本不会变化。'
-        : `首页将展示这 ${chosen.total} 套阵容。当前线上版本会保留在历史中，随时可以切换回来。`));
+        ? '删除后无法恢复，线上版本不变。'
+        : `首页将展示这 ${chosen.total} 套阵容，可随时切回。`));
       let acknowledgement = null;
       if (action === 'publish' && chosen.missing) {
         const label = el('label', 'live-version-ack');
         acknowledgement = el('input'); acknowledgement.type = 'checkbox';
-        label.append(acknowledgement, el('span', '', `仍有 ${chosen.missing} 套阵容缺码，我确认先上线这些内容`));
+        label.append(acknowledgement, el('span', '', `仍有 ${chosen.missing} 套缺码，确认先上线`));
         dialog.append(label);
       }
       const message = el('p', 'live-upload-error'); message.setAttribute('role', 'alert');
@@ -81,12 +82,11 @@
       const dialog = el('dialog', 'live-version-dialog');
       dialog.setAttribute('aria-labelledby', 'liveVersionCodeTitle');
       const title = el('h2', '', item.hasCode ? '修改补码' : '补充阵容码'); title.id = 'liveVersionCodeTitle';
-      dialog.append(title, el('p', 'admin-meta', `${chosen.filename} · ${item.title}`),
-        el('p', 'admin-meta', chosen.status === 'active' ? '保存后立即更新当前线上版本。' : '仅保存到这个版本，上线前不会影响首页。'));
+      dialog.append(title, el('p', 'admin-meta', `${chosen.filename} · ${item.title}${chosen.status === 'active' ? ' · 线上版本，保存即生效' : ''}`));
       const form = el('form'); const label = el('label', 'field');
-      label.append(el('span', '', '金铲铲阵容码'));
+      label.append(el('span', '', '阵容码'));
       const input = el('textarea'); input.rows = 5; input.required = true; input.value = item.jccCode || '';
-      input.placeholder = '粘贴游戏分享的完整阵容码'; label.append(input);
+      input.placeholder = '粘贴完整阵容码'; label.append(input);
       const message = el('p', 'live-upload-error'); message.setAttribute('role', 'alert');
       const actions = el('div', 'card-actions'); const save = el('button', 'primary-button', '保存补码'); save.type = 'submit';
       const cancel = button('取消', () => dialog.close()); actions.append(cancel, save);

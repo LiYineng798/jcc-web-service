@@ -944,8 +944,7 @@ def test_admin_js_supports_daily_growth_filter_and_clear_labels():
     assert '/api/admin/live-comps' in js
     assert '今日复制' in js
     assert '累计复制' in js
-    assert '实时阵容 · 阵容码维护' in js
-    assert '实时阵容 · 赛季管理' in js
+    assert "'live-comps': { codes: '阵容码维护', upload: '数据上传', seasons: '赛季管理' }" in js
     assert 'activeTab' in js
     assert 'AbortController' in js
     assert 'debounce' in js
@@ -963,7 +962,6 @@ def test_admin_js_supports_daily_growth_filter_and_clear_labels():
     assert "state.lineupWorkspace = workspaceKey" in js
     assert "state.liveCompsWorkspace = workspaceKey" in js
     assert "state.activeTab === 'lineups' && state.lineupWorkspace === 'list'" in js
-    assert '管理账号与访问权限 · 按注册顺序展示最近用户' in js
     assert '阵容查找' in js
     assert '批量导入' in js
     assert '阵容码维护' in js

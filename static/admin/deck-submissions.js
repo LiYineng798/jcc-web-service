@@ -353,7 +353,7 @@
 
     function view() {
       restore();
-      const panel = workbenchPanel('卡组投稿', '认领后补全三张卡、传送门和站位，发布时署名由投稿人提供');
+      const panel = workbenchPanel();
       const body = panel.querySelector('.admin-workspace-body');
       body.classList.add('admin-deck-workspace', 'admin-sub-workspace');
       body.append(toolbar());

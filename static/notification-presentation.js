@@ -43,7 +43,7 @@
     for(const event of data.events.filter(e=>e.actor_role!=='user')){
       const row=el('li');const head=el('div','nc-event-head');head.append(el('strong','',event.actor_role==='admin'?'管理员回复':'处理记录'),el('time','',date(event.created_at)));row.append(head,el('span','nc-event-state',states[event.status]),el('p','',event.body));list.append(row);
     }
-    if(!list.children.length)list.append(el('li','nc-waiting','反馈已送达，后续进展会在这里告诉你。'));
+    if(!list.children.length)list.append(el('li','nc-waiting',admin?'暂无回复':'反馈已送达，后续进展会在这里告诉你。'));
     section.append(list);target.append(section);
   }
   function moderation(data,target){
