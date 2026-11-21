@@ -530,6 +530,10 @@ def test_live_comps_upload_caches_remote_images_and_rewrites_urls(client, monkey
                 'jccCode': '#CACHE001',
                 'mainAvatar': 'https://static.datatft.com/images/heros/default/917033.jpg',
                 'heroImages': ['https://static.datatft.com/images/heros/default/917034.jpg'],
+                'formationDetails': {
+                    'season_id': 's18', 'portraits': ['https://example.com/board.jpg'],
+                    'units': [{'name': '棋盘单位', 'source_champion_id': 'board', 'position': 4, 'portrait_index': 0}],
+                },
             }],
             'A': [], 'B': [], 'C': [], 'D': [],
         },
@@ -553,6 +557,12 @@ def test_live_comps_upload_caches_remote_images_and_rewrites_urls(client, monkey
     assert item['heroImages'][0].startswith('/api/live-comps/assets/')
     assert not item['mainAvatar'].startswith('https://static.datatft.com')
     assert client.get(item['mainAvatar']).data == b'image-bytes'
+    details = client.get('/api/live-comps/s-cache/details?season=s17-star-god').get_json()
+    portrait = details['heroImages'][details['units'][0]['portrait_index']]
+    assert portrait.startswith('/api/live-comps/assets/') and client.get(portrait).data == b'image-bytes'
+    public_item = client.get('/api/live-comps').get_json()['items'][0]
+    assert len(public_item['heroImages']) == 1 and portrait not in public_item['heroImages']
+    assert live_comps_helpers.live_comp_image_total(payload) == 3
 
 
 def test_live_comp_asset_upload_accepts_pre_cached_image(client):

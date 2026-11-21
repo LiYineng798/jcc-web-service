@@ -87,6 +87,7 @@ def test_precache_images_uploads_assets_and_rewrites_payload_urls():
             'jccCode': '#IMAGE',
             'mainAvatar': 'https://static.datatft.com/main.jpg',
             'heroImages': ['https://static.datatft.com/hero.png'],
+            'formationDetails': {'portraits': ['https://static.datatft.com/board.png']},
         }],
     })
     args = refresh_live_comps.parse_args([
@@ -130,9 +131,11 @@ def test_precache_images_uploads_assets_and_rewrites_payload_urls():
     rewritten, count = refresh_live_comps.precache_images(payload, args, opener=fake_opener)
     item = rewritten['tiers']['S'][0]
 
-    assert count == 2
+    assert count == 3
     assert item['mainAvatar'].startswith('/api/live-comps/assets/')
     assert item['heroImages'][0].startswith('/api/live-comps/assets/')
+    board_portrait = item['formationDetails']['portraits'][0]
+    assert board_portrait.startswith('/api/live-comps/assets/') and board_portrait not in item['heroImages']
 
 
 def test_compare_payloads_reports_added_removed_and_changed_items():

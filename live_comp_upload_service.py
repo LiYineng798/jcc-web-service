@@ -13,6 +13,7 @@ from audit import write_audit_best_effort
 from db import get_db, now_text
 from live_comps_helpers import (
     TIER_ORDER,
+    live_comp_image_total,
     read_live_comps_payload_for_season,
     validate_live_comps_payload,
 )
@@ -55,14 +56,6 @@ def _item_fingerprint(item):
     derived = {'originalJccCode', 'resolvedJccCode', 'hasCode', 'codeSource'}
     return json.dumps({key: value for key, value in item.items() if key not in derived},
                       ensure_ascii=False, sort_keys=True, separators=(',', ':'))
-
-
-def _image_total(payload):
-    return sum(
-        1 + len(item.get('heroImages', []))
-        for tier in TIER_ORDER
-        for item in payload.get('tiers', {}).get(tier, [])
-    )
 
 
 def _copy_counts(season_id, ids):
@@ -124,7 +117,7 @@ def build_upload_preview(season_id, payload):
         'old_is_valid': bool(old_valid),
         'new_counts': {tier: len(normalized['tiers'].get(tier, [])) for tier in TIER_ORDER},
         'total': sum(len(normalized['tiers'].get(tier, [])) for tier in TIER_ORDER),
-        'image_total': _image_total(normalized),
+        'image_total': live_comp_image_total(normalized),
         'added_ids': added_ids,
         'removed_ids': removed_ids,
         'changed_ids': changed_ids,
@@ -325,7 +318,7 @@ def _process_job(app, job):
         payload = json.loads(input_path.read_text(encoding='utf-8'))
         normalized = _normalize_for_preview(payload)
         item_total = sum(len(normalized['tiers'].get(tier, [])) for tier in TIER_ORDER)
-        image_total = _image_total(normalized)
+        image_total = live_comp_image_total(normalized)
         _update_job(
             job_id,
             stage='downloading_images',

@@ -62,12 +62,21 @@ def validate_live_comps_payload(payload):
             if details is not None and not isinstance(details, dict):
                 raise ValueError('formationDetails 必须是对象')
             if isinstance(details, dict):
+                portraits = details.get('portraits', [])
+                if not isinstance(portraits, list) or len(portraits) > 28 or not all(
+                    isinstance(url, str) and url.strip() for url in portraits
+                ):
+                    raise ValueError('棋盘头像必须是不超过 28 个图片地址的数组')
                 units = details.get('units')
                 if units is not None and not isinstance(units, list):
                     raise ValueError('formationDetails.units 必须是数组')
                 for unit in units or []:
                     if not isinstance(unit, dict):
                         raise ValueError('formationDetails.units 中的弈子必须是对象')
+                    if 'portraits' in details and 'portrait_index' in unit:
+                        index = unit['portrait_index']
+                        if type(index) is not int or not 0 <= index < len(portraits):
+                            raise ValueError('棋盘头像索引超出范围')
                     if not (unit.get('champion_id') or unit.get('source_champion_id')):
                         raise ValueError('站位弈子缺少 champion_id 或 source_champion_id')
                     try:
@@ -438,13 +447,17 @@ def write_live_comp_asset(filename, data):
     return f'{LIVE_COMP_ASSET_ROUTE}/{filename}'
 
 
-def cache_live_comps_payload_images(payload, progress_callback=None):
-    payload = normalize_live_comps_payload(payload)
-    total_images = sum(
-        1 + len(item.get('heroImages', []))
+def live_comp_image_total(payload):
+    return sum(
+        1 + len(item['heroImages']) + len((item.get('formationDetails') or {}).get('portraits', []))
         for tier in TIER_ORDER
         for item in payload['tiers'].get(tier, [])
     )
+
+
+def cache_live_comps_payload_images(payload, progress_callback=None):
+    payload = normalize_live_comps_payload(payload)
+    total_images = live_comp_image_total(payload)
     image_done = 0
     item_done = 0
     item_total = sum(len(payload['tiers'].get(tier, [])) for tier in TIER_ORDER)
@@ -462,7 +475,12 @@ def cache_live_comps_payload_images(payload, progress_callback=None):
                     'current_item': item.get('title') or str(item.get('id') or ''),
                 })
             item['heroImages'] = [cache_live_comp_image(src) for src in item.get('heroImages', [])]
-            image_done += len(item.get('heroImages', []))
+            image_done += len(item['heroImages'])
+            details = item.get('formationDetails')
+            if details and details.get('portraits'):
+                portraits = [cache_live_comp_image(url) for url in details['portraits']]
+                item['formationDetails'] = {**details, 'portraits': portraits}
+                image_done += len(portraits)
             item_done += 1
             if progress_callback:
                 progress_callback({
@@ -521,7 +539,8 @@ def public_live_comp_details(item):
         return None
     return {
         'version': details.get('version', 1),
-        'heroImages': item.get('heroImages', []),
+        # Older uploads indexed the homepage roster when rendering a board portrait.
+        'heroImages': details.get('portraits', item.get('heroImages', [])),
         'units': [unit for unit in details.get('units', []) if isinstance(unit, dict)][:28],
         'season_id': details.get('season_id'),
     }

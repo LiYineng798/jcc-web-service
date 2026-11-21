@@ -209,6 +209,7 @@ def collect_image_urls(payload):
                 continue
             urls.append(item.get('mainAvatar'))
             urls.extend(item.get('heroImages') or [])
+            urls.extend((item.get('formationDetails') or {}).get('portraits', []))
     return sorted({url for url in urls if is_remote_url(url) and not is_local_asset_url(url)})
 
 
@@ -222,6 +223,9 @@ def rewrite_payload_images(payload, replacements):
             if item.get('mainAvatar') in replacements:
                 item['mainAvatar'] = replacements[item['mainAvatar']]
             item['heroImages'] = [replacements.get(url, url) for url in (item.get('heroImages') or [])]
+            details = item.get('formationDetails')
+            if details and details.get('portraits'):
+                details['portraits'] = [replacements.get(url, url) for url in details['portraits']]
     return payload
 
 
