@@ -70,7 +70,17 @@ if (!packageFile) throw new Error('SEASON_PACKAGE_FILE is required');
       await root.getByRole('button',{name:'审核并发布',exact:true}).click();
       const dialog=root.locator('dialog');
       assert(await dialog.getByRole('button',{name:'确认发布',exact:true}).isDisabled());
-      await dialog.locator('input[type=checkbox]').check();
+      for (const width of [320, 390, 1440]) {
+        await page.setViewportSize({width,height:900});
+        assert(await dialog.evaluate(d => {
+          const box = d.querySelector('input[type=checkbox]').getBoundingClientRect();
+          const label = d.querySelector('.sp-check span').getBoundingClientRect();
+          return box.width === 18 && box.height === 18 && label.left >= box.right
+            && label.right <= d.getBoundingClientRect().right && d.scrollWidth <= d.clientWidth;
+        }), `${name} ${width}: confirmation layout`);
+      }
+      await dialog.getByRole('checkbox').focus();
+      await page.keyboard.press('Space');
       await dialog.getByRole('button',{name:'确认发布',exact:true}).click();
       await root.getByText('版本已发布，关键页面检查通过。',{exact:true}).waitFor();
       const guest=await request.newContext();

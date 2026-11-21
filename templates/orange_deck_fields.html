@@ -48,12 +48,11 @@
           <h2 id="deckFormationTitle">阵容站位 <small class="deck-hint">选填 · {{ creator_data.season_name or '英雄联盟传奇' }}</small></h2>
           <p class="deck-boundary" id="formationStatus" role="status" aria-live="polite"></p>
           <div id="formationPreview"></div>
-          <ul class="deck-star-list" id="starList" aria-label="弈子星级" hidden></ul>
           <div class="deck-actions">
             <button type="button" class="deck-button" id="openFormation"{% if not creator_data.simulator_available %} disabled{% endif %}>配置阵容</button>
             <button type="button" class="deck-button is-quiet" id="removeFormation" hidden>移除阵容</button>
           </div>
-          <p class="deck-boundary">阵容编辑使用创作者模拟器：羁绊按基础规则计算，时间卡片带来的额外羁绊、变身等效果不会自动计入，可写在说明里。星级在此处设置。</p>
+          <p class="deck-boundary">羁绊按基础规则计算。时间卡片的额外效果可写在搭配说明里。</p>
         </section>
         <p class="deck-error" id="deckFormError" role="alert"></p>
         <div class="deck-form-actions">

@@ -110,4 +110,5 @@
   时可改传 `source_item_ids`；详情页会同时匹配装备的 `official_id`、`tft_equip_id`
   和 `map_id`。两者都有时优先使用 `items`。
 - `star` 建议使用 `1..3`。没有 `formationDetails.units` 时，首页不显示详情入口。
+- 资料库未收录的特殊棋盘单位可提供原始 ID、`name` 和 `portrait_index`（本条 `heroImages` 中从 0 起算的位置）。详情显示名称和上传时缓存的头像，羁绊仍只由资料库中可确认的弈子贡献。
 - 首页头像和弈子条继续使用上传并缓存后的 `mainAvatar`、`heroImages`；详情棋盘使用资料库本地资源。

@@ -578,7 +578,7 @@ function hydrateBoard(rawBoard) {
       selectedFamilies.add(hero.baseChampionId);
     }
     const hydrated = { championId, items: [] };
-    if (!hero.isBoardUnit && Number(slot.stars) > 1) hydrated.stars = unitStars(slot);
+    if (!hero.isBoardUnit && Number(slot.stars ?? slot.star) > 1) hydrated.stars = unitStars(slot);
     const itemIds = Array.isArray(slot.items) ? slot.items : [];
     itemIds.map(String).forEach((itemId) => {
       if (!equipmentError(hydrated, itemId)) hydrated.items.push(itemId);
@@ -876,7 +876,8 @@ function effectiveItems(slot) {
 }
 
 function unitStars(slot) {
-  const value = Number(slot?.stars);
+  // Saved decks used the singular key before the simulator owned star selection.
+  const value = Number(slot?.stars ?? slot?.star);
   return Number.isFinite(value) ? Math.min(4, Math.max(1, Math.floor(value))) : 1;
 }
 

@@ -228,6 +228,23 @@ def change_job(release_id, action, actor):
     return release_payload(release_id)
 
 
+def withdraw_package(release_id, actor):
+    db = get_db()
+    # Keep the completed validation job, immutable files and audit history.
+    changed = db.execute(
+        """UPDATE season_release_packages SET state='cancelled'
+           WHERE id=? AND state='ready' AND published_at IS NULL""",
+        (release_id,),
+    ).rowcount
+    require(changed == 1, '只能撤回待审核且从未发布的更新包')
+    season_id = db.execute(
+        'SELECT season_id FROM season_release_packages WHERE id=?', (release_id,)
+    ).fetchone()['season_id']
+    _event(season_id, release_id, 'withdraw', actor)
+    db.commit()
+    return release_payload(release_id)
+
+
 def _comparison_warnings(report):
     report['warnings'] = [w for w in report['warnings'] if not w.startswith('比较：')]
     if report['diff']['mechanics']['removed']:
@@ -395,10 +412,13 @@ def refresh_report(release_id):
         data_directory(payload['season_id']), release_root(release_id) / 'data'
     )
     _comparison_warnings(report)
-    get_db().execute(
-        'UPDATE season_release_packages SET report_json=? WHERE id=?', (encode(report), release_id)
-    )
-    get_db().commit()
+    db = get_db()
+    changed = db.execute(
+        "UPDATE season_release_packages SET report_json=? WHERE id=? AND state='ready'",
+        (encode(report), release_id),
+    ).rowcount
+    require(changed == 1, '版本已撤回，请刷新后重试')
+    db.commit()
     return release_payload(release_id)
 
 
@@ -499,10 +519,15 @@ def publish(season_id, target, expected_revision, actor, acknowledge=False, roll
         db.rollback()
         raise PackageError('线上版本已变化，请刷新后重试')
     if target:
-        db.execute(
-            'UPDATE season_release_packages SET published_at=COALESCE(published_at,?) WHERE id=?',
+        # A reviewer may have withdrawn the candidate during the file checks.
+        marked = db.execute(
+            """UPDATE season_release_packages SET published_at=COALESCE(published_at,?)
+               WHERE id=? AND state='ready'""",
             (now_text(), target),
-        )
+        ).rowcount
+        if marked != 1:
+            db.rollback()
+            raise PackageError('目标版本已撤回，请刷新后重试')
     event_id = _event(
         season_id,
         target,

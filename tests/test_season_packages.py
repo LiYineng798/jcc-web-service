@@ -340,6 +340,59 @@ def test_publish_preview_conflict_rollback_and_visibility(manager, app, prepared
         assert get_db().execute('SELECT COUNT(*) AS n FROM visit_events').fetchone()['n'] == 0
 
 
+def test_withdraw_unpublished_candidate(manager, app, prepared):
+    client, headers = manager
+    base = '/api/admin/season-packages'
+    old = upload(manager, package(prepared)).json['package']['id']
+    assert client.post(f'{base}/{old}/withdraw', headers=headers).status_code == 400
+    work(app, old)
+    new = upload(manager, package(prepared, 'fixed', 2)).json['package']['id']
+    work(app, new)
+    assert client.post(f'{base}/{old}/withdraw').status_code == 403
+    result = client.post(f'{base}/{old}/withdraw', headers=headers)
+    assert result.status_code == 200 and result.json['job']['status'] == 'completed'
+    listing = client.get(base + '?season_id=s18').json
+    assert [row['id'] for row in listing['items']] == [new]
+    assert listing['counts']['pending'] == listing['counts']['closed'] == 1
+    assert client.get(base + '?group=closed').json['items'][0]['id'] == old
+    assert any(e['action'] == 'withdraw' and e['release_id'] == old for e in listing['events'])
+    assert client.get(f'{base}/{old}/download').status_code == 200
+    assert client.get(f'/season-assets/{old}/data/index.json').status_code == 404
+    publish = {'expected_revision': 0, 'acknowledge_warnings': True}
+    for action in ('publish', 'compare', 'retry', 'withdraw'):
+        assert client.post(f'{base}/{old}/{action}', headers=headers, json=publish).status_code == 400
+    assert client.post(f'{base}/{new}/publish', headers=headers, json=publish).status_code == 200
+    assert client.post(f'{base}/{new}/withdraw', headers=headers).status_code == 400
+    assert client.post('/api/admin/seasons/s18/rollback', headers=headers, json={'expected_revision': 1}).status_code == 200
+    assert client.post(f'{base}/{new}/withdraw', headers=headers).status_code == 400
+
+
+def test_withdraw_during_publish_file_checks_keeps_online_pointer(manager, app, prepared, monkeypatch):
+    import season_package_service as service
+
+    client, headers = manager
+    rid = upload(manager, package(prepared)).json['package']['id']
+    work(app, rid)
+    digest = service.sha256
+    with_outstanding_review = True
+
+    def hash_after_other_review(path):
+        nonlocal with_outstanding_review
+        if with_outstanding_review:
+            with_outstanding_review = False
+            with app.app_context():
+                service.withdraw_package(rid, None)
+        return digest(path)
+
+    monkeypatch.setattr(service, 'sha256', hash_after_other_review)
+    result = client.post(f'/api/admin/season-packages/{rid}/publish', headers=headers,
+                         json={'expected_revision': 0, 'acknowledge_warnings': True})
+    assert result.status_code == 400 and '撤回' in result.json['error']
+    with app.app_context():
+        assert active_state('s18')['revision'] == 0
+        assert release_payload(rid)['published_at'] is None
+
+
 def test_failed_hash_cancel_retry_and_lease_recovery(manager, app, prepared):
     rid = upload(manager, package(prepared)).json['package']['id']
     client, headers = manager

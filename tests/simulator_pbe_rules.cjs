@@ -106,6 +106,7 @@ for (const expected of [2,3,4,1]) { a.cycleUnitStars(0); assert.equal(s.board[0]
 a.applyHistory(3);assert.equal(s.board[0].stars,4);
 assert.equal(a.hydrateBoard(a.decodePayload(a.encodePayload()).board)[0].stars,4);
 assert.equal(a.hydrateBoard([slot('919103',99)])[0].stars,4);
+assert.equal(a.hydrateBoard([{championId:'919103',items:[],star:3}])[0].stars,3); // Stored deck payload
 assert.equal(a.unitStars({stars:Infinity}),1);
 assert.match(a.unitStarsHtml(s.board[0],0),/4星/);
 assert.equal((a.unitStarsHtml(s.board[0],0).match(/<path /g)||[]).length,4);

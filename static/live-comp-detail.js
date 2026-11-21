@@ -126,22 +126,25 @@
     const unit = units.get(index);
     const championId = unit ? (unit.champion_id || codebook.source_ids?.[String(unit.source_champion_id)]) : null;
     const champion = championId ? champions.get(String(championId)) : null;
-    if (champion) {
+    // Captured boards can contain a named summon outside the season's champion catalog.
+    const fallbackPortrait = Number.isInteger(unit?.portrait_index) ? details.heroImages?.[unit.portrait_index] : null;
+    if (champion || (unit?.name && fallbackPortrait)) {
+      const unitName = champion?.name || unit.name;
       const wrap = document.createElement('div');
       wrap.className = 'formation-unit';
-      wrap.style.setProperty('--unit-cost-color', COST_COLORS[champion.cost] || COST_COLORS[5]);
+      wrap.style.setProperty('--unit-cost-color', champion ? COST_COLORS[champion.cost] || COST_COLORS[5] : COST_COLORS[1]);
       const portrait = document.createElement('span');
       portrait.className = 'formation-portrait';
       const portraitImage = document.createElement('img');
-      portraitImage.src = asset(champion.images?.icon?.optimized_local_path || champion.images?.icon?.local_path);
-      portraitImage.alt = champion.name;
+      portraitImage.src = champion ? asset(champion.images?.icon?.optimized_local_path || champion.images?.icon?.local_path) : fallbackPortrait;
+      portraitImage.alt = unitName;
       const portraitCrop = document.createElement('span');
       portraitCrop.className = 'formation-portrait-crop';
       portraitCrop.append(portraitImage);
       portrait.append(portraitCrop);
       const name = document.createElement('span');
       name.className = 'formation-name';
-      name.textContent = champion.name;
+      name.textContent = unitName;
       wrap.append(portrait, name);
       if (Number(unit.star || 1) > 1) {
         const star = document.createElement('span');

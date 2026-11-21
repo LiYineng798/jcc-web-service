@@ -259,9 +259,9 @@ def validate_formation(raw):
         items = slot.get('items') or []
         if not isinstance(items, list) or len(items) > MAX_ITEMS or any(str(item) not in bundle['items'] for item in items):
             raise DeckError('阵容包含当前资料中不存在的装备，请在编辑器中重新配置')
-        star = slot.get('star', 1)
-        if star not in (1, 2, 3):
-            raise DeckError('弈子星级只能为 1 至 3 星')
+        star = slot.get('stars', slot.get('star', 1))
+        if type(star) is not int or not 1 <= star <= 4:
+            raise DeckError('弈子星级只能为 1 至 4 星')
         cells[index] = {'championId': unit_id, 'items': [str(item) for item in items], 'star': star}
     if not any(cells):
         return None

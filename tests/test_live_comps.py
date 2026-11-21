@@ -311,6 +311,7 @@ def test_live_comp_details_are_opt_in_and_hidden_code_is_not_public(client):
     details = client.get(f"/api/live-comps/{item['id']}/details?season=s17-star-god")
     assert details.status_code == 200
     assert details.get_json()['season_data_id'] == 's18'
+    assert details.get_json()['heroImages'] == public_item['heroImages']
     assert details.get_json()['units'][0]['position'] == 21
     assert details.get_json()['units'][0]['source_item_ids'] == ['1', '2']
     assert 'tftCode' not in details.get_json()

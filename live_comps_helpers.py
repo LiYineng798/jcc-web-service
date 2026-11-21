@@ -521,6 +521,7 @@ def public_live_comp_details(item):
         return None
     return {
         'version': details.get('version', 1),
+        'heroImages': item.get('heroImages', []),
         'units': [unit for unit in details.get('units', []) if isinstance(unit, dict)][:28],
         'season_id': details.get('season_id'),
     }

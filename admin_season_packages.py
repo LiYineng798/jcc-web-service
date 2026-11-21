@@ -13,6 +13,7 @@ from season_package_service import (
     release_payload,
     active_state,
     change_job,
+    withdraw_package,
     refresh_report,
     publish,
 )
@@ -170,6 +171,8 @@ def package_action(release_id, action):
     actor, _ = admin_required()
     if action in ('cancel', 'retry'):
         return jsonify(change_job(release_id, action, actor['id']))
+    if action == 'withdraw':
+        return jsonify(withdraw_package(release_id, actor['id']))
     if action == 'compare':
         return jsonify(refresh_report(release_id))
     if action != 'publish':

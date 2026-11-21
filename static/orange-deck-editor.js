@@ -85,35 +85,16 @@
   }
 
   // ------------------------------------------------------------- formation
-  const signature = (payload) => JSON.stringify([(payload?.board || []).map((slot) => slot && [slot.championId, slot.items]), payload?.augmentIds || []]);
+  const signature = (payload) => JSON.stringify([(payload?.board || []).map((slot) => slot && [slot.championId, slot.items, slot.stars ?? slot.star ?? 1]), payload?.augmentIds || []]);
 
   function viewFromMessage(message, payload) {
     return {
       available: true, issues: [], augments: [],
       unit_count: message.board.filter(Boolean).length,
-      cells: message.board.map((slot, index) => slot && { name: slot.name, cost: slot.cost, icon: slot.icon, star: payload.board[index]?.star || 1,
+      cells: message.board.map((slot, index) => slot && { name: slot.name, cost: slot.cost, icon: slot.icon, star: payload.board[index]?.stars ?? 1,
         items: slot.items.map((item) => ({ name: item.name, icon: item.icon })) }),
       traits: message.traits.map((trait) => ({ name: trait.name, count: trait.count, icon: trait.icon, frame: trait.frame })),
     };
-  }
-
-  function mergeStars(previous, next) {
-    // Keep a unit's star when it moves: match by champion and its nth appearance.
-    const stars = new Map(), seen = new Map();
-    (previous?.board || []).forEach((slot) => {
-      if (!slot) return;
-      const n = (seen.get(slot.championId) || 0) + 1;
-      seen.set(slot.championId, n);
-      stars.set(`${slot.championId}#${n}`, slot.star || 1);
-    });
-    seen.clear();
-    next.board = (next.board || []).map((slot) => {
-      if (!slot) return null;
-      const n = (seen.get(slot.championId) || 0) + 1;
-      seen.set(slot.championId, n);
-      return { championId: slot.championId, items: [...slot.items], star: stars.get(`${slot.championId}#${n}`) || 1 };
-    });
-    return next;
   }
 
   function renderFormation() {
@@ -122,13 +103,9 @@
     $('removeFormation').hidden = !f;
     $('openFormation').hidden = state.formationLocked;
     $('openFormation').textContent = f ? '修改阵容' : '配置阵容';
-    const list = $('starList');
-    const units = f && !state.formationLocked ? f.payload.board.map((slot, index) => slot && { slot, index, name: f.view?.cells[index]?.name || slot.championId }).filter(Boolean) : [];
-    list.hidden = !units.length;
-    list.innerHTML = units.map(({ slot, index, name }) => `<li><span>${D.esc(name)}</span><span role="radiogroup" aria-label="${D.esc(name)}的星级">${[1, 2, 3].map((star) => `<button type="button" role="radio" aria-checked="${slot.star === star}" data-star-slot="${index}" data-star="${star}" tabindex="${slot.star === star ? 0 : -1}">${star}★</button>`).join('')}</span></li>`).join('');
     if (!config.simulator_available && !f) $('formationStatus').textContent = '大橘大利阵容资料暂未开放，可以不配置阵容直接发布。';
     else if (state.formationLocked) $('formationStatus').textContent = '此阵容属于当前未开放或已更换的资料赛季，编辑器无法修改；保存时原样保留，也可以移除后重新配置。';
-    else if (!f) $('formationStatus').textContent = '未配置阵容。不配置也可以发布。';
+    else if (!f) $('formationStatus').textContent = '';
     else if (f.pending) $('formationStatus').textContent = '正在由阵容编辑器计算羁绊…';
     else $('formationStatus').textContent = `${f.view?.unit_count || 0} 个单位${state.formationDirty ? ' · 有未保存的阵容修改' : ''}`;
   }
@@ -172,7 +149,7 @@
     }
     if (data.type !== 'jcc:orange-formation' || data.version !== 1 || !frameReady || data.season !== config.season_id || !data.payload) return;
     const previous = state.formation;
-    const payload = mergeStars(previous?.payload, structuredClone(data.payload));
+    const payload = data.payload;
     const changed = signature(previous?.payload) !== signature(payload) || Boolean(previous?.pending);
     if (!payload.board.some(Boolean)) {
       if (previous && changed) { state.formation = null; state.formationDirty = true; markDirty(); }
@@ -195,28 +172,10 @@
     frame?.remove(); frame = null; frameReady = false;
     markDirty(); renderFormation();
   });
-  $('starList').addEventListener('click', (event) => {
-    const button = event.target.closest('[data-star]');
-    if (!button) return;
-    const index = Number(button.dataset.starSlot), star = Number(button.dataset.star);
-    state.formation.payload.board[index].star = star;
-    if (state.formation.view?.cells[index]) state.formation.view.cells[index].star = star;
-    state.formationDirty = true;
-    markDirty(); renderFormation();
-    $('starList').querySelector(`[data-star-slot="${index}"][data-star="${star}"]`)?.focus();
-  });
-  $('starList').addEventListener('keydown', (event) => {
-    const button = event.target.closest('[data-star]');
-    if (!button || !['ArrowLeft', 'ArrowRight'].includes(event.key)) return;
-    event.preventDefault();
-    const star = Math.min(3, Math.max(1, Number(button.dataset.star) + (event.key === 'ArrowRight' ? 1 : -1)));
-    $('starList').querySelector(`[data-star-slot="${button.dataset.starSlot}"][data-star="${star}"]`)?.click();
-  });
-
   // Formation payloads from the poster tool still need the simulator's trait result.
   function adoptPayload(payload) {
     if (!payload?.board?.some(Boolean) || payload.season !== config.season_id || !config.simulator_available) return false;
-    state.formation = { payload: mergeStars(null, structuredClone(payload)), traits: [], view: null, pending: true };
+    state.formation = { payload, traits: [], view: null, pending: true };
     state.formationLocked = false;
     state.formationDirty = true;
     ensureFrame();
@@ -458,7 +417,10 @@
       if (fromCreator) importCreator(false);
       else if (draft?.version === 1) {
         applyDeck(draft);
-        if (draft.formation?.payload?.season === config.season_id) state.formation = draft.formation;
+        if (draft.formation?.payload?.season === config.season_id) {
+          state.formation = draft.formation;
+          state.formationDirty = true;
+        }
         notice(['已恢复上次未提交的内容（仅保存在当前浏览器）。']);
       }
       state.status = 'new';

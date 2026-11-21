@@ -134,6 +134,18 @@ def test_formation_is_stored_structured_restored_and_reedited(users):
     assert [(t['name'], t['count']) for t in traits] == [('德玛西亚', 2)]
 
 
+def test_simulator_star_levels_are_saved_per_board_position(users):
+    owner, _, _, guest = users
+    raw = formation(units=(('1400', [], 1), ('1400', [], 1), ('1400', [], 1)))
+    for slot, stars in zip(raw['payload']['board'][21:24], [4, 2, 1]):
+        slot.pop('star')
+        if stars > 1:
+            slot['stars'] = stars
+    deck = create(owner, formation=raw).get_json()
+    cells = guest.get(f"/api/orange-decks/{deck['id']}/formation").json['formation']['cells']
+    assert [cell['star'] for cell in cells[21:24]] == [4, 2, 1]
+
+
 def test_formation_respects_the_creator_season_boundary(users, client):
     owner, other, admin, guest = users
     deck = create(owner, formation=formation()).get_json()

@@ -20,7 +20,7 @@ type Event = { id: string; action: string; status: string; season_id: string; cr
 type Listing = { items: Item[]; counts: Record<Group, number>; max_bytes: number; season_id: string | null; seasons: Season[]; events: Event[] };
 type Settled = { items: Item[]; total: number; page: number; loading: boolean; open: boolean };
 const SETTLED_EMPTY: Settled = { items: [], total: 0, page: 0, loading: false, open: false };
-type Confirmation = { kind: 'publish' | 'rollback'; seasonId: string; revision: number; target: string | null; label: string; warnings: string[] };
+type Confirmation = { kind: 'publish' | 'rollback' | 'withdraw'; seasonId: string; revision: number; target: string | null; label: string; warnings: string[] };
 
 const BASE = '/api/admin/season-packages';
 const SEASON_KEY = 'jcc-season-packages-season';
@@ -46,13 +46,14 @@ function ConfirmDialog({ value, busy, close, confirm }: { value: Confirmation; b
   const dialog = useRef<HTMLDialogElement>(null);
   const [ack, setAck] = useState(false);
   useEffect(() => { dialog.current?.showModal(); }, []);
-  return <dialog ref={dialog} aria-labelledby="sp-confirm-title" onCancel={event => { event.preventDefault(); if (!busy) close(); }}>
+  const verb = { publish: '发布', rollback: '回滚', withdraw: '撤回' }[value.kind];
+  return <dialog className="sp-confirm" ref={dialog} aria-labelledby="sp-confirm-title" onCancel={event => { event.preventDefault(); if (!busy) close(); }}>
     <div className="sp-stack">
-      <h2 id="sp-confirm-title">{value.kind === 'publish' ? '发布这个版本' : '回滚资料版本'}</h2>
-      <p className="sp-break">{value.label}</p>
-      <p className="sp-muted">确认后，此赛季的资料库、模拟器和海报创作者都将使用所选版本。系统会检查关键页面，失败时尝试恢复原版本。</p>
-      {value.warnings.length > 0 && <><div className="sp-warning">{value.warnings.map(w => <p key={w}>{w}</p>)}</div><label className="sp-check"><input type="checkbox" checked={ack} onChange={e => setAck(e.target.checked)} />我已核对以上告警，并确认发布这些资料。</label></>}
-      <div className="sp-actions"><Button onClick={close} disabled={busy}>取消</Button><Button primary onClick={confirm} disabled={busy || (value.warnings.length > 0 && !ack)}>{busy ? '正在切换并验证…' : '确认' + (value.kind === 'publish' ? '发布' : '回滚')}</Button></div>
+      <header><h2 id="sp-confirm-title">{{ publish: '发布这个版本', rollback: '回滚资料版本', withdraw: '撤回待审核包' }[value.kind]}</h2>
+      <p className="sp-break sp-muted">{value.label}</p></header>
+      <p className="sp-muted">{value.kind === 'withdraw' ? '此包将移入「已关闭」。原包和操作记录会保留，修正后请提高资料修订号并重新上传。' : '资料库、模拟器和海报将切换到此版本。'}</p>
+      {value.warnings.length > 0 && <><ul className="sp-warning">{value.warnings.map(w => <li key={w}>{w}</li>)}</ul><label className="sp-check"><input type="checkbox" checked={ack} onChange={e => setAck(e.target.checked)} /><span>我已核对以上告警</span></label></>}
+      <div className="sp-actions"><Button onClick={close} disabled={busy}>取消</Button><Button primary onClick={confirm} disabled={busy || (value.warnings.length > 0 && !ack)}>{busy ? '处理中…' : '确认' + verb}</Button></div>
     </div>
   </dialog>;
 }
@@ -104,11 +105,15 @@ function Pill({ tone = '', children }: { tone?: string; children: ReactNode }) {
   return <span className={`sp-pill ${tone}`}><i aria-hidden="true" />{children}</span>;
 }
 
-function statusTag(item: Item, online: boolean) {
+function stateLabel(state: string, jobStatus: string) {
+  return state === 'cancelled' && jobStatus === 'completed' ? '已撤回' : text(state);
+}
+
+function statusTag(item: Detail, online: boolean) {
   if (online) return <Pill tone="is-online">当前线上</Pill>;
   if (item.published_at && item.state === 'ready') return <Pill>历史版本</Pill>;
-  const tone = item.state === 'ready' ? 'is-pending' : item.state === 'rejected' ? 'is-error' : running(item.job_status) ? 'is-running' : '';
-  return <Pill tone={tone}>{text(item.state)}</Pill>;
+  const tone = item.state === 'ready' ? 'is-pending' : item.state === 'rejected' ? 'is-error' : running(item.job.status) ? 'is-running' : '';
+  return <Pill tone={tone}>{stateLabel(item.state, item.job.status)}</Pill>;
 }
 
 const version = (game: string | null, revision: number | null) => game ? `${game} · r${revision}` : null;
@@ -128,6 +133,7 @@ function describe(e: Event): { icon: LucideIcon; tone: string; title: string; no
     case 'validation': return { icon: ShieldAlert, tone: e.status === 'cancelled' ? 'is-neutral' : 'is-error',
       title: `${e.status === 'cancelled' ? '校验已取消' : '校验未通过'} ${target ?? ''}`, note: e.detail.message };
     case 'cancel': return { icon: Ban, tone: 'is-neutral', title: `请求取消校验 ${target ?? ''}`, note: null };
+    case 'withdraw': return { icon: Ban, tone: 'is-neutral', title: `撤回待审核包 ${target ?? ''}`, note: null };
     case 'retry': return { icon: RotateCcw, tone: 'is-neutral', title: `重新排队校验 ${target ?? ''}`, note: null };
     case 'publish': return { icon: Rocket, tone: e.status === 'failed' ? 'is-error' : 'is-accent', title: `发布 ${target ?? ''}`,
       note: e.status === 'failed' ? `页面检查未通过，${e.detail.auto_restored ? '已自动恢复为 ' + (previous ?? baseline) : '未覆盖之后的发布'}` : `替换 ${previous ?? baseline}` };
@@ -249,7 +255,10 @@ function App({ csrfToken }: { csrfToken: string }) {
     if (!listing || !detail || detail.id !== selected) return;
     const live = listing.seasons.find(s => s.season_id === detail.season_id)?.active.revision;
     const row = listing.items.find(i => i.id === detail.id);
-    if ((live !== undefined && live !== detail.active.revision) || (row && (row.state !== detail.state || row.job_status !== detail.job.status))) {
+    // A withdrawn candidate disappears from the open list even when the online revision is unchanged.
+    const changed = row ? row.state !== detail.state || row.job_status !== detail.job.status
+      : detail.state === 'ready' && !detail.published_at;
+    if ((live !== undefined && live !== detail.active.revision) || changed) {
       setDetailRefresh(n => n + 1);
     }
   }, [listing]);
@@ -329,8 +338,12 @@ function App({ csrfToken }: { csrfToken: string }) {
     const c = confirmation;
     // Show the outcome banner right away instead of leaving the reviewer on the diff tab.
     setTab('overview');
+    if (c.kind === 'withdraw') {
+      void action(`${BASE}/${c.target}/withdraw`, {}, '更新包已撤回。');
+      return;
+    }
     void action(c.kind === 'publish' ? `${BASE}/${c.target}/publish` : `/api/admin/seasons/${c.seasonId}/rollback`,
-      { expected_revision: c.revision, release_id: c.target, acknowledge_warnings: true }, c.kind === 'publish' ? '版本已发布，关键页面检查通过。' : '已回滚，关键页面检查通过。');
+      { expected_revision: c.revision, release_id: c.target, acknowledge_warnings: c.warnings.length > 0 }, c.kind === 'publish' ? '版本已发布，关键页面检查通过。' : '已回滚，关键页面检查通过。');
   }
   const currentDetail = detail?.id === selected ? detail : null;
   const report = currentDetail?.report;
@@ -353,6 +366,7 @@ function App({ csrfToken }: { csrfToken: string }) {
     : currentDetail.state === 'ready' ? (stale ? { tone: 'is-pending', icon: RefreshCw, title: '需要重新比较', text: `线上版本已变化（比较基准修订 ${report?.compared_active?.revision}，当前 ${currentDetail.active.revision}），重新比较后才能发布。` }
       : { tone: 'is-pending', icon: PackageCheck, title: report?.warnings?.length ? `待审核 · ${report.warnings.length} 条告警` : '待审核，可以发布', text: report?.warnings?.length ? '请先核对下方告警和资料差异，再审核发布。' : '校验已通过，预览确认后即可发布。' })
     : currentDetail.state === 'rejected' ? { tone: 'is-error', icon: ShieldAlert, title: '校验未通过', text: currentDetail.job.message || '请查看原包并修正后重新上传。' }
+    : currentDetail.state === 'cancelled' && currentDetail.job.status === 'completed' ? { tone: '', icon: Ban, title: '审核已撤回', text: '原包已保留。' }
     : currentDetail.state === 'cancelled' ? { tone: '', icon: Ban, title: '校验已取消', text: '可以重试校验，或上传新的更新包。' }
     : { tone: 'is-running', icon: LoaderCircle, title: '正在校验', text: currentDetail.job.message || '后台处理中，离开页面后任务仍会继续。' };
   const tabs = currentDetail?.state === 'ready' ? [['overview', '概览'], ['diff', '资料差异'], ['notes', '更新说明'], ['sources', '玩法与来源']] : [['overview', '概览']];
@@ -376,17 +390,17 @@ function App({ csrfToken }: { csrfToken: string }) {
     {!focus && <span className="sp-season-label">{seasonName(item.season_id)}</span>}
     <span className="sp-row"><strong className="sp-num">{item.game_version}<span className="sp-rev"> r{item.data_revision}</span></strong>
       {item.grp === 'processing' ? <Pill tone="is-running">校验中 {item.progress}%</Pill> : item.grp === 'pending' ? <Pill tone="is-pending">待审核</Pill>
-        : item.grp === 'closed' ? <span className="sp-muted">{text(item.state)}</span> : null}</span>
+        : item.grp === 'closed' ? <span className="sp-muted">{stateLabel(item.state, item.job_status)}</span> : null}</span>
     {!compact && <span className="sp-muted sp-num">{item.grp === 'online' && item.published_at ? `发布于 ${item.published_at.slice(5, 16)}` : `上传于 ${item.created_at.slice(5, 16)}`}</span>}
     {compact && <span className="sp-muted sp-num">{item.published_at ? `发布于 ${item.published_at.slice(0, 16)}` : `上传于 ${item.created_at.slice(0, 16)}`}</span>}
   </button>;
-  const settledSection = (group: 'history' | 'closed', title: string, hint: string) => {
+  const settledSection = (group: 'history' | 'closed', title: string, hint?: string) => {
     const state = settled[group];
     const count = counts?.[group] || 0;
     if (!count) return null;
     return <section className={`sp-group is-settled${state.open ? ' is-open' : ''}`}>
       <button type="button" className="sp-group-toggle" aria-expanded={state.open} onClick={() => setSettled(current => ({ ...current, [group]: { ...current[group], open: !current[group].open } }))}>
-        <ChevronRight size={14} aria-hidden="true" /><span>{title}</span><span className="sp-count sp-num">{count}</span><span className="sp-muted">{hint}</span>
+        <ChevronRight size={14} aria-hidden="true" /><span>{title}</span><span className="sp-count sp-num">{count}</span>{hint && <span className="sp-muted">{hint}</span>}
       </button>
       {state.open && <div className="sp-records">
         {state.items.map(item => row(item, true))}
@@ -418,7 +432,7 @@ function App({ csrfToken }: { csrfToken: string }) {
             <div className="sp-records">{byGroup('online').map(item => row(item))}</div>
           </section>}
           {settledSection('history', '历史版本', '可回滚')}
-          {settledSection('closed', '未通过 / 已取消', '不会发布')}
+          {settledSection('closed', '已关闭')}
         </div>)
         : <EventTimeline events={listing?.events || []} showSeason={!focus} seasonName={seasonName} open={openPackage} />}
       {middle === 'events' && listing?.events.length === 0 && <p className="sp-empty">暂无操作记录。</p>}
@@ -445,8 +459,9 @@ function App({ csrfToken }: { csrfToken: string }) {
         {running(currentDetail.job.status) && <Button disabled={busy || !!currentDetail.job.cancel_requested} onClick={() => void action(`${BASE}/${selected}/cancel`, {}, '已请求取消校验。')}>{currentDetail.job.cancel_requested ? '正在取消…' : '取消校验'}</Button>}
         {['failed', 'cancelled'].includes(currentDetail.job.status) && <Button disabled={busy} onClick={() => void action(`${BASE}/${selected}/retry`, {}, '任务已重新排队。')}><RotateCcw size={14} />重试校验</Button>}
         <a className="sp-btn" href={`${BASE}/${selected}/download`}><Download size={14} />原包</a>
+        {currentDetail.state === 'ready' && !currentDetail.published_at && !isActive && <Button disabled={busy} onClick={() => setConfirmation({ kind: 'withdraw', seasonId: currentDetail.season_id, revision: currentDetail.active.revision, target: selected, label: currentDetail.package_id, warnings: [] })}>撤回待审核包</Button>}
       </div>
-      <div className="sp-tabs" role="group" aria-label="审核内容">{tabs.map(([key, label]) => <button type="button" aria-pressed={tab === key} onClick={() => setTab(key)} key={key}>{label}{key === 'overview' && !!report?.warnings?.length && <span className="sp-dot" aria-label={`${report.warnings.length} 条告警`} />}</button>)}</div>
+      <div className="sp-tabs" role="group" aria-label="审核内容">{tabs.map(([key, label]) => <button type="button" aria-pressed={tab === key} onClick={() => setTab(key)} key={key}>{label}{key === 'overview' && currentDetail.state === 'ready' && !!report?.warnings?.length && <span className="sp-dot" aria-label={`${report.warnings.length} 条告警`} />}</button>)}</div>
       <div className="sp-pane-body sp-stack">
         {(tab === 'overview' || currentDetail.state !== 'ready') && banner && <>
           <div role="status" className={`sp-banner ${banner.tone}`}>
@@ -454,7 +469,7 @@ function App({ csrfToken }: { csrfToken: string }) {
             <span className="sp-min"><strong>{banner.title}</strong><span className="sp-banner-text">{banner.text}</span></span>
             {running(currentDetail.job.status) && <span className="sp-banner-progress sp-num">{currentDetail.job.progress}%<progress value={currentDetail.job.progress} max={100} aria-label="处理进度" /></span>}
           </div>
-          {!!report?.warnings?.length && <div className="sp-warning"><h3><CircleAlert size={15} aria-hidden="true" />发布前需确认的告警 · {report.warnings.length}</h3><ul>{report.warnings.map(w => <li key={w}>{w}</li>)}</ul></div>}
+          {currentDetail.state === 'ready' && !!report?.warnings?.length && <div className="sp-warning"><h3><CircleAlert size={15} aria-hidden="true" />发布前需确认的告警 · {report.warnings.length}</h3><ul>{report.warnings.map(w => <li key={w}>{w}</li>)}</ul></div>}
           {currentDetail.state === 'ready' && <div><h3 className="sp-section">本包内容</h3><div className="sp-metrics">{Object.entries(report?.counts || {}).map(([key, value]) => <div className="sp-metric" key={key}><span>{text(key)}</span><strong className="sp-num">{value}</strong></div>)}</div></div>}
         </>}
         {tab === 'diff' && report?.diff && <div><p className="sp-muted">比较基准：线上修订 {report.compared_active?.revision}。切换过线上版本后需重新比较。</p><DiffReport key={currentDetail.id} diff={report.diff} /></div>}
