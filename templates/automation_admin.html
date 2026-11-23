@@ -1,6 +1,7 @@
 <!doctype html>
 {% from "theme_toggle.html" import theme_toggle %}
 {% from "seo_head.html" import seo_head %}
+{% set tabs = [('overview','运营概览','概览',False),('reports','每日报告','日报',False),('lineups','普通阵容','阵容',False),('decks','卡组上传','卡组',True),('touch','榜单展示时间','时间',True)] %}
 <html lang="zh-CN">
 <head>
 {{ seo_head(seo, viewport_fit_cover=True) }}
@@ -13,25 +14,25 @@
 <body class="admin-page assistant-page">
 <div class="admin-layout">
 <aside class="admin-sidebar" aria-label="后台导航">
-<a class="admin-brand" href="/admin"><span class="admin-brand-mark" aria-hidden="true">阵</span><span class="admin-brand-copy"><strong>阵容管理台</strong><small>协作工作台</small></span></a>
+<a class="admin-brand" href="/admin"><span class="admin-brand-mark" aria-hidden="true">阵</span><strong>阵容管理台</strong></a>
 <nav class="admin-sidebar-nav">
-{% for key, title in [('overview','运营概览'),('reports','每日报告'),('lineups','普通阵容'),('decks','卡组上传'),('touch','榜单展示时间')] %}
-<button class="admin-nav-item" data-assistant-tab="{{ key }}" type="button">{{ title }}</button>
+{# Gated tabs stay hidden until /me grants them, so the menu itself shows what this account may do. #}
+{% for key, title, _, gated in tabs %}
+<button class="admin-nav-item" data-assistant-tab="{{ key }}" type="button"{% if gated %} hidden{% endif %}>{{ title }}</button>
 {% endfor %}
 </nav>
-<div class="admin-sidebar-footer"><span class="admin-system-caption">仅开放管理员授权的操作</span></div>
 </aside>
 <main class="admin-main">
 <header class="admin-topbar">
-<div class="assistant-identity"><button class="assistant-avatar" id="assistantAvatar" type="button" aria-label="修改本账号头像" hidden></button><div><h1 class="assistant-title">协作工作台</h1><p class="admin-meta" id="assistantIdentity">正在加载账号…</p></div></div>
-<div class="admin-top-actions"><a class="admin-icon-link" href="/">前台</a>{{ theme_toggle('admin-theme-toggle') }}<button class="small-button" id="assistantLogout" type="button">退出</button></div>
+<div class="assistant-identity"><button class="assistant-avatar" id="assistantAvatar" type="button" aria-label="修改头像" hidden></button><strong id="assistantName"></strong><span class="assistant-expiry" id="assistantExpiry"></span></div>
+<div class="admin-top-actions"><a class="admin-icon-link" href="/">前台</a>{{ theme_toggle('admin-theme-toggle') }}<button class="admin-icon-link" id="assistantLogout" type="button">退出</button></div>
 </header>
-<section class="admin-content"><section class="assistant-panel assistant-permissions" id="assistantPermissions" aria-labelledby="assistantPermissionsTitle" hidden></section><div id="assistantApp" aria-live="polite">工作台加载中…</div></section>
+<section class="admin-content"><div id="assistantApp" aria-live="polite"></div></section>
 </main>
 </div>
-<nav class="admin-mobile-nav" aria-label="手机端后台导航">
-{% for key, title in [('overview','概览'),('reports','日报'),('lineups','阵容'),('decks','卡组'),('touch','展示时间')] %}
-<button class="admin-mobile-nav-item" data-assistant-tab="{{ key }}" type="button">{{ title }}</button>
+<nav class="admin-mobile-nav" aria-label="后台导航">
+{% for key, _, short, gated in tabs %}
+<button class="admin-mobile-nav-item" data-assistant-tab="{{ key }}" type="button"{% if gated %} hidden{% endif %}>{{ short }}</button>
 {% endfor %}
 </nav>
 <script src="{{ static_v('theme-toggle.js') }}" defer></script>

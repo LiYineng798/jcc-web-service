@@ -15,7 +15,7 @@
     {{ bezel_templates() }}
     <div class="page-shell publish-shell">
       <nav class="deck-page-nav" aria-label="页面工具">
-        {% if submission_id %}<a href="/admin#deck-submissions">← 返回投稿工作台</a>{% elif assistant_season %}<a href="/admin#decks">← 返回协作工作台</a>{% else %}<a href="/orange-decks/{{ deck_id }}">← 返回卡组详情</a>{% endif %}
+        {% if submission_id %}<a href="/admin#deck-submissions">← 返回投稿工作台</a>{% elif assistant_season %}<a href="/admin#decks">← 返回工作台</a>{% else %}<a href="/orange-decks/{{ deck_id }}">← 返回卡组详情</a>{% endif %}
         <div class="nav-actions"><a href="/tools/orange-fortune" target="_blank" rel="noopener">时间卡片图鉴 ↗</a>{{ theme_toggle('nav-icon-button') }}</div>
       </nav>
       <header class="publish-head">
