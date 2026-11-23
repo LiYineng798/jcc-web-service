@@ -251,9 +251,13 @@
 .s18-main-tabs {
   position: relative;
   top: auto;
-  grid-template-columns: repeat(var(--tab-count, 3), 124px);
-  width: auto;
+  display: flex;
+  width: 100%;
+  min-width: 0;
   margin: 0;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
   border: 0;
   border-radius: 0;
   background: transparent;
@@ -266,8 +270,16 @@
   box-shadow: none;
 }
 
+/* Tabs size to their labels (mechanic names such as 城邦 · 开局奇遇 vary in length)
+   and the row scrolls sideways when it runs out of room. */
+.s18-main-tabs::-webkit-scrollbar {
+  display: none;
+}
+
 .s18-main-tab {
+  flex: 0 0 auto;
   min-height: 50px;
+  padding: 0 18px;
   border-radius: 0;
   font-size: 0.95rem;
   font-weight: 750;
@@ -294,15 +306,15 @@
   color: var(--accent);
 }
 
-.s18-tab-indicator {
-  top: auto;
-  bottom: -1px;
-  left: 0;
-  width: calc(100% / var(--tab-count, 3));
+.s18-main-tab.active::after {
+  position: absolute;
+  right: 18px;
+  bottom: 0;
+  left: 18px;
   height: 2px;
   border-radius: 2px;
-  background: linear-gradient(90deg, transparent 22%, var(--accent) 22%, var(--accent) 78%, transparent 78%);
-  box-shadow: none;
+  background: var(--accent);
+  content: "";
 }
 
 /* ---- Type scale aligned with the home page: headings 700, controls 600-700, body 400 ---- */
@@ -747,14 +759,15 @@
     margin-bottom: 16px;
   }
 
-  .s18-main-tabs {
-    grid-template-columns: repeat(var(--tab-count, 3), minmax(0, 1fr));
-    width: 100%;
-  }
-
   .s18-main-tab {
     min-height: 46px;
+    padding: 0 14px;
     font-size: 13px;
+  }
+
+  .s18-main-tab.active::after {
+    right: 14px;
+    left: 14px;
   }
 
   .lib-tab-count {

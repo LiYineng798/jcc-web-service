@@ -1,4 +1,5 @@
 import json
+import re
 from pathlib import Path
 
 from PIL import Image
@@ -91,7 +92,7 @@ def test_season_reference_pages_render_for_every_catalog_season(client):
         context = season_page_context(season['season_id'])
         for mechanic in context['mechanics']:
             assert mechanic['display_name'] in html
-        assert f'style="--tab-count: {2 + len(context["mechanics"]) + int(context["has_augments"])}"' in html
+        assert len(re.findall(r'class="s18-main-tab[ "]', html)) == 2 + len(context["mechanics"]) + int(context["has_augments"])
 
 
 def test_season_reference_images_wake_on_tab_switch_and_have_fallbacks():
