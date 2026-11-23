@@ -74,10 +74,12 @@
     const matches = config.cards.filter((card) => (!tier || String(card.tier) === tier) && (!category || card.category === category)
       && terms.every((term) => `${card.name} ${card.tier_name} ${card.description} ${card.rounds.join(' ')}`.toLowerCase().includes(term)));
     $('pickerTitle').textContent = `选择第 ${activeSlot + 1} 张时间卡片`;
-    $('pickerBudget').textContent = budget > 0
+    // The quiet editor (AI uploads) keeps only the numbers.
+    const quiet = Boolean(assistantSeason);
+    $('pickerBudget').textContent = quiet ? (budget > 0 ? `能量 ≤ ${budget}` : '任何卡片都会超限') : budget > 0
       ? `${portal.name}上限 ${portal.energy_limit}，其他卡槽已用 ${others}：本槽选择能量 ≤ ${budget} 的卡片可满足准入条件。`
       : `${portal.name}上限 ${portal.energy_limit}，其他卡槽已用 ${others}：本槽任何卡片都会超限。`;
-    $('pickerCount').textContent = `找到 ${matches.length} 张 · 已在其他卡槽的卡片不可重复选择`;
+    $('pickerCount').textContent = quiet ? `${matches.length} 张` : `找到 ${matches.length} 张 · 已在其他卡槽的卡片不可重复选择`;
     $('pickerGrid').innerHTML = matches.length ? matches.map((card) => {
       const selected = state.cards[activeSlot] === card.id, occupied = !selected && state.cards.includes(card.id), over = card.energy > budget;
       return `<button type="button" class="deck-pick" data-card="${D.esc(card.id)}" data-tier="${card.tier}" aria-pressed="${selected}" ${occupied ? 'disabled' : ''} aria-label="${D.esc(`${card.name}，${card.tier_name}，能量 ${card.energy}${over ? '，会超出上限' : ''}${occupied ? '，已在其他卡槽' : ''}`)}">${D.art({ ...card, status: 'ok' })}<span class="deck-thumb-name">${D.esc(card.name)}</span><small class="deck-tier" data-tier="${card.tier}">${D.esc(card.tier_name)} · ${card.energy}${occupied ? ' · 已选' : ''}</small>${over ? '<span class="deck-pick-flag">超出上限</span>' : ''}<p>${D.esc(D.roundText(card))} · ${D.esc(card.description)}</p></button>`;
@@ -427,7 +429,7 @@
     }
     renderCards(); renderFormation(); renderActions();
     $('deckForm').removeAttribute('aria-busy');
-    if (!state.dirty) $('deckSaveState').textContent = deckId ? `状态：${{ draft: '草稿', published: '已发布', hidden: '已隐藏' }[state.status]}` : assistantSeason ? '填写完成后发布到已授权赛季' : '填写完成后发布，或先保存为草稿';
+    if (!state.dirty) $('deckSaveState').textContent = deckId ? `状态：${{ draft: '草稿', published: '已发布', hidden: '已隐藏' }[state.status]}` : assistantSeason ? '' : '填写完成后发布，或先保存为草稿';
   }
   boot().catch((error) => {
     setError(`编辑器加载失败：${error.message}`);

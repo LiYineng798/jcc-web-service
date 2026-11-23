@@ -1,4 +1,6 @@
-{# Deck editor fields, shared by the publish page (/lineup/new?type=deck) and the deck edit page. #}
+{# Deck editor fields, shared by the publish page (/lineup/new?type=deck) and the deck edit page.
+   quiet (AI uploads) drops hint text; labels, limits (maxlength) and live status stay. #}
+{% set quiet = assistant_season|default('') != '' %}
 <div class="deck-editor" id="deckEditor" data-deck-id="{{ deck_id }}" data-assistant-season="{{ assistant_season|default('') }}" data-submission-id="{{ submission_id|default('') }}" data-deck-root>
       <div class="deck-notice" id="deckEditorNotice" role="status" hidden></div>
       <details class="deck-notice" id="submissionCodeChanges" hidden>
@@ -12,19 +14,19 @@
       <form class="deck-form" id="deckForm" novalidate aria-busy="true">
         <section class="deck-section" aria-labelledby="deckBasicsTitle">
           <h2 id="deckBasicsTitle">卡组名称与传送门</h2>
-          <label class="field" for="deckName">卡组名称 <small class="deck-hint">必填 · {{ limits.name }} 字内</small>
-            <input id="deckName" maxlength="{{ limits.name }}" autocomplete="off" required placeholder="例如：三传说未知门" />
+          <label class="field" for="deckName">卡组名称{% if not quiet %} <small class="deck-hint">必填 · {{ limits.name }} 字内</small>{% endif %}
+            <input id="deckName" maxlength="{{ limits.name }}" autocomplete="off" required{% if not quiet %} placeholder="例如：三传说未知门"{% endif %} />
           </label>
-          <label class="field" for="deckPlanCode">游戏方案码 <small class="deck-hint">选填 · 从游戏中复制完整方案码</small>
-            <textarea id="deckPlanCode" class="deck-code-input" maxlength="{{ limits.plan_code }}" rows="3" spellcheck="false" autocomplete="off" placeholder="德玛时光速9流-大橘大利-MjE5OTY4Mzc0NDMyOTI3OTQxNzkzNzU0NzMyMTczNQ==" aria-describedby="deckCodeHint"></textarea>
+          <label class="field" for="deckPlanCode">游戏方案码{% if not quiet %} <small class="deck-hint">选填 · 从游戏中复制完整方案码</small>{% endif %}
+            <textarea id="deckPlanCode" class="deck-code-input" maxlength="{{ limits.plan_code }}" rows="3" spellcheck="false" autocomplete="off" placeholder="德玛时光速9流-大橘大利-MjE5OTY4Mzc0NDMyOTI3OTQxNzkzNzU0NzMyMTczNQ=="{% if not quiet %} aria-describedby="deckCodeHint"{% endif %}></textarea>
           </label>
-          <p class="deck-boundary" id="deckCodeHint">填写后，卡组列表会显示“复制方案码”按钮，完整方案码只在详情页展示。请确认方案码与所选三张卡一致。</p>
-          <label class="field" for="deckLineupCode">游戏阵容码 <small class="deck-hint">选填 · 可粘贴完整分享文案</small>
-            <textarea id="deckLineupCode" class="deck-code-input" maxlength="{{ limits.lineup_code }}" rows="3" spellcheck="false" autocomplete="off" placeholder="【阵容码】#阵容名称#编码" aria-describedby="deckLineupCodeHint"></textarea>
+          {% if not quiet %}<p class="deck-boundary" id="deckCodeHint">填写后，卡组列表会显示“复制方案码”按钮，完整方案码只在详情页展示。请确认方案码与所选三张卡一致。</p>{% endif %}
+          <label class="field" for="deckLineupCode">游戏阵容码{% if not quiet %} <small class="deck-hint">选填 · 可粘贴完整分享文案</small>{% endif %}
+            <textarea id="deckLineupCode" class="deck-code-input" maxlength="{{ limits.lineup_code }}" rows="3" spellcheck="false" autocomplete="off" placeholder="【阵容码】#阵容名称#编码"{% if not quiet %} aria-describedby="deckLineupCodeHint"{% endif %}></textarea>
           </label>
-          <p class="deck-boundary" id="deckLineupCodeHint">自动提取以 # 开头的有效阵容码，保存后可独立复制。方案码与阵容码均为选填，请分别确认内容与卡组一致。</p>
+          {% if not quiet %}<p class="deck-boundary" id="deckLineupCodeHint">自动提取以 # 开头的有效阵容码，保存后可独立复制。方案码与阵容码均为选填，请分别确认内容与卡组一致。</p>{% endif %}
           <fieldset class="deck-portals" id="deckPortals">
-            <legend>推荐传送门 <small class="deck-hint">必填 · 卡组能量不能超过上限</small></legend>
+            <legend>推荐传送门{% if not quiet %} <small class="deck-hint">必填 · 卡组能量不能超过上限</small>{% endif %}</legend>
             {% for portal in creator_data.portals %}
             <label data-portal="{{ portal.id }}"><input type="radio" name="deckPortal" value="{{ portal.id }}"{% if loop.first %} checked{% endif %} />
               <strong>{{ portal.name }}</strong><span>能量 ≤ {{ portal.energy_limit }} · 入场 {{ '{:,}'.format(portal.entry_fee) }} 金橘币</span><span>失败{{ portal.loss }}</span><em data-fit></em></label>
@@ -35,28 +37,28 @@
           <h2 id="deckCardsTitle">三张时间卡片</h2>
           <p class="deck-energy" id="deckEnergy" role="status" aria-live="polite"></p>
           <div class="deck-slots" id="deckSlots"></div>
-          <p class="deck-boundary">卡片能量等于品阶（基础 1 · 勇士 2 · 王者 3 · 史诗 4 · 传说 5）。同一张卡不能重复；公开发布时，三张卡的能量之和不能超过所选传送门上限，草稿可以暂存。</p>
-          <button type="button" class="deck-button is-quiet" id="importCreator">从海报创作者草稿导入</button>
+          {% if not quiet %}<p class="deck-boundary">卡片能量等于品阶（基础 1 · 勇士 2 · 王者 3 · 史诗 4 · 传说 5）。同一张卡不能重复；公开发布时，三张卡的能量之和不能超过所选传送门上限，草稿可以暂存。</p>{% endif %}
+          <button type="button" class="deck-button is-quiet" id="importCreator"{% if quiet %} hidden{% endif %}>从海报创作者草稿导入</button>
         </section>
         <section class="deck-section" aria-labelledby="deckNotesTitle">
-          <h2 id="deckNotesTitle">说明 <small class="deck-hint">选填</small></h2>
-          <label class="field" for="deckNote">搭配说明 <small class="deck-hint">{{ limits.note }} 字内，在详情页展示</small><textarea id="deckNote" maxlength="{{ limits.note }}" placeholder="这套卡组适合什么局势，三张卡如何配合…"></textarea></label>
-          <label class="field" for="deckRounds">关键回合与节奏 <small class="deck-hint">{{ limits.key_rounds }} 字内</small><input id="deckRounds" maxlength="{{ limits.key_rounds }}" placeholder="例如：2-1 拿装备，3-2 开始连败" /></label>
-          <label class="field" for="deckAlternatives">替代卡建议 <small class="deck-hint">{{ limits.alternatives }} 字内</small><textarea id="deckAlternatives" maxlength="{{ limits.alternatives }}" placeholder="缺少某张卡时可以换成…"></textarea></label>
+          <h2 id="deckNotesTitle">说明{% if not quiet %} <small class="deck-hint">选填</small>{% endif %}</h2>
+          <label class="field" for="deckNote">搭配说明{% if not quiet %} <small class="deck-hint">{{ limits.note }} 字内，在详情页展示</small>{% endif %}<textarea id="deckNote" maxlength="{{ limits.note }}"{% if not quiet %} placeholder="这套卡组适合什么局势，三张卡如何配合…"{% endif %}></textarea></label>
+          <label class="field" for="deckRounds">关键回合与节奏{% if not quiet %} <small class="deck-hint">{{ limits.key_rounds }} 字内</small>{% endif %}<input id="deckRounds" maxlength="{{ limits.key_rounds }}"{% if not quiet %} placeholder="例如：2-1 拿装备，3-2 开始连败"{% endif %} /></label>
+          <label class="field" for="deckAlternatives">替代卡建议{% if not quiet %} <small class="deck-hint">{{ limits.alternatives }} 字内</small>{% endif %}<textarea id="deckAlternatives" maxlength="{{ limits.alternatives }}"{% if not quiet %} placeholder="缺少某张卡时可以换成…"{% endif %}></textarea></label>
         </section>
         <section class="deck-section" aria-labelledby="deckFormationTitle">
-          <h2 id="deckFormationTitle">阵容站位 <small class="deck-hint">选填 · {{ creator_data.season_name or '英雄联盟传奇' }}</small></h2>
+          <h2 id="deckFormationTitle">阵容站位{% if not quiet %} <small class="deck-hint">选填 · {{ creator_data.season_name or '英雄联盟传奇' }}</small>{% endif %}</h2>
           <p class="deck-boundary" id="formationStatus" role="status" aria-live="polite"></p>
           <div id="formationPreview"></div>
           <div class="deck-actions">
             <button type="button" class="deck-button" id="openFormation"{% if not creator_data.simulator_available %} disabled{% endif %}>配置阵容</button>
             <button type="button" class="deck-button is-quiet" id="removeFormation" hidden>移除阵容</button>
           </div>
-          <p class="deck-boundary">羁绊按基础规则计算。时间卡片的额外效果可写在搭配说明里。</p>
+          {% if not quiet %}<p class="deck-boundary">羁绊按基础规则计算。时间卡片的额外效果可写在搭配说明里。</p>{% endif %}
         </section>
         <p class="deck-error" id="deckFormError" role="alert"></p>
         <div class="deck-form-actions">
-          <p id="deckSaveState">正在准备编辑器…</p>
+          <p id="deckSaveState" role="status">{% if not quiet %}正在准备编辑器…{% endif %}</p>
           <button type="button" class="deck-button is-danger" id="deleteDeck" hidden>删除</button>
           <button type="button" class="deck-button" id="saveSecondary" disabled>保存草稿</button>
           <button type="submit" class="deck-button is-primary" id="savePrimary" disabled>发布</button>
@@ -73,7 +75,7 @@
       <div class="deck-picker-grid" id="pickerGrid"></div>
     </dialog>
     <dialog class="deck-dialog deck-formation-dialog" id="formationDialog" aria-labelledby="formationDialogTitle">
-      <header><div><h2 id="formationDialogTitle">配置阵容</h2><p class="deck-boundary">点击上阵，拖动调整站位，选择装备后点击弈子。修改会同步回卡组，不会改动你的模拟器或海报草稿。</p></div><button type="button" class="deck-button is-primary" id="closeFormation">完成</button></header>
+      <header><div><h2 id="formationDialogTitle">配置阵容</h2>{% if not quiet %}<p class="deck-boundary">点击上阵，拖动调整站位，选择装备后点击弈子。修改会同步回卡组，不会改动你的模拟器或海报草稿。</p>{% endif %}</div><button type="button" class="deck-button is-primary" id="closeFormation">完成</button></header>
       <div id="formationFrameSlot" style="display:contents"></div>
     </dialog>
     <script type="application/json" id="deckEditorConfig">{{ {'season_id': creator_data.season_id, 'season_name': creator_data.season_name, 'simulator_available': creator_data.simulator_available, 'portals': creator_data.portals, 'cards': creator_data.cards}|tojson }}</script>
