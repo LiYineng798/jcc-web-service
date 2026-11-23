@@ -98,7 +98,13 @@ def test_automation_upload_grant_scope_revocation_and_audit(client, app):
     assert client.put(url, headers=admin, json={'can_upload_decks': True, 'deck_seasons': ['s17-star-god']}).status_code == 400
     assert client.put(url, headers=admin, json={'can_upload_decks': True, 'deck_seasons': [SEASON]}).status_code == 200
     assert bot.get(PREFIX + '/me').get_json()['deck_seasons'] == [SEASON]
-    assert bot.get('/admin/assistant/decks/new?season_id=' + SEASON).status_code == 200
+    editor = bot.get('/admin/assistant/decks/new?season_id=' + SEASON)
+    assert editor.status_code == 200
+    # AI uploads get the quiet editor: same fields and ids, no hint copy; other editors keep theirs.
+    quiet = editor.get_data(as_text=True)
+    assert 'is-quiet' in quiet and 'id="deckForm"' in quiet and 'id="deckPortals"' in quiet
+    assert 'deck-hint' not in quiet and 'id="deckCodeHint"' not in quiet and '大橘大利卡组' not in quiet
+    assert 'deck-hint' in client.get('/lineup/new?type=deck').get_data(as_text=True)
     assert bot.post(endpoint, json=body).status_code == 403
     assert bot.post('/api/orange-decks', headers=headers, json=body).status_code == 403
     assert bot.post(endpoint, headers=headers, json={**body, 'season_id': 's18'}).status_code == 403

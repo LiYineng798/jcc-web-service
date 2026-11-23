@@ -47,3 +47,19 @@
 .publish-form .visibility-switch input { top:0; left:0; width:1px; height:1px; }
 /* The form grid already spaces sections. */
 .deck-form .deck-section + .deck-section { margin-top:0; }
+
+/* Quiet editor (AI uploads): one title row, sections split by hairlines instead of cards. */
+.is-quiet .publish-shell { width:min(760px, calc(100% - 32px)); }
+.is-quiet .deck-page-nav { margin-bottom:20px; }
+.deck-quiet-head { display:flex; align-items:baseline; justify-content:space-between; flex-wrap:wrap; gap:6px 16px; margin:0 0 4px; }
+.deck-quiet-head h1 { margin:0; font-size:1.6rem; }
+.deck-quiet-head span { color:var(--muted); font-size:.9rem; }
+.is-quiet .deck-form { gap:0; }
+.is-quiet .deck-section { display:grid; gap:16px; padding:28px 0; border:0; border-top:1px solid var(--line); border-radius:0; background:none; }
+.is-quiet .deck-section h2 { margin:0; font-size:.95rem; }
+.is-quiet .deck-section #formationStatus:empty, .is-quiet .deck-energy:empty { display:none; }
+/* The form is short enough to end with its action row; no floating bar. */
+.is-quiet .deck-form-actions { position:static; margin:0; padding:24px 0 48px; border:0; border-top:1px solid var(--line); border-radius:0; background:none; box-shadow:none; -webkit-backdrop-filter:none; backdrop-filter:none; }
+.is-quiet .deck-form .deck-error:not(:empty) { padding-top:16px; border-top:1px solid var(--line); }
+.is-quiet .deck-form .deck-error:not(:empty) + .deck-form-actions { border-top:0; padding-top:12px; }
+.is-quiet .deck-portals legend { padding:0; }

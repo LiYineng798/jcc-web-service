@@ -142,21 +142,25 @@
     const allowed = account.can_import ? seasons.filter(s => account.allowed_seasons.includes(s.id)) : [];
     if (!allowed.length) { if (view.value) await load(); return [heading(1, '普通阵容', view), list]; }
 
+    // One season picker: while the import box is open it is the import target, so only granted seasons stay selectable.
+    const granted = id => allowed.some(s => s.id === id);
     const panel = el('section', 'assistant-import'); panel.hidden = true; panel.id = 'assistantImport'; panel.setAttribute('aria-label', '批量导入');
-    const toggle = button('导入', () => {
+    const toggle = button('导入', async () => {
+      if (!panel.hidden && dirty && !confirm('放弃未导入的内容？')) return;
       panel.hidden = !panel.hidden; toggle.setAttribute('aria-expanded', String(!panel.hidden));
-      if (!panel.hidden) text.focus();
+      [...view.options].forEach(option => { option.disabled = !panel.hidden && !granted(option.value); });
+      if (panel.hidden) { text.value = ''; invalidate(); return; }
+      text.focus();
+      if (!granted(view.value)) await show(allowed[0].id);
     }, 'assistant-button');
     toggle.setAttribute('aria-controls', panel.id); toggle.setAttribute('aria-expanded', 'false');
-    const season = select(allowed, '导入赛季');
-    if (allowed.some(s => s.id === view.value)) season.value = view.value;
     const text = el('textarea'); text.maxLength = 20000; text.rows = 6; text.setAttribute('aria-label', '阵容码');
     text.placeholder = '【阵容码】#S11-九五至尊#ABC123';
     const limit = account.limits.rows_per_import;
     const count = el('span', 'assistant-muted', `0 / ${limit}`);
     const status = el('p', 'assistant-status'); status.setAttribute('role', 'status');
     const result = el('div'); let prepared = null, busy = false;
-    const payload = () => JSON.stringify({ season_id: season.value, raw_text: text.value });
+    const payload = () => JSON.stringify({ season_id: view.value, raw_text: text.value });
     const invalidate = () => {
       prepared = null; commit.disabled = true; result.replaceChildren(); status.textContent = ''; dirty = !!text.value;
       const rows = text.value.split('\n').filter(line => line.trim()).length;
@@ -176,7 +180,7 @@
     }, 'assistant-button');
     const commit = button('确认导入', async () => {
       if (busy || !prepared || prepared !== payload()) return;
-      busy = true; commit.disabled = true; check.disabled = true; season.disabled = true; text.disabled = true;
+      busy = true; commit.disabled = true; check.disabled = true; view.disabled = true; text.disabled = true;
       try {
         const done = await api('/lineups/bulk-import', { method: 'POST', body: prepared });
         const skipped = done.duplicate_existing_count + done.duplicate_in_upload_count;
@@ -185,13 +189,11 @@
         result.replaceChildren(entries(done.items));
         const created = new Set(done.items.filter(item => item.status === 'created').map(item => item.id));
         view.value = done.season_id; page = 1; fresh = created; await load();
-      } finally { busy = false; check.disabled = false; season.disabled = false; text.disabled = false; }
+      } finally { busy = false; check.disabled = false; view.disabled = false; text.disabled = false; }
     }, 'assistant-button is-primary', true);
-    // The list follows the import target, so what you see below is where the batch lands.
     text.addEventListener('input', invalidate);
-    season.addEventListener('change', () => { invalidate(); show(season.value); });
-    view.addEventListener('change', () => { if (!busy && allowed.some(s => s.id === view.value) && season.value !== view.value) { season.value = view.value; invalidate(); } });
-    const actions = el('div', 'assistant-actions'); actions.append(season, count, check, commit);
+    view.addEventListener('change', invalidate);
+    const actions = el('div', 'assistant-actions'); actions.append(count, check, commit);
     panel.append(text, actions, status, result);
     if (view.value) await load();
     return [heading(1, '普通阵容', view, toggle), panel, list];
@@ -224,11 +226,14 @@
     account = await api('/me'); applyGrants();
     const available = deckChoices();
     if (!available.length) return [heading(1, '卡组上传'), muted('暂无可上传的赛季')];
-    const season = select(available, '上传赛季');
-    const link = el('a', 'assistant-button is-primary', '新建卡组');
-    const update = () => { link.href = '/admin/assistant/decks/new?season_id=' + encodeURIComponent(season.value); };
-    season.addEventListener('change', update); update();
-    return [heading(1, '卡组上传', season, link)];
+    const list = el('ul', 'assistant-rows');
+    for (const season of available) {
+      const link = el('a', 'assistant-button is-primary', '新建卡组');
+      link.href = '/admin/assistant/decks/new?season_id=' + encodeURIComponent(season.id);
+      link.setAttribute('aria-label', `${season.name} 新建卡组`);
+      const item = el('li'); item.append(el('strong', '', season.name), link); list.append(item);
+    }
+    return [heading(1, '卡组上传'), list];
   }
 
   const navItems = () => document.querySelectorAll('[data-assistant-tab]');
