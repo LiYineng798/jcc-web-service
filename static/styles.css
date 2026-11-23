@@ -54,7 +54,10 @@
 body {
   margin: 0;
   min-height: 100vh;
+  /* The first layer starts at --bg: Safari paints the status bar with that flat
+     colour, so the warm glow fades in below it instead of meeting it at a seam. */
   background:
+    linear-gradient(var(--bg), transparent 10rem),
     radial-gradient(circle at top left, rgba(201, 100, 66, 0.18), transparent 28rem),
     radial-gradient(circle at bottom right, rgba(140, 112, 74, 0.14), transparent 30rem),
     var(--bg);
@@ -106,7 +109,6 @@ button {
   border: 1px solid var(--line);
   border-radius: 15px;
   background: var(--surface);
-  box-shadow: var(--shadow);
   color: var(--accent-strong);
   font-weight: 700;
 }
@@ -237,7 +239,7 @@ svg.account-chevron {
   font-weight: 800;
 }
 
-.mobile-resource-trigger,
+.nav-actions > .mobile-resource-trigger,
 .mobile-resource-dialog {
   display: none;
 }
@@ -456,11 +458,12 @@ svg.account-chevron {
   transform: rotate(-30deg) scale(0);
 }
 
-.image-mode-toggle {
-  width: auto;
-  min-width: 76px;
-  padding: 0 12px;
-  gap: 7px;
+.image-mode-slash {
+  display: none;
+}
+
+.image-mode-toggle[aria-pressed="false"] .image-mode-slash {
+  display: inline;
 }
 
 .image-mode-toggle[aria-pressed="true"] {
@@ -475,10 +478,21 @@ svg.account-chevron {
   height: 20px;
 }
 
-#imageModeText {
-  white-space: nowrap;
-  font-size: 0.9rem;
-  font-weight: 700;
+.hero .nav-actions > .nav-icon-button {
+  border-color: transparent;
+  background: transparent;
+  color: var(--muted);
+}
+
+.hero .nav-actions > .nav-icon-button:hover,
+.hero .nav-actions > .nav-icon-button[aria-expanded="true"] {
+  background: var(--accent-soft);
+  color: var(--text);
+}
+
+.hero .nav-actions > .image-mode-toggle[aria-pressed="true"] {
+  background: var(--accent-soft);
+  color: var(--accent-strong);
 }
 
 .account-menu-wrap {
@@ -1920,55 +1934,72 @@ a.author-link:hover {
   }
 
   .nav-bar {
-    align-items: flex-start;
-    gap: 10px;
+    gap: 8px;
+    margin-bottom: 28px;
+  }
+
+  .brand-mark {
+    width: 40px;
+    height: 40px;
+    border-radius: 13px;
   }
 
   .nav-actions {
-    display: grid;
-    grid-template-columns: 44px 44px minmax(0, 1fr);
-    gap: 8px;
+    flex-wrap: nowrap;
+    gap: 4px;
   }
 
   .nav-actions > .desktop-resource-entry {
     display: none;
   }
 
-  .nav-actions > .mobile-resource-trigger {
-    display: inline-flex;
-    grid-column: 1 / 4;
-    grid-row: 1;
-    justify-self: end;
-    margin-right: 80px;
-    width: max-content;
-    justify-content: center;
-    height: 44px;
-    padding: 0 8px;
-    font-size: 12px;
-    border-color: color-mix(in srgb, var(--accent) 36%, var(--line));
-    background: color-mix(in srgb, var(--accent-soft) 52%, var(--surface));
-  }
-
-  .nav-actions > .image-mode-toggle {
-    grid-column: 3;
-    grid-row: 1;
-    justify-self: end;
-    width: 72px;
-    min-width: 0;
-    height: 44px;
-    padding: 0 8px;
-    gap: 5px;
-  }
-
-  .nav-actions > .animated-theme-toggle {
-    grid-column: 1;
-    width: 44px;
-    min-width: 0;
+  .nav-actions > .nav-icon-button {
+    flex: 0 0 40px;
+    width: 40px;
+    height: 40px;
+    min-height: 40px;
     padding: 0;
   }
 
+  .nav-actions > .mobile-resource-trigger {
+    display: inline-flex;
+  }
+
+  .mobile-resource-trigger-icon {
+    width: 22px;
+    height: 22px;
+  }
+
   .nav-actions > .account-menu-wrap {
-    grid-column: 2 / 4;
+    flex: 0 1 auto;
+    min-width: 0;
+    margin-left: 4px;
+  }
+
+  .account-toggle {
+    max-width: 100%;
+    min-height: 40px;
+    gap: 6px;
+    padding: 0 14px;
+    box-shadow: none;
+  }
+
+  /* Signed in, the avatar is the account button; the name stays as its label. */
+  #accountToggleText {
+    min-width: 0;
+  }
+
+  .account-toggle:has(.user-avatar) {
+    width: 40px;
+    padding: 0;
+  }
+
+  .account-toggle:has(.user-avatar) :is(#accountToggleText, .account-chevron) {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
   }
 
   .returning-info-menu,
@@ -1981,45 +2012,9 @@ a.author-link:hover {
     justify-content: center;
   }
 
-  .nav-actions > .account-menu-wrap,
-  .nav-actions > .account-menu-wrap .account-toggle {
-    width: 100%;
-  }
-
-  .nav-actions > .account-menu-wrap .account-toggle {
-    min-height: 44px;
-    gap: 6px;
-  }
-
-  #accountToggleText {
-    min-width: 0;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-
-  .mobile-resource-trigger-icon {
-    font-size: 20px;
-    line-height: 1;
-  }
-
   .nav-tool-link {
     padding-inline: 11px;
     font-size: 0.92rem;
-  }
-
-  .account-toggle {
-    max-width: none;
-    padding-inline: 11px;
-  }
-
-  .image-mode-toggle {
-    min-width: 58px;
-    padding-inline: 9px;
-  }
-
-  #imageModeText {
-    font-size: 0.84rem;
   }
 
   .account-menu {

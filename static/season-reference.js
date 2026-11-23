@@ -252,17 +252,27 @@ function updateCount() {
   if (badge) badge.textContent = String(result.count);
 }
 
+// The tab row scrolls sideways on narrow screens; centre the chosen tab in it
+// without moving the page vertically.
+function revealTab(tab) {
+  const row = elements.mainTabsWrap;
+  if (!row || row.scrollWidth <= row.clientWidth) return;
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  row.scrollTo({
+    left: tab.offsetLeft - (row.clientWidth - tab.offsetWidth) / 2,
+    behavior: reduceMotion ? 'auto' : 'smooth',
+  });
+}
+
 function setActiveView(view) {
   if (!elements.mainTabs.some((tab) => tab.dataset.view === view)) return;
   state.activeView = view;
-  const activeIndex = elements.mainTabs.findIndex((tab) => tab.dataset.view === view);
-  elements.mainTabsWrap?.style.setProperty('--active-tab', activeIndex);
-
   elements.mainTabs.forEach((tab) => {
     const active = tab.dataset.view === view;
     tab.classList.toggle('active', active);
     tab.setAttribute('aria-selected', String(active));
     tab.tabIndex = active ? 0 : -1;
+    if (active) revealTab(tab);
   });
 
   elements.panels.forEach((panel) => {
