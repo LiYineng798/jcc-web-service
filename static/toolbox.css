@@ -11,4 +11,5 @@
 .mobile-resource-group .toolbox-group-label { margin-bottom: 4px; }
 .mobile-resource-group small { color: var(--muted); font-size: 12px; }
 .toolbox-group-label:first-child { margin-top: 0; padding-top: 4px; border-top: 0; }
+.toolbox-group-divider { margin: 8px 4px 4px; border-top: 1px solid var(--line); }
 .toolbox-panel { max-height: min(680px, calc(100dvh - 100px)); overflow-y: auto; }

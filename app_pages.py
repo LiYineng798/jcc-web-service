@@ -43,7 +43,26 @@ from season_reference_service import (
 )
 from season_visibility import DEFAULT_KINDS as DEFAULT_SURFACES, KINDS as SEASON_SURFACES, default_season_id, get_season, public_seasons
 from settings_service import get_setting
+from toolbox_service import check_tool_access, list_toolbox_tools, toolbox_state_version
 from visits import tracked_template_response
+
+
+def _guard_tool(tool_id):
+    state, noindex = check_tool_access(
+        tool_id,
+        user=current_user(),
+        preview=request.args.get('preview') == '1',
+    )
+    if state == 'not_found':
+        abort(404)
+    return state == 'preview', noindex
+
+
+def _apply_preview_headers(response, is_preview):
+    if is_preview:
+        response.headers['Cache-Control'] = 'private, no-store'
+        response.headers['X-Robots-Tag'] = 'noindex'
+    return response
 
 
 def _sitemap_entries():
@@ -51,15 +70,9 @@ def _sitemap_entries():
     entries = [
         {'loc': absolute_url('/'), 'lastmod': None},
         {'loc': absolute_url('/patch-notes'), 'lastmod': None},
-        {'loc': absolute_url('/tools/s11-items'), 'lastmod': None},
-        {'loc': absolute_url('/tools/s11-artifacts'), 'lastmod': None},
-        {'loc': absolute_url('/tools/s16-5-lucky-openings'), 'lastmod': None},
-        {'loc': absolute_url('/tools/s18-witch-rewards'), 'lastmod': None},
-        {'loc': absolute_url('/tools/golden-egg'), 'lastmod': None},
-        {'loc': absolute_url('/tools/orange-fortune'), 'lastmod': None},
-        {'loc': absolute_url('/tools/orange-fortune-creator'), 'lastmod': None},
-        {'loc': absolute_url('/tools/s18-trait-ladder'), 'lastmod': None},
     ]
+    for tool in list_toolbox_tools(db):
+        entries.append({'loc': absolute_url(tool['url']), 'lastmod': None})
     for season in catalog_seasons():
         season_id = season['season_id']
         entries.append({'loc': absolute_url(f'/tools/seasons/{season_id}'), 'lastmod': None})
@@ -67,8 +80,6 @@ def _sitemap_entries():
             'loc': absolute_url(f'/tools/seasons/{season_id}/champions/{champion_id}'),
             'lastmod': None,
         } for champion_id in season_champion_ids(season_id))
-    if get_setting(db, 'simulator_enabled', 'true') == 'true':
-        entries.append({'loc': absolute_url('/tools/lineup-simulator'), 'lastmod': None})
 
     lineup_rows = db.execute(
         "SELECT id, updated_at FROM lineups WHERE status = 'normal' ORDER BY updated_at DESC, id DESC"
@@ -138,7 +149,7 @@ def register_page_routes(app):
         key = (request.url_root, tuple(
             (item['season_id'], item.get('release_id'), item.get('version_id'))
             for item in catalog_seasons()
-        ), get_setting(get_db(), 'simulator_enabled', 'true'))
+        ), get_setting(get_db(), 'simulator_enabled', 'true'), toolbox_state_version(get_db()))
         now = monotonic()
         if sitemap_cache['xml'] is None or sitemap_cache['key'] != key or now - sitemap_cache['built_at'] > SITEMAP_CACHE_SECONDS:
             sitemap_cache['xml'] = sitemap_xml(_sitemap_entries())
@@ -172,77 +183,86 @@ def register_page_routes(app):
 
     @app.get('/tools/s18-trait-ladder')
     def trait_ladder_page():
-        return tracked_template_response(
+        is_preview, tool_noindex = _guard_tool('s18-trait-ladder')
+        return _apply_preview_headers(tracked_template_response(
             'trait_ladder.html', 'trait_ladder', ladder_data=calculator_data(), tiers=ladder_reward_tiers(),
             simulator_enabled=get_setting(get_db(), 'simulator_enabled', 'true') == 'true',
             seo=make_seo(title='S18 羁绊天梯计算器 - 金铲铲阵容库',
                          description='计算转职、拉克丝双倍贡献与螳螂进化下的多羁绊阵容，查询2至14羁绊阶段奖励。',
-                         path='/tools/s18-trait-ladder'),
-        )
+                         path='/tools/s18-trait-ladder', noindex=tool_noindex),
+        ), is_preview)
 
     @app.get('/api/tools/orange-fortune-creator')
     def orange_creator_api():
+        _guard_tool('orange-fortune-creator')
         response = jsonify(creator_config())
         response.headers['Cache-Control'] = 'no-store'
         return response
 
     @app.get('/tools/orange-fortune-creator')
     def orange_creator_page():
+        is_preview, tool_noindex = _guard_tool('orange-fortune-creator')
         deck = request.args.get('deck', '')
-        return tracked_template_response(
+        return _apply_preview_headers(tracked_template_response(
             'orange_creator.html', 'orange_creator', creator_data=creator_config(),
             import_deck_id=deck if deck.isdigit() else '',
-            seo=make_seo(title='大橘大利创作者工具', description='搭配三张时间卡片与阵容，创作专属 3:4 卡组海报。', path='/tools/orange-fortune-creator'),
-        )
+            seo=make_seo(title='大橘大利创作者工具', description='搭配三张时间卡片与阵容，创作专属 3:4 卡组海报。',
+                         path='/tools/orange-fortune-creator', noindex=tool_noindex),
+        ), is_preview)
 
     @app.get('/tools/orange-fortune')
     def orange_fortune_page():
+        is_preview, tool_noindex = _guard_tool('orange-fortune')
         guide = card_guide(request.args.get('q', ''), request.args.get('tier', ''),
                            request.args.get('category', ''), request.args.get('round', ''))
-        return tracked_template_response(
+        return _apply_preview_headers(tracked_template_response(
             'orange_fortune.html', 'orange_fortune', **guide,
             simulator_enabled=get_setting(get_db(), 'simulator_enabled', 'true') == 'true',
             seo=make_seo(title='大橘大利 · 时间卡片图鉴 - 金铲铲阵容库',
                          description='英雄联盟传奇大橘大利时间卡片图鉴，按品阶、能量、类型和生效回合查找卡片，查看完整效果与三座传送门的准入规则。',
                          path='/tools/orange-fortune',
-                         noindex=bool(guide['query'] or guide['tier'] or guide['category'] or guide['round_value'])),
-        )
+                         noindex=tool_noindex or bool(guide['query'] or guide['tier'] or guide['category'] or guide['round_value'])),
+        ), is_preview)
 
     @app.get('/tools/golden-egg')
     def golden_egg_page():
-        return tracked_template_response(
+        is_preview, tool_noindex = _guard_tool('golden-egg')
+        return _apply_preview_headers(tracked_template_response(
             'golden_egg.html', 'golden_egg', rewards=golden_egg_rewards(),
             simulator_enabled=get_setting(get_db(), 'simulator_enabled', 'true') == 'true',
             seo=make_seo(title='金蛋奖励 - 金铲铲阵容库',
                          description='查看金蛋海克斯与8组奖励组合，包含概率、物品图片和数量。',
-                         path='/tools/golden-egg'),
-        )
+                         path='/tools/golden-egg', noindex=tool_noindex),
+        ), is_preview)
 
     @app.get('/tools/s18-witch-rewards')
     def witch_rewards_page():
+        is_preview, tool_noindex = _guard_tool('s18-witch-rewards')
         selected = select_reward_tier(request.args.get('stacks', '365'))
         if selected is None:
             abort(400, description='请选择有效的魔女层数档位。')
-        return tracked_template_response(
+        return _apply_preview_headers(tracked_template_response(
             'witch_rewards.html', 'witch_rewards', tiers=reward_tiers(), selected=selected,
             simulator_enabled=get_setting(get_db(), 'simulator_enabled', 'true') == 'true',
             seo=make_seo(title='S18 魔女层数奖励查询 - 金铲铲阵容库',
                          description='查询魔女各层数奖励概率、弈子星级、物品数量和预计价值。',
-                         path='/tools/s18-witch-rewards'),
-        )
+                         path='/tools/s18-witch-rewards', noindex=tool_noindex),
+        ), is_preview)
 
     @app.get('/tools/s11-items')
     def s11_items_page():
-        return tracked_template_response(
+        is_preview, tool_noindex = _guard_tool('s11-items')
+        return _apply_preview_headers(tracked_template_response(
             's11_items.html', 's11_items', groups=recommendation_guide(),
             simulator_enabled=get_setting(get_db(), 'simulator_enabled', 'true') == 'true',
             seo=make_seo(title='S11 画之灵 · 全弈子推荐出装 - 金铲铲阵容库',
                          description='按费用查找画之灵60位弈子的推荐装备、备选装备与合成路径。',
-                         path='/tools/s11-items'),
-        )
+                         path='/tools/s11-items', noindex=tool_noindex),
+        ), is_preview)
 
     @app.get('/tools/s11-artifacts')
     def s11_artifacts_page():
+        is_preview, tool_noindex = _guard_tool('s11-artifacts')
         # The hidden current value retains the fee for no-JS text searches;
         # a clicked fee button appends its new value after that field.
         costs = request.args.getlist('cost')
@@ -250,28 +270,29 @@ def register_page_routes(app):
         if cost not in ('', '1', '2', '3', '4', '5'):
             abort(400, description='请选择1至5费的推荐弈子。')
         guide = artifact_guide(request.args.get('q', ''), cost)
-        return tracked_template_response(
+        return _apply_preview_headers(tracked_template_response(
             's11_artifacts.html', 's11_artifacts', **guide,
             simulator_enabled=get_setting(get_db(), 'simulator_enabled', 'true') == 'true',
             seo=make_seo(title='S11 画之灵 · 全神器装备推荐 - 金铲铲阵容库',
                          description='查找画之灵31件神器的效果与推荐弈子，支持神器名称、效果关键词、弈子名称与费用筛选。',
-                         path='/tools/s11-artifacts', noindex=bool(guide['query'] or cost)),
-        )
+                         path='/tools/s11-artifacts', noindex=tool_noindex or bool(guide['query'] or cost)),
+        ), is_preview)
 
     @app.get('/tools/s16-5-lucky-openings')
     def lucky_openings_page():
+        is_preview, tool_noindex = _guard_tool('s16-5-lucky-openings')
         title = 'S16.5恭喜发财开局阵容码推荐'
         description = '查看九位五费弈子的福气临门专属效果，一键复制对应的恭喜发财开局阵容码。'
         path = '/tools/s16-5-lucky-openings'
-        return tracked_template_response(
+        return _apply_preview_headers(tracked_template_response(
             'lucky_openings.html', 'lucky_openings',
             openings=build_lucky_openings(),
             simulator_enabled=get_setting(get_db(), 'simulator_enabled', 'true') == 'true',
-            seo=make_seo(title=f'{title} - 金铲铲阵容库', description=description, path=path,
+            seo=make_seo(title=f'{title} - 金铲铲阵容库', description=description, path=path, noindex=tool_noindex,
                          json_ld=[webpage_json_ld(title, description, path), breadcrumb_json_ld([
                              {'name': '首页', 'path': '/'}, {'name': title, 'path': path},
                          ])]),
-        )
+        ), is_preview)
 
     @app.get('/auth')
     def auth_page():
@@ -390,10 +411,10 @@ def register_page_routes(app):
 
     @app.get('/tools/lineup-simulator')
     def lineup_simulator_page():
-        if get_setting(get_db(), 'simulator_enabled', 'true') != 'true':
-            abort(404)
         creator_mode = request.args.get('creator') == 'orange-fortune'
         if creator_mode:
+            if get_setting(get_db(), 'simulator_enabled', 'true') != 'true':
+                abort(404)
             config = creator_config()
             if not config['simulator_available']:
                 abort(404)
@@ -402,14 +423,16 @@ def register_page_routes(app):
                 'lineup_simulator.html', creator_mode=True, creator_season=config['season_id'],
                 seo=make_seo(title='大橘大利阵容配置', description='配置卡组的基础阵容。', path='/tools/orange-fortune-creator'),
             )
+        is_preview, tool_noindex = _guard_tool('lineup-simulator')
         if not public_seasons('simulator'):
             abort(404)
-        return tracked_template_response(
+        return _apply_preview_headers(tracked_template_response(
             'lineup_simulator.html',
             'lineup_simulator',
             creator_mode=False, creator_season='',
-            seo=make_seo(title='阵容模拟器', description='在线搭配金铲铲阵容棋盘、弈子、装备和羁绊。', path='/tools/lineup-simulator'),
-        )
+            seo=make_seo(title='阵容模拟器', description='在线搭配金铲铲阵容棋盘、弈子、装备和羁绊。',
+                         path='/tools/lineup-simulator', noindex=tool_noindex),
+        ), is_preview)
 
     @app.get('/live-comps/<season_id>/<live_comp_id>')
     def live_comp_detail_page(season_id, live_comp_id):
@@ -433,27 +456,33 @@ def register_page_routes(app):
 
     @app.get('/tools/special-mechanics')
     def special_mechanics_page():
-        return tracked_template_response(
+        is_preview, tool_noindex = _guard_tool('special-mechanics')
+        return _apply_preview_headers(tracked_template_response(
             'special_mechanics.html',
             'special_mechanics',
-            seo=make_seo(title='S8·怪兽入侵 特殊机制', description='查看S8怪兽入侵回归赛季特殊机制、战力形态和经济形态。', path='/tools/special-mechanics'),
-        )
+            seo=make_seo(title='S8·怪兽入侵 特殊机制', description='查看S8怪兽入侵回归赛季特殊机制、战力形态和经济形态。',
+                         path='/tools/special-mechanics', noindex=tool_noindex),
+        ), is_preview)
 
     @app.get('/tools/artifact-guide')
     def artifact_guide_page():
-        return tracked_template_response(
+        is_preview, tool_noindex = _guard_tool('artifact-guide')
+        return _apply_preview_headers(tracked_template_response(
             'artifact_guide.html',
             'artifact_guide',
-            seo=make_seo(title='S8·怪兽入侵 神器搭配指南', description='查看S8怪兽入侵英雄与神器的实战搭配推荐。', path='/tools/artifact-guide'),
-        )
+            seo=make_seo(title='S8·怪兽入侵 神器搭配指南', description='查看S8怪兽入侵英雄与神器的实战搭配推荐。',
+                         path='/tools/artifact-guide', noindex=tool_noindex),
+        ), is_preview)
 
     @app.get('/tools/returning-equipment')
     def returning_equipment_page():
-        return tracked_template_response(
+        is_preview, tool_noindex = _guard_tool('returning-equipment')
+        return _apply_preview_headers(tracked_template_response(
             'returning_equipment.html',
             'returning_equipment',
-            seo=make_seo(title='S8·怪兽入侵 回归装备', description='查看S8怪兽入侵回归装备属性、组件和效果说明。', path='/tools/returning-equipment'),
-        )
+            seo=make_seo(title='S8·怪兽入侵 回归装备', description='查看S8怪兽入侵回归装备属性、组件和效果说明。',
+                         path='/tools/returning-equipment', noindex=tool_noindex),
+        ), is_preview)
 
     @app.get('/tools/seasons/<season_id>')
     def season_reference_page(season_id):

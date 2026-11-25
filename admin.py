@@ -53,7 +53,13 @@ from notice_service import (
     save_notice,
     update_saved_notice,
 )
-from toolbox_service import list_toolbox_tools
+from toolbox_service import (
+    list_all_toolbox_tools,
+    list_toolbox_tools,
+    reorder_toolbox_tools,
+    reset_toolbox_tool,
+    update_toolbox_tool,
+)
 from lineups_utils import season_choice_map
 from patch_note_service import create_patch_note, hide_patch_note, list_admin_patch_notes, update_patch_note
 from scoring import score_map
@@ -574,6 +580,54 @@ def admin_notice_targets():
     ])
     response.headers['Cache-Control'] = 'private, no-store'
     return response
+
+
+@admin_bp.get('/api/admin/toolbox')
+def admin_list_toolbox():
+    admin, error = admin_required()
+    if error:
+        return error
+    items = list_all_toolbox_tools(get_db())
+    counts = {
+        'all': len(items),
+        'visible': sum(1 for item in items if item['status'] == 'visible'),
+        'unlisted': sum(1 for item in items if item['status'] == 'unlisted'),
+        'disabled': sum(1 for item in items if item['status'] == 'disabled'),
+    }
+    response = jsonify(items=items, counts=counts)
+    response.headers['Cache-Control'] = 'private, no-store'
+    return response
+
+
+@admin_bp.patch('/api/admin/toolbox/<tool_id>')
+def admin_update_toolbox_item(tool_id):
+    admin, error = admin_required()
+    if error:
+        return error
+    result, service_error, status_code = update_toolbox_tool(
+        get_db(), admin['id'], tool_id, request.get_json(silent=True) or {}
+    )
+    return respond_service_result({'item': result} if result is not None else None, service_error, status_code)
+
+
+@admin_bp.post('/api/admin/toolbox/reorder')
+def admin_reorder_toolbox():
+    admin, error = admin_required()
+    if error:
+        return error
+    payload = request.get_json(silent=True) or {}
+    entries = payload.get('items') if 'items' in payload else payload.get('order')
+    result, service_error, status_code = reorder_toolbox_tools(get_db(), admin['id'], entries)
+    return respond_service_result({'items': result} if result is not None else None, service_error, status_code)
+
+
+@admin_bp.post('/api/admin/toolbox/<tool_id>/reset')
+def admin_reset_toolbox_item(tool_id):
+    admin, error = admin_required()
+    if error:
+        return error
+    result, service_error, status_code = reset_toolbox_tool(get_db(), admin['id'], tool_id)
+    return respond_service_result({'item': result} if result is not None else None, service_error, status_code)
 
 
 @admin_bp.get('/api/admin/notice')
