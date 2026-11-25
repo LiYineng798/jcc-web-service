@@ -6,7 +6,7 @@
   {% set group = namespace(name='') %}
   {% for tool in list_toolbox_tools() %}
     {% if tool.group != group.name %}
-      {% if tool.group %}<div class="toolbox-group-label"><span>{{ tool.group }}</span></div>{% endif %}
+      {% if tool.group %}<div class="toolbox-group-label"><span>{{ tool.group }}</span></div>{% elif not loop.first %}<div class="toolbox-group-divider" role="separator"></div>{% endif %}
       {% set group.name = tool.group %}
     {% endif %}
     <a class="{{ item_class }}" href="{{ tool.url }}"{% if tool.aria_label %} aria-label="{{ tool.aria_label }}"{% endif %}><strong>{{ tool.title }}</strong><small>{{ tool.description }}</small></a>

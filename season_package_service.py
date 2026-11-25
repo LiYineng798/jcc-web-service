@@ -459,8 +459,15 @@ def _smoke(season_id, release_id):
             from orange_fortune_service import catalog as time_card_catalog
 
             cards = time_card_catalog()['cards']
-            for url in ('/tools/orange-fortune', '/tools/orange-fortune-creator', '/api/tools/orange-fortune-creator'):
-                require(client.get(url).status_code == 200, '发布后的时间卡片检查失败')
+            from toolbox_service import get_toolbox_tool
+
+            for tool_id, urls in (
+                ('orange-fortune', ('/tools/orange-fortune',)),
+                ('orange-fortune-creator', ('/tools/orange-fortune-creator', '/api/tools/orange-fortune-creator')),
+            ):
+                disabled = get_toolbox_tool(tool_id)['effective_status'] == 'disabled'
+                for url in urls:
+                    require(client.get(url).status_code == (404 if disabled else 200), '发布后的时间卡片检查失败')
             image = next((c['image_url'] for c in cards if c['image_url']), None)
             if image and (get_season('library', season_id) or get_season('creator', season_id) or get_season('simulator', season_id)):
                 require(client.get(image).status_code == 200, '发布后的时间卡片图片检查失败')

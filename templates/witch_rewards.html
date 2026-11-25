@@ -39,7 +39,7 @@
       <div class="witch-section-title"><h2 id="stacks-title">选择层数</h2><span>共 9 个奖励档位</span></div>
       <nav class="witch-tiers" aria-label="奖励层数">
       {% for tier in tiers %}
-        <a href="?stacks={{ tier.label }}" data-stack="{{ tier.label }}" {% if tier.label == selected.label %}aria-current="true"{% endif %}>{{ tier.label }}<small>层</small></a>
+        <a href="{{ tool_page_url(stacks=tier.label) }}" data-stack="{{ tier.label }}" {% if tier.label == selected.label %}aria-current="true"{% endif %}>{{ tier.label }}<small>层</small></a>
       {% endfor %}
       </nav>
     </section>

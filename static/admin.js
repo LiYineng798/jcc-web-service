@@ -79,6 +79,7 @@
     api, render, notify: setNotice, getSeason: () => liveUploadSeasonOptions().selected,
   });
   const orangeDecks = window.JccAdminOrangeDecks.create({ api, render, notify: setNotice, workbenchPanel, empty });
+  const toolboxManager = window.JccAdminToolbox.create({ api, render, notify: setNotice });
   const deckSubmissions = window.JccAdminDeckSubmissions.create({
     api, render, notify: setNotice, workbenchPanel, empty,
     getAdminId: () => state.me?.id,
@@ -104,6 +105,7 @@
     lineups: ['阵容管理', '搜索、审核与维护普通阵容'],
     'live-comps': ['实时阵容', '维护赛季状态与阵容码'],
     'season-display': ['资料赛季', '统一管理资料库、模拟器与海报创作者的赛季展示'],
+    toolbox: ['工具箱', ''],
     'season-packages': ['赛季版本更新', '上传资料包，检查差异并发布版本'],
     'patch-notes': ['更新公告', '编辑版本内容与发布状态'],
     'orange-decks': ['卡组库', '大橘大利卡组的推荐与违规隐藏'],
@@ -239,7 +241,9 @@
     });
     if (!response.ok) {
       const data = await response.json().catch(() => ({}));
-      throw new Error(data.error || '操作失败');
+      const error = new Error(data.error || '操作失败');
+      error.status = response.status;
+      throw error;
     }
     if (response.status === 204) return null;
     return response.json();
@@ -289,6 +293,7 @@
     }
     if (tabKey === 'live-comps' && state.liveCompsWorkspace === 'seasons') await refreshLiveSeasons();
     if (tabKey === 'season-display') await Promise.all(['library', 'simulator', 'creator'].map((kind) => loadSeasonDisplay(kind)));
+    if (tabKey === 'toolbox') await toolboxManager.load();
     if (tabKey === 'patch-notes') await loadPatchNotes();
     if (tabKey === 'orange-decks') await orangeDecks.load();
     if (tabKey === 'deck-submissions') await deckSubmissions.load();
@@ -561,6 +566,7 @@
     if (state.activeTab === 'lineups') nextRoot.append(renderLineupsWorkspace());
     if (state.activeTab === 'live-comps') nextRoot.append(renderLiveCompsWorkspace());
     if (state.activeTab === 'season-display') nextRoot.append(renderSeasonDisplayHub());
+    if (state.activeTab === 'toolbox') nextRoot.append(toolboxManager.view());
     if (state.activeTab === 'patch-notes') nextRoot.append(renderPatchNotesWorkspace());
     if (state.activeTab === 'orange-decks') nextRoot.append(orangeDecks.view());
     if (state.activeTab === 'deck-submissions') nextRoot.append(deckSubmissions.view());

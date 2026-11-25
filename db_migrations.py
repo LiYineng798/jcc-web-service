@@ -25,6 +25,7 @@ def migrate_schema(db, admin_id, now_text_func):
     migrate_audit_logs_table(db)
     migrate_password_reset_requests_table(db)
     migrate_guestbook_messages_table(db)
+    migrate_toolbox_items_table(db)
     from notification_schema import FEEDBACK_BACKFILL
     if {"feedback_threads", "reports", "guestbook_messages"}.issubset(table_names(db)):
         for statement in FEEDBACK_BACKFILL.split(";"):
@@ -79,6 +80,27 @@ def migrate_guestbook_messages_table(db):
     if 'archived_by' not in columns:
         db.execute('ALTER TABLE guestbook_messages ADD COLUMN archived_by INTEGER')
     db.execute('CREATE INDEX IF NOT EXISTS idx_guestbook_messages_status_created_at ON guestbook_messages (status, created_at DESC)')
+
+
+def migrate_toolbox_items_table(db):
+    db.execute(
+        '''
+        CREATE TABLE IF NOT EXISTS toolbox_items (
+            tool_id TEXT PRIMARY KEY CHECK (length(trim(tool_id)) BETWEEN 1 AND 64),
+            title TEXT NOT NULL CHECK (length(trim(title)) BETWEEN 1 AND 80),
+            description TEXT NOT NULL DEFAULT '',
+            group_name TEXT NOT NULL DEFAULT '',
+            status TEXT NOT NULL DEFAULT 'visible' CHECK (status IN ('visible', 'unlisted', 'disabled')),
+            sort_order INTEGER NOT NULL DEFAULT 0,
+            updated_at TEXT NOT NULL,
+            updated_by INTEGER REFERENCES users(id)
+        )
+        '''
+    )
+    db.execute(
+        'CREATE INDEX IF NOT EXISTS idx_toolbox_items_status_order '
+        'ON toolbox_items (status, sort_order, tool_id)'
+    )
 
 
 def migrate_legacy_live_comp_stats(db, now_text_func):

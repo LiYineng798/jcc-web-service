@@ -582,3 +582,20 @@ SCHEMA += ORANGE_DECK_SCHEMA
 
 from orange_deck_data_schema import DECK_DATA_SCHEMA
 SCHEMA += DECK_DATA_SCHEMA
+
+TOOLBOX_SCHEMA = '''
+CREATE TABLE IF NOT EXISTS toolbox_items (
+    tool_id TEXT PRIMARY KEY CHECK (length(trim(tool_id)) BETWEEN 1 AND 64),
+    title TEXT NOT NULL CHECK (length(trim(title)) BETWEEN 1 AND 80),
+    description TEXT NOT NULL DEFAULT '',
+    group_name TEXT NOT NULL DEFAULT '',
+    status TEXT NOT NULL DEFAULT 'visible' CHECK (status IN ('visible', 'unlisted', 'disabled')),
+    sort_order INTEGER NOT NULL DEFAULT 0,
+    updated_at TEXT NOT NULL,
+    updated_by INTEGER REFERENCES users(id)
+);
+
+CREATE INDEX IF NOT EXISTS idx_toolbox_items_status_order
+ON toolbox_items (status, sort_order, tool_id);
+'''
+SCHEMA += TOOLBOX_SCHEMA
