@@ -54,6 +54,7 @@
       </ul>
     </section>
     <form class="fortune-filters" method="get" role="search" aria-label="筛选时间卡片">
+          {% if g.tool_preview %}<input type="hidden" name="preview" value="1">{% endif %}
       {% if season_preview_id %}<input type="hidden" name="preview_release" value="{{ season_preview_id }}">{% endif %}
       <fieldset class="fortune-tiers"><legend class="fortune-sr-only">卡片品阶</legend>
         <label class="fortune-tier"><input type="radio" name="tier" value="" {% if not tier %}checked{% endif %}><span>全部品阶 <small>{{ catalog.cards|length }}</small></span></label>
@@ -64,7 +65,7 @@
         <label class="fortune-select"><span>类型</span><select name="category"><option value="">全部类型</option>{% for key, name in categories.items() %}<option value="{{ key }}" {% if category == key %}selected{% endif %}>{{ name }}</option>{% endfor %}</select></label>
         <label class="fortune-select"><span>回合</span><select name="round"><option value="">全部回合</option>{% for value in round_options %}<option value="{{ value }}" {% if round_value == value %}selected{% endif %}>{{ value }}</option>{% endfor %}</select></label>
         <button class="fortune-submit" type="submit">筛选</button>
-        <a class="fortune-reset" href="/tools/orange-fortune">重置</a>
+        <a class="fortune-reset" href="{{ tool_page_url() }}">重置</a>
       </div>
     </form>
     <div class="fortune-results-bar"><p role="status" aria-live="polite" id="fortune-count">找到 <strong>{{ visible_ids|length }}</strong> 张卡片</p><span>回合为效果生效时间 · 点选卡片查看详情</span></div>
@@ -85,7 +86,7 @@
       </section>
     {% endfor %}
     </div>
-    <div class="fortune-empty" {% if visible_ids %}hidden{% endif %}><span aria-hidden="true">◇</span><h2>没有找到匹配的卡片</h2><p>试试其他关键词，或减少筛选条件。</p><a class="fortune-reset" href="/tools/orange-fortune">清除筛选</a></div>
+    <div class="fortune-empty" {% if visible_ids %}hidden{% endif %}><span aria-hidden="true">◇</span><h2>没有找到匹配的卡片</h2><p>试试其他关键词，或减少筛选条件。</p><a class="fortune-reset" href="{{ tool_page_url() }}">清除筛选</a></div>
     <footer class="fortune-footer"><div><span class="fortune-footer-mark" aria-hidden="true">橘</span><p>金铲铲阵容库<span>时间卡片图鉴</span></p></div><nav aria-label="页脚导航"><a href="/">返回首页</a><span aria-hidden="true">·</span><a href="#fortune-top">回到顶部 ↑</a></nav></footer>
   </main>
 </div>

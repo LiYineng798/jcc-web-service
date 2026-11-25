@@ -590,9 +590,9 @@ def admin_list_toolbox():
     items = list_all_toolbox_tools(get_db())
     counts = {
         'all': len(items),
-        'visible': sum(1 for item in items if item['status'] == 'visible'),
-        'unlisted': sum(1 for item in items if item['status'] == 'unlisted'),
-        'disabled': sum(1 for item in items if item['status'] == 'disabled'),
+        'visible': sum(1 for item in items if item['effective_status'] == 'visible'),
+        'unlisted': sum(1 for item in items if item['effective_status'] == 'unlisted'),
+        'disabled': sum(1 for item in items if item['effective_status'] == 'disabled'),
     }
     response = jsonify(items=items, counts=counts)
     response.headers['Cache-Control'] = 'private, no-store'
@@ -616,8 +616,12 @@ def admin_reorder_toolbox():
     if error:
         return error
     payload = request.get_json(silent=True) or {}
-    entries = payload.get('items') if 'items' in payload else payload.get('order')
-    result, service_error, status_code = reorder_toolbox_tools(get_db(), admin['id'], entries)
+    if not isinstance(payload, dict):
+        return jsonify(error='请求参数无效'), 400
+    entries = payload.get('items', payload.get('order'))
+    result, service_error, status_code = reorder_toolbox_tools(
+        get_db(), admin['id'], entries, payload.get('expected_order'),
+    )
     return respond_service_result({'items': result} if result is not None else None, service_error, status_code)
 
 

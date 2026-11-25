@@ -1,7 +1,7 @@
 import os
 from time import monotonic
 
-from flask import Response, abort, jsonify, redirect, request, send_from_directory, render_template
+from flask import Response, abort, jsonify, redirect, request, send_from_directory, render_template, g, url_for
 
 from auth import current_user, login_required
 from db import get_db
@@ -55,7 +55,8 @@ def _guard_tool(tool_id):
     )
     if state == 'not_found':
         abort(404)
-    return state == 'preview', noindex
+    g.tool_preview = state == 'preview'
+    return g.tool_preview, noindex
 
 
 def _apply_preview_headers(response, is_preview):
@@ -112,6 +113,14 @@ SITEMAP_CACHE_SECONDS = 3600
 
 
 def register_page_routes(app):
+    @app.template_global()
+    def tool_page_url(**params):
+        if g.get('tool_preview'):
+            params['preview'] = '1'
+        if request.args.get('preview_release'):
+            params['preview_release'] = request.args['preview_release']
+        return url_for(request.endpoint, **params)
+
     sitemap_cache = {'built_at': 0.0, 'xml': None, 'key': None}
 
     @app.get('/avatar-source')

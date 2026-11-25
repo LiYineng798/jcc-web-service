@@ -70,9 +70,9 @@
     function recomputeCounts() {
       counts = {
         all: items.length,
-        visible: items.filter((item) => item.status === 'visible').length,
-        unlisted: items.filter((item) => item.status === 'unlisted').length,
-        disabled: items.filter((item) => item.status === 'disabled').length,
+        visible: items.filter((item) => item.effective_status === 'visible').length,
+        unlisted: items.filter((item) => item.effective_status === 'unlisted').length,
+        disabled: items.filter((item) => item.effective_status === 'disabled').length,
       };
     }
 
@@ -135,14 +135,14 @@
     function filteredItems() {
       const term = query.trim().toLowerCase();
       return items.filter((item) => {
-        if (filter !== 'all' && item.status !== filter) return false;
+        if (filter !== 'all' && item.effective_status !== filter) return false;
         if (!term) return true;
         return `${item.title} ${item.group} ${item.description} ${item.id}`.toLowerCase().includes(term);
       });
     }
 
     async function persistGroups(groups) {
-      if (reordering) return;
+      if (reordering || busyId) return;
       const flattened = [];
       const nextEmpty = [];
       for (const group of groups) {
@@ -165,6 +165,7 @@
         const result = await api('/api/admin/toolbox/reorder', {
           method: 'POST',
           body: JSON.stringify({
+            expected_order: prevItems.map(({ id, group }) => ({ id, group })),
             items: flattened.map((item) => ({ id: item.id, group: item.group })),
           }),
         });
@@ -177,6 +178,7 @@
         items = prevItems;
         emptyGroups = prevEmpty;
         recomputeCounts();
+        if (err.status === 409) await load();
         notify(err.message || '排序保存失败', 'error');
       } finally {
         reordering = false;
@@ -195,7 +197,6 @@
         }
       }
       if (!moved) return;
-      moved.group = targetGroupName;
 
       let targetGroup = groups.find((g) => g.name === targetGroupName);
       if (!targetGroup) {
@@ -275,10 +276,7 @@
     }
 
     async function setStatus(item, nextStatus) {
-      if (busyId || item.status === nextStatus) return;
-      const previous = item.status;
-      item.status = nextStatus;
-      recomputeCounts();
+      if (busyId || reordering || item.status === nextStatus) return;
       busyId = item.id;
       render();
       try {
@@ -291,8 +289,6 @@
           recomputeCounts();
         }
       } catch (err) {
-        item.status = previous;
-        recomputeCounts();
         notify(err.message || '状态更新失败', 'error');
       } finally {
         busyId = null;
@@ -301,7 +297,7 @@
     }
 
     async function saveDraft(item) {
-      if (busyId || !draft) return;
+      if (busyId || reordering || !draft) return;
       const title = draft.title.trim();
       if (!title) {
         notify('请输入标题', 'error');
@@ -336,7 +332,7 @@
     }
 
     async function resetItem(item) {
-      if (busyId) return;
+      if (busyId || reordering) return;
       busyId = item.id;
       groupMenuOpen = false;
       render();
@@ -346,7 +342,7 @@
         });
         if (result.item) {
           items = items.map((row) => (row.id === item.id ? result.item : row));
-          items.sort((a, b) => a.sort_order - b.sort_order);
+          items.sort((a, b) => a.sort_order - b.sort_order || a.defaults.sort_order - b.defaults.sort_order);
           recomputeCounts();
           syncEmptyGroups();
         }
@@ -494,7 +490,7 @@
     function renderItem(item, index, groupItems, groupName, allowReorder) {
       const wrap = el('div', 'tbx-item');
       wrap.dataset.toolId = item.id;
-      wrap.dataset.toolStatus = item.status;
+      wrap.dataset.toolStatus = item.effective_status;
 
       if (allowReorder) {
         wrap.draggable = editingId !== item.id;
@@ -545,6 +541,7 @@
 
       const info = el('div', 'tbx-info');
       info.append(el('span', 'tbx-title', item.title));
+      if (!item.setting_enabled) info.append(el('span', 'tbx-desc', '模拟器总开关已关闭'));
       if (item.description) info.append(el('p', 'tbx-desc', item.description));
 
       const actions = el('div', 'tbx-actions');
@@ -576,9 +573,9 @@
         const btn = el('button', 'tbx-seg-btn');
         btn.type = 'button';
         btn.setAttribute('role', 'radio');
-        btn.setAttribute('aria-checked', String(item.status === value));
-        btn.disabled = busyId === item.id;
-        if (item.status === value) btn.append(el('span', `tbx-dot is-${value}`));
+        btn.setAttribute('aria-checked', String(item.effective_status === value));
+        btn.disabled = !item.setting_enabled || Boolean(busyId) || reordering;
+        if (item.effective_status === value) btn.append(el('span', `tbx-dot is-${value}`));
         btn.append(document.createTextNode(label));
         btn.addEventListener('click', () => setStatus(item, value));
         segment.append(btn);
@@ -592,11 +589,11 @@
       editBtn.addEventListener('click', () => openEditor(item));
 
       const openLink = el('a', 'tbx-icon-btn');
-      openLink.href = item.status === 'disabled' ? `${item.url}?preview=1` : item.url;
+      openLink.href = item.effective_status === 'disabled' ? `${item.url}?preview=1` : item.url;
       openLink.target = '_blank';
       openLink.rel = 'noopener';
       openLink.ariaLabel = `打开 ${item.title}`;
-      openLink.title = item.status === 'disabled' ? '预览' : '打开';
+      openLink.title = item.effective_status === 'disabled' ? '预览' : '打开';
       openLink.append(icon('open'));
 
       actions.append(segment, editBtn, openLink);

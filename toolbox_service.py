@@ -104,10 +104,11 @@ def list_all_toolbox_tools(db=None):
 
 
 def list_toolbox_tools(db=None):
-    return [
-        tool for tool in list_all_toolbox_tools(db)
-        if tool['effective_status'] == 'visible'
-    ]
+    groups = {}
+    for tool in list_all_toolbox_tools(db):
+        if tool['effective_status'] == 'visible':
+            groups.setdefault(tool['group'], []).append(tool)
+    return [tool for group in groups.values() for tool in group]
 
 
 def get_toolbox_tool(tool_id, db=None):
@@ -154,7 +155,16 @@ def _audit_snapshot(tool):
     }
 
 
+def _lock_toolbox_for_write(db):
+    # Serialize the read/modify/write even when no overrides exist yet.
+    if db.kind == 'postgres':
+        db.execute('LOCK TABLE toolbox_items IN SHARE ROW EXCLUSIVE MODE')
+    elif not db.connection.in_transaction:
+        db.execute('BEGIN IMMEDIATE')
+
+
 def update_toolbox_tool(db, actor_user_id, tool_id, data):
+    _lock_toolbox_for_write(db)
     current = get_toolbox_tool(tool_id, db=db)
     if current is None:
         return None, '工具不存在', 404
@@ -217,10 +227,17 @@ def update_toolbox_tool(db, actor_user_id, tool_id, data):
     return updated, None, 200
 
 
-def reorder_toolbox_tools(db, actor_user_id, ordered_entries):
+def reorder_toolbox_tools(db, actor_user_id, ordered_entries, expected_order):
     if not isinstance(ordered_entries, list) or not ordered_entries:
         return None, '请提供有效的工具排序列表', 400
+    if not isinstance(expected_order, list):
+        return None, '请刷新工具箱后重新排序', 409
+    _lock_toolbox_for_write(db)
     all_tools = list_all_toolbox_tools(db)
+    before_order = [{'id': tool['id'], 'group': tool['group']} for tool in all_tools]
+    if expected_order != before_order:
+        db.rollback()
+        return None, '工具顺序或分组已更新，请按最新列表重新排序', 409
     by_id = {tool['id']: tool for tool in all_tools}
     cleaned = []
     seen = set()
@@ -241,7 +258,6 @@ def reorder_toolbox_tools(db, actor_user_id, ordered_entries):
         if tool['id'] not in seen:
             cleaned.append((tool['id'], tool['group']))
 
-    before_order = [{'id': tool['id'], 'group': tool['group']} for tool in all_tools]
     after_order = [{'id': tool_id, 'group': group_name} for tool_id, group_name in cleaned]
     now = now_text()
     try:
@@ -267,6 +283,7 @@ def reorder_toolbox_tools(db, actor_user_id, ordered_entries):
 
 
 def reset_toolbox_tool(db, actor_user_id, tool_id):
+    _lock_toolbox_for_write(db)
     current = get_toolbox_tool(tool_id, db=db)
     if current is None:
         return None, '工具不存在', 404

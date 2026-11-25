@@ -39,6 +39,7 @@
 
         <section class="artifacts-search-panel" aria-label="查找神器">
           <form class="artifacts-search-form" action="/tools/s11-artifacts" method="get" id="artifactSearch">
+          {% if g.tool_preview %}<input type="hidden" name="preview" value="1">{% endif %}
             <input type="hidden" name="cost" value="{{ cost }}" id="artifactCost" />
             <label class="artifacts-search-label" for="artifactQuery">寻器 · 查弈子</label>
             <div class="artifacts-search-field">
@@ -56,7 +57,7 @@
               </div>
             </fieldset>
           </form>
-          <div class="artifacts-search-hint"><span>点弈子头像，查他的神器推荐</span><a href="/tools/s11-artifacts" id="artifactReset">重置筛选 ↺</a></div>
+          <div class="artifacts-search-hint"><span>点弈子头像，查他的神器推荐</span><a href="{{ tool_page_url() }}" id="artifactReset">重置筛选 ↺</a></div>
         </section>
 
         <div class="artifacts-section-heading">
@@ -76,7 +77,7 @@
               <div class="artifact-recommendations-label"><span>推荐弈子</span><i aria-hidden="true"></i></div>
               <div class="artifact-champions">
 {% for champion in artifact.champions %}
-                <a class="artifact-champion" href="/tools/s11-artifacts?q={{ champion.name|urlencode }}" data-champion="{{ champion.name }}" aria-label="查找{{ champion.name }}（{{ champion.cost }}费）的推荐神器">
+                <a class="artifact-champion" href="{{ tool_page_url(q=champion.name) }}" data-champion="{{ champion.name }}" aria-label="查找{{ champion.name }}（{{ champion.cost }}费）的推荐神器">
                   <span class="artifact-portrait"><img src="{{ static_v(champion.image) }}" alt="{{ champion.name }}" width="60" height="60" loading="{{ 'eager' if artifact == artifacts[0] else 'lazy' }}" decoding="async" /><span class="artifact-cost cost-{{ champion.cost }}" aria-hidden="true">{{ champion.cost }}</span></span>
                   <span class="artifact-champion-name">{{ champion.name }}</span>
                 </a>
@@ -87,7 +88,7 @@
 {% endfor %}
         </section>
         <div class="artifacts-empty" id="artifactEmpty"{% if count %} hidden{% endif %}>
-          <span aria-hidden="true">寻</span><h3>暂未寻到这件神器</h3><p>试试神器名、弈子名或效果关键词，也可以放宽费用筛选。</p><a href="/tools/s11-artifacts" class="artifacts-empty-reset">查看全部神器</a>
+          <span aria-hidden="true">寻</span><h3>暂未寻到这件神器</h3><p>试试神器名、弈子名或效果关键词，也可以放宽费用筛选。</p><a href="{{ tool_page_url() }}" class="artifacts-empty-reset">查看全部神器</a>
         </div>
         <footer class="artifacts-footer"><span>画之灵 · 神器图鉴</span><span>金铲铲阵容库</span><a href="#artifactGuide">回到顶部 ↑</a></footer>
       </main>

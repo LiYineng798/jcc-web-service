@@ -203,9 +203,9 @@ def postgres_schema_ready():
                         'feedback_threads','feedback_events','user_notifications','author_favorite_receipts','notification_actors', 'automation_accounts',
                         'orange_decks','orange_deck_favorites','orange_deck_likes','orange_deck_copies',
                         'orange_deck_submissions','orange_deck_submission_events',
-                        'orange_deck_activity_events','orange_deck_visit_events'
+                        'orange_deck_activity_events','orange_deck_visit_events','toolbox_items'
                     )
-                ) = 20 AND (
+                ) = 21 AND (
                     SELECT COUNT(*) FROM information_schema.columns WHERE table_schema='public' AND (
                         (table_name='automation_accounts' AND column_name IN ('session_version','can_upload_decks','deck_seasons_json'))
                         OR (table_name='orange_decks' AND column_name IN (

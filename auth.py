@@ -90,7 +90,7 @@ def require_csrf():
                    'automation.avatar', 'automation.deck_upload'}
         if user and user['role'] == 'automation' and request.endpoint not in allowed:
             return jsonify({'error': '此账号仅可在授权工作台内操作'}), 403
-    if request.method in {'POST', 'PUT', 'DELETE'} and request.endpoint not in {
+    if request.method in {'POST', 'PUT', 'PATCH', 'DELETE'} and request.endpoint not in {
         'auth.login', 'auth.register', 'auth.logout', 'auth.password_reset_request', 'auth.password_reset_confirm', 'captcha.captcha_verify'
     }:
         if request.headers.get('X-CSRF-Token') != session.get('csrf_token'):

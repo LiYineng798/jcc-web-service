@@ -241,7 +241,9 @@
     });
     if (!response.ok) {
       const data = await response.json().catch(() => ({}));
-      throw new Error(data.error || '操作失败');
+      const error = new Error(data.error || '操作失败');
+      error.status = response.status;
+      throw error;
     }
     if (response.status === 204) return null;
     return response.json();

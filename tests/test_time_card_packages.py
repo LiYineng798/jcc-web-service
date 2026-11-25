@@ -66,7 +66,12 @@ def test_time_cards_preview_publish_remove_and_rollback(cards_source, manager, a
                               json={'expected_revision': revision, 'acknowledge_warnings': True})
         assert response.status_code == 200, response.json
 
+    for tool_id in ('orange-fortune', 'orange-fortune-creator'):
+        assert admin.patch('/api/admin/toolbox/' + tool_id, json={'status': 'disabled'}, headers=headers).status_code == 200
     publish(rid, 0)
+    for tool_id in ('orange-fortune', 'orange-fortune-creator'):
+        assert guest.get('/tools/' + tool_id).status_code == 404
+        assert admin.post('/api/admin/toolbox/' + tool_id + '/reset', headers=headers).status_code == 200
     live = guest.get(url).json
     assert live['compat']['issues']
     assert all(c['description'] == '本次 ZIP 中的效果' for c in live['cards'])
