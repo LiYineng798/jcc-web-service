@@ -1,41 +1,61 @@
+{% set kinds = [('buff', '加强'), ('nerf', '削弱'), ('adjust', '调整')] %}
+
 {% macro long_date(value) -%}
 {%- set text = value|string -%}
 {%- if text[4:5] == '-' and text[7:8] == '-' -%}{{ text[:4] }}年{{ text[5:7]|int }}月{{ text[8:10]|int }}日{%- else -%}{{ text }}{%- endif -%}
 {%- endmacro %}
 
-{% macro tally(counts, compact=False) -%}
-<span class="pn-tally{{ ' is-compact' if compact }}">
-{%- for kind, label in [('buff', '加强'), ('nerf', '削弱'), ('adjust', '调整')] if counts[kind] -%}
-<span class="pn-tally-item pn-kind-{{ kind }}"><i aria-hidden="true"></i>{% if compact %}<span class="pn-sr">{{ label }}</span>{% else %}{{ label }} {% endif %}<b>{{ counts[kind] }}</b></span>
-{%- endfor -%}
+{% macro kind_label(kind, label) -%}
+<span class="pn-tag pn-kind-{{ kind }}"><span class="pn-sign" aria-hidden="true"></span>{{ label }}</span>
+{%- endmacro %}
+
+{% macro tally(counts) -%}
+<span class="pn-tally">
+  {%- for kind, label in kinds if counts[kind] %}
+  <span class="pn-kind-{{ kind }}" data-count-kind="{{ kind }}"><span class="pn-sign" aria-hidden="true"></span>{{ label }} <b>{{ counts[kind] }}</b></span>
+  {%- endfor %}
 </span>
 {%- endmacro %}
 
-{% macro tally_bar(counts, total) -%}
-{%- if total -%}
-<span class="pn-tally-bar" aria-hidden="true">
-{%- for kind in ['buff', 'nerf', 'adjust'] if counts[kind] -%}
-<span class="pn-kind-{{ kind }}" style="flex-grow: {{ counts[kind] }}"></span>
-{%- endfor -%}
-</span>
-{%- endif -%}
+{% macro highlight_list(highlights) -%}
+<ul class="pn-highlights">
+  {% for item in highlights[:3] %}
+  <li>
+    {{ kind_label(item.kind, item.label) }}
+    <span>{% if item.subject %}<strong>{{ item.subject }}</strong> · {% endif %}{{ item.detail|replace('=>', '→') }}</span>
+  </li>
+  {% endfor %}
+</ul>
 {%- endmacro %}
 
-{% macro change_values(item) -%}
-{%- if item.changes -%}
-<dl class="pn-values">
-{%- for row in item.changes %}
-  <div class="pn-value-row">
-    <dt>{{ row.attribute or '调整' }}</dt>
-    <dd>
-{%- if row.from %}<span class="pn-old"><span class="pn-sr">原为 </span>{{ row.from }}</span><span class="pn-arrow" aria-hidden="true">→</span>{% endif -%}
-{%- if row.to %}<span class="pn-new"><span class="pn-sr">调整为 </span>{{ row.to }}</span>{% endif -%}
-{%- if row.note %}<span class="pn-value-note">{{ row.note }}</span>{% endif -%}
-    </dd>
+{% macro value_parts(value) -%}
+{%- for part in value.split('/') -%}{{ part }}{% if not loop.last %}/<wbr>{% endif %}{%- endfor -%}
+{%- endmacro %}
+
+{% macro change_item(item) -%}
+<div class="pn-change pn-kind-{{ item.kind }}" data-kind="{{ item.kind }}">
+  <div class="pn-change-head">
+    {{ kind_label(item.kind, item.label) }}
+    {% if item.subject %}<strong class="pn-subject">{{ item.subject }}</strong>{% endif %}
   </div>
-{%- endfor %}
-</dl>
-{%- else -%}
-<p class="pn-change-text">{{ item.detail }}</p>
-{%- endif -%}
+  {% if item.changes %}
+  <div class="pn-values">
+    {% for row in item.changes %}
+    {% if row.from or row.to %}
+    <div class="pn-value-row">
+      <span class="pn-attribute">{{ row.attribute }}</span>
+      <span class="pn-old"><span class="pn-sr">原值 </span>{{ value_parts(row.from) }}</span>
+      <span class="pn-arrow" aria-hidden="true">→</span>
+      <strong class="pn-new"><span class="pn-sr">新值 </span>{{ value_parts(row.to) }}</strong>
+    </div>
+    {% elif row.attribute %}
+    <p class="pn-value-note">{{ row.attribute }}</p>
+    {% endif %}
+    {% if row.note %}<p class="pn-value-note">{{ row.note }}</p>{% endif %}
+    {% endfor %}
+  </div>
+  {% else %}
+  <p class="pn-change-text">{{ item.detail }}</p>
+  {% endif %}
+</div>
 {%- endmacro %}

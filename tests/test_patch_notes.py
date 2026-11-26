@@ -185,3 +185,23 @@ def test_public_patch_notes_page_renders_empty_state(client):
 
     assert '暂无更新公告' in html
     assert 'patch-notes.css' in html
+
+
+def test_list_previews_archived_changes_and_text_only_event(client):
+    headers = login_admin(client)
+    create_published_patch_note(client, headers)
+    event = client.post('/api/admin/patch-notes', json={
+        'title': '周末活动公告',
+        'summary_markdown': '## 活动时间\n周六开放双人模式。',
+        'published_at': '2026-05-30',
+        'status': 'published',
+    }, headers=headers).get_json()
+
+    listing = client.get('/patch-notes').get_data(as_text=True)
+    assert listing.index('周末活动公告') < listing.index('17.4更新公告')
+    assert '周六开放双人模式。' in listing and '活动时间' in listing
+    assert '亚托克斯' in listing and '治疗 300 → 325' in listing
+
+    detail = client.get(f"/patch-notes/{event['id']}").get_data(as_text=True)
+    assert '周六开放双人模式。' in detail
+    assert 'data-pn-filter' not in detail
