@@ -1,11 +1,3 @@
-// Patch note pages are rendered on the server; this script only adds theme, filtering and navigation helpers.
-const patchThemeToggle = document.querySelector('#themeToggle');
-const patchThemeIcon = document.querySelector('#themeIcon');
-const patchThemeText = document.querySelector('#themeText');
-
-setPatchTheme(readTheme());
-patchThemeToggle?.addEventListener('click', () => setPatchTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'));
-
 setupKindFilter();
 setupTocHighlight();
 setupTocSheet();
@@ -80,15 +72,4 @@ function openOriginalFromHash() {
 
 function prefersReducedMotion() {
   return matchMedia('(prefers-reduced-motion: reduce)').matches;
-}
-
-function readTheme() {
-  try { return localStorage.getItem('theme') || 'light'; } catch { return 'light'; }
-}
-
-function setPatchTheme(theme) {
-  document.documentElement.dataset.theme = theme;
-  try { localStorage.setItem('theme', theme); } catch { /* Storage can be unavailable in private browsing. */ }
-  window.jccApplyThemeToggleState?.(theme, patchThemeToggle, patchThemeIcon, patchThemeText);
-  if (!window.jccApplyThemeToggleState && patchThemeText) patchThemeText.textContent = theme === 'dark' ? '白天模式' : '夜间模式';
 }

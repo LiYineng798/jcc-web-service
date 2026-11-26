@@ -1,7 +1,7 @@
 <!doctype html>
 {% from "theme_toggle.html" import theme_toggle %}
 {% from "seo_head.html" import seo_head %}
-{% from "patch_note_macros.html" import long_date, tally, tally_bar, change_values %}
+{% from "patch_note_macros.html" import long_date, change_values, tally %}
 {% set overview = patch_note.overview %}
 {% set sections = patch_note.summary_sections %}
 {% set lead = sections[0] if sections and not sections[0].title else None %}
@@ -11,7 +11,7 @@
 {{ seo_head(seo) }}
     <link rel="stylesheet" href="{{ static_v('patch-notes.css') }}" />
   </head>
-  <body class="pn-page pn-detail-page">
+  <body class="pn-page pn-detail-page" data-page-theme-toggle>
     <div class="page-shell pn-shell">
       <nav class="nav-bar pn-nav" aria-label="页面工具">
         <div class="pn-nav-group">
@@ -23,9 +23,9 @@
 
       <article id="patchNoteDetailApp" class="pn-article" data-patch-note-id="{{ patch_note_id }}">
         <header class="pn-article-head">
-          <p class="eyebrow">Official Patch Notes{% if patch_note.version %} · {{ patch_note.version }}{% endif %}</p>
           <h1 class="pn-article-title">{{ patch_note.title }}</h1>
           <div class="pn-article-meta">
+            {% if patch_note.version %}<span>{{ patch_note.version }}</span>{% endif %}
             <time datetime="{{ patch_note.published_at }}">{{ long_date(patch_note.published_at) }}发布</time>
 {% if patch_note.source_url %}
             <a class="pn-source-link" href="{{ patch_note.source_url }}"{% if not patch_note.source_url.startswith('/') %} target="_blank" rel="noopener"{% endif %}>查看官方原文 <span aria-hidden="true">↗</span></a>
@@ -40,10 +40,10 @@
               <p class="pn-toc-label">目录</p>
               <ol>
 {% for section in chapters %}
-                <li><a href="#{{ section.id }}" data-toc-link="{{ section.id }}"><span class="pn-toc-no">{{ '%02d'|format(loop.index) }}</span><span class="pn-toc-title">{{ section.title }}</span>{% set n = section.counts.buff + section.counts.nerf + section.counts.adjust %}{% if n %}<small>{{ n }}</small>{% endif %}</a></li>
+                <li><a href="#{{ section.id }}" data-toc-link="{{ section.id }}"><span class="pn-toc-title">{{ section.title }}</span></a></li>
 {% endfor %}
 {% if patch_note.original_text %}
-                <li><a href="#original" data-toc-link="original"><span class="pn-toc-no">原</span><span class="pn-toc-title">官方原文</span></a></li>
+                <li><a href="#original" data-toc-link="original"><span class="pn-toc-title">官方原文</span></a></li>
 {% endif %}
               </ol>
             </div>
@@ -51,8 +51,8 @@
 {% endif %}
 
           <div class="pn-article-body">
+{% if lead or overview.change_total %}
             <section class="pn-brief" aria-label="本期概要">
-              <p class="pn-brief-label">本期概要</p>
 {% if lead %}
 {% for item in lead['items'] %}
 {% if item.type == 'text' %}
@@ -61,10 +61,7 @@
 {% endfor %}
 {% endif %}
 {% if overview.change_total %}
-              <div class="pn-brief-tally">
-                {{ tally(overview.counts) }}
-                {{ tally_bar(overview.counts, overview.change_total) }}
-              </div>
+              <noscript>{{ tally(overview.counts) }}</noscript>
               <div class="pn-filter" role="group" aria-label="按调整类型筛选" data-pn-filter hidden>
                 <button type="button" aria-pressed="true" data-filter="all">全部 <b>{{ overview.change_total }}</b></button>
 {% for kind, label in [('buff', '加强'), ('nerf', '削弱'), ('adjust', '调整')] if overview.counts[kind] %}
@@ -73,6 +70,7 @@
               </div>
 {% endif %}
             </section>
+{% endif %}
 
 {% if lead %}
 {% for item in lead['items'] if item.type == 'change' %}
@@ -91,7 +89,7 @@
 
 {% for section in chapters %}
             <section class="pn-section" id="{{ section.id }}" data-section>
-              <h2 class="pn-section-title"><span class="pn-section-no">{{ '%02d'|format(loop.index) }}</span>{{ section.title }}</h2>
+              <h2 class="pn-section-title">{{ section.title }}</h2>
 {% for item in section['items'] %}
 {% if item.type == 'change' %}
               <article class="pn-change pn-kind-{{ item.kind }}" data-kind="{{ item.kind }}">
@@ -107,17 +105,12 @@
 
 {% if patch_note.original_text %}
             <details class="pn-original" id="original">
-              <summary><span>官方原文</span><small>{{ patch_note.original_text|length }} 字 · 点击展开</small></summary>
+              <summary><span>官方原文</span><small>{{ patch_note.original_text|length }} 字</small></summary>
               <div class="pn-original-text">{{ patch_note.original_text }}</div>
             </details>
 {% endif %}
 
             <footer class="pn-article-foot">
-{% if patch_note.source_url %}
-              <p class="pn-foot-source">内容整理自官方公告，数值以游戏内为准。<a href="{{ patch_note.source_url }}"{% if not patch_note.source_url.startswith('/') %} target="_blank" rel="noopener"{% endif %}>前往官方原文 ↗</a></p>
-{% else %}
-              <p class="pn-foot-source">内容整理自官方公告，数值以游戏内为准。</p>
-{% endif %}
               <nav class="pn-pager" aria-label="相邻公告">
 {% if adjacent.newer %}
                 <a class="pn-pager-link is-newer" href="/patch-notes/{{ adjacent.newer.id }}"><small>← 较新</small><span>{{ adjacent.newer.title }}</span></a>
@@ -138,10 +131,10 @@
       <div class="pn-sheet-head"><strong>目录</strong><button type="button" class="pn-sheet-close" data-sheet-close aria-label="关闭目录">×</button></div>
       <ol class="pn-sheet-list">
 {% for section in chapters %}
-        <li><a href="#{{ section.id }}" data-sheet-link><span class="pn-toc-no">{{ '%02d'|format(loop.index) }}</span>{{ section.title }}</a></li>
+        <li><a href="#{{ section.id }}" data-sheet-link>{{ section.title }}</a></li>
 {% endfor %}
 {% if patch_note.original_text %}
-        <li><a href="#original" data-sheet-link><span class="pn-toc-no">原</span>官方原文</a></li>
+        <li><a href="#original" data-sheet-link>官方原文</a></li>
 {% endif %}
       </ol>
       <a class="pn-sheet-top" href="#top" data-sheet-link data-scroll-top>回到顶部 ↑</a>

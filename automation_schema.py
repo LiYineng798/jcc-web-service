@@ -8,6 +8,7 @@ CREATE TABLE IF NOT EXISTS automation_accounts (
     touch_seasons_json TEXT NOT NULL DEFAULT '[]',
     can_upload_decks INTEGER NOT NULL DEFAULT 0 CHECK (can_upload_decks IN (0, 1)),
     deck_seasons_json TEXT NOT NULL DEFAULT '[]',
+    patch_note_access TEXT NOT NULL DEFAULT 'none' CHECK (patch_note_access IN ('none', 'draft', 'publish')),
     session_version INTEGER NOT NULL DEFAULT 1,
     created_by INTEGER NOT NULL REFERENCES users(id),
     last_used_at TEXT,
@@ -23,6 +24,7 @@ def migrate_automation_sessions(db):
     for name, definition in (
         ('can_touch', 'INTEGER NOT NULL DEFAULT 0 CHECK (can_touch IN (0, 1))'),
         ('touch_seasons_json', "TEXT NOT NULL DEFAULT '[]'"),
+        ("patch_note_access", "TEXT NOT NULL DEFAULT 'none' CHECK (patch_note_access IN ('none', 'draft', 'publish'))"),
         ('session_version', 'INTEGER NOT NULL DEFAULT 1'),
         ('can_upload_decks', 'INTEGER NOT NULL DEFAULT 0 CHECK (can_upload_decks IN (0, 1))'),
         ('deck_seasons_json', "TEXT NOT NULL DEFAULT '[]'"),

@@ -158,4 +158,4 @@ def test_postgres_schema_ready_checks_schema_migrations(monkeypatch):
     with app.app_context():
         assert app.config['DATABASE_URL'].startswith('postgresql://')
 
-    assert any('schema_migrations' in sql and 'toolbox_items' in sql for sql in calls)
+    assert any('schema_migrations' in sql and 'toolbox_items' in sql and 'patch_note_access' in sql for sql in calls)

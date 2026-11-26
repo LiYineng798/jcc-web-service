@@ -9,4 +9,17 @@
     }
     if (themeText) themeText.textContent = theme === 'dark' ? '白天模式' : '夜间模式';
   };
+  if (document.body.hasAttribute('data-page-theme-toggle')) {
+    const toggle = document.getElementById('themeToggle');
+    const apply = theme => {
+      document.documentElement.dataset.theme = theme;
+      window.jccApplyThemeToggleState(theme, toggle, document.getElementById('themeIcon'), document.getElementById('themeText'));
+    };
+    apply(document.documentElement.dataset.theme || 'light');
+    toggle.addEventListener('click', () => {
+      const theme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+      apply(theme);
+      try { localStorage.setItem('theme', theme); } catch { /* Storage is optional. */ }
+    });
+  }
 })();

@@ -207,7 +207,7 @@ def postgres_schema_ready():
                     )
                 ) = 21 AND (
                     SELECT COUNT(*) FROM information_schema.columns WHERE table_schema='public' AND (
-                        (table_name='automation_accounts' AND column_name IN ('session_version','can_upload_decks','deck_seasons_json'))
+                        (table_name='automation_accounts' AND column_name IN ('session_version','can_upload_decks','deck_seasons_json','patch_note_access'))
                         OR (table_name='orange_decks' AND column_name IN (
                             'plan_code','lineup_code','season_id','origin_type','provided_by_user_id',
                             'published_by_user_id','reviewed_card_version','reviewed_at'))
@@ -215,7 +215,7 @@ def postgres_schema_ready():
                             'deck_id','code_type','actor_key','client_action_id','rank_eligible'))
                         OR (table_name='user_notifications' AND column_name='deck_submission_id')
                     )
-                ) = 17 AS exists
+                ) = 18 AS exists
                 '''
             )
             return bool(cursor.fetchone()['exists'])

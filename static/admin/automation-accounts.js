@@ -1,5 +1,6 @@
 (function (global) {
   const { el, button } = global.JccAdminCore;
+  const patchAccessLabels = { none: '关闭', draft: '仅草稿', publish: '草稿和发布' };
   function open({ api, afterChange }) {
     const dialog = el('dialog', 'lm-dialog automation-dialog');
     dialog.setAttribute('aria-labelledby', 'automationTitle');
@@ -19,7 +20,7 @@
       try {
         const data = await api('/api/admin/automation-accounts');
         if (!dialog.open) return;
-        body.replaceChildren(el('p', 'admin-meta', '使用正常登录页进入受限后台。默认可查看脱敏运营数据并修改本账号头像；可分别授权普通阵容批量导入和榜单展示时间维护。账号只能由管理员创建，密码仅保存加密摘要。'),
+        body.replaceChildren(el('p', 'admin-meta', 'AI 账号从站点登录页进入协作工作台。'),
           button('创建自动化账号', () => edit()));
         if (!data.items.length) body.append(el('p', '', '暂无自动化账号'));
         for (const account of data.items) {
@@ -30,6 +31,7 @@
           if (account.can_touch) card.append(el('p', 'admin-meta', `展示时间授权：${account.touch_seasons.join('、')}`));
           if (account.can_import) card.append(el('p', 'admin-meta', `授权赛季：${account.allowed_seasons.join('、')}`));
           if (account.can_upload_decks) card.append(el('p', 'admin-meta', `卡组上传授权：${account.deck_seasons.join('、')}`));
+          if (account.patch_note_access !== 'none') card.append(el('p', 'admin-meta', '公告上传：' + patchAccessLabels[account.patch_note_access]));
           const actions = el('div', 'card-actions');
           actions.append(
             button('调整权限', () => edit(account)),
@@ -124,7 +126,19 @@
       deckChoices.disabled = !decks.checked; decks.addEventListener('change', () => { deckChoices.disabled = !decks.checked; });
       const message = el('p', 'patch-editor-error'); message.setAttribute('role', 'alert');
       const submit = el('button', 'small-button is-active', account ? '保存权限' : '创建账号'); submit.type = 'submit';
-      form.append(choices, touchLabel, touchChoices, deckLabel, deckChoices, el('p', 'admin-meta', '只读范围：运营概览、复制排行、日报汇总及公开普通阵容；另可修改本账号头像。导入和卡组上传不会覆盖、删除或审核已有内容，上传者记录为此账号。'),
+      const patchField = el('div', 'patch-editor-field');
+      const patchLabel = el('label', '', '更新公告上传');
+      patchLabel.htmlFor = 'automationPatchAccess';
+      const patchAccess = el('select');
+      patchAccess.id = patchLabel.htmlFor;
+      for (const [value, label] of Object.entries(patchAccessLabels)) {
+        const option = el('option', '', label);
+        option.value = value;
+        patchAccess.append(option);
+      }
+      patchAccess.value = account?.patch_note_access || 'none';
+      patchField.append(patchLabel, patchAccess);
+      form.append(choices, touchLabel, touchChoices, deckLabel, deckChoices, patchField, el('p', 'admin-meta', '默认可查看运营汇总与公开普通阵容，并修改自己的头像。'),
         message, submit, button('返回列表', load));
       let busy = false;
       form.addEventListener('submit', async event => {
@@ -133,7 +147,7 @@
         if (enabled.checked && !selected.length) { message.textContent = '请至少选择一个允许导入的赛季。'; return; }
         const touched = [...touchChoices.querySelectorAll('input:checked')].map(input => input.value);
         if (touch.checked && !touched.length) { message.textContent = '请选择允许维护展示时间的赛季。'; return; }
-        const payload = { can_import: enabled.checked, allowed_seasons: selected, can_touch: touch.checked, touch_seasons: touched };
+        const payload = { patch_note_access: patchAccess.value, can_import: enabled.checked, allowed_seasons: selected, can_touch: touch.checked, touch_seasons: touched };
         const deckSelected = [...deckChoices.querySelectorAll('input:checked')].map(input => input.value);
         if (decks.checked && !deckSelected.length) { message.textContent = '请选择允许上传卡组的赛季。'; return; }
         Object.assign(payload, { can_upload_decks: decks.checked, deck_seasons: deckSelected });

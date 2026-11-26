@@ -1,11 +1,10 @@
 (() => {
   const { el, button, revealListStart } = window.JccAdminCore;
   const root = document.querySelector('#assistantApp');
-  const summary = document.querySelector('#assistantPermissions');
   const avatarButton = document.querySelector('#assistantAvatar');
   const prefix = '/api/admin/assistant';
   const zone = '北京时间（UTC+8）';
-  let csrf = '', account, seasons = [], deckSeasons = [], active = location.hash === '#decks' ? 'decks' : 'overview', revision = 0, dirty = false;
+  let csrf = '', account, seasons = [], deckSeasons = [], active = location.hash.slice(1) || 'overview', revision = 0, dirty = false, savingNote = false;
   const labels = {
     today_uv: '今日访客', yesterday_uv: '昨日访客', today_new_visitors: '今日新访客', today_returning_visitors: '今日回访',
     today_users: '今日注册', today_logins: '今日登录', today_authenticated_users: '今日活跃账号', today_lineup_copy_count: '今日普通阵容复制',
@@ -28,13 +27,10 @@
   }
   // Fixed to the site's audience zone so browsers in other zones read the same time.
   const date = value => value ? new Date(value).toLocaleString('zh-CN', { timeZone: 'Asia/Shanghai', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false }) : '暂无记录';
-  const seasonName = id => seasons.find(s => s.id === id)?.name || id;
-  const seasonList = ids => ids.map(seasonName).join('、');
   function panel(title, description = '') {
     const box = el('section', 'assistant-panel'); box.append(el('h2', '', title));
     if (description) box.append(el('p', 'admin-meta', description)); return box;
   }
-  function badge(text, tone = '') { return el('span', 'assistant-badge' + (tone ? ' is-' + tone : ''), text); }
   function table(columns, rows, rowClass = null) {
     const wrap = el('div', 'assistant-table-wrap');
     if (!rows.length) { wrap.append(el('p', 'admin-meta', '暂无数据')); return wrap; }
@@ -49,16 +45,20 @@
     return list;
   }
   function checklist(items) { const list = el('ul', 'assistant-checks'); items.forEach(text => list.append(el('li', '', text))); return list; }
-  function metrics(values) {
+  function metrics(values, keys = Object.keys(labels)) {
     const list = el('dl', 'assistant-metrics');
-    Object.keys(labels).filter(key => key in values).map(key => [key, values[key]]).forEach(([key, value]) => { const item = el('div', 'assistant-metric'); item.append(el('dt', '', labels[key]), el('dd', '', String(value))); list.append(item); });
+    for (const key of keys.filter(key => key in values)) {
+      const item = el('div', 'assistant-metric');
+      item.append(el('dt', '', labels[key]), el('dd', '', String(values[key] ?? '—')));
+      list.append(item);
+    }
     return list;
   }
   function ranks(rows) {
     return table([['阵容', 'title'], ['赛季', 'season_name'], ['上传者', 'uploader'], ['复制次数', 'copies'], ['复制人数', 'unique_visitors']], rows);
   }
   function deckPanel(data, compact = false) {
-    const box = panel(compact ? '卡组库 · 今日' : '卡组库', '投稿、发布、复制与互动；仅提供运营汇总，排行只展示当前公开的卡组。');
+    const box = panel(compact ? '今日卡组' : '卡组库');
     box.classList.add('assistant-deck-report');
     box.append(window.JccAdminDeckMetrics.render({ ...(data || {}), compact, readOnly: true }));
     return box;
@@ -67,34 +67,22 @@
   function seasonSelect(allowed = null) {
     const select = el('select'); seasons.filter(s => !allowed || allowed.includes(s.id)).forEach(s => { const option = el('option', '', s.name); option.value = s.id; select.append(option); }); return select;
   }
-  function grant(enabled, ids) { return enabled && ids.length ? seasonList(ids) : null; }
-  function renderPermissions() {
-    const rows = [
-      ['普通阵容批量导入', grant(account.can_import, account.allowed_seasons), 'lineups'],
-      ['榜单展示时间维护', grant(account.can_touch, account.touch_seasons), 'touch'],
-      ['卡组上传', account.can_upload_decks ? account.deck_seasons.map(id => deckSeasons.find(s => s.id === id)?.name || id).join('、') : null, 'decks'],
-      ['头像修改', account.can_avatar ? '仅本账号头像' : null, 'avatar'],
-    ];
-    const title = el('h2', '', '当前权限'); title.id = 'assistantPermissionsTitle';
-    const list = el('dl', 'assistant-grants');
-    for (const [name, scope, target] of rows) {
-      const item = el('div', 'assistant-grant'); const value = el('dd');
-      value.append(scope ? badge('已授权', 'ok') : badge('未授权', 'off'), el('span', '', scope ? ' ' + scope : ' 不可操作'));
-      if (scope) value.append(target === 'avatar' ? button('修改头像', () => avatarButton.click(), 'small-button assistant-link')
-        : button('前往', () => navigate(target), 'small-button assistant-link'));
-      item.append(el('dt', '', name), value); list.append(item);
+  function showAccountDetails() {
+    const entries = [['有效至（北京时间）', date(account.expires_at)],
+      ['每小时写入上限', String(account.limits.write_requests_per_hour)]];
+    for (const [label, enabled, ids, choices] of [
+      ['导入阵容', account.can_import, account.allowed_seasons, seasons],
+      ['维护展示时间', account.can_touch, account.touch_seasons, seasons],
+      ['上传卡组', account.can_upload_decks, account.deck_seasons, deckSeasons],
+    ]) {
+      const names = choices.filter(s => enabled && ids.includes(s.id)).map(s => s.name);
+      if (names.length) entries.push([label, names.join('、')]);
     }
-    const detail = el('details', 'assistant-season-grants');
-    detail.append(el('summary', '', '按赛季查看授权'), el('p', 'admin-meta', '标为“未授权”的赛季是本账号无权操作，不是功能缺失。'),
-      table([['赛季', 'name'], ['批量导入', 'import'], ['展示时间维护', 'touch']], seasons.map(s => ({
-        name: s.name,
-        import: account.can_import && account.allowed_seasons.includes(s.id) ? '已授权' : '未授权',
-        touch: account.can_touch && account.touch_seasons.includes(s.id) ? '已授权' : '未授权',
-      }))));
-    summary.replaceChildren(title, list,
-      el('p', 'admin-meta', `只读：运营概览、每日报告、复制排行、全部公开赛季的普通阵容。前台“新增阵容”、点赞、评论等写操作均未授权。限额：每批导入 ≤${account.limits.rows_per_import} 行，每小时写操作 ≤${account.limits.write_requests_per_hour} 次（导入、展示时间、头像共用）。`),
-      detail);
-    summary.hidden = false;
+    if (account.patch_note_access !== 'none') {
+      entries.push(['更新公告', account.patch_note_access === 'publish' ? '草稿和发布' : '仅草稿']);
+    }
+    document.querySelector('#assistantPermissions').replaceChildren(facts(entries));
+    document.querySelector('.assistant-account').hidden = false;
   }
   function renderAvatar(user) {
     if (!window.jccAvatar) return;
@@ -103,9 +91,12 @@
   }
   async function overview() {
     const [data, copies] = await Promise.all([api('/overview'), api('/copy-rank')]);
-    const box = panel('运营概览', '查看站点汇总数据，了解大家最近在使用哪些阵容。');
-    box.append(metrics(data.stats), el('h3', '', '近七日访问'), table([['日期', 'date'], ['访客', 'uv']], data.traffic_7d));
-    const copyBox = panel('复制排行', '仅展示汇总和上传者，不包含访问者身份与 IP。');
+    const box = panel('运营概览');
+    const primary = ['today_uv', 'today_users', 'today_total_copy_count', 'today_logins'];
+    const more = el('details', 'assistant-more');
+    more.append(el('summary', '', '更多指标'), metrics(data.stats, Object.keys(labels).filter(key => !primary.includes(key))));
+    box.append(metrics(data.stats, primary), more, el('h3', '', '近七日访问'), table([['日期', 'date'], ['访客', 'uv']], data.traffic_7d));
+    const copyBox = panel('复制排行');
     const day = el('input'); day.type = 'date'; day.value = copies.date;
     const result = el('div'); result.append(ranks(copies.items)); let generation = 0;
     day.addEventListener('change', async () => {
@@ -116,7 +107,7 @@
     copyBox.append(field('查询日期', day), result); return [box, deckPanel(data.deck, true), copyBox];
   }
   async function reports() {
-    const data = await api('/daily-reports'); const box = panel('每日报告', '阅读已生成的运营快照。');
+    const data = await api('/daily-reports'); const box = panel('每日报告');
     if (!data.items.length) { box.append(el('p', 'admin-meta', '还没有已生成的日报')); return [box]; }
     const select = el('select'); data.items.forEach(item => { const option = el('option', '', item.report_date); option.value = item.report_date; select.append(option); });
     const result = el('div'); let generation = 0;
@@ -143,7 +134,6 @@
   function previewScope(result) {
     const box = el('div', 'assistant-scope');
     box.append(el('strong', '', result.importable_count ? result.validation.summary : '校验范围：仅格式校验，未解析阵容内容'),
-      el('p', 'admin-meta', '本后台只核对文本格式和重复情况，无法展开英雄、装备、站位；请在导入前自行确认阵容码来源。已执行的校验：'),
       checklist([...result.validation.batch_checks, ...result.validation.row_checks]));
     return box;
   }
@@ -154,7 +144,7 @@
   }
   const entryColumns = [['行号', 'line_label'], ['最终名称', 'name_label'], ['阵容码', 'code_label'], ['状态', 'status_label'], ['说明', 'note']];
   async function lineups() {
-    const list = panel('普通阵容（只读查看）', '可查看全部公开赛季的普通阵容及上传者。');
+    const list = panel('普通阵容');
     const select = seasonSelect(); const result = el('div'); let page = 1, generation = 0, fresh = new Set();
     async function load() {
       const current = ++generation; result.replaceChildren(el('p', 'admin-meta', '阵容加载中…'));
@@ -169,12 +159,8 @@
       list.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
     select.addEventListener('change', () => { page = 1; fresh = new Set(); load(); }); list.append(field('查看赛季', select), result); if (select.value) await load();
-    const box = panel('批量导入普通阵容');
-    if (!account.can_import || !account.allowed_seasons.length) {
-      box.append(badge('未授权', 'off'), el('p', 'admin-meta', '管理员尚未为本账号开放批量导入，当前只能查看下方列表。'));
-      return [box, list];
-    }
-    box.append(el('p', 'admin-meta', `已授权赛季：${seasonList(account.allowed_seasons)}；其他赛季未授权。每批最多 ${account.limits.rows_per_import} 行，先检查预览，再确认导入；重复阵容会跳过。`));
+    if (!account.can_import || !seasons.some(s => account.allowed_seasons.includes(s.id))) return [list];
+    const box = panel('批量导入普通阵容', `每批最多 ${account.limits.rows_per_import} 行`);
     const season = seasonSelect(account.allowed_seasons); const text = el('textarea'); text.maxLength = 20000; text.placeholder = '每行一条，例如：【阵容码】#S11-九五至尊#ABC123';
     const preview = el('div', 'assistant-preview'); const outcome = el('div', 'assistant-outcome'); const message = el('p', 'assistant-message'); message.setAttribute('role', 'status'); let prepared = null, busy = false;
     const payload = () => ({ season_id: season.value, raw_text: text.value });
@@ -212,12 +198,11 @@
     }, 'small-button is-active', true);
     text.addEventListener('input', invalidate); season.addEventListener('change', invalidate);
     const actions = el('div', 'card-actions'); actions.append(check, commit);
-    box.append(field('导入赛季（仅列出已授权赛季）', season), field('阵容码', text), actions, message, preview, outcome); return [box, list];
+    box.append(field('导入赛季', season), field('阵容码', text), actions, message, preview, outcome); return [box, list];
   }
   async function touch() {
-    const box = panel('榜单展示时间', `只修改首页“榜单更新于”显示的时间，不会重新抓取阵容、刷新排名或发布新榜单。时间均为${zone}。`);
+    const box = panel('榜单展示时间', zone);
     const data = await api('/live-seasons');
-    if (!data.seasons.length) box.append(badge('未授权', 'off'), el('p', 'admin-meta', '管理员尚未为本账号开放榜单展示时间维护。'));
     for (const season of data.seasons) {
       const item = el('article', 'automation-card'); const current = el('span', '', date(season.updated_at)); const result = el('p', 'assistant-message'); result.setAttribute('role', 'status');
       const action = button('将展示时间设为现在', async (_, button) => {
@@ -231,56 +216,130 @@
           window.jccNotify.show(`「${saved.season_name}」展示时间已设为 ${date(saved.updated_at)}`, { variant: 'success' });
         } finally { button.disabled = false; }
       });
-      item.append(el('h3', '', season.name), facts([['目标赛季', season.name], ['当前展示时间', current], ['时区', zone], ['影响范围', '仅首页显示时间，不会更新阵容或排名']]), action, result);
+      item.append(el('h3', '', season.name), facts([['当前展示时间', current]]), action, result);
       box.append(item);
-    }
-    const others = seasons.filter(s => !data.seasons.some(item => item.id === s.id));
-    if (others.length) {
-      const list = el('ul', 'assistant-locked'); others.forEach(s => { const li = el('li', '', s.name + ' '); li.append(badge('未授权', 'off')); list.append(li); });
-      box.append(el('h3', '', '其他赛季'), list);
     }
     return [box];
   }
   async function decks() {
-    // Refresh grants when entering: an administrator may have changed them since login.
-    account = await api('/me');
-    const box = panel('上传卡组', '使用选卡编辑器填写方案码、三张时间卡片和推荐传送门，可附带说明与阵容站位。发布后立即公开，作者为当前账号。');
-    const available = deckSeasons.filter(s => account.can_upload_decks && account.deck_seasons.includes(s.id));
-    if (!available.length) {
-      box.append(badge('未授权', 'off'), el('p', 'admin-meta', '当前没有可上传的卡组赛季，请由管理员开通卡组上传权限并选择赛季。'));
-      return [box];
-    }
+    const box = panel('上传卡组');
+    const available = deckSeasons.filter(s => account.deck_seasons.includes(s.id));
     const select = el('select');
     available.forEach(season => { const option = el('option', '', season.name); option.value = season.id; select.append(option); });
     const link = el('a', 'small-button is-active', '打开卡组编辑器');
     const update = () => { link.href = '/admin/assistant/decks/new?season_id=' + encodeURIComponent(select.value); };
     select.addEventListener('change', update); update();
-    box.append(field('上传赛季（仅列出已授权赛季）', select), link);
+    box.append(field('上传赛季', select), link);
     return [box];
   }
-  async function navigate(tab) {
-    if (dirty && !confirm('有尚未导入的内容，离开此页会丢失。继续离开？')) return;
-    dirty = false; active = tab; const current = ++revision;
-    document.querySelectorAll('[data-assistant-tab]').forEach(node => { const selected = node.dataset.assistantTab === tab; node.classList.toggle('is-active', selected); node.setAttribute('aria-current', selected ? 'page' : 'false'); });
+  function patchNotes() {
+    const box = document.querySelector('#patchNoteComposer').content.firstElementChild.cloneNode(true);
+    const form = box.querySelector('form');
+    const message = form.querySelector('[role="status"]');
+    const file = form.querySelector('[type="file"]');
+    const publish = form.querySelector('[value="published"]');
+    const day = form.elements.published_at;
+    publish.hidden = account.patch_note_access !== 'publish';
+    form.querySelector('[value="draft"]').classList.toggle('is-active', publish.hidden);
+    day.defaultValue = window.JccAdminCore.todayInputValue();
+    form.addEventListener('input', () => { dirty = true; message.replaceChildren(); });
+    let readingFile = false;
+    file.addEventListener('change', async () => {
+      const selected = file.files[0];
+      if (!selected) return;
+      try {
+        if (selected.size > 100000) throw new Error('摘要文件超过 100 KB');
+        if (form.elements.summary_markdown.value && !confirm('用文件内容替换当前摘要？')) return;
+        readingFile = true;
+        form.elements.summary_markdown.readOnly = true;
+        file.disabled = true;
+        form.elements.summary_markdown.value = await selected.text();
+      } catch (error) {
+        message.textContent = error.message;
+      } finally {
+        readingFile = false;
+        form.elements.summary_markdown.readOnly = false;
+        file.disabled = false;
+        file.value = '';
+      }
+    });
+    form.addEventListener('submit', async event => {
+      event.preventDefault();
+      if (savingNote || readingFile) return;
+      const status = event.submitter?.value || 'draft';
+      const body = JSON.stringify({ ...Object.fromEntries(new FormData(form)), status });
+      savingNote = true;
+      const controls = [...form.elements];
+      controls.forEach(control => { control.disabled = true; });
+      message.textContent = '正在保存…';
+      try {
+        const note = await api('/patch-notes', { method: 'POST', body });
+        form.reset();
+        dirty = false;
+        message.textContent = note.status === 'published' ? '已发布。' : `已保存草稿 #${note.id}。`;
+        if (note.status === 'published') {
+          const link = el('a', '', '查看公告');
+          link.href = '/patch-notes/' + note.id;
+          message.append(link);
+        }
+      } catch (error) {
+        message.textContent = error.message;
+      } finally {
+        savingNote = false;
+        controls.forEach(control => { control.disabled = false; });
+      }
+    });
+    return [box];
+  }
+  async function navigate(tab, refresh = true) {
+    if (savingNote || (dirty && !confirm('离开后将丢失未保存的内容。继续？'))) {
+      history.replaceState(null, '', '#' + active);
+      return;
+    }
+    const current = ++revision;
+    dirty = false;
     root.replaceChildren(el('p', 'admin-meta', '正在加载…'));
-    try { const nodes = await ({ overview, reports, lineups, decks, touch })[tab](); if (revision === current) root.replaceChildren(...nodes); }
-    catch (error) { if (revision === current) root.replaceChildren(el('p', 'assistant-error', error.message), button('重试', () => navigate(tab))); }
+    try {
+      const grants = refresh ? await api('/me') : account;
+      if (revision !== current) return;
+      account = grants;
+      showAccountDetails();
+      document.querySelector('.assistant-account').open = false;
+      const pages = { overview, reports, lineups };
+      if (account.can_upload_decks && deckSeasons.some(s => account.deck_seasons.includes(s.id))) pages.decks = decks;
+      if (account.can_touch && seasons.some(s => account.touch_seasons.includes(s.id))) pages.touch = touch;
+      if (['draft', 'publish'].includes(account.patch_note_access)) pages['patch-notes'] = patchNotes;
+      active = Object.hasOwn(pages, tab) ? tab : 'overview';
+      document.querySelectorAll('[data-assistant-tab]').forEach(node => {
+        const key = node.dataset.assistantTab;
+        node.hidden = !Object.hasOwn(pages, key);
+        node.classList.toggle('is-active', key === active);
+        node.setAttribute('aria-current', key === active ? 'page' : 'false');
+      });
+      history.replaceState(null, '', '#' + active);
+      const nodes = await pages[active]();
+      if (revision === current) root.replaceChildren(...nodes);
+    } catch (error) {
+      if (revision === current) root.replaceChildren(el('p', 'assistant-error', error.message), button('重试', () => navigate(tab)));
+    }
   }
   document.querySelectorAll('[data-assistant-tab]').forEach(node => node.addEventListener('click', () => navigate(node.dataset.assistantTab)));
+  window.addEventListener('hashchange', () => {
+    if (account) navigate(location.hash.slice(1));
+  });
   window.addEventListener('beforeunload', event => { if (dirty) { event.preventDefault(); event.returnValue = ''; } });
-  document.querySelector('#assistantLogout').addEventListener('click', async () => { if (dirty && !confirm('有尚未导入的内容，确定退出？')) return; await api('/api/logout', { method: 'POST', body: '{}' }); dirty = false; window.location.assign('/auth'); });
+  document.querySelector('#assistantLogout').addEventListener('click', async () => { if (savingNote || (dirty && !confirm('有未保存的内容，确定退出？'))) return; await api('/api/logout', { method: 'POST', body: '{}' }); dirty = false; window.location.assign('/auth'); });
   async function boot() {
     try {
       const me = await api('/api/me'); csrf = me.csrf_token;
       if (!me.user) { window.location.assign('/auth?next=/admin'); return; }
       [account, { seasons }, { seasons: deckSeasons }] = await Promise.all([api('/me'), api('/lineup-seasons'), api('/deck-seasons')]);
-      document.querySelector('#assistantIdentity').textContent = `${me.user.nickname || me.user.username} · AI 自动化账号 · 有效至 ${date(account.expires_at)}（${zone}）`;
-      renderPermissions();
+      document.querySelector('#assistantIdentity').textContent = me.user.nickname || me.user.username;
       if (account.can_avatar && window.jccAvatarEditor) {
         renderAvatar(me.user);
         window.jccAvatarEditor.mount(me.user, csrf, { trigger: avatarButton, endpoint: prefix + '/avatar', onSave: renderAvatar });
       }
-      await navigate(active);
+      await navigate(active, false);
     } catch (error) { root.replaceChildren(el('p', 'assistant-error', error.message), button('重试', boot)); }
   }
   boot();

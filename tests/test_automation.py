@@ -233,7 +233,7 @@ def test_upgrade_old_sqlite_schema_preserves_identity_and_drops_tokens():
     db.execute('CREATE TABLE automation_imports(user_id INTEGER)')
     migrate_automation_sessions(db)
     migrate_automation_sessions(db)
-    assert tuple(db.execute('SELECT user_id,can_touch,session_version FROM automation_accounts').fetchone()) == (7, 0, 1)
+    assert tuple(db.execute('SELECT user_id,can_touch,session_version,patch_note_access FROM automation_accounts').fetchone()) == (7, 0, 1, 'none')
     assert 'token_hash' not in [row[1] for row in db.execute('PRAGMA table_info(automation_accounts)')]
 
 
@@ -299,3 +299,61 @@ def test_touch_reports_previous_and_zoned_times(client, app):
     assert result['season_name'] == 'S17 · 星神'
     assert result['previous_updated_at'] == season['updated_at']
     assert result['updated_at'][-6] in '+-' and result['updated_at'] >= result['previous_updated_at']
+
+
+def test_patch_note_grants_draft_publish_and_revoke(client, app):
+    admin = login_admin(client)
+    uid = create_account(client, admin)['user_id']
+    grants = f'/api/admin/automation-accounts/{uid}'
+    bot, headers = login_bot(app)
+    url = PREFIX + '/patch-notes'
+    body = {'title': '版本调整', 'published_at': '2026-11-26', 'summary_markdown': '摘要'}
+
+    assert bot.get(PREFIX + '/me').json['patch_note_access'] == 'none'
+    assert bot.post(url, headers=headers, json=body).status_code == 403
+    assert client.put(grants, headers=admin, json={'patch_note_access': 'draft'}).status_code == 200
+    assert client.put(grants, headers=admin, json={'expires_in_days': 7}).status_code == 200
+    assert bot.post(url, json=body).status_code == 403
+    assert bot.post(url, headers=headers, json={**body, 'status': 'published'}).status_code == 403
+    draft = bot.post(url, headers=headers, json=body)
+    assert draft.status_code == 201 and draft.json['status'] == 'draft'
+    assert client.get(f"/api/patch-notes/{draft.json['id']}").status_code == 404
+    assert client.get('/api/patch-notes').json['items'] == []
+    assert bot.get('/api/admin/patch-notes').status_code == 403
+    assert client.put(grants, headers=admin, json={'patch_note_access': 'publish'}).status_code == 200
+    published = bot.post(url, headers=headers, json={**body, 'status': 'published'})
+    assert published.status_code == 201
+    assert [n['id'] for n in client.get('/api/patch-notes').json['items']] == [published.json['id']]
+    assert client.put(grants, headers=admin, json={'patch_note_access': 'none'}).status_code == 200
+    assert bot.post(url, headers=headers, json=body).status_code == 403
+    with app.app_context():
+        rows = get_db().execute("SELECT * FROM audit_logs WHERE target_type='patch_note' ORDER BY id").fetchall()
+        assert [(r['actor_user_id'], r['action'], r['target_id'], json.loads(r['after_json'])['status'])
+                for r in rows] == [(uid, 'create_patch_note', draft.json['id'], 'draft'),
+                                   (uid, 'create_patch_note', published.json['id'], 'published')]
+
+
+def test_patch_note_creation_is_scoped_and_atomic(client, app, monkeypatch):
+    admin = login_admin(client)
+    uid = create_account(client, admin, patch_note_access='publish')['user_id']
+    assert client.put(f'/api/admin/automation-accounts/{uid}', headers=admin,
+                      json={'patch_note_access': True}).status_code == 400
+    bot, headers = login_bot(app)
+    url = PREFIX + '/patch-notes'
+    body = {'title': '更新', 'published_at': '2026-11-26', 'summary_markdown': '摘要'}
+    for extra in ({'id': 1}, {'actor_user_id': 1}, {'status': 'hidden'}, {'title': None},
+                  {'summary_markdown': ''}, {'source_url': 'invalid'}):
+        assert bot.post(url, headers=headers, json={**body, **extra}).status_code == 400
+    assert bot.put('/api/admin/patch-notes/1', headers=headers, json=body).status_code == 403
+    assert bot.delete('/api/admin/patch-notes/1', headers=headers).status_code == 403
+    assert app.test_client().post(url, json=body).status_code in (401, 403)
+    assert client.post(url, headers=admin, json=body).status_code == 403
+
+    def audit_failure(*args, **kwargs):
+        raise RuntimeError('audit unavailable')
+
+    monkeypatch.setattr('patch_note_service.write_audit', audit_failure)
+    with pytest.raises(RuntimeError, match='audit unavailable'):
+        bot.post(url, headers=headers, json=body)
+    with app.app_context():
+        assert get_db().execute('SELECT COUNT(*) FROM patch_notes').fetchone()[0] == 0
