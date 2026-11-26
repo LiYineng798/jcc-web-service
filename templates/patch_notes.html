@@ -1,7 +1,7 @@
 <!doctype html>
 {% from "theme_toggle.html" import theme_toggle %}
 {% from "seo_head.html" import seo_head %}
-{% from "patch_note_macros.html" import long_date, tally %}
+{% from "patch_note_macros.html" import long_date, tally, version_label %}
 <html lang="zh-CN">
   <head>
 {{ seo_head(seo) }}
@@ -16,9 +16,49 @@
 
       <main id="patchNotesApp" class="pn-library">
         <header class="pn-masthead"><h1>更新公告</h1></header>
-{% for note in patch_notes %}
+{% if patch_notes %}
+{% set latest = patch_notes[0] %}
+        <article class="pn-feature">
+          <a class="pn-feature-link{% if latest.overview.highlights %} has-highlights{% endif %}" href="/patch-notes/{{ latest.id }}" aria-labelledby="pnLatestTitle">
+            <div class="pn-feature-copy">
+              <div class="pn-release-meta">
+                <span class="pn-latest">最新公告</span>
+                {{ version_label(latest.version) }}
+                <time datetime="{{ latest.published_at }}">{{ long_date(latest.published_at) }}</time>
+              </div>
+              <h2 id="pnLatestTitle">{{ latest.title }}</h2>
+{% if latest.overview.excerpt or latest.overview.section_titles %}
+              <p>{{ latest.overview.excerpt or latest.overview.section_titles[:4]|join(' · ') }}</p>
+{% endif %}
+              <span class="pn-read-link">阅读全文 <span aria-hidden="true">→</span></span>
+            </div>
+{% if latest.overview.highlights %}
+            <div class="pn-highlights">
+              <div class="pn-highlights-head">
+                <h3>调整速览</h3>
+                {% if latest.overview.change_total > 3 %}{{ tally(latest.overview.counts) }}{% endif %}
+              </div>
+              <ul>
+{% for item in latest.overview.highlights[:3] %}
+{% set value = item.changes|first %}
+                <li class="pn-kind-{{ item.kind }}">
+                  <span class="pn-tag">{{ item.label }}</span>
+                  <div>
+                    {% if item.subject %}<strong>{{ item.subject }}</strong>{% endif %}
+                    {% if value and value.from and value.to %}
+                    <span>{{ value.attribute }} <del>{{ value.from }}</del> → <b>{{ value.to }}</b></span>
+                    {% else %}<span>{{ item.detail }}</span>{% endif %}
+                  </div>
+                </li>
+{% endfor %}
+              </ul>
+            </div>
+{% endif %}
+          </a>
+        </article>
+{% for note in patch_notes[1:] %}
 {% if loop.first or loop.previtem.published_at[:4] != note.published_at[:4] %}
-        <h2 class="pn-year">{{ note.published_at[:4] }}</h2>
+        <h2 class="pn-year">{{ note.published_at[:4] ~ ' 年归档' if note.published_at[:4].isdigit() and note.published_at[:4]|length == 4 else '往期公告' }}</h2>
 {% endif %}
         <article>
           <a class="pn-index-row" href="/patch-notes/{{ note.id }}">
@@ -29,16 +69,17 @@
               <p>{{ note.overview.excerpt or note.overview.section_titles[:4]|join(' · ') }}</p>
 {% endif %}
               <div class="pn-index-meta">
-                {% if note.version %}<span>{{ note.version }}</span>{% endif %}
+                {{ version_label(note.version) }}
                 {% if note.overview.change_total %}{{ tally(note.overview.counts) }}{% endif %}
               </div>
             </div>
             <span class="pn-index-arrow" aria-hidden="true">→</span>
           </a>
         </article>
+{% endfor %}
 {% else %}
         <p class="pn-empty">暂无更新公告</p>
-{% endfor %}
+{% endif %}
       </main>
     </div>
     <script src="{{ static_v('theme-toggle.js') }}" defer></script>

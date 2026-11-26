@@ -1,7 +1,7 @@
 <!doctype html>
 {% from "theme_toggle.html" import theme_toggle %}
 {% from "seo_head.html" import seo_head %}
-{% from "patch_note_macros.html" import long_date, change_values, tally %}
+{% from "patch_note_macros.html" import long_date, change_values, tally, version_label %}
 {% set overview = patch_note.overview %}
 {% set sections = patch_note.summary_sections %}
 {% set lead = sections[0] if sections and not sections[0].title else None %}
@@ -25,7 +25,7 @@
         <header class="pn-article-head">
           <h1 class="pn-article-title">{{ patch_note.title }}</h1>
           <div class="pn-article-meta">
-            {% if patch_note.version %}<span>{{ patch_note.version }}</span>{% endif %}
+            {{ version_label(patch_note.version) }}
             <time datetime="{{ patch_note.published_at }}">{{ long_date(patch_note.published_at) }}发布</time>
 {% if patch_note.source_url %}
             <a class="pn-source-link" href="{{ patch_note.source_url }}"{% if not patch_note.source_url.startswith('/') %} target="_blank" rel="noopener"{% endif %}>查看官方原文 <span aria-hidden="true">↗</span></a>
@@ -110,6 +110,7 @@
             </details>
 {% endif %}
 
+{% if adjacent.newer or adjacent.older %}
             <footer class="pn-article-foot">
               <nav class="pn-pager" aria-label="相邻公告">
 {% if adjacent.newer %}
@@ -120,6 +121,7 @@
 {% endif %}
               </nav>
             </footer>
+{% endif %}
           </div>
         </div>
       </article>

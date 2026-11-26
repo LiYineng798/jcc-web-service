@@ -3,6 +3,10 @@
 {%- if text[4:5] == '-' and text[7:8] == '-' -%}{{ text[:4] }}年{{ text[5:7]|int }}月{{ text[8:10]|int }}日{%- else -%}{{ text }}{%- endif -%}
 {%- endmacro %}
 
+{% macro version_label(version) -%}
+{% if version %}<span class="pn-version">版本 {{ version }}</span>{% endif %}
+{%- endmacro %}
+
 {% macro tally(counts) -%}
 <span class="pn-tally">
 {%- for kind, label in [('buff', '加强'), ('nerf', '削弱'), ('adjust', '调整')] if counts[kind] -%}
