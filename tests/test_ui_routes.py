@@ -350,6 +350,17 @@ def test_all_theme_scripts_preserve_animated_svg_icon():
         assert ".textContent = theme === 'dark' ? '☀' : '☾'" not in js, script_name
 
 
+def test_assistant_binds_shared_theme_control():
+    from pathlib import Path
+
+    shared = Path('static/theme-toggle.js').read_text(encoding='utf8')
+    assert "document.body.hasAttribute('data-page-theme-toggle')" in shared
+    assert "themeIcon && !themeIcon.querySelector('svg')" in shared
+    template = Path('templates/automation_admin.html').read_text(encoding='utf8')
+    assert 'data-page-theme-toggle' in template
+    assert "static_v('theme-toggle.js')" in template
+
+
 def test_homepage_hero_is_title_count_and_action_only(client):
     html = client.get('/').get_data(as_text=True)
     hero = html[html.index('<div class="hero-grid">'):html.index('<dialog class="mobile-resource-dialog"')]

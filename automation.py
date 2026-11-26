@@ -9,7 +9,7 @@ from audit import write_audit
 from auth import admin_required, finish_avatar_update, login_required, save_user_avatar
 from automation_service import (
     AutomationError, session_account, require_scope, lock_account, change_account, create_account, import_lineups,
-    list_accounts, request_limited, utc_now, require_deck_scope, upload_deck, project_deck_report,
+    list_accounts, request_limited, utc_now, require_deck_scope, upload_deck, upload_patch_note, project_deck_report,
 )
 from daily_report_service import get_daily_report, list_daily_reports, normalize_report_date
 from db import get_db
@@ -92,7 +92,7 @@ def account(user_id):
 @automation_bp.get('/api/admin/assistant/me')
 def me():
     account = g.automation_account
-    return jsonify(expires_at=account['expires_at'], can_touch=bool(account['can_touch']),
+    return jsonify(patch_note_access=account['patch_note_access'], expires_at=account['expires_at'], can_touch=bool(account['can_touch']),
                    touch_seasons=json.loads(account['touch_seasons_json']),
                    can_import=bool(account['can_import']), can_avatar=True,
                    allowed_seasons=json.loads(account['allowed_seasons_json']),
@@ -127,6 +127,11 @@ def deck_editor():
 @automation_bp.post('/api/admin/assistant/decks')
 def deck_upload():
     return jsonify(upload_deck(get_db(), g.automation_account, json_body())), 201
+
+
+@automation_bp.post('/api/admin/assistant/patch-notes')
+def patch_note_upload():
+    return jsonify(upload_patch_note(get_db(), g.automation_account, json_body())), 201
 
 
 @automation_bp.put('/api/admin/assistant/avatar')

@@ -1,7 +1,7 @@
 # 官方更新公告
 
 `patch_note_service.py` 校验、解析内容；`patch_notes.py` 提供公开页面/API，
-`admin.py` 提供后台 CRUD。内容维护走后台或带管理员 Session + CSRF 的 API。
+`admin.py` 提供后台 CRUD。管理员通过后台或 Session + CSRF 接口维护公告。[授权的 AI 账号](automation-accounts.md)可在工作台创建公告。
 
 ## 内容约定
 

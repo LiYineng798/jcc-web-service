@@ -382,9 +382,9 @@ svg.account-chevron {
 }
 
 .animated-theme-toggle {
-  --theme-body-radius: 5;
-  --theme-mask-x: 33;
-  --theme-mask-y: 0;
+  --theme-body-radius: 5px;
+  --theme-mask-x: 33px;
+  --theme-mask-y: 0px;
   color: color-mix(in srgb, var(--text) 82%, transparent);
   -webkit-tap-highlight-color: transparent;
 }
@@ -443,12 +443,12 @@ svg.account-chevron {
 }
 
 .animated-theme-toggle.is-dark .theme-toggle-body {
-  --theme-body-radius: 9;
+  --theme-body-radius: 9px;
 }
 
 .animated-theme-toggle.is-dark .theme-toggle-mask-circle {
-  --theme-mask-x: 17;
-  --theme-mask-y: 8;
+  --theme-mask-x: 17px;
+  --theme-mask-y: 8px;
 }
 
 .animated-theme-toggle.is-dark .theme-toggle-rays {

@@ -96,7 +96,10 @@ def session_account(db, user_id):
 
 def permissions(data, existing=None):
     existing = existing or {}
-    result = {}
+    access = data.get('patch_note_access', existing.get('patch_note_access', 'none'))
+    if access not in ('none', 'draft', 'publish'):
+        raise AutomationError('公告上传权限无效')
+    result = {'patch_note_access': access}
     from orange_deck_service import deck_season_choices
     for flag, scope in (('can_import', 'allowed_seasons'), ('can_touch', 'touch_seasons'), ('can_upload_decks', 'deck_seasons')):
         enabled = data.get(flag, bool(existing.get(flag, False)))
@@ -130,7 +133,7 @@ def password_hash(data):
 
 
 def serialize_account(row):
-    return {key: row[key] for key in ('user_id', 'username', 'nickname', 'status', 'expires_at', 'created_at', 'last_used_at')} | {
+    return {key: row[key] for key in ('user_id', 'username', 'nickname', 'status', 'expires_at', 'created_at', 'last_used_at', 'patch_note_access')} | {
         'can_import': bool(row['can_import']), 'allowed_seasons': json.loads(row['allowed_seasons_json']),
         'can_touch': bool(row['can_touch']), 'touch_seasons': json.loads(row['touch_seasons_json']),
         'can_upload_decks': bool(row['can_upload_decks']), 'deck_seasons': json.loads(row['deck_seasons_json'])}
@@ -142,7 +145,7 @@ def list_accounts(db):
 
 
 def create_account(db, admin_id, data):
-    if set(data) - {'username', 'nickname', 'password', 'can_import', 'allowed_seasons', 'can_touch', 'touch_seasons', 'can_upload_decks', 'deck_seasons', 'expires_in_days'}:
+    if set(data) - {'username', 'nickname', 'password', 'can_import', 'allowed_seasons', 'can_touch', 'touch_seasons', 'can_upload_decks', 'deck_seasons', 'patch_note_access', 'expires_in_days'}:
         raise AutomationError('不支持的账号字段')
     username = str(data.get('username') or '').strip()
     nickname = str(data.get('nickname') or username).strip()
@@ -158,10 +161,10 @@ def create_account(db, admin_id, data):
     """, db_kind()), (username, f'{secrets.token_hex(16)}@automation.invalid', nickname, hashed, now, now))
     user_id = last_insert_id(cursor, db_kind())
     db.execute("""INSERT INTO automation_accounts
-        (user_id,expires_at,can_import,allowed_seasons_json,can_touch,touch_seasons_json,can_upload_decks,deck_seasons_json,created_by)
-        VALUES (?,?,?,?,?,?,?,?,?)""", (user_id, expires, scopes['can_import'], json.dumps(scopes['allowed_seasons']),
+        (user_id,expires_at,can_import,allowed_seasons_json,can_touch,touch_seasons_json,can_upload_decks,deck_seasons_json,patch_note_access,created_by)
+        VALUES (?,?,?,?,?,?,?,?,?,?)""", (user_id, expires, scopes['can_import'], json.dumps(scopes['allowed_seasons']),
                                   scopes['can_touch'], json.dumps(scopes['touch_seasons']),
-                                  scopes['can_upload_decks'], json.dumps(scopes['deck_seasons']), admin_id))
+                                  scopes['can_upload_decks'], json.dumps(scopes['deck_seasons']), scopes['patch_note_access'], admin_id))
     write_audit(admin_id, 'create_automation_account', 'user', user_id, after={**scopes, 'username': username, 'expires_at': expires})
     db.commit()
     return {'user_id': user_id, 'username': username, 'expires_at': expires}
@@ -176,14 +179,14 @@ def change_account(db, admin_id, user_id, data, action='update'):
         db.execute("UPDATE users SET status='disabled',updated_at=? WHERE id=?", (now_text(), user_id))
         db.execute('UPDATE automation_accounts SET deleted_at=?,session_version=session_version+1 WHERE user_id=?', (utc_now(), user_id))
     else:
-        if set(data) - {'status', 'password', 'expires_in_days', 'can_import', 'allowed_seasons', 'can_touch', 'touch_seasons', 'can_upload_decks', 'deck_seasons'}:
+        if set(data) - {'status', 'password', 'expires_in_days', 'can_import', 'allowed_seasons', 'can_touch', 'touch_seasons', 'can_upload_decks', 'deck_seasons', 'patch_note_access'}:
             raise AutomationError('不支持的账号字段')
-        scopes = permissions(data, {'can_import': row['can_import'], 'allowed_seasons': json.loads(row['allowed_seasons_json']),
+        scopes = permissions(data, {'patch_note_access': row['patch_note_access'], 'can_import': row['can_import'], 'allowed_seasons': json.loads(row['allowed_seasons_json']),
                                     'can_touch': row['can_touch'], 'touch_seasons': json.loads(row['touch_seasons_json']),
                                     'can_upload_decks': row['can_upload_decks'], 'deck_seasons': json.loads(row['deck_seasons_json'])})
-        db.execute('UPDATE automation_accounts SET can_import=?,allowed_seasons_json=?,can_touch=?,touch_seasons_json=?,can_upload_decks=?,deck_seasons_json=? WHERE user_id=?',
+        db.execute('UPDATE automation_accounts SET can_import=?,allowed_seasons_json=?,can_touch=?,touch_seasons_json=?,can_upload_decks=?,deck_seasons_json=?,patch_note_access=? WHERE user_id=?',
                    (scopes['can_import'], json.dumps(scopes['allowed_seasons']), scopes['can_touch'], json.dumps(scopes['touch_seasons']),
-                    scopes['can_upload_decks'], json.dumps(scopes['deck_seasons']), user_id))
+                    scopes['can_upload_decks'], json.dumps(scopes['deck_seasons']), scopes['patch_note_access'], user_id))
         if 'expires_in_days' in data:
             db.execute('UPDATE automation_accounts SET expires_at=? WHERE user_id=?', (expiry(data), user_id))
         if 'password' in data:
@@ -218,6 +221,27 @@ def require_deck_scope(account, season_id):
     from orange_deck_service import deck_season_choices
     if not account['can_upload_decks'] or season_id not in json.loads(account['deck_seasons_json']) or season_id not in deck_season_choices():
         raise AutomationError('该卡组赛季未获得上传授权或已停止开放', 403)
+
+
+def upload_patch_note(db, account, data):
+    from patch_note_service import create_patch_note
+
+    access = lock_account(db, account)['patch_note_access']
+    if access not in ('draft', 'publish'):
+        raise AutomationError('没有公告上传权限', 403)
+    fields = {'title', 'version', 'source_url', 'summary_markdown', 'original_text', 'status', 'published_at'}
+    if set(data) - fields or any(not isinstance(value, str) for value in data.values()):
+        raise AutomationError('只能提交新公告的文本字段')
+    status = data.get('status', 'draft')
+    if status not in ('draft', 'published'):
+        raise AutomationError('请选择草稿或发布')
+    if status == 'published' and access != 'publish':
+        raise AutomationError('该账号仅可保存草稿', 403)
+    # The shared service audits the authenticated actor and commits the locked transaction.
+    note, error, code = create_patch_note(account['user_id'], data)
+    if error:
+        raise AutomationError(error, code)
+    return note
 
 
 def upload_deck(db, account, data):
