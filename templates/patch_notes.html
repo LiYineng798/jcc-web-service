@@ -1,59 +1,53 @@
 <!doctype html>
 {% from "theme_toggle.html" import theme_toggle %}
 {% from "seo_head.html" import seo_head %}
-{% from "patch_note_macros.html" import long_date, tally, highlight_list %}
+{% from "patch_note_macros.html" import kinds, publication_date %}
 <html lang="zh-CN">
   <head>
 {{ seo_head(seo) }}
     <link rel="stylesheet" href="{{ static_v('patch-notes.css') }}" />
   </head>
-  <body class="pn-page">
+  <body class="pn-page" data-page-theme-toggle>
     <div class="page-shell pn-shell">
       <nav class="nav-bar pn-nav" aria-label="页面工具">
-        <a class="pn-back" href="/"><span aria-hidden="true">←</span> 返回阵容库</a>
+        <a href="/"><span aria-hidden="true">←</span> 返回阵容库</a>
         {{ theme_toggle() }}
       </nav>
 
       <main id="patchNotesApp">
         <header class="pn-masthead">
           <h1>更新公告</h1>
-          {% if patch_notes %}<span class="pn-meta">共 {{ patch_notes|length }} 篇</span>{% endif %}
+          {% if patch_notes %}<span>共 {{ patch_notes|length }} 篇</span>{% endif %}
         </header>
-        <div class="pn-list">
-{% for note in patch_notes %}
-{% set overview = note.overview %}
-          <article class="pn-card{% if loop.first %} is-latest{% endif %}" aria-labelledby="note-{{ note.id }}">
-            <div class="pn-card-main">
-              <div class="pn-meta">
-                {% if loop.first %}<span class="pn-latest">最新公告</span>{% endif %}
-                {% if note.version %}<span class="pn-version">版本 {{ note.version }}</span>{% endif %}
-                <time datetime="{{ note.published_at }}">{{ long_date(note.published_at) }}</time>
-              </div>
-              <h2 id="note-{{ note.id }}"><a href="/patch-notes/{{ note.id }}"><span>{{ note.title }}</span><span class="pn-read-arrow" aria-hidden="true">→</span></a></h2>
-              {% if overview.excerpt %}<p class="pn-excerpt">{{ overview.excerpt }}</p>{% endif %}
-              {% if overview.section_titles %}
-              <ul class="pn-section-names" aria-label="包含章节">
-                {% for title in overview.section_titles %}<li>{{ title }}</li>{% endfor %}
-              </ul>
-              {% endif %}
-            </div>
-            {% if overview.highlights %}
-            <div class="pn-card-changes">
-              <div class="pn-highlight-head">
-                <h3>改动选摘</h3>
-                {{ tally(overview.counts) }}
-              </div>
-              {{ highlight_list(overview.highlights) }}
-            </div>
-            {% endif %}
-          </article>
-{% else %}
-          <p class="pn-empty">暂无更新公告</p>
-{% endfor %}
+{% if patch_notes %}
+        <div class="pn-index-head" aria-hidden="true">
+          <span>版本</span><span>公告标题</span><span>发布日期</span>
+          {% for kind, label in kinds %}<span class="pn-column-count pn-kind-{{ kind }}">{{ label }}</span>{% endfor %}
         </div>
+        <ol class="pn-index" aria-label="按发布日期排列的公告">
+{% for note in patch_notes %}
+          <li>
+            <a class="pn-record" href="/patch-notes/{{ note.id }}">
+              <strong class="pn-record-title">{{ note.title }}</strong>
+              <span class="pn-record-meta">
+                <span class="pn-version{% if not note.version %} is-empty{% endif %}">{% if note.version %}<span class="pn-sr">版本 </span>{{ note.version }}{% else %}<span class="pn-sr">无版本号</span><span aria-hidden="true">—</span>{% endif %}</span>
+                {{ publication_date(note.published_at) }}
+              </span>
+              <span class="pn-counts">
+                {% for kind, label in kinds %}
+                <span class="pn-count pn-kind-{{ kind }}{% if not note.overview.counts[kind] %} is-zero{% endif %}"><span class="pn-count-label">{{ label }}</span><b>{{ note.overview.counts[kind] }}</b></span>
+                {% endfor %}
+              </span>
+              <span class="pn-read-arrow" aria-hidden="true">→</span>
+            </a>
+          </li>
+{% endfor %}
+        </ol>
+{% else %}
+        <p class="pn-empty">暂无更新公告</p>
+{% endif %}
       </main>
     </div>
     <script src="{{ static_v('theme-toggle.js') }}" defer></script>
-    <script src="{{ static_v('patch-notes.js') }}" defer></script>
   </body>
 </html>

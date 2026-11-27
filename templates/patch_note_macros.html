@@ -1,31 +1,7 @@
 {% set kinds = [('buff', '加强'), ('nerf', '削弱'), ('adjust', '调整')] %}
 
-{% macro long_date(value) -%}
-{%- set text = value|string -%}
-{%- if text[4:5] == '-' and text[7:8] == '-' -%}{{ text[:4] }}年{{ text[5:7]|int }}月{{ text[8:10]|int }}日{%- else -%}{{ text }}{%- endif -%}
-{%- endmacro %}
-
-{% macro kind_label(kind, label) -%}
-<span class="pn-tag pn-kind-{{ kind }}"><span class="pn-sign" aria-hidden="true"></span>{{ label }}</span>
-{%- endmacro %}
-
-{% macro tally(counts) -%}
-<span class="pn-tally">
-  {%- for kind, label in kinds if counts[kind] %}
-  <span class="pn-kind-{{ kind }}" data-count-kind="{{ kind }}"><span class="pn-sign" aria-hidden="true"></span>{{ label }} <b>{{ counts[kind] }}</b></span>
-  {%- endfor %}
-</span>
-{%- endmacro %}
-
-{% macro highlight_list(highlights) -%}
-<ul class="pn-highlights">
-  {% for item in highlights[:3] %}
-  <li>
-    {{ kind_label(item.kind, item.label) }}
-    <span>{% if item.subject %}<strong>{{ item.subject }}</strong> · {% endif %}{{ item.detail|replace('=>', '→') }}</span>
-  </li>
-  {% endfor %}
-</ul>
+{% macro publication_date(value) -%}
+<time datetime="{{ value }}">{{ value[:10] if value[4:5] == '-' and value[7:8] == '-' else value }}</time>
 {%- endmacro %}
 
 {% macro value_parts(value) -%}
@@ -34,10 +10,8 @@
 
 {% macro change_item(item) -%}
 <div class="pn-change pn-kind-{{ item.kind }}" data-kind="{{ item.kind }}">
-  <div class="pn-change-head">
-    {{ kind_label(item.kind, item.label) }}
-    {% if item.subject %}<strong class="pn-subject">{{ item.subject }}</strong>{% endif %}
-  </div>
+  <span class="pn-tag">{{ item.label }}</span>
+  {% if item.subject %}<strong class="pn-subject">{{ item.subject }}</strong>{% endif %}
   {% if item.changes %}
   <div class="pn-values">
     {% for row in item.changes %}

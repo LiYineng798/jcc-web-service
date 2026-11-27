@@ -1,6 +1,6 @@
 from flask import Blueprint, abort, jsonify
 
-from patch_note_service import adjacent_public_patch_notes, get_public_patch_note, list_public_patch_notes
+from patch_note_service import get_public_patch_note, list_public_patch_notes
 from route_response import respond_service_result
 from seo import article_json_ld, make_seo, truncate_text
 from visits import tracked_template_response
@@ -39,7 +39,6 @@ def patch_note_detail_page(patch_note_id):
         'patch_note_detail',
         patch_note_id=patch_note_id,
         patch_note=payload,
-        adjacent=adjacent_public_patch_notes(patch_note_id),
         seo=seo,
     )
 

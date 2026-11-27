@@ -26,7 +26,7 @@
 （计数、章节名、首段摘要、前几条要点）。`对象：属性 旧值 => 新值` 的写法能得到最清晰的数值对照。
 
 公开列表与详情页均由服务端渲染（`templates/patch_notes.html`、`patch_note_detail.html`、`patch_note_macros.html`），
-`static/patch-notes.css`/`patch-notes.js` 只负责样式、筛选与目录等增强；公开页只显示 published 记录。
+`static/patch-notes.css` 管理页面样式，`patch-notes.js` 增强详情页的类型筛选与原文定位。公开页只显示 published 记录。
 本地预览：`python tests/serve_patch_notes_preview.py`（虚构公告与一条草稿，默认 5150 端口，数据写入被忽略的 `instance/`）。
 
 创建字段为 title、version、source_url、summary_markdown、original_text、status、published_at；

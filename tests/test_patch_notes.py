@@ -1,3 +1,5 @@
+import re
+
 from patch_note_service import parse_summary_markdown, validate_patch_note_payload
 from test_admin import login_admin
 
@@ -178,6 +180,8 @@ def test_public_patch_note_pages_render_published_content_server_side(client):
     assert 'https://example.com/jcc/174' in detail
     assert '&lt;script&gt;alert(1)&lt;/script&gt;' in detail
     assert '<script>alert(1)</script>' not in detail
+    assert 'data-filter="buff"' in detail and '<details class="pn-original"' in detail
+    assert all(block not in detail for block in ('公告目录', 'type="search"', 'pn-pager'))
 
 
 def test_public_patch_notes_page_renders_empty_state(client):
@@ -187,7 +191,7 @@ def test_public_patch_notes_page_renders_empty_state(client):
     assert 'patch-notes.css' in html
 
 
-def test_list_previews_archived_changes_and_text_only_event(client):
+def test_list_shows_change_counts_and_dates_for_versioned_and_unversioned_notes(client):
     headers = login_admin(client)
     create_published_patch_note(client, headers)
     event = client.post('/api/admin/patch-notes', json={
@@ -199,8 +203,10 @@ def test_list_previews_archived_changes_and_text_only_event(client):
 
     listing = client.get('/patch-notes').get_data(as_text=True)
     assert listing.index('周末活动公告') < listing.index('17.4更新公告')
-    assert '周六开放双人模式。' in listing and '活动时间' in listing
-    assert '亚托克斯' in listing and '治疗 300 → 325' in listing
+    index = ' '.join(re.sub(r'<[^>]+>', ' ', listing.split('<main', 1)[1]).split())
+    assert '2026-05-30 加强 0 削弱 0 调整 0' in index
+    assert '17.4 2026-05-28 加强 1 削弱 0 调整 0' in index
+    assert '周六开放双人模式。' not in index and '亚托克斯' not in index
 
     detail = client.get(f"/patch-notes/{event['id']}").get_data(as_text=True)
     assert '周六开放双人模式。' in detail
