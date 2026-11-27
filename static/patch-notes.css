@@ -80,24 +80,45 @@
 .pn-record:hover .pn-record-title, .pn-record:focus-visible .pn-record-title { color: var(--accent-strong); }
 .pn-record-meta { display: contents; }
 .pn-record .pn-version { grid-area: 1 / 1; font: 600 .96rem/1.5 var(--pn-numbers); overflow-wrap: anywhere; }
+.pn-latest {
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  margin-inline-start: 5px;
+  vertical-align: .2em;
+  border-radius: 50%;
+  background: var(--accent);
+}
 .pn-record-title { grid-area: 1 / 2; font-size: 1.05rem; font-weight: 650; overflow-wrap: anywhere; }
 .pn-record time { grid-area: 1 / 3; color: var(--muted); overflow-wrap: anywhere; }
 .pn-counts { grid-area: 1 / 4 / 2 / 7; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--pn-index-gap); }
 .pn-count { color: var(--pn-kind); text-align: right; }
 .pn-count b { font: 600 .98rem/1.5 var(--pn-numbers); }
 .pn-record .is-empty, .pn-count.is-zero { color: var(--muted); }
-.pn-count.is-zero b { font-weight: 400; }
+.pn-count.is-zero::after {
+  content: "";
+  display: inline-block;
+  width: .5rem;
+  border-bottom: 1px solid color-mix(in srgb, var(--muted) 75%, var(--bg));
+  vertical-align: .28em;
+  align-self: center;
+}
 .pn-read-arrow { grid-area: 1 / 7; color: var(--muted); text-align: right; }
 .pn-empty { padding: 28px 0; color: var(--muted); }
 
 /* 单栏阅读。章节列名与每条属性的原值、新值共用数字列宽。 */
 .pn-filters {
+  position: sticky;
+  top: 0;
+  z-index: 1;
   display: flex;
   flex-wrap: wrap;
   align-items: stretch;
   gap: 3px 18px;
+  background: var(--bg);
   border-bottom: 1px solid var(--line);
 }
+.pn-filters:not([hidden]) ~ :is(.pn-section, .pn-original) { scroll-margin-top: 4rem; }
 .pn-filters button {
   display: inline-flex;
   align-items: baseline;
@@ -119,7 +140,7 @@
   --pn-gap: 12px;
   --pn-value-width: clamp(6rem, 13vw, 8.75rem);
   --pn-value-columns: minmax(0, 1fr) var(--pn-value-width) 1em var(--pn-value-width);
-  --pn-change-columns: 3.3rem minmax(6rem, 18%) var(--pn-value-columns);
+  --pn-change-columns: 3.3rem clamp(10.5rem, 24%, 13rem) var(--pn-value-columns);
   margin-top: 26px;
   scroll-margin-top: 16px;
 }
@@ -150,7 +171,7 @@
 .pn-subject { grid-column: 2; font-size: .97rem; overflow-wrap: anywhere; }
 .pn-values, .pn-change-text { grid-column: 3 / -1; min-width: 0; }
 .pn-change-text, .pn-value-note { overflow-wrap: anywhere; }
-.pn-change:not(:has(.pn-subject)) .pn-change-text { grid-column: 2 / -1; }
+:where(.pn-tag) + .pn-change-text { grid-column: 2 / -1; }
 .pn-values { display: grid; row-gap: 5px; }
 .pn-value-row { grid-template-columns: var(--pn-value-columns); }
 .pn-attribute, .pn-value-note { color: var(--muted); font-size: .9rem; overflow-wrap: anywhere; }
@@ -193,10 +214,12 @@
   .pn-old, .pn-new { font-size: .86rem; }
   .pn-article-head h1 { font-size: 1.65rem; }
 }
-@media (max-width: 350px) {
+@media (max-width: 520px) {
   .pn-section { --pn-value-columns: minmax(0, 1fr) 1em minmax(0, 1fr); }
   .pn-value-row { row-gap: 2px; }
   .pn-attribute { grid-column: 1 / -1; }
   .pn-attribute:empty { display: none; }
+}
+@media (max-width: 350px) {
   .pn-filters { gap: 6px; }
 }

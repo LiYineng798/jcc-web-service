@@ -30,12 +30,19 @@
             <a class="pn-record" href="/patch-notes/{{ note.id }}">
               <strong class="pn-record-title">{{ note.title }}</strong>
               <span class="pn-record-meta">
-                <span class="pn-version{% if not note.version %} is-empty{% endif %}">{% if note.version %}<span class="pn-sr">版本 </span>{{ note.version }}{% else %}<span class="pn-sr">无版本号</span><span aria-hidden="true">—</span>{% endif %}</span>
+                <span class="pn-version{% if not note.version %} is-empty{% endif %}">
+                  {%- if note.version %}<span class="pn-sr">版本 </span>{{ note.version }}{% else %}<span class="pn-sr">无版本号</span><span aria-hidden="true">—</span>{% endif -%}
+                  {% if loop.first %}<span class="pn-latest" title="最新一期"><span class="pn-sr">最新一期</span></span>{% endif %}
+                </span>
                 {{ publication_date(note.published_at) }}
               </span>
               <span class="pn-counts">
                 {% for kind, label in kinds %}
-                <span class="pn-count pn-kind-{{ kind }}{% if not note.overview.counts[kind] %} is-zero{% endif %}"><span class="pn-count-label">{{ label }}</span><b>{{ note.overview.counts[kind] }}</b></span>
+                {% set count = note.overview.counts[kind] %}
+                <span class="pn-count pn-kind-{{ kind }}{% if not count %} is-zero{% endif %}">
+                  <span class="pn-count-label">{{ label }}</span>
+                  {% if count %}<b>{{ count }}</b>{% else %}<span class="pn-sr">0</span>{% endif %}
+                </span>
                 {% endfor %}
               </span>
               <span class="pn-read-arrow" aria-hidden="true">→</span>
