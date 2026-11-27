@@ -212,7 +212,7 @@
                       {% for portal in deck_portals %}<button class="account-menu-item season-option" type="button" role="menuitemradio" data-portal="{{ portal.id }}" data-name="{{ portal.name }}"><span class="season-option-label"><span class="deck-portal" data-portal="{{ portal.id }}">{{ portal.name }}</span> · 能量 ≤ {{ portal.energy_limit }}</span><span class="season-option-check" aria-hidden="true">✓</span></button>{% endfor %}
                     </div>
                   </div>
-                  <button class="account-toggle season-toggle deck-code-toggle" id="deckCodeToggle" type="button" aria-pressed="false" title="仅显示包含方案码或阵容码的卡组">仅看可复制</button>
+                  <button class="account-toggle season-toggle deck-code-toggle" id="deckCodeToggle" type="button" aria-pressed="false" title="仅显示包含方案码或阵容码的卡组">仅看有码</button>
                 </div>
                 <span class="current-display-count" id="deckCount">正在加载卡组…</span>
               </div>
