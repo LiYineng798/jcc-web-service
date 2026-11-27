@@ -48,7 +48,8 @@ def _private(response, status=200):
 def list_api():
     payload = list_decks(current_user(), request.args.get('tab', 'latest'), request.args.get('q', ''),
                          request.args.get('portal', ''), parse_positive_int(request.args.get('page'), 1),
-                         parse_positive_int(request.args.get('page_size'), 10), share_base=request.url_root.rstrip('/'))
+                         parse_positive_int(request.args.get('page_size'), 10), share_base=request.url_root.rstrip('/'),
+                         code=request.args.get('code', ''))
     return _private(jsonify(payload))
 
 

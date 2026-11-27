@@ -531,7 +531,7 @@ def matching_card_ids(query):
     return [card['id'] for card in catalog()['cards'] if terms in card['name'].casefold()]
 
 
-def _filters(tab, user, query, portal):
+def _filters(tab, user, query, portal, code):
     joins, clauses, params = [], [], []
     if tab == 'mine':
         # Own ordinary decks, plus published decks this user contributed; admins' submission drafts stay in the workbench.
@@ -548,6 +548,8 @@ def _filters(tab, user, query, portal):
     if portal:
         clauses.append('d.portal_id = ?')
         params.append(portal)
+    if code == 'any':
+        clauses.append("(TRIM(COALESCE(d.plan_code, '')) <> '' OR TRIM(COALESCE(d.lineup_code, '')) <> '')")
     if query:
         escaped = query.replace('\\', '\\\\').replace('%', '\\%').replace('_', '\\_')
         search = ["LOWER(d.name) LIKE ? ESCAPE '\\'"]
@@ -561,17 +563,19 @@ def _filters(tab, user, query, portal):
     return f"FROM orange_decks d {DECK_USERS} {' '.join(joins)} WHERE {' AND '.join(clauses)}", params
 
 
-def list_decks(user, tab='latest', query='', portal='', page=1, page_size=10, share_base=None):
+def list_decks(user, tab='latest', query='', portal='', page=1, page_size=10, share_base=None, *, code=''):
     if tab not in TABS:
         raise DeckError('列表类型无效')
     if tab in ('favorites', 'mine') and not user:
         raise DeckError('请先登录', 401)
     if portal and portal not in PORTAL_BY_ID:
         raise DeckError('传送门筛选无效')
+    if code not in ('', 'any'):
+        raise DeckError('代码筛选无效')
     query = str(query or '').strip()[:40]
     page_size = max(1, min(int(page_size), 30))
     page = max(1, int(page))
-    base, params = _filters(tab, user, query, portal)
+    base, params = _filters(tab, user, query, portal, code)
     db = get_db()
     columns, viewer_params = _viewer_columns(user)
     if tab == 'hot':

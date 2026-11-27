@@ -202,15 +202,18 @@
                 {{ library_switch() }}
                 <h2 id="deckLibraryTitle" class="deck-visually-hidden">卡组列表</h2>
                 <span class="current-display-count" id="deckCount">正在加载卡组…</span>
-                <div class="season-menu-wrap" id="deckPortalWrap">
-                  <button class="account-toggle season-toggle" id="deckPortalToggle" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="按推荐传送门筛选">
-                    <span id="deckPortalText">全部传送门</span>
-                    <svg class="account-chevron" aria-hidden="true" width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5 6 7.5 9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /></svg>
-                  </button>
-                  <div class="account-menu hidden season-menu" id="deckPortalMenu" role="menu">
-                    <button class="account-menu-item season-option" type="button" role="menuitemradio" data-portal="" data-name="全部传送门"><span class="season-option-label">全部传送门</span><span class="season-option-check" aria-hidden="true">✓</span></button>
-                    {% for portal in deck_portals %}<button class="account-menu-item season-option" type="button" role="menuitemradio" data-portal="{{ portal.id }}" data-name="{{ portal.name }}"><span class="season-option-label"><span class="deck-portal" data-portal="{{ portal.id }}">{{ portal.name }}</span> · 能量 ≤ {{ portal.energy_limit }}</span><span class="season-option-check" aria-hidden="true">✓</span></button>{% endfor %}
+                <div class="deck-list-filters">
+                  <div class="season-menu-wrap" id="deckPortalWrap">
+                    <button class="account-toggle season-toggle" id="deckPortalToggle" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="按推荐传送门筛选">
+                      <span id="deckPortalText">全部传送门</span>
+                      <svg class="account-chevron" aria-hidden="true" width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5 6 7.5 9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                    </button>
+                    <div class="account-menu hidden season-menu" id="deckPortalMenu" role="menu">
+                      <button class="account-menu-item season-option" type="button" role="menuitemradio" data-portal="" data-name="全部传送门"><span class="season-option-label">全部传送门</span><span class="season-option-check" aria-hidden="true">✓</span></button>
+                      {% for portal in deck_portals %}<button class="account-menu-item season-option" type="button" role="menuitemradio" data-portal="{{ portal.id }}" data-name="{{ portal.name }}"><span class="season-option-label"><span class="deck-portal" data-portal="{{ portal.id }}">{{ portal.name }}</span> · 能量 ≤ {{ portal.energy_limit }}</span><span class="season-option-check" aria-hidden="true">✓</span></button>{% endfor %}
+                    </div>
                   </div>
+                  <button class="account-toggle season-toggle deck-code-toggle" id="deckCodeToggle" type="button" aria-pressed="false" title="仅显示包含方案码或阵容码的卡组">仅看可复制</button>
                 </div>
               </div>
             </div>

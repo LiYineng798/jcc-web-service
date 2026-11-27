@@ -1,5 +1,5 @@
 /* Home deck library: sibling of the lineup library, with its view kept in the URL
-   (?library=decks&tab=…&portal=…&q=…&page=…) so links, refresh and history all work. */
+   (?library=decks&tab=…&portal=…&code=any&q=…&page=…) so links, refresh and history all work. */
 (function () {
   'use strict';
   const D = window.JccOrangeDeck;
@@ -9,13 +9,14 @@
   const $ = (id) => document.getElementById(id);
   const els = { list: $('deckList'), tabs: $('deckTabs'), indicator: $('deckTabIndicator'), search: $('deckSearch'),
     portalToggle: $('deckPortalToggle'), portalMenu: $('deckPortalMenu'), portalText: $('deckPortalText'), count: $('deckCount'),
+    codeToggle: $('deckCodeToggle'),
     pagination: $('deckPagination'), status: $('deckStatus') };
   const TABS = ['latest', 'hot', 'featured', 'favorites', 'mine'];
   const PORTAL_NAMES = Object.fromEntries([...els.portalMenu.querySelectorAll('button[data-portal]')].map((item) => [item.dataset.portal, item.dataset.name]));
   const PORTALS = Object.keys(PORTAL_NAMES).filter(Boolean);
   const TAB_NAMES = { latest: '最新', hot: '热门', featured: '推荐', favorites: '我的收藏', mine: '我的卡组' };
   const STATUS = { draft: ['草稿', ''], hidden: ['已隐藏', 'is-danger'] };
-  const state = { library: 'lineups', tab: 'latest', q: '', portal: '', page: 1, user: null, csrf: '', me: null,
+  const state = { library: 'lineups', tab: 'latest', q: '', portal: '', code: '', page: 1, user: null, csrf: '', me: null,
     items: [], total: 0, totalPages: 1, controller: null, loadedKey: '' };
   const pendingInteractions = new Set();
 
@@ -25,17 +26,19 @@
     state.tab = TABS.includes(params.get('tab')) ? params.get('tab') : 'latest';
     state.q = (params.get('q') || '').trim().slice(0, 40);
     state.portal = PORTALS.includes(params.get('portal')) ? params.get('portal') : '';
+    state.code = state.library === 'decks' && params.get('code') === 'any' ? 'any' : '';
     state.page = Math.max(1, Number.parseInt(params.get('page'), 10) || 1);
   }
 
   function writeUrl(push) {
     const params = new URLSearchParams(location.search);
-    ['library', 'tab', 'q', 'portal', 'page'].forEach((key) => params.delete(key));
+    ['library', 'tab', 'q', 'portal', 'code', 'page'].forEach((key) => params.delete(key));
     if (state.library === 'decks') {
       params.set('library', 'decks');
       if (state.tab !== 'latest') params.set('tab', state.tab);
       if (state.q) params.set('q', state.q);
       if (state.portal) params.set('portal', state.portal);
+      if (state.code) params.set('code', state.code);
       if (state.page > 1) params.set('page', String(state.page));
     }
     const url = `${location.pathname}${params.size ? `?${params}` : ''}`;
@@ -59,6 +62,7 @@
 
   function syncControls() {
     els.search.value = state.q;
+    els.codeToggle.setAttribute('aria-pressed', String(state.code === 'any'));
     els.portalText.textContent = PORTAL_NAMES[state.portal] || '全部传送门';
     els.portalToggle.classList.toggle('deck-portal', Boolean(state.portal));
     if (state.portal) els.portalToggle.dataset.portal = state.portal; else delete els.portalToggle.dataset.portal;
@@ -91,7 +95,7 @@
   }
 
   async function load() {
-    const key = JSON.stringify([state.tab, state.q, state.portal, state.page]);
+    const key = JSON.stringify([state.tab, state.q, state.portal, state.code, state.page]);
     state.controller?.abort();
     const controller = new AbortController();
     state.controller = controller;
@@ -108,9 +112,14 @@
     const params = new URLSearchParams({ tab: state.tab, page: String(state.page), page_size: '10' });
     if (state.q) params.set('q', state.q);
     if (state.portal) params.set('portal', state.portal);
+    if (state.code) params.set('code', state.code);
     try {
       const data = await D.api(`/api/orange-decks?${params}`, { signal: controller.signal });
       if (state.controller !== controller) return;
+      if (state.library === 'decks' && state.code && data.page > data.total_pages) {
+        change({ page: data.total_pages }, false);
+        return;
+      }
       Object.assign(state, { items: data.items, total: data.total, totalPages: data.total_pages, page: data.page });
       render(key);
     } catch (error) {
@@ -211,6 +220,9 @@
     let [title, text, actions] = ['还没有公开卡组', '投稿你的方案码和阵容码，管理员完善后会在这里展示。', '<a class="deck-button is-primary" href="/lineup/new?type=submit">投稿卡组</a>'];
     if (['favorites', 'mine'].includes(state.tab) && !state.user) {
       [title, text, actions] = [state.tab === 'mine' ? '登录后查看我的卡组' : '登录后查看收藏', '收藏和发布的卡组会跟随账号保存。', '<a class="deck-button is-primary" href="/auth">登录 / 注册</a>'];
+    } else if (state.code) {
+      [title, text, actions] = ['没有可复制的卡组', '当前范围内没有提供方案码或阵容码的卡组。',
+        '<button type="button" class="deck-button is-quiet" data-action="clear-code">取消代码筛选</button>'];
     } else if (filtered) {
       [title, text, actions] = ['没有找到匹配的卡组', `${state.q ? `“${D.esc(state.q)}”` : ''}按卡组名称和所含卡片名称搜索${state.portal ? '，并按推荐传送门筛选' : ''}。`, '<button type="button" class="deck-button" data-action="clear">清除搜索与筛选</button>'];
     } else if (state.tab === 'hot') {
@@ -303,7 +315,10 @@
     }
     const action = target.dataset.action;
     if (action === 'retry') load();
-    else if (action === 'clear') change({ q: '', portal: '', page: 1 });
+    else if (action === 'clear-code') {
+      change({ code: '', page: 1 });
+      els.codeToggle.focus({ preventScroll: true });
+    } else if (action === 'clear') change({ q: '', portal: '', page: 1 });
     else if (action === 'latest') change({ tab: 'latest', page: 1 });
     else if ((action === 'like' || action === 'favorite') && deck) interact(target, deck, action);
     else if (action === 'edit' && deck) location.href = `/orange-decks/${deck.id}/edit`;
@@ -352,6 +367,9 @@
     const next = tabs[(tabs.indexOf(document.activeElement) + (event.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length];
     next?.focus();
     next?.click();
+  });
+  els.codeToggle.addEventListener('click', () => {
+    change({ code: state.code ? '' : 'any', q: els.search.value.trim().slice(0, 40), page: 1 });
   });
   // Same dropdown as the lineup season filter.
   const closePortalMenu = () => {

@@ -18,7 +18,18 @@
 .home-library-switch a:hover { color:var(--text); }
 .home-library-switch a[aria-current="page"] { background:var(--surface-solid); color:var(--text); box-shadow:0 1px 3px color-mix(in srgb, var(--text) 12%, transparent); }
 .home-library-switch a:focus-visible { outline:2px solid var(--accent); outline-offset:2px; }
-.deck-library .list-heading { align-items:center; }
+.deck-library .list-heading { display:grid; grid-template-columns:minmax(0, 1fr) min(380px, 36%); align-items:center; }
+.deck-list-filters { display:flex; flex-wrap:wrap; align-items:center; gap:8px; max-width:100%; }
+.deck-list-filters .account-toggle { box-shadow:none; transform:none; transition:none; }
+.deck-list-filters .deck-code-toggle { min-width:0; white-space:nowrap; }
+.deck-code-toggle::before { content:""; width:7px; height:7px; flex:none; border:1px solid currentColor; border-radius:50%; }
+.deck-code-toggle[aria-pressed="true"] {
+  color:var(--accent-strong);
+  border-color:var(--accent);
+  background:color-mix(in srgb, var(--accent) 8%, var(--surface-solid));
+}
+.deck-code-toggle[aria-pressed="true"]::before { background:currentColor; }
+.deck-code-toggle:focus-visible { outline:2px solid var(--accent-strong); outline-offset:2px; }
 .deck-search { width:min(380px, 100%); }
 .deck-search input { height:48px; }
 .deck-rule { margin:-6px 0 16px; color:var(--muted); font-size:.8rem; line-height:1.6; }
@@ -250,12 +261,15 @@ a.deck-detail-author:hover span:last-child { text-decoration:underline; text-und
 .deck-formation-dialog iframe { flex:1; width:100%; border:1px solid var(--line); border-radius:10px; background:var(--bg); }
 
 @media (max-width:860px) {
+  .deck-library .list-heading { grid-template-columns:minmax(0, 1fr); }
+  .deck-library .deck-search { width:100%; }
   .deck-list { grid-template-columns:minmax(0, 1fr); }
   .deck-detail-grid { grid-template-columns:minmax(0, 1fr); }
   .deck-board-wrap { grid-template-columns:minmax(0, 1fr); }
   .deck-board { --hex-w:min(64px, calc(100cqw / 7.9)); }
 }
 @media (max-width:600px) {
+  .deck-list-filters .season-toggle { min-width:0; }
   .deck-card.home-lineup-card { padding:18px 16px 12px; }
   .deck-card-body { padding:12px 10px 10px; }
   .deck-thumbs, .deck-slots { gap:6px; }
