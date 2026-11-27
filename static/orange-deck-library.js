@@ -58,6 +58,7 @@
     });
     window.dispatchEvent(new CustomEvent('jcc:home-library', { detail: { library } }));
     if (library === 'decks') { syncControls(); load(); ensureMe().then(() => D.recordLibraryVisit(state.csrf)); }
+    else state.controller?.abort();
   }
 
   function syncControls() {
@@ -99,21 +100,40 @@
     state.controller?.abort();
     const controller = new AbortController();
     state.controller = controller;
-    await ensureMe();
-    if (controller.signal.aborted) return;
-    if (['favorites', 'mine'].includes(state.tab) && !state.user) {
-      state.items = []; state.total = 0; state.totalPages = 1;
-      render(key);
-      return;
+    let skeletonTimer;
+    function finishLoading() {
+      clearTimeout(skeletonTimer);
+      if (state.controller !== controller) return;
+      els.list.classList.remove('is-loading', 'show-skeletons');
+      els.list.setAttribute('aria-busy', 'false');
+      els.list.inert = false;
+      state.controller = null;
     }
-    if (state.loadedKey !== key) els.list.innerHTML = '<div class="deck-skeleton"></div><div class="deck-skeleton"></div>';
+    controller.signal.addEventListener('abort', finishLoading, { once: true });
     els.status.textContent = '正在加载卡组…';
-    els.count.textContent = '正在加载卡组…';
-    const params = new URLSearchParams({ tab: state.tab, page: String(state.page), page_size: '10' });
-    if (state.q) params.set('q', state.q);
-    if (state.portal) params.set('portal', state.portal);
-    if (state.code) params.set('code', state.code);
+    els.list.setAttribute('aria-busy', 'true');
+    if (!state.loadedKey) {
+      els.count.textContent = '正在加载卡组…';
+      els.list.innerHTML = '<div class="deck-skeleton" aria-hidden="true"></div><div class="deck-skeleton" aria-hidden="true"></div>';
+    } else {
+      els.list.classList.add('is-loading');
+      skeletonTimer = setTimeout(() => {
+        els.list.classList.add('show-skeletons');
+        els.list.inert = true;
+      }, 200);
+    }
     try {
+      await ensureMe();
+      if (controller.signal.aborted) return;
+      if (['favorites', 'mine'].includes(state.tab) && !state.user) {
+        state.items = []; state.total = 0; state.totalPages = 1;
+        render(key);
+        return;
+      }
+      const params = new URLSearchParams({ tab: state.tab, page: String(state.page), page_size: '10' });
+      if (state.q) params.set('q', state.q);
+      if (state.portal) params.set('portal', state.portal);
+      if (state.code) params.set('code', state.code);
       const data = await D.api(`/api/orange-decks?${params}`, { signal: controller.signal });
       if (state.controller !== controller) return;
       if (state.library === 'decks' && state.code && data.page > data.total_pages) {
@@ -125,6 +145,8 @@
     } catch (error) {
       if (error.name === 'AbortError' || state.controller !== controller) return;
       renderError(error);
+    } finally {
+      finishLoading();
     }
   }
 
@@ -239,7 +261,7 @@
 
   function renderError(error) {
     els.status.textContent = '卡组加载失败';
-    els.count.textContent = '加载失败';
+    if (!state.loadedKey) els.count.textContent = '加载失败';
     els.pagination.replaceChildren();
     els.list.innerHTML = `<div class="deck-empty" role="alert"><h3>卡组加载失败</h3><p>${D.esc(error.message)}。搜索和筛选条件已保留。</p><div class="deck-actions"><button type="button" class="deck-button" data-action="retry">重新加载</button></div></div>`;
   }
