@@ -3,12 +3,53 @@ import pytest
 from db import get_db
 from test_deck_codes_permissions import CODE
 from test_lineup_permissions import auth_headers
-from test_orange_decks import users, create, deck_body, moderate, SEASON
+from test_orange_decks import users, create, deck_body, moderate, LEGENDS, SEASON
 from test_admin import login_admin
 from test_automation import create_account, login_bot, PREFIX
 
 RAW = '分享文案【阵容码】#测试阵容#ABC123456789，复制到游戏'
 NORMALIZED = '#ABC123456789'
+
+
+def test_code_filter_runs_before_hot_ranking_counts_and_pagination(users):
+    owner, _, _, guest = users
+    plan = create(owner, name='目标方案', plan_code=CODE).json['id']
+    lineup = create(owner, name='目标阵容', cards=LEGENDS, portal='unknown', lineup_code=RAW).json['id']
+    both = create(owner, name='双码', plan_code=CODE, lineup_code=RAW).json['id']
+    create(owner, name='目标无码')
+
+    # The newest uncoded deck shares the dual-code deck's cards. It must not
+    # displace that deck via hot ranking's repeated-combination penalty.
+    for tab in ('latest', 'hot'):
+        params = {'tab': tab, 'code': 'any', 'page_size': 2}
+        for page, expected in [(1, [both, lineup]), (2, [plan])]:
+            data = guest.get('/api/orange-decks', query_string={**params, 'page': page}).json
+            assert (data['total'], data['total_pages'], data['page']) == (3, 2, page)
+            assert [item['id'] for item in data['items']] == expected
+        filtered = guest.get('/api/orange-decks', query_string={**params, 'q': '目标', 'portal': 'stable'}).json
+        assert filtered['total'] == 1 and filtered['items'][0]['id'] == plan
+        assert guest.get('/api/orange-decks', query_string={'tab': tab}).json['total'] == 4
+    assert guest.get('/api/orange-decks?code=invalid').status_code == 400
+
+
+def test_code_filter_respects_featured_favorites_and_mine(users):
+    owner, other, admin, guest = users
+    plan = create(owner, plan_code=CODE).json
+    empty = create(owner).json
+    lineup = create(other, lineup_code=RAW).json
+    draft = create(owner, action='draft', plan_code=CODE).json
+    for deck in (empty, lineup):
+        assert moderate(admin, deck, 'feature').status_code == 200
+    for deck in (empty, plan):
+        assert other.post(f"/api/orange-decks/{deck['id']}/favorite", headers=auth_headers(other)).status_code == 200
+
+    for client, tab, ids in [(guest, 'featured', {lineup['id']}), (other, 'favorites', {plan['id']}),
+                             (owner, 'mine', {draft['id'], plan['id']})]:
+        data = client.get(f'/api/orange-decks?tab={tab}&code=any').json
+        assert data['total'] == len(ids)
+        assert {item['id'] for item in data['items']} == ids
+    for tab in ('mine', 'favorites'):
+        assert guest.get(f'/api/orange-decks?tab={tab}&code=any').status_code == 401
 
 
 @pytest.mark.parametrize('plan,lineup', [('', ''), (CODE, ''), ('', RAW), (CODE, RAW)])
