@@ -7,10 +7,23 @@ BASE = os.environ.get('STRATEGY_PREVIEW_URL', 'http://127.0.0.1:5194')
 
 def check_board(page):
     page.goto(f'{BASE}/live-comps/s19/16351')
-    expect(page.locator('.formation-cell')).to_have_count(28)
+    cells = page.locator('.formation-cell')
+    expect(cells).to_have_count(28)
     names = page.locator('.formation-name')
     for name in ['努努和威朗普', '弗拉基米尔']:
         expect(page.locator('.formation-name', has_text=name)).to_be_visible()
+    # Check the centers of the actual tiles. A wrapped caption must never set the row pitch.
+    tiles = cells.evaluate_all("""cells => cells.map(cell => {
+      const tile = cell.getBoundingClientRect();
+      return [tile.x + tile.width / 2, tile.y + tile.height / 2, tile.height];
+    })""")
+    x0, y0, height = tiles[0]
+    pitch = tiles[1][0] - x0
+    for i, (x, y, h) in enumerate(tiles):
+        row, col = divmod(i, 7)
+        assert abs(h - height) < 1
+        assert abs(x - (x0 + (col + (row % 2) / 2) * pitch)) < 1
+        assert abs(y - (y0 + row * height * .78)) < 1
     # Check text fragments, including wrapped lines, against their actual cell.
     failures = names.evaluate_all("""labels => labels.filter(label => {
       const cell = label.closest('.formation-cell');

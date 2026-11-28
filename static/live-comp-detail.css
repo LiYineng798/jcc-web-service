@@ -66,17 +66,20 @@
   --hex-h: calc(var(--hex-w) * 1.14);
   --hex-gap: clamp(2px, 0.8cqw, 5px);
   --col-step: calc(var(--hex-w) + var(--hex-gap));
+  --row-step: calc(var(--hex-h) * .78);
   display: grid;
   grid-template-columns: repeat(7, var(--hex-w));
-  gap: clamp(3px, .8cqw, 6px) var(--hex-gap);
+  grid-template-rows: repeat(3, var(--row-step)) var(--hex-h);
+  column-gap: var(--hex-gap);
   width: calc(var(--col-step) * 6.5 + var(--hex-w));
   margin-inline: auto;
 }
 .formation-cell {
   position: relative;
   min-width: 0;
-  min-height: var(--hex-h);
+  height: var(--hex-h);
   align-self: start;
+  pointer-events: none;
 }
 .formation-cell:nth-child(n+8):nth-child(-n+14),
 .formation-cell:nth-child(n+22) { left: calc(var(--col-step) / 2); }
@@ -95,14 +98,14 @@
   clip-path: inherit;
   background: color-mix(in srgb, var(--surface-solid) 96%, var(--muted));
 }
-.formation-unit { position: relative; display: block; width: 100%; border: 0; background: transparent; padding: 0; color: var(--text); }
-.formation-token { position: relative; display: block; height: var(--hex-h); }
+.formation-unit { position: relative; display: block; width: 100%; height: 100%; border: 0; background: transparent; padding: 0; }
 .formation-unit:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
 .formation-unit[aria-pressed="true"] .formation-portrait { background: var(--text); }
 .unit-detail { margin: 14px 0 0; border-top: 1px solid var(--line); padding-top: 10px; font-size: 13px; }
 .unit-detail:empty { display: none; }
 .formation-portrait {
   inset: 0;
+  pointer-events: auto;
   background: var(--unit-cost-color, var(--accent));
 }
 /* Keep image, crop and gradient in one non-transformed paint space on Safari. */
@@ -128,29 +131,33 @@
   inset: 0;
   z-index: 1;
   pointer-events: none;
-  background: linear-gradient(transparent 48%, rgba(0, 0, 0, .76));
+  background: linear-gradient(transparent 32%, rgba(10, 12, 16, .76) 76%, rgba(10, 12, 16, .86));
 }
 .formation-name {
-  display: block;
-  margin-top: 2px;
-  font-size: clamp(10px, calc(var(--hex-w) * .19), 12px);
-  font-weight: 650;
-  line-height: 1.5;
+  position: absolute;
+  inset: auto 1% 25%;
+  color: white;
+  --label-size: clamp(8px, calc(var(--hex-w) * .16), 11px);
+  font-size: min(var(--label-size), max(7px, calc(var(--hex-w) * .96 / var(--name-columns))));
+  letter-spacing: -.04em;
+  font-weight: 700;
+  line-height: 1.08;
   text-align: center;
+  text-shadow: 0 1px 2px #111;
   text-wrap: balance;
   overflow-wrap: anywhere;
 }
 .formation-star {
   position: absolute;
   z-index: 5;
-  bottom: 15%;
+  top: 76%;
   left: 50%;
   display: flex;
   gap: 1px;
   transform: translateX(-50%);
 }
 .formation-star svg {
-  width: clamp(7px, calc(var(--hex-w) * .15), 13px);
+  width: clamp(5px, calc(var(--hex-w) * .13), 10px);
   height: auto;
   overflow: visible;
   filter: drop-shadow(0 1px 1px #271803);
@@ -159,7 +166,7 @@
 .formation-items {
   position: absolute;
   z-index: 6;
-  top: 6%;
+  top: 3%;
   left: 50%;
   display: flex;
   gap: 2px;

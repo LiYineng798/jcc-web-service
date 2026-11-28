@@ -147,18 +147,16 @@
       portrait.append(portraitCrop);
       const name = document.createElement('span');
       name.className = 'formation-name';
+      name.style.setProperty('--name-columns', Math.max(1, Math.ceil(Array.from(unitName).length / 2)));
       name.textContent = unitName;
-      const token = document.createElement('span');
-      token.className = 'formation-token';
-      token.append(portrait);
-      wrap.append(token, name);
+      wrap.append(portrait, name);
       const stars = Math.min(4, Math.max(1, Number(unit.star) || 1));
       const star = document.createElement('span');
       star.className = 'formation-star';
       star.setAttribute('role', 'img');
       star.setAttribute('aria-label', `${stars}星`);
       star.innerHTML = unitStarIcons(stars, index);
-      token.append(star);
+      wrap.append(star);
       const equipment = document.createElement('span');
       equipment.className = 'formation-items';
       const equipmentIds = unit.items?.length ? unit.items : (unit.source_item_ids || []);
@@ -180,7 +178,7 @@
         wrap.setAttribute('aria-pressed', String(selectedUnit === wrap));
         unitDetail.textContent = selectedUnit ? label : '';
       });
-      token.append(equipment);
+      wrap.append(equipment);
       cell.append(wrap);
     }
     board.append(cell);
