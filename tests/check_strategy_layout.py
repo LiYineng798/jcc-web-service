@@ -44,6 +44,22 @@ def check_board(page):
     return page.locator('.board-panel').bounding_box()
 
 
+def check_frames(frames):
+    samples = frames.evaluate_all("""frames => frames.map(frame => {
+      const outer = frame.getBoundingClientRect();
+      const inner = frame.querySelector('img').getBoundingClientRect();
+      const style = getComputedStyle(frame);
+      return [frame.dataset.cost, [style.backgroundColor, style.backgroundImage],
+        [inner.top - outer.top, outer.right - inner.right, outer.bottom - inner.bottom, inner.left - outer.left]];
+    })""")
+    assert samples
+    palette = {}
+    for cost, paint, insets in samples:
+        assert all(abs(inset - 2) < .05 for inset in insets), (cost, insets)
+        assert palette.setdefault(cost, paint) == paint
+    return palette
+
+
 def check_solver(page):
     page.goto(f'{BASE}/tools/s19-smeech')
     group = page.locator('.team-traits').first
@@ -65,21 +81,22 @@ def check_solver(page):
     expect(icons.first).to_be_hidden()
     page.locator('summary', has_text='选择弈子').click()
     frames = page.locator('#hero-options .cost-frame')
-    read_paint = """nodes => Object.fromEntries(nodes.map(n => {
-      const style = getComputedStyle(n);
-      return [n.dataset.cost, [style.backgroundColor, style.backgroundImage, style.paddingTop, style.paddingBottom]];
-    }))"""
-    palette = frames.evaluate_all(read_paint)
+    palette = check_frames(frames)
     assert set(palette) == {'1', '2', '3', '4', '5', '7'}
     assert len({tuple(value) for value in palette.values()}) == len(palette)
-    assert all(0 < float(top[:-2]) < float(bottom[:-2]) for _, _, top, bottom in palette.values())
-    assert 'linear-gradient' in palette['7'][1]
+    har_gradient = 'linear-gradient(135deg, #adf9f1 0%, #97c9ff 25%, #d8b5ff 50%, #ffeeff 75%, #fff0b3 100%)'
+    expected_paint = page.evaluate("""gradient => {
+      const style = document.createElement('span').style;
+      style.backgroundImage = gradient;
+      return style.backgroundImage;
+    }""", har_gradient)
+    assert palette['7'][1] == expected_paint
     # Require Rakan so the normally filtered seven-cost frame appears in a real result.
     page.locator('[data-hero="919497"]').click()
     expect(page.locator('.team-heroes [data-cost="7"]').first).to_be_visible()
-    for cost, paint in page.locator('.team-heroes .cost-frame').evaluate_all(read_paint).items():
+    for cost, paint in check_frames(page.locator('.team-heroes .cost-frame')).items():
         assert paint == palette[cost]
-    assert frames.evaluate_all(read_paint) == palette
+    assert check_frames(frames) == palette
     return page.locator('.recommendations').bounding_box()
 
 
