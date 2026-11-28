@@ -80,7 +80,9 @@ def test_every_splash_has_card_thumbnail():
 
 
 def test_season_reference_pages_render_for_every_catalog_season(client):
-    for season in catalog_seasons():
+    with client.application.app_context():
+        pages = [(season, season_page_context(season['season_id'])) for season in catalog_seasons()]
+    for season, context in pages:
         response = client.get(f"/tools/seasons/{season['season_id']}")
         assert response.status_code == 200
         html = response.get_data(as_text=True)
@@ -88,10 +90,9 @@ def test_season_reference_pages_render_for_every_catalog_season(client):
         assert 'season-reference.css' in html
         assert 'season-reference.js' in html
         assert f"/static/season-data/{season['season_id']}/index.json?v=" in html
-        context = season_page_context(season['season_id'])
         for mechanic in context['mechanics']:
             assert mechanic['display_name'] in html
-        assert f'style="--tab-count: {2 + len(context["mechanics"]) + int(context["has_augments"])}"' in html
+        assert html.count('data-view=') == 2 + len(context["mechanics"]) + int(context["has_augments"])
 
 
 def test_season_reference_images_wake_on_tab_switch_and_have_fallbacks():

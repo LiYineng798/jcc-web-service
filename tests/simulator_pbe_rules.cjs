@@ -12,6 +12,7 @@ const sandbox = { URLSearchParams, TextEncoder, TextDecoder, Uint8Array, DataVie
   localStorage: {getItem: () => null, setItem: () => {}}, window: {},
 };
 vm.createContext(sandbox);
+vm.runInContext(fs.readFileSync('static/unit-star-icons.js', 'utf8'), sandbox);
 vm.runInContext(source + `
 renderBoard = () => {}; syncLibrarySelectionState = () => {}; renderSelectedAugments = () => {}; persist = () => {}; hidePopover = () => {};
 globalThis.api = {state, normalizeTrait, expandChampionTraitChoices, normalizeBoardUnit, getTraitCounts,

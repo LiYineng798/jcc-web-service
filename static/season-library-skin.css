@@ -251,8 +251,8 @@
 .s18-main-tabs {
   position: relative;
   top: auto;
-  grid-template-columns: repeat(var(--tab-count, 3), 124px);
-  width: auto;
+  width: 100%;
+  gap: 0 4px;
   margin: 0;
   border: 0;
   border-radius: 0;
@@ -267,6 +267,8 @@
 }
 
 .s18-main-tab {
+  flex: 0 0 auto;
+  padding: 0 clamp(12px, 1.6vw, 24px);
   min-height: 50px;
   border-radius: 0;
   font-size: 0.95rem;
@@ -294,15 +296,12 @@
   color: var(--accent);
 }
 
-.s18-tab-indicator {
-  top: auto;
-  bottom: -1px;
-  left: 0;
-  width: calc(100% / var(--tab-count, 3));
+.s18-main-tab.active::after {
+  content: "";
+  position: absolute;
+  inset: auto 12px 0;
   height: 2px;
-  border-radius: 2px;
-  background: linear-gradient(90deg, transparent 22%, var(--accent) 22%, var(--accent) 78%, transparent 78%);
-  box-shadow: none;
+  background: var(--accent);
 }
 
 /* ---- Type scale aligned with the home page: headings 700, controls 600-700, body 400 ---- */
@@ -747,13 +746,9 @@
     margin-bottom: 16px;
   }
 
-  .s18-main-tabs {
-    grid-template-columns: repeat(var(--tab-count, 3), minmax(0, 1fr));
-    width: 100%;
-  }
-
   .s18-main-tab {
-    min-height: 46px;
+    min-height: 44px;
+    padding-inline: 10px;
     font-size: 13px;
   }
 

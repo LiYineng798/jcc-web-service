@@ -13,6 +13,8 @@ def test_toolbox_admin_requires_admin(client):
 def test_toolbox_lifecycle_status_guards_and_sitemap(client):
     # Default: golden-egg is visible, S8 special-mechanics is unlisted (direct URL ok, not in menu/sitemap)
     home = client.get('/').get_data(as_text=True)
+    assert '/tools/s19-smeech' in home
+    assert client.get('/tools/s19-smeech').status_code == 200
     assert '/tools/golden-egg' in home
     assert '/tools/special-mechanics' not in home
     assert client.get('/tools/golden-egg').status_code == 200
@@ -59,7 +61,7 @@ def test_toolbox_metadata_reorder_and_reset(client):
     listing = client.get('/api/admin/toolbox')
     assert listing.status_code == 200
     data = listing.get_json()
-    assert data['counts']['visible'] == 9
+    assert data['counts']['visible'] == 10
     assert data['counts']['unlisted'] == 3
 
     # Update title, group, description
@@ -140,7 +142,7 @@ def test_simulator_global_switch_sets_admin_counts_and_preview(client, app):
     data = client.get('/api/admin/toolbox').json
     sim = next(item for item in data['items'] if item['id'] == 'lineup-simulator')
     assert sim['status'] == 'visible' and sim['effective_status'] == 'disabled'
-    assert data['counts']['visible'] == 8 and data['counts']['disabled'] == 1
+    assert data['counts']['visible'] == 9 and data['counts']['disabled'] == 1
     assert client.get(sim['url']).status_code == 404
     assert client.get(sim['url'] + '?preview=1').status_code == 200
 

@@ -84,6 +84,7 @@ PAGE_KEY_LABELS = {
     'artifact_guide': '神器指南',
     'returning_equipment': '回归装备',
     'lucky_openings': 'S16.5 恭喜发财开局推荐',
+    'smeech': 'S19 史密奇解锁器',
     'trait_ladder': 'S18 羁绊阶梯',
     'witch_rewards': 'S18 女巫奖励',
     'golden_egg': '金蛋奖励',

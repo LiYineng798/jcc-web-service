@@ -1,0 +1,53 @@
+<!doctype html>
+{% from "seo_head.html" import seo_head %}
+{% from "theme_toggle.html" import theme_toggle %}
+{% from "toolbox.html" import toolbox_menu %}
+<html lang="zh-CN">
+<head>
+  {{ seo_head(seo) }}
+  <link rel="stylesheet" href="{{ static_v('toolbox.css') }}">
+  <link rel="stylesheet" href="{{ static_v('smeech/style.css') }}">
+  <script src="{{ static_v('toolbox.js') }}" defer></script>
+  <script src="{{ static_v('theme-toggle.js') }}" defer></script>
+  <script src="{{ static_v('smeech/app.js') }}" defer></script>
+</head>
+<body class="smeech-page" data-page-theme-toggle>
+  <div class="smeech-shell">
+    <nav class="nav-bar" aria-label="页面工具">
+      <a class="brand-mark brand-link" href="/" aria-label="返回首页">阵</a>
+      <div class="nav-actions">{{ toolbox_menu(False) }}{{ theme_toggle('nav-icon-button') }}</div>
+    </nav>
+    <main id="smeech" data-catalog="{{ static_v('smeech/catalog.json') }}" data-worker="{{ static_v('smeech/worker.js') }}">
+      <header class="smeech-title">
+        <img src="{{ static_v('smeech/smeech.webp') }}" width="76" height="76" alt="">
+        <div><h1>S19 史密奇解锁器</h1><p>达到 <strong>9 级</strong>，激活 <strong>9 个非唯一羁绊</strong>。</p></div>
+      </header>
+      <div class="smeech-workspace">
+        <form id="conditions" aria-labelledby="conditions-title">
+          <header class="section-heading"><h2 id="conditions-title">阵容条件</h2><button type="reset" class="text-action">重置</button></header>
+          <label class="population">人口上限 <select name="population">{% for n in range(4, 14) %}<option value="{{ n }}"{% if n == 9 %} selected{% endif %}>{{ n }} 人口</option>{% endfor %}</select></label>
+          <fieldset class="costs"><legend>排除候选</legend>
+            {% for n in (4, 5, 7) %}<label><input type="checkbox" name="excludedCost" value="{{ n }}" checked>{{ n }} 费</label>{% endfor %}
+            <label><input type="checkbox" name="excludeUnlocks">解锁卡</label>
+          </fieldset>
+          <details class="picker"><summary>选择弈子 <span id="hero-count">不限</span></summary>
+            <div class="modes" role="group" aria-label="弈子选择方式"><button type="button" data-mode="required" aria-pressed="true">必选</button><button type="button" data-mode="excluded" aria-pressed="false">禁用</button></div>
+            <input type="search" id="hero-search" aria-label="搜索弈子或羁绊" placeholder="搜索弈子或羁绊">
+            <div class="hero-options" id="hero-options"></div>
+          </details>
+          <details class="picker"><summary>已有纹章 <span id="emblem-count">无</span></summary>
+            <div id="emblem-options"></div>
+          </details>
+          <div id="selection" aria-label="已选条件"></div>
+          <details class="rules"><summary>计算口径</summary><p>使用基础羁绊，K/DA 按二星估算。史密奇本人和客串效果不计入，纳什男爵占 2 人口。必选弈子优先于费用和解锁卡筛选。</p><p>最多推荐 6 套，优先低人口，同人口优先低费用。采用有限搜索。</p></details>
+        </form>
+        <section class="recommendations" aria-labelledby="result-title">
+          <header class="section-heading"><h2 id="result-title">解锁方案</h2><span id="result-count" role="status"></span></header>
+          <p id="status" role="status">正在载入弈子资料…</p><div id="results"></div>
+          <button type="button" id="retry" hidden>重新加载</button>
+        </section>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

@@ -1,0 +1,1172 @@
+{
+ "heroes": [
+  {
+   "id": 919002,
+   "name": "奥拉夫",
+   "cost": 1,
+   "traits": [
+    "race_13",
+    "race_14",
+    "job_13"
+   ],
+   "slots": 1,
+   "unlock": false
+  },
+  {
+   "id": 919044,
+   "name": "塔里克",
+   "cost": 1,
+   "traits": [
+    "race_10",
+    "job_13"
+   ],
+   "slots": 1,
+   "unlock": false
+  },
+  {
+   "id": 919055,
+   "name": "卡特琳娜",
+   "cost": 1,
+   "traits": [
+    "race_8",
+    "job_8"
+   ],
+   "slots": 1,
+   "unlock": false
+  },
+  {
+   "id": 919060,
+   "name": "伊莉丝",
+   "cost": 1,
+   "traits": [
+    "race_9",
+    "job_10"
+   ],
+   "slots": 1,
+   "unlock": false
+  },
+  {
+   "id": 919085,
+   "name": "凯南",
+   "cost": 1,
+   "traits": [
+    "race_11",
+    "job_7"
+   ],
+   "slots": 1,
+   "unlock": false
+  },
+  {
+   "id": 919110,
+   "name": "韦鲁斯",
+   "cost": 1,
+   "traits": [
+    "race_14",
+    "job_6"
+   ],
+   "slots": 1,
+   "unlock": false
+  },
+  {
+   "id": 919115,
+   "name": "吉格斯",
+   "cost": 1,
+   "traits": [
+    "race_6",
+    "job_9",
+    "job_12"
+   ],
+   "slots": 1,
+   "unlock": false
+  },
+  {
+   "id": 919141,
+   "name": "凯隐",
+   "cost": 1,
+   "traits": [
+    "race_12",
+    "job_8"
+   ],
+   "slots": 1,
+   "unlock": false
+  },
+  {
+   "id": 919142,
+   "name": "佐伊",
+   "cost": 1,
+   "traits": [
+    "race_10",
+    "job_9"
+   ],
+   "slots": 1,
+   "unlock": false
+  },
+  {
+   "id": 919150,
+   "name": "纳尔",
+   "cost": 1,
+   "traits": [
+    "race_13",
+    "job_2"
+   ],
+   "slots": 1,
+   "unlock": false
+  },
+  {
+   "id": 919518,
+   "name": "妮蔻",
+   "cost": 1,
+   "traits": [
+    "race_15",
+    "job_6",
+    "job_14"
+   ],
+   "slots": 1,
+   "unlock": false
+  },
+  {
+   "id": 919804,
+   "name": "芸阿娜",
+   "cost": 1,
+   "traits": [
+    "race_9",
+    "job_12"
+   ],
+   "slots": 1,
+   "unlock": false
+  },
+  {
+   "id": 919875,
+   "name": "瑟提",
+   "cost": 1,
+   "traits": [
+    "race_12",
+    "job_10"
+   ],
+   "slots": 1,
+   "unlock": false
+  },
+  {
+   "id": 919876,
+   "name": "莉莉娅",
+   "cost": 1,
+   "traits": [
+    "race_15",
+    "job_7"
+   ],
+   "slots": 1,
+   "unlock": false
+  },
+  {
+   "id": 919954,
+   "name": "可酷伯",
+   "cost": 1,
+   "traits": [
+    "race_6",
+    "job_10"
+   ],
+   "slots": 1,
+   "unlock": true
+  },
+  {
+   "id": 919001,
+   "name": "安妮",
+   "cost": 2,
+   "traits": [
+    "race_9",
+    "job_9",
+    "job_13"
+   ],
+   "slots": 1,
+   "unlock": false
+  },
+  {
+   "id": 919018,
+   "name": "崔丝塔娜",
+   "cost": 2,
+   "traits": [
+    "race_6",
+    "job_5"
+   ],
+   "slots": 1,
+   "unlock": true
+  },
+  {
+   "id": 919022,
+   "name": "艾希",
+   "cost": 2,
+   "traits": [
+    "race_10",
+    "job_12"
+   ],
+   "slots": 1,
+   "unlock": true
+  },
+  {
+   "id": 919024,
+   "name": "贾克斯",
+   "cost": 2,
+   "traits": [
+    "race_2",
+    "job_7",
+    "job_12"
+   ],
+   "slots": 1,
+   "unlock": false
+  },
+  {
+   "id": 919030,
+   "name": "卡尔萨斯",
+   "cost": 2,
+   "traits": [
+    "race_13",
+    "job_9"
+   ],
+   "slots": 1,
+   "unlock": false
+  },
+  {
+   "id": 919058,
+   "name": "雷克顿",
+   "cost": 2,
+   "traits": [
+    "race_10",
+    "job_10"
+   ],
+   "slots": 1,
+   "unlock": false
+  },
+  {
+   "id": 919075,
+   "name": "内瑟斯",
+   "cost": 2,
+   "traits": [
+    "race_8",
+    "job_7"
+   ],
+   "slots": 1,
+   "unlock": false
+  },
+  {
+   "id": 919079,
+   "name": "古拉加斯",
+   "cost": 2,
+   "traits": [
+    "race_15",
+    "job_13"
+   ],
+   "slots": 1,
+   "unlock": false
+  },
+  {
+   "id": 919081,
+   "name": "伊泽瑞尔",
+   "cost": 2,
+   "traits": [
+    "race_12",
+    "job_6"
+   ],
+   "slots": 1,
+   "unlock": false
+  },
+  {
+   "id": 919099,
+   "name": "拉克丝",
+   "cost": 2,
+   "traits": [
+    "race_9",
+    "job_14"
+   ],
+   "slots": 1,
+   "unlock": false
+  },
+  {
+   "id": 919117,
+   "name": "璐璐",
+   "cost": 2,
+   "traits": [
+    "race_6",
+    "job_3"
+   ],
+   "slots": 1,
+   "unlock": true
+  },
+  {
+   "id": 919147,
+   "name": "萨勒芬妮",
+   "cost": 2,
+   "traits": [],
+   "slots": 1,
+   "unlock": true
+  },
+  {
+   "id": 919164,
+   "name": "卡蜜尔",
+   "cost": 2,
+   "traits": [
+    "race_14",
+    "job_8"
+   ],
+   "slots": 1,
+   "unlock": false
+  },
+  {
+   "id": 919236,
+   "name": "卢锡安",
+   "cost": 2,
+   "traits": [
+    "race_5",
+    "job_5",
+    "job_6"
+   ],
+   "slots": 1,
+   "unlock": false
+  },
+  {
+   "id": 919246,
+   "name": "奇亚娜",
+   "cost": 2,
+   "traits": [
+    "race_11",
+    "job_4"
+   ],
+   "slots": 1,
+   "unlock": false
+  },
+  {
+   "id": 919360,
+   "name": "莎弥拉",
+   "cost": 2,
+   "traits": [
+    "race_8",
+    "job_4",
+    "job_2"
+   ],
+   "slots": 1,
+   "unlock": true
+  },
+  {
+   "id": 919420,
+   "name": "俄洛伊",
+   "cost": 2,
+   "traits": [
+    "race_7",
+    "job_10"
+   ],
+   "slots": 1,
+   "unlock": false
+  },
+  {
+   "id": 919888,
+   "name": "烈娜塔·戈拉斯克",
+   "cost": 2,
+   "traits": [
+    "race_8",
+    "job_3"
+   ],
+   "slots": 1,
+   "unlock": false
+  },
+  {
+   "id": 919003,
+   "name": "加里奥",
+   "cost": 3,
+   "traits": [
+    "race_5",
+    "job_10"
+   ],
+   "slots": 1,
+   "unlock": false
+  },
+  {
+   "id": 919028,
+   "name": "伊芙琳",
+   "cost": 3,
+   "traits": [
+    "race_15",
+    "job_4"
+   ],
+   "slots": 1,
+   "unlock": true
+  },
+  {
+   "id": 919032,
+   "name": "阿木木",
+   "cost": 3,
+   "traits": [],
+   "slots": 1,
+   "unlock": false
+  },
+  {
+   "id": 919050,
+   "name": "斯维因",
+   "cost": 3,
+   "traits": [
+    "race_14",
+    "job_9",
+    "job_10"
+   ],
+   "slots": 1,
+   "unlock": false
+  },
+  {
+   "id": 919090,
+   "name": "玛尔扎哈",
+   "cost": 3,
+   "traits": [
+    "job_14"
+   ],
+   "slots": 1,
+   "unlock": false
+  },
+  {
+   "id": 919119,
+   "name": "德莱文",
+   "cost": 3,
+   "traits": [
+    "race_7",
+    "job_2"
+   ],
+   "slots": 1,
+   "unlock": false
+  },
+  {
+   "id": 919134,
+   "name": "辛德拉",
+   "cost": 3,
+   "traits": [
+    "race_10",
+    "job_3"
+   ],
+   "slots": 1,
+   "unlock": false
+  },
+  {
+   "id": 919145,
+   "name": "卡莎",
+   "cost": 3,
+   "traits": [
+    "race_15",
+    "job_2"
+   ],
+   "slots": 1,
+   "unlock": false
+  },
+  {
+   "id": 919201,
+   "name": "布隆",
+   "cost": 3,
+   "traits": [
+    "race_7",
+    "job_13"
+   ],
+   "slots": 1,
+   "unlock": false
+  },
+  {
+   "id": 919233,
+   "name": "贝蕾亚",
+   "cost": 3,
+   "traits": [
+    "race_9",
+    "job_8"
+   ],
+   "slots": 1,
+   "unlock": false
+  },
+  {
+   "id": 919234,
+   "name": "佛耶戈",
+   "cost": 3,
+   "traits": [
+    "race_13",
+    "job_3",
+    "job_8"
+   ],
+   "slots": 1,
+   "unlock": false
+  },
+  {
+   "id": 919235,
+   "name": "赛娜",
+   "cost": 3,
+   "traits": [
+    "race_11",
+    "job_5"
+   ],
+   "slots": 1,
+   "unlock": false
+  },
+  {
+   "id": 919245,
+   "name": "艾克",
+   "cost": 3,
+   "traits": [
+    "race_11",
+    "job_13",
+    "job_14"
+   ],
+   "slots": 1,
+   "unlock": false
+  },
+  {
+   "id": 919432,
+   "name": "巴德",
+   "cost": 3,
+   "traits": [
+    "race_5",
+    "job_12"
+   ],
+   "slots": 1,
+   "unlock": false
+  },
+  {
+   "id": 919897,
+   "name": "奎桑提",
+   "cost": 3,
+   "traits": [
+    "race_12",
+    "job_7"
+   ],
+   "slots": 1,
+   "unlock": false
+  },
+  {
+   "id": 919986,
+   "name": "提伯斯",
+   "cost": 3,
+   "traits": [
+    "race_9",
+    "job_7"
+   ],
+   "slots": 1,
+   "unlock": true
+  },
+  {
+   "id": 919010,
+   "name": "凯尔",
+   "cost": 4,
+   "traits": [
+    "race_13",
+    "job_12"
+   ],
+   "slots": 1,
+   "unlock": true
+  },
+  {
+   "id": 919012,
+   "name": "阿利斯塔",
+   "cost": 4,
+   "traits": [],
+   "slots": 1,
+   "unlock": true
+  },
+  {
+   "id": 919062,
+   "name": "孙悟空",
+   "cost": 4,
+   "traits": [
+    "race_4"
+   ],
+   "slots": 1,
+   "unlock": true
+  },
+  {
+   "id": 919067,
+   "name": "薇恩",
+   "cost": 4,
+   "traits": [
+    "race_14",
+    "job_2"
+   ],
+   "slots": 1,
+   "unlock": true
+  },
+  {
+   "id": 919083,
+   "name": "约里克",
+   "cost": 4,
+   "traits": [
+    "race_13",
+    "job_13"
+   ],
+   "slots": 1,
+   "unlock": false
+  },
+  {
+   "id": 919086,
+   "name": "盖伦",
+   "cost": 4,
+   "traits": [
+    "job_3"
+   ],
+   "slots": 1,
+   "unlock": false
+  },
+  {
+   "id": 919089,
+   "name": "蕾欧娜",
+   "cost": 4,
+   "traits": [
+    "race_15",
+    "job_7",
+    "job_1"
+   ],
+   "slots": 1,
+   "unlock": false
+  },
+  {
+   "id": 919102,
+   "name": "希瓦娜",
+   "cost": 4,
+   "traits": [
+    "race_9",
+    "job_10"
+   ],
+   "slots": 1,
+   "unlock": false
+  },
+  {
+   "id": 919103,
+   "name": "阿狸",
+   "cost": 4,
+   "traits": [
+    "race_15",
+    "job_3"
+   ],
+   "slots": 1,
+   "unlock": false
+  },
+  {
+   "id": 919104,
+   "name": "格雷福斯",
+   "cost": 4,
+   "traits": [
+    "race_10",
+    "job_4"
+   ],
+   "slots": 1,
+   "unlock": false
+  },
+  {
+   "id": 919154,
+   "name": "扎克",
+   "cost": 4,
+   "traits": [
+    "race_10",
+    "job_13"
+   ],
+   "slots": 1,
+   "unlock": true
+  },
+  {
+   "id": 919157,
+   "name": "亚索",
+   "cost": 4,
+   "traits": [
+    "race_11",
+    "job_8"
+   ],
+   "slots": 1,
+   "unlock": true
+  },
+  {
+   "id": 919202,
+   "name": "烬",
+   "cost": 4,
+   "traits": [
+    "race_8",
+    "job_6"
+   ],
+   "slots": 1,
+   "unlock": false
+  },
+  {
+   "id": 919222,
+   "name": "金克丝",
+   "cost": 4,
+   "traits": [
+    "race_9",
+    "job_5"
+   ],
+   "slots": 1,
+   "unlock": true
+  },
+  {
+   "id": 919350,
+   "name": "悠米",
+   "cost": 4,
+   "traits": [
+    "race_7",
+    "job_6"
+   ],
+   "slots": 1,
+   "unlock": false
+  },
+  {
+   "id": 919412,
+   "name": "锤石",
+   "cost": 4,
+   "traits": [
+    "race_8",
+    "job_10"
+   ],
+   "slots": 1,
+   "unlock": true
+  },
+  {
+   "id": 919498,
+   "name": "霞",
+   "cost": 4,
+   "traits": [
+    "race_4",
+    "job_5"
+   ],
+   "slots": 1,
+   "unlock": false
+  },
+  {
+   "id": 919777,
+   "name": "永恩",
+   "cost": 4,
+   "traits": [
+    "race_12",
+    "job_8"
+   ],
+   "slots": 1,
+   "unlock": false
+  },
+  {
+   "id": 919800,
+   "name": "梅尔",
+   "cost": 4,
+   "traits": [
+    "race_3",
+    "job_9"
+   ],
+   "slots": 1,
+   "unlock": false
+  },
+  {
+   "id": 919805,
+   "name": "洛克",
+   "cost": 4,
+   "traits": [
+    "race_14",
+    "job_12"
+   ],
+   "slots": 1,
+   "unlock": false
+  },
+  {
+   "id": 919893,
+   "name": "阿萝拉",
+   "cost": 4,
+   "traits": [
+    "race_9",
+    "job_4"
+   ],
+   "slots": 1,
+   "unlock": false
+  },
+  {
+   "id": 919955,
+   "name": "拉露恩",
+   "cost": 4,
+   "traits": [
+    "race_12",
+    "job_1",
+    "job_14"
+   ],
+   "slots": 1,
+   "unlock": true
+  },
+  {
+   "id": 919004,
+   "name": "崔斯特",
+   "cost": 5,
+   "traits": [
+    "job_2"
+   ],
+   "slots": 1,
+   "unlock": false
+  },
+  {
+   "id": 919008,
+   "name": "弗拉基米尔",
+   "cost": 5,
+   "traits": [
+    "race_8",
+    "job_9"
+   ],
+   "slots": 1,
+   "unlock": true
+  },
+  {
+   "id": 919017,
+   "name": "提莫",
+   "cost": 5,
+   "traits": [
+    "race_6"
+   ],
+   "slots": 1,
+   "unlock": true
+  },
+  {
+   "id": 919020,
+   "name": "努努和威朗普",
+   "cost": 5,
+   "traits": [
+    "job_10"
+   ],
+   "slots": 1,
+   "unlock": false
+  },
+  {
+   "id": 919021,
+   "name": "厄运小姐",
+   "cost": 5,
+   "traits": [
+    "job_5"
+   ],
+   "slots": 1,
+   "unlock": false
+  },
+  {
+   "id": 919036,
+   "name": "蒙多医生",
+   "cost": 5,
+   "traits": [
+    "job_1"
+   ],
+   "slots": 1,
+   "unlock": false
+  },
+  {
+   "id": 919040,
+   "name": "迦娜",
+   "cost": 5,
+   "traits": [
+    "race_4",
+    "job_14"
+   ],
+   "slots": 1,
+   "unlock": true
+  },
+  {
+   "id": 919064,
+   "name": "李青",
+   "cost": 5,
+   "traits": [
+    "race_4"
+   ],
+   "slots": 1,
+   "unlock": true
+  },
+  {
+   "id": 919076,
+   "name": "奈德丽",
+   "cost": 5,
+   "traits": [
+    "job_3"
+   ],
+   "slots": 1,
+   "unlock": false
+  },
+  {
+   "id": 919082,
+   "name": "莫德凯撒",
+   "cost": 5,
+   "traits": [
+    "race_13"
+   ],
+   "slots": 1,
+   "unlock": true
+  },
+  {
+   "id": 919163,
+   "name": "塔莉垭",
+   "cost": 5,
+   "traits": [
+    "race_10",
+    "job_6"
+   ],
+   "slots": 1,
+   "unlock": true
+  },
+  {
+   "id": 919221,
+   "name": "泽丽",
+   "cost": 5,
+   "traits": [
+    "job_12"
+   ],
+   "slots": 1,
+   "unlock": false
+  },
+  {
+   "id": 919254,
+   "name": "蔚",
+   "cost": 5,
+   "traits": [
+    "race_2",
+    "job_13"
+   ],
+   "slots": 1,
+   "unlock": false
+  },
+  {
+   "id": 919523,
+   "name": "厄斐琉斯",
+   "cost": 5,
+   "traits": [
+    "race_12"
+   ],
+   "slots": 1,
+   "unlock": true
+  },
+  {
+   "id": 919526,
+   "name": "芮尔",
+   "cost": 5,
+   "traits": [
+    "race_3"
+   ],
+   "slots": 1,
+   "unlock": false
+  },
+  {
+   "id": 919555,
+   "name": "派克",
+   "cost": 5,
+   "traits": [
+    "race_14",
+    "job_4"
+   ],
+   "slots": 1,
+   "unlock": true
+  },
+  {
+   "id": 919887,
+   "name": "格温",
+   "cost": 5,
+   "traits": [
+    "race_9"
+   ],
+   "slots": 1,
+   "unlock": true
+  },
+  {
+   "id": 919952,
+   "name": "阿卡丽（K/DA）",
+   "cost": 5,
+   "traits": [
+    "race_15"
+   ],
+   "slots": 1,
+   "unlock": true
+  },
+  {
+   "id": 919953,
+   "name": "阿卡丽（真实伤害）",
+   "cost": 5,
+   "traits": [
+    "race_11"
+   ],
+   "slots": 1,
+   "unlock": true
+  },
+  {
+   "id": 919037,
+   "name": "娑娜",
+   "cost": 7,
+   "traits": [
+    "job_11"
+   ],
+   "slots": 1,
+   "unlock": true
+  },
+  {
+   "id": 919497,
+   "name": "洛",
+   "cost": 7,
+   "traits": [
+    "job_3"
+   ],
+   "slots": 1,
+   "unlock": true
+  },
+  {
+   "id": 919981,
+   "name": "纳什男爵",
+   "cost": 7,
+   "traits": [],
+   "slots": 2,
+   "unlock": true
+  }
+ ],
+ "traits": [
+  {
+   "id": "race_4",
+   "name": "国风",
+   "threshold": 2
+  },
+  {
+   "id": "race_5",
+   "name": "爵士乐",
+   "threshold": 2,
+   "emblem": 33065
+  },
+  {
+   "id": "race_6",
+   "name": "高能流行",
+   "threshold": 2,
+   "emblem": 33076
+  },
+  {
+   "id": "race_7",
+   "name": "酷炫节拍",
+   "threshold": 2,
+   "emblem": 33060
+  },
+  {
+   "id": "race_8",
+   "name": "古典乐",
+   "threshold": 2,
+   "emblem": 33069
+  },
+  {
+   "id": "race_9",
+   "name": "离子火花",
+   "threshold": 3,
+   "emblem": 33061
+  },
+  {
+   "id": "race_10",
+   "name": "海之歌",
+   "threshold": 3,
+   "emblem": 33063
+  },
+  {
+   "id": "race_11",
+   "name": "真实伤害",
+   "threshold": 3,
+   "emblem": 33066
+  },
+  {
+   "id": "race_12",
+   "name": "心之钢",
+   "threshold": 1,
+   "emblem": 33057
+  },
+  {
+   "id": "race_13",
+   "name": "五杀乐队",
+   "threshold": 3,
+   "emblem": 33064
+  },
+  {
+   "id": "race_14",
+   "name": "摇滚恶魔",
+   "threshold": 3,
+   "emblem": 33062
+  },
+  {
+   "id": "race_15",
+   "name": "K/DA",
+   "threshold": 2,
+   "emblem": 33056
+  },
+  {
+   "id": "race_2",
+   "name": "电子舞曲",
+   "threshold": 2
+  },
+  {
+   "id": "race_3",
+   "name": "R&B",
+   "threshold": 1
+  },
+  {
+   "id": "job_1",
+   "name": "经纪人",
+   "threshold": 2,
+   "emblem": 33072
+  },
+  {
+   "id": "job_2",
+   "name": "花式射手",
+   "threshold": 2
+  },
+  {
+   "id": "job_3",
+   "name": "编舞师",
+   "threshold": 2,
+   "emblem": 33070
+  },
+  {
+   "id": "job_4",
+   "name": "非主流",
+   "threshold": 2,
+   "emblem": 33068
+  },
+  {
+   "id": "job_5",
+   "name": "音乐制作人",
+   "threshold": 2,
+   "emblem": 33074
+  },
+  {
+   "id": "job_6",
+   "name": "安可",
+   "threshold": 2
+  },
+  {
+   "id": "job_7",
+   "name": "护卫",
+   "threshold": 2,
+   "emblem": 33059
+  },
+  {
+   "id": "job_8",
+   "name": "舞者",
+   "threshold": 2,
+   "emblem": 33073
+  },
+  {
+   "id": "job_9",
+   "name": "法师",
+   "threshold": 2,
+   "emblem": 33058
+  },
+  {
+   "id": "job_10",
+   "name": "主唱",
+   "threshold": 2,
+   "emblem": 33075
+  },
+  {
+   "id": "job_11",
+   "name": "合奏",
+   "threshold": 3
+  },
+  {
+   "id": "job_12",
+   "name": "迅击鼓手",
+   "threshold": 2,
+   "emblem": 33067
+  },
+  {
+   "id": "job_13",
+   "name": "主宰",
+   "threshold": 2,
+   "emblem": 33071
+  },
+  {
+   "id": "job_14",
+   "name": "天才",
+   "threshold": 2,
+   "emblem": 33077
+  }
+ ]
+}

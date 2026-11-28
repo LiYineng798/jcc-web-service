@@ -61,7 +61,6 @@ const elements = {
   content,
   previewCount: document.querySelector('#previewCount'),
   mainTabs: Array.from(document.querySelectorAll('.s18-main-tab')),
-  mainTabsWrap: document.querySelector('.s18-main-tabs'),
   panels: Array.from(document.querySelectorAll('.s18-view-panel')),
   championFilterToggle: document.querySelector('#championFilterToggle'),
   championFilterPanel: document.querySelector('#championFilterPanel'),
@@ -255,8 +254,6 @@ function updateCount() {
 function setActiveView(view) {
   if (!elements.mainTabs.some((tab) => tab.dataset.view === view)) return;
   state.activeView = view;
-  const activeIndex = elements.mainTabs.findIndex((tab) => tab.dataset.view === view);
-  elements.mainTabsWrap?.style.setProperty('--active-tab', activeIndex);
 
   elements.mainTabs.forEach((tab) => {
     const active = tab.dataset.view === view;

@@ -103,9 +103,10 @@
   activatedTraits.sort((a, b) => b.tierRank - a.tierRank || b.count - a.count || a.trait.name.localeCompare(b.trait.name, 'zh-CN'));
 
   if (traitPanel && activatedTraits.length > 0) {
+    traitPanel.parentElement.hidden = false;
     const UI_ROOT = '/static/tools/lineup-simulator/ui';
     traitPanel.innerHTML = activatedTraits.map(({ trait, count, styleIndex }) => {
-      const breakpointText = (trait.breakpoints || []).map((bp) => bp.min_units).join(' > ') || '独特';
+      const breakpointText = [...new Set((trait.breakpoints || []).map(bp => Number(bp.min_units)))].sort((a, b) => a - b).join(' / ');
       const background = styleIndex === 'unique' ? `${UI_ROOT}/unique.svg` : `${UI_ROOT}/${styleIndex}.svg`;
       const iconPath = trait.image?.optimized_local_path || trait.image?.local_path;
       return `<div class="trait-row" style="--trait-color:${TRAIT_STYLE_COLORS[styleIndex]}">
@@ -116,10 +117,11 @@
     }).join('');
   }
 
+  const unitDetail = document.querySelector('#unitDetail');
+  let selectedUnit;
   for (let index = 0; index < 28; index += 1) {
     const cell = document.createElement('div');
     cell.className = 'formation-cell';
-    cell.setAttribute('role', 'gridcell');
     const floor = document.createElement('span');
     floor.className = 'formation-floor';
     cell.append(floor);
@@ -130,7 +132,8 @@
     const fallbackPortrait = Number.isInteger(unit?.portrait_index) ? details.heroImages?.[unit.portrait_index] : null;
     if (champion || (unit?.name && fallbackPortrait)) {
       const unitName = champion?.name || unit.name;
-      const wrap = document.createElement('div');
+      const wrap = document.createElement('button');
+      wrap.type = 'button';
       wrap.className = 'formation-unit';
       wrap.style.setProperty('--unit-cost-color', champion ? COST_COLORS[champion.cost] || COST_COLORS[5] : COST_COLORS[1]);
       const portrait = document.createElement('span');
@@ -146,12 +149,13 @@
       name.className = 'formation-name';
       name.textContent = unitName;
       wrap.append(portrait, name);
-      if (Number(unit.star || 1) > 1) {
-        const star = document.createElement('span');
-        star.className = 'formation-star';
-        star.textContent = '★'.repeat(Math.min(3, Number(unit.star)));
-        wrap.append(star);
-      }
+      const stars = Math.min(4, Math.max(1, Number(unit.star) || 1));
+      const star = document.createElement('span');
+      star.className = 'formation-star';
+      star.setAttribute('role', 'img');
+      star.setAttribute('aria-label', `${stars}星`);
+      star.innerHTML = unitStarIcons(stars, index);
+      wrap.append(star);
       const equipment = document.createElement('span');
       equipment.className = 'formation-items';
       const equipmentIds = unit.items?.length ? unit.items : (unit.source_item_ids || []);
@@ -163,6 +167,15 @@
         image.alt = item.name;
         image.title = item.name;
         equipment.append(image);
+      });
+      const label = [unitName, `${stars}星`, ...Array.from(equipment.children, img => img.alt)].join(' · ');
+      wrap.setAttribute('aria-label', `第${Math.floor(index / 7) + 1}行第${index % 7 + 1}列，${label}`);
+      wrap.setAttribute('aria-pressed', 'false');
+      wrap.addEventListener('click', () => {
+        selectedUnit?.setAttribute('aria-pressed', 'false');
+        selectedUnit = selectedUnit === wrap ? null : wrap;
+        wrap.setAttribute('aria-pressed', String(selectedUnit === wrap));
+        unitDetail.textContent = selectedUnit ? label : '';
       });
       wrap.append(equipment);
       cell.append(wrap);

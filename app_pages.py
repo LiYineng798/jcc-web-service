@@ -190,6 +190,16 @@ def register_page_routes(app):
             seo=seo,
         )
 
+    @app.get('/tools/s19-smeech')
+    def smeech_page():
+        is_preview, tool_noindex = _guard_tool('s19-smeech')
+        return _apply_preview_headers(tracked_template_response(
+            'smeech.html', 'smeech', seo=make_seo(
+                title='S19 史密奇解锁器 - 金铲铲阵容库',
+                description='选择必选弈子、排除弈子和纹章，查找激活九个非唯一羁绊的阵容。',
+                path='/tools/s19-smeech', noindex=tool_noindex),
+        ), is_preview)
+
     @app.get('/tools/s18-trait-ladder')
     def trait_ladder_page():
         is_preview, tool_noindex = _guard_tool('s18-trait-ladder')
