@@ -35,7 +35,7 @@
     find('result-count').textContent = results.length ? results.length + ' 套' : '';
     find('status').textContent = results.length ? '' : '当前条件未找到方案，可放宽候选范围或增加人口。';
     const rows = results.map(result => {
-      const row = tag('article', null, 'team');
+      const row = tag('article', null, 'team strategy-card');
       const head = tag('header');
       head.append(tag('h3', result.population + ' 人口'), tag('span', result.cost + ' 金币'));
       const lineup = tag('ul', null, 'team-heroes');
@@ -50,7 +50,18 @@
       groups.open = results[0] === result;
       groups.append(tag('summary', result.traits.length + ' 个激活羁绊'));
       const list = tag('ul');
-      result.traits.forEach(id => list.append(tag('li', traits.get(id).name)));
+      for (const id of result.traits) {
+        const item = tag('li');
+        const icon = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+        icon.setAttribute('aria-hidden', 'true');
+        const use = document.createElementNS(icon.namespaceURI, 'use');
+        use.setAttribute('href', asset('traits.svg') + '#' + id);
+        use.setAttribute('width', '100%');
+        use.setAttribute('height', '100%');
+        icon.append(use);
+        item.append(icon, tag('span', traits.get(id).name));
+        list.append(item);
+      }
       groups.append(list);
       row.append(head, lineup, groups);
       if (result.assignments.length) {

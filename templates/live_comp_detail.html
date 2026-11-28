@@ -1,22 +1,33 @@
 <!doctype html>
 {% from "seo_head.html" import seo_head %}
+{% from "strategy_nav.html" import strategy_nav %}
 <html lang="zh-CN"><head>
 {{ seo_head(seo) }}
-<link rel="stylesheet" href="{{ static_v('live-comp-detail.css') }}" />
-</head><body>
-<header class="detail-topbar"><a href="/" data-home-return>← 返回实时阵容</a></header>
-<main class="detail-shell" id="liveCompDetail" data-season-id="{{ season_id }}" data-live-comp-id="{{ live_comp_id }}">
-  <section class="detail-heading"><h1>{{ item.title }}</h1><span id="detailSeason" role="status">正在加载阵容资料...</span></section>
-  <section class="board-panel" aria-label="阵容棋盘">
-    <div class="board-container">
-      <div class="formation-board-wrapper">
-        <div class="formation-board" id="formationBoard" role="group" aria-label="4 行 7 列阵容棋盘"></div>
-        <p class="unit-detail" id="unitDetail" role="status"></p>
-      </div>
-      <section class="trait-panel" aria-labelledby="traitHeading" hidden><h2 id="traitHeading">激活羁绊</h2><div id="traitPanel"></div></section>
+<link rel="stylesheet" href="{{ static_v('toolbox.css') }}">
+<link rel="stylesheet" href="{{ static_v('strategy-page.css') }}">
+<link rel="stylesheet" href="{{ static_v('live-comp-detail.css') }}">
+<script src="{{ static_v('toolbox.js') }}" defer></script>
+<script src="{{ static_v('theme-toggle.js') }}" defer></script>
+</head><body class="strategy-page" data-page-theme-toggle>
+<div class="strategy-shell">
+  {{ strategy_nav(return_to_live=True) }}
+  <main id="liveCompDetail" data-season-id="{{ season_id }}" data-live-comp-id="{{ live_comp_id }}">
+    <header class="strategy-heading"><div><h1>{{ item.title }}</h1><p id="detailSeason" role="status">正在加载阵容资料…</p></div></header>
+    <div class="strategy-workspace board-container">
+      <section class="strategy-column board-panel" aria-labelledby="boardHeading">
+        <header class="section-heading"><h2 id="boardHeading">阵容站位</h2></header>
+        <div class="formation-board-wrapper strategy-card">
+          <div class="formation-board" id="formationBoard" role="group" aria-label="4 行 7 列阵容棋盘"></div>
+          <p class="unit-detail" id="unitDetail" role="status"></p>
+        </div>
+      </section>
+      <section class="strategy-column trait-panel" aria-labelledby="traitHeading" hidden>
+        <header class="section-heading"><h2 id="traitHeading">激活羁绊</h2></header>
+        <div id="traitPanel"></div>
+      </section>
     </div>
-  </section>
-</main>
+  </main>
+</div>
 <script src="{{ static_v('unit-star-icons.js') }}" defer></script>
 <script src="{{ static_v('live-comp-detail.js') }}" defer></script>
 <script src="{{ static_v('home-navigation.js') }}" defer></script>

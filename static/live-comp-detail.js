@@ -148,14 +148,17 @@
       const name = document.createElement('span');
       name.className = 'formation-name';
       name.textContent = unitName;
-      wrap.append(portrait, name);
+      const token = document.createElement('span');
+      token.className = 'formation-token';
+      token.append(portrait);
+      wrap.append(token, name);
       const stars = Math.min(4, Math.max(1, Number(unit.star) || 1));
       const star = document.createElement('span');
       star.className = 'formation-star';
       star.setAttribute('role', 'img');
       star.setAttribute('aria-label', `${stars}星`);
       star.innerHTML = unitStarIcons(stars, index);
-      wrap.append(star);
+      token.append(star);
       const equipment = document.createElement('span');
       equipment.className = 'formation-items';
       const equipmentIds = unit.items?.length ? unit.items : (unit.source_item_ids || []);
@@ -177,7 +180,7 @@
         wrap.setAttribute('aria-pressed', String(selectedUnit === wrap));
         unitDetail.textContent = selectedUnit ? label : '';
       });
-      wrap.append(equipment);
+      token.append(equipment);
       cell.append(wrap);
     }
     board.append(cell);

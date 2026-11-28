@@ -196,6 +196,19 @@ def placeholder(target):
     return image(path, missing=True)
 
 
+def trait_symbols(scripts, known_keys):
+    for _, script in scripts:
+        for match in re.finditer(r'<symbol id="custom-trait-([^"]+)" viewBox="([\d .-]+)">(.*?)</symbol>', script):
+            key = html.unescape(match[1])
+            if key not in known_keys:
+                continue
+            # Only path geometry is accepted. Strip scripts, links and all other SVG attributes.
+            paths = re.findall(r'<path\s+d="([MmZzLlHhVvCcSsQqTtAaEe0-9.,+\s-]+)"', match[3])
+            if not paths:
+                continue
+            yield key, match[2], paths
+
+
 def extract_assets(data, entries, scripts, target):
     import cairosvg
     (target / 'assets').mkdir(parents=True)
@@ -219,22 +232,14 @@ def extract_assets(data, entries, scripts, target):
         destination.write_bytes(raw)
         (portraits if kind == 'splash' else icons)[match[2]] = image(local, url=entry['request']['url'])
     known_keys = {r['key'] for r in data['races19'] + data['jobs19']}
-    for _, script in scripts:
-        for match in re.finditer(r'<symbol id="custom-trait-([^"]+)" viewBox="([\d .-]+)">(.*?)</symbol>', script):
-            key = html.unescape(match[1])
-            if key not in known_keys:
-                continue
-            # Only path geometry is accepted. Strip scripts, links and all other SVG attributes.
-            paths = re.findall(r'<path\s+d="([MmZzLlHhVvCcSsQqTtAaEe0-9.,+\s-]+)"', match[3])
-            if not paths:
-                continue
-            svg = f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="{match[2]}">' + ''.join(
-                f'<path fill="#edf2f7" d="{p}"/>' for p in paths) + '</svg>'
-            local = f'assets/traits/{hashlib.sha256(key.encode()).hexdigest()[:16]}.png'
-            destination = target / local
-            destination.parent.mkdir(parents=True, exist_ok=True)
-            destination.write_bytes(cairosvg.svg2png(bytestring=svg.encode(), output_width=96, output_height=96))
-            traits[key] = image(local)
+    for key, view_box, paths in trait_symbols(scripts, known_keys):
+        svg = f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="{view_box}">' + ''.join(
+            f'<path fill="#edf2f7" d="{p}"/>' for p in paths) + '</svg>'
+        local = f'assets/traits/{hashlib.sha256(key.encode()).hexdigest()[:16]}.png'
+        destination = target / local
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        destination.write_bytes(cairosvg.svg2png(bytestring=svg.encode(), output_width=96, output_height=96))
+        traits[key] = image(local)
     return portraits, icons, traits, missing
 
 
