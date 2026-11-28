@@ -31,6 +31,15 @@
     img.loading = 'lazy';
     return img;
   }
+  function heroPortrait(hero) {
+    const frame = tag('span', null, 'cost-frame');
+    frame.dataset.cost = hero.cost;
+    frame.title = hero.name + ' · ' + hero.cost + ' 费';
+    const img = picture('heroes/' + hero.id + '.webp');
+    img.alt = hero.cost + ' 费';
+    frame.append(img);
+    return frame;
+  }
   function renderResults(results) {
     find('result-count').textContent = results.length ? results.length + ' 套' : '';
     find('status').textContent = results.length ? '' : '当前条件未找到方案，可放宽候选范围或增加人口。';
@@ -42,8 +51,7 @@
       for (const id of result.heroes) {
         const hero = heroes.get(id);
         const member = tag('li');
-        member.dataset.cost = hero.cost;
-        member.append(picture('heroes/' + id + '.webp'), tag('span', hero.name));
+        member.append(heroPortrait(hero), tag('span', hero.name));
         lineup.append(member);
       }
       const groups = tag('details', null, 'team-traits');
@@ -161,8 +169,7 @@
       const button = action(hero.name + '，' + hero.cost + ' 费，' + names, '', () => toggleHero(hero.id));
       button.dataset.search = (hero.name + ' ' + names).toLowerCase();
       button.dataset.hero = hero.id;
-      button.dataset.cost = hero.cost;
-      button.append(picture('heroes/' + hero.id + '.webp'), tag('span', hero.name));
+      button.append(heroPortrait(hero), tag('span', hero.name));
       find('hero-options').append(button);
     }
     const empty = tag('p', '未找到匹配弈子');

@@ -20,10 +20,10 @@
 .modes [aria-pressed=true] { background: var(--sheet); box-shadow: 0 1px 3px #0002; font-weight: 650; }
 #hero-search { box-sizing: border-box; margin: 9px 0; width: 100%; }
 .hero-options, #emblem-options { display: grid; gap: 5px; max-height: 300px; overflow-y: auto; padding: 4px 3px 8px; }
-.hero-options { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-#hero-options button { position: relative; display: grid; justify-items: center; align-content: start; gap: 3px; background: var(--sheet); border: 1px solid var(--line); border-radius: 7px; padding: 5px 2px; font-size: 11px; }
-.hero-options img { width: 34px; height: 34px; border-radius: 5px; }
-.hero-options [data-selection]:not([data-selection=""]) { border-color: var(--accent); }
+.hero-options { grid-template-columns: repeat(4, minmax(0, 1fr)); --portrait-size: 40px; }
+#hero-options button { position: relative; display: grid; justify-items: center; align-content: start; gap: 4px; background: transparent; border: 0; border-radius: 7px; padding: 6px 3px; font-size: 11px; }
+#hero-options button:is(:hover, :focus-visible),
+#hero-options button[data-selection]:not([data-selection=""]) { background: color-mix(in srgb, var(--text) 6%, var(--sheet)); }
 .hero-options [data-selection]:not([data-selection=""])::after { content: attr(data-selection); position: absolute; top: 1px; right: 1px; background: var(--text); color: var(--bg); padding: 1px 3px; border-radius: 4px; font-size: 9px; }
 #no-heroes { grid-column: 1 / -1; color: var(--muted); font-size: 13px; }
 #emblem-options { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -42,11 +42,27 @@
 .team-heroes, .team-traits ul { list-style: none; padding: 0; }
 .team-heroes { display: grid; grid-template-columns: repeat(auto-fill, minmax(49px, 1fr)); gap: 10px 6px; margin: 16px 0; }
 .team-heroes li { min-width: 0; display: flex; flex-direction: column; gap: 4px; align-items: center; text-align: center; font-size: 11px; overflow-wrap: anywhere; }
-.team-heroes img { width: min(100%, 48px); aspect-ratio: 1; border: 2px solid var(--cost, #a09b95); border-radius: 9px; }
-[data-cost="2"] { --cost: #39876a; }
-[data-cost="3"] { --cost: #548eb8; }
-[data-cost="4"] { --cost: #a379bb; }
-[data-cost="5"], [data-cost="7"] { --cost: #c29742; }
+.cost-frame {
+  display: block;
+  width: min(100%, var(--portrait-size, 48px));
+  aspect-ratio: 1;
+  padding: 1.5px 1.5px 3px;
+  border-radius: 7px;
+  background: var(--cost-color);
+}
+.cost-frame img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 5.5px 5.5px 4px 4px;
+}
+.cost-frame[data-cost="1"] { --cost-color: #898d93; }
+.cost-frame[data-cost="2"] { --cost-color: #25876e; }
+.cost-frame[data-cost="3"] { --cost-color: #347eaf; }
+.cost-frame[data-cost="4"] { --cost-color: #9864ac; }
+.cost-frame[data-cost="5"] { --cost-color: #b08738; }
+.cost-frame[data-cost="7"] { --cost-color: linear-gradient(135deg, #70afa8 0%, #789dc3 25%, #a68ebb 50%, #d1b5c8 75%, #c9aa72 100%); }
 .team-traits { border-top: 1px solid var(--line); padding-top: 10px; font-size: 13px; }
 .team-traits summary { color: var(--muted); }
 .team-traits ul {

@@ -63,6 +63,23 @@ def check_solver(page):
       .every(use => use.getBBox().width > 0 && use.getBBox().height > 0)""")
     group.locator('summary').press('Enter')
     expect(icons.first).to_be_hidden()
+    page.locator('summary', has_text='选择弈子').click()
+    frames = page.locator('#hero-options .cost-frame')
+    read_paint = """nodes => Object.fromEntries(nodes.map(n => {
+      const style = getComputedStyle(n);
+      return [n.dataset.cost, [style.backgroundColor, style.backgroundImage, style.paddingTop, style.paddingBottom]];
+    }))"""
+    palette = frames.evaluate_all(read_paint)
+    assert set(palette) == {'1', '2', '3', '4', '5', '7'}
+    assert len({tuple(value) for value in palette.values()}) == len(palette)
+    assert all(0 < float(top[:-2]) < float(bottom[:-2]) for _, _, top, bottom in palette.values())
+    assert 'linear-gradient' in palette['7'][1]
+    # Require Rakan so the normally filtered seven-cost frame appears in a real result.
+    page.locator('[data-hero="919497"]').click()
+    expect(page.locator('.team-heroes [data-cost="7"]').first).to_be_visible()
+    for cost, paint in page.locator('.team-heroes .cost-frame').evaluate_all(read_paint).items():
+        assert paint == palette[cost]
+    assert frames.evaluate_all(read_paint) == palette
     return page.locator('.recommendations').bounding_box()
 
 
